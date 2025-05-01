@@ -1,21 +1,20 @@
-import { generatePath, matchPath } from 'react-router-dom';
-import { partial } from 'lodash-es';
 import { LocationDescriptorObject } from 'history';
+import { partial } from 'lodash-es';
+import { generatePath, matchPath } from 'react-router-dom';
 
+import { databaseToNamespace } from '../../jobs/blast/config/BlastFormData';
+import { FormParameters as BLASTFormParameters } from '../../jobs/blast/types/blastFormParameters';
+import { Database } from '../../jobs/blast/types/blastServerParameters';
+import { FormParameters as IdMappingFormParameters } from '../../jobs/id-mapping/types/idMappingFormParameters';
+import { JobTypes } from '../../jobs/types/jobTypes';
 import {
   Namespace,
-  searchableNamespaceLabels,
-  SearchableNamespace,
-  supportingDataAndAANamespaces,
   namespaceAndToolsLabels,
+  SearchableNamespace,
+  searchableNamespaceLabels,
+  supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
-import { databaseToNamespace } from '../../tools/blast/config/BlastFormData';
-
-import { FormParameters as IdMappingFormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
-import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
-import { Job, FinishedJob } from '../../tools/types/toolsJob';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { Database } from '../../tools/blast/types/blastServerParameters';
+import { FinishedJob, Job } from '../../shared/workers/jobs/types/job';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
@@ -40,6 +39,7 @@ export enum Location {
   UniRefEntry = 'UniRefEntry',
   UniRefResults = 'UniRefResults',
   UniParcEntry = 'UniParcEntry',
+  UniParcSubEntry = 'UniParcSubEntry',
   UniParcResults = 'UniParcResults',
   ProteomesEntry = 'ProteomesEntry',
   ProteomesResults = 'ProteomesResults',
@@ -75,6 +75,7 @@ export enum Location {
   // Help
   HelpEntry = 'HelpEntry',
   HelpResults = 'HelpResults',
+  Documentation = 'Documentation',
   // Release Notes
   ReleaseNotesEntry = 'ReleaseNotesEntry',
   ReleaseNotesResults = 'ReleaseNotesResults',
@@ -91,7 +92,8 @@ export const LocationToPath: Record<Location, string> = {
   [Location.UniProtKBResults]: `/${Namespace.uniprotkb}`,
   [Location.UniRefEntry]: `/${Namespace.uniref}/:accession`,
   [Location.UniRefResults]: `/${Namespace.uniref}`,
-  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage?`,
+  [Location.UniParcSubEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)/:subEntryId`,
+  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)?`,
   [Location.UniParcResults]: `/${Namespace.uniparc}`,
   [Location.ProteomesEntry]: `/${Namespace.proteomes}/:accession`,
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,
@@ -131,6 +133,7 @@ export const LocationToPath: Record<Location, string> = {
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
+  [Location.Documentation]: '/api-documentation/:definition?',
   // News
   [Location.ReleaseNotesEntry]: '/release-notes/:accession+',
   [Location.ReleaseNotesResults]: '/release-notes',
@@ -241,7 +244,6 @@ export const getLocationEntryPath = (location: Location, accession: string) =>
 export const getLocationEntryPathFor = (location: Location) =>
   partial(getLocationEntryPath, location);
 
-// eslint-disable-next-line consistent-return
 export const jobTypeToPath = (type: JobTypes, job?: Job) => {
   switch (type) {
     case JobTypes.ALIGN:

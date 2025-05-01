@@ -1,30 +1,34 @@
-import { PageIntro } from 'franklin-sites';
+import { Message, PageIntro } from 'franklin-sites';
 import { FC, memo, ReactNode } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 
+import {
+  Location,
+  LocationToPath,
+  toolsResultsLocationToLabel,
+} from '../../../app/config/urls';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useNS from '../../hooks/useNS';
+import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
 import ResultsButtons from './ResultsButtons';
 
-import useNS from '../../hooks/useNS';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-
-import { toolsResultsLocationToLabel } from '../../../app/config/urls';
-
-import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
-
-const ResultsDataHeader: FC<{
-  total?: number;
-  loadedTotal: number;
-  selectedEntries: string[];
-  namespaceOverride?: Namespace;
-  titlePostscript?: ReactNode;
-  accessions?: string[];
-  base?: string;
-  disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
-}> = ({
+const ResultsDataHeader: FC<
+  React.PropsWithChildren<{
+    total?: number;
+    loadedTotal: number;
+    selectedEntries: string[];
+    namespaceOverride?: Namespace;
+    headingPostscript?: ReactNode;
+    accessions?: string[];
+    base?: string;
+    disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
+  }>
+> = ({
   total = 0,
   loadedTotal,
   selectedEntries,
   namespaceOverride,
-  titlePostscript,
+  headingPostscript,
   accessions,
   base,
   disableCardToggle = false,
@@ -35,16 +39,36 @@ const ResultsDataHeader: FC<{
   return (
     <>
       <PageIntro
-        title={
+        heading={
           jobResultsLocation
             ? toolsResultsLocationToLabel?.[jobResultsLocation]
             : namespaceAndToolsLabels[namespace]
         }
-        titlePostscript={titlePostscript}
+        headingPostscript={headingPostscript}
         resultsCount={total}
       >
         {children}
       </PageIntro>
+      {/* Keep the message until 2025_02 data release */}
+      {namespace === Namespace.uniparc ? (
+        <Message level="info">
+          A few changes have recently been made to UniParc. Please refer to{' '}
+          <Link
+            to={{
+              pathname: generatePath(
+                LocationToPath[Location.ReleaseNotesEntry],
+                {
+                  accession: '2024-11-27-release',
+                }
+              ),
+              hash: 'changes-in-uniprot-website-rest-api-for-uniparc',
+            }}
+          >
+            release 2024_06 notes
+          </Link>{' '}
+          for more information.
+        </Message>
+      ) : null}
       <ResultsButtons
         total={total}
         loadedTotal={loadedTotal}

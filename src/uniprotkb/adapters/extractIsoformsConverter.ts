@@ -1,6 +1,6 @@
 import {
-  GenericComment,
   AlternativeProductsComment,
+  GenericComment,
 } from '../types/commentTypes';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 
@@ -11,9 +11,14 @@ const finder = (
 
 const extractIsoforms = (data: UniProtkbAPIModel) => {
   const alternativeProducts = data.comments?.find(finder);
-  return (
-    alternativeProducts?.isoforms.flatMap((isoform) => isoform.isoformIds) || []
-  );
+  const canonical =
+    alternativeProducts?.isoforms.find(
+      (isoform) => isoform.isoformSequenceStatus === 'Displayed'
+    )?.isoformIds[0] || data.primaryAccession;
+  const isoforms = alternativeProducts?.isoforms.flatMap(
+    (isoform) => isoform.isoformIds
+  ) || [data.primaryAccession];
+  return { canonical, isoforms };
 };
 
 export const extractIsoformNames = (data?: UniProtkbAPIModel) => {

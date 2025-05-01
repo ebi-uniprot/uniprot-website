@@ -1,10 +1,8 @@
-import { screen, fireEvent } from '@testing-library/react';
-
-import EntryDownload, { Dataset } from '../EntryDownload';
-
-import { FileFormat } from '../../../types/resultsDownload';
+import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
+import { FileFormat } from '../../../types/resultsDownload';
+import EntryDownload, { Dataset } from '../EntryDownload';
 
 describe('EntryDownload', () => {
   let onCloseMock: jest.Mock;
@@ -13,7 +11,7 @@ describe('EntryDownload', () => {
     onCloseMock = jest.fn();
   });
 
-  it('should link to uniparc TSV download endpoint', () => {
+  it('should link to uniparc TSV download streaming endpoint', () => {
     customRender(<EntryDownload nResults={1000} onClose={onCloseMock} />, {
       route: '/uniparc/UPI0000000001/entry',
     });
@@ -21,7 +19,9 @@ describe('EntryDownload', () => {
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
     const downloadLink = screen.getByTitle<HTMLAnchorElement>('Download file');
     expect(downloadLink.href).toEqual(
-      expect.stringContaining('/uniparc/UPI0000000001/databases?format=tsv')
+      expect.stringContaining(
+        '/uniparc/UPI0000000001/databases/stream?format=tsv'
+      )
     );
   });
 
@@ -56,7 +56,7 @@ describe('EntryDownload', () => {
     });
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
-        'https://www.ebi.ac.uk/proteins/api/proteomics-ptm/P05067?format=json'
+        'https://www.ebi.ac.uk/proteins/api/proteomics/ptm/P05067?format=json'
       )
     );
   });

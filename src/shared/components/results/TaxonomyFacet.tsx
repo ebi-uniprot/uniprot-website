@@ -1,20 +1,17 @@
-import { Suspense, useState, useCallback, FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { Button, SlidingPanel } from 'franklin-sites';
-
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-
-import lazy from '../../utils/lazy';
+import { FC, Suspense, useCallback, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import {
   parse,
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
-import { stringifyQuery } from '../../utils/url';
-
+import useJobFromUrl from '../../hooks/useJobFromUrl';
 import { SearchableNamespace } from '../../types/namespaces';
+import lazy from '../../utils/lazy';
+import { stringifyQuery } from '../../utils/url';
+import ErrorBoundary from '../error-component/ErrorBoundary';
+import facetsStyles from './styles/facets.module.scss';
 
 const QueryBuilder = lazy(
   () =>
@@ -25,10 +22,10 @@ const QueryBuilder = lazy(
 
 const interestingTerms = /taxonomy|organism/;
 
-const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
-  namespace,
-}) => {
-  const { search } = useLocation();
+const TaxonomyFacet: FC<
+  React.PropsWithChildren<{ namespace: SearchableNamespace }>
+> = ({ namespace }) => {
+  const { pathname, search } = useLocation();
   const { jobId } = useJobFromUrl();
 
   const parsedSearch = new URLSearchParams(search);
@@ -42,15 +39,14 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
 
   return (
     <div>
-      <span className="facet-name">Taxonomy</span>
+      <span className={facetsStyles['facet-name']}>Taxonomy</span>
       <ul className="expandable-list no-bullet">
         {interestingClauses.map((clause) => {
           const textSearch = clause.searchTerm.term.includes('name');
           return (
             <li key={clause.id}>
               <Link
-                className="facet-active"
-                // eslint-disable-next-line uniprot-website/use-config-location
+                className={facetsStyles['facet-active']}
                 to={(location) => ({
                   ...location,
                   search: stringifyQuery({
@@ -84,9 +80,12 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
       {displayQueryBuilder && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Advanced Search"
+            title={
+              <span data-article-id="advanced_search">Advanced Search</span>
+            }
             position="left"
             onClose={handleClose}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <QueryBuilder

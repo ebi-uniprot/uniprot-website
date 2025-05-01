@@ -1,33 +1,28 @@
-import { Fragment, useState, useCallback, useRef } from 'react';
 import {
-  useModal,
-  ModalBackdrop,
-  Window,
-  Loader,
   ChevronDownIcon,
   ChevronUpIcon,
   InfoList,
+  Loader,
+  ModalBackdrop,
+  useModal,
+  Window,
 } from 'franklin-sites';
+import { Fragment, useCallback, useRef, useState } from 'react';
 import { SetRequired } from 'type-fest';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { ECNumbersView } from './ProteinNamesView';
-import { RichText } from './FreeTextView';
-
-import useCustomElement from '../../../shared/hooks/useCustomElement';
-
 import externalUrls from '../../../shared/config/externalUrls';
-
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 import * as logging from '../../../shared/utils/logging';
-
 import {
   CatalyticActivityComment,
-  PhysiologicalReactionDirection,
   PhysiologicalReaction,
+  PhysiologicalReactionDirection,
 } from '../../types/commentTypes';
-
+import { RichText } from './FreeTextView';
+import { ECNumbersView } from './ProteinNamesView';
 import styles from './styles/catalytic-activity-view.module.scss';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 // example accessions to view this component: P31937, P0A879
 
@@ -73,6 +68,8 @@ export const ZoomModalContent = ({ chebi, imgURL }: ChebiImageData) => {
   );
 };
 
+type ZoomClickedEvent = { detail: ChebiImageData };
+
 type RheaReactionVisualizerProps = {
   rheaId: number;
   show: boolean;
@@ -96,7 +93,12 @@ export const RheaReactionVisualizer = ({
     Window
   );
   const callback = useCallback(
-    (node): void => {
+    (node: {
+      addEventListener: (
+        name: string,
+        event: ({ detail }: ZoomClickedEvent) => void
+      ) => void;
+    }): void => {
       if (node) {
         node.addEventListener(
           'zoomClicked',

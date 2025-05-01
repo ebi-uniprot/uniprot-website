@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { SlidingPanel } from 'franklin-sites';
 import { createMemoryHistory, createPath, History } from 'history';
+import { useEffect, useRef } from 'react';
 import {
   Route,
   Router,
@@ -9,27 +9,22 @@ import {
   useLocation,
 } from 'react-router-dom';
 
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import NavigationBar from './NavigationBar';
-import SearchBar from './SearchBar';
-import Shortcuts from './Shortcuts';
-
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import helpURL from '../../config/apiUrls';
+import { HelpSearchResponse } from '../../types/apiModel';
 import CatchAll from './CatchAll';
 import HelpEntryPage from './Entry';
-import HelpResultsPage from './Results';
 import HelpLandingPage from './Landing';
-
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
-import helpURL from '../../config/apiUrls';
-
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPath,
-} from '../../../app/config/urls';
-import { HelpSearchResponse } from '../../types/apiModel';
-
+import NavigationBar from './NavigationBar';
+import HelpResultsPage from './Results';
+import SearchBar from './SearchBar';
+import Shortcuts from './Shortcuts';
 import styles from './styles/contextual-help.module.scss';
 
 const ContextualHelpRouterContent = ({
@@ -91,6 +86,7 @@ type Props = {
 const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
   const [articleId, hash] = (articlePath || '').split('#');
   const globalHistory = useHistory();
+  const { pathname } = useLocation();
   const localHistoryRef = useRef(createMemoryHistory());
 
   useEffect(() => {
@@ -115,6 +111,7 @@ const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
       className={styles['contextual-help-panel']}
       size="small"
       position="right"
+      pathname={pathname}
     >
       <ErrorBoundary>
         <Router history={localHistoryRef.current}>

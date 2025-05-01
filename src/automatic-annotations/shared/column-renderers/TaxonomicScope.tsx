@@ -1,15 +1,12 @@
 import { ExpandableList } from 'franklin-sites';
 
-import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-
+import helper from '../../../shared/styles/helper.module.scss';
+import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
+import * as logging from '../../../shared/utils/logging';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-
-import * as logging from '../../../shared/utils/logging';
-
-import helper from '../../../shared/styles/helper.module.scss';
 
 type CustomTaxonScope = {
   negative: boolean;
@@ -24,14 +21,14 @@ const TaxonomicScope = ({
   for (const conditionSet of mainRule?.conditionSets || []) {
     for (const condition of conditionSet.conditions || []) {
       if (condition.type !== 'taxon') {
-        continue; // eslint-disable-line no-continue
+        continue;
       }
       for (const conditionValue of condition.conditionValues || []) {
         // This shouldn't happen
         /* istanbul ignore if */
         if (!conditionValue.cvId) {
           logging.warn(`No cvId field in taxon for "${conditionValue.value}"`);
-          continue; // eslint-disable-line no-continue
+          continue;
         }
         const taxonId = +conditionValue.cvId;
         if (!taxonScopeMap.has(taxonId)) {

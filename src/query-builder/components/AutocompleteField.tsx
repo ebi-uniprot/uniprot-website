@@ -1,16 +1,16 @@
-import { useEffect, useState, FC } from 'react';
-
-import AutocompleteWrapper from './AutocompleteWrapper';
-
-import initializer from '../utils/fieldInitializer';
+import { FC, useEffect, useState } from 'react';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import initializer from '../utils/fieldInitializer';
+import AutocompleteWrapper from './AutocompleteWrapper';
 
-const AutocompleteField: FC<{
-  field: SearchTermType;
-  handleChange: (queryBit: QueryBit, reset?: boolean) => void;
-  initialValue?: QueryBit;
-}> = ({ field, handleChange, initialValue }) => {
+const AutocompleteField: FC<
+  React.PropsWithChildren<{
+    field: SearchTermType;
+    handleChange: (queryBit: QueryBit, reset?: boolean) => void;
+    initialValue?: QueryBit;
+  }>
+> = ({ field, handleChange, initialValue }) => {
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );

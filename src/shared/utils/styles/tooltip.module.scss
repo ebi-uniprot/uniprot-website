@@ -1,0 +1,51 @@
+@import 'franklin-sites/src/styles/common/z-index';
+
+.tooltip {
+  max-width: 350px;
+  position: absolute;
+  background: #333;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  top: 0;
+  left: 0;
+  z-index: $z-index-high;
+
+  .tooltip-content {
+    max-height: 400px;
+    padding: 5px 9px;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-y: auto;
+  }
+
+  * {
+    color: #fff !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    line-height: 1.4;
+  }
+
+  hr {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.arrow {
+  position: absolute;
+  background: #333;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  z-index: $z-index-high;
+}

@@ -16,12 +16,12 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         >
           <input
             data-id="UPI0000000001"
-            id="0"
+            id="1"
             type="checkbox"
           />
           <label
             aria-label="UPI0000000001"
-            for="0"
+            for="1"
             title="click to select, shift+click for multiple selection"
           />
         </span>
@@ -33,6 +33,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           >
             <span
               class="entry-title"
+              translate="no"
             >
               <span
                 class="entry-title__status icon--uniparc"
@@ -55,17 +56,17 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Organisms: 
+              Common taxons: 
             </strong>
-            7
+            3
           </span>
           <span
             class="result-card__info-bit"
           >
             <strong>
-              UniprotKB entries: 
+              UniProtKB entries: 
             </strong>
-            2 reviewed and 7 unreviewed
+            10
           </span>
         </div>
         <div
@@ -81,7 +82,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="1988-11-01T00:00:00.000Z"
+              datetime="1988-11-01"
             >
               1988-11-01
             </time>
@@ -96,9 +97,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               : 
             </strong>
             <time
-              datetime="2024-03-27T00:00:00.000Z"
+              datetime="2024-11-27"
             >
-              2024-03-27
+              2024-11-27
             </time>
           </span>
           <span

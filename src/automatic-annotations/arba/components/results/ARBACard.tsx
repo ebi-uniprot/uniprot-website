@@ -1,15 +1,13 @@
-import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
-
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 import { mapToLinks } from '../../../../shared/components/MapTo';
-
-import { ARBAAPIModel } from '../../adapters/arbaConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import { ARBAAPIModel } from '../../adapters/arbaConverter';
 
 const getIdKey = getIdKeyForNamespace(Namespace.arba);
 

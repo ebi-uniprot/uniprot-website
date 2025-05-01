@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 
 import { getURLToJobWithData } from '../../app/config/urls';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { JobTypes } from '../../jobs/types/jobTypes';
+
+export type Key = string | number | symbol;
 
 export const formatPercentage = (n: number, maximumFractionDigits = 1) =>
   `${n.toLocaleString('en-US', {
@@ -18,22 +20,21 @@ export const pluralise = (singular: string, count: number, plural?: string) => {
   return `${singular}s`;
 };
 
-export function moveItemInList<T>(
-  list: T[],
-  srcIndex: number,
-  destIndex: number
-) {
-  const result = Array.from(list);
-  const [removed] = result.splice(srcIndex, 1);
-  result.splice(destIndex, 0, removed);
-  return result;
+export function moveItemInArray<T>(array: T[], from: number, to: number): T[] {
+  const newArray = array.slice();
+  newArray.splice(
+    to < 0 ? newArray.length + to : to,
+    0,
+    newArray.splice(from, 1)[0]
+  );
+  return newArray;
 }
 
-export function removeItemFromList<T>(list: T[], index: number) {
-  return [...list.slice(0, index), ...list.slice(index + 1)];
+export function removeItemFromArray<T>(array: T[], index: number) {
+  return [...array.slice(0, index), ...array.slice(index + 1)];
 }
 
-export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
+export const hasContent = (obj: Record<Key, unknown>) =>
   Object.values(obj).some((val) => {
     if (Array.isArray(val)) {
       const valArray = val as unknown[];
@@ -50,20 +51,25 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
     return typeof val !== 'undefined';
   });
 
-export function* deepFindAllByKey<T = string>(
+export function* deepFindAllByKey(
   input: unknown,
-  predicateKey: string
-): Generator<T, void, never> {
+  predicateKey: string,
+  groupLabel?: string
+): Generator<string, void, never> {
   if (Array.isArray(input)) {
     for (const item of input) {
-      yield* deepFindAllByKey<T>(item, predicateKey);
+      yield* deepFindAllByKey(item, predicateKey, groupLabel);
     }
   } else if (input && typeof input === 'object') {
     for (const [key, value] of Object.entries(input)) {
       if (key === predicateKey) {
-        yield value;
+        if (groupLabel === 'ecNumbers') {
+          yield `EC:${value}`;
+        } else {
+          yield value;
+        }
       } else {
-        yield* deepFindAllByKey(value, predicateKey);
+        yield* deepFindAllByKey(value, predicateKey, key);
       }
     }
   }
@@ -102,4 +108,34 @@ export function keysToLowerCase<T>(o: { [k: string]: T } = {}): {
   return Object.fromEntries(
     Object.entries(o).map(([k, v]) => [k.toLowerCase(), v])
   );
+}
+
+export function defaultdict<T>(defaultFactory: () => T) {
+  return new Proxy<Record<string | symbol, T>>(
+    {},
+    {
+      get: (dict, key: string | symbol) => {
+        if (!(key in dict)) {
+          dict[key] = defaultFactory();
+        }
+        return dict[key];
+      },
+    }
+  );
+}
+
+export const counter = (initialCount = 0) => defaultdict(() => initialCount);
+
+export function excludeKeys<T>(
+  o?: Record<Key, T>,
+  keys?: Key[]
+): Record<Key, T> | undefined {
+  if (typeof o === 'undefined') {
+    return {};
+  }
+  if (typeof keys === 'undefined' || !keys.length) {
+    return o;
+  }
+  const setKeys = new Set(keys);
+  return Object.fromEntries(Object.entries(o).filter(([k]) => !setKeys.has(k)));
 }

@@ -1,5 +1,5 @@
-import { useRef } from 'react';
 import { AxiosRequestConfig } from 'axios';
+import { useRef } from 'react';
 
 import useDataApi, { UseDataAPIState } from './useDataApi';
 

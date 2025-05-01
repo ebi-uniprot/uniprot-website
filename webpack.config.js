@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-var-requires, global-require, consistent-return */
+/* eslint-disable @typescript-eslint/no-require-imports, global-require, consistent-return */
 const path = require('path');
 const fs = require('fs');
 
-const { DefinePlugin, ProvidePlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const jsonImporter = require('node-sass-json-importer');
 const childProcess = require('child_process');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 // custom plugins
@@ -22,6 +21,7 @@ const getConfigFor = ({
   isUx,
   isLiveReload,
   isTest,
+  isLMIC,
   hasStats,
   gitCommitHash,
   gitCommitState,
@@ -67,10 +67,6 @@ const getConfigFor = ({
         classnames: path.resolve('./node_modules/classnames'),
         // go package uses a slightly earlier version of axios, link it to ours
         axios: path.resolve('./node_modules/axios'),
-        // point directly to the ES6 module entry point, to be processed by us
-        'franklin-sites': fs.realpathSync(
-          `${__dirname}/node_modules/franklin-sites/src/components/index.ts`
-        ),
         // replace all usage of specific lodash submodules (from dependencies)
         // with their corresponding ES modules from lodash-es (less duplication)
         // (just looked at node_modules to see what packages were used, but
@@ -105,7 +101,7 @@ const getConfigFor = ({
         {
           test: /\.(js|jsx|tsx|ts)$/,
           exclude:
-            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
+            /node_modules\/((?!@nightingale-elements\/nightingale-msa|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -115,7 +111,7 @@ const getConfigFor = ({
                   '@babel/preset-env',
                   {
                     useBuiltIns: 'usage',
-                    corejs: { version: '3.25.1', proposals: true },
+                    corejs: { version: '3', proposals: true },
                     targets:
                       isModern && !isTest
                         ? {
@@ -131,17 +127,8 @@ const getConfigFor = ({
                 ['@babel/preset-react', { runtime: 'automatic' }],
                 '@babel/preset-typescript',
               ],
-              plugins: ['@babel/plugin-transform-runtime'],
             },
           },
-        },
-        /**
-         * Worker required for msa-react-viewer. Gustavo looking at
-         * making dependency optional
-         * */
-        {
-          test: /\.worker\.js$/,
-          use: { loader: 'worker-loader' },
         },
         // Stylesheets
         {
@@ -152,10 +139,11 @@ const getConfigFor = ({
             // We use realpathSync otherwise doesn't work with symlinks
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
             fs.realpathSync(`${__dirname}/node_modules/molstar/build`),
-            fs.realpathSync(
-              `${__dirname}/node_modules/tippy.js/dist/tippy.css`
-            ),
             fs.realpathSync(`${__dirname}/node_modules/lite-youtube-embed`),
+            fs.realpathSync(`${__dirname}/node_modules/swagger-ui-react`),
+            fs.realpathSync(
+              `${__dirname}/node_modules/complexviewer/src/css/xinet.css`
+            ),
           ],
           use: [
             {
@@ -167,8 +155,11 @@ const getConfigFor = ({
               // translates CSS into something importable into the code
               loader: 'css-loader',
               options: {
+                esModule: true,
                 modules: {
                   auto: true, // only for files containing ".module." in name
+                  namedExport: false,
+                  exportLocalsConvention: 'asIs',
                   // class name to hash, but also keep name for debug in dev
                   localIdentName: `${
                     isDev ? '[local]🐛' : ''
@@ -183,7 +174,6 @@ const getConfigFor = ({
                   // This should be the default, but putting it here avoids
                   // issues when importing from linked packages
                   includePaths: ['node_modules'],
-                  importer: jsonImporter({ convertCase: true }),
                 },
               },
             },
@@ -195,6 +185,7 @@ const getConfigFor = ({
           include: [
             path.resolve(__dirname, 'src'),
             fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+            fs.realpathSync(`${__dirname}/node_modules/complexviewer`),
           ],
           exclude: [/\.img\.svg$/],
           issuer: /\.(t|j)sx?$/,
@@ -202,12 +193,19 @@ const getConfigFor = ({
         },
         // SVGs from nightingale and protvista packages
         {
-          test: /\.svg$/,
+          test: /\.svg$/i,
           include: [
-            fs.realpathSync(`${__dirname}/node_modules/protvista-datatable`),
             fs.realpathSync(`${__dirname}/node_modules/protvista-uniprot`),
           ],
           loader: 'svg-inline-loader',
+        },
+        // SVGs from franklin for use in "url()"
+        {
+          test: /\.svg$/,
+          include: [
+            fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+          ],
+          type: 'asset/resource',
         },
         // All kinds of images, including SVGs without styling needs
         {
@@ -229,11 +227,6 @@ const getConfigFor = ({
           exclude: /node_modules/,
           failOnError: true,
         }),
-      // Needed for 'react-msa-viewer' as of June 1st 2021
-      new ProvidePlugin({
-        assert: 'assert',
-        process: 'process/browser',
-      }),
       !isLiveReload &&
         isModern &&
         // Copy static (or near-static) files
@@ -278,6 +271,7 @@ const getConfigFor = ({
         GIT_COMMIT_HASH: JSON.stringify(gitCommitHash),
         GIT_COMMIT_STATE: JSON.stringify(gitCommitState),
         GIT_BRANCH: JSON.stringify(gitBranch),
+        LMIC: JSON.stringify(isLMIC),
       }),
       !isLiveReload &&
         isModern &&
@@ -429,12 +423,15 @@ module.exports = (env, argv) => {
     throw new Error('API_PREFIX must be set');
   }
 
+  const isLMIC = Boolean(env.LMIC);
+
   const modernConfig = getConfigFor({
     isModern: true,
     isDev,
     isUx,
     isLiveReload,
     isTest,
+    isLMIC,
     hasStats: !!env.STATS,
     gitCommitHash,
     gitCommitState,
@@ -465,6 +462,7 @@ module.exports = (env, argv) => {
       isUx,
       isLiveReload,
       isTest,
+      isLMIC,
       hasStats: !!env.STATS,
       gitCommitHash,
       gitCommitState,

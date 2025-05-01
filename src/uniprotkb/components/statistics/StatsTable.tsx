@@ -1,8 +1,10 @@
-import { useState, useRef, useCallback } from 'react';
-import { LongNumber, Button } from 'franklin-sites';
+import { Button, LongNumber } from 'franklin-sites';
+import { useCallback, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { CategoryName, StatisticsCategory } from './StatisticsPage';
-
 import styles from './styles/statistics-page.module.scss';
 
 const tableCollapsedRows = 10 as const;
@@ -63,20 +65,24 @@ type StatsTableProps = {
   category: StatisticsCategory;
   alwaysExpand?: boolean;
   nameLabel?: string;
+  abbreviationLabel?: string;
   countLabel?: string;
   caption?: string;
   numberReleaseEntries: number;
-  dataset: 'reviewed' | 'unreviewed';
+  dataset: 'UniProtKB' | 'reviewed' | 'unreviewed';
+  nameToAbbreviation?: Map<string, string>;
 };
 
 const StatsTable = ({
   category,
   alwaysExpand,
   nameLabel,
+  abbreviationLabel,
   countLabel,
   caption,
   numberReleaseEntries,
   dataset,
+  nameToAbbreviation,
 }: StatsTableProps) => {
   const [expand, setExpand] = useState(alwaysExpand);
   const tableRef = useRef<HTMLTableElement>(null);
@@ -113,6 +119,9 @@ const StatsTable = ({
         <thead>
           <tr>
             <th>{nameLabel || 'Name'}</th>
+            {abbreviationLabel && nameToAbbreviation && (
+              <th>{abbreviationLabel}</th>
+            )}
             {!hasOnlyEntryCounts && <th>{countLabel || 'Count'}</th>}
             {hasPercent && !hasOnlyEntryCounts && <th>Percent</th>}
             {hasEntryCount && (
@@ -137,6 +146,14 @@ const StatsTable = ({
             const percent =
               hasPercent &&
               ((row.count / category.totalCount) * 100).toFixed(2);
+            const perEntryAverage = (row.count / numberReleaseEntries).toFixed(
+              2
+            );
+            const abbreviation =
+              abbreviationLabel &&
+              nameToAbbreviation &&
+              nameToAbbreviation.get(row.label as string);
+
             return (
               <tr key={row.name}>
                 {/* Name */}
@@ -152,6 +169,7 @@ const StatsTable = ({
                 >
                   {row.label || row.name}
                 </td>
+                {abbreviation && <td>{abbreviation}</td>}
                 {/* Count */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>
@@ -167,7 +185,18 @@ const StatsTable = ({
                 {/* Entry count */}
                 {hasEntryCount && (
                   <td className={styles.end}>
-                    <LongNumber>{row.entryCount}</LongNumber>
+                    {row.query ? (
+                      <Link
+                        to={{
+                          pathname: LocationToPath[Location.UniProtKBResults],
+                          search: stringifyQuery({ query: row.query }),
+                        }}
+                      >
+                        <LongNumber>{row.entryCount}</LongNumber>
+                      </Link>
+                    ) : (
+                      <LongNumber>{row.entryCount}</LongNumber>
+                    )}
                   </td>
                 )}
                 {/* Percent */}
@@ -179,7 +208,7 @@ const StatsTable = ({
                 {/* Per-entry average */}
                 {!hasOnlyEntryCounts && (
                   <td className={styles.end}>
-                    {(row.count / numberReleaseEntries).toFixed(2)}
+                    {perEntryAverage === '0.00' ? '<0.01' : perEntryAverage}
                   </td>
                 )}
                 {/* Description */}

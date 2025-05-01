@@ -1,16 +1,14 @@
-import LocationsColumnConfiguration, {
-  LocationsColumn,
-} from '../LocationsColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/locationsModelData';
 import locationsConverter, {
   LocationsAPIModel,
   LocationsUIModel,
 } from '../../adapters/locationsConverter';
+import LocationsColumnConfiguration, {
+  LocationsColumn,
+} from '../LocationsColumnConfiguration';
 
-import data from '../../__mocks__/locationsModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
-
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: LocationsUIModel = locationsConverter(data[0]);
 describe('LocationsColumnConfiguration component', () => {

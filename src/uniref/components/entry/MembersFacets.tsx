@@ -1,18 +1,16 @@
+import { Loader } from 'franklin-sites';
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Facets, Loader } from 'franklin-sites';
 
+import { Facets } from '../../../shared/components/results/Facets';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
-import apiUrls from '../../config/apiUrls';
+import helper from '../../../shared/styles/helper.module.scss';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
-
+import apiUrls from '../../config/apiUrls';
 import {
   uniRefMembersFacets,
   UniRefMembersResults,
 } from '../../types/membersEndpoint';
-
-import helper from '../../../shared/styles/helper.module.scss';
 
 const MembersFacet = memo<{ accession: string }>(({ accession }) => {
   const { search } = useLocation();

@@ -1,23 +1,22 @@
+import { TreeSelect } from 'franklin-sites';
 import {
-  useCallback,
-  memo,
-  FC,
   Dispatch,
+  FC,
+  memo,
   SetStateAction,
+  useCallback,
   useEffect,
 } from 'react';
-import { TreeSelect } from 'franklin-sites';
-
-import LogicalOperator from './LogicalOperator';
-import Field from './Field';
-import { booleanValues } from './EnumOrBooleanField';
 
 import {
   Clause,
-  SearchTermType,
   Operator,
   QueryBit,
+  SearchTermType,
 } from '../types/searchTypes';
+import { booleanValues } from './EnumOrBooleanField';
+import Field from './Field';
+import LogicalOperator from './LogicalOperator';
 
 type HandleLogicChange = (clauseId: number, value: Operator) => void;
 type HandleFieldSelect = (clauseId: number, value: SearchTermType) => void;
@@ -120,7 +119,7 @@ type ClauseListProps = {
   removeClause: RemoveClause;
 };
 
-const ClauseList: FC<ClauseListProps> = ({
+const ClauseList: FC<React.PropsWithChildren<ClauseListProps>> = ({
   clauses,
   setClauses,
   searchTerms,

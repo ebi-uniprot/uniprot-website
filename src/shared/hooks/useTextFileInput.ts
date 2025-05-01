@@ -1,9 +1,9 @@
 import {
-  useEffect,
-  useCallback,
-  useRef,
-  ReactElement,
   MutableRefObject,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
 } from 'react';
 
 import useDragNDropFile from './useDragNDropFile';
@@ -57,7 +57,6 @@ const useTextFileInput = ({
             onFileContentRef.current(text);
             // Reset input ref to handle the case that a user loads the same file twice
             if (inputRef?.current) {
-              // eslint-disable-next-line no-param-reassign
               inputRef.current.value = '';
             }
           }
@@ -65,7 +64,6 @@ const useTextFileInput = ({
       };
       fr.readAsText(file);
 
-      // eslint-disable-next-line consistent-return
       return () => {
         didCancel = true;
         if (fr) {
@@ -105,7 +103,6 @@ const useTextFileInput = ({
 
     input.addEventListener('change', handler);
 
-    // eslint-disable-next-line consistent-return
     return () => {
       input.removeEventListener('change', handler);
     };

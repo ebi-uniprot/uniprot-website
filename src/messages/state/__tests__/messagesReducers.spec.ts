@@ -1,15 +1,14 @@
 /**
  * @jest-environment node
  */
-import { addMessage, deleteMessage } from '../messagesActions';
-import messagesReducers from '../messagesReducers';
-
 import {
   MessageFormat,
   MessageLevel,
   MessageType,
 } from '../../types/messagesTypes';
+import { addMessage, deleteMessage } from '../messagesActions';
 import { MessagesState } from '../messagesInitialState';
+import messagesReducers from '../messagesReducers';
 
 const dateNow = 1542736574043;
 jest.spyOn(Date, 'now').mockImplementation(() => dateNow);

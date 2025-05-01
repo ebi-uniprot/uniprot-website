@@ -1,17 +1,15 @@
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
-
-import useUniProtDataVersion from '../../hooks/useUniProtDataVersion';
+import { Link } from 'react-router-dom';
 
 import {
   getLocationEntryPath,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
-
-import helper from '../../styles/helper.module.scss';
+import useUniProtDataVersion from '../../hooks/useUniProtDataVersion';
 import blurLoading from '../../styles/blur-loading.module.scss';
-import './styles/release-info.scss';
+import helper from '../../styles/helper.module.scss';
+import styles from './styles/release-info.module.css';
 
 const today = new Date();
 
@@ -22,16 +20,13 @@ const ReleaseInfo = () => {
   return (
     <span
       className={cn(
-        'release-info',
+        styles['release-info'],
         helper['no-wrap'],
         blurLoading['blur-loading__item']
       )}
     >
       <span
-        className={cn(
-          { [blurLoading['blur-loading__placeholder']]: !release },
-          'release-info__release_number'
-        )}
+        className={cn({ [blurLoading['blur-loading__placeholder']]: !release })}
       >
         {release ? (
           <Link

@@ -1,22 +1,18 @@
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
-import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
-
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
-import helpURL from '../../config/apiUrls';
 import {
-  LocationToPath,
-  Location,
   getLocationEntryPath,
+  Location,
+  LocationToPath,
 } from '../../../app/config/urls';
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import { stringifyQuery } from '../../../shared/utils/url';
-
+import helpURL from '../../config/apiUrls';
 import { HelpSearchResponse } from '../../types/apiModel';
-
+import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 import styles from './styles/help-quick-search.module.scss';
 
 const numberResultsInView = 5 as const;
@@ -71,7 +67,7 @@ const HelpQuickSearch = () => {
       ) : (
         ' '
       ),
-      to,
+      link: <Link to={to} />,
     };
   });
 
@@ -89,6 +85,7 @@ const HelpQuickSearch = () => {
             history.push(allArticlesLocation);
           }
         }}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />
       {!!allArticles?.length && !!infoData?.length && searchValue && (

@@ -1,3 +1,11 @@
+import cn from 'classnames';
+import {
+  DataListWithLoader,
+  DataTableWithLoader,
+  EllipsisReveal,
+  Loader,
+  Message,
+} from 'franklin-sites';
 import {
   Dispatch,
   Fragment,
@@ -6,39 +14,26 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import {
-  DataTableWithLoader,
-  DataListWithLoader,
-  Loader,
-  EllipsisReveal,
-  Message,
-} from 'franklin-sites';
 import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
-import cn from 'classnames';
-
-import UniProtKBGroupBy from '../../../uniprotkb/components/results/UniProtKBGroupBy';
-
-import useNS from '../../hooks/useNS';
-import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
-import useViewMode from '../../hooks/useViewMode';
-import { useSmallScreen } from '../../hooks/useMatchMedia';
-import { PaginatedResults } from '../../hooks/usePagination';
-import { Basket } from '../../hooks/useBasket';
-
-import { getIdKeyForData } from '../../utils/getIdKey';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import {
   getEntryPathFor,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
+import UniProtKBGroupBy from '../../../uniprotkb/components/results/UniProtKBGroupBy';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import getCardRenderer from '../../config/resultsCardRenderers';
-
-import { Namespace, SearchableNamespace } from '../../types/namespaces';
+import { Basket } from '../../hooks/useBasket';
+import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNS from '../../hooks/useNS';
+import { PaginatedResults } from '../../hooks/usePagination';
+import useResultsToEntryRedirect from '../../hooks/useResultsToEntryRedirect';
+import useViewMode from '../../hooks/useViewMode';
 import { APIModel } from '../../types/apiModel';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
+import { getIdKeyForData } from '../../utils/getIdKey';
 import styles from './styles/results-data.module.scss';
 
 type Props = {
@@ -68,7 +63,7 @@ const ResultsData = ({
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
   const history = useHistory();
   const [{ query, direct, groupBy }] = getParamsFromURL(useLocation().search);
-  const [columns, updateColumnSort] = useColumns(
+  const [columns, updateColumnSort, tooltipOnHoverRef] = useColumns(
     namespaceOverride,
     displayIdMappingColumns,
     basketSetter,
@@ -105,53 +100,15 @@ const ResultsData = ({
     setSelectedEntries?.([]);
   }, [setSelectedEntries, viewMode]);
 
-  // redirect to entry directly when...
-  useEffect(() => {
-    const trimmedQuery = query.toUpperCase().trim();
-    // ... only 1 result and ...
-    if (!hasMoreData && allResults.length === 1) {
-      const uniqueItem = allResults[0];
-      let idKey;
-      try {
-        idKey = getIdKey(uniqueItem);
-      } catch (error) {
-        // TODO: this happens when the namespace and data don't match up. Fix in a future refactor.
-      }
-      if (
-        // ... and query marked as "direct" ...
-        direct ||
-        // ... or the result's ID or accession matches the query ...
-        idKey?.toUpperCase() === trimmedQuery ||
-        // ... or matches the UniProtKB ID ...
-        ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
-      ) {
-        history.replace(getEntryPathForEntry(uniqueItem));
-      }
-    } else if (
-      // Limit it to the first set of results as the exact match is very likely in the top results and it applies only for UniProtKB
-      allResults.length &&
-      allResults.length <= 25 &&
-      'uniProtkbId' in allResults[0]
-    ) {
-      // if any one of them matches the UniProtKB ID, redirect to entry page (same behaviour as accession)
-      const firstMatch = allResults.find(
-        (entry) =>
-          (entry as UniProtkbAPIModel).uniProtkbId?.toUpperCase() ===
-          trimmedQuery
-      );
-      if (firstMatch) {
-        history.replace(getEntryPathForEntry(firstMatch));
-      }
-    }
-  }, [
+  useResultsToEntryRedirect(
     history,
     direct,
     hasMoreData,
     allResults,
     getEntryPathForEntry,
     getIdKey,
-    query,
-  ]);
+    query
+  );
 
   const loadComponent = (
     <Loader progress={progress !== 1 ? progress : undefined} />
@@ -224,7 +181,7 @@ const ResultsData = ({
   }
 
   return (
-    <>
+    <div ref={tooltipOnHoverRef}>
       {/* Display warning for wildcard searches. It is not related to any warning from ID mapping */}
       {warnings && !displayIdMappingColumns && (
         <Message level="warning">
@@ -250,7 +207,7 @@ const ResultsData = ({
         </Message>
       )}
       {content}
-    </>
+    </div>
   );
 };
 

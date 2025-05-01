@@ -1,20 +1,16 @@
-import { Suspense } from 'react';
 import { Loader } from 'franklin-sites';
+import { Suspense } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
-
 import { IsoformsContext } from '../../../shared/contexts/Isoforms';
-
-import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
-
-import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
   importedVariants: number | 'loading';
-  hasGenomicCoordinates: boolean | 'loading';
   communityReferences: Reference[];
   isoforms?: string[];
 };
@@ -22,7 +18,6 @@ type EntryMainProps = {
 const EntryMain = ({
   transformedData,
   importedVariants,
-  hasGenomicCoordinates,
   communityReferences,
   isoforms,
 }: EntryMainProps) => (
@@ -33,8 +28,7 @@ const EntryMain = ({
           {sectionContent(
             transformedData,
             communityReferences,
-            importedVariants,
-            hasGenomicCoordinates
+            importedVariants
           )}
         </ErrorBoundary>
       </Suspense>
@@ -42,5 +36,4 @@ const EntryMain = ({
     <MedicalDisclaimer />
   </IsoformsContext.Provider>
 );
-
 export default EntryMain;

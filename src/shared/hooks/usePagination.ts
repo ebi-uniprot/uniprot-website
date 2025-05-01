@@ -1,10 +1,5 @@
-import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
-
-// import usePrefetch from './usePrefetch';
-import useDataApi from './useDataApi';
-
-import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
+import { useEffect, useState } from 'react';
 
 import { APIModel } from '../types/apiModel';
 import {
@@ -12,6 +7,8 @@ import {
   SearchResultsWarning,
   Suggestion,
 } from '../types/results';
+import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
+import useDataApi from './useDataApi';
 
 export type PaginatedResults<R extends APIModel = APIModel> = {
   allResults: R[];
@@ -49,7 +46,6 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     suggesstions: undefined,
   }));
 
-  // usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<R[]>([]);
 
   // Reset conditions, when any of the things in the dep array changes

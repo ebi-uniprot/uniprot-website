@@ -1,20 +1,18 @@
-import { Link } from 'react-router-dom';
 import { CodeBlock, ExpandableList } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
+import { mapToLinks } from '../../../shared/components/MapTo';
 import AccessionView from '../../../shared/components/results/AccessionView';
-
 import externalUrls from '../../../shared/config/externalUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { Namespace } from '../../../shared/types/namespaces';
 import {
   getLocationObjForParams,
   getParamsFromURL,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { mapToLinks } from '../../../shared/components/MapTo';
-
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { Namespace } from '../../../shared/types/namespaces';
 
 export enum DatabaseColumn {
   abbrev = 'abbrev',
@@ -126,14 +124,7 @@ DatabaseColumnConfiguration.set(DatabaseColumn.statistics, {
   label: 'Statistics',
   render: ({ id, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.database, id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.database, id, statistics)}
     </ExpandableList>
   ),
 });

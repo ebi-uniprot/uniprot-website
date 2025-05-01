@@ -1,14 +1,12 @@
 import { enableFetchMocks, FetchMock } from 'jest-fetch-mock';
 
-import EntryMain from '../EntryMain';
-import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
-
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import mockData from '../../../__mocks__/uniProtKBEntryModelData';
 import interactionData from '../../../__mocks__/interaction.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData';
+import mockData from '../../../__mocks__/uniProtKBEntryModelData';
+import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
 import databaseInfoMaps from '../../../utils/__tests__/__mocks__/databaseInfoMaps';
+import EntryMain from '../EntryMain';
 
 enableFetchMocks();
 
@@ -35,7 +33,6 @@ describe('Entry view', () => {
       <EntryMain
         transformedData={uniProtKbConverter(mockData, databaseInfoMaps)}
         importedVariants={0}
-        hasGenomicCoordinates={false}
         communityReferences={[]}
       />,
       { route: `/uniprotkb/P05067/entry` }
@@ -53,7 +50,6 @@ describe('Entry view', () => {
           databaseInfoMaps
         )}
         importedVariants={0}
-        hasGenomicCoordinates={false}
         communityReferences={[]}
       />,
       { route: `/uniprotkb/P05067/entry` }

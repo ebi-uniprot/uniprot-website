@@ -1,18 +1,12 @@
-/* eslint-disable react/no-this-in-sfc */
-import { FC, memo, useEffect, useRef } from 'react';
-import tippy from 'tippy.js';
-import { v1 } from 'uuid';
 import '@swissprot/swissbiopics-visualizer';
+import './styles/sub-cell-viz.scss';
+
 import { groupBy } from 'lodash-es';
+import { FC, memo, useEffect, useRef } from 'react';
 import { RequireExactlyOne } from 'type-fest';
 
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
-import { VizTab, SubCellularLocation } from './SubcellularLocationWithVizView';
-
-import 'tippy.js/dist/tippy.css';
-import './styles/sub-cell-viz.scss';
+import { addTooltip } from '../../../shared/utils/tooltip';
+import { SubCellularLocation, VizTab } from './SubcellularLocationWithVizView';
 
 /*
   The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
@@ -99,7 +93,7 @@ const attachTooltips = (
   partOfShown: boolean
 ) => {
   if (!triggerTargetSvgs?.length) {
-    return;
+    return null;
   }
   const name = locationGroup.querySelector('.subcell_name')?.textContent;
   let description = locationGroup.querySelector(
@@ -120,7 +114,7 @@ const attachTooltips = (
   const locationTextQueryResult =
     instance?.querySelectorAll(locationTextSelector);
   if (!locationTextQueryResult) {
-    return;
+    return null;
   }
   const locationTextElements = Array.from(locationTextQueryResult);
 
@@ -134,11 +128,12 @@ const attachTooltips = (
     ...locationTextElements,
     ...triggerTargetSvgs,
   ].filter(Boolean);
-  tippy(tooltipTarget, {
-    allowHTML: true,
-    content: `${name}<br/>${description}`,
-    triggerTarget: tooltipTriggerTargets,
-  });
+
+  return addTooltip(
+    tooltipTarget,
+    `${name}<br/>${description}`,
+    tooltipTriggerTargets
+  );
 };
 
 type Props = RequireExactlyOne<
@@ -150,12 +145,15 @@ type Props = RequireExactlyOne<
   'uniProtLocations' | 'goLocations'
 >;
 
-const SubCellViz: FC<Props> = memo(
+let instanceId = 0;
+
+const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
   ({ uniProtLocations, goLocations, taxonId, children }) => {
+    instanceId += 1;
     const instanceName = useRef(
       `${canonicalName}-${
         uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
-      }-${v1()}`
+      }-${instanceId}`
     );
 
     const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');
@@ -245,8 +243,9 @@ const SubCellViz: FC<Props> = memo(
         uniProtLocations,
         ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
       );
-      const goLocationsByReviewedStatus = groupBy(goLocations, ({ reviewed }) =>
-        reviewed ? 'reviewed' : 'unreviewed'
+      const goLocationsByReviewedStatus = groupBy(
+        goLocations,
+        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
       );
 
       const unreviewed = [
@@ -270,12 +269,15 @@ const SubCellViz: FC<Props> = memo(
        * We create a new definition everytime otherwise if we navigate to another
        * entry page the definition will already be registered and it will crash...
        */
-      customElements.define(instanceName.current, InstanceClass);
+      if (!customElements.get(instanceName.current)) {
+        customElements.define(instanceName.current, InstanceClass);
+      }
       // get the instance to modify its shadow root
       const instance = document.querySelector<InstanceClass>(
         instanceName.current
       );
       const shadowRoot = instance?.shadowRoot;
+      const cleanupTooltips: ReturnType<typeof attachTooltips>[] = [];
 
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
@@ -291,7 +293,7 @@ const SubCellViz: FC<Props> = memo(
         }
         ${lookedAt.join(',')} {
           stroke: black !important;
-          fill: ${colors.seaBlue} !important;
+          fill: var(--fr--color-sea-blue) !important;
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
@@ -376,11 +378,13 @@ const SubCellViz: FC<Props> = memo(
                     scopedShapesSelector
                   );
               }
-              attachTooltips(
-                subcellularPresentSVG,
-                instance,
-                triggerTargetSvgs,
-                false
+              cleanupTooltips.push(
+                attachTooltips(
+                  subcellularPresentSVG,
+                  instance,
+                  triggerTargetSvgs,
+                  false
+                )
               );
             }
           }
@@ -388,6 +392,7 @@ const SubCellViz: FC<Props> = memo(
       };
       shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
       return () => {
+        cleanupTooltips.forEach((cleanup) => cleanup?.());
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
     }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);

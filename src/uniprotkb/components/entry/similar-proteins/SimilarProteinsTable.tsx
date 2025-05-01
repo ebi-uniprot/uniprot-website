@@ -1,28 +1,26 @@
 import { DataTable, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-
+import helper from '../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
-import {
-  LocationToPath,
-  Location,
-  getEntryPath,
-} from '../../../../app/config/urls';
-
+import { stringifyQuery } from '../../../../shared/utils/url';
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
-
-import helper from '../../../../shared/styles/helper.module.scss';
 
 export const columns = [
   UniProtKBColumn.id,
   UniProtKBColumn.reviewed,
   UniProtKBColumn.organismName,
   UniProtKBColumn.proteinName,
-  UniProtKBColumn.sequence,
+  UniProtKBColumn.length,
 ];
 
 const columnConfig = [
@@ -85,10 +83,17 @@ const SimilarProteinsTable = ({
       <Link
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=${uniprotkbQuery}`,
+          search: stringifyQuery({ query: uniprotkbQuery }),
         }}
       >
-        Show all (<LongNumber>{total}</LongNumber>) UniProtKB entries
+        {'View '}
+        {(total === 1 && 'this entry') || (
+          <>
+            {`${total === uniprotkbResults.length ? 'these' : 'all'} `}
+            <LongNumber>{total}</LongNumber> entries
+          </>
+        )}
+        {' in UniProtKB'}
       </Link>
     </>
   );

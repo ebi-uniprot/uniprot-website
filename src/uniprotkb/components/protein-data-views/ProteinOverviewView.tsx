@@ -1,17 +1,15 @@
-import { Fragment, memo, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { DoughnutChart, InfoList } from 'franklin-sites';
-
-import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-import { ECNumbersView } from './ProteinNamesView';
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import { Fragment, memo } from 'react';
+import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
-
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { Namespace } from '../../../shared/types/namespaces';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../types/entry';
 import EntrySection from '../../types/entrySection';
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { ECNumbersView } from './ProteinNamesView';
 
 const existenceRE = /^\d: /;
 
@@ -30,13 +28,8 @@ const ProteinOverview = ({ data, inCard }: Props) => {
     />
   );
 
-  let organismNameNode: ReactNode;
-  if (
-    data.organism &&
-    (data.organism.scientificName || data.organism.taxonId)
-  ) {
-    organismNameNode = <TaxonomyView data={data.organism} />;
-  }
+  const organismNameNode = (data.organism?.scientificName ||
+    data.organism?.taxonId) && <TaxonomyView data={data.organism} />;
 
   let geneNameListNode: string | undefined;
   if (data.genes) {

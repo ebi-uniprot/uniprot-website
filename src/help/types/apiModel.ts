@@ -1,4 +1,5 @@
 import { SetRequired } from 'type-fest';
+
 import { SearchResults } from '../../shared/types/results';
 
 export type HelpAPIModel = {

@@ -24,6 +24,28 @@ exports[`SubcellularLocationGOView should render 1`] = `
           width="12.5"
         />
       </a>
+      <button
+        aria-controls="1"
+        aria-expanded="false"
+        class="svg-colour-reviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          Source:Reactome
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="1"
+      />
     </li>
     <li
       class="GO5615"
@@ -44,6 +66,28 @@ exports[`SubcellularLocationGOView should render 1`] = `
           width="12.5"
         />
       </a>
+      <button
+        aria-controls="2"
+        aria-expanded="false"
+        class="svg-colour-reviewed evidence-tag"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+        >
+          Source:GO_Central
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="2"
+      />
     </li>
   </ul>
   <div

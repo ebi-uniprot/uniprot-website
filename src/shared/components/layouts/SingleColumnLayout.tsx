@@ -1,9 +1,8 @@
-import { FC, lazy, Suspense } from 'react';
-import { Loader } from 'franklin-sites';
 import cn from 'classnames';
+import { Loader } from 'franklin-sites';
+import { FC, lazy, Suspense } from 'react';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
-
 import styles from './styles/single-column-layout.module.scss';
 
 const UniProtFooter = lazy(
@@ -14,10 +13,9 @@ type SingleColumnLayoutProps = {
   className?: string;
 };
 
-export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
-  children,
-  className,
-}) => (
+export const SingleColumnLayout: FC<
+  React.PropsWithChildren<SingleColumnLayoutProps>
+> = ({ children, className }) => (
   <>
     <div className={cn(styles['single-column-layout'], className)}>
       <main>

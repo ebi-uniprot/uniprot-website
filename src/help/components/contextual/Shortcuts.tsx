@@ -1,15 +1,13 @@
-import { Link, Router } from 'react-router-dom';
 import { CitedIcon, EnvelopeIcon, HelpIcon } from 'franklin-sites';
 import { History } from 'history';
-
-import ContactLink from '../../../contact/components/ContactLink';
+import { Link, Router } from 'react-router-dom';
 
 import {
-  LocationToPath,
-  Location,
   getLocationEntryPath,
+  Location,
+  LocationToPath,
 } from '../../../app/config/urls';
-
+import ContactLink from '../../../contact/components/ContactLink';
 import styles from './styles/shortcuts.module.scss';
 
 const iconWidth = '1.4em';
@@ -23,7 +21,6 @@ const Shortcuts = ({ globalHistory }: { globalHistory: History }) => (
         Help center
       </Link>
       {/* Blocked until we manage to get the contact page changes in main */}
-      {/* eslint-disable-next-line */}
       <ContactLink>
         <EnvelopeIcon width={iconWidth} />
         Contact us

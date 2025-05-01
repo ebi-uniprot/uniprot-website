@@ -1,9 +1,8 @@
 import { generatePath } from 'react-router-dom';
 
-import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import { processUrlTemplate } from '../../shared/utils/xrefs';
-
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
+import { processUrlTemplate } from '../../shared/utils/xrefs';
 
 type InternalSource =
   | 'ARBA'
@@ -32,11 +31,9 @@ type ExternalSource =
   | 'EnsemblMetazoa'
   | 'EnsemblPlants'
   | 'EnsemblProtists'
-  | 'EPD'
   | 'EuropePMC'
   | 'FlyBase'
   | 'HGNC'
-  | 'MaxQB'
   | 'MGI'
   | 'MIM'
   | 'PDB'
@@ -48,6 +45,7 @@ type ExternalSource =
   | 'PROSITE'
   | 'PROSITE-ProRule'
   | 'ProteomicsDB'
+  | 'PTMeXchange'
   | 'Reference'
   | 'RefSeq'
   | 'RGD'
@@ -88,6 +86,8 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
 const ensemblGenomeslUrl = 'https://www.ensemblgenomes.org/id/%value';
 const proteomicsMappingReadmeUrl =
   'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README';
+const proteomeXchangeUrl =
+  'https://proteomecentral.proteomexchange.org/dataset/%value';
 
 const evidenceUrls: Record<ExternalSource, string> = {
   Araport: 'https://apps.araport.org/thalemine/portal.do?externalids=%value',
@@ -101,11 +101,9 @@ const evidenceUrls: Record<ExternalSource, string> = {
   EnsemblMetazoa: ensemblGenomeslUrl,
   EnsemblPlants: ensemblGenomeslUrl,
   EnsemblProtists: ensemblGenomeslUrl,
-  EPD: proteomicsMappingReadmeUrl,
   EuropePMC: 'https://europepmc.org/abstract/MED/%value',
   FlyBase: 'http://flybase.org/reports/%value.html',
-  HGNC: 'https://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=%value',
-  MaxQB: proteomicsMappingReadmeUrl,
+  HGNC: 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/%value',
   MGI: 'http://www.informatics.jax.org/marker/%value',
   MIM: 'http://www.omim.org/entry/%value',
   PDB: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/%value',
@@ -113,7 +111,8 @@ const evidenceUrls: Record<ExternalSource, string> = {
   Pfam: 'http://pfam.xfam.org/family/%value',
   PIR: 'http://pir.georgetown.edu/cgi-bin/nbrfget?uid=%value',
   PomBase: 'https://www.pombase.org/spombe/result/%value',
-  PRIDE: 'https://www.ebi.ac.uk/pride/archive/projects/%value',
+  PRIDE: proteomeXchangeUrl, // PTM specific, use ProteomeXchange consortium site
+  PTMeXchange: proteomeXchangeUrl, // PTM specific, use ProteomeXchange consortium site
   PROSITE: 'https://prosite.expasy.org/doc/%value',
   'PROSITE-ProRule': 'https://prosite.expasy.org/unirule/%value',
   ProteomicsDB: proteomicsMappingReadmeUrl,
@@ -153,7 +152,7 @@ export const formatEvidenceContent = (id: string, source?: string) => {
   }
   // regexp generated from https://www.ebi.ac.uk/pride/markdownpage/submitdatapage "PXDxxxxxx"
   if (id.match(/^PXD\d{6}/)) {
-    return `PRIDE: ${id}`;
+    return `ProteomeXchange: ${id}`;
   }
   return `${source}: ${id}`;
 };

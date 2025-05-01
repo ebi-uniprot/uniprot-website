@@ -1,15 +1,24 @@
 import { Location as HistoryLocation } from 'history';
 
+import { Location } from '../../../../app/config/urls';
+import { IDMappingColumn } from '../../../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import { MappingDetails } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
+import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
+import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import { JobFromUrl } from '../../../hooks/useJobFromUrl';
-
+import { Namespace } from '../../../types/namespaces';
+import { FileFormat } from '../../../types/resultsDownload';
+import { DownloadProps } from '../Download';
+import { getDownloadInitialState } from '../downloadReducer';
 import {
   getColumnsNamespace,
+  getCountForCustomisableSet,
   getDownloadCount,
   getDownloadOptions,
   getExtraContent,
   getFtpFilenamesAndUrls,
   getIsAsyncDownload,
-  isAsyncDownloadIdMapping,
   getIsEmbeddings,
   getIsTooLargeForEmbeddings,
   getPreviewCount,
@@ -17,21 +26,9 @@ import {
   getPreviewOptions,
   getRedirectToIDMapping,
   hasColumns,
+  isAsyncDownloadIdMapping,
   isSubsequenceFrom,
-  getCountForCustomisableSet,
 } from '../downloadUtils';
-
-import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
-import { getDownloadInitialState } from '../downloadReducer';
-
-import { Location } from '../../../../app/config/urls';
-import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { FileFormat } from '../../../types/resultsDownload';
-import { Namespace } from '../../../types/namespaces';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-import { DownloadProps } from '../Download';
-import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
 
 const subsequenceData = 'P05067[1-12345],P12345[5-15]';
 const notSubsequenceData = 'P05067[1-12345],P12345';
@@ -322,9 +319,9 @@ describe('Download Utils', () => {
       state: undefined,
     };
     const job: JobFromUrl = {
-      jobId: undefined,
-      jobResultsLocation: undefined,
-      jobResultsNamespace: undefined,
+      jobId: '5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
+      jobResultsLocation: Location.IDMappingResult,
+      jobResultsNamespace: Namespace.uniprotkb,
     };
     const state = getDownloadInitialState({
       props,
@@ -334,7 +331,10 @@ describe('Download Utils', () => {
 
     expect(state).toEqual({
       selectedColumns: defaultColumns,
-      fileFormatOptions: uniProtKBFileFormatsResultsDownload,
+      // TODO: remove filter once the API supports embeddings id mapping downloads
+      fileFormatOptions: uniProtKBFileFormatsResultsDownload.filter(
+        (ff) => ff !== FileFormat.embeddings
+      ),
       selectedFileFormat: FileFormat.fastaCanonical,
       downloadSelect: 'all',
       compressed: true,
@@ -350,7 +350,7 @@ describe('Download Utils', () => {
     expect(isAsyncDownloadIdMapping(state, props, job)).toEqual(false);
     expect(hasColumns(state, props, job)).toEqual(false);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
-      base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
+      base: 'https://rest.uniprot.org/idmapping/uniprotkb/results/stream/5bee222d914d0826f8b1b9d9b751aaac56ac28f8',
       compressed: true,
       fileFormat: FileFormat.fastaCanonical,
       namespace: Namespace.uniprotkb,

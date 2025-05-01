@@ -42,10 +42,12 @@
 
   &.feedback {
     bottom: calc(50% - 5ch);
+    right: calc(var(--scroll-bar-width, 0px) + 2px);
   }
 
   &.help {
-    bottom: calc(50% - 17ch);
+    bottom: calc(50% - 18ch);
+    right: calc(var(--scroll-bar-width, 0px) + 2px);
 
     &,
     &:hover {

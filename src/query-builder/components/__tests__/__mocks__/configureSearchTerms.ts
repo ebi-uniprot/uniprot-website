@@ -1,11 +1,10 @@
 import { keyBy } from 'lodash-es';
 
+import { SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
-import { SearchTermType } from '../../../types/searchTypes';
-
-// Source: /configure/uniprotkb/search-fields
-// Retrieved: 2024-05-29
+// Source: configure/uniprotkb/search-fields
+// Retrieved: 2025-04-22
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -28,13 +27,24 @@ const configureSearchTerms = [
     example: 'P53_HUMAN',
   },
   {
+    id: 'sec_acc',
+    label: 'Secondary Accession',
+    itemType: 'single',
+    term: 'sec_acc',
+    dataType: 'string',
+    fieldType: 'general',
+    example: 'B2R5V1',
+    regex:
+      '(?i)([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])(-[0-9]+)?',
+  },
+  {
     id: 'protein_name_field',
     label: 'Protein Name [DE]',
     itemType: 'single',
     term: 'protein_name',
     dataType: 'string',
     fieldType: 'general',
-    example: 'mas5',
+    example: 'Elastin',
   },
   {
     id: 'gene_field',
@@ -43,7 +53,7 @@ const configureSearchTerms = [
     term: 'gene',
     dataType: 'string',
     fieldType: 'general',
-    example: 'ydj1',
+    example: 'YDJ1',
   },
   {
     id: 'organism_name_field',
@@ -63,7 +73,7 @@ const configureSearchTerms = [
     term: 'taxonomy_name',
     dataType: 'string',
     fieldType: 'general',
-    example: 'human',
+    example: 'mammalia',
     autoComplete: '/suggester?dict=taxonomy&query=?',
     autoCompleteQueryTerm: 'taxonomy_id',
   },
@@ -665,7 +675,7 @@ const configureSearchTerms = [
             term: 'ft_transmem',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'helical',
           },
           {
             id: 'ft_transmem_exp',
@@ -673,7 +683,7 @@ const configureSearchTerms = [
             term: 'ft_transmem_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'helical',
           },
         ],
       },
@@ -688,7 +698,7 @@ const configureSearchTerms = [
             term: 'ft_topo_dom',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'cytoplasmic',
           },
           {
             id: 'ft_topo_dom_exp',
@@ -696,7 +706,7 @@ const configureSearchTerms = [
             term: 'ft_topo_dom_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'cytoplasmic',
           },
         ],
       },
@@ -711,7 +721,7 @@ const configureSearchTerms = [
             term: 'ft_intramem',
             dataType: 'string',
             fieldType: 'general',
-            example: 'forming',
+            example: 'helical',
           },
           {
             id: 'ft_intramem_exp',
@@ -719,7 +729,7 @@ const configureSearchTerms = [
             term: 'ft_intramem_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'forming',
+            example: 'helical',
           },
         ],
       },
@@ -978,7 +988,7 @@ const configureSearchTerms = [
             term: 'ft_carbohyd',
             dataType: 'string',
             fieldType: 'general',
-            example: 'cysteine',
+            example: 'GlcNAc',
           },
           {
             id: 'ft_carbohyd_exp',
@@ -986,7 +996,7 @@ const configureSearchTerms = [
             term: 'ft_carbohyd_exp',
             dataType: 'string',
             fieldType: 'experimental_evidence',
-            example: 'cysteine',
+            example: 'GlcNAc',
           },
         ],
       },
@@ -1449,7 +1459,7 @@ const configureSearchTerms = [
         term: 'mass',
         dataType: 'integer',
         fieldType: 'range',
-        example: '[441126 TO 441126]',
+        example: '[10000 TO 11000]',
       },
       {
         id: 'length_range',
@@ -1635,7 +1645,7 @@ const configureSearchTerms = [
             term: 'cc_sc_eterm',
             dataType: 'string',
             fieldType: 'general',
-            example: 'translated',
+            example: 'truncated',
           },
           {
             id: 'cc_sc_epred',
@@ -2653,15 +2663,6 @@ const configureSearchTerms = [
             valuePrefix: 'moonprot-',
           },
           {
-            id: 'xref_clae',
-            label: 'CLAE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'clae-',
-          },
-          {
             id: 'xref_peroxibase',
             label: 'PeroxiBase',
             itemType: 'single',
@@ -2836,24 +2837,6 @@ const configureSearchTerms = [
         itemType: 'group',
         items: [
           {
-            id: 'xref_compluyeast-2dpage',
-            label: 'COMPLUYEAST-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'compluyeast-2dpage-',
-          },
-          {
-            id: 'xref_dosac-cobs-2dpage',
-            label: 'DOSAC-COBS-2DPAGE',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'dosac-cobs-2dpage-',
-          },
-          {
             id: 'xref_ogp',
             label: 'OGP',
             itemType: 'single',
@@ -2886,24 +2869,6 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cptac-',
-          },
-          {
-            id: 'xref_epd',
-            label: 'EPD',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'epd-',
-          },
-          {
-            id: 'xref_maxqb',
-            label: 'MaxQB',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'maxqb-',
           },
           {
             id: 'xref_paxdb',
@@ -3028,6 +2993,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cptc-',
+          },
+          {
+            id: 'xref_ycharos',
+            label: 'YCharOS',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'ycharos-',
           },
         ],
       },
@@ -3678,6 +3652,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'pathwaycommons-',
           },
+          {
+            id: 'xref_strenda-db',
+            label: 'STRENDA-DB',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'strenda-db-',
+          },
         ],
       },
       {
@@ -3766,6 +3749,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'biogrid-orcs-',
           },
+          {
+            id: 'xref_cd-code',
+            label: 'CD-CODE',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'cd-code-',
+          },
         ],
       },
       {
@@ -3817,6 +3809,15 @@ const configureSearchTerms = [
         itemType: 'group',
         items: [
           {
+            id: 'xref_antifam',
+            label: 'AntiFam',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'antifam-',
+          },
+          {
             id: 'xref_cdd',
             label: 'CDD',
             itemType: 'single',
@@ -3824,6 +3825,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cdd-',
+          },
+          {
+            id: 'xref_funfam',
+            label: 'FunFam',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'funfam-',
           },
           {
             id: 'xref_gene3d',
@@ -4014,7 +4024,7 @@ const configureSearchTerms = [
         term: 'date_created',
         dataType: 'date',
         fieldType: 'range',
-        example: '[2018-03-04 TO 2018-03-08]',
+        example: '[2023-05-13 TO 2024-05-13]',
       },
       {
         id: 'date_modified',
@@ -4023,7 +4033,7 @@ const configureSearchTerms = [
         term: 'date_modified',
         dataType: 'date',
         fieldType: 'range',
-        example: '[2018-03-04 TO 2018-03-08]',
+        example: '[2023-05-13 TO 2024-05-13]',
       },
       {
         id: 'date_sequence_modified',
@@ -4032,7 +4042,7 @@ const configureSearchTerms = [
         term: 'date_sequence_modified',
         dataType: 'date',
         fieldType: 'range',
-        example: '[2018-03-04 TO 2018-03-08]',
+        example: '[2023-05-13 TO 2024-05-13]',
       },
     ],
   },
@@ -4181,12 +4191,12 @@ const configureSearchTerms = [
     items: [
       {
         id: 'chebi_field',
-        label: 'CHEBI ID',
+        label: 'Name or ID (CHEBI)',
         itemType: 'single',
         term: 'chebi',
         dataType: 'string',
         fieldType: 'general',
-        example: '29105',
+        example: 'Search by Name or ID (CHEBI)',
         autoComplete: '/suggester?dict=chebi&query=?',
         autoCompleteQueryTerm: 'chebi',
       },
@@ -4208,7 +4218,7 @@ const configureSearchTerms = [
     term: 'keyword',
     dataType: 'string',
     fieldType: 'general',
-    example: 'chromosomal',
+    example: 'activator',
     autoComplete: '/suggester?dict=keyword&query=?',
     autoCompleteQueryTerm: 'keyword',
   },
@@ -4260,7 +4270,7 @@ const configureSearchTerms = [
         term: 'lit_title',
         dataType: 'string',
         fieldType: 'general',
-        example: 'protein',
+        example: 'apoptosis',
       },
       {
         id: 'lit_citation_id',
@@ -4278,7 +4288,7 @@ const configureSearchTerms = [
         term: 'computational_pubmed_id',
         dataType: 'string',
         fieldType: 'general',
-        example: '15165820',
+        example: '1697263',
       },
       {
         id: 'community_pubmed_id',
@@ -4287,7 +4297,7 @@ const configureSearchTerms = [
         term: 'community_pubmed_id',
         dataType: 'string',
         fieldType: 'general',
-        example: '15165820',
+        example: '30699149',
       },
     ],
   },
@@ -4324,7 +4334,7 @@ const configureSearchTerms = [
     term: 'scope',
     dataType: 'string',
     fieldType: 'general',
-    example: 'microtubule',
+    example: 'function',
   },
   {
     id: 'reviewed',
@@ -4393,11 +4403,12 @@ const configureSearchTerms = [
     example: 'UPI000002DB1C',
     regex: 'UPI[\\w]{10}',
   },
-] as SearchTermType[];
-// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
+];
 
 const idToSearchTerm = keyBy(
-  flatten(configureSearchTerms).filter(({ itemType }) => itemType !== 'group'),
+  flatten(configureSearchTerms as SearchTermType[]).filter(
+    ({ itemType }) => itemType !== 'group'
+  ),
   ({ id }) => id
 );
 
@@ -4408,4 +4419,5 @@ export const getSearchTerm = (id: string) => {
   throw new Error(`${id} not in search term mock data`);
 };
 
-export default configureSearchTerms;
+// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
+export default configureSearchTerms as SearchTermType[];

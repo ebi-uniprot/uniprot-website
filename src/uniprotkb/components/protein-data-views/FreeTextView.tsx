@@ -1,37 +1,33 @@
-import { Fragment, FC, ReactNode, useContext } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
 import { ExternalLink } from 'franklin-sites';
-
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import SimilarityView from './SimilarityView';
-
-import { IsoformsContext } from '../../../shared/contexts/Isoforms';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { FC, Fragment, ReactNode, useContext } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import {
+  allEntryPages,
   getEntryPath,
   getEntryPathFor,
-  allEntryPages,
 } from '../../../app/config/urls';
-import {
-  getTextProcessingParts,
-  reAC,
-  reIsoform,
-  reUniProtKBAccession,
-  reSubscript,
-  reSuperscript,
-  rePubMedCapture,
-  reDbSnpCapture,
-} from '../../utils/regexes';
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
+import { IsoformsContext } from '../../../shared/contexts/Isoforms';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
   FreeTextComment,
   FreeTextType,
   TextWithEvidence,
 } from '../../types/commentTypes';
+import {
+  getTextProcessingParts,
+  reAC,
+  reDbSnpCapture,
+  reIsoform,
+  rePubMedCapture,
+  reSubscript,
+  reSuperscript,
+  reUniProtKBAccession,
+} from '../../utils/regexes';
+import SimilarityView from './SimilarityView';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 const needsNewLineRE = /^\)\.\s+/;
 
@@ -69,8 +65,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
             return (
               // eslint-disable-next-line react/no-array-index-key
               <Fragment key={index}>
-                PubMed:
-                <Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
+                PubMed:<Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
               </Fragment>
             );
           }
@@ -100,7 +95,6 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
                 // eslint-disable-next-line react/no-array-index-key
                 <Fragment key={index}>
                   {text}{' '}
-                  {/* eslint-disable-next-line uniprot-website/use-config-location */}
                   <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
                 </Fragment>
               );
@@ -199,7 +193,7 @@ type FreeTextProps = {
   showMolecule?: boolean;
 };
 
-const FreeTextView: FC<FreeTextProps> = ({
+const FreeTextView: FC<React.PropsWithChildren<FreeTextProps>> = ({
   comments,
   title,
   articleId,

@@ -1,29 +1,23 @@
-import * as logging from './logging';
-
-import { APIModel } from '../types/apiModel';
-
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
-import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
-
-import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
-import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
-import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
-import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
-import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
-
-import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
 import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
-
+import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
 import {
   MappingFlat,
   MappingFrom,
   MappingTo,
-} from '../../tools/id-mapping/types/idMappingSearchResults';
-
+} from '../../jobs/id-mapping/types/idMappingSearchResults';
+import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
+import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
+import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
+import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
+import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import { APIModel } from '../types/apiModel';
 import { Namespace } from '../types/namespaces';
+import * as logging from './logging';
 
 const fromSeparator = '||';
 

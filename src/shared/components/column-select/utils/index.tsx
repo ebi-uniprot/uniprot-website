@@ -1,12 +1,12 @@
 import { memoize } from 'lodash-es';
 
-import { Column } from '../../../config/columns';
 import {
   FieldData,
+  FieldDatum,
   ReceivedField,
   ReceivedFieldData,
-  FieldDatum,
 } from '../../../../uniprotkb/types/resultsTypes';
+import { Column } from '../../../config/columns';
 import { Namespace } from '../../../types/namespaces';
 
 type PreparedField = {

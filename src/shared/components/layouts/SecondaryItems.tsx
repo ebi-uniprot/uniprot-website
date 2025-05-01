@@ -1,46 +1,42 @@
+import cn from 'classnames';
 import {
-  useMemo,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  Suspense,
-  memo,
-} from 'react';
-import { generatePath, Link } from 'react-router-dom';
-import { schedule } from 'timing-functions';
+  BasketIcon,
+  Bubble,
+  EnvelopeIcon,
+  Loader,
+  SlidingPanel,
+  ToolboxIcon,
+} from 'franklin-sites';
 import { sumBy } from 'lodash-es';
 import {
-  EnvelopeIcon,
-  BasketIcon,
-  ToolboxIcon,
-  Bubble,
-  SlidingPanel,
-  Loader,
-} from 'franklin-sites';
-import cn from 'classnames';
+  memo,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { generatePath, Link, useLocation } from 'react-router-dom';
+import { schedule } from 'timing-functions';
 
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 import useBasket from '../../hooks/useBasket';
+import useJobState from '../../hooks/useJobsState';
 import useSafeState from '../../hooks/useSafeState';
-import useToolsState from '../../hooks/useToolsState';
-
-import lazy from '../../utils/lazy';
-import { pluralise } from '../../utils/utils';
+import useSupportsJobs from '../../hooks/useSupportsJobs';
+import helper from '../../styles/helper.module.scss';
+import { Namespace } from '../../types/namespaces';
 import {
   PanelCloseReason,
   sendGtagEventPanelClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import { Namespace } from '../../types/namespaces';
-import { Status } from '../../../tools/types/toolsStatuses';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
-
-import helper from '../../styles/helper.module.scss';
+import lazy from '../../utils/lazy';
+import { pluralise } from '../../utils/utils';
+import { Status } from '../../workers/jobs/types/jobStatuses';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/secondary-items.module.scss';
 
 const BasketMiniView = lazy(
@@ -53,7 +49,7 @@ const BasketMiniView = lazy(
 const Dashboard = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "dashboard" */ '../../../jobs/dashboard/components/Dashboard'
     )
 );
 
@@ -73,19 +69,20 @@ const statusesToNotify = new Set([
   Status.ERRORED,
 ]);
 
-const ToolsDashboard = () => {
-  const tools = useToolsState();
+const JobsDashboard = () => {
+  const jobs = useJobState();
+  const { pathname } = useLocation();
 
   const count = useMemo(() => {
     const now = new Date();
-    return Object.values(tools ?? {}).filter(
+    return Object.values(jobs ?? {}).filter(
       (job) =>
         'seen' in job &&
         job.seen === false &&
         statusesToNotify.has(job.status) &&
         now.getTime() - new Date(job.timeCreated).getTime() < SEVEN_DAYS
     ).length;
-  }, [tools]);
+  }, [jobs]);
 
   const [display, setDisplay] = useState(false);
   const close = useCallback((reason: PanelCloseReason) => {
@@ -108,7 +105,7 @@ const ToolsDashboard = () => {
       });
     });
     ro.observe(document.body);
-    // eslint-disable-next-line consistent-return
+
     return () => ro.unobserve(document.body);
   }, [display, setButtonX]);
 
@@ -125,7 +122,7 @@ const ToolsDashboard = () => {
           sendGtagEventPanelOpen('job_dashboard');
           setDisplay(true);
         }}
-        title="Tools dashboard"
+        title="Jobs dashboard"
         className={cn(styles['secondary-item'], helper['no-small'])}
         onPointerOver={Dashboard.preload}
         onFocus={Dashboard.preload}
@@ -147,13 +144,14 @@ const ToolsDashboard = () => {
               to={LocationToPath[Location.Dashboard]}
               onClick={() => close('full-view')}
             >
-              <ToolboxIcon width="0.8em" /> Tool results
+              <ToolboxIcon width="0.8em" /> Job results
             </Link>
           }
           position="right"
           size="medium"
           onClose={close}
           arrowX={buttonX}
+          pathname={pathname}
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -168,6 +166,7 @@ const ToolsDashboard = () => {
 
 const Basket = () => {
   const [basket] = useBasket();
+  const { pathname } = useLocation();
 
   const [display, setDisplay] = useState(false);
   const close = useCallback((reason: PanelCloseReason) => {
@@ -190,7 +189,7 @@ const Basket = () => {
       });
     });
     ro.observe(document.body);
-    // eslint-disable-next-line consistent-return
+
     return () => ro.unobserve(document.body);
   }, [display, setButtonX]);
 
@@ -248,6 +247,7 @@ const Basket = () => {
           onClose={close}
           arrowX={buttonX}
           className={styles['basket-panel']}
+          pathname={pathname}
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
@@ -260,22 +260,25 @@ const Basket = () => {
   );
 };
 
-const SecondaryItems = () => (
-  <>
-    <ToolsDashboard />
-    <Basket />
-    <Link<ContactLocationState>
-      to={(location) => ({
-        pathname: LocationToPath[Location.ContactGeneric],
-        state: { referrer: location },
-      })}
-      title="Contact"
-      className={styles['secondary-item']}
-    >
-      <EnvelopeIcon width={secondaryItemIconSize} />
-    </Link>
-    <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
-  </>
-);
+const SecondaryItems = () => {
+  const supportsJobs = useSupportsJobs();
+  return (
+    <>
+      {supportsJobs && <JobsDashboard />}
+      <Basket />
+      <Link<ContactLocationState>
+        to={(location) => ({
+          pathname: LocationToPath[Location.ContactGeneric],
+          state: { referrer: location },
+        })}
+        title="Contact"
+        className={styles['secondary-item']}
+      >
+        <EnvelopeIcon width={secondaryItemIconSize} />
+      </Link>
+      <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
+    </>
+  );
+};
 
 export default memo(SecondaryItems);

@@ -1,6 +1,5 @@
-import { pluralise } from '../../shared/utils/utils';
 import * as logging from '../../shared/utils/logging';
-
+import { pluralise } from '../../shared/utils/utils';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
 
 export const ecoCode = {

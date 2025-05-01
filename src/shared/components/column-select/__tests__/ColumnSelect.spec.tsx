@@ -1,25 +1,17 @@
-import { fireEvent, waitFor, screen } from '@testing-library/react';
-import {
-  makeDnd,
-  DND_DRAGGABLE_DATA_ATTR,
-  DND_DIRECTION_RIGHT,
-} from 'react-beautiful-dnd-test-utils';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import ColumnSelect from '../ColumnSelect';
-
-import { Namespace } from '../../../types/namespaces';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { SearchResultsLocations } from '../../../../app/config/urls';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import customRender from '../../../__test-helpers__/customRender';
+import { Namespace } from '../../../types/namespaces';
+import ColumnSelect from '../ColumnSelect';
 
 describe('ColumnSelect component', () => {
   // testing implementation?
   let rendered: ReturnType<typeof customRender>;
-  let onChange: jest.Mock;
+  let onColumnChange: jest.Mock;
   const selectedColumns = [
     UniProtKBColumn.accession,
     UniProtKBColumn.proteinName,
@@ -28,10 +20,10 @@ describe('ColumnSelect component', () => {
   const namespace = Namespace.uniprotkb;
 
   beforeEach(async () => {
-    onChange = jest.fn();
+    onColumnChange = jest.fn();
     rendered = customRender(
       <ColumnSelect
-        onChange={onChange}
+        onColumnChange={onColumnChange}
         selectedColumns={selectedColumns}
         namespace={namespace}
       />,
@@ -40,6 +32,8 @@ describe('ColumnSelect component', () => {
       }
     );
     await waitFor(() => screen.getAllByRole('button'));
+    // wait for the drag and drop library to have instantiated itself
+    await waitFor(() => screen.getByRole('status'));
   });
 
   afterEach(() => {
@@ -51,39 +45,22 @@ describe('ColumnSelect component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should call onChange when unselected item is clicked and do so with selected columns and new item', () => {
+  it('should call onColumnChange when unselected item is clicked and do so with selected columns and new item', () => {
     // Open Names & Taxonomy to render contents
     fireEvent.click(screen.getByRole('button', { name: /Names & Taxonomy/ }));
     fireEvent.click(screen.getByRole('checkbox', { name: 'Gene Names' }));
-    expect(onChange).toHaveBeenCalledWith([
+    expect(onColumnChange).toHaveBeenCalledWith([
       ...selectedColumns,
       UniProtKBColumn.geneNames,
     ]);
   });
 
-  it('should call onChange when already selected item is clicked and do so with selected columns without clicked item', () => {
+  it('should call onColumnChange when already selected item is clicked and do so with selected columns without clicked item', () => {
     // Open Names & Taxonomy to render contents
     fireEvent.click(screen.getByRole('button', { name: /Names & Taxonomy/ }));
     fireEvent.click(screen.getByRole('checkbox', { name: 'Protein names' }));
-    expect(onChange).toHaveBeenCalledWith(
+    expect(onColumnChange).toHaveBeenCalledWith(
       selectedColumns.filter((c) => c !== UniProtKBColumn.proteinName)
     );
-  });
-
-  it('should call onChange with the correct column order when "Protein names" is dragged to the right', async () => {
-    const dragEl = screen
-      .getAllByText('Protein names')[0]
-      .closest(DND_DRAGGABLE_DATA_ATTR);
-    await makeDnd({
-      getByText: screen.getAllByText,
-      getDragEl: () => dragEl,
-      direction: DND_DIRECTION_RIGHT,
-      positions: 2,
-    });
-    expect(onChange).toHaveBeenCalledWith([
-      UniProtKBColumn.accession,
-      UniProtKBColumn.organismName,
-      UniProtKBColumn.proteinName,
-    ]);
   });
 });

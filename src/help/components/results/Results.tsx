@@ -1,32 +1,26 @@
-import { ChangeEvent, useState, useEffect, useMemo, ReactNode } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import cn from 'classnames';
 import {
   DataListWithLoader,
   HelpIcon,
   Loader,
   SearchInput,
 } from 'franklin-sites';
-import cn from 'classnames';
 import { debounce } from 'lodash-es';
+import { ChangeEvent, ReactNode, useEffect, useMemo, useState } from 'react';
+import { RouteChildrenProps } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
-import HelpCard from './HelpCard';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import HelpResultFacets from './HelpResultFacets';
-
-import usePagination from '../../../shared/hooks/usePagination';
-
-import helpApiUrls from '../../config/apiUrls';
 import sharedApiUrls from '../../../shared/config/apiUrls/apiUrls';
-
+import usePagination from '../../../shared/hooks/usePagination';
 import { stringifyQuery } from '../../../shared/utils/url';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
+import helpApiUrls from '../../config/apiUrls';
 import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';
-
+import HelpCard from './HelpCard';
+import HelpResultFacets from './HelpResultFacets';
 import styles from './styles/results.module.scss';
-
 import HelperImage from './svgs/helper.img.svg';
 
 const dataRenderer = (article: HelpAPIModel) => (
@@ -123,6 +117,7 @@ const Results = ({
         }
         placeholder="Search"
         value={searchValue}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />
     </div>

@@ -1,15 +1,12 @@
-import { Fragment, HTMLAttributes } from 'react';
-import { ExpandableList } from 'franklin-sites';
 import cn from 'classnames';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { ExpandableList } from 'franklin-sites';
+import { Fragment, HTMLAttributes } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
 import { GoTerm } from '../../adapters/functionConverter';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 type Props = { data: GoTerm[] } & HTMLAttributes<HTMLDivElement>;
 

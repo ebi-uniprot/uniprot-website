@@ -1,18 +1,11 @@
+import { UniParcUIModel } from '../adapters/uniParcConverter';
 import SequenceSection from '../components/entry/SequenceSection';
 import XRefsSection from '../components/entry/XRefsSection';
-
 import EntrySection from '../types/entrySection';
-
-import { UniParcAPIModel, UniParcUIModel } from '../adapters/uniParcConverter';
-import { UseDataAPIWithStaleState } from '../../shared/hooks/useDataApiWithStale';
 
 const UniParcEntryConfig: {
   id: EntrySection;
-  sectionContent: (
-    entryData: UniParcUIModel,
-    xrefs: UseDataAPIWithStaleState<UniParcAPIModel>,
-    totalNResults?: number
-  ) => JSX.Element;
+  sectionContent: (entryData: UniParcUIModel) => JSX.Element;
 }[] = [
   {
     id: EntrySection.Sequence,
@@ -25,12 +18,8 @@ const UniParcEntryConfig: {
   },
   {
     id: EntrySection.XRefs,
-    sectionContent: (_, xrefs, totalNResults) => (
-      <XRefsSection
-        xrefData={xrefs}
-        totalNResults={totalNResults}
-        key={EntrySection.XRefs}
-      />
+    sectionContent: (data) => (
+      <XRefsSection entryData={data} key={EntrySection.XRefs} />
     ),
   },
 ];

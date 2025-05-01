@@ -1,13 +1,13 @@
-import {
-  useEffect,
-  useCallback,
-  useState,
-  useRef,
-  ReactElement,
-  useMemo,
-} from 'react';
-import { render } from 'react-dom';
 import { debounce } from 'lodash-es';
+import {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { createRoot } from 'react-dom/client';
 
 const DRAG_OUT_DELAY = 250;
 
@@ -32,6 +32,10 @@ const useDragNDropFile = ({
   onDropRef.current = onDrop;
 
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const root = useMemo(
+    () => overlayRef.current && createRoot(overlayRef.current),
+    []
+  );
 
   const handleDraggingOut = useMemo(
     () =>
@@ -102,7 +106,6 @@ const useDragNDropFile = ({
 
     document.body.appendChild(overlayRef.current);
 
-    // eslint-disable-next-line consistent-return
     return () => {
       if (overlayRef.current) {
         document.body.removeChild(overlayRef.current);
@@ -138,7 +141,7 @@ const useDragNDropFile = ({
     dndTarget.addEventListener('dragexit', handleDraggingOut);
     dndTarget.addEventListener('dragleave', handleDraggingOut);
     dndTarget.addEventListener('drop', handleDrop);
-    // eslint-disable-next-line consistent-return
+
     return () => {
       dndTarget.removeEventListener('drag', handleDraggingIn);
       dndTarget.removeEventListener('dragstart', handleDraggingIn);
@@ -152,10 +155,10 @@ const useDragNDropFile = ({
   }, [dndTarget, handleDraggingIn, handleDraggingOut, handleDrop]);
 
   useEffect(() => {
-    if (overlayRef.current) {
-      render(overlay, overlayRef.current);
+    if (overlayRef.current && root) {
+      root.render(overlay);
     }
-  }, [overlay]);
+  }, [overlay, root]);
 };
 
 export default useDragNDropFile;

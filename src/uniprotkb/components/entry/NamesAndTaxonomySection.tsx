@@ -1,32 +1,33 @@
-import { memo, useMemo } from 'react';
 import { Card, InfoList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
+import { memo, useMemo } from 'react';
 
-import ProteinNamesView from '../protein-data-views/ProteinNamesView';
-import GeneNamesView from '../protein-data-views/GeneNamesView';
-import ProteomesListView from '../protein-data-views/ProteomesView';
-import XRefView from '../protein-data-views/XRefView';
-import AccessionsView from '../protein-data-views/AccessionsView';
 import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
-import CommunityCuration from './CommunityCuration';
-
-import { hasContent, pluralise } from '../../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
-
-import EntrySection from '../../types/entrySection';
-import UniProtKBEvidenceTag, {
-  EvidenceTagSourceTypes,
-} from '../protein-data-views/UniProtKBEvidenceTag';
-import { UniProtKBReference } from '../../adapters/uniProtkbConverter';
-import { ecoCode } from '../../config/evidenceCodes';
-
+import {
+  deepFindAllByKey,
+  excludeKeys,
+  hasContent,
+  pluralise,
+} from '../../../shared/utils/utils';
 import {
   Reference,
   ReferenceComment,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
+import { UniProtKBReference } from '../../adapters/uniProtkbConverter';
+import { ecoCode } from '../../config/evidenceCodes';
+import EntrySection from '../../types/entrySection';
 import { Evidence } from '../../types/modelTypes';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import AccessionsView from '../protein-data-views/AccessionsView';
+import GeneNamesView from '../protein-data-views/GeneNamesView';
+import ProteinNamesView from '../protein-data-views/ProteinNamesView';
+import ProteomesListView from '../protein-data-views/ProteomesView';
+import UniProtKBEvidenceTag, {
+  EvidenceTagSourceTypes,
+} from '../protein-data-views/UniProtKBEvidenceTag';
+import XRefView from '../protein-data-views/XRefView';
+import CommunityCuration from './CommunityCuration';
 
 type Props = {
   data: NamesAndTaxonomyUIModel;
@@ -48,9 +49,13 @@ const NamesAndTaxonomySection = ({
         groupBy(
           references
             ?.flatMap((ref) =>
-              // Only get comments refering to strains
+              // Only get comments refering to strains that come from the sequence
               ref.referenceComments?.filter(
-                (refComm) => refComm.type === 'STRAIN'
+                (refComm) =>
+                  refComm.type === 'STRAIN' &&
+                  ref.referencePositions?.findIndex((item) =>
+                    item.includes('SEQUENCE')
+                  ) !== -1
               )
             )
             .filter(
@@ -82,8 +87,25 @@ const NamesAndTaxonomySection = ({
     [references]
   );
 
+  const uniqueAnnotatedNames = new Set(
+    !data.proteinNamesData
+      ? []
+      : deepFindAllByKey(
+          {
+            proteinNames: excludeKeys(data.proteinNamesData, [
+              'includes',
+              'contains',
+            ]),
+            geneNames: data.geneNamesData,
+          },
+          'value'
+        )
+  );
+
   const nameRelatedReferences = communityReferences.filter(
-    (reference) => reference.communityAnnotation?.proteinOrGene
+    (reference) =>
+      reference.communityAnnotation?.proteinOrGene &&
+      !uniqueAnnotatedNames.has(reference.communityAnnotation.proteinOrGene)
   );
 
   if (!hasContent(data) && !nameRelatedReferences.length) {
@@ -186,7 +208,7 @@ const NamesAndTaxonomySection = ({
         hosts={data.organismHosts}
         strains={strains}
       />
-      <h3>Accessions</h3>
+      <h3 data-article-id="accession_numbers">Accessions</h3>
       <AccessionsView data={data} />
       {!!data.proteomesData?.length && (
         <>

@@ -1,8 +1,7 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import DownloadAPIURL, { getSearchURL } from '../DownloadAPIURL';
-
 import customRender from '../../../__test-helpers__/customRender';
+import DownloadAPIURL, { getSearchURL } from '../DownloadAPIURL';
 
 const apiURL = 'https://foo.org';
 
@@ -50,7 +49,7 @@ describe('DownloadAPIURL', () => {
     await waitFor(() =>
       expect(messagesDispatch).toHaveBeenCalledWith({
         payload: {
-          content: 'Link copied to clipboard',
+          content: 'Copied to clipboard',
           displayTime: 5000,
           format: 'POP_UP',
           level: 'success',

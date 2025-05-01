@@ -1,12 +1,8 @@
-import { Button } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
-
-import { fromCleanMapper } from '../../utils/getIdKey';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { Location } from '../../../app/config/urls';
+import { ID_MAPPING_LIMIT } from '../../config/limits';
 import { Namespace } from '../../types/namespaces';
-
-const MAPID_LIMIT = 100_000;
+import { fromCleanMapper } from '../../utils/getIdKey';
+import ToolsButton from './ToolsButton';
 
 type MapIDButtonProps = {
   selectedEntries: string[];
@@ -14,22 +10,20 @@ type MapIDButtonProps = {
 };
 
 const MapIDButton = ({ selectedEntries, namespace }: MapIDButtonProps) => {
-  const history = useHistory();
-
   const cleanedSelectedEntries = Array.from(
     new Set(selectedEntries.map(fromCleanMapper))
   );
 
   const n = cleanedSelectedEntries.length;
 
-  const disabled = !n || n > MAPID_LIMIT;
+  const disabled = !n || n > ID_MAPPING_LIMIT;
 
   let title = 'Select at least one entry to map';
   if (n) {
     if (n === 1) {
       title = 'Map the ID of this selected entry';
-    } else if (n > MAPID_LIMIT) {
-      title = `Please select a maximum of ${MAPID_LIMIT} entries to map`;
+    } else if (n > ID_MAPPING_LIMIT) {
+      title = `Please select a maximum of ${ID_MAPPING_LIMIT} entries to map`;
     } else {
       title = `Map the IDs of these ${n} selected entries`;
     }
@@ -44,21 +38,17 @@ const MapIDButton = ({ selectedEntries, namespace }: MapIDButtonProps) => {
     from = 'UniParc';
   }
 
-  const handleClick = () => {
-    history.push(LocationToPath[Location.IDMapping], {
-      parameters: { ids: cleanedSelectedEntries, from, to },
-    });
-  };
-
   return (
-    <Button
-      variant="tertiary"
-      title={title}
+    <ToolsButton
+      selectedEntries={cleanedSelectedEntries}
+      from={from}
+      to={to}
       disabled={disabled}
-      onClick={handleClick}
+      title={title}
+      location={Location.IDMapping}
     >
       Map ID{n === 1 ? '' : 's'}
-    </Button>
+    </ToolsButton>
   );
 };
 

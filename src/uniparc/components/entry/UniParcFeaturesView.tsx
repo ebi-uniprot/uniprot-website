@@ -1,17 +1,17 @@
 import { useMemo } from 'react';
+import { v1 } from 'uuid';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
 import externalUrls from '../../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { stringToColour } from '../../../shared/utils/color';
+import { markBackground, markBorder } from '../../../shared/utils/nightingale';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
-
 import { SequenceFeature } from '../../adapters/uniParcConverter';
 
 export type UniParcProcessedFeature = ProcessedFeature & {
@@ -28,8 +28,8 @@ export const convertData = (
   data
     .flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
+        accession: v1(), // Can't rely on feature.databaseId being unique
         type: 'Other' as const,
-        protvistaFeatureId: feature.databaseId,
         start: locationFeature.start,
         end: locationFeature.end,
         database: feature.database,
@@ -41,6 +41,8 @@ export const convertData = (
     )
     .sort(sortByLocation);
 
+const getRowId = (data: UniParcProcessedFeature) => data.accession;
+
 type UniParcFeaturesViewProps = {
   data: SequenceFeature[];
   sequence: string;
@@ -50,70 +52,80 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
   const processedData = useMemo(() => convertData(data), [data]);
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  // Define table contents
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th>InterPro Group</th>
-          <th>Position(s)</th>
-          <th>Database identifier</th>
-          <th>Database</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
-        {processedData.map((feature) => {
-          const { database, databaseId } = feature;
-          const databaseInfo =
-            databaseInfoMaps?.databaseToDatabaseInfo[database];
+  const columns: TableFromDataColumn<UniParcProcessedFeature>[] = useMemo(
+    () => [
+      {
+        label: 'InterPro Group',
+        id: 'interpro-group',
+        render: (feature) =>
+          feature.interproGroupId ? (
+            <ExternalLink
+              url={externalUrls.InterProEntry(feature.interproGroupId)}
+            >
+              {feature.interproGroupName}
+            </ExternalLink>
+          ) : (
+            'N/A'
+          ),
+      },
+      {
+        label: 'Position(s)',
+        id: 'position',
+        render: (feature) => {
           let position = `${feature.start}`;
           if (feature.start !== feature.end) {
             position += `-${feature.end}`;
           }
+          return position;
+        },
+      },
+      {
+        label: 'Database identifier',
+        id: 'database-identifier',
+        render: (feature) => {
+          const { database, databaseId } = feature;
+          const databaseInfo =
+            databaseInfoMaps?.databaseToDatabaseInfo[database];
+          // Additional prefix 'G3DSA:' in UniParc will be removed in https://www.ebi.ac.uk/panda/jira/browse/TRM-32164.
+          // Adjust the below logic accordingly
+          let revisedDatabaseId;
+          if (database === 'FunFam' || database === 'Gene3D') {
+            revisedDatabaseId = databaseId.replace('G3DSA:', '');
+          }
 
           return (
-            <tr
-              key={feature.protvistaFeatureId}
-              data-start={feature.start}
-              data-end={feature.end}
-            >
-              <td>
-                {feature.interproGroupId ? (
-                  <ExternalLink
-                    url={externalUrls.InterProEntry(feature.interproGroupId)}
-                  >
-                    {feature.interproGroupName}
-                  </ExternalLink>
-                ) : (
-                  'N/A'
-                )}
-              </td>
-              <td>{position}</td>
-              <td>
-                {databaseInfo?.uriLink && databaseId && (
-                  <ExternalLink
-                    url={processUrlTemplate(databaseInfo.uriLink, {
-                      id: databaseId,
-                    })}
-                  >
-                    {databaseId}
-                  </ExternalLink>
-                )}
-              </td>
-              <td>{feature.database}</td>
-            </tr>
+            <>
+              {databaseInfo?.uriLink && databaseId && (
+                <ExternalLink
+                  url={processUrlTemplate(databaseInfo.uriLink, {
+                    id: revisedDatabaseId || databaseId,
+                  })}
+                >
+                  {databaseId}
+                </ExternalLink>
+              )}
+            </>
           );
-        })}
-      </tbody>
-    </table>
+        },
+      },
+      {
+        label: 'Database',
+        id: 'database',
+        render: (feature) => feature.database,
+      },
+    ],
+    [databaseInfoMaps?.databaseToDatabaseInfo]
   );
 
   return (
     <FeaturesView
       features={processedData}
-      table={table}
+      columns={columns}
+      getRowId={getRowId}
       sequence={sequence}
       noLinkToFullView
+      markBorder={markBorder}
+      markBackground={markBackground}
     />
   );
 };

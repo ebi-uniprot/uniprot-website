@@ -1,16 +1,14 @@
-import DatabaseColumnConfiguration, {
-  DatabaseColumn,
-} from '../DatabaseColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/databaseModelData';
 import databaseConverter, {
   DatabaseAPIModel,
   DatabaseUIModel,
 } from '../../adapters/databaseConverter';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import DatabaseColumnConfiguration, {
+  DatabaseColumn,
+} from '../DatabaseColumnConfiguration';
 
-import data from '../../__mocks__/databaseModelData';
-
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: DatabaseUIModel = databaseConverter(data[0]);
 

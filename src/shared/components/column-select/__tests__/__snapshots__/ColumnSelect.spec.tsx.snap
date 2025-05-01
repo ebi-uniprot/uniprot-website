@@ -6,49 +6,54 @@ exports[`ColumnSelect component should render 1`] = `
     class="column-select"
   >
     <div
-      class="column-select-drag-drop__list"
-      data-rbd-droppable-context-id="0"
-      data-rbd-droppable-id="droppable"
+      class="column-select-drag-drop"
     >
-      <div
-        aria-describedby="rbd-hidden-text-0-hidden-text-0"
-        data-rbd-drag-handle-context-id="0"
-        data-rbd-drag-handle-draggable-id="protein_name"
-        data-rbd-draggable-context-id="0"
-        data-rbd-draggable-id="protein_name"
-        draggable="false"
+      <span
+        aria-describedby="DndDescribedBy-0"
+        aria-disabled="false"
+        aria-roledescription="sortable"
+        class="chip sortable-item"
         role="button"
+        style="opacity: 1;"
         tabindex="0"
       >
-        <span
-          class="chip"
-        >
-          Protein names
-          <test-file-stub
-            data-testid="remove-icon"
-          />
-        </span>
-      </div>
-      <div
-        aria-describedby="rbd-hidden-text-0-hidden-text-0"
-        data-rbd-drag-handle-context-id="0"
-        data-rbd-drag-handle-draggable-id="organism_name"
-        data-rbd-draggable-context-id="0"
-        data-rbd-draggable-id="organism_name"
-        draggable="false"
+        Protein names
+        <test-file-stub
+          data-testid="remove-icon"
+        />
+      </span>
+      <span
+        aria-describedby="DndDescribedBy-0"
+        aria-disabled="false"
+        aria-roledescription="sortable"
+        class="chip sortable-item"
         role="button"
+        style="opacity: 1;"
         tabindex="0"
       >
-        <span
-          class="chip"
-        >
-          Organism
-          <test-file-stub
-            data-testid="remove-icon"
-          />
-        </span>
-      </div>
+        Organism
+        <test-file-stub
+          data-testid="remove-icon"
+        />
+      </span>
     </div>
+    <div
+      id="DndDescribedBy-0"
+      style="display: none;"
+    >
+      
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  
+    </div>
+    <div
+      aria-atomic="true"
+      aria-live="assertive"
+      id="DndLiveRegion-0"
+      role="status"
+      style="position: fixed; top: 0px; left: 0px; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip-path: inset(100%); white-space: nowrap;"
+    />
     <span
       class="search-input"
     >

@@ -1,23 +1,22 @@
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
 import {
   fireEvent,
-  waitFor,
-  screen,
   render,
   RenderResult,
+  screen,
+  waitFor,
 } from '@testing-library/react';
-
-import CustomiseTable from '../CustomiseTable';
-
-import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../../types/namespaces';
+import CustomiseTable from '../CustomiseTable';
 
 describe('CustomiseTable component', () => {
   let rendered: RenderResult;
   const onSubmit = jest.fn();
   const onReset = jest.fn();
-  const onChange = jest.fn();
+  const onColumnChange = jest.fn();
   const onCancel = jest.fn();
   const selectedColumns = [
     UniProtKBColumn.accession,
@@ -30,7 +29,7 @@ describe('CustomiseTable component', () => {
       <CustomiseTable
         onSubmit={onSubmit}
         onReset={onReset}
-        onChange={onChange}
+        onColumnChange={onColumnChange}
         onCancel={onCancel}
         namespace={Namespace.uniprotkb}
         isEntryPage={false}
@@ -38,6 +37,8 @@ describe('CustomiseTable component', () => {
       />
     );
     await waitFor(() => screen.getAllByRole('button'));
+    // wait for the drag and drop library to have instantiated itself
+    await waitFor(() => screen.getByRole('status'));
   });
 
   afterEach(() => {

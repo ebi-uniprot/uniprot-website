@@ -1,5 +1,4 @@
-import { Fragment, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import {
   EllipsisReveal,
   InfoList,
@@ -7,44 +6,41 @@ import {
   // InformationIcon,
 } from 'franklin-sites';
 import { isEqual, pullAll /* , omit */ } from 'lodash-es';
-import cn from 'classnames';
+import { Fragment, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
+import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { Namespace } from '../../../shared/types/namespaces';
+import listFormat from '../../../shared/utils/listFormat';
+import * as logging from '../../../shared/utils/logging';
+import { pluralise } from '../../../shared/utils/utils';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
+import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
 // import AccessionView from '../../../shared/components/results/AccessionView';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
-import CatalyticActivityView from '../../../uniprotkb/components/protein-data-views/CatalyticActivityView';
-import { CofactorView } from '../../../uniprotkb/components/entry/FunctionSection';
 import LigandDescriptionView from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-
-import listFormat from '../../../shared/utils/listFormat';
-import { pluralise } from '../../../shared/utils/utils';
-import { getEntryPath } from '../../../app/config/urls';
-import * as logging from '../../../shared/utils/logging';
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
-import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
-import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
-import {
-  CaseRule,
-  Rule,
-  Condition,
-  RuleException,
-  Annotation,
-  ConditionSet,
-  PositionFeatureSet,
-  Range,
-  SAMFeatureSet,
-} from '../model';
-import { Namespace } from '../../../shared/types/namespaces';
 import {
   CatalyticActivityComment,
   CofactorComment,
 } from '../../../uniprotkb/types/commentTypes';
 import { DatabaseInfoMaps } from '../../../uniprotkb/utils/database';
-
+import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
+import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
+import {
+  Annotation,
+  CaseRule,
+  Condition,
+  ConditionSet,
+  PositionFeatureSet,
+  Range,
+  Rule,
+  RuleException,
+  SAMFeatureSet,
+} from '../model';
 import styles from './styles/conditions-annotations.module.scss';
 
 type AnnotationWithExceptions = Annotation & { exceptions?: RuleException[] };
@@ -364,73 +360,6 @@ const ConditionsComponent = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ExceptionComponent: any = () => null;
-
-/* We need to hide this, for now, replaced with the above component instead */
-// const ExceptionComponent = ({
-//   annotationWithExceptions,
-// }: {
-//   annotationWithExceptions: AnnotationWithExceptions;
-// }) => {
-//   const filteredExceptions = annotationWithExceptions.exceptions?.filter(
-//     (e: RuleException | undefined): e is RuleException => e !== undefined
-//   );
-//   if (!filteredExceptions?.length) {
-//     return null;
-//   }
-//   const originalAnnotation = omit(annotationWithExceptions, 'exceptions');
-//   return (
-//     <EvidenceTag
-//       className={styles.exceptions}
-//       label={pluralise('exception', filteredExceptions.length)}
-//       iconComponent={<InformationIcon style={{ marginTop: '0.3em' }} />}
-//     >
-//       <ul>
-//         {filteredExceptions.map((exception, index) => {
-//           // Only need to display the exception's annotation if it is distinct
-//           // from the main annotation
-//           const needsToDisplayAnnotation = !isEqual(
-//             originalAnnotation,
-//             exception.annotation
-//           );
-//           return (
-//             // eslint-disable-next-line react/no-array-index-key
-//             <li key={index}>
-//               {exception.category}:<br />
-//               {exception.accessions?.length ? (
-//                 <>
-//                   This applies to the following{' '}
-//                   {exception.accessions.length === 1
-//                     ? ''
-//                     : `${exception.accessions.length} `}
-//                   {pluralise('entry', exception.accessions.length, 'entries')}:{' '}
-//                   {exception.accessions.map((accession, index, array) => (
-//                     <Fragment key={accession}>
-//                       {listFormat(index, array)}
-//                       <AccessionView
-//                         id={accession}
-//                         namespace={Namespace.uniprotkb}
-//                       />
-//                     </Fragment>
-//                   ))}
-//                   .<br />
-//                 </>
-//               ) : null}
-//               {exception.annotation && needsToDisplayAnnotation && (
-//                 <InfoList
-//                   infoData={annotationsToInfoData([exception.annotation])}
-//                 />
-//               )}
-//               {exception.note && <span>Note: {exception.note}</span>}
-//             </li>
-//           );
-//         })}
-//       </ul>
-//     </EvidenceTag>
-//   );
-// };
-
 const GroupedAnnotation = (
   type: string,
   annotations: Array<AnnotationWithExceptions | PositionFeatureSet>
@@ -450,7 +379,6 @@ const GroupedAnnotation = (
                 >
                   {annotation.keyword.name}
                 </Link>
-                <ExceptionComponent annotationWithExceptions={annotation} />
               </li>
             )
         )}
@@ -471,7 +399,6 @@ const GroupedAnnotation = (
                 >
                   {annotation.dbReference.id}
                 </ExternalLink>
-                <ExceptionComponent annotationWithExceptions={annotation} />
               </li>
             )
         )}
@@ -492,7 +419,6 @@ const GroupedAnnotation = (
                 )}
                 contextKey="protein_name"
               />
-              <ExceptionComponent annotationWithExceptions={annotation} />
             </li>
           ))}
         </EllipsisReveal.Provider>
@@ -507,7 +433,6 @@ const GroupedAnnotation = (
             // eslint-disable-next-line react/no-array-index-key
             <li key={index}>
               <CSVView data={annotation.gene} contextKey="gene name" />
-              <ExceptionComponent annotationWithExceptions={annotation} />
             </li>
           ))}
         </EllipsisReveal.Provider>
@@ -545,7 +470,6 @@ const GroupedAnnotation = (
               comments={[annotation.comment as CatalyticActivityComment]}
               defaultHideAllReactions
             />
-            <ExceptionComponent annotationWithExceptions={annotation} />
           </li>
         ))}
       </ul>
@@ -558,7 +482,6 @@ const GroupedAnnotation = (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <CofactorView cofactors={[annotation.comment as CofactorComment]} />
-            <ExceptionComponent annotationWithExceptions={annotation} />
           </li>
         ))}
       </ul>
@@ -574,7 +497,6 @@ const GroupedAnnotation = (
               // eslint-disable-next-line react/no-array-index-key
               <li key={index}>
                 {annotation.comment.texts?.map((text) => text.value).join('. ')}
-                <ExceptionComponent annotationWithExceptions={annotation} />
               </li>
             )
         )}

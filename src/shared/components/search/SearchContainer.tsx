@@ -1,55 +1,52 @@
+import './styles/search-container.scss';
+
+import { Button, MainSearch, SlidingPanel } from 'franklin-sites';
 import {
-  useState,
-  useEffect,
   Fragment,
   HTMLAttributes,
-  useCallback,
   Suspense,
   SyntheticEvent,
+  useCallback,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { MainSearch, Button, SlidingPanel } from 'franklin-sites';
 import { SearchAction, WebSite, WithContext } from 'schema-dts';
-
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-import useIDMappingDetails from '../../hooks/useIDMappingDetails';
-import useStructuredData from '../../hooks/useStructuredData';
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
-import { useSmallScreen } from '../../hooks/useMatchMedia';
-
-import lazy from '../../utils/lazy';
-import { addMessage } from '../../../messages/state/messagesActions';
-import { rawDBToNamespace } from '../../../tools/id-mapping/utils';
-import { stringifyQuery } from '../../utils/url';
 
 import {
   Location,
   LocationToPath,
   SearchResultsLocations,
 } from '../../../app/config/urls';
-import {
-  Namespace,
-  searchableNamespaceLabels,
-  SearchableNamespace,
-  Searchspace,
-  toolResults,
-  searchspaceLabels,
-} from '../../types/namespaces';
+import { rawDBToNamespace } from '../../../jobs/id-mapping/utils';
+import { JobTypes } from '../../../jobs/types/jobTypes';
+import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-
-import './styles/search-container.scss';
+import useIDMappingDetails from '../../hooks/useIDMappingDetails';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import useStructuredData from '../../hooks/useStructuredData';
+import {
+  Namespace,
+  SearchableNamespace,
+  searchableNamespaceLabels,
+  Searchspace,
+  searchspaceLabels,
+  toolResults,
+} from '../../types/namespaces';
 import {
   PanelFormCloseReason,
   sendGtagEventPanelAdvancedSearchClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
+import lazy from '../../utils/lazy';
+import { stringifyQuery } from '../../utils/url';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 const QueryBuilder = lazy(
   () =>
@@ -70,7 +67,7 @@ const examples: Record<SearchableNamespace, string[]> = {
   [Namespace.uniref]: [
     'Transcription factors',
     'identity:1.0',
-    'uniprot_id:q9h9k5 AND identity:1.0',
+    'uniprotkb:q9h9k5 AND identity:1.0',
     'Human',
   ],
   [Namespace.uniparc]: ['UPI000000000B', 'P05067', 'APP', 'database:RefSeq'],
@@ -305,6 +302,7 @@ const SearchContainer = ({
           onNamespaceChange={setSearchspace}
           selectedNamespace={searchspace}
           secondaryButtons={secondaryButtons}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={isOnHomePage}
         />
         {isOnHomePage && (
@@ -337,9 +335,12 @@ const SearchContainer = ({
       {displayQueryBuilder && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Advanced Search"
+            title={
+              <span data-article-id="advanced_search">Advanced Search</span>
+            }
             position="left"
             onClose={handleToggleQueryBuilder}
+            pathname={location.pathname}
           >
             <ErrorBoundary>
               <QueryBuilder

@@ -1,44 +1,39 @@
+import cn from 'classnames';
 import {
-  FC,
-  useState,
-  Suspense,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  ChangeEvent,
-  useCallback,
-} from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  DownloadIcon,
   // StatisticsIcon,
   Button,
+  DownloadIcon,
   SlidingPanel,
 } from 'franklin-sites';
-import cn from 'classnames';
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import BlastButton from '../action-buttons/Blast';
-import AlignButton from '../action-buttons/Align';
-import MapIDButton from '../action-buttons/MapID';
-import AddToBasketButton from '../action-buttons/AddToBasket';
-import CustomiseButton from '../action-buttons/CustomiseButton';
-import ShareDropdown from '../action-buttons/ShareDropdown';
-import ItemCount from '../ItemCount';
-import ErrorBoundary from '../error-component/ErrorBoundary';
-import FirstTimeSelection from './FirstTimeSelection';
-import { ResubmitButton } from '../../../tools/components/ResultButtons';
-
-import useNS from '../../hooks/useNS';
-import useViewMode, { ViewMode } from '../../hooks/useViewMode';
-import useColumnNames from '../../hooks/useColumnNames';
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
-
+import { ResubmitButton } from '../../../jobs/components/ResultButtons';
+import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
-import lazy from '../../utils/lazy';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
+import useColumnNames from '../../hooks/useColumnNames';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import useNS from '../../hooks/useNS';
+import useViewMode, { ViewMode } from '../../hooks/useViewMode';
+import { mainNamespaces, Namespace } from '../../types/namespaces';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
@@ -46,16 +41,16 @@ import {
   sendGtagEventPanelResultsDownloadClose,
   sendGtagEventViewMode,
 } from '../../utils/gtagEvents';
-
-import { Namespace, mainNamespaces } from '../../types/namespaces';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import lazy from '../../utils/lazy';
+import { roundNumber } from '../../utils/roundNumber';
+import AddToBasketButton from '../action-buttons/AddToBasket';
+import CustomiseButton from '../action-buttons/CustomiseButton';
+import ShareDropdown from '../action-buttons/ShareDropdown';
+import ToolsDropdown from '../action-buttons/ToolsDropdown';
 import { ExtraContent } from '../download/downloadReducer';
-
+import ErrorBoundary from '../error-component/ErrorBoundary';
+import ItemCount from '../ItemCount';
+import FirstTimeSelection from './FirstTimeSelection';
 import styles from './styles/results-buttons.module.scss';
 
 const DownloadComponent = lazy(
@@ -80,7 +75,9 @@ type ResultsButtonsProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
 };
 
-const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
+const ResultsButtons: FC<
+  React.PropsWithChildren<ResultsButtonsProps<JobTypes>>
+> = ({
   selectedEntries,
   setSelectedEntries,
   total,
@@ -109,6 +106,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
   const { invalidUrlColumnNames, fromUrl: columnNamesAreFromUrl } =
     useColumnNames({ namespaceOverride });
   const history = useHistory();
+  const { pathname } = useLocation();
   const dispatch = useMessagesDispatch();
 
   const sharedUrlMode = viewModeIsFromUrl || columnNamesAreFromUrl;
@@ -195,10 +193,11 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Download"
+            title={<span data-article-id="downloads">Download</span>}
             // Meaning, in basket mini view, slide from the right
             position={inBasketMini ? 'right' : 'left'}
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <DownloadComponent
@@ -220,16 +219,14 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
         </Suspense>
       )}
       <div className={cn('button-group', styles['results-buttons'])}>
-        {isMain && namespace !== Namespace.proteomes && (
-          <BlastButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <AlignButton selectedEntries={selectedEntries} />
-        )}
-        {isMain && namespace !== Namespace.proteomes && (
-          <MapIDButton
+        {/* Whenever (if) we get proteomes in ID mapping, remove this and add
+        back this condition to blast and align props below */}
+        {namespace !== Namespace.proteomes && (
+          <ToolsDropdown
             selectedEntries={selectedEntries}
-            namespace={namespace}
+            blast={isMain}
+            align={isMain}
+            mapID={isMain}
           />
         )}
         <Button
@@ -240,7 +237,7 @@ const ResultsButtons: FC<ResultsButtonsProps<JobTypes>> = ({
           disabled={!hasResults}
         >
           <DownloadIcon />
-          Download
+          Download ({roundNumber(selectedEntries.length || total)})
         </Button>
         {isMain && namespace !== Namespace.proteomes && (
           <AddToBasketButton

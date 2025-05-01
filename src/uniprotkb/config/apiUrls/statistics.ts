@@ -4,5 +4,10 @@ import { apiPrefix } from '../../../shared/config/apiUrls/apiPrefix';
 
 export const statistics = (
   releaseNumber: string,
-  type: 'reviewed' | 'unreviewed'
-) => joinUrl(apiPrefix, 'statistics', 'releases', releaseNumber, type);
+  type?: 'reviewed' | 'unreviewed'
+) =>
+  type
+    ? joinUrl(apiPrefix, 'statistics', 'releases', releaseNumber, type)
+    : joinUrl(apiPrefix, 'statistics', 'releases', releaseNumber);
+
+export const history = joinUrl(apiPrefix, 'statistics', 'history', 'entry');

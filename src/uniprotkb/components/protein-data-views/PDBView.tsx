@@ -1,14 +1,12 @@
 import { Fragment } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
-
+import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
+import Table from '../../../shared/components/table/Table';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Xref } from '../../../shared/types/apiModel';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { getPDBMirrorsInfo } from '../../config/database';
-
-import { Xref } from '../../../shared/types/apiModel';
 
 const processData = (xrefs: Xref[]) =>
   xrefs.map(({ id, properties }) => {
@@ -30,7 +28,7 @@ const processData = (xrefs: Xref[]) =>
       resolution: !Resolution || Resolution === '-' ? null : Resolution,
       chain,
       positions,
-      protvistaFeatureId: id,
+      accession: id,
     };
   });
 
@@ -47,60 +45,56 @@ const PDBView = ({ xrefs }: { xrefs: Xref[] }) => {
    * Note: this view is duplicated in protvista-uniprot-structure
    * This is because the AF data is not currently available as part of the entry
    * Eventually it might make sense to just use protvista-structure and
-   * protvista-datatable.
+   * a Table.
    */
   const data = processData(xrefs);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
   return (
-    <DatatableWrapper>
-      <table>
-        <thead>
-          <tr>
-            <th>PDB Entry</th>
-            <th>Method</th>
-            <th>Resolution</th>
-            <th>Chain</th>
-            <th>Positions</th>
-            <th>Links</th>
-          </tr>
-        </thead>
-        <tbody translate="no">
-          {data.map(
-            (d) =>
-              d && (
-                <tr key={d.id}>
-                  <td>{d.id}</td>
-                  <td translate="yes">{d.method}</td>
-                  <td>{d.resolution?.replace('A', 'Å')}</td>
-                  <td>{d.chain}</td>
-                  <td>{d.positions}</td>
-                  <td>
-                    {databaseInfoMaps &&
-                      getPDBMirrorsInfo(
-                        databaseInfoMaps.databaseToDatabaseInfo
-                      ).map(({ displayName, uriLink }, index) => (
-                        <Fragment key={uriLink}>
-                          {index ? ' · ' : null}
-                          <ExternalLink
-                            url={
-                              d.id
-                                ? processUrlTemplate(uriLink, { id: d.id })
-                                : null
-                            }
-                          >
-                            {displayName}
-                          </ExternalLink>
-                        </Fragment>
-                      ))}
-                  </td>
-                </tr>
-              )
-          )}
-        </tbody>
-      </table>
-    </DatatableWrapper>
+    <Table expandable={data.length > MIN_ROWS_TO_EXPAND}>
+      <Table.Head>
+        <th>PDB Entry</th>
+        <th>Method</th>
+        <th>Resolution</th>
+        <th>Chain</th>
+        <th>Positions</th>
+        <th>Links</th>
+      </Table.Head>
+      <Table.Body translate="no">
+        {data.map(
+          (d, i) =>
+            d && (
+              <Table.Row isOdd={i % 2 === 1} key={d.id}>
+                <td>{d.id}</td>
+                <td translate="yes">{d.method}</td>
+                <td>{d.resolution?.replace('A', 'Å')}</td>
+                <td>{d.chain}</td>
+                <td>{d.positions}</td>
+                <td>
+                  {databaseInfoMaps &&
+                    getPDBMirrorsInfo(
+                      databaseInfoMaps.databaseToDatabaseInfo
+                    ).map(({ displayName, uriLink }, index) => (
+                      <Fragment key={uriLink}>
+                        {index ? ' · ' : null}
+                        <ExternalLink
+                          url={
+                            d.id
+                              ? processUrlTemplate(uriLink, { id: d.id })
+                              : null
+                          }
+                        >
+                          {displayName}
+                        </ExternalLink>
+                      </Fragment>
+                    ))}
+                </td>
+              </Table.Row>
+            )
+        )}
+      </Table.Body>
+    </Table>
   );
 };
 

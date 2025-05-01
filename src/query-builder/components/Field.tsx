@@ -1,13 +1,12 @@
 import { FC } from 'react';
 
-import RangeField from './RangeField';
-import EnumOrBooleanField from './EnumOrBooleanField';
-import TextField from './TextField';
-import GoEvidenceField from './GoEvidenceField';
-import ExperimentalEvidenceField from './ExperimentalEvidenceField';
-import AutocompleteField from './AutocompleteField';
-
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import AutocompleteField from './AutocompleteField';
+import EnumOrBooleanField from './EnumOrBooleanField';
+import ExperimentalEvidenceField from './ExperimentalEvidenceField';
+import GoEvidenceField from './GoEvidenceField';
+import RangeField from './RangeField';
+import TextField from './TextField';
 
 export type FieldProps = {
   field: SearchTermType;
@@ -15,13 +14,13 @@ export type FieldProps = {
   initialValue?: QueryBit;
 };
 
-const Field: FC<FieldProps> = ({
+const Field: FC<React.PropsWithChildren<FieldProps>> = ({
   field,
   handleChange,
   initialValue,
 }: FieldProps) => {
   const { dataType, fieldType, autoComplete } = field;
-  let GenericField: FC<FieldProps>;
+  let GenericField: FC<React.PropsWithChildren<FieldProps>>;
 
   switch (true) {
     case Boolean(autoComplete):

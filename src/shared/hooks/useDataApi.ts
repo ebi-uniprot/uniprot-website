@@ -1,25 +1,24 @@
-import { useEffect, useReducer, useRef } from 'react';
 import axios, {
-  AxiosResponse,
   AxiosError,
-  AxiosRequestConfig,
   AxiosProgressEvent,
+  AxiosRequestConfig,
+  AxiosResponse,
+  isCancel,
 } from 'axios';
+import { useEffect, useReducer, useRef } from 'react';
 import joinUrl from 'url-join';
 
-import useMessagesDispatch from './useMessagesDispatch';
-
-import fetchData from '../utils/fetchData';
 import { addMessage } from '../../messages/state/messagesActions';
-import * as logging from '../utils/logging';
-import { apiPrefix } from '../config/apiUrls/apiPrefix';
-
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
+import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { Namespace } from '../types/namespaces';
+import fetchData from '../utils/fetchData';
+import * as logging from '../utils/logging';
 import { UserPreferenceKey } from './useLocalStorage';
+import useMessagesDispatch from './useMessagesDispatch';
 
 export type CustomError = AxiosError<undefined | { messages?: string[] }>;
 
@@ -71,14 +70,9 @@ type Action<T> =
     }
   | { type: ActionType.ERROR; error: CustomError };
 
-// eslint-disable-next-line consistent-return
 const createReducer =
   <T>() =>
-  (
-    state: UseDataAPIState<T>,
-    action: Action<T>
-    // eslint-disable-next-line consistent-return
-  ): UseDataAPIState<T> => {
+  (state: UseDataAPIState<T>, action: Action<T>): UseDataAPIState<T> => {
     // eslint-disable-next-line default-case
     switch (action.type) {
       case ActionType.INIT:
@@ -157,6 +151,7 @@ function useDataApi<T>(
     dispatch({ type: ActionType.INIT, url });
 
     // variables to handle cancellation
+    // eslint-disable-next-line import/no-named-as-default-member
     const source = axios.CancelToken.source();
 
     // to keep track of the last time we dispatched a progress action
@@ -200,7 +195,7 @@ function useDataApi<T>(
         if (error.response?.status && error.response.status !== 404) {
           logging.error(error, { tags: { origin: 'useDataApi', url } });
         }
-        if (axios.isCancel(error) || didCancel) {
+        if (isCancel(error) || didCancel) {
           return;
         }
         dispatch({ type: ActionType.ERROR, error });
@@ -208,7 +203,7 @@ function useDataApi<T>(
     );
 
     // handle unmounting of the hook
-    // eslint-disable-next-line consistent-return
+
     return () => {
       source.cancel();
       didCancel = true;
@@ -224,11 +219,11 @@ function useDataApi<T>(
           const messageMatch = message.match(invalidFieldMessage);
           const invalidField = messageMatch?.groups?.field;
           if (!messageMatch) {
-            continue; // eslint-disable-line no-continue
+            continue;
           }
           const nsMatch = state.url?.match(namespacedURL);
           if (!nsMatch?.groups?.namespace) {
-            continue; // eslint-disable-line no-continue
+            continue;
           }
           const key =
             `table columns for ${nsMatch?.groups?.namespace}` as UserPreferenceKey;

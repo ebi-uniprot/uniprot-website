@@ -40,16 +40,13 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
           </span>
           .
         </p>
-        <protvista-manager
-          attributes="highlight displaystart displayend selectedid"
-        >
-          <protvista-zoom-tool
-            length="10"
+        <div>
+          <div
+            class="nightingale-zoom-tool"
           >
             <span
               aria-hidden="true"
               class="nightingale-button-content"
-              slot="zoom-in"
             >
               <test-file-stub
                 height="19"
@@ -58,7 +55,6 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <span
               aria-hidden="true"
               class="nightingale-button-content"
-              slot="zoom-out"
             >
               <test-file-stub
                 height="19"
@@ -67,13 +63,12 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <span
               aria-hidden="true"
               class="nightingale-button-content"
-              slot="zoom-in-seq"
             >
               <test-file-stub
                 height="19"
               />
             </span>
-          </protvista-zoom-tool>
+          </div>
           <button
             class="button tertiary"
             type="button"
@@ -90,256 +85,316 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               height="19"
             />
           </a>
-          <protvista-navigation
-            length="10"
-          />
-          <protvista-track
-            layout="non-overlapping"
-            length="10"
-            no-scroll="true"
-          />
-          <protvista-sequence
-            height="20"
-            length="10"
-            no-scroll="true"
-            sequence="SAPSQDFMRF"
-          />
-          <div
-            class="datatable-wrapper"
+          <nightingale-manager
+            reflected-attributes="highlight,display-start,display-end,selectedid"
+            style="display: block; line-height: 0;"
           >
-            <protvista-datatable
-              filter-scroll="true"
+            <nightingale-navigation
+              height="40"
+              length="10"
+            />
+            <nightingale-track-canvas
+              height="40"
+              layout="non-overlapping"
+              length="10"
+              use-ctrl-to-zoom="true"
+            />
+            <nightingale-sequence
+              height="20"
+              length="10"
+              numberofticks="0"
+              sequence="SAPSQDFMRF"
+              use-ctrl-to-zoom="true"
+            />
+            <!---->
+          </nightingale-manager>
+        </div>
+        <table
+          class="table"
+        >
+          <thead
+            class=""
+          >
+            <tr
+              class="row"
             >
-              <table>
-                <thead>
-                  <tr>
-                    <th
-                      data-filter="type"
-                    >
-                      Type
-                    </th>
-                    <th>
-                      ID
-                    </th>
-                    <th>
-                      Position(s)
-                    </th>
-                    <th
-                      data-filter="source"
-                    >
-                      Source
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    data-end="8"
-                    data-id="id value CHAIN"
-                    data-start="2"
+              <th>
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="dropdown"
+                >
+                  <button
+                    class="button tertiary"
+                    type="button"
                   >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Chain"
-                    >
-                      Chain
-                    </td>
-                    <td
-                      id="id value CHAIN"
-                    >
-                      id value CHAIN
-                    </td>
-                    <td>
-                      2-8
-                    </td>
-                    <td
-                      data-filter="source"
-                      data-filter-value="UniProt"
-                    >
-                      UniProt
-                    </td>
-                    <td
-                      id="description2-8"
-                    >
-                      Cu
-                      <sup>
-                        2+
-                      </sup>
-                       A2 (
-                      <a
-                        href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
-                      >
-                        UniProtKB
-                      </a>
-                       | 
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        ChEBI
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      ); Some note of Ca
-                      <sup>
-                        2+
-                      </sup>
-                       A1 (
-                      <a
-                        href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
-                      >
-                        UniProtKB
-                      </a>
-                       | 
-                      <a
-                        class="external-link"
-                        href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
-                        rel="noopener"
-                        target="_blank"
-                      >
-                        ChEBI
-                        <test-file-stub
-                          data-testid="external-link-icon"
-                          width="12.5"
-                        />
-                      </a>
-                      ); Some note; In isoform sequence 1; description value 123
-                      <button
-                        aria-controls="1"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          1 publication
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="1"
-                      />
-                    </td>
-                    <td>
-                      <div
-                        class="button-group"
-                      >
-                        <a
-                          class="button tertiary"
-                          href="/blast?ids=P21802[2-8]"
-                          title="BLAST the sequence corresponding to this feature"
-                          translate="no"
-                        >
-                          BLAST
-                        </a>
-                        <button
-                          class="button tertiary no-small"
-                          title="Add 1 entry to the basket"
-                          type="button"
-                        >
-                          <test-file-stub />
-                          Add
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="8"
-                    data-group-for="id value CHAIN"
-                    data-start="2"
+                    ±
+                  </button>
+                </div>
+              </th>
+              <th>
+                Type
+                <br />
+                <select>
+                  <option
+                    value="All"
                   >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      original value → alternative value
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="215"
-                    data-id="0"
-                    data-start="215"
+                    All
+                  </option>
+                  <option
+                    value="Chain"
                   >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Modified residue (large scale data)"
-                    >
-                      Modified residue (large scale data)
-                    </td>
-                    <td />
-                    <td>
-                      215
-                    </td>
-                    <td
-                      data-filter="source"
-                      data-filter-value="PTMeXchange"
-                    >
-                      PTMeXchange
-                    </td>
-                    <td
-                      id="description215"
-                    >
-                      Phosphoserine
-                      <span
-                        data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
-                      >
-                        <button
-                          class="chip chip--compact secondary Silver"
-                          type="button"
-                        >
-                          Silver
-                        </button>
-                      </span>
-                      <button
-                        aria-controls="2"
-                        aria-expanded="false"
-                        class="svg-colour-unreviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Combined sources
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="2"
-                      />
-                    </td>
-                    <td />
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
+                    Chain
+                  </option>
+                  <option
+                    value="Modified residue (large scale data)"
+                  >
+                    Modified residue (large scale data)
+                  </option>
+                </select>
+              </th>
+              <th>
+                ID
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Source
+                <br />
+                <select>
+                  <option
+                    value="All"
+                  >
+                    All
+                  </option>
+                  <option
+                    value="UniProt"
+                  >
+                    UniProt
+                  </option>
+                  <option
+                    value="PTMeXchange"
+                  >
+                    PTMeXchange
+                  </option>
+                </select>
+              </th>
+              <th>
+                Description
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row has-extra-content mark-border"
+              data-id="0"
             >
-              Expand table
-            </button>
-          </div>
-        </protvista-manager>
+              <td>
+                <button
+                  aria-controls="7"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Chain
+              </td>
+              <td>
+                <span
+                  id="id value CHAIN"
+                >
+                  id value CHAIN
+                </span>
+              </td>
+              <td>
+                2-8
+              </td>
+              <td>
+                UniProt
+              </td>
+              <td>
+                Cu
+                <sup>
+                  2+
+                </sup>
+                 A2 (
+                <a
+                  href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3314""
+                >
+                  UniProtKB
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ChEBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                ); Some note of Ca
+                <sup>
+                  2+
+                </sup>
+                 A1 (
+                <a
+                  href="/uniprotkb?query=ft_binding:"ChEBICHEBI:3214""
+                >
+                  UniProtKB
+                </a>
+                 | 
+                <a
+                  class="external-link"
+                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ChEBI
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                ); Some note; In isoform sequence 1; description value 123
+                <button
+                  aria-controls="3"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="3"
+                />
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      <test-file-stub
+                        width="1.4ch"
+                      />
+                      Tools
+                    </button>
+                  </div>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="7"
+            >
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="1"
+            >
+              <td>
+                <button
+                  aria-controls="8"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Modified residue (large scale data)
+              </td>
+              <td />
+              <td>
+                215
+              </td>
+              <td>
+                PTMeXchange
+              </td>
+              <td>
+                Phosphoserine
+                <span
+                  data-article-id="mod_res_large_scale#what-is-the-goldsilverbronze-criterion"
+                >
+                  <button
+                    class="chip chip--compact secondary Silver"
+                    type="button"
+                  >
+                    Silver
+                  </button>
+                </span>
+                <button
+                  aria-controls="5"
+                  aria-expanded="false"
+                  class="svg-colour-unreviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    Combined sources
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="5"
+                />
+              </td>
+              <td />
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="8"
+            >
+              <td />
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -386,16 +441,13 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
           </span>
           .
         </p>
-        <protvista-manager
-          attributes="highlight displaystart displayend selectedid"
-        >
-          <protvista-zoom-tool
-            length="772"
+        <div>
+          <div
+            class="nightingale-zoom-tool"
           >
             <span
               aria-hidden="true"
               class="nightingale-button-content"
-              slot="zoom-in"
             >
               <test-file-stub
                 height="19"
@@ -404,7 +456,6 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <span
               aria-hidden="true"
               class="nightingale-button-content"
-              slot="zoom-out"
             >
               <test-file-stub
                 height="19"
@@ -413,13 +464,12 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <span
               aria-hidden="true"
               class="nightingale-button-content"
-              slot="zoom-in-seq"
             >
               <test-file-stub
                 height="19"
               />
             </span>
-          </protvista-zoom-tool>
+          </div>
           <button
             class="button tertiary"
             type="button"
@@ -436,193 +486,238 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               height="19"
             />
           </a>
-          <protvista-navigation
-            length="772"
-          />
-          <protvista-track
-            layout="non-overlapping"
-            length="772"
-            no-scroll="true"
-          />
-          <protvista-sequence
-            height="20"
-            length="772"
-            no-scroll="true"
-            sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
-          />
-          <div
-            class="datatable-wrapper"
+          <nightingale-manager
+            reflected-attributes="highlight,display-start,display-end,selectedid"
+            style="display: block; line-height: 0;"
           >
-            <protvista-datatable
-              filter-scroll="true"
+            <nightingale-navigation
+              height="40"
+              length="772"
+            />
+            <nightingale-track-canvas
+              height="40"
+              layout="non-overlapping"
+              length="772"
+              use-ctrl-to-zoom="true"
+            />
+            <nightingale-sequence
+              height="20"
+              length="772"
+              numberofticks="0"
+              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+              use-ctrl-to-zoom="true"
+            />
+            <!---->
+          </nightingale-manager>
+        </div>
+        <table
+          class="table"
+        >
+          <thead
+            class=""
+          >
+            <tr
+              class="row"
             >
-              <table>
-                <thead>
-                  <tr>
-                    <th
-                      data-filter="type"
-                    >
-                      Type
-                    </th>
-                    <th>
-                      ID
-                    </th>
-                    <th>
-                      Position(s)
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    data-end="27"
-                    data-id="0"
-                    data-start="1"
+              <th>
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="dropdown"
+                >
+                  <button
+                    class="button tertiary"
+                    type="button"
                   >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Signal"
+                    ±
+                  </button>
+                </div>
+              </th>
+              <th>
+                Type
+                <br />
+                <select>
+                  <option
+                    value="All"
+                  >
+                    All
+                  </option>
+                  <option
+                    value="Signal"
+                  >
+                    Signal
+                  </option>
+                  <option
+                    value="Chain"
+                  >
+                    Chain
+                  </option>
+                </select>
+              </th>
+              <th>
+                ID
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Description
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row has-extra-content mark-border"
+              data-id="0"
+            >
+              <td>
+                <button
+                  aria-controls="6"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Signal
+              </td>
+              <td />
+              <td>
+                1-27
+              </td>
+              <td>
+                <button
+                  aria-controls="3"
+                  aria-expanded="false"
+                  class="svg-colour-reviewed evidence-tag"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                  >
+                    Sequence analysis
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="3"
+                />
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
                     >
-                      Signal
-                    </td>
-                    <td />
-                    <td>
-                      1-27
-                    </td>
-                    <td
-                      id="description1-27"
-                    >
-                      <button
-                        aria-controls="1"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          Sequence analysis
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="1"
+                      <test-file-stub
+                        width="1.4ch"
                       />
-                    </td>
-                    <td>
-                      <div
-                        class="button-group"
-                      >
-                        <a
-                          class="button tertiary"
-                          href="/blast?ids=P0DTR4[1-27]"
-                          title="BLAST the sequence corresponding to this feature"
-                          translate="no"
-                        >
-                          BLAST
-                        </a>
-                        <button
-                          class="button tertiary no-small"
-                          title="Add 1 entry to the basket"
-                          type="button"
-                        >
-                          <test-file-stub />
-                          Add
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="27"
-                    data-group-for="0"
-                    data-start="1"
+                      Tools
+                    </button>
+                  </div>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
                   >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      MRNRRKAVSLLTGLLVTAQLFPTAALA
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="772"
-                    data-id="PRO_0000448571"
-                    data-start="28"
-                  >
-                    <td
-                      data-filter="type"
-                      data-filter-value="Chain"
-                    >
-                      Chain
-                    </td>
-                    <td
-                      id="PRO_0000448571"
-                    >
-                      PRO_0000448571
-                    </td>
-                    <td>
-                      28-772
-                    </td>
-                    <td
-                      id="A_type_blood_N-acetyl-alpha-D-galactosamine_deacetylase"
-                    >
-                      A type blood N-acetyl-alpha-D-galactosamine deacetylase
-                    </td>
-                    <td>
-                      <div
-                        class="button-group"
-                      >
-                        <a
-                          class="button tertiary"
-                          href="/blast?ids=P0DTR4[28-772]"
-                          title="BLAST the sequence corresponding to this feature"
-                          translate="no"
-                        >
-                          BLAST
-                        </a>
-                        <button
-                          class="button tertiary no-small"
-                          title="Add 1 entry to the basket"
-                          type="button"
-                        >
-                          <test-file-stub />
-                          Add
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr
-                    data-end="772"
-                    data-group-for="PRO_0000448571"
-                    data-start="28"
-                  >
-                    <td>
-                      <strong>
-                        Sequence: 
-                      </strong>
-                      ADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </protvista-datatable>
-            <button
-              class="button primary toggle-button"
-              type="button"
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="6"
             >
-              Expand table
-            </button>
-          </div>
-        </protvista-manager>
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content mark-border"
+              data-id="1"
+            >
+              <td>
+                <button
+                  aria-controls="7"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td>
+                Chain
+              </td>
+              <td>
+                <span
+                  id="PRO_0000448571"
+                >
+                  PRO_0000448571
+                </span>
+              </td>
+              <td>
+                28-772
+              </td>
+              <td>
+                A type blood N-acetyl-alpha-D-galactosamine deacetylase
+              </td>
+              <td>
+                <div
+                  class="button-group"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      <test-file-stub
+                        width="1.4ch"
+                      />
+                      Tools
+                    </button>
+                  </div>
+                  <button
+                    class="button tertiary no-small"
+                    title="Add 1 entry to the basket"
+                    type="button"
+                  >
+                    <test-file-stub />
+                    Add
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="7"
+            >
+              <td />
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>

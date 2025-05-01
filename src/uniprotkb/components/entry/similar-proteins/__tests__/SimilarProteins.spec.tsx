@@ -3,25 +3,23 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
 import SimilarProteins, { getClusterMapping } from '../SimilarProteins';
-
 import {
   allAccessions,
   clusterData,
   mapping,
 } from './__mocks__/clusterMappingData';
+import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 import unirefP05067 from './__mocks__/unirefP05067';
 import unirefP05067isoform4 from './__mocks__/unirefP05067-4';
-import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 
 const axiosMock = new MockAdapter(axios);
 axiosMock
   // find clusters for canonical
-  .onGet(/\/uniref\/search\?query=\(uniprot_id:P05067\)/)
+  .onGet(/query=%28uniprotkb%3DP05067%29/)
   .reply(200, unirefP05067)
   // find clusters for isoform 4
-  .onGet(/\/uniref\/search\?query=\(uniprot_id:P05067-4\)/)
+  .onGet(/query=%28uniprotkb%3DP05067-4%29/)
   .reply(200, unirefP05067isoform4)
   // find members of cluster (always same response for testing)
   .onGet(/\/uniprotkb\/search/)
@@ -35,7 +33,7 @@ describe('SimilarProteins tests', () => {
       rendered = customRender(
         <SimilarProteins
           isoforms={['P05067-1', 'P05067-4']}
-          primaryAccession="P05067"
+          canonical="P05067-1"
         />
       );
     });
@@ -49,15 +47,13 @@ describe('SimilarProteins tests', () => {
     expect(
       screen.getByRole('link', { name: 'UniRef100_P05067' })
     ).toBeInTheDocument();
-    expect(
-      screen.getAllByRole('tab', { name: /identity/, exact: false })
-    ).toHaveLength(3);
+    expect(screen.getAllByRole('tab', { name: /identity/ })).toHaveLength(3);
   });
 
   it('should navigate to correct search page when clicking "View all"', async () => {
     fireEvent.click(screen.getByRole('link', { name: 'View all' }));
     expect(rendered.history.location.search).toEqual(
-      '?query=uniref_cluster_100:UniRef100_P05067 OR uniref_cluster_100:UniRef100_P05067-4'
+      '?query=uniref_cluster_100%3AUniRef100_P05067+OR+uniref_cluster_100%3AUniRef100_P05067-4'
     );
     expect(rendered.history.location.pathname).toEqual('/uniprotkb');
   });

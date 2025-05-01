@@ -1,39 +1,32 @@
-import { useMemo, lazy } from 'react';
-import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import {
-  HeroContainer,
-  Loader,
   CalendarIcon,
   CameraIcon,
-  WorldIcon,
+  HeroContainer,
+  Loader,
   LocationPinIcon,
+  WorldIcon,
 } from 'franklin-sites';
-import cn from 'classnames';
+import { lazy, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
-import LazyComponent from '../../../shared/components/LazyComponent';
 import ContactLink from '../../../contact/components/ContactLink';
+import LinkedInLogo from '../../../images/linkedin-logo.svg';
+import traingImg from '../../../images/training.jpg';
+import XLogo from '../../../images/x-logo.svg';
 import ExternalLink from '../../../shared/components/ExternalLink';
-
+import LazyComponent from '../../../shared/components/LazyComponent';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
-
-import parseDate from '../../../shared/utils/parseDate';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
 } from '../../../shared/utils/cleanText';
-
-import { LocationToPath, Location } from '../../config/urls';
-import { facebook, twitterX } from '../../config/socialUrls';
-
-import dataToSchema, { isCourseOnsite } from './training.structured';
-
+import parseDate from '../../../shared/utils/parseDate';
+import { linkedIn, twitterX } from '../../config/socialUrls';
+import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
-
-import XLogo from '../../../images/x-logo.svg';
-import FacebookLogo from '../../../images/facebook-logo.svg';
-
-import traingImg from '../../../images/training.jpg';
+import dataToSchema, { isCourseOnsite } from './training.structured';
 
 const YouTubeEmbed = lazy(
   () =>
@@ -44,9 +37,10 @@ const YouTubeEmbed = lazy(
 
 // If the urlEBISearch URL ever stops working then do a text query for UniProt and include the "resources" field and update the query accordingly
 // https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming%20AND%20UniProt&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status,resources&size=10&sort=start_date
-// Note to exclude the ":" from the resources query field as this will cause issues.
-const urlEBISearch =
-  'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource (180371)&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date';
+// The resource is currently "UniProt: The Universal Protein Resource" but the ":" presents issues for the lucene query so use the wildcard "*" instead.
+const resource = 'UniProt* The Universal Protein Resource';
+const urlEBISearch = `https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:${resource}&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date`;
+
 // corresponding schema
 export type PayloadEBISearch = {
   hitCount: number;
@@ -63,9 +57,9 @@ export type PayloadEBISearch = {
       location: string[];
       // More precise venue
       venue: string[];
-      date_time_clean: string[]; // eslint-disable-line camelcase
-      start_date: string[]; // eslint-disable-line camelcase
-      end_date: string[]; // eslint-disable-line camelcase
+      date_time_clean: string[];
+      start_date: string[];
+      end_date: string[];
       status: string[];
     };
     fieldURLs: Array<{
@@ -88,9 +82,9 @@ const fallback: PayloadEBISearch['entries'][0] = {
     location: ['Online'],
     venue: ['Online'],
     status: [],
-    date_time_clean: [],
-    start_date: [],
-    end_date: [],
+    date_time_clean: [], // eslint-disable-line camelcase
+    start_date: [], // eslint-disable-line camelcase
+    end_date: [], // eslint-disable-line camelcase
     city: [],
     country: [],
   },
@@ -163,15 +157,15 @@ const NeedHelp = () => {
           Contact us
         </ContactLink>
         <br />
+        <ExternalLink url={linkedIn} title="UniProt posts on LinkedIn" noIcon>
+          <LinkedInLogo width="2em" />
+        </ExternalLink>
         <ExternalLink
           url={twitterX}
           title="UniProt posts on X (formerly Twitter)"
           noIcon
         >
           <XLogo width="2em" />
-        </ExternalLink>
-        <ExternalLink url={facebook} title="UniProt posts on Facebook" noIcon>
-          <FacebookLogo width="2em" />
         </ExternalLink>
       </div>
       <div
@@ -194,9 +188,9 @@ const NeedHelp = () => {
           styles['need-help__attend-training-bottom']
         )}
       >
-        <h2 className="small">
+        <h3 className="small">
           <CalendarIcon height="1em" /> Attend training
-        </h2>
+        </h3>
         <ExternalLink url="https://www.ebi.ac.uk/training/" noIcon>
           European Bioinformatics Institute (EBI)
         </ExternalLink>
@@ -243,12 +237,6 @@ const NeedHelp = () => {
           noIcon
         >
           <CameraIcon width="1.5em" /> Tutorial &amp; videos
-        </ExternalLink>
-        <ExternalLink
-          url="https://www.youtube.com/watch?v=1swnzBM7eZo&list=PLk96kjgxotiZrj6GWC2SFoOKfB1H3tyxt"
-          noIcon
-        >
-          <CameraIcon width="1.5em" /> Past webinars
         </ExternalLink>
         <ExternalLink
           url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
@@ -317,7 +305,6 @@ const NeedHelp = () => {
             {seminar?.fields.title[0].length <= 100 && (
               <p
                 className={styles.description}
-                // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{
                   __html: cleanText(seminar?.fields.description[0], {
                     ...cleanTextDefaultOptions,

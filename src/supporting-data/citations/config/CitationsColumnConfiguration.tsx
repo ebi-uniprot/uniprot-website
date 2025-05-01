@@ -1,25 +1,22 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList, ExternalLink } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
-import { JournalInfo } from '../components/LiteratureCitation';
-
-import parseDate from '../../../shared/utils/parseDate';
+import { getEntryPathFor } from '../../../app/config/urls';
+import { mapToLinks } from '../../../shared/components/MapTo';
+import externalUrls from '../../../shared/config/externalUrls';
+import helper from '../../../shared/styles/helper.module.scss';
+import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { Namespace } from '../../../shared/types/namespaces';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
 } from '../../../shared/utils/cleanText';
-import { getEntryPathFor } from '../../../app/config/urls';
-import { mapToLinks } from '../../../shared/components/MapTo';
-import externalUrls from '../../../shared/config/externalUrls';
-
+import parseDate from '../../../shared/utils/parseDate';
 import {
   CitationsAPIModel,
   CitationXRefDB,
 } from '../adapters/citationsConverter';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { Namespace } from '../../../shared/types/namespaces';
-
-import helper from '../../../shared/styles/helper.module.scss';
+import { JournalInfo } from '../components/LiteratureCitation';
 
 export enum CitationsColumn {
   authors = 'authors',
@@ -123,7 +120,6 @@ CitationsColumnConfiguration.set(CitationsColumn.litAbstract, {
   render: ({ citation }) =>
     citation?.literatureAbstract && (
       <div
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: cleanText(citation.literatureAbstract, {
             ...cleanTextDefaultOptions,
@@ -165,14 +161,7 @@ CitationsColumnConfiguration.set(CitationsColumn.statistics, {
   label: 'Statistics',
   render: ({ citation, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.citations, citation?.id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.citations, citation?.id, statistics)}
     </ExpandableList>
   ),
 });

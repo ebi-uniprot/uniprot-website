@@ -1,8 +1,7 @@
 import { HeroContainer } from 'franklin-sites';
 
-const MedicalDisclaimer = ({ title = <h3>Disclaimer</h3> }) => (
-  <HeroContainer>
-    {title}
+const MedicalDisclaimer = () => (
+  <HeroContainer headingContent="Disclaimer">
     <em>
       Any medical or genetic information present in this entry is provided for
       research, educational and informational purposes only. It is not in any

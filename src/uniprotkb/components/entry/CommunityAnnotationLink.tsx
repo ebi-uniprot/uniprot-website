@@ -1,10 +1,12 @@
-import { FC } from 'react';
 import { Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
+import { FC } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { TabLocation } from '../../types/entry';
 
 const fetchOptions: { method: Method } = {
   method: 'HEAD',
@@ -14,19 +16,28 @@ type CommunityAnnotationLinkProps = {
   accession: string;
 };
 
-const CommunityAnnotationLink: FC<CommunityAnnotationLinkProps> = ({
-  accession,
-}) => {
-  const url = externalUrls.CommunityCurationGet(accession);
+const CommunityAnnotationLink: FC<
+  React.PropsWithChildren<CommunityAnnotationLinkProps>
+> = ({ accession }) => {
+  const url = externalUrls.CommunityCurationGetByAccession(accession);
   const { headers } = useDataApi(url, fetchOptions);
   const nSubmissions = +(headers?.['x-total-results'] || 0);
   if (!nSubmissions) {
     return null;
   }
   return (
-    <a href={url} className="button tertiary" target="_blank" rel="noreferrer">
+    <Link
+      to={{
+        pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+          accession,
+          subPage: TabLocation.Publications,
+        }),
+        search: '?facets=types:0',
+      }}
+      className="button tertiary"
+    >
       <CommunityAnnotationIcon /> {`Community curation (${nSubmissions})`}
-    </a>
+    </Link>
   );
 };
 

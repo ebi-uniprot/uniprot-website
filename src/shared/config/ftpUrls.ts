@@ -1,8 +1,8 @@
 import { capitalize } from 'lodash-es';
 import joinUrl from 'url-join';
 
-import { FileFormat } from '../types/resultsDownload';
 import { Namespace } from '../types/namespaces';
+import { FileFormat } from '../types/resultsDownload';
 
 const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
@@ -17,21 +17,24 @@ const ftpUrls = {
     ftpUniProt,
     'knowledgebase/complete/uniprot_trembl'
   ),
-  referenceProteomes: (id: string, superkingdom: string, taxonId: number) =>
+  referenceProteomes: (id?: string, superkingdom?: string, taxonId?: number) =>
     joinUrl(
       ftpUniProt,
-      `/current_release/knowledgebase/reference_proteomes/${capitalize(
-        superkingdom
-      )}/${id}/${id}_${taxonId}.fasta.gz`
+      `/current_release/knowledgebase/reference_proteomes/${
+        id && superkingdom && taxonId
+          ? `${capitalize(superkingdom)}/${id}/${id}_${taxonId}.fasta.gz`
+          : ''
+      }`
     ),
-  panProteomes: (id: string) =>
+  panProteomes: (id?: string) =>
     joinUrl(
       ftpUniProt,
-      `/current_release/knowledgebase/pan_proteomes/${id}.fasta.gz`
+      `/current_release/knowledgebase/pan_proteomes/${id ? `${id}.fasta.gz` : ''}`
     ),
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
   uniparc: joinUrl(ftpUniProt, 'current_release/uniparc'),
+  idmapping: joinUrl(ftpUniProt, '/current_release/knowledgebase/idmapping/'),
 };
 
 const namespaceToFtpUrlBase = new Map([

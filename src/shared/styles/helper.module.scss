@@ -11,6 +11,10 @@
   white-space: nowrap;
 }
 
+.break-anywhere {
+  line-break: anywhere;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -41,4 +45,8 @@
 .overflow-y-container {
   max-width: 100%;
   overflow-y: auto;
+}
+
+.padding-top-small {
+  padding-top: 0.5 * $global-padding;
 }

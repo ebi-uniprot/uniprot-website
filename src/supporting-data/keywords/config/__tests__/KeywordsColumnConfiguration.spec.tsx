@@ -1,16 +1,14 @@
-import KeywordsColumnConfiguration, {
-  KeywordsColumn,
-} from '../KeywordsColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/keywordsModelData';
 import citationsConverter, {
   KeywordsAPIModel,
   KeywordsUIModel,
 } from '../../adapters/keywordsConverter';
+import KeywordsColumnConfiguration, {
+  KeywordsColumn,
+} from '../KeywordsColumnConfiguration';
 
-import data from '../../__mocks__/keywordsModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
-
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: KeywordsUIModel = citationsConverter(data[0]);
 describe('KeywordsColumnConfiguration component', () => {

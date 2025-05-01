@@ -1,16 +1,12 @@
-import { FC } from 'react';
 import { LocationPinIcon } from 'franklin-sites';
+import { FC } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
 import externalUrls from '../../../shared/config/externalUrls';
-
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
-
+import GOTermEvidenceTag from './GOTermEvidenceTag';
 import styles from './styles/subcellular-location-go-view.module.scss';
 
 export const getSwissBioPicLocationId = (id: string) => {
@@ -19,10 +15,12 @@ export const getSwissBioPicLocationId = (id: string) => {
   return match?.[1] ? `GO${match?.[1]}` : undefined;
 };
 
-const SubcellularLocationGOView: FC<{
-  goXrefs?: GoXref[];
-  primaryAccession?: string;
-}> = ({ goXrefs, primaryAccession }) => {
+const SubcellularLocationGOView: FC<
+  React.PropsWithChildren<{
+    goXrefs?: GoXref[];
+    primaryAccession?: string;
+  }>
+> = ({ goXrefs, primaryAccession }) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
   if (!goXrefs?.length) {
     return null;
@@ -47,6 +45,7 @@ const SubcellularLocationGOView: FC<{
             >
               {properties.GoTerm}
             </ExternalLink>
+            <GOTermEvidenceTag evidence={properties.GoEvidenceType} />
           </li>
         ))}
       </ul>

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
 import AutocompleteField from '../AutocompleteField';
-
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const field = getSearchTerm('organism_name_field');
@@ -11,7 +10,7 @@ describe('AutocompleteField', () => {
     const propsPrefix = {
       field,
       handleChange: jest.fn(),
-      initialValue: { organism_id: '9606' },
+      initialValue: { organism_id: '9606' }, // eslint-disable-line camelcase
     };
     render(<AutocompleteField {...propsPrefix} />);
     expect(screen.getByDisplayValue('9606')).toBeInTheDocument();
@@ -21,7 +20,7 @@ describe('AutocompleteField', () => {
     const propsPrefix = {
       field,
       handleChange: jest.fn(),
-      initialValue: { organism_name: 'Homo' },
+      initialValue: { organism_name: 'Homo' }, // eslint-disable-line camelcase
     };
     render(<AutocompleteField {...propsPrefix} />);
     expect(screen.getByDisplayValue('Homo')).toBeInTheDocument();

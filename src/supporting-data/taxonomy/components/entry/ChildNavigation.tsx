@@ -1,12 +1,10 @@
+import cn from 'classnames';
+import { LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import { Button, LongNumber } from 'franklin-sites';
 
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-
-import { LocationToPath, Location } from '../../../../app/config/urls';
-
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
-
 import styles from './styles/child-navigation.module.css';
 
 type ChildNavigationProps = {
@@ -27,29 +25,26 @@ const ChildNavigation = ({
       </li>
     ))}
     <li>
-      <Button
+      <Link
         to={{
           pathname: LocationToPath[Location.TaxonomyResults],
           search: `query=parent:${taxonId}`,
         }}
-        element={Link}
-        variant="tertiary"
-        className={styles['no-margin']}
+        className={cn('button', 'tertiary', styles['no-margin'])}
       >
         Browse all direct children (<LongNumber>{total}</LongNumber>)
-      </Button>
+      </Link>
     </li>
     <li>
-      <Button
+      <Link
         to={{
           pathname: LocationToPath[Location.TaxonomyResults],
           search: `query=ancestor:${taxonId}`,
         }}
-        element={Link}
-        variant="tertiary"
+        className="button tertiary"
       >
         Browse all descendants
-      </Button>
+      </Link>
     </li>
   </ul>
 );

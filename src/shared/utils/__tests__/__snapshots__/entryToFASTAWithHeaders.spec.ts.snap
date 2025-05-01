@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`entryToFASTAWithHeaders UniProtKB entry should handle reviewed entries 1`] = `
-">sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+">sp|P21802|uniprotkb rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
 SAPSQDFMRF"
 `;
 
 exports[`entryToFASTAWithHeaders UniProtKB entry should handle unreviewed entries 1`] = `
-">tr|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+">tr|P21802|uniprotkb rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
 SAPSQDFMRF"
 `;
 
 exports[`entryToFASTAWithHeaders fallback gracefully when lacking metadata should handle invalid entry types 1`] = `
-">??|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+">??|P21802|uniprotkb rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
 SAPSQDFMRF"
 `;
 
@@ -21,12 +21,21 @@ SAPSQDFMRF"
 `;
 
 exports[`entryToFASTAWithHeaders modification should handle subsets 1`] = `
-">sp|P21802|uniprot_id|5-7 rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+">sp|P21802|uniprotkb|5-7 rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
 QDF"
 `;
 
-exports[`entryToFASTAWithHeaders should handle UniParc entries 1`] = `
+exports[`entryToFASTAWithHeaders should handle UniParc entries, active 1`] = `
 ">UPI0000000001 status=active
+MGAAASIQTT VNTLSERISS KLEQEANASA QTKCDIEIGN FYIRQNHGCN LTVKNMCSAD
+ADAQLDAVLS AATETYSGLT PEQKAYVPAM FTAALNIQTS VNTVVRDFEN YVKQTCNSSA
+VVDNKLKIQN VIIDECYGAP GSPTNLEFIN TGSSKGNCAI KALMQLTTKA TTQIAPKQVA
+GTGVQFYMIV IGVIILAALF MYYAKRMLFT STNDKIKLIL ANKENVHWTT YMDTFFRTSP
+MVIATTDMQN"
+`;
+
+exports[`entryToFASTAWithHeaders should handle UniParc entries, inactive 1`] = `
+">UPI0000000001 status=inactive
 MGAAASIQTT VNTLSERISS KLEQEANASA QTKCDIEIGN FYIRQNHGCN LTVKNMCSAD
 ADAQLDAVLS AATETYSGLT PEQKAYVPAM FTAALNIQTS VNTVVRDFEN YVKQTCNSSA
 VVDNKLKIQN VIIDECYGAP GSPTNLEFIN TGSSKGNCAI KALMQLTTKA TTQIAPKQVA

@@ -1,22 +1,19 @@
-import { lazy, memo } from 'react';
 import { Card } from 'franklin-sites';
+import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
-
-import { getEntrySectionNameAndId } from '../../../utils/entrySection';
-
+import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 
 const SimilarProteins = lazy(
   () => import(/* webpackChunkName: "similar-proteins" */ './SimilarProteins')
 );
 
-type Props = {
-  isoforms: string[];
-  primaryAccession: string;
-};
-
-const SimilarProteinsSection = ({ isoforms, primaryAccession }: Props) => {
+const SimilarProteinsSection = ({
+  canonical,
+  isoforms,
+}: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.SimilarProteins);
   return (
     <Card
@@ -25,10 +22,7 @@ const SimilarProteinsSection = ({ isoforms, primaryAccession }: Props) => {
       data-entry-section
     >
       <LazyComponent>
-        <SimilarProteins
-          isoforms={isoforms}
-          primaryAccession={primaryAccession}
-        />
+        <SimilarProteins canonical={canonical} isoforms={isoforms} />
       </LazyComponent>
     </Card>
   );

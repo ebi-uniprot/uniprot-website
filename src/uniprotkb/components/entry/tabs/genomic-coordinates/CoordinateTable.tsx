@@ -1,26 +1,26 @@
+import cn from 'classnames';
+import { Card, Chip, LongNumber } from 'franklin-sites';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Chip, LongNumber } from 'franklin-sites';
-import cn from 'classnames';
 
-import ExternalLink from '../../../../../shared/components/ExternalLink';
-import Table from '../../../../../shared/components/table/Table';
-import { getEnsemblLink } from './GenomicLoc';
+import { getEntryPathFor, Location } from '../../../../../app/config/urls';
 import AddToBasketButton from '../../../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../../../shared/components/action-buttons/Align';
-import BlastButton from '../../../../../shared/components/action-buttons/Blast';
-
-import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
-import { getEntryPathFor } from '../../../../../app/config/urls';
-import { groupByGenomicCoordinates } from './utils';
-
-import { Namespace } from '../../../../../shared/types/namespaces';
-import { TabLocation } from '../../../../types/entry';
-import { FlatGenomicEntry, GenomicCoordinate, GroupedExon } from './types';
-import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
-
-import styles from './styles/coordinates-table.module.scss';
+import CopyButton from '../../../../../shared/components/action-buttons/Copy';
+import ToolsButton from '../../../../../shared/components/action-buttons/ToolsButton';
+import ToolsDropdown from '../../../../../shared/components/action-buttons/ToolsDropdown';
+import ExternalLink from '../../../../../shared/components/ExternalLink';
+import Table from '../../../../../shared/components/table/Table';
+import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../../../shared/config/limits';
 import helper from '../../../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../../../shared/types/namespaces';
+import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
+import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
+import { TabLocation } from '../../../../types/entry';
+import { getEnsemblLink } from './GenomicLoc';
+import styles from './styles/coordinates-table.module.scss';
+import { FlatGenomicEntry, GenomicCoordinate, GroupedExon } from './types';
+import { groupByGenomicCoordinates } from './utils';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 
@@ -99,7 +99,33 @@ const ExonRow = ({
     </td>
     <td>
       <div className="button-group">
-        <BlastButton selectedEntries={[exon.accessionWithCoordinates]} />
+        <ToolsDropdown selectedEntries={[exon.accessionWithCoordinates]} blast>
+          {(closeDropdown) => (
+            <>
+              <li>
+                <ToolsButton
+                  peps={exon.proteinSequence}
+                  disabled={
+                    exon.proteinSequence.length <
+                    PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH
+                  }
+                  title="Search this peptide in UniProtKB"
+                  location={Location.PeptideSearch}
+                >
+                  Peptide Search (1)
+                </ToolsButton>
+              </li>
+              <li>
+                <CopyButton
+                  textToCopy={exon.proteinSequence}
+                  postCopy={closeDropdown}
+                >
+                  Copy sequence
+                </CopyButton>
+              </li>
+            </>
+          )}
+        </ToolsDropdown>
         <AddToBasketButton selectedEntries={exon.accessionWithCoordinates} />
       </div>
     </td>
@@ -183,6 +209,7 @@ const CoordinateRow = ({
         if (!exon) {
           return (
             <Fragment key={isoformID}>
+              {/* eslint-disable jsx-a11y/control-has-associated-label */}
               <td className={styles.coordinates} />
               <td className={styles.coordinates}>―</td>
               <td className={styles.coordinates} />
@@ -248,11 +275,18 @@ const CoordinateExtraContent = ({
                 There are {uniqueSequences.size} unique protein sequences
                 resulting from these {exons.length} exons.{' '}
                 <div className="button-group">
-                  <AlignButton
+                  <ToolsDropdown
                     selectedEntries={exons.map(
                       (exon) => exon.accessionWithCoordinates
                     )}
-                    textSuffix={`${exons.length} peptides`}
+                    align={
+                      <AlignButton
+                        selectedEntries={exons.map(
+                          (exon) => exon.accessionWithCoordinates
+                        )}
+                        textSuffix="peptides"
+                      />
+                    }
                   />
                 </div>
               </>
@@ -266,7 +300,6 @@ const CoordinateExtraContent = ({
             <th>Exon ID</th>
             <th>UniProtKB Isoform</th>
             <th>Position(s)</th>
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <th />
           </Table.Head>
           <Table.Body data={exons}>

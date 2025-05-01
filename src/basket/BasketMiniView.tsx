@@ -1,36 +1,28 @@
-import { useMemo, Dispatch, SetStateAction, useEffect } from 'react';
+import { BinIcon, Button, FullViewIcon, Tab, Tabs } from 'franklin-sites';
+import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import cn from 'classnames';
-import { Tabs, Tab, BinIcon, Button, FullViewIcon } from 'franklin-sites';
 
-import ResultsData from '../shared/components/results/ResultsData';
-import EmptyBasket from './EmptyBasket';
+import { Location, LocationToPath } from '../app/config/urls';
+import { reIds } from '../jobs/utils/urls';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
-
+import ResultsData from '../shared/components/results/ResultsData';
 import useBasket, { Basket } from '../shared/hooks/useBasket';
-import useItemSelect from '../shared/hooks/useItemSelect';
-import usePagination from '../shared/hooks/usePagination';
-import useNSQuery from '../shared/hooks/useNSQuery';
-import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
-
-import { reIds } from '../tools/utils/urls';
-import { getIdKeyForData } from '../shared/utils/getIdKey';
-
-import { LocationToPath, Location } from '../app/config/urls';
-
-import { Namespace } from '../shared/types/namespaces';
 import {
   ColumnDescriptor,
   getColumnsToDisplay,
 } from '../shared/hooks/useColumns';
-
+import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
+import useItemSelect from '../shared/hooks/useItemSelect';
+import useNSQuery from '../shared/hooks/useNSQuery';
+import usePagination from '../shared/hooks/usePagination';
 import { APIModel } from '../shared/types/apiModel';
-import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
-import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
+import { Namespace } from '../shared/types/namespaces';
+import { getIdKeyForData } from '../shared/utils/getIdKey';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
 import { UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
-
-import helper from '../shared/styles/helper.module.scss';
+import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
+import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
+import EmptyBasket from './EmptyBasket';
 import styles from './styles/basket-mini-view.module.scss';
 
 const uniProtKBColumns = [
@@ -195,15 +187,14 @@ const BasketMiniViewTab = ({
             ? `Remove (${selectedEntries.length})`
             : `Clear all (${accessions.length})`}
         </Button>
-        <Button
-          element={Link}
-          variant="secondary"
+        <Link
+          className="button secondary"
           to={generatePath(LocationToPath[Location.Basket], { namespace })}
           onClick={onFullView}
         >
           <FullViewIcon height="1em" width="1em" />
           Full view
-        </Button>
+        </Link>
       </div>
     </>
   );
@@ -228,8 +219,7 @@ const BasketMiniView = ({ onFullView }: { onFullView: () => void }) => {
         title={`UniProtKB${
           uniprotkbIds?.size ? ` (${uniprotkbIds.size})` : ''
         }`}
-        className={cn({ [helper.disabled]: !uniprotkbIds?.size })}
-        tabIndex={!uniprotkbIds?.size ? -1 : 0}
+        disabled={!uniprotkbIds?.size}
       >
         {uniprotkbIds?.size ? (
           <BasketMiniViewTab
@@ -243,8 +233,7 @@ const BasketMiniView = ({ onFullView }: { onFullView: () => void }) => {
       </Tab>
       <Tab
         title={`UniRef${unirefIds?.size ? ` (${unirefIds.size})` : ''}`}
-        className={cn({ [helper.disabled]: !unirefIds?.size })}
-        tabIndex={!unirefIds?.size ? -1 : 0}
+        disabled={!unirefIds?.size}
         // If the previous doesn't have content, select this one
         defaultSelected={!uniprotkbIds?.size && !!unirefIds?.size}
       >
@@ -260,8 +249,7 @@ const BasketMiniView = ({ onFullView }: { onFullView: () => void }) => {
       </Tab>
       <Tab
         title={`UniParc${uniparcIds?.size ? ` (${uniparcIds.size})` : ''}`}
-        className={cn({ [helper.disabled]: !uniparcIds?.size })}
-        tabIndex={!uniparcIds?.size ? -1 : 0}
+        disabled={!uniparcIds?.size}
         // If none of the previous has content, select this one
         defaultSelected={!(uniprotkbIds?.size || unirefIds?.size)}
       >

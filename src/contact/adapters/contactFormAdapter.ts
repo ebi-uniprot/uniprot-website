@@ -1,27 +1,25 @@
-import {
-  useState,
-  useCallback,
-  FormEventHandler,
-  useMemo,
-  useEffect,
-  useRef,
-} from 'react';
-import { useHistory } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
 import { LocationDescriptor } from 'history';
+import {
+  FormEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useHistory } from 'react-router-dom';
 
-import useDataApi from '../../shared/hooks/useDataApi';
-import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
-
-import apiUrls from '../config/apiUrls';
+import { Location, LocationToPath } from '../../app/config/urls';
 import { addMessage } from '../../messages/state/messagesActions';
-import { stringifyUrl } from '../../shared/utils/url';
-
 import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
-import { Location, LocationToPath } from '../../app/config/urls';
+import useDataApi from '../../shared/hooks/useDataApi';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
+import { stringifyUrl } from '../../shared/utils/url';
+import apiUrls from '../config/apiUrls';
 
 export type ContactLocationState =
   | undefined
@@ -41,15 +39,14 @@ export const modifyFormData = (formData: FormData, token: string) => {
     }`
   );
   output.set('requiredForRobots', formData.get('requiredForRobots') || '');
-  output.set(
-    'message',
-    `${formData.get('message')}\r\n\r\nName: ${formData.get(
-      'name'
-    )}\r\nReferred from: ${globalThis.location.origin}${formData.get(
-      'referrer'
-    )}\r\nBrowser: ${navigator.userAgent}\r\nGit commit: ${GIT_COMMIT_HASH}` ||
-      ''
-  );
+  const message = `${formData.get('message') || ''}
+
+Name: ${formData.get('name')}
+
+--------------- prefilled context details ---------------
+
+${formData.get('context') || ''}`;
+  output.set('message', message);
   return output;
 };
 
@@ -78,7 +75,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     }
     const modifiedFormData = modifyFormData(formData, token);
 
-    // eslint-disable-next-line consistent-return
     return {
       method: 'POST',
       data: modifiedFormData,
@@ -118,7 +114,6 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
       // Clear the current form (just in case)
       document.querySelector<HTMLFormElement>('main form')?.reset();
       // Navigate the user to previous page, or to the homepage if not possible
-      // eslint-disable-next-line uniprot-website/use-config-location
       history.push(referrer || LocationToPath[Location.Home]);
     }
   }, [sendData.data, dispatch, history, referrer]);

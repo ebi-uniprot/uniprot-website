@@ -1,117 +1,109 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { DragEndEvent } from '@dnd-kit/core';
 import { AccordionSearch, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
-
-import ColumnSelectDragDrop from './ColumnSelectDragDrop';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
-
-import { moveItemInList, removeItemFromList } from '../../utils/utils';
-import { getLabel, prepareFieldData } from './utils';
-import { fullToStandardColumnName } from '../download/downloadUtils';
-
-import { Namespace } from '../../types/namespaces';
+import { FC, useCallback, useMemo } from 'react';
 
 import {
   ReceivedFieldData,
   SelectedColumn,
 } from '../../../uniprotkb/types/resultsTypes';
-
-import './styles/column-select.scss';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
+import useDataApi from '../../hooks/useDataApi';
+import { Namespace } from '../../types/namespaces';
+import { moveItemInArray, removeItemFromArray } from '../../utils/utils';
+import ColumnSelectDragDrop from './ColumnSelectDragDrop';
+import styles from './styles/column-select.module.scss';
+import { getLabel, prepareFieldData } from './utils';
 
 type ColumnSelectProps = {
-  selectedColumns: string[];
-  onChange: (columndIds: Column[]) => void;
+  selectedColumns: string[]; // Includes primary key columns but no _full xref columns
+  onColumnChange: (columndIds: Column[]) => void;
   namespace: Namespace;
   isEntryPage?: boolean;
   isDownload?: boolean;
 };
 
-const ColumnSelect: FC<ColumnSelectProps> = ({
+const ColumnSelect: FC<React.PropsWithChildren<ColumnSelectProps>> = ({
   selectedColumns,
-  onChange,
+  onColumnChange,
   namespace,
   isEntryPage,
   isDownload,
   children,
 }) => {
   const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
-  const [selectedColumnsWithoutFullXrefs, setSelectedColumnsWithoutFullXrefs] =
-    useState<Column[]>([]);
-
-  useEffect(() => {
-    const removeFullXref = selectedColumns.map((column) =>
-      fullToStandardColumnName(column)
-    );
-    setSelectedColumnsWithoutFullXrefs(removeFullXref as Column[]);
-  }, [selectedColumns]);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
-  const removableSelectedColumns = difference(
-    selectedColumnsWithoutFullXrefs,
-    primaryKeyColumns
-  );
-  const handleChange = useCallback(
-    (columns: Column[]) => {
-      onChange([...primaryKeyColumns, ...columns]);
-    },
-    [primaryKeyColumns, onChange]
+  const removableSelectedColumns = useMemo(
+    () => difference(selectedColumns, primaryKeyColumns) as Column[],
+    [primaryKeyColumns, selectedColumns]
   );
 
   const handleSelect = useCallback(
     (itemId: Column) => {
       const index = removableSelectedColumns.indexOf(itemId);
-      handleChange(
-        index >= 0
-          ? removeItemFromList(removableSelectedColumns, index)
-          : [...removableSelectedColumns, itemId]
-      );
+      onColumnChange([
+        ...primaryKeyColumns,
+        ...(index >= 0
+          ? removeItemFromArray(removableSelectedColumns, index)
+          : [...removableSelectedColumns, itemId]),
+      ]);
     },
-    [handleChange, removableSelectedColumns]
+    [primaryKeyColumns, removableSelectedColumns, onColumnChange]
   );
 
   const handleDragDrop = useCallback(
-    (srcIndex: number, destIndex: number) => {
-      handleChange(
-        moveItemInList(removableSelectedColumns, srcIndex, destIndex)
-      );
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      if (over && active.id !== over.id) {
+        const from = removableSelectedColumns.indexOf(
+          active.id.toString() as Column
+        );
+        const to = removableSelectedColumns.indexOf(
+          over.id.toString() as Column
+        );
+        onColumnChange([
+          ...primaryKeyColumns,
+          ...moveItemInArray(removableSelectedColumns, from, to),
+        ]);
+      }
     },
-    [handleChange, removableSelectedColumns]
+    [primaryKeyColumns, removableSelectedColumns, onColumnChange]
   );
 
   const { loading, data, progress } = useDataApi<ReceivedFieldData>(
     apiUrls.configure.resultsFields(namespace, isEntryPage)
   );
 
-  // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
   const fieldData = useMemo(
+    // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
     () => prepareFieldData(data, primaryKeyColumns, isDownload),
     [data, primaryKeyColumns, isDownload]
+  );
+
+  const fieldDataForSelectedColumns = useMemo(
+    () =>
+      loading
+        ? []
+        : removableSelectedColumns
+            .map((id) => ({
+              id,
+              label: getLabel(fieldData, namespace, id),
+            }))
+            .filter((c): c is SelectedColumn => Boolean(c.label)),
+    [fieldData, loading, namespace, removableSelectedColumns]
   );
 
   if (loading) {
     return <Loader progress={progress} />;
   }
-  const fieldDataForSelectedColumns = removableSelectedColumns
-    .map((itemId) => {
-      const label = getLabel(fieldData, namespace, itemId);
-      return (
-        label !== null && {
-          itemId,
-          label,
-        }
-      );
-    })
-    .filter((d: SelectedColumn | boolean): d is SelectedColumn => Boolean(d));
 
   return (
     <>
-      <div className="column-select">
+      <div className={styles['column-select']}>
         <ColumnSelectDragDrop
           columns={fieldDataForSelectedColumns}
           onDragDrop={handleDragDrop}
@@ -122,7 +114,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
           onSelect={(itemId: string) => {
             handleSelect(itemId as Column);
           }}
-          selected={selectedColumnsWithoutFullXrefs}
+          selected={removableSelectedColumns}
           placeholder="Search for available columns"
           columns
         />

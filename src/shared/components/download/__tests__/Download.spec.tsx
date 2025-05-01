@@ -1,23 +1,23 @@
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
+jest.mock('../../../hooks/useSupportsJobs', () => ({
+  __esModule: true,
+  default: () => true,
+}));
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import Download from '../Download';
-
-import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
-
-import { stringifyQuery } from '../../../utils/url';
-
-import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
-
-import { FileFormat } from '../../../types/resultsDownload';
-import { Namespace } from '../../../types/namespaces';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-
+import SimpleMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/SimpleMappingDetails';
+import UniProtkbMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
-import SimpleMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/SimpleMappingDetails';
-import UniProtkbMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
-import '../../../../uniprotkb/components/__mocks__/mockApi';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import customRender from '../../../__test-helpers__/customRender';
+import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
+import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
+import { Namespace } from '../../../types/namespaces';
+import { FileFormat } from '../../../types/resultsDownload';
+import { stringifyQuery } from '../../../utils/url';
+import Download from '../Download';
 
 const initialColumns = [
   UniProtKBColumn.accession,
@@ -230,7 +230,6 @@ describe('Download with ID mapping results', () => {
   it('should not display column selection for results which map to a non-uniprot namespace and have correct download link', () => {
     customRender(
       <IDMappingDetailsContext.Provider
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
         value={{ loading: false, data: SimpleMappingDetails }}
       >
         <Download
@@ -255,7 +254,6 @@ describe('Download with ID mapping results', () => {
   it('should display column selection for results which map to a uniprot namespace and have correct download link', async () => {
     customRender(
       <IDMappingDetailsContext.Provider
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
         value={{ loading: false, data: UniProtkbMappingDetails }}
       >
         <Download
@@ -287,6 +285,7 @@ describe('Download with file generation job', () => {
   it('should show file generation form then confirmation with form elements disabled', async () => {
     Element.prototype.scrollIntoView = jest.fn();
     const onCloseMock = jest.fn();
+
     customRender(
       <Download
         totalNumberResults={DOWNLOAD_SIZE_LIMIT + 1}

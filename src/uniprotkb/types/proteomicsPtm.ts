@@ -1,4 +1,4 @@
-// Correponds to eg https://www.ebi.ac.uk/proteins/api/proteomics-ptm/Q653S1
+// Correponds to eg https://www.ebi.ac.uk/proteins/api/proteomics/ptm/Q653S1
 
 import { ConfidenceScore } from '../components/protein-data-views/UniProtKBFeaturesView';
 
@@ -45,12 +45,12 @@ type DBReference = {
 };
 
 type Properties = {
-  'Pubmed ID': string;
+  'Pubmed ID'?: string;
   'PSM Score': string;
   'Dataset ID': string;
   'Site q value': string;
   'Universal Spectrum Id': string;
-  'PSM Count (0.05 gFLR)': string;
+  'PSM Count (0.05 gFLR)'?: string;
   'Confidence score': ConfidenceScore;
   'Final site probability': string;
   'Organism part': string;

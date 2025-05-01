@@ -1,10 +1,9 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Location } from 'history';
-
-import ErrorComponent from './ErrorComponent';
+import { Component, ErrorInfo, ReactNode } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import * as logging from '../../utils/logging';
+import ErrorComponent from './ErrorComponent';
 
 type ErrorBoundaryProps = RouteComponentProps & {
   children: ReactNode;
@@ -28,8 +27,6 @@ type ErrorBoundaryState = {
 // Known errors that might happen when the app has be updated
 const updateError = /(chunk)/i;
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  static defaultProps = { fallback: <ErrorComponent /> };
-
   constructor(props: ErrorBoundaryProps) {
     super(props);
 
@@ -93,7 +90,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     }
 
     if (this.state.error) {
-      return this.props.fallback;
+      return this.props.fallback || <ErrorComponent />;
     }
 
     return this.props.children;

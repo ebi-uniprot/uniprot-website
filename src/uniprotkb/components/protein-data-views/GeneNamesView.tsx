@@ -1,11 +1,9 @@
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { FC, Fragment } from 'react';
-import { InfoList, ExpandableList } from 'franklin-sites';
-
-import { NameWithEvidence } from './ProteinNamesView';
 
 import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
-
 import { ValueWithEvidence } from '../../types/modelTypes';
+import { NameWithEvidence } from './ProteinNamesView';
 
 const geneAlternativeNamesView = (
   alternativeNames: ValueWithEvidence[],
@@ -23,11 +21,13 @@ const geneAlternativeNamesView = (
   </>
 );
 
-const GeneNamesView: FC<{
-  geneNamesData: GeneNamesData;
-  isCompact?: boolean;
-  noTitles?: boolean;
-}> = ({ geneNamesData, isCompact = false, noTitles = false }) => (
+const GeneNamesView: FC<
+  React.PropsWithChildren<{
+    geneNamesData: GeneNamesData;
+    isCompact?: boolean;
+    noTitles?: boolean;
+  }>
+> = ({ geneNamesData, isCompact = false, noTitles = false }) => (
   <ExpandableList descriptionString="gene names">
     {geneNamesData.map((geneNames, index) => {
       const infoData = [

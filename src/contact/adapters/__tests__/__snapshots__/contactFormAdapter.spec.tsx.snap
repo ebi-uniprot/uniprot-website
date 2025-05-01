@@ -6,9 +6,10 @@ exports[`Test contact form adapter should parse the inputs and generate a generi
   "message": "I would like this entry to be updated
 
 Name: Postman Pat
-Referred from: http://localhost/uniprotkb/P05067
-Browser: Browser and OS info
-Git commit: #git_commit_id",
+
+--------------- prefilled context details ---------------
+
+",
   "requiredForRobots": "",
   "subject": "[uuw] General enquiry",
   "token": "random_token",

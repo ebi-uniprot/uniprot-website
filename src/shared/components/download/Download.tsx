@@ -1,71 +1,66 @@
-/* eslint-disable react/no-unused-prop-types */
-import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
-import { Location as HistoryLocation } from 'history';
-import { generatePath, Link, useLocation } from 'react-router-dom';
-import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
+import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
+import { Location as HistoryLocation } from 'history';
+import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
+import { generatePath, Link, useLocation } from 'react-router-dom';
 
-import ColumnSelect from '../column-select/ColumnSelect';
-import DownloadPreview from './DownloadPreview';
-import DownloadAPIURL from './DownloadAPIURL';
-import ExternalLink from '../ExternalLink';
-import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
-
-import useColumnNames from '../../hooks/useColumnNames';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-import useDataApi from '../../hooks/useDataApi';
-
-import {
-  DownloadSelectOptions,
-  downloadReducer,
-  getDownloadInitialState,
-  ExtraContent,
-} from './downloadReducer';
-import {
-  updateSelectedFileFormat,
-  updateSelectedColumns,
-  updateDownloadSelect,
-  updateCompressed,
-  updateExtraContent,
-  updateDisableForm,
-  updateFullXref,
-} from './downloadActions';
-import { prepareFieldData } from '../column-select/utils';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import {
-  getColumnsNamespace,
-  getDownloadCount,
-  getDownloadOptions,
-  getPreviewOptions,
-  getFtpFilenamesAndUrls,
-  getIsAsyncDownload,
-  getRedirectToIDMapping,
-  getExtraContent,
-  getIsEmbeddings,
-  getPreviewCount,
-  isAsyncDownloadIdMapping,
-  showColumnSelect,
-  filterFullXrefColumns,
-  getCountForCustomisableSet,
-} from './downloadUtils';
-
+import AsyncDownloadForm from '../../../jobs/async-download/components/AsyncDownloadForm';
+import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { JobTypes } from '../../../jobs/types/jobTypes';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
-
-import { FileFormat } from '../../types/resultsDownload';
+import useColumnNames from '../../hooks/useColumnNames';
+import useDataApi from '../../hooks/useDataApi';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import helper from '../../styles/helper.module.scss';
+import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-
-import sticky from '../../styles/sticky.module.scss';
+import ColumnSelect from '../column-select/ColumnSelect';
+import { prepareFieldData } from '../column-select/utils';
+import ExternalLink from '../ExternalLink';
+import {
+  updateCompressed,
+  updateDisableForm,
+  updateDownloadSelect,
+  updateExtraContent,
+  updateFullXref,
+  updateSelectedColumns,
+  updateSelectedFileFormat,
+} from './downloadActions';
+import DownloadAPIURL from './DownloadAPIURL';
+import DownloadPreview from './DownloadPreview';
+import {
+  downloadReducer,
+  DownloadSelectOptions,
+  ExtraContent,
+  getDownloadInitialState,
+} from './downloadReducer';
+import {
+  filterFullXrefColumns,
+  fullToStandardColumnName,
+  getColumnsNamespace,
+  getCountForCustomisableSet,
+  getDownloadCount,
+  getDownloadOptions,
+  getExtraContent,
+  getFtpFilenamesAndUrls,
+  getIsAsyncDownload,
+  getIsEmbeddings,
+  getIsUniParcLightResponse,
+  getPreviewCount,
+  getPreviewOptions,
+  getRedirectToIDMapping,
+  isAsyncDownloadIdMapping,
+  showColumnSelect,
+} from './downloadUtils';
 import styles from './styles/download.module.scss';
-import helper from '../../styles/helper.module.scss';
 
 export type DownloadProps<T extends JobTypes> = {
   query?: string;
@@ -129,7 +124,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(updateCompressed(e.target.value === 'true'));
 
-  const handleDisableForm = useCallback((disableForm) => {
+  const handleDisableForm = useCallback((disableForm: boolean) => {
     dispatch(updateDisableForm(disableForm));
   }, []);
 
@@ -153,6 +148,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
+  // This is added for release 2024_06. Remove it for the next release
+  const isUniParcLightResponse = getIsUniParcLightResponse(state, props);
 
   let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
@@ -332,6 +329,21 @@ const Download = (props: DownloadProps<JobTypes>) => {
           </label>
         </fieldset>
       )}
+
+      {isUniParcLightResponse && (
+        <Message level="info">
+          {state.selectedFileFormat} files contain fewer fields since{' '}
+          <Link
+            to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+              accession: '2024-11-27-release',
+            })}
+          >
+            release 2024_06
+          </Link>
+          . Please see the release notes for more details.
+        </Message>
+      )}
+
       {/* Peptide search download for matches exceeding the threshold */}
       {redirectToIDMapping && (
         <Message level="warning">
@@ -359,12 +371,14 @@ const Download = (props: DownloadProps<JobTypes>) => {
 
       {showColumnSelect(state, props, job) && (
         <>
-          <legend>Customize columns</legend>
+          <legend data-article-id="customize">Customize columns</legend>
           <ColumnSelect
-            onChange={(columns) =>
+            onColumnChange={(columns) =>
               dispatch(updateSelectedColumns(columns, fieldData))
             }
-            selectedColumns={state.selectedColumns}
+            selectedColumns={state.selectedColumns.map((column) =>
+              fullToStandardColumnName(column)
+            )}
             namespace={columnsNamespace}
             isDownload
           />

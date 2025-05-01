@@ -1,20 +1,16 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
+import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { processUrlTemplate } from '../../../shared/utils/xrefs';
-import * as logging from '../../../shared/utils/logging';
-
-import databaseToDatabaseInfo from './databaseInfoMaps';
-
-import { DiseasesAPIModel } from '../adapters/diseasesConverter';
+import helper from '../../../shared/styles/helper.module.scss';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-
-import helper from '../../../shared/styles/helper.module.scss';
+import * as logging from '../../../shared/utils/logging';
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
+import { DiseasesAPIModel } from '../adapters/diseasesConverter';
+import databaseToDatabaseInfo from './databaseInfoMaps';
 
 export enum DiseasesColumn {
   acronym = 'acronym',
@@ -76,7 +72,6 @@ DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
         const databaseInfo = databaseToDatabaseInfo[databaseType];
         if (databaseInfo) {
           idNode = (
-            // eslint-disable-next-line uniprot-website/use-config-location
             <ExternalLink
               url={processUrlTemplate(databaseInfo.uriLink, { id })}
             >
@@ -138,14 +133,7 @@ DiseasesColumnConfiguration.set(DiseasesColumn.statistics, {
   label: 'Statistics',
   render: ({ id, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.diseases, id, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.diseases, id, statistics)}
     </ExpandableList>
   ),
 });

@@ -1,9 +1,7 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import { Namespace } from '../../types/namespaces';
-
 import useBasket from '../useBasket';
-
 import { localStorageCache } from '../useLocalStorage';
 
 describe('useBasket hook', () => {
@@ -22,6 +20,7 @@ describe('useBasket hook', () => {
         [Namespace.uniparc, new Set()],
       ])
     );
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],
@@ -78,6 +77,7 @@ describe('useBasket hook', () => {
         [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
       ])
     );
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],
@@ -111,6 +111,7 @@ describe('useBasket hook', () => {
         [Namespace.uniparc, new Set(['UPI0000000001', 'UPI0000000002'])],
       ])
     );
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('basket')!)).toEqual({
       [Namespace.uniprotkb]: [],

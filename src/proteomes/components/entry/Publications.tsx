@@ -1,13 +1,11 @@
-import { useMemo } from 'react';
 import { DataList } from 'franklin-sites';
+import { useMemo } from 'react';
 
-import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
-
-import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
-
-import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import { Namespace } from '../../../shared/types/namespaces';
+import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
+import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
+import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 const dataRenderer = (citation: CitationsAPIModel) => (
   <CitationsCard data={citation} headingLevel="h3" notSelectable />
@@ -20,7 +18,7 @@ const Publications = ({
 }: {
   citations: ProteomesAPIModel['citations'];
 }) => {
-  const data = useMemo<CitationsAPIModel[]>(
+  const data = useMemo<CitationsAPIModel[] | undefined>(
     // Transform basic citation object to full citations as returned by the
     // citations endpoint (containing a "citation" field)
     () => citations?.map((citation) => ({ citation })),

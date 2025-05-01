@@ -1,8 +1,7 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { frame } from 'timing-functions';
 
 import customRender from '../../../__test-helpers__/customRender';
-
 import GDPR from '../GDPR';
 
 describe('GDPR', () => {
@@ -19,7 +18,9 @@ describe('GDPR', () => {
     expect(
       screen.getByRole('link', { name: 'Privacy Notice' })
     ).toBeInTheDocument();
-    const acceptButton = screen.getByRole('button', { name: 'Accept' });
+    const acceptButton = screen.getByRole('button', {
+      name: 'I agree, dismiss this banner',
+    });
     fireEvent.click(acceptButton);
     expect(
       screen.queryByRole('link', { name: 'Privacy Notice' })

@@ -1,24 +1,44 @@
-import { FC, useEffect, useRef } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Chip } from 'franklin-sites';
-import cn from 'classnames';
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  restrictToFirstScrollableAncestor,
+  restrictToHorizontalAxis,
+} from '@dnd-kit/modifiers';
+import {
+  horizontalListSortingStrategy,
+  SortableContext,
+} from '@dnd-kit/sortable';
+import { useEffect, useRef } from 'react';
 
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../config/columns';
-
-import './styles/column-select-drag-drop.scss';
+import SortableItem from './SortableItem';
+import styles from './styles/column-select-drag-drop.module.scss';
 
 export type ColumnSelectDragDropProps = {
   columns: SelectedColumn[];
-  onDragDrop: (srcIndex: number, destIndex: number) => void;
+  onDragDrop: (event: DragEndEvent) => void;
   onRemove: (columnId: Column) => void;
 };
 
-const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
+const ColumnSelectDragDrop = ({
   columns,
   onDragDrop,
   onRemove,
-}) => {
+}: ColumnSelectDragDropProps) => {
+  // Create sensors to detect pointer (mouse, touch, etc.)
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    })
+  );
   const previousColumns = useRef(columns);
 
   useEffect(() => {
@@ -26,7 +46,9 @@ const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
     // a user selects a new column. This is to make it clear to the user that
     // their column selection has been registered and is present in the list.
     if (columns.length > previousColumns.current.length) {
-      const dndList = document.querySelector('.column-select-drag-drop__list');
+      const dndList = document.querySelector(
+        `.${styles['column-select-drag-drop']}`
+      );
       if (dndList) {
         dndList.scrollLeft = dndList.scrollWidth;
       }
@@ -35,51 +57,21 @@ const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
   }, [columns]);
 
   return (
-    <DragDropContext
-      onDragEnd={(result) => {
-        if (result.destination) {
-          onDragDrop(result.source.index, result.destination.index);
-        }
-      }}
+    <DndContext
+      sensors={sensors}
+      onDragEnd={onDragDrop}
+      modifiers={[restrictToHorizontalAxis, restrictToFirstScrollableAncestor]}
     >
-      <Droppable droppableId="droppable" direction="horizontal">
-        {(droppableProvided) => (
-          <div
-            ref={droppableProvided.innerRef}
-            className="column-select-drag-drop__list"
-            {...droppableProvided.droppableProps}
-          >
-            {columns.map(({ itemId, label }, index) => (
-              <Draggable
-                key={itemId}
-                draggableId={itemId}
-                index={index}
-                disableInteractiveElementBlocking
-              >
-                {(draggableProvided, snapshot) => (
-                  <div
-                    ref={draggableProvided.innerRef}
-                    {...draggableProvided.draggableProps}
-                    {...draggableProvided.dragHandleProps}
-                  >
-                    <Chip
-                      disabled={false}
-                      onRemove={() => onRemove(itemId)}
-                      className={cn({
-                        'chip--dragging': snapshot.isDragging,
-                      })}
-                    >
-                      {label}
-                    </Chip>
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {droppableProvided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+      <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
+        <div className={styles['column-select-drag-drop']}>
+          {columns.map((column) => (
+            <SortableItem key={column.id} id={column.id} onRemove={onRemove}>
+              {column.label}
+            </SortableItem>
+          ))}
+        </div>
+      </SortableContext>
+    </DndContext>
   );
 };
 

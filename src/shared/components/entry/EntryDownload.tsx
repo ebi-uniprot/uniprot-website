@@ -1,29 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import cn from 'classnames';
 import { Button, ExternalLink, LongNumber } from 'franklin-sites';
 import { pick } from 'lodash-es';
-import cn from 'classnames';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 
-import DownloadPreview from '../download/DownloadPreview';
-import DownloadAPIURL from '../download/DownloadAPIURL';
-import ColumnSelect from '../column-select/ColumnSelect';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-import uniparcApiUrls from '../../../uniparc/config/apiUrls';
-import unirefApiUrls from '../../../uniref/config/apiUrls';
-import externalUrls from '../../config/externalUrls';
 import {
   allEntryPages,
   getLocationEntryPathFor,
   Location,
 } from '../../../app/config/urls';
-import { stringifyUrl } from '../../utils/url';
-
-import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
-import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
-import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
+import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
+import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as proteomesFFED } from '../../../proteomes/config/download';
 import { fileFormatEntryDownload as citationsFFED } from '../../../supporting-data/citations/config/download';
 import { fileFormatEntryDownload as databaseFFED } from '../../../supporting-data/database/config/download';
@@ -31,20 +18,28 @@ import { fileFormatEntryDownload as diseasesFFED } from '../../../supporting-dat
 import { fileFormatEntryDownload as keywordsFFED } from '../../../supporting-data/keywords/config/download';
 import { fileFormatEntryDownload as locationsFFED } from '../../../supporting-data/locations/config/download';
 import { fileFormatEntryDownload as taxonomyFFED } from '../../../supporting-data/taxonomy/config/download';
-import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
-import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
-
-import { FileFormat } from '../../types/resultsDownload';
+import uniparcApiUrls from '../../../uniparc/config/apiUrls';
+import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import unirefApiUrls from '../../../uniref/config/apiUrls';
+import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import { Column } from '../../config/columns';
+import externalUrls from '../../config/externalUrls';
+import useDataApi from '../../hooks/useDataApi';
+import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
-import { Column } from '../../config/columns';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-
-import sticky from '../../styles/sticky.module.scss';
+import { stringifyUrl } from '../../utils/url';
+import ColumnSelect from '../column-select/ColumnSelect';
+import DownloadAPIURL from '../download/DownloadAPIURL';
+import DownloadPreview from '../download/DownloadPreview';
 import styles from '../download/styles/download.module.scss';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
@@ -94,9 +89,12 @@ export enum Dataset {
   variation = 'Variations (includes UniProtKB)',
   mutagenesis = 'Mutagenesis (includes UniProtKB)',
   coordinates = 'Genomic Coordinates',
-  proteomics = 'Proteomics',
+  proteomicsNonPtm = 'Proteomics-nonPTM',
   proteomicsPtm = 'Proteomics-PTM',
+  ProteomicsHpp = 'Human Proteome Project',
+  epitope = 'Epitope',
   antigen = 'Antigen',
+  rnaEditing = 'RNA Editing',
   interProRepresentativeDomains = 'InterPro Representative Domains',
   alphaFoldConfidence = 'AlphaFold Confidence',
   alphaFoldCoordinates = 'AlphaFold Coordinates',
@@ -107,10 +105,13 @@ const uniprotKBEntryDatasets = {
   UniProtKB: [Dataset.uniprotData, Dataset.features, Dataset.selectedFeatures],
   'Additional Datasets': [
     Dataset.variation,
+    Dataset.rnaEditing,
     Dataset.mutagenesis,
     Dataset.coordinates,
-    Dataset.proteomics,
+    Dataset.proteomicsNonPtm,
     Dataset.proteomicsPtm,
+    Dataset.ProteomicsHpp,
+    Dataset.epitope,
     Dataset.antigen,
     Dataset.interProRepresentativeDomains,
     Dataset.alphaFoldConfidence,
@@ -185,10 +186,8 @@ const getEntryDownloadUrl = (
   switch (dataset) {
     case Dataset.uniprotData: {
       if (isUniparcTsv(namespace, fileFormat)) {
-        return uniparcApiUrls.databases(accession, {
+        return uniparcApiUrls.databases(accession, undefined, true, {
           format: fileFormat as FileFormat.tsv,
-          // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27649
-          size: 500,
           fields: columns?.join(','),
         });
       }
@@ -222,14 +221,20 @@ const getEntryDownloadUrl = (
       return apiUrls.proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
       return apiUrls.proteinsApi.variation(accession, fileFormat);
-    case Dataset.proteomics:
-      return apiUrls.proteinsApi.proteomics(accession, fileFormat);
+    case Dataset.rnaEditing:
+      return apiUrls.proteinsApi.rnaEditing(accession, fileFormat);
+    case Dataset.proteomicsNonPtm:
+      return apiUrls.proteinsApi.proteomicsNonPtm(accession, fileFormat);
     case Dataset.proteomicsPtm:
       return apiUrls.proteinsApi.proteomicsPtm(accession, fileFormat);
+    case Dataset.ProteomicsHpp:
+      return apiUrls.proteinsApi.proteomicsHpp(accession, fileFormat);
     case Dataset.mutagenesis:
       return apiUrls.proteinsApi.mutagenesis(accession, fileFormat);
     case Dataset.antigen:
       return apiUrls.proteinsApi.antigen(accession, fileFormat);
+    case Dataset.epitope:
+      return apiUrls.proteinsApi.epitope(accession, fileFormat);
     case Dataset.interProRepresentativeDomains:
       return fileFormat === FileFormat.tsv || fileFormat === FileFormat.json
         ? externalUrls.InterProRepresentativeDomains(accession, fileFormat)
@@ -380,9 +385,16 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
-  const proteinsApiProteomics = useDataApi(
+  const proteinsApiRnaEditing = useDataApi(
     namespace === Namespace.uniprotkb && accession
-      ? apiUrls.proteinsApi.proteomics(accession)
+      ? apiUrls.proteinsApi.rnaEditing(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiProteomicsNonPtm = useDataApi(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.proteinsApi.proteomicsNonPtm(accession)
       : '',
     { method: 'HEAD' }
   );
@@ -390,6 +402,13 @@ const EntryDownload = ({
   const proteinsApiPTMs = useDataApi(
     namespace === Namespace.uniprotkb && accession
       ? apiUrls.proteinsApi.proteomicsPtm(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiHpp = useDataApi(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.proteinsApi.proteomicsHpp(accession)
       : '',
     { method: 'HEAD' }
   );
@@ -404,6 +423,13 @@ const EntryDownload = ({
   const proteinsApiAntigen = useDataApi(
     namespace === Namespace.uniprotkb && accession
       ? apiUrls.proteinsApi.antigen(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
+  const proteinsApiEpitope = useDataApi(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.proteinsApi.epitope(accession)
       : '',
     { method: 'HEAD' }
   );
@@ -458,8 +484,14 @@ const EntryDownload = ({
   ) {
     availableDatasets.push(Dataset.variation);
   }
-  if (!proteinsApiProteomics.loading && proteinsApiProteomics.status === 200) {
-    availableDatasets.push(Dataset.proteomics);
+  if (!proteinsApiRnaEditing.loading && proteinsApiRnaEditing.status === 200) {
+    availableDatasets.push(Dataset.rnaEditing);
+  }
+  if (
+    !proteinsApiProteomicsNonPtm.loading &&
+    proteinsApiProteomicsNonPtm.status === 200
+  ) {
+    availableDatasets.push(Dataset.proteomicsNonPtm);
   }
   if (!proteinsApiPTMs.loading && proteinsApiPTMs.status === 200) {
     availableDatasets.push(Dataset.proteomicsPtm);
@@ -472,6 +504,12 @@ const EntryDownload = ({
   }
   if (!proteinsApiAntigen.loading && proteinsApiAntigen.status === 200) {
     availableDatasets.push(Dataset.antigen);
+  }
+  if (!proteinsApiHpp.loading && proteinsApiHpp.status === 200) {
+    availableDatasets.push(Dataset.ProteomicsHpp);
+  }
+  if (!proteinsApiEpitope.loading && proteinsApiEpitope.status === 200) {
+    availableDatasets.push(Dataset.epitope);
   }
   if (
     !proteinsApiCoordinates.loading &&
@@ -508,10 +546,13 @@ const EntryDownload = ({
       //   setFileFormats(proteinsAPIVariationFormats);
       //   break;
       case Dataset.variation:
-      case Dataset.proteomics:
+      case Dataset.proteomicsNonPtm:
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
       case Dataset.antigen:
+      case Dataset.ProteomicsHpp:
+      case Dataset.epitope:
+      case Dataset.rnaEditing:
       case Dataset.mutagenesis:
         setFileFormats(proteinsAPICommonFormats);
         break;
@@ -579,16 +620,29 @@ const EntryDownload = ({
   if (nResults && nResults > maxPaginationDownload) {
     if (
       namespace === Namespace.uniparc &&
-      (selectedFormat === FileFormat.tsv || selectedFormat === FileFormat.excel)
+      selectedFormat === FileFormat.excel
     ) {
       additionalInformation = (
         <div>
-          There is a current limitation where UniParc cross-reference{' '}
-          {selectedFormat} downloads are limited to {maxPaginationDownload}{' '}
-          entries. Until this is fixed, there are several options:
+          UniParc cross reference {selectedFormat} downloads are limited to{' '}
+          {maxPaginationDownload} entries (meaning{' '}
+          <LongNumber>{(nResults as number) - 500}</LongNumber> cross references
+          will not be downloaded). There are alternative options available:
           <ul>
             <li>
-              Download the{' '}
+              For use in Excel, please use{' '}
+              <DownloadAnchor
+                accession={accession as string}
+                fileFormat={FileFormat.tsv}
+                namespace={namespace}
+                dataset={selectedDataset}
+                columns={downloadColumns}
+              />
+              , a non-proprietary format for tabularized data that includes all
+              the cross references.
+            </li>
+            <li>
+              Or, Download the{' '}
               <DownloadAnchor
                 accession={accession as string}
                 fileFormat={FileFormat.json}
@@ -599,20 +653,7 @@ const EntryDownload = ({
               file format instead which includes all{' '}
               <LongNumber>{nResults as number}</LongNumber> of the
               cross-references in the <pre>uniParcCrossReferences</pre>{' '}
-              attribute
-            </li>
-            <li>
-              Continue to download the{' '}
-              <DownloadAnchor
-                accession={accession as string}
-                fileFormat={selectedFormat}
-                namespace={namespace}
-                dataset={selectedDataset}
-                columns={downloadColumns}
-              />{' '}
-              file format which has only {maxPaginationDownload} entries
-              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
-              cross-references will not be downloaded)
+              attribute.
             </li>
           </ul>
         </div>
@@ -662,7 +703,7 @@ const EntryDownload = ({
         There are additional PTM data available from large scale studies for
         this entry. It is provided by the{' '}
         <ExternalLink
-          url={`${apiUrls.proteinsApi.proteinsApiPrefix}/doc/#/proteomics-ptm`}
+          url={`${apiUrls.proteinsApi.proteinsApiPrefix}/doc/#/ptm`}
         >
           Proteomics-ptm
         </ExternalLink>{' '}
@@ -787,9 +828,9 @@ const EntryDownload = ({
         selectedDataset !== Dataset.interProRepresentativeDomains &&
         downloadColumns && (
           <>
-            <legend>Customize columns</legend>
+            <legend data-article-id="customize">Customize columns</legend>
             <ColumnSelect
-              onChange={(columns) => setDownloadColumns(columns)}
+              onColumnChange={(columns) => setDownloadColumns(columns)}
               selectedColumns={downloadColumns}
               namespace={namespace}
               isEntryPage={namespace === Namespace.uniparc}
@@ -814,7 +855,6 @@ const EntryDownload = ({
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
           href={downloadUrl}
           className={cn('button', 'primary')}

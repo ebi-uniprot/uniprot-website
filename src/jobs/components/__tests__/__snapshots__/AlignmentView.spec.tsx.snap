@@ -1,0 +1,727 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlignmentView Align should render 1`] = `
+<DocumentFragment>
+  <div
+    class="main-content-and-footer"
+  >
+    <div
+      class="button-group"
+    >
+      <div
+        class="dropdown-container"
+      >
+        <button
+          class="button tertiary dropdown"
+          type="button"
+        >
+          Highlight properties
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <div
+        class="dropdown-container"
+      >
+        <button
+          class="button tertiary dropdown"
+          type="button"
+        >
+          Select annotation
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <fieldset
+        class="msa-view-choice"
+      >
+        View:
+        <label>
+          <input
+            checked=""
+            name="view"
+            type="radio"
+          />
+          Continuous
+        </label>
+        <label>
+          <input
+            name="view"
+            type="radio"
+          />
+          Wrapped
+        </label>
+      </fieldset>
+    </div>
+    <div>
+      <section
+        class="alignment-grid"
+        data-testid="alignment-view"
+      >
+        <span
+          class="track-label"
+        >
+          Overview
+        </span>
+        <div
+          class="track"
+        >
+          <div>
+            <nightingale-track-canvas
+              display-end="-1"
+              display-start="1"
+              height="7"
+              highlight="1:107"
+              highlight-color="#FFEB3B66"
+              length="957"
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              
+      
+              <div
+                class="container"
+              >
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
+                >
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
+                  >
+                    <g
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
+              display-end="-1"
+              display-start="1"
+              height="7"
+              highlight="1:107"
+              highlight-color="#FFEB3B66"
+              length="957"
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              
+      
+              <div
+                class="container"
+              >
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
+                >
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
+                  >
+                    <g
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
+              display-end="-1"
+              display-start="1"
+              height="7"
+              highlight="1:107"
+              highlight-color="#FFEB3B66"
+              length="957"
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              
+      
+              <div
+                class="container"
+              >
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
+                >
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
+                  >
+                    <g
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
+              display-end="-1"
+              display-start="1"
+              height="7"
+              highlight="1:107"
+              highlight-color="#FFEB3B66"
+              length="957"
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              
+      
+              <div
+                class="container"
+              >
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
+                >
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                  />
+                  
+          
+                  <svg
+                    height="7"
+                    width="10"
+                  >
+                    <g
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+          </div>
+        </div>
+        <span
+          class="track-label"
+          data-testid="track-label"
+        >
+          P05066:Domain
+        </span>
+        <div
+          class="track"
+        >
+          <nightingale-track-canvas
+            display-end="957"
+            display-start="1"
+            height="7"
+            highlight="1:107"
+            highlight-color="#FFEB3B66"
+            length="957"
+            min-height="10"
+            min-width="10"
+            style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+          >
+            <!---->
+            
+      
+            <div
+              class="container"
+            >
+              
+        
+              <div
+                style="position: relative; z-index: 0;"
+              >
+                
+          
+                <canvas
+                  style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 7px;"
+                />
+                
+          
+                <svg
+                  height="7"
+                  width="10"
+                >
+                  <g
+                    class="highlighted"
+                  />
+                </svg>
+                
+        
+              </div>
+              
+      
+            </div>
+            
+    
+          </nightingale-track-canvas>
+        </div>
+        <div
+          class="track-label track-label--align-labels"
+        >
+          <button
+            class="align-label align-label--active align-label--selectable"
+            style="height: 20px;"
+            tabindex="0"
+            type="button"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="entry-title__status icon--reviewed"
+              title="This marks a reviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
+            sp|
+            <a
+              href="/uniprotkb/P05066"
+            >
+              P05066
+            </a>
+            |PHR_YEAST
+          </button>
+          <button
+            class="align-label align-label--selectable"
+            style="height: 20px;"
+            tabindex="0"
+            type="button"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="entry-title__status icon--reviewed"
+              title="This marks a reviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
+            sp|
+            <a
+              href="/uniprotkb/P05067"
+            >
+              P05067
+            </a>
+            |A4_HUMAN
+          </button>
+          <button
+            class="align-label align-label--selectable"
+            style="height: 20px;"
+            tabindex="0"
+            type="button"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="entry-title__status icon--reviewed"
+              title="This marks a reviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
+            sp|
+            <a
+              href="/uniprotkb/P05062"
+            >
+              P05062
+            </a>
+            |ALDOB_HUMAN
+          </button>
+          <button
+            class="align-label align-label--selectable"
+            style="height: 20px;"
+            tabindex="0"
+            type="button"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="entry-title__status icon--reviewed"
+              title="This marks a reviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
+            sp|
+            <a
+              href="/uniprotkb/P05064"
+            >
+              P05064
+            </a>
+            |ALDOA_MOUSE
+          </button>
+        </div>
+        <div
+          class="track"
+        >
+          <nightingale-manager
+            reflected-attributes="highlight,display-start,display-end"
+            style="display: block; line-height: 0;"
+          >
+            <nightingale-navigation
+              height="40"
+              length="957"
+            />
+            <!---->
+          </nightingale-manager>
+        </div>
+        <div
+          class="right-coord"
+        >
+          <div
+            style="height: 20px;"
+          >
+            44
+          </div>
+          <div
+            style="height: 20px;"
+          >
+            101
+          </div>
+          <div
+            style="height: 20px;"
+          >
+            0
+          </div>
+          <div
+            style="height: 20px;"
+          >
+            0
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AlignmentView BLAST should render 1`] = `
+<DocumentFragment>
+  <div
+    class="main-content-and-footer"
+  >
+    <div
+      class="button-group"
+    >
+      <div
+        class="dropdown-container"
+      >
+        <button
+          class="button tertiary dropdown"
+          type="button"
+        >
+          Highlight properties
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <div
+        class="dropdown-container"
+      >
+        <button
+          class="button tertiary dropdown"
+          type="button"
+        >
+          Select annotation
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <fieldset
+        class="msa-view-choice"
+      >
+        View:
+        <label>
+          <input
+            checked=""
+            name="view"
+            type="radio"
+          />
+          Continuous
+        </label>
+        <label>
+          <input
+            name="view"
+            type="radio"
+          />
+          Wrapped
+        </label>
+      </fieldset>
+    </div>
+    <div>
+      <section
+        class="alignment-grid"
+        data-testid="alignment-view"
+      >
+        <span
+          class="track-label"
+        >
+          Overview
+        </span>
+        <div
+          class="track"
+        >
+          <div>
+            <nightingale-track-canvas
+              display-end="-1"
+              display-start="1"
+              height="15"
+              highlight="1:64"
+              highlight-color="#FFEB3B66"
+              length="565"
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              
+      
+              <div
+                class="container"
+              >
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
+                >
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 15px;"
+                  />
+                  
+          
+                  <svg
+                    height="15"
+                    width="10"
+                  >
+                    <g
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+            <nightingale-track-canvas
+              display-end="-1"
+              display-start="1"
+              height="15"
+              highlight="1:64"
+              highlight-color="#FFEB3B66"
+              length="565"
+              min-height="10"
+              min-width="10"
+              style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+            >
+              <!---->
+              
+      
+              <div
+                class="container"
+              >
+                
+        
+                <div
+                  style="position: relative; z-index: 0;"
+                >
+                  
+          
+                  <canvas
+                    style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 15px;"
+                  />
+                  
+          
+                  <svg
+                    height="15"
+                    width="10"
+                  >
+                    <g
+                      class="highlighted"
+                    />
+                  </svg>
+                  
+        
+                </div>
+                
+      
+              </div>
+              
+    
+            </nightingale-track-canvas>
+          </div>
+        </div>
+        <span
+          class="track-label"
+          data-testid="track-label"
+        >
+          P05066:Domain
+        </span>
+        <div
+          class="track"
+        >
+          <nightingale-track-canvas
+            display-end="565"
+            display-start="1"
+            height="15"
+            highlight="1:64"
+            highlight-color="#FFEB3B66"
+            length="565"
+            min-height="10"
+            min-width="10"
+            style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+          >
+            <!---->
+            
+      
+            <div
+              class="container"
+            >
+              
+        
+              <div
+                style="position: relative; z-index: 0;"
+              >
+                
+          
+                <canvas
+                  style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 15px;"
+                />
+                
+          
+                <svg
+                  height="15"
+                  width="10"
+                >
+                  <g
+                    class="highlighted"
+                  />
+                </svg>
+                
+        
+              </div>
+              
+      
+            </div>
+            
+    
+          </nightingale-track-canvas>
+        </div>
+        <div
+          class="track-label track-label--align-labels"
+        >
+          <span
+            class="align-label"
+          >
+            Query
+          </span>
+          <button
+            class="align-label"
+            style="height: 20px;"
+            tabindex="-1"
+            type="button"
+          >
+            Match:
+            <a
+              href="/uniprotkb/P05066"
+            >
+              P05066
+            </a>
+          </button>
+        </div>
+        <div
+          class="track"
+        >
+          <nightingale-manager
+            reflected-attributes="highlight,display-start,display-end"
+            style="display: block; line-height: 0;"
+          >
+            <nightingale-navigation
+              height="40"
+              length="565"
+            />
+            <!---->
+          </nightingale-manager>
+        </div>
+        <div
+          class="right-coord"
+        >
+          <div
+            style="height: 20px;"
+          >
+            63
+          </div>
+          <div
+            style="height: 20px;"
+          >
+            63
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</DocumentFragment>
+`;

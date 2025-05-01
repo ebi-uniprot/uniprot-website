@@ -1,33 +1,29 @@
-import { Tile, HeroContainer } from 'franklin-sites';
-import { generatePath } from 'react-router-dom';
 import cn from 'classnames';
-
-// eslint-disable-next-line import/no-relative-packages
-import colors from '../../../../node_modules/franklin-sites/src/styles/colours.json';
-
-import { LocationToPath, Location } from '../../config/urls';
-import ftpUrls from '../../../shared/config/ftpUrls';
+import { HeroContainer, Tile } from 'franklin-sites';
+import { generatePath, Link } from 'react-router-dom';
 
 import FTPIllustration from '../../../images/ftp_illustration.img.svg';
 import ProgrammaticIllustration from '../../../images/programmatic_illustration.img.svg';
-import TechDocIllustration from '../../../images/tech_doc_illustration.img.svg';
 import SubmitDataIllustration from '../../../images/submit-data_illustration.img.svg';
-
+import TechDocIllustration from '../../../images/tech_doc_illustration.img.svg';
+import ftpUrls from '../../../shared/config/ftpUrls';
+import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 
 const UniProtData = () => (
   <HeroContainer
-    title="UniProt data"
+    headingContent="UniProt data"
     className={cn(
       'uniprot-grid',
       'uniprot-grid--centered',
       'uniprot-grid--with-bleed',
       styles['home-page-section']
     )}
-    titleClassName="uniprot-grid-cell--span-12"
+    headingClassName="uniprot-grid-cell--span-12"
     noSidePadding
   >
     <Tile
+      headingLevel="h3"
       title="FTP Download"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -42,13 +38,15 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
-      url={ftpUrls.uniprot}
+      backgroundColor="var(--fr--color-independence)"
+      // eslint-disable-next-line jsx-a11y/anchor-has-content, jsx-a11y/control-has-associated-label
+      link={<a href={ftpUrls.uniprot} />}
       gradient
     >
       Download UniProt release data
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Technical Documentation"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -63,15 +61,20 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'technical',
-      })}
+      backgroundColor="var(--fr--color-independence)"
+      link={
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'technical',
+          })}
+        />
+      }
       gradient
     >
       Manuals, schemas and ontology descriptions
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Programmatic Access"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -86,15 +89,20 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'programmatic_access',
-      })}
+      backgroundColor="var(--fr--color-independence)"
+      link={
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'programmatic_access',
+          })}
+        />
+      }
       gradient
     >
       Query UniProt data using APIs providing REST, SPARQL and Java services
     </Tile>
     <Tile
+      headingLevel="h3"
       title="Submit Data"
       className={cn(
         'uniprot-grid-cell--small-span-6',
@@ -109,10 +117,14 @@ const UniProtData = () => (
           alt=""
         />
       }
-      backgroundColor={colors.independence}
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'submissions',
-      })}
+      backgroundColor="var(--fr--color-independence)"
+      link={
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'submissions',
+          })}
+        />
+      }
       gradient
     >
       Submit your sequences, publications and annotation updates

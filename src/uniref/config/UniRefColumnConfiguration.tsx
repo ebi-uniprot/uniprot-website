@@ -1,20 +1,17 @@
+import { LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import { Button, LongNumber, Sequence } from 'franklin-sites';
-
-import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
-import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
+import AccessionView from '../../shared/components/results/AccessionView';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { Namespace } from '../../shared/types/namespaces';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import parseDate from '../../shared/utils/parseDate';
 import { pluralise } from '../../shared/utils/utils';
-import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
-
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-
-import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum UniRefColumn {
   id = 'id',
@@ -29,7 +26,7 @@ export enum UniRefColumn {
   types = 'types',
   members = 'members',
   count = 'count',
-  created = 'created',
+  date_modified = 'date_modified',
   from = 'from',
 }
 
@@ -100,13 +97,12 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
           </li>
         ))}
         {organisms.length > CUT_OFF && (
-          <Button
-            element={Link}
-            variant="tertiary"
+          <Link
+            className="button tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
             More organism IDs
-          </Button>
+          </Link>
         )}
       </ul>
     ),
@@ -128,13 +124,12 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
           </li>
         ))}
         {organisms.length > CUT_OFF && (
-          <Button
-            element={Link}
-            variant="tertiary"
+          <Link
+            className="button tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
             More organisms
-          </Button>
+          </Link>
         )}
       </ul>
     ),
@@ -204,14 +199,13 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
           </li>
         ))}
         {members.length > CUT_OFF && (
-          <Button
-            element={Link}
-            variant="tertiary"
+          <Link
+            className="button tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
             {memberCount - CUT_OFF} more{' '}
             {pluralise('member', memberCount - CUT_OFF)}
-          </Button>
+          </Link>
         )}
       </ul>
     ),
@@ -227,8 +221,8 @@ UniRefColumnConfiguration.set(UniRefColumn.count, {
     ),
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.created, {
-  label: 'Last updated',
+UniRefColumnConfiguration.set(UniRefColumn.date_modified, {
+  label: 'Date of last modification',
   render: ({ updated }) =>
     updated && (
       <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>

@@ -1,0 +1,16 @@
+.confirm-async-download {
+  display: inline-block;
+
+  .warning-message,
+  .info-list {
+    margin-top: 1rem;
+  }
+
+  :global(.decorated-list-item__title) {
+    flex-basis: 25%;
+  }
+
+  :global(.codeblock) {
+    white-space: normal;
+  }
+}

@@ -1,9 +1,8 @@
-import { HeroContainer, DecoratedListItem } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { DecoratedListItem, HeroContainer } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../config/urls';
-
 import styles from './styles/non-critical.module.scss';
 
 const getNamespaceTo = (location: Location) => ({
@@ -19,7 +18,7 @@ const SupportingData = () => (
       'uniprot-grid--with-bleed',
       styles['home-page-section']
     )}
-    titleClassName="uniprot-grid-cell--span-12"
+    headingClassName="uniprot-grid-cell--span-12"
     noSidePadding
   >
     <div

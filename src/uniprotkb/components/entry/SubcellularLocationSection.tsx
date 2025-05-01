@@ -1,17 +1,14 @@
-import { memo } from 'react';
 import { Card } from 'franklin-sites';
+import { memo } from 'react';
 
-import KeywordView from '../protein-data-views/KeywordView';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
-
-import { hasContent } from '../../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import EntrySection from '../../types/entrySection';
-
-import { SubcellularLocationComment } from '../../types/commentTypes';
+import { hasContent, Key } from '../../../shared/utils/utils';
 import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
+import { SubcellularLocationComment } from '../../types/commentTypes';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import KeywordView from '../protein-data-views/KeywordView';
+import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 
 type Props = {
   data: SubcellularLocationUIModel;
@@ -19,7 +16,7 @@ type Props = {
 };
 
 export const subcellularLocationSectionHasContent = <
-  T extends Record<string | number | symbol, unknown>
+  T extends Record<Key, unknown>,
 >(
   data?: T
 ) => {

@@ -1,5 +1,5 @@
-import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 import databaseInfo from './__mocks__/databaseInfo';
+import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 
 describe('getDatabaseInfoMaps', () => {
   it('should match snapshot', () => {

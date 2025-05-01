@@ -1,8 +1,8 @@
-import { Evidence } from './modelTypes';
-import { Absorption, KineticParameters } from '../adapters/functionConverter';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { Interactant } from '../adapters/interactionConverter';
 import { Xref } from '../../shared/types/apiModel';
+import { Absorption, KineticParameters } from '../adapters/functionConverter';
+import { Interactant } from '../adapters/interactionConverter';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { Evidence } from './modelTypes';
 
 export type FreeTextType =
   | 'DISRUPTION PHENOTYPE'

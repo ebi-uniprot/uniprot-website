@@ -1,49 +1,48 @@
+import { InfoList, LongNumber, Sequence } from 'franklin-sites';
 import { Fragment, ReactNode, useState } from 'react';
-import { InfoList, Sequence, Button, LongNumber } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
-import ExternalLink from '../ExternalLink';
-import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
-import AlignButton from '../action-buttons/Align';
-import AddToBasketButton from '../action-buttons/AddToBasket';
-import LazyComponent from '../LazyComponent';
-
-import useDataApi from '../../hooks/useDataApi';
-import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
-
-import { pluralise } from '../../utils/utils';
-import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
-import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-
 import {
-  Isoform,
-  SequenceCautionComment,
-  MassSpectrometryComment,
-  RNAEditingComment,
-  AlternativeProductsComment,
-  TextWithEvidence,
-} from '../../../uniprotkb/types/commentTypes';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import {
+  getEntryPath,
   Location,
   LocationToPath,
-  getEntryPath,
 } from '../../../app/config/urls';
 import {
   IsoformNotes,
   SequenceUIModel,
 } from '../../../uniprotkb/adapters/sequenceConverter';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import {
+  AlternativeProductsComment,
+  Isoform,
+  MassSpectrometryComment,
+  RNAEditingComment,
+  SequenceCautionComment,
+  TextWithEvidence,
+} from '../../../uniprotkb/types/commentTypes';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import useDataApi from '../../hooks/useDataApi';
+import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
+import helper from '../../styles/helper.module.scss';
 import { Namespace } from '../../types/namespaces';
-
+import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
+import { pluralise } from '../../utils/utils';
+import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
+import AddToBasketButton from '../action-buttons/AddToBasket';
+import AlignButton from '../action-buttons/Align';
+import ExternalLink from '../ExternalLink';
+import LazyComponent from '../LazyComponent';
 import styles from './styles/sequence-view.module.css';
 
 export type SequenceData = {
   value: string;
   length: number;
   molWeight: number;
+  /**
+   * @deprecated Should use MD5 instead
+   */
   crc64: string;
   md5: string;
 };
@@ -94,8 +93,10 @@ const SequenceInfo = ({
       content: lastUpdateDate,
     },
     {
-      title: <span data-article-id="checksum">Checksum</span>,
-      content: dataToDisplay && dataToDisplay.crc64,
+      title: <span data-article-id="checksum">MD5 Checksum</span>,
+      content: dataToDisplay && (
+        <span className={helper['break-anywhere']}>{dataToDisplay.md5}</span>
+      ),
     },
   ];
 
@@ -120,7 +121,14 @@ const SequenceInfo = ({
               parameters: { sequence: dataToDisplay?.value },
             })
           }
-          addToBasketButton={<AddToBasketButton selectedEntries={isoformId} />}
+          addToBasketButton={
+            <AddToBasketButton
+              selectedEntries={isoformId}
+              // Not sure why a key is needed, but otherwise gets the React key
+              // warnings messages and children are rendered as array...
+              key="add-to-basket"
+            />
+          }
           isCollapsible={!openByDefault}
           isLoading={loading}
           onCopy={() => sendGtagEventCopyFastaClick(isoformId)}
@@ -149,7 +157,7 @@ const SeeAlso = ({ isoform }: { isoform: string }) => (
     <Link
       to={{
         pathname: LocationToPath[Location.UniRefResults],
-        search: `query=(uniprot_id:${isoform.replace(firstIsoformRE, '')})`,
+        search: `query=(uniprotkb:${isoform.replace(firstIsoformRE, '')})`,
       }}
     >
       UniRef
@@ -273,9 +281,8 @@ const IsoformInfo = ({
           </p>
           {/* TODO: this is hacky and temporary until we sort out
           external isoforms */}
-          <Button
-            element={Link}
-            variant="secondary"
+          <Link
+            className="button secondary"
             to={getEntryPath(
               Namespace.uniprotkb,
               isoformData.isoformIds[0].substring(
@@ -285,7 +292,7 @@ const IsoformInfo = ({
             )}
           >
             View isoform
-          </Button>
+          </Link>
         </section>
       )}
       <InfoList infoData={infoListData} columns isCompact />
@@ -507,15 +514,11 @@ const SequenceView = ({ accession, data }: SequenceViewProps) => {
   return (
     <>
       <div className="button-group">
-        <AlignButton
+        <AlignButton selectedEntries={allIsoformIds} textSuffix="isoforms" />
+        <AddToBasketButton
           selectedEntries={allIsoformIds}
-          textSuffix={
-            allIsoformIds.length === 1
-              ? undefined
-              : `${allIsoformIds.length} isoforms`
-          }
+          textSuffix="isoforms"
         />
-        {/* Missing Add to basket */}
       </div>
       {infoListComponent}
       <IsoformView

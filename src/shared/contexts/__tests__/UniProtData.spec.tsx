@@ -1,11 +1,11 @@
-import { databaseInfoColumnsSanityCheck } from '../UniProtData';
 import { warn } from '../../utils/logging';
+import { databaseInfoColumnsSanityCheck } from '../UniProtData';
 
 jest.mock('../../../uniprotkb/types/columnTypes', () => ({
   UniProtKBColumn: {
-    item_a: 'xref_item_a',
-    item_b: 'xref_item_b',
-    item_c: 'xref_item_c',
+    item_a: 'xref_item_a', // eslint-disable-line camelcase
+    item_b: 'xref_item_b', // eslint-disable-line camelcase
+    item_c: 'xref_item_c', // eslint-disable-line camelcase
   },
 }));
 

@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import { Button, ControlledDropdown } from 'franklin-sites';
 import {
   Fragment,
   HTMLAttributes,
@@ -5,26 +7,59 @@ import {
   MouseEventHandler,
   ReactNode,
   useCallback,
+  useEffect,
+  useId,
   useRef,
   useState,
 } from 'react';
-import { Button, ControlledDropdown } from 'franklin-sites';
-import cn from 'classnames';
-import { v1 } from 'uuid';
+import { frame } from 'timing-functions';
 
+import useExpandTable from '../../hooks/useExpandTable';
 import styles from './styles/table.module.scss';
 
 const Table = ({
   children,
   className,
+  expandable,
+  id,
   ...props
-}: HTMLAttributes<HTMLTableElement>) => (
-  <div className={styles.container}>
+}: HTMLAttributes<HTMLTableElement> & {
+  expandable?: boolean;
+  id?: string;
+}) => {
+  const [containerRef, expandTable, setExpandTable, showButton] =
+    useExpandTable(expandable);
+
+  return expandable ? (
+    <div>
+      <div
+        ref={containerRef}
+        className={cn(styles.container, {
+          [styles.collapsed]: expandable && !expandTable,
+        })}
+      >
+        <table className={cn(styles.table, className)} id={id} {...props}>
+          {children}
+        </table>
+      </div>
+      {(showButton || expandTable) && (
+        <div className={styles['expand-button-container']}>
+          <Button
+            variant="primary"
+            onClick={() => setExpandTable((current) => !current)}
+            id={id && `${id}-expand-button`}
+          >
+            {expandTable ? 'Collapse' : 'Expand'} table
+          </Button>
+        </div>
+      )}
+    </div>
+  ) : (
     <table className={cn(styles.table, className)} {...props}>
       {children}
     </table>
-  </div>
-);
+  );
+};
 
 type HeadProps = HTMLAttributes<HTMLTableSectionElement> & {
   toggleAll?: boolean;
@@ -35,6 +70,34 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
 
   const handleClick = () => setExpanded((expanded) => !expanded);
 
+  const ref = useRef<HTMLTableCellElement>(null);
+
+  // effect to handle a click on anything closing the dropdown
+  useEffect(() => {
+    if (!expanded) {
+      return;
+    }
+
+    const listener = (event: MouseEvent | TouchEvent) => {
+      if (!ref.current) {
+        return;
+      }
+      const dropdown = ref.current.querySelector('div');
+
+      if (dropdown?.parentElement?.contains(event.target as Node)) {
+        return;
+      }
+      setExpanded(false);
+    };
+
+    window.document.addEventListener('mouseup', listener);
+    window.document.addEventListener('touchend', listener);
+    return () => {
+      window.document.removeEventListener('mouseup', listener);
+      window.document.removeEventListener('touchend', listener);
+    };
+  }, [expanded]);
+
   const handleToggle: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       const button = event.target as HTMLButtonElement;
@@ -42,13 +105,14 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
       const buttons = button
         .closest('table')
         ?.querySelectorAll<HTMLButtonElement>(
-          // get only the direct children, not the ones within another inner table
-          `:scope > tbody > tr > td > button[aria-expanded="${!expand}"]`
+          // get only the direct children, not the ones within another inner table and
+          // use td:first-child to avoid selecting publication tags if present in the row
+          `:scope > tbody > tr > td:first-child > button[aria-expanded="${!expand}"]`
         );
       for (const button of buttons || []) {
         button.click();
       }
-      setExpanded(false);
+      frame().then(() => setExpanded(false));
     },
     []
   );
@@ -56,7 +120,7 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
   return (
     <thead className={cn(className)} {...props}>
       <tr className={styles.row}>
-        <th>
+        <th ref={ref}>
           {toggleAll && (
             <ControlledDropdown
               visibleElement={
@@ -138,30 +202,37 @@ const Row = ({
   className,
   extraContent,
   isOdd,
+  onClick,
   ...props
-}: HTMLAttributes<HTMLTableRowElement> & {
+}: Omit<HTMLAttributes<HTMLTableRowElement>, 'onClick'> & {
   extraContent?: ReactNode;
   isOdd: boolean;
+  onClick?: (expanded: boolean) => void;
 }) => {
   const hasExtraContent = Boolean(extraContent);
 
   const [expanded, setExpanded] = useState(false);
 
-  const idRef = useRef(v1());
+  const buttonId = useId();
 
-  const handleClick: MouseEventHandler<HTMLElement> | undefined =
-    hasExtraContent
-      ? (event) => {
-          if (
-            (event.target as HTMLElement).closest(
-              'a, button:not([aria-controls]), input'
-            )
-          ) {
-            return;
-          }
-          setExpanded((expanded) => !expanded);
-        }
-      : undefined;
+  const handleClick: MouseEventHandler<HTMLTableRowElement> = (event) => {
+    const toggleAllExpanded = (event.target as HTMLElement)
+      .closest('table')
+      ?.querySelector<HTMLButtonElement>(
+        ':scope > thead > tr > th > div[aria-expanded="true"]'
+      );
+    if (!toggleAllExpanded) {
+      onClick?.(!expanded);
+    }
+    if (
+      hasExtraContent &&
+      !(event.target as HTMLElement).closest(
+        'a, button:not([aria-controls]), input'
+      )
+    ) {
+      setExpanded((expanded) => !expanded);
+    }
+  };
 
   return (
     <Fragment>
@@ -182,7 +253,7 @@ const Row = ({
             <button
               type="button"
               aria-expanded={expanded ? 'true' : 'false'}
-              aria-controls={idRef.current}
+              aria-controls={buttonId}
             >
               {expanded ? '-' : '+'}
             </button>
@@ -195,10 +266,11 @@ const Row = ({
           className={cn(styles.row, styles['extra-content'], {
             [styles.odd]: isOdd,
           })}
-          id={idRef.current}
+          id={buttonId}
           hidden={!expanded}
         >
           {/* Placeholder cell for the expand toggle column */}
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <td />
           {expanded && extraContent}
         </tr>

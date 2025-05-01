@@ -1,6 +1,3 @@
-/* eslint-disable camelcase */
-import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import {
   DoughnutChart,
   ExpandableList,
@@ -9,27 +6,101 @@ import {
   Sequence,
   SequenceTools,
 } from 'franklin-sites';
-import { omit } from 'lodash-es';
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
-import ExternalLink from '../../shared/components/ExternalLink';
-import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';
+import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
+import getFeatureLabelAndTooltip from '../../help/config/featureColumnHeaders';
+import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import { PeptideSearchMatches } from '../../jobs/peptide-search/components/PeptideSearchMatches';
+import EntryTypeIcon, {
+  EntryType,
+} from '../../shared/components/entry/EntryTypeIcon';
+import {
+  IsoformView,
+  MassSpectrometryView,
+  RNAEditingView,
+  SequenceCautionView,
+} from '../../shared/components/entry/SequenceView';
 import TaxonomyView, {
   TaxonomyLineage,
 } from '../../shared/components/entry/TaxonomyView';
-import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
-import ProteomesView from '../components/protein-data-views/ProteomesView';
-import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
-import EntrySection, { EntrySectionWithFeatures } from '../types/entrySection';
+import ExternalLink from '../../shared/components/ExternalLink';
+import AccessionView from '../../shared/components/results/AccessionView';
+import externalUrls from '../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
+import helper from '../../shared/styles/helper.module.scss';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { Namespace } from '../../shared/types/namespaces';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+import * as logging from '../../shared/utils/logging';
+import { deepFindAllByKey, excludeKeys } from '../../shared/utils/utils';
+import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
 import {
-  SequenceCautionView,
-  MassSpectrometryView,
-  RNAEditingView,
-  IsoformView,
-} from '../../shared/components/entry/SequenceView';
+  CitationXRef,
+  CitationXRefDB,
+} from '../../supporting-data/citations/adapters/citationsConverter';
+import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
+import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
+// import KineticsTableView from '../components/entry/KineticsTableView';
+import {
+  functionFeaturesToColumns,
+  FunctionUIModel,
+  GOAspectLabel,
+  GoTerm,
+} from '../adapters/functionConverter';
+import { Interactant } from '../adapters/interactionConverter';
+import { ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
+import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import {
   fragmentFlags,
   sequenceFeaturesToColumns,
 } from '../adapters/sequenceConverter';
+import {
+  structureFeaturesToColumns,
+  StructureUIModel,
+} from '../adapters/structureConverter';
+import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
+import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import {
+  AbsorptionView,
+  CofactorView,
+  KineticsView,
+} from '../components/entry/FunctionSection';
+import CatalyticActivityView, {
+  getRheaId,
+  isRheaReactionReference,
+} from '../components/protein-data-views/CatalyticActivityView';
+import CSVView from '../components/protein-data-views/CSVView';
+// import { DatabaseList } from '../components/protein-data-views/XRefView';
+import DiseaseInvolvementView, {
+  protvarVariantLink,
+} from '../components/protein-data-views/DiseaseInvolvementView';
+import FreeTextView, {
+  TextView,
+} from '../components/protein-data-views/FreeTextView';
+import GOTermsView from '../components/protein-data-views/GOTermsView';
+import { KeywordList } from '../components/protein-data-views/KeywordView';
+import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
+import ProteomesView from '../components/protein-data-views/ProteomesView';
+import SimilarityView from '../components/protein-data-views/SimilarityView';
+import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
+import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
+import { DatabaseList } from '../components/protein-data-views/XRefView';
+import { UniProtKBColumn } from '../types/columnTypes';
+import {
+  CatalyticActivityComment,
+  CofactorComment,
+  CommentType,
+  DiseaseComment,
+  FreeTextComment,
+  InteractionComment,
+  InteractionType,
+  SubcellularLocationComment,
+} from '../types/commentTypes';
+import EntrySection, { EntrySectionWithFeatures } from '../types/entrySection';
 import FeatureType, {
   DiseaseAndDrugsFeatures,
   FamilyAndDomainsFeatures,
@@ -39,88 +110,10 @@ import FeatureType, {
   StructureFeatures,
   SubcellularLocationFeatures,
 } from '../types/featureType';
-import FreeTextView, {
-  TextView,
-} from '../components/protein-data-views/FreeTextView';
-import SimilarityView from '../components/protein-data-views/SimilarityView';
-import {
-  AbsorptionView,
-  KineticsView,
-  CofactorView,
-} from '../components/entry/FunctionSection';
-// import KineticsTableView from '../components/entry/KineticsTableView';
-import {
-  functionFeaturesToColumns,
-  FunctionUIModel,
-  GOAspectLabel,
-  GoTerm,
-} from '../adapters/functionConverter';
-import { UniProtKBColumn } from '../types/columnTypes';
-import {
-  CofactorComment,
-  FreeTextComment,
-  InteractionComment,
-  InteractionType,
-  DiseaseComment,
-  CatalyticActivityComment,
-  SubcellularLocationComment,
-  CommentType,
-} from '../types/commentTypes';
-import { KeywordList } from '../components/protein-data-views/KeywordView';
-// import { DatabaseList } from '../components/protein-data-views/XRefView';
-import DiseaseInvolvementView, {
-  protvarVariantLink,
-} from '../components/protein-data-views/DiseaseInvolvementView';
-import CatalyticActivityView, {
-  getRheaId,
-  isRheaReactionReference,
-} from '../components/protein-data-views/CatalyticActivityView';
-import {
-  structureFeaturesToColumns,
-  StructureUIModel,
-} from '../adapters/structureConverter';
-import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
-import GOTermsView from '../components/protein-data-views/GOTermsView';
-import EntryTypeIcon, {
-  EntryType,
-} from '../../shared/components/entry/EntryTypeIcon';
-import AccessionView from '../../shared/components/results/AccessionView';
-import CSVView from '../components/protein-data-views/CSVView';
-import { DatabaseList } from '../components/protein-data-views/XRefView';
-import { PeptideSearchMatches } from '../../tools/peptide-search/components/PeptideSearchMatches';
-
-import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
-
-import { deepFindAllByKey } from '../../shared/utils/utils';
-import { getAllKeywords } from '../utils/KeywordsUtil';
-import externalUrls from '../../shared/config/externalUrls';
-import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { sortInteractionData } from '../utils/resultsUtils';
-import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
-import getFeatureLabelAndTooltip from '../../help/config/featureColumnHeaders';
-import * as logging from '../../shared/utils/logging';
-import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
-import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
-import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
-import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
-import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
-import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
-
-import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';
-import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
-
-import { Namespace } from '../../shared/types/namespaces';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { Interactant } from '../adapters/interactionConverter';
 import { ValueWithEvidence } from '../types/modelTypes';
-import { ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
-import {
-  CitationXRef,
-  CitationXRefDB,
-} from '../../supporting-data/citations/adapters/citationsConverter';
-
-import helper from '../../shared/styles/helper.module.scss';
+import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
+import { getAllKeywords } from '../utils/KeywordsUtil';
+import { sortInteractionData } from '../utils/resultsUtils';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -214,7 +207,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
     return (
       <span translate="yes">
         <CSVView
-          data={omit(proteinNamesData, 'contains')}
+          data={excludeKeys(proteinNamesData, ['contains'])}
           bolderFirst={Boolean(proteinNamesData?.recommendedName)}
           contextKey={UniProtKBColumn.proteinName}
           supplementaryData={proteinNamesData?.contains}
@@ -362,9 +355,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
     'encoded_on'
   ),
   render: (data) => (
-    <ExpandableList displayNumberOfHiddenItems descriptionString="comments">
+    <ExpandableList displayNumberOfHiddenItems descriptionString="locations">
       {data[EntrySection.NamesAndTaxonomy].geneLocations?.map(
-        ({ geneEncodingType }) => geneEncodingType
+        ({ geneEncodingType, value }) => (
+          <span key={`${geneEncodingType}-${value}`}>
+            {geneEncodingType} {value}
+          </span>
+        )
       )}
     </ExpandableList>
   ),
@@ -1485,93 +1482,100 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tools, {
   render: (data) => <SequenceTools accession={data.primaryAccession} />,
 });
 
-const getXrefColumn = (databaseName: string) => {
-  const Label = () => {
-    const databaseInfoMaps = useDatabaseInfoMaps();
-    if (!databaseInfoMaps) {
-      return null;
-    }
-    const { databaseToDatabaseInfo } = databaseInfoMaps;
-    const databaseInfoKey = Object.keys(databaseToDatabaseInfo).find(
-      (database) => database.toLowerCase() === databaseName
-    );
-    if (!databaseInfoKey) {
-      logging.error(`No database found for ${databaseName}`);
-      return null;
-    }
-    const { displayName } = databaseToDatabaseInfo[databaseInfoKey];
-    return <>{`${displayName} cross-reference`}</>;
-  };
+const XrefRenderer = ({
+  data,
+  databaseName,
+}: {
+  data: UniProtkbUIModel;
+  databaseName: string;
+}) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
 
-  const Renderer = ({ data }: { data: UniProtkbUIModel }) => {
-    const databaseInfoMaps = useDatabaseInfoMaps();
-
-    if (databaseName === 'dbsnp') {
-      const features = data?.features;
-      return (
-        <>
-          {features?.map((feature) => {
-            const { featureId, featureCrossReferences } = feature;
-            const dbSNPRef = featureCrossReferences?.[0];
-            return (
-              <div key={featureId}>
-                {dbSNPRef?.id && (
-                  <>
-                    {protvarVariantLink(feature, data.primaryAccession)}
-                    <span className={helper['no-wrap']}>
-                      {` ${dbSNPRef.id}`}
-                      {' ( '}
-                      <ExternalLink
-                        url={getUrlFromDatabaseInfo(databaseInfoMaps, 'dbSNP', {
-                          id: dbSNPRef.id,
-                        })}
-                      >
-                        dbSNP
-                      </ExternalLink>
-                      {'| '}
-                      <ExternalLink
-                        url={externalUrls.EnsemblVariation(dbSNPRef.id)}
-                      >
-                        Ensembl
-                      </ExternalLink>
-                      {' ) '}
-                    </span>
-                    <br />
-                  </>
-                )}
-              </div>
-            );
-          })}
-        </>
-      );
-    }
-    const xrefs = data?.uniProtKBCrossReferences?.filter(
-      ({ database }) => database?.toLowerCase() === databaseName
-    );
-    const database = xrefs?.[0]?.database;
-    if (
-      !database || // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
-      !databaseInfoMaps
-    ) {
-      return null;
-    }
-    const xrefsGoupedByDatabase = {
-      database,
-      xrefs,
-    };
+  if (databaseName === 'dbsnp') {
+    const features = data?.features;
     return (
-      <DatabaseList
-        xrefsGoupedByDatabase={xrefsGoupedByDatabase}
-        primaryAccession={data.primaryAccession}
-        databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
-      />
+      <>
+        {features?.map((feature) => {
+          const { featureId, featureCrossReferences } = feature;
+          const dbSNPRef = featureCrossReferences?.[0];
+          return (
+            <div key={featureId}>
+              {dbSNPRef?.id && (
+                <>
+                  {protvarVariantLink(feature, data.primaryAccession)}
+                  <span className={helper['no-wrap']}>
+                    {` ${dbSNPRef.id}`}
+                    {' ( '}
+                    <ExternalLink
+                      url={getUrlFromDatabaseInfo(databaseInfoMaps, 'dbSNP', {
+                        id: dbSNPRef.id,
+                      })}
+                    >
+                      dbSNP
+                    </ExternalLink>
+                    {'| '}
+                    <ExternalLink
+                      url={externalUrls.EnsemblVariation(dbSNPRef.id)}
+                    >
+                      Ensembl
+                    </ExternalLink>
+                    {' ) '}
+                  </span>
+                  <br />
+                </>
+              )}
+            </div>
+          );
+        })}
+      </>
     );
+  }
+  const xrefs = data?.uniProtKBCrossReferences?.filter(
+    ({ database }) => database?.toLowerCase() === databaseName
+  );
+  const database = xrefs?.[0]?.database;
+  if (
+    !database || // This is fine - the entry just doesn't have xrefs for this DB so just render nothing
+    !databaseInfoMaps
+  ) {
+    return null;
+  }
+  const xrefsGoupedByDatabase = {
+    database,
+    xrefs,
   };
-  return {
-    label: () => <Label />,
-    render: (data: UniProtkbUIModel) => <Renderer data={data} />,
-  };
+  return (
+    <DatabaseList
+      xrefsGoupedByDatabase={xrefsGoupedByDatabase}
+      primaryAccession={data.primaryAccession}
+      databaseToDatabaseInfo={databaseInfoMaps.databaseToDatabaseInfo}
+    />
+  );
 };
+
+const XrefLabel = ({ databaseName }: { databaseName: string }) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!databaseInfoMaps) {
+    return null;
+  }
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
+  const databaseInfoKey = Object.keys(databaseToDatabaseInfo).find(
+    (database) => database.toLowerCase() === databaseName
+  );
+  if (!databaseInfoKey) {
+    logging.error(`No database found for ${databaseName}`);
+    return null;
+  }
+  const { displayName } = databaseToDatabaseInfo[databaseInfoKey];
+  return <>{`${displayName} cross-reference`}</>;
+};
+
+const getXrefColumn = (databaseName: string) => ({
+  label: <XrefLabel databaseName={databaseName} />,
+  render: (data: UniProtkbUIModel) => (
+    <XrefRenderer data={data} databaseName={databaseName} />
+  ),
+});
 
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)

@@ -1,14 +1,11 @@
-import { fireEvent, screen, getByText } from '@testing-library/react';
-
-import QueryBuilder from '../QueryBuilder';
-
-import { IDMappingDetailsContext } from '../../../shared/contexts/IDMappingDetails';
+import { fireEvent, getByText, screen } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
-import searchTermData from './__mocks__/configureSearchTerms';
-
+import { IDMappingDetailsContext } from '../../../shared/contexts/IDMappingDetails';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
+import QueryBuilder from '../QueryBuilder';
+import searchTermData from './__mocks__/configureSearchTerms';
 
 jest.mock('../../../shared/hooks/useDataApi');
 
@@ -92,7 +89,7 @@ describe('QueryBuilder', () => {
   });
 
   it('should submit a simple query', async () => {
-    const input = screen.getByPlaceholderText(/ydj1/);
+    const input = screen.getByPlaceholderText(/YDJ1/);
     fireEvent.change(input, { target: { value: 'zen' } });
     const all = screen.getByPlaceholderText(/a4_human/);
     fireEvent.change(all, { target: { value: 'eve' } });

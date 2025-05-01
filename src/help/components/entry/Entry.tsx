@@ -1,44 +1,40 @@
-import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
+import cn from 'classnames';
+import { Card, Loader } from 'franklin-sites';
+import { MouseEventHandler, useCallback, useEffect, useMemo } from 'react';
 import {
   generatePath,
   Redirect,
   RouteChildrenProps,
   useHistory,
 } from 'react-router-dom';
-import { Card, Loader } from 'franklin-sites';
-import { marked } from 'marked';
 import {
   Attributes,
   defaults,
+  IOptions,
   Tag,
   Transformer,
-  IOptions,
 } from 'sanitize-html';
-import cn from 'classnames';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import RelatedArticles from './RelatedArticles';
-
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import helpApiUrls from '../../config/apiUrls';
-import cleanText, {
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import helper from '../../../shared/styles/helper.module.scss';
+import {
   cleanTextDefaultOptions,
   getTransformTags,
   HeadingLevels,
 } from '../../../shared/utils/cleanText';
-import parseDate from '../../../shared/utils/parseDate';
-import * as logging from '../../../shared/utils/logging';
 import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
+import * as logging from '../../../shared/utils/logging';
+import { parseMarkdown } from '../../../shared/utils/markdown';
+import parseDate from '../../../shared/utils/parseDate';
 import { stringifyQuery } from '../../../shared/utils/url';
-
+import helpApiUrls from '../../config/apiUrls';
 import { HelpEntryResponse } from '../../types/apiModel';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import helper from '../../../shared/styles/helper.module.scss';
+import RelatedArticles from './RelatedArticles';
 import styles from './styles/entry.module.scss';
 
 const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
@@ -122,7 +118,6 @@ const HelpEntryContent = ({
           // Don't navigate away!
           event.preventDefault();
           // And just replace the current URL with the next page
-          // eslint-disable-next-line uniprot-website/use-config-location
           history.push(href.replace(sameAppURL, '/'));
         } else {
           // analytics, similar as in InstrumentedExternalLink
@@ -136,8 +131,8 @@ const HelpEntryContent = ({
 
   const html = useMemo(() => {
     if (data?.content) {
-      return cleanText(
-        marked(data.content),
+      return parseMarkdown(
+        data.content,
         getCleanTextOptions(upperHeadingLevel)
       );
     }
@@ -151,11 +146,7 @@ const HelpEntryContent = ({
   // event delegation here, not actually doing anything with the div
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    <div
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: html }}
-      onClick={handleClick}
-    />
+    <div dangerouslySetInnerHTML={{ __html: html }} onClick={handleClick} />
   );
 };
 

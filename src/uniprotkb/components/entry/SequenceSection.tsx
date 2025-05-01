@@ -1,38 +1,27 @@
+import { Card } from 'franklin-sites';
 import { memo } from 'react';
-import { Card, Message } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 
-import EntrySection from '../../types/entrySection';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import KeywordView from '../protein-data-views/KeywordView';
-import XRefView from '../protein-data-views/XRefView';
 import SequenceView, {
-  SequenceCautionView,
   MassSpectrometryView,
   RNAEditingView,
+  SequenceCautionView,
 } from '../../../shared/components/entry/SequenceView';
-import FreeTextView from '../protein-data-views/FreeTextView';
-import ComputationalyMappedSequences from './ComputationallyMappedSequences';
-
 import { hasContent } from '../../../shared/utils/utils';
-import { getEntryPath } from '../../../app/config/urls';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation } from '../../types/entry';
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import FreeTextView from '../protein-data-views/FreeTextView';
+import KeywordView from '../protein-data-views/KeywordView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import XRefView from '../protein-data-views/XRefView';
+import ComputationalyMappedSequences from './ComputationallyMappedSequences';
 
 type Props = {
   data: SequenceUIModel;
   primaryAccession: string;
-  hasGenomicCoordinates: boolean | 'loading';
 };
 
-const SequenceSection = ({
-  data,
-  primaryAccession,
-  hasGenomicCoordinates,
-}: Props) => {
+const SequenceSection = ({ data, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
@@ -90,21 +79,6 @@ const SequenceSection = ({
       {data.keywordData && <KeywordView keywords={data.keywordData} />}
       {data.xrefData && (
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      )}
-      {hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates && (
-        <Message level="info">
-          Discover the new{' '}
-          <Link
-            to={getEntryPath(
-              Namespace.uniprotkb,
-              primaryAccession,
-              TabLocation.GenomicCoordinates
-            )}
-          >
-            Genomic coordinates
-          </Link>{' '}
-          tab which has more genomic information about this entry
-        </Message>
       )}
     </Card>
   );

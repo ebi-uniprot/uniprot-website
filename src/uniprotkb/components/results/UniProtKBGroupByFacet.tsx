@@ -1,10 +1,9 @@
-/* eslint-disable uniprot-website/use-config-location */
+import cn from 'classnames';
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import cn from 'classnames';
 
+import facetsStyles from '../../../shared/components/results/styles/facets.module.scss';
 import { stringifyUrl } from '../../../shared/utils/url';
-
 import { GroupBy } from '../../config/apiUrls/groupBy';
 
 const groupByLabelAndParams: [string, GroupBy][] = [
@@ -29,13 +28,13 @@ const UniProtKBGroupByFacet = () => {
 
   return (
     <div>
-      <span className="facet-name">Group by</span>
+      <span className={facetsStyles['facet-name']}>Group by</span>
       <ul className="expandable-list no-bullet">
         {groupByLabelAndParams.map(([label, param]) => (
           <li key={param}>
             <Link
               className={cn({
-                'facet-active': searchParams.groupBy === param,
+                [facetsStyles['facet-active']]: searchParams.groupBy === param,
               })}
               to={getTo(param)}
             >

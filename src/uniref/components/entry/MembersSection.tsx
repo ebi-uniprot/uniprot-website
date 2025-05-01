@@ -1,40 +1,35 @@
-import { memo, useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { Card, DataTableWithLoader, Loader, LongNumber } from 'franklin-sites';
+import { memo, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
-import AlignButton from '../../../shared/components/action-buttons/Align';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import {
+  getEntryPathFor,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
-import MemberLink from './MemberLink';
-
+import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import useDataApi from '../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import { pluralise } from '../../../shared/utils/utils';
+import helper from '../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
+import { pluralise } from '../../../shared/utils/utils';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import {
-  Location,
-  LocationToPath,
-  getEntryPathFor,
-} from '../../../app/config/urls';
-import apiUrls from '../../config/apiUrls';
-
-import EntrySection from '../../types/entrySection';
-import { Namespace } from '../../../shared/types/namespaces';
-import {
   Identity,
-  UniRefMember,
   RepresentativeMember,
+  UniRefMember,
 } from '../../adapters/uniRefConverter';
+import apiUrls from '../../config/apiUrls';
+import EntrySection from '../../types/entrySection';
 import { UniRefMembersResults } from '../../types/membersEndpoint';
-
-import helper from '../../../shared/styles/helper.module.scss';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import MemberLink from './MemberLink';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -97,9 +92,15 @@ const columns: ColumDescriptor[] = [
   {
     name: 'organisms',
     label: 'Organisms',
-    render: ({ organismName, organismTaxId }) => (
-      <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismName}</Link>
-    ),
+    render: ({ organismName, organismTaxId, memberIdType }) => {
+      const link = (
+        <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismName}</Link>
+      );
+      if (memberIdType === 'UniParc') {
+        return <>{link}, …</>;
+      }
+      return link;
+    },
   },
   {
     name: 'organismIDs',
@@ -143,7 +144,7 @@ const columns: ColumDescriptor[] = [
   {
     name: 'roles',
     label: 'Roles',
-    // eslint-disable-next-line consistent-return
+
     render: (member) => {
       if (member.seed && 'sequence' in member) {
         return 'seed & representative';
@@ -159,19 +160,11 @@ const columns: ColumDescriptor[] = [
 ];
 
 const RelatedClusters = memo(
-  ({
-    identity,
-    id,
-  }: {
-    identity: Identity;
-    id: string;
-    // eslint-disable-next-line consistent-return
-  }) => {
+  ({ identity, id }: { identity: Identity; id: string }) => {
     const pathname = LocationToPath[Location.UniRefResults];
     const baseSearchString = `query=(cluster:${id})`;
     // "Expand" to related *lower* identity clusters, redirect to entry page
     // "List" related *higher* identity clusters
-
     // eslint-disable-next-line default-case
     switch (identity) {
       case 50:
@@ -326,8 +319,14 @@ const MembersSection = ({ id, identity, representativeMember }: Props) => {
         <RelatedClusters identity={identity} id={id} />
       </div>
       <div className="button-group">
-        <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton selectedEntries={selectedEntries} />
+        <ToolsDropdown
+          selectedEntries={selectedEntries}
+          blast
+          // Only if more than 1 member
+          align={total > 1}
+          // No! We might have mixed namespaces in members
+          mapID={false}
+        />
         <AddToBasket selectedEntries={selectedEntries} />
       </div>
       <div className={helper['overflow-y-container']}>

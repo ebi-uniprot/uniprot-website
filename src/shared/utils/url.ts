@@ -1,20 +1,18 @@
 import { matchPath } from 'react-router-dom';
 
-import { fromCleanMapper } from './getIdKey';
-
+import { Location, LocationToPath } from '../../app/config/urls';
+import { BlastFacet } from '../../jobs/blast/types/blastResults';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
+  getApiSortDirection,
   SelectedFacet,
   SortDirection,
-  getApiSortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { defaultFacets } from '../config/facets';
-
-import { Location, LocationToPath } from '../../app/config/urls';
-import { Namespace } from '../types/namespaces';
 import { Column } from '../config/columns';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
-import { BlastFacet } from '../../tools/blast/types/blastResults';
+import { defaultFacets } from '../config/facets';
 import { Facets } from '../types/facets';
+import { Namespace } from '../types/namespaces';
+import { fromCleanMapper } from './getIdKey';
 
 export const getLocationForPathname = (pathname: string) => {
   const found = Object.entries(LocationToPath).find(([, path]) =>
@@ -101,6 +99,7 @@ export type SearchOptions = {
   sortDirection?: SortDirection;
   facets?: Facets[] | null;
   size?: number;
+  noSort?: boolean;
 };
 
 export const getSearchParams = ({
@@ -112,6 +111,7 @@ export const getSearchParams = ({
   sortDirection = SortDirection.ascend,
   facets,
   size,
+  noSort,
 }: SearchOptions = {}) => {
   let facetField = facets;
   // if null or empty list, don't set default, only for undefined
@@ -128,7 +128,7 @@ export const getSearchParams = ({
     facets: facetField?.join(','),
     sort:
       // 'score' is invalid, but it's a user input so it might still happen
-      sortColumn && (sortColumn as string) !== 'score'
+      sortColumn && (sortColumn as string) !== 'score' && !noSort
         ? `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`
         : undefined,
   };

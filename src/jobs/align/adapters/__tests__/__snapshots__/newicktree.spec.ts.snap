@@ -1,0 +1,1611 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`newicktree should match snapshot: phylotree1 1`] = `
+[
+  {
+    "distance": 0.11515,
+    "distanceFromRoot": 0.11515,
+    "name": "EMBOSS_001",
+  },
+  {
+    "distance": 0.08485,
+    "distanceFromRoot": 0.08485,
+    "name": "EMBOSS_002",
+  },
+  {
+    "distance": 0.24848,
+    "distanceFromRoot": 0.24848,
+    "name": "EMBOSS_003",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.11515,
+        "distanceFromRoot": 0.11515,
+        "name": "EMBOSS_001",
+      },
+      {
+        "distance": 0.08485,
+        "distanceFromRoot": 0.08485,
+        "name": "EMBOSS_002",
+      },
+      {
+        "distance": 0.24848,
+        "distanceFromRoot": 0.24848,
+        "name": "EMBOSS_003",
+      },
+    ],
+  },
+]
+`;
+
+exports[`newicktree should match snapshot: phylotree2 1`] = `
+[
+  {
+    "distance": 0.41968,
+    "distanceFromRoot": 0.41968,
+    "name": "sp|P69786|PTGCB_ECOLI",
+  },
+  {
+    "distance": 0.35432,
+    "distanceFromRoot": 0.42261000000000004,
+    "name": "sp|P11166|GTR1_HUMAN",
+  },
+  {
+    "distance": 0.33133,
+    "distanceFromRoot": 0.39962000000000003,
+    "name": "sp|Q9NY64|GTR8_HUMAN",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.35432,
+        "distanceFromRoot": 0.42261000000000004,
+        "name": "sp|P11166|GTR1_HUMAN",
+      },
+      {
+        "distance": 0.33133,
+        "distanceFromRoot": 0.39962000000000003,
+        "name": "sp|Q9NY64|GTR8_HUMAN",
+      },
+    ],
+    "distance": 0.0437,
+    "distanceFromRoot": 0.06829,
+  },
+  {
+    "distance": 0.40344,
+    "distanceFromRoot": 0.42803,
+    "name": "sp|O43826|G6PT1_HUMAN",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "distance": 0.35432,
+            "distanceFromRoot": 0.42261000000000004,
+            "name": "sp|P11166|GTR1_HUMAN",
+          },
+          {
+            "distance": 0.33133,
+            "distanceFromRoot": 0.39962000000000003,
+            "name": "sp|Q9NY64|GTR8_HUMAN",
+          },
+        ],
+        "distance": 0.0437,
+        "distanceFromRoot": 0.06829,
+      },
+      {
+        "distance": 0.40344,
+        "distanceFromRoot": 0.42803,
+        "name": "sp|O43826|G6PT1_HUMAN",
+      },
+    ],
+    "distance": 0.02459,
+    "distanceFromRoot": 0.02459,
+  },
+  {
+    "distance": 0.40268,
+    "distanceFromRoot": 0.41664,
+    "name": "sp|Q9BUM1|G6PC3_HUMAN",
+  },
+  {
+    "distance": 0.20504,
+    "distanceFromRoot": 0.39978,
+    "name": "sp|P31639|SC5A2_HUMAN",
+  },
+  {
+    "distance": 0.20646,
+    "distanceFromRoot": 0.4012,
+    "name": "sp|P13866|SC5A1_HUMAN",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.20504,
+        "distanceFromRoot": 0.39978,
+        "name": "sp|P31639|SC5A2_HUMAN",
+      },
+      {
+        "distance": 0.20646,
+        "distanceFromRoot": 0.4012,
+        "name": "sp|P13866|SC5A1_HUMAN",
+      },
+    ],
+    "distance": 0.18078,
+    "distanceFromRoot": 0.19474,
+  },
+  {
+    "children": [
+      {
+        "distance": 0.40268,
+        "distanceFromRoot": 0.41664,
+        "name": "sp|Q9BUM1|G6PC3_HUMAN",
+      },
+      {
+        "children": [
+          {
+            "distance": 0.20504,
+            "distanceFromRoot": 0.39978,
+            "name": "sp|P31639|SC5A2_HUMAN",
+          },
+          {
+            "distance": 0.20646,
+            "distanceFromRoot": 0.4012,
+            "name": "sp|P13866|SC5A1_HUMAN",
+          },
+        ],
+        "distance": 0.18078,
+        "distanceFromRoot": 0.19474,
+      },
+    ],
+    "distance": 0.00974,
+    "distanceFromRoot": 0.01396,
+  },
+  {
+    "distance": 0.04415,
+    "distanceFromRoot": 0.45547000000000004,
+    "name": "sp|Q9LH76|RHM3_ARATH",
+  },
+  {
+    "distance": 0.0373,
+    "distanceFromRoot": 0.44862,
+    "name": "sp|Q9LPG6|RHM2_ARATH",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.04415,
+        "distanceFromRoot": 0.45547000000000004,
+        "name": "sp|Q9LH76|RHM3_ARATH",
+      },
+      {
+        "distance": 0.0373,
+        "distanceFromRoot": 0.44862,
+        "name": "sp|Q9LPG6|RHM2_ARATH",
+      },
+    ],
+    "distance": 0.02382,
+    "distanceFromRoot": 0.41132,
+  },
+  {
+    "distance": 0.07315,
+    "distanceFromRoot": 0.46065,
+    "name": "sp|Q9SYM5|RHM1_ARATH",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "distance": 0.04415,
+            "distanceFromRoot": 0.45547000000000004,
+            "name": "sp|Q9LH76|RHM3_ARATH",
+          },
+          {
+            "distance": 0.0373,
+            "distanceFromRoot": 0.44862,
+            "name": "sp|Q9LPG6|RHM2_ARATH",
+          },
+        ],
+        "distance": 0.02382,
+        "distanceFromRoot": 0.41132,
+      },
+      {
+        "distance": 0.07315,
+        "distanceFromRoot": 0.46065,
+        "name": "sp|Q9SYM5|RHM1_ARATH",
+      },
+    ],
+    "distance": 0.33259,
+    "distanceFromRoot": 0.3875,
+  },
+  {
+    "distance": 0.07519,
+    "distanceFromRoot": 0.45933999999999997,
+    "name": "sp|P15280|GLGS2_ORYSJ",
+  },
+  {
+    "distance": 0.07866,
+    "distanceFromRoot": 0.46281,
+    "name": "sp|P55228|GLGS_ARATH",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.07519,
+        "distanceFromRoot": 0.45933999999999997,
+        "name": "sp|P15280|GLGS2_ORYSJ",
+      },
+      {
+        "distance": 0.07866,
+        "distanceFromRoot": 0.46281,
+        "name": "sp|P55228|GLGS_ARATH",
+      },
+    ],
+    "distance": 0.16844,
+    "distanceFromRoot": 0.38415,
+  },
+  {
+    "distance": 0.1862,
+    "distanceFromRoot": 0.45794999999999997,
+    "name": "sp|P55230|GLGL2_ARATH",
+  },
+  {
+    "distance": 0.19318,
+    "distanceFromRoot": 0.46492999999999995,
+    "name": "sp|P55229|GLGL1_ARATH",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.1862,
+        "distanceFromRoot": 0.45794999999999997,
+        "name": "sp|P55230|GLGL2_ARATH",
+      },
+      {
+        "distance": 0.19318,
+        "distanceFromRoot": 0.46492999999999995,
+        "name": "sp|P55229|GLGL1_ARATH",
+      },
+    ],
+    "distance": 0.05604,
+    "distanceFromRoot": 0.27175,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "distance": 0.07519,
+            "distanceFromRoot": 0.45933999999999997,
+            "name": "sp|P15280|GLGS2_ORYSJ",
+          },
+          {
+            "distance": 0.07866,
+            "distanceFromRoot": 0.46281,
+            "name": "sp|P55228|GLGS_ARATH",
+          },
+        ],
+        "distance": 0.16844,
+        "distanceFromRoot": 0.38415,
+      },
+      {
+        "children": [
+          {
+            "distance": 0.1862,
+            "distanceFromRoot": 0.45794999999999997,
+            "name": "sp|P55230|GLGL2_ARATH",
+          },
+          {
+            "distance": 0.19318,
+            "distanceFromRoot": 0.46492999999999995,
+            "name": "sp|P55229|GLGL1_ARATH",
+          },
+        ],
+        "distance": 0.05604,
+        "distanceFromRoot": 0.27175,
+      },
+    ],
+    "distance": 0.1608,
+    "distanceFromRoot": 0.21571,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "distance": 0.04415,
+                "distanceFromRoot": 0.45547000000000004,
+                "name": "sp|Q9LH76|RHM3_ARATH",
+              },
+              {
+                "distance": 0.0373,
+                "distanceFromRoot": 0.44862,
+                "name": "sp|Q9LPG6|RHM2_ARATH",
+              },
+            ],
+            "distance": 0.02382,
+            "distanceFromRoot": 0.41132,
+          },
+          {
+            "distance": 0.07315,
+            "distanceFromRoot": 0.46065,
+            "name": "sp|Q9SYM5|RHM1_ARATH",
+          },
+        ],
+        "distance": 0.33259,
+        "distanceFromRoot": 0.3875,
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "distance": 0.07519,
+                "distanceFromRoot": 0.45933999999999997,
+                "name": "sp|P15280|GLGS2_ORYSJ",
+              },
+              {
+                "distance": 0.07866,
+                "distanceFromRoot": 0.46281,
+                "name": "sp|P55228|GLGS_ARATH",
+              },
+            ],
+            "distance": 0.16844,
+            "distanceFromRoot": 0.38415,
+          },
+          {
+            "children": [
+              {
+                "distance": 0.1862,
+                "distanceFromRoot": 0.45794999999999997,
+                "name": "sp|P55230|GLGL2_ARATH",
+              },
+              {
+                "distance": 0.19318,
+                "distanceFromRoot": 0.46492999999999995,
+                "name": "sp|P55229|GLGL1_ARATH",
+              },
+            ],
+            "distance": 0.05604,
+            "distanceFromRoot": 0.27175,
+          },
+        ],
+        "distance": 0.1608,
+        "distanceFromRoot": 0.21571,
+      },
+    ],
+    "distance": 0.05069,
+    "distanceFromRoot": 0.05491,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "distance": 0.40268,
+            "distanceFromRoot": 0.41664,
+            "name": "sp|Q9BUM1|G6PC3_HUMAN",
+          },
+          {
+            "children": [
+              {
+                "distance": 0.20504,
+                "distanceFromRoot": 0.39978,
+                "name": "sp|P31639|SC5A2_HUMAN",
+              },
+              {
+                "distance": 0.20646,
+                "distanceFromRoot": 0.4012,
+                "name": "sp|P13866|SC5A1_HUMAN",
+              },
+            ],
+            "distance": 0.18078,
+            "distanceFromRoot": 0.19474,
+          },
+        ],
+        "distance": 0.00974,
+        "distanceFromRoot": 0.01396,
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "distance": 0.04415,
+                    "distanceFromRoot": 0.45547000000000004,
+                    "name": "sp|Q9LH76|RHM3_ARATH",
+                  },
+                  {
+                    "distance": 0.0373,
+                    "distanceFromRoot": 0.44862,
+                    "name": "sp|Q9LPG6|RHM2_ARATH",
+                  },
+                ],
+                "distance": 0.02382,
+                "distanceFromRoot": 0.41132,
+              },
+              {
+                "distance": 0.07315,
+                "distanceFromRoot": 0.46065,
+                "name": "sp|Q9SYM5|RHM1_ARATH",
+              },
+            ],
+            "distance": 0.33259,
+            "distanceFromRoot": 0.3875,
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "distance": 0.07519,
+                    "distanceFromRoot": 0.45933999999999997,
+                    "name": "sp|P15280|GLGS2_ORYSJ",
+                  },
+                  {
+                    "distance": 0.07866,
+                    "distanceFromRoot": 0.46281,
+                    "name": "sp|P55228|GLGS_ARATH",
+                  },
+                ],
+                "distance": 0.16844,
+                "distanceFromRoot": 0.38415,
+              },
+              {
+                "children": [
+                  {
+                    "distance": 0.1862,
+                    "distanceFromRoot": 0.45794999999999997,
+                    "name": "sp|P55230|GLGL2_ARATH",
+                  },
+                  {
+                    "distance": 0.19318,
+                    "distanceFromRoot": 0.46492999999999995,
+                    "name": "sp|P55229|GLGL1_ARATH",
+                  },
+                ],
+                "distance": 0.05604,
+                "distanceFromRoot": 0.27175,
+              },
+            ],
+            "distance": 0.1608,
+            "distanceFromRoot": 0.21571,
+          },
+        ],
+        "distance": 0.05069,
+        "distanceFromRoot": 0.05491,
+      },
+    ],
+    "distance": 0.00422,
+    "distanceFromRoot": 0.00422,
+  },
+  {
+    "children": [
+      {
+        "distance": 0.41968,
+        "distanceFromRoot": 0.41968,
+        "name": "sp|P69786|PTGCB_ECOLI",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "distance": 0.35432,
+                "distanceFromRoot": 0.42261000000000004,
+                "name": "sp|P11166|GTR1_HUMAN",
+              },
+              {
+                "distance": 0.33133,
+                "distanceFromRoot": 0.39962000000000003,
+                "name": "sp|Q9NY64|GTR8_HUMAN",
+              },
+            ],
+            "distance": 0.0437,
+            "distanceFromRoot": 0.06829,
+          },
+          {
+            "distance": 0.40344,
+            "distanceFromRoot": 0.42803,
+            "name": "sp|O43826|G6PT1_HUMAN",
+          },
+        ],
+        "distance": 0.02459,
+        "distanceFromRoot": 0.02459,
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "distance": 0.40268,
+                "distanceFromRoot": 0.41664,
+                "name": "sp|Q9BUM1|G6PC3_HUMAN",
+              },
+              {
+                "children": [
+                  {
+                    "distance": 0.20504,
+                    "distanceFromRoot": 0.39978,
+                    "name": "sp|P31639|SC5A2_HUMAN",
+                  },
+                  {
+                    "distance": 0.20646,
+                    "distanceFromRoot": 0.4012,
+                    "name": "sp|P13866|SC5A1_HUMAN",
+                  },
+                ],
+                "distance": 0.18078,
+                "distanceFromRoot": 0.19474,
+              },
+            ],
+            "distance": 0.00974,
+            "distanceFromRoot": 0.01396,
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "distance": 0.04415,
+                        "distanceFromRoot": 0.45547000000000004,
+                        "name": "sp|Q9LH76|RHM3_ARATH",
+                      },
+                      {
+                        "distance": 0.0373,
+                        "distanceFromRoot": 0.44862,
+                        "name": "sp|Q9LPG6|RHM2_ARATH",
+                      },
+                    ],
+                    "distance": 0.02382,
+                    "distanceFromRoot": 0.41132,
+                  },
+                  {
+                    "distance": 0.07315,
+                    "distanceFromRoot": 0.46065,
+                    "name": "sp|Q9SYM5|RHM1_ARATH",
+                  },
+                ],
+                "distance": 0.33259,
+                "distanceFromRoot": 0.3875,
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "distance": 0.07519,
+                        "distanceFromRoot": 0.45933999999999997,
+                        "name": "sp|P15280|GLGS2_ORYSJ",
+                      },
+                      {
+                        "distance": 0.07866,
+                        "distanceFromRoot": 0.46281,
+                        "name": "sp|P55228|GLGS_ARATH",
+                      },
+                    ],
+                    "distance": 0.16844,
+                    "distanceFromRoot": 0.38415,
+                  },
+                  {
+                    "children": [
+                      {
+                        "distance": 0.1862,
+                        "distanceFromRoot": 0.45794999999999997,
+                        "name": "sp|P55230|GLGL2_ARATH",
+                      },
+                      {
+                        "distance": 0.19318,
+                        "distanceFromRoot": 0.46492999999999995,
+                        "name": "sp|P55229|GLGL1_ARATH",
+                      },
+                    ],
+                    "distance": 0.05604,
+                    "distanceFromRoot": 0.27175,
+                  },
+                ],
+                "distance": 0.1608,
+                "distanceFromRoot": 0.21571,
+              },
+            ],
+            "distance": 0.05069,
+            "distanceFromRoot": 0.05491,
+          },
+        ],
+        "distance": 0.00422,
+        "distanceFromRoot": 0.00422,
+      },
+    ],
+  },
+]
+`;
+
+exports[`newicktree should match snapshot: phylotree3 1`] = `
+[
+  {
+    "distance": 0.00572,
+    "distanceFromRoot": 0.10462,
+    "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
+  },
+  {
+    "distance": -0.00572,
+    "distanceFromRoot": 0.10462,
+    "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.00572,
+        "distanceFromRoot": 0.10462,
+        "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
+      },
+      {
+        "distance": -0.00572,
+        "distanceFromRoot": 0.10462,
+        "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
+      },
+    ],
+    "distance": 0.01309,
+    "distanceFromRoot": 0.0989,
+  },
+  {
+    "distance": 0.01478,
+    "distanceFromRoot": 0.12335,
+    "name": "tr|A0A452E559|A0A452E559_CAPHI",
+  },
+  {
+    "distance": 0.01345,
+    "distanceFromRoot": 0.12202,
+    "name": "tr|W5NYX9|W5NYX9_SHEEP",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.01478,
+        "distanceFromRoot": 0.12335,
+        "name": "tr|A0A452E559|A0A452E559_CAPHI",
+      },
+      {
+        "distance": 0.01345,
+        "distanceFromRoot": 0.12202,
+        "name": "tr|W5NYX9|W5NYX9_SHEEP",
+      },
+    ],
+    "distance": 0.02276,
+    "distanceFromRoot": 0.10857,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "distance": 0.00572,
+            "distanceFromRoot": 0.10462,
+            "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
+          },
+          {
+            "distance": -0.00572,
+            "distanceFromRoot": 0.10462,
+            "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
+          },
+        ],
+        "distance": 0.01309,
+        "distanceFromRoot": 0.0989,
+      },
+      {
+        "children": [
+          {
+            "distance": 0.01478,
+            "distanceFromRoot": 0.12335,
+            "name": "tr|A0A452E559|A0A452E559_CAPHI",
+          },
+          {
+            "distance": 0.01345,
+            "distanceFromRoot": 0.12202,
+            "name": "tr|W5NYX9|W5NYX9_SHEEP",
+          },
+        ],
+        "distance": 0.02276,
+        "distanceFromRoot": 0.10857,
+      },
+    ],
+    "distance": 0.0316,
+    "distanceFromRoot": 0.08581,
+  },
+  {
+    "distance": 0.41697,
+    "distanceFromRoot": 0.8340799999999999,
+    "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+  },
+  {
+    "distance": 0.40736,
+    "distanceFromRoot": 0.8469,
+    "name": "tr|F7VZH6|F7VZH6_SORMK",
+  },
+  {
+    "distance": 0.38474,
+    "distanceFromRoot": 0.8242799999999999,
+    "name": "tr|E1ZD54|E1ZD54_CHLVA",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.40736,
+        "distanceFromRoot": 0.8469,
+        "name": "tr|F7VZH6|F7VZH6_SORMK",
+      },
+      {
+        "distance": 0.38474,
+        "distanceFromRoot": 0.8242799999999999,
+        "name": "tr|E1ZD54|E1ZD54_CHLVA",
+      },
+    ],
+    "distance": 0.01557,
+    "distanceFromRoot": 0.43953999999999993,
+  },
+  {
+    "distance": 0.39018,
+    "distanceFromRoot": 0.8141499999999999,
+    "name": "tr|D8U2K8|D8U2K8_VOLCA",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "distance": 0.40736,
+            "distanceFromRoot": 0.8469,
+            "name": "tr|F7VZH6|F7VZH6_SORMK",
+          },
+          {
+            "distance": 0.38474,
+            "distanceFromRoot": 0.8242799999999999,
+            "name": "tr|E1ZD54|E1ZD54_CHLVA",
+          },
+        ],
+        "distance": 0.01557,
+        "distanceFromRoot": 0.43953999999999993,
+      },
+      {
+        "distance": 0.39018,
+        "distanceFromRoot": 0.8141499999999999,
+        "name": "tr|D8U2K8|D8U2K8_VOLCA",
+      },
+    ],
+    "distance": 0.00686,
+    "distanceFromRoot": 0.4239699999999999,
+  },
+  {
+    "children": [
+      {
+        "distance": 0.41697,
+        "distanceFromRoot": 0.8340799999999999,
+        "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "distance": 0.40736,
+                "distanceFromRoot": 0.8469,
+                "name": "tr|F7VZH6|F7VZH6_SORMK",
+              },
+              {
+                "distance": 0.38474,
+                "distanceFromRoot": 0.8242799999999999,
+                "name": "tr|E1ZD54|E1ZD54_CHLVA",
+              },
+            ],
+            "distance": 0.01557,
+            "distanceFromRoot": 0.43953999999999993,
+          },
+          {
+            "distance": 0.39018,
+            "distanceFromRoot": 0.8141499999999999,
+            "name": "tr|D8U2K8|D8U2K8_VOLCA",
+          },
+        ],
+        "distance": 0.00686,
+        "distanceFromRoot": 0.4239699999999999,
+      },
+    ],
+    "distance": 0.01039,
+    "distanceFromRoot": 0.4171099999999999,
+  },
+  {
+    "distance": -0.0236,
+    "distanceFromRoot": 0.8336099999999999,
+    "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+  },
+  {
+    "distance": 0.0236,
+    "distanceFromRoot": 0.8336099999999999,
+    "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+  },
+  {
+    "children": [
+      {
+        "distance": -0.0236,
+        "distanceFromRoot": 0.8336099999999999,
+        "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+      },
+      {
+        "distance": 0.0236,
+        "distanceFromRoot": 0.8336099999999999,
+        "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+      },
+    ],
+    "distance": 0.40329,
+    "distanceFromRoot": 0.8100099999999999,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "distance": 0.41697,
+            "distanceFromRoot": 0.8340799999999999,
+            "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "distance": 0.40736,
+                    "distanceFromRoot": 0.8469,
+                    "name": "tr|F7VZH6|F7VZH6_SORMK",
+                  },
+                  {
+                    "distance": 0.38474,
+                    "distanceFromRoot": 0.8242799999999999,
+                    "name": "tr|E1ZD54|E1ZD54_CHLVA",
+                  },
+                ],
+                "distance": 0.01557,
+                "distanceFromRoot": 0.43953999999999993,
+              },
+              {
+                "distance": 0.39018,
+                "distanceFromRoot": 0.8141499999999999,
+                "name": "tr|D8U2K8|D8U2K8_VOLCA",
+              },
+            ],
+            "distance": 0.00686,
+            "distanceFromRoot": 0.4239699999999999,
+          },
+        ],
+        "distance": 0.01039,
+        "distanceFromRoot": 0.4171099999999999,
+      },
+      {
+        "children": [
+          {
+            "distance": -0.0236,
+            "distanceFromRoot": 0.8336099999999999,
+            "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+          },
+          {
+            "distance": 0.0236,
+            "distanceFromRoot": 0.8336099999999999,
+            "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+          },
+        ],
+        "distance": 0.40329,
+        "distanceFromRoot": 0.8100099999999999,
+      },
+    ],
+    "distance": 0.01385,
+    "distanceFromRoot": 0.4067199999999999,
+  },
+  {
+    "distance": 0.01909,
+    "distanceFromRoot": 0.79074,
+    "name": "tr|G3WPD0|G3WPD0_SARHA",
+  },
+  {
+    "distance": 0.02382,
+    "distanceFromRoot": 0.7954699999999999,
+    "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.01909,
+        "distanceFromRoot": 0.79074,
+        "name": "tr|G3WPD0|G3WPD0_SARHA",
+      },
+      {
+        "distance": 0.02382,
+        "distanceFromRoot": 0.7954699999999999,
+        "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
+      },
+    ],
+    "distance": 0.37878,
+    "distanceFromRoot": 0.77165,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "distance": 0.41697,
+                "distanceFromRoot": 0.8340799999999999,
+                "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "distance": 0.40736,
+                        "distanceFromRoot": 0.8469,
+                        "name": "tr|F7VZH6|F7VZH6_SORMK",
+                      },
+                      {
+                        "distance": 0.38474,
+                        "distanceFromRoot": 0.8242799999999999,
+                        "name": "tr|E1ZD54|E1ZD54_CHLVA",
+                      },
+                    ],
+                    "distance": 0.01557,
+                    "distanceFromRoot": 0.43953999999999993,
+                  },
+                  {
+                    "distance": 0.39018,
+                    "distanceFromRoot": 0.8141499999999999,
+                    "name": "tr|D8U2K8|D8U2K8_VOLCA",
+                  },
+                ],
+                "distance": 0.00686,
+                "distanceFromRoot": 0.4239699999999999,
+              },
+            ],
+            "distance": 0.01039,
+            "distanceFromRoot": 0.4171099999999999,
+          },
+          {
+            "children": [
+              {
+                "distance": -0.0236,
+                "distanceFromRoot": 0.8336099999999999,
+                "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+              },
+              {
+                "distance": 0.0236,
+                "distanceFromRoot": 0.8336099999999999,
+                "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+              },
+            ],
+            "distance": 0.40329,
+            "distanceFromRoot": 0.8100099999999999,
+          },
+        ],
+        "distance": 0.01385,
+        "distanceFromRoot": 0.4067199999999999,
+      },
+      {
+        "children": [
+          {
+            "distance": 0.01909,
+            "distanceFromRoot": 0.79074,
+            "name": "tr|G3WPD0|G3WPD0_SARHA",
+          },
+          {
+            "distance": 0.02382,
+            "distanceFromRoot": 0.7954699999999999,
+            "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
+          },
+        ],
+        "distance": 0.37878,
+        "distanceFromRoot": 0.77165,
+      },
+    ],
+    "distance": 0.01403,
+    "distanceFromRoot": 0.39286999999999994,
+  },
+  {
+    "distance": 0.34443,
+    "distanceFromRoot": 0.72327,
+    "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "distance": 0.41697,
+                    "distanceFromRoot": 0.8340799999999999,
+                    "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "distance": 0.40736,
+                            "distanceFromRoot": 0.8469,
+                            "name": "tr|F7VZH6|F7VZH6_SORMK",
+                          },
+                          {
+                            "distance": 0.38474,
+                            "distanceFromRoot": 0.8242799999999999,
+                            "name": "tr|E1ZD54|E1ZD54_CHLVA",
+                          },
+                        ],
+                        "distance": 0.01557,
+                        "distanceFromRoot": 0.43953999999999993,
+                      },
+                      {
+                        "distance": 0.39018,
+                        "distanceFromRoot": 0.8141499999999999,
+                        "name": "tr|D8U2K8|D8U2K8_VOLCA",
+                      },
+                    ],
+                    "distance": 0.00686,
+                    "distanceFromRoot": 0.4239699999999999,
+                  },
+                ],
+                "distance": 0.01039,
+                "distanceFromRoot": 0.4171099999999999,
+              },
+              {
+                "children": [
+                  {
+                    "distance": -0.0236,
+                    "distanceFromRoot": 0.8336099999999999,
+                    "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+                  },
+                  {
+                    "distance": 0.0236,
+                    "distanceFromRoot": 0.8336099999999999,
+                    "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+                  },
+                ],
+                "distance": 0.40329,
+                "distanceFromRoot": 0.8100099999999999,
+              },
+            ],
+            "distance": 0.01385,
+            "distanceFromRoot": 0.4067199999999999,
+          },
+          {
+            "children": [
+              {
+                "distance": 0.01909,
+                "distanceFromRoot": 0.79074,
+                "name": "tr|G3WPD0|G3WPD0_SARHA",
+              },
+              {
+                "distance": 0.02382,
+                "distanceFromRoot": 0.7954699999999999,
+                "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
+              },
+            ],
+            "distance": 0.37878,
+            "distanceFromRoot": 0.77165,
+          },
+        ],
+        "distance": 0.01403,
+        "distanceFromRoot": 0.39286999999999994,
+      },
+      {
+        "distance": 0.34443,
+        "distanceFromRoot": 0.72327,
+        "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
+      },
+    ],
+    "distance": 0.32463,
+    "distanceFromRoot": 0.37883999999999995,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "distance": 0.00572,
+                "distanceFromRoot": 0.10462,
+                "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
+              },
+              {
+                "distance": -0.00572,
+                "distanceFromRoot": 0.10462,
+                "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
+              },
+            ],
+            "distance": 0.01309,
+            "distanceFromRoot": 0.0989,
+          },
+          {
+            "children": [
+              {
+                "distance": 0.01478,
+                "distanceFromRoot": 0.12335,
+                "name": "tr|A0A452E559|A0A452E559_CAPHI",
+              },
+              {
+                "distance": 0.01345,
+                "distanceFromRoot": 0.12202,
+                "name": "tr|W5NYX9|W5NYX9_SHEEP",
+              },
+            ],
+            "distance": 0.02276,
+            "distanceFromRoot": 0.10857,
+          },
+        ],
+        "distance": 0.0316,
+        "distanceFromRoot": 0.08581,
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "distance": 0.41697,
+                        "distanceFromRoot": 0.8340799999999999,
+                        "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "distance": 0.40736,
+                                "distanceFromRoot": 0.8469,
+                                "name": "tr|F7VZH6|F7VZH6_SORMK",
+                              },
+                              {
+                                "distance": 0.38474,
+                                "distanceFromRoot": 0.8242799999999999,
+                                "name": "tr|E1ZD54|E1ZD54_CHLVA",
+                              },
+                            ],
+                            "distance": 0.01557,
+                            "distanceFromRoot": 0.43953999999999993,
+                          },
+                          {
+                            "distance": 0.39018,
+                            "distanceFromRoot": 0.8141499999999999,
+                            "name": "tr|D8U2K8|D8U2K8_VOLCA",
+                          },
+                        ],
+                        "distance": 0.00686,
+                        "distanceFromRoot": 0.4239699999999999,
+                      },
+                    ],
+                    "distance": 0.01039,
+                    "distanceFromRoot": 0.4171099999999999,
+                  },
+                  {
+                    "children": [
+                      {
+                        "distance": -0.0236,
+                        "distanceFromRoot": 0.8336099999999999,
+                        "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+                      },
+                      {
+                        "distance": 0.0236,
+                        "distanceFromRoot": 0.8336099999999999,
+                        "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+                      },
+                    ],
+                    "distance": 0.40329,
+                    "distanceFromRoot": 0.8100099999999999,
+                  },
+                ],
+                "distance": 0.01385,
+                "distanceFromRoot": 0.4067199999999999,
+              },
+              {
+                "children": [
+                  {
+                    "distance": 0.01909,
+                    "distanceFromRoot": 0.79074,
+                    "name": "tr|G3WPD0|G3WPD0_SARHA",
+                  },
+                  {
+                    "distance": 0.02382,
+                    "distanceFromRoot": 0.7954699999999999,
+                    "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
+                  },
+                ],
+                "distance": 0.37878,
+                "distanceFromRoot": 0.77165,
+              },
+            ],
+            "distance": 0.01403,
+            "distanceFromRoot": 0.39286999999999994,
+          },
+          {
+            "distance": 0.34443,
+            "distanceFromRoot": 0.72327,
+            "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
+          },
+        ],
+        "distance": 0.32463,
+        "distanceFromRoot": 0.37883999999999995,
+      },
+    ],
+    "distance": 0.04971,
+    "distanceFromRoot": 0.054209999999999994,
+  },
+  {
+    "distance": 0.02205,
+    "distanceFromRoot": 0.02655,
+    "name": "tr|A0A341C794|A0A341C794_NEOAA",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "distance": 0.00572,
+                    "distanceFromRoot": 0.10462,
+                    "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
+                  },
+                  {
+                    "distance": -0.00572,
+                    "distanceFromRoot": 0.10462,
+                    "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
+                  },
+                ],
+                "distance": 0.01309,
+                "distanceFromRoot": 0.0989,
+              },
+              {
+                "children": [
+                  {
+                    "distance": 0.01478,
+                    "distanceFromRoot": 0.12335,
+                    "name": "tr|A0A452E559|A0A452E559_CAPHI",
+                  },
+                  {
+                    "distance": 0.01345,
+                    "distanceFromRoot": 0.12202,
+                    "name": "tr|W5NYX9|W5NYX9_SHEEP",
+                  },
+                ],
+                "distance": 0.02276,
+                "distanceFromRoot": 0.10857,
+              },
+            ],
+            "distance": 0.0316,
+            "distanceFromRoot": 0.08581,
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "distance": 0.41697,
+                            "distanceFromRoot": 0.8340799999999999,
+                            "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+                          },
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "distance": 0.40736,
+                                    "distanceFromRoot": 0.8469,
+                                    "name": "tr|F7VZH6|F7VZH6_SORMK",
+                                  },
+                                  {
+                                    "distance": 0.38474,
+                                    "distanceFromRoot": 0.8242799999999999,
+                                    "name": "tr|E1ZD54|E1ZD54_CHLVA",
+                                  },
+                                ],
+                                "distance": 0.01557,
+                                "distanceFromRoot": 0.43953999999999993,
+                              },
+                              {
+                                "distance": 0.39018,
+                                "distanceFromRoot": 0.8141499999999999,
+                                "name": "tr|D8U2K8|D8U2K8_VOLCA",
+                              },
+                            ],
+                            "distance": 0.00686,
+                            "distanceFromRoot": 0.4239699999999999,
+                          },
+                        ],
+                        "distance": 0.01039,
+                        "distanceFromRoot": 0.4171099999999999,
+                      },
+                      {
+                        "children": [
+                          {
+                            "distance": -0.0236,
+                            "distanceFromRoot": 0.8336099999999999,
+                            "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+                          },
+                          {
+                            "distance": 0.0236,
+                            "distanceFromRoot": 0.8336099999999999,
+                            "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+                          },
+                        ],
+                        "distance": 0.40329,
+                        "distanceFromRoot": 0.8100099999999999,
+                      },
+                    ],
+                    "distance": 0.01385,
+                    "distanceFromRoot": 0.4067199999999999,
+                  },
+                  {
+                    "children": [
+                      {
+                        "distance": 0.01909,
+                        "distanceFromRoot": 0.79074,
+                        "name": "tr|G3WPD0|G3WPD0_SARHA",
+                      },
+                      {
+                        "distance": 0.02382,
+                        "distanceFromRoot": 0.7954699999999999,
+                        "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
+                      },
+                    ],
+                    "distance": 0.37878,
+                    "distanceFromRoot": 0.77165,
+                  },
+                ],
+                "distance": 0.01403,
+                "distanceFromRoot": 0.39286999999999994,
+              },
+              {
+                "distance": 0.34443,
+                "distanceFromRoot": 0.72327,
+                "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
+              },
+            ],
+            "distance": 0.32463,
+            "distanceFromRoot": 0.37883999999999995,
+          },
+        ],
+        "distance": 0.04971,
+        "distanceFromRoot": 0.054209999999999994,
+      },
+      {
+        "distance": 0.02205,
+        "distanceFromRoot": 0.02655,
+        "name": "tr|A0A341C794|A0A341C794_NEOAA",
+      },
+    ],
+    "distance": 0.0045,
+    "distanceFromRoot": 0.0045,
+  },
+  {
+    "distance": 0.01507,
+    "distanceFromRoot": 0.01507,
+    "name": "tr|A0A2Y9PRR0|A0A2Y9PRR0_DELLE",
+  },
+  {
+    "distance": 0.00569,
+    "distanceFromRoot": 0.01146,
+    "name": "tr|A0A2U4BVN1|A0A2U4BVN1_TURTR",
+  },
+  {
+    "distance": 0.00528,
+    "distanceFromRoot": 0.01105,
+    "name": "tr|A0A484H0K8|A0A484H0K8_SOUCH",
+  },
+  {
+    "children": [
+      {
+        "distance": 0.00569,
+        "distanceFromRoot": 0.01146,
+        "name": "tr|A0A2U4BVN1|A0A2U4BVN1_TURTR",
+      },
+      {
+        "distance": 0.00528,
+        "distanceFromRoot": 0.01105,
+        "name": "tr|A0A484H0K8|A0A484H0K8_SOUCH",
+      },
+    ],
+    "distance": 0.00577,
+    "distanceFromRoot": 0.00577,
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "distance": 0.00572,
+                        "distanceFromRoot": 0.10462,
+                        "name": "tr|A0A4W2DUN1|A0A4W2DUN1_BOBOX",
+                      },
+                      {
+                        "distance": -0.00572,
+                        "distanceFromRoot": 0.10462,
+                        "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
+                      },
+                    ],
+                    "distance": 0.01309,
+                    "distanceFromRoot": 0.0989,
+                  },
+                  {
+                    "children": [
+                      {
+                        "distance": 0.01478,
+                        "distanceFromRoot": 0.12335,
+                        "name": "tr|A0A452E559|A0A452E559_CAPHI",
+                      },
+                      {
+                        "distance": 0.01345,
+                        "distanceFromRoot": 0.12202,
+                        "name": "tr|W5NYX9|W5NYX9_SHEEP",
+                      },
+                    ],
+                    "distance": 0.02276,
+                    "distanceFromRoot": 0.10857,
+                  },
+                ],
+                "distance": 0.0316,
+                "distanceFromRoot": 0.08581,
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "distance": 0.41697,
+                                "distanceFromRoot": 0.8340799999999999,
+                                "name": "tr|A0A4D9C315|A0A4D9C315_SALSN",
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "distance": 0.40736,
+                                        "distanceFromRoot": 0.8469,
+                                        "name": "tr|F7VZH6|F7VZH6_SORMK",
+                                      },
+                                      {
+                                        "distance": 0.38474,
+                                        "distanceFromRoot": 0.8242799999999999,
+                                        "name": "tr|E1ZD54|E1ZD54_CHLVA",
+                                      },
+                                    ],
+                                    "distance": 0.01557,
+                                    "distanceFromRoot": 0.43953999999999993,
+                                  },
+                                  {
+                                    "distance": 0.39018,
+                                    "distanceFromRoot": 0.8141499999999999,
+                                    "name": "tr|D8U2K8|D8U2K8_VOLCA",
+                                  },
+                                ],
+                                "distance": 0.00686,
+                                "distanceFromRoot": 0.4239699999999999,
+                              },
+                            ],
+                            "distance": 0.01039,
+                            "distanceFromRoot": 0.4171099999999999,
+                          },
+                          {
+                            "children": [
+                              {
+                                "distance": -0.0236,
+                                "distanceFromRoot": 0.8336099999999999,
+                                "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
+                              },
+                              {
+                                "distance": 0.0236,
+                                "distanceFromRoot": 0.8336099999999999,
+                                "name": "tr|A0A063CEB7|A0A063CEB7_USTVR",
+                              },
+                            ],
+                            "distance": 0.40329,
+                            "distanceFromRoot": 0.8100099999999999,
+                          },
+                        ],
+                        "distance": 0.01385,
+                        "distanceFromRoot": 0.4067199999999999,
+                      },
+                      {
+                        "children": [
+                          {
+                            "distance": 0.01909,
+                            "distanceFromRoot": 0.79074,
+                            "name": "tr|G3WPD0|G3WPD0_SARHA",
+                          },
+                          {
+                            "distance": 0.02382,
+                            "distanceFromRoot": 0.7954699999999999,
+                            "name": "tr|A0A4X2K630|A0A4X2K630_VOMUR",
+                          },
+                        ],
+                        "distance": 0.37878,
+                        "distanceFromRoot": 0.77165,
+                      },
+                    ],
+                    "distance": 0.01403,
+                    "distanceFromRoot": 0.39286999999999994,
+                  },
+                  {
+                    "distance": 0.34443,
+                    "distanceFromRoot": 0.72327,
+                    "name": "tr|A0A3R7N5S8|A0A3R7N5S8_PENVA",
+                  },
+                ],
+                "distance": 0.32463,
+                "distanceFromRoot": 0.37883999999999995,
+              },
+            ],
+            "distance": 0.04971,
+            "distanceFromRoot": 0.054209999999999994,
+          },
+          {
+            "distance": 0.02205,
+            "distanceFromRoot": 0.02655,
+            "name": "tr|A0A341C794|A0A341C794_NEOAA",
+          },
+        ],
+        "distance": 0.0045,
+        "distanceFromRoot": 0.0045,
+      },
+      {
+        "distance": 0.01507,
+        "distanceFromRoot": 0.01507,
+        "name": "tr|A0A2Y9PRR0|A0A2Y9PRR0_DELLE",
+      },
+      {
+        "children": [
+          {
+            "distance": 0.00569,
+            "distanceFromRoot": 0.01146,
+            "name": "tr|A0A2U4BVN1|A0A2U4BVN1_TURTR",
+          },
+          {
+            "distance": 0.00528,
+            "distanceFromRoot": 0.01105,
+            "name": "tr|A0A484H0K8|A0A484H0K8_SOUCH",
+          },
+        ],
+        "distance": 0.00577,
+        "distanceFromRoot": 0.00577,
+      },
+    ],
+  },
+]
+`;

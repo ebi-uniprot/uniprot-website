@@ -1,42 +1,39 @@
-import { createElement, useState, FC, Fragment, HTMLAttributes } from 'react';
-import { Link } from 'react-router-dom';
+import '../../../shared/styles/literature-citation.scss';
+
 import cn from 'classnames';
 import {
   Bubble,
   Button,
-  PublicationIcon,
-  ComputerMappedIcon,
   CommunityAnnotationIcon,
+  ComputerMappedIcon,
+  EllipsisReveal,
+  PublicationIcon,
   SwissProtIcon,
   TremblIcon,
-  EllipsisReveal,
 } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
+import { createElement, FC, Fragment, HTMLAttributes, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { SetOptional } from 'type-fest';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
 
 import {
   getEntryPath,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
-
-import parseDate from '../../../shared/utils/parseDate';
+import { Namespace } from '../../../shared/types/namespaces';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
 } from '../../../shared/utils/cleanText';
-
+import parseDate from '../../../shared/utils/parseDate';
 import {
   CitationsAPIModel,
   CitationType,
   formatCitationData,
 } from '../adapters/citationsConverter';
-import { Namespace } from '../../../shared/types/namespaces';
-
-import '../../../shared/styles/literature-citation.scss';
 
 type AuthorProps = {
   authors?: string[];
@@ -88,7 +85,11 @@ const getChoppedAuthorLists = (authors: string[], limit: number) => {
   return { displayedAuthors, hiddenAuthors, lastAuthor };
 };
 
-const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
+const Authors: FC<React.PropsWithChildren<AuthorProps>> = ({
+  authors,
+  authoringGroup,
+  limit = 10,
+}) => {
   const { displayedAuthors, hiddenAuthors, lastAuthor } = getChoppedAuthorLists(
     authors || [],
     limit
@@ -116,7 +117,7 @@ const Authors: FC<AuthorProps> = ({ authors, authoringGroup, limit = 10 }) => {
           {hiddenAuthors.map((author, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={index}>
-              , <Link to={getLinkToAuthor(author)}>{author}</Link>
+              ,<Link to={getLinkToAuthor(author)}>{author}</Link>
             </Fragment>
           ))}
         </EllipsisReveal>
@@ -136,7 +137,10 @@ type AbstractProps = {
   open?: boolean;
 };
 
-const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
+const Abstract: FC<React.PropsWithChildren<AbstractProps>> = ({
+  abstract,
+  open = false,
+}) => {
   const [display, setDisplay] = useState(open);
   return (
     <div className="publication__abstract">
@@ -145,7 +149,6 @@ const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
       </Button>
       {display && (
         <p
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: cleanText(abstract, {
               ...cleanTextDefaultOptions,
@@ -179,7 +182,7 @@ type JournalInfoProps = {
   };
 };
 
-export const JournalInfo: FC<JournalInfoProps> = ({
+export const JournalInfo: FC<React.PropsWithChildren<JournalInfoProps>> = ({
   journalInfo: {
     publicationDate,
     journal,
@@ -264,7 +267,10 @@ type StatisticsProps = {
   id: number | string;
 };
 
-const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
+const Statistics: FC<React.PropsWithChildren<StatisticsProps>> = ({
+  statistics,
+  id,
+}) => {
   const {
     reviewedProteinCount,
     unreviewedProteinCount,

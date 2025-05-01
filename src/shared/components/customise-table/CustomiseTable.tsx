@@ -1,13 +1,11 @@
-import { FormEvent } from 'react';
-import { Button } from 'franklin-sites';
 import cn from 'classnames';
+import { Button } from 'franklin-sites';
+import { FormEvent, MouseEvent } from 'react';
 
-import ColumnSelect from '../column-select/ColumnSelect';
-
-import { Namespace } from '../../types/namespaces';
 import { Column } from '../../config/columns';
-
 import sticky from '../../styles/sticky.module.scss';
+import { Namespace } from '../../types/namespaces';
+import ColumnSelect from '../column-select/ColumnSelect';
 
 type CustomiseTableProps = {
   isEntryPage: boolean;
@@ -15,8 +13,8 @@ type CustomiseTableProps = {
   columns: Column[];
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   onReset: (e: FormEvent<HTMLFormElement>) => void;
-  onCancel: (e: FormEvent<HTMLFormElement>) => void;
-  onChange: (columns: Column[]) => void;
+  onCancel: (e: MouseEvent<HTMLButtonElement>) => void;
+  onColumnChange: (columns: Column[]) => void;
 };
 
 const CustomiseTable = ({
@@ -25,7 +23,7 @@ const CustomiseTable = ({
   columns,
   onSubmit,
   onReset,
-  onChange,
+  onColumnChange,
   onCancel,
 }: CustomiseTableProps) => (
   <form
@@ -36,7 +34,7 @@ const CustomiseTable = ({
     } table columns form`}
   >
     <ColumnSelect
-      onChange={onChange}
+      onColumnChange={onColumnChange}
       selectedColumns={columns}
       namespace={namespace}
       isEntryPage={isEntryPage}

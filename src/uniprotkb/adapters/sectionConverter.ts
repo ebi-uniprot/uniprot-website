@@ -1,16 +1,16 @@
-import { getXrefsForSection, XrefUIModel } from '../utils/xrefUtils';
+import { Xref } from '../../shared/types/apiModel';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import Comment, { CommentType, FreeTextComment } from '../types/commentTypes';
+import EntrySection from '../types/entrySection';
+import FeatureType from '../types/featureType';
+import KeywordCategory from '../types/keywordCategory';
+import { DatabaseInfoMaps } from '../utils/database';
 import {
   getKeywordsForCategories,
   KeywordUIModel,
 } from '../utils/KeywordsUtil';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
-import EntrySection from '../types/entrySection';
-import KeywordCategory from '../types/keywordCategory';
-import FeatureType from '../types/featureType';
+import { getXrefsForSection, XrefUIModel } from '../utils/xrefUtils';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { Xref } from '../../shared/types/apiModel';
-import { DatabaseInfoMaps } from '../utils/database';
 
 export type UIModel = {
   commentsData: Map<CommentType, Comment[] | undefined>;

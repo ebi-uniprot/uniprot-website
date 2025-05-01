@@ -1,23 +1,22 @@
 import { screen } from '@testing-library/react';
-import { Route } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { Route } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import Entry from '../Entry';
-
-import { LocationToPath, Location } from '../../../../app/config/urls';
-
 import mockData from '../../__mocks__/helpEntryModelData';
+import Entry from '../Entry';
 
 const mock = new MockAdapter(axios);
 
 mock.onGet(/api\/help\/canonical_and_isoforms/).reply(200, mockData);
 
+const footerMock = '{{ Footer }}';
+
 jest.mock('../../../../shared/components/layouts/UniProtFooter', () => ({
   __esModule: true,
-  default: () => '{{ Footer }}',
+  default: () => footerMock,
 }));
 
 describe('Help entry tests', () => {
@@ -29,6 +28,7 @@ describe('Help entry tests', () => {
       }
     );
     await screen.findByText(mockData.title);
+    await screen.findByText(footerMock);
     expect(asFragment()).toMatchSnapshot();
   });
 });

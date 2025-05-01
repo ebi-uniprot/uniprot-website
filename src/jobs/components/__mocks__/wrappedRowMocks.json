@@ -1,0 +1,283 @@
+{
+  "rowLength": 46,
+  "highlightProperty": "conservation",
+  "conservationOptions": {
+    "calculate-conservation": true,
+    "overlay-conservation": true
+  },
+  "annotation": "Domain",
+  "sequences": [
+    {
+      "name": "sp|P05066|PHR_YEAST",
+      "sequence": "------------------------------------------MKRT",
+      "fullSequence": "------------------------------------------MKRTVISSSNAYASK----RSRLDIEHDFEQYHSLNKKYYPRP-----------IT-----RTGANQFNNK------SR-------AKPMEIVEKLQKKQKTSFENVSTVMHWFRNDLRLY-----------------------------------------------------------D----------------------------------------------------------------NVGLYKSVALFQQLRQKNAKAKLYAVYVINEDDWRAHMDSGWKLMFIMGALKN--------------------------LQQSLAELHIP----------------------------------------------LLLWEFHTPKS---TLSNSKEFVEFFKEKCMNVSSGTGTIITANIEYQTDELYRDIRLLENEDHRLQLKYYHDSC---------------------------------------------------------------------------------------------------------------------IVAPGLITTDRGTNYS--VFTPWYKKWVLYVNNYKKSTSEICHLHIIEPLKYNETFELKPFQYSLPDEFLQYIPKSKWCLPDVSEEAALSRLKDFLGTKSSKYNNEKDMLYLGGTSGLSVYITTGRISTRLIVNQAFQSCNGQIMSKALKDNSSTQNFIKEVAWRDFYRHCMCNWPYTSMGMPYRLDTLDIKWENNPVAFEKWCTGNTGIPIVDAIMRKLLYTGYINNRSRMITASFLSKNLLIDWRWGERWFMKHLIDGDSSSNVGGWGFCSSTGIDAQPYFRVFNMDIQAKKYDPQMIFVKQWVPELISSENKRPENYPKPLVDLKHSRERALKVYKDAM",
+      "start": 0,
+      "end": 4,
+      "features": [
+        {
+          "accession": "a1bdae00-235f-11eb-9899-4330e39f65ae",
+          "start": 75,
+          "end": 226,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Domain",
+          "description": "Photolyase/cryptochrome alpha/beta"
+        },
+        {
+          "accession": "a1bdae01-235f-11eb-9899-4330e39f65ae",
+          "start": 338,
+          "end": 342,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Nucleotide binding",
+          "description": "FAD",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        }
+      ],
+      "accession": "P05066"
+    },
+    {
+      "name": "sp|P05067|A4_HUMAN",
+      "sequence": "MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMN",
+      "fullSequence": "MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQ--NGKWDSDPSGTKTCIDTKEGILQYC---QEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVGEFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFRGVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEEEADDDEDDEDGDEVEEEAEEPYEEATERTTSIATTTTTTTESVEEVVREV-CSEQAETGP----CRA----MISRWYFDVTEGKCAPFFYGGCGGNRNNFDTEEYCMAVCGSAMSQSLLKTTQEPLARDPVKLPTTAASTPDAVDKYLETPGDENEHAHFQKAKERLEAKHRERMSQVMREWEEAERQAKNLPKADKKAVIQHFQEKVESLEQEAANERQ----QLVETHMARVEAMLNDRRRLALENYITALQAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYERMNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLAN------MISEPRISYGNDALMPSLTETKTTVEL-----LPVNG-----------------------------EFSLDDL--------------QPWHSFGADSVPA--NTENEVEPVDARPAADRGLTTRPGS-GLTNIKT---------------------------------EEISEVKMDAEFRHDSG----------YEVHHQKL------VFFAEDVGSNKGA-IIG-----LMVGGVVIATVIVITLVMLKKKQYTSIHHGVV-----EVDAAVTPEERHLSKMQQNGYE-NPTYKFFE----------------QMQN-----------------------------------",
+      "start": 0,
+      "end": 46,
+      "features": [
+        {
+          "accession": "a1bdae15-235f-11eb-9899-4330e39f65ae",
+          "start": 1,
+          "end": 17,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Signal",
+          "description": "",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "12665801"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "2900137"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "3597385"
+            }
+          ]
+        },
+        {
+          "accession": "PRO_0000000088",
+          "featureId": "PRO_0000000088",
+          "start": 18,
+          "end": 770,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Chain",
+          "description": "Amyloid-beta precursor protein"
+        }
+      ],
+      "accession": "P05067"
+    },
+    {
+      "name": "sp|P05062|ALDOB_HUMAN",
+      "sequence": "----------------------------------------------",
+      "fullSequence": "------------------------------------------------------------------------------------------------------------------------------------------------------------------------MAHRFPALTQEQ-------------------------------------------------------KKELSEIAQSIVA------NGKGIL-AADESVGTMGNRLQRIKVEN---TEENRRQFREILFSVDSSINQ----SIGGVILFHETLYQKDSQGKLFRNILKEKGI-------------VVGIKLD-----QGGAPLAGTN------KETTIQGLDGL------SERCAQYKK------------DGVDFGKWRAVLRIADQCPSSLA------IQENAN-----------------------------------ALARYASICQQNGL-----VPIVE---PEVIPDGDHDLEHCQ---YVTEKV-----------LAAVYKALNDHHVYLEGTLL-KPNM---VTAGHACTKKYTPEQVAMATVTALHRTVPAAVPGICFLSGGMSEEDATLNLNAINLCPLPKPWKLSF-------------------SYGRALQASAL--------------AAWGGKAANKEAT--Q-EAFMKRAMANCQAAKGQYVHTGSSGAAS-------------------------------------------TQSLFTACYT----------Y--------------------------------------------------------------------------------------------------------------------------------------------------------------",
+      "start": 0,
+      "end": 0,
+      "features": [
+        {
+          "accession": "a1bdd55a-235f-11eb-9899-4330e39f65ae",
+          "start": 1,
+          "end": 1,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Initiator methionine",
+          "description": "Removed",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250",
+              "source": "UniProtKB",
+              "id": "Q91Y97"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "2649152"
+            }
+          ]
+        },
+        {
+          "accession": "PRO_0000216940",
+          "featureId": "PRO_0000216940",
+          "start": 2,
+          "end": 364,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Chain",
+          "description": "Fructose-bisphosphate aldolase B"
+        }
+      ],
+      "accession": "P05062"
+    },
+    {
+      "name": "sp|P05064|ALDOA_MOUSE",
+      "sequence": "----------------------------------------------",
+      "fullSequence": "------------------------------------------------------------------------------------------------------------------------------------------------------------------------MPHPYPALTPEQ-------------------------------------------------------KKELSDIAHRIVA------PGKGIL-AADESTGSIAKRLQSIGTEN---TEENRRFYRQLLLTADDRVNP----CIGGVILFHETLYQKADDGRPFPQVIKSKGG-------------VVGIKVD-----KGVVPLAGTN------GETTTQGLDGL------SERCAQYKK------------DGADFAKWRCVLKIGEHTPSALA------IMENAN-----------------------------------VLARYASICQQNGI-----VPIVE---PEILPDGDHDLKRCQ---YVTEKV-----------LAAVYKALSDHHVYLEGTLL-KPNM---VTPGHACTQKFSNEEIAMATVTALRRTVPPAVTGVTFLSGGQSEEEASINLNAINKCPLLKPWALTF-------------------SYGRALQASAL--------------KAWGGKKENLKAA--Q-EEYIKRALANSLACQGKYTPSGQSGAAA-------------------------------------------SESLFISNHA----------Y--------------------------------------------------------------------------------------------------------------------------------------------------------------",
+      "start": 0,
+      "end": 0,
+      "features": [
+        {
+          "accession": "a1be716a-235f-11eb-9899-4330e39f65ae",
+          "start": 1,
+          "end": 1,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Initiator methionine",
+          "description": "Removed",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "Reference",
+              "id": "Ref.4"
+            }
+          ]
+        },
+        {
+          "accession": "PRO_0000216937",
+          "featureId": "PRO_0000216937",
+          "start": 2,
+          "end": 364,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Chain",
+          "description": "Fructose-bisphosphate aldolase A"
+        }
+      ],
+      "accession": "P05064"
+    }
+  ],
+  "activeId": "P05066",
+  "selectedEntries": [],
+  "trackStart": 1,
+  "trackEnd": 46,
+  "delayRender": false,
+  "activeAnnotation": [
+    {
+      "accession": "a1bdae00-235f-11eb-9899-4330e39f65ae",
+      "start": 75,
+      "end": 226,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "Domain",
+      "description": "Photolyase/cryptochrome alpha/beta"
+    }
+  ],
+  "activeAlignment": {
+    "valid": true,
+    "likelyType": "aa",
+    "message": null,
+    "sequence": "------------------------------------------MKRTVISSSNAYASK----RSRLDIEHDFEQYHSLNKKYYPRP-----------IT-----RTGANQFNNK------SR-------AKPMEIVEKLQKKQKTSFENVSTVMHWFRNDLRLY-----------------------------------------------------------D----------------------------------------------------------------NVGLYKSVALFQQLRQKNAKAKLYAVYVINEDDWRAHMDSGWKLMFIMGALKN--------------------------LQQSLAELHIP----------------------------------------------LLLWEFHTPKS---TLSNSKEFVEFFKEKCMNVSSGTGTIITANIEYQTDELYRDIRLLENEDHRLQLKYYHDSC---------------------------------------------------------------------------------------------------------------------IVAPGLITTDRGTNYS--VFTPWYKKWVLYVNNYKKSTSEICHLHIIEPLKYNETFELKPFQYSLPDEFLQYIPKSKWCLPDVSEEAALSRLKDFLGTKSSKYNNEKDMLYLGGTSGLSVYITTGRISTRLIVNQAFQSCNGQIMSKALKDNSSTQNFIKEVAWRDFYRHCMCNWPYTSMGMPYRLDTLDIKWENNPVAFEKWCTGNTGIPIVDAIMRKLLYTGYINNRSRMITASFLSKNLLIDWRWGERWFMKHLIDGDSSSNVGGWGFCSSTGIDAQPYFRVFNMDIQAKKYDPQMIFVKQWVPELISSENKRPENYPKPLVDLKHSRERALKVYKDAM",
+    "raw": ">sp|P05066|PHR_YEAST Deoxyribodipyrimidine photo-lyase, mitochondrial OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 GN=PHR1 PE=1 SV=1\nMKRTVISSSNAYASKRSRLDIEHDFEQYHSLNKKYYPRPITRTGANQFNNKSRAKPMEIV\nEKLQKKQKTSFENVSTVMHWFRNDLRLYDNVGLYKSVALFQQLRQKNAKAKLYAVYVINE\nDDWRAHMDSGWKLMFIMGALKNLQQSLAELHIPLLLWEFHTPKSTLSNSKEFVEFFKEKC\nMNVSSGTGTIITANIEYQTDELYRDIRLLENEDHRLQLKYYHDSCIVAPGLITTDRGTNY\nSVFTPWYKKWVLYVNNYKKSTSEICHLHIIEPLKYNETFELKPFQYSLPDEFLQYIPKSK\nWCLPDVSEEAALSRLKDFLGTKSSKYNNEKDMLYLGGTSGLSVYITTGRISTRLIVNQAF\nQSCNGQIMSKALKDNSSTQNFIKEVAWRDFYRHCMCNWPYTSMGMPYRLDTLDIKWENNP\nVAFEKWCTGNTGIPIVDAIMRKLLYTGYINNRSRMITASFLSKNLLIDWRWGERWFMKHL\nIDGDSSSNVGGWGFCSSTGIDAQPYFRVFNMDIQAKKYDPQMIFVKQWVPELISSENKRP\nENYPKPLVDLKHSRERALKVYKDAM",
+    "name": "sp|P05066|PHR_YEAST",
+    "header": ">sp|P05066|PHR_YEAST Deoxyribodipyrimidine photo-lyase, mitochondrial OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 GN=PHR1 PE=1 SV=1",
+    "accession": "P05066",
+    "features": [
+      {
+        "accession": "a1bdae00-235f-11eb-9899-4330e39f65ae",
+        "start": 75,
+        "end": 226,
+        "startModifier": "EXACT",
+        "endModifier": "EXACT",
+        "type": "Domain",
+        "description": "Photolyase/cryptochrome alpha/beta"
+      },
+      {
+        "accession": "a1bdae01-235f-11eb-9899-4330e39f65ae",
+        "start": 338,
+        "end": 342,
+        "startModifier": "EXACT",
+        "endModifier": "EXACT",
+        "type": "Nucleotide binding",
+        "description": "FAD",
+        "evidences": [
+          {
+            "evidenceCode": "ECO:0000250"
+          }
+        ]
+      }
+    ],
+    "length": 957,
+    "from": 1,
+    "to": 957
+  },
+  "selectedMSAFeatures": [
+    {
+      "residues": {
+        "from": 150,
+        "to": 616
+      },
+      "sequences": {
+        "from": 0,
+        "to": 0
+      },
+      "id": "a1bdae00-235f-11eb-9899-4330e39f65ae",
+      "borderColor": "#9999FF",
+      "fillColor": "transparent",
+      "mouseOverFillColor": "transparent",
+      "mouseOverBorderColor": "#9999FF"
+    },
+    {
+      "residues": {
+        "from": 28,
+        "to": 194
+      },
+      "sequences": {
+        "from": 1,
+        "to": 1
+      },
+      "id": "a1bdae19-235f-11eb-9899-4330e39f65ae",
+      "borderColor": "#9999FF",
+      "fillColor": "transparent",
+      "mouseOverFillColor": "transparent",
+      "mouseOverBorderColor": "#9999FF"
+    },
+    {
+      "residues": {
+        "from": 296,
+        "to": 355
+      },
+      "sequences": {
+        "from": 1,
+        "to": 1
+      },
+      "id": "a1bdae1a-235f-11eb-9899-4330e39f65ae",
+      "borderColor": "#9999FF",
+      "fillColor": "transparent",
+      "mouseOverFillColor": "transparent",
+      "mouseOverBorderColor": "#9999FF"
+    },
+    {
+      "residues": {
+        "from": 388,
+        "to": 583
+      },
+      "sequences": {
+        "from": 1,
+        "to": 1
+      },
+      "id": "a1bdae1b-235f-11eb-9899-4330e39f65ae",
+      "borderColor": "#9999FF",
+      "fillColor": "transparent",
+      "mouseOverFillColor": "transparent",
+      "mouseOverBorderColor": "#9999FF"
+    }
+  ]
+}

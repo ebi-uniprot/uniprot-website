@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import { captureException, captureMessage } from '@sentry/react';
 import { ScopeContext } from '@sentry/types';
@@ -7,7 +6,7 @@ const isProduction = process.env.NODE_ENV !== 'development';
 const isTest = process.env.NODE_ENV === 'test';
 
 type LoggingHelper = (
-  message: string | Error,
+  message: string | Error | ErrorEvent,
   context?: Partial<ScopeContext>
 ) => void;
 

@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import { JsonValue } from 'type-fest';
 
 import useLocalStorage, {
@@ -18,6 +18,7 @@ describe('useLocalStorage hook', () => {
     );
 
     expect(result.current[0]).toEqual('default value');
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(
       'default value'
@@ -37,11 +38,11 @@ describe('useLocalStorage hook', () => {
     window.localStorage.setItem('gdpr', JSON.stringify('previous value'));
     window.localStorage.setItem('view-mode', JSON.stringify('previous view'));
     const { result, rerender } = renderHook<
-      { key: UserPreferenceKey },
       [
         state: JsonValue,
-        setState: React.Dispatch<React.SetStateAction<JsonValue>>
-      ]
+        setState: React.Dispatch<React.SetStateAction<JsonValue>>,
+      ],
+      { key: UserPreferenceKey }
     >((props) => useLocalStorage<JsonValue>(props.key, 'default value'), {
       initialProps: { key: 'gdpr' as const },
     });
@@ -62,6 +63,7 @@ describe('useLocalStorage hook', () => {
     act(() => result.current[1]('other value'));
 
     expect(result.current[0]).toEqual('other value');
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(
       'other value'
@@ -79,6 +81,7 @@ describe('useLocalStorage hook', () => {
     );
 
     expect(result.current[0]).toEqual('(OTHER VALUE!)');
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(
       '(OTHER VALUE!)'

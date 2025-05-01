@@ -1,25 +1,22 @@
+import { Loader } from 'franklin-sites';
 import { memo } from 'react';
-import { Facets, Facet, Loader } from 'franklin-sites';
-
 import { useParams, useRouteMatch } from 'react-router-dom';
-import useNS from '../../hooks/useNS';
 
-import TaxonomyFacet from './TaxonomyFacet';
-import EntryTypeIcon from '../entry/EntryTypeIcon';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
-
+import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
+import useNS from '../../hooks/useNS';
+import helper from '../../styles/helper.module.scss';
 import {
   mainNamespaces,
   Namespace,
   SearchableNamespace,
 } from '../../types/namespaces';
-
-import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import { FacetObject, FacetValue } from '../../types/results';
-import { Location, LocationToPath } from '../../../app/config/urls';
-
-import helper from '../../styles/helper.module.scss';
+import EntryTypeIcon from '../entry/EntryTypeIcon';
 import baseLayoutStyles from '../layouts/styles/base-layout.module.scss';
+import { Facet, Facets } from './Facets';
+import TaxonomyFacet from './TaxonomyFacet';
 
 const getDecoratedFacetLabel = (facetValue: FacetValue) => {
   const { label } = facetValue;

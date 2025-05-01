@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
-import { MessageType } from '../types/messagesTypes';
 
+import { MessageType } from '../types/messagesTypes';
 import * as messagesActions from './messagesActions';
 import messagesInitialState, { MessagesState } from './messagesInitialState';
 
@@ -19,8 +19,8 @@ const messagesReducers = (
       if (action.payload.id) {
         payload = action.payload as MessageType;
       } else {
-        // eslint-disable-next-line no-plusplus
-        payload = { ...action.payload, id: `default-id-${++fallbackId}` };
+        fallbackId += 1;
+        payload = { ...action.payload, id: `default-id-${fallbackId}` };
       }
       return {
         ...state,

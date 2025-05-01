@@ -1,7 +1,6 @@
-import { parse } from './queryStringProcessor';
-import { getNextId } from './clause';
-
 import { Clause, SearchTermType } from '../types/searchTypes';
+import { getNextId } from './clause';
+import { parse } from './queryStringProcessor';
 
 type STTWithParent = SearchTermType & {
   parent?: STTWithParent;
@@ -49,7 +48,7 @@ const parseAndMatchQuery = (
   for (const clause of parsedQuery) {
     if (clause.searchTerm.term === 'All') {
       validatedQuery.push(clause);
-      continue; // eslint-disable-line no-continue
+      continue;
     }
     const matching = flattened.filter(
       ({ term }) => term === clause.searchTerm.term

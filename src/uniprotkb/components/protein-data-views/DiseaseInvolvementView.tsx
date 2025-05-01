@@ -1,25 +1,22 @@
-import { Fragment, memo } from 'react';
-import { Link } from 'react-router-dom';
-import { InfoList, ExpandableList } from 'franklin-sites';
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
+import { Fragment, memo } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { XRef } from './XRefView';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
+import { allEntryPages, getEntryPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import { RichText } from './FreeTextView';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import { getEntryPath } from '../../../app/config/urls';
+import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
+import Table from '../../../shared/components/table/Table';
 import externalUrls from '../../../shared/config/externalUrls';
-
-import { DiseaseComment } from '../../types/commentTypes';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
-import { FeatureDatum } from './UniProtKBFeaturesView';
-
-import styles from './styles/disease-involvement-view.module.scss';
+import { DiseaseComment } from '../../types/commentTypes';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
+import { RichText } from './FreeTextView';
+import styles from './styles/disease-involvement-view.module.scss';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import { FeatureDatum } from './UniProtKBFeaturesView';
+import { XRef } from './XRefView';
 
 const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
   const aStart = +a.location.start.value;
@@ -79,69 +76,60 @@ const DiseaseVariants = ({
 }: {
   variants: FeatureDatum[];
   accession: string;
-}) => {
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th>Variant ID</th>
-          <th>Position(s)</th>
-          <th>Change</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
-        {variants.map((variant, i) => {
-          let position = `${variant.location.start.value}`;
-          if (variant.location.start.value !== variant.location.end.value) {
-            position += `-${variant.location.end.value}`;
-          }
+}) => (
+  <Table expandable={variants.length > MIN_ROWS_TO_EXPAND}>
+    <Table.Head>
+      <th>Variant ID</th>
+      <th>Position(s)</th>
+      <th>Change</th>
+      <th>Description</th>
+    </Table.Head>
+    <Table.Body translate="no">
+      {variants.map((variant, i) => {
+        let position = `${variant.location.start.value}`;
+        if (variant.location.start.value !== variant.location.end.value) {
+          position += `-${variant.location.end.value}`;
+        }
 
-          let { description } = variant;
+        let { description } = variant;
 
-          if (variant.location.sequence) {
-            description = `In isoform ${variant.location.sequence}; ${description}`;
-          }
+        if (variant.location.sequence) {
+          description = `In isoform ${variant.location.sequence}; ${description}`;
+        }
 
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={i}>
-              <tr>
-                <td>
-                  {variant.alternativeSequence?.originalSequence?.length ===
-                    1 &&
-                  variant.alternativeSequence?.alternativeSequences?.[0]
-                    .length === 1 &&
-                  variant.featureId ? (
-                    <ExternalLink
-                      url={externalUrls.UniProt(variant.featureId)}
-                      title="View in Expasy"
-                      noIcon
-                    >
-                      {variant.featureId}
-                    </ExternalLink>
-                  ) : (
-                    variant.featureId
-                  )}
-                </td>
-                <td>{position}</td>
-                <td className={variationViewerStyles.change}>
-                  {protvarVariantLink(variant, accession)}
-                </td>
-                <td translate="yes">
-                  <RichText>{description}</RichText>
-                  <UniProtKBEvidenceTag evidences={variant.evidences} />
-                </td>
-              </tr>
-            </Fragment>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-
-  return <DatatableWrapper>{table}</DatatableWrapper>;
-};
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <Table.Row isOdd={Boolean(i % 2)} key={i}>
+            <td>
+              {variant.alternativeSequence?.originalSequence?.length === 1 &&
+              variant.alternativeSequence?.alternativeSequences?.[0].length ===
+                1 &&
+              variant.featureId ? (
+                <ExternalLink
+                  url={externalUrls.UniProt(variant.featureId)}
+                  title="View in Expasy"
+                  noIcon
+                >
+                  {variant.featureId}
+                </ExternalLink>
+              ) : (
+                variant.featureId
+              )}
+            </td>
+            <td>{position}</td>
+            <td className={variationViewerStyles.change}>
+              {protvarVariantLink(variant, accession)}
+            </td>
+            <td translate="yes">
+              <RichText>{description}</RichText>
+              <UniProtKBEvidenceTag evidences={variant.evidences} />
+            </td>
+          </Table.Row>
+        );
+      })}
+    </Table.Body>
+  </Table>
+);
 
 const reDiseaseAcronymSentence = /^in [^;]+(;|$)/i;
 
@@ -157,7 +145,8 @@ const DiseaseInvolvementEntry = ({
   accession,
 }: DiseaseInvolvementEntryProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const { disease, note } = comment;
+  const entryPageMatch = useRouteMatch(allEntryPages);
+  const { disease, molecule, note } = comment;
 
   if (!disease && !note) {
     return null;
@@ -254,6 +243,15 @@ const DiseaseInvolvementEntry = ({
           title
         )}
       </h4>
+      {molecule && (
+        <h5 className="tiny">
+          {!entryPageMatch ? (
+            `${molecule}`
+          ) : (
+            <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
+          )}
+        </h5>
+      )}
       <span className="text-block">
         <UniProtKBEvidenceTag evidences={disease?.evidences} />
       </span>
@@ -275,7 +273,7 @@ type DiseaseInvolvementProps = {
   includeTitle?: boolean;
 };
 
-export const DiseaseInvolvementView = ({
+const DiseaseInvolvementView = ({
   comments,
   features,
   primaryAccession: accession,

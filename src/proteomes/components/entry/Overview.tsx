@@ -1,20 +1,18 @@
 import { InfoList, LongNumber } from 'franklin-sites';
 
-import AccessionView from '../../../shared/components/results/AccessionView';
-import ExternalLink from '../../../shared/components/ExternalLink';
-import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
-import BuscoView from '../BuscoView';
-import BuscoLegend from '../BuscoLegend';
-import { PanProteome } from './PanProteome';
-
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import AccessionView from '../../../shared/components/results/AccessionView';
 import ftpUrls from '../../../shared/config/ftpUrls';
+import { Namespace } from '../../../shared/types/namespaces';
+import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
-
-import { Namespace } from '../../../shared/types/namespaces';
-import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+import BuscoLegend from '../BuscoLegend';
+import BuscoView from '../BuscoView';
+import { PanProteome } from './PanProteome';
 
 const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const renderColumnContent = (column: ProteomesColumn) => {
@@ -112,6 +110,10 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
           {data.strain && ` | ${data.strain}`}
         </>
       ),
+    },
+    {
+      title: `Taxon ID`,
+      content: <TaxonomyView data={data.taxonomy} displayOnlyID />,
     },
     {
       title: (

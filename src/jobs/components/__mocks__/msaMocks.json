@@ -1,0 +1,487 @@
+{
+  "BLAST": [
+    {
+      "name": "Query",
+      "sequence": "MKRTVISSSNAYASKRSRLDIEHDFEQYHSLNKKYYPRPITRTGANQFNNKSRAKPMEIVEKLQKKQKTSFENVSTVMHWFRNDLRLYDNVGLYKSVALFQQLRQKNAKAKLYAVYVINEDDWRAHMDSGWKLMFIMGALKNLQQSLAELHIPLLLWEFHTPKSTLSNSKEFVEFFKEKCMNVSSGTGTIITANIEYQTDELYRDIRLLENEDHRLQLKYYHDSCIVAPGLITTDRGTNYSVFTPWYKKWVLYVNNYKKSTSEICHLHIIEPLKYNETFELKPFQYSLPDEFLQYIPKSKWCLPDVSEEAALSRLKDFLGTKSSKYNNEKDMLYLGGTSGLSVYITTGRISTRLIVNQAFQSCNGQIMSKALKDNSSTQNFIKEVAWRDFYRHCMCNWPYTSMGMPYRLDTLDIKWENNPVAFEKWCTGNTGIPIVDAIMRKLLYTGYINNRSRMITASFLSKNLLIDWRWGERWFMKHLIDGDSSSNVGGWGFCSSTGIDAQPYFRVFNMDIQAKKYDPQMIFVKQWVPELISSENKRPENYPKPLVDLKHSRERALKVYKDAM",
+      "from": 1,
+      "to": 565,
+      "length": 565
+    },
+    {
+      "name": "Match:P05066",
+      "sequence": "MKRTVISSSNAYASKRSRLDIEHDFEQYHSLNKKYYPRPITRTGANQFNNKSRAKPMEIVEKLQKKQKTSFENVSTVMHWFRNDLRLYDNVGLYKSVALFQQLRQKNAKAKLYAVYVINEDDWRAHMDSGWKLMFIMGALKNLQQSLAELHIPLLLWEFHTPKSTLSNSKEFVEFFKEKCMNVSSGTGTIITANIEYQTDELYRDIRLLENEDHRLQLKYYHDSCIVAPGLITTDRGTNYSVFTPWYKKWVLYVNNYKKSTSEICHLHIIEPLKYNETFELKPFQYSLPDEFLQYIPKSKWCLPDVSEEAALSRLKDFLGTKSSKYNNEKDMLYLGGTSGLSVYITTGRISTRLIVNQAFQSCNGQIMSKALKDNSSTQNFIKEVAWRDFYRHCMCNWPYTSMGMPYRLDTLDIKWENNPVAFEKWCTGNTGIPIVDAIMRKLLYTGYINNRSRMITASFLSKNLLIDWRWGERWFMKHLIDGDSSSNVGGWGFCSSTGIDAQPYFRVFNMDIQAKKYDPQMIFVKQWVPELISSENKRPENYPKPLVDLKHSRERALKVYKDAM",
+      "from": 1,
+      "to": 565,
+      "length": 565,
+      "accession": "P05066",
+      "features": [
+        {
+          "accession": "cb1e3e80-227f-11eb-8c7f-bd249b5a2490",
+          "start": 75,
+          "end": 226,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Domain",
+          "description": "Photolyase/cryptochrome alpha/beta"
+        },
+        {
+          "accession": "cb1e3e81-227f-11eb-8c7f-bd249b5a2490",
+          "start": 338,
+          "end": 342,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Nucleotide binding",
+          "description": "FAD",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e82-227f-11eb-8c7f-bd249b5a2490",
+          "start": 482,
+          "end": 484,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Nucleotide binding",
+          "description": "FAD",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e83-227f-11eb-8c7f-bd249b5a2490",
+          "start": 384,
+          "end": 391,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Region",
+          "description": "Interaction with DNA",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e84-227f-11eb-8c7f-bd249b5a2490",
+          "start": 451,
+          "end": 452,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Region",
+          "description": "Interaction with DNA",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e85-227f-11eb-8c7f-bd249b5a2490",
+          "start": 326,
+          "end": 326,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Binding site",
+          "description": "FAD",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e86-227f-11eb-8c7f-bd249b5a2490",
+          "start": 514,
+          "end": 514,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Binding site",
+          "description": "DNA",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e87-227f-11eb-8c7f-bd249b5a2490",
+          "start": 416,
+          "end": 416,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Site",
+          "description": "Electron transfer via tryptophanyl radical",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e88-227f-11eb-8c7f-bd249b5a2490",
+          "start": 469,
+          "end": 469,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Site",
+          "description": "Electron transfer via tryptophanyl radical",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e89-227f-11eb-8c7f-bd249b5a2490",
+          "start": 492,
+          "end": 492,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Site",
+          "description": "Electron transfer via tryptophanyl radical",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e8a-227f-11eb-8c7f-bd249b5a2490",
+          "start": 387,
+          "end": 387,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "mutagenesis site",
+          "description": "Reduces substrate binding 100-fold. Reduces quantum yield for dimer photolysis 3-fold.",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "8344951"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e8b-227f-11eb-8c7f-bd249b5a2490",
+          "start": 463,
+          "end": 463,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "mutagenesis site",
+          "description": "Reduces substrate binding 100-fold.",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "8344951"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e8c-227f-11eb-8c7f-bd249b5a2490",
+          "start": 507,
+          "end": 507,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "mutagenesis site",
+          "description": "Reduces substrate binding 100-fold.",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "8344951"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e8d-227f-11eb-8c7f-bd249b5a2490",
+          "start": 517,
+          "end": 517,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "mutagenesis site",
+          "description": "Reduces substrate binding 10-fold."
+        },
+        {
+          "accession": "cb1e3e8e-227f-11eb-8c7f-bd249b5a2490",
+          "start": 77,
+          "end": 77,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Sequence conflict",
+          "description": "in Ref. 2; AAA34875",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000305"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e8f-227f-11eb-8c7f-bd249b5a2490",
+          "start": 165,
+          "end": 165,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Sequence conflict",
+          "description": "in Ref. 2; AAA34875",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000305"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e90-227f-11eb-8c7f-bd249b5a2490",
+          "start": 169,
+          "end": 169,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Sequence conflict",
+          "description": "in Ref. 2; AAA34875",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000305"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e91-227f-11eb-8c7f-bd249b5a2490",
+          "start": 200,
+          "end": 200,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Sequence conflict",
+          "description": "in Ref. 2; AAA34875",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000305"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e92-227f-11eb-8c7f-bd249b5a2490",
+          "start": 351,
+          "end": 351,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Sequence conflict",
+          "description": "in Ref. 2; AAA34875",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000305"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e93-227f-11eb-8c7f-bd249b5a2490",
+          "start": 365,
+          "end": 365,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Sequence conflict",
+          "description": "in Ref. 2; AAA34875",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000305"
+            }
+          ]
+        },
+        {
+          "accession": "cb1e3e94-227f-11eb-8c7f-bd249b5a2490",
+          "start": 473,
+          "end": 473,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Sequence conflict",
+          "description": "in Ref. 2; AAA34875",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000305"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Align": [
+    {
+      "valid": true,
+      "likelyType": "aa",
+      "message": null,
+      "sequence": "------------------------------------------MKRTVISSSNAYASK----RSRLDIEHDFEQYHSLNKKYYPRP-----------IT-----RTGANQFNNK------SR-------AKPMEIVEKLQKKQKTSFENVSTVMHWFRNDLRLY-----------------------------------------------------------D----------------------------------------------------------------NVGLYKSVALFQQLRQKNAKAKLYAVYVINEDDWRAHMDSGWKLMFIMGALKN--------------------------LQQSLAELHIP----------------------------------------------LLLWEFHTPKS---TLSNSKEFVEFFKEKCMNVSSGTGTIITANIEYQTDELYRDIRLLENEDHRLQLKYYHDSC---------------------------------------------------------------------------------------------------------------------IVAPGLITTDRGTNYS--VFTPWYKKWVLYVNNYKKSTSEICHLHIIEPLKYNETFELKPFQYSLPDEFLQYIPKSKWCLPDVSEEAALSRLKDFLGTKSSKYNNEKDMLYLGGTSGLSVYITTGRISTRLIVNQAFQSCNGQIMSKALKDNSSTQNFIKEVAWRDFYRHCMCNWPYTSMGMPYRLDTLDIKWENNPVAFEKWCTGNTGIPIVDAIMRKLLYTGYINNRSRMITASFLSKNLLIDWRWGERWFMKHLIDGDSSSNVGGWGFCSSTGIDAQPYFRVFNMDIQAKKYDPQMIFVKQWVPELISSENKRPENYPKPLVDLKHSRERALKVYKDAM",
+      "raw": ">sp|P05066|PHR_YEAST Deoxyribodipyrimidine photo-lyase, mitochondrial OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 GN=PHR1 PE=1 SV=1\nMKRTVISSSNAYASKRSRLDIEHDFEQYHSLNKKYYPRPITRTGANQFNNKSRAKPMEIV\nEKLQKKQKTSFENVSTVMHWFRNDLRLYDNVGLYKSVALFQQLRQKNAKAKLYAVYVINE\nDDWRAHMDSGWKLMFIMGALKNLQQSLAELHIPLLLWEFHTPKSTLSNSKEFVEFFKEKC\nMNVSSGTGTIITANIEYQTDELYRDIRLLENEDHRLQLKYYHDSCIVAPGLITTDRGTNY\nSVFTPWYKKWVLYVNNYKKSTSEICHLHIIEPLKYNETFELKPFQYSLPDEFLQYIPKSK\nWCLPDVSEEAALSRLKDFLGTKSSKYNNEKDMLYLGGTSGLSVYITTGRISTRLIVNQAF\nQSCNGQIMSKALKDNSSTQNFIKEVAWRDFYRHCMCNWPYTSMGMPYRLDTLDIKWENNP\nVAFEKWCTGNTGIPIVDAIMRKLLYTGYINNRSRMITASFLSKNLLIDWRWGERWFMKHL\nIDGDSSSNVGGWGFCSSTGIDAQPYFRVFNMDIQAKKYDPQMIFVKQWVPELISSENKRP\nENYPKPLVDLKHSRERALKVYKDAM",
+      "name": "sp|P05066|PHR_YEAST",
+      "header": ">sp|P05066|PHR_YEAST Deoxyribodipyrimidine photo-lyase, mitochondrial OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 GN=PHR1 PE=1 SV=1",
+      "accession": "P05066",
+      "features": [
+        {
+          "accession": "id1",
+          "start": 75,
+          "end": 226,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Domain",
+          "description": "Photolyase/cryptochrome alpha/beta"
+        },
+        {
+          "accession": "id2",
+          "start": 338,
+          "end": 342,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Nucleotide binding",
+          "description": "FAD",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        }
+      ],
+      "length": 957,
+      "from": 1,
+      "to": 957
+    },
+    {
+      "valid": true,
+      "likelyType": "aa",
+      "message": null,
+      "sequence": "MLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQ--NGKWDSDPSGTKTCIDTKEGILQYC---QEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVGEFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFRGVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEEEADDDEDDEDGDEVEEEAEEPYEEATERTTSIATTTTTTTESVEEVVREV-CSEQAETGP----CRA----MISRWYFDVTEGKCAPFFYGGCGGNRNNFDTEEYCMAVCGSAMSQSLLKTTQEPLARDPVKLPTTAASTPDAVDKYLETPGDENEHAHFQKAKERLEAKHRERMSQVMREWEEAERQAKNLPKADKKAVIQHFQEKVESLEQEAANERQ----QLVETHMARVEAMLNDRRRLALENYITALQAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYERMNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLAN------MISEPRISYGNDALMPSLTETKTTVEL-----LPVNG-----------------------------EFSLDDL--------------QPWHSFGADSVPA--NTENEVEPVDARPAADRGLTTRPGS-GLTNIKT---------------------------------EEISEVKMDAEFRHDSG----------YEVHHQKL------VFFAEDVGSNKGA-IIG-----LMVGGVVIATVIVITLVMLKKKQYTSIHHGVV-----EVDAAVTPEERHLSKMQQNGYE-NPTYKFFE----------------QMQN-----------------------------------",
+      "raw": ">sp|P05067|A4_HUMAN Amyloid-beta precursor protein OS=Homo sapiens OX=9606 GN=APP PE=1 SV=3\nMLPGLALLLLAAWTARALEVPTDGNAGLLAEPQIAMFCGRLNMHMNVQNGKWDSDPSGTK\nTCIDTKEGILQYCQEVYPELQITNVVEANQPVTIQNWCKRGRKQCKTHPHFVIPYRCLVG\nEFVSDALLVPDKCKFLHQERMDVCETHLHWHTVAKETCSEKSTNLHDYGMLLPCGIDKFR\nGVEFVCCPLAEESDNVDSADAEEDDSDVWWGGADTDYADGSEDKVVEVAEEEEVAEVEEE\nEADDDEDDEDGDEVEEEAEEPYEEATERTTSIATTTTTTTESVEEVVREVCSEQAETGPC\nRAMISRWYFDVTEGKCAPFFYGGCGGNRNNFDTEEYCMAVCGSAMSQSLLKTTQEPLARD\nPVKLPTTAASTPDAVDKYLETPGDENEHAHFQKAKERLEAKHRERMSQVMREWEEAERQA\nKNLPKADKKAVIQHFQEKVESLEQEAANERQQLVETHMARVEAMLNDRRRLALENYITAL\nQAVPPRPRHVFNMLKKYVRAEQKDRQHTLKHFEHVRMVDPKKAAQIRSQVMTHLRVIYER\nMNQSLSLLYNVPAVAEEIQDEVDELLQKEQNYSDDVLANMISEPRISYGNDALMPSLTET\nKTTVELLPVNGEFSLDDLQPWHSFGADSVPANTENEVEPVDARPAADRGLTTRPGSGLTN\nIKTEEISEVKMDAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIATVIVITL\nVMLKKKQYTSIHHGVVEVDAAVTPEERHLSKMQQNGYENPTYKFFEQMQN\n",
+      "name": "sp|P05067|A4_HUMAN",
+      "header": ">sp|P05067|A4_HUMAN Amyloid-beta precursor protein OS=Homo sapiens OX=9606 GN=APP PE=1 SV=3",
+      "accession": "P05067",
+      "features": [
+        {
+          "accession": "8751c02f-2336-11eb-92aa-bfb3fff0c9c0",
+          "start": 1,
+          "end": 17,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Signal",
+          "description": "",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "12665801"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "2900137"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "3597385"
+            }
+          ]
+        },
+        {
+          "accession": "PRO_0000000088",
+          "featureId": "PRO_0000000088",
+          "start": 18,
+          "end": 770,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Chain",
+          "description": "Amyloid-beta precursor protein"
+        }
+      ],
+      "length": 957,
+      "from": 1,
+      "to": 957
+    },
+    {
+      "valid": true,
+      "likelyType": "aa",
+      "message": null,
+      "sequence": "------------------------------------------------------------------------------------------------------------------------------------------------------------------------MAHRFPALTQEQ-------------------------------------------------------KKELSEIAQSIVA------NGKGIL-AADESVGTMGNRLQRIKVEN---TEENRRQFREILFSVDSSINQ----SIGGVILFHETLYQKDSQGKLFRNILKEKGI-------------VVGIKLD-----QGGAPLAGTN------KETTIQGLDGL------SERCAQYKK------------DGVDFGKWRAVLRIADQCPSSLA------IQENAN-----------------------------------ALARYASICQQNGL-----VPIVE---PEVIPDGDHDLEHCQ---YVTEKV-----------LAAVYKALNDHHVYLEGTLL-KPNM---VTAGHACTKKYTPEQVAMATVTALHRTVPAAVPGICFLSGGMSEEDATLNLNAINLCPLPKPWKLSF-------------------SYGRALQASAL--------------AAWGGKAANKEAT--Q-EAFMKRAMANCQAAKGQYVHTGSSGAAS-------------------------------------------TQSLFTACYT----------Y--------------------------------------------------------------------------------------------------------------------------------------------------------------",
+      "raw": ">sp|P05062|ALDOB_HUMAN Fructose-bisphosphate aldolase B OS=Homo sapiens OX=9606 GN=ALDOB PE=1 SV=2\nMAHRFPALTQEQKKELSEIAQSIVANGKGILAADESVGTMGNRLQRIKVENTEENRRQFR\nEILFSVDSSINQSIGGVILFHETLYQKDSQGKLFRNILKEKGIVVGIKLDQGGAPLAGTN\nKETTIQGLDGLSERCAQYKKDGVDFGKWRAVLRIADQCPSSLAIQENANALARYASICQQ\nNGLVPIVEPEVIPDGDHDLEHCQYVTEKVLAAVYKALNDHHVYLEGTLLKPNMVTAGHAC\nTKKYTPEQVAMATVTALHRTVPAAVPGICFLSGGMSEEDATLNLNAINLCPLPKPWKLSF\nSYGRALQASALAAWGGKAANKEATQEAFMKRAMANCQAAKGQYVHTGSSGAASTQSLFTA\nCYTY",
+      "name": "sp|P05062|ALDOB_HUMAN",
+      "header": ">sp|P05062|ALDOB_HUMAN Fructose-bisphosphate aldolase B OS=Homo sapiens OX=9606 GN=ALDOB PE=1 SV=2",
+      "accession": "P05062",
+      "features": [
+        {
+          "accession": "8751c0da-2336-11eb-92aa-bfb3fff0c9c0",
+          "start": 1,
+          "end": 1,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Initiator methionine",
+          "description": "Removed",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250",
+              "source": "UniProtKB",
+              "id": "Q91Y97"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "2649152"
+            }
+          ]
+        },
+        {
+          "accession": "PRO_0000216940",
+          "featureId": "PRO_0000216940",
+          "start": 2,
+          "end": 364,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Chain",
+          "description": "Fructose-bisphosphate aldolase B"
+        }
+      ],
+      "length": 957,
+      "from": 1,
+      "to": 957
+    },
+    {
+      "valid": true,
+      "likelyType": "aa",
+      "message": null,
+      "sequence": "------------------------------------------------------------------------------------------------------------------------------------------------------------------------MPHPYPALTPEQ-------------------------------------------------------KKELSDIAHRIVA------PGKGIL-AADESTGSIAKRLQSIGTEN---TEENRRFYRQLLLTADDRVNP----CIGGVILFHETLYQKADDGRPFPQVIKSKGG-------------VVGIKVD-----KGVVPLAGTN------GETTTQGLDGL------SERCAQYKK------------DGADFAKWRCVLKIGEHTPSALA------IMENAN-----------------------------------VLARYASICQQNGI-----VPIVE---PEILPDGDHDLKRCQ---YVTEKV-----------LAAVYKALSDHHVYLEGTLL-KPNM---VTPGHACTQKFSNEEIAMATVTALRRTVPPAVTGVTFLSGGQSEEEASINLNAINKCPLLKPWALTF-------------------SYGRALQASAL--------------KAWGGKKENLKAA--Q-EEYIKRALANSLACQGKYTPSGQSGAAA-------------------------------------------SESLFISNHA----------Y--------------------------------------------------------------------------------------------------------------------------------------------------------------",
+      "raw": ">sp|P05064|ALDOA_MOUSE Fructose-bisphosphate aldolase A OS=Mus musculus OX=10090 GN=Aldoa PE=1 SV=2\nMPHPYPALTPEQKKELSDIAHRIVAPGKGILAADESTGSIAKRLQSIGTENTEENRRFYR\nQLLLTADDRVNPCIGGVILFHETLYQKADDGRPFPQVIKSKGGVVGIKVDKGVVPLAGTN\nGETTTQGLDGLSERCAQYKKDGADFAKWRCVLKIGEHTPSALAIMENANVLARYASICQQ\nNGIVPIVEPEILPDGDHDLKRCQYVTEKVLAAVYKALSDHHVYLEGTLLKPNMVTPGHAC\nTQKFSNEEIAMATVTALRRTVPPAVTGVTFLSGGQSEEEASINLNAINKCPLLKPWALTF\nSYGRALQASALKAWGGKKENLKAAQEEYIKRALANSLACQGKYTPSGQSGAAASESLFIS\nNHAY",
+      "name": "sp|P05064|ALDOA_MOUSE",
+      "header": ">sp|P05064|ALDOA_MOUSE Fructose-bisphosphate aldolase A OS=Mus musculus OX=10090 GN=Aldoa PE=1 SV=2",
+      "accession": "P05064",
+      "features": [
+        {
+          "accession": "PRO_0000216937",
+          "featureId": "PRO_0000216937",
+          "start": 2,
+          "end": 364,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Chain",
+          "description": "Fructose-bisphosphate aldolase A"
+        },
+        {
+          "accession": "8751e737-2336-11eb-92aa-bfb3fff0c9c0",
+          "start": 188,
+          "end": 188,
+          "startModifier": "EXACT",
+          "endModifier": "EXACT",
+          "type": "Active site",
+          "description": "Proton acceptor",
+          "evidences": [
+            {
+              "evidenceCode": "ECO:0000250"
+            }
+          ]
+        }
+      ],
+      "length": 957,
+      "from": 1,
+      "to": 957
+    }
+  ]
+}

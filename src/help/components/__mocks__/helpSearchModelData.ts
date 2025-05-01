@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
-// Source: /help/search?facets=category&query=canonical&size=500
-// Retrieved: 2024-01-05
+// Source: help/search?facets=category&query=canonical&size=500
+// Retrieved: 2025-04-22
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -115,7 +115,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2022-12-23',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -171,12 +171,12 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2022-12-23',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
         content: [
-          ' each reference proteome, protein FASTA files (composed of <span class="match-highlight">canonical</span> and additional sequences), gene',
+          ' <span class="match-highlight">canonical</span> and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and database',
         ],
       },
     },
@@ -214,7 +214,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequences',
       title: 'Sequences',
-      lastModified: '2022-04-28',
+      lastModified: '2025-01-16',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -294,7 +294,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'cross_references_section',
       title: 'Cross-references section',
-      lastModified: '2023-04-21',
+      lastModified: '2025-02-04',
       type: 'help',
       categories: ['Cross-references', 'manual'],
       matches: {
@@ -318,24 +318,12 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2023-01-16',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
         content: [
           ' by default in the entry (also called the <span class="match-highlight">canonical</span> sequence) is usually the most common polymorphic',
-        ],
-      },
-    },
-    {
-      id: 'rna_editing',
-      title: 'RNA editing',
-      lastModified: '2023-01-16',
-      type: 'help',
-      categories: ['Sequence', 'manual'],
-      matches: {
-        content: [
-          ' sequence is fully edited, the <span class="match-highlight">canonical</span> protein sequence displayed by default in the entry corresponds to',
         ],
       },
     },
@@ -375,7 +363,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2022-10-14',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -399,7 +387,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'manual_curation',
       title: 'How do we manually annotate a UniProtKB entry?',
-      lastModified: '2022-04-28',
+      lastModified: '2024-04-09',
       type: 'help',
       categories: ['UniProtKB', 'Biocuration', 'About UniProt', 'faq'],
       matches: {
@@ -411,7 +399,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'redundancy',
       title: 'How redundant are the UniProt databases?',
-      lastModified: '2022-12-23',
+      lastModified: '2025-02-04',
       type: 'help',
       categories: [
         'UniParc',
@@ -428,14 +416,26 @@ const helpModelData: HelpSearchResponse = {
       },
     },
     {
+      id: 'rna_editing',
+      title: 'RNA editing',
+      lastModified: '2025-03-05',
+      type: 'help',
+      categories: ['Sequence', 'manual'],
+      matches: {
+        content: [
+          ' When the mRNA sequence is fully edited, the <span class="match-highlight">canonical</span> protein sequence displayed by default in the',
+        ],
+      },
+    },
+    {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2023-11-03',
+      lastModified: '2024-11-29',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {
         content: [
-          ' ------------------------------------------ | | accession | accession:P62988 | This will list all primary / <span class="match-highlight">canonical</span> isoform accessions P62988.',
+          ' -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | | accession | accession:P62988 | This will list all primary / <span class="match-highlight">canonical</span> isoform accessions P62988.',
         ],
       },
     },

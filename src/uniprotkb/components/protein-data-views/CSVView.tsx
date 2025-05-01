@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { EllipsisReveal } from 'franklin-sites';
+import { FC } from 'react';
 
 import { deepFindAllByKey } from '../../../shared/utils/utils';
 
@@ -12,7 +12,7 @@ type CSVViewProps = {
   supplementaryText?: string;
 };
 
-const CSVView: FC<CSVViewProps> = ({
+const CSVView: FC<React.PropsWithChildren<CSVViewProps>> = ({
   data,
   bolderFirst = false,
   keyPredicate = 'value',

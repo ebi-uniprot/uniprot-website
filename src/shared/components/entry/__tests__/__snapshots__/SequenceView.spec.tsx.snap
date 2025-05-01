@@ -15,8 +15,16 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       >
         Align
       </span>
-       2 isoforms
+       isoforms (2)
     </a>
+    <button
+      class="button tertiary no-small"
+      title="Add 2 entries to the basket"
+      type="button"
+    >
+      <test-file-stub />
+      Add isoforms
+    </button>
   </div>
   <ul
     class="info-list info-list--columns"
@@ -153,7 +161,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           </a>
            or sequence clusters in 
           <a
-            href="/uniref?query=(uniprot_id:P05067)"
+            href="/uniref?query=(uniprotkb:P05067)"
           >
             UniRef
           </a>
@@ -286,13 +294,17 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
               <span
                 data-article-id="checksum"
               >
-                Checksum
+                MD5 Checksum
               </span>
             </div>
             <div
               class="decorated-list-item__content"
             >
-              ASSDFFFDSAASDDSDFSASDF
+              <span
+                class="break-anywhere"
+              >
+                C899F597B1B5D205357C9FAEDA9FF553
+              </span>
             </div>
           </div>
         </li>
@@ -390,7 +402,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
           </a>
            or sequence clusters in 
           <a
-            href="/uniref?query=(uniprot_id:P05067-2)"
+            href="/uniref?query=(uniprotkb:P05067-2)"
           >
             UniRef
           </a>
@@ -414,11 +426,13 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       </div>
     </li>
   </ul>
-  <button
-    class="button secondary"
-    type="button"
-  >
-    Show sequence 
-  </button>
+  <div>
+    <button
+      class="button secondary"
+      type="button"
+    >
+      Show sequence 
+    </button>
+  </div>
 </DocumentFragment>
 `;

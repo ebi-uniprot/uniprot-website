@@ -1,29 +1,26 @@
+import { ExternalLink } from 'franklin-sites';
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import ExternalLink from '../../shared/components/ExternalLink';
-import Timeline from '../components/entry/Timeline';
+import { getEntryPath } from '../../app/config/urls';
+import BasketStatus from '../../basket/BasketStatus';
 import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
-import BasketStatus from '../../basket/BasketStatus';
-import EvidenceLink from '../../uniprotkb/components/protein-data-views/EvidenceLink';
-
-import { getEntryPath } from '../../app/config/urls';
-
-import parseDate from '../../shared/utils/parseDate';
-import * as logging from '../../shared/utils/logging';
-
+import { ColumnDescriptor } from '../../shared/hooks/useColumns';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
+import * as logging from '../../shared/utils/logging';
+import parseDate from '../../shared/utils/parseDate';
+import EvidenceLink from '../../uniprotkb/components/protein-data-views/EvidenceLink';
+import { TabLocation } from '../../uniprotkb/types/entry';
 import {
   databaseToEntryType,
   UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
-import { ColumnDescriptor } from '../../shared/hooks/useColumns';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { TabLocation } from '../../uniprotkb/types/entry';
+import Timeline from '../components/entry/Timeline';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy
@@ -136,7 +133,10 @@ const getAccessionColumn =
           id = id.replace(/_\d+$/, '');
         }
         cell = (
-          <ExternalLink url={template.replace('%id', id)}>
+          <ExternalLink
+            url={template.replace('%id', id)}
+            rel={xref.active ? undefined : 'nofollow'}
+          >
             {xref.id}
             {xref.chain && ` (chain ${xref.chain})`}
           </ExternalLink>
@@ -257,17 +257,16 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.lastSeen, {
 });
 
 const getTimelineColumn =
-  (firstSeen?: string, lastSeen?: string) => (xref: UniParcXRef) =>
-    (
-      <div className={xref.active ? undefined : 'xref-inactive'}>
-        <Timeline
-          first={firstSeen}
-          last={lastSeen}
-          start={xref.created}
-          end={xref.lastUpdated}
-        />
-      </div>
-    );
+  (firstSeen?: string, lastSeen?: string) => (xref: UniParcXRef) => (
+    <div className={xref.active ? undefined : 'xref-inactive'}>
+      <Timeline
+        first={firstSeen}
+        last={lastSeen}
+        start={xref.created}
+        end={xref.lastUpdated}
+      />
+    </div>
+  );
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.timeline, {
   label: 'Timeline',

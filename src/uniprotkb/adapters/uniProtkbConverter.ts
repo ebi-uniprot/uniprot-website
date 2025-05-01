@@ -1,49 +1,47 @@
-import convertStructure from './structureConverter';
-import convertExternalLinks from './externalLinksConverter';
-import convertInteraction from './interactionConverter';
-import convertFamilyAndDomains from './familyAndDomainsConverter';
-import convertProteinProcessing from './proteinProcessingConverter';
-import convertExpression from './expressionConverter';
-import convertSubcellularLocation from './subcellularLocationConverter';
-import convertFunction from './functionConverter';
-import convertDiseaseAndDrugs from './diseaseAndDrugs';
-import {
-  convertNamesAndTaxonomy,
-  NamesAndTaxonomyUIModel,
-  ProteinNamesData,
-  GeneNamesData,
-} from './namesAndTaxonomyConverter';
-import {
-  convertSequence,
-  SequenceUIModel,
-  EntryAudit,
-} from './sequenceConverter';
-import extractIsoforms from './extractIsoformsConverter';
-
-import EntrySection from '../types/entrySection';
-import FeatureType from '../types/featureType';
-
-import Comment, { CommentType } from '../types/commentTypes';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { Lineage, Xref } from '../../shared/types/apiModel';
-import { SequenceData } from '../../shared/components/entry/SequenceView';
+import { PeptideSearchMatch } from '../../jobs/peptide-search/components/PeptideSearchMatches';
 import {
   EntryType,
   getEntryTypeFromString,
 } from '../../shared/components/entry/EntryTypeIcon';
-import { Keyword } from '../utils/KeywordsUtil';
-import { UIModel } from './sectionConverter';
-import { transfromProperties } from '../utils';
-import { Property } from '../types/modelTypes';
-import { GeneLocation } from '../types/geneLocationType';
-import { InternalSectionType } from '../types/internalSectionType';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { SequenceData } from '../../shared/components/entry/SequenceView';
+import { Lineage, Xref } from '../../shared/types/apiModel';
 import {
   Citation,
   Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import Comment, { CommentType } from '../types/commentTypes';
+import EntrySection from '../types/entrySection';
+import FeatureType from '../types/featureType';
+import { GeneLocation } from '../types/geneLocationType';
+import { InternalSectionType } from '../types/internalSectionType';
+import { Property } from '../types/modelTypes';
+import { transfromProperties } from '../utils';
 import { DatabaseInfoMaps } from '../utils/database';
-import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
+import { Keyword } from '../utils/KeywordsUtil';
+import convertDiseaseAndDrugs from './diseaseAndDrugs';
+import convertExpression from './expressionConverter';
+import convertExternalLinks from './externalLinksConverter';
+import extractIsoforms from './extractIsoformsConverter';
+import convertFamilyAndDomains from './familyAndDomainsConverter';
+import convertFunction from './functionConverter';
+import convertInteraction from './interactionConverter';
+import {
+  convertNamesAndTaxonomy,
+  GeneNamesData,
+  NamesAndTaxonomyUIModel,
+  ProteinNamesData,
+} from './namesAndTaxonomyConverter';
+import convertProteinProcessing from './proteinProcessingConverter';
+import { UIModel } from './sectionConverter';
+import {
+  convertSequence,
+  EntryAudit,
+  SequenceUIModel,
+} from './sequenceConverter';
+import convertStructure from './structureConverter';
+import convertSubcellularLocation from './subcellularLocationConverter';
 
 // 🤷🏽
 export type UniProtKBReference = Omit<Reference, 'citationId'> & {
@@ -51,7 +49,7 @@ export type UniProtKBReference = Omit<Reference, 'citationId'> & {
 };
 
 // Specific to the API, will be transformed by the adaptor into something usable
-type UniProtKBXref = Omit<Xref, 'properties'> & {
+export type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 
@@ -115,7 +113,10 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
-  [EntrySection.SimilarProteins]: string[];
+  [EntrySection.SimilarProteins]: {
+    canonical: string;
+    isoforms: string[];
+  };
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping
@@ -123,12 +124,37 @@ export type UniProtkbUIModel = {
 };
 
 export type InactiveReasonType =
+  // B4DII8
   | 'MERGED' // We will never see this as this is followed by a 303 redirect
+  // P29358
   | 'DEMERGED'
   | 'DELETED';
 
+type Sources = 'EMBL' | 'TAIR' | 'SGD' | 'ENSEMBL' | 'PDB' | 'RefSeq';
+
+export type DeletedReason =
+  // A0A010P2C8
+  // A0A044QJK7
+  // A0A158RFS4
+  // A0A1S2XA85
+  | `Deleted from sequence source (${Sources})`
+  // A0A6A5PVF7
+  | 'Deleted from Swiss-Prot'
+  // A0A009E3R0
+  | 'Redundant sequence'
+  // A0A008APQ8
+  | 'Redundant proteome'
+  // A0A009DWF5
+  | 'Excluded proteome'
+  // A0A679HE24
+  | 'Over-represented sequence';
+
+// And example for "Unknown": A0A1B0GE37 => not exposed to users
+// And example for "Change of entry type": A0A076FL24 => not exposed to users
+
 export type InactiveEntryReason = {
   inactiveReasonType: InactiveReasonType;
+  deletedReason?: DeletedReason;
   mergeDemergeTo?: string[];
 };
 

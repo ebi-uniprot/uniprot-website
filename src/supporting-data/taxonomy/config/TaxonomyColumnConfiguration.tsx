@@ -1,15 +1,13 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
+import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import { TaxonomyLineage } from '../../../shared/components/entry/TaxonomyView';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-
-import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import { TaxonomyLineage } from '../../../shared/components/entry/TaxonomyView';
+import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
@@ -23,7 +21,7 @@ export enum TaxonomyColumn {
   rank = 'rank',
   // This is triggering the same filters than "statistics", so probably no need
   // for a specific column renderer
-  // TODO: ask backend to remove this one, duplicate with statistics
+  // TODO: ask backend to remove this one, duplicate with statistics https://www.ebi.ac.uk/panda/jira/browse/TRM-30869
   reviewed = 'reviewed',
   scientificName = 'scientific_name',
   statistics = 'statistics',
@@ -165,33 +163,21 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
   label: 'Statistics',
   render: ({ taxonId, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.taxonomy, `${taxonId}`, statistics)?.map(
-        ({ key, link, name }) => (
-          // eslint-disable-next-line uniprot-website/use-config-location
-          <Link key={key} to={link}>
-            {name}
-          </Link>
-        )
-      )}
+      {mapToLinks(Namespace.taxonomy, `${taxonId}`, statistics)}
     </ExpandableList>
   ),
 });
 
-// TODO: ask backend to remove this one, duplicate with statistics
+// TODO: ask backend to remove this one, duplicate with statistics https://www.ebi.ac.uk/panda/jira/browse/TRM-30869
 TaxonomyColumnConfiguration.set(TaxonomyColumn.reviewed, {
   label: 'Reviewed (deprecated column)',
-  render: ({ taxonId, statistics }) => {
-    const reviewedLink = mapToLinks(
+  render: ({ taxonId, statistics }) =>
+    mapToLinks(
       Namespace.taxonomy,
       `${taxonId}`,
-      statistics
-    )?.find(({ key }) => key === 'reviewedProteinCount');
-    if (!reviewedLink) {
-      return null;
-    }
-    // eslint-disable-next-line uniprot-website/use-config-location
-    return <Link to={reviewedLink.link}>{reviewedLink.name}</Link>;
-  },
+      statistics,
+      ({ key }) => key === 'reviewedProteinCount'
+    ),
 });
 
 export default TaxonomyColumnConfiguration;

@@ -1,25 +1,22 @@
+import '../styles/overview.scss';
+
+import { Card, DataTable, LongNumber } from 'franklin-sites';
 import { Fragment, ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, DataTable, LongNumber } from 'franklin-sites';
 
-import useItemSelect from '../../../shared/hooks/useItemSelect';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import ComponentsButtons from './ComponentsButtons';
-
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
 import externalUrls from '../../../shared/config/externalUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useItemSelect from '../../../shared/hooks/useItemSelect';
 import { Xref } from '../../../shared/types/apiModel';
+import { stringifyQuery } from '../../../shared/utils/url';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
-  ProteomesAPIModel,
   Component,
+  ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
-
-import '../styles/overview.scss';
+import ComponentsButtons from './ComponentsButtons';
 
 const genomeAccessionDB = 'GenomeAccession' as const;
 
@@ -130,9 +127,9 @@ const Components = ({
                       ? Location.UniParcResults
                       : Location.UniProtKBResults
                   ],
-                search: `query=(${
-                  shouldPointToUniParc ? 'upid' : 'proteome'
-                }:${id}) AND (proteomecomponent:"${name}")`,
+                search: stringifyQuery({
+                  query: `(proteome:${id}) AND (proteomecomponent:"${name}")`,
+                }),
               }}
             >
               <LongNumber>{proteinCount}</LongNumber>
@@ -164,7 +161,6 @@ const Components = ({
         columns={columns}
         data={components}
         onSelectionChange={setSelectedItemFromEvent}
-        fixedLayout
       />
     </Card>
   );

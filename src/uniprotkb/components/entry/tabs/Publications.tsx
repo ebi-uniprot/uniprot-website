@@ -1,35 +1,33 @@
-import { useState, useEffect, useMemo, Fragment } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Card, Loader, DataListWithLoader, InfoList } from 'franklin-sites';
-import { Except, SetRequired, Simplify } from 'type-fest';
-import { groupBy, capitalize } from 'lodash-es';
+import { Card, DataListWithLoader, InfoList, Loader } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { capitalize, groupBy } from 'lodash-es';
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Except, SetRequired, Simplify } from 'type-fest';
 
-import ExternalLink from '../../../../shared/components/ExternalLink';
+import { Location, LocationToPath } from '../../../../app/config/urls';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-
+import ExternalLink from '../../../../shared/components/ExternalLink';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
-
-import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
-import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
-
-import { addBlastLinksToFreeText } from '../../../../shared/utils/utils';
-import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
+import { Namespace } from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { getParamsFromURL } from '../../../utils/resultsUtils';
+import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
+import {
+  addBlastLinksToFreeText,
+  pluralise,
+} from '../../../../shared/utils/utils';
 import { processUrlTemplate } from '../../../../shared/utils/xrefs';
-
-import { Location, LocationToPath } from '../../../../app/config/urls';
-
 import {
   CitationsAPIModel,
   Reference,
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
-import { Namespace } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';
+import { getParamsFromURL } from '../../../utils/resultsUtils';
 
 type PublicationsReferenceProps = {
   references: Reference[];
@@ -56,7 +54,10 @@ const PublicationReference = ({
       source && databaseInfoMaps?.databaseToDatabaseInfo[source.name];
     let url =
       source?.id &&
-      processUrlTemplate(databaseInfo?.uriLink, { id: source.id });
+      processUrlTemplate(databaseInfo?.uriLink, {
+        id: source.id,
+        primaryAccession: source.id,
+      });
     if (source?.name === 'GeneRif') {
       url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
@@ -123,7 +124,11 @@ const PublicationReference = ({
         content: communityAnnotation?.disease,
       },
       {
-        title: 'Categories',
+        title: pluralise(
+          'Category',
+          sourceCategories?.length ?? 0,
+          'Categories'
+        ),
         content: sourceCategories?.join(', '),
       },
       {
@@ -216,17 +221,16 @@ const cardRendererFor =
       Except<CitationsAPIModel, 'references'> &
         Required<Pick<CitationsAPIModel, 'references'>>
     >
-  ) =>
-    (
-      <Card>
-        <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
-          <PublicationReference
-            references={data.references}
-            accession={accession}
-          />
-        </LiteratureCitation>
-      </Card>
-    );
+  ) => (
+    <Card>
+      <LiteratureCitation data={data} headingLevel="h3" linkToEntry>
+        <PublicationReference
+          references={data.references}
+          accession={accession}
+        />
+      </LiteratureCitation>
+    </Card>
+  );
 
 const hasReference = (
   data: CitationsAPIModel

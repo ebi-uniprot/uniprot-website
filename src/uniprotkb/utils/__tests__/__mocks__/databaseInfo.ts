@@ -5,8 +5,8 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 // and running again. Until then it will have no uriLink.
 
 // TODO: update when TRM-29539 is fixed and deployed
-// Source: /configure/uniprotkb/allDatabases
-// Retrieved: 2024-03-25
+// Source: configure/uniprotkb/allDatabases
+// Retrieved: 2025-04-22
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -56,12 +56,12 @@ const databaseInfo: DatabaseInfo = [
     name: 'DDBJ',
     displayName: 'DDBJ',
     category: 'SEQ',
-    uriLink: 'http://getentry.ddbj.nig.ac.jp/search/get_entry?accnumber=%id',
+    uriLink: 'https://getentry.ddbj.nig.ac.jp/search/get_entry?accnumber=%id',
     attributes: [
       {
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
-        uriLink: 'http://getentry.ddbj.nig.ac.jp/getentry/na/%ProteinId',
+        uriLink: 'https://getentry.ddbj.nig.ac.jp/getentry/na/%ProteinId',
       },
       {
         name: 'Status',
@@ -292,7 +292,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'CORUM',
     displayName: 'CORUM',
     category: 'PPI',
-    uriLink: 'http://mips.helmholtz-muenchen.de/corum/#?uniprotID=%id',
+    uriLink: 'https://mips.helmholtz-muenchen.de/corum/#?uniprotID=%id',
     attributes: [
       {
         name: 'Description',
@@ -377,7 +377,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'ChEMBL',
     displayName: 'ChEMBL',
     category: 'CHEMISTRY',
-    uriLink: 'https://www.ebi.ac.uk/chembldb/target/inspect/%id',
+    uriLink: 'https://www.ebi.ac.uk/chembl/target_report_card/%id',
     attributes: [
       {
         name: 'Description',
@@ -426,7 +426,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'Allergome',
     displayName: 'Allergome',
     category: 'PFAM',
-    uriLink: 'http://www.allergome.org/script/dettaglio.php?id_molecule=%id',
+    uriLink: 'https://www.allergome.org/script/dettaglio.php?id_molecule=%id',
     attributes: [
       {
         name: 'AllergenName',
@@ -438,7 +438,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'CAZy',
     displayName: 'CAZy',
     category: 'PFAM',
-    uriLink: 'http://www.cazy.org/%id.html',
+    uriLink: 'https://www.cazy.org/%id.html',
     attributes: [
       {
         name: 'FamilyName',
@@ -509,22 +509,10 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'CLAE',
-    displayName: 'CLAE',
-    category: 'PFAM',
-    uriLink: 'https://clae.fungalgenomics.ca/enzyme/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'PeroxiBase',
     displayName: 'PeroxiBase',
     category: 'PFAM',
-    uriLink: 'http://peroxibase.toulouse.inra.fr/display_perox/view_perox/%id',
+    uriLink: 'https://peroxibase.toulouse.inra.fr/display_perox/view_perox/%id',
     attributes: [
       {
         name: 'EntryName',
@@ -536,7 +524,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'REBASE',
     displayName: 'REBASE',
     category: 'PFAM',
-    uriLink: 'http://rebase.neb.com/rebase/enz/%id.html',
+    uriLink: 'https://rebase.neb.com/rebase/enz/%id.html',
     attributes: [
       {
         name: 'EntryName',
@@ -548,7 +536,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'TCDB',
     displayName: 'TCDB',
     category: 'PFAM',
-    uriLink: 'http://www.tcdb.org/search/result.php?tc=%id',
+    uriLink: 'https://www.tcdb.org/search/result.php?tc=%id',
     attributes: [
       {
         name: 'FamilyName',
@@ -588,7 +576,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'CarbonylDB',
     category: 'PTM',
     uriLink:
-      'http://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id',
+      'https://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id',
     attributes: [
       {
         name: 'Description',
@@ -600,7 +588,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'DEPOD',
     displayName: 'DEPOD',
     category: 'PTM',
-    uriLink: 'http://depod.bioss.uni-freiburg.de/showp.php?name=%id',
+    uriLink: 'https://depod.bioss.uni-freiburg.de/showp.php?name=%id',
     attributes: [
       {
         name: 'Description',
@@ -648,7 +636,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'iPTMnet',
     displayName: 'iPTMnet',
     category: 'PTM',
-    uriLink: 'http://research.bioinformatics.udel.edu/iptmnet/entry/%id',
+    uriLink: 'https://research.bioinformatics.udel.edu/iptmnet/entry/%id',
     attributes: [
       {
         name: 'Description',
@@ -684,7 +672,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'UniCarbKB',
     displayName: 'UniCarbKB',
     category: 'PTM',
-    uriLink: 'http://www.unicarbkb.org/proteinsummary/%id/annotated',
+    uriLink: 'https://www.unicarbkb.org/proteinsummary/%id/annotated',
     attributes: [
       {
         name: 'Description',
@@ -743,30 +731,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'COMPLUYEAST-2DPAGE',
-    displayName: 'COMPLUYEAST-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://compluyeast2dpage.dacya.ucm.es/cgi-bin/2d/2d.cgi?ac=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'DOSAC-COBS-2DPAGE',
-    displayName: 'DOSAC-COBS-2DPAGE',
-    category: '2DG',
-    uriLink: 'http://www.dosac.unipa.it/cgi-bin/2d/2d.cgi?ac=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OGP',
     displayName: 'OGP',
     category: '2DG',
@@ -791,70 +755,10 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'SWISS-2DPAGE',
-    displayName: 'SWISS-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/swiss-2dpage/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'UCD-2DPAGE',
-    displayName: 'UCD-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://proteomics-portal.ucd.ie/cgi-bin/2d/2d.cgi?%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'World-2DPAGE',
-    displayName: 'World-2DPAGE',
-    category: '2DG',
-    uriLink: 'https://world-2dpage.expasy.org/repository/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'CPTAC',
     displayName: 'CPTAC',
     category: 'PROTEOMIC',
     uriLink: 'https://assays.cancer.gov/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'EPD',
-    displayName: 'EPD',
-    category: 'PROTEOMIC',
-    uriLink: 'https://www.peptracker.com/epd/analytics/?protein_id=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'MaxQB',
-    displayName: 'MaxQB',
-    category: 'PROTEOMIC',
-    uriLink: 'http://maxqb.biochem.mpg.de/mxdb/protein/show/%id',
     attributes: [
       {
         name: 'Description',
@@ -1012,12 +916,12 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%ProteinId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%ProteinId',
       },
       {
         name: 'GeneId',
         xmlTag: 'gene ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%GeneId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%GeneId',
       },
     ],
   },
@@ -1030,12 +934,12 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%ProteinId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%ProteinId',
       },
       {
         name: 'GeneId',
         xmlTag: 'gene ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%GeneId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%GeneId',
       },
     ],
   },
@@ -1048,12 +952,12 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%ProteinId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%ProteinId',
       },
       {
         name: 'GeneId',
         xmlTag: 'gene ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%GeneId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%GeneId',
       },
     ],
   },
@@ -1066,12 +970,12 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%ProteinId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%ProteinId',
       },
       {
         name: 'GeneId',
         xmlTag: 'gene ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%GeneId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%GeneId',
       },
     ],
   },
@@ -1084,12 +988,12 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%ProteinId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%ProteinId',
       },
       {
         name: 'GeneId',
         xmlTag: 'gene ID',
-        uriLink: 'http://www.ensemblgenomes.org/id/%GeneId',
+        uriLink: 'https://www.ensemblgenomes.org/id/%GeneId',
       },
     ],
   },
@@ -1114,12 +1018,12 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
-        uriLink: 'http://ensembl.gramene.org/id/%ProteinId',
+        uriLink: 'https://ensembl.gramene.org/id/%ProteinId',
       },
       {
         name: 'GeneId',
         xmlTag: 'gene ID',
-        uriLink: 'http://ensembl.gramene.org/id/%GeneId',
+        uriLink: 'https://ensembl.gramene.org/id/%GeneId',
       },
     ],
   },
@@ -1259,7 +1163,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'ConoServer',
     displayName: 'ConoServer',
     category: 'ORG',
-    uriLink: 'http://www.conoserver.org/?page=card&table=protein&id=%id',
+    uriLink: 'https://www.conoserver.org/?page=card&table=protein&id=%id',
     attributes: [
       {
         name: 'ToxinName',
@@ -1296,7 +1200,7 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'DisGeNET',
     category: 'ORG',
     uriLink:
-      'https://www.disgenetplus.com/examples?view=GENES&idents=%id&source=ALL&tab=GDA&newSearch=false',
+      'https://www.disgenet.com/search?view=GENES&idents=%id&source=ALL&tab=GDA',
     attributes: [
       {
         name: 'Description',
@@ -1509,7 +1413,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'MGI',
     displayName: 'MGI',
     category: 'ORG',
-    uriLink: 'http://www.informatics.jax.org/marker/%id',
+    uriLink: 'https://www.informatics.jax.org/marker/%id',
     attributes: [
       {
         name: 'GeneName',
@@ -1686,12 +1590,13 @@ const databaseInfo: DatabaseInfo = [
         name: 'ProteinId',
         xmlTag: 'protein sequence ID',
         uriLink:
-          'http://www.wormbase.org/db/seq/protein?name=%ProteinId;class=Protein',
+          'https://www.wormbase.org/db/seq/protein?name=%ProteinId;class=Protein',
       },
       {
         name: 'GeneId',
         xmlTag: 'gene ID',
-        uriLink: 'http://www.wormbase.org/db/gene/gene?name=%GeneId;class=Gene',
+        uriLink:
+          'https://www.wormbase.org/db/gene/gene?name=%GeneId;class=Gene',
       },
       {
         name: 'GeneName',
@@ -1728,7 +1633,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'HUGE',
     displayName: 'HUGE',
     category: 'ORG',
-    uriLink: 'http://www.kazusa.or.jp/huge/gfpage/%gene',
+    uriLink: 'https://www.kazusa.or.jp/huge/gfpage/%gene',
     attributes: [
       {
         name: 'Description',
@@ -1742,7 +1647,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'Rouge',
     displayName: 'Rouge',
     category: 'ORG',
-    uriLink: 'http://www.kazusa.or.jp/rouge/gfpage/%gene',
+    uriLink: 'https://www.kazusa.or.jp/rouge/gfpage/%gene',
     attributes: [
       {
         name: 'Description',
@@ -1803,18 +1708,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'KO',
-    displayName: 'KO',
-    category: 'PLG',
-    uriLink: 'https://www.genome.jp/dbget-bin/www_bget?ko:%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OMA',
     displayName: 'OMA',
     category: 'PLG',
@@ -1842,7 +1735,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PhylomeDB',
     displayName: 'PhylomeDB',
     category: 'PLG',
-    uriLink: 'http://phylomedb.org/search_phylome/?seqid=%id',
+    uriLink: 'https://phylomedb.org/search_phylome/?seqid=%id',
     attributes: [
       {
         name: 'Description',
@@ -1904,7 +1797,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'SABIO-RK',
     displayName: 'SABIO-RK',
     category: 'EAP',
-    uriLink: 'http://sabiork.h-its.org/newSearch?q=UniProtKB_AC:%id',
+    uriLink: 'https://sabiork.h-its.org/newSearch?q=UniProtKB_AC:%id',
     attributes: [
       {
         name: 'Description',
@@ -2127,14 +2020,14 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'Genevisible',
-    displayName: 'Genevisible',
-    category: 'GEP',
-    uriLink: 'https://genevisible.com/tissues/%OrganismId/UniProt/%id',
+    name: 'AntiFam',
+    displayName: 'AntiFam',
+    category: 'FMD',
+    uriLink: 'https://www.ebi.ac.uk/interpro/entry/antifam/%id',
     attributes: [
       {
-        name: 'OrganismId',
-        xmlTag: 'organism ID',
+        name: 'EntryName',
+        xmlTag: 'entry name',
       },
     ],
   },
@@ -2155,10 +2048,26 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
+    name: 'FunFam',
+    displayName: 'FunFam',
+    category: 'FMD',
+    uriLink: 'https://www.cathdb.info/version/latest/funfam/%id',
+    attributes: [
+      {
+        name: 'EntryName',
+        xmlTag: 'entry name',
+      },
+      {
+        name: 'MatchStatus',
+        xmlTag: 'match status',
+      },
+    ],
+  },
+  {
     name: 'Gene3D',
     displayName: 'Gene3D',
     category: 'FMD',
-    uriLink: 'http://www.cathdb.info/superfamily/%id',
+    uriLink: 'https://www.cathdb.info/superfamily/%id',
     attributes: [
       {
         name: 'EntryName',
@@ -2214,7 +2123,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PANTHER',
     displayName: 'PANTHER',
     category: 'FMD',
-    uriLink: 'http://www.pantherdb.org/panther/family.do?clsAccession=%id',
+    uriLink: 'https://www.pantherdb.org/panther/family.do?clsAccession=%id',
     attributes: [
       {
         name: 'EntryName',
@@ -2290,7 +2199,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'SMART',
     displayName: 'SMART',
     category: 'FMD',
-    uriLink: 'http://smart.embl.de/smart/do_annotation.pl?DOMAIN=%id',
+    uriLink: 'https://smart.embl.de/smart/do_annotation.pl?DOMAIN=%id',
     attributes: [
       {
         name: 'EntryName',
@@ -2572,7 +2481,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'IC4R',
     displayName: 'IC4R',
     category: 'ORG',
-    uriLink: 'http://ic4r.org/osGene/%id',
+    uriLink: 'https://ngdc.cncb.ac.cn/ic4r/osGene/%id',
     attributes: [
       {
         name: 'Description',
@@ -2625,6 +2534,44 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'GeneDesignation',
         xmlTag: 'gene designation',
+      },
+    ],
+  },
+  {
+    name: 'CD-CODE',
+    displayName: 'CD-CODE',
+    category: 'MISC',
+    uriLink: 'https://cd-code.org/condensate/%id',
+    attributes: [
+      {
+        name: 'EntryName',
+        xmlTag: 'entry name',
+      },
+    ],
+  },
+  {
+    name: 'STRENDA-DB',
+    displayName: 'STRENDA-DB',
+    category: 'EAP',
+    uriLink:
+      'https://beilstein-strenda-db.org/strenda/public/doiQuery.xhtml?doi=10.22011/strenda_db.%id',
+    attributes: [
+      {
+        name: 'ExperimentDescription',
+        xmlTag: 'experiment description',
+      },
+    ],
+  },
+  {
+    name: 'YCharOS',
+    displayName: 'YCharOS',
+    category: 'PAM',
+    uriLink:
+      'https://f1000research.com/gateways/ycharos?selectedDomain=&n0=text&o0=&v0=%id',
+    attributes: [
+      {
+        name: 'antibodies',
+        xmlTag: 'antibodies',
       },
     ],
   },

@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import FreeTextView, { RichText } from '../FreeTextView';
-
 import freeTextUIData from './__mocks__/freeTextUIData';
 
 describe('FreeText component', () => {

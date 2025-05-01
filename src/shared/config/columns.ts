@@ -1,75 +1,75 @@
-import { Namespace } from '../types/namespaces';
-import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
-import UniProtKBColumnConfiguration, {
-  defaultColumns as defaultUniProtKBColumns,
-  primaryKeyColumns as primaryKeyColumnsUniProtKB,
-} from '../../uniprotkb/config/UniProtKBColumnConfiguration';
-import UniRefColumnConfiguration, {
-  UniRefColumn,
-  defaultColumns as defaultUniRefColumns,
-  primaryKeyColumns as primaryKeyColumnsUniRef,
-} from '../../uniref/config/UniRefColumnConfiguration';
-import UniParcColumnConfiguration, {
-  UniParcColumn,
-  defaultColumns as defaultUniParcColumns,
-  primaryKeyColumns as primaryKeyColumnsUniParc,
-} from '../../uniparc/config/UniParcColumnConfiguration';
-import {
-  UniParcXRefsColumn,
-  defaultColumns as defaultUniParcEntryColumns,
-  primaryKeyColumns as primaryKeyColumnsUniParcEntry,
-} from '../../uniparc/config/UniParcXRefsColumnConfiguration';
-import ProteomesColumnConfiguration, {
-  ProteomesColumn,
-  defaultColumns as defaultProteomesColumns,
-  primaryKeyColumns as primaryKeyColumnsProteomes,
-} from '../../proteomes/config/ProteomesColumnConfiguration';
-import TaxonomyColumnConfiguration, {
-  TaxonomyColumn,
-  defaultColumns as defaultTaxonomyColumns,
-  primaryKeyColumns as primaryKeyColumnsTaxonomy,
-} from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
-import KeywordsColumnConfiguration, {
-  KeywordsColumn,
-  defaultColumns as defaultKeywordsColumns,
-  primaryKeyColumns as primaryKeyColumnsKeywords,
-} from '../../supporting-data/keywords/config/KeywordsColumnConfiguration';
-import CitationsColumnConfiguration, {
-  CitationsColumn,
-  defaultColumns as defaultCitationsColumns,
-  primaryKeyColumns as primaryKeyColumnsCitations,
-} from '../../supporting-data/citations/config/CitationsColumnConfiguration';
-import DiseasesColumnConfiguration, {
-  DiseasesColumn,
-  defaultColumns as defaultDiseasesColumns,
-  primaryKeyColumns as primaryKeyColumnsDiseases,
-} from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
-import DatabaseColumnConfiguration, {
-  DatabaseColumn,
-  defaultColumns as defaultDatabaseColumns,
-  primaryKeyColumns as primaryKeyColumnsDatabase,
-} from '../../supporting-data/database/config/DatabaseColumnConfiguration';
-import LocationsColumnConfiguration, {
-  LocationsColumn,
-  defaultColumns as defaultLocationsColumns,
-  primaryKeyColumns as primaryKeyColumnsLocations,
-} from '../../supporting-data/locations/config/LocationsColumnConfiguration';
-import UniRuleColumnConfiguration, {
-  UniRuleColumn,
-  defaultColumns as defaultUniRuleColumns,
-  primaryKeyColumns as primaryKeyColumnsUniRule,
-} from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
 import ARBAColumnConfiguration, {
   ARBAColumn,
   defaultColumns as defaultARBAColumns,
   primaryKeyColumns as primaryKeyColumnsARBA,
 } from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
+import UniRuleColumnConfiguration, {
+  defaultColumns as defaultUniRuleColumns,
+  primaryKeyColumns as primaryKeyColumnsUniRule,
+  UniRuleColumn,
+} from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
 import {
-  IdMappingColumnConfiguration,
-  IDMappingColumn,
   defaultColumns as defaultIdMappingColumns,
+  IDMappingColumn,
+  IdMappingColumnConfiguration,
   primaryKeyColumns as primaryKeyColumnsIdMapping,
-} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+} from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import ProteomesColumnConfiguration, {
+  defaultColumns as defaultProteomesColumns,
+  primaryKeyColumns as primaryKeyColumnsProteomes,
+  ProteomesColumn,
+} from '../../proteomes/config/ProteomesColumnConfiguration';
+import CitationsColumnConfiguration, {
+  CitationsColumn,
+  defaultColumns as defaultCitationsColumns,
+  primaryKeyColumns as primaryKeyColumnsCitations,
+} from '../../supporting-data/citations/config/CitationsColumnConfiguration';
+import DatabaseColumnConfiguration, {
+  DatabaseColumn,
+  defaultColumns as defaultDatabaseColumns,
+  primaryKeyColumns as primaryKeyColumnsDatabase,
+} from '../../supporting-data/database/config/DatabaseColumnConfiguration';
+import DiseasesColumnConfiguration, {
+  defaultColumns as defaultDiseasesColumns,
+  DiseasesColumn,
+  primaryKeyColumns as primaryKeyColumnsDiseases,
+} from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
+import KeywordsColumnConfiguration, {
+  defaultColumns as defaultKeywordsColumns,
+  KeywordsColumn,
+  primaryKeyColumns as primaryKeyColumnsKeywords,
+} from '../../supporting-data/keywords/config/KeywordsColumnConfiguration';
+import LocationsColumnConfiguration, {
+  defaultColumns as defaultLocationsColumns,
+  LocationsColumn,
+  primaryKeyColumns as primaryKeyColumnsLocations,
+} from '../../supporting-data/locations/config/LocationsColumnConfiguration';
+import TaxonomyColumnConfiguration, {
+  defaultColumns as defaultTaxonomyColumns,
+  primaryKeyColumns as primaryKeyColumnsTaxonomy,
+  TaxonomyColumn,
+} from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
+import UniParcColumnConfiguration, {
+  defaultColumns as defaultUniParcColumns,
+  primaryKeyColumns as primaryKeyColumnsUniParc,
+  UniParcColumn,
+} from '../../uniparc/config/UniParcColumnConfiguration';
+import {
+  defaultColumns as defaultUniParcEntryColumns,
+  primaryKeyColumns as primaryKeyColumnsUniParcEntry,
+  UniParcXRefsColumn,
+} from '../../uniparc/config/UniParcXRefsColumnConfiguration';
+import UniProtKBColumnConfiguration, {
+  defaultColumns as defaultUniProtKBColumns,
+  primaryKeyColumns as primaryKeyColumnsUniProtKB,
+} from '../../uniprotkb/config/UniProtKBColumnConfiguration';
+import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
+import UniRefColumnConfiguration, {
+  defaultColumns as defaultUniRefColumns,
+  primaryKeyColumns as primaryKeyColumnsUniRef,
+  UniRefColumn,
+} from '../../uniref/config/UniRefColumnConfiguration';
+import { Namespace } from '../types/namespaces';
 
 export type Column =
   | UniProtKBColumn

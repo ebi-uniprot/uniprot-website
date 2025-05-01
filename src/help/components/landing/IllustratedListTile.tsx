@@ -1,9 +1,8 @@
-/* eslint-disable uniprot-website/use-config-location */
+import cn from 'classnames';
+import { LocationDescriptor } from 'history';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
 import { RequireExactlyOne } from 'type-fest';
-import { LocationDescriptor } from 'history';
 
 import styles from './styles/illustrated-list-tile.module.scss';
 

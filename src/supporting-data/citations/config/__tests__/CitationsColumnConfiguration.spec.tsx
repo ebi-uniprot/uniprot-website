@@ -1,16 +1,14 @@
-import CitationsColumnConfiguration, {
-  CitationsColumn,
-} from '../CitationsColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/citationsModelData';
 import citationsConverter, {
   CitationsAPIModel,
   CitationsUIModel,
 } from '../../adapters/citationsConverter';
+import CitationsColumnConfiguration, {
+  CitationsColumn,
+} from '../CitationsColumnConfiguration';
 
-import data from '../../__mocks__/citationsModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
-
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: CitationsUIModel = citationsConverter(data[0]);
 

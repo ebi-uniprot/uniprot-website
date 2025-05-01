@@ -1,29 +1,25 @@
-import { useState, Suspense, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
+import { Suspense, useCallback, useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
-import lazy from '../../../shared/utils/lazy';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
+import lazy from '../../../shared/utils/lazy';
 import {
   createSelectedQueryString,
   stringifyUrl,
 } from '../../../shared/utils/url';
-
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 const ComponentsDownloadComponent = lazy(
   () =>
@@ -48,6 +44,7 @@ const ComponentsButtons = ({
   proteomeStatistics,
 }: Props) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const { pathname } = useLocation();
 
   const handleToggleDownload = useCallback(
     (reason: DownloadPanelFormCloseReason, downloadMethod?: DownloadMethod) => {
@@ -65,10 +62,9 @@ const ComponentsButtons = ({
   const isUniparcSearch =
     proteomeType === 'Redundant proteome' || proteomeType === 'Excluded';
 
-  const allQuery = `(${isUniparcSearch ? 'upid' : 'proteome'}:${id})`;
   const selectedQuery = useMemo(
     () =>
-      `${allQuery}${
+      `(proteome:${id})${
         selectedEntries.length !== 0 &&
         selectedEntries.length !== components?.length
           ? ` AND (${createSelectedQueryString(
@@ -77,7 +73,7 @@ const ComponentsButtons = ({
             )})`
           : ''
       }`,
-    [allQuery, components?.length, selectedEntries]
+    [id, components?.length, selectedEntries]
   );
 
   const { headers: selectedHeaders } = useDataApi(
@@ -108,13 +104,14 @@ const ComponentsButtons = ({
       {displayDownloadPanel && (
         <Suspense fallback={null}>
           <SlidingPanel
-            title="Download"
+            title={<span data-article-id="downloads">Download</span>}
             position="left"
             onClose={handleToggleDownload}
+            pathname={pathname}
           >
             <ErrorBoundary>
               <ComponentsDownloadComponent
-                query={allQuery}
+                query={`(proteome:${id})`}
                 selectedEntries={selectedEntries}
                 selectedQuery={selectedQuery}
                 totalNumberResults={proteinCount}
@@ -137,8 +134,8 @@ const ComponentsButtons = ({
           <DownloadIcon />
           Download
         </Button>
-        <Button
-          element={Link}
+        <Link
+          className="button tertiary"
           to={{
             pathname:
               LocationToPath[
@@ -148,10 +145,9 @@ const ComponentsButtons = ({
               ],
             search: `query=${selectedQuery}`,
           }}
-          variant="tertiary"
         >
           View proteins
-        </Button>
+        </Link>
       </div>
     </>
   );

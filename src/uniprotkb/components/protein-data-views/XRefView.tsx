@@ -1,36 +1,34 @@
-import { Fragment } from 'react';
-import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
-import { InfoList, ExpandableList } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
+import { Fragment } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import PDBView from './PDBView';
-import EMBLView from './EMBLView';
-import { RichText } from './FreeTextView';
-
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Xref } from '../../../shared/types/apiModel';
 import { pluralise } from '../../../shared/utils/utils';
-import {
-  databaseCategoryToString,
-  viewProteinLinkDatabases,
-} from '../../config/database';
-import {
-  XrefUIModel,
-  XrefsGoupedByDatabase,
-  partitionStructureDatabases,
-} from '../../utils/xrefUtils';
 import {
   getDatabaseInfoAttribute,
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { Xref } from '../../../shared/types/apiModel';
+import {
+  databaseCategoryToString,
+  viewProteinLinkDatabases,
+} from '../../config/database';
+import { DatabaseCategory, DatabaseInfoPoint } from '../../types/databaseRefs';
 import { PropertyKey } from '../../types/modelTypes';
-import { DatabaseInfoPoint, DatabaseCategory } from '../../types/databaseRefs';
 import { DatabaseToDatabaseInfo } from '../../utils/database';
+import {
+  partitionStructureDatabases,
+  XrefsGoupedByDatabase,
+  XrefUIModel,
+} from '../../utils/xrefUtils';
+import { AFDBOutOfSync } from './AFDBOutOfSync';
+import EMBLView from './EMBLView';
+import { RichText } from './FreeTextView';
+import PDBView from './PDBView';
 
 const formatSuffixWithCount = (prefix: string, number: string) => {
   const count = parseInt(number, 10);
@@ -271,12 +269,15 @@ const XRefsGroupedByCategory = ({
         </Link>
       ),
       content: (
-        <DatabaseList
-          xrefsGoupedByDatabase={database}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-          databaseToDatabaseInfo={databaseToDatabaseInfo}
-        />
+        <>
+          <DatabaseList
+            xrefsGoupedByDatabase={database}
+            primaryAccession={primaryAccession}
+            crc64={crc64}
+            databaseToDatabaseInfo={databaseToDatabaseInfo}
+          />
+          {database.database === 'AlphaFoldDB' && <AFDBOutOfSync />}
+        </>
       ),
     };
   });
@@ -348,6 +349,7 @@ const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
       if (category && databaseCategoryToString[category]) {
         title = databaseCategoryToString[category];
       }
+
       return (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>

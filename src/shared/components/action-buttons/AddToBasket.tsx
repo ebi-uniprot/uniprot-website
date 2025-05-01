@@ -1,27 +1,26 @@
-import { Dispatch, SetStateAction } from 'react';
 import { BasketIcon, Button } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
+import { Dispatch, SetStateAction } from 'react';
 
 import useBasket from '../../hooks/useBasket';
-
+import helper from '../../styles/helper.module.scss';
+import { Namespace } from '../../types/namespaces';
 import accessionToNamespace from '../../utils/accessionToNamespace';
 import { fromCleanMapper } from '../../utils/getIdKey';
-
 import { pluralise } from '../../utils/utils';
-import { Namespace } from '../../types/namespaces';
-
-import helper from '../../styles/helper.module.scss';
 
 type AddToBasketButtonProps = {
   selectedEntries: string | string[];
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
   remove?: boolean;
+  textSuffix?: string;
 };
 
 const AddToBasketButton = ({
   selectedEntries,
   setSelectedEntries,
   remove,
+  textSuffix,
 }: AddToBasketButtonProps) => {
   const [basket, setBasket] = useBasket();
 
@@ -118,6 +117,7 @@ const AddToBasketButton = ({
     >
       <BasketIcon />
       {finalRemove ? 'Remove' : 'Add'}
+      {textSuffix && ` ${textSuffix}`}
     </Button>
   );
 };

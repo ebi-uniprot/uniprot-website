@@ -1,9 +1,8 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
 
 const familyRegEx = /(Belongs to the .+family)/i;
 const familyExtractor = /( the |\. )([^.]+(?:sub|super|sub-sub)?family)/;
@@ -26,7 +25,7 @@ const SimilarityView = ({ children, justLinks }: SimilarityViewProps) => {
   const familyLink = (term: string, link?: string) => {
     const [plainText, family] = splitFamilyFromPlainText(term);
 
-    linkIndex++; // eslint-disable-line no-plusplus
+    linkIndex += 1;
 
     return (
       <Fragment key={family}>

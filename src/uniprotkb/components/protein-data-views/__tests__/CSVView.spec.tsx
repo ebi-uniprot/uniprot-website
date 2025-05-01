@@ -1,4 +1,5 @@
-import { screen, render, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import CSVView from '../CSVView';
 
 describe('CSVView', () => {
@@ -19,9 +20,7 @@ describe('CSVView', () => {
         supplementaryText="includes"
       />
     );
-    const ellipsisButton = await screen.findByRole('button', {
-      name: 'Show more',
-    });
+    const ellipsisButton = await screen.findByRole('button', { name: '[...]' });
     fireEvent.click(ellipsisButton);
     expect(
       await screen.findByText('includes', { exact: false })

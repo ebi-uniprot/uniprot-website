@@ -1,5 +1,5 @@
-import { ReactElement, HTMLAttributes } from 'react';
 import cn from 'classnames';
+import { HTMLAttributes, ReactElement } from 'react';
 
 import styles from './styles/error-component.module.scss';
 

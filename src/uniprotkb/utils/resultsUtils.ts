@@ -1,16 +1,16 @@
-import { stringifyQuery } from '../../shared/utils/url';
-
 import { Column } from '../../shared/config/columns';
+import { ViewMode } from '../../shared/hooks/useViewMode';
+import { Namespace } from '../../shared/types/namespaces';
+import { stringifyQuery } from '../../shared/utils/url';
+import { Interactant } from '../adapters/interactionConverter';
+import { GroupBy } from '../config/apiUrls/groupBy';
 import { SortableColumn } from '../types/columnTypes';
+import { InteractionType } from '../types/commentTypes';
 import {
+  ReceivedFieldData,
   SelectedFacet,
   SortDirection,
-  ReceivedFieldData,
 } from '../types/resultsTypes';
-import { Interactant } from '../adapters/interactionConverter';
-import { InteractionType } from '../types/commentTypes';
-import { ViewMode } from '../../shared/hooks/useViewMode';
-import { GroupBy } from '../config/apiUrls/groupBy';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] =>
   facetString.split(',').map((stringItem) => {
@@ -152,3 +152,20 @@ export const sortInteractionData = (
     }
     return 1;
   });
+
+// To pick up xrefs with colons in their ids eg PTHR34313:SF2
+const invalidSearchFieldMessage = 'is not a valid search field';
+export const isInvalidSearchFieldQueryWithColon = (
+  query: string,
+  errorMessages?: string[],
+  namespace?: Namespace
+) =>
+  Boolean(
+    namespace === Namespace.uniprotkb &&
+      query.includes(':') &&
+      errorMessages?.some((m) => m.endsWith(invalidSearchFieldMessage))
+  );
+
+// PTHR34313:SF2 --> PTHR34313\:SF2
+export const escapeInvalidSearchFieldQueryWithColon = (query: string) =>
+  query.replace(':', '\\:');

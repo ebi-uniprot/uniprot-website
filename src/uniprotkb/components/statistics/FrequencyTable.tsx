@@ -1,14 +1,11 @@
-import { ReactNode } from 'react';
 import { LocationDescriptorObject } from 'history';
+import { ReactNode } from 'react';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
-import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
-
-import { frequencySort, merge } from './utils';
-
 import { StatisticsItem, TableProps } from './StatisticsPage';
-
 import styles from './styles/statistics-page.module.scss';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+import { frequencySort, merge } from './utils';
 
 type Props = TableProps & {
   header: ReactNode;
@@ -20,15 +17,18 @@ type Props = TableProps & {
 };
 
 const FrequencyTable = ({
+  uniprotkbData,
   reviewedData,
   unreviewedData,
   header,
   title,
   locationGetter,
 }: Props) => {
-  const list = merge(reviewedData.items, unreviewedData.items).sort(
-    frequencySort
-  );
+  const list = merge(
+    uniprotkbData.items,
+    reviewedData.items,
+    unreviewedData.items
+  ).sort(frequencySort);
 
   return (
     <>
@@ -37,6 +37,7 @@ const FrequencyTable = ({
         <thead>
           <tr>
             <th>{header}</th>
+            <th>UniProtKB</th>
             <th>
               <ReviewedLabel />
             </th>
@@ -47,11 +48,20 @@ const FrequencyTable = ({
         </thead>
         <tbody>
           {list.map(({ name, statistics }) => {
+            const uniprotkbLocation = locationGetter?.(name, true) || {};
             const reviewedLocation = locationGetter?.(name, true) || {};
             const unreviewedLocation = locationGetter?.(name, false) || {};
             return (
               <tr key={name}>
                 <td>{name}</td>
+                <td className={styles.end}>
+                  <CountLinkOrNothing
+                    condition={'search' in uniprotkbLocation}
+                    to={uniprotkbLocation}
+                  >
+                    {statistics.uniprotkb?.entryCount || 0}
+                  </CountLinkOrNothing>
+                </td>
                 <td className={styles.end}>
                   <CountLinkOrNothing
                     condition={'search' in reviewedLocation}

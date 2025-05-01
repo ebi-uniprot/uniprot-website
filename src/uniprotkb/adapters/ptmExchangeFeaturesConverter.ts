@@ -1,13 +1,13 @@
 import * as logging from '../../shared/utils/logging';
-import { phosphorylate } from '../utils/aa';
-
-import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
-import { Evidence } from '../types/modelTypes';
+import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 import {
   ConfidenceScore,
   FeatureDatum,
+  Modification,
 } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
+import { Evidence } from '../types/modelTypes';
+import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
+import { phosphorylate, sumoylate } from '../utils/aa';
 
 const convertPtmExchangePtms = (
   ptms: PTM[],
@@ -58,6 +58,23 @@ const convertPtmExchangePtms = (
   );
   const [source] = sources || [''];
 
+  let modification: Modification | undefined;
+  const modifications = new Set(
+    ptms.flatMap(({ name }) => name as Modification)
+  );
+  // Update the logic when there are multiple modifications for a species. As of now, only one is expected
+  if (modifications.size) {
+    if (modifications.size > 1) {
+      logging.error(
+        `PTMeXchange PTM has a mixture of modifications: ${Array.from(
+          modifications
+        )}`
+      );
+    } else {
+      [modification] = modifications;
+    }
+  }
+
   return {
     source,
     type: 'Modified residue (large scale data)',
@@ -65,7 +82,8 @@ const convertPtmExchangePtms = (
       start: { value: absolutePosition, modifier: 'EXACT' },
       end: { value: absolutePosition, modifier: 'EXACT' },
     },
-    description: phosphorylate(aa),
+    description:
+      modification === 'Phosphorylation' ? phosphorylate(aa) : sumoylate(aa),
     confidenceScore,
     evidences,
   };
@@ -85,7 +103,7 @@ export const convertPtmExchangeFeatures = (
             ptm.position
           } - 1`
         );
-        // eslint-disable-next-line no-continue
+
         continue;
       }
       const aa = feature.peptide[ptm.position - 1];

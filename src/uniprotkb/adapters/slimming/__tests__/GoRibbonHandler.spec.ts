@@ -1,12 +1,9 @@
+import { TaxonomyDatum } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { GeneNamesData } from '../../namesAndTaxonomyConverter';
 import { getCategories, getSubjects } from '../GORibbonHandler';
-import goRibbonCategories from './__mocks__/go-ribbon-categories';
-import goRibbonSubjects from './__mocks__/go-ribbon-subjects';
 import slimmedData from './__mocks__/slimmedData';
 import goSlimAGR from './__mocks__/slimSet';
 import termsToSlim from './__mocks__/termsToSlim';
-import { GeneNamesData } from '../../namesAndTaxonomyConverter';
-import { TaxonomyDatum } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-// import termsToSlim from './__mocks__/termsToSlim';
 
 const geneNamesData: GeneNamesData = [{ geneName: { value: 'TP53' } }];
 const organismData: TaxonomyDatum = {
@@ -17,7 +14,7 @@ const organismData: TaxonomyDatum = {
 describe('GORibbonHandler', () => {
   it('should generate categories from slim set', () => {
     const categories = getCategories(goSlimAGR);
-    expect(categories).toEqual(goRibbonCategories);
+    expect(categories).toMatchSnapshot();
   });
 
   it('should generate subjects from data', () => {
@@ -28,6 +25,6 @@ describe('GORibbonHandler', () => {
       geneNamesData,
       organismData
     );
-    expect(subjects).toEqual(goRibbonSubjects);
+    expect(subjects).toMatchSnapshot();
   });
 });

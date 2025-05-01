@@ -1,10 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import PtmExchangeEvidenceTag from '../PtmExchangeEvidenceTag';
-
 import { Evidence } from '../../../types/modelTypes';
+import PtmExchangeEvidenceTag from '../PtmExchangeEvidenceTag';
 
 describe('PtmExchangeEvidenceTag components', () => {
   it('should render', () => {

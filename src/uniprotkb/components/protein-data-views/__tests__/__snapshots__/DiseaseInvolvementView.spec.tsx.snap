@@ -97,121 +97,121 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
   <h5>
     Natural variants in AD
   </h5>
-  <div
-    class="datatable-wrapper"
+  <table
+    class="table"
   >
-    <protvista-datatable
-      filter-scroll="true"
+    <thead
+      class=""
     >
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Variant ID
-            </th>
-            <th>
-              Position(s)
-            </th>
-            <th>
-              Change
-            </th>
-            <th>
-              Description
-            </th>
-          </tr>
-        </thead>
-        <tbody
-          translate="no"
+      <tr
+        class="row"
+      >
+        <th />
+        <th>
+          Variant ID
+        </th>
+        <th>
+          Position(s)
+        </th>
+        <th>
+          Change
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class=""
+      translate="no"
+    >
+      <tr
+        class="row"
+      >
+        <td />
+        <td>
+          <a
+            class="external-link"
+            href="https://web.expasy.org/variant_pages/VAR_019255.html"
+            rel="noopener"
+            target="_blank"
+            title="View in Expasy"
+          >
+            VAR_019255
+          </a>
+        </td>
+        <td>
+          23
+        </td>
+        <td
+          class="change"
         >
-          <tr>
-            <td>
-              <a
-                class="external-link"
-                href="https://web.expasy.org/variant_pages/VAR_019255.html"
-                rel="noopener"
-                target="_blank"
-                title="View in Expasy"
-              >
-                VAR_019255
-              </a>
-            </td>
-            <td>
-              23
-            </td>
-            <td
-              class="change"
-            >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 Q23P"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                Q&gt;P
-              </a>
-            </td>
-            <td
-              translate="yes"
-            >
-              in AD; supposed to be rendered with the disease; Italian type; dbSNP:
-              <a
-                class="external-link"
-                href="https://www.ncbi.nlm.nih.gov/snp/rs63750579"
-                rel="noopener"
-                target="_blank"
-              >
-                rs63750579
-                <test-file-stub
-                  data-testid="external-link-icon"
-                  width="12.5"
-                />
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <a
-                class="external-link"
-                href="https://web.expasy.org/variant_pages/VAR_019256.html"
-                rel="noopener"
-                target="_blank"
-                title="View in Expasy"
-              >
-                VAR_019256
-              </a>
-            </td>
-            <td>
-              99
-            </td>
-            <td
-              class="change"
-            >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 I99V"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                I&gt;V
-              </a>
-            </td>
-            <td
-              translate="yes"
-            >
-              in AD
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </protvista-datatable>
-    <button
-      class="button primary toggle-button"
-      type="button"
-    >
-      Expand table
-    </button>
-  </div>
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 Q23P"
+            rel="noopener"
+            target="_blank"
+            title="View in ProtVar"
+          >
+            Q&gt;P
+          </a>
+        </td>
+        <td
+          translate="yes"
+        >
+          in AD; supposed to be rendered with the disease; Italian type; dbSNP:
+          <a
+            class="external-link"
+            href="https://www.ncbi.nlm.nih.gov/snp/rs63750579"
+            rel="noopener"
+            target="_blank"
+          >
+            rs63750579
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </td>
+      </tr>
+      <tr
+        class="row odd"
+      >
+        <td />
+        <td>
+          <a
+            class="external-link"
+            href="https://web.expasy.org/variant_pages/VAR_019256.html"
+            rel="noopener"
+            target="_blank"
+            title="View in Expasy"
+          >
+            VAR_019256
+          </a>
+        </td>
+        <td>
+          99
+        </td>
+        <td
+          class="change"
+        >
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 I99V"
+            rel="noopener"
+            target="_blank"
+            title="View in ProtVar"
+          >
+            I&gt;V
+          </a>
+        </td>
+        <td
+          translate="yes"
+        >
+          in AD
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </DocumentFragment>
 `;

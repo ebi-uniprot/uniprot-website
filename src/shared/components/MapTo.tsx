@@ -1,19 +1,17 @@
+import { Button, Dropdown, LongNumber } from 'franklin-sites';
 import { ReactNode } from 'react';
 import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
-import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
-
-import { pluralise } from '../utils/utils';
-import { stringifyQuery } from '../utils/url';
 
 import {
   allSupportingDataAndAAEntryLocations,
-  LocationToPath,
   Location,
+  LocationToPath,
 } from '../../app/config/urls';
-
-import { Namespace } from '../types/namespaces';
 import { Statistics } from '../types/apiModel';
+import { Namespace } from '../types/namespaces';
+import { stringifyQuery } from '../utils/url';
+import { pluralise } from '../utils/utils';
 
 const configMap = new Map<
   keyof Statistics | 'proteinCount',
@@ -200,7 +198,7 @@ const enrichStatistics = (
       if (!config) {
         return;
       }
-      // eslint-disable-next-line consistent-return
+
       return {
         key: key as keyof Statistics | 'proteinCount',
         count: value,
@@ -226,12 +224,18 @@ export const MapToDropdownBasic = ({
   children,
   config,
 }: MapToDropdownBasic) => (
-  <Dropdown visibleElement={<Button variant="tertiary">{children}</Button>}>
+  <Dropdown
+    // eslint-disable-next-line react/no-unstable-nested-components
+    visibleElement={(onClick: () => unknown) => (
+      <Button variant="tertiary" onClick={onClick}>
+        {children}
+      </Button>
+    )}
+  >
     <ul>
       {config.map(({ key, count, label, to }) =>
         count ? (
           <li key={key}>
-            {/* eslint-disable-next-line uniprot-website/use-config-location */}
             <Link to={to}>
               {label} (<LongNumber>{count}</LongNumber>)
             </Link>
@@ -291,21 +295,24 @@ export const MapToDropdown = ({
 export const mapToLinks = (
   namespace: Namespace,
   accession?: string,
-  statistics?: Statistics
-):
-  | Array<{ name: ReactNode; link: LinkProps['to']; key: string }>
-  | undefined => {
+  statistics?: Statistics,
+  // TODO: remove as this is only needed for the depracated reviewed column in taxonomy. See https://www.ebi.ac.uk/panda/jira/browse/TRM-30869
+  filter?: (x: EnrichedStatistics) => boolean
+) => {
   const fieldName = namespaceToUniProtKBFieldMap.get(namespace);
   if (!(accession && statistics && fieldName)) {
-    return;
+    return [];
   }
-  const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
-  // eslint-disable-next-line consistent-return
-  return enrichedStatistics
-    .filter((stat) => 'text' in stat)
-    .map((stat) => ({
-      name: stat.text,
-      link: stat.to,
-      key: stat.key,
-    }));
+  const enrichedStatistics = enrichStatistics(
+    statistics,
+    fieldName,
+    accession
+  ).filter((stat) => 'text' in stat);
+  return (filter ? enrichedStatistics.filter(filter) : enrichedStatistics).map(
+    (stat) => (
+      <Link to={stat.to} key={stat.key}>
+        {stat.text}
+      </Link>
+    )
+  );
 };

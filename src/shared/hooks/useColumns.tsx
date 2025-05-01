@@ -1,57 +1,54 @@
+import { BinIcon, Button } from 'franklin-sites';
 import {
-  useMemo,
-  ReactNode,
   Dispatch,
+  MutableRefObject,
+  ReactNode,
   SetStateAction,
   useCallback,
+  useEffect,
+  useMemo,
+  useRef,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { BinIcon, Button } from 'franklin-sites';
 
-import useDataApi from './useDataApi';
-import useNS from './useNS';
-import useColumnNames from './useColumnNames';
-import useDatabaseInfoMaps from './useDatabaseInfoMaps';
-
-import apiUrls from '../config/apiUrls/apiUrls';
-import { getIdKeyForData } from '../utils/getIdKey';
-import {
-  getParamsFromURL,
-  getSortableColumnToSortColumn,
-  getLocationObjForParams,
-} from '../../uniprotkb/utils/resultsUtils';
-import * as logging from '../utils/logging';
-
-import { mainNamespaces, Namespace } from '../types/namespaces';
-import { Column, ColumnConfigurations } from '../config/columns';
+import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
+import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { MappingAPIModel } from '../../jobs/id-mapping/types/idMappingSearchResults';
+import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
+import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
+import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
+import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
+import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import uniProtKbConverter, {
+  UniProtkbAPIModel,
+} from '../../uniprotkb/adapters/uniProtkbConverter';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
   ReceivedFieldData,
   SortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { APIModel } from '../types/apiModel';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
-
-import uniProtKbConverter, {
-  UniProtkbAPIModel,
-} from '../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
-import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
-
-import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
-import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
-import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
-import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
-import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
-
-import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
-import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
-
 import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
-
-import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+  getSortableColumnToSortColumn,
+} from '../../uniprotkb/utils/resultsUtils';
+import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import apiUrls from '../config/apiUrls/apiUrls';
+import { Column, ColumnConfigurations } from '../config/columns';
+import { APIModel } from '../types/apiModel';
+import { mainNamespaces, Namespace } from '../types/namespaces';
+import { getIdKeyForData } from '../utils/getIdKey';
+import * as logging from '../utils/logging';
+import { showTooltip } from '../utils/tooltip';
 import { Basket } from './useBasket';
+import useColumnNames from './useColumnNames';
+import useDataApi from './useDataApi';
+import useDatabaseInfoMaps from './useDatabaseInfoMaps';
+import useNS from './useNS';
 
 export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
@@ -59,6 +56,7 @@ export type ColumnDescriptor<Datum = APIModel> = {
   render: (row: Datum) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
+  tooltip?: string;
 };
 
 const convertRow = (
@@ -124,7 +122,7 @@ export const getColumnsToDisplay = (
             return columnConfig.render(
               convertRow(row, namespace, databaseInfoMaps)
             );
-          } catch (error) {
+          } catch {
             if (!('inactiveReason' in row)) {
               logging.warn(
                 `unable to render "${columnName}" in "${namespace}" for entry "${getIdKeyForData(
@@ -163,7 +161,11 @@ const useColumns = (
   columnsOverride?: ColumnDescriptor[],
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>,
   displayPeptideSearchMatchColumns?: boolean
-): [ColumnDescriptor[] | undefined, ((columnName: string) => void) | null] => {
+): [
+  ColumnDescriptor[] | undefined,
+  ((columnName: string) => void) | null,
+  MutableRefObject<HTMLDivElement | null>,
+] => {
   const history = useHistory();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
@@ -173,6 +175,7 @@ const useColumns = (
     displayPeptideSearchMatchColumns,
   });
   const databaseInfoMaps = useDatabaseInfoMaps();
+  const tooltipOnHoverRef = useRef<HTMLDivElement>(null);
   const { search: queryParamFromUrl } = location;
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
@@ -246,6 +249,27 @@ const useColumns = (
     setSelectedEntries,
   ]);
 
+  useEffect(() => {
+    // Detect mouseover events on column header and show tooltip
+    const onHover = (e: MouseEvent) => {
+      const eventTarget = e.target as HTMLElement;
+      const { columnName } = eventTarget.dataset;
+      if (columns && columnName) {
+        const info = columns.find(({ name }) => name === columnName);
+        if (info?.tooltip && eventTarget.firstChild) {
+          showTooltip(
+            info.tooltip,
+            eventTarget,
+            eventTarget.firstChild as Element
+          );
+        }
+      }
+    };
+    const wrapper = tooltipOnHoverRef.current;
+    wrapper?.addEventListener('mouseover', onHover);
+    return () => wrapper?.removeEventListener('mouseover', onHover);
+  });
+
   const updateColumnSort = useCallback(
     (columnName: string) => {
       if (
@@ -271,7 +295,6 @@ const useColumns = (
 
       // TODO: this changes the URL from encoded to decoded which is different to the facet behavior
       history.push(
-        // eslint-disable-next-line uniprot-website/use-config-location
         getLocationObjForParams({
           pathname: history.location.pathname,
           query,
@@ -290,7 +313,7 @@ const useColumns = (
       sortableColumnToSortColumn,
     ]
   );
-  return [columns, updateColumnSort];
+  return [columns, updateColumnSort, tooltipOnHoverRef];
 };
 
 export default useColumns;

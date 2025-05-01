@@ -1,29 +1,36 @@
-import { lazy, useMemo, memo } from 'react';
-import { Link } from 'react-router-dom';
 import { Card } from 'franklin-sites';
+import { lazy, memo, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { SetRequired } from 'type-fest/source/set-required';
 
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import EntrySection from '../../types/entrySection';
-import FreeTextView from '../protein-data-views/FreeTextView';
-import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
-import DatatableWrapper from '../../../shared/components/views/DatatableWrapper';
-
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
+import externalUrls, {
+  getIntActQueryUrl,
+} from '../../../shared/config/externalUrls';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
+import { Xref } from '../../../shared/types/apiModel';
+import { Namespace } from '../../../shared/types/namespaces';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
-import { getIntActQueryUrl } from '../../../shared/config/externalUrls';
-import { getEntryPath } from '../../../app/config/urls';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
+import { UIModel } from '../../adapters/sectionConverter';
 import {
   FreeTextComment,
   Interaction,
   InteractionComment,
 } from '../../types/commentTypes';
-import { UIModel } from '../../adapters/sectionConverter';
-import { Namespace } from '../../../shared/types/namespaces';
-
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import FreeTextView from '../protein-data-views/FreeTextView';
+import XRefView from '../protein-data-views/XRefView';
 import styles from './styles/interaction-section.module.scss';
 
 const interactionSorter = (a: Interaction, b: Interaction) => {
@@ -86,6 +93,82 @@ const interactionSorter = (a: Interaction, b: Interaction) => {
   return 0;
 };
 
+const getRowId = (data: Interaction) =>
+  `${data.interactantOne.intActId}${data.interactantTwo.intActId}`;
+
+const columns: TableFromDataColumn<Interaction>[] = [
+  {
+    id: 'type',
+    label: 'Type',
+    render: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'), // NOTE: Add 'SELF'
+    filter: (data, input) =>
+      (data.organismDiffer ? 'XENO' : 'BINARY') === input,
+  },
+  {
+    id: 'entry-1',
+    label: 'Entry 1',
+    render: (data) =>
+      data.interactantOne.uniProtKBAccession ? (
+        <Link
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            data.interactantOne.uniProtKBAccession
+          )}
+        >
+          {data.interactantOne.geneName} {data.interactantOne.chainId}{' '}
+          {data.interactantOne.uniProtKBAccession}
+        </Link>
+      ) : (
+        <>
+          {data.interactantOne.geneName} {data.interactantOne.chainId}
+        </>
+      ),
+    getOption: (data) => data.interactantOne.uniProtKBAccession || 'Other',
+    filter: (data, input) =>
+      (data.interactantOne.uniProtKBAccession || 'Other') === input,
+  },
+  {
+    id: 'entry-2',
+    label: 'Entry 2',
+    render: (data) =>
+      data.interactantTwo.uniProtKBAccession ? (
+        <Link
+          to={getEntryPath(
+            Namespace.uniprotkb,
+            data.interactantTwo.uniProtKBAccession
+          )}
+        >
+          {data.interactantTwo.geneName} {data.interactantTwo.chainId}{' '}
+          {data.interactantTwo.uniProtKBAccession}
+        </Link>
+      ) : (
+        <>
+          {data.interactantTwo.geneName} {data.interactantTwo.chainId}
+        </>
+      ),
+  },
+  {
+    id: 'number-of-experiments',
+    label: 'Number of experiments',
+    render: (data) => data.numberOfExperiments,
+  },
+  {
+    id: 'intact',
+    label: <span translate="no">IntAct</span>,
+    render: (data) => (
+      <ExternalLink
+        url={getIntActQueryUrl(
+          data.interactantOne.intActId,
+          data.interactantTwo.intActId,
+          data.interactantOne.uniProtKBAccession
+        )}
+      >
+        {data.interactantOne.intActId}, {data.interactantTwo.intActId}
+      </ExternalLink>
+    ),
+  },
+];
+
 type Props = {
   data: UIModel;
   primaryAccession: string;
@@ -95,6 +178,14 @@ const InteractionViewer = lazy(
   /* istanbul ignore next */
   () =>
     import(/* webpackChunkName: "interaction-viewer" */ './InteractionViewer')
+);
+
+const ComplexViewer = lazy(
+  /* istanbul ignore next */
+  () =>
+    import(
+      /* webpackChunkName: "complexviewer" */ '../protein-data-views/ComplexViewer'
+    )
 );
 
 const InteractionSection = ({ data, primaryAccession }: Props) => {
@@ -110,6 +201,25 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       ).sort(interactionSorter),
     [data]
   );
+  const complexPortalXrefs = useMemo(
+    () =>
+      new Map(
+        data.xrefData
+          .flatMap(({ databases }) =>
+            databases
+              .flatMap(({ xrefs }) => xrefs)
+              .filter(
+                (xref): xref is SetRequired<Xref, 'id'> =>
+                  xref.database === 'ComplexPortal' &&
+                  typeof xref.id !== 'undefined'
+              )
+          )
+          .map((xref) => [xref.id, xref])
+      ),
+    [data.xrefData]
+  );
+
+  const [viewerID, setViewerID] = useState<string | null>(null);
 
   if (!hasContent(data)) {
     return null;
@@ -119,90 +229,8 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | FreeTextComment[]
     | undefined;
 
-  const table = (
-    <table>
-      <thead>
-        <tr>
-          <th data-filter="type">Type</th>
-          <th data-filter="entry_1">Entry 1</th>
-          <th>Entry 2</th>
-          <th>Number of experiments</th>
-          <th translate="no">Intact</th>
-        </tr>
-      </thead>
-      <tbody translate="no">
-        {tableData.map((interaction) => (
-          <tr
-            key={`${interaction.interactantOne.intActId}${interaction.interactantTwo.intActId}`}
-          >
-            <td
-              data-filter="type"
-              data-filter-value={interaction.organismDiffer ? 'XENO' : 'BINARY'}
-            >
-              {/* NOTE: Add 'SELF' */}
-              {interaction.organismDiffer ? 'XENO' : 'BINARY'}
-            </td>
-            <td
-              data-filter="entry_1"
-              data-filter-value={
-                interaction.interactantOne.uniProtKBAccession || 'Other'
-              }
-            >
-              {interaction.interactantOne.uniProtKBAccession ? (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantOne.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantOne.geneName}{' '}
-                  {interaction.interactantOne.chainId}{' '}
-                  {interaction.interactantOne.uniProtKBAccession}
-                </Link>
-              ) : (
-                <>
-                  {interaction.interactantOne.geneName}{' '}
-                  {interaction.interactantOne.chainId}
-                </>
-              )}
-            </td>
-            <td>
-              {interaction.interactantTwo.uniProtKBAccession ? (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantTwo.uniProtKBAccession
-                  )}
-                >
-                  {interaction.interactantTwo.geneName}{' '}
-                  {interaction.interactantTwo.chainId}{' '}
-                  {interaction.interactantTwo.uniProtKBAccession}
-                </Link>
-              ) : (
-                <>
-                  {interaction.interactantTwo.geneName}{' '}
-                  {interaction.interactantTwo.chainId}
-                </>
-              )}
-            </td>
-            <td>{interaction.numberOfExperiments}</td>
-            <td>
-              <ExternalLink
-                url={getIntActQueryUrl(
-                  interaction.interactantOne.intActId,
-                  interaction.interactantTwo.intActId,
-                  interaction.interactantOne.uniProtKBAccession
-                )}
-              >
-                {interaction.interactantOne.intActId},{' '}
-                {interaction.interactantTwo.intActId}
-              </ExternalLink>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
+
   return (
     <Card
       header={
@@ -227,10 +255,55 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
           <LazyComponent render={isSmallScreen ? false : undefined}>
             <InteractionViewer accession={primaryAccession} />
           </LazyComponent>
-          <DatatableWrapper>{table}</DatatableWrapper>
+          <TableFromData
+            columns={columns}
+            data={tableData}
+            getRowId={getRowId}
+            noTranslateBody
+          />
         </>
       ) : null}
 
+      {complexPortalXrefs.size > 0 && !isSmallScreen && (
+        <>
+          <h3 data-article-id="complex_viewer">Complex viewer</h3>
+          <div>
+            <label>
+              Select complex
+              <select
+                value={complexId}
+                onChange={(e) => setViewerID(e.target.value)}
+                className={styles['id-select']}
+              >
+                {Array.from(complexPortalXrefs.values()).map(
+                  ({ id, properties }) => (
+                    <option value={id} key={id}>
+                      {`${id} ${properties?.EntryName || ''}`}
+                    </option>
+                  )
+                )}
+              </select>
+            </label>
+
+            <LazyComponent>
+              <ComplexViewer complexID={complexId} />
+            </LazyComponent>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.UniProtKBResults],
+                search: stringifyQuery({
+                  query: `(xref:complexportal-${complexId})`,
+                }),
+              }}
+            >
+              View interactors in UniProtKB
+            </Link>
+          </div>
+          <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+            View {complexId} in Complex Portal
+          </ExternalLink>
+        </>
+      )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
   );

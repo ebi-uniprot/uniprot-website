@@ -1,6 +1,6 @@
 import { Lineage, Statistics, Xref } from '../../shared/types/apiModel';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { AnnotationScoreValue } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 export type GenomeAnnotation = {
@@ -20,6 +20,7 @@ export type CpdStatus =
   | 'Close to Standard'
   | 'Standard'
   | 'Outlier'
+  | 'Outlier (high value)'
   | 'Unknown';
 
 export type CpdReport = {
@@ -73,7 +74,7 @@ export type ProteomesAPIModel = {
   proteomeType: ProteomeType;
   components?: Component[];
   exclusionReasons?: string[];
-  citations: Citation[];
+  citations?: Citation[];
   annotationScore: AnnotationScoreValue;
   superkingdom: string;
   proteomeCompletenessReport?: ProteomeCompletenessReport;

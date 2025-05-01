@@ -1,15 +1,11 @@
+import { fireEvent, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { screen, fireEvent } from '@testing-library/react';
 
+import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
 import customRender from '../../../__test-helpers__/customRender';
-
-import SequenceView from '../SequenceView';
-
 import useDataApi from '../../../hooks/useDataApi';
-
-import { FormParameters } from '../../../../tools/types/toolsFormParameters';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-
+import SequenceView from '../SequenceView';
 import SequenceUIDataJson from './__mocks__/sequenceUIData';
 
 jest.mock('../../../hooks/useDataApi.ts');
@@ -62,9 +58,13 @@ describe('SequenceView component', () => {
     const viewSequenceButton = screen.getByRole('button', {
       name: /Show sequence/i,
     });
-    expect(screen.queryByText(/ABCSSDDD/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/C899F597B1B5D205357C9FAEDA9FF554/)
+    ).not.toBeInTheDocument();
     fireEvent.click(viewSequenceButton);
-    const sequence = await screen.findByText(/ABCSSDDD/);
+    const sequence = await screen.findByText(
+      /C899F597B1B5D205357C9FAEDA9FF554/
+    );
     expect(sequence).toBeInTheDocument();
   });
 

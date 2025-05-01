@@ -1,20 +1,20 @@
-import { Loader, Tabs, Tab } from 'franklin-sites';
-import { useEffect, useMemo } from 'react';
+import { Loader, Tab, Tabs } from 'franklin-sites';
 import { zip } from 'lodash-es';
-
-import SimilarProteinsTabContent from './SimilarProteinsTabContent';
-
-import useSafeState from '../../../../shared/hooks/useSafeState';
+import { useEffect, useState } from 'react';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import fetchData from '../../../../shared/utils/fetchData';
-
 import { Namespace } from '../../../../shared/types/namespaces';
+import fetchData from '../../../../shared/utils/fetchData';
+import { stringifyQuery } from '../../../../shared/utils/url';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
+import { UniRefColumn } from '../../../../uniref/config/UniRefColumnConfiguration';
+import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import EntrySection from '../../../types/entrySection';
+import SimilarProteinsTabContent from './SimilarProteinsTabContent';
 
 export type IsoformsAndCluster = {
   isoforms: string[];
@@ -53,51 +53,54 @@ export const getClusterMapping = (
   return mapping;
 };
 
-// TODO: check cases when the canonical might not be the first isoforms!!!
-const canonicalIsoformRE = /-1$/;
-
-type Props = {
-  isoforms: string[];
-  primaryAccession: string;
-};
-
-const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
-  const [mappingData, setMappingData] = useSafeState<ClusterMapping | null>(
-    null
-  );
-  const [mappingLoading, setMappingLoading] = useSafeState(true);
-
-  // Note, in the case of no other isoforms, the `isoforms` array is empty
-  const allIsoforms = useMemo(
-    () => Array.from(new Set([`${primaryAccession}-1`, ...isoforms])),
-    [primaryAccession, isoforms]
-  );
+const SimilarProteins = ({
+  canonical,
+  isoforms,
+}: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
+  const [mappingData, setMappingData] = useState<ClusterMapping | null>(null);
+  const [mappingLoading, setMappingLoading] = useState(true);
 
   useEffect(() => {
-    const promises = allIsoforms.map((accession) =>
+    const controller = new AbortController();
+    const promises = isoforms.map((accession) =>
       fetchData<{
         results: UniRefLiteAPIModel[];
       }>(
-        `${apiUrls.search.searchPrefix(Namespace.uniref)}?query=(uniprot_id:${
-          // replace isoform name "-1" for canonical to get data from API
-          accession.replace(canonicalIsoformRE, '')
-        })`
+        apiUrls.search.search({
+          namespace: Namespace.uniref,
+          query: stringifyQuery({
+            uniprotkb:
+              accession === canonical
+                ? accession.replace(/-\d+$/, '')
+                : accession,
+          }),
+          columns: [UniRefColumn.id, UniRefColumn.identity],
+          facets: null,
+        }),
+        undefined,
+        { signal: controller.signal }
       )
     );
-    Promise.all(promises).then((responses) => {
-      const clusterData = responses.map((response) => response.data.results);
-      const mapping = getClusterMapping(allIsoforms, clusterData);
-      setMappingData(mapping);
-      setMappingLoading(false);
-    });
-  }, [allIsoforms, setMappingData, setMappingLoading]);
+    Promise.all(promises).then(
+      (responses) => {
+        const clusterData = responses.map((response) => response.data.results);
+        const mapping = getClusterMapping(isoforms, clusterData);
+        setMappingData(mapping);
+        setMappingLoading(false);
+      },
+      () => {
+        /* ignore fetch errors */
+      }
+    );
+    return () => controller.abort();
+  }, [canonical, isoforms]);
 
   if (mappingLoading) {
     return <Loader />;
   }
 
   return mappingData ? (
-    <Tabs>
+    <Tabs bordered>
       {Object.entries(uniRefEntryTypeToPercent).map(
         ([clusterType, percentValue]) => (
           <Tab
@@ -106,6 +109,7 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
             key={clusterType}
           >
             <SimilarProteinsTabContent
+              canonical={canonical}
               clusterType={clusterType}
               isoformsAndClusters={Object.values(
                 mappingData[clusterType as UniRefEntryType]

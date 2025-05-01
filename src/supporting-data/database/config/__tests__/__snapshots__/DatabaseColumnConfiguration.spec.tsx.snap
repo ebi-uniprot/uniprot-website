@@ -94,11 +94,11 @@ exports[`DatabaseColumnConfiguration component should render column "servers": s
   <div>
     <a
       class="external-link"
-      href="https://www.ebi.ac.uk/ena"
+      href="https://www.ebi.ac.uk/ena/browser/home"
       rel="noopener"
       target="_blank"
     >
-      www.ebi.ac.uk/ena
+      www.ebi.ac.uk/ena/browser/home
       <test-file-stub
         data-testid="external-link-icon"
         width="12.5"
@@ -117,21 +117,21 @@ exports[`DatabaseColumnConfiguration component should render column "statistics"
       <a
         href="/uniprotkb?query=%28database%3ADB-0022%29"
       >
-        235,066,671 UniProtKB entries
+        236,788,346 UniProtKB entries
       </a>
     </li>
     <li>
       <a
         href="/uniprotkb?query=%28database%3ADB-0022%29+AND+%28reviewed%3Atrue%29"
       >
-        558,056 reviewed UniProtKB entries
+        560,281 reviewed UniProtKB entries
       </a>
     </li>
     <li>
       <a
         href="/uniprotkb?query=%28database%3ADB-0022%29+AND+%28reviewed%3Afalse%29"
       >
-        234,508,615 unreviewed UniProtKB entries
+        236,228,065 unreviewed UniProtKB entries
       </a>
     </li>
   </ul>
