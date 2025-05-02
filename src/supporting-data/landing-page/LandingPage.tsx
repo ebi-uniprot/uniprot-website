@@ -57,7 +57,7 @@ const LandingPage = () => {
           </div>
 
           {/* Categories */}
-          <h2 className="uniprot-grid-cell--span-12">Key Categories</h2>
+          <h2 className="uniprot-grid-cell--span-12">Datasets</h2>
           {/* Keywords */}
           <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
             <h3>Keywords</h3>
