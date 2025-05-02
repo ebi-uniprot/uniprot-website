@@ -41,12 +41,7 @@ const LandingPage = () => {
               styles['image-container']
             )}
           >
-            <img
-              src={SupportingDataIllustration}
-              width={300}
-              height={300}
-              alt=""
-            />
+            <img src={SupportingDataIllustration} alt="Supporting data" />
           </div>
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
             The Supporting Data presented within this page enhances the
@@ -65,141 +60,147 @@ const LandingPage = () => {
           <h2 className="uniprot-grid-cell--span-12">Key Categories</h2>
           {/* Keywords */}
           <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.KeywordsResults],
-                  search: 'query=*',
-                }}
-              >
-                Keywords
-              </Link>
-            </h3>
-            <p>
+            <h3>Keywords</h3>
+            <div className={styles.category}>
               Keywords in UniProt provide standardized terms that summarize the
               main features and attributes of a protein entry. Categories
               include: Biological Process, Molecular Function, Technical Terms,
               Ligands and Cofactors, and Applications.
-            </p>
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.KeywordsResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
           </div>
           {/* Subcellular Location */}
           <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.LocationsResults],
-                  search: 'query=*',
-                }}
-              >
-                Subcellular Locations
-              </Link>
-            </h3>
-            <p>
+            <h3>Subcellular Locations</h3>
+            <div className={styles.category}>
               Specifies where the protein is located within a cell or organism,
               providing insight into its potential role. Experimental evidence
               or computational predictions supporting the localization are often
               included.
-            </p>
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.LocationsResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
           </div>
           {/* Literature Citations */}
           <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.CitationsResults],
-                  search: 'query=*',
-                }}
-              >
-                Literature Citations
-              </Link>
-            </h3>
-            <p>
+            <h3>Literature Citations</h3>
+            <div className={styles.category}>
               Direct references to scientific studies supporting protein
               annotations. Includes experimental evidence such as enzymatic
               activities, protein interactions, or structural data.
-            </p>
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.CitationsResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
           </div>
           {/* Taxonomy */}
           <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.TaxonomyResults],
-                  search: 'query=*',
-                }}
-              >
-                Taxonomy
-              </Link>
-            </h3>
-            <p>
+            <h3>Taxonomy</h3>
+            <div className={styles.category}>
               Classification of the protein based on the organism of origin,
               linking to databases like NCBI Taxonomy.
-            </p>
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.TaxonomyResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
           </div>
-          {/* Cross-referenced Databases */}
-          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.DatabaseResults],
-                  search: 'query=*',
-                }}
-              >
-                Cross-referenced Databases
-              </Link>
-            </h3>
-            <p>
-              Links to databases like PDB (Protein Data Bank), Gene Ontology
-              (GO), Ensembl, and RefSeq.
-            </p>
-          </div>
+
           {/* Human Diseases */}
           <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.DiseasesResults],
-                  search: 'query=*',
-                }}
-              >
-                Human Diseases
-              </Link>
-            </h3>
-            <p>
+            <h3>Human Diseases</h3>
+            <div className={styles.category}>
               Provides insights into the relationship between proteins and human
               health. Includes disease annotations, pathogenesis information,
               variants linked to diseases, and links to drug databases.
-            </p>
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.DiseasesResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
           </div>
+
+          {/* Cross-referenced Databases */}
+          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
+            <h3>Cross-referenced Databases</h3>
+            <div className={styles.category}>
+              Links to databases like PDB (Protein Data Bank), Gene Ontology
+              (GO), Ensembl, and RefSeq.
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.DatabaseResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
+          </div>
+
           {/* Automatic Annotations */}
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6">
-            <h2>Automatic Annotations</h2>
-            <p>
+            <h3>Automatic Annotations</h3>
+            <div>
               The Automatic Annotations section in UniProt provides functional
               and structural insights for protein sequences and supplements
               manually curated data using two key systems: UniRule and ARBA.
-            </p>
-            <p>
-              <Link to={LocationToPath[Location.UniRuleResults]}>UniRule</Link>:
+            </div>
+
+            <h4>UniRule</h4>
+            <div>
               A manually curated rule-based system that delivers high-confidence
               annotations for well-characterized protein families based on
               experimental evidence and domain information.
-            </p>
-            <p>
-              <Link to={LocationToPath[Location.ARBAResults]}>ARBA</Link>: An
-              automated system that uses computationally generated rules to
+            </div>
+            <Link to={LocationToPath[Location.UniRuleResults]}>
+              Start searching in UniRule »
+            </Link>
+
+            <h4>ARBA</h4>
+            <div>
+              An automated system that uses computationally generated rules to
               annotate a broader range of protein sequences, including those
               with less-established functional data.
-            </p>
+            </div>
+            <Link to={LocationToPath[Location.ARBAResults]}>
+              Start searching in ARBA »
+            </Link>
           </div>
+
           {/* Data integration form */}
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6">
-            <h2>Expand Your Reach: Connect Your Database with UniProt</h2>
-            <p>
+            <h3>Expand Your Reach: Connect Your Database with UniProt</h3>
+            <div>
               If you would like your database to be linked with UniProt to
               expand its integration with protein-related data, please fill out
               this form, and a member of our team will be in contact.
-            </p>
+            </div>
             <form aria-label="Data integration form" onSubmit={handleSubmit}>
               {/* Name */}
               <label htmlFor={`name-${formId}`}>Submitter&apos;s Name *</label>
@@ -243,6 +244,7 @@ const LandingPage = () => {
                 id={`message-${formId}`}
                 required
                 minLength={1}
+                rows={5}
                 onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
                   handleTextareaChange(event);
                   handleChange(event);
