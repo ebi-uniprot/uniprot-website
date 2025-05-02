@@ -312,13 +312,16 @@ const Download = (props: DownloadProps<JobTypes>) => {
       {isUniParcProteomeSearch(state, props, downloadOptions.query) && (
         <fieldset>
           <p className={styles['new-fasta-header']}>
-            Improved FASTA header
+            <span data-article-id="fasta-headers#uniparc-for-proteomes">
+              Enhanced FASTA header
+            </span>
             <small>
               <Chip>New</Chip>
             </small>
             <br />
-            There are improvements made to the FASTA header for an UniParc entry
-            associated with redundant proteomes.
+            For UniParc entries associated with redundant proteomes, which
+            additionally includes Protein Names, Organism Name/Identifier and
+            Gene Names amongst others.
             <label>
               <input
                 aria-label="uniparc proteome-specific FASTA"
@@ -327,7 +330,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
                 checked={state.proteomeFastaHeader}
                 onChange={handleFastaHeaderChange}
               />
-              Proceed with the recommended header
+              Proceed with enhanced FASTA header format (recommended).
             </label>
           </p>
         </fieldset>

@@ -195,14 +195,18 @@ describe('Download uniparc entries with passed proteome id as query', () => {
       )
     );
     fireEvent.click(
-      screen.getByLabelText('Proceed with the recommended header')
+      screen.getByLabelText(
+        'Proceed with enhanced FASTA header format (recommended).'
+      )
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );
     fireEvent.click(
-      screen.getByLabelText('Proceed with the recommended header')
+      screen.getByLabelText(
+        'Proceed with enhanced FASTA header format (recommended).'
+      )
     );
     const formatSelect = screen.getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
