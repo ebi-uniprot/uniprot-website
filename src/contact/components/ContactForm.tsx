@@ -1,11 +1,5 @@
 import cn from 'classnames';
-import {
-  Button,
-  ErrorIcon,
-  Message,
-  PageIntro,
-  SuccessIcon,
-} from 'franklin-sites';
+import { Button, ErrorIcon, PageIntro, SuccessIcon } from 'franklin-sites';
 import { createPath } from 'history';
 import { ChangeEvent, useId, useMemo } from 'react';
 import {
@@ -116,42 +110,6 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />
-        {isUpdate ? null : (
-          <>
-            <Message level="info">
-              <small>
-                Frequently asked: issues accessing UniProt programmatically?
-                Have a look at the{' '}
-                <Link
-                  to={generatePath(LocationToPath[Location.HelpEntry], {
-                    accession: 'api',
-                  })}
-                >
-                  new API documentation
-                </Link>{' '}
-                including changes to the{' '}
-                <Link
-                  to={generatePath(LocationToPath[Location.HelpEntry], {
-                    accession: 'return_fields',
-                  })}
-                >
-                  return fields
-                </Link>{' '}
-                (aka &quot;columns&quot;) and specifically the{' '}
-                <Link
-                  to={generatePath(LocationToPath[Location.HelpEntry], {
-                    accession: 'return_fields_databases',
-                  })}
-                >
-                  cross-references return fields
-                </Link>{' '}
-                .
-              </small>
-            </Message>
-            <br />
-            <br />
-          </>
-        )}
         <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
           <label className={styles.label} htmlFor={`name-${formId}`}>
@@ -218,7 +176,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
           <span className={cn(styles.input, styles.input__message)}>
             <textarea
               name="message"
-              placeholder="my message"
+              placeholder="My message"
               id={`message-${formId}`}
               required
               minLength={1}
@@ -306,6 +264,13 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
                 <ExternalLink url="https://www.ebi.ac.uk/swissprot/Submissions/spin/">
                   Submit new protein sequence data
                 </ExternalLink>
+              </li>
+              <li>
+                <Link
+                  to={generatePath(LocationToPath[Location.SupportingData])}
+                >
+                  Connect your database with UniProt
+                </Link>
               </li>
             </ul>
           </aside>

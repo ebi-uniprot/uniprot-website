@@ -248,7 +248,7 @@ const LandingPage = () => {
               <label htmlFor={`message-${formId}`}>Message *</label>
               <textarea
                 name="message"
-                placeholder="my message"
+                placeholder="My message"
                 id={`message-${formId}`}
                 required
                 minLength={1}
