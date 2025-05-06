@@ -3,6 +3,11 @@
 .landing-page {
   margin-block: 2 * $global-margin;
 
+  .image-container {
+    display: grid;
+    place-items: center;
+  }
+
   form {
     // Hide the honeypot from the view
     [name='requiredForRobots'] {
@@ -15,9 +20,8 @@
   .category {
     margin-bottom: 0.4rem;
   }
-}
 
-.image-container {
-  display: grid;
-  place-items: center;
+  .submit-button {
+    margin-top: 1rem;
+  }
 }

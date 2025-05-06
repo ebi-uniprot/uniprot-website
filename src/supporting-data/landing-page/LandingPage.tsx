@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Button } from 'franklin-sites';
 import { ChangeEvent, useId } from 'react';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import { useFormLogic } from '../../contact/adapters/contactFormAdapter';
@@ -17,6 +17,14 @@ const LandingPage = () => {
   const formId = useId();
 
   const { handleSubmit, handleChange, sending } = useFormLogic();
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.setCustomValidity(
+      e.target.value.trim().length >= 3
+        ? ''
+        : 'Please enter more details about the database'
+    );
+  };
 
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.target.setCustomValidity(
@@ -250,6 +258,29 @@ const LandingPage = () => {
                   handleChange(event);
                 }}
               />
+              {/* Privacy */}
+              <label className={styles.privacy}>
+                <input
+                  type="checkbox"
+                  name="privacy"
+                  required
+                  onChange={handleCheckboxChange}
+                />
+                I agree to the processing of my data for the purposes described
+                in this{' '}
+                <Link
+                  to={generatePath(LocationToPath[Location.HelpEntry], {
+                    accession: 'privacy',
+                  })}
+                >
+                  privacy notice
+                </Link>
+                .
+                <span aria-hidden="true" className={styles.required}>
+                  {' '}
+                  *
+                </span>
+              </label>
               {/* 🍯 */}
               <input
                 type="text"
@@ -258,9 +289,11 @@ const LandingPage = () => {
                 tabIndex={-1}
                 aria-hidden="true"
               />
-              <Button type="submit" disabled={sending}>{`Send${
-                sending ? 'ing' : ''
-              } message`}</Button>
+              <Button
+                type="submit"
+                disabled={sending}
+                className={styles['submit-button']}
+              >{`Send${sending ? 'ing' : ''} message`}</Button>
             </form>
           </div>
         </section>
