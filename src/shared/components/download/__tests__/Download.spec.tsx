@@ -191,7 +191,7 @@ describe('Download uniparc entries with passed proteome id as query', () => {
     let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
-        '/uniparc/proteome/UP000001478/stream?format=fasta'
+        '/uniparc/proteome/UP000001478/stream?compressed=true&format=fasta'
       )
     );
     fireEvent.click(

@@ -169,6 +169,7 @@ export const download = ({
     }
     return stringifyUrl(endpoint, {
       format: fileFormatToUrlParameter[fileFormat],
+      compressed,
     });
   }
   return stringifyUrl(endpoint, parameters);
