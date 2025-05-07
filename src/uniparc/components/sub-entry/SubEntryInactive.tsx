@@ -1,11 +1,9 @@
-import { Message } from 'franklin-sites';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
 import apiUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 
-function SubEntryInactive({ data }: { data: UniParcSubEntryUIModel }) {
+const SubEntryInactive = ({ data }: { data: UniParcSubEntryUIModel }) => {
   const { subEntry } = data;
   const { loading, data: statusData } = useDataApi<UniSaveStatus>(
     subEntry.id && subEntry.active
@@ -18,23 +16,11 @@ function SubEntryInactive({ data }: { data: UniParcSubEntryUIModel }) {
 
     if (event && event?.deletedReason) {
       return (
-        <Message level="info">
-          <strong>This entry is no longer active in UniProtKB</strong>
-          <div>
-            Reason:{' '}
-            <strong data-article-id="deleted_accessions">
-              {event.deletedReason}
-            </strong>
-          </div>
-          {event?.release && (
-            <div>
-              Since release: <strong>{event.release}</strong>
-            </div>
-          )}
-        </Message>
+        <span data-article-id="deleted_accessions">{event.deletedReason}</span>
       );
     }
   }
   return null;
-}
+};
+
 export default SubEntryInactive;

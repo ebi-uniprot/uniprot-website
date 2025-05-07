@@ -12,6 +12,7 @@ import { UniParcXRef } from '../../adapters/uniParcConverter';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import EntrySection from '../../types/subEntry';
 import { DataDBModel } from '../entry/XRefsSection';
+import SubEntryInactive from './SubEntryInactive';
 
 type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
 
@@ -96,6 +97,10 @@ const SubEntryOverview = ({ data }: Props) => {
       ),
     },
     {
+      title: 'Status',
+      content: !data.subEntry.active && <SubEntryInactive data={data} />,
+    },
+    {
       title: <span data-article-id="accession">UniProtKB accession</span>,
       content: data.subEntry.id && data.subEntry.isUniprotkbEntry && (
         <Link
@@ -109,7 +114,7 @@ const SubEntryOverview = ({ data }: Props) => {
             ),
           }}
         >
-          {data.subEntry.id}
+          {data.subEntry.id} {data.subEntry.active ? '' : ' (History)'}
         </Link>
       ),
     },
