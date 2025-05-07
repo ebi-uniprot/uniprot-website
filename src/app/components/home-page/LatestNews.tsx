@@ -7,12 +7,11 @@ import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
-
 const insideUniProtAbstract1 =
-  'In recent years a wealth of information has become available about genetic variations that underlie various diseases, especially cancer.';
+  'Mammalian immune responses are mediated by interactions between antigens and immune system components such as antibodies, B cells, and T cells';
 
 const insideUniProtAbstract2 =
-  'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
+  'In recent years a wealth of information has become available about genetic variations that underlie various diseases, especially cancer.';
 
 const proteinSpotlightAbstract =
   'Spermatozoa. There are no other cells in humans - or indeed in any other animals - that have the capacity to wriggle and move forward the way spermatozoa do. Blood cells may dash around our bodies but they can only do so because they are swept up in the pulse and flow of blood...';
@@ -271,6 +270,38 @@ const LatestNews = () => {
       >
         <article>
           <ExternalLink
+            url="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+            noIcon
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <img
+              loading="lazy"
+              src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXd1s6fiajiMzEs5LbVFoTwb3hDXN-kCrUx9GWBrP5ZnvCE4t_f-1Vp1A8cM3qq9eowxZjlWdVy-dm1z2HNlkZnlAlNP5WcegaJvaYeQAawIMh6QGJ-JAirapMPWdp_G9XS8m2He7g=w571-h541?key=jfJMcOebpi8n6A4ZKBU-RSi0"
+              alt=""
+              width="184.305"
+              height="96"
+            />
+          </ExternalLink>
+          <h3 className="tiny">
+            <ExternalLink
+              url="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+              noIcon
+            >
+              Rich Epitope Information Comes to UniProt
+            </ExternalLink>
+          </h3>
+          <p
+            className={cn(
+              styles['latest-news__abstract'],
+              styles['latest-news__abstract--4-lines']
+            )}
+          >
+            {insideUniProtAbstract1}
+          </p>
+        </article>
+        <article>
+          <ExternalLink
             url="https://insideuniprot.blogspot.com/2023/05/usinguniprot-discanvis-interpreting.html"
             noIcon
             aria-hidden="true"
@@ -291,39 +322,6 @@ const LatestNews = () => {
               noIcon
             >
               #UsingUniProt - DisCanVis interpreting genomic variation data
-            </ExternalLink>
-          </h3>
-          <p
-            className={cn(
-              styles['latest-news__abstract'],
-              styles['latest-news__abstract--4-lines']
-            )}
-          >
-            {insideUniProtAbstract1}
-          </p>
-        </article>
-        <article>
-          <ExternalLink
-            url="http://insideuniprot.blogspot.com/2022/12/how-artificial-intelligence-can-help-us.html"
-            noIcon
-            aria-hidden="true"
-            tabIndex={-1}
-          >
-            <img
-              loading="lazy"
-              src="https://github.com/ebi-uniprot/uniprot-manual/blob/main/images/protnlm-schematic-3.png?raw=true"
-              style={{ background: 'white' }}
-              alt=""
-              width="184.305"
-              height="96"
-            />
-          </ExternalLink>
-          <h3 className="tiny">
-            <ExternalLink
-              url="http://insideuniprot.blogspot.com/2022/12/how-artificial-intelligence-can-help-us.html"
-              noIcon
-            >
-              How artificial intelligence can help us annotate protein names
             </ExternalLink>
           </h3>
           <p
