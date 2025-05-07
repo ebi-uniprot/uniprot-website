@@ -10,7 +10,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniParcXRef } from '../../adapters/uniParcConverter';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
-import EntrySection from '../../types/subEntry';
+import EntrySection from '../../types/subEntrySection';
 import { DataDBModel } from '../entry/XRefsSection';
 import SubEntryInactive from './SubEntryInactive';
 

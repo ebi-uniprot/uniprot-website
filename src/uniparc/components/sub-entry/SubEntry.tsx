@@ -35,9 +35,9 @@ import {
 import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
-import SubEntrySection from '../../types/subEntry';
+import { TabLocation } from '../../types/entry';
+import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
-import { TabLocation } from '../entry/Entry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';

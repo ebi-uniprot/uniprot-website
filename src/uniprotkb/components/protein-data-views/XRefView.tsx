@@ -18,7 +18,7 @@ import {
   getDatabaseInfoAttribute,
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
-import { TabLocation } from '../../../uniparc/components/entry/Entry';
+import { TabLocation } from '../../../uniparc/types/entry';
 import {
   databaseCategoryToString,
   viewProteinLinkDatabases,

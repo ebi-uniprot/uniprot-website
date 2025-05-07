@@ -10,7 +10,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import { pluralise } from '../../../../shared/utils/utils';
-import { TabLocation } from '../../../../uniparc/components/entry/Entry';
+import { TabLocation } from '../../../../uniparc/types/entry';
 import { JobTypes } from '../../../types/jobTypes';
 import { MappingDetails } from '../../types/idMappingSearchResults';
 import { PublicServerParameters } from '../../types/idMappingServerParameters';

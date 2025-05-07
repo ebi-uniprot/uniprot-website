@@ -3,7 +3,7 @@ import { lazy } from 'react';
 
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
-import SubEntrySection from '../../types/subEntry';
+import SubEntrySection from '../../types/subEntrySection';
 
 const StructureView = lazy(
   () =>

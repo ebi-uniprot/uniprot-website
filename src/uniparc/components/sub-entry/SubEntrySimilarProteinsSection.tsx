@@ -3,7 +3,7 @@ import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../shared/components/LazyComponent';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
-import SubEntrySection from '../../types/subEntry';
+import SubEntrySection from '../../types/subEntrySection';
 
 const SubEntrySimilarProteins = lazy(
   () =>

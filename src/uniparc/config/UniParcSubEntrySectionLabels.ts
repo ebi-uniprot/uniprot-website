@@ -1,4 +1,4 @@
-import SubEntrySection from '../types/subEntry';
+import SubEntrySection from '../types/subEntrySection';
 
 export const entrySectionToLabel = {
   [SubEntrySection.Structure]: 'Structure',

@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 import { UniParcUIModel } from '../../adapters/uniParcConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
-import SubEntrySection from '../../types/subEntry';
+import SubEntrySection from '../../types/subEntrySection';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 
 type Props = {
