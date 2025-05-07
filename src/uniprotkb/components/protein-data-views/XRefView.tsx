@@ -1,18 +1,24 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Xref } from '../../../shared/types/apiModel';
+import { Namespace } from '../../../shared/types/namespaces';
 import { pluralise } from '../../../shared/utils/utils';
 import {
   getDatabaseInfoAttribute,
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
+import { TabLocation } from '../../../uniparc/components/entry/Entry';
 import {
   databaseCategoryToString,
   viewProteinLinkDatabases,
@@ -326,9 +332,15 @@ type XRefViewProps = {
   xrefs: XrefUIModel[];
   primaryAccession: string;
   crc64?: string;
+  uniParcID?: string;
 };
 
-const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
+const XRefView = ({
+  xrefs,
+  primaryAccession,
+  crc64,
+  uniParcID,
+}: XRefViewProps) => (
   <>
     {xrefs?.map(({ databases, category }, index): JSX.Element => {
       const xrefsNode =
@@ -350,10 +362,34 @@ const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
         title = databaseCategoryToString[category];
       }
 
+      let linkToUniParcFeatures: null | ReactNode = null;
+      if (
+        category === DatabaseCategory.DOMAIN &&
+        uniParcID &&
+        databases.some((db) => db.database === 'InterPro')
+      ) {
+        linkToUniParcFeatures = (
+          <div>
+            View all family and domain features for this entry&apos;s canonical
+            sequence:{' '}
+            <Link
+              to={getEntryPath(
+                Namespace.uniparc,
+                uniParcID,
+                TabLocation.FeatureViewer
+              )}
+            >
+              UniParc feature viewer
+            </Link>
+          </div>
+        );
+      }
+
       return (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
           <h3>{title}</h3>
+          {linkToUniParcFeatures}
           {xrefsNode}
         </Fragment>
       );

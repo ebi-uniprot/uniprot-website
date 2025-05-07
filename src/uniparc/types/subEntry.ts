@@ -1,8 +1,3 @@
-export enum TabLocation {
-  Entry = 'entry',
-  FeatureViewer = 'feature-viewer',
-}
-
 enum SubEntrySection {
   Structure = 'structure',
   FamilyAndDomains = 'family_and_domains',

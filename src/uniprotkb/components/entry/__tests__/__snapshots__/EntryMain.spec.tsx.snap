@@ -6125,6 +6125,14 @@ exports[`Entry view should render for non-human entry 1`] = `
         <h3>
           Family and domain databases
         </h3>
+        <div>
+          View all family and domain features for this entry's canonical sequence: 
+          <a
+            href="/uniparc/UPI000246C4A6/feature-viewer"
+          >
+            UniParc feature viewer
+          </a>
+        </div>
         <ul
           class="info-list info-list--columns"
         >

@@ -121,6 +121,7 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence?.value}
+        uniParcID={data.extraAttributes?.uniParcId}
         key={EntrySection.Expression}
       />
     ),
