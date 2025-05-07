@@ -1,5 +1,11 @@
 import cn from 'classnames';
-import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
+import {
+  Button,
+  Chip,
+  DownloadIcon,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import { Location as HistoryLocation } from 'history';
 import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
@@ -30,6 +36,7 @@ import {
   updateDisableForm,
   updateDownloadSelect,
   updateExtraContent,
+  updateFastaHeader,
   updateFullXref,
   updateSelectedColumns,
   updateSelectedFileFormat,
@@ -53,11 +60,11 @@ import {
   getFtpFilenamesAndUrls,
   getIsAsyncDownload,
   getIsEmbeddings,
-  getIsUniParcLightResponse,
   getPreviewCount,
   getPreviewOptions,
   getRedirectToIDMapping,
   isAsyncDownloadIdMapping,
+  isUniParcProteomeSearch,
   showColumnSelect,
 } from './downloadUtils';
 import styles from './styles/download.module.scss';
@@ -133,6 +140,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
     dispatch(updateSelectedColumns(state.selectedColumns, fieldData));
   };
 
+  const handleFastaHeaderChange = () => {
+    dispatch(updateFastaHeader(!state.proteomeFastaHeader));
+  };
+
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
@@ -148,8 +159,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
-  // This is added for release 2024_06. Remove it for the next release
-  const isUniParcLightResponse = getIsUniParcLightResponse(state, props);
 
   let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
@@ -299,6 +308,33 @@ const Download = (props: DownloadProps<JobTypes>) => {
           </select>
         </label>
       </fieldset>
+      {/* UniParc-proteome FASTA option */}
+      {isUniParcProteomeSearch(state, props, downloadOptions.query) && (
+        <fieldset>
+          <p className={styles['new-fasta-header']}>
+            <span data-article-id="fasta-headers#uniparc-for-proteomes">
+              Enhanced FASTA header
+            </span>
+            <small>
+              <Chip>New</Chip>
+            </small>
+            <br />
+            For UniParc entries associated with redundant proteomes, which
+            additionally includes Protein Names, Gene Names and Organism
+            Name/Identifier amongst others.
+            <label>
+              <input
+                aria-label="uniparc proteome-specific FASTA"
+                type="checkbox"
+                name="proteome FASTA"
+                checked={state.proteomeFastaHeader}
+                onChange={handleFastaHeaderChange}
+              />
+              Proceed with enhanced FASTA header format (recommended).
+            </label>
+          </p>
+        </fieldset>
+      )}
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset disabled={state.disableForm}>
@@ -328,20 +364,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
             No
           </label>
         </fieldset>
-      )}
-
-      {isUniParcLightResponse && (
-        <Message level="info">
-          {state.selectedFileFormat} files contain fewer fields since{' '}
-          <Link
-            to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-              accession: '2024-11-27-release',
-            })}
-          >
-            release 2024_06
-          </Link>
-          . Please see the release notes for more details.
-        </Message>
       )}
 
       {/* Peptide search download for matches exceeding the threshold */}
