@@ -16,6 +16,8 @@ mock.onGet().reply(200, {
         'P05067-1',
         'D3DSD3.1',
         'P05067',
+        // Not existing, but just for testing
+        'P00000-0',
       ],
       oldestCrossRefCreated: '1991-11-01',
       mostRecentCrossRefUpdated: '2024-11-27',
@@ -32,6 +34,9 @@ describe('ChecksumSuggester', () => {
     expect(
       await screen.findByRole('link', { name: 'view all' })
     ).toHaveAttribute('href', '/uniprotkb?query=%28uniparc%3AUPI000002DB1C%29');
+    expect(
+      await screen.findByRole('link', { name: 'P00000-0' })
+    ).toHaveAttribute('href', '/uniprotkb/P00000#P00000-0');
     expect(
       await screen.findByRole('link', { name: 'UPI000002DB1C' })
     ).toHaveAttribute('href', '/uniparc/UPI000002DB1C');

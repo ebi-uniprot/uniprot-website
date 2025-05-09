@@ -13,6 +13,7 @@ import { stringifyUrl } from '../../shared/utils/url';
 import { pluralise } from '../../shared/utils/utils';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
+import { TabLocation } from '../../uniparc/types/entry';
 
 type Props = {
   sequence?: string;
@@ -62,10 +63,28 @@ const ChecksumSuggester = memo(
 
     const activeCanonicalUniprotkb =
       uniProtKBAccessions?.filter(
-        (accession) => !(accession.includes('-') || accession.includes('.'))
+        (accession) =>
+          // Not an isoform
+          !accession.includes('-') &&
+          // Not inactive
+          !accession.includes('.')
       ) || [];
 
-    const onlyUniParc = !activeCanonicalUniprotkb.length;
+    const activeIsoformsUniprotkb =
+      uniProtKBAccessions?.filter(
+        (accession) =>
+          // Is an isoform
+          accession.includes('-') &&
+          // Not inactive
+          !accession.includes('.') &&
+          // Non-dashed version not already in the list of canonical accessions
+          !activeCanonicalUniprotkb.some(
+            (canonical) => accession.split('-')[0] === canonical
+          )
+      ) || [];
+
+    const onlyUniParc =
+      !activeCanonicalUniprotkb.length && !activeIsoformsUniprotkb.length;
 
     const content = (
       <>
@@ -73,7 +92,7 @@ const ChecksumSuggester = memo(
         which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
         <div>
           <ul className={styles['suggestions-list']}>
-            {!onlyUniParc ? (
+            {activeCanonicalUniprotkb.length ? (
               <li>
                 <div data-article-id="uniprotkb">UniProtKB</div>
                 {`${activeCanonicalUniprotkb.length} ${pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}: `}
@@ -95,6 +114,42 @@ const ChecksumSuggester = memo(
                       LocationToPath[Location.UniProtKBResults],
                       {
                         query: `(uniparc:${uniParcId})`,
+                      }
+                    )}
+                  >
+                    {' view all'}
+                  </Link>
+                )}
+              </li>
+            ) : null}
+            {activeIsoformsUniprotkb.length ? (
+              <li>
+                <div data-article-id="alternative_products">
+                  UniProtKB isoforms
+                </div>
+                {`${activeIsoformsUniprotkb.length} ${pluralise('isoform', activeIsoformsUniprotkb.length)}: `}
+                {activeIsoformsUniprotkb
+                  ?.slice(0, N_IDS_SHOWN)
+                  .map((accession, i, array) => (
+                    <Fragment key={accession}>
+                      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                        {accession}
+                      </Link>
+                      {i < array.length - 1 && ', '}
+                    </Fragment>
+                  ))}
+                {(activeIsoformsUniprotkb.length > N_IDS_SHOWN && '…') ||
+                  (activeIsoformsUniprotkb.length > 1 && ' –')}
+                {activeIsoformsUniprotkb.length > 1 && (
+                  <Link
+                    to={stringifyUrl(
+                      getEntryPath(
+                        Namespace.uniparc,
+                        uniParcId,
+                        TabLocation.Entry
+                      ),
+                      {
+                        facets: 'dbTypes:UniProtKB/Swiss-Prot protein isoforms',
                       }
                     )}
                   >
