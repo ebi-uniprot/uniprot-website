@@ -1,10 +1,10 @@
 import {
-  getDRImplicitXrefs,
   getDatabaseSimilarityCommentImplicitXrefs,
-  getGenePatternOrganismImplicitXrefs,
+  getDRImplicitXrefs,
   getECImplicitXrefs,
-  getUnconditionalImplicitXrefs,
+  getGenePatternOrganismImplicitXrefs,
   getJoinedXrefs,
+  getUnconditionalImplicitXrefs,
 } from '../xrefUtils';
 import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 

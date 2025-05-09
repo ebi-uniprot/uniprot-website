@@ -1,3 +1,5 @@
+import { DeletedReason } from '../adapters/uniProtkbConverter';
+
 export type UniSaveVersion = {
   accession: string;
   database: 'Swiss-Prot' | 'TrEMBL';
@@ -21,6 +23,7 @@ export type UniSaveEvent = {
   targetAccession: string;
   eventType: UniSaveEventType;
   release: string;
+  deletedReason?: DeletedReason;
 };
 
 export type UniSaveStatus = {

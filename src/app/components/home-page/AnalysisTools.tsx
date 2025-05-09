@@ -1,16 +1,13 @@
-import { Tile, HeroContainer, ToolboxIcon } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { HeroContainer, Tile, ToolboxIcon } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
-import BlastIllustration from '../../../images/blast_illustration.img.svg';
 import AlignIllustration from '../../../images/align_illustration.img.svg';
+import BlastIllustration from '../../../images/blast_illustration.img.svg';
 import IDMappingIllustration from '../../../images/id-mapping_illustration.img.svg';
 import PeptideSearchIllustration from '../../../images/peptide_search_illustration.img.svg';
-
-import { jobTypeToPath, LocationToPath, Location } from '../../config/urls';
-
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-
+import { JobTypes } from '../../../jobs/types/jobTypes';
+import { jobTypeToPath, Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 
 const AnalysisTools = () => (

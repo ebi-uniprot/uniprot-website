@@ -1,10 +1,8 @@
-import { useCallback, useEffect } from 'react';
 import { Message } from 'franklin-sites';
+import { useCallback, useEffect } from 'react';
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
-
 import { deleteMessage } from '../state/messagesActions';
-
 import { MessageType } from '../types/messagesTypes';
 
 const MessageInHub = ({ level, content, id, displayTime }: MessageType) => {

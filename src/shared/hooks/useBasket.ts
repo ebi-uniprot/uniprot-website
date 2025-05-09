@@ -1,8 +1,7 @@
-import { useMemo, useCallback, SetStateAction, Dispatch } from 'react';
-
-import useLocalStorage from './useLocalStorage';
+import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
 
 import { Namespace } from '../types/namespaces';
+import useLocalStorage from './useLocalStorage';
 
 export type Basket = Map<Namespace, Set<string>>;
 
@@ -39,7 +38,7 @@ const serialise = (basket: Basket): StringifiableBasket => {
 
 const useBasket = (): [
   state: Basket,
-  setState: Dispatch<SetStateAction<Basket>>
+  setState: Dispatch<SetStateAction<Basket>>,
 ] => {
   const [state, setState] = useLocalStorage<StringifiableBasket>(
     'basket',

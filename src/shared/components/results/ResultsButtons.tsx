@@ -1,43 +1,39 @@
+import cn from 'classnames';
 import {
-  FC,
-  useState,
-  Suspense,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  ChangeEvent,
-  useCallback,
-} from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import {
-  DownloadIcon,
   // StatisticsIcon,
   Button,
+  DownloadIcon,
   SlidingPanel,
 } from 'franklin-sites';
-import cn from 'classnames';
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import ToolsDropdown from '../action-buttons/ToolsDropdown';
-import AddToBasketButton from '../action-buttons/AddToBasket';
-import CustomiseButton from '../action-buttons/CustomiseButton';
-import ShareDropdown from '../action-buttons/ShareDropdown';
-import ItemCount from '../ItemCount';
-import ErrorBoundary from '../error-component/ErrorBoundary';
-import FirstTimeSelection from './FirstTimeSelection';
-import { ResubmitButton } from '../../../tools/components/ResultButtons';
-
-import useNS from '../../hooks/useNS';
-import useViewMode, { ViewMode } from '../../hooks/useViewMode';
-import useColumnNames from '../../hooks/useColumnNames';
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
-
-import { roundNumber } from '../../utils/roundNumber';
+import { ResubmitButton } from '../../../jobs/components/ResultButtons';
+import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
-import lazy from '../../utils/lazy';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 import {
   getParamsFromURL,
   InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
+import useColumnNames from '../../hooks/useColumnNames';
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import useNS from '../../hooks/useNS';
+import useViewMode, { ViewMode } from '../../hooks/useViewMode';
+import { mainNamespaces, Namespace } from '../../types/namespaces';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
@@ -45,16 +41,16 @@ import {
   sendGtagEventPanelResultsDownloadClose,
   sendGtagEventViewMode,
 } from '../../utils/gtagEvents';
-
-import { Namespace, mainNamespaces } from '../../types/namespaces';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
+import lazy from '../../utils/lazy';
+import { roundNumber } from '../../utils/roundNumber';
+import AddToBasketButton from '../action-buttons/AddToBasket';
+import CustomiseButton from '../action-buttons/CustomiseButton';
+import ShareDropdown from '../action-buttons/ShareDropdown';
+import ToolsDropdown from '../action-buttons/ToolsDropdown';
 import { ExtraContent } from '../download/downloadReducer';
-
+import ErrorBoundary from '../error-component/ErrorBoundary';
+import ItemCount from '../ItemCount';
+import FirstTimeSelection from './FirstTimeSelection';
 import styles from './styles/results-buttons.module.scss';
 
 const DownloadComponent = lazy(

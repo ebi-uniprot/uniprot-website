@@ -1,53 +1,45 @@
+import '../../../shared/components/entry/styles/entry-page.scss';
+
+import cn from 'classnames';
+import { Loader, Tab, Tabs } from 'franklin-sites';
 import { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Loader, Tabs, Tab } from 'franklin-sites';
-import cn from 'classnames';
 import joinUrl from 'url-join';
 
-import HTMLHead from '../../../shared/components/HTMLHead';
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import EntryMain from './EntryMain';
-import UniParcFeaturesView from './UniParcFeaturesView';
+import { getEntryPath, Location } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
-import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
-import Overview from './Overview';
-
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import { Facets } from '../../../shared/components/results/Facets';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import useXref from './hooks/useXref';
-
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
-import { Location, getEntryPath } from '../../../app/config/urls';
-
-import uniParcConverter, {
-  UniParcLiteAPIModel,
-  UniParcXRef,
-} from '../../adapters/uniParcConverter';
+import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
-import { Facets } from '../../../shared/components/results/Facets';
-
-import sticky from '../../../shared/styles/sticky.module.scss';
-import '../../../shared/components/entry/styles/entry-page.scss';
-
-export enum TabLocation {
-  Entry = 'entry',
-  FeatureViewer = 'feature-viewer',
-}
+import uniParcConverter, {
+  UniParcLiteAPIModel,
+  UniParcXRef,
+} from '../../adapters/uniParcConverter';
+import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
+import { TabLocation } from '../../types/entry';
+import EntryMain from './EntryMain';
+import useXref from './hooks/useXref';
+import Overview from './Overview';
+import UniParcFeaturesView from './UniParcFeaturesView';
 
 const Entry = () => {
   const match = useMatchWithRedirect<{

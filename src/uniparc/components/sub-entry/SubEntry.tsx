@@ -1,46 +1,47 @@
-import { useState } from 'react';
-import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
+import { useState } from 'react';
+import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import HTMLHead from '../../../shared/components/HTMLHead';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import SubEntryOverview from './SubEntryOverview';
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
-import SubEntryMain from './SubEntryMain';
-import InPageNav from '../../../shared/components/InPageNav';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
-import UniParcFeaturesView from '../entry/UniParcFeaturesView';
-
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import InPageNav from '../../../shared/components/InPageNav';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import { getSubEntryPath } from '../../utils/subEntry';
-import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
-import { hasStructure } from './SubEntryStructureSection';
-
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
-import {
-  Location,
-  LocationToPath,
-  getEntryPath,
-} from '../../../app/config/urls';
-
+import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import SubEntrySection, { TabLocation } from '../../types/subEntry';
-import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
-
-import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import sticky from '../../../shared/styles/sticky.module.scss';
+import { SearchResults } from '../../../shared/types/results';
+import {
+  UniParcLiteAPIModel,
+  UniParcXRef,
+} from '../../adapters/uniParcConverter';
+import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
+import uniparcApiUrls from '../../config/apiUrls';
+import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
+import { TabLocation } from '../../types/entry';
+import SubEntrySection from '../../types/subEntrySection';
+import { getSubEntryPath } from '../../utils/subEntry';
+import UniParcFeaturesView from '../entry/UniParcFeaturesView';
+import SubEntryMain from './SubEntryMain';
+import SubEntryOverview from './SubEntryOverview';
+import { hasStructure } from './SubEntryStructureSection';
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
@@ -51,30 +52,51 @@ const SubEntry = () => {
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const { accession, subEntryId, subPage } = match?.params || {};
-  const baseURL = apiUrls.entry.entry(
+
+  const baseURL = `${apiUrls.entry.entry(
     subEntryId && accession,
     Namespace.uniparc
-  );
-  const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
+  )}/light`;
+  const xrefIdURL = accession
+    ? uniparcApiUrls.databases(accession, subEntryId)
+    : '';
 
-  if (uniparcData.error || !match || !accession || !subEntryId) {
+  const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
+  const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
+
+  if (uniparcData.loading || subEntryData.loading) {
+    return (
+      <Loader
+        progress={
+          uniparcData.loading ? uniparcData.progress : subEntryData.progress
+        }
+      />
+    );
+  }
+
+  if (
+    uniparcData.error ||
+    !uniparcData.data ||
+    subEntryData.error ||
+    !subEntryData.data ||
+    !match ||
+    !accession ||
+    !subEntryId
+  ) {
     return (
       <ErrorHandler
-        status={uniparcData.status}
-        error={uniparcData.error}
+        status={uniparcData.error ? uniparcData.status : subEntryData.status}
+        error={uniparcData.error || subEntryData.error}
         fullPage
       />
     );
   }
 
-  if (!uniparcData.data) {
-    return <Loader progress={uniparcData.progress} />;
-  }
-
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryId
+    subEntryData.data?.results[0]
   );
+
   if (!transformedData) {
     return (
       <Redirect
@@ -114,7 +136,10 @@ const SubEntry = () => {
             accession,
             searchableNamespaceLabels[Namespace.uniparc],
           ]}
-        />
+        >
+          {/* Keep while not publicly available */}
+          <meta name="robots" content="noindex" />
+        </HTMLHead>
         <h1>
           <EntryTitle
             mainTitle="UniParc"

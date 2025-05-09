@@ -1,33 +1,38 @@
+import '../../shared/components/search/styles/search-container.scss';
+import './styles/query-builder.scss';
+
+import { Button, Loader, Message } from 'franklin-sites';
 import {
+  CSSProperties,
   FormEvent,
-  useState,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
-  CSSProperties,
-  useCallback,
+  useState,
 } from 'react';
 import { generatePath, useHistory, useLocation } from 'react-router-dom';
 import { frame } from 'timing-functions';
-import { Loader, Button, Message } from 'franklin-sites';
 
-import ClauseList from './ClauseList';
-
-import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
-import useDataApi from '../../shared/hooks/useDataApi';
-import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
-import useIDMappingDetails from '../../shared/hooks/useIDMappingDetails';
-
-import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
-import { pluralise } from '../../shared/utils/utils';
-import { stringify } from '../utils/queryStringProcessor';
-import parseAndMatchQuery from '../utils/parseAndMatchQuery';
-import { rawDBToNamespace } from '../../tools/id-mapping/utils';
-import { stringifyQuery } from '../../shared/utils/url';
-
+import {
+  Location,
+  LocationToPath,
+  SearchResultsLocations,
+  toolsResultsLocationToLabel,
+} from '../../app/config/urls';
+import { rawDBToNamespace } from '../../jobs/id-mapping/utils';
+import { JobTypes } from '../../jobs/types/jobTypes';
 import { addMessage } from '../../messages/state/messagesActions';
-
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
+import { cannotQueryMessages } from '../../shared/components/search/SearchContainer';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../shared/hooks/useDataApi';
+import useIDMappingDetails from '../../shared/hooks/useIDMappingDetails';
+import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
+import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import {
   Namespace,
   SearchableNamespace,
@@ -36,23 +41,13 @@ import {
   searchspaceLabels,
   toolResults,
 } from '../../shared/types/namespaces';
-import {
-  Location,
-  LocationToPath,
-  SearchResultsLocations,
-  toolsResultsLocationToLabel,
-} from '../../app/config/urls';
-import { cannotQueryMessages } from '../../shared/components/search/SearchContainer';
-
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../messages/types/messagesTypes';
+import { stringifyQuery } from '../../shared/utils/url';
+import { pluralise } from '../../shared/utils/utils';
 import { Clause, SearchTermType } from '../types/searchTypes';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
-
-import '../../shared/components/search/styles/search-container.scss';
-import './styles/query-builder.scss';
+import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
+import parseAndMatchQuery from '../utils/parseAndMatchQuery';
+import { stringify } from '../utils/queryStringProcessor';
+import ClauseList from './ClauseList';
 
 type Props = {
   /**

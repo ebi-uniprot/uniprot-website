@@ -1,27 +1,22 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { Chip, ExternalLink, Loader } from 'franklin-sites';
 import axios from 'axios';
-import pMap from 'p-map';
 import cn from 'classnames';
+import { Chip, ExternalLink, Loader } from 'franklin-sites';
+import pMap from 'p-map';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import GoCamViz from '../protein-data-views/GoCamViz';
-
+import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useSafeState from '../../../shared/hooks/useSafeState';
-
 import fetchData from '../../../shared/utils/fetchData';
-import { heuristic } from '../../../tools/state/utils/heuristic';
-import * as logging from '../../../shared/utils/logging';
 import {
-  sendGtagEventGoCamVizTabOpened,
   sendGtagEventGoCamVizShown,
+  sendGtagEventGoCamVizTabOpened,
 } from '../../../shared/utils/gtagEvents';
-
-import externalUrls from '../../../shared/config/externalUrls';
-
+import * as logging from '../../../shared/utils/logging';
+import { heuristic } from '../../../shared/workers/jobs/utils/heuristic';
 import { GoCamModelInfo, GoCamModels } from '../../types/goCamTypes';
-
+import GoCamViz from '../protein-data-views/GoCamViz';
 import styles from './styles/go-cam.module.scss';
 
 const extractGoCamId = (url: string) => {

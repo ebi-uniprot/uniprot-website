@@ -1,28 +1,28 @@
-import { memo } from 'react';
 import { Card } from 'franklin-sites';
-
-import FreeTextView from '../protein-data-views/FreeTextView';
-import KeywordView from '../protein-data-views/KeywordView';
-import XRefView from '../protein-data-views/XRefView';
-import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import { memo } from 'react';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import EntrySection from '../../types/entrySection';
-import { FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
+import { FreeTextComment } from '../../types/commentTypes';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import FreeTextView from '../protein-data-views/FreeTextView';
+import KeywordView from '../protein-data-views/KeywordView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import XRefView from '../protein-data-views/XRefView';
 
 type Props = {
   data: UIModel;
   sequence?: string;
   primaryAccession: string;
+  uniParcID?: string;
 };
 
 const FamilyAndDomainsSection = ({
   data,
   sequence,
   primaryAccession,
+  uniParcID,
 }: Props) => {
   if (!hasContent(data)) {
     return null;
@@ -57,7 +57,11 @@ const FamilyAndDomainsSection = ({
         articleId="sequence_similarities"
       />
       <KeywordView keywords={data.keywordData} />
-      <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+      <XRefView
+        xrefs={data.xrefData}
+        primaryAccession={primaryAccession}
+        uniParcID={uniParcID}
+      />
     </Card>
   );
 };

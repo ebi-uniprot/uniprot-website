@@ -1,15 +1,12 @@
-import { Link } from 'react-router-dom';
 import { Card, HeroContainer } from 'franklin-sites';
-
-import FreeTextView from '../../protein-data-views/FreeTextView';
-
-import ContactLink from '../../../../contact/components/ContactLink';
-import ExternalLink from '../../../../shared/components/ExternalLink';
+import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
-
+import ContactLink from '../../../../contact/components/ContactLink';
+import ExternalLink from '../../../../shared/components/ExternalLink';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TabLocation } from '../../../types/entry';
+import FreeTextView from '../../protein-data-views/FreeTextView';
 
 const mockData = `The protein entry with accession number P05067 is reviewed and consists of 770 amino acids. The recommended name for this protein is Amyloid-beta precursor protein, also known as APP.
 

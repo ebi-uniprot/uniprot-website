@@ -1,37 +1,40 @@
-import { Fragment } from 'react';
-import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
-import { InfoList, ExpandableList } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
+import { Fragment, ReactNode } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import PDBView from './PDBView';
-import EMBLView from './EMBLView';
-import { RichText } from './FreeTextView';
-import { AFDBOutOfSync } from './AFDBOutOfSync';
-
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Xref } from '../../../shared/types/apiModel';
+import { Namespace } from '../../../shared/types/namespaces';
 import { pluralise } from '../../../shared/utils/utils';
-import {
-  databaseCategoryToString,
-  viewProteinLinkDatabases,
-} from '../../config/database';
-import {
-  XrefUIModel,
-  XrefsGoupedByDatabase,
-  partitionStructureDatabases,
-} from '../../utils/xrefUtils';
 import {
   getDatabaseInfoAttribute,
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { Xref } from '../../../shared/types/apiModel';
+import { TabLocation } from '../../../uniparc/types/entry';
+import {
+  databaseCategoryToString,
+  viewProteinLinkDatabases,
+} from '../../config/database';
+import { DatabaseCategory, DatabaseInfoPoint } from '../../types/databaseRefs';
 import { PropertyKey } from '../../types/modelTypes';
-import { DatabaseInfoPoint, DatabaseCategory } from '../../types/databaseRefs';
 import { DatabaseToDatabaseInfo } from '../../utils/database';
+import {
+  partitionStructureDatabases,
+  XrefsGoupedByDatabase,
+  XrefUIModel,
+} from '../../utils/xrefUtils';
+import { AFDBOutOfSync } from './AFDBOutOfSync';
+import EMBLView from './EMBLView';
+import { RichText } from './FreeTextView';
+import PDBView from './PDBView';
 
 const formatSuffixWithCount = (prefix: string, number: string) => {
   const count = parseInt(number, 10);
@@ -329,9 +332,15 @@ type XRefViewProps = {
   xrefs: XrefUIModel[];
   primaryAccession: string;
   crc64?: string;
+  uniParcID?: string;
 };
 
-const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
+const XRefView = ({
+  xrefs,
+  primaryAccession,
+  crc64,
+  uniParcID,
+}: XRefViewProps) => (
   <>
     {xrefs?.map(({ databases, category }, index): JSX.Element => {
       const xrefsNode =
@@ -353,10 +362,34 @@ const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
         title = databaseCategoryToString[category];
       }
 
+      let linkToUniParcFeatures: null | ReactNode = null;
+      if (
+        category === DatabaseCategory.DOMAIN &&
+        uniParcID &&
+        databases.some((db) => db.database === 'InterPro')
+      ) {
+        linkToUniParcFeatures = (
+          <div>
+            View all family and domain features for this entry&apos;s canonical
+            sequence:{' '}
+            <Link
+              to={getEntryPath(
+                Namespace.uniparc,
+                uniParcID,
+                TabLocation.FeatureViewer
+              )}
+            >
+              UniParc feature viewer
+            </Link>
+          </div>
+        );
+      }
+
       return (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
           <h3>{title}</h3>
+          {linkToUniParcFeatures}
           {xrefsNode}
         </Fragment>
       );

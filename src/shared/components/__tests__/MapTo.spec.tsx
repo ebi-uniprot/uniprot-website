@@ -1,8 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import { MapToDropdown, MapToDropdownBasic } from '../MapTo';
-
 import customRender from '../../__test-helpers__/customRender';
+import { MapToDropdown, MapToDropdownBasic } from '../MapTo';
 
 describe('MapToDropdownBasic', () => {
   it('should render the basic component', () => {

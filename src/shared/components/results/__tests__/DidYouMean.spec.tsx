@@ -2,11 +2,9 @@ import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import DidYouMean from '../DidYouMean';
-
 import customRender from '../../../__test-helpers__/customRender';
-
 import { Suggestion } from '../../../types/results';
+import DidYouMean from '../DidYouMean';
 
 const mock = new MockAdapter(axios);
 mock

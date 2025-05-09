@@ -1,21 +1,17 @@
 import { ActionType } from 'typesafe-actions';
 
+import { JobTypes } from '../../../jobs/types/jobTypes';
+import { Column } from '../../config/columns';
 import { JobFromUrl } from '../../hooks/useJobFromUrl';
-
+import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
+import { DownloadProps } from './Download';
 import * as downloadActions from './downloadActions';
-
 import {
   filterFullXrefColumns,
   fullToStandardColumnName,
   getFileFormatsOptions,
 } from './downloadUtils';
-
-import { Column } from '../../config/columns';
-
-import { DownloadProps } from './Download';
-import { FileFormat } from '../../types/resultsDownload';
-import { Namespace } from '../../types/namespaces';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
 
 export type DownloadAction = ActionType<typeof downloadActions>;
 

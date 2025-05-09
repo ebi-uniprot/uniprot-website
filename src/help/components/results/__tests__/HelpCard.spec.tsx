@@ -1,12 +1,9 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import HelpCard from '../HelpCard';
-
 import cleanText from '../../../../shared/utils/cleanText';
-
 import helpData from '../../__mocks__/helpSearchModelData';
+import HelpCard from '../HelpCard';
 
 describe('HelpCard tests', () => {
   const { title, matches } = helpData.results[0];

@@ -1,10 +1,9 @@
 import { screen } from '@testing-library/react';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import ProteinOverview from '../ProteinOverviewView';
-
-import swissprotData from '../../__mocks__/swissprotEntry';
 import { ProteinNames } from '../../../adapters/namesAndTaxonomyConverter';
+import swissprotData from '../../__mocks__/swissprotEntry';
+import ProteinOverview from '../ProteinOverviewView';
 
 describe('ProteinOverview component', () => {
   it('should render', () => {

@@ -1,12 +1,10 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import ComponentsDownload from '../ComponentsDownload';
-
-import { stringifyQuery } from '../../../../shared/utils/url';
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import { FileFormat } from '../../../../shared/types/resultsDownload';
+import { stringifyQuery } from '../../../../shared/utils/url';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import ComponentsDownload from '../ComponentsDownload';
 
 const initialColumns = [
   UniProtKBColumn.accession,

@@ -1,46 +1,42 @@
-import { lazy, Suspense, FC } from 'react';
-import {
-  Route,
-  Switch,
-  RouteChildrenProps,
-  Redirect,
-  generatePath,
-} from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { Loader } from 'franklin-sites';
-import { sleep } from 'timing-functions';
+import 'franklin-sites/franklin.css';
+import './styles/app.scss';
+
 import {
   init as SentryInit,
-  setTag as sentrySetTag,
   reactRouterV5BrowserTracingIntegration,
+  setTag as sentrySetTag,
 } from '@sentry/react';
+import { Loader } from 'franklin-sites';
+import { FC, lazy, Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
+import {
+  generatePath,
+  Redirect,
+  Route,
+  RouteChildrenProps,
+  Switch,
+} from 'react-router-dom';
+import { sleep } from 'timing-functions';
 
-import BaseLayout from '../../shared/components/layouts/BaseLayout';
-import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
+import pkg from '../../../package.json';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
-import DevDeploymentWarning from './DevDeploymentWarning';
-import Covid19RedirectWarning from './Covid19RedirectWarning';
-
-import history from '../../shared/utils/browserHistory';
-import { stringifyUrl, stringifyQuery } from '../../shared/utils/url';
-
-import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import BaseLayout from '../../shared/components/layouts/BaseLayout';
+import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import useReloadApp from '../../shared/hooks/useReloadApp';
-
+import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
+import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
+import history from '../../shared/utils/browserHistory';
+import { stringifyQuery, stringifyUrl } from '../../shared/utils/url';
+import description from '../config/description';
 import {
   allSearchResultLocations,
   Location,
   LocationToPath,
 } from '../config/urls';
-import description from '../config/description';
-
-import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
-
-import pkg from '../../../package.json';
-
-import 'franklin-sites/franklin.css';
-import './styles/app.scss';
+import Covid19RedirectWarning from './Covid19RedirectWarning';
+import DevDeploymentWarning from './DevDeploymentWarning';
 
 // This is hackery is to prevent define being repeatedly called for the same
 // name. This has been observed in Variant viewer and Feature viewer tabs.
@@ -146,12 +142,12 @@ const UniRefEntryPage = lazy(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
     )
 );
-// const UniParcSubEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/sub-entry/SubEntry'
-//     )
-// );
+const UniParcSubEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/sub-entry/SubEntry'
+    )
+);
 const UniParcEntryPage = lazy(
   () =>
     import(
@@ -216,56 +212,56 @@ const ARBAEntryPage = lazy(
 const BlastResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "blast-result" */ '../../tools/blast/components/results/BlastResult'
+      /* webpackChunkName: "blast-result" */ '../../jobs/blast/components/results/BlastResult'
     )
 );
 const BlastForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "blast-form" */ '../../tools/blast/components/BlastForm'
+      /* webpackChunkName: "blast-form" */ '../../jobs/blast/components/BlastForm'
     )
 );
 const AlignResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "align-result" */ '../../tools/align/components/results/AlignResult'
+      /* webpackChunkName: "align-result" */ '../../jobs/align/components/results/AlignResult'
     )
 );
 const AlignForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
+      /* webpackChunkName: "align-form" */ '../../jobs/align/components/AlignForm'
     )
 );
 const IDMappingResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
+      /* webpackChunkName: "id-mapping-result" */ '../../jobs/id-mapping/components/results/IDMappingResult'
     )
 );
 const IDMappingForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+      /* webpackChunkName: "id-mapping-form" */ '../../jobs/id-mapping/components/IDMappingForm'
     )
 );
 const PeptideSearchResult = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
+      /* webpackChunkName: "peptide-search-result" */ '../../jobs/peptide-search/components/results/PeptideSearchResult'
     )
 );
 const PeptideSearchForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
+      /* webpackChunkName: "peptide-search-form" */ '../../jobs/peptide-search/components/PeptideSearchForm'
     )
 );
 
 const Dashboard = lazy(
   () =>
     import(
-      /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
+      /* webpackChunkName: "dashboard" */ '../../jobs/dashboard/components/Dashboard'
     )
 );
 
@@ -320,6 +316,13 @@ const ResourceNotFoundPage = lazy(
   () =>
     import(
       /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFound'
+    )
+);
+
+const JobsNotSupportedPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "jobs-not-supported" */ '../../shared/components/error-pages/JobsNotSupported'
     )
 );
 
@@ -409,6 +412,11 @@ const RedirectToStarSearch = (
   );
 };
 
+const IfSupportsJobs = ({ children }: React.PropsWithChildren) => {
+  const supportsJobs = useSupportsJobs();
+  return <>{supportsJobs ? children : <JobsNotSupportedPage />}</>;
+};
+
 const App = () => {
   useScrollToTop(history);
   useReloadApp(history);
@@ -448,10 +456,10 @@ const App = () => {
               path={LocationToPath[Location.UniRefEntry]}
               component={UniRefEntryPage}
             />
-            {/* <Route
+            <Route
               path={LocationToPath[Location.UniParcSubEntry]}
               component={UniParcSubEntryPage}
-            /> */}
+            />
             <Route
               path={LocationToPath[Location.UniParcEntry]}
               component={UniParcEntryPage}
@@ -505,58 +513,84 @@ const App = () => {
             {/* Tools */}
             <Route
               path={LocationToPath[Location.BlastResult]}
-              component={BlastResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <BlastResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.Blast]}
               render={() => (
-                <SingleColumnLayout>
-                  <BlastForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <BlastForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.AlignResult]}
-              component={AlignResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <AlignResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.Align]}
               render={() => (
-                <SingleColumnLayout>
-                  <AlignForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <AlignForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.PeptideSearchResult]}
-              component={PeptideSearchResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <PeptideSearchResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.PeptideSearch]}
               render={() => (
-                <SingleColumnLayout>
-                  <PeptideSearchForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <PeptideSearchForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.IDMappingResult]}
-              component={IDMappingResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <IDMappingResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (
-                <SingleColumnLayout>
-                  <IDMappingForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <IDMappingForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.Dashboard]}
               render={() => (
-                <SingleColumnLayout>
-                  <Dashboard />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <Dashboard />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             {/* Basket */}

@@ -1,13 +1,10 @@
 import { DataListWithLoader } from 'franklin-sites';
 
-import HelpCard from '../results/HelpCard';
-
 import usePagination from '../../../shared/hooks/usePagination';
-
-import helpURL from '../../config/apiUrls';
 import { pluralise } from '../../../shared/utils/utils';
-
+import helpURL from '../../config/apiUrls';
 import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';
+import HelpCard from '../results/HelpCard';
 
 const getIdKey = (article: HelpUIModel) => article.id;
 

@@ -1,6 +1,6 @@
 import {
-  GenericComment,
   AlternativeProductsComment,
+  GenericComment,
 } from '../types/commentTypes';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 

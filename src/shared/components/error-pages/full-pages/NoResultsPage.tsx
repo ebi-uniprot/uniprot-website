@@ -1,10 +1,9 @@
-import { lazy, ReactElement, Suspense } from 'react';
 import { Message } from 'franklin-sites';
+import { lazy, ReactElement, Suspense } from 'react';
 
 import ErrorBoundary from '../../error-component/ErrorBoundary';
 import HTMLHead from '../../HTMLHead';
 import ErrorComponent from '../ErrorComponent';
-
 import ArtWork from '../svgs/no-results-found.img.svg';
 
 const UniProtFooter = lazy(

@@ -4,30 +4,29 @@ import {
   EntryType,
   getEntryTypeFromString,
 } from '../../shared/config/entryTypeIcon';
-import { convertSection, UIModel } from './sectionConverter';
-
+import { Xref } from '../../shared/types/apiModel';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { UniProtKBColumn } from '../types/columnTypes';
 import {
-  CommentType,
   AbsorptionComment,
+  CommentType,
   KineticsComment,
   pHDependenceComment,
   RedoxPotentialComment,
   TemperatureDependenceComment,
   TextWithEvidence,
 } from '../types/commentTypes';
-import KeywordCategory from '../types/keywordCategory';
-import { FunctionFeatures } from '../types/featureType';
 import EntrySection from '../types/entrySection';
+import { FunctionFeatures } from '../types/featureType';
+import KeywordCategory from '../types/keywordCategory';
+import { Evidence, GoEvidenceType } from '../types/modelTypes';
+import { DatabaseInfoMaps } from '../utils/database';
+import { GeneNamesData } from './namesAndTaxonomyConverter';
+import { convertSection, UIModel } from './sectionConverter';
 import {
   UniProtkbAPIModel,
   UniProtKBSimplifiedTaxonomy,
 } from './uniProtkbConverter';
-import { Evidence, GoEvidenceType } from '../types/modelTypes';
-import { Xref } from '../../shared/types/apiModel';
-import { UniProtKBColumn } from '../types/columnTypes';
-import { GeneNamesData } from './namesAndTaxonomyConverter';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { DatabaseInfoMaps } from '../utils/database';
 
 export type Absorption = {
   max: number;
@@ -144,7 +143,6 @@ export const functionFeaturesToColumns: Readonly<
   'DNA binding': UniProtKBColumn.ftDnaBind,
   'Active site': UniProtKBColumn.ftActSite,
   'Binding site': UniProtKBColumn.ftBinding,
-  BINDING: UniProtKBColumn.ftBinding,
   Site: UniProtKBColumn.ftSite,
 };
 

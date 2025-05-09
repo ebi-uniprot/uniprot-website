@@ -1,13 +1,10 @@
 import { Card } from 'franklin-sites';
 
-import LiteratureCitation from '../LiteratureCitation';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
-
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-
 import { Namespace } from '../../../../shared/types/namespaces';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
-
+import LiteratureCitation from '../LiteratureCitation';
 import styles from './styles/citations-card.module.scss';
 
 const getIdKey = getIdKeyForNamespace(Namespace.citations);

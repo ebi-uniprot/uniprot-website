@@ -1,25 +1,22 @@
+import { ExpandableList, InfoList } from 'franklin-sites';
+import { escapeRegExp } from 'lodash-es';
 import { Fragment, memo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { InfoList, ExpandableList } from 'franklin-sites';
-import { escapeRegExp } from 'lodash-es';
-
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { XRef } from './XRefView';
-import ExternalLink from '../../../shared/components/ExternalLink';
-import { RichText } from './FreeTextView';
-import Table from '../../../shared/components/table/Table';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 
 import { allEntryPages, getEntryPath } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
+import Table from '../../../shared/components/table/Table';
 import externalUrls from '../../../shared/config/externalUrls';
-
-import { DiseaseComment } from '../../types/commentTypes';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
-import { FeatureDatum } from './UniProtKBFeaturesView';
-
-import styles from './styles/disease-involvement-view.module.scss';
+import { DiseaseComment } from '../../types/commentTypes';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
+import { RichText } from './FreeTextView';
+import styles from './styles/disease-involvement-view.module.scss';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+import { FeatureDatum } from './UniProtKBFeaturesView';
+import { XRef } from './XRefView';
 
 const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {
   const aStart = +a.location.start.value;
@@ -80,7 +77,7 @@ const DiseaseVariants = ({
   variants: FeatureDatum[];
   accession: string;
 }) => (
-  <Table expandable>
+  <Table expandable={variants.length > MIN_ROWS_TO_EXPAND}>
     <Table.Head>
       <th>Variant ID</th>
       <th>Position(s)</th>

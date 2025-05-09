@@ -67,17 +67,17 @@ exports[`DatabaseCard tests should render the card component 1`] = `
       <a
         href="/uniprotkb?query=%28database%3AEMBL%29"
       >
-        238,423,252 UniProtKB entries
+        236,788,346 UniProtKB entries
       </a>
       <a
         href="/uniprotkb?query=%28database%3AEMBL%29+AND+%28reviewed%3Atrue%29"
       >
-        559,745 reviewed UniProtKB entries
+        560,281 reviewed UniProtKB entries
       </a>
       <a
         href="/uniprotkb?query=%28database%3AEMBL%29+AND+%28reviewed%3Afalse%29"
       >
-        237,863,507 unreviewed UniProtKB entries
+        236,228,065 unreviewed UniProtKB entries
       </a>
     </div>
   </section>

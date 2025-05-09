@@ -1,6 +1,6 @@
-import { memo, useEffect, useRef } from 'react';
-import { select, scaleLinear, axisBottom, axisLeft, scaleBand } from 'd3';
+import { axisBottom, axisLeft, scaleBand, scaleLinear, select } from 'd3';
 import { sum } from 'lodash-es';
+import { memo, useEffect, useRef } from 'react';
 
 import { StatisticsCategory } from './StatisticsPage';
 

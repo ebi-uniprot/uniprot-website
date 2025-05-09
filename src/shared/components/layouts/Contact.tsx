@@ -1,7 +1,5 @@
-import { Link } from 'react-router-dom';
 import { EnvelopeIcon } from 'franklin-sites';
-
-import ExternalLink from '../ExternalLink';
+import { Link } from 'react-router-dom';
 
 import {
   blogspot,
@@ -9,16 +7,14 @@ import {
   twitterX,
   youtube,
 } from '../../../app/config/socialUrls';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
-
-import footer from './styles/contact.module.scss';
-
+import BloggerLogo from '../../../images/blogger-logo.svg';
 import LinkedInLogo from '../../../images/linkedin-logo.svg';
 import XLogo from '../../../images/x-logo.svg';
 import YouTubeLogo from '../../../images/youtube-logo.svg';
-import BloggerLogo from '../../../images/blogger-logo.svg';
+import ExternalLink from '../ExternalLink';
+import footer from './styles/contact.module.scss';
 
 const Contact = () => (
   <div>

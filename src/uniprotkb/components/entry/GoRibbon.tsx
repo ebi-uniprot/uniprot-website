@@ -1,24 +1,24 @@
-import { useEffect, useMemo, useState, useRef, ReactNode } from 'react';
 import { Loader } from 'franklin-sites';
+import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
-import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import LazyComponent from '../../../shared/components/LazyComponent';
-
-import useSafeState from '../../../shared/hooks/useSafeState';
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
 import externalUrls from '../../../shared/config/externalUrls';
-
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useSafeState from '../../../shared/hooks/useSafeState';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   GoTerm,
   GOTermID,
   GroupedGoTerms,
 } from '../../adapters/functionConverter';
+import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import {
   AGRRibbonGroup,
   AGRRibbonSubject,
@@ -26,14 +26,10 @@ import {
   getSubjects,
   useGOData,
 } from '../../adapters/slimming/GORibbonHandler';
-import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
-
+import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
+import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/go-ribbon.module.scss';
-import TableFromData, {
-  TableFromDataColumn,
-} from '../../../shared/components/table/TableFromData';
 
 const useColumns = () => {
   const databaseInfoMaps = useDatabaseInfoMaps();

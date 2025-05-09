@@ -1,10 +1,9 @@
 import joinUrl from 'url-join';
 
-import { stringifyUrl } from '../../shared/utils/url';
-
 import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
-import { defaultFacets as helpDefaultFacets } from './HelpFacetConfiguration';
+import { stringifyUrl } from '../../shared/utils/url';
 import { ApiDocsDefinition } from '../types/apiDocumentation';
+import { defaultFacets as helpDefaultFacets } from './HelpFacetConfiguration';
 
 const entry = (id?: string) => id && joinUrl(apiPrefix, 'help', id);
 

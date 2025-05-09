@@ -1,5 +1,5 @@
 // Source: https://api.geneontology.org/api/gp/UniProtKB:Q9GZQ8/models
-// Retrieved: 2025-02-18
+// Retrieved: 2025-04-22
 const models = [
   {
     gocam: 'http://model.geneontology.org/5e72450500001269',
@@ -22,6 +22,11 @@ const models = [
     gocam: 'http://model.geneontology.org/67369e7600002132',
     title:
       'IRGQ promotes degradation of misfolded MHC class I proteins b promoting their degradation by autophagy (Human).',
+  },
+  {
+    gocam: 'http://model.geneontology.org/6796b94c00001787',
+    title:
+      'RAB33B recruitment of ATG16L1-ATG12-ATG5 complex to phagophore (Human)',
   },
 ];
 export default models;

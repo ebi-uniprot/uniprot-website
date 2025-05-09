@@ -1,10 +1,8 @@
-import { lazy, Suspense, ReactNode } from 'react';
 import cn from 'classnames';
-
-import ErrorBoundary from '../error-component/ErrorBoundary';
+import { lazy, ReactNode, Suspense } from 'react';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
-
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/sidebar-layout.module.scss';
 
 const UniProtFooter = lazy(

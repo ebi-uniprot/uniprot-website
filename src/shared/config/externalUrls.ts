@@ -1,7 +1,8 @@
 import joinUrl from 'url-join';
-import { fileFormatToUrlParameter } from './resultsDownload';
-import { stringifyUrl } from '../utils/url';
+
 import { FileFormat } from '../types/resultsDownload';
+import { stringifyUrl } from '../utils/url';
+import { fileFormatToUrlParameter } from './resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
 const externalUrls = {
@@ -42,7 +43,6 @@ const externalUrls = {
       'G3DSA:',
       ''
     )}`,
-  // Temporary until https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
   Funfam: (id: string) =>
     `http://www.cathdb.info/version/latest/funfam/${`${id}`.replace(
       'G3DSA:',

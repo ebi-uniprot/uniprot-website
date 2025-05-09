@@ -2,7 +2,6 @@ import { ExpandableList } from 'franklin-sites';
 
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import * as logging from '../../../shared/utils/logging';
-
 import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 

@@ -36,14 +36,14 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               translate="no"
             >
               <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
+                class="entry-title__status icon--uniparc"
+                title="This marks a UniParc entry"
               >
                 <test-file-stub />
               </span>
               <span
-                class="entry-title__status icon--uniparc"
-                title="This marks a UniParc entry"
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
                 <test-file-stub />
               </span>

@@ -2,20 +2,17 @@ import { useMemo } from 'react';
 import { v1 } from 'uuid';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
+import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
 import externalUrls from '../../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { stringToColour } from '../../../shared/utils/color';
+import { markBackground, markBorder } from '../../../shared/utils/nightingale';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
-import { markBorder, markBackground } from '../../../shared/utils/nightingale';
-
 import { SequenceFeature } from '../../adapters/uniParcConverter';
-import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 
 export type UniParcProcessedFeature = ProcessedFeature & {
   database: string;
@@ -92,15 +89,8 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
           // Additional prefix 'G3DSA:' in UniParc will be removed in https://www.ebi.ac.uk/panda/jira/browse/TRM-32164.
           // Adjust the below logic accordingly
           let revisedDatabaseId;
-          let funFamURL = '';
-          if (database === 'FUNFAM') {
-            // Temporary until https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
-            funFamURL = externalUrls.Funfam(databaseId);
-          }
-          if (database === 'Gene3D') {
-            const gene3dRegEx = /G3DSA:(\d+\.\d+\.\d+\.\d+)/;
-            const match = databaseId.match(gene3dRegEx);
-            revisedDatabaseId = match?.[1];
+          if (database === 'FunFam' || database === 'Gene3D') {
+            revisedDatabaseId = databaseId.replace('G3DSA:', '');
           }
 
           return (
@@ -113,10 +103,6 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
                 >
                   {databaseId}
                 </ExternalLink>
-              )}
-              {/* Need to be removed when FUNFAM is added in 2024_06 */}
-              {database === 'FUNFAM' && funFamURL && (
-                <ExternalLink url={funFamURL}>{databaseId}</ExternalLink>
               )}
             </>
           );

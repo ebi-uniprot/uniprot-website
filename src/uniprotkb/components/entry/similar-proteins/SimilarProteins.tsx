@@ -1,22 +1,20 @@
-import { Loader, Tabs, Tab } from 'franklin-sites';
-import { useEffect, useState } from 'react';
+import { Loader, Tab, Tabs } from 'franklin-sites';
 import { zip } from 'lodash-es';
-
-import SimilarProteinsTabContent from './SimilarProteinsTabContent';
+import { useEffect, useState } from 'react';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import { Namespace } from '../../../../shared/types/namespaces';
 import fetchData from '../../../../shared/utils/fetchData';
 import { stringifyQuery } from '../../../../shared/utils/url';
-
-import { Namespace } from '../../../../shared/types/namespaces';
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
+import { UniRefColumn } from '../../../../uniref/config/UniRefColumnConfiguration';
 import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
-import { UniRefColumn } from '../../../../uniref/config/UniRefColumnConfiguration';
+import SimilarProteinsTabContent from './SimilarProteinsTabContent';
 
 export type IsoformsAndCluster = {
   isoforms: string[];
@@ -71,8 +69,7 @@ const SimilarProteins = ({
         apiUrls.search.search({
           namespace: Namespace.uniref,
           query: stringifyQuery({
-            // eslint-disable-next-line camelcase
-            uniprot_id:
+            uniprotkb:
               accession === canonical
                 ? accession.replace(/-\d+$/, '')
                 : accession,

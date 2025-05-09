@@ -1,31 +1,27 @@
-import { useRouteMatch } from 'react-router-dom';
 import { Loader, PageIntro } from 'franklin-sites';
+import { useRouteMatch } from 'react-router-dom';
 
+import { basketNamespaces, Location, LocationToPath } from '../app/config/urls';
+import { reIds } from '../jobs/utils/urls';
 import HTMLHead from '../shared/components/HTMLHead';
-import ResultsData from '../shared/components/results/ResultsData';
-import EmptyBasket from './EmptyBasket';
 import { SidebarLayout } from '../shared/components/layouts/SideBarLayout';
-import ResultsFacets from '../shared/components/results/ResultsFacets';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
-
+import ResultsData from '../shared/components/results/ResultsData';
+import ResultsFacets from '../shared/components/results/ResultsFacets';
 import useBasket from '../shared/hooks/useBasket';
-import useItemSelect from '../shared/hooks/useItemSelect';
-import usePagination from '../shared/hooks/usePagination';
-import useNSQuery from '../shared/hooks/useNSQuery';
 import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
-
-import { reIds } from '../tools/utils/urls';
-import { updateResultsWithAccessionSubsets } from './BasketMiniView';
-
-import { LocationToPath, Location, basketNamespaces } from '../app/config/urls';
-
+import useItemSelect from '../shared/hooks/useItemSelect';
+import useNSQuery from '../shared/hooks/useNSQuery';
+import usePagination from '../shared/hooks/usePagination';
+import { APIModel } from '../shared/types/apiModel';
 import {
   Namespace,
-  searchableNamespaceLabels,
   namespaceAndToolsLabels,
+  searchableNamespaceLabels,
 } from '../shared/types/namespaces';
 import { SearchResults } from '../shared/types/results';
-import { APIModel } from '../shared/types/apiModel';
+import { updateResultsWithAccessionSubsets } from './BasketMiniView';
+import EmptyBasket from './EmptyBasket';
 
 const BasketFullView = () => {
   // Basket specific data

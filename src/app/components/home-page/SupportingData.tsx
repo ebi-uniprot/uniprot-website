@@ -1,9 +1,8 @@
-import { HeroContainer, DecoratedListItem } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { DecoratedListItem, HeroContainer } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../config/urls';
-
 import styles from './styles/non-critical.module.scss';
 
 const getNamespaceTo = (location: Location) => ({

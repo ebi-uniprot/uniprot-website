@@ -1,17 +1,14 @@
-import { SearchTextLink } from './SearchTextLink';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import { stringifyUrl } from '../../utils/url';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
+import useDataApi from '../../hooks/useDataApi';
+import { Namespace } from '../../types/namespaces';
+import { SearchResults } from '../../types/results';
 import {
   exactMatchSearchTerms,
   modifyQueryWithSuggestions,
 } from '../../utils/searchSuggestions';
-
-import { Namespace } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { stringifyUrl } from '../../utils/url';
+import { SearchTextLink } from './SearchTextLink';
 
 const ExactFieldSuggestion = ({
   query,

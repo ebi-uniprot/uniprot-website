@@ -1,21 +1,19 @@
+import { partition } from 'lodash-es';
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
-import { partition } from 'lodash-es';
 
-import useLocalStorage from './useLocalStorage';
-import useNS from './useNS';
-
+import { IDMappingColumn } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import { defaultColumns } from '../../uniparc/config/UniParcColumnConfiguration';
+import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
+import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import {
   Column,
   ColumnConfigurations,
   nsToDefaultColumns,
 } from '../config/columns';
-
 import { Namespace } from '../types/namespaces';
-import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
-import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
-import { defaultColumns } from '../../uniparc/config/UniParcColumnConfiguration';
+import useLocalStorage from './useLocalStorage';
+import useNS from './useNS';
 
 type UseColumnNameArgs = {
   namespaceOverride?: Namespace | undefined;

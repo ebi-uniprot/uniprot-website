@@ -1,17 +1,13 @@
+import { Message } from 'franklin-sites';
+import { createPath } from 'history';
 import { HTMLAttributes, useEffect } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { createPath } from 'history';
-import { Message } from 'franklin-sites';
-
-import HTMLHead from '../HTMLHead';
-import ErrorComponent from './ErrorComponent';
-
-import * as logging from '../../utils/logging';
 
 import { CustomError } from '../../hooks/useDataApi';
-
 import { Namespace } from '../../types/namespaces';
-
+import * as logging from '../../utils/logging';
+import HTMLHead from '../HTMLHead';
+import ErrorComponent from './ErrorComponent';
 import ArtWork from './svgs/404.img.svg';
 
 type RedirectEntry = [pattern: RegExp, replacement: string];

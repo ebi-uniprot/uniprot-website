@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -10,7 +10,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
   },
   servers: [
     {
-      url: 'https://rest.uniprot.org/',
+      url: 'https://wwwdev.ebi.ac.uk/uniprot/api/',
       description: 'UniProt REST API Server',
     },
   ],
@@ -422,11 +422,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           name: {
             type: 'string',
           },
-          evidenceDatabaseDetail: {
-            $ref: '#/components/schemas/EvidenceDatabaseDetail',
-          },
           reference: {
             type: 'boolean',
+          },
+          evidenceDatabaseDetail: {
+            $ref: '#/components/schemas/EvidenceDatabaseDetail',
           },
         },
       },
@@ -451,6 +451,13 @@ const unirefApiDocs: OpenAPIV3.Document = {
       GeneOntologyEntry: {
         type: 'object',
         properties: {
+          ancestors: {
+            uniqueItems: true,
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/GeneOntologyEntry',
+            },
+          },
           aspect: {
             type: 'string',
             enum: [
@@ -458,13 +465,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
               'GO Biological Process',
               'GO Cellular Component',
             ],
-          },
-          ancestors: {
-            uniqueItems: true,
-            type: 'array',
-            items: {
-              $ref: '#/components/schemas/GeneOntologyEntry',
-            },
           },
           name: {
             type: 'string',
@@ -537,26 +537,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
-          memberIdType: {
+          uniRef50Id: {
             type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
           },
           organismName: {
             type: 'string',
@@ -572,9 +554,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           proteinName: {
             type: 'string',
           },
-          uniRef50Id: {
-            type: 'string',
-          },
           uniRef90Id: {
             type: 'string',
           },
@@ -586,6 +565,27 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          seed: {
+            type: 'boolean',
+          },
+          memberId: {
+            type: 'string',
           },
         },
       },
@@ -625,14 +625,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/UniRefMember',
             },
           },
-          updated: {
-            type: 'string',
-            format: 'date',
-          },
-          memberCount: {
-            type: 'integer',
-            format: 'int32',
-          },
           commonTaxon: {
             $ref: '#/components/schemas/Organism',
           },
@@ -648,6 +640,14 @@ const unirefApiDocs: OpenAPIV3.Document = {
           representativeMember: {
             $ref: '#/components/schemas/RepresentativeMember',
           },
+          updated: {
+            type: 'string',
+            format: 'date',
+          },
+          memberCount: {
+            type: 'integer',
+            format: 'int32',
+          },
           entryType: {
             type: 'string',
             enum: ['UniRef100', 'UniRef90', 'UniRef50'],
@@ -657,26 +657,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
       UniRefMember: {
         type: 'object',
         properties: {
-          memberIdType: {
+          uniRef50Id: {
             type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
           },
           organismName: {
             type: 'string',
@@ -692,9 +674,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           proteinName: {
             type: 'string',
           },
-          uniRef50Id: {
-            type: 'string',
-          },
           uniRef90Id: {
             type: 'string',
           },
@@ -706,6 +685,27 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          seed: {
+            type: 'boolean',
+          },
+          memberId: {
+            type: 'string',
           },
         },
       },

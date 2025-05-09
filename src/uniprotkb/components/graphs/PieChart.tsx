@@ -1,18 +1,17 @@
-import { LocationDescriptor } from 'history';
-import { useEffect, useMemo, useRef } from 'react';
 import {
-  pie as d3pie,
   arc as d3arc,
+  interpolate as d3interpolate,
+  pie as d3pie,
   PieArcDatum,
   scaleOrdinal,
   schemeBlues,
   select,
-  interpolate as d3interpolate,
 } from 'd3';
+import { LocationDescriptor } from 'history';
+import { useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { StatisticsItem } from '../statistics/StatisticsPage';
-
 import styles from './styles/pie-chart.module.scss';
 
 export type StatisticsGraphItem = Pick<

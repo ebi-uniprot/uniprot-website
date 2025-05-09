@@ -1,7 +1,6 @@
-import { waitFor, act } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
 
 import getCustomRenderHook from '../../__test-helpers__/customRenderHook';
-
 import useItemSelect from '../useItemSelect';
 
 describe('useItemSelect', () => {

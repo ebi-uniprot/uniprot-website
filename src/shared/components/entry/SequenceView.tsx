@@ -1,44 +1,39 @@
+import { InfoList, LongNumber, Sequence } from 'franklin-sites';
 import { Fragment, ReactNode, useState } from 'react';
-import { InfoList, Sequence, LongNumber } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
-import ExternalLink from '../ExternalLink';
-import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
-import AlignButton from '../action-buttons/Align';
-import AddToBasketButton from '../action-buttons/AddToBasket';
-import LazyComponent from '../LazyComponent';
-
-import useDataApi from '../../hooks/useDataApi';
-import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
-
-import { pluralise } from '../../utils/utils';
-import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
-import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-
 import {
-  Isoform,
-  SequenceCautionComment,
-  MassSpectrometryComment,
-  RNAEditingComment,
-  AlternativeProductsComment,
-  TextWithEvidence,
-} from '../../../uniprotkb/types/commentTypes';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import {
+  getEntryPath,
   Location,
   LocationToPath,
-  getEntryPath,
 } from '../../../app/config/urls';
 import {
   IsoformNotes,
   SequenceUIModel,
 } from '../../../uniprotkb/adapters/sequenceConverter';
-import { Namespace } from '../../types/namespaces';
-
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import {
+  AlternativeProductsComment,
+  Isoform,
+  MassSpectrometryComment,
+  RNAEditingComment,
+  SequenceCautionComment,
+  TextWithEvidence,
+} from '../../../uniprotkb/types/commentTypes';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import useDataApi from '../../hooks/useDataApi';
+import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
 import helper from '../../styles/helper.module.scss';
+import { Namespace } from '../../types/namespaces';
+import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
+import { pluralise } from '../../utils/utils';
+import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
+import AddToBasketButton from '../action-buttons/AddToBasket';
+import AlignButton from '../action-buttons/Align';
+import ExternalLink from '../ExternalLink';
+import LazyComponent from '../LazyComponent';
 import styles from './styles/sequence-view.module.css';
 
 export type SequenceData = {
@@ -162,7 +157,7 @@ const SeeAlso = ({ isoform }: { isoform: string }) => (
     <Link
       to={{
         pathname: LocationToPath[Location.UniRefResults],
-        search: `query=(uniprot_id:${isoform.replace(firstIsoformRE, '')})`,
+        search: `query=(uniprotkb:${isoform.replace(firstIsoformRE, '')})`,
       }}
     >
       UniRef

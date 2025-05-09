@@ -1,20 +1,18 @@
+import { ExternalLink, InfoList, Loader } from 'franklin-sites';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, InfoList, Loader } from 'franklin-sites';
-
-import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { getEntryPath } from '../../../app/config/urls';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { UniParcXRef } from '../../adapters/uniParcConverter';
+import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import EntrySection from '../../types/subEntrySection';
 import { DataDBModel } from '../entry/XRefsSection';
-import EntrySection from '../../types/subEntry';
+import SubEntryInactive from './SubEntryInactive';
 
 type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
 
@@ -99,6 +97,10 @@ const SubEntryOverview = ({ data }: Props) => {
       ),
     },
     {
+      title: 'Status',
+      content: !data.subEntry.active && <SubEntryInactive data={data} />,
+    },
+    {
       title: <span data-article-id="accession">UniProtKB accession</span>,
       content: data.subEntry.id && data.subEntry.isUniprotkbEntry && (
         <Link
@@ -112,7 +114,7 @@ const SubEntryOverview = ({ data }: Props) => {
             ),
           }}
         >
-          {data.subEntry.id}
+          {data.subEntry.id} {data.subEntry.active ? '' : ' (History)'}
         </Link>
       ),
     },

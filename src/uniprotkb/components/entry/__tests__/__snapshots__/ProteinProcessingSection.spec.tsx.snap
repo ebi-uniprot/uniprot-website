@@ -93,7 +93,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
               height="40"
               length="10"
             />
-            <nightingale-track
+            <nightingale-track-canvas
               height="40"
               layout="non-overlapping"
               length="10"
@@ -190,12 +190,12 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             class=""
           >
             <tr
-              class="row has-extra-content"
+              class="row has-extra-content mark-border"
               data-id="0"
             >
               <td>
                 <button
-                  aria-controls="2"
+                  aria-controls="7"
                   aria-expanded="false"
                   type="button"
                 >
@@ -206,7 +206,11 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
                 Chain
               </td>
               <td>
-                id value CHAIN
+                <span
+                  id="id value CHAIN"
+                >
+                  id value CHAIN
+                </span>
               </td>
               <td>
                 2-8
@@ -318,7 +322,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <tr
               class="row extra-content"
               hidden=""
-              id="2"
+              id="7"
             >
               <td />
             </tr>
@@ -328,7 +332,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             >
               <td>
                 <button
-                  aria-controls="4"
+                  aria-controls="8"
                   aria-expanded="false"
                   type="button"
                 >
@@ -385,7 +389,7 @@ exports[`ProteinProcessingSection should render when PTMeXchange is available 1`
             <tr
               class="row extra-content odd"
               hidden=""
-              id="4"
+              id="8"
             >
               <td />
             </tr>
@@ -490,7 +494,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
               height="40"
               length="772"
             />
-            <nightingale-track
+            <nightingale-track-canvas
               height="40"
               layout="non-overlapping"
               length="772"
@@ -566,12 +570,12 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             class=""
           >
             <tr
-              class="row has-extra-content"
+              class="row has-extra-content mark-border"
               data-id="0"
             >
               <td>
                 <button
-                  aria-controls="2"
+                  aria-controls="6"
                   aria-expanded="false"
                   type="button"
                 >
@@ -642,17 +646,17 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <tr
               class="row extra-content"
               hidden=""
-              id="2"
+              id="6"
             >
               <td />
             </tr>
             <tr
-              class="row odd has-extra-content"
+              class="row odd has-extra-content mark-border"
               data-id="1"
             >
               <td>
                 <button
-                  aria-controls="4"
+                  aria-controls="7"
                   aria-expanded="false"
                   type="button"
                 >
@@ -663,7 +667,11 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
                 Chain
               </td>
               <td>
-                PRO_0000448571
+                <span
+                  id="PRO_0000448571"
+                >
+                  PRO_0000448571
+                </span>
               </td>
               <td>
                 28-772
@@ -704,7 +712,7 @@ exports[`ProteinProcessingSection should render when no PTMeXchange is available
             <tr
               class="row extra-content odd"
               hidden=""
-              id="4"
+              id="7"
             >
               <td />
             </tr>

@@ -1,10 +1,9 @@
-import { FC, useEffect, useCallback, useState } from 'react';
 import { Autocomplete } from 'franklin-sites';
+import { FC, useCallback, useEffect, useState } from 'react';
 
-import useSafeState from '../../shared/hooks/useSafeState';
-
-import fetchData from '../../shared/utils/fetchData';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
+import useSafeState from '../../shared/hooks/useSafeState';
+import fetchData from '../../shared/utils/fetchData';
 import * as logging from '../../shared/utils/logging';
 
 type AutocompleteWrapperProps = {

@@ -1,16 +1,14 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
-import KeywordsGraph from '../components/entry/KeywordsGraph';
-import GeneOntologies from '../../../shared/components/results/GeneOntologies';
+import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-
-import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
+import GeneOntologies from '../../../shared/components/results/GeneOntologies';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
+import KeywordsGraph from '../components/entry/KeywordsGraph';
 
 const CUTOFF = 10;
 
@@ -114,9 +112,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.links, {
   render: ({ links }) =>
     links?.length ? (
       <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-        {links?.map((link) => (
-          <ExternalLink key={link} url={link} tidyUrl />
-        ))}
+        {links?.map((link) => <ExternalLink key={link} url={link} tidyUrl />)}
       </ExpandableList>
     ) : null,
 });

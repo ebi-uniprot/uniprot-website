@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 
 // Source: database/search?query=embl&size=2
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const mock: SearchResults<DatabaseAPIModel> = {
   results: [
     {
@@ -12,12 +12,12 @@ const mock: SearchResults<DatabaseAPIModel> = {
       pubMedId: '33175160',
       doiId: '10.1093/nar/gkaa1028',
       linkType: 'Explicit',
-      servers: ['https://www.ebi.ac.uk/ena'],
+      servers: ['https://www.ebi.ac.uk/ena/browser/home'],
       dbUrl: 'https://www.ebi.ac.uk/ena/browser/view/%s',
       category: 'Sequence databases',
       statistics: {
-        reviewedProteinCount: 559745,
-        unreviewedProteinCount: 237863507,
+        reviewedProteinCount: 560281,
+        unreviewedProteinCount: 236228065,
       },
     },
     {
@@ -34,8 +34,8 @@ const mock: SearchResults<DatabaseAPIModel> = {
       dbUrl: 'https://www.ensembl.org/id/%s',
       category: 'Genome annotation databases',
       statistics: {
-        reviewedProteinCount: 18417,
-        unreviewedProteinCount: 755,
+        reviewedProteinCount: 18436,
+        unreviewedProteinCount: 736,
       },
     },
   ],

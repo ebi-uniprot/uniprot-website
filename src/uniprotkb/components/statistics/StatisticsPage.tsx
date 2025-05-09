@@ -1,52 +1,48 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState } from 'react';
-import { Card, Loader, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import { schemeReds } from 'd3';
+import { Card, Loader, LongNumber } from 'franklin-sites';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import HTMLHead from '../../../shared/components/HTMLHead';
+import InPageNav from '../../../shared/components/InPageNav';
+import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
+import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import LazyComponent from '../../../shared/components/LazyComponent';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
+import { stringifyQuery } from '../../../shared/utils/url';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import AbstractSectionTable from './AbstractSectionTable';
 import AminoAcidBarPlot from './AminoAcidBarPlot';
-import UniProtKBStatsTabs from './UniProtKBStatsTabs';
-import FrequencyTable from './FrequencyTable';
+import AminoAcidCompositionTable from './AminoAcidCompositionTable';
 import CountLinkOrNothing from './CountLinkOrNothing';
-import UniProtKBStatsTable from './UniProtKBStatsTable';
+import FrequencyTable from './FrequencyTable';
+import HistoricalReleaseEntryCounts from './HistoricalReleasesEntries';
 import ReviewedSequenceCorrections from './ReviewedSequenceCorrections';
 import SequenceLengthLinePlot from './SequenceLengthLinePlot';
-import AbstractSectionTable from './AbstractSectionTable';
-import UniqueReferencesTable from './UniqueReferencesTable';
-import AminoAcidCompositionTable from './AminoAcidCompositionTable';
-import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
-import InPageNav from '../../../shared/components/InPageNav';
-import HistoricalReleaseEntryCounts from './HistoricalReleasesEntries';
-
-import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { stringifyQuery } from '../../../shared/utils/url';
+import styles from './styles/statistics-page.module.scss';
 import { nameToQueryEukaryota, nameToQueryKingdoms } from './taxonomyQueries';
-import apiUrls from '../../config/apiUrls/apiUrls';
+import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
+import UniProtKBStatsTable from './UniProtKBStatsTable';
+import UniProtKBStatsTabs from './UniProtKBStatsTabs';
+import UniqueReferencesTable from './UniqueReferencesTable';
 import {
-  MergedStatisticsItem,
   getEncodedLocations,
+  getNumberReleaseEntries,
   getSequenceSizeLocation,
   getUniqueAuthorString,
   merge,
+  MergedStatisticsItem,
   mergeToMap,
-  getNumberReleaseEntries,
 } from './utils';
-
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPath,
-} from '../../../app/config/urls';
-
-import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import styles from './styles/statistics-page.module.scss';
 
 export type CategoryName =
   | 'AUDIT' // 1 - introduction
@@ -98,6 +94,7 @@ const IntroductionEntriesTable = ({
   uniprotkbData,
   reviewedData,
   unreviewedData,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   releaseDate,
 }: TableProps & {
   releaseDate: Date;
@@ -160,9 +157,11 @@ const IntroductionEntriesTable = ({
               </>
             ),
             data: map.get('NEW_ENTRY')!,
-            query: `(date_created:[${
-              releaseDate.toISOString().split('T')[0]
-            } TO *])`,
+            // TODO: remove and replace with query passed by backend when fixed
+            query: '(date_created:[2025-04-01 TO *])',
+            // query: `(date_created:[${
+            //   releaseDate.toISOString().split('T')[0]
+            // } TO *])`,
           },
           {
             header: (

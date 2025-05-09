@@ -1,16 +1,12 @@
-import { FC } from 'react';
 import { LocationPinIcon } from 'franklin-sites';
+import { FC } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-
 import externalUrls from '../../../shared/config/externalUrls';
-
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
-
+import GOTermEvidenceTag from './GOTermEvidenceTag';
 import styles from './styles/subcellular-location-go-view.module.scss';
 
 export const getSwissBioPicLocationId = (id: string) => {
@@ -49,6 +45,7 @@ const SubcellularLocationGOView: FC<
             >
               {properties.GoTerm}
             </ExternalLink>
+            <GOTermEvidenceTag evidence={properties.GoEvidenceType} />
           </li>
         ))}
       </ul>

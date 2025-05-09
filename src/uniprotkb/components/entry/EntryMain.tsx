@@ -1,15 +1,12 @@
-import { Suspense } from 'react';
 import { Loader } from 'franklin-sites';
+import { Suspense } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
-
 import { IsoformsContext } from '../../../shared/contexts/Isoforms';
-
-import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
-
-import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;

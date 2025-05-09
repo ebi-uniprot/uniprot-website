@@ -1,12 +1,11 @@
-import { getGoCamStructures, isUniprotCurated } from '../GoCam';
 import { GoCamModelInfo } from '../../../types/goCamTypes';
-
-import models from './__mocks__/goCam/models';
+import { getGoCamStructures, isUniprotCurated } from '../GoCam';
 import gomodel5e72450500001269 from './__mocks__/goCam/5e72450500001269';
+import gomodel654d809000001587 from './__mocks__/goCam/654d809000001587';
 import gomodel6446bfcb00001774 from './__mocks__/goCam/6446bfcb00001774';
 import gomodel65288b2200000194 from './__mocks__/goCam/65288b2200000194';
-import gomodel654d809000001587 from './__mocks__/goCam/654d809000001587';
 import gomodel67369e7600002132 from './__mocks__/goCam/67369e7600002132';
+import models from './__mocks__/goCam/models';
 
 describe('getGoCamStructures', () => {
   it('should get GO-CAM structures', () => {
@@ -44,6 +43,14 @@ describe('getGoCamStructures', () => {
           id: '67369e7600002132',
           label:
             'IRGQ promotes degradation of misfolded MHC class I proteins b promoting their degradation by autophagy (Human).',
+        },
+      ],
+      [
+        '6796b94c00001787',
+        {
+          id: '6796b94c00001787',
+          label:
+            'RAB33B recruitment of ATG16L1-ATG12-ATG5 complex to phagophore (Human)',
         },
       ],
     ]);

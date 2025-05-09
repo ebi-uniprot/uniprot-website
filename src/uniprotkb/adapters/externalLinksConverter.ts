@@ -1,9 +1,9 @@
+import { Xref } from '../../shared/types/apiModel';
+import EntrySection from '../types/entrySection';
+import { DatabaseInfoMaps } from '../utils/database';
+import { getXrefsForSection } from '../utils/xrefUtils';
 import { UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { getXrefsForSection } from '../utils/xrefUtils';
-import EntrySection from '../types/entrySection';
-import { Xref } from '../../shared/types/apiModel';
-import { DatabaseInfoMaps } from '../utils/database';
 
 const convertExternalLinks = (
   data: UniProtkbAPIModel,

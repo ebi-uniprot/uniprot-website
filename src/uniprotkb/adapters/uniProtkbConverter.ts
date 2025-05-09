@@ -1,49 +1,47 @@
-import convertStructure from './structureConverter';
-import convertExternalLinks from './externalLinksConverter';
-import convertInteraction from './interactionConverter';
-import convertFamilyAndDomains from './familyAndDomainsConverter';
-import convertProteinProcessing from './proteinProcessingConverter';
-import convertExpression from './expressionConverter';
-import convertSubcellularLocation from './subcellularLocationConverter';
-import convertFunction from './functionConverter';
-import convertDiseaseAndDrugs from './diseaseAndDrugs';
-import {
-  convertNamesAndTaxonomy,
-  NamesAndTaxonomyUIModel,
-  ProteinNamesData,
-  GeneNamesData,
-} from './namesAndTaxonomyConverter';
-import {
-  convertSequence,
-  SequenceUIModel,
-  EntryAudit,
-} from './sequenceConverter';
-import extractIsoforms from './extractIsoformsConverter';
-
-import EntrySection from '../types/entrySection';
-import FeatureType from '../types/featureType';
-
-import Comment, { CommentType } from '../types/commentTypes';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { Lineage, Xref } from '../../shared/types/apiModel';
-import { SequenceData } from '../../shared/components/entry/SequenceView';
+import { PeptideSearchMatch } from '../../jobs/peptide-search/components/PeptideSearchMatches';
 import {
   EntryType,
   getEntryTypeFromString,
 } from '../../shared/components/entry/EntryTypeIcon';
-import { Keyword } from '../utils/KeywordsUtil';
-import { UIModel } from './sectionConverter';
-import { transfromProperties } from '../utils';
-import { Property } from '../types/modelTypes';
-import { GeneLocation } from '../types/geneLocationType';
-import { InternalSectionType } from '../types/internalSectionType';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { SequenceData } from '../../shared/components/entry/SequenceView';
+import { Lineage, Xref } from '../../shared/types/apiModel';
 import {
   Citation,
   Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import Comment, { CommentType } from '../types/commentTypes';
+import EntrySection from '../types/entrySection';
+import FeatureType from '../types/featureType';
+import { GeneLocation } from '../types/geneLocationType';
+import { InternalSectionType } from '../types/internalSectionType';
+import { Property } from '../types/modelTypes';
+import { transfromProperties } from '../utils';
 import { DatabaseInfoMaps } from '../utils/database';
-import { PeptideSearchMatch } from '../../tools/peptide-search/components/PeptideSearchMatches';
+import { Keyword } from '../utils/KeywordsUtil';
+import convertDiseaseAndDrugs from './diseaseAndDrugs';
+import convertExpression from './expressionConverter';
+import convertExternalLinks from './externalLinksConverter';
+import extractIsoforms from './extractIsoformsConverter';
+import convertFamilyAndDomains from './familyAndDomainsConverter';
+import convertFunction from './functionConverter';
+import convertInteraction from './interactionConverter';
+import {
+  convertNamesAndTaxonomy,
+  GeneNamesData,
+  NamesAndTaxonomyUIModel,
+  ProteinNamesData,
+} from './namesAndTaxonomyConverter';
+import convertProteinProcessing from './proteinProcessingConverter';
+import { UIModel } from './sectionConverter';
+import {
+  convertSequence,
+  EntryAudit,
+  SequenceUIModel,
+} from './sequenceConverter';
+import convertStructure from './structureConverter';
+import convertSubcellularLocation from './subcellularLocationConverter';
 
 // 🤷🏽
 export type UniProtKBReference = Omit<Reference, 'citationId'> & {

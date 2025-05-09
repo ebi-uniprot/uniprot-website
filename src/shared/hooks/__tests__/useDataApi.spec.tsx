@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
-import axios, { AxiosHeaders } from 'axios';
 import { renderHook, waitFor } from '@testing-library/react';
+import axios, { AxiosHeaders } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { ReactNode } from 'react';
 
+import { MessagesDispatchContext } from '../../contexts/Messages';
 import useDataApi from '../useDataApi';
 import useDataApiWithStale from '../useDataApiWithStale';
-import { MessagesDispatchContext } from '../../contexts/Messages';
 
 const url = '/some/path';
 const url2 = '/some/other/path';

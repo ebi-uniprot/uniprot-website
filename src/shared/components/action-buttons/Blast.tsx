@@ -1,9 +1,7 @@
-import ToolsButton from './ToolsButton';
-
-import { fromCleanMapper } from '../../utils/getIdKey';
-
 import { Location } from '../../../app/config/urls';
 import { BLAST_LIMIT } from '../../config/limits';
+import { fromCleanMapper } from '../../utils/getIdKey';
+import ToolsButton from './ToolsButton';
 
 type BlastButtonProps = {
   selectedEntries: string[];
