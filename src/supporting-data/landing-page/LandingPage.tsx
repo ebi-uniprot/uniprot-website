@@ -67,7 +67,7 @@ const LandingPage = () => {
           {/* Categories */}
           <h2 className="uniprot-grid-cell--span-12">Datasets</h2>
           {/* Keywords */}
-          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
+          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
             <h3>Keywords</h3>
             <div className={styles.category}>
               Keywords in UniProt provide standardized terms that summarize the
@@ -84,8 +84,9 @@ const LandingPage = () => {
               Start searching »
             </Link>
           </div>
+
           {/* Subcellular Location */}
-          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
+          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
             <h3>Subcellular Locations</h3>
             <div className={styles.category}>
               Specifies where the protein is located within a cell or organism,
@@ -102,77 +103,15 @@ const LandingPage = () => {
               Start searching »
             </Link>
           </div>
-          {/* Literature Citations */}
-          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>Literature Citations</h3>
-            <div className={styles.category}>
-              Direct references to scientific studies supporting protein
-              annotations. Includes experimental evidence such as enzymatic
-              activities, protein interactions, or structural data.
-            </div>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.CitationsResults],
-                search: 'query=*',
-              }}
-            >
-              Start searching »
-            </Link>
-          </div>
-          {/* Taxonomy */}
-          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>Taxonomy</h3>
-            <div className={styles.category}>
-              Classification of the protein based on the organism of origin,
-              linking to databases like NCBI Taxonomy.
-            </div>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.TaxonomyResults],
-                search: 'query=*',
-              }}
-            >
-              Start searching »
-            </Link>
-          </div>
-
-          {/* Human Diseases */}
-          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>Human Diseases</h3>
-            <div className={styles.category}>
-              Provides insights into the relationship between proteins and human
-              health. Includes disease annotations, pathogenesis information,
-              variants linked to diseases, and links to drug databases.
-            </div>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.DiseasesResults],
-                search: 'query=*',
-              }}
-            >
-              Start searching »
-            </Link>
-          </div>
-
-          {/* Cross-referenced Databases */}
-          <div className="uniprot-grid-cell--small-span-6 uniprot-grid-cell--medium-span-4">
-            <h3>Cross-referenced Databases</h3>
-            <div className={styles.category}>
-              Links to databases like PDB (Protein Data Bank), Gene Ontology
-              (GO), Ensembl, and RefSeq.
-            </div>
-            <Link
-              to={{
-                pathname: LocationToPath[Location.DatabaseResults],
-                search: 'query=*',
-              }}
-            >
-              Start searching »
-            </Link>
-          </div>
 
           {/* Automatic Annotations */}
-          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6">
+          <div
+            className={cn(
+              'uniprot-grid-cell--small-span-12',
+              'uniprot-grid-cell--medium-span-6',
+              styles['automatic-annotations']
+            )}
+          >
             <h3>Automatic Annotations</h3>
             <div>
               The Automatic Annotations section in UniProt provides functional
@@ -201,9 +140,61 @@ const LandingPage = () => {
             </Link>
           </div>
 
-          {/* Data integration form */}
-          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-6">
-            <h3>Expand Your Reach: Connect Your Database with UniProt</h3>
+          {/* Human Diseases */}
+          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
+            <h3>Human Diseases</h3>
+            <div className={styles.category}>
+              Provides insights into the relationship between proteins and human
+              health. Includes disease annotations, pathogenesis information,
+              variants linked to diseases, and links to drug databases.
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.DiseasesResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
+          </div>
+
+          {/* Taxonomy */}
+          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
+            <h3>Taxonomy</h3>
+            <div className={styles.category}>
+              Classification of the protein based on the organism of origin,
+              linking to databases like NCBI Taxonomy.
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.TaxonomyResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
+          </div>
+
+          {/* Cross-referenced Databases */}
+          <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
+            <h3>Cross-referenced Databases</h3>
+            <div className={styles.category}>
+              Links to databases like PDB (Protein Data Bank), Gene Ontology
+              (GO), Ensembl, and RefSeq.
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.DatabaseResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
+
+            {/* Data integration form */}
+            <h4 className={styles['form-title']}>
+              Expand Your Reach: Connect Your Database with UniProt
+            </h4>
             <div>
               If you would like your database to be linked with UniProt to
               expand its integration with protein-related data, please fill out
@@ -295,6 +286,30 @@ const LandingPage = () => {
                 className={styles['submit-button']}
               >{`Send${sending ? 'ing' : ''} message`}</Button>
             </form>
+          </div>
+
+          {/* Literature Citations */}
+          <div
+            className={cn(
+              'uniprot-grid-cell--small-span-12',
+              'uniprot-grid-cell--medium-span-4',
+              styles.citations
+            )}
+          >
+            <h3>Literature Citations</h3>
+            <div className={styles.category}>
+              Direct references to scientific studies supporting protein
+              annotations. Includes experimental evidence such as enzymatic
+              activities, protein interactions, or structural data.
+            </div>
+            <Link
+              to={{
+                pathname: LocationToPath[Location.CitationsResults],
+                search: 'query=*',
+              }}
+            >
+              Start searching »
+            </Link>
           </div>
         </section>
       </div>

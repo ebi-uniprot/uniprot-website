@@ -8,12 +8,33 @@
     place-items: center;
   }
 
+  .automatic-annotations {
+    @media (min-width: 640px) {
+      grid-column: span 4;
+      grid-row: span 2;
+    }
+  }
+
+  .citations {
+    @media (max-width: 768px) {
+      grid-row: 5;
+    }
+  }
+
+  .form-title {
+    margin-top: 0.75rem;
+  }
+
   form {
     // Hide the honeypot from the view
     [name='requiredForRobots'] {
       position: absolute;
       top: -100%;
       left: -100%;
+    }
+
+    & > input {
+      width: 50%;
     }
   }
 
