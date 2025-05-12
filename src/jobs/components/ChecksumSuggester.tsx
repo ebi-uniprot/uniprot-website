@@ -125,7 +125,8 @@ const ChecksumSuggester = memo(
             {activeIsoformsUniprotkb.length ? (
               <li>
                 <div data-article-id="alternative_products">
-                  UniProtKB isoforms
+                  UniProtKB{' '}
+                  {pluralise('isoform', activeIsoformsUniprotkb.length)}
                 </div>
                 {`${activeIsoformsUniprotkb.length} ${pluralise('isoform', activeIsoformsUniprotkb.length)}: `}
                 {activeIsoformsUniprotkb
