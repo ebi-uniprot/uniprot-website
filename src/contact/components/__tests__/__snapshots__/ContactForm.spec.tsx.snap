@@ -256,7 +256,7 @@ Website version: #git_commit_id
           </li>
           <li>
             <a
-              href="/supporting-data"
+              href="/supporting-data#integration-form"
             >
               Connect your database with UniProt
             </a>
@@ -523,7 +523,7 @@ Website version: #git_commit_id
           </li>
           <li>
             <a
-              href="/supporting-data"
+              href="/supporting-data#integration-form"
             >
               Connect your database with UniProt
             </a>
@@ -790,7 +790,7 @@ Website version: #git_commit_id
           </li>
           <li>
             <a
-              href="/supporting-data"
+              href="/supporting-data#integration-form"
             >
               Connect your database with UniProt
             </a>

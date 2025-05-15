@@ -267,7 +267,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
               </li>
               <li>
                 <Link
-                  to={generatePath(LocationToPath[Location.SupportingData])}
+                  to={`${generatePath(LocationToPath[Location.SupportingData])}#integration-form`}
                 >
                   Connect your database with UniProt
                 </Link>

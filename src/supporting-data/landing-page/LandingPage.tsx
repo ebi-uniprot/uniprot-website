@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Button } from 'franklin-sites';
-import { ChangeEvent, useId } from 'react';
+import { ChangeEvent, useEffect, useId, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
@@ -17,6 +17,13 @@ const LandingPage = () => {
   const formId = useId();
 
   const { handleSubmit, handleChange, sending } = useFormLogic();
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.location.hash === '#integration-form' && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
@@ -192,7 +199,7 @@ const LandingPage = () => {
             </Link>
 
             {/* Data integration form */}
-            <h4 className={styles['form-title']}>
+            <h4 className={styles['form-title']} ref={formRef}>
               Expand Your Reach: Connect Your Database with UniProt
             </h4>
             <div>
@@ -200,7 +207,11 @@ const LandingPage = () => {
               expand its integration with protein-related data, please fill out
               this form, and a member of our team will be in contact.
             </div>
-            <form aria-label="Data integration form" onSubmit={handleSubmit}>
+            <form
+              aria-label="Data integration form"
+              onSubmit={handleSubmit}
+              id="integration-form"
+            >
               {/* Name */}
               <label htmlFor={`name-${formId}`}>Submitter&apos;s Name *</label>
               <input
