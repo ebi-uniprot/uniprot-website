@@ -3013,6 +3013,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "3DS",
       "MISC",
     ],
+    "subcellular_location": [
+      "MISC",
+    ],
   },
   "entrySectionToDatabaseNames": {
     "disease_variants": [
@@ -3278,6 +3281,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "EMDB",
       "EvolutionaryTrace",
       "ModBase",
+    ],
+    "subcellular_location": [
+      "CD-CODE",
     ],
   },
   "implicitDatabaseXRefs": {

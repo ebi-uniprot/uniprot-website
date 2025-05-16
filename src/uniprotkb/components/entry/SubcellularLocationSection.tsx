@@ -9,6 +9,7 @@ import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import KeywordView from '../protein-data-views/KeywordView';
 import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
+import XRefView from '../protein-data-views/XRefView';
 
 type Props = {
   data: SubcellularLocationUIModel;
@@ -59,6 +60,10 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
         sequence={sequence}
       />
       <KeywordView keywords={data.keywordData} />
+      <XRefView
+        xrefs={data.xrefData}
+        primaryAccession={data.primaryAccession}
+      />
     </Card>
   );
 };
