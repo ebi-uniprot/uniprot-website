@@ -1,4 +1,4 @@
-import { ExpandableList, LongNumber } from 'franklin-sites';
+import { Chip, ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import AccessionView from '../../shared/components/results/AccessionView';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+import { proteomeFasta } from '../../uniparc/config/apiUrls';
 import {
   ProteomesAPIModel,
   ProteomesUIModel,
@@ -167,19 +168,34 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     const shouldPointToUniParc =
       proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
     return (
-      <Link
-        to={{
-          pathname:
-            LocationToPath[
-              shouldPointToUniParc
-                ? Location.UniParcResults
-                : Location.UniProtKBResults
-            ],
-          search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
-        }}
-      >
-        <LongNumber>{proteinCount}</LongNumber>
-      </Link>
+      <>
+        <Link
+          to={{
+            pathname:
+              LocationToPath[
+                shouldPointToUniParc
+                  ? Location.UniParcResults
+                  : Location.UniProtKBResults
+              ],
+            search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
+          }}
+        >
+          <LongNumber>{proteinCount}</LongNumber>
+        </Link>
+        {shouldPointToUniParc ? (
+          <>
+            <br />
+            <a href={proteomeFasta(id, true)}>
+              Download FASTA for all UniParc entries
+            </a>
+            <small>
+              <Chip>New</Chip>
+            </small>
+          </>
+        ) : (
+          ''
+        )}
+      </>
     );
   },
 });
