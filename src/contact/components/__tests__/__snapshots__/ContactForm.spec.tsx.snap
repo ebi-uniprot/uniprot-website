@@ -146,7 +146,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="my message"
+          placeholder="My message"
           required=""
         />
         <span
@@ -252,6 +252,13 @@ Website version: #git_commit_id
                 data-testid="external-link-icon"
                 width="12.5"
               />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/supporting-data#integration-form"
+            >
+              Connect your database with UniProt
             </a>
           </li>
         </ul>
@@ -407,7 +414,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="my message"
+          placeholder="My message"
           required=""
         />
         <span
@@ -512,6 +519,13 @@ Website version: #git_commit_id
                 data-testid="external-link-icon"
                 width="12.5"
               />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/supporting-data#integration-form"
+            >
+              Connect your database with UniProt
             </a>
           </li>
         </ul>
@@ -667,7 +681,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="my message"
+          placeholder="My message"
           required=""
         />
         <span
@@ -772,6 +786,13 @@ Website version: #git_commit_id
                 data-testid="external-link-icon"
                 width="12.5"
               />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/supporting-data#integration-form"
+            >
+              Connect your database with UniProt
             </a>
           </li>
         </ul>
