@@ -15,12 +15,14 @@ type Props = {
   data: UIModel;
   sequence?: string;
   primaryAccession: string;
+  uniParcID?: string;
 };
 
 const FamilyAndDomainsSection = ({
   data,
   sequence,
   primaryAccession,
+  uniParcID,
 }: Props) => {
   if (!hasContent(data)) {
     return null;
@@ -55,7 +57,11 @@ const FamilyAndDomainsSection = ({
         articleId="sequence_similarities"
       />
       <KeywordView keywords={data.keywordData} />
-      <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+      <XRefView
+        xrefs={data.xrefData}
+        primaryAccession={primaryAccession}
+        uniParcID={uniParcID}
+      />
     </Card>
   );
 };

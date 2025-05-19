@@ -22,6 +22,7 @@
 
   * {
     color: #fff !important;
+    font-family: Lato, sans-serif;
   }
 
   a {
@@ -38,6 +39,22 @@
 
   hr {
     margin-bottom: 0.5rem;
+  }
+
+  :global(.text-indent-1) {
+    text-indent: 1em;
+  }
+
+  :global(.text-indent-2) {
+    text-indent: 2em;
+  }
+
+  :global(.nowrap) {
+    white-space: nowrap;
+  }
+
+  :global(.margin-bottom) {
+    margin-bottom: 1em;
   }
 }
 

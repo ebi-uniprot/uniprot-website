@@ -5,6 +5,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 
 import { allEntryPages, getEntryPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
+import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
 import Table from '../../../shared/components/table/Table';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
@@ -76,7 +77,7 @@ const DiseaseVariants = ({
   variants: FeatureDatum[];
   accession: string;
 }) => (
-  <Table expandable>
+  <Table expandable={variants.length > MIN_ROWS_TO_EXPAND}>
     <Table.Head>
       <th>Variant ID</th>
       <th>Position(s)</th>

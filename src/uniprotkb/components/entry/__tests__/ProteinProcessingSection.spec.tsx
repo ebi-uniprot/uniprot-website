@@ -34,7 +34,7 @@ describe('ProteinProcessingSection', () => {
 
   it('should render when PTMeXchange is available', async () => {
     const transformedData = uniProtKbConverter(mockHumanData, databaseInfoMaps);
-    const { asFragment } = customRender(
+    customRender(
       <ProteinProcessingSection
         data={transformedData[EntrySection.ProteinProcessing]}
         sequence={transformedData[EntrySection.Sequence].sequence?.value}
@@ -43,9 +43,13 @@ describe('ProteinProcessingSection', () => {
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
-    await screen.findByText('PTM/Processing');
-    await screen.findByText('Download');
-    expect(asFragment()).toMatchSnapshot();
+    await screen.findByRole('heading', { name: 'PTM/Processing' });
+    await screen.findByRole('button', { name: 'Download' });
+    const row = await screen.findAllByRole('row', { name: /PTMeXchange/ });
+    // Only one phosphorylation position in the data
+    expect(row).toHaveLength(1);
+    expect(row[0]).toHaveTextContent(/Phosphoserine/);
+    expect(row[0]).toHaveTextContent(/Silver/);
   });
 
   it('should render when no PTMeXchange is available', async () => {
@@ -53,7 +57,7 @@ describe('ProteinProcessingSection', () => {
       mockNonHumanData,
       databaseInfoMaps
     );
-    const { asFragment } = customRender(
+    customRender(
       <ProteinProcessingSection
         data={transformedData[EntrySection.ProteinProcessing]}
         sequence={transformedData[EntrySection.Sequence].sequence?.value}
@@ -62,8 +66,12 @@ describe('ProteinProcessingSection', () => {
       />,
       { route: `/uniprotkb/P05067/entry` }
     );
-    await screen.findByText('PTM/Processing');
-    await screen.findByText('Download');
-    expect(asFragment()).toMatchSnapshot();
+    await screen.findByRole('heading', { name: 'PTM/Processing' });
+    await screen.findByRole('button', { name: 'Download' });
+    // Await for the table to have rendered before checking no PTMeXchange row
+    await screen.findByRole('table');
+    expect(
+      screen.queryByRole('row', { name: /PTMeXchange/ })
+    ).not.toBeInTheDocument();
   });
 });

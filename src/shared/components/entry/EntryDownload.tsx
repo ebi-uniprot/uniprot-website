@@ -94,6 +94,7 @@ export enum Dataset {
   ProteomicsHpp = 'Human Proteome Project',
   epitope = 'Epitope',
   antigen = 'Antigen',
+  rnaEditing = 'RNA Editing',
   interProRepresentativeDomains = 'InterPro Representative Domains',
   alphaFoldConfidence = 'AlphaFold Confidence',
   alphaFoldCoordinates = 'AlphaFold Coordinates',
@@ -104,6 +105,7 @@ const uniprotKBEntryDatasets = {
   UniProtKB: [Dataset.uniprotData, Dataset.features, Dataset.selectedFeatures],
   'Additional Datasets': [
     Dataset.variation,
+    Dataset.rnaEditing,
     Dataset.mutagenesis,
     Dataset.coordinates,
     Dataset.proteomicsNonPtm,
@@ -184,7 +186,7 @@ const getEntryDownloadUrl = (
   switch (dataset) {
     case Dataset.uniprotData: {
       if (isUniparcTsv(namespace, fileFormat)) {
-        return uniparcApiUrls.databases(accession, true, {
+        return uniparcApiUrls.databases(accession, undefined, true, {
           format: fileFormat as FileFormat.tsv,
           fields: columns?.join(','),
         });
@@ -219,6 +221,8 @@ const getEntryDownloadUrl = (
       return apiUrls.proteinsApi.coordinates(accession, fileFormat);
     case Dataset.variation:
       return apiUrls.proteinsApi.variation(accession, fileFormat);
+    case Dataset.rnaEditing:
+      return apiUrls.proteinsApi.rnaEditing(accession, fileFormat);
     case Dataset.proteomicsNonPtm:
       return apiUrls.proteinsApi.proteomicsNonPtm(accession, fileFormat);
     case Dataset.proteomicsPtm:
@@ -381,6 +385,13 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
+  const proteinsApiRnaEditing = useDataApi(
+    namespace === Namespace.uniprotkb && accession
+      ? apiUrls.proteinsApi.rnaEditing(accession)
+      : '',
+    { method: 'HEAD' }
+  );
+
   const proteinsApiProteomicsNonPtm = useDataApi(
     namespace === Namespace.uniprotkb && accession
       ? apiUrls.proteinsApi.proteomicsNonPtm(accession)
@@ -473,6 +484,9 @@ const EntryDownload = ({
   ) {
     availableDatasets.push(Dataset.variation);
   }
+  if (!proteinsApiRnaEditing.loading && proteinsApiRnaEditing.status === 200) {
+    availableDatasets.push(Dataset.rnaEditing);
+  }
   if (
     !proteinsApiProteomicsNonPtm.loading &&
     proteinsApiProteomicsNonPtm.status === 200
@@ -538,6 +552,7 @@ const EntryDownload = ({
       case Dataset.antigen:
       case Dataset.ProteomicsHpp:
       case Dataset.epitope:
+      case Dataset.rnaEditing:
       case Dataset.mutagenesis:
         setFileFormats(proteinsAPICommonFormats);
         break;

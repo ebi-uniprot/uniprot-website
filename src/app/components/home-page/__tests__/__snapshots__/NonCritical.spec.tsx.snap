@@ -403,6 +403,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2025-04-23-release"
+              >
+                UniProt release 2025_02
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Brain property: no trespassing | Cross-references to CD-CODE | Cross-references to STRENDA-DB | Cross-references to YCharOS
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2025-02-05-release"
               >
                 UniProt release 2025_01
@@ -487,29 +505,46 @@ exports[`non-critical HomePage component should render 1`] = `
             </p>
           </article>
         </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2024-03-27-release"
-              >
-                UniProt release 2024_02
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              CMV infections: plants beaten at their own game | Changes to the controlled vocabulary of human diseases | Changes to the controlled vocabulary for PTMs
-            </p>
-          </article>
-        </li>
       </ul>
     </div>
     <div
       class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-5 latest-news__blogspot"
     >
+      <article>
+        <a
+          aria-hidden="true"
+          class="external-link"
+          href="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+          rel="noopener"
+          tabindex="-1"
+          target="_blank"
+        >
+          <img
+            alt=""
+            height="96"
+            loading="lazy"
+            src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXd1s6fiajiMzEs5LbVFoTwb3hDXN-kCrUx9GWBrP5ZnvCE4t_f-1Vp1A8cM3qq9eowxZjlWdVy-dm1z2HNlkZnlAlNP5WcegaJvaYeQAawIMh6QGJ-JAirapMPWdp_G9XS8m2He7g=w571-h541?key=jfJMcOebpi8n6A4ZKBU-RSi0"
+            width="184.305"
+          />
+        </a>
+        <h3
+          class="tiny"
+        >
+          <a
+            class="external-link"
+            href="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+            rel="noopener"
+            target="_blank"
+          >
+            Rich Epitope Information Comes to UniProt
+          </a>
+        </h3>
+        <p
+          class="latest-news__abstract latest-news__abstract--4-lines"
+        >
+          Mammalian immune responses are mediated by interactions between antigens and immune system components such as antibodies, B cells, and T cells
+        </p>
+      </article>
       <article>
         <a
           aria-hidden="true"
@@ -546,42 +581,6 @@ exports[`non-critical HomePage component should render 1`] = `
           In recent years a wealth of information has become available about genetic variations that underlie various diseases, especially cancer.
         </p>
       </article>
-      <article>
-        <a
-          aria-hidden="true"
-          class="external-link"
-          href="http://insideuniprot.blogspot.com/2022/12/how-artificial-intelligence-can-help-us.html"
-          rel="noopener"
-          tabindex="-1"
-          target="_blank"
-        >
-          <img
-            alt=""
-            height="96"
-            loading="lazy"
-            src="https://github.com/ebi-uniprot/uniprot-manual/blob/main/images/protnlm-schematic-3.png?raw=true"
-            style="background: white;"
-            width="184.305"
-          />
-        </a>
-        <h3
-          class="tiny"
-        >
-          <a
-            class="external-link"
-            href="http://insideuniprot.blogspot.com/2022/12/how-artificial-intelligence-can-help-us.html"
-            rel="noopener"
-            target="_blank"
-          >
-            How artificial intelligence can help us annotate protein names
-          </a>
-        </h3>
-        <p
-          class="latest-news__abstract latest-news__abstract--4-lines"
-        >
-          A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community
-        </p>
-      </article>
     </div>
     <article
       class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-1 latest-news__spotlight"
@@ -612,17 +611,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/277/"
+          href="https://www.proteinspotlight.org/back_issues/279/"
           rel="noopener"
           target="_blank"
         >
-          The dormant ribosome
+          A dark kinase
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/277/"
+        href="https://www.proteinspotlight.org/back_issues/279/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -631,14 +630,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt277.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt279.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Snowdrops  are  here.  The  tips  of  daffodil  shoots  are  pushing  through  the  soil,  and  soft  grey  buds  are  preparing  to  burst  on  the  magnolias.  These  are  reminders  that  winter  marks  the  end  of  one  life  cycle  while  spring  marks  the  one  about  to  begin...
+          Spermatozoa.  There  are  no  other  cells  in  humans  -  or  indeed  in  any  other  animals  -  that  have  the  capacity  to  wriggle  and  move  forward  the  way  spermatozoa  do.  Blood  cells  may  dash  around  our  bodies  but  they  can  only  do  so  because  they  are  swept  up  in…
       </p>
     </article>
   </section>

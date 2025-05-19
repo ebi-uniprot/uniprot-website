@@ -1,6 +1,6 @@
 import { formatFASTA } from 'franklin-sites';
 
-import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
+import { APISequenceData } from '../../jobs/blast/types/apiSequenceData';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import {

@@ -74,3 +74,10 @@ export const epitope = (accession: string, format?: FileFormat) => {
     format: format ? fileFormatToUrlParameter[format] : undefined,
   });
 };
+
+export const rnaEditing = (accession: string, format?: FileFormat) => {
+  const url = joinUrl(proteinsApiPrefix, 'rna-editing', accession);
+  return stringifyUrl(url, {
+    format: format ? fileFormatToUrlParameter[format] : undefined,
+  });
+};

@@ -7,15 +7,14 @@ import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
-
 const insideUniProtAbstract1 =
-  'In recent years a wealth of information has become available about genetic variations that underlie various diseases, especially cancer.';
+  'Mammalian immune responses are mediated by interactions between antigens and immune system components such as antibodies, B cells, and T cells';
 
 const insideUniProtAbstract2 =
-  'A conversation with machine learning engineer Andreea Gane. At UniProt we are very interested in engaging with the machine learning community';
+  'In recent years a wealth of information has become available about genetic variations that underlie various diseases, especially cancer.';
 
 const proteinSpotlightAbstract =
-  'Snowdrops are here. The tips of daffodil shoots are pushing through the soil, and soft grey buds are preparing to burst on the magnolias. These are reminders that winter marks the end of one life cycle while spring marks the one about to begin...';
+  'Spermatozoa. There are no other cells in humans - or indeed in any other animals - that have the capacity to wriggle and move forward the way spermatozoa do. Blood cells may dash around our bodies but they can only do so because they are swept up in the pulse and flow of blood...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -121,6 +120,28 @@ const LatestNews = () => {
                 )}
               >
                 Planned changes for UniProt
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2025-04-23-release',
+                  })}
+                >
+                  UniProt release 2025_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Brain property: no trespassing | Cross-references to CD-CODE |
+                Cross-references to STRENDA-DB | Cross-references to YCharOS
               </p>
             </article>
           </li>
@@ -237,29 +258,6 @@ const LatestNews = () => {
               </p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-03-27-release',
-                  })}
-                >
-                  UniProt release 2024_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                CMV infections: plants beaten at their own game | Changes to the
-                controlled vocabulary of human diseases | Changes to the
-                controlled vocabulary for PTMs
-              </p>
-            </article>
-          </li>
         </ul>
       </div>
       <div
@@ -270,6 +268,38 @@ const LatestNews = () => {
           styles['latest-news__blogspot']
         )}
       >
+        <article>
+          <ExternalLink
+            url="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+            noIcon
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <img
+              loading="lazy"
+              src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXd1s6fiajiMzEs5LbVFoTwb3hDXN-kCrUx9GWBrP5ZnvCE4t_f-1Vp1A8cM3qq9eowxZjlWdVy-dm1z2HNlkZnlAlNP5WcegaJvaYeQAawIMh6QGJ-JAirapMPWdp_G9XS8m2He7g=w571-h541?key=jfJMcOebpi8n6A4ZKBU-RSi0"
+              alt=""
+              width="184.305"
+              height="96"
+            />
+          </ExternalLink>
+          <h3 className="tiny">
+            <ExternalLink
+              url="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+              noIcon
+            >
+              Rich Epitope Information Comes to UniProt
+            </ExternalLink>
+          </h3>
+          <p
+            className={cn(
+              styles['latest-news__abstract'],
+              styles['latest-news__abstract--4-lines']
+            )}
+          >
+            {insideUniProtAbstract1}
+          </p>
+        </article>
         <article>
           <ExternalLink
             url="https://insideuniprot.blogspot.com/2023/05/usinguniprot-discanvis-interpreting.html"
@@ -300,39 +330,6 @@ const LatestNews = () => {
               styles['latest-news__abstract--4-lines']
             )}
           >
-            {insideUniProtAbstract1}
-          </p>
-        </article>
-        <article>
-          <ExternalLink
-            url="http://insideuniprot.blogspot.com/2022/12/how-artificial-intelligence-can-help-us.html"
-            noIcon
-            aria-hidden="true"
-            tabIndex={-1}
-          >
-            <img
-              loading="lazy"
-              src="https://github.com/ebi-uniprot/uniprot-manual/blob/main/images/protnlm-schematic-3.png?raw=true"
-              style={{ background: 'white' }}
-              alt=""
-              width="184.305"
-              height="96"
-            />
-          </ExternalLink>
-          <h3 className="tiny">
-            <ExternalLink
-              url="http://insideuniprot.blogspot.com/2022/12/how-artificial-intelligence-can-help-us.html"
-              noIcon
-            >
-              How artificial intelligence can help us annotate protein names
-            </ExternalLink>
-          </h3>
-          <p
-            className={cn(
-              styles['latest-news__abstract'],
-              styles['latest-news__abstract--4-lines']
-            )}
-          >
             {insideUniProtAbstract2}
           </p>
         </article>
@@ -353,21 +350,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/277/"
+            url="https://www.proteinspotlight.org/back_issues/279/"
             noIcon
           >
-            The dormant ribosome
+            A dark kinase
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/277/"
+          url="https://www.proteinspotlight.org/back_issues/279/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt277.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt279.jpg"
             alt=""
             width="123"
             height="129"

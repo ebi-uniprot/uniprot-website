@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
-import { reIds } from '../../../tools/utils/urls';
+import { reIds } from '../../../jobs/utils/urls';
 import helper from '../../styles/helper.module.scss';
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';

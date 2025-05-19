@@ -2,6 +2,7 @@ import { LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import AccessionView from '../../shared/components/results/AccessionView';
@@ -10,7 +11,6 @@ import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import parseDate from '../../shared/utils/parseDate';
 import { pluralise } from '../../shared/utils/utils';
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 export enum UniRefColumn {

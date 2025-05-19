@@ -1,5 +1,7 @@
 import arbaModelData from '../../../automatic-annotations/arba/__mocks__/arbaModelData';
 import uniruleModelData from '../../../automatic-annotations/unirule/__mocks__/uniRuleModelData';
+import idMappingModelData from '../../../jobs/id-mapping/components/results/__mocks__/SimpleMapping';
+import { MappingAPIModel } from '../../../jobs/id-mapping/types/idMappingSearchResults';
 import proteomesEntryModelData from '../../../proteomes/__mocks__/proteomesEntryModelData';
 import citationsModelData from '../../../supporting-data/citations/__mocks__/citationsModelData';
 import databaseModelData from '../../../supporting-data/database/__mocks__/databaseModelData';
@@ -7,8 +9,6 @@ import diseasesModelData from '../../../supporting-data/diseases/__mocks__/disea
 import keywordsModelData from '../../../supporting-data/keywords/__mocks__/keywordsModelData';
 import locationsModelData from '../../../supporting-data/locations/__mocks__/locationsModelData';
 import taxonomyModelData from '../../../supporting-data/taxonomy/__mocks__/taxonomyModelData';
-import idMappingModelData from '../../../tools/id-mapping/components/results/__mocks__/SimpleMapping';
-import { MappingAPIModel } from '../../../tools/id-mapping/types/idMappingSearchResults';
 import uniparcModelData from '../../../uniparc/__mocks__/uniParcLightEntryModelData';
 import uniprotkbModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import unirefModelData from '../../../uniref/__mocks__/uniRefResultsData';

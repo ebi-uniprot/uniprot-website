@@ -94,6 +94,7 @@ const IntroductionEntriesTable = ({
   uniprotkbData,
   reviewedData,
   unreviewedData,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   releaseDate,
 }: TableProps & {
   releaseDate: Date;
@@ -156,9 +157,11 @@ const IntroductionEntriesTable = ({
               </>
             ),
             data: map.get('NEW_ENTRY')!,
-            query: `(date_created:[${
-              releaseDate.toISOString().split('T')[0]
-            } TO *])`,
+            // TODO: remove and replace with query passed by backend when fixed
+            query: '(date_created:[2025-04-01 TO *])',
+            // query: `(date_created:[${
+            //   releaseDate.toISOString().split('T')[0]
+            // } TO *])`,
           },
           {
             header: (

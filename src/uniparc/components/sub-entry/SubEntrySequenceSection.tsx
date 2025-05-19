@@ -4,7 +4,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 import { hasContent } from '../../../shared/utils/utils';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
-import EntrySection from '../../types/subEntry';
+import EntrySection from '../../types/subEntrySection';
 
 const SubEntrySequenceSection = ({
   data,

@@ -621,39 +621,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                 >
                   <a
                     aria-hidden="true"
-                    href="/help/rna_editing"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    <a
-                      href="/help/rna_editing"
-                    >
-                      RNA editing
-                    </a>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                       sequence is fully edited, the 
-                      <span
-                        class="match-highlight"
-                      >
-                        canonical
-                      </span>
-                       protein sequence displayed by default in the entry corresponds to
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
                     href="/help/entry_history"
                     tabindex="-1"
                   />
@@ -841,6 +808,39 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                         canonical
                       </span>
                        sequence? Are all isoforms
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    href="/help/rna_editing"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/rna_editing"
+                    >
+                      RNA editing
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       When the mRNA sequence is fully edited, the 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       protein sequence displayed by default in the
                     </span>
                   </div>
                 </div>

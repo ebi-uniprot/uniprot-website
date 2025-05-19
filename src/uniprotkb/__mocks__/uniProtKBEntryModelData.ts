@@ -15,7 +15,7 @@ const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P21802',
   secondaryAccessions: ['P21802'],
-  uniProtkbId: 'uniprot_id',
+  uniProtkbId: 'uniprotkb',
   entryAudit: {
     firstPublicDate: '2015-08-02',
     lastAnnotationUpdateDate: '2016-04-24',

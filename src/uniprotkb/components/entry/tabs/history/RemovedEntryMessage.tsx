@@ -9,7 +9,7 @@ import {
 import { Namespace } from '../../../../../shared/types/namespaces';
 import listFormat from '../../../../../shared/utils/listFormat';
 import { stringifyQuery } from '../../../../../shared/utils/url';
-import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/components/entry/Entry';
+import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
   DeletedReason,
   InactiveEntryReason,

@@ -8,7 +8,7 @@ import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../TaxonomyColumnConfiguration';
 
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: TaxonomyUIModel = taxonomyConverter(data[0]);
 

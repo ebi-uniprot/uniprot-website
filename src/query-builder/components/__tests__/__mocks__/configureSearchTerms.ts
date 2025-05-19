@@ -4,7 +4,7 @@ import { SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2025-02-04
+// Retrieved: 2025-04-22
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -2994,6 +2994,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'cptc-',
           },
+          {
+            id: 'xref_ycharos',
+            label: 'YCharOS',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'ycharos-',
+          },
         ],
       },
       {
@@ -3643,6 +3652,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'pathwaycommons-',
           },
+          {
+            id: 'xref_strenda-db',
+            label: 'STRENDA-DB',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'strenda-db-',
+          },
         ],
       },
       {
@@ -3730,6 +3748,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'biogrid-orcs-',
+          },
+          {
+            id: 'xref_cd-code',
+            label: 'CD-CODE',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'cd-code-',
           },
         ],
       },
@@ -4164,12 +4191,12 @@ const configureSearchTerms = [
     items: [
       {
         id: 'chebi_field',
-        label: 'CHEBI ID',
+        label: 'Name or ID (CHEBI)',
         itemType: 'single',
         term: 'chebi',
         dataType: 'string',
         fieldType: 'general',
-        example: '35155',
+        example: 'Search by Name or ID (CHEBI)',
         autoComplete: '/suggester?dict=chebi&query=?',
         autoCompleteQueryTerm: 'chebi',
       },

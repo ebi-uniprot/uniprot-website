@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { Column } from '../../config/columns';
 import { JobFromUrl } from '../../hooks/useJobFromUrl';
 import { Namespace } from '../../types/namespaces';

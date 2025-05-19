@@ -3,7 +3,7 @@ import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndD
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
-import EntrySection from '../types/subEntry';
+import EntrySection from '../types/subEntrySection';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
 const uniParcSubEntryConfig: Record<

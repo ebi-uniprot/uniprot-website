@@ -27,10 +27,16 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
+import { SearchResults } from '../../../shared/types/results';
+import {
+  UniParcLiteAPIModel,
+  UniParcXRef,
+} from '../../adapters/uniParcConverter';
 import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
+import uniparcApiUrls from '../../config/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
-import SubEntrySection, { TabLocation } from '../../types/subEntry';
+import { TabLocation } from '../../types/entry';
+import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import SubEntryMain from './SubEntryMain';
@@ -46,30 +52,51 @@ const SubEntry = () => {
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const { accession, subEntryId, subPage } = match?.params || {};
-  const baseURL = apiUrls.entry.entry(
+
+  const baseURL = `${apiUrls.entry.entry(
     subEntryId && accession,
     Namespace.uniparc
-  );
-  const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
+  )}/light`;
+  const xrefIdURL = accession
+    ? uniparcApiUrls.databases(accession, subEntryId)
+    : '';
 
-  if (uniparcData.error || !match || !accession || !subEntryId) {
+  const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
+  const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
+
+  if (uniparcData.loading || subEntryData.loading) {
+    return (
+      <Loader
+        progress={
+          uniparcData.loading ? uniparcData.progress : subEntryData.progress
+        }
+      />
+    );
+  }
+
+  if (
+    uniparcData.error ||
+    !uniparcData.data ||
+    subEntryData.error ||
+    !subEntryData.data ||
+    !match ||
+    !accession ||
+    !subEntryId
+  ) {
     return (
       <ErrorHandler
-        status={uniparcData.status}
-        error={uniparcData.error}
+        status={uniparcData.error ? uniparcData.status : subEntryData.status}
+        error={uniparcData.error || subEntryData.error}
         fullPage
       />
     );
   }
 
-  if (!uniparcData.data) {
-    return <Loader progress={uniparcData.progress} />;
-  }
-
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryId
+    subEntryData.data?.results[0]
   );
+
   if (!transformedData) {
     return (
       <Redirect
@@ -109,7 +136,10 @@ const SubEntry = () => {
             accession,
             searchableNamespaceLabels[Namespace.uniparc],
           ]}
-        />
+        >
+          {/* Keep while not publicly available */}
+          <meta name="robots" content="noindex" />
+        </HTMLHead>
         <h1>
           <EntryTitle
             mainTitle="UniParc"

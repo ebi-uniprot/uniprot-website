@@ -35,15 +35,11 @@ import uniParcConverter, {
   UniParcXRef,
 } from '../../adapters/uniParcConverter';
 import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
+import { TabLocation } from '../../types/entry';
 import EntryMain from './EntryMain';
 import useXref from './hooks/useXref';
 import Overview from './Overview';
 import UniParcFeaturesView from './UniParcFeaturesView';
-
-export enum TabLocation {
-  Entry = 'entry',
-  FeatureViewer = 'feature-viewer',
-}
 
 const Entry = () => {
   const match = useMatchWithRedirect<{

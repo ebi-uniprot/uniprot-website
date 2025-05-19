@@ -6,7 +6,7 @@ import AlignIllustration from '../../../images/align_illustration.img.svg';
 import BlastIllustration from '../../../images/blast_illustration.img.svg';
 import IDMappingIllustration from '../../../images/id-mapping_illustration.img.svg';
 import PeptideSearchIllustration from '../../../images/peptide_search_illustration.img.svg';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { JobTypes } from '../../../jobs/types/jobTypes';
 import { jobTypeToPath, Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 

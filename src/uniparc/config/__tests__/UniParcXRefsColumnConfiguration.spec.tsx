@@ -5,7 +5,7 @@ import UniParcXRefsColumnConfiguration, {
   UniParcXRefsColumn,
 } from '../UniParcXRefsColumnConfiguration';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../shared/workers/jobs/utils/storage');
 
 describe('UniParcXRefsColumnConfiguration component', () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
