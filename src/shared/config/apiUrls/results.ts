@@ -152,9 +152,9 @@ export const download = ({
 
   // UniParc proteome fasta endpoint
   if (uniparcProteomeFastaHeader) {
-    const match = query?.match(/upid:(UP\d+)/);
+    const match = query?.match(/(upid|proteome):(UP\d+)/);
     if (match) {
-      const proteomeId = match[1];
+      const proteomeId = match[2];
       if (size) {
         endpoint = joinUrl(apiPrefix, namespace, 'proteome', proteomeId);
       } else {

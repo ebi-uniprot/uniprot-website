@@ -41,7 +41,7 @@ const reSubsequenceFrom = new RegExp(
   `(${reUniProtKBAccession.source})${reSubsequence.source}`,
   'i'
 );
-const reProteomeId = /upid:UP\d+/;
+const reProteomeId = /(upid|proteome):UP\d+/;
 
 export const isSubsequenceFrom = (ids: string) =>
   // Note that current API implementation expects from IDs to be either:
@@ -211,7 +211,7 @@ export const isUniParcProteomeSearch = (
     !state.nSelectedEntries
   ) {
     const match = query?.match(reProteomeId);
-    if (match && match.length === 1) {
+    if (match && match.length > 1) {
       return true;
     }
   }

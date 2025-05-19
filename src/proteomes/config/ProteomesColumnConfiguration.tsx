@@ -177,7 +177,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
                   ? Location.UniParcResults
                   : Location.UniProtKBResults
               ],
-            search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
+            search: `query=proteome:${id}`,
           }}
         >
           <LongNumber>{proteinCount}</LongNumber>
