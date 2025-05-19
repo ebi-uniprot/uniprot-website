@@ -167,35 +167,34 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     }
     const shouldPointToUniParc =
       proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
-    return (
+
+    return shouldPointToUniParc ? (
       <>
         <Link
           to={{
-            pathname:
-              LocationToPath[
-                shouldPointToUniParc
-                  ? Location.UniParcResults
-                  : Location.UniProtKBResults
-              ],
+            pathname: LocationToPath[Location.UniParcResults],
             search: `query=proteome:${id}`,
           }}
         >
           <LongNumber>{proteinCount}</LongNumber>
         </Link>
-        {shouldPointToUniParc ? (
-          <>
-            <br />
-            <a href={proteomeFasta(id, true)}>
-              Download FASTA for all UniParc entries
-            </a>
-            <small>
-              <Chip>New</Chip>
-            </small>
-          </>
-        ) : (
-          ''
-        )}
+        <br />
+        <a href={proteomeFasta(id, true)}>
+          Download FASTA for all UniParc entries
+        </a>
+        <small>
+          <Chip>New</Chip>
+        </small>
       </>
+    ) : (
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: `query=proteome:${id}`,
+        }}
+      >
+        <LongNumber>{proteinCount}</LongNumber>
+      </Link>
     );
   },
 });
