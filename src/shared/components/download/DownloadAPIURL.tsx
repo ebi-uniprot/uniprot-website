@@ -30,17 +30,23 @@ const reIdMapping = new RegExp(
   `/idmapping/(?:(${Namespace.uniprotkb}|${Namespace.uniparc}|${Namespace.uniref})/)?(?:results/)?stream/`
 );
 
+const reUniparcProteome = new RegExp(`/uniparc/proteome/UP\\d+/stream`);
+
 export const getSearchURL = (streamURL: string, batchSize = 500) => {
   const { base, query } = splitUrl(streamURL);
-  return stringifyUrl(
-    base.search(reIdMapping) >= 0
-      ? base.replace(reIdMapping, (_match, namespace) =>
-          namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
-        )
-      : base.replace('/stream', '/search'),
-    query,
-    { size: batchSize }
-  );
+
+  let baseUrl = base;
+  if (base.search(reIdMapping) >= 0) {
+    baseUrl = base.replace(reIdMapping, (_match, namespace) =>
+      namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
+    );
+  } else if (base.search(reUniparcProteome) >= 0) {
+    baseUrl = base.replace('/stream', '');
+  } else {
+    baseUrl = base.replace('/stream', '/search');
+  }
+
+  return stringifyUrl(baseUrl, query, { size: batchSize });
 };
 
 type Props = {
