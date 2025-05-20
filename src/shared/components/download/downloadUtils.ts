@@ -7,6 +7,7 @@ import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../config/apiUrls/apiUrls';
+import { reProteomeId } from '../../config/apiUrls/results';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
 import { getUniprotFtpFilenamesAndUrls } from '../../config/ftpUrls';
 import {
@@ -41,7 +42,6 @@ const reSubsequenceFrom = new RegExp(
   `(${reUniProtKBAccession.source})${reSubsequence.source}`,
   'i'
 );
-const reProteomeId = /(upid|proteome):UP\d+/;
 
 export const isSubsequenceFrom = (ids: string) =>
   // Note that current API implementation expects from IDs to be either:

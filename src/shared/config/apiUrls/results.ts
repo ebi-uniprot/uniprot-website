@@ -41,6 +41,8 @@ type Parameters = {
   jobId?: string;
 };
 
+export const reProteomeId = /(upid|proteome):(UP\d+)/;
+
 export const download = ({
   base,
   query,
@@ -152,7 +154,7 @@ export const download = ({
 
   // UniParc proteome fasta endpoint
   if (uniparcProteomeFastaHeader) {
-    const match = query?.match(/(upid|proteome):(UP\d+)/);
+    const match = query?.match(reProteomeId);
     if (match) {
       const proteomeId = match[2];
       if (size) {
