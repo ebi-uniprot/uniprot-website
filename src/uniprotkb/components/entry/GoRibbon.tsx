@@ -135,6 +135,7 @@ const GoRibbon = ({
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
     goTerms,
+    organismData?.taxonId,
     selectedSet
   );
 

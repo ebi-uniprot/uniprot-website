@@ -1,11 +1,16 @@
 /* eslint-disable camelcase */
 import { groupBy } from 'lodash-es';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyUrl } from '../../../shared/utils/url';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  TaxonomyAPIModel,
+  TaxonomyDatum,
+} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   GOAspectName,
   goAspects,
@@ -252,7 +257,8 @@ export const getSubjects = (
 
 export const useGOData = (
   goTerms?: GroupedGoTerms,
-  slimSetName = 'goslim_agr'
+  taxonId?: number,
+  slimSetName?: string
 ): {
   loading: boolean;
   slimmedData?: GOSlimmedData;
@@ -261,10 +267,23 @@ export const useGOData = (
 } => {
   const { data: slimSetsData, loading: loadingSlimSets } =
     useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
+  const { data: taxonData, loading: taxonLoading } =
+    useDataApi<TaxonomyAPIModel>(
+      taxonId ? apiUrls.entry.entry(`${taxonId}`, Namespace.taxonomy) : null
+    );
 
-  const selectedSlimSet = slimSetsData?.goSlimSets?.find(
-    (slimSet) => slimSet.id === slimSetName
-  );
+  const selectedSlimSet = useMemo(() => {
+    const entryTaxonIds =
+      taxonData?.lineage &&
+      new Set(taxonData?.lineage.map((l) => `${l.taxonId}`));
+    return !slimSetName && entryTaxonIds
+      ? slimSetsData?.goSlimSets?.find((slimSet) =>
+          slimSet.taxIds
+            .split(',')
+            .some((taxonId) => entryTaxonIds.has(taxonId))
+        )
+      : slimSetsData?.goSlimSets?.find((slimSet) => slimSet.id === slimSetName);
+  }, [slimSetName, slimSetsData?.goSlimSets, taxonData?.lineage]);
 
   const slimSets = slimSetsData?.goSlimSets?.map((slimSet) => slimSet.id);
 
@@ -294,7 +313,7 @@ export const useGOData = (
     useDataApi<GOSlimmedData>(slimmingUrl);
 
   return {
-    loading: loadingSlimSets || loadingSlimmedData,
+    loading: loadingSlimSets || taxonLoading || loadingSlimmedData,
     slimmedData,
     selectedSlimSet,
     slimSets,
