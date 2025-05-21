@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { groupBy } from 'lodash-es';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -276,13 +276,16 @@ export const useGOData = (
     const entryTaxonIds =
       taxonData?.lineage &&
       new Set(taxonData?.lineage.map((l) => `${l.taxonId}`));
-    return !slimSetName && entryTaxonIds
-      ? slimSetsData?.goSlimSets?.find((slimSet) =>
-          slimSet.taxIds
-            .split(',')
-            .some((taxonId) => entryTaxonIds.has(taxonId))
-        )
-      : slimSetsData?.goSlimSets?.find((slimSet) => slimSet.id === slimSetName);
+    const selectedSlimSetByTaxon =
+      !slimSetName &&
+      entryTaxonIds &&
+      slimSetsData?.goSlimSets?.find((slimSet) =>
+        slimSet.taxIds.split(',').some((taxonId) => entryTaxonIds.has(taxonId))
+      );
+    return (
+      selectedSlimSetByTaxon ||
+      slimSetsData?.goSlimSets?.find((slimSet) => slimSet.id === slimSetName)
+    );
   }, [slimSetName, slimSetsData?.goSlimSets, taxonData?.lineage]);
 
   const slimSets = slimSetsData?.goSlimSets?.map((slimSet) => slimSet.id);
