@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Button } from 'franklin-sites';
+import { Button, ExternalLink } from 'franklin-sites';
 import { ChangeEvent, useEffect, useId, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
@@ -63,19 +63,19 @@ const LandingPage = () => {
             functionality of UniProt by providing curated and automatically
             generated datasets that enrich protein entries with detailed
             information. Supporting Data includes keywords, subcellular
-            localization, automatic annotations, functional insights, taxonomy
-            and literature citations. By integrating this data, it allows
-            researchers to explore proteins more comprehensively, uncovering
-            their roles, interactions, and evolutionary significance. Supporting
-            Data serves as a vital resource for making UniProt entries more
-            informative and accessible for biological and biomedical research.
+            localization, automatic annotations, taxonomy and literature
+            citations. By integrating this data, it allows researchers to
+            explore proteins more comprehensively, uncovering their roles,
+            interactions, and evolutionary significance. Supporting Data serves
+            as a vital resource for making UniProt entries more informative and
+            accessible for biological and biomedical research.
           </div>
 
           {/* Categories */}
           <h2 className="uniprot-grid-cell--span-12">Datasets</h2>
           {/* Keywords */}
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
-            <h3>Keywords</h3>
+            <h3 data-article-id="keywords">Keywords</h3>
             <div className={styles.category}>
               Keywords in UniProt provide standardized terms that summarize the
               main features and attributes of a protein entry. Categories
@@ -94,7 +94,9 @@ const LandingPage = () => {
 
           {/* Subcellular Location */}
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
-            <h3>Subcellular Locations</h3>
+            <h3 data-article-id="subcellular_location">
+              Subcellular locations
+            </h3>
             <div className={styles.category}>
               Specifies where the protein is located within a cell or organism,
               providing insight into its potential role. Experimental evidence
@@ -111,7 +113,7 @@ const LandingPage = () => {
             </Link>
           </div>
 
-          {/* Automatic Annotations */}
+          {/* Automatic annotation rules*/}
           <div
             className={cn(
               'uniprot-grid-cell--small-span-12',
@@ -119,37 +121,45 @@ const LandingPage = () => {
               styles['automatic-annotations']
             )}
           >
-            <h3>Automatic Annotations</h3>
+            <h3 data-article-id="automatic_annotation">
+              Automatic annotation rules
+            </h3>
             <div>
-              The Automatic Annotations section in UniProt provides functional
-              and structural insights for protein sequences and supplements
-              manually curated data using two key systems: UniRule and ARBA.
+              Automatic annotations in UniProt provides functional and
+              structural insights for protein sequences and supplements manually
+              curated data using two key systems: UniRule and ARBA.
             </div>
 
-            <h4>UniRule</h4>
             <div>
-              A manually curated rule-based system that delivers high-confidence
-              annotations for well-characterized protein families based on
-              experimental evidence and domain information.
+              <h4 data-article-id="unirule">UniRule</h4>
+              <div>
+                A manually curated rule-based system that delivers
+                high-confidence annotations for well-characterized protein
+                families based on experimental evidence and domain information.
+              </div>
+              <Link to={LocationToPath[Location.UniRuleResults]}>
+                Start searching in UniRule »
+              </Link>
             </div>
-            <Link to={LocationToPath[Location.UniRuleResults]}>
-              Start searching in UniRule »
-            </Link>
 
-            <h4>ARBA</h4>
             <div>
-              An automated system that uses computationally generated rules to
-              annotate a broader range of protein sequences, including those
-              with less-established functional data.
+              <h4 data-article-id="arba">ARBA</h4>
+              <div>
+                An automated system that uses computationally generated rules to
+                annotate a broader range of protein sequences, including those
+                with less-established functional data.
+              </div>
+              <Link to={LocationToPath[Location.ARBAResults]}>
+                Start searching in ARBA »
+              </Link>
             </div>
-            <Link to={LocationToPath[Location.ARBAResults]}>
-              Start searching in ARBA »
-            </Link>
           </div>
 
           {/* Human Diseases */}
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
-            <h3>Human Diseases</h3>
+            <h3 data-article-id="controlled_vocabulary#human-diseases">
+              Human diseases
+            </h3>
             <div className={styles.category}>
               Provides insights into the relationship between proteins and human
               health. Includes disease annotations, pathogenesis information,
@@ -167,10 +177,13 @@ const LandingPage = () => {
 
           {/* Taxonomy */}
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">
-            <h3>Taxonomy</h3>
+            <h3 data-article-id="taxonomy">Taxonomy</h3>
             <div className={styles.category}>
-              Classification of the protein based on the organism of origin,
-              linking to databases like NCBI Taxonomy.
+              Classification of organisms according to the{' '}
+              <ExternalLink url="https://www.ncbi.nlm.nih.gov/taxonomy">
+                NCBI taxonomy database
+              </ExternalLink>
+              , supplemented with data specific to UniProt.
             </div>
             <Link
               to={{
@@ -184,7 +197,9 @@ const LandingPage = () => {
 
           {/* Cross-referenced Databases */}
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
-            <h3>Cross-referenced Databases</h3>
+            <h3 data-article-id="cross_references_section">
+              Cross-referenced databases
+            </h3>
             <div className={styles.category}>
               Links to databases like PDB (Protein Data Bank), Gene Ontology
               (GO), Ensembl, and RefSeq.
@@ -200,7 +215,7 @@ const LandingPage = () => {
 
             {/* Data integration form */}
             <h4 className={styles['form-title']} ref={formRef}>
-              Expand Your Reach: Connect Your Database with UniProt
+              Expand your reach: connect your database with UniProt
             </h4>
             <div>
               If you would like your database to be linked with UniProt to
@@ -213,7 +228,7 @@ const LandingPage = () => {
               id="integration-form"
             >
               {/* Name */}
-              <label htmlFor={`name-${formId}`}>Submitter&apos;s Name *</label>
+              <label htmlFor={`name-${formId}`}>Submitter&apos;s name *</label>
               <input
                 type="text"
                 name="name"
@@ -307,7 +322,9 @@ const LandingPage = () => {
               styles.citations
             )}
           >
-            <h3>Literature Citations</h3>
+            <h3 data-article-id="literature_references">
+              Literature citations
+            </h3>
             <div className={styles.category}>
               Direct references to scientific studies supporting protein
               annotations. Includes experimental evidence such as enzymatic
