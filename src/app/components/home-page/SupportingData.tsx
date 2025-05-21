@@ -61,7 +61,7 @@ const SupportingData = () => (
     >
       <DecoratedListItem compact altStyle>
         <Link to={getNamespaceTo(Location.CitationsResults)}>
-          Literature Citations
+          Literature citations
         </Link>
       </DecoratedListItem>
     </div>

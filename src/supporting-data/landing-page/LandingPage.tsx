@@ -11,7 +11,7 @@ import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumn
 import styles from './styles/landing-page.module.scss';
 
 const metaDescription =
-  'Supporting Data enhances UniProt by providing curated and automated datasets that enrich protein entries with detailed annotations, including keywords, localization, functions, taxonomy, and literature citations.';
+  'Supporting data enhances UniProt by providing curated and automated datasets that enrich protein entries with detailed annotations, including keywords, localization, functions, taxonomy, and literature citations.';
 
 const LandingPage = () => {
   const formId = useId();
@@ -59,14 +59,14 @@ const LandingPage = () => {
             <img src={SupportingDataIllustration} alt="Supporting data" />
           </div>
           <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-8">
-            The Supporting Data presented within this page enhances the
+            The Supporting data presented within this page enhances the
             functionality of UniProt by providing curated and automatically
             generated datasets that enrich protein entries with detailed
-            information. Supporting Data includes keywords, subcellular
+            information. Supporting data includes keywords, subcellular
             localization, automatic annotations, taxonomy and literature
             citations. By integrating this data, it allows researchers to
             explore proteins more comprehensively, uncovering their roles,
-            interactions, and evolutionary significance. Supporting Data serves
+            interactions, and evolutionary significance. Supporting data serves
             as a vital resource for making UniProt entries more informative and
             accessible for biological and biomedical research.
           </div>
