@@ -289,31 +289,40 @@ export const useGOData = (
       const found = slimSets?.find((slimSet) => slimSet.id === slimSetId);
       if (found) {
         setSelectedSlimSet(found);
+        return;
       }
-      logging.warn(`${slimSetId} not found in slimming set data.`);
+      logging.warn(`Selected ${slimSetId} not found in slimming set data.`);
     },
     [slimSets]
   );
 
   useEffect(() => {
-    const entryTaxonIds =
-      taxonData?.lineage &&
-      new Set(taxonData?.lineage.map((l) => `${l.taxonId}`));
-    const selectedSlimSetByTaxon =
-      entryTaxonIds &&
-      slimSets?.find((slimSet) =>
-        slimSet.taxIds.split(',').some((taxonId) => entryTaxonIds.has(taxonId))
-      );
-    if (selectedSlimSetByTaxon) {
-      setSelectedSlimSet(selectedSlimSetByTaxon);
+    if (!taxonData?.lineage || !slimSets) {
+      return;
+    }
+    const taxIdToSlimSet = new Map(
+      slimSets?.flatMap((slimSet) =>
+        slimSet.taxIds.split(',').map((taxId) => [taxId, slimSet])
+      )
+    );
+    // Traverse lineage backwards to try to find more specific taxons first.
+    for (let i = taxonData.lineage.length - 1; i >= 0; i -= 1) {
+      const slimSet = taxIdToSlimSet.get(`${taxonData.lineage[i].taxonId}`);
+      if (slimSet) {
+        setSelectedSlimSet(slimSet);
+        return;
+      }
     }
     const defaultSlimmingSet = slimSets?.find(
       (slimSet) => slimSet.id === DEFAULT_SLIMMING_SET
     );
     if (defaultSlimmingSet) {
       setSelectedSlimSet(defaultSlimmingSet);
+      return;
     }
-    logging.warn(`${DEFAULT_SLIMMING_SET} not found in slimming set data.`);
+    logging.warn(
+      `Default ${DEFAULT_SLIMMING_SET} not found in slimming set data.`
+    );
   }, [slimSets, taxonData?.lineage]);
 
   const slimmingUrl = useMemo(() => {
