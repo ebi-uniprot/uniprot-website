@@ -39,7 +39,11 @@ const SubEntrySequenceSection = ({
       header={<h2>{entrySectionToLabel[EntrySection.Sequence]}</h2>}
       id={EntrySection.Sequence}
     >
-      <Sequence sequence={sequence.value} infoData={infoData} />
+      <Sequence
+        accession={data.entry.uniParcId}
+        sequence={sequence.value}
+        infoData={infoData}
+      />
     </Card>
   );
 };
