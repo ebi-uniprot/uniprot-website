@@ -26,6 +26,8 @@ const SLIM_SETS_URL =
 
 const SLIMMING_URL = 'https://www.ebi.ac.uk/QuickGO/services/ontology/go/slim';
 
+const DEFAULT_SLIMMING_SET = 'goslim_agr';
+
 export type SlimSet = {
   name: string;
   id: string;
@@ -283,15 +285,12 @@ export const useGOData = (
   );
 
   const onSlimSetSelect = useCallback(
-    (s: string) => {
-      const slimSetNameToFind = s || 'goslim_agr';
-      const found = slimSets?.find(
-        (slimSet) => slimSet.id === slimSetNameToFind
-      );
+    (slimSetId: string) => {
+      const found = slimSets?.find((slimSet) => slimSet.id === slimSetId);
       if (found) {
         setSelectedSlimSet(found);
       }
-      // TODO: what now?
+      logging.warn(`${slimSetId} not found in slimming set data.`);
     },
     [slimSets]
   );
@@ -308,11 +307,13 @@ export const useGOData = (
     if (selectedSlimSetByTaxon) {
       setSelectedSlimSet(selectedSlimSetByTaxon);
     }
-    const goSlimAgr = slimSets?.find((slimSet) => slimSet.id === 'goslim_agr');
-    if (goSlimAgr) {
-      setSelectedSlimSet(goSlimAgr);
+    const defaultSlimmingSet = slimSets?.find(
+      (slimSet) => slimSet.id === DEFAULT_SLIMMING_SET
+    );
+    if (defaultSlimmingSet) {
+      setSelectedSlimSet(defaultSlimmingSet);
     }
-    // TODO: what now?
+    logging.warn(`${DEFAULT_SLIMMING_SET} not found in slimming set data.`);
   }, [slimSets, taxonData?.lineage]);
 
   const slimmingUrl = useMemo(() => {
