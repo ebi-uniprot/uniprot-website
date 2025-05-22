@@ -220,11 +220,6 @@ const GoRibbon = ({
       <div className={styles.preamble} data-article-id="gene-ontology">
         Gene Ontology (GO) annotations organized by slimming set.
       </div>
-      <div className={styles['quickgo-link']}>
-        <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
-          Access the complete set of GO annotations on QuickGO{' '}
-        </ExternalLink>
-      </div>
 
       {!isSmallScreen && (
         <LazyComponent fallback={null}>
@@ -259,6 +254,11 @@ const GoRibbon = ({
           getRowId={getRowId}
         />
       )}
+      <div className={styles['quickgo-link']}>
+        <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
+          Access the complete set of GO annotations on QuickGO{' '}
+        </ExternalLink>
+      </div>
     </div>
   );
 };
