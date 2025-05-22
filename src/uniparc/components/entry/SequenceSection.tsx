@@ -6,7 +6,13 @@ import { hasContent } from '../../../shared/utils/utils';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-const SequenceSection = ({ data }: { data?: SequenceType }) => {
+const SequenceSection = ({
+  accession,
+  data,
+}: {
+  accession: string;
+  data?: SequenceType;
+}) => {
   if (!data || !hasContent(data)) {
     return null;
   }
@@ -16,7 +22,7 @@ const SequenceSection = ({ data }: { data?: SequenceType }) => {
       header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
       id={EntrySection.Sequence}
     >
-      <SimpleSequence sequence={data} />
+      <SimpleSequence accession={accession} sequence={data} />
     </Card>
   );
 };
