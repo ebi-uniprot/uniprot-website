@@ -279,8 +279,12 @@ export const useGOData = (
     const selectedSlimSetByTaxon =
       !slimSetName &&
       entryTaxonIds &&
-      slimSetsData?.goSlimSets?.find((slimSet) =>
-        slimSet.taxIds.split(',').some((taxonId) => entryTaxonIds.has(taxonId))
+      slimSetsData?.goSlimSets?.find(
+        (slimSet) =>
+          slimSet.role.includes('Ribbon') &&
+          slimSet.taxIds
+            .split(',')
+            .some((taxonId) => entryTaxonIds.has(taxonId))
       );
     return (
       selectedSlimSetByTaxon ||
