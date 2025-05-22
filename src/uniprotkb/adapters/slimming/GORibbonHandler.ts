@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { groupBy } from 'lodash-es';
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -257,13 +257,13 @@ export const getSubjects = (
 
 export const useGOData = (
   goTerms?: GroupedGoTerms,
-  taxonId?: number,
-  slimSetName?: string
+  taxonId?: number
 ): {
   loading: boolean;
   slimmedData?: GOSlimmedData;
   selectedSlimSet?: SlimSet;
-  slimSets?: string[];
+  slimSets?: SlimSet[];
+  onSlimSetSelect: (id: string) => void;
 } => {
   const { data: slimSetsData, loading: loadingSlimSets } =
     useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
@@ -272,27 +272,48 @@ export const useGOData = (
       taxonId ? apiUrls.entry.entry(`${taxonId}`, Namespace.taxonomy) : null
     );
 
-  const selectedSlimSet = useMemo(() => {
+  const [selectedSlimSet, setSelectedSlimSet] = useState<SlimSet>();
+
+  const slimSets = useMemo(
+    () =>
+      slimSetsData?.goSlimSets.filter((slimSet) =>
+        slimSet.role.includes('Ribbon')
+      ),
+    [slimSetsData?.goSlimSets]
+  );
+
+  const onSlimSetSelect = useCallback(
+    (s: string) => {
+      const slimSetNameToFind = s || 'goslim_agr';
+      const found = slimSets?.find(
+        (slimSet) => slimSet.id === slimSetNameToFind
+      );
+      if (found) {
+        setSelectedSlimSet(found);
+      }
+      // TODO: what now?
+    },
+    [slimSets]
+  );
+
+  useEffect(() => {
     const entryTaxonIds =
       taxonData?.lineage &&
       new Set(taxonData?.lineage.map((l) => `${l.taxonId}`));
     const selectedSlimSetByTaxon =
-      !slimSetName &&
       entryTaxonIds &&
-      slimSetsData?.goSlimSets?.find(
-        (slimSet) =>
-          slimSet.role.includes('Ribbon') &&
-          slimSet.taxIds
-            .split(',')
-            .some((taxonId) => entryTaxonIds.has(taxonId))
+      slimSets?.find((slimSet) =>
+        slimSet.taxIds.split(',').some((taxonId) => entryTaxonIds.has(taxonId))
       );
-    return (
-      selectedSlimSetByTaxon ||
-      slimSetsData?.goSlimSets?.find((slimSet) => slimSet.id === slimSetName)
-    );
-  }, [slimSetName, slimSetsData?.goSlimSets, taxonData?.lineage]);
-
-  const slimSets = slimSetsData?.goSlimSets?.map((slimSet) => slimSet.id);
+    if (selectedSlimSetByTaxon) {
+      setSelectedSlimSet(selectedSlimSetByTaxon);
+    }
+    const goSlimAgr = slimSets?.find((slimSet) => slimSet.id === 'goslim_agr');
+    if (goSlimAgr) {
+      setSelectedSlimSet(goSlimAgr);
+    }
+    // TODO: what now?
+  }, [slimSets, taxonData?.lineage]);
 
   const slimmingUrl = useMemo(() => {
     const slimsToIds = selectedSlimSet?.associations
@@ -314,7 +335,7 @@ export const useGOData = (
         relations: 'is_a,part_of,occurs_in,regulates',
       })
     );
-  }, [goTerms, selectedSlimSet]);
+  }, [goTerms, selectedSlimSet?.associations]);
 
   const { data: slimmedData, loading: loadingSlimmedData } =
     useDataApi<GOSlimmedData>(slimmingUrl);
@@ -323,6 +344,7 @@ export const useGOData = (
     loading: loadingSlimSets || taxonLoading || loadingSlimmedData,
     slimmedData,
     selectedSlimSet,
+    onSlimSetSelect,
     slimSets,
   };
 };

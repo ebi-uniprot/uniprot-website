@@ -97,47 +97,9 @@ const GoRibbon = ({
 
   const nodeRef = useRef<HTMLElement>();
 
-  const [selectedSet, setSelectedSet] = useState(() => {
-    let defaultSS = 'goslim_generic';
-    if (organismData?.scientificName && organismData?.lineage) {
-      const taxonomyInfo = [
-        ...organismData.lineage,
-        organismData.scientificName,
-      ];
-
-      // SlimSets based on Taxonomy
-      const slimSetByTaxon = {
-        // eslint-disable-next-line camelcase
-        goslim_plant: [
-          'Viridiplantae',
-          'Bangiophyceae',
-          'Florideophyceae',
-          'Stylonematophyceae',
-          'Rhodellophyceae',
-          'Compsopogonophyceae',
-        ],
-        // prokaryotes: ['Bacteria', 'Archaea'],
-      };
-
-      // Check if the taxon matches a slimset
-      Object.entries(slimSetByTaxon).forEach(([key, value]) => {
-        const presentTaxon = taxonomyInfo?.filter(
-          (t) => value.includes(String(t)) // Lineage is Array of strings here
-        );
-        if (presentTaxon?.length) {
-          defaultSS = key;
-        }
-      });
-    }
-    return defaultSS;
-  });
-
   // NOTE: loading is also available, do we want to do anything with it?
-  const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
-    goTerms,
-    organismData?.taxonId,
-    selectedSet
-  );
+  const { loading, slimmedData, selectedSlimSet, onSlimSetSelect, slimSets } =
+    useGOData(goTerms, organismData?.taxonId);
 
   const [elementLoaded, setElementLoaded] = useSafeState(false);
 
@@ -278,12 +240,12 @@ const GoRibbon = ({
         <label className={styles['set-selector']}>
           <div>Slimming set:</div>
           <select
-            onChange={(e) => setSelectedSet(e.target.value)}
-            value={selectedSet}
+            onChange={(e) => onSlimSetSelect(e.target.value)}
+            value={selectedSlimSet?.id}
           >
             {slimSets.map((slimSet) => (
-              <option value={slimSet} key={slimSet}>
-                {slimSet.replace('goslim_', '').replace('_ribbon', '')}
+              <option value={slimSet.id} key={slimSet.id}>
+                {slimSet.shortLabel}
               </option>
             ))}
           </select>
