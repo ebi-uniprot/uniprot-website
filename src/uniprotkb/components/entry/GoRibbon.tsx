@@ -256,7 +256,7 @@ const GoRibbon = ({
       )}
       <div className={styles['quickgo-link']}>
         <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
-          Access the complete set of GO annotations on QuickGO{' '}
+          Access the complete set of GO annotations on QuickGO
         </ExternalLink>
       </div>
     </div>
