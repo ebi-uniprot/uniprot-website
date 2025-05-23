@@ -63,7 +63,7 @@ const LandingPage = () => {
             functionality of UniProt by providing curated and automatically
             generated datasets that enrich protein entries with detailed
             information. Supporting data includes keywords, subcellular
-            localization, automatic annotation rules, human diseases, taxonomy,
+            locations, automatic annotation rules, human diseases, taxonomy,
             cross-referenced databases and literature citations. By integrating
             this data, it allows researchers to explore proteins more
             comprehensively, uncovering their roles, interactions, and
