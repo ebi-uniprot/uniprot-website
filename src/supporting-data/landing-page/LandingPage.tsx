@@ -63,12 +63,13 @@ const LandingPage = () => {
             functionality of UniProt by providing curated and automatically
             generated datasets that enrich protein entries with detailed
             information. Supporting data includes keywords, subcellular
-            localization, automatic annotations, taxonomy and literature
-            citations. By integrating this data, it allows researchers to
-            explore proteins more comprehensively, uncovering their roles,
-            interactions, and evolutionary significance. Supporting data serves
-            as a vital resource for making UniProt entries more informative and
-            accessible for biological and biomedical research.
+            localization, automatic annotation rules, human diseases, taxonomy,
+            cross-referenced databases and literature citations. By integrating
+            this data, it allows researchers to explore proteins more
+            comprehensively, uncovering their roles, interactions, and
+            evolutionary significance. Supporting data serves as a vital
+            resource for making UniProt entries more informative and accessible
+            for biological and biomedical research.
           </div>
 
           {/* Categories */}
