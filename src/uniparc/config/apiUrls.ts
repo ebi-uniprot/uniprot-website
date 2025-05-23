@@ -32,6 +32,7 @@ export const proteomeFasta = (upid: string, stream?: boolean) => {
     : joinUrl(apiPrefix, 'uniparc', 'proteome', upid);
   return stringifyUrl(baseUrl, {
     format: fileFormatToUrlParameter[FileFormat.fasta],
+    compressed: true,
   });
 };
 
