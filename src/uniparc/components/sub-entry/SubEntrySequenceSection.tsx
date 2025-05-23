@@ -2,7 +2,7 @@ import { Card, LongNumber, Sequence } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { applicableTools } from '../../../shared/components/common-sequence/CommonSequenceSection';
+import { applicableTools } from '../../../shared/components/common-sequence/CommonSequenceView';
 import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { hasContent } from '../../../shared/utils/utils';
