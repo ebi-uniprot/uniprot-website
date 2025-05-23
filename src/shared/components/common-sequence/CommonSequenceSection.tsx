@@ -11,12 +11,17 @@ import { Sequence as SequenceType } from '../../types/sequence';
 import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 
-const sequenceTools: Partial<Record<Namespace, string[]>> = {
-  uniparc: ['ProtParam', 'Compute pI/Mw', 'PeptideMass', 'PeptideCutter'],
-  uniref: [],
+export const applicableTools: Partial<Record<Namespace, string[]>> = {
+  [Namespace.uniparc]: [
+    'ProtParam',
+    'Compute pI/Mw',
+    'PeptideMass',
+    'PeptideCutter',
+  ],
+  [Namespace.uniref]: [],
 };
 
-const SimpleSequence = ({
+const CommonSequenceView = ({
   accession,
   sequence,
 }: {
@@ -70,9 +75,9 @@ const SimpleSequence = ({
         />
       }
       onCopy={() => sendGtagEventCopyFastaClick(accession)}
-      sequenceTools={sequenceTools[namespace]}
+      sequenceTools={applicableTools[namespace]}
     />
   );
 };
 
-export default SimpleSequence;
+export default CommonSequenceView;
