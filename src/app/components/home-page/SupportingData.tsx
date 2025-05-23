@@ -29,7 +29,7 @@ const SupportingData = () => (
     >
       <h2 className={styles['supporting-data__header']}>
         <Link to={LocationToPath[Location.SupportingData]}>
-          Supporting Data
+          Supporting data
         </Link>
       </h2>
     </div>

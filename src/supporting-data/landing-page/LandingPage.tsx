@@ -48,7 +48,7 @@ const LandingPage = () => {
           <meta name="description" content={metaDescription} />
         </HTMLHead>
         <section className="uniprot-grid">
-          <h1 className="uniprot-grid-cell--span-12">Supporting Data</h1>
+          <h1 className="uniprot-grid-cell--span-12">Supporting data</h1>
           <div
             className={cn(
               'uniprot-grid-cell--small-span-12',

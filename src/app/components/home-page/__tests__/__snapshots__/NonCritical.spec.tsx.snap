@@ -225,7 +225,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <a
           href="/supporting-data"
         >
-          Supporting Data
+          Supporting data
         </a>
       </h2>
     </div>
