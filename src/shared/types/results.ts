@@ -81,4 +81,5 @@ export type DownloadUrlOptions = {
   download?: boolean;
   jobId?: string; // ID Mapping Async Download
   version?: string;
+  uniparcProteomeFastaHeader?: boolean;
 };
