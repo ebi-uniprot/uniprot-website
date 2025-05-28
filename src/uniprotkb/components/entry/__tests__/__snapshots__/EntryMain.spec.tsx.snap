@@ -5460,6 +5460,30 @@ exports[`Entry view should render for non-human entry 1`] = `
         <div
           class="container"
         >
+          <div
+            class="message message--info"
+            role="status"
+          >
+            <div
+              class="message__side-border"
+            />
+            <test-file-stub
+              classname="message--icon-align-top"
+              height="1.125em"
+              width="1.125em"
+            />
+            <div
+              class="message__title"
+            >
+              View UniProt features on this structure in the 
+              <a
+                href="/uniprotkb/P0DTR4/feature-viewer#structure"
+              >
+                Feature Viewer
+              </a>
+              .
+            </div>
+          </div>
           <protvista-uniprot-structure
             accession="P0DTR4"
           />
@@ -6125,13 +6149,29 @@ exports[`Entry view should render for non-human entry 1`] = `
         <h3>
           Family and domain databases
         </h3>
-        <div>
-          View all family and domain features for this entry's canonical sequence: 
-          <a
-            href="/uniparc/UPI000246C4A6/feature-viewer"
+        <div
+          class="message message--info"
+          role="status"
+        >
+          <div
+            class="message__side-border"
+          />
+          <test-file-stub
+            classname="message--icon-align-top"
+            height="1.125em"
+            width="1.125em"
+          />
+          <div
+            class="message__title"
           >
-            UniParc feature viewer
-          </a>
+            View all family and domain features for this entry's canonical sequence in the 
+            <a
+              href="/uniparc/UPI000246C4A6/feature-viewer"
+            >
+              UniParc Feature Viewer
+            </a>
+            .
+          </div>
         </div>
         <ul
           class="info-list info-list--columns"

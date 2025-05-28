@@ -1,4 +1,4 @@
-import { ExpandableList, InfoList } from 'franklin-sites';
+import { ExpandableList, InfoList, Message } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { Fragment, ReactNode } from 'react';
@@ -369,9 +369,9 @@ const XRefView = ({
         databases.some((db) => db.database === 'InterPro')
       ) {
         linkToUniParcFeatures = (
-          <div>
+          <Message level="info">
             View all family and domain features for this entry&apos;s canonical
-            sequence:{' '}
+            sequence in the{' '}
             <Link
               to={getEntryPath(
                 Namespace.uniparc,
@@ -379,9 +379,10 @@ const XRefView = ({
                 TabLocation.FeatureViewer
               )}
             >
-              UniParc feature viewer
+              UniParc Feature Viewer
             </Link>
-          </div>
+            .
+          </Message>
         );
       }
 

@@ -80,6 +80,44 @@ const FeatureViewer = ({
     [onProtvistaUniprotChange]
   );
 
+  // TODO: when updating to react 19, update below pattern to use ref callback
+  // with cleanup function as return function and not in another useEffect
+  // https://react.dev/reference/react-dom/components/common#ref-callback
+  // Ideally, this should be done through normal page anchoring when doing SSR
+  const moRef = useRef<MutationObserver | null>(null);
+  const containerRefCallback = useCallback((node: HTMLElement) => {
+    if (location.hash !== '#structure') {
+      return;
+    }
+
+    moRef.current = new MutationObserver(() => {
+      const molstar = node.querySelector(
+        // Make sure to wait for not only when the canvas is available, but also
+        // for when it has a height as we want to scroll its end to the bottom
+        // of the viewport
+        '#molstar-canvas[height]'
+      );
+      if (molstar) {
+        moRef.current?.disconnect();
+        moRef.current = null;
+        molstar.scrollIntoView({ block: 'end' });
+      }
+    });
+    moRef.current.observe(node, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['height'],
+    });
+  }, []);
+  // Clean up function on component unmount
+  useEffect(
+    () => () => {
+      moRef.current?.disconnect();
+      moRef.current = null;
+    },
+    []
+  );
+
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllFeatures = searchParams.get('loadFeatures');
 
@@ -100,7 +138,10 @@ const FeatureViewer = ({
     setDisplayDownloadPanel(!displayDownloadPanel);
 
   return (
-    <section className="wider-tab-content hotjar-margin">
+    <section
+      className="wider-tab-content hotjar-margin"
+      ref={containerRefCallback}
+    >
       <h3>Feature viewer</h3>
       {displayDownloadPanel && (
         <EntryDownloadPanel
