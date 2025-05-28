@@ -269,6 +269,8 @@ export const useGOData = (
 } => {
   const { data: slimSetsData, loading: loadingSlimSets } =
     useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
+  // We need to retrieve this from the organism taxon ID because the lineage
+  // info in UniProtKB is just the names and not the taxon IDs
   const { data: taxonData, loading: taxonLoading } =
     useDataApi<TaxonomyAPIModel>(
       taxonId ? apiUrls.entry.entry(`${taxonId}`, Namespace.taxonomy) : null
