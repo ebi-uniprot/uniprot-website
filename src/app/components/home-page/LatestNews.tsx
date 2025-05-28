@@ -14,7 +14,7 @@ const insideUniProtAbstract2 =
   'In recent years a wealth of information has become available about genetic variations that underlie various diseases, especially cancer.';
 
 const proteinSpotlightAbstract =
-  'Spermatozoa. There are no other cells in humans - or indeed in any other animals - that have the capacity to wriggle and move forward the way spermatozoa do. Blood cells may dash around our bodies but they can only do so because they are swept up in the pulse and flow of blood...';
+  'We all begin with one cell, which divides into two - and so on. It sounds straightforward but a cell has various components (nucleus, mitochondria, Golgi apparatus...) each of which carries out vital activities...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -350,21 +350,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/279/"
+            url="https://www.proteinspotlight.org/back_issues/280/"
             noIcon
           >
-            A dark kinase
+            A chromosome&apos;s glue
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/279/"
+          url="https://www.proteinspotlight.org/back_issues/280/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt279.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt280.jpeg"
             alt=""
             width="123"
             height="129"
