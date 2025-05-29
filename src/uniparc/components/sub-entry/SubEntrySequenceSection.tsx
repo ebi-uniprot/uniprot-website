@@ -2,9 +2,8 @@ import { Card, LongNumber, Sequence } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { applicableTools } from '../../../shared/components/common-sequence/CommonSequenceView';
+import { uniParcTools } from '../../../shared/components/common-sequence/CommonSequenceView';
 import helper from '../../../shared/styles/helper.module.scss';
-import { Namespace } from '../../../shared/types/namespaces';
 import { hasContent } from '../../../shared/utils/utils';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
@@ -50,7 +49,7 @@ function SubEntrySequenceSection({ data }: { data?: UniParcSubEntryUIModel }) {
             parameters: { sequence: sequence.value },
           })
         }
-        sequenceTools={applicableTools[Namespace.uniparc]}
+        sequenceTools={uniParcTools}
       />
     </Card>
   );

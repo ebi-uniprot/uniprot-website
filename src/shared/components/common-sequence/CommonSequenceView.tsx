@@ -1,4 +1,5 @@
 import { LongNumber, Sequence } from 'franklin-sites';
+import type { ComponentProps } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -11,15 +12,12 @@ import { Sequence as SequenceType } from '../../types/sequence';
 import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 
-export const applicableTools: Partial<Record<Namespace, string[]>> = {
-  [Namespace.uniparc]: [
-    'ProtParam',
-    'Compute pI/Mw',
-    'PeptideMass',
-    'PeptideCutter',
-  ],
-  [Namespace.uniref]: [],
-};
+export const uniParcTools: ComponentProps<typeof Sequence>['sequenceTools'] = [
+  'ProtParam',
+  'Compute pI/Mw',
+  'PeptideMass',
+  'PeptideCutter',
+];
 
 const CommonSequenceView = ({
   accession,
@@ -75,7 +73,7 @@ const CommonSequenceView = ({
         />
       }
       onCopy={() => sendGtagEventCopyFastaClick(accession)}
-      sequenceTools={applicableTools[namespace]}
+      sequenceTools={namespace === Namespace.uniparc ? uniParcTools : undefined}
     />
   );
 };
