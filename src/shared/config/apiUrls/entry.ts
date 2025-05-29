@@ -38,5 +38,5 @@ export const download = (
       })
     : `${entry(accession, namespace)}.${fileFormatToUrlParameter[format]}`;
 
-export const sequenceFasta = (accession: string) =>
-  `${entry(accession, Namespace.uniprotkb)}.fasta`;
+export const sequenceFasta = (accession: string, namespace?: Namespace) =>
+  `${entry(accession, namespace || Namespace.uniprotkb)}.fasta`;

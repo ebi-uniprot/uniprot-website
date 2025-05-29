@@ -11,6 +11,7 @@ const UniParcEntryConfig: {
     id: EntrySection.Sequence,
     sectionContent: (data) => (
       <SequenceSection
+        accession={data.uniParcId}
         data={data[EntrySection.Sequence]}
         key={EntrySection.Sequence}
       />
