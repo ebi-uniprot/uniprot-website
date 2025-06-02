@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Button, Chip, LongNumber } from 'franklin-sites';
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
@@ -45,10 +45,13 @@ type ExtraContent = 'url' | 'preview';
 
 type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
 
-const isUniParcProteomeSearch = (
+const isUniparcProteomeHeaderApplicable = (
   namespace: Namespace,
-  selectedEntries: string[]
-) => namespace === Namespace.uniparc && selectedEntries.length === 0;
+  numberSelectedEntries: number,
+  totalEntries: number
+) =>
+  namespace === Namespace.uniparc &&
+  (!numberSelectedEntries || numberSelectedEntries === totalEntries);
 
 const ComponentsDownload = ({
   query,
@@ -69,9 +72,6 @@ const ComponentsDownload = ({
   const [downloadSelect, setDownloadSelect] = useState<DownloadSelectOptions>(
     selectedEntries.length ? 'selected' : 'all'
   );
-  const [uniparcProteomeFasta, setUniparcProteomeFasta] = useState(
-    isUniParcProteomeSearch(namespace, selectedEntries)
-  );
 
   const fileFormats = useMemo(
     () =>
@@ -90,6 +90,19 @@ const ComponentsDownload = ({
   const [compressed, setCompressed] = useState(true);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const [includeIsoform, setIncludeIsoform] = useState(false);
+  const [uniparcProteomeFasta, setUniparcProteomeFasta] = useState(false);
+
+  useEffect(
+    () =>
+      setUniparcProteomeFasta(
+        isUniparcProteomeHeaderApplicable(
+          namespace,
+          numberSelectedEntries,
+          totalNumberResults
+        )
+      ),
+    [namespace, numberSelectedEntries, totalNumberResults]
+  );
 
   const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 
@@ -303,7 +316,11 @@ const ComponentsDownload = ({
           </select>
         </label>
       </fieldset>
-      {isUniParcProteomeSearch(namespace, selectedEntries) && (
+      {isUniparcProteomeHeaderApplicable(
+        namespace,
+        numberSelectedEntries,
+        totalNumberResults
+      ) && (
         <fieldset>
           <p className={styles['new-fasta-header']}>
             <span data-article-id="fasta-headers#uniparc-for-proteomes">
