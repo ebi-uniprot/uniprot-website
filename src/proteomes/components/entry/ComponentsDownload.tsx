@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Button, LongNumber } from 'franklin-sites';
+import { Button, Chip, LongNumber } from 'franklin-sites';
 import { ChangeEvent, useMemo, useState } from 'react';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
@@ -45,6 +45,11 @@ type ExtraContent = 'url' | 'preview';
 
 type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
 
+const isUniParcProteomeSearch = (
+  namespace: Namespace,
+  selectedEntries: string[]
+) => namespace === Namespace.uniparc && selectedEntries.length === 0;
+
 const ComponentsDownload = ({
   query,
   selectedQuery,
@@ -63,6 +68,9 @@ const ComponentsDownload = ({
   // Defaults to "download all" if no selection
   const [downloadSelect, setDownloadSelect] = useState<DownloadSelectOptions>(
     selectedEntries.length ? 'selected' : 'all'
+  );
+  const [uniparcProteomeFasta, setUniparcProteomeFasta] = useState(
+    isUniParcProteomeSearch(namespace, selectedEntries)
   );
 
   const fileFormats = useMemo(
@@ -96,6 +104,7 @@ const ComponentsDownload = ({
       downloadSelect === 'selected' && !selectedQuery ? selectedEntries : [],
     selectedIdField,
     namespace,
+    uniparcProteomeFastaHeader: uniparcProteomeFasta,
   };
 
   const isoformsAvailable = Boolean(proteomeStatistics.isoformProteinCount);
@@ -151,8 +160,13 @@ const ComponentsDownload = ({
     setDownloadSelect(e.target.name as DownloadSelectOptions);
   };
 
-  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCompressed(e.target.value === 'true');
+  };
+
+  const handleFastaHeaderChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUniparcProteomeFasta(e.target.checked === true);
+  };
 
   const handleIsoformSelect = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target.checked) {
@@ -289,6 +303,32 @@ const ComponentsDownload = ({
           </select>
         </label>
       </fieldset>
+      {isUniParcProteomeSearch(namespace, selectedEntries) && (
+        <fieldset>
+          <p className={styles['new-fasta-header']}>
+            <span data-article-id="fasta-headers#uniparc-for-proteomes">
+              Enhanced FASTA header
+            </span>
+            <small>
+              <Chip>New</Chip>
+            </small>
+            <br />
+            For UniParc entries associated with redundant or excluded proteomes,
+            which additionally includes protein names, gene names and organism
+            name/identifier amongst others.
+            <label>
+              <input
+                aria-label="uniparc proteome-specific FASTA"
+                type="checkbox"
+                name="proteome FASTA"
+                checked={uniparcProteomeFasta}
+                onChange={handleFastaHeaderChange}
+              />
+              Proceed with enhanced FASTA header format (recommended).
+            </label>
+          </p>
+        </fieldset>
+      )}
       <fieldset>
         <legend data-article-id="compression">Compressed</legend>
         <label>
