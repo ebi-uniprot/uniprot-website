@@ -319,9 +319,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
               <Chip>New</Chip>
             </small>
             <br />
-            For UniParc entries associated with redundant proteomes, which
-            additionally includes Protein Names, Gene Names and Organism
-            Name/Identifier amongst others.
+            For UniParc entries associated with redundant or excluded proteomes,
+            which additionally includes protein names, gene names and organism
+            name/identifier amongst others.
             <label>
               <input
                 aria-label="uniparc proteome-specific FASTA"
