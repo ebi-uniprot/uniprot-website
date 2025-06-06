@@ -27,7 +27,11 @@ const SupportingData = () => (
         'uniprot-grid-cell--medium-span-3'
       )}
     >
-      <h2 className={styles['supporting-data__header']}>Supporting Data</h2>
+      <h2 className={styles['supporting-data__header']}>
+        <Link to={LocationToPath[Location.SupportingData]}>
+          Supporting data
+        </Link>
+      </h2>
     </div>
     <div
       className={cn(
@@ -57,7 +61,7 @@ const SupportingData = () => (
     >
       <DecoratedListItem compact altStyle>
         <Link to={getNamespaceTo(Location.CitationsResults)}>
-          Literature Citations
+          Literature citations
         </Link>
       </DecoratedListItem>
     </div>
