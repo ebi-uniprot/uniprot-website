@@ -210,7 +210,9 @@ const IsoformInfo = ({
     },
     {
       title: 'See also',
-      content: <SeeAlso isoform={isoformData.isoformIds[0]} />,
+      content: isoformData.isoformSequenceStatus !== 'Not described' && (
+        <SeeAlso isoform={isoformData.isoformIds[0]} />
+      ),
     },
     {
       title: 'Differences from canonical',
