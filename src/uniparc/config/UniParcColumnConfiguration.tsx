@@ -221,7 +221,7 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
 UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
   ...getLabelAndTooltip(
     'Common taxonomies',
-    'Common taxonomy identifiers shared by the sequence',
+    'Common taxonomy identifier(s) shared by the sequence as well as their corresponding top-level taxonomy within the taxonomy tree. It could be lower-level organisms or higher-level taxons if the sequence is present in multiple organisms',
     'taxonomic_identifier'
   ),
   render: ({ commonTaxons }) => (
@@ -243,8 +243,8 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
 
 UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
   ...getLabelAndTooltip(
-    'Common Taxononmy IDs',
-    'Common taxonomy identifiers shared by the sequence',
+    'Common Taxonomy IDs',
+    'Common taxonomy identifier(s) shared by the sequence. It could be lower-level organisms or higher-level taxons if the sequence is present in multiple organisms',
     'taxonomic_identifier'
   ),
   render: ({ commonTaxons }) => (
@@ -288,7 +288,7 @@ UniParcColumnConfiguration.set(UniParcColumn.sequence, {
 UniParcColumnConfiguration.set(UniParcColumn.accession, {
   ...getLabelAndTooltip(
     'UniProtKB',
-    'UniProtKB entries describing this protein'
+    'UniProtKB entry or entries describing this protein'
   ),
   render: ({ uniProtKBAccessions }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
