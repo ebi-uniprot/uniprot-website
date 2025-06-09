@@ -13,7 +13,8 @@ import { stringifyUrl } from '../../shared/utils/url';
 import { pluralise } from '../../shared/utils/utils';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
-import { TabLocation } from '../../uniparc/types/entry';
+import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
+import { TabLocation as UniProtKBTabLocation } from '../../uniprotkb/types/entry';
 
 type Props = {
   sequence?: string;
@@ -100,7 +101,13 @@ const ChecksumSuggester = memo(
                   ?.slice(0, N_IDS_SHOWN)
                   .map((accession, i, array) => (
                     <Fragment key={accession}>
-                      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                      <Link
+                        to={getEntryPath(
+                          Namespace.uniprotkb,
+                          accession,
+                          UniProtKBTabLocation.Entry
+                        )}
+                      >
                         {accession}
                       </Link>
                       {i < array.length - 1 && ', '}
@@ -133,7 +140,13 @@ const ChecksumSuggester = memo(
                   ?.slice(0, N_IDS_SHOWN)
                   .map((accession, i, array) => (
                     <Fragment key={accession}>
-                      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                      <Link
+                        to={getEntryPath(
+                          Namespace.uniprotkb,
+                          accession,
+                          UniProtKBTabLocation.Entry
+                        )}
+                      >
                         {accession}
                       </Link>
                       {i < array.length - 1 && ', '}
@@ -147,7 +160,7 @@ const ChecksumSuggester = memo(
                       getEntryPath(
                         Namespace.uniparc,
                         uniParcId,
-                        TabLocation.Entry
+                        UniParcTabLocation.Entry
                       ),
                       {
                         facets: 'dbTypes:UniProtKB/Swiss-Prot protein isoforms',
@@ -162,7 +175,13 @@ const ChecksumSuggester = memo(
             <li>
               <div data-article-id="uniparc">UniParc</div>
               {'1 entry: '}
-              <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>
+              <Link
+                to={getEntryPath(
+                  Namespace.uniparc,
+                  uniParcId,
+                  UniParcTabLocation.Entry
+                )}
+              >
                 {uniParcId}
               </Link>
             </li>

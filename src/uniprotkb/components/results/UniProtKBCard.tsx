@@ -10,6 +10,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import getProteinHighlights from '../../adapters/proteinHighlights';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { TabLocation } from '../../types/entry';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import { KeywordList } from '../protein-data-views/KeywordView';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
@@ -40,7 +41,7 @@ const UniProtKBCard = ({ data, isNotSelectable }: Props) => {
         <>
           {isNotSelectable ? null : <CardCheckboxCell id={id} />}
           <h2 className="small">
-            <Link to={getEntryPath(Namespace.uniprotkb, id)}>
+            <Link to={getEntryPath(Namespace.uniprotkb, id, TabLocation.Entry)}>
               <EntryTitle
                 mainTitle={id}
                 optionalTitle={data.uniProtkbId}

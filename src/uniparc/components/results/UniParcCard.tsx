@@ -15,6 +15,7 @@ import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
+import { TabLocation } from '../../types/entry';
 
 const mainInfoColumns = [
   UniParcColumn.firstSeen,
@@ -36,7 +37,7 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
         <>
           <CardCheckboxCell id={id} />
           <h2 className="small">
-            <Link to={getEntryPath(Namespace.uniparc, id)}>
+            <Link to={getEntryPath(Namespace.uniparc, id, TabLocation.Entry)}>
               <EntryTitle mainTitle={id} entryType={EntryType.UNIPARC} />
             </Link>
           </h2>

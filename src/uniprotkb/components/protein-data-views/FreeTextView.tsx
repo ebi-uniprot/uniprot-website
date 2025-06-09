@@ -16,6 +16,7 @@ import {
   FreeTextType,
   TextWithEvidence,
 } from '../../types/commentTypes';
+import { TabLocation } from '../../types/entry';
 import {
   getTextProcessingParts,
   reAC,
@@ -78,7 +79,13 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
               <Fragment key={index}>
                 {/* Somehow the part kept "AC ", so put it back */}
                 {part.startsWith('AC ') ? `AC ` : ''}
-                <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    accession,
+                    TabLocation.Entry
+                  )}
+                >
                   {accession}
                 </Link>
               </Fragment>

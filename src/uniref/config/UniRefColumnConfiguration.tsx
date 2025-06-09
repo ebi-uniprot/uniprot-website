@@ -191,7 +191,8 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
                 member.startsWith('UPI')
                   ? Namespace.uniparc
                   : Namespace.uniprotkb,
-                member
+                member,
+                'entry'
               )}
             >
               {member}

@@ -14,6 +14,7 @@ import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
+import { TabLocation } from '../../uniprotkb/types/entry';
 import {
   SequenceFeature,
   UniParcLiteAPIModel,
@@ -299,7 +300,7 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
         ) : (
           <Link
             key={accession}
-            to={getEntryPath(Namespace.uniprotkb, accession)}
+            to={getEntryPath(Namespace.uniprotkb, accession, TabLocation.Entry)}
           >
             {accession}
           </Link>

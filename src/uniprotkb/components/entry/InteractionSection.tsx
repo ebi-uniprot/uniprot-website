@@ -27,6 +27,7 @@ import {
   Interaction,
   InteractionComment,
 } from '../../types/commentTypes';
+import { TabLocation } from '../../types/entry';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
@@ -112,7 +113,8 @@ const columns: TableFromDataColumn<Interaction>[] = [
         <Link
           to={getEntryPath(
             Namespace.uniprotkb,
-            data.interactantOne.uniProtKBAccession
+            data.interactantOne.uniProtKBAccession,
+            TabLocation.Entry
           )}
         >
           {data.interactantOne.geneName} {data.interactantOne.chainId}{' '}
@@ -135,7 +137,8 @@ const columns: TableFromDataColumn<Interaction>[] = [
         <Link
           to={getEntryPath(
             Namespace.uniprotkb,
-            data.interactantTwo.uniProtKBAccession
+            data.interactantTwo.uniProtKBAccession,
+            TabLocation.Entry
           )}
         >
           {data.interactantTwo.geneName} {data.interactantTwo.chainId}{' '}

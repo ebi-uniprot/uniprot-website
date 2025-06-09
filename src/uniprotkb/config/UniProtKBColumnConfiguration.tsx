@@ -100,6 +100,7 @@ import {
   InteractionType,
   SubcellularLocationComment,
 } from '../types/commentTypes';
+import { TabLocation } from '../types/entry';
 import EntrySection, { EntrySectionWithFeatures } from '../types/entrySection';
 import FeatureType, {
   DiseaseAndDrugsFeatures,
@@ -1082,7 +1083,8 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                 <Link
                   to={getEntryPath(
                     Namespace.uniprotkb,
-                    interactant.uniProtKBAccession
+                    interactant.uniProtKBAccession,
+                    TabLocation.Entry
                   )}
                 >
                   {interactant.uniProtKBAccession}
