@@ -1,22 +1,22 @@
 import { ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { stringifyQuery } from '../../../shared/utils/url';
 import {
   formatEvidenceContent,
   getEvidenceLink,
 } from '../../config/evidenceUrls';
 
-const EvidenceLink = ({
-  source,
-  value,
-  url,
-  className,
-}: {
+type Props = {
   source: string;
   value?: string;
   url?: string;
+  isSimilar?: boolean;
   className?: string;
-}) => {
+};
+
+const EvidenceLink = ({ source, value, url, isSimilar, className }: Props) => {
   if (!value) {
     return null;
   }
@@ -33,10 +33,15 @@ const EvidenceLink = ({
   }
 
   if (!renderedURL) {
-    return <>{content}</>;
+    return (
+      <>
+        {isSimilar ? 'Similar to ' : ''}
+        {content}
+      </>
+    );
   }
 
-  return isInternal ? (
+  const link = isInternal ? (
     <Link to={renderedURL} className={className}>
       {content}
     </Link>
@@ -44,6 +49,29 @@ const EvidenceLink = ({
     <ExternalLink url={renderedURL} className={className}>
       {content}
     </ExternalLink>
+  );
+
+  const alignLink =
+    source === 'UniProtKB' ? (
+      <>
+        <br />
+        <Link
+          to={{
+            pathname: LocationToPath[Location.Align],
+            search: stringifyQuery({ ids: 'P05067' }),
+          }}
+        >
+          Align both entries
+        </Link>
+      </>
+    ) : null;
+
+  return (
+    <>
+      {isSimilar ? 'Similar to ' : ''}
+      {link}
+      {alignLink}
+    </>
   );
 };
 

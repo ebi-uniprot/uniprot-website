@@ -20,12 +20,13 @@ const getIdKey = getIdKeyForNamespace(Namespace.uniprotkb);
 type Props = {
   data: UniProtkbAPIModel;
   isNotSelectable?: boolean;
+  noHighlights?: boolean;
 };
 
-const UniProtKBCard = ({ data, isNotSelectable }: Props) => {
+const UniProtKBCard = ({ data, isNotSelectable, noHighlights }: Props) => {
   const id = getIdKey(data);
 
-  const highlights = getProteinHighlights(data);
+  const highlights = noHighlights ? [] : getProteinHighlights(data);
 
   const keywords =
     data.keywords &&

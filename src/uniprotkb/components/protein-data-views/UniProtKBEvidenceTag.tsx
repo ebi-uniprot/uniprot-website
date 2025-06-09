@@ -6,12 +6,14 @@ import { useRouteMatch } from 'react-router-dom';
 import { allEntryPages } from '../../../app/config/urls';
 import { pluralise } from '../../../shared/utils/utils';
 import {
+  ecoCode,
   EvidenceData,
   getEcoNumberFromString,
   getEvidenceCodeData,
   labels,
 } from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
+import EvidenceCard from './EvidenceCard';
 import EvidenceLink from './EvidenceLink';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 
@@ -43,6 +45,7 @@ const UniProtEvidenceTagContent = ({
     [EvidenceTagSourceTypes.PUBMED]: publicationReferences,
     ...groupedEvidencesWithoutPubs
   } = groupedEvidences;
+
   return (
     <div>
       <h5 data-article-id={`evidences#${evidenceCode}`}>
@@ -66,11 +69,23 @@ const UniProtEvidenceTagContent = ({
             descriptionString={`${key} sources`}
             key={key}
           >
-            {mappedEvidences.map(({ id, url }: Evidence, index) => (
-              <span key={id || index}>
-                <EvidenceLink source={key} value={id} url={url} />
-              </span>
-            ))}
+            {mappedEvidences.map(
+              ({ id, url, evidenceCode }: Evidence, index) => (
+                <span key={id || index}>
+                  <EvidenceLink
+                    source={key}
+                    value={id}
+                    url={url}
+                    isSimilar={
+                      getEcoNumberFromString(evidenceCode) === ecoCode.ISS
+                    }
+                  />
+                  {key === 'UniProtKB' && id !== undefined ? (
+                    <EvidenceCard id={id} />
+                  ) : null}
+                </span>
+              )
+            )}
           </ExpandableList>
         )
       )}
