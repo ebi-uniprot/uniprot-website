@@ -240,7 +240,9 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro heading={title} />
+      <PageIntro
+        heading={<span data-article-id="peptide_search">{title}</span>}
+      />
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}
