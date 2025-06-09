@@ -1,8 +1,9 @@
 import cn from 'classnames';
-import { Button, Chip, LongNumber } from 'franklin-sites';
+import { Button, LongNumber } from 'franklin-sites';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
+import { proteomeFastaOption } from '../../../shared/components/download/Download';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
 import styles from '../../../shared/components/download/styles/download.module.scss';
@@ -320,32 +321,7 @@ const ComponentsDownload = ({
         namespace,
         numberSelectedEntries,
         totalNumberResults
-      ) && (
-        <fieldset>
-          <p className={styles['new-fasta-header']}>
-            <span data-article-id="fasta-headers#uniparc-for-proteomes">
-              FASTA header for proteomes
-            </span>
-            <small>
-              <Chip>New</Chip>
-            </small>
-            <br />
-            For proteomes, we provide a UniParc FASTA header that shows
-            biologically relevant information like protein, gene and organism
-            names.
-            <label>
-              <input
-                aria-label="uniparc proteome-specific FASTA"
-                type="checkbox"
-                name="proteome FASTA"
-                checked={uniparcProteomeFasta}
-                onChange={handleFastaHeaderChange}
-              />
-              Proceed with FASTA header for proteomes (recommended).
-            </label>
-          </p>
-        </fieldset>
-      )}
+      ) && proteomeFastaOption(uniparcProteomeFasta, handleFastaHeaderChange)}
       <fieldset>
         <legend data-article-id="compression">Compressed</legend>
         <label>

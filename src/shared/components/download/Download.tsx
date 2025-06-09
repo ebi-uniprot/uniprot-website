@@ -7,7 +7,13 @@ import {
   Message,
 } from 'franklin-sites';
 import { Location as HistoryLocation } from 'history';
-import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  useCallback,
+  useMemo,
+  useReducer,
+} from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -89,6 +95,35 @@ export type DownloadProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
   extraContent?: ExtraContent;
 };
+
+export const proteomeFastaOption = (
+  fastaHeader: boolean,
+  handleFastaHeaderChange: ChangeEventHandler<HTMLInputElement>
+) => (
+  <fieldset>
+    <p className={styles['new-fasta-header']}>
+      <span data-article-id="fasta-headers#uniparc-for-proteomes">
+        FASTA header for proteomes
+      </span>
+      <small>
+        <Chip>New</Chip>
+      </small>
+      <br />
+      For proteomes, we provide a UniParc FASTA header that shows biologically
+      relevant information like protein, gene and organism names.
+      <label>
+        <input
+          aria-label="uniparc proteome-specific FASTA"
+          type="checkbox"
+          name="proteome FASTA"
+          checked={fastaHeader}
+          onChange={handleFastaHeaderChange}
+        />
+        Proceed with FASTA header for proteomes (recommended).
+      </label>
+    </p>
+  </fieldset>
+);
 
 const Download = (props: DownloadProps<JobTypes>) => {
   const {
@@ -309,32 +344,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
         </label>
       </fieldset>
       {/* UniParc-proteome FASTA option */}
-      {isUniParcProteomeSearch(state, props, downloadOptions.query) && (
-        <fieldset>
-          <p className={styles['new-fasta-header']}>
-            <span data-article-id="fasta-headers#uniparc-for-proteomes">
-              FASTA header for proteomes
-            </span>
-            <small>
-              <Chip>New</Chip>
-            </small>
-            <br />
-            For proteomes, we provide a UniParc FASTA header that shows
-            biologically relevant information like protein, gene and organism
-            names.
-            <label>
-              <input
-                aria-label="uniparc proteome-specific FASTA"
-                type="checkbox"
-                name="proteome FASTA"
-                checked={state.proteomeFastaHeader}
-                onChange={handleFastaHeaderChange}
-              />
-              Proceed with FASTA header for proteomes (recommended).
-            </label>
-          </p>
-        </fieldset>
-      )}
+      {isUniParcProteomeSearch(state, props, downloadOptions.query) &&
+        proteomeFastaOption(state.proteomeFastaHeader, handleFastaHeaderChange)}
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset disabled={state.disableForm}>
