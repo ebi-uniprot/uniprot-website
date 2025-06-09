@@ -44,6 +44,7 @@ export enum Location {
   ProteomesEntry = 'ProteomesEntry',
   ProteomesResults = 'ProteomesResults',
   // Supporting data
+  SupportingData = 'SupportingData',
   TaxonomyEntry = 'TaxonomyEntry',
   TaxonomyResults = 'TaxonomyResults',
   KeywordsEntry = 'KeywordsEntry',
@@ -98,6 +99,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.ProteomesEntry]: `/${Namespace.proteomes}/:accession`,
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,
   // Supporting data
+  [Location.SupportingData]: '/supporting-data',
   [Location.TaxonomyEntry]: `/${Namespace.taxonomy}/:accession`,
   [Location.TaxonomyResults]: `/${Namespace.taxonomy}`,
   [Location.KeywordsEntry]: `/${Namespace.keywords}/:accession`,
