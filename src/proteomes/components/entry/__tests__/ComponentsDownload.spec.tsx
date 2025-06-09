@@ -113,7 +113,7 @@ describe('Download proteins for a redundant proteome', () => {
     );
     fireEvent.click(
       screen.getByLabelText(
-        'Proceed with enhanced FASTA header format (recommended).'
+        'Proceed with FASTA header for proteomes (recommended).'
       )
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');

@@ -1,4 +1,4 @@
-import { Chip, ExpandableList, LongNumber } from 'franklin-sites';
+import { ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,6 @@ import AccessionView from '../../shared/components/results/AccessionView';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
-import { proteomeFasta } from '../../uniparc/config/apiUrls';
 import {
   ProteomesAPIModel,
   ProteomesUIModel,
@@ -168,28 +167,15 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     const shouldPointToUniParc =
       proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
 
-    return shouldPointToUniParc ? (
-      <>
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniParcResults],
-            search: `query=proteome:${id}`,
-          }}
-        >
-          <LongNumber>{proteinCount}</LongNumber>
-        </Link>
-        <br />
-        <a href={proteomeFasta(id, true)}>
-          Download FASTA for all UniParc entries
-        </a>
-        <small>
-          <Chip>New</Chip>
-        </small>
-      </>
-    ) : (
+    return (
       <Link
         to={{
-          pathname: LocationToPath[Location.UniProtKBResults],
+          pathname:
+            LocationToPath[
+              shouldPointToUniParc
+                ? Location.UniParcResults
+                : Location.UniProtKBResults
+            ],
           search: `query=proteome:${id}`,
         }}
       >

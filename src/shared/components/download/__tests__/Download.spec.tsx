@@ -196,7 +196,7 @@ describe('Download uniparc entries with passed proteome id as query', () => {
     );
     fireEvent.click(
       screen.getByLabelText(
-        'Proceed with enhanced FASTA header format (recommended).'
+        'Proceed with FASTA header for proteomes (recommended).'
       )
     );
     downloadLink = screen.getByRole<HTMLAnchorElement>('link');
@@ -205,7 +205,7 @@ describe('Download uniparc entries with passed proteome id as query', () => {
     );
     fireEvent.click(
       screen.getByLabelText(
-        'Proceed with enhanced FASTA header format (recommended).'
+        'Proceed with FASTA header for proteomes (recommended).'
       )
     );
     const formatSelect = screen.getByTestId('file-format-select');
