@@ -8,7 +8,11 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
     <h1
       class=""
     >
-      Peptide search
+      <span
+        data-article-id="peptide_search"
+      >
+        Peptide search
+      </span>
     </h1>
   </div>
   <form
