@@ -222,7 +222,11 @@ exports[`non-critical HomePage component should render 1`] = `
       <h2
         class="supporting-data__header"
       >
-        Supporting Data
+        <a
+          href="/supporting-data"
+        >
+          Supporting data
+        </a>
       </h2>
     </div>
     <div
@@ -271,7 +275,7 @@ exports[`non-critical HomePage component should render 1`] = `
           <a
             href="/citations?query=*"
           >
-            Literature Citations
+            Literature citations
           </a>
         </div>
       </div>

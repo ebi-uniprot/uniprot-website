@@ -176,7 +176,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
           <span className={cn(styles.input, styles.input__message)}>
             <textarea
               name="message"
-              placeholder="my message"
+              placeholder="My message"
               id={`message-${formId}`}
               required
               minLength={1}
@@ -264,6 +264,13 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
                 <ExternalLink url="https://www.ebi.ac.uk/swissprot/Submissions/spin/">
                   Submit new protein sequence data
                 </ExternalLink>
+              </li>
+              <li>
+                <Link
+                  to={`${generatePath(LocationToPath[Location.SupportingData])}#integration-form`}
+                >
+                  Connect your database with UniProt
+                </Link>
               </li>
             </ul>
           </aside>
