@@ -245,7 +245,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro heading={title} />
+      <PageIntro heading={<span data-article-id="id_mapping">{title}</span>} />
       <form
         onSubmit={submitIDMappingJob}
         onReset={handleReset}
