@@ -327,7 +327,7 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                href="/help?query=*&facets=category:biocuration"
+                href="/help/biocuration"
               >
                 Expert biocuration
               </a>

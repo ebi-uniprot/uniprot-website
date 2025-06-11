@@ -260,10 +260,9 @@ const FooterShortcuts = () => (
         </li>
         <li>
           <Link
-            to={{
-              pathname: LocationToPath[Location.HelpResults],
-              search: '?query=*&facets=category:biocuration',
-            }}
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'biocuration',
+            })}
           >
             Expert biocuration
           </Link>
