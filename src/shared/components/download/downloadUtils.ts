@@ -7,6 +7,7 @@ import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../config/apiUrls/apiUrls';
+import { reProteomeId } from '../../config/apiUrls/results';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
 import { getUniprotFtpFilenamesAndUrls } from '../../config/ftpUrls';
 import {
@@ -199,6 +200,24 @@ export const isXrefWithFullOption = (
   return false;
 };
 
+export const isUniParcProteomeSearch = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  query: string | undefined
+) => {
+  if (
+    props.namespace === Namespace.uniparc &&
+    state.selectedFileFormat === FileFormat.fasta &&
+    !state.nSelectedEntries
+  ) {
+    const match = query?.match(reProteomeId);
+    if (match && match.length > 1) {
+      return true;
+    }
+  }
+  return false;
+};
+
 export const filterFullXrefColumns = (
   columns: string[],
   fieldData: FieldData
@@ -278,6 +297,10 @@ export const getDownloadOptions = (
 
   if (hasColumns(state, props, job)) {
     downloadOptions.columns = state.selectedColumns;
+  }
+
+  if (isUniParcProteomeSearch(state, props, query)) {
+    downloadOptions.uniparcProteomeFastaHeader = state.proteomeFastaHeader;
   }
   return downloadOptions;
 };
@@ -411,15 +434,6 @@ export const getExtraContent = (
   }
   return null;
 };
-
-export const getIsUniParcLightResponse = (
-  state: DownloadState,
-  props: DownloadProps<JobTypes>
-) =>
-  props.namespace === Namespace.uniparc &&
-  (state.selectedFileFormat === FileFormat.json ||
-    state.selectedFileFormat === FileFormat.xml ||
-    state.selectedFileFormat === FileFormat.rdfXml);
 
 export const getRedirectToIDMapping = (
   state: DownloadState,
