@@ -100,7 +100,12 @@ export type AGRRibbonData = {
 
 export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
   // Aspects at the top
-  const slimsByAspect = groupBy(slimSet.associations, 'aspect');
+  const slimsByAspect = groupBy(
+    slimSet.associations.filter(
+      (association) => association.aspect !== 'cellular_component'
+    ),
+    'aspect'
+  );
 
   // Convert to object
   const categoriesObj: AGRRibbonCategory[] = goAspects.map(

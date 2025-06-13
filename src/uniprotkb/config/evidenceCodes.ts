@@ -67,13 +67,17 @@ const isSAMEvidence = (evidences: Evidence[]) =>
       typeof evidence.source !== 'undefined' && evidence.source === 'SAM'
   );
 
-const manualevidenceTagLabeler = (evidences: Evidence[]) => {
+const manualEvidenceTagLabeler = (evidences: Evidence[]) => {
   let label = labels.SEQ_ANA;
   for (const evidence of evidences) {
     const { source } = evidence;
     if (source === 'PROSITE-ProRule') {
       label = labels.PROSITE_RULE;
-    } else if (source === 'HAMAP-Rule') {
+    } else if (
+      source === 'HAMAP-Rule' ||
+      source === 'RuleBase' ||
+      source === 'PIRNR'
+    ) {
       label = labels.UNIRULE_ANA;
     }
   }
@@ -166,7 +170,7 @@ const ecoCodeToData = {
         ? 'Manual assertion according to rules'
         : 'Manual assertion according to sequence analysis',
     evidenceTagContentHeadingForGO: 'Inferred from sequence model',
-    evidenceTagLabel: manualevidenceTagLabeler,
+    evidenceTagLabel: manualEvidenceTagLabeler,
   },
   [ecoCode.IGC]: {
     manual: true,

@@ -96,49 +96,34 @@ const FooterShortcuts = () => (
       <span className={footer.shortcuts__title}>Core data</span>
       <ul className="no-bullet">
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.UniProtKBResults]}>
             Proteins (UniProtKB)
           </Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.ProteomesResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.ProteomesResults]}>
             Species (Proteomes)
           </Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniRefResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.UniRefResults]}>
             Protein clusters (UniRef)
           </Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniParcResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.UniParcResults]}>
             Sequence archive (UniParc)
           </Link>
         </li>
       </ul>
     </li>
     <li>
-      <span className={footer.shortcuts__title}>Supporting data</span>
+      <Link
+        to={LocationToPath[Location.SupportingData]}
+        className={footer.shortcuts__title}
+      >
+        Supporting data
+      </Link>
       <ul className="no-bullet">
         <li>
           <Link
@@ -257,14 +242,12 @@ const FooterShortcuts = () => (
           &amp; <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.HelpResults],
-              search: '?query=*&facets=category:manual',
-            }}
+          <ExternalLink
+            url="https://www.ebi.ac.uk/training/online/courses/uniprot-exploring-protein-sequence-and-functional-info/"
+            noIcon
           >
             UniProtKB manual
-          </Link>
+          </ExternalLink>
         </li>
         <li>
           <Link
@@ -277,10 +260,9 @@ const FooterShortcuts = () => (
         </li>
         <li>
           <Link
-            to={{
-              pathname: LocationToPath[Location.HelpResults],
-              search: '?query=*&facets=category:biocuration',
-            }}
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'biocuration',
+            })}
           >
             Expert biocuration
           </Link>

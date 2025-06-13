@@ -14,6 +14,7 @@ import { stringifyQuery } from '../../../../shared/utils/url';
 import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
+import { TabLocation } from '../../../types/entry';
 
 export const columns = [
   UniProtKBColumn.id,
@@ -35,7 +36,13 @@ const columnConfig = [
     label: 'Protein name',
     name: 'protein_name',
     render: (row: UniProtkbAPIModel) => (
-      <Link to={getEntryPath(Namespace.uniprotkb, row.primaryAccession)}>
+      <Link
+        to={getEntryPath(
+          Namespace.uniprotkb,
+          row.primaryAccession,
+          TabLocation.Entry
+        )}
+      >
         {row.proteinDescription?.recommendedName?.fullName.value ||
           row.proteinDescription?.submissionNames?.[0].fullName.value}
       </Link>

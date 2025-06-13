@@ -2917,14 +2917,14 @@ exports[`Entry view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb/P12345"
+                  href="/uniprotkb/P12345/entry"
                 >
                   gen PROC_12345 P12345
                 </a>
               </td>
               <td>
                 <a
-                  href="/uniprotkb/P21802"
+                  href="/uniprotkb/P21802/entry"
                 >
                   gene1 PROC_123454 P21802
                 </a>
@@ -2957,14 +2957,14 @@ exports[`Entry view should render 1`] = `
               </td>
               <td>
                 <a
-                  href="/uniprotkb/P21802"
+                  href="/uniprotkb/P21802/entry"
                 >
                   gen PROC_12344 P21802
                 </a>
               </td>
               <td>
                 <a
-                  href="/uniprotkb/P12345#P12345-1"
+                  href="/uniprotkb/P12345/entry#P12345-1"
                 >
                   gene1 PROC_12347 P12345-1
                 </a>
@@ -3702,7 +3702,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC 
           <a
-            href="/uniprotkb/P0DTR5"
+            href="/uniprotkb/P0DTR5/entry"
           >
             P0DTR5
           </a>

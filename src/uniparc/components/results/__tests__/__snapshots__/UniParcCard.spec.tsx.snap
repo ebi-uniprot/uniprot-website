@@ -29,7 +29,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           class="small"
         >
           <a
-            href="/uniparc/UPI0000000001"
+            href="/uniparc/UPI0000000001/entry"
           >
             <span
               class="entry-title"

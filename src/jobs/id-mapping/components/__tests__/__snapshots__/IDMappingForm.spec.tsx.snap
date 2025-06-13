@@ -8,7 +8,11 @@ exports[`IDMappingForm test Renders the form 1`] = `
     <h1
       class=""
     >
-      Retrieve/ID mapping
+      <span
+        data-article-id="id_mapping"
+      >
+        Retrieve/ID mapping
+      </span>
     </h1>
   </div>
   <form

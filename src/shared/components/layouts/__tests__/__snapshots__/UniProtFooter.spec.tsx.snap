@@ -138,28 +138,28 @@ exports[`HomePage component should render 1`] = `
           >
             <li>
               <a
-                href="/uniprotkb?query=*"
+                href="/uniprotkb"
               >
                 Proteins (UniProtKB)
               </a>
             </li>
             <li>
               <a
-                href="/proteomes?query=*"
+                href="/proteomes"
               >
                 Species (Proteomes)
               </a>
             </li>
             <li>
               <a
-                href="/uniref?query=*"
+                href="/uniref"
               >
                 Protein clusters (UniRef)
               </a>
             </li>
             <li>
               <a
-                href="/uniparc?query=*"
+                href="/uniparc"
               >
                 Sequence archive (UniParc)
               </a>
@@ -167,11 +167,12 @@ exports[`HomePage component should render 1`] = `
           </ul>
         </li>
         <li>
-          <span
+          <a
             class="shortcuts__title"
+            href="/supporting-data"
           >
             Supporting data
-          </span>
+          </a>
           <ul
             class="no-bullet"
           >
@@ -309,7 +310,10 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                href="/help?query=*&facets=category:manual"
+                class="external-link"
+                href="https://www.ebi.ac.uk/training/online/courses/uniprot-exploring-protein-sequence-and-functional-info/"
+                rel="noopener"
+                target="_blank"
               >
                 UniProtKB manual
               </a>
@@ -323,7 +327,7 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                href="/help?query=*&facets=category:biocuration"
+                href="/help/biocuration"
               >
                 Expert biocuration
               </a>

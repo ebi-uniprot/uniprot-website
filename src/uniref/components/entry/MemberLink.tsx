@@ -10,7 +10,8 @@ const MemberLink: FC<React.PropsWithChildren<{ accession: string }>> = ({
 }) => {
   const path = getEntryPath(
     accession.startsWith('UPI') ? Namespace.uniparc : Namespace.uniprotkb,
-    accession
+    accession,
+    'entry'
   );
 
   return <Link to={path}>{children || accession}</Link>;

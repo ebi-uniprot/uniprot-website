@@ -490,7 +490,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
         class="no-wrap"
       >
         <a
-          href="/uniprotkb/P12345"
+          href="/uniprotkb/P12345/entry"
         >
           P12345
         </a>
@@ -502,7 +502,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
         class="no-wrap"
       >
         <a
-          href="/uniprotkb/P12345#P12345-1"
+          href="/uniprotkb/P12345/entry#P12345-1"
         >
           P12345-1
         </a>

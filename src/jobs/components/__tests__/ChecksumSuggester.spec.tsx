@@ -36,10 +36,10 @@ describe('ChecksumSuggester', () => {
     ).toHaveAttribute('href', '/uniprotkb?query=%28uniparc%3AUPI000002DB1C%29');
     expect(
       await screen.findByRole('link', { name: 'P00000-0' })
-    ).toHaveAttribute('href', '/uniprotkb/P00000#P00000-0');
+    ).toHaveAttribute('href', '/uniprotkb/P00000/entry#P00000-0');
     expect(
       await screen.findByRole('link', { name: 'UPI000002DB1C' })
-    ).toHaveAttribute('href', '/uniparc/UPI000002DB1C');
+    ).toHaveAttribute('href', '/uniparc/UPI000002DB1C/entry');
   });
   it('should not show message because sequence md5 does not match', async () => {
     customRender(<ChecksumSuggester sequence="FOO" />);

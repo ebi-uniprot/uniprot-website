@@ -8,6 +8,7 @@ import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import { GoXref } from '../../adapters/subcellularLocationConverter';
 import GOTermEvidenceTag from './GOTermEvidenceTag';
 import styles from './styles/subcellular-location-go-view.module.scss';
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 export const getSwissBioPicLocationId = (id: string) => {
   // Get rid of leading 0s which is expected in SubCellViz
@@ -29,7 +30,7 @@ const SubcellularLocationGOView: FC<
   return (
     <>
       <ul className="no-bullet">
-        {goXrefs.map(({ id, properties }) => (
+        {goXrefs.map(({ id, properties, evidences }) => (
           <li
             key={id}
             // used in the case that this component is used in conjunction
@@ -46,6 +47,7 @@ const SubcellularLocationGOView: FC<
               {properties.GoTerm}
             </ExternalLink>
             <GOTermEvidenceTag evidence={properties.GoEvidenceType} />
+            <UniProtKBEvidenceTag evidences={evidences} goTermEvidence />
           </li>
         ))}
       </ul>
