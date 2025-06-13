@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P05067.json
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-13
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P05067',
@@ -33,9 +33,9 @@ const mock: UniProtkbAPIModel = {
   uniProtkbId: 'A4_HUMAN',
   entryAudit: {
     firstPublicDate: '1987-08-13',
-    lastAnnotationUpdateDate: '2025-04-09',
+    lastAnnotationUpdateDate: '2025-06-18',
     lastSequenceUpdateDate: '1991-11-01',
-    entryVersion: 316,
+    entryVersion: 317,
     sequenceVersion: 3,
   },
   annotationScore: 5,
@@ -8209,8 +8209,7 @@ const mock: UniProtkbAPIModel = {
     {
       commentType: 'WEB RESOURCE',
       resourceName: 'Alzforum',
-      resourceUrl:
-        'https://www.alzforum.org/mutations/search?genes%255B%255D=348',
+      resourceUrl: 'https://www.alzforum.org/mutations/app',
       ftp: false,
       note: 'APP mutations',
     },
@@ -26920,6 +26919,25 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'PDB',
+      id: '9IIO',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value:
+            '2/3/4/5/6/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y=672-711',
+        },
+      ],
+    },
+    {
       database: 'PDBsum',
       id: '1AAP',
       properties: [
@@ -29130,6 +29148,16 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'PDBsum',
+      id: '9IIO',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
       database: 'AlphaFoldDB',
       id: 'P05067',
       properties: [
@@ -29591,6 +29619,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
+      id: 'EMD-60603',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
       id: 'EMD-9751',
       properties: [
         {
@@ -29635,7 +29673,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '2363',
+          value: '2364',
         },
       ],
     },
@@ -29730,6 +29768,16 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'FunCoup',
+      id: 'P05067',
+      properties: [
+        {
+          key: 'Number of interactors',
+          value: '1765',
+        },
+      ],
+    },
+    {
       database: 'IntAct',
       id: 'P05067',
       properties: [
@@ -29791,6 +29839,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'DrugBank',
+      id: 'DB06086',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Affitope AD01',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
       id: 'DB01370',
       properties: [
         {
@@ -29841,6 +29899,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'DrugBank',
+      id: 'DB11672',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Curcumin',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
       id: 'DB00746',
       properties: [
         {
@@ -29885,7 +29953,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'GenericName',
-          value: 'Florbetapir (18F)',
+          value: 'Florbetapir F-18',
         },
       ],
     },
@@ -29951,6 +30019,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'DrugBank',
+      id: 'DB18298',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'PTI-110',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
       id: 'DB02709',
       properties: [
         {
@@ -29971,11 +30049,31 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'DrugBank',
+      id: 'DB06527',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Tramiprosate',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
       id: 'DB03754',
       properties: [
         {
           key: 'GenericName',
           value: 'Tromethamine',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
+      id: 'DB19191',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Valiltramiprosate',
         },
       ],
     },
@@ -30076,7 +30174,7 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'glycosylation',
           value:
-            '26 sites, 13 N-linked glycans (3 sites), 6 O-linked glycans (22 sites)',
+            '29 sites, 13 N-linked glycans (3 sites), 6 O-linked glycans (22 sites)',
         },
       ],
     },
@@ -30316,7 +30414,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '137 sequenced antibodies',
+          value: '142 sequenced antibodies',
         },
       ],
     },
@@ -30326,7 +30424,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '5148 antibodies from 55 providers',
+          value: '4415 antibodies from 54 providers',
         },
       ],
     },
@@ -30760,6 +30858,16 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      database: 'PAN-GO',
+      id: 'P05067',
+      properties: [
+        {
+          key: 'Number of GO annotations',
+          value: '9 GO annotations based on evolutionary models',
+        },
+      ],
+    },
+    {
       database: 'PhylomeDB',
       id: 'P05067',
       properties: [
@@ -31168,11 +31276,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0045177',
+      id: 'GO:0097449',
       properties: [
         {
           key: 'GoTerm',
-          value: 'C:apical part of cell',
+          value: 'C:astrocyte projection',
         },
         {
           key: 'GoEvidenceType',
@@ -31222,34 +31330,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0005911',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:cell-cell junction',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0035253',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:ciliary rootlet',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0005905',
       properties: [
         {
@@ -31259,20 +31339,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IEA:UniProtKB-SubCell',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0030134',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:COPII-coated ER to Golgi transport vesicle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -31598,15 +31664,29 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0030426',
+      id: 'GO:1990812',
       properties: [
         {
           key: 'GoTerm',
-          value: 'C:growth cone',
+          value: 'C:growth cone filopodium',
         },
         {
           key: 'GoEvidenceType',
-          value: 'IEA:UniProtKB-SubCell',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:1990761',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:growth cone lamellipodium',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -31621,6 +31701,20 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IDA:HPA',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0044304',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:main axon',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -31675,11 +31769,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0031594',
+      id: 'GO:0098992',
       properties: [
         {
           key: 'GoTerm',
-          value: 'C:neuromuscular junction',
+          value: 'C:neuronal dense core vesicle',
         },
         {
           key: 'GoEvidenceType',
@@ -31790,20 +31884,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0048786',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:presynaptic active zone',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0043235',
       properties: [
         {
@@ -31839,34 +31919,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0005790',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:smooth endoplasmic reticulum',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:GOC',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051233',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:spindle midzone',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0045202',
       properties: [
         {
@@ -31883,20 +31935,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',
           id: '11988176',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0008021',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'C:synaptic vesicle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -31951,6 +31989,20 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000353',
           source: 'PubMed',
           id: '24499793',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0070851',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'F:growth factor receptor binding',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -32091,6 +32143,20 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0016504',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'F:peptidase activator activity',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:0120283',
       properties: [
         {
@@ -32154,21 +32220,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',
           id: '29518356',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0000978',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'F:RNA polymerase II cis-regulatory region sequence-specific DNA binding',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -32274,6 +32325,20 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000315',
           source: 'PubMed',
           id: '25620700',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0006915',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:apoptotic process',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:UniProtKB-KW',
         },
       ],
     },
@@ -32403,6 +32468,76 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0071320',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:cellular response to cAMP',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0071280',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:cellular response to copper ion',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0071287',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:cellular response to manganese ion',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:1990090',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:cellular response to nerve growth factor stimulus',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0071874',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:cellular response to norepinephrine stimulus',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IEA:Ensembl',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:0007417',
       properties: [
         {
@@ -32412,20 +32547,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'IBA:GO_Central',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0008203',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cholesterol metabolic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -32454,20 +32575,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0180011',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:cytosolic mRNA polyadenylation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -32510,48 +32617,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GoEvidenceType',
           value: 'ISS:UniProtKB',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0030900',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:forebrain development',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0000086',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:G2/M transition of mitotic cell cycle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0010467',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:gene expression',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -32811,76 +32876,6 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0045665',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of neuron differentiation',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:1905607',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:negative regulation of presynapse assembly',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0050885',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:neuromuscular process controlling balance',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051402',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:neuron apoptotic process',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0070050',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:neuron cellular homeostasis',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
       id: 'GO:0031175',
       properties: [
         {
@@ -33044,21 +33039,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
           id: '15457210',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0010971',
-      properties: [
-        {
-          key: 'GoTerm',
-          value:
-            'P:positive regulation of G2/M transition of mitotic cell cycle',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },
@@ -33507,39 +33487,11 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
-      id: 'GO:0006979',
+      id: 'GO:0010288',
       properties: [
         {
           key: 'GoTerm',
-          value: 'P:response to oxidative stress',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051563',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:smooth endoplasmic reticulum calcium ion homeostasis',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0001967',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:suckling behavior',
+          value: 'P:response to lead ion',
         },
         {
           key: 'GoEvidenceType',
@@ -33570,20 +33522,6 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000316',
           source: 'PubMed',
           id: '24012003',
-        },
-      ],
-    },
-    {
-      database: 'GO',
-      id: 'GO:0051124',
-      properties: [
-        {
-          key: 'GoTerm',
-          value: 'P:synaptic assembly at neuromuscular junction',
-        },
-        {
-          key: 'GoEvidenceType',
-          value: 'IEA:Ensembl',
         },
       ],
     },

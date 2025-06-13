@@ -3,7 +3,7 @@ import { AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-13
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -24,7 +24,8 @@ const goRibbonData: AGRRibbonData = {
           type: 'Term',
         },
         {
-          description: 'Binds to and modulates the activity of an enzyme.',
+          description:
+            'A molecular function regulator that modulates a catalytic activity.',
           id: 'GO:0030234',
           label: 'enzyme regulator activity',
           type: 'Term',
@@ -442,7 +443,7 @@ const goRibbonData: AGRRibbonData = {
         'GO:0003674': {
           ALL: {
             nb_classes: 5,
-            nb_annotations: 73,
+            nb_annotations: 74,
           },
           IEA: {
             nb_classes: 4,
@@ -460,11 +461,15 @@ const goRibbonData: AGRRibbonData = {
             nb_classes: 1,
             nb_annotations: 63,
           },
+          IBA: {
+            nb_classes: 1,
+            nb_annotations: 1,
+          },
         },
         'GO:0003824': {
           ALL: {
             nb_classes: 4,
-            nb_annotations: 10,
+            nb_annotations: 11,
           },
           IEA: {
             nb_classes: 4,
@@ -477,6 +482,10 @@ const goRibbonData: AGRRibbonData = {
           TAS: {
             nb_classes: 2,
             nb_annotations: 5,
+          },
+          IBA: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
         },
         'GO:0003674-other': {
@@ -494,7 +503,7 @@ const goRibbonData: AGRRibbonData = {
         'GO:0008150': {
           ALL: {
             nb_classes: 5,
-            nb_annotations: 12,
+            nb_annotations: 13,
           },
           TAS: {
             nb_classes: 1,
@@ -502,7 +511,7 @@ const goRibbonData: AGRRibbonData = {
           },
           IEA: {
             nb_classes: 1,
-            nb_annotations: 3,
+            nb_annotations: 4,
           },
           IDA: {
             nb_classes: 3,
@@ -520,11 +529,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0019538': {
           ALL: {
             nb_classes: 2,
-            nb_annotations: 7,
+            nb_annotations: 8,
           },
           IEA: {
             nb_classes: 1,
-            nb_annotations: 3,
+            nb_annotations: 4,
           },
           IDA: {
             nb_classes: 1,
@@ -541,7 +550,7 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0019081', 'GO:0046598', 'GO:0098670'],
+            terms: ['GO:0046598', 'GO:0098670', 'GO:0019081'],
             nb_classes: 3,
             nb_annotations: 5,
           },
@@ -559,7 +568,7 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005575': {
           ALL: {
             nb_classes: 5,
-            nb_annotations: 23,
+            nb_annotations: 24,
           },
           IEA: {
             nb_classes: 3,
@@ -576,6 +585,10 @@ const goRibbonData: AGRRibbonData = {
           HDA: {
             nb_classes: 1,
             nb_annotations: 3,
+          },
+          IBA: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
         },
         'GO:0005576': {
@@ -599,7 +612,7 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005886': {
           ALL: {
             nb_classes: 1,
-            nb_annotations: 12,
+            nb_annotations: 13,
           },
           IEA: {
             nb_classes: 1,
@@ -612,6 +625,10 @@ const goRibbonData: AGRRibbonData = {
           TAS: {
             nb_classes: 1,
             nb_annotations: 6,
+          },
+          IBA: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
         },
         'GO:0005634': {
@@ -638,7 +655,7 @@ const goRibbonData: AGRRibbonData = {
         },
       },
       nb_classes: 15,
-      nb_annotations: 108,
+      nb_annotations: 111,
       label: 'TMPRSS2',
       taxon_id: 'NCBITaxon:9606',
       taxon_label: 'Homo sapiens',

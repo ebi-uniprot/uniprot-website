@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 
 // Source: arba/search?query=insulin&size=2
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-13
 const mock: SearchResults<ARBAAPIModel> = {
   results: [
     {
@@ -108,6 +108,29 @@ const mock: SearchResults<ARBAAPIModel> = {
               },
             ],
           },
+          {
+            conditions: [
+              {
+                conditionValues: [
+                  {
+                    value: '1.10.100.10:FF:000003',
+                  },
+                ],
+                type: 'FunFam id',
+                isNegative: false,
+              },
+              {
+                conditionValues: [
+                  {
+                    value: 'Actinopterygii',
+                    cvId: '7898',
+                  },
+                ],
+                type: 'taxon',
+                isNegative: false,
+              },
+            ],
+          },
         ],
         annotations: [
           {
@@ -124,13 +147,13 @@ const mock: SearchResults<ARBAAPIModel> = {
       },
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 806,
+        unreviewedProteinCount: 1045,
       },
       createdDate: '2020-05-12',
-      modifiedDate: '2023-10-01',
+      modifiedDate: '2025-03-21',
     },
     {
-      uniRuleId: 'ARBA00014427',
+      uniRuleId: 'ARBA00070927',
       information: {
         version: '0',
       },
@@ -141,26 +164,48 @@ const mock: SearchResults<ARBAAPIModel> = {
               {
                 conditionValues: [
                   {
-                    value: 'IPR016179',
+                    value: '1.10.510.10:FF:000050',
                   },
                 ],
-                type: 'InterPro id',
+                type: 'FunFam id',
                 isNegative: false,
               },
               {
                 conditionValues: [
                   {
-                    value: 'IPR043387',
+                    value: '2.10.220.10:FF:000005',
                   },
                 ],
-                type: 'InterPro id',
+                type: 'FunFam id',
                 isNegative: false,
               },
               {
                 conditionValues: [
                   {
-                    value: 'Chordata',
-                    cvId: '7711',
+                    value: '2.60.40.10:FF:000087',
+                  },
+                ],
+                type: 'FunFam id',
+                isNegative: false,
+              },
+            ],
+          },
+          {
+            conditions: [
+              {
+                conditionValues: [
+                  {
+                    value: '2.60.40.10:FF:001010',
+                  },
+                ],
+                type: 'FunFam id',
+                isNegative: false,
+              },
+              {
+                conditionValues: [
+                  {
+                    value: 'Eukaryota',
+                    cvId: '2759',
                   },
                 ],
                 type: 'taxon',
@@ -175,7 +220,7 @@ const mock: SearchResults<ARBAAPIModel> = {
             proteinDescription: {
               recommendedName: {
                 fullName: {
-                  value: 'Insulin-like 3',
+                  value: 'Insulin receptor',
                 },
               },
             },
@@ -184,10 +229,10 @@ const mock: SearchResults<ARBAAPIModel> = {
       },
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 268,
+        unreviewedProteinCount: 40,
       },
-      createdDate: '2020-05-12',
-      modifiedDate: '2020-10-22',
+      createdDate: '2025-03-21',
+      modifiedDate: '2025-03-21',
     },
   ],
 };
