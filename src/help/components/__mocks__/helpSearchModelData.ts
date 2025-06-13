@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-13
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -9,6 +9,10 @@ const helpModelData: HelpSearchResponse = {
       name: 'category',
       allowMultipleSelection: true,
       values: [
+        {
+          value: '3D structure',
+          count: 1,
+        },
         {
           value: 'About UniProt',
           count: 1,
@@ -83,7 +87,7 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'manual',
-          count: 14,
+          count: 15,
         },
       ],
     },
@@ -115,7 +119,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2024-11-29',
+      lastModified: '2025-04-25',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -171,7 +175,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2024-11-29',
+      lastModified: '2025-04-25',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
@@ -240,6 +244,18 @@ const helpModelData: HelpSearchResponse = {
       matches: {
         content: [
           ' the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry?). Query: proteome:up000005640 AND',
+        ],
+      },
+    },
+    {
+      id: 'structure_section',
+      title: 'Structure annotation in UniProt',
+      lastModified: '2025-06-12',
+      type: 'help',
+      categories: ['3D structure', 'manual'],
+      matches: {
+        content: [
+          ' based on the protein <span class="match-highlight">canonical</span> sequence, without any ligands or interacting partners. These structural',
         ],
       },
     },
@@ -318,7 +334,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2024-11-29',
+      lastModified: '2025-06-09',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -363,7 +379,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2024-11-29',
+      lastModified: '2025-04-25',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -387,7 +403,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'manual_curation',
       title: 'How do we manually annotate a UniProtKB entry?',
-      lastModified: '2024-04-09',
+      lastModified: '2025-06-12',
       type: 'help',
       categories: ['UniProtKB', 'Biocuration', 'About UniProt', 'faq'],
       matches: {
@@ -430,7 +446,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2024-11-29',
+      lastModified: '2025-04-25',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {
