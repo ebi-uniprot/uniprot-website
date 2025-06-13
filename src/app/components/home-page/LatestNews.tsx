@@ -128,6 +128,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2025-06-18-release',
+                  })}
+                >
+                  UniProt release 2025_03
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Complement-ary information on granzyme K | Cross-references to
+                CARD | Cross-references to FunCoup | Cross-references to PAN-GO
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2025-04-23-release',
                   })}
                 >
@@ -232,29 +254,6 @@ const LatestNews = () => {
                 Oocyte waste disposal strategy: &#39;store to degrade later&#39;
                 | Removal of the cross-references to CLAE | Removal of the
                 cross-references to COMPLUYEAST-2DPAGE
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-05-29-release',
-                  })}
-                >
-                  UniProt release 2024_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The culprit for extreme morning sickness identified | Removal of
-                the cross-references to Genevisible | Removal of the
-                cross-references to SWISS-2DPAGE
               </p>
             </article>
           </li>
