@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { LocationDescriptor } from 'history';
+import { throttle } from 'lodash-es';
 import {
   FormEventHandler,
   useCallback,
@@ -18,6 +19,7 @@ import {
 } from '../../messages/types/messagesTypes';
 import useDataApi from '../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
+import useSafeState from '../../shared/hooks/useSafeState';
 import { stringifyUrl } from '../../shared/utils/url';
 import apiUrls from '../config/apiUrls';
 
@@ -50,8 +52,26 @@ ${formData.get('context') || ''}`;
   return output;
 };
 
+export type Suggestion = 'update' | 'PDB';
+const entryUpdateRegExp = /entry update request/i;
+const pdbRegExp = /(structure)|(pdb)/i;
+
+export const getSuggestion = throttle(
+  (subject: string, message: string): undefined | Suggestion => {
+    if (entryUpdateRegExp.test(subject)) {
+      return 'update';
+    }
+    if (pdbRegExp.test(message)) {
+      return 'PDB';
+    }
+    return undefined;
+  },
+  2_500
+);
+
 export type UseFormLogicReturnType = {
   sending: boolean;
+  suggestion: undefined | Suggestion;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
@@ -60,6 +80,9 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const dispatch = useMessagesDispatch();
   const history = useHistory<ContactLocationState>();
   const [formData, setFormData] = useState<undefined | FormData>();
+  const [suggestion, setSuggestion] = useSafeState<undefined | Suggestion>(
+    undefined
+  );
 
   const subject = formData?.get('subject') as undefined | string;
 
@@ -152,6 +175,12 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
         ) {
           return;
         }
+        setSuggestion(
+          getSuggestion(
+            element.form?.subject.value,
+            element.form?.message.value
+          )
+        );
         history.replace({
           ...history.location,
           state: {
@@ -163,8 +192,8 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
           },
         });
       },
-      [loading, history]
+      [loading, history, setSuggestion]
     );
 
-  return { sending: loading, handleSubmit, handleChange };
+  return { sending: loading, suggestion, handleSubmit, handleChange };
 };
