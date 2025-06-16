@@ -102,7 +102,7 @@ export const proteomeFastaOption = (
 ) => (
   <fieldset>
     <p className={styles['new-fasta-header']}>
-      <span data-article-id="fasta-headers#uniparc-for-proteomes">
+      <span data-article-id="fasta-headers#uniparc-proteomes">
         FASTA header for proteomes
       </span>
       <small>
