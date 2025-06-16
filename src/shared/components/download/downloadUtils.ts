@@ -210,8 +210,8 @@ export const isUniParcProteomeSearch = (
     state.selectedFileFormat === FileFormat.fasta &&
     !state.nSelectedEntries
   ) {
-    const match = query?.match(new RegExp(reProteomeId, 'g'));
-    if (match && match.length === 1) {
+    const match = query?.match(reProteomeId);
+    if (match && match.length > 1) {
       return true;
     }
   }
