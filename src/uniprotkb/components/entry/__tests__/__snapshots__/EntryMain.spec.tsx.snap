@@ -3004,7 +3004,7 @@ exports[`Entry view should render 1`] = `
         class="card__header card__header--with-separator"
       >
         <h2
-          data-article-id="structure_section"
+          data-article-id="structure_section#structure-section"
         >
           Structure
         </h2>
@@ -5449,7 +5449,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         class="card__header card__header--with-separator"
       >
         <h2
-          data-article-id="structure_section"
+          data-article-id="structure_section#structure-section"
         >
           Structure
         </h2>
