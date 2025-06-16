@@ -67,6 +67,74 @@ const suggestionMessages: Record<Suggestion, ReactNode> = {
       .
     </>
   ),
+  buy: (
+    <>
+      the UniProt consortium does not sell any biological products, neither
+      proteins nor organisms. Please see{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'where_to_buy',
+        })}
+      >
+        this help page for more information
+      </Link>
+      .
+    </>
+  ),
+  blast: (
+    <>
+      Please find more information about the BLAST tool in our corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'blast-submission',
+        })}
+      >
+        BLAST help page
+      </Link>
+      .
+    </>
+  ),
+  align: (
+    <>
+      Please find more information about the Align tool in our corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'sequence-alignments',
+        })}
+      >
+        sequence alignment help page
+      </Link>
+      .
+    </>
+  ),
+  'id mapping': (
+    <>
+      Please find more information about the ID Mapping tool in our
+      corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'id_mapping',
+        })}
+      >
+        ID Mapping help page
+      </Link>
+      .
+    </>
+  ),
+  'peptide search': (
+    <>
+      Please find more information about the Peptide Search tool in our
+      corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'peptide_search',
+        })}
+      >
+        Peptide Search help page
+      </Link>
+      .
+    </>
+  ),
 };
 
 const ContactForm = () => {

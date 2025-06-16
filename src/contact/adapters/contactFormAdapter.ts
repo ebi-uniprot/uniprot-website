@@ -52,9 +52,21 @@ ${formData.get('context') || ''}`;
   return output;
 };
 
-export type Suggestion = 'update' | 'PDB';
+export type Suggestion =
+  | 'update'
+  | 'PDB'
+  | 'buy'
+  | 'blast'
+  | 'align'
+  | 'id mapping'
+  | 'peptide search';
 const entryUpdateRegExp = /entry update request/i;
 const pdbRegExp = /(structure)|(pdb)/i;
+const buyRegExp = /(buy)|(purchas)|(ship)|(cost)|(quote)/i;
+const blastRegExp = /blast/i;
+const alignRegExp = /(clustal)|(align)/i;
+const idMappingRegExp = /(map)/i;
+const peptideSearchRegExp = /(peptide search)|(search peptide)/i;
 
 export const getSuggestion = throttle(
   (subject: string, message: string): undefined | Suggestion => {
@@ -63,6 +75,27 @@ export const getSuggestion = throttle(
     }
     if (pdbRegExp.test(message)) {
       return 'PDB';
+    }
+    if (buyRegExp.test(subject) || buyRegExp.test(message)) {
+      return 'buy';
+    }
+    if (buyRegExp.test(subject) || buyRegExp.test(message)) {
+      return 'buy';
+    }
+    if (blastRegExp.test(subject) || blastRegExp.test(message)) {
+      return 'blast';
+    }
+    if (alignRegExp.test(subject) || alignRegExp.test(message)) {
+      return 'align';
+    }
+    if (idMappingRegExp.test(subject) || idMappingRegExp.test(message)) {
+      return 'id mapping';
+    }
+    if (
+      peptideSearchRegExp.test(subject) ||
+      peptideSearchRegExp.test(message)
+    ) {
+      return 'peptide search';
     }
     return undefined;
   },
