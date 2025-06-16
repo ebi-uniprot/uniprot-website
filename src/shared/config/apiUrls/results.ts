@@ -41,7 +41,7 @@ type Parameters = {
   jobId?: string;
 };
 
-export const reProteomeId = /^\(*(upid|proteome):(UP\d+)\)*$/;
+export const reProteomeId = /^\(*(upid|proteome):(UP\d+)\)*$/i;
 
 export const download = ({
   base,
