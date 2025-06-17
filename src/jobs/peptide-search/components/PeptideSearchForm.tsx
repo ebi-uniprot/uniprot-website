@@ -240,7 +240,9 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
   return (
     <>
       <HTMLHead title={title} />
-      <PageIntro heading={title} />
+      <PageIntro
+        heading={<span data-article-id="peptide_search">{title}</span>}
+      />
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}
@@ -262,7 +264,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               For submissions involving shorter peptides or more than 100
               sequences, or in case of server problems, a{' '}
               <ExternalLink
-                url="https://research.bioinformatics.udel.edu/peptidematch/commandlinetool.jsp"
+                url="https://proteininformationresource.org/download/peptide_match/"
                 noIcon
               >
                 downloadable tool

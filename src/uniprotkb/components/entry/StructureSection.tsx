@@ -85,7 +85,7 @@ const StructureSection = ({ data, primaryAccession, crc64 }: Props) => {
   return (
     <Card
       header={
-        <h2 data-article-id="structure_section">
+        <h2 data-article-id="structure_section#structure-section">
           {getEntrySectionNameAndId(EntrySection.Structure).name}
         </h2>
       }

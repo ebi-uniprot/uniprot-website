@@ -8,7 +8,11 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
     <h1
       class=""
     >
-      Peptide search
+      <span
+        data-article-id="peptide_search"
+      >
+        Peptide search
+      </span>
     </h1>
   </div>
   <form
@@ -33,7 +37,7 @@ exports[`PeptideSearchForm test Renders the form 1`] = `
           For submissions involving shorter peptides or more than 100 sequences, or in case of server problems, a 
           <a
             class="external-link"
-            href="https://research.bioinformatics.udel.edu/peptidematch/commandlinetool.jsp"
+            href="https://proteininformationresource.org/download/peptide_match/"
             rel="noopener"
             target="_blank"
           >
