@@ -27,6 +27,7 @@ export enum PropertyKey {
   GoEvidenceType = 'GoEvidenceType',
   GoTerm = 'GoTerm',
   Interactions = 'Interactions',
+  NumberOfInteractors = 'Number of interactors',
   MatchStatus = 'MatchStatus',
   Method = 'Method',
   MoleculeType = 'MoleculeType',

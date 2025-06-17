@@ -51,7 +51,10 @@ export const getPropertyString = (key?: string, value?: string) => {
   if (key === PropertyKey.MatchStatus) {
     return formatSuffixWithCount('hit', value);
   }
-  if (key === PropertyKey.Interactions) {
+  if (
+    key === PropertyKey.Interactions ||
+    key === PropertyKey.NumberOfInteractors
+  ) {
     return formatSuffixWithCount('interactor', value);
   }
   return value;
