@@ -4579,6 +4579,11 @@ exports[`Entry view should render for non-human entry 1`] = `
             </tr>
           </tbody>
         </table>
+        <h3
+          data-article-id="gene_ontology"
+        >
+          Gene Ontology
+        </h3>
         <div
           class="tabs padding-top-small"
         >
