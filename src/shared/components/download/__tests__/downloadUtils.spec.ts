@@ -287,7 +287,7 @@ describe('Download Utils', () => {
     expect(getFtpFilenamesAndUrls(state, props, location, job)).toEqual([
       {
         filename: 'uniprot_sprot.fasta.gz',
-        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz',
+        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/uniprot_sprot.fasta.gz',
       },
     ]);
     expect(getColumnsNamespace(props, job)).toEqual(Namespace.uniprotkb);
