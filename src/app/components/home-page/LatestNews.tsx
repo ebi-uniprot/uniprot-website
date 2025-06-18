@@ -8,10 +8,10 @@ import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 const insideUniProtAbstract1 =
-  'Mammalian immune responses are mediated by interactions between antigens and immune system components such as antibodies, B cells, and T cells';
+  'Advances in genome sequencing technology means that large-scale efforts such as the Earth Biogenome project and the Darwin Tree of Life';
 
 const insideUniProtAbstract2 =
-  'In recent years a wealth of information has become available about genetic variations that underlie various diseases, especially cancer.';
+  'Mammalian immune responses are mediated by interactions between antigens and immune system components such as antibodies, B cells, and T cells';
 
 const proteinSpotlightAbstract =
   'We all begin with one cell, which divides into two - and so on. It sounds straightforward but a cell has various components (nucleus, mitochondria, Golgi apparatus...) each of which carries out vital activities...';
@@ -269,6 +269,40 @@ const LatestNews = () => {
       >
         <article>
           <ExternalLink
+            url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
+            noIcon
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <img
+              loading="lazy"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirk3tkRBOtzcDOTuqYSaFrGGQ1Io-VRfUIKfUEa0C5B4DhxuQqMyYanGHhvzH9mG-i4Of2uPZuK7H7d-34yYHKv6-FVqtW-27BEt9t0EukH9ECDTgRQiuarZdYC143Nr-t1RtmD_55avFfIiGIpmjCAM4VTNM9mo739WbLH5r0D2joTOyK8q8hRfKGPhA/w400-h200/Picture1.png"
+              style={{ background: 'white' }}
+              alt=""
+              width="184.305"
+              height="96"
+            />
+          </ExternalLink>
+          <h3 className="tiny">
+            <ExternalLink
+              url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
+              noIcon
+            >
+              Capturing the Diversity of Life - Reorganizing the Protein Space
+              in UniProtKB
+            </ExternalLink>
+          </h3>
+          <p
+            className={cn(
+              styles['latest-news__abstract'],
+              styles['latest-news__abstract--4-lines']
+            )}
+          >
+            {insideUniProtAbstract1}
+          </p>
+        </article>
+        <article>
+          <ExternalLink
             url="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
             noIcon
             aria-hidden="true"
@@ -288,39 +322,6 @@ const LatestNews = () => {
               noIcon
             >
               Rich Epitope Information Comes to UniProt
-            </ExternalLink>
-          </h3>
-          <p
-            className={cn(
-              styles['latest-news__abstract'],
-              styles['latest-news__abstract--4-lines']
-            )}
-          >
-            {insideUniProtAbstract1}
-          </p>
-        </article>
-        <article>
-          <ExternalLink
-            url="https://insideuniprot.blogspot.com/2023/05/usinguniprot-discanvis-interpreting.html"
-            noIcon
-            aria-hidden="true"
-            tabIndex={-1}
-          >
-            <img
-              loading="lazy"
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh05-yWBZ5nDjx--3jyDMr5jla5tF8yAN2ITooYxlmd7I8WCri6rz3V3kDA35i0JYVcA_TIMWAp_BLDO9svprXjw1hk_Ohq4tx76C9MTz6LXmXrExCXoHZWYe5VPwZrdGxk0g4rWSwmQ9gL1WOA_kkqvQaWJuAXAU3zni9xdxG7c3yBCW9Wyl9yQy8W/s512/blog1.png"
-              style={{ background: 'white' }}
-              alt=""
-              width="184.305"
-              height="96"
-            />
-          </ExternalLink>
-          <h3 className="tiny">
-            <ExternalLink
-              url="https://insideuniprot.blogspot.com/2023/05/usinguniprot-discanvis-interpreting.html"
-              noIcon
-            >
-              #UsingUniProt - DisCanVis interpreting genomic variation data
             </ExternalLink>
           </h3>
           <p
