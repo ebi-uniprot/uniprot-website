@@ -154,7 +154,7 @@ const GoCam = ({ primaryAccession }: Props) => {
   if (allGoCamIdsResponse.loading || loadingUniprotGoCamIds) {
     content = (
       <>
-        <div className={styles.preamble} data-article-id="gene-ontology">
+        <div className={styles.preamble}>
           Searching Gene Ontology knowledgebase for GO-CAM models.
         </div>
         <Loader />
@@ -166,7 +166,7 @@ const GoCam = ({ primaryAccession }: Props) => {
   ) {
     content = (
       <>
-        <div className={styles.preamble} data-article-id="gene-ontology">
+        <div className={styles.preamble}>
           UniProt curated GO-CAM models have not been found for this entry
           within the Gene Ontology knowledgebase.
         </div>
@@ -186,7 +186,7 @@ const GoCam = ({ primaryAccession }: Props) => {
   } else if (showGoCamViz) {
     content = (
       <>
-        <div className={styles.preamble} data-article-id="gene-ontology">
+        <div className={styles.preamble}>
           Gene Ontology Causal Activity Models (GO-CAM) associated with this
           entry.
         </div>

@@ -7,7 +7,7 @@ type Payload = {
 };
 
 // Source: uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-18
 const mock: Payload = {
   facets: [
     {
@@ -18,17 +18,17 @@ const mock: Payload = {
         {
           label: '100%',
           value: '1.0',
-          count: 1273948,
+          count: 1297879,
         },
         {
           label: '90%',
           value: '0.9',
-          count: 470481,
+          count: 475006,
         },
         {
           label: '50%',
           value: '0.5',
-          count: 69732,
+          count: 69987,
         },
       ],
     },
@@ -68,14 +68,14 @@ const mock: Payload = {
         },
       },
       seedId: 'A0A3E1E969',
-      memberIdTypes: ['UniParc', 'UniProtKB Unreviewed (TrEMBL)'],
+      memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)', 'UniParc'],
       members: [
         'A0A3E1E969',
-        'B4CTX8',
         'A0A7Y5C7M4',
+        'B4CTX8',
         'A0A3C1H8I3',
-        'UPI00104BEFB8',
         'UPI0032A75626',
+        'UPI00104BEFB8',
       ],
       organisms: [
         {
@@ -83,24 +83,24 @@ const mock: Payload = {
           taxonId: 2026799,
         },
         {
-          scientificName: 'Chthoniobacter flavus Ellin428',
-          taxonId: 497964,
-        },
-        {
           scientificName: 'Hydrogenedentota bacterium',
           taxonId: 2030809,
+        },
+        {
+          scientificName: 'Chthoniobacter flavus Ellin428',
+          taxonId: 497964,
         },
         {
           scientificName: 'Verrucomicrobiales bacterium',
           taxonId: 2026801,
         },
         {
-          scientificName: 'Chthoniobacter flavus',
-          taxonId: 191863,
-        },
-        {
           scientificName: 'Chthoniobacter sp.',
           taxonId: 2510640,
+        },
+        {
+          scientificName: 'Chthoniobacter flavus',
+          taxonId: 191863,
         },
       ],
       goTerms: [

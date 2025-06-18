@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-18
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -790,6 +790,12 @@ const mock = [
         id: 'protein-protein_interaction/elm',
       },
       {
+        label: 'FunCoup',
+        name: 'xref_funcoup',
+        isMultiValueCrossReference: true,
+        id: 'protein-protein_interaction/funcoup',
+      },
+      {
         label: 'IntAct',
         name: 'xref_intact',
         isMultiValueCrossReference: true,
@@ -855,6 +861,12 @@ const mock = [
         name: 'xref_allergome',
         isMultiValueCrossReference: true,
         id: 'protein_family/group/allergome',
+      },
+      {
+        label: 'CARD',
+        name: 'xref_card',
+        isMultiValueCrossReference: true,
+        id: 'protein_family/group/card',
       },
       {
         label: 'CAZy',
@@ -1451,6 +1463,12 @@ const mock = [
         label: 'OrthoDB',
         name: 'xref_orthodb',
         id: 'phylogenomic/orthodb',
+      },
+      {
+        label: 'PAN-GO',
+        name: 'xref_pan-go',
+        isMultiValueCrossReference: true,
+        id: 'phylogenomic/pan-go',
       },
       {
         label: 'PhylomeDB',

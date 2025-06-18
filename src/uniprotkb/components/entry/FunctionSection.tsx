@@ -33,7 +33,9 @@ import FreeTextView, {
 import KeywordView from '../protein-data-views/KeywordView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
-import XRefView from '../protein-data-views/XRefView';
+import XRefView, {
+  XRefsGroupedByCategory,
+} from '../protein-data-views/XRefView';
 import CommunityCuration from './CommunityCuration';
 import KineticsTableView from './KineticsTableView';
 
@@ -291,6 +293,8 @@ const FunctionSection = ({
 
   const reviewed = data.entryType === EntryType.REVIEWED;
 
+  const hasGo = Boolean(data.goTerms?.size || data?.panGoXrefs);
+
   return (
     <Card
       header={
@@ -377,6 +381,7 @@ const FunctionSection = ({
         features={data.featuresData}
         sequence={sequence}
       />
+      {hasGo && <h3 data-article-id="gene_ontology">Gene Ontology</h3>}
       {
         // If no GO terms then no GO-CAM models. From Antonia Lock:
         // "I assume that any go cams that we display, would also be integrated in the go releases, otherwise I would question the quality of the model"
@@ -419,6 +424,12 @@ const FunctionSection = ({
           </ErrorBoundary>
         )
       }
+      {data.panGoXrefs ? (
+        <XRefsGroupedByCategory
+          databases={data.panGoXrefs}
+          primaryAccession={primaryAccession}
+        />
+      ) : null}
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       <CommunityCuration

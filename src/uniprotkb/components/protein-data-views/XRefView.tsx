@@ -51,7 +51,10 @@ export const getPropertyString = (key?: string, value?: string) => {
   if (key === PropertyKey.MatchStatus) {
     return formatSuffixWithCount('hit', value);
   }
-  if (key === PropertyKey.Interactions) {
+  if (
+    key === PropertyKey.Interactions ||
+    key === PropertyKey.NumberOfInteractors
+  ) {
     return formatSuffixWithCount('interactor', value);
   }
   return value;
@@ -86,6 +89,7 @@ const propertyKeySet = new Set<PropertyKey>([
   PropertyKey.RefSeqNucleotideId,
   PropertyKey.RefSeqProteinId,
   PropertyKey.NucleotideSequenceId,
+  PropertyKey.ResistanceMechanismIdentifier,
 ]);
 
 export const XRef = ({
@@ -241,7 +245,7 @@ type XRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const XRefsGroupedByCategory = ({
+export const XRefsGroupedByCategory = ({
   databases,
   primaryAccession,
   crc64,
