@@ -4,6 +4,7 @@ import {
   Card,
   ClockIcon,
   FullViewIcon,
+  Message,
   PageIntro,
   ReSubmitIcon,
 } from 'franklin-sites';
@@ -64,6 +65,10 @@ const Dashboard = ({ onFullView }: { onFullView?: () => void }) => {
         have tools jobs running, you can navigate away to other pages and you
         will be notified once the job is completed.
       </p>
+      <Message level="warning">
+        A planned short maintenance of our tools is happening now, if you
+        encounter any issue please retry in 10 minutes.
+      </Message>
       <div className="dashboard">
         <div className="dashboard__header">
           <Card>
