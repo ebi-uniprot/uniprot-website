@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 
 // Source: keywords/search?query=site&size=2
-// Retrieved: 2025-06-13
+// Retrieved: 2025-06-18
 const mock: SearchResults<KeywordsAPIModel> = {
   results: [
     {

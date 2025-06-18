@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2025-06-13
+// Retrieved: 2025-06-18
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -487,9 +487,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
             type: 'integer',
             format: 'int64',
           },
-          commonName: {
-            type: 'string',
-          },
           scientificName: {
             type: 'string',
           },
@@ -498,6 +495,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
             items: {
               type: 'string',
             },
+          },
+          commonName: {
+            type: 'string',
           },
           evidences: {
             type: 'array',
@@ -537,24 +537,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
-          uniRef100Id: {
-            type: 'string',
-          },
-          uniParcId: {
-            type: 'string',
-          },
-          overlapRegion: {
-            $ref: '#/components/schemas/OverlapRegion',
-          },
-          proteinName: {
-            type: 'string',
-          },
-          uniRef50Id: {
-            type: 'string',
-          },
-          uniRef90Id: {
-            type: 'string',
-          },
           organismName: {
             type: 'string',
           },
@@ -565,6 +547,24 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequenceLength: {
             type: 'integer',
             format: 'int32',
+          },
+          proteinName: {
+            type: 'string',
+          },
+          uniRef50Id: {
+            type: 'string',
+          },
+          uniRef90Id: {
+            type: 'string',
+          },
+          uniRef100Id: {
+            type: 'string',
+          },
+          uniParcId: {
+            type: 'string',
+          },
+          overlapRegion: {
+            $ref: '#/components/schemas/OverlapRegion',
           },
           memberId: {
             type: 'string',
@@ -625,8 +625,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/UniRefMember',
             },
           },
-          representativeMember: {
-            $ref: '#/components/schemas/RepresentativeMember',
+          seedId: {
+            type: 'string',
           },
           entryType: {
             type: 'string',
@@ -649,32 +649,14 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/GeneOntologyEntry',
             },
           },
-          seedId: {
-            type: 'string',
+          representativeMember: {
+            $ref: '#/components/schemas/RepresentativeMember',
           },
         },
       },
       UniRefMember: {
         type: 'object',
         properties: {
-          uniRef100Id: {
-            type: 'string',
-          },
-          uniParcId: {
-            type: 'string',
-          },
-          overlapRegion: {
-            $ref: '#/components/schemas/OverlapRegion',
-          },
-          proteinName: {
-            type: 'string',
-          },
-          uniRef50Id: {
-            type: 'string',
-          },
-          uniRef90Id: {
-            type: 'string',
-          },
           organismName: {
             type: 'string',
           },
@@ -685,6 +667,24 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequenceLength: {
             type: 'integer',
             format: 'int32',
+          },
+          proteinName: {
+            type: 'string',
+          },
+          uniRef50Id: {
+            type: 'string',
+          },
+          uniRef90Id: {
+            type: 'string',
+          },
+          uniRef100Id: {
+            type: 'string',
+          },
+          uniParcId: {
+            type: 'string',
+          },
+          overlapRegion: {
+            $ref: '#/components/schemas/OverlapRegion',
           },
           memberId: {
             type: 'string',

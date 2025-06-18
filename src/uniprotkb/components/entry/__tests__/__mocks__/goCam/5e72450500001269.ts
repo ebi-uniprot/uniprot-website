@@ -1,7 +1,7 @@
 import { GoCamModelInfo } from '../../../../../types/goCamTypes';
 
 // Source: https://api.geneontology.org/api/go-cam/gomodel:5e72450500001269
-// Retrieved: 2025-06-13
+// Retrieved: 2025-06-18
 const model: GoCamModelInfo = {
   id: 'gomodel:5e72450500001269',
   individuals: [

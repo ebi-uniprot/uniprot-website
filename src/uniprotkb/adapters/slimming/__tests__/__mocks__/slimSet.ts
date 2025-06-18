@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2025-06-13
+// Retrieved: 2025-06-18
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {

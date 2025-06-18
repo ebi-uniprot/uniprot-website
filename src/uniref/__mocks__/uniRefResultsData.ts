@@ -7,7 +7,7 @@ type Payload = {
 };
 
 // Source: uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2025-06-13
+// Retrieved: 2025-06-18
 const mock: Payload = {
   facets: [
     {
@@ -68,7 +68,7 @@ const mock: Payload = {
         },
       },
       seedId: 'A0A3E1E969',
-      memberIdTypes: ['UniParc', 'UniProtKB Unreviewed (TrEMBL)'],
+      memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)', 'UniParc'],
       members: [
         'A0A3E1E969',
         'A0A7Y5C7M4',
