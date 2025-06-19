@@ -1,7 +1,13 @@
 import cn from 'classnames';
-import { Button, ErrorIcon, PageIntro, SuccessIcon } from 'franklin-sites';
+import {
+  Button,
+  ErrorIcon,
+  Message,
+  PageIntro,
+  SuccessIcon,
+} from 'franklin-sites';
 import { createPath } from 'history';
-import { ChangeEvent, useId, useMemo } from 'react';
+import { ChangeEvent, ReactNode, useId, useMemo } from 'react';
 import {
   generatePath,
   Link,
@@ -15,6 +21,7 @@ import HTMLHead from '../../shared/components/HTMLHead';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
 import {
   ContactLocationState,
+  Suggestion,
   useFormLogic,
 } from '../adapters/contactFormAdapter';
 import ContactLink from './ContactLink';
@@ -38,6 +45,97 @@ const validity = (
     />
   </>
 );
+
+const suggestionMessages: Record<Suggestion, ReactNode> = {
+  update: (
+    <>
+      When submitting updates to an entry, please provide the relevant source
+      information, such as a reference to a publication.
+    </>
+  ),
+  PDB: (
+    <>
+      New structures published to PDB automatically get added to UniProtKB
+      entries, but there might be a bit of delay, please see{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'synchronization',
+        })}
+      >
+        this help article about the synchronization process
+      </Link>
+      .
+    </>
+  ),
+  buy: (
+    <>
+      the UniProt consortium does not sell any biological products, neither
+      proteins nor organisms. Please see{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'where_to_buy',
+        })}
+      >
+        this help page for more information
+      </Link>
+      .
+    </>
+  ),
+  blast: (
+    <>
+      Please find more information about the BLAST tool in our corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'blast-submission',
+        })}
+      >
+        BLAST help page
+      </Link>
+      .
+    </>
+  ),
+  align: (
+    <>
+      Please find more information about the Align tool in our corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'sequence-alignments',
+        })}
+      >
+        sequence alignment help page
+      </Link>
+      .
+    </>
+  ),
+  'id mapping': (
+    <>
+      Please find more information about the ID Mapping tool in our
+      corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'id_mapping',
+        })}
+      >
+        ID Mapping help page
+      </Link>
+      .
+    </>
+  ),
+  'peptide search': (
+    <>
+      Please find more information about the Peptide Search tool in our
+      corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'peptide_search',
+        })}
+      >
+        Peptide Search help page
+      </Link>
+      .
+    </>
+  ),
+};
 
 const ContactForm = () => {
   const formId = useId();
@@ -92,7 +190,8 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
     );
   };
 
-  const { handleSubmit, handleChange, sending } = useFormLogic(referrerValue);
+  const { handleSubmit, handleChange, sending, suggestion } =
+    useFormLogic(referrerValue);
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
@@ -189,6 +288,11 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
             />
             {validity}
           </span>
+          {suggestion && (
+            <Message level="info" className={cn(styles.suggestion)}>
+              {suggestionMessages[suggestion]}
+            </Message>
+          )}
           <label
             className={cn(styles.label, styles['label-wide'])}
             htmlFor={`prefilled-${formId}`}

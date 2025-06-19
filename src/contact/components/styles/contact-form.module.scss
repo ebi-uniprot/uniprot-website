@@ -22,6 +22,7 @@
       'label-subject input-subject'
       'label-message .'
       'input-message input-message'
+      'suggestion    suggestion'
       'label-context label-context'
       'context       context'
       'privacy       privacy'
@@ -35,6 +36,7 @@
         'label-subject input-subject aside'
         'label-message .             aside'
         'input-message input-message input-message'
+        'suggestion    suggestion   suggestion'
         'label-context label-context label-context'
         'context       context       context'
         'privacy       privacy       privacy'
@@ -49,6 +51,7 @@
         'label-subject input-subject illustration  aside'
         'label-message .             illustration  aside'
         'input-message input-message input-message input-message'
+        'suggestion    suggestion    suggestion    suggestion'
         'label-context label-context label-context label-context'
         'input-context input-context input-context input-context'
         'privacy       privacy       privacy       privacy'
@@ -149,6 +152,11 @@
   &.invalid {
     color: $colour-failure;
   }
+}
+
+.suggestion {
+  grid-column: 1 / -1;
+  inline-size: calc(100% - 3ch);
 }
 
 .privacy {
