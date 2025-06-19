@@ -1,8 +1,10 @@
 import { AxiosRequestConfig } from 'axios';
 import { LocationDescriptor } from 'history';
-import { throttle } from 'lodash-es';
+import { debounce } from 'lodash-es';
 import {
+  Dispatch,
   FormEventHandler,
+  SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -19,7 +21,6 @@ import {
 } from '../../messages/types/messagesTypes';
 import useDataApi from '../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
-import useSafeState from '../../shared/hooks/useSafeState';
 import { stringifyUrl } from '../../shared/utils/url';
 import apiUrls from '../config/apiUrls';
 
@@ -52,6 +53,8 @@ ${formData.get('context') || ''}`;
   return output;
 };
 
+const DEBOUNCE_TIME = 1_000;
+
 export type Suggestion =
   | 'update'
   | 'PDB'
@@ -68,38 +71,36 @@ const alignRegExp = /(clustal)|(align)/i;
 const idMappingRegExp = /(map)/i;
 const peptideSearchRegExp = /(peptide search)|(search peptide)/i;
 
-export const getSuggestion = throttle(
-  (subject: string, message: string): undefined | Suggestion => {
+export const getSuggestion = debounce(
+  (
+    subject: string,
+    message: string,
+    callback: Dispatch<SetStateAction<Suggestion | undefined>>
+  ): void => {
     if (entryUpdateRegExp.test(subject)) {
-      return 'update';
-    }
-    if (pdbRegExp.test(message)) {
-      return 'PDB';
-    }
-    if (buyRegExp.test(subject) || buyRegExp.test(message)) {
-      return 'buy';
-    }
-    if (buyRegExp.test(subject) || buyRegExp.test(message)) {
-      return 'buy';
-    }
-    if (blastRegExp.test(subject) || blastRegExp.test(message)) {
-      return 'blast';
-    }
-    if (alignRegExp.test(subject) || alignRegExp.test(message)) {
-      return 'align';
-    }
-    if (idMappingRegExp.test(subject) || idMappingRegExp.test(message)) {
-      return 'id mapping';
-    }
-    if (
+      // A bit specific, only test the subject as it would have been added by
+      // the link from entry page to suggest an update
+      callback('update');
+    } else if (pdbRegExp.test(subject) || pdbRegExp.test(message)) {
+      callback('PDB');
+    } else if (buyRegExp.test(subject) || buyRegExp.test(message)) {
+      callback('buy');
+    } else if (blastRegExp.test(subject) || blastRegExp.test(message)) {
+      callback('blast');
+    } else if (alignRegExp.test(subject) || alignRegExp.test(message)) {
+      callback('align');
+    } else if (idMappingRegExp.test(subject) || idMappingRegExp.test(message)) {
+      callback('id mapping');
+    } else if (
       peptideSearchRegExp.test(subject) ||
       peptideSearchRegExp.test(message)
     ) {
-      return 'peptide search';
+      callback('peptide search');
+    } else {
+      callback(undefined);
     }
-    return undefined;
   },
-  2_500
+  DEBOUNCE_TIME
 );
 
 export type UseFormLogicReturnType = {
@@ -113,7 +114,7 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const dispatch = useMessagesDispatch();
   const history = useHistory<ContactLocationState>();
   const [formData, setFormData] = useState<undefined | FormData>();
-  const [suggestion, setSuggestion] = useSafeState<undefined | Suggestion>(
+  const [suggestion, setSuggestion] = useState<undefined | Suggestion>(
     undefined
   );
 
@@ -195,6 +196,9 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     [loading]
   );
 
+  // on unmount, cancel any pending suggestion calculation
+  useEffect(() => getSuggestion.cancel, []);
+
   const handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement> =
     useCallback(
       (event) => {
@@ -208,11 +212,10 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
         ) {
           return;
         }
-        setSuggestion(
-          getSuggestion(
-            element.form?.subject.value,
-            element.form?.message.value
-          )
+        getSuggestion(
+          element.form?.subject.value,
+          element.form?.message.value,
+          setSuggestion
         );
         history.replace({
           ...history.location,
