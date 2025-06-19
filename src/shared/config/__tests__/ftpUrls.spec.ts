@@ -55,7 +55,7 @@ describe('getUniprotkbFtpUrl', () => {
         FileFormat.xml
       )?.[0]?.url
     ).toEqual(
-      'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/uniprot_sprot.xml.gz'
+      'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz'
     );
   });
   it('should generate FTP link to *', () => {
@@ -68,11 +68,11 @@ describe('getUniprotkbFtpUrl', () => {
     ).toEqual([
       {
         filename: 'uniprot_sprot.xml.gz',
-        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/uniprot_sprot.xml.gz',
+        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.xml.gz',
       },
       {
         filename: 'uniprot_trembl.xml.gz',
-        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/uniprot_trembl.xml.gz',
+        url: 'https://ftp.ebi.ac.uk/pub/databases/uniprot/knowledgebase/complete/uniprot_trembl.xml.gz',
       },
     ]);
   });
