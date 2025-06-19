@@ -1,7 +1,7 @@
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 // Source: proteomes/UP000005640
-// Retrieved: 2025-06-18
+// Retrieved: 2025-06-19
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
   description:

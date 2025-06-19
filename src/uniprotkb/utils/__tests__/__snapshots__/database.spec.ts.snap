@@ -651,6 +651,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
         },
         {
           "name": "Resistance mechanism identifier",
+          "uriLink": "https://card.mcmaster.ca/%id",
           "xmlTag": "mechanism identifier",
         },
         {
@@ -661,7 +662,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PFAM",
       "displayName": "CARD",
       "name": "CARD",
-      "uriLink": "https://card.mcmaster.ca/aro/%id",
+      "uriLink": "https://card.mcmaster.ca/%id",
     },
     "CAZy": {
       "attributes": [

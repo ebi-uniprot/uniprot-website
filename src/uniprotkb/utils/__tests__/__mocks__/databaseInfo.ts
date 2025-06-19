@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2025-06-18
+// Retrieved: 2025-06-19
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -2577,7 +2577,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'CARD',
     displayName: 'CARD',
     category: 'PFAM',
-    uriLink: 'https://card.mcmaster.ca/aro/%id',
+    uriLink: 'https://card.mcmaster.ca/%id',
     attributes: [
       {
         name: 'CARD short name',
@@ -2586,6 +2586,7 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'Resistance mechanism identifier',
         xmlTag: 'mechanism identifier',
+        uriLink: 'https://card.mcmaster.ca/%id',
       },
       {
         name: 'Resistance mechanism name',

@@ -89,7 +89,6 @@ const propertyKeySet = new Set<PropertyKey>([
   PropertyKey.RefSeqNucleotideId,
   PropertyKey.RefSeqProteinId,
   PropertyKey.NucleotideSequenceId,
-  PropertyKey.ResistanceMechanismIdentifier,
 ]);
 
 export const XRef = ({

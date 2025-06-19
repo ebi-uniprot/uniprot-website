@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2025-06-18
+// Retrieved: 2025-06-19
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -10,7 +10,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
   },
   servers: [
     {
-      url: 'https://wwwdev.ebi.ac.uk/uniprot/api/',
+      url: 'https://rest.uniprot.org/',
       description: 'UniProt REST API Server',
     },
   ],
@@ -422,11 +422,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           name: {
             type: 'string',
           },
-          reference: {
-            type: 'boolean',
-          },
           evidenceDatabaseDetail: {
             $ref: '#/components/schemas/EvidenceDatabaseDetail',
+          },
+          reference: {
+            type: 'boolean',
           },
         },
       },
@@ -566,9 +566,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
           },
-          memberId: {
-            type: 'string',
-          },
           uniProtAccessions: {
             type: 'array',
             items: {
@@ -586,6 +583,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           seed: {
             type: 'boolean',
+          },
+          memberId: {
+            type: 'string',
           },
         },
       },
@@ -625,8 +625,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/UniRefMember',
             },
           },
-          seedId: {
-            type: 'string',
+          representativeMember: {
+            $ref: '#/components/schemas/RepresentativeMember',
           },
           entryType: {
             type: 'string',
@@ -649,8 +649,8 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/GeneOntologyEntry',
             },
           },
-          representativeMember: {
-            $ref: '#/components/schemas/RepresentativeMember',
+          seedId: {
+            type: 'string',
           },
         },
       },
@@ -686,9 +686,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
           },
-          memberId: {
-            type: 'string',
-          },
           uniProtAccessions: {
             type: 'array',
             items: {
@@ -706,6 +703,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           seed: {
             type: 'boolean',
+          },
+          memberId: {
+            type: 'string',
           },
         },
       },

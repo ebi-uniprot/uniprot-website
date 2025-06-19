@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2025-06-18
+// Retrieved: 2025-06-19
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -119,7 +119,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2025-04-25',
+      lastModified: '2025-06-18',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -175,7 +175,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2025-04-25',
+      lastModified: '2025-06-18',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
@@ -334,7 +334,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2025-06-09',
+      lastModified: '2025-06-18',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -379,7 +379,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2025-04-25',
+      lastModified: '2025-06-18',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -446,7 +446,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2025-04-25',
+      lastModified: '2025-06-18',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {

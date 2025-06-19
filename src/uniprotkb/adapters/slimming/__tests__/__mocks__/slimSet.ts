@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2025-06-18
+// Retrieved: 2025-06-19
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -3401,7 +3401,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein localization',
+          name: 'intracellular protein localization',
           id: 'GO:0008104',
           aspect: 'biological_process',
         },
