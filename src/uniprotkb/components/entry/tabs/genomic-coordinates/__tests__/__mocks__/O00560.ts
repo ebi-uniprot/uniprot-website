@@ -1,7 +1,7 @@
 import { GenomicEntry } from '../../types';
 
 // Source: https://www.ebi.ac.uk/proteins/api/coordinates?accession=O00560
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-18
 const mock: GenomicEntry[] = [
   {
     accession: 'O00560',

@@ -1,7 +1,19 @@
 import cn from 'classnames';
-import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
+import {
+  Button,
+  Chip,
+  DownloadIcon,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
 import { Location as HistoryLocation } from 'history';
-import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  useCallback,
+  useMemo,
+  useReducer,
+} from 'react';
 import { generatePath, Link, useLocation } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -30,6 +42,7 @@ import {
   updateDisableForm,
   updateDownloadSelect,
   updateExtraContent,
+  updateFastaHeader,
   updateFullXref,
   updateSelectedColumns,
   updateSelectedFileFormat,
@@ -53,11 +66,11 @@ import {
   getFtpFilenamesAndUrls,
   getIsAsyncDownload,
   getIsEmbeddings,
-  getIsUniParcLightResponse,
   getPreviewCount,
   getPreviewOptions,
   getRedirectToIDMapping,
   isAsyncDownloadIdMapping,
+  isUniParcProteomeSearch,
   showColumnSelect,
 } from './downloadUtils';
 import styles from './styles/download.module.scss';
@@ -82,6 +95,35 @@ export type DownloadProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
   extraContent?: ExtraContent;
 };
+
+export const proteomeFastaOption = (
+  fastaHeader: boolean,
+  handleFastaHeaderChange: ChangeEventHandler<HTMLInputElement>
+) => (
+  <fieldset>
+    <p className={styles['new-fasta-header']}>
+      <span data-article-id="fasta-headers#uniparc-proteomes">
+        FASTA header for proteomes
+      </span>
+      <small>
+        <Chip>New</Chip>
+      </small>
+      <br />
+      For proteomes, we provide a UniParc FASTA header that shows biologically
+      relevant information like protein, gene and organism names.
+      <label>
+        <input
+          aria-label="uniparc proteome-specific FASTA"
+          type="checkbox"
+          name="proteome FASTA"
+          checked={fastaHeader}
+          onChange={handleFastaHeaderChange}
+        />
+        Proceed with FASTA header for proteomes (recommended).
+      </label>
+    </p>
+  </fieldset>
+);
 
 const Download = (props: DownloadProps<JobTypes>) => {
   const {
@@ -133,6 +175,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
     dispatch(updateSelectedColumns(state.selectedColumns, fieldData));
   };
 
+  const handleFastaHeaderChange = () => {
+    dispatch(updateFastaHeader(!state.proteomeFastaHeader));
+  };
+
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
@@ -148,8 +194,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
-  // This is added for release 2024_06. Remove it for the next release
-  const isUniParcLightResponse = getIsUniParcLightResponse(state, props);
 
   let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
@@ -299,6 +343,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
           </select>
         </label>
       </fieldset>
+      {/* UniParc-proteome FASTA option */}
+      {isUniParcProteomeSearch(state, props, downloadOptions.query) &&
+        proteomeFastaOption(state.proteomeFastaHeader, handleFastaHeaderChange)}
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset disabled={state.disableForm}>
@@ -328,20 +375,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
             No
           </label>
         </fieldset>
-      )}
-
-      {isUniParcLightResponse && (
-        <Message level="info">
-          {state.selectedFileFormat} files contain fewer fields since{' '}
-          <Link
-            to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-              accession: '2024-11-27-release',
-            })}
-          >
-            release 2024_06
-          </Link>
-          . Please see the release notes for more details.
-        </Message>
       )}
 
       {/* Peptide search download for matches exceeding the threshold */}

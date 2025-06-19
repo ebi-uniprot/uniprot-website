@@ -29,6 +29,7 @@ export type DownloadState = {
   nSelectedEntries: number;
   disableForm: boolean;
   fullXref: boolean;
+  proteomeFastaHeader: boolean;
 };
 
 export const getDownloadInitialState = ({
@@ -52,6 +53,7 @@ export const getDownloadInitialState = ({
       props.numberSelectedEntries || props.selectedEntries?.length || 0,
     disableForm: false,
     fullXref: false,
+    proteomeFastaHeader: true,
   };
 };
 
@@ -100,6 +102,11 @@ export function downloadReducer(
       return { ...state, disableForm: action.payload.disableForm };
     case downloadActions.UPDATE_FULL_XREF:
       return { ...state, fullXref: action.payload.fullXref };
+    case downloadActions.UPDATE_FASTA_HEADER:
+      return {
+        ...state,
+        proteomeFastaHeader: action.payload.proteomeFastaHeader,
+      };
     default:
       return state;
   }

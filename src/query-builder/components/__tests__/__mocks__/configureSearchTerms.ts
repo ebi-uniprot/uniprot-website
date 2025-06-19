@@ -4,7 +4,7 @@ import { SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-18
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -2531,6 +2531,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'string-',
           },
+          {
+            id: 'xref_funcoup',
+            label: 'FunCoup',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'funcoup-',
+          },
         ],
       },
       {
@@ -2697,6 +2706,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'unilectin-',
+          },
+          {
+            id: 'xref_card',
+            label: 'CARD',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'card-',
           },
         ],
       },
@@ -3563,6 +3581,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'treefam-',
+          },
+          {
+            id: 'xref_pan-go',
+            label: 'PAN-GO',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'pan-go-',
           },
         ],
       },

@@ -21,6 +21,7 @@ import { FunctionFeatures } from '../types/featureType';
 import KeywordCategory from '../types/keywordCategory';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { DatabaseInfoMaps } from '../utils/database';
+import { XrefsGoupedByDatabase } from '../utils/xrefUtils';
 import { GeneNamesData } from './namesAndTaxonomyConverter';
 import { convertSection, UIModel } from './sectionConverter';
 import {
@@ -97,6 +98,7 @@ export type FunctionUIModel = {
   geneNamesData?: GeneNamesData;
   organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
   entryType?: EntryType;
+  panGoXrefs?: XrefsGoupedByDatabase[];
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
@@ -240,6 +242,17 @@ const convertFunction = (
   convertedSection.geneNamesData = data?.genes;
   convertedSection.organismData = data?.organism;
   convertedSection.entryType = getEntryTypeFromString(data?.entryType);
+  const panGoXrefs = uniProtKBCrossReferences?.filter(
+    (xref) => xref.database === 'PAN-GO'
+  );
+  convertedSection.panGoXrefs = panGoXrefs?.length
+    ? [
+        {
+          database: 'PAN-GO',
+          xrefs: panGoXrefs,
+        },
+      ]
+    : undefined;
 
   const aspectGroupedGoTerms = getAspectGroupedGoTermsWithoutCellComp(
     uniProtKBCrossReferences

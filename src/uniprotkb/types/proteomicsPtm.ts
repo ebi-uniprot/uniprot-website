@@ -53,7 +53,6 @@ type Properties = {
   'PSM Count (0.05 gFLR)'?: string;
   'Confidence score': ConfidenceScore;
   'Final site probability': string;
-  'Organism part': string;
   Proforma: string;
 };
 
