@@ -140,8 +140,8 @@ const LatestNews = () => {
                   styles['latest-news__abstract--2-lines']
                 )}
               >
-                Complement-ary information on granzyme K | Cross-references to
-                CARD | Cross-references to FunCoup | Cross-references to PAN-GO
+                Cross-references to CARD | Cross-references to FunCoup |
+                Cross-references to PAN-GO
               </p>
             </article>
           </li>
