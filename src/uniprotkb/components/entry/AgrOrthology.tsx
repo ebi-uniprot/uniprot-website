@@ -22,6 +22,22 @@ const getHgncId = (xrefs: XrefUIModel[]) => {
 const isBest = (value = '') =>
   typeof value === 'boolean' ? value : !!value.match(/yes/i);
 
+// Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/homology/constants.js#L1
+const ORTHOLOGY_METHODS = [
+  'Ensembl Compara',
+  'HGNC',
+  'Hieranoid',
+  'InParanoid',
+  'OMA',
+  'OrthoFinder',
+  'OrthoInspector',
+  'PANTHER',
+  'PhylomeDB',
+  'SonicParanoid',
+  'Xenbase',
+  'ZFIN',
+];
+
 const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'species',
@@ -53,7 +69,56 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
     render: (data) =>
       isBest(data.geneToGeneOrthologyGenerated.isBestScore.name) ? 'Yes' : 'No',
   },
+  {
+    id: 'best-reverse',
+    label: 'Best Reverse',
+    render: (data) =>
+      isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
+        ? 'Yes'
+        : 'No',
+  },
+  {
+    id: 'best-reverse',
+    label: 'Best Reverse',
+    render: (data) =>
+      isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
+        ? 'Yes'
+        : 'No',
+  },
 ];
+
+for (const method of ORTHOLOGY_METHODS) {
+  columns.push({
+    id: `method-${method}`,
+    label: method,
+    render: (data) => {
+      const predictionMethodsMatchedSet = new Set(
+        data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
+          (m) => m.name
+        )
+      );
+      const predictionMethodsNotMatchedSet = new Set(
+        data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
+          (m) => m.name
+        )
+      );
+      let symbol, tipText;
+      if (predictionMethodsMatchedSet.has(method)) {
+        symbol = '\u2611';
+        tipText = `Match by ${method}`;
+      } else if (predictionMethodsNotMatchedSet.has(method)) {
+        symbol = '\u2610';
+        tipText = `No match by ${method}`;
+      } else {
+        symbol = '\u00a0';
+        tipText = `Comparision not available on ${method}`;
+      }
+      // TODO: do something with the tipText?
+      console.log(tipText);
+      return symbol;
+    },
+  });
+}
 
 const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
