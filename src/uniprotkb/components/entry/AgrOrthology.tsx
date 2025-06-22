@@ -102,30 +102,30 @@ for (const method of ORTHOLOGY_METHODS) {
           (m) => m.name
         )
       );
-      let symbol, checked, tipText;
+      let checked,
+        title,
+        disabled = false;
       if (predictionMethodsMatchedSet.has(method)) {
-        symbol = '\u2611';
         checked = true;
-        tipText = `Match by ${method}`;
+        title = `Match by ${method}`;
       } else if (predictionMethodsNotMatchedSet.has(method)) {
-        symbol = '\u2610';
         checked = false;
-        tipText = `No match by ${method}`;
+        title = `No match by ${method}`;
       } else {
-        symbol = '\u00a0';
-        checked = false; //TODO: figure out
-        tipText = `Comparision not available on ${method}`;
+        disabled = true;
+        checked = false;
+        title = `Comparision not available on ${method}`;
       }
       return (
-        <span>
+        <label htmlFor={method} aria-label={method} title={title}>
           <input
             type="checkbox"
             data-id={method}
             id={method}
             checked={checked}
+            disabled={disabled}
           />
-          <label htmlFor={method} aria-label={method} title={tipText} />
-        </span>
+        </label>
       );
     },
   });
