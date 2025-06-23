@@ -8,6 +8,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { AgrOrthologs, AgrOrthologsResult } from '../../types/agrOrthologs';
 import { XrefUIModel } from '../../utils/xrefUtils';
+import styles from './styles/agr-orthology.module.scss';
 
 type Props = {
   xrefs: XrefUIModel[];
@@ -94,49 +95,56 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
         : 'No',
   },
   {
-    id: 'best-reverse',
-    label: 'Best Reverse',
+    id: 'methods',
+    label: (
+      <div className={styles.methods}>
+        Method
+        {ORTHOLOGY_METHODS.map((method) => (
+          <div key={method}>{method}</div>
+        ))}
+      </div>
+    ),
     render: (data) =>
-      isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
-        ? 'Yes'
-        : 'No',
+      ORTHOLOGY_METHODS.map((method) => {
+        const predictionMethodsMatchedSet = new Set(
+          data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
+            (m) => m.name
+          )
+        );
+        const predictionMethodsNotMatchedSet = new Set(
+          data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
+            (m) => m.name
+          )
+        );
+        let symbol: string, title: string;
+        if (predictionMethodsMatchedSet.has(method)) {
+          symbol = '●';
+          title = `Match by ${method}`;
+        } else if (predictionMethodsNotMatchedSet.has(method)) {
+          symbol = '○';
+          title = `No match by ${method}`;
+        } else {
+          symbol = '-';
+          title = `Comparision not available on ${method}`;
+        }
+        return (
+          <span
+            key={method}
+            title={title}
+            style={{
+              fontSize: 30,
+              width: 30,
+              display: 'inline-block',
+              textAlign: 'center',
+              cursor: 'default',
+            }}
+          >
+            {symbol}
+          </span>
+        );
+      }),
   },
 ];
-
-for (const method of ORTHOLOGY_METHODS) {
-  columns.push({
-    id: `method-${method}`,
-    label: method,
-    render: (data) => {
-      const predictionMethodsMatchedSet = new Set(
-        data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
-          (m) => m.name
-        )
-      );
-      const predictionMethodsNotMatchedSet = new Set(
-        data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
-          (m) => m.name
-        )
-      );
-      let symbol: string, title: string;
-      if (predictionMethodsMatchedSet.has(method)) {
-        symbol = '●';
-        title = `Match by ${method}`;
-      } else if (predictionMethodsNotMatchedSet.has(method)) {
-        symbol = '○';
-        title = `No match by ${method}`;
-      } else {
-        symbol = '-';
-        title = `Comparision not available on ${method}`;
-      }
-      return (
-        <span title={title} style={{ fontSize: 30 }}>
-          {symbol}
-        </span>
-      );
-    },
-  });
-}
 
 const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
