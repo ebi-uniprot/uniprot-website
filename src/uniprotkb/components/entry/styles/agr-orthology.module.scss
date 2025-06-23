@@ -1,19 +1,23 @@
 @import 'franklin-sites/src/styles/colours';
 
-.methods {
-  white-space: nowrap;
-  height: 145px;
-  //   background-color: $colour-platinum;
-  //   background-color: $colour-pastel-blue;
-  //   background-color: $colour-gainsborough;
-  //   border: 2px solid $colour-platinum;
-  padding: 10px;
-  left: -5px;
-  position: relative;
+.agr-orthology-table {
+  --table-header-vertical-align: bottom;
 
-  & > div {
-    display: inline-block;
-    transform: translate(-65px, 100px) rotate(315deg);
-    width: 30px;
+  .methods {
+    white-space: nowrap;
+    height: 145px;
+    //   background-color: $colour-platinum;
+    //   background-color: $colour-pastel-blue;
+    //   background-color: $colour-gainsborough;
+    //   border: 2px solid $colour-platinum;
+    padding: 10px;
+    left: -5px;
+    position: relative;
+
+    & > div {
+      display: inline-block;
+      transform: translate(-70px, 100px) rotate(315deg);
+      width: 30px;
+    }
   }
 }

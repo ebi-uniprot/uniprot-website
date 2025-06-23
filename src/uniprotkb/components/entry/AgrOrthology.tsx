@@ -203,6 +203,7 @@ const AgrOrthology = ({ xrefs }: Props) => {
         columns={columns}
         data={sorted}
         getRowId={getRowId}
+        className={styles['agr-orthology-table']}
       />
     );
   }
