@@ -3,13 +3,9 @@
 .agr-orthology-table {
   --table-header-vertical-align: bottom;
 
-  .methods {
+  .methods-label {
     white-space: nowrap;
     height: 145px;
-    //   background-color: $colour-platinum;
-    //   background-color: $colour-pastel-blue;
-    //   background-color: $colour-gainsborough;
-    //   border: 2px solid $colour-platinum;
     padding: 10px;
     left: -5px;
     position: relative;
@@ -19,5 +15,13 @@
       transform: translate(-70px, 100px) rotate(315deg);
       width: 30px;
     }
+  }
+
+  .methods-render {
+    font-size: 30;
+    width: 30;
+    display: inline-block;
+    text-align: center;
+    cursor: default;
   }
 }

@@ -97,7 +97,7 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'methods',
     label: (
-      <div className={styles.methods}>
+      <div className={styles['methods-label']}>
         Method
         {ORTHOLOGY_METHODS.map((method) => (
           <div key={method}>{method}</div>
@@ -131,6 +131,7 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
           <span
             key={method}
             title={title}
+            className={styles['methods-render']}
             style={{
               fontSize: 30,
               width: 30,
