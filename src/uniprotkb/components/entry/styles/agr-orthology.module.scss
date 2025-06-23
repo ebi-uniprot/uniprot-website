@@ -10,7 +10,7 @@
     left: -5px;
     position: relative;
 
-    & > div {
+    & > span > div {
       display: inline-block;
       transform: translate(-70px, 100px) rotate(315deg);
       width: 30px;
