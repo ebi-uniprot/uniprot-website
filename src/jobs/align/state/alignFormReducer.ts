@@ -19,7 +19,9 @@ export type AlignFormAction = ActionType<typeof alignFormActions>;
 const isInvalid = (parsedSequences: SequenceObject[]) =>
   parsedSequences.length > ALIGN_LIMIT ||
   parsedSequences.length <= 1 ||
-  parsedSequences.some((parsedSequence) => !parsedSequence.valid);
+  parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
+  new Set(parsedSequences.map(({ name }) => name)).size !==
+    parsedSequences.length;
 
 const getJobName = (parsedSequences: SequenceObject[]) => {
   const firstName = parsedSequences.find((item) => item.name)?.name;
