@@ -13,10 +13,6 @@ export const processUrlTemplate = (
   for (const [param, value] of Object.entries(params)) {
     url = url.replace(new RegExp(`%${param}`, 'g'), value);
   }
-  // TODO: remove later when pattern is fixed
-  if (url.includes('https://card.mcmaster.ca/') && url.includes('%id')) {
-    url = '';
-  }
   /* istanbul ignore if */
   if (url === urlTemplate) {
     logging.error(

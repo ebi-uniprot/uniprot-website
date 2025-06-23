@@ -41,6 +41,7 @@ export enum PropertyKey {
   RefSeqNucleotideId = 'RefSeqNucleotideId',
   RefSeqProteinId = 'RefSeqProteinId',
   ResistanceMechanismIdentifier = 'Resistance mechanism identifier',
+  ResistanceMechanismName = 'Resistance mechanism name',
   Resolution = 'Resolution',
   Status = 'Status',
   ToxinName = 'ToxinName',
