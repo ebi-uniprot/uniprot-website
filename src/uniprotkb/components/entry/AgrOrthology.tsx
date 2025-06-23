@@ -38,6 +38,22 @@ const ORTHOLOGY_METHODS = [
   'ZFIN',
 ];
 
+// Lifted, with modification, from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/constants.js#L424C14-L424C20
+const TAXON_TO_INDEX = new Map(
+  [
+    'NCBITaxon:9606',
+    'NCBITaxon:10090',
+    'NCBITaxon:10116',
+    'NCBITaxon:8355',
+    'NCBITaxon:8364',
+    'NCBITaxon:7955',
+    'NCBITaxon:7227',
+    'NCBITaxon:6239',
+    'NCBITaxon:559292',
+    'NCBITaxon:2697049',
+  ].map((taxon, index) => [taxon, index])
+);
+
 const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'species',
@@ -160,12 +176,33 @@ const AgrOrthology = ({ xrefs }: Props) => {
   }
 
   if (agrOrthologsResponse?.data?.results?.length) {
+    // Lifted from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
+    const sorted = agrOrthologsResponse.data.results.sort((a, b) => {
+      const aIndex =
+        TAXON_TO_INDEX.get(
+          a.geneToGeneOrthologyGenerated.objectGene.taxon.curie
+        ) || TAXON_TO_INDEX.size;
+      const bIndex =
+        TAXON_TO_INDEX.get(
+          b.geneToGeneOrthologyGenerated.objectGene.taxon.curie
+        ) || TAXON_TO_INDEX.size;
+      const indexComparison = aIndex - bIndex;
+      if (indexComparison !== 0) {
+        return indexComparison;
+      }
+      const aLength =
+        a.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+      const bLength =
+        b.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+      const lengthComparison = bLength - aLength;
+      return lengthComparison;
+    });
     // TODO: expand/collapse showing for P05067 when it shouldn't be there
     return (
       <TableFromData
-        id="foo"
+        id="agr-orthology"
         columns={columns}
-        data={agrOrthologsResponse?.data?.results}
+        data={sorted}
         getRowId={getRowId}
       />
     );
