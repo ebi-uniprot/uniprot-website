@@ -123,28 +123,7 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
     render: (data) =>
       data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText,
   },
-  {
-    id: 'count',
-    label: (
-      <WithTooltip tooltip="Number of independent orthology methods that support this gene pair.">
-        Count
-      </WithTooltip>
-    ),
-    filter: (data, filterValue) =>
-      `${data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length}+` >=
-      filterValue,
-    getOption: (data) =>
-      `${data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length}+`,
-    render: (data) => {
-      const scoreNumerator =
-        data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-      const scoreDemominator =
-        scoreNumerator +
-        (data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
-          ?.length || 0);
-      return `${scoreNumerator} of ${scoreDemominator}`;
-    },
-  },
+
   {
     id: 'best',
     label: (
@@ -189,48 +168,68 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
             <div>{method}</div>
           </WithTooltip>
         ))}
+        <WithTooltip tooltip="Number of independent orthology methods that support this gene pair.">
+          <div className={styles['match-count-label']}>Match counts</div>
+        </WithTooltip>
       </div>
     ),
-    render: (data) =>
-      ORTHOLOGY_METHODS.map(({ method }) => {
-        const predictionMethodsMatchedSet = new Set(
-          data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
-            (m) => m.name
-          )
-        );
-        const predictionMethodsNotMatchedSet = new Set(
-          data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
-            (m) => m.name
-          )
-        );
-        let symbol: string, title: string;
-        if (predictionMethodsMatchedSet.has(method)) {
-          symbol = '●';
-          title = `Match by ${method}`;
-        } else if (predictionMethodsNotMatchedSet.has(method)) {
-          symbol = '○';
-          title = `No match by ${method}`;
-        } else {
-          symbol = '-';
-          title = `Comparision not available on ${method}`;
-        }
-        return (
-          <span
-            key={method}
-            title={title}
-            className={styles['methods-render']}
-            style={{
-              fontSize: 30,
-              width: 30,
-              display: 'inline-block',
-              textAlign: 'center',
-              cursor: 'default',
-            }}
-          >
-            {symbol}
-          </span>
-        );
-      }),
+    render: (data) => {
+      const scoreNumerator =
+        data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+      const scoreDemominator =
+        scoreNumerator +
+        (data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
+          ?.length || 0);
+      return [
+        ...ORTHOLOGY_METHODS.map(({ method }) => {
+          const predictionMethodsMatchedSet = new Set(
+            data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
+              (m) => m.name
+            )
+          );
+          const predictionMethodsNotMatchedSet = new Set(
+            data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
+              (m) => m.name
+            )
+          );
+          let symbol: string, title: string;
+          if (predictionMethodsMatchedSet.has(method)) {
+            symbol = '●';
+            title = `Match by ${method}`;
+          } else if (predictionMethodsNotMatchedSet.has(method)) {
+            symbol = '○';
+            title = `No match by ${method}`;
+          } else {
+            symbol = '-';
+            title = `Comparision not available on ${method}`;
+          }
+          return (
+            <span
+              key={method}
+              title={title}
+              className={styles['methods-render']}
+              style={{
+                fontSize: 30,
+                width: 30,
+                display: 'inline-block',
+                textAlign: 'center',
+                cursor: 'default',
+              }}
+            >
+              {symbol}
+            </span>
+          );
+        }),
+        <span
+          key="count"
+          title="count"
+          className={styles['methods-render']}
+          style={{ paddingLeft: 15 }}
+        >
+          {scoreNumerator} of {scoreDemominator}
+        </span>,
+      ];
+    },
   },
 ];
 

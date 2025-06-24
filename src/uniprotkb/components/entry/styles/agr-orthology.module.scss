@@ -3,6 +3,10 @@
 .agr-orthology-table {
   --table-header-vertical-align: bottom;
 
+  .match-count-label {
+    transform: translate(-50px, 100px) rotate(315deg) !important;
+  }
+
   .methods-label {
     white-space: nowrap;
     height: 145px;
@@ -15,6 +19,10 @@
       transform: translate(-70px, 100px) rotate(315deg);
       width: 30px;
     }
+  }
+
+  .match-count {
+    padding-left: 14px;
   }
 
   .methods-render {
