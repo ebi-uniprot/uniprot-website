@@ -84,6 +84,8 @@ type Props<T> = HTMLAttributes<HTMLTableElement> & {
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
 
+const collator = new Intl.Collator('en');
+
 function TableFromData<T>({
   data,
   columns,
@@ -109,6 +111,7 @@ function TableFromData<T>({
               return OPTION_TYPES.has(typeof r) ? r : null;
             })
             .filter((datum): datum is string => datum !== null)
+            .sort(collator.compare)
         );
       }
     }
