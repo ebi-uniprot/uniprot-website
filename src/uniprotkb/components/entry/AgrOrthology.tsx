@@ -101,12 +101,25 @@ const TAXON_TO_INDEX = new Map(
 const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'species',
-    label: 'Species',
+    label: (
+      <WithTooltip tooltip="Target organism in which this ortholog candidate resides.">
+        Species
+      </WithTooltip>
+    ),
+    filter: (data, filterValue) =>
+      data.geneToGeneOrthologyGenerated.objectGene.taxon.name === filterValue,
     render: (data) => data.geneToGeneOrthologyGenerated.objectGene.taxon.name,
   },
   {
     id: 'gene-symbol',
-    label: 'Gene Symbol',
+    label: (
+      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+        Gene Symbol
+      </WithTooltip>
+    ),
+    filter: (data, filterValue) =>
+      data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText ===
+      filterValue,
     render: (data) =>
       data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText,
   },
@@ -117,6 +130,11 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
         Count
       </WithTooltip>
     ),
+    filter: (data, filterValue) =>
+      `${data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length}+` >=
+      filterValue,
+    getOption: (data) =>
+      `${data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length}+`,
     render: (data) => {
       const scoreNumerator =
         data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
@@ -130,10 +148,15 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'best',
     label: (
-      <WithTooltip tooltip="Indicates this gene is the top-scoring (highest-count) ortholog candidate in this species.">
+      <WithTooltip tooltip="Indicates this gene is the top-scoring (highest-count) ortholog candidate within this species.">
         Best
       </WithTooltip>
     ),
+    filter: (data, filterValue) =>
+      filterValue ===
+      (isBest(data.geneToGeneOrthologyGenerated.isBestScore.name)
+        ? 'Yes'
+        : 'No'),
     render: (data) =>
       isBest(data.geneToGeneOrthologyGenerated.isBestScore.name) ? 'Yes' : 'No',
   },
@@ -144,6 +167,11 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
         Best Reverse
       </WithTooltip>
     ),
+    filter: (data, filterValue) =>
+      filterValue ===
+      (isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
+        ? 'Yes'
+        : 'No'),
     render: (data) =>
       isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
         ? 'Yes'
@@ -153,7 +181,7 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
     id: 'methods',
     label: (
       <div className={styles['methods-label']}>
-        <WithTooltip tooltip="Result of orthology-inference resource and algorithm methods">
+        <WithTooltip tooltip="Result of orthology-inference resource and algorithm methods.">
           Method
         </WithTooltip>
         {ORTHOLOGY_METHODS.map(({ method, tooltip }) => (
