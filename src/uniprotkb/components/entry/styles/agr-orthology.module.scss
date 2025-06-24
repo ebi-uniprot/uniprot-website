@@ -5,6 +5,7 @@
 
   .match-count-label {
     transform: translate(-50px, 100px) rotate(315deg) !important;
+    text-decoration: underline;
   }
 
   .methods-label {
@@ -22,12 +23,13 @@
   }
 
   .match-count {
-    padding-left: 14px;
+    padding-left: 15px;
+    font-size: 1em !important;
   }
 
   .methods-render {
-    font-size: 30;
-    width: 30;
+    font-size: 30px;
+    width: 30px;
     display: inline-block;
     text-align: center;
     cursor: default;

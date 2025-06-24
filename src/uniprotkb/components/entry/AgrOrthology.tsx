@@ -208,24 +208,12 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
               key={method}
               title={title}
               className={styles['methods-render']}
-              style={{
-                fontSize: 30,
-                width: 30,
-                display: 'inline-block',
-                textAlign: 'center',
-                cursor: 'default',
-              }}
             >
               {symbol}
             </span>
           );
         }),
-        <span
-          key="count"
-          title="count"
-          className={styles['methods-render']}
-          style={{ paddingLeft: 15 }}
-        >
+        <span key="count" title="count" className={styles['match-count']}>
           {scoreNumerator} of {scoreDemominator}
         </span>,
       ];
