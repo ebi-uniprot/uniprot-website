@@ -176,7 +176,7 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
     render: (data) => {
       const scoreNumerator =
         data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-      const scoreDemominator =
+      const scoreDenominator =
         scoreNumerator +
         (data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
           ?.length || 0);
@@ -213,8 +213,12 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
             </span>
           );
         }),
-        <span key="count" title="count" className={styles['match-count']}>
-          {scoreNumerator} of {scoreDemominator}
+        <span
+          key="count"
+          title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
+          className={styles['match-count']}
+        >
+          {scoreNumerator} of {scoreDenominator}
         </span>,
       ];
     },
