@@ -48,6 +48,7 @@
     color: var(--table__header-text);
     text-overflow: ellipsis;
     text-transform: uppercase;
+    cursor: default;
   }
 
   & td,
