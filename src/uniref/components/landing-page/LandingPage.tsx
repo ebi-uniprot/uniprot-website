@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { ExternalLink, Loader, LongNumber } from 'franklin-sites';
+import { Loader, LongNumber } from 'franklin-sites';
 import { fromPairs } from 'lodash-es';
 import { ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import ClusterLanding50Illustration from '../../../images/cluster_landing_50_illustration.img.svg';
 import ClusterLanding90Illustration from '../../../images/cluster_landing_90_illustration.img.svg';
 import ClusterLanding100Illustration from '../../../images/cluster_landing_100_illustration.img.svg';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import ftpUrls from '../../../shared/config/ftpUrls';

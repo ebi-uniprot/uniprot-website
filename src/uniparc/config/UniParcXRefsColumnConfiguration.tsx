@@ -1,4 +1,3 @@
-import { ExternalLink } from 'franklin-sites';
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +7,7 @@ import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
+import ExternalLink from '../../shared/components/ExternalLink';
 import { ColumnDescriptor } from '../../shared/hooks/useColumns';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';

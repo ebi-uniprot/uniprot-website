@@ -1,4 +1,3 @@
-import { ExternalLink } from 'franklin-sites';
 import { FC, Fragment, ReactNode, useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
@@ -7,6 +6,7 @@ import {
   getEntryPath,
   getEntryPathFor,
 } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { IsoformsContext } from '../../../shared/contexts/Isoforms';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';

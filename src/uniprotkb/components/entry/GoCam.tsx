@@ -1,10 +1,11 @@
 import axios from 'axios';
 import cn from 'classnames';
-import { Chip, ExternalLink, Loader } from 'franklin-sites';
+import { Chip, Loader } from 'franklin-sites';
 import pMap from 'p-map';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useSafeState from '../../../shared/hooks/useSafeState';

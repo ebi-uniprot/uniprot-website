@@ -1,10 +1,5 @@
 import cn from 'classnames';
-import {
-  ExternalLink,
-  LongNumber,
-  SwissProtIcon,
-  TremblIcon,
-} from 'franklin-sites';
+import { LongNumber, SwissProtIcon, TremblIcon } from 'franklin-sites';
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +8,7 @@ import {
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';

@@ -1,8 +1,9 @@
-import { Card, ExternalLink, InfoList, Message } from 'franklin-sites';
+import { Card, InfoList, Message } from 'franklin-sites';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../../../app/config/urls';
+import ExternalLink from '../../../../../shared/components/ExternalLink';
 import LazyComponent from '../../../../../shared/components/LazyComponent';
 import useDatabaseInfoMaps from '../../../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../../../shared/types/namespaces';

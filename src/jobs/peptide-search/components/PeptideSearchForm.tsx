@@ -1,13 +1,7 @@
 import '../../styles/ToolsForm.scss';
 
 import cn from 'classnames';
-import {
-  Chip,
-  ExternalLink,
-  Message,
-  PageIntro,
-  SpinnerIcon,
-} from 'franklin-sites';
+import { Chip, Message, PageIntro, SpinnerIcon } from 'franklin-sites';
 import {
   FC,
   FormEvent,
@@ -26,6 +20,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import {
