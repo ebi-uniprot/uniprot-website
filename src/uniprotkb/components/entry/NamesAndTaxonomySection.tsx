@@ -27,7 +27,6 @@ import UniProtKBEvidenceTag, {
   EvidenceTagSourceTypes,
 } from '../protein-data-views/UniProtKBEvidenceTag';
 import XRefView from '../protein-data-views/XRefView';
-import AgrOrthology from './AgrOrthology';
 import CommunityCuration from './CommunityCuration';
 
 type Props = {
@@ -125,7 +124,6 @@ const NamesAndTaxonomySection = ({
       data-entry-section
     >
       <h3 data-article-id="protein_names">Protein names</h3>
-      <AgrOrthology xrefs={data.xrefData} />
       <ProteinNamesView proteinNames={data.proteinNamesData} />
       {!!domains?.length && (
         <>

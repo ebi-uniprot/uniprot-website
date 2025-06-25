@@ -1,24 +1,9 @@
-import { Loader } from 'franklin-sites';
-
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import TableFromData, {
   TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import WithTooltip from '../../../shared/components/WithTooltip';
-import externalUrls from '../../../shared/config/externalUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import { AgrOrthologs, AgrOrthologsResult } from '../../types/agrOrthologs';
-import { XrefUIModel } from '../../utils/xrefUtils';
+import { AgrOrthologsResult } from '../../types/agrOrthologs';
 import styles from './styles/agr-orthology.module.scss';
-
-type Props = {
-  xrefs: XrefUIModel[];
-};
-
-const getHgncId = (xrefs: XrefUIModel[]) => {
-  const hgncXref = xrefs[0].databases.find((xref) => xref.database === 'HGNC');
-  return hgncXref?.xrefs.find((xref) => xref.database === 'HGNC')?.id;
-};
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
 const isBest = (value = '') =>
@@ -228,66 +213,42 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
 const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
 
-const AgrOrthology = ({ xrefs }: Props) => {
-  const hgncId = getHgncId(xrefs);
-  const agrOrthologsResponse = useDataApi<AgrOrthologs>(
-    hgncId ? externalUrls.AgrOrthologs(hgncId) : null
+type Props = {
+  data: AgrOrthologsResult[];
+};
+
+const AgrOrthology = ({ data }: Props) => {
+  // Lifted from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
+  const sorted = data.sort((a, b) => {
+    const aIndex =
+      TAXON_TO_INDEX.get(
+        a.geneToGeneOrthologyGenerated.objectGene.taxon.curie
+      ) || TAXON_TO_INDEX.size;
+    const bIndex =
+      TAXON_TO_INDEX.get(
+        b.geneToGeneOrthologyGenerated.objectGene.taxon.curie
+      ) || TAXON_TO_INDEX.size;
+    const indexComparison = aIndex - bIndex;
+    if (indexComparison !== 0) {
+      return indexComparison;
+    }
+    const aLength =
+      a.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+    const bLength =
+      b.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+    const lengthComparison = bLength - aLength;
+    return lengthComparison;
+  });
+  // TODO: expand/collapse showing for P05067 when it shouldn't be there
+  return (
+    <TableFromData
+      id="agr-orthology"
+      columns={columns}
+      data={sorted}
+      getRowId={getRowId}
+      className={styles['agr-orthology-table']}
+    />
   );
-
-  if (agrOrthologsResponse.loading) {
-    // TODO: add data-article-id="..."
-    return (
-      <>
-        <div>Searching Alliance of Genome Resources for orthologs.</div>
-        <Loader />
-      </>
-    );
-  }
-  if (agrOrthologsResponse.error) {
-    return (
-      <ErrorHandler
-        status={agrOrthologsResponse.status}
-        error={agrOrthologsResponse.error}
-        noReload
-      />
-    );
-  }
-
-  if (agrOrthologsResponse?.data?.results?.length) {
-    // Lifted from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
-    const sorted = agrOrthologsResponse.data.results.sort((a, b) => {
-      const aIndex =
-        TAXON_TO_INDEX.get(
-          a.geneToGeneOrthologyGenerated.objectGene.taxon.curie
-        ) || TAXON_TO_INDEX.size;
-      const bIndex =
-        TAXON_TO_INDEX.get(
-          b.geneToGeneOrthologyGenerated.objectGene.taxon.curie
-        ) || TAXON_TO_INDEX.size;
-      const indexComparison = aIndex - bIndex;
-      if (indexComparison !== 0) {
-        return indexComparison;
-      }
-      const aLength =
-        a.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-      const bLength =
-        b.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-      const lengthComparison = bLength - aLength;
-      return lengthComparison;
-    });
-    // TODO: expand/collapse showing for P05067 when it shouldn't be there
-    return (
-      <TableFromData
-        id="agr-orthology"
-        columns={columns}
-        data={sorted}
-        getRowId={getRowId}
-        className={styles['agr-orthology-table']}
-      />
-    );
-  }
-
-  return null;
 };
 
 export default AgrOrthology;

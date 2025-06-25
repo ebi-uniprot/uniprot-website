@@ -13,6 +13,7 @@ const SimilarProteins = lazy(
 const SimilarProteinsSection = ({
   canonical,
   isoforms,
+  xrefs,
 }: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.SimilarProteins);
   return (
@@ -22,7 +23,11 @@ const SimilarProteinsSection = ({
       data-entry-section
     >
       <LazyComponent>
-        <SimilarProteins canonical={canonical} isoforms={isoforms} />
+        <SimilarProteins
+          canonical={canonical}
+          isoforms={isoforms}
+          xrefs={xrefs}
+        />
       </LazyComponent>
     </Card>
   );
