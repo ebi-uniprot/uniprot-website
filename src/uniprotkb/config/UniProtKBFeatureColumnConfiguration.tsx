@@ -1,8 +1,9 @@
-import { Card, Chip, ExternalLink } from 'franklin-sites';
+import { Card, Chip } from 'franklin-sites';
 
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 import CopyButton from '../../shared/components/action-buttons/Copy';
 import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
+import ExternalLink from '../../shared/components/ExternalLink';
 import {
   FeatureColumnConfiguration,
   ProcessedFeature,

@@ -3,11 +3,11 @@ import {
   Card,
   ChevronDownIcon,
   CommunityAnnotationIcon,
-  ExternalLink,
   HeroContainer,
 } from 'franklin-sites';
 
 import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';

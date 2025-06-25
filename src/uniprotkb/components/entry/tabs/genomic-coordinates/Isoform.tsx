@@ -1,8 +1,9 @@
 import cn from 'classnames';
-import { Chip, ExternalLink, InfoList } from 'franklin-sites';
+import { Chip, InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../../../app/config/urls';
+import ExternalLink from '../../../../../shared/components/ExternalLink';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
 import { DatabaseInfoPoint } from '../../../../types/databaseRefs';

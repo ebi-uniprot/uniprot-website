@@ -1,6 +1,6 @@
-import { ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
+import ExternalLink from '../../../shared/components/ExternalLink';
 import {
   formatEvidenceContent,
   getEvidenceLink,

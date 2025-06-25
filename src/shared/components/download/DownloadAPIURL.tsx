@@ -1,11 +1,5 @@
 import cn from 'classnames';
-import {
-  Button,
-  CodeBlock,
-  CopyIcon,
-  ExternalLink,
-  LongNumber,
-} from 'franklin-sites';
+import { Button, CodeBlock, CopyIcon, LongNumber } from 'franklin-sites';
 import { useCallback, useEffect, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
@@ -24,6 +18,7 @@ import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
 import { Namespace } from '../../types/namespaces';
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 import { splitUrl, stringifyUrl } from '../../utils/url';
+import ExternalLink from '../ExternalLink';
 import styles from './styles/download-api-url.module.scss';
 
 const reIdMapping = new RegExp(

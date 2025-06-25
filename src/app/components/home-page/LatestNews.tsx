@@ -14,7 +14,7 @@ const insideUniProtAbstract2 =
   'Mammalian immune responses are mediated by interactions between antigens and immune system components such as antibodies, B cells, and T cells';
 
 const proteinSpotlightAbstract =
-  'We all begin with one cell, which divides into two - and so on. It sounds straightforward but a cell has various components (nucleus, mitochondria, Golgi apparatus...) each of which carries out vital activities...';
+  "The nice thing about shampoo is the foam it produces. When it doesn't, we usually add a little more to froth things up - because foam is a very pleasant part of the procedure...";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -350,21 +350,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/280/"
+            url="https://www.proteinspotlight.org/back_issues/281/"
             noIcon
           >
-            A chromosome&apos;s glue
+            Foam etc.
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/280/"
+          url="https://www.proteinspotlight.org/back_issues/281/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt280.jpeg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt281.jpg"
             alt=""
             width="123"
             height="129"

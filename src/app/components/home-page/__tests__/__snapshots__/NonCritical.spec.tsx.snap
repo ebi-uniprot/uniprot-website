@@ -648,17 +648,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/280/"
+          href="https://www.proteinspotlight.org/back_issues/281/"
           rel="noopener"
           target="_blank"
         >
-          A chromosome's glue
+          Foam etc.
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/280/"
+        href="https://www.proteinspotlight.org/back_issues/281/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -667,14 +667,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt280.jpeg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt281.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          We  all  begin  with  one  cell,  which  divides  into  two  -  and  so  on.  It  sounds  straightforward  but  a  cell  has  various  components  (nucleus,  mitochondria,  Golgi  apparatus...)  each  of  which  carries  out  vital  activities...
+          The  nice  thing  about  shampoo  is  the  foam  it  produces.  When  it  doesn't,  we  usually  add  a  little  more  to  froth  things  up  -  because  foam  is  a  very  pleasant  part  of  the  procedure...
       </p>
     </article>
   </section>
