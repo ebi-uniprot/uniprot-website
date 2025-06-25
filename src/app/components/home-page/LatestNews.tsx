@@ -8,10 +8,10 @@ import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 const insideUniProtAbstract1 =
-  'Advances in genome sequencing technology means that large-scale efforts such as the Earth Biogenome project and the Darwin Tree of Life';
+  'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const insideUniProtAbstract2 =
-  'Mammalian immune responses are mediated by interactions between antigens and immune system components such as antibodies, B cells, and T cells';
+  'Advances in genome sequencing technology means that large-scale efforts such as the Earth Biogenome project and the Darwin Tree of Life';
 
 const proteinSpotlightAbstract =
   "The nice thing about shampoo is the foam it produces. When it doesn't, we usually add a little more to froth things up - because foam is a very pleasant part of the procedure...";
@@ -269,14 +269,14 @@ const LatestNews = () => {
       >
         <article>
           <ExternalLink
-            url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
+            url="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
             noIcon
             aria-hidden="true"
             tabIndex={-1}
           >
             <img
               loading="lazy"
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirk3tkRBOtzcDOTuqYSaFrGGQ1Io-VRfUIKfUEa0C5B4DhxuQqMyYanGHhvzH9mG-i4Of2uPZuK7H7d-34yYHKv6-FVqtW-27BEt9t0EukH9ECDTgRQiuarZdYC143Nr-t1RtmD_55avFfIiGIpmjCAM4VTNM9mo739WbLH5r0D2joTOyK8q8hRfKGPhA/w400-h200/Picture1.png"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3OR6x6_Tx_GoAIRCHoalCg6IlBgwwrI1YlxoCtzS4J6EO_8aO5ALgMaOErbSlqPL3IXmBvCLtmPMouQB-RkK5aAHbAeM1sWF5V-k8E-6ufjNbPF2u16_s9qI8cGYKHEt8-2PWy_fZgZWdbaDcBvnQByXvf2wmVsIqY1FRyf8F8xB1CW5Jlzv1Xdvjq1g/w418-h260/scales.png"
               style={{ background: 'white' }}
               alt=""
               width="184.305"
@@ -285,11 +285,10 @@ const LatestNews = () => {
           </ExternalLink>
           <h3 className="tiny">
             <ExternalLink
-              url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
+              url="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
               noIcon
             >
-              Capturing the Diversity of Life - Reorganizing the Protein Space
-              in UniProtKB
+              UniProt - the ultimate colleague on your biological research team!
             </ExternalLink>
           </h3>
           <p
@@ -303,14 +302,14 @@ const LatestNews = () => {
         </article>
         <article>
           <ExternalLink
-            url="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+            url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
             noIcon
             aria-hidden="true"
             tabIndex={-1}
           >
             <img
               loading="lazy"
-              src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXd1s6fiajiMzEs5LbVFoTwb3hDXN-kCrUx9GWBrP5ZnvCE4t_f-1Vp1A8cM3qq9eowxZjlWdVy-dm1z2HNlkZnlAlNP5WcegaJvaYeQAawIMh6QGJ-JAirapMPWdp_G9XS8m2He7g=w571-h541?key=jfJMcOebpi8n6A4ZKBU-RSi0"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirk3tkRBOtzcDOTuqYSaFrGGQ1Io-VRfUIKfUEa0C5B4DhxuQqMyYanGHhvzH9mG-i4Of2uPZuK7H7d-34yYHKv6-FVqtW-27BEt9t0EukH9ECDTgRQiuarZdYC143Nr-t1RtmD_55avFfIiGIpmjCAM4VTNM9mo739WbLH5r0D2joTOyK8q8hRfKGPhA/w400-h200/Picture1.png"
               alt=""
               width="184.305"
               height="96"
@@ -318,10 +317,11 @@ const LatestNews = () => {
           </ExternalLink>
           <h3 className="tiny">
             <ExternalLink
-              url="https://insideuniprot.blogspot.com/2025/05/rich-epitope-information-comes-to.html"
+              url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
               noIcon
             >
-              Rich Epitope Information Comes to UniProt
+              Capturing the Diversity of Life - Reorganizing the Protein Space
+              in UniProtKB
             </ExternalLink>
           </h3>
           <p
