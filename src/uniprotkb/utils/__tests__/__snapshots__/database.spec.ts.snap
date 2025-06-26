@@ -3009,6 +3009,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "SEQ",
       "GMA",
     ],
+    "similar_proteins": [
+      "ORG",
+    ],
     "structure": [
       "3DS",
       "MISC",
@@ -3264,6 +3267,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "UCSC",
       "VectorBase",
       "WBParaSite",
+    ],
+    "similar_proteins": [
+      "AGR",
     ],
     "structure": [
       "PDB",
