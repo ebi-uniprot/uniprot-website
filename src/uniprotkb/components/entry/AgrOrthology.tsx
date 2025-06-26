@@ -2,7 +2,10 @@ import TableFromData, {
   TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import WithTooltip from '../../../shared/components/WithTooltip';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { Xref } from '../../../shared/types/apiModel';
 import { AgrOrthologsResult } from '../../types/agrOrthologs';
+import { XRef } from '../protein-data-views/XRefView';
 import styles from './styles/agr-orthology.module.scss';
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
@@ -215,9 +218,17 @@ const getRowId = (data: AgrOrthologsResult) =>
 
 type Props = {
   data: AgrOrthologsResult[];
+  agrXref: Xref;
 };
 
-const AgrOrthology = ({ data }: Props) => {
+const AgrOrthology = ({ data, agrXref }: Props) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  if (!databaseInfoMaps) {
+    return null;
+  }
+
+  const { databaseToDatabaseInfo } = databaseInfoMaps;
+
   // Lifted from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
   const sorted = data.sort((a, b) => {
     const aIndex =
@@ -240,14 +251,35 @@ const AgrOrthology = ({ data }: Props) => {
     return lengthComparison;
   });
   // TODO: expand/collapse showing for P05067 when it shouldn't be there
+  // TODO: finalize styles
   return (
-    <TableFromData
-      id="agr-orthology"
-      columns={columns}
-      data={sorted}
-      getRowId={getRowId}
-      className={styles['agr-orthology-table']}
-    />
+    <>
+      <div
+        style={{
+          position: 'absolute',
+          top: 150,
+          left: 50,
+          zIndex: 1000,
+        }}
+      >
+        The data within this table is from the Alliance of Genome Resources.
+        <br />
+        View the corresponding table:{' '}
+        <XRef
+          databaseToDatabaseInfo={databaseToDatabaseInfo}
+          database="AGR"
+          xref={agrXref}
+          hash="#orthology"
+        />
+      </div>
+      <TableFromData
+        id="agr-orthology"
+        columns={columns}
+        data={sorted}
+        getRowId={getRowId}
+        className={styles['agr-orthology-table']}
+      />
+    </>
   );
 };
 

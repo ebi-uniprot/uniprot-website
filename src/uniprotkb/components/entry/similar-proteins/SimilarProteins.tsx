@@ -58,9 +58,9 @@ export const getClusterMapping = (
   return mapping;
 };
 
-export const getHgncId = (xrefs: XrefUIModel[]) => {
-  const hgncXref = xrefs[0].databases.find((xref) => xref.database === 'HGNC');
-  return hgncXref?.xrefs.find((xref) => xref.database === 'HGNC')?.id;
+export const getAgrId = (xrefs: XrefUIModel[]) => {
+  const hgncXref = xrefs[0].databases.find((xref) => xref.database === 'AGR');
+  return hgncXref?.xrefs.find((xref) => xref.database === 'AGR');
 };
 
 const SimilarProteins = ({
@@ -70,9 +70,9 @@ const SimilarProteins = ({
 }: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
   const [mappingData, setMappingData] = useState<ClusterMapping | null>(null);
   const [mappingLoading, setMappingLoading] = useState(true);
-  const hgncId = getHgncId(xrefs);
+  const agrXref = getAgrId(xrefs);
   const agrOrthologsResponse = useDataApi<AgrOrthologs>(
-    hgncId ? externalUrls.AgrOrthologs(hgncId) : null
+    agrXref?.id ? externalUrls.AgrOrthologs(agrXref.id) : null
   );
 
   useEffect(() => {
@@ -139,12 +139,16 @@ const SimilarProteins = ({
   }
 
   if (
+    agrXref &&
     !agrOrthologsResponse.error &&
     agrOrthologsResponse?.data?.results?.length
   ) {
     tabs.push(
-      <Tab id="agr-orthology" title="Orthology" key="agr-orthology">
-        <AgrOrthology data={agrOrthologsResponse.data.results} />
+      <Tab id="agr-orthology" title="Orthologs" key="agr-orthology">
+        <AgrOrthology
+          data={agrOrthologsResponse.data.results}
+          agrXref={agrXref}
+        />
       </Tab>
     );
   }

@@ -78,6 +78,7 @@ type XRefProps = {
   primaryAccession?: string;
   crc64?: string;
   databaseToDatabaseInfo: DatabaseToDatabaseInfo;
+  hash?: string;
 };
 
 const propertyKeySet = new Set<PropertyKey>([
@@ -94,11 +95,12 @@ export const XRef = ({
   primaryAccession,
   crc64,
   databaseToDatabaseInfo,
+  hash,
 }: XRefProps) => {
   const databaseInfo = databaseToDatabaseInfo[database];
   const { properties, isoformId, id, database: databaseType } = xref;
   const { uriLink, implicit } = databaseInfo;
-  if (!database || !primaryAccession) {
+  if (!database) {
     return null;
   }
   const propertyLinkAttributes = [];
@@ -141,9 +143,12 @@ export const XRef = ({
   }
 
   const params: Record<string, string> = {
-    primaryAccession,
     ...properties,
   };
+
+  if (primaryAccession) {
+    params.primaryAccession = primaryAccession;
+  }
 
   if (id) {
     params.id = id;
@@ -166,12 +171,21 @@ export const XRef = ({
     }
   }
 
+  let url = processUrlTemplate(uriLink, params);
+  if (hash) {
+    if (hash.startsWith('#')) {
+      url += hash;
+    } else {
+      url += `#${hash}`;
+    }
+  }
+
   // Remove links from the xref which are the same (ie same url and text).
   // An example of where duplicate links would be displayed is P0A879
   const linkAttributes = uniqWith(
     [
       // Main link attributes
-      { url: processUrlTemplate(uriLink, params), text },
+      { url, text },
       // Property links
       ...propertyLinkAttributes,
     ],

@@ -17,17 +17,14 @@ const convertSimilarProteins = (
 ) => {
   const similarProteinsData: SimilarProteinsUIModel = {
     ...extractIsoforms(data),
-    xrefs: [],
+    xrefs: uniProtKBCrossReferences
+      ? getXrefsForSection(
+          databaseInfoMaps,
+          uniProtKBCrossReferences,
+          EntrySection.SimilarProteins
+        )
+      : [],
   };
-
-  if (uniProtKBCrossReferences) {
-    similarProteinsData.xrefs = getXrefsForSection(
-      databaseInfoMaps,
-      uniProtKBCrossReferences,
-      EntrySection.SimilarProteins
-    );
-  }
-
   return similarProteinsData;
 };
 export default convertSimilarProteins;
