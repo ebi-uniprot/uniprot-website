@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationReference should render correctly 1`] = `
+<DocumentFragment>
+  <ul
+    class="text-block info-list"
+  >
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Cited for
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM 1), TISSUE SPECIFICITY, DEVELOPMENTAL STAGE
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Categories
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          Sequences, Expression
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item decorated-list-item--compact"
+      >
+        <div
+          class="decorated-list-item__title tiny"
+        >
+          Source
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <span
+            class="entry-title__status icon--reviewed"
+            title="This marks a reviewed UniProtKB entry"
+          >
+            <test-file-stub />
+          </span>
+          UniProtKB reviewed (Swiss-Prot)
+        </div>
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Community annotations renders ORCID links 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--community-annotation"
+    title="Community annotation"
+  >
+    <test-file-stub />
+  </span>
+  ORCID: 
+  <a
+    class="external-link"
+    href="https://orcid.org/0009-0004-6150-6467"
+    rel="noopener"
+    target="_blank"
+  >
+    0009-0004-6150-6467
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+   (
+  <a
+    class="external-link"
+    href="//community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
+    rel="noopener"
+    target="_blank"
+  >
+    see community submission
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+  ).
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Community annotations renders ORCID links 2`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--community-annotation"
+    title="Community annotation"
+  >
+    <test-file-stub />
+  </span>
+  ORCID: Anonymous (
+  <a
+    class="external-link"
+    href="//community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
+    rel="noopener"
+    target="_blank"
+  >
+    see community submission
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+  ).
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Exceptions renders correctly for GAD 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--computational-annotation"
+    title="Computational annotation"
+  >
+    <test-file-stub />
+  </span>
+  GAD: 117462
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Exceptions renders correctly for GeneRif 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--computational-annotation"
+    title="Computational annotation"
+  >
+    <test-file-stub />
+  </span>
+  GeneRif: 
+  <a
+    class="external-link"
+    href="https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=351"
+    rel="noopener"
+    target="_blank"
+  >
+    351
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Exceptions renders correctly for IEDB 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--computational-annotation"
+    title="Computational annotation"
+  >
+    <test-file-stub />
+  </span>
+  IEDB: 
+  <a
+    class="external-link"
+    href="https://iedb.org/antigen/UNIPROT:P05067"
+    rel="noopener"
+    target="_blank"
+  >
+    P05067
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Exceptions renders correctly for IMPC 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--computational-annotation"
+    title="Computational annotation"
+  >
+    <test-file-stub />
+  </span>
+  IMPC: 
+  <a
+    class="external-link"
+    href="https://www.mousephenotype.org/data/genes/MGI:1860086"
+    rel="noopener"
+    target="_blank"
+  >
+    MGI:1860086
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Exceptions renders correctly for MGI 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--computational-annotation"
+    title="Computational annotation"
+  >
+    <test-file-stub />
+  </span>
+  MGI: 
+  <a
+    class="external-link"
+    href="https://www.informatics.jax.org/marker/MGI:1860086"
+    rel="noopener"
+    target="_blank"
+  >
+    1860086
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Normal xref renders but without links for unknown DBs 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--computational-annotation"
+    title="Computational annotation"
+  >
+    <test-file-stub />
+  </span>
+  not-a-db: ID1234
+</DocumentFragment>
+`;
+
+exports[`PublicationSource Normal xref renders correctly for normal xrefs 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--computational-annotation"
+    title="Computational annotation"
+  >
+    <test-file-stub />
+  </span>
+  IntAct: 
+  <a
+    class="external-link"
+    href="https://www.ebi.ac.uk/intact/search?query=id:P12345*#interactor"
+    rel="noopener"
+    target="_blank"
+  >
+    P12345
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`PublicationSource UniProtKB renders UniProtKB reviewed 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--reviewed"
+    title="This marks a reviewed UniProtKB entry"
+  >
+    <test-file-stub />
+  </span>
+  UniProtKB reviewed (Swiss-Prot)
+</DocumentFragment>
+`;
+
+exports[`PublicationSource UniProtKB renders UniProtKB unreviewed 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--unreviewed"
+    title="This marks an unreviewed UniProtKB entry"
+  >
+    <test-file-stub />
+  </span>
+  UniProtKB unreviewed (TrEMBL)
+</DocumentFragment>
+`;
