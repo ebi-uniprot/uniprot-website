@@ -24,22 +24,110 @@ import { processUrlTemplate } from '../../../../shared/utils/xrefs';
 import {
   CitationsAPIModel,
   Reference,
+  Source,
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
 import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
+
+const orcidIDRegExp = /(\d{4}-){3}\d{4}/;
+
+type PublicationSourceProps = {
+  accession: string;
+  source: Source;
+};
+
+export const PublicationSource = ({
+  accession,
+  source,
+}: PublicationSourceProps) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
+
+  if (source.name.includes('UniProtKB')) {
+    return (
+      <>
+        <EntryTypeIcon entryType={source.name} />
+        {source.name}
+      </>
+    );
+  }
+
+  let uriLink =
+    source && databaseInfoMaps?.databaseToDatabaseInfo[source.name]?.uriLink;
+
+  if (source.name === 'ORCID') {
+    return (
+      <>
+        <EntryTypeIcon entryType={source.name} />
+        {source.name}:{' '}
+        <ExternalLink
+          url={
+            source.id && orcidIDRegExp.test(source.id)
+              ? processUrlTemplate(uriLink, { id: source.id })
+              : null
+          }
+        >
+          {source.id}
+        </ExternalLink>
+        {' ('}
+        <ExternalLink
+          url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+        >
+          see community submission
+        </ExternalLink>
+        ).
+      </>
+    );
+  }
+
+  /* URI link exceptions: */
+  // 'GeneRif' is indexed as 'GeneRIF' in the configuration endpoint
+  if (source.name === 'GeneRif') {
+    uriLink = databaseInfoMaps?.databaseToDatabaseInfo.GeneRIF?.uriLink;
+  }
+  // 'MGI' ID is missing the initial "MGI:"
+  if (source.name === 'MGI') {
+    uriLink = uriLink?.replace('%id', 'MGI:%id');
+  }
+  // 'IEDB' is not in the configuration endpoint
+  if (source.name === 'IEDB') {
+    uriLink = 'https://iedb.org/antigen/UNIPROT:%id';
+  }
+  // 'IMPC' is not in the configuration endpoint
+  if (source.name === 'IMPC') {
+    uriLink = 'https://www.mousephenotype.org/data/genes/%id';
+  }
+
+  // 'GAD' not in the configuration endpoint, but don't inject a link
+  // This DB is dead so we only display the accession, but no link to point to
+
+  const url =
+    (source?.id &&
+      processUrlTemplate(uriLink, {
+        id: source.id,
+        primaryAccession: source.id,
+      })) ||
+    null;
+
+  return (
+    <>
+      <EntryTypeIcon entryType="computationally mapped" />
+      {source.name}
+      {': '}
+      <ExternalLink url={url}>{source.id}</ExternalLink>
+    </>
+  );
+};
 
 type PublicationsReferenceProps = {
   references: Reference[];
   accession: string;
 };
 
-const PublicationReference = ({
+export const PublicationReference = ({
   references,
   accession,
 }: PublicationsReferenceProps) => {
-  const databaseInfoMaps = useDatabaseInfoMaps();
-
   const infoListWithContent = references.map((reference) => {
     const {
       referencePositions,
@@ -49,20 +137,6 @@ const PublicationReference = ({
       communityAnnotation,
       annotation,
     } = reference;
-
-    const databaseInfo =
-      source && databaseInfoMaps?.databaseToDatabaseInfo[source.name];
-    let url =
-      source?.id &&
-      processUrlTemplate(databaseInfo?.uriLink, {
-        id: source.id,
-        primaryAccession: source.id,
-      });
-    if (source?.name === 'GeneRif') {
-      url = `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
-    }
-    // if (source?.name === 'GAD') => don't inject a link
-    // This DB is dead so we only display the accession, but no link to point to
 
     const groupedReferenceComments = groupBy(referenceComments, 'type');
 
@@ -134,49 +208,7 @@ const PublicationReference = ({
       {
         title: 'Source',
         content: source && (
-          <>
-            <EntryTypeIcon entryType={source.name} />
-            {url && source.name !== 'ORCID' ? (
-              <>
-                <EntryTypeIcon entryType="computationally mapped" />
-                {source.name}
-                {': '}
-                <ExternalLink url={url}>{source.id}</ExternalLink>
-              </>
-            ) : (
-              <span>
-                {source.name}
-                {source.name === 'ORCID' ? (
-                  <>
-                    {': '}
-                    <ExternalLink
-                      url={
-                        source.id && source.id !== 'Anonymous'
-                          ? processUrlTemplate(
-                              databaseInfoMaps?.databaseToDatabaseInfo[
-                                source.name
-                              ]?.uriLink,
-                              { id: source.id }
-                            )
-                          : null
-                      }
-                    >
-                      {source.id}
-                    </ExternalLink>
-                    {' ('}
-                    <ExternalLink
-                      url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
-                    >
-                      see community submission
-                    </ExternalLink>
-                    ).
-                  </>
-                ) : (
-                  <>{source.id && `:${source.id}`}</>
-                )}
-              </span>
-            )}
-          </>
+          <PublicationSource accession={accession} source={source} />
         ),
       },
     ];
