@@ -177,20 +177,22 @@ const CoordinateRow = ({
           <ExternalLink
             url={
               exons[0].genomeLocation.position
-                ? getEnsemblLink(
+                ? getEnsemblLink({
                     taxID,
-                    exons[0].genomeLocation.position.position
-                  )
-                : getEnsemblLink(
+                    start: exons[0].genomeLocation.position.position,
+                    end: exons[0].genomeLocation.position.position,
+                    chromosome: gnCoordinates.genomicLocation.chromosome,
+                  })
+                : getEnsemblLink({
                     taxID,
-                    gnCoordinates.genomicLocation.reverseStrand
+                    start: gnCoordinates.genomicLocation.reverseStrand
                       ? exons[0].genomeLocation.end.position
                       : exons[0].genomeLocation.begin.position,
-                    gnCoordinates.genomicLocation.reverseStrand
+                    end: gnCoordinates.genomicLocation.reverseStrand
                       ? exons[0].genomeLocation.begin.position
                       : exons[0].genomeLocation.end.position,
-                    gnCoordinates.genomicLocation.chromosome
-                  )
+                    chromosome: gnCoordinates.genomicLocation.chromosome,
+                  })
             }
           >
             {location}
