@@ -343,50 +343,52 @@ const CoordinateTable = ({
   );
 
   return (
-    <Table className={cn(styles['coordinates-table'], helper['no-wrap'])}>
-      <Table.Head toggleAll={groupedExonEntries.length > 1}>
-        <th>Exon coordinates</th>
-        {mappedIsoforms.map((isoformID) => (
-          <th
-            key={isoformID}
-            title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
-            colSpan={4}
-          >
-            <Link to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}>
-              {isoformID}
-            </Link>
-            {canonical === isoformID && (
-              <>
-                <br />
-                <Chip compact>canonical</Chip>
-              </>
-            )}
-          </th>
-        ))}
-      </Table.Head>
-      <Table.Body data={groupedExonEntries}>
-        {([genomicCoordinates, exons]) => ({
-          key: genomicCoordinates,
-          row: (
-            <CoordinateRow
-              gnCoordinates={flatGenomicEntries[0].gnCoordinate}
-              taxID={flatGenomicEntries[0].taxid}
-              exons={exons}
-              isEnsemblID={isEnsemblID}
-              mappedIsoforms={mappedIsoforms}
-            />
-          ),
-          extraContent: (
-            <CoordinateExtraContent
-              exons={exons}
-              xrefInfo={xrefInfo}
-              isEnsemblID={isEnsemblID}
-              colSpan={1 + 4 * mappedIsoforms.length}
-            />
-          ),
-        })}
-      </Table.Body>
-    </Table>
+    <section className={cn(styles['table-container'])}>
+      <Table className={cn(styles['coordinates-table'], helper['no-wrap'])}>
+        <Table.Head toggleAll={groupedExonEntries.length > 1}>
+          <th>Exon coordinates</th>
+          {mappedIsoforms.map((isoformID) => (
+            <th
+              key={isoformID}
+              title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
+              colSpan={4}
+            >
+              <Link to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}>
+                {isoformID}
+              </Link>
+              {canonical === isoformID && (
+                <>
+                  <br />
+                  <Chip compact>canonical</Chip>
+                </>
+              )}
+            </th>
+          ))}
+        </Table.Head>
+        <Table.Body data={groupedExonEntries}>
+          {([genomicCoordinates, exons]) => ({
+            key: genomicCoordinates,
+            row: (
+              <CoordinateRow
+                gnCoordinates={flatGenomicEntries[0].gnCoordinate}
+                taxID={flatGenomicEntries[0].taxid}
+                exons={exons}
+                isEnsemblID={isEnsemblID}
+                mappedIsoforms={mappedIsoforms}
+              />
+            ),
+            extraContent: (
+              <CoordinateExtraContent
+                exons={exons}
+                xrefInfo={xrefInfo}
+                isEnsemblID={isEnsemblID}
+                colSpan={1 + 4 * mappedIsoforms.length}
+              />
+            ),
+          })}
+        </Table.Body>
+      </Table>
+    </section>
   );
 };
 
