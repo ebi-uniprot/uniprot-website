@@ -3,8 +3,6 @@ import { zip } from 'lodash-es';
 import { useEffect, useState } from 'react';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import externalUrls from '../../../../shared/config/externalUrls';
-import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
 import fetchData from '../../../../shared/utils/fetchData';
 import { stringifyQuery } from '../../../../shared/utils/url';
@@ -15,10 +13,7 @@ import {
 } from '../../../../uniref/adapters/uniRefConverter';
 import { UniRefColumn } from '../../../../uniref/config/UniRefColumnConfiguration';
 import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
-import { AgrOrthologs } from '../../../types/agrOrthologs';
 import EntrySection from '../../../types/entrySection';
-import { XrefUIModel } from '../../../utils/xrefUtils';
-import AgrOrthology from '../AgrOrthology';
 import SimilarProteinsTabContent from './SimilarProteinsTabContent';
 
 export type IsoformsAndCluster = {
@@ -58,22 +53,12 @@ export const getClusterMapping = (
   return mapping;
 };
 
-export const getAgrId = (xrefs: XrefUIModel[]) => {
-  const hgncXref = xrefs[0].databases.find((xref) => xref.database === 'AGR');
-  return hgncXref?.xrefs.find((xref) => xref.database === 'AGR');
-};
-
 const SimilarProteins = ({
   canonical,
   isoforms,
-  xrefs,
 }: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
   const [mappingData, setMappingData] = useState<ClusterMapping | null>(null);
   const [mappingLoading, setMappingLoading] = useState(true);
-  const agrXref = getAgrId(xrefs);
-  const agrOrthologsResponse = useDataApi<AgrOrthologs>(
-    agrXref?.id ? externalUrls.AgrOrthologs(agrXref.id) : null
-  );
 
   useEffect(() => {
     const controller = new AbortController();
@@ -110,53 +95,32 @@ const SimilarProteins = ({
     return () => controller.abort();
   }, [canonical, isoforms]);
 
-  if (mappingLoading || agrOrthologsResponse.loading) {
+  if (mappingLoading) {
     return <Loader />;
   }
 
-  const tabs = [];
-
-  if (mappingData) {
-    for (const [clusterType, percentValue] of Object.entries(
-      uniRefEntryTypeToPercent
-    )) {
-      tabs.push(
-        <Tab
-          id={clusterType}
-          title={`${percentValue} identity`}
-          key={clusterType}
-        >
-          <SimilarProteinsTabContent
-            canonical={canonical}
-            clusterType={clusterType}
-            isoformsAndClusters={Object.values(
-              mappingData[clusterType as UniRefEntryType]
-            )}
-          />
-        </Tab>
-      );
-    }
-  }
-
-  if (
-    agrXref &&
-    !agrOrthologsResponse.error &&
-    agrOrthologsResponse?.data?.results?.length
-  ) {
-    tabs.push(
-      <Tab id="agr-orthology" title="Orthologs" key="agr-orthology">
-        <AgrOrthology
-          data={agrOrthologsResponse.data.results}
-          agrXref={agrXref}
-        />
-      </Tab>
-    );
-  }
-
-  return tabs.length ? (
-    <Tabs bordered>{tabs}</Tabs>
+  return mappingData ? (
+    <Tabs bordered>
+      {Object.entries(uniRefEntryTypeToPercent).map(
+        ([clusterType, percentValue]) => (
+          <Tab
+            id={clusterType}
+            title={`${percentValue} identity`}
+            key={clusterType}
+          >
+            <SimilarProteinsTabContent
+              canonical={canonical}
+              clusterType={clusterType}
+              isoformsAndClusters={Object.values(
+                mappingData[clusterType as UniRefEntryType]
+              )}
+            />
+          </Tab>
+        )
+      )}
+    </Tabs>
   ) : (
-    <em>No similar UniProtKB entry or orthologies found.</em>
+    <em>No similar UniProtKB entry found.</em>
   );
 };
 
