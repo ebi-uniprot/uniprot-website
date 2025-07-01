@@ -7,6 +7,7 @@ import TableFromData, {
 import WithTooltip from '../../../shared/components/WithTooltip';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Xref } from '../../../shared/types/apiModel';
+import * as logging from '../../../shared/utils/logging';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { AgrOrthologsResult } from '../../types/agrOrthologs';
 import { XRef } from '../protein-data-views/XRefView';
@@ -47,12 +48,16 @@ const xrefTokenToQueryPrefix = new Map([
 const getXrefQuery = (primaryExternalId: string) => {
   const [xrefToken, ...idToken] = primaryExternalId.split(':');
   if (!idToken) {
-    // TODO: log this
+    logging.error(
+      `No token found for AGR primaryExternalId: ${primaryExternalId}`
+    );
     return null;
   }
   const queryPrefix = xrefTokenToQueryPrefix.get(xrefToken);
   if (!queryPrefix) {
-    // TODO: log this
+    logging.error(
+      `No query prefix found for AGR primaryExternalId: ${primaryExternalId}`
+    );
     return null;
   }
   return `(xref:${queryPrefix}-${idToken})`;
