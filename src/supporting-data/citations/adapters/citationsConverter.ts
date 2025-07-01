@@ -58,12 +58,17 @@ export type ReferenceComment = {
   evidences?: Evidence[];
 };
 
+export type Source = {
+  name: string;
+  id?: string;
+};
+
 export type Reference = {
   citationId?: Citation['id'];
   referencePositions?: string[];
   referenceComments?: ReferenceComment[];
   evidences?: Evidence[];
-  source?: { name: string; id?: string };
+  source?: Source;
   pubMedId?: string;
   sourceCategories?: string[];
   referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)
