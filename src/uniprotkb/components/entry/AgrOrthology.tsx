@@ -1,9 +1,13 @@
+import { Link } from 'react-router-dom';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
 import TableFromData, {
   TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import WithTooltip from '../../../shared/components/WithTooltip';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Xref } from '../../../shared/types/apiModel';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { AgrOrthologsResult } from '../../types/agrOrthologs';
 import { XRef } from '../protein-data-views/XRefView';
 import styles from './styles/agr-orthology.module.scss';
@@ -11,6 +15,56 @@ import styles from './styles/agr-orthology.module.scss';
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
 const isBest = (value = '') =>
   typeof value === 'boolean' ? value : !!value.match(/yes/i);
+
+const getTaxonQuery = (curie: string): string | null => {
+  const reTaxonId = /NCBITaxon:(?<taxonId>\d+)/i;
+  const match = curie.match(reTaxonId);
+  if (!match?.groups?.taxonId) {
+    return null;
+  }
+  return `(taxonomy_id:${match?.groups?.taxonId})`;
+};
+
+/*
+MGI:88059               (xref:mgi-88059)
+Xenbase:XB-GENE-479154  (xref:xenbase-XB-GENE-479154)
+FB:FBgn0000108          (xref:flybase-FBgn0000108) 
+RGD:2139                (xref:rgd-2139)
+ZFIN:ZDB-GENE-000616-13 (xref:zfin-ZDB-GENE-000616-13)
+HGNC:620                (xref:hgnc-620)
+WB:WBGene00000149       (xref:agr-WBGene00000149) 
+*/
+const xrefTokenToQueryPrefix = new Map([
+  ['MGI', 'mgi'],
+  ['Xenbase', 'xenbase'],
+  ['FB', 'flybase'],
+  ['RGD', 'rgd'],
+  ['ZFIN', 'zfin'],
+  ['HGNC', 'hgnc'],
+  ['WB', 'agr'],
+]);
+
+const getXrefQuery = (primaryExternalId: string) => {
+  const [xrefToken, ...idToken] = primaryExternalId.split(':');
+  if (!idToken) {
+    // TODO: log this
+    return null;
+  }
+  const queryPrefix = xrefTokenToQueryPrefix.get(xrefToken);
+  if (!queryPrefix) {
+    // TODO: log this
+    return null;
+  }
+  return `(xref:${queryPrefix}-${idToken})`;
+};
+
+const getXrefAndTaxonQuery = (
+  gene: AgrOrthologsResult['geneToGeneOrthologyGenerated']['objectGene']
+) => {
+  const taxonQuery = getTaxonQuery(gene.taxon.curie);
+  const xrefQuery = getXrefQuery(gene.primaryExternalId);
+  return taxonQuery && xrefQuery ? `${taxonQuery} AND ${xrefQuery}` : null;
+};
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/homology/constants.js#L1
 const ORTHOLOGY_METHODS = [
@@ -108,8 +162,28 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
     filter: (data, filterValue) =>
       data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText ===
       filterValue,
-    render: (data) =>
-      data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText,
+    render: (data) => {
+      const query = getXrefAndTaxonQuery(
+        data.geneToGeneOrthologyGenerated.objectGene
+      );
+      const gene =
+        data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText;
+
+      return query ? (
+        <Link
+          to={{
+            pathname: LocationToPath[Location.UniProtKBResults],
+            search: stringifyQuery({
+              query,
+            }),
+          }}
+        >
+          {gene}
+        </Link>
+      ) : (
+        gene
+      );
+    },
   },
 
   {
