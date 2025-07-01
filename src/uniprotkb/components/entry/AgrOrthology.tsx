@@ -335,7 +335,7 @@ const AgrOrthology = ({ data, agrXref }: Props) => {
     <>
       <div
         style={{
-          position: 'absolute',
+          position: 'relative',
           top: 150,
           left: 50,
           zIndex: 1000,

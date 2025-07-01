@@ -5,6 +5,7 @@ import LazyComponent from '../../../../shared/components/LazyComponent';
 import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
+import AgrHomology from '../AgrHomology';
 
 const SimilarProteins = lazy(
   () => import(/* webpackChunkName: "similar-proteins" */ './SimilarProteins')
@@ -23,11 +24,8 @@ const SimilarProteinsSection = ({
       data-entry-section
     >
       <LazyComponent>
-        <SimilarProteins
-          canonical={canonical}
-          isoforms={isoforms}
-          xrefs={xrefs}
-        />
+        <SimilarProteins canonical={canonical} isoforms={isoforms} />
+        <AgrHomology xrefs={xrefs} />
       </LazyComponent>
     </Card>
   );
