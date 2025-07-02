@@ -1,9 +1,10 @@
-import { ExternalLink, InfoList, Loader } from 'franklin-sites';
+import { InfoList, Loader } from 'franklin-sites';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';

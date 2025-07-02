@@ -83,7 +83,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <a
               href="/uniprotkb?query=proteome:UP000005640"
             >
-              83,374
+              83,587
             </a>
           </span>
           <span
@@ -108,7 +108,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
               </span>
               : 
             </strong>
-            Unknown
+            Outlier (high value)
           </span>
         </div>
         <div
@@ -178,7 +178,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             >
               <div
                 class="busco-view__track"
-                style="--s: 37.14078374455733%; --d: 62.38751814223512%; --f: 0.02902757619738752%;"
+                style="--s: 37.03193033381713%; --d: 62.503628447024674%; --f: 0.036284470246734396%;"
               />
               <div
                 class="busco-view__report"
@@ -186,7 +186,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                 n:13780 · primates_odb10
               </div>
               <div>
-                C:99.5% (S:37.1% D:62.4%) F:0% M:0.4%
+                C:99.5% (S:37% D:62.5%) F:0% M:0.4%
               </div>
             </div>
           </span>

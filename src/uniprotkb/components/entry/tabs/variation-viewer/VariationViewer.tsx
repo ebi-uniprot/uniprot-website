@@ -127,6 +127,9 @@ const getHighlightedCoordinates = (feature?: TransformedVariant) =>
 
 const getRowId = (data: TransformedVariant) => data.accession;
 
+const uuidRegExp =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
 const getColumns = (
   primaryAccession: string
 ): TableFromDataColumn<TransformedVariant>[] => [
@@ -143,7 +146,16 @@ const getColumns = (
       <>
         {
           // note that the type needs to be updated, xrefs is optional on association object
-          Array.from(new Set(data.xrefs?.map((xref) => xref.id)))
+          Array.from(
+            new Set(
+              data.xrefs
+                ?.map((xref) => xref.id)
+                // TODO: check if this can be removed, some variant IDs where
+                // UUIDs (mainly from NCI-TCGA, example P15056), that's not
+                // expected and not user friendly. Needs changes in Proteins API
+                .filter((id) => !uuidRegExp.test(id))
+            )
+          )
             .sort(sortIDByUniProtFirst)
             .map((id, i) => (
               <Fragment key={id}>

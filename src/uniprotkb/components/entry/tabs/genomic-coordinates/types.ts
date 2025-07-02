@@ -51,8 +51,8 @@ export type ExonMap = {
 //   position?: Position;
 //   sequence?: string;
 // };
-// It's either begin and end defined, or just position if only 1 amino acid...
-// But that's only for proteins, for genome location it's always begin/end...
+// It's either begin and end defined,
+// or just position if only 1 amino acid or only 1 nucleotide.
 // Let's rewrite it below
 
 interface BasicLocation {

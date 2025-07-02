@@ -249,6 +249,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
               minimumSequences={2}
               maximumSequences={ALIGN_LIMIT}
+              noDuplicateID
             />
           </section>
           <section className="tools-form-section">

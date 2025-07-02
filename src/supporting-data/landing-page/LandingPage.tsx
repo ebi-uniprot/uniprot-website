@@ -1,11 +1,12 @@
 import cn from 'classnames';
-import { Button, ExternalLink } from 'franklin-sites';
+import { Button } from 'franklin-sites';
 import { ChangeEvent, useEffect, useId, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import { useFormLogic } from '../../contact/adapters/contactFormAdapter';
 import SupportingDataIllustration from '../../images/Supporting_data_illustration.jpg';
+import ExternalLink from '../../shared/components/ExternalLink';
 import HTMLHead from '../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import styles from './styles/landing-page.module.scss';

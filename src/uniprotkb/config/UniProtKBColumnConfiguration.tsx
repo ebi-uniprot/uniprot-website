@@ -74,7 +74,6 @@ import CatalyticActivityView, {
   isRheaReactionReference,
 } from '../components/protein-data-views/CatalyticActivityView';
 import CSVView from '../components/protein-data-views/CSVView';
-// import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView, {
   protvarVariantLink,
 } from '../components/protein-data-views/DiseaseInvolvementView';

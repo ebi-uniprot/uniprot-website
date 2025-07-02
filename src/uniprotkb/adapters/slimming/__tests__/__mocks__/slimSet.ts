@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-19
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -1292,7 +1292,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'lysophospholipase activity',
+          name: 'phosphatidylcholine lysophospholipase activity',
           id: 'GO:0004622',
           aspect: 'molecular_function',
         },
@@ -3401,7 +3401,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein localization',
+          name: 'intracellular protein localization',
           id: 'GO:0008104',
           aspect: 'biological_process',
         },
@@ -4966,6 +4966,12 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'establishment or maintenance of cell polarity',
           id: 'GO:0007163',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
+          name: 'glycoprotein biosynthetic process',
+          id: 'GO:0009101',
           aspect: 'biological_process',
         },
         {
@@ -9836,12 +9842,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein glycosylation',
-          id: 'GO:0006486',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'amino acid metabolic process',
           id: 'GO:0006520',
           aspect: 'biological_process',
@@ -13438,6 +13438,12 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'carbohydrate transport',
           id: 'GO:0008643',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
+          name: 'glycoprotein biosynthetic process',
+          id: 'GO:0009101',
           aspect: 'biological_process',
         },
         {

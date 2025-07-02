@@ -188,7 +188,7 @@ const IsoformInfo = ({
   canonicalAccession,
   isoformNotes,
 }: IsoformInfoProps) => {
-  const regex = new RegExp(isoformData.name.value, 'gi');
+  const regex = new RegExp(`^Isoform ${isoformData.name.value}$`, 'gi');
   const note =
     isoformNotes &&
     Object.entries(isoformNotes).find(([key]) => key.match(regex))?.[1];

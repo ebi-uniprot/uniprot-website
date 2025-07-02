@@ -1,7 +1,10 @@
 import { AxiosRequestConfig } from 'axios';
 import { LocationDescriptor } from 'history';
+import { debounce } from 'lodash-es';
 import {
+  Dispatch,
   FormEventHandler,
+  SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -50,8 +53,59 @@ ${formData.get('context') || ''}`;
   return output;
 };
 
+const DEBOUNCE_TIME = 1_000;
+
+export type Suggestion =
+  | 'update'
+  | 'PDB'
+  | 'buy'
+  | 'blast'
+  | 'align'
+  | 'id mapping'
+  | 'peptide search';
+const entryUpdateRegExp = /entry update request/i;
+const pdbRegExp = /(structure)|(pdb)/i;
+const buyRegExp = /(buy)|(purchas)|(ship)|(cost)|(quote)/i;
+const blastRegExp = /blast/i;
+const alignRegExp = /(clustal)|(align)/i;
+const idMappingRegExp = /(map)/i;
+const peptideSearchRegExp = /(peptide search)|(search peptide)/i;
+
+export const getSuggestion = debounce(
+  (
+    subject: string,
+    message: string,
+    callback: Dispatch<SetStateAction<Suggestion | undefined>>
+  ): void => {
+    if (entryUpdateRegExp.test(subject)) {
+      // A bit specific, only test the subject as it would have been added by
+      // the link from entry page to suggest an update
+      callback('update');
+    } else if (pdbRegExp.test(subject) || pdbRegExp.test(message)) {
+      callback('PDB');
+    } else if (buyRegExp.test(subject) || buyRegExp.test(message)) {
+      callback('buy');
+    } else if (blastRegExp.test(subject) || blastRegExp.test(message)) {
+      callback('blast');
+    } else if (alignRegExp.test(subject) || alignRegExp.test(message)) {
+      callback('align');
+    } else if (idMappingRegExp.test(subject) || idMappingRegExp.test(message)) {
+      callback('id mapping');
+    } else if (
+      peptideSearchRegExp.test(subject) ||
+      peptideSearchRegExp.test(message)
+    ) {
+      callback('peptide search');
+    } else {
+      callback(undefined);
+    }
+  },
+  DEBOUNCE_TIME
+);
+
 export type UseFormLogicReturnType = {
   sending: boolean;
+  suggestion: undefined | Suggestion;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
@@ -60,6 +114,9 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const dispatch = useMessagesDispatch();
   const history = useHistory<ContactLocationState>();
   const [formData, setFormData] = useState<undefined | FormData>();
+  const [suggestion, setSuggestion] = useState<undefined | Suggestion>(
+    undefined
+  );
 
   const subject = formData?.get('subject') as undefined | string;
 
@@ -139,6 +196,9 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     [loading]
   );
 
+  // on unmount, cancel any pending suggestion calculation
+  useEffect(() => getSuggestion.cancel, []);
+
   const handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement> =
     useCallback(
       (event) => {
@@ -152,6 +212,11 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
         ) {
           return;
         }
+        getSuggestion(
+          element.form?.subject.value,
+          element.form?.message.value,
+          setSuggestion
+        );
         history.replace({
           ...history.location,
           state: {
@@ -163,8 +228,8 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
           },
         });
       },
-      [loading, history]
+      [loading, history, setSuggestion]
     );
 
-  return { sending: loading, handleSubmit, handleChange };
+  return { sending: loading, suggestion, handleSubmit, handleChange };
 };

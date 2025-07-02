@@ -178,6 +178,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "TCDB",
       "UniLectin",
       "GPCRDB",
+      "CARD",
     ],
     "PLG": [
       "eggNOG",
@@ -188,6 +189,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OrthoDB",
       "PhylomeDB",
       "TreeFam",
+      "PAN-GO",
     ],
     "PPI": [
       "BioGRID",
@@ -198,6 +200,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "FunCoup",
     ],
     "PRM": [
       "Proteomes",
@@ -254,6 +257,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "BioGRID": "PPI",
     "BioGRID-ORCS": "MISC",
     "BioMuta": "GVD",
+    "CARD": "PFAM",
     "CAZy": "PFAM",
     "CCDS": "SEQ",
     "CD-CODE": "MISC",
@@ -295,6 +299,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "EvolutionaryTrace": "MISC",
     "ExpressionAtlas": "GEP",
     "FlyBase": "ORG",
+    "FunCoup": "PPI",
     "FunFam": "FMD",
     "GO": "OTG",
     "GPCRDB": "PFAM",
@@ -350,6 +355,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "OpenTargets": "ORG",
     "Orphanet": "ORG",
     "OrthoDB": "PLG",
+    "PAN-GO": "PLG",
     "PANTHER": "FMD",
     "PATRIC": "GMA",
     "PCDDB": "3DS",
@@ -636,6 +642,27 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "BioMuta",
       "name": "BioMuta",
       "uriLink": "https://hive.biochemistry.gwu.edu/tools/biomuta/biomuta.php?gene=%id",
+    },
+    "CARD": {
+      "attributes": [
+        {
+          "name": "CARD short name",
+          "xmlTag": "molecule name",
+        },
+        {
+          "name": "Resistance mechanism identifier",
+          "uriLink": "https://card.mcmaster.ca/%id",
+          "xmlTag": "mechanism identifier",
+        },
+        {
+          "name": "Resistance mechanism name",
+          "xmlTag": "mechanism name",
+        },
+      ],
+      "category": "PFAM",
+      "displayName": "CARD",
+      "name": "CARD",
+      "uriLink": "https://card.mcmaster.ca/%id",
     },
     "CAZy": {
       "attributes": [
@@ -1192,6 +1219,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "FlyBase",
       "name": "FlyBase",
       "uriLink": "https://flybase.org/reports/%id.html",
+    },
+    "FunCoup": {
+      "attributes": [
+        {
+          "name": "Number of interactors",
+          "xmlTag": "interactions",
+        },
+      ],
+      "category": "PPI",
+      "displayName": "FunCoup",
+      "name": "FunCoup",
+      "uriLink": "https://funcoup.org/uniprot/%id",
     },
     "FunFam": {
       "attributes": [
@@ -1916,6 +1955,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "OrthoDB",
       "name": "OrthoDB",
       "uriLink": "https://www.orthodb.org/?gene=%primaryAccession",
+    },
+    "PAN-GO": {
+      "attributes": [
+        {
+          "name": "Number of GO annotations",
+          "xmlTag": "GO annotations",
+        },
+      ],
+      "category": "PLG",
+      "displayName": "PAN-GO",
+      "name": "PAN-GO",
+      "uriLink": "https://functionome.geneontology.org/gene/UniProtKB:%id",
     },
     "PANTHER": {
       "attributes": [
@@ -3131,6 +3182,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OrthoDB",
       "PhylomeDB",
       "TreeFam",
+      "PAN-GO",
       "AntiFam",
       "CDD",
       "FunFam",
@@ -3176,6 +3228,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "TCDB",
       "UniLectin",
       "GPCRDB",
+      "CARD",
       "SwissLipids",
     ],
     "interaction": [
@@ -3187,6 +3240,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "FunCoup",
       "BindingDB",
       "RNAct",
     ],

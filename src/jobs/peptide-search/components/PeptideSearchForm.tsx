@@ -1,13 +1,7 @@
 import '../../styles/ToolsForm.scss';
 
 import cn from 'classnames';
-import {
-  Chip,
-  ExternalLink,
-  Message,
-  PageIntro,
-  SpinnerIcon,
-} from 'franklin-sites';
+import { Chip, Message, PageIntro, SpinnerIcon } from 'franklin-sites';
 import {
   FC,
   FormEvent,
@@ -26,6 +20,7 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import {
@@ -264,7 +259,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
               For submissions involving shorter peptides or more than 100
               sequences, or in case of server problems, a{' '}
               <ExternalLink
-                url="https://research.bioinformatics.udel.edu/peptidematch/commandlinetool.jsp"
+                url="https://proteininformationresource.org/download/peptide_match/"
                 noIcon
               >
                 downloadable tool

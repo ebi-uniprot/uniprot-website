@@ -1,10 +1,11 @@
 import axios from 'axios';
 import cn from 'classnames';
-import { Chip, ExternalLink, Loader } from 'franklin-sites';
+import { Chip, Loader } from 'franklin-sites';
 import pMap from 'p-map';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useSafeState from '../../../shared/hooks/useSafeState';
@@ -154,7 +155,7 @@ const GoCam = ({ primaryAccession }: Props) => {
   if (allGoCamIdsResponse.loading || loadingUniprotGoCamIds) {
     content = (
       <>
-        <div className={styles.preamble} data-article-id="gene-ontology">
+        <div className={styles.preamble}>
           Searching Gene Ontology knowledgebase for GO-CAM models.
         </div>
         <Loader />
@@ -166,7 +167,7 @@ const GoCam = ({ primaryAccession }: Props) => {
   ) {
     content = (
       <>
-        <div className={styles.preamble} data-article-id="gene-ontology">
+        <div className={styles.preamble}>
           UniProt curated GO-CAM models have not been found for this entry
           within the Gene Ontology knowledgebase.
         </div>
@@ -186,7 +187,7 @@ const GoCam = ({ primaryAccession }: Props) => {
   } else if (showGoCamViz) {
     content = (
       <>
-        <div className={styles.preamble} data-article-id="gene-ontology">
+        <div className={styles.preamble}>
           Gene Ontology Causal Activity Models (GO-CAM) associated with this
           entry.
         </div>

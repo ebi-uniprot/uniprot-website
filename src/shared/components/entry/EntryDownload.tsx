@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Button, ExternalLink, LongNumber } from 'franklin-sites';
+import { Button, LongNumber } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -41,6 +41,7 @@ import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadAPIURL from '../download/DownloadAPIURL';
 import DownloadPreview from '../download/DownloadPreview';
 import styles from '../download/styles/download.module.scss';
+import ExternalLink from '../ExternalLink';
 
 const formatMap = new Map<Namespace, FileFormat[]>([
   [Namespace.uniprotkb, uniProtKBFFED],

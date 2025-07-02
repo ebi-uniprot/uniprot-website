@@ -9,13 +9,13 @@ exports[`SearchSuggestions should render proteome suggestions given an organism 
     </b>
     " to 
     <a
-      href="/?query=(taxonomy_id:9606)"
+      href="/uniprotkb?query=%28taxonomy_id%3A9606%29"
     >
       include lower taxonomic ranks
     </a>
      or restrict to reference proteome 
     <a
-      href="/?query=organism_id:9606 AND (proteome:UP000005640)"
+      href="/uniprotkb?query=organism_id%3A9606+AND+%28proteome%3AUP000005640%29"
     >
       UP000005640
     </a>
@@ -89,7 +89,7 @@ exports[`SearchSuggestions should render suggestions for fields that has differe
     </b>
     " to 
     <a
-      href="/?query=(organism_id:9606)"
+      href="/uniprotkb?query=%28organism_id%3A9606%29"
     >
       exclude lower taxonomic ranks
     </a>
@@ -102,7 +102,7 @@ exports[`SearchSuggestions should render suggestions for fields that support exa
   <small>
      or show only exact matches for 
     <a
-      href="/?query=(gene_exact:app)"
+      href="/uniprotkb?query=%28gene_exact%3Aapp%29"
     >
       app
     </a>
