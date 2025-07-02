@@ -63,7 +63,7 @@ type PredictionMethods = {
   notInternalOrObsolete: boolean;
 };
 
-type PredictionMethodsMatchedName =
+export type PredictionMethodsMatchedName =
   | 'Ensembl Compara'
   | 'OrthoFinder'
   | 'InParanoid'
