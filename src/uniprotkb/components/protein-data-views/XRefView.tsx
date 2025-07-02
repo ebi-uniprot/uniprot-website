@@ -51,7 +51,10 @@ export const getPropertyString = (key?: string, value?: string) => {
   if (key === PropertyKey.MatchStatus) {
     return formatSuffixWithCount('hit', value);
   }
-  if (key === PropertyKey.Interactions) {
+  if (
+    key === PropertyKey.Interactions ||
+    key === PropertyKey.NumberOfInteractors
+  ) {
     return formatSuffixWithCount('interactor', value);
   }
   return value;
@@ -78,7 +81,6 @@ type XRefProps = {
   primaryAccession?: string;
   crc64?: string;
   databaseToDatabaseInfo: DatabaseToDatabaseInfo;
-  hash?: string;
 };
 
 const propertyKeySet = new Set<PropertyKey>([
@@ -89,25 +91,32 @@ const propertyKeySet = new Set<PropertyKey>([
   PropertyKey.NucleotideSequenceId,
 ]);
 
+// To be ignored when processing as strings because we should use them somehow somewhere else
+const propertyKeyIgnore = new Set<PropertyKey>([
+  PropertyKey.ResistanceMechanismIdentifier,
+  PropertyKey.ResistanceMechanismName,
+]);
+
 export const XRef = ({
   database,
   xref,
   primaryAccession,
   crc64,
   databaseToDatabaseInfo,
-  hash,
 }: XRefProps) => {
   const databaseInfo = databaseToDatabaseInfo[database];
   const { properties, isoformId, id, database: databaseType } = xref;
   const { uriLink, implicit } = databaseInfo;
-  if (!database) {
+  if (!database || !primaryAccession) {
     return null;
   }
   const propertyLinkAttributes = [];
   const propertyStrings = [];
   if (properties && !implicit) {
     for (const [key, value] of Object.entries(properties)) {
-      if (propertyKeySet.has(key as PropertyKey)) {
+      if (propertyKeyIgnore.has(key as PropertyKey)) {
+        continue;
+      } else if (propertyKeySet.has(key as PropertyKey)) {
         const attrs = getPropertyLinkAttributes(
           databaseInfo,
           key as PropertyKey,
@@ -120,6 +129,23 @@ export const XRef = ({
         propertyStrings.push(getPropertyString(key, value));
       }
     }
+  }
+
+  let resistanceMechanismNode;
+  if (database === 'CARD' && properties) {
+    resistanceMechanismNode = (
+      <>
+        <br />
+        <ExternalLink
+          url={processUrlTemplate(uriLink, {
+            id: properties[PropertyKey.ResistanceMechanismIdentifier],
+          })}
+        >
+          {properties[PropertyKey.ResistanceMechanismIdentifier]}
+        </ExternalLink>
+        {properties[PropertyKey.ResistanceMechanismName]}
+      </>
+    );
   }
 
   let isoformNode;
@@ -143,12 +169,9 @@ export const XRef = ({
   }
 
   const params: Record<string, string> = {
+    primaryAccession,
     ...properties,
   };
-
-  if (primaryAccession) {
-    params.primaryAccession = primaryAccession;
-  }
 
   if (id) {
     params.id = id;
@@ -171,21 +194,19 @@ export const XRef = ({
     }
   }
 
-  let url = processUrlTemplate(uriLink, params);
-  if (hash) {
-    if (hash.startsWith('#')) {
-      url += hash;
-    } else {
-      url += `#${hash}`;
-    }
-  }
+  // if (database === 'CARD') {
+  //   propertyLinkAttributes.push({
+  //     url: 'https://',
+  //     text:
+  //   })
+  // }
 
   // Remove links from the xref which are the same (ie same url and text).
   // An example of where duplicate links would be displayed is P0A879
   const linkAttributes = uniqWith(
     [
       // Main link attributes
-      { url, text },
+      { url: processUrlTemplate(uriLink, params), text },
       // Property links
       ...propertyLinkAttributes,
     ],
@@ -206,6 +227,7 @@ export const XRef = ({
           // add space between strings
           .join(' ')}
       </RichText>
+      {resistanceMechanismNode && <> {resistanceMechanismNode}</>}
       {isoformNode && <> {isoformNode}</>}
     </>
   );
@@ -255,7 +277,7 @@ type XRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const XRefsGroupedByCategory = ({
+export const XRefsGroupedByCategory = ({
   databases,
   primaryAccession,
   crc64,
