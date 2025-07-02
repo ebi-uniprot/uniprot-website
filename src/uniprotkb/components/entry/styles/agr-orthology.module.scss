@@ -1,5 +1,11 @@
 @import 'franklin-sites/src/styles/colours';
 
+.agr-link {
+  margin-left: 0.5em;
+  margin-top: 0.5em;
+  z-index: 1000;
+}
+
 .agr-orthology-table {
   --table-header-vertical-align: bottom;
 

@@ -165,6 +165,8 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
         Gene Symbol
       </WithTooltip>
     ),
+    getOption: (data) =>
+      data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText || '',
     filter: (data, filterValue) =>
       data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText ===
       filterValue,
@@ -339,18 +341,11 @@ const AgrOrthology = ({ agrId }: Props) => {
     return lengthComparison;
   });
   // TODO: expand/collapse showing for P05067 when it shouldn't be there
-  // TODO: finalize styles
   return (
     <>
-      <div
-        style={{
-          position: 'relative',
-          top: 150,
-          left: 50,
-          zIndex: 1000,
-        }}
-      >
-        The data in this table is sourced from the Alliance of Genome Resources.{' '}
+      <div className={styles['agr-link']}>
+        The data in this table is sourced from the Alliance of Genome Resources.
+        <br />
         <ExternalLink url={externalUrls.AgrEntry(agrId, 'orthology')}>
           View source data
         </ExternalLink>
