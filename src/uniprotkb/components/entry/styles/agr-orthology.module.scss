@@ -9,6 +9,12 @@
 .agr-orthology-table {
   --table-header-vertical-align: bottom;
 
+  // Columns 6 to 15 are the methods
+  th:nth-child(n + 7):nth-child(-n + 15),
+  td:nth-child(n + 7):nth-child(-n + 15) {
+    padding: 0 4px;
+  }
+
   .match-count-label {
     transform: translate(-50px, 100px) rotate(315deg) !important;
     text-decoration: underline;
@@ -20,11 +26,12 @@
     padding: 10px;
     left: -5px;
     position: relative;
+    width: 1ch;
 
-    & > span > div {
+    & > span {
       display: inline-block;
-      transform: translate(-70px, 100px) rotate(315deg);
-      width: 30px;
+      transform: translate(-3px, 107px) rotate(315deg);
+      width: 1ch;
     }
   }
 
@@ -34,10 +41,7 @@
   }
 
   .methods-render {
-    font-size: 30px;
-    width: 30px;
-    display: inline-block;
-    text-align: center;
+    font-size: 1.5rem;
     cursor: default;
   }
 }
