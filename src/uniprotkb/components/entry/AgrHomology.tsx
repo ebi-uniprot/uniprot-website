@@ -1,8 +1,5 @@
-import { Loader, Tab, Tabs } from 'franklin-sites';
+import { Tab, Tabs } from 'franklin-sites';
 
-import externalUrls from '../../../shared/config/externalUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import { AgrOrthologs } from '../../types/agrOrthologs';
 import { XrefUIModel } from '../../utils/xrefUtils';
 import AgrOrthology from './AgrOrthology';
 
@@ -17,35 +14,17 @@ type Props = {
 
 const AgrHomology = ({ xrefs }: Props) => {
   const agrXref = getAgrId(xrefs);
-  const agrOrthologsResponse = useDataApi<AgrOrthologs>(
-    agrXref?.id ? externalUrls.AgrOrthologs(agrXref.id) : null
-  );
 
-  if (agrOrthologsResponse.loading) {
-    return <Loader />;
+  if (!agrXref?.id) {
+    return 'No Orthology or Paralogy data is available from the Alliance of Genome Resources.';
   }
 
-  const tabs = [];
-
-  if (
-    agrXref &&
-    !agrOrthologsResponse.error &&
-    agrOrthologsResponse?.data?.results?.length
-  ) {
-    tabs.push(
+  return (
+    <Tabs bordered>
       <Tab id="agr-orthology" title="Orthologs" key="agr-orthology">
-        <AgrOrthology
-          data={agrOrthologsResponse.data.results}
-          agrXref={agrXref}
-        />
+        <AgrOrthology agrId={agrXref.id} />
       </Tab>
-    );
-  }
-  return !tabs.length ? null : (
-    <div>
-      <h3 data-article-id="TODO">Homology</h3>
-      <Tabs bordered>{tabs}</Tabs>
-    </div>
+    </Tabs>
   );
 };
 

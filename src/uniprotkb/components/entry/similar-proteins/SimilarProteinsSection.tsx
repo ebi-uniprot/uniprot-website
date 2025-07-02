@@ -25,6 +25,9 @@ const SimilarProteinsSection = ({
     >
       <LazyComponent>
         <SimilarProteins canonical={canonical} isoforms={isoforms} />
+      </LazyComponent>
+      <h3 data-article-id="TODO">Orthologs & Paralogs</h3>
+      <LazyComponent>
         <AgrHomology xrefs={xrefs} />
       </LazyComponent>
     </Card>

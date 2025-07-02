@@ -1,16 +1,18 @@
+import { Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import TableFromData, {
   TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import WithTooltip from '../../../shared/components/WithTooltip';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import externalUrls from '../../../shared/config/externalUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Xref } from '../../../shared/types/apiModel';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyQuery } from '../../../shared/utils/url';
-import { AgrOrthologsResult } from '../../types/agrOrthologs';
-import { XRef } from '../protein-data-views/XRefView';
+import { AgrOrthologs, AgrOrthologsResult } from '../../types/agrOrthologs';
 import styles from './styles/agr-orthology.module.scss';
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
@@ -296,20 +298,28 @@ const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
 
 type Props = {
-  data: AgrOrthologsResult[];
-  agrXref: Xref;
+  agrId: Xref['id'];
 };
 
-const AgrOrthology = ({ data, agrXref }: Props) => {
-  const databaseInfoMaps = useDatabaseInfoMaps();
-  if (!databaseInfoMaps) {
-    return null;
+const AgrOrthology = ({ agrId }: Props) => {
+  const { data, loading, error, status, progress } = useDataApi<AgrOrthologs>(
+    agrId ? externalUrls.AgrOrthologs(agrId) : null
+  );
+
+  if (loading) {
+    return <Loader progress={progress} />;
   }
 
-  const { databaseToDatabaseInfo } = databaseInfoMaps;
+  if (error) {
+    return <ErrorHandler status={status} error={error} />;
+  }
+
+  if (!data?.results?.length) {
+    return 'No Orthology data is available from the Alliance of Genome Resources.';
+  }
 
   // Lifted from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
-  const sorted = data.sort((a, b) => {
+  const sorted = data.results.sort((a, b) => {
     const aIndex =
       TAXON_TO_INDEX.get(
         a.geneToGeneOrthologyGenerated.objectGene.taxon.curie
@@ -344,12 +354,12 @@ const AgrOrthology = ({ data, agrXref }: Props) => {
         The data within this table is from the Alliance of Genome Resources.
         <br />
         View the corresponding table:{' '}
-        <XRef
+        {/* <XRef
           databaseToDatabaseInfo={databaseToDatabaseInfo}
           database="AGR"
           xref={agrXref}
           hash="#orthology"
-        />
+        /> */}
       </div>
       <TableFromData
         id="agr-orthology"
