@@ -2,6 +2,7 @@ import { Tab, Tabs } from 'franklin-sites';
 
 import { XrefUIModel } from '../../utils/xrefUtils';
 import AgrOrthology from './AgrOrthology';
+import AgrParalogy from './AgrParalogy';
 
 export const getAgrId = (xrefs: XrefUIModel[]) => {
   const hgncXref = xrefs[0].databases.find((xref) => xref.database === 'AGR');
@@ -21,8 +22,11 @@ const AgrHomology = ({ xrefs }: Props) => {
 
   return (
     <Tabs bordered>
-      <Tab id="agr-orthology" title="Orthologs" key="agr-orthology">
+      <Tab id="orthologs" title="Orthologs" key="orthologs">
         <AgrOrthology agrId={agrXref.id} />
+      </Tab>
+      <Tab id="paralogs" title="Paralogs" key="paralogs">
+        <AgrParalogy agrId={agrXref.id} />
       </Tab>
     </Tabs>
   );

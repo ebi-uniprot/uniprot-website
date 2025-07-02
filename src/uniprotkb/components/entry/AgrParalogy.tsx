@@ -11,7 +11,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyQuery } from '../../../shared/utils/url';
-import { AgrOrthologs, AgrOrthologsResult } from '../../types/agrOrthologs';
+import { AgrParalogs, AgrParalogsResult } from '../../types/agrParalogs';
 import styles from './styles/agr-orthology.module.scss';
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
@@ -146,18 +146,7 @@ const TAXON_TO_INDEX = new Map(
   ].map((taxon, index) => [taxon, index])
 );
 
-const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
-  {
-    id: 'species',
-    label: (
-      <WithTooltip tooltip="Target organism in which this ortholog candidate resides.">
-        Species
-      </WithTooltip>
-    ),
-    filter: (data, filterValue) =>
-      data.geneToGeneOrthologyGenerated.objectGene.taxon.name === filterValue,
-    render: (data) => data.geneToGeneOrthologyGenerated.objectGene.taxon.name,
-  },
+const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'gene-symbol',
     label: (
@@ -165,17 +154,9 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
         Gene Symbol
       </WithTooltip>
     ),
-    getOption: (data) =>
-      data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText || '',
-    filter: (data, filterValue) =>
-      data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText ===
-      filterValue,
     render: (data) => {
-      const query = getXrefAndTaxonQuery(
-        data.geneToGeneOrthologyGenerated.objectGene
-      );
-      const gene =
-        data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText;
+      const query = getXrefAndTaxonQuery(data.geneToGeneParalogy.objectGene);
+      const gene = data.geneToGeneParalogy.objectGene.geneSymbol.displayText;
 
       return query ? (
         <Link
@@ -193,118 +174,122 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
       );
     },
   },
+  {
+    id: 'rank',
+    label: (
+      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+        Rank
+      </WithTooltip>
+    ),
+    render: (data) => data.geneToGeneParalogy.rank,
+  },
+  {
+    id: 'length',
+    label: (
+      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+        Length
+      </WithTooltip>
+    ),
+    render: (data) => data.geneToGeneParalogy.length,
+  },
+  {
+    id: 'similarity',
+    label: (
+      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+        Similarity
+      </WithTooltip>
+    ),
+    render: (data) => data.geneToGeneParalogy.similarity,
+  },
+  {
+    id: 'identity',
+    label: (
+      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+        Identity
+      </WithTooltip>
+    ),
+    render: (data) => data.geneToGeneParalogy.identity,
+  },
 
-  {
-    id: 'best',
-    label: (
-      <WithTooltip tooltip="Indicates this gene is the top-scoring (highest-count) ortholog candidate within this species.">
-        Best
-      </WithTooltip>
-    ),
-    filter: (data, filterValue) =>
-      filterValue ===
-      (isBest(data.geneToGeneOrthologyGenerated.isBestScore.name)
-        ? 'Yes'
-        : 'No'),
-    render: (data) =>
-      isBest(data.geneToGeneOrthologyGenerated.isBestScore.name) ? 'Yes' : 'No',
-  },
-  {
-    id: 'best-reverse',
-    label: (
-      <WithTooltip tooltip="Indicates this gene pair is also the top-scoring (highest-count) ortholog when roles are reversed (reciprocal best hit).">
-        Best Reverse
-      </WithTooltip>
-    ),
-    filter: (data, filterValue) =>
-      filterValue ===
-      (isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
-        ? 'Yes'
-        : 'No'),
-    render: (data) =>
-      isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
-        ? 'Yes'
-        : 'No',
-  },
-  {
-    id: 'methods',
-    label: (
-      <div className={styles['methods-label']}>
-        <WithTooltip tooltip="Result of orthology-inference resource and algorithm methods.">
-          Method
-        </WithTooltip>
-        {ORTHOLOGY_METHODS.map(({ method, tooltip }) => (
-          <WithTooltip key={method} tooltip={tooltip}>
-            <div>{method}</div>
-          </WithTooltip>
-        ))}
-        <WithTooltip tooltip="Number of independent orthology methods that support this gene pair.">
-          <div className={styles['match-count-label']}>Match counts</div>
-        </WithTooltip>
-      </div>
-    ),
-    render: (data) => {
-      const scoreNumerator =
-        data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-      const scoreDenominator =
-        scoreNumerator +
-        (data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
-          ?.length || 0);
-      return [
-        ...ORTHOLOGY_METHODS.map(({ method }) => {
-          const predictionMethodsMatchedSet = new Set(
-            data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
-              (m) => m.name
-            )
-          );
-          const predictionMethodsNotMatchedSet = new Set(
-            data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
-              (m) => m.name
-            )
-          );
-          let symbol: string, title: string;
-          if (predictionMethodsMatchedSet.has(method)) {
-            symbol = '●';
-            title = `Match by ${method}`;
-          } else if (predictionMethodsNotMatchedSet.has(method)) {
-            symbol = '○';
-            title = `No match by ${method}`;
-          } else {
-            symbol = '-';
-            title = `Comparision not available on ${method}`;
-          }
-          return (
-            <span
-              key={method}
-              title={title}
-              className={styles['methods-render']}
-            >
-              {symbol}
-            </span>
-          );
-        }),
-        <span
-          key="count"
-          title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
-          className={styles['match-count']}
-        >
-          {scoreNumerator} of {scoreDenominator}
-        </span>,
-      ];
-    },
-  },
+  // {
+  //   id: 'methods',
+  //   label: (
+  //     <div className={styles['methods-label']}>
+  //       <WithTooltip tooltip="Result of orthology-inference resource and algorithm methods.">
+  //         Method
+  //       </WithTooltip>
+  //       {ORTHOLOGY_METHODS.map(({ method, tooltip }) => (
+  //         <WithTooltip key={method} tooltip={tooltip}>
+  //           <div>{method}</div>
+  //         </WithTooltip>
+  //       ))}
+  //       <WithTooltip tooltip="Number of independent orthology methods that support this gene pair.">
+  //         <div className={styles['match-count-label']}>Match counts</div>
+  //       </WithTooltip>
+  //     </div>
+  //   ),
+  //   render: (data) => {
+  //     const scoreNumerator =
+  //       data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+  //     const scoreDenominator =
+  //       scoreNumerator +
+  //       (data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
+  //         ?.length || 0);
+  //     return [
+  //       ...ORTHOLOGY_METHODS.map(({ method }) => {
+  //         const predictionMethodsMatchedSet = new Set(
+  //           data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
+  //             (m) => m.name
+  //           )
+  //         );
+  //         const predictionMethodsNotMatchedSet = new Set(
+  //           data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
+  //             (m) => m.name
+  //           )
+  //         );
+  //         let symbol: string, title: string;
+  //         if (predictionMethodsMatchedSet.has(method)) {
+  //           symbol = '●';
+  //           title = `Match by ${method}`;
+  //         } else if (predictionMethodsNotMatchedSet.has(method)) {
+  //           symbol = '○';
+  //           title = `No match by ${method}`;
+  //         } else {
+  //           symbol = '-';
+  //           title = `Comparision not available on ${method}`;
+  //         }
+  //         return (
+  //           <span
+  //             key={method}
+  //             title={title}
+  //             className={styles['methods-render']}
+  //           >
+  //             {symbol}
+  //           </span>
+  //         );
+  //       }),
+  //       <span
+  //         key="count"
+  //         title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
+  //         className={styles['match-count']}
+  //       >
+  //         {scoreNumerator} of {scoreDenominator}
+  //       </span>,
+  //     ];
+  //   },
+  // },
 ];
 
-const getRowId = (data: AgrOrthologsResult) =>
-  `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
+const getRowId = (data: AgrParalogsResult) =>
+  data.geneToGeneParalogy.objectGene.primaryExternalId;
 
 type Props = {
   agrId: string;
 };
 
-const AgrOrthology = ({ agrId }: Props) => {
-  const { data, loading, error, status, progress } = useDataApi<AgrOrthologs>(
-    agrId ? externalUrls.AgrHomologs(agrId, 'orthologs') : null
+const AgrParalogy = ({ agrId }: Props) => {
+  const { data, loading, error, status, progress } = useDataApi<AgrParalogs>(
+    agrId ? externalUrls.AgrHomologs(agrId, 'paralogs') : null
   );
 
   if (loading) {
@@ -319,41 +304,19 @@ const AgrOrthology = ({ agrId }: Props) => {
     return 'No Orthology data is available from the Alliance of Genome Resources.';
   }
 
-  // Lifted from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
-  const sorted = data.results.sort((a, b) => {
-    const aIndex =
-      TAXON_TO_INDEX.get(
-        a.geneToGeneOrthologyGenerated.objectGene.taxon.curie
-      ) || TAXON_TO_INDEX.size;
-    const bIndex =
-      TAXON_TO_INDEX.get(
-        b.geneToGeneOrthologyGenerated.objectGene.taxon.curie
-      ) || TAXON_TO_INDEX.size;
-    const indexComparison = aIndex - bIndex;
-    if (indexComparison !== 0) {
-      return indexComparison;
-    }
-    const aLength =
-      a.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-    const bLength =
-      b.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-    const lengthComparison = bLength - aLength;
-    return lengthComparison;
-  });
-  // TODO: expand/collapse showing for P05067 when it shouldn't be there
   return (
     <>
       <div className={styles['agr-link']}>
         The data in this table is sourced from the Alliance of Genome Resources.
         <br />
-        <ExternalLink url={externalUrls.AgrEntryHomologs(agrId, 'orthology')}>
+        <ExternalLink url={externalUrls.AgrEntryHomologs(agrId, 'paralogy')}>
           View source data
         </ExternalLink>
       </div>
       <TableFromData
         id="agr-orthology"
         columns={columns}
-        data={sorted}
+        data={data.results}
         getRowId={getRowId}
         className={styles['agr-orthology-table']}
       />
@@ -361,4 +324,4 @@ const AgrOrthology = ({ agrId }: Props) => {
   );
 };
 
-export default AgrOrthology;
+export default AgrParalogy;
