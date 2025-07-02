@@ -1,4 +1,4 @@
-import { Loader } from 'franklin-sites';
+import { ExternalLink, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -9,7 +9,6 @@ import TableFromData, {
 import WithTooltip from '../../../shared/components/WithTooltip';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { Xref } from '../../../shared/types/apiModel';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { AgrOrthologs, AgrOrthologsResult } from '../../types/agrOrthologs';
@@ -298,7 +297,7 @@ const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
 
 type Props = {
-  agrId: Xref['id'];
+  agrId: string;
 };
 
 const AgrOrthology = ({ agrId }: Props) => {
@@ -351,15 +350,10 @@ const AgrOrthology = ({ agrId }: Props) => {
           zIndex: 1000,
         }}
       >
-        The data within this table is from the Alliance of Genome Resources.
-        <br />
-        View the corresponding table:{' '}
-        {/* <XRef
-          databaseToDatabaseInfo={databaseToDatabaseInfo}
-          database="AGR"
-          xref={agrXref}
-          hash="#orthology"
-        /> */}
+        The data in this table is sourced from the Alliance of Genome Resources.{' '}
+        <ExternalLink url={externalUrls.AgrEntry(agrId, 'orthology')}>
+          View source data
+        </ExternalLink>
       </div>
       <TableFromData
         id="agr-orthology"

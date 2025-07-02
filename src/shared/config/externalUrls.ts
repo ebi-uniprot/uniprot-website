@@ -92,9 +92,11 @@ const externalUrls = {
     `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
   EspacenetPatent: (id: string | number) =>
     `https://worldwide.espacenet.com/textdoc?DB=EPODOC&IDX=${id}`,
-  // Orthologs
+  // Homology
   AgrOrthologs: (id: string) =>
     `https://www.alliancegenome.org/api/gene/${id}/orthologs?filter.stringency=all&limit=10000`,
+  AgrEntry: (id: string, section: 'orthology' | 'paralogy') =>
+    `https://www.alliancegenome.org/gene/${id}#${section}`,
 };
 
 export const getIntActQueryUrl = (
