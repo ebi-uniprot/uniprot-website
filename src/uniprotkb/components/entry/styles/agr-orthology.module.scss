@@ -9,62 +9,52 @@
 .agr-orthology-table {
   --table-header-vertical-align: bottom;
 
-  // Columns 6 to 15 are the methods
-  th:nth-child(n + 8):nth-child(-n + 17),
-  td:nth-child(n + 8):nth-child(-n + 17) {
-    padding: 0 5px;
+  // Paralogs columns 7 to 16 are methods
+  td:nth-child(n + 7):nth-child(-n + 16) {
+    font-family: monospace;
     width: 1ch;
   }
-  // Columns 6 to 15 are the methods
-  td:nth-child(n + 8):nth-child(-n + 17) {
-    font-family: monospace;
+  th:nth-child(n + 7):nth-child(-n + 16) {
+    width: 1ch;
   }
-  th:nth-child(7),
-  td:nth-child(7) {
-    padding-right: 0px;
-    padding-left: 20px;
-  }
-
-  th:nth-child(8),
-  td:nth-child(8) {
-    padding-left: 0px;
+  // Paralogs column 6 is just before the methods and we want a bit of extra space
+  th:nth-child(6) > span {
+    margin-right: 0.5rem;
   }
 
   .methods-label-container {
     position: relative;
-
     .methods-label {
       position: absolute;
-      top: -100px;
-      // left: 20px;
     }
+  }
 
-    .method-match-count-label > span {
+  .method-match-count-label {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    & > span {
       white-space: nowrap;
       text-decoration: underline;
       transform: translate(5px, -25px) rotate(315deg);
       width: 7ch;
     }
   }
-
   .method-match-count-render {
     cursor: default;
+    margin-left: 1.5rem;
   }
 
   .method-label {
     white-space: nowrap;
     height: 145px;
-    width: 1ch;
 
     & > span {
       transform: translate(0px, 117px) rotate(315deg);
       width: 1ch;
     }
   }
-
   .method-render {
     font-size: 1.5rem;
     cursor: default;
-    width: 1ch;
   }
 }

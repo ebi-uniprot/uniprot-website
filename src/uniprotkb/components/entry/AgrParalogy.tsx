@@ -193,43 +193,23 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
     ),
     render: (data) => data.geneToGeneParalogy.identity,
   },
-  {
-    id: 'methods',
-    label: (
-      <div className={styles['methods-label-container']}>
-        <span className={styles['methods-label']}>Method</span>
-        <span className={styles['method-match-count-label']}>
-          <WithTooltip tooltip="Number of independent orthology-inference resource and algorithm methods that support this gene pair.">
-            Count
-          </WithTooltip>
-        </span>
-      </div>
-    ),
-    render: (data) => {
-      const scoreNumerator =
-        data.geneToGeneParalogy.predictionMethodsMatched.length;
-      const scoreDenominator =
-        scoreNumerator +
-        (data.geneToGeneParalogy.predictionMethodsNotMatched?.length || 0);
-      return (
-        <span
-          title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
-          className={styles['method-match-count-render']}
-        >
-          {scoreNumerator} of {scoreDenominator}
-        </span>
-      );
-    },
-  },
 ];
-for (const { method, tooltip } of PARALOGY_METHODS) {
+for (const [index, { method, tooltip }] of PARALOGY_METHODS.entries()) {
   columns.push({
     id: method,
-    label: (
-      <div className={styles['method-label']}>
-        <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
-      </div>
-    ),
+    label:
+      index === 0 ? (
+        <div className={styles['methods-label-container']}>
+          <span className={styles['methods-label']}>Method</span>
+          <div className={styles['method-label']}>
+            <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
+          </div>
+        </div>
+      ) : (
+        <div className={styles['method-label']}>
+          <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
+        </div>
+      ),
     render: (data) => {
       const predictionMethodsMatchedSet = new Set(
         data.geneToGeneParalogy.predictionMethodsMatched?.map((m) => m.name)
@@ -256,6 +236,31 @@ for (const { method, tooltip } of PARALOGY_METHODS) {
     },
   });
 }
+columns.push({
+  id: 'method-match-count',
+  label: (
+    <span className={styles['method-match-count-label']}>
+      <WithTooltip tooltip="Number of independent orthology-inference resource and algorithm methods that support this gene pair.">
+        Match count
+      </WithTooltip>
+    </span>
+  ),
+  render: (data) => {
+    const scoreNumerator =
+      data.geneToGeneParalogy.predictionMethodsMatched.length;
+    const scoreDenominator =
+      scoreNumerator +
+      (data.geneToGeneParalogy.predictionMethodsNotMatched?.length || 0);
+    return (
+      <span
+        title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
+        className={styles['method-match-count-render']}
+      >
+        {scoreNumerator} of {scoreDenominator}
+      </span>
+    );
+  },
+});
 
 const getRowId = (data: AgrParalogsResult) =>
   data.geneToGeneParalogy.objectGene.primaryExternalId;
