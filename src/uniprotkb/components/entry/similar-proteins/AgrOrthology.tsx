@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { ExternalLink, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -12,6 +13,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import { AgrOrthologs, AgrOrthologsResult } from '../../../types/agrOrthologs';
 import { getXrefAndTaxonQuery } from '../../../utils/agr-homology';
+import AgrHomologyMatch from './AgrHomologyMatch';
 import styles from './styles/agr-homology.module.scss';
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
@@ -139,7 +141,6 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
       );
     },
   },
-
   {
     id: 'best',
     label: (
@@ -172,7 +173,67 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
         ? 'Yes'
         : 'No',
   },
-  {
+];
+for (const [index, { method, tooltip }] of ORTHOLOGY_METHODS.entries()) {
+  columns.push({
+    id: method,
+    label:
+      index === 0 ? (
+        <div className={styles['methods-label-container']}>
+          <span className={styles['methods-label']}>
+            <WithTooltip tooltip="Result of paralogy-inference resource and algorithm methods.">
+              Method
+            </WithTooltip>
+          </span>
+          <div className={styles['method-label']}>
+            <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
+          </div>
+        </div>
+      ) : (
+        <div className={styles['method-label']}>
+          <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
+        </div>
+      ),
+    render: (data) => (
+      <AgrHomologyMatch
+        method={method}
+        matched={data.geneToGeneOrthologyGenerated.predictionMethodsMatched}
+        notMatched={
+          data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
+        }
+      />
+    ),
+  });
+}
+columns.push({
+  id: 'method-match-count',
+  label: (
+    <span className={styles['method-match-count-label']}>
+      <WithTooltip tooltip="Number of independent paralogy-inference resource and algorithm methods that support this gene pair.">
+        Match count
+      </WithTooltip>
+    </span>
+  ),
+  render: (data) => {
+    const scoreNumerator =
+      data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+    const scoreDenominator =
+      scoreNumerator +
+      (data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.length ||
+        0);
+    return (
+      <span
+        title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
+        className={styles['method-match-count-render']}
+      >
+        {scoreNumerator} of {scoreDenominator}
+      </span>
+    );
+  },
+});
+
+/*
+ {
     id: 'methods',
     label: (
       <div className={styles['methods-label']}>
@@ -239,7 +300,7 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
       ];
     },
   },
-];
+  */
 
 const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
@@ -301,7 +362,10 @@ const AgrOrthology = ({ agrId }: Props) => {
         columns={columns}
         data={sorted}
         getRowId={getRowId}
-        className={styles['agr-orthology-table']}
+        className={cn(
+          styles['agr-homology-table'],
+          styles['agr-orthology-table']
+        )}
       />
     </>
   );

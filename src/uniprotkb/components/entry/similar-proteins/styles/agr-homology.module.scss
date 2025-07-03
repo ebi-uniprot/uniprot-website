@@ -6,6 +6,21 @@
   z-index: 1000;
 }
 
+.agr-orthology-table {
+  // Paralogs columns 7 to 16 are methods
+  td:nth-child(n + 6):nth-child(-n + 17) {
+    font-family: monospace;
+    width: 1ch;
+  }
+  th:nth-child(n + 6):nth-child(-n + 17) {
+    width: 1ch;
+  }
+  // Paralogs column 6 is just before the methods and we want a bit of extra space
+  th:nth-child(5) > span {
+    margin-right: 0.5rem;
+  }
+}
+
 .agr-paralogy-table {
   // Paralogs columns 7 to 16 are methods
   td:nth-child(n + 7):nth-child(-n + 16) {

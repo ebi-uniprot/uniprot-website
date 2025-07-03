@@ -141,6 +141,7 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
     render: (data) => data.geneToGeneParalogy.identity,
   },
 ];
+
 for (const [index, { method, tooltip }] of PARALOGY_METHODS.entries()) {
   columns.push({
     id: method,

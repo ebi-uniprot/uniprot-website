@@ -18,13 +18,13 @@ function AgrHomologyMatch<T extends { name: string }>({
   let symbol: string, title: string;
   if (predictionMethodsMatchedSet.has(method)) {
     symbol = '●';
-    title = `Match by ${method}`;
+    title = `Match by ${method} method`;
   } else if (predictionMethodsNotMatchedSet.has(method)) {
     symbol = '○';
-    title = `No match by ${method}`;
+    title = `No match by ${method} method`;
   } else {
     symbol = '-';
-    title = `Comparison not available for ${method}`;
+    title = `Comparison not available for ${method} method`;
   }
   return (
     <span key={method} title={title} className={styles['method-render']}>

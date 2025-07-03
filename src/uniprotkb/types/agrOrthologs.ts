@@ -46,7 +46,12 @@ type Confidence = {
   displayText?: string;
 };
 
-type Score = 'Yes' | 'No';
+type Score = {
+  internal: false;
+  obsolete: false;
+  name: 'Yes' | 'No';
+  notInternalOrObsolete: true;
+};
 
 export type PredictionMethodName =
   | 'Hieranoid'
