@@ -1,6 +1,6 @@
 import { Tab, Tabs } from 'franklin-sites';
 
-import { XrefUIModel } from '../../utils/xrefUtils';
+import { XrefUIModel } from '../../../utils/xrefUtils';
 import AgrOrthology from './AgrOrthology';
 import AgrParalogy from './AgrParalogy';
 

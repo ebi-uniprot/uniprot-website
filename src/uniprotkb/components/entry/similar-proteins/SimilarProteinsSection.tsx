@@ -5,7 +5,7 @@ import LazyComponent from '../../../../shared/components/LazyComponent';
 import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
-import AgrHomology from '../AgrHomology';
+import AgrHomology from './AgrHomology';
 
 const SimilarProteins = lazy(
   () => import(/* webpackChunkName: "similar-proteins" */ './SimilarProteins')

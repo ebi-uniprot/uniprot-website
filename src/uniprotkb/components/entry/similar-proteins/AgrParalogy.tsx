@@ -2,21 +2,21 @@ import cn from 'classnames';
 import { ExternalLink, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import { Location, LocationToPath } from '../../../../app/config/urls';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import TableFromData, {
   TableFromDataColumn,
-} from '../../../shared/components/table/TableFromData';
-import WithTooltip from '../../../shared/components/WithTooltip';
-import externalUrls from '../../../shared/config/externalUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import * as logging from '../../../shared/utils/logging';
-import { stringifyQuery } from '../../../shared/utils/url';
+} from '../../../../shared/components/table/TableFromData';
+import WithTooltip from '../../../../shared/components/WithTooltip';
+import externalUrls from '../../../../shared/config/externalUrls';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import * as logging from '../../../../shared/utils/logging';
+import { stringifyQuery } from '../../../../shared/utils/url';
 import {
   AgrParalogs,
   AgrParalogsResult,
   PredictionMethodsMatchedName,
-} from '../../types/agrParalogs';
+} from '../../../types/agrParalogs';
 import styles from './styles/agr-homology.module.scss';
 
 const getTaxonQuery = (curie: string): string | null => {
