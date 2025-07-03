@@ -6,9 +6,7 @@
   z-index: 1000;
 }
 
-.agr-orthology-table {
-  --table-header-vertical-align: bottom;
-
+.agr-paralogy-table {
   // Paralogs columns 7 to 16 are methods
   td:nth-child(n + 7):nth-child(-n + 16) {
     font-family: monospace;
@@ -21,6 +19,10 @@
   th:nth-child(6) > span {
     margin-right: 0.5rem;
   }
+}
+
+.agr-homology-table {
+  --table-header-vertical-align: bottom;
 
   .methods-label-container {
     position: relative;
@@ -54,7 +56,7 @@
     }
   }
   .method-render {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     cursor: default;
   }
 }

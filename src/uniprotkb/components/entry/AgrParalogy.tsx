@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { ExternalLink, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +17,7 @@ import {
   AgrParalogsResult,
   PredictionMethodsMatchedName,
 } from '../../types/agrParalogs';
-import styles from './styles/agr-orthology.module.scss';
+import styles from './styles/agr-homology.module.scss';
 
 const getTaxonQuery = (curie: string): string | null => {
   const reTaxonId = /NCBITaxon:(?<taxonId>\d+)/i;
@@ -200,7 +201,11 @@ for (const [index, { method, tooltip }] of PARALOGY_METHODS.entries()) {
     label:
       index === 0 ? (
         <div className={styles['methods-label-container']}>
-          <span className={styles['methods-label']}>Method</span>
+          <span className={styles['methods-label']}>
+            <WithTooltip tooltip="Result of paralogy-inference resource and algorithm methods.">
+              Method
+            </WithTooltip>
+          </span>
           <div className={styles['method-label']}>
             <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
           </div>
@@ -226,7 +231,7 @@ for (const [index, { method, tooltip }] of PARALOGY_METHODS.entries()) {
         title = `No match by ${method}`;
       } else {
         symbol = '-';
-        title = `Comparision not available on ${method}`;
+        title = `Comparison not available for ${method}`;
       }
       return (
         <span key={method} title={title} className={styles['method-render']}>
@@ -240,7 +245,7 @@ columns.push({
   id: 'method-match-count',
   label: (
     <span className={styles['method-match-count-label']}>
-      <WithTooltip tooltip="Number of independent orthology-inference resource and algorithm methods that support this gene pair.">
+      <WithTooltip tooltip="Number of independent paralogy-inference resource and algorithm methods that support this gene pair.">
         Match count
       </WithTooltip>
     </span>
@@ -300,7 +305,10 @@ const AgrParalogy = ({ agrId }: Props) => {
         columns={columns}
         data={data.results}
         getRowId={getRowId}
-        className={styles['agr-orthology-table']}
+        className={cn(
+          styles['agr-homology-table'],
+          styles['agr-paralogy-table']
+        )}
       />
     </>
   );

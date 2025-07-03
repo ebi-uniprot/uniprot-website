@@ -12,7 +12,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { AgrOrthologs, AgrOrthologsResult } from '../../types/agrOrthologs';
-import styles from './styles/agr-orthology.module.scss';
+import styles from './styles/agr-homology.module.scss';
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
 const isBest = (value = '') =>
@@ -271,7 +271,7 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
             title = `No match by ${method}`;
           } else {
             symbol = '-';
-            title = `Comparision not available on ${method}`;
+            title = `Comparison not available for ${method}`;
           }
           return (
             <span
