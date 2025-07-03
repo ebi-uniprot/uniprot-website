@@ -193,77 +193,40 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
     ),
     render: (data) => data.geneToGeneParalogy.identity,
   },
-
-  // {
-  //   id: 'methods',
-  //   label: (
-  //     <div className={styles['methods-label']}>
-  //       <WithTooltip tooltip="Result of orthology-inference resource and algorithm methods.">
-  //         Method
-  //       </WithTooltip>
-  //       {PARALOGY_METHODS.map(({ method, tooltip }) => (
-  //         <WithTooltip key={method} tooltip={tooltip}>
-  //           <div>{method}</div>
-  //         </WithTooltip>
-  //       ))}
-  //       <WithTooltip tooltip="Number of independent orthology methods that support this gene pair.">
-  //         <div className={styles['match-count-label']}>Match counts</div>
-  //       </WithTooltip>
-  //     </div>
-  //   ),
-  //   render: (data) => {
-  //     const scoreNumerator =
-  //       data.geneToGeneParalogy.predictionMethodsMatched.length;
-  //     const scoreDenominator =
-  //       scoreNumerator +
-  //       (data.geneToGeneParalogy.predictionMethodsNotMatched?.length || 0);
-  //     return [
-  //       ...PARALOGY_METHODS.map(({ method }) => {
-  //         const predictionMethodsMatchedSet = new Set(
-  //           data.geneToGeneParalogy.predictionMethodsMatched?.map((m) => m.name)
-  //         );
-  //         const predictionMethodsNotMatchedSet = new Set(
-  //           data.geneToGeneParalogy.predictionMethodsNotMatched?.map(
-  //             (m) => m.name
-  //           )
-  //         );
-  //         let symbol: string, title: string;
-  //         if (predictionMethodsMatchedSet.has(method)) {
-  //           symbol = '●';
-  //           title = `Match by ${method}`;
-  //         } else if (predictionMethodsNotMatchedSet.has(method)) {
-  //           symbol = '○';
-  //           title = `No match by ${method}`;
-  //         } else {
-  //           symbol = '-';
-  //           title = `Comparision not available on ${method}`;
-  //         }
-  //         return (
-  //           <span
-  //             key={method}
-  //             title={title}
-  //             className={styles['methods-render']}
-  //           >
-  //             {symbol}
-  //           </span>
-  //         );
-  //       }),
-  //       <span
-  //         key="count"
-  //         title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
-  //         className={styles['match-count']}
-  //       >
-  //         {scoreNumerator} of {scoreDenominator}
-  //       </span>,
-  //     ];
-  //   },
-  // },
+  {
+    id: 'methods',
+    label: (
+      <div className={styles['methods-label-container']}>
+        <span className={styles['methods-label']}>Method</span>
+        <span className={styles['method-match-count-label']}>
+          <WithTooltip tooltip="Number of independent orthology-inference resource and algorithm methods that support this gene pair.">
+            Count
+          </WithTooltip>
+        </span>
+      </div>
+    ),
+    render: (data) => {
+      const scoreNumerator =
+        data.geneToGeneParalogy.predictionMethodsMatched.length;
+      const scoreDenominator =
+        scoreNumerator +
+        (data.geneToGeneParalogy.predictionMethodsNotMatched?.length || 0);
+      return (
+        <span
+          title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
+          className={styles['method-match-count-render']}
+        >
+          {scoreNumerator} of {scoreDenominator}
+        </span>
+      );
+    },
+  },
 ];
 for (const { method, tooltip } of PARALOGY_METHODS) {
   columns.push({
     id: method,
     label: (
-      <div className={styles['methods-label']}>
+      <div className={styles['method-label']}>
         <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
       </div>
     ),
@@ -286,7 +249,7 @@ for (const { method, tooltip } of PARALOGY_METHODS) {
         title = `Comparision not available on ${method}`;
       }
       return (
-        <span key={method} title={title} className={styles['methods-render']}>
+        <span key={method} title={title} className={styles['method-render']}>
           {symbol}
         </span>
       );
