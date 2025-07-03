@@ -27,24 +27,40 @@ type GeneToGeneOrthologyGenerated = {
   obsolete: boolean;
   subjectGene: Gene;
   objectGene: Gene;
-  isBestScore: Confidence;
-  isBestScoreReverse: Confidence;
+  isBestScore: Score;
+  isBestScoreReverse: Score;
   confidence: Confidence;
   strictFilter: boolean;
   moderateFilter: boolean;
-  predictionMethodsMatched: Confidence[];
-  predictionMethodsNotMatched?: Confidence[];
-  predictionMethodsNotCalled?: Confidence[];
+  predictionMethodsMatched: Method[];
+  predictionMethodsNotMatched?: Method[];
+  predictionMethodsNotCalled?: Method[];
   notInternalOrObsolete: boolean;
 };
 
 type Confidence = {
   internal: boolean;
   obsolete: boolean;
-  name?: string;
+  name?: 'moderate' | 'low' | 'high';
   notInternalOrObsolete: boolean;
   displayText?: string;
 };
+
+type Score = 'Yes' | 'No';
+
+export type PredictionMethodName =
+  | 'Hieranoid'
+  | 'SonicParanoid'
+  | 'InParanoid'
+  | 'Xenbase'
+  | 'ZFIN'
+  | 'HGNC'
+  | 'OrthoFinder'
+  | 'PANTHER'
+  | 'OMA'
+  | 'Ensembl Compara'
+  | 'OrthoInspector'
+  | 'PhylomeDB';
 
 type Gene = {
   type: Type;
@@ -52,7 +68,21 @@ type Gene = {
   obsolete: boolean;
   primaryExternalId: string;
   taxon: Taxon;
-  geneSymbol: Confidence;
+  geneSymbol: GeneSymbol;
+  notInternalOrObsolete: boolean;
+};
+
+type Method = {
+  internal: boolean;
+  obsolete: boolean;
+  name: PredictionMethodName;
+  notInternalOrObsolete: boolean;
+};
+
+type GeneSymbol = {
+  internal: boolean;
+  obsolete: boolean;
+  displayText: string;
   notInternalOrObsolete: boolean;
 };
 

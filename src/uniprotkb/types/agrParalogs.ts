@@ -17,9 +17,9 @@ type GeneToGeneParalogy = {
   obsolete: boolean;
   subjectGene: Gene;
   objectGene: Gene;
-  predictionMethodsMatched: PredictionMethods[];
-  predictionMethodsNotMatched: PredictionMethods[];
-  predictionMethodsNotCalled: PredictionMethods[];
+  predictionMethodsMatched: PredictionMethod[];
+  predictionMethodsNotMatched: PredictionMethod[];
+  predictionMethodsNotCalled: PredictionMethod[];
   rank: number;
   length: number;
   similarity: number;
@@ -56,14 +56,14 @@ type Taxon = {
   notInternalOrObsolete: boolean;
 };
 
-type PredictionMethods = {
+export type PredictionMethod = {
   internal: boolean;
   obsolete: boolean;
-  name: PredictionMethodsMatchedName;
+  name: PredictionMethodName;
   notInternalOrObsolete: boolean;
 };
 
-export type PredictionMethodsMatchedName =
+export type PredictionMethodName =
   | 'Ensembl Compara'
   | 'OrthoFinder'
   | 'InParanoid'

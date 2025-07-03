@@ -9,68 +9,14 @@ import TableFromData, {
 import WithTooltip from '../../../../shared/components/WithTooltip';
 import externalUrls from '../../../../shared/config/externalUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
-import * as logging from '../../../../shared/utils/logging';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import { AgrOrthologs, AgrOrthologsResult } from '../../../types/agrOrthologs';
+import { getXrefAndTaxonQuery } from '../../../utils/agr-homology';
 import styles from './styles/agr-homology.module.scss';
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
 const isBest = (value = '') =>
   typeof value === 'boolean' ? value : !!value.match(/yes/i);
-
-const getTaxonQuery = (curie: string): string | null => {
-  const reTaxonId = /NCBITaxon:(?<taxonId>\d+)/i;
-  const match = curie.match(reTaxonId);
-  if (!match?.groups?.taxonId) {
-    return null;
-  }
-  return `(taxonomy_id:${match?.groups?.taxonId})`;
-};
-
-/*
-MGI:88059               (xref:mgi-88059)
-Xenbase:XB-GENE-479154  (xref:xenbase-XB-GENE-479154)
-FB:FBgn0000108          (xref:flybase-FBgn0000108) 
-RGD:2139                (xref:rgd-2139)
-ZFIN:ZDB-GENE-000616-13 (xref:zfin-ZDB-GENE-000616-13)
-HGNC:620                (xref:hgnc-620)
-WB:WBGene00000149       (xref:agr-WBGene00000149) 
-*/
-const xrefTokenToQueryPrefix = new Map([
-  ['MGI', 'mgi'],
-  ['Xenbase', 'xenbase'],
-  ['FB', 'flybase'],
-  ['RGD', 'rgd'],
-  ['ZFIN', 'zfin'],
-  ['HGNC', 'hgnc'],
-  ['WB', 'agr'],
-]);
-
-const getXrefQuery = (primaryExternalId: string) => {
-  const [xrefToken, ...idToken] = primaryExternalId.split(':');
-  if (!idToken) {
-    logging.error(
-      `No token found for AGR primaryExternalId: ${primaryExternalId}`
-    );
-    return null;
-  }
-  const queryPrefix = xrefTokenToQueryPrefix.get(xrefToken);
-  if (!queryPrefix) {
-    logging.error(
-      `No query prefix found for AGR primaryExternalId: ${primaryExternalId}`
-    );
-    return null;
-  }
-  return `(xref:${queryPrefix}-${idToken})`;
-};
-
-const getXrefAndTaxonQuery = (
-  gene: AgrOrthologsResult['geneToGeneOrthologyGenerated']['objectGene']
-) => {
-  const taxonQuery = getTaxonQuery(gene.taxon.curie);
-  const xrefQuery = getXrefQuery(gene.primaryExternalId);
-  return taxonQuery && xrefQuery ? `${taxonQuery} AND ${xrefQuery}` : null;
-};
 
 // Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/homology/constants.js#L1
 const ORTHOLOGY_METHODS = [
