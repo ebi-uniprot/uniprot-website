@@ -3,7 +3,6 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-import { DatabaseCategory } from '../../../../types/databaseRefs';
 import SimilarProteins, { getClusterMapping } from '../SimilarProteins';
 import {
   allAccessions,
@@ -35,25 +34,6 @@ describe('SimilarProteins tests', () => {
         <SimilarProteins
           isoforms={['P05067-1', 'P05067-4']}
           canonical="P05067-1"
-          xrefs={[
-            {
-              category: DatabaseCategory.ORGANISM,
-              databases: [
-                {
-                  database: 'HGNC',
-                  xrefs: [
-                    {
-                      database: 'HGNC',
-                      id: 'HGNC:620',
-                      properties: {
-                        GeneName: 'APP',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ]}
         />
       );
     });

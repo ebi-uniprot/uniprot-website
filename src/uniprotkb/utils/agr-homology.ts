@@ -2,7 +2,7 @@ import * as logging from '../../shared/utils/logging';
 import { AgrOrthologsResult } from '../types/agrOrthologs';
 import { AgrParalogsResult } from '../types/agrParalogs';
 
-const getTaxonQuery = (curie: string): string | null => {
+export const getTaxonQuery = (curie: string): string | null => {
   const reTaxonId = /NCBITaxon:(?<taxonId>\d+)/i;
   const match = curie.match(reTaxonId);
   if (!match?.groups?.taxonId) {
@@ -30,7 +30,7 @@ const xrefTokenToQueryPrefix = new Map([
   ['WB', 'agr'],
 ]);
 
-const getXrefQuery = (primaryExternalId: string) => {
+export const getXrefQuery = (primaryExternalId: string) => {
   const [xrefToken, ...idToken] = primaryExternalId.split(':');
   if (!idToken) {
     logging.error(
