@@ -13,14 +13,14 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import { AgrOrthologs, AgrOrthologsResult } from '../../../types/agrOrthologs';
 import { getXrefAndTaxonQuery } from '../../../utils/agr-homology';
-import AgrHomologyMatch from './AgrHomologyMatch';
+import getHomologyMethodColumnConfig from './getHomologyMethodColumnConfig';
 import styles from './styles/agr-homology.module.scss';
 
-// Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
+// From https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
 const isBest = (value = '') =>
   typeof value === 'boolean' ? value : !!value.match(/yes/i);
 
-// Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/homology/constants.js#L1
+// From https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/homology/constants.js#L1
 const ORTHOLOGY_METHODS = [
   {
     method: 'Ensembl Compara',
@@ -78,7 +78,7 @@ const ORTHOLOGY_METHODS = [
     tooltip: 'Orthologs manually curated by ZFIN for Danio rerio.',
   },
 ];
-// Lifted, with modification, from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/constants.js#L424C14-L424C20
+// With modification from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/constants.js#L424C14-L424C20
 const TAXON_TO_INDEX = new Map(
   [
     'NCBITaxon:9606',
@@ -174,37 +174,19 @@ const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
         : 'No',
   },
 ];
+
 for (const [index, { method, tooltip }] of ORTHOLOGY_METHODS.entries()) {
-  columns.push({
-    id: method,
-    label:
-      index === 0 ? (
-        <div className={styles['methods-label-container']}>
-          <span className={styles['methods-label']}>
-            <WithTooltip tooltip="Result of paralogy-inference resource and algorithm methods.">
-              Method
-            </WithTooltip>
-          </span>
-          <div className={styles['method-label']}>
-            <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
-          </div>
-        </div>
-      ) : (
-        <div className={styles['method-label']}>
-          <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
-        </div>
-      ),
-    render: (data) => (
-      <AgrHomologyMatch
-        method={method}
-        matched={data.geneToGeneOrthologyGenerated.predictionMethodsMatched}
-        notMatched={
-          data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
-        }
-      />
-    ),
-  });
+  columns.push(
+    getHomologyMethodColumnConfig(
+      index,
+      method,
+      tooltip,
+      'Result of orthology-inference resource and algorithm methods.',
+      (data) => data.geneToGeneOrthologyGenerated
+    )
+  );
 }
+
 columns.push({
   id: 'method-match-count',
   label: (
@@ -232,76 +214,6 @@ columns.push({
   },
 });
 
-/*
- {
-    id: 'methods',
-    label: (
-      <div className={styles['methods-label']}>
-        <WithTooltip tooltip="Result of orthology-inference resource and algorithm methods.">
-          Method
-        </WithTooltip>
-        {ORTHOLOGY_METHODS.map(({ method, tooltip }) => (
-          <WithTooltip key={method} tooltip={tooltip}>
-            <div>{method}</div>
-          </WithTooltip>
-        ))}
-        <WithTooltip tooltip="Number of independent orthology methods that support this gene pair.">
-          <div className={styles['match-count-label']}>Match counts</div>
-        </WithTooltip>
-      </div>
-    ),
-    render: (data) => {
-      const scoreNumerator =
-        data.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-      const scoreDenominator =
-        scoreNumerator +
-        (data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched
-          ?.length || 0);
-      return [
-        ...ORTHOLOGY_METHODS.map(({ method }) => {
-          const predictionMethodsMatchedSet = new Set(
-            data.geneToGeneOrthologyGenerated.predictionMethodsMatched?.map(
-              (m) => m.name
-            )
-          );
-          const predictionMethodsNotMatchedSet = new Set(
-            data.geneToGeneOrthologyGenerated.predictionMethodsNotMatched?.map(
-              (m) => m.name
-            )
-          );
-          let symbol: string, title: string;
-          if (predictionMethodsMatchedSet.has(method)) {
-            symbol = '●';
-            title = `Match by ${method}`;
-          } else if (predictionMethodsNotMatchedSet.has(method)) {
-            symbol = '○';
-            title = `No match by ${method}`;
-          } else {
-            symbol = '-';
-            title = `Comparison not available for ${method}`;
-          }
-          return (
-            <span
-              key={method}
-              title={title}
-              className={styles['methods-render']}
-            >
-              {symbol}
-            </span>
-          );
-        }),
-        <span
-          key="count"
-          title={`${scoreNumerator} matches from ${scoreDenominator} checked methods (${Math.round((100 * scoreNumerator) / scoreDenominator)}%)`}
-          className={styles['match-count']}
-        >
-          {scoreNumerator} of {scoreDenominator}
-        </span>,
-      ];
-    },
-  },
-  */
-
 const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
 
@@ -323,10 +235,10 @@ const AgrOrthology = ({ agrId }: Props) => {
   }
 
   if (!data?.results?.length) {
-    return 'No Orthology data is available from the Alliance of Genome Resources.';
+    return 'No orthology data is available from the Alliance of Genome Resources.';
   }
 
-  // Lifted from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
+  // From https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
   const sorted = data.results.sort((a, b) => {
     const aIndex =
       TAXON_TO_INDEX.get(

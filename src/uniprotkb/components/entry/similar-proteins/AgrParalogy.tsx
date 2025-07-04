@@ -17,10 +17,10 @@ import {
   PredictionMethodName,
 } from '../../../types/agrParalogs';
 import { getXrefAndTaxonQuery } from '../../../utils/agr-homology';
-import AgrHomologyMatch from './AgrHomologyMatch';
+import getHomologyMethodColumnConfig from './getHomologyMethodColumnConfig';
 import styles from './styles/agr-homology.module.scss';
 
-// Lifted from https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/homology/constants.js#L1
+// From https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/paralogy/methods.js
 const PARALOGY_METHODS: {
   method: PredictionMethodName;
   tooltip: string;
@@ -80,7 +80,7 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'gene-symbol',
     label: (
-      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+      <WithTooltip tooltip="Gene symbol of the paralog in the same species.">
         Gene Symbol
       </WithTooltip>
     ),
@@ -92,9 +92,7 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: stringifyQuery({
-              query,
-            }),
+            search: stringifyQuery({ query }),
           }}
         >
           {gene}
@@ -107,7 +105,7 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'rank',
     label: (
-      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+      <WithTooltip tooltip="Rank of this gene among all paralog candidates based on supporting evidence.">
         Rank
       </WithTooltip>
     ),
@@ -116,7 +114,7 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'length',
     label: (
-      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+      <WithTooltip tooltip="Length (in amino acids) of the paralogous protein sequence.">
         Length
       </WithTooltip>
     ),
@@ -125,7 +123,7 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'similarity',
     label: (
-      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+      <WithTooltip tooltip="Percent sequence similarity between the query gene and its paralog.">
         Similarity
       </WithTooltip>
     ),
@@ -134,7 +132,7 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'identity',
     label: (
-      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+      <WithTooltip tooltip="Percent sequence identity between the query gene and its paralog.">
         Identity
       </WithTooltip>
     ),
@@ -143,34 +141,17 @@ const columns: TableFromDataColumn<AgrParalogsResult>[] = [
 ];
 
 for (const [index, { method, tooltip }] of PARALOGY_METHODS.entries()) {
-  columns.push({
-    id: method,
-    label:
-      index === 0 ? (
-        <div className={styles['methods-label-container']}>
-          <span className={styles['methods-label']}>
-            <WithTooltip tooltip="Result of paralogy-inference resource and algorithm methods.">
-              Method
-            </WithTooltip>
-          </span>
-          <div className={styles['method-label']}>
-            <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
-          </div>
-        </div>
-      ) : (
-        <div className={styles['method-label']}>
-          <WithTooltip tooltip={tooltip}>{method}</WithTooltip>
-        </div>
-      ),
-    render: (data) => (
-      <AgrHomologyMatch
-        method={method}
-        matched={data.geneToGeneParalogy.predictionMethodsMatched}
-        notMatched={data.geneToGeneParalogy.predictionMethodsNotMatched}
-      />
-    ),
-  });
+  columns.push(
+    getHomologyMethodColumnConfig(
+      index,
+      method,
+      tooltip,
+      'Result of paralogy-inference resource and algorithm methods.',
+      (data) => data.geneToGeneParalogy
+    )
+  );
 }
+
 columns.push({
   id: 'method-match-count',
   label: (
@@ -218,7 +199,7 @@ const AgrParalogy = ({ agrId }: Props) => {
   }
 
   if (!data?.results?.length) {
-    return 'No Orthology data is available from the Alliance of Genome Resources.';
+    return 'No paralogy data is available from the Alliance of Genome Resources.';
   }
 
   return (

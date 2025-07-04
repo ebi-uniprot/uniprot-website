@@ -32,9 +32,9 @@ type GeneToGeneOrthologyGenerated = {
   confidence: Confidence;
   strictFilter: boolean;
   moderateFilter: boolean;
-  predictionMethodsMatched: Method[];
-  predictionMethodsNotMatched?: Method[];
-  predictionMethodsNotCalled?: Method[];
+  predictionMethodsMatched: PredictionMethod[];
+  predictionMethodsNotMatched?: PredictionMethod[];
+  predictionMethodsNotCalled?: PredictionMethod[];
   notInternalOrObsolete: boolean;
 };
 
@@ -77,7 +77,7 @@ type Gene = {
   notInternalOrObsolete: boolean;
 };
 
-type Method = {
+type PredictionMethod = {
   internal: boolean;
   obsolete: boolean;
   name: PredictionMethodName;
