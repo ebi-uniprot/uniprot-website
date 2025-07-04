@@ -17,7 +17,7 @@ import getHomologyMethodColumnConfig from './getHomologyMethodColumnConfig';
 import styles from './styles/agr-homology.module.scss';
 
 // From https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/orthology/orthologyTable.js#L29
-const isBest = (value = '') =>
+export const isBest = (value: boolean | string = '') =>
   typeof value === 'boolean' ? value : !!value.match(/yes/i);
 
 // From https://github.com/alliance-genome/agr_ui/blob/6f5acc104df6274bb0642a2317a5b6b102a91b32/src/components/homology/constants.js#L1
@@ -94,7 +94,29 @@ const TAXON_TO_INDEX = new Map(
   ].map((taxon, index) => [taxon, index])
 );
 
-const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
+export const resultsCompare = (
+  a: AgrOrthologsResult,
+  b: AgrOrthologsResult
+) => {
+  const aIndex =
+    TAXON_TO_INDEX.get(a.geneToGeneOrthologyGenerated.objectGene.taxon.curie) ??
+    TAXON_TO_INDEX.size;
+  const bIndex =
+    TAXON_TO_INDEX.get(b.geneToGeneOrthologyGenerated.objectGene.taxon.curie) ??
+    TAXON_TO_INDEX.size;
+  const indexComparison = aIndex - bIndex;
+  if (indexComparison !== 0) {
+    return indexComparison;
+  }
+  const aLength =
+    a.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+  const bLength =
+    b.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
+  const lengthComparison = bLength - aLength;
+  return lengthComparison;
+};
+
+export const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'species',
     label: (
@@ -214,7 +236,7 @@ columns.push({
   },
 });
 
-const getRowId = (data: AgrOrthologsResult) =>
+export const getRowId = (data: AgrOrthologsResult) =>
   `${data.geneToGeneOrthologyGenerated.objectGene.taxon.name}-${data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText}`;
 
 type Props = {
@@ -239,27 +261,7 @@ const AgrOrthology = ({ agrId }: Props) => {
   }
 
   // From https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/components/orthology/orthologyTable.js#L56
-  const sorted = data.results.sort((a, b) => {
-    const aIndex =
-      TAXON_TO_INDEX.get(
-        a.geneToGeneOrthologyGenerated.objectGene.taxon.curie
-      ) || TAXON_TO_INDEX.size;
-    const bIndex =
-      TAXON_TO_INDEX.get(
-        b.geneToGeneOrthologyGenerated.objectGene.taxon.curie
-      ) || TAXON_TO_INDEX.size;
-    const indexComparison = aIndex - bIndex;
-    if (indexComparison !== 0) {
-      return indexComparison;
-    }
-    const aLength =
-      a.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-    const bLength =
-      b.geneToGeneOrthologyGenerated.predictionMethodsMatched.length;
-    const lengthComparison = bLength - aLength;
-    return lengthComparison;
-  });
-  // TODO: expand/collapse showing for P05067 when it shouldn't be there
+  const sorted = data.results.sort(resultsCompare);
   return (
     <>
       <div className={styles['agr-link']}>
