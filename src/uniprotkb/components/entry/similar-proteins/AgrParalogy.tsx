@@ -76,7 +76,7 @@ const PARALOGY_METHODS: {
   },
 ];
 
-const columns: TableFromDataColumn<AgrParalogsResult>[] = [
+export const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'gene-symbol',
     label: (
@@ -178,7 +178,7 @@ columns.push({
   },
 });
 
-const getRowId = (data: AgrParalogsResult) =>
+export const getRowId = (data: AgrParalogsResult) =>
   data.geneToGeneParalogy.objectGene.primaryExternalId;
 
 type Props = {
