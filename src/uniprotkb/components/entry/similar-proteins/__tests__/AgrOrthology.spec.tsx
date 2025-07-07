@@ -1,17 +1,36 @@
-import { AgrOrthologsResult } from '../../../../types/agrOrthologs';
-import { columns, getRowId, isBest, resultsCompare } from '../AgrOrthology';
-import getHomologyMethodColumnConfig from '../getHomologyMethodColumnConfig';
+import { screen } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
-jest.mock('../getHomologyMethodColumnConfig', () => {
-  return jest.fn((index, method, tooltip, commonTooltip, accessor) => ({
-    id: `col-${index}`,
-    method,
-    tooltip,
-    commonTooltip,
-    accessor: accessor({
-      geneToGeneOrthologyGenerated: { objectGene: { foo: 'bar' } },
-    }),
-  }));
+import customRender from '../../../../../shared/__test-helpers__/customRender';
+import { AgrOrthologsResult } from '../../../../types/agrOrthologs';
+import AgrOrthology, {
+  columns,
+  getRowId,
+  isBest,
+  resultsCompare,
+} from '../AgrOrthology';
+import mockData from './__mocks__/agr-orthologs';
+
+const mock = new MockAdapter(axios);
+mock
+  .onGet(/www.alliancegenome.org\/api\/gene\/HGNC:620\/orthologs/)
+  .reply(200, mockData, { 'x-total-results': 0 });
+
+describe('AgrOrthology', () => {
+  it('should render', async () => {
+    const { asFragment, container } = customRender(
+      <AgrOrthology agrId="HGNC:620" />
+    );
+    await screen.findByRole('link', { name: 'View source data' });
+    expect(asFragment()).toMatchSnapshot();
+
+    const headerCells = container.querySelectorAll('thead th');
+    expect(headerCells).toHaveLength(18);
+
+    const bodyRows = container.querySelectorAll('tbody tr');
+    expect(bodyRows).toHaveLength(mockData.results.length);
+  });
 });
 
 describe('isBest()', () => {
@@ -95,18 +114,5 @@ describe('columns array', () => {
 
   it('ends with "method-match-count"', () => {
     expect(columns[columns.length - 1].id).toBe('method-match-count');
-  });
-
-  it('calls getHomologyMethodColumnConfig for each method', () => {
-    const calls = (getHomologyMethodColumnConfig as jest.Mock).mock.calls;
-    expect(calls).toHaveLength(12);
-    const [index, method, tooltip, commonTooltip, accessor] = calls[0];
-    expect(typeof index).toBe('number');
-    expect(typeof method).toBe('string');
-    expect(typeof tooltip).toBe('string');
-    expect(commonTooltip).toMatch(/Result of orthology/);
-    expect(
-      accessor({ geneToGeneOrthologyGenerated: { objectGene: { foo: 'bar' } } })
-    ).toEqual({ objectGene: { foo: 'bar' } });
   });
 });
