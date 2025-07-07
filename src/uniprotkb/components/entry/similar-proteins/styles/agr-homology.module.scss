@@ -64,6 +64,7 @@
   .method-label {
     white-space: nowrap;
     height: 145px;
+    text-transform: none;
 
     & > span {
       transform: translate(0px, 117px) rotate(315deg);
