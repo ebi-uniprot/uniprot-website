@@ -21,19 +21,15 @@ const HomePageNonCritical = () => (
       )}
     >
       <Message level="info" className="uniprot-grid-cell--span-12">
-        Find out how much UniProt saves you!
-        <br />
-        Read CSIL’s cost-benefit analysis ‘
-        <ExternalLink url="https://zenodo.org/records/15732022">
-          ‘Measuring the value and impact of open science’
-        </ExternalLink>
-        ’, a case study on the financial impact of UniProt.
-        <br />
-        Read a summary of the report in our blog post: ‘
-        <ExternalLink url="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html">
-          UniProt - the ultimate colleague on your biological research team
-        </ExternalLink>
-        ’.
+        <small>
+          We need your help! Has UniProt saved you time or effort? Please take
+          15 minutes to fill in a survey and help EMBL-EBI make the case for why
+          open data resources are critical to life science research.
+          <br />
+          <ExternalLink url="https://www.surveymonkey.com/r/QGFMBH8?channel=[webpage]">
+            https://www.surveymonkey.com/r/QGFMBH8
+          </ExternalLink>
+        </small>
       </Message>
     </div>
 
