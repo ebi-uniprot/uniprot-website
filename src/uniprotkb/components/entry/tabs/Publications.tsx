@@ -81,25 +81,21 @@ export const PublicationSource = ({
   }
 
   /* URI link exceptions: */
-  // 'GeneRif' is indexed as 'GeneRIF' in the configuration endpoint
   if (source.name === 'GeneRif') {
+    // 'GeneRif' is indexed as 'GeneRIF' in the configuration endpoint
     uriLink = databaseInfoMaps?.databaseToDatabaseInfo.GeneRIF?.uriLink;
-  }
-  // 'MGI' ID is missing the initial "MGI:"
-  if (source.name === 'MGI') {
+  } else if (source.name === 'MGI') {
+    // 'MGI' ID is missing the initial "MGI:"
     uriLink = uriLink?.replace('%id', 'MGI:%id');
-  }
-  // 'IEDB' is not in the configuration endpoint
-  if (source.name === 'IEDB') {
+  } else if (source.name === 'IEDB') {
+    // 'IEDB' is not in the configuration endpoint
     uriLink = 'https://iedb.org/antigen/UNIPROT:%id';
-  }
-  // 'IMPC' is not in the configuration endpoint
-  if (source.name === 'IMPC') {
+  } else if (source.name === 'IMPC') {
+    // 'IMPC' is not in the configuration endpoint
     uriLink = 'https://www.mousephenotype.org/data/genes/%id';
   }
-
-  // 'GAD' not in the configuration endpoint, but don't inject a link
-  // This DB is dead so we only display the accession, but no link to point to
+  /* Some DBs are dead and not in the configuration endpoint (eg GAD) and so we
+  only display the accession but not the link. No need to handle them here */
 
   const url =
     (source?.id &&
