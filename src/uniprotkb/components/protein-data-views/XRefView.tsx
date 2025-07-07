@@ -194,13 +194,6 @@ export const XRef = ({
     }
   }
 
-  // if (database === 'CARD') {
-  //   propertyLinkAttributes.push({
-  //     url: 'https://',
-  //     text:
-  //   })
-  // }
-
   // Remove links from the xref which are the same (ie same url and text).
   // An example of where duplicate links would be displayed is P0A879
   const linkAttributes = uniqWith(
