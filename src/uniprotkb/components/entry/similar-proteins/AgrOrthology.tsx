@@ -213,7 +213,7 @@ columns.push({
   id: 'method-match-count',
   label: (
     <span className={styles['method-match-count-label']}>
-      <WithTooltip tooltip="Number of independent paralogy-inference resource and algorithm methods that support this gene pair.">
+      <WithTooltip tooltip="Number of independent orthology-inference resource and algorithm methods that support this gene pair.">
         Match count
       </WithTooltip>
     </span>
