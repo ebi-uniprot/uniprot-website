@@ -1,18 +1,32 @@
-import { AgrParalogsResult } from '../../../../types/agrParalogs';
-import { columns, getRowId } from '../AgrParalogy';
-import getHomologyMethodColumnConfig from '../getHomologyMethodColumnConfig';
+import { screen } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
-jest.mock('../getHomologyMethodColumnConfig', () =>
-  jest.fn((index, method, tooltip, commonTooltip, accessor) => ({
-    id: `col-${index}`,
-    method,
-    tooltip,
-    commonTooltip,
-    accessor: accessor({
-      geneToGeneParalogy: { objectGene: { foo: 'bar' } },
-    }),
-  }))
-);
+import customRender from '../../../../../shared/__test-helpers__/customRender';
+import { AgrParalogsResult } from '../../../../types/agrParalogs';
+import AgrParalogy, { columns, getRowId } from '../AgrParalogy';
+import mockData from './__mocks__/agr-paralogs';
+
+const mock = new MockAdapter(axios);
+mock
+  .onGet(/www.alliancegenome.org\/api\/gene\/HGNC:620\/paralogs/)
+  .reply(200, mockData, { 'x-total-results': 0 });
+
+describe('AgrOrthology', () => {
+  it('should render', async () => {
+    const { asFragment, container } = customRender(
+      <AgrParalogy agrId="HGNC:620" />
+    );
+    await screen.findByRole('link', { name: 'View source data' });
+    expect(asFragment()).toMatchSnapshot();
+
+    const headerCells = container.querySelectorAll('thead th');
+    expect(headerCells).toHaveLength(17);
+
+    const bodyRows = container.querySelectorAll('tbody tr');
+    expect(bodyRows).toHaveLength(mockData.results.length);
+  });
+});
 
 describe('getRowId()', () => {
   it('returns the primaryExternalId of the objectGene', () => {
@@ -43,18 +57,5 @@ describe('columns array', () => {
 
   it('ends with "method-match-count"', () => {
     expect(columns[columns.length - 1].id).toBe('method-match-count');
-  });
-
-  it('calls getHomologyMethodColumnConfig for each method', () => {
-    const calls = (getHomologyMethodColumnConfig as jest.Mock).mock.calls;
-    expect(calls).toHaveLength(PARALOGY_METHOD_COUNT);
-    const [index, method, tooltip, commonTooltip, accessor] = calls[0];
-    expect(typeof index).toBe('number');
-    expect(typeof method).toBe('string');
-    expect(typeof tooltip).toBe('string');
-    expect(commonTooltip).toMatch(/Result of paralogy-inference/);
-    expect(
-      accessor({ geneToGeneParalogy: { objectGene: { foo: 'bar' } } })
-    ).toEqual({ objectGene: { foo: 'bar' } });
   });
 });

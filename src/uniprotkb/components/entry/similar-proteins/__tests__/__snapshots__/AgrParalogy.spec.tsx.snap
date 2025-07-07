@@ -1,0 +1,436 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgrOrthology should render 1`] = `
+<DocumentFragment>
+  <div
+    class="agr-link"
+  >
+    The data in this table is sourced from the Alliance of Genome Resources.
+    <br />
+    <a
+      class="external-link"
+      href="https://www.alliancegenome.org/gene/HGNC:620#paralogy"
+      rel="noopener"
+      target="_blank"
+    >
+      View source data
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+  </div>
+  <table
+    class="table agr-homology-table agr-paralogy-table"
+  >
+    <thead
+      class=""
+    >
+      <tr
+        class="row"
+      >
+        <th />
+        <th>
+          <span
+            style="display: inline-block;"
+          >
+            Gene Symbol
+          </span>
+        </th>
+        <th>
+          <span
+            style="display: inline-block;"
+          >
+            Rank
+          </span>
+        </th>
+        <th>
+          <span
+            style="display: inline-block;"
+          >
+            Length
+          </span>
+        </th>
+        <th>
+          <span
+            style="display: inline-block;"
+          >
+            Similarity
+          </span>
+        </th>
+        <th>
+          <span
+            style="display: inline-block;"
+          >
+            Identity
+          </span>
+        </th>
+        <th>
+          <div
+            class="methods-label-container"
+          >
+            <span
+              class="methods-label"
+            >
+              <span
+                style="display: inline-block;"
+              >
+                Method
+              </span>
+            </span>
+            <div
+              class="method-label"
+            >
+              <span
+                style="display: inline-block;"
+              >
+                Ensembl Compara
+              </span>
+            </div>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              HGNC
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              InParanoid
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              OMA
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              OrthoFinder
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              OrthoInspector
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              PANTHER
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              PhylomeDB
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              SonicParanoid
+            </span>
+          </div>
+        </th>
+        <th>
+          <div
+            class="method-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              SGD
+            </span>
+          </div>
+        </th>
+        <th>
+          <span
+            class="method-match-count-label"
+          >
+            <span
+              style="display: inline-block;"
+            >
+              Match count
+            </span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class=""
+    >
+      <tr
+        class="row"
+        data-id="HGNC:598"
+      >
+        <td />
+        <td>
+          <a
+            href="/uniprotkb?query=%28taxonomy_id%3A9606%29+AND+%28xref%3Ahgnc-598%29"
+          >
+            APLP2
+          </a>
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          810
+        </td>
+        <td>
+          66
+        </td>
+        <td>
+          50
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by Ensembl Compara method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Comparison not available for HGNC method"
+          >
+            -
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by InParanoid method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="No match by OMA method"
+          >
+            ○
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by OrthoFinder method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by OrthoInspector method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by PANTHER method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by PhylomeDB method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by SonicParanoid method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Comparison not available for SGD method"
+          >
+            -
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-match-count-render"
+            title="7 matches from 8 checked methods (88%)"
+          >
+            7 of 8
+          </span>
+        </td>
+      </tr>
+      <tr
+        class="row odd"
+        data-id="HGNC:597"
+      >
+        <td />
+        <td>
+          <a
+            href="/uniprotkb?query=%28taxonomy_id%3A9606%29+AND+%28xref%3Ahgnc-597%29"
+          >
+            APLP1
+          </a>
+        </td>
+        <td>
+          2
+        </td>
+        <td>
+          776
+        </td>
+        <td>
+          51
+        </td>
+        <td>
+          36
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by Ensembl Compara method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Comparison not available for HGNC method"
+          >
+            -
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="No match by InParanoid method"
+          >
+            ○
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="No match by OMA method"
+          >
+            ○
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by OrthoFinder method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by OrthoInspector method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by PANTHER method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by PhylomeDB method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Match by SonicParanoid method"
+          >
+            ●
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-render"
+            title="Comparison not available for SGD method"
+          >
+            -
+          </span>
+        </td>
+        <td>
+          <span
+            class="method-match-count-render"
+            title="6 matches from 8 checked methods (75%)"
+          >
+            6 of 8
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
