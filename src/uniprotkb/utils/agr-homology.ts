@@ -19,6 +19,7 @@ RGD:2139                (xref:rgd-2139)
 ZFIN:ZDB-GENE-000616-13 (xref:zfin-ZDB-GENE-000616-13)
 HGNC:620                (xref:hgnc-620)
 WB:WBGene00000149       (xref:agr-WBGene00000149) 
+SGD:S000004975          (xref:sgd-S000004975)
 */
 const xrefTokenToQueryPrefix = new Map([
   ['MGI', 'mgi'],
@@ -28,6 +29,7 @@ const xrefTokenToQueryPrefix = new Map([
   ['ZFIN', 'zfin'],
   ['HGNC', 'hgnc'],
   ['WB', 'agr'],
+  ['SGD', 'sgd'],
 ]);
 
 export const getXrefQuery = (primaryExternalId: string) => {

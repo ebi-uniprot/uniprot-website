@@ -41,6 +41,7 @@ describe('getXrefQuery', () => {
     expect(getXrefQuery('ZFIN:ZDB-GENE-000616-13')).toBe(
       '(xref:zfin-ZDB-GENE-000616-13)'
     );
+    expect(getXrefQuery('SGD:S000004975')).toBe('(xref:sgd-S000004975)');
   });
 
   it('returns null and logs if prefix is unknown', () => {
