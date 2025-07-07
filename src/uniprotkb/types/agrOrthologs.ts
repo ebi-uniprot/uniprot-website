@@ -68,7 +68,7 @@ export type PredictionMethodName =
   | 'PhylomeDB';
 
 type Gene = {
-  type: Type;
+  type: 'Gene';
   internal: boolean;
   obsolete: boolean;
   primaryExternalId: string;
@@ -100,7 +100,5 @@ type Taxon = {
   descendantCount: number;
   notInternalOrObsolete: boolean;
 };
-
-type Type = 'Gene';
 
 type StringencyFilter = 'all' | 'stringent';

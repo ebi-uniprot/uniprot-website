@@ -36,6 +36,7 @@ type Gene = {
   geneSymbol: GeneSymbolName;
   geneFullName: GeneSymbolName;
   notInternalOrObsolete: boolean;
+  dateCreated: string;
 };
 
 type GeneSymbolName = {
@@ -49,8 +50,8 @@ type GeneSymbolName = {
 type Taxon = {
   internal: boolean;
   obsolete: boolean;
-  curie: 'NCBITaxon:6239';
-  name: 'Caenorhabditis elegans';
+  curie: string;
+  name: string;
   childCount: number;
   descendantCount: number;
   notInternalOrObsolete: boolean;
