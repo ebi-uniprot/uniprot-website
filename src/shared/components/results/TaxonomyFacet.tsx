@@ -31,7 +31,7 @@ const TaxonomyFacet: FC<
   const parsedSearch = new URLSearchParams(search);
   const parsedClauses = parse(parsedSearch.get('query') || '');
   const interestingClauses = parsedClauses.filter((clause) =>
-    interestingTerms.test(clause.searchTerm.term)
+    interestingTerms.test(clause.searchTerm.term || '')
   );
 
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
@@ -42,7 +42,7 @@ const TaxonomyFacet: FC<
       <span className={facetsStyles['facet-name']}>Taxonomy</span>
       <ul className="expandable-list no-bullet">
         {interestingClauses.map((clause) => {
-          const textSearch = clause.searchTerm.term.includes('name');
+          const textSearch = clause.searchTerm.term?.includes('name');
           return (
             <li key={clause.id}>
               <Link
@@ -59,7 +59,8 @@ const TaxonomyFacet: FC<
                 })}
               >
                 {textSearch && '"'}
-                {clause.queryBits[clause.searchTerm.term]}
+                {clause.searchTerm.term &&
+                  clause.queryBits[clause.searchTerm.term]}
                 {textSearch && '"'}
               </Link>
             </li>

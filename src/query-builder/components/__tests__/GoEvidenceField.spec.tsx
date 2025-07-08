@@ -31,7 +31,7 @@ describe('GoEvidenceField component', () => {
     fireEvent.change(evidenceSelect, {
       target: { value: 'automatic' },
     });
-    expect(props.handleChange).toBeCalledWith({
+    expect(props.handleChange).toHaveBeenCalledWith({
       go_evidence: 'automatic', // eslint-disable-line camelcase
     });
   });

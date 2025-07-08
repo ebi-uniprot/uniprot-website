@@ -12,7 +12,7 @@ const RangeField = ({ field, handleChange, initialValue }: FieldProps) => {
   useEffect(() => {
     const fromTrimmed = from.trim();
     const toTrimmed = to.trim();
-    if (fromTrimmed || toTrimmed) {
+    if ((fromTrimmed || toTrimmed) && field.term) {
       handleChange({
         [field.term]: `[${fromTrimmed || '*'} TO ${toTrimmed || '*'}]`,
       });

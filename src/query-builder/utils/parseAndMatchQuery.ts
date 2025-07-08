@@ -135,10 +135,10 @@ const parseAndMatchQuery = (
           queryBits: {
             ...clause.queryBits,
             [matchingAutoComplete.autoCompleteQueryTerm &&
-            clause.searchTerm.term.endsWith('_id')
+            clause.searchTerm.term?.endsWith('_id')
               ? matchingAutoComplete.autoCompleteQueryTerm
-              : matchingAutoComplete.term]:
-              clause.queryBits[clause.searchTerm.term],
+              : matchingAutoComplete.term || '']:
+              clause.queryBits[clause.searchTerm.term || ''],
           },
         });
       } else {

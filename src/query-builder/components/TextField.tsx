@@ -10,7 +10,7 @@ const TextField = ({ field, handleChange, initialValue }: FieldProps) => {
 
   useEffect(() => {
     const trimmed = value.trim();
-    if (trimmed.length) {
+    if (trimmed.length && field.term) {
       // Query is faster with this hack: using 'database' instead
       // Remove last '-' from the the prefix, and don't include '*'
       const queryBit =

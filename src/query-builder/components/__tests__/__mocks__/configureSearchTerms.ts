@@ -5,7 +5,7 @@ import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
 // Retrieved: 2025-06-19
-const configureSearchTerms = [
+const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',
     label: 'UniProtKB AC',
@@ -4433,9 +4433,7 @@ const configureSearchTerms = [
 ];
 
 const idToSearchTerm = keyBy(
-  flatten(configureSearchTerms as SearchTermType[]).filter(
-    ({ itemType }) => itemType !== 'group'
-  ),
+  flatten(configureSearchTerms).filter(({ itemType }) => itemType !== 'group'),
   ({ id }) => id
 );
 
@@ -4446,5 +4444,4 @@ export const getSearchTerm = (id: string) => {
   throw new Error(`${id} not in search term mock data`);
 };
 
-// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
-export default configureSearchTerms as SearchTermType[];
+export default configureSearchTerms;

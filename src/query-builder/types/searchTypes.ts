@@ -17,9 +17,10 @@ type EvidenceGroup = {
 
 export type SearchTermType = {
   id: string;
-  label: string;
-  itemType: ItemType;
-  term: string;
+  tags?: string[];
+  label?: string;
+  itemType?: ItemType;
+  term?: string;
   dataType?: DataType;
   fieldType?: FieldType;
   example?: string;
