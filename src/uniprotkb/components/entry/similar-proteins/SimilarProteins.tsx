@@ -12,8 +12,6 @@ import {
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 import { UniRefColumn } from '../../../../uniref/config/UniRefColumnConfiguration';
-import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
-import EntrySection from '../../../types/entrySection';
 import SimilarProteinsTabContent from './SimilarProteinsTabContent';
 
 export type IsoformsAndCluster = {
@@ -53,10 +51,12 @@ export const getClusterMapping = (
   return mapping;
 };
 
-const SimilarProteins = ({
-  canonical,
-  isoforms,
-}: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
+type Props = {
+  canonical: string;
+  isoforms: string[];
+};
+
+const SimilarProteins = ({ canonical, isoforms }: Props) => {
   const [mappingData, setMappingData] = useState<ClusterMapping | null>(null);
   const [mappingLoading, setMappingLoading] = useState(true);
 

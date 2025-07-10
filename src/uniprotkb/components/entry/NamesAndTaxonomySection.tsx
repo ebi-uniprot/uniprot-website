@@ -216,6 +216,7 @@ const NamesAndTaxonomySection = ({
           <ProteomesListView data={data.proteomesData} />
         </>
       )}
+
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
   );

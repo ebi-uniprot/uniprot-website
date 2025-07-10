@@ -176,6 +176,7 @@ export const getEntrySectionToDatabaseNames = (
   entrySectionToDatabaseNames.set(EntrySection.SubCellularLocation, [
     'CD-CODE',
   ]);
+  entrySectionToDatabaseNames.set(EntrySection.SimilarProteins, ['AGR']);
 
   // This is used to catch those that aren't listed in the page sections
   entrySectionToDatabaseNames.set(

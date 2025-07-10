@@ -1,0 +1,1766 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgrOrthology should render 1`] = `
+<DocumentFragment>
+  <div
+    class="agr-link"
+  >
+    The data in this table is sourced from the Alliance of Genome Resources.
+    <br />
+    <a
+      class="external-link"
+      href="https://www.alliancegenome.org/gene/HGNC:620#orthology"
+      rel="noopener"
+      target="_blank"
+    >
+      View source data
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+  </div>
+  <div>
+    <div
+      class="container collapsed"
+    >
+      <table
+        class="table agr-homology-table agr-orthology-table"
+        id="agr-orthology"
+      >
+        <thead
+          class=""
+        >
+          <tr
+            class="row"
+          >
+            <th />
+            <th>
+              <span
+                style="display: inline-block;"
+              >
+                Species
+              </span>
+              <br />
+              <select>
+                <option
+                  value="All"
+                >
+                  All
+                </option>
+                <option
+                  value="Caenorhabditis elegans"
+                >
+                  Caenorhabditis elegans
+                </option>
+                <option
+                  value="Danio rerio"
+                >
+                  Danio rerio
+                </option>
+                <option
+                  value="Drosophila melanogaster"
+                >
+                  Drosophila melanogaster
+                </option>
+                <option
+                  value="Mus musculus"
+                >
+                  Mus musculus
+                </option>
+                <option
+                  value="Rattus norvegicus"
+                >
+                  Rattus norvegicus
+                </option>
+                <option
+                  value="Xenopus laevis"
+                >
+                  Xenopus laevis
+                </option>
+                <option
+                  value="Xenopus tropicalis"
+                >
+                  Xenopus tropicalis
+                </option>
+              </select>
+            </th>
+            <th>
+              <span
+                style="display: inline-block;"
+              >
+                Gene Symbol
+              </span>
+              <br />
+              <select>
+                <option
+                  value="All"
+                >
+                  All
+                </option>
+                <option
+                  value="apl-1"
+                >
+                  apl-1
+                </option>
+                <option
+                  value="Aplp1"
+                >
+                  Aplp1
+                </option>
+                <option
+                  value="app"
+                >
+                  app
+                </option>
+                <option
+                  value="App"
+                >
+                  App
+                </option>
+                <option
+                  value="app.L"
+                >
+                  app.L
+                </option>
+                <option
+                  value="app.S"
+                >
+                  app.S
+                </option>
+                <option
+                  value="appa"
+                >
+                  appa
+                </option>
+                <option
+                  value="appb"
+                >
+                  appb
+                </option>
+                <option
+                  value="Appl"
+                >
+                  Appl
+                </option>
+                <option
+                  value="CG16713"
+                >
+                  CG16713
+                </option>
+              </select>
+            </th>
+            <th>
+              <span
+                style="display: inline-block;"
+              >
+                Best
+              </span>
+              <br />
+              <select>
+                <option
+                  value="All"
+                >
+                  All
+                </option>
+                <option
+                  value="No"
+                >
+                  No
+                </option>
+                <option
+                  value="Yes"
+                >
+                  Yes
+                </option>
+              </select>
+            </th>
+            <th>
+              <span
+                style="display: inline-block;"
+              >
+                Best Reverse
+              </span>
+              <br />
+              <select>
+                <option
+                  value="All"
+                >
+                  All
+                </option>
+                <option
+                  value="No"
+                >
+                  No
+                </option>
+                <option
+                  value="Yes"
+                >
+                  Yes
+                </option>
+              </select>
+            </th>
+            <th>
+              <div
+                class="methods-label-container"
+              >
+                <span
+                  class="methods-label"
+                >
+                  <span
+                    style="display: inline-block;"
+                  >
+                    Method
+                  </span>
+                </span>
+                <div
+                  class="method-label"
+                >
+                  <span
+                    style="display: inline-block;"
+                  >
+                    Ensembl Compara
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  HGNC
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  Hieranoid
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  InParanoid
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  OMA
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  OrthoFinder
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  OrthoInspector
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  PANTHER
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  PhylomeDB
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  SonicParanoid
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  Xenbase
+                </span>
+              </div>
+            </th>
+            <th>
+              <div
+                class="method-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  ZFIN
+                </span>
+              </div>
+            </th>
+            <th>
+              <span
+                class="method-match-count-label"
+              >
+                <span
+                  style="display: inline-block;"
+                >
+                  Match count
+                </span>
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class=""
+        >
+          <tr
+            class="row"
+            data-id="Mus musculus-App"
+          >
+            <td />
+            <td>
+              Mus musculus
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A10090%29+AND+%28xref%3Amgi-88059%29"
+              >
+                App
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by HGNC method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Hieranoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by InParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OMA method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoFinder method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoInspector method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PANTHER method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PhylomeDB method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by SonicParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="9 matches from 10 checked methods (90%)"
+              >
+                9 of 10
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row odd"
+            data-id="Rattus norvegicus-App"
+          >
+            <td />
+            <td>
+              Rattus norvegicus
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A10116%29+AND+%28xref%3Argd-2139%29"
+              >
+                App
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by HGNC method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Hieranoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by InParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OMA method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoFinder method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoInspector method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PANTHER method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PhylomeDB method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by SonicParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="9 matches from 10 checked methods (90%)"
+              >
+                9 of 10
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row"
+            data-id="Rattus norvegicus-Aplp1"
+          >
+            <td />
+            <td>
+              Rattus norvegicus
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A10116%29+AND+%28xref%3Argd-69257%29"
+              >
+                Aplp1
+              </a>
+            </td>
+            <td>
+              No
+            </td>
+            <td>
+              No
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Ensembl Compara method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by HGNC method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Hieranoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by InParanoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by OMA method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by OrthoFinder method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by OrthoInspector method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by PANTHER method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by PhylomeDB method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by SonicParanoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="1 matches from 10 checked methods (10%)"
+              >
+                1 of 10
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row odd"
+            data-id="Xenopus laevis-app.S"
+          >
+            <td />
+            <td>
+              Xenopus laevis
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A8355%29+AND+%28xref%3Axenbase-XB-GENE-17345003%29"
+              >
+                app.S
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Ensembl Compara method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Hieranoid method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for InParanoid method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for OMA method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for OrthoFinder method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for OrthoInspector method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for PANTHER method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for PhylomeDB method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for SonicParanoid method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Xenbase method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="1 matches from 1 checked methods (100%)"
+              >
+                1 of 1
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row"
+            data-id="Xenopus laevis-app.L"
+          >
+            <td />
+            <td>
+              Xenopus laevis
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A8355%29+AND+%28xref%3Axenbase-XB-GENE-479158%29"
+              >
+                app.L
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Ensembl Compara method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Hieranoid method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for InParanoid method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for OMA method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for OrthoFinder method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for OrthoInspector method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for PANTHER method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for PhylomeDB method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for SonicParanoid method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Xenbase method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="1 matches from 1 checked methods (100%)"
+              >
+                1 of 1
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row odd"
+            data-id="Xenopus tropicalis-app"
+          >
+            <td />
+            <td>
+              Xenopus tropicalis
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A8364%29+AND+%28xref%3Axenbase-XB-GENE-479154%29"
+              >
+                app
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Hieranoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by InParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OMA method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoFinder method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoInspector method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PANTHER method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PhylomeDB method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by SonicParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="8 matches from 9 checked methods (89%)"
+              >
+                8 of 9
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row"
+            data-id="Danio rerio-appa"
+          >
+            <td />
+            <td>
+              Danio rerio
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A7955%29+AND+%28xref%3Azfin-ZDB-GENE-000616-13%29"
+              >
+                appa
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Hieranoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by InParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OMA method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoFinder method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoInspector method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PANTHER method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PhylomeDB method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by SonicParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by ZFIN method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="9 matches from 10 checked methods (90%)"
+              >
+                9 of 10
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row odd"
+            data-id="Danio rerio-appb"
+          >
+            <td />
+            <td>
+              Danio rerio
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A7955%29+AND+%28xref%3Azfin-ZDB-GENE-020220-1%29"
+              >
+                appb
+              </a>
+            </td>
+            <td>
+              No
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Hieranoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by InParanoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OMA method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoFinder method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by OrthoInspector method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PANTHER method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PhylomeDB method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by SonicParanoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by ZFIN method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="5 matches from 10 checked methods (50%)"
+              >
+                5 of 10
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row"
+            data-id="Drosophila melanogaster-Appl"
+          >
+            <td />
+            <td>
+              Drosophila melanogaster
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A7227%29+AND+%28xref%3Aflybase-FBgn0000108%29"
+              >
+                Appl
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              No
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Hieranoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by InParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OMA method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoFinder method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoInspector method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PANTHER method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by PhylomeDB method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by SonicParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="7 matches from 9 checked methods (78%)"
+              >
+                7 of 9
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row odd"
+            data-id="Drosophila melanogaster-CG16713"
+          >
+            <td />
+            <td>
+              Drosophila melanogaster
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A7227%29+AND+%28xref%3Aflybase-FBgn0031560%29"
+              >
+                CG16713
+              </a>
+            </td>
+            <td>
+              No
+            </td>
+            <td>
+              No
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Hieranoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by InParanoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by OMA method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by OrthoFinder method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by OrthoInspector method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by PANTHER method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PhylomeDB method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by SonicParanoid method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="1 matches from 9 checked methods (11%)"
+              >
+                1 of 9
+              </span>
+            </td>
+          </tr>
+          <tr
+            class="row"
+            data-id="Caenorhabditis elegans-apl-1"
+          >
+            <td />
+            <td>
+              Caenorhabditis elegans
+            </td>
+            <td>
+              <a
+                href="/uniprotkb?query=%28taxonomy_id%3A6239%29+AND+%28xref%3Aagr-WBGene00000149%29"
+              >
+                apl-1
+              </a>
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="No match by Ensembl Compara method"
+              >
+                ○
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for HGNC method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by Hieranoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by InParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OMA method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoFinder method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by OrthoInspector method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PANTHER method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by PhylomeDB method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Match by SonicParanoid method"
+              >
+                ●
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for Xenbase method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-render"
+                title="Comparison not available for ZFIN method"
+              >
+                -
+              </span>
+            </td>
+            <td>
+              <span
+                class="method-match-count-render"
+                title="8 matches from 9 checked methods (89%)"
+              >
+                8 of 9
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      class="expand-button-container"
+    >
+      <button
+        class="button primary"
+        id="agr-orthology-expand-button"
+        type="button"
+      >
+        Expand table
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

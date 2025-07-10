@@ -66,36 +66,76 @@ export const addTooltip = (
 ) => {
   const [tooltip, arrowElement] = getTooltip(content);
   const update = getUpdate(target, tooltip, arrowElement);
+
   let cleanup: ReturnType<typeof autoUpdate> | undefined;
-  function showTooltip() {
-    document.body.append(tooltip);
-    cleanup = autoUpdate(target, tooltip, update);
+  let hideTimeout: number | undefined;
+
+  function scheduleHide() {
+    hideTimeout = window.setTimeout(() => {
+      hide();
+    }, 100);
   }
-  function hideTooltip() {
-    tooltip.remove();
+
+  function cancelHide() {
+    if (hideTimeout) {
+      window.clearTimeout(hideTimeout);
+      hideTimeout = undefined;
+    }
+  }
+
+  function show() {
+    if (!tooltip.isConnected) {
+      document.body.append(tooltip);
+      cleanup = autoUpdate(target, tooltip, update);
+      // Make the tooltip itself part of the hover area
+      tooltip.addEventListener('mouseenter', cancelHide);
+      tooltip.addEventListener('mouseleave', scheduleHide);
+    }
+  }
+
+  function hide() {
     cleanup?.();
+    tooltip.remove();
+    tooltip.removeEventListener('mouseenter', cancelHide);
+    tooltip.removeEventListener('mouseleave', scheduleHide);
   }
+
   const eventsAndListeners: [string, () => void][] = [
-    ['mouseenter', showTooltip],
-    ['focus', showTooltip],
-    ['mouseleave', hideTooltip],
-    ['blur', hideTooltip],
+    [
+      'mouseenter',
+      () => {
+        cancelHide();
+        show();
+      },
+    ],
+    ['mouseleave', scheduleHide],
+    [
+      'focus',
+      () => {
+        cancelHide();
+        show();
+      },
+    ],
+    ['blur', hide],
   ];
+
   const allTriggers = [target, ...(triggers || [])];
-  eventsAndListeners.forEach(([event, listener]) => {
-    allTriggers.forEach((trigger) => {
-      trigger.addEventListener(event, listener);
-    });
-  });
+
+  // Attach all listeners
+  for (const [event, listener] of eventsAndListeners) {
+    for (const el of allTriggers) {
+      el.addEventListener(event, listener);
+    }
+  }
 
   // Return cleanup function to remove tooltip and remove event listeners
   return () => {
-    hideTooltip();
-    eventsAndListeners.forEach(([event, listener]) => {
-      allTriggers.forEach((trigger) => {
-        trigger.removeEventListener(event, listener);
-      });
-    });
+    hide();
+    for (const [event, listener] of eventsAndListeners) {
+      for (const el of allTriggers) {
+        el.removeEventListener(event, listener);
+      }
+    }
   };
 };
 

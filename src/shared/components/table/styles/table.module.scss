@@ -43,11 +43,12 @@
 
   & th {
     text-align: left;
-    vertical-align: middle;
+    vertical-align: var(--table-header-vertical-align, middle);
     background-color: var(--table__header-background);
     color: var(--table__header-text);
     text-overflow: ellipsis;
     text-transform: uppercase;
+    cursor: default;
   }
 
   & td,
