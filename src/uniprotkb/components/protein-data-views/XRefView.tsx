@@ -35,6 +35,7 @@ import { AFDBOutOfSync } from './AFDBOutOfSync';
 import EMBLView from './EMBLView';
 import { RichText } from './FreeTextView';
 import PDBView from './PDBView';
+import styles from './styles/x-ref-view.module.scss';
 
 const formatSuffixWithCount = (prefix: string, number: string) => {
   const count = parseInt(number, 10);
@@ -134,17 +135,20 @@ export const XRef = ({
   let resistanceMechanismNode;
   if (database === 'CARD' && properties) {
     resistanceMechanismNode = (
-      <>
-        <br />
-        <ExternalLink
-          url={processUrlTemplate(uriLink, {
-            id: properties[PropertyKey.ResistanceMechanismIdentifier],
-          })}
-        >
-          {properties[PropertyKey.ResistanceMechanismIdentifier]}
-        </ExternalLink>
-        {properties[PropertyKey.ResistanceMechanismName]}
-      </>
+      <div className={styles['resistance-mechanism-container']}>
+        <span className={styles['resistance-angle']}>∟</span> Resistance
+        mechanism:
+        <div className={styles['resistance-details']}>
+          <ExternalLink
+            url={processUrlTemplate(uriLink, {
+              id: properties[PropertyKey.ResistanceMechanismIdentifier],
+            })}
+          >
+            {properties[PropertyKey.ResistanceMechanismIdentifier]}
+          </ExternalLink>
+          {properties[PropertyKey.ResistanceMechanismName]}
+        </div>
+      </div>
     );
   }
 
