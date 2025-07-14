@@ -5,7 +5,7 @@ import AgrOrthology from './AgrOrthology';
 import AgrParalogy from './AgrParalogy';
 
 export const getAgrId = (xrefs: XrefUIModel[]) => {
-  const hgncXref = xrefs[0].databases.find((xref) => xref.database === 'AGR');
+  const hgncXref = xrefs[0]?.databases.find((xref) => xref.database === 'AGR');
   return hgncXref?.xrefs.find((xref) => xref.database === 'AGR');
 };
 
@@ -17,7 +17,12 @@ const AgrHomology = ({ xrefs }: Props) => {
   const agrXref = getAgrId(xrefs);
 
   if (!agrXref?.id) {
-    return 'No Orthology or Paralogy data is available from the Alliance of Genome Resources.';
+    return (
+      <p>
+        No Orthology or Paralogy data is available from the Alliance of Genome
+        Resources.
+      </p>
+    );
   }
 
   return (
