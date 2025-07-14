@@ -29,7 +29,7 @@ exports[`UniProtKBCard component should render 1`] = `
           class="small"
         >
           <a
-            href="/uniprotkb/P21802"
+            href="/uniprotkb/P21802/entry"
           >
             <span
               class="entry-title"
@@ -99,17 +99,17 @@ exports[`UniProtKBCard component should render 1`] = `
       class="card__actions"
     >
       <a
-        href="/uniprotkb/P21802#sequences"
+        href="/uniprotkb/P21802/entry#sequences"
       >
         1 isoform
       </a>
       <a
-        href="/uniprotkb/P21802#interaction"
+        href="/uniprotkb/P21802/entry#interaction"
       >
         2 interactions
       </a>
       <a
-        href="/uniprotkb/P21802#disease_variants"
+        href="/uniprotkb/P21802/entry#disease_variants"
       >
         1 disease
       </a>

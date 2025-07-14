@@ -30,7 +30,7 @@ const AutocompleteField: FC<
     const reset = term !== 'go';
     if (selectedId && autoCompleteQueryTerm) {
       handleChange({ [autoCompleteQueryTerm]: selectedId }, reset);
-    } else if (value) {
+    } else if (value && term) {
       handleChange({ [term]: value }, reset);
     }
   }, [id, term, autoCompleteQueryTerm, selectedId, value, handleChange]);

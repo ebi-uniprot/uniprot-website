@@ -188,7 +188,7 @@ const IsoformInfo = ({
   canonicalAccession,
   isoformNotes,
 }: IsoformInfoProps) => {
-  const regex = new RegExp(isoformData.name.value, 'gi');
+  const regex = new RegExp(`^Isoform ${isoformData.name.value}$`, 'gi');
   const note =
     isoformNotes &&
     Object.entries(isoformNotes).find(([key]) => key.match(regex))?.[1];
@@ -210,7 +210,9 @@ const IsoformInfo = ({
     },
     {
       title: 'See also',
-      content: <SeeAlso isoform={isoformData.isoformIds[0]} />,
+      content: isoformData.isoformSequenceStatus !== 'Not described' && (
+        <SeeAlso isoform={isoformData.isoformIds[0]} />
+      ),
     },
     {
       title: 'Differences from canonical',

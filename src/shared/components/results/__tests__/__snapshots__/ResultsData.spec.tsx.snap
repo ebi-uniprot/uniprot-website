@@ -34,7 +34,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 class="small"
               >
                 <a
-                  href="/uniprotkb/P13866"
+                  href="/uniprotkb/P13866/entry"
                 >
                   <span
                     class="entry-title"
@@ -147,32 +147,32 @@ exports[`ResultsData component should render the card view with the correct numb
             class="card__actions"
           >
             <a
-              href="/uniprotkb/P13866#ptm_processing"
+              href="/uniprotkb/P13866/entry#ptm_processing"
             >
               1 PTM
             </a>
             <a
-              href="/uniprotkb/P13866#disease_variants"
+              href="/uniprotkb/P13866/entry#disease_variants"
             >
               25 reviewed variants
             </a>
             <a
-              href="/uniprotkb/P13866#sequences"
+              href="/uniprotkb/P13866/entry#sequences"
             >
               2 isoforms
             </a>
             <a
-              href="/uniprotkb/P13866#interaction"
+              href="/uniprotkb/P13866/entry#interaction"
             >
               1 interaction
             </a>
             <a
-              href="/uniprotkb/P13866#disease_variants"
+              href="/uniprotkb/P13866/entry#disease_variants"
             >
               1 disease
             </a>
             <a
-              href="/uniprotkb/P13866#structure"
+              href="/uniprotkb/P13866/entry#structure"
             >
               4 3D structures
             </a>
@@ -212,7 +212,7 @@ exports[`ResultsData component should render the card view with the correct numb
                 class="small"
               >
                 <a
-                  href="/uniprotkb/P19926"
+                  href="/uniprotkb/P19926/entry"
                 >
                   <span
                     class="entry-title"
@@ -295,12 +295,12 @@ exports[`ResultsData component should render the card view with the correct numb
             class="card__actions"
           >
             <a
-              href="/uniprotkb/P19926#function"
+              href="/uniprotkb/P19926/entry#function"
             >
               2 active sites
             </a>
             <a
-              href="/uniprotkb/P19926#structure"
+              href="/uniprotkb/P19926/entry#structure"
             >
               2 3D structures
             </a>

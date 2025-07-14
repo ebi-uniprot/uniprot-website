@@ -59,7 +59,8 @@ export type Rank =
   | 'superphylum'
   | 'subkingdom'
   | 'kingdom'
-  | 'superkingdom'
+  | 'domain'
+  | 'realm'
   | 'clade'
   | 'no rank';
 

@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Button, ExternalLink, LongNumber } from 'franklin-sites';
+import { Button, LongNumber } from 'franklin-sites';
 import { useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import ftpUrls from '../../../shared/config/ftpUrls';

@@ -26,7 +26,7 @@ const EnumOrBooleanField = ({
 
   useEffect(() => {
     const trimmed = value.trim();
-    if (trimmed) {
+    if (trimmed && field.term) {
       handleChange({ [field.term]: trimmed });
     }
   }, [field, value, handleChange]);

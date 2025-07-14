@@ -145,7 +145,13 @@ const SubEntry = () => {
             mainTitle="UniParc"
             optionalTitle={
               <>
-                <Link to={getEntryPath(Namespace.uniparc, accession)}>
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniparc,
+                    accession,
+                    TabLocation.Entry
+                  )}
+                >
                   {accession}
                 </Link>
                 {`  · ${subEntryId}`}

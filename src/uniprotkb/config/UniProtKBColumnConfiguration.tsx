@@ -74,7 +74,6 @@ import CatalyticActivityView, {
   isRheaReactionReference,
 } from '../components/protein-data-views/CatalyticActivityView';
 import CSVView from '../components/protein-data-views/CSVView';
-// import { DatabaseList } from '../components/protein-data-views/XRefView';
 import DiseaseInvolvementView, {
   protvarVariantLink,
 } from '../components/protein-data-views/DiseaseInvolvementView';
@@ -100,6 +99,7 @@ import {
   InteractionType,
   SubcellularLocationComment,
 } from '../types/commentTypes';
+import { TabLocation } from '../types/entry';
 import EntrySection, { EntrySectionWithFeatures } from '../types/entrySection';
 import FeatureType, {
   DiseaseAndDrugsFeatures,
@@ -1082,7 +1082,8 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                 <Link
                   to={getEntryPath(
                     Namespace.uniprotkb,
-                    interactant.uniProtKBAccession
+                    interactant.uniProtKBAccession,
+                    TabLocation.Entry
                   )}
                 >
                   {interactant.uniProtKBAccession}

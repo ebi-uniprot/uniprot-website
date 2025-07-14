@@ -25,6 +25,6 @@ describe('Enum field', () => {
     expect(select.value).toBe('1');
     fireEvent.change(select, { target: { value: '2' } });
     expect(select.value).toBe('2');
-    expect(props.handleChange).toBeCalledWith({ existence: '2' });
+    expect(props.handleChange).toHaveBeenCalledWith({ existence: '2' });
   });
 });

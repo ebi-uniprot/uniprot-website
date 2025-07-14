@@ -1,4 +1,3 @@
-import { ExternalLink } from 'franklin-sites';
 import { FC, Fragment, ReactNode, useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
@@ -7,6 +6,7 @@ import {
   getEntryPath,
   getEntryPathFor,
 } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { IsoformsContext } from '../../../shared/contexts/Isoforms';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -16,6 +16,7 @@ import {
   FreeTextType,
   TextWithEvidence,
 } from '../../types/commentTypes';
+import { TabLocation } from '../../types/entry';
 import {
   getTextProcessingParts,
   reAC,
@@ -78,7 +79,13 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
               <Fragment key={index}>
                 {/* Somehow the part kept "AC ", so put it back */}
                 {part.startsWith('AC ') ? `AC ` : ''}
-                <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    accession,
+                    TabLocation.Entry
+                  )}
+                >
                   {accession}
                 </Link>
               </Fragment>

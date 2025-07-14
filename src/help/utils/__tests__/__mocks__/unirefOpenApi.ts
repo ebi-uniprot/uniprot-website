@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-19
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -10,7 +10,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
   },
   servers: [
     {
-      url: 'https://wwwdev.ebi.ac.uk/uniprot/api/',
+      url: 'https://rest.uniprot.org/',
       description: 'UniProt REST API Server',
     },
   ],
@@ -422,11 +422,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           name: {
             type: 'string',
           },
-          reference: {
-            type: 'boolean',
-          },
           evidenceDatabaseDetail: {
             $ref: '#/components/schemas/EvidenceDatabaseDetail',
+          },
+          reference: {
+            type: 'boolean',
           },
         },
       },
@@ -451,13 +451,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
       GeneOntologyEntry: {
         type: 'object',
         properties: {
-          ancestors: {
-            uniqueItems: true,
-            type: 'array',
-            items: {
-              $ref: '#/components/schemas/GeneOntologyEntry',
-            },
-          },
           aspect: {
             type: 'string',
             enum: [
@@ -465,6 +458,13 @@ const unirefApiDocs: OpenAPIV3.Document = {
               'GO Biological Process',
               'GO Cellular Component',
             ],
+          },
+          ancestors: {
+            uniqueItems: true,
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/GeneOntologyEntry',
+            },
           },
           name: {
             type: 'string',
@@ -537,9 +537,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
-          uniRef50Id: {
-            type: 'string',
-          },
           organismName: {
             type: 'string',
           },
@@ -554,6 +551,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
           proteinName: {
             type: 'string',
           },
+          uniRef50Id: {
+            type: 'string',
+          },
           uniRef90Id: {
             type: 'string',
           },
@@ -566,6 +566,12 @@ const unirefApiDocs: OpenAPIV3.Document = {
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
           },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
           memberIdType: {
             type: 'string',
             enum: [
@@ -574,12 +580,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
               'UniProtKB ID',
               'UniParc',
             ],
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
           },
           seed: {
             type: 'boolean',
@@ -625,6 +625,21 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/UniRefMember',
             },
           },
+          representativeMember: {
+            $ref: '#/components/schemas/RepresentativeMember',
+          },
+          entryType: {
+            type: 'string',
+            enum: ['UniRef100', 'UniRef90', 'UniRef50'],
+          },
+          updated: {
+            type: 'string',
+            format: 'date',
+          },
+          memberCount: {
+            type: 'integer',
+            format: 'int32',
+          },
           commonTaxon: {
             $ref: '#/components/schemas/Organism',
           },
@@ -637,29 +652,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           seedId: {
             type: 'string',
           },
-          representativeMember: {
-            $ref: '#/components/schemas/RepresentativeMember',
-          },
-          updated: {
-            type: 'string',
-            format: 'date',
-          },
-          memberCount: {
-            type: 'integer',
-            format: 'int32',
-          },
-          entryType: {
-            type: 'string',
-            enum: ['UniRef100', 'UniRef90', 'UniRef50'],
-          },
         },
       },
       UniRefMember: {
         type: 'object',
         properties: {
-          uniRef50Id: {
-            type: 'string',
-          },
           organismName: {
             type: 'string',
           },
@@ -674,6 +671,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
           proteinName: {
             type: 'string',
           },
+          uniRef50Id: {
+            type: 'string',
+          },
           uniRef90Id: {
             type: 'string',
           },
@@ -686,6 +686,12 @@ const unirefApiDocs: OpenAPIV3.Document = {
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
           },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
           memberIdType: {
             type: 'string',
             enum: [
@@ -694,12 +700,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
               'UniProtKB ID',
               'UniParc',
             ],
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
           },
           seed: {
             type: 'boolean',

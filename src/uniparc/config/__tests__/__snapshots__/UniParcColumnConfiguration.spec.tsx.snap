@@ -77,21 +77,21 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
     </li>
     <li>
       <a
-        href="/uniprotkb/Q71TT2"
+        href="/uniprotkb/Q71TT2/entry"
       >
         Q71TT2
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/P07612"
+        href="/uniprotkb/P07612/entry"
       >
         P07612
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/Q76QK2"
+        href="/uniprotkb/Q76QK2/entry"
       >
         Q76QK2
       </a>
@@ -126,21 +126,21 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
     </li>
     <li>
       <a
-        href="/uniprotkb/Q71TT2"
+        href="/uniprotkb/Q71TT2/entry"
       >
         Q71TT2
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/P07612"
+        href="/uniprotkb/P07612/entry"
       >
         P07612
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/Q76QK2"
+        href="/uniprotkb/Q76QK2/entry"
       >
         Q76QK2
       </a>
@@ -152,28 +152,28 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
     </li>
     <li>
       <a
-        href="/uniprotkb/Q0GNZ6"
+        href="/uniprotkb/Q0GNZ6/entry"
       >
         Q0GNZ6
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/A0A2I2MDI1"
+        href="/uniprotkb/A0A2I2MDI1/entry"
       >
         A0A2I2MDI1
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/Q6RZL4"
+        href="/uniprotkb/Q6RZL4/entry"
       >
         Q6RZL4
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb/G0XTE8"
+        href="/uniprotkb/G0XTE8/entry"
       >
         G0XTE8
       </a>

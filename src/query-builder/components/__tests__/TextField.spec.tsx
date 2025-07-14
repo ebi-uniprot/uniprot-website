@@ -25,9 +25,10 @@ describe('TextField', () => {
     const inputElt = screen.getByRole<HTMLInputElement>('textbox');
     expect(inputElt.value).toBe('');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(props.handleChange).toBeCalledWith(
+    expect(props.handleChange).toHaveBeenCalledWith(
       {
-        [props.field.term]: updatedValue.trim(),
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        [props.field.term!]: updatedValue.trim(),
       },
       false
     );
@@ -53,9 +54,10 @@ describe('TextField', () => {
       name: propsAll.field.label,
     });
     fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(propsAll.handleChange).toBeCalledWith(
+    expect(propsAll.handleChange).toHaveBeenCalledWith(
       {
-        [propsAll.field.term]: `${updatedValue}`,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        [propsAll.field.term!]: `${updatedValue}`,
       },
       false
     );
@@ -80,9 +82,10 @@ describe('TextField', () => {
       name: propsPrefix.field.label,
     });
     fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(propsPrefix.handleChange).toBeCalledWith(
+    expect(propsPrefix.handleChange).toHaveBeenCalledWith(
       {
-        [propsPrefix.field.term]:
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        [propsPrefix.field.term!]:
           `${propsPrefix.field.valuePrefix}${updatedValue}`,
       },
       false
@@ -100,7 +103,7 @@ describe('TextField', () => {
       name: propsPrefix.field.label,
     });
     fireEvent.change(inputElt, { target: { value: '*' } });
-    expect(propsPrefix.handleChange).toBeCalledWith(
+    expect(propsPrefix.handleChange).toHaveBeenCalledWith(
       {
         database: 'embl',
       },

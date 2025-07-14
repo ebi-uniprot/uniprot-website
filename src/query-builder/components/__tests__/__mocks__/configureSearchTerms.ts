@@ -4,8 +4,8 @@ import { SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2025-04-22
-const configureSearchTerms = [
+// Retrieved: 2025-06-19
+const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',
     label: 'UniProtKB AC',
@@ -2531,6 +2531,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'string-',
           },
+          {
+            id: 'xref_funcoup',
+            label: 'FunCoup',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'funcoup-',
+          },
         ],
       },
       {
@@ -2697,6 +2706,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'unilectin-',
+          },
+          {
+            id: 'xref_card',
+            label: 'CARD',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'card-',
           },
         ],
       },
@@ -3564,6 +3582,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'treefam-',
           },
+          {
+            id: 'xref_pan-go',
+            label: 'PAN-GO',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'pan-go-',
+          },
         ],
       },
       {
@@ -4406,9 +4433,7 @@ const configureSearchTerms = [
 ];
 
 const idToSearchTerm = keyBy(
-  flatten(configureSearchTerms as SearchTermType[]).filter(
-    ({ itemType }) => itemType !== 'group'
-  ),
+  flatten(configureSearchTerms).filter(({ itemType }) => itemType !== 'group'),
   ({ id }) => id
 );
 
@@ -4419,5 +4444,4 @@ export const getSearchTerm = (id: string) => {
   throw new Error(`${id} not in search term mock data`);
 };
 
-// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
-export default configureSearchTerms as SearchTermType[];
+export default configureSearchTerms;

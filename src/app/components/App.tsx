@@ -113,13 +113,13 @@ const UniParcLandingPage = lazy(
 const ProteomesLandingPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-landing" */ '../../proteomes/components/landing-page/LandingPage'
+      /* webpackChunkName: "proteomes-landing" */ '../../proteomes/components/landing-page/LandingPage'
     )
 );
 const UniRefLandingPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-landing" */ '../../uniref/components/landing-page/LandingPage'
+      /* webpackChunkName: "uniref-landing" */ '../../uniref/components/landing-page/LandingPage'
     )
 );
 // Statistics pages
@@ -158,6 +158,12 @@ const ProteomesEntryPage = lazy(
   () =>
     import(
       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
+    )
+);
+const SupportingDataLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "supporting-data-landing" */ '../../supporting-data/landing-page/LandingPage'
     )
 );
 const TaxonomyEntryPage = lazy(
@@ -469,6 +475,10 @@ const App = () => {
               component={ProteomesEntryPage}
             />
             {/* Supporting data */}
+            <Route
+              path={LocationToPath[Location.SupportingData]}
+              component={SupportingDataLandingPage}
+            />
             <Route
               path={LocationToPath[Location.TaxonomyEntry]}
               component={TaxonomyEntryPage}

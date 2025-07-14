@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import {
   Button,
-  ExternalLink,
   formatLargeNumber,
   Loader,
   LongNumber,
@@ -25,6 +24,7 @@ import {
 } from '../../../messages/types/messagesTypes';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';

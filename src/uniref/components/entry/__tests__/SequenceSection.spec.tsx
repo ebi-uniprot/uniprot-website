@@ -7,7 +7,10 @@ import SequenceSection from '../SequenceSection';
 describe('SequenceSection component', () => {
   it('should render the SequenceSection properly and match snapshot', () => {
     const { asFragment } = render(
-      <SequenceSection data={sequenceUIData.sequence as SequenceType} />
+      <SequenceSection
+        id="UniRef100_P05067"
+        data={sequenceUIData.sequence as SequenceType}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });

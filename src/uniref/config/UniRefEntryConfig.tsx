@@ -15,6 +15,7 @@ const UniRefEntryConfig: {
     id: EntrySection.Sequence,
     sectionContent: (data) => (
       <SequenceSection
+        id={data.id}
         data={data[EntrySection.Sequence].sequence}
         key={EntrySection.Sequence}
       />

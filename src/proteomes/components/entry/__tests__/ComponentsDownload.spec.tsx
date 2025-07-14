@@ -105,8 +105,18 @@ describe('Download proteins for a redundant proteome', () => {
         route: '/proteomes/UP000006503',
       }
     );
-    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
-    expect(downloadLink.href).toContain('uniparc');
+    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        '/uniparc/proteome/UP000006503/stream?compressed=true&format=fasta'
+      )
+    );
+    fireEvent.click(
+      screen.getByLabelText(
+        'Proceed with FASTA header for proteomes (recommended).'
+      )
+    );
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );

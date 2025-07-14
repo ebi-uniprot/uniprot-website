@@ -4,15 +4,21 @@ import ExternalLink from '../../../../../shared/components/ExternalLink';
 import helper from '../../../../../shared/styles/helper.module.scss';
 import { GenomicLocation } from './types';
 
-export const getEnsemblLink = (
-  taxID: number,
-  start: number,
-  end?: number,
-  chromosome?: string
-) =>
+type GetEnsembLinkArgs = {
+  taxID: number;
+  start: number;
+  end: number;
+  chromosome?: string;
+};
+export const getEnsemblLink = ({
+  taxID,
+  start,
+  end,
+  chromosome,
+}: GetEnsembLinkArgs) =>
   `https://www.ensembl.org/${taxID}/Location/View?r=${
-    chromosome && `${chromosome}:`
-  }${start}${end && `-${end}`}`;
+    chromosome ? `${chromosome}:` : ''
+  }${start}-${end}`;
 
 type GenomicLocProps = {
   genomicLocation: GenomicLocation;
@@ -43,16 +49,16 @@ const GenomicLoc = ({ genomicLocation, taxID, noLink }: GenomicLocProps) => {
       url={
         noLink
           ? null
-          : getEnsemblLink(
+          : getEnsemblLink({
               taxID,
-              genomicLocation.reverseStrand
+              start: genomicLocation.reverseStrand
                 ? genomicLocation.end
                 : genomicLocation.start,
-              genomicLocation.reverseStrand
+              end: genomicLocation.reverseStrand
                 ? genomicLocation.start
                 : genomicLocation.end,
-              genomicLocation.chromosome
-            )
+              chromosome: genomicLocation.chromosome,
+            })
       }
     >
       {content}

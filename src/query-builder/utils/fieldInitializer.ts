@@ -19,7 +19,7 @@ const initializer = (
 
   // The presence of the term indicates user only wants experimental evidence
   if (initialValue && field.fieldType === 'experimental_evidence') {
-    return String(field.term in initialValue);
+    return String(field.term && field.term in initialValue);
   }
 
   if (initialValue && initialValue[`${field.term}_exp`]) {
@@ -43,15 +43,15 @@ const initializer = (
       return initialValue[field.autoCompleteQueryTerm];
     }
     // Text search
-    return isAutoCompleteQueryId ? '' : initialValue[field.term];
+    return isAutoCompleteQueryId ? '' : initialValue[field.term || ''];
   }
 
   // no value? bail
-  if (!(initialValue && initialValue[field.term])) {
+  if (!(initialValue && initialValue[field.term || ''])) {
     return '';
   }
 
-  const value = initialValue[field.term];
+  const value = initialValue[field.term || ''];
 
   // NOTE: is all the following basically just a clause value validator?
   // regular expression matching

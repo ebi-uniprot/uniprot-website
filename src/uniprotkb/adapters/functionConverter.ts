@@ -21,6 +21,7 @@ import { FunctionFeatures } from '../types/featureType';
 import KeywordCategory from '../types/keywordCategory';
 import { Evidence, GoEvidenceType } from '../types/modelTypes';
 import { DatabaseInfoMaps } from '../utils/database';
+import { XrefsGoupedByDatabase } from '../utils/xrefUtils';
 import { GeneNamesData } from './namesAndTaxonomyConverter';
 import { convertSection, UIModel } from './sectionConverter';
 import {
@@ -97,6 +98,7 @@ export type FunctionUIModel = {
   geneNamesData?: GeneNamesData;
   organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
   entryType?: EntryType;
+  panGoXrefs?: XrefsGoupedByDatabase[];
 } & UIModel;
 
 const keywordsCategories: KeywordCategory[] = [
@@ -123,13 +125,8 @@ export const goAspects: {
     label: 'Biological Process',
     short: 'P',
   },
-
-  {
-    id: 'GO:0005575',
-    name: 'cellular_component',
-    label: 'Cellular Component',
-    short: 'C',
-  },
+  // We don't have the Cellular Component aspect because this is used to
+  // populate the Function section and not the Subcellular Location section
 ];
 
 const getAspect = (term: GOAspectName | GOAspectShort) =>
@@ -162,13 +159,16 @@ const commentsCategories: CommentType[] = [
   'BIOTECHNOLOGY',
 ];
 
-export const getAspectGroupedGoTerms = (
+export const getAspectGroupedGoTermsWithoutCellComp = (
   uniProtKBCrossReferences?: Xref[]
 ): GroupedGoTerms => {
   const goTerms = (uniProtKBCrossReferences || [])
     .filter(
       (xref: Xref | GoTerm): xref is GoTerm =>
-        xref.database === 'GO' && Boolean(xref.properties)
+        xref.database === 'GO' &&
+        Boolean(xref.properties) &&
+        // Remove the ones that are "Cellular Component" for Function section
+        !xref.properties?.GoTerm?.startsWith('C')
     )
     .map((term) => {
       const goTermProperty = term.properties && term.properties.GoTerm;
@@ -242,8 +242,19 @@ const convertFunction = (
   convertedSection.geneNamesData = data?.genes;
   convertedSection.organismData = data?.organism;
   convertedSection.entryType = getEntryTypeFromString(data?.entryType);
+  const panGoXrefs = uniProtKBCrossReferences?.filter(
+    (xref) => xref.database === 'PAN-GO'
+  );
+  convertedSection.panGoXrefs = panGoXrefs?.length
+    ? [
+        {
+          database: 'PAN-GO',
+          xrefs: panGoXrefs,
+        },
+      ]
+    : undefined;
 
-  const aspectGroupedGoTerms = getAspectGroupedGoTerms(
+  const aspectGroupedGoTerms = getAspectGroupedGoTermsWithoutCellComp(
     uniProtKBCrossReferences
   );
   if (aspectGroupedGoTerms?.size) {

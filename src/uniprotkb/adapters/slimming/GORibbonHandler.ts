@@ -1,11 +1,16 @@
 /* eslint-disable camelcase */
 import { groupBy } from 'lodash-es';
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyUrl } from '../../../shared/utils/url';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  TaxonomyAPIModel,
+  TaxonomyDatum,
+} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   GOAspectName,
   goAspects,
@@ -20,6 +25,8 @@ const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';
 
 const SLIMMING_URL = 'https://www.ebi.ac.uk/QuickGO/services/ontology/go/slim';
+
+const DEFAULT_SLIMMING_SET = 'goslim_agr';
 
 export type SlimSet = {
   name: string;
@@ -93,7 +100,12 @@ export type AGRRibbonData = {
 
 export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
   // Aspects at the top
-  const slimsByAspect = groupBy(slimSet.associations, 'aspect');
+  const slimsByAspect = groupBy(
+    slimSet.associations.filter(
+      (association) => association.aspect !== 'cellular_component'
+    ),
+    'aspect'
+  );
 
   // Convert to object
   const categoriesObj: AGRRibbonCategory[] = goAspects.map(
@@ -252,21 +264,73 @@ export const getSubjects = (
 
 export const useGOData = (
   goTerms?: GroupedGoTerms,
-  slimSetName = 'goslim_agr'
+  taxonId?: number
 ): {
   loading: boolean;
   slimmedData?: GOSlimmedData;
   selectedSlimSet?: SlimSet;
-  slimSets?: string[];
+  slimSets?: SlimSet[];
+  onSlimSetSelect: (id: string) => void;
 } => {
   const { data: slimSetsData, loading: loadingSlimSets } =
     useDataApi<GOSLimSets>(goTerms && SLIM_SETS_URL);
+  // We need to retrieve this from the organism taxon ID because the lineage
+  // info in UniProtKB is just the names and not the taxon IDs
+  const { data: taxonData, loading: taxonLoading } =
+    useDataApi<TaxonomyAPIModel>(
+      taxonId ? apiUrls.entry.entry(`${taxonId}`, Namespace.taxonomy) : null
+    );
 
-  const selectedSlimSet = slimSetsData?.goSlimSets?.find(
-    (slimSet) => slimSet.id === slimSetName
+  const [selectedSlimSet, setSelectedSlimSet] = useState<SlimSet>();
+
+  const slimSets = useMemo(
+    () =>
+      slimSetsData?.goSlimSets.filter((slimSet) =>
+        slimSet.role.includes('Ribbon')
+      ),
+    [slimSetsData?.goSlimSets]
   );
 
-  const slimSets = slimSetsData?.goSlimSets?.map((slimSet) => slimSet.id);
+  const onSlimSetSelect = useCallback(
+    (slimSetId: string) => {
+      const found = slimSets?.find((slimSet) => slimSet.id === slimSetId);
+      if (found) {
+        setSelectedSlimSet(found);
+        return;
+      }
+      logging.warn(`Selected ${slimSetId} not found in slimming set data.`);
+    },
+    [slimSets]
+  );
+
+  useEffect(() => {
+    if (!taxonData?.lineage || !slimSets) {
+      return;
+    }
+    const taxIdToSlimSet = new Map(
+      slimSets?.flatMap((slimSet) =>
+        slimSet.taxIds.split(',').map((taxId) => [taxId, slimSet])
+      )
+    );
+    // Traverse lineage backwards to try to find more specific taxons first.
+    for (let i = taxonData.lineage.length - 1; i >= 0; i -= 1) {
+      const slimSet = taxIdToSlimSet.get(`${taxonData.lineage[i].taxonId}`);
+      if (slimSet) {
+        setSelectedSlimSet(slimSet);
+        return;
+      }
+    }
+    const defaultSlimmingSet = slimSets?.find(
+      (slimSet) => slimSet.id === DEFAULT_SLIMMING_SET
+    );
+    if (defaultSlimmingSet) {
+      setSelectedSlimSet(defaultSlimmingSet);
+      return;
+    }
+    logging.warn(
+      `Default ${DEFAULT_SLIMMING_SET} not found in slimming set data.`
+    );
+  }, [slimSets, taxonData?.lineage]);
 
   const slimmingUrl = useMemo(() => {
     const slimsToIds = selectedSlimSet?.associations
@@ -288,15 +352,16 @@ export const useGOData = (
         relations: 'is_a,part_of,occurs_in,regulates',
       })
     );
-  }, [goTerms, selectedSlimSet]);
+  }, [goTerms, selectedSlimSet?.associations]);
 
   const { data: slimmedData, loading: loadingSlimmedData } =
     useDataApi<GOSlimmedData>(slimmingUrl);
 
   return {
-    loading: loadingSlimSets || loadingSlimmedData,
+    loading: loadingSlimSets || taxonLoading || loadingSlimmedData,
     slimmedData,
     selectedSlimSet,
+    onSlimSetSelect,
     slimSets,
   };
 };

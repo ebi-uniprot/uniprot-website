@@ -161,7 +161,8 @@ const ClauseList: FC<React.PropsWithChildren<ClauseListProps>> = ({
             ...clause,
             searchTerm,
             // reset queryBits on change of field
-            queryBits: value ? { [searchTerm.term]: value } : {},
+            queryBits:
+              value && searchTerm.term ? { [searchTerm.term]: value } : {},
           };
         })
       );

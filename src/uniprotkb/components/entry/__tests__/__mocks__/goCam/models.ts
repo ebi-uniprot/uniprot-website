@@ -1,5 +1,5 @@
 // Source: https://api.geneontology.org/api/gp/UniProtKB:Q9GZQ8/models
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-19
 const models = [
   {
     gocam: 'http://model.geneontology.org/5e72450500001269',
@@ -16,7 +16,8 @@ const models = [
   },
   {
     gocam: 'http://model.geneontology.org/654d809000001587',
-    title: 'Atg7-mediated  autophagosome assembly via ATM-CHK2-TRIM32 axis',
+    title:
+      'Atg7-mediated  autophagosome assembly via ATM-CHK2-TRIM32 axis (Human)',
   },
   {
     gocam: 'http://model.geneontology.org/67369e7600002132',

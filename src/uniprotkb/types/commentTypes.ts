@@ -140,7 +140,15 @@ export interface InteractionComment extends GenericComment<'INTERACTION'> {
 
 export type Isoform = {
   name: TextWithEvidence;
-  isoformSequenceStatus: string;
+  isoformSequenceStatus: // Canonical (when there are multiple isoforms)
+  | 'Displayed'
+    // When the accession of the isoform isn't the same as that of the canonical
+    // - examples in Q7KQZ4
+    | 'External'
+    // Shouldn't (can't) display sequence and not in UniParc or Uniref
+    | 'Not described'
+    // Other "normal" isoforms
+    | 'Described';
   isoformIds: string[];
   synonyms?: TextWithEvidence[];
   note?: { texts: TextWithEvidence[] };

@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2025-04-22
+// Retrieved: 2025-06-19
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -2546,6 +2546,51 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'EntryName',
         xmlTag: 'entry name',
+      },
+    ],
+  },
+  {
+    name: 'FunCoup',
+    displayName: 'FunCoup',
+    category: 'PPI',
+    uriLink: 'https://funcoup.org/uniprot/%id',
+    attributes: [
+      {
+        name: 'Number of interactors',
+        xmlTag: 'interactions',
+      },
+    ],
+  },
+  {
+    name: 'PAN-GO',
+    displayName: 'PAN-GO',
+    category: 'PLG',
+    uriLink: 'https://functionome.geneontology.org/gene/UniProtKB:%id',
+    attributes: [
+      {
+        name: 'Number of GO annotations',
+        xmlTag: 'GO annotations',
+      },
+    ],
+  },
+  {
+    name: 'CARD',
+    displayName: 'CARD',
+    category: 'PFAM',
+    uriLink: 'https://card.mcmaster.ca/%id',
+    attributes: [
+      {
+        name: 'CARD short name',
+        xmlTag: 'molecule name',
+      },
+      {
+        name: 'Resistance mechanism identifier',
+        xmlTag: 'mechanism identifier',
+        uriLink: 'https://card.mcmaster.ca/%id',
+      },
+      {
+        name: 'Resistance mechanism name',
+        xmlTag: 'mechanism name',
       },
     ],
   },

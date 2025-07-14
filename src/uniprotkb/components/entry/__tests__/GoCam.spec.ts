@@ -34,7 +34,7 @@ describe('getGoCamStructures', () => {
         {
           id: '654d809000001587',
           label:
-            'Atg7-mediated  autophagosome assembly via ATM-CHK2-TRIM32 axis',
+            'Atg7-mediated  autophagosome assembly via ATM-CHK2-TRIM32 axis (Human)',
         },
       ],
       [

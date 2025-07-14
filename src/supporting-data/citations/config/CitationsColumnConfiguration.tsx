@@ -1,7 +1,8 @@
-import { ExpandableList, ExternalLink } from 'franklin-sites';
+import { ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
 import externalUrls from '../../../shared/config/externalUrls';
 import helper from '../../../shared/styles/helper.module.scss';

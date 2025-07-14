@@ -141,7 +141,11 @@ const getProteinHighlights = ({
     [highlightSection.publications, references?.length],
   ];
 
-  const entryPathname = getEntryPath(Namespace.uniprotkb, primaryAccession);
+  const entryPathname = getEntryPath(
+    Namespace.uniprotkb,
+    primaryAccession,
+    TabLocation.Entry
+  );
 
   return highlightTuples
     .filter(([, count]) => count)

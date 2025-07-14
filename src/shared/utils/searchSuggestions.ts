@@ -17,7 +17,10 @@ export const modifyQueryWithSuggestions = (
   let searchValue = '';
 
   const modifiedClauses: Clause[] = parsedQuery.map((clause) => {
-    if (searchTerms.includes(clause.searchTerm.term)) {
+    if (
+      clause.searchTerm.term &&
+      searchTerms.includes(clause.searchTerm.term)
+    ) {
       const queryBit = clause.queryBits;
       const modifiedQueryBit: Record<string, string> = {};
       Object.entries(queryBit).forEach(([k, v]) => {

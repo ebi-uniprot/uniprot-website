@@ -9,7 +9,7 @@ import * as logging from '../../shared/utils/logging';
 type AutocompleteWrapperProps = {
   url: string;
   onSelect: (path: string, id?: string) => void;
-  title: string;
+  title?: string;
   placeholder?: string;
   value?: string;
   clearOnSelect?: boolean;

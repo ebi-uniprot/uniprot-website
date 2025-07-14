@@ -1,3 +1,7 @@
+.table-container {
+  overflow-y: auto;
+}
+
 .coordinates-table {
   /* | <whitespace> | <no data line> | <whitespace>      | <whitespace> | */
   /* | <whitespace> | <whitespace>   | <single position> | <whitespace> | */

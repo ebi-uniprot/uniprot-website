@@ -24,7 +24,7 @@ export const stringify = (clauses: Clause[] = []): string => {
     const experimentalEvidenceTerm = clause.searchTerm?.siblings?.find(
       (s) => s?.fieldType === 'experimental_evidence'
     );
-    if (experimentalEvidenceTerm) {
+    if (experimentalEvidenceTerm && experimentalEvidenceTerm.term) {
       const experimentalEvidenceValue =
         clause.queryBits[experimentalEvidenceTerm.term];
       // Remove experimental evidence term from the query bits as we just want to use the value
@@ -36,7 +36,7 @@ export const stringify = (clauses: Clause[] = []): string => {
           experimentalEvidenceTerm.term.match(reExperimentalEvidenceKey)?.groups
             ?.term;
         query = query.map(([key, value]) =>
-          key === experimentalEvidenceMatchTerm
+          experimentalEvidenceTerm.term && key === experimentalEvidenceMatchTerm
             ? [experimentalEvidenceTerm.term, value]
             : [key, value]
         );
@@ -146,7 +146,7 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
       const lengthMatch = key?.match(lengthKey);
       if (key && lengthMatch) {
         const correspondingClause = clauses.find(({ searchTerm }) =>
-          searchTerm.term.startsWith(lengthMatch[1])
+          searchTerm.term?.startsWith(lengthMatch[1])
         );
         if (correspondingClause) {
           // if it's a length key, modify the last inserted
