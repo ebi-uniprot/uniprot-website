@@ -90,7 +90,7 @@ const tileData: IllustratedListTileProps[] = [
         label: 'Online training',
       },
       {
-        url: 'https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets=',
+        url: 'https://www.ebi.ac.uk/training/services/uniprot',
         label: 'Courses',
       },
     ],

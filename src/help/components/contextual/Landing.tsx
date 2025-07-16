@@ -73,7 +73,7 @@ const fallbackLandingContent = (
           </ExternalLink>
         </li>
         <li>
-          <ExternalLink url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets=">
+          <ExternalLink url="https://www.ebi.ac.uk/training/services/uniprot">
             Courses
           </ExternalLink>
         </li>

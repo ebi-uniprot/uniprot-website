@@ -961,7 +961,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
       <a
         class="external-link"
-        href="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
+        href="https://www.ebi.ac.uk/training/services/uniprot"
         rel="noopener"
         target="_blank"
       >
