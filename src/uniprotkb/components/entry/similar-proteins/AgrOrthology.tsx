@@ -78,6 +78,7 @@ const ORTHOLOGY_METHODS = [
     tooltip: 'Orthologs manually curated by ZFIN for Danio rerio.',
   },
 ];
+
 // With modification from https://github.com/alliance-genome/agr_ui/blob/f1ab35ab8a869e2956e87c8c19e0fcce2f7988ed/src/constants.js#L424C14-L424C20
 const TAXON_TO_INDEX = new Map(
   [
@@ -120,7 +121,7 @@ export const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'species',
     label: (
-      <WithTooltip tooltip="Target organism in which this ortholog candidate resides.">
+      <WithTooltip tooltip="Genus and species for the ortholog.">
         Species
       </WithTooltip>
     ),
@@ -131,7 +132,7 @@ export const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'gene-symbol',
     label: (
-      <WithTooltip tooltip="Gene symbol of the ortholog in the target species.">
+      <WithTooltip tooltip="Official gene symbol for the genetic marker, linked to the corresponding UniProtKB entries.">
         Gene Symbol
       </WithTooltip>
     ),
@@ -166,7 +167,7 @@ export const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'best',
     label: (
-      <WithTooltip tooltip="Indicates this gene is the top-scoring (highest-count) ortholog candidate within this species.">
+      <WithTooltip tooltip="Within the species, whether this gene is called the ortholog of the input gene by the highest number of algorithms.">
         Best
       </WithTooltip>
     ),
@@ -181,7 +182,7 @@ export const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'best-reverse',
     label: (
-      <WithTooltip tooltip="Indicates this gene pair is also the top-scoring (highest-count) ortholog when roles are reversed (reciprocal best hit).">
+      <WithTooltip tooltip="Within the species of the input gene, whether the input gene is called the ortholog of the gene by the highest number of algorithms.">
         Best Reverse
       </WithTooltip>
     ),
@@ -203,7 +204,7 @@ for (const [index, { method, tooltip }] of ORTHOLOGY_METHODS.entries()) {
       index,
       method,
       tooltip,
-      'Result of orthology-inference resource and algorithm methods.',
+      'A solid circle notes algorithms that made the orthology association. Dashes indicate the comparison was not performed.',
       (data) => data.geneToGeneOrthologyGenerated
     )
   );
@@ -213,7 +214,7 @@ columns.push({
   id: 'method-match-count',
   label: (
     <span className={styles['method-match-count-label']}>
-      <WithTooltip tooltip="Number of independent orthology-inference resource and algorithm methods that support this gene pair.">
+      <WithTooltip tooltip="The number of the 12 orthology methods that make the orthology association for the species.">
         Match count
       </WithTooltip>
     </span>
