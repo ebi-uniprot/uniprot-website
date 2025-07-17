@@ -80,7 +80,7 @@ export const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'gene-symbol',
     label: (
-      <WithTooltip tooltip="Gene symbol of the paralog in the same species.">
+      <WithTooltip tooltip="Official gene symbol for the genetic marker, linked to the corresponding UniProtKB entries.">
         Gene Symbol
       </WithTooltip>
     ),
@@ -105,7 +105,18 @@ export const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'rank',
     label: (
-      <WithTooltip tooltip="Rank of this gene among all paralog candidates based on supporting evidence.">
+      <WithTooltip
+        tooltip={`The ranking score is calculated using a weighted formula: Score = w₁ x (Alignment Length x Similarity %) + w₂ x (Alignment Length x Identity %) + w₃ x (Method Count) + w₄ x (Alignment Length).
+
+Where the weights are as follows:
+
+⋅ w₁ = 1.000: Weight for the absolute number of similar amino acids.
+⋅ w₂ = 1.000: Weight for the absolute number of identical amino acids.
+⋅ w₃ = 1.500: Weight for the method count.
+⋅ w₄ = 1.500: Weight for the alignment length.
+
+Multiple entries can share the same rank.`}
+      >
         Rank
       </WithTooltip>
     ),
@@ -114,7 +125,7 @@ export const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'length',
     label: (
-      <WithTooltip tooltip="Length (in amino acids) of the paralogous protein sequence.">
+      <WithTooltip tooltip="For the purpose of identifying alignment lengths, protein sequences were obtained from the NCBI RefSeq database release 207. In scenarios where multiple isoforms were available, the longest isoform was utilized. Alignments of the sequences were carried out via EMBOSS water software utilizing the BLOSUM62 matrix and retaining all default configurations.">
         Length
       </WithTooltip>
     ),
@@ -123,7 +134,7 @@ export const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'similarity',
     label: (
-      <WithTooltip tooltip="Percent sequence similarity between the query gene and its paralog.">
+      <WithTooltip tooltip="Includes not only identical matches but matches that are conservative substitutions.">
         Similarity
       </WithTooltip>
     ),
@@ -132,7 +143,7 @@ export const columns: TableFromDataColumn<AgrParalogsResult>[] = [
   {
     id: 'identity',
     label: (
-      <WithTooltip tooltip="Percent sequence identity between the query gene and its paralog.">
+      <WithTooltip tooltip="The percent of nucleotides that are the same in an alignment at the same position.">
         Identity
       </WithTooltip>
     ),
@@ -146,7 +157,7 @@ for (const [index, { method, tooltip }] of PARALOGY_METHODS.entries()) {
       index,
       method,
       tooltip,
-      'Result of paralogy-inference resource and algorithm methods.',
+      'A solid circle notes algorithms that made the paralogy association. Dashes indicate the comparison was not performed.',
       (data) => data.geneToGeneParalogy
     )
   );
@@ -156,7 +167,7 @@ columns.push({
   id: 'method-match-count',
   label: (
     <span className={styles['method-match-count-label']}>
-      <WithTooltip tooltip="Number of independent paralogy-inference resource and algorithm methods that support this gene pair.">
+      <WithTooltip tooltip="The number of the 10 paralogy methods that make the paralogy association.">
         Match count
       </WithTooltip>
     </span>
