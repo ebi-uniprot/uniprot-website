@@ -19,6 +19,19 @@ exports[`AgrOrthology should render 1`] = `
         width="12.5"
       />
     </a>
+     | 
+    <a
+      class="external-link"
+      href="//www.alliancegenome.org/help"
+      rel="noopener"
+      target="_blank"
+    >
+      View source help
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
   </div>
   <div>
     <div
@@ -36,11 +49,7 @@ exports[`AgrOrthology should render 1`] = `
           >
             <th />
             <th>
-              <span
-                style="display: inline-block;"
-              >
-                Species
-              </span>
+              Species
               <br />
               <select>
                 <option
@@ -86,11 +95,7 @@ exports[`AgrOrthology should render 1`] = `
               </select>
             </th>
             <th>
-              <span
-                style="display: inline-block;"
-              >
-                Gene Symbol
-              </span>
+              Gene Symbol
               <br />
               <select>
                 <option
@@ -151,11 +156,7 @@ exports[`AgrOrthology should render 1`] = `
               </select>
             </th>
             <th>
-              <span
-                style="display: inline-block;"
-              >
-                Best
-              </span>
+              Best
               <br />
               <select>
                 <option
@@ -176,11 +177,7 @@ exports[`AgrOrthology should render 1`] = `
               </select>
             </th>
             <th>
-              <span
-                style="display: inline-block;"
-              >
-                Best Reverse
-              </span>
+              Best Reverse
               <br />
               <select>
                 <option
@@ -207,18 +204,12 @@ exports[`AgrOrthology should render 1`] = `
                 <span
                   class="methods-label"
                 >
-                  <span
-                    style="display: inline-block;"
-                  >
-                    Method
-                  </span>
+                  Method
                 </span>
                 <div
                   class="method-label"
                 >
-                  <span
-                    style="display: inline-block;"
-                  >
+                  <span>
                     Ensembl Compara
                   </span>
                 </div>
@@ -228,9 +219,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   HGNC
                 </span>
               </div>
@@ -239,9 +228,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   Hieranoid
                 </span>
               </div>
@@ -250,9 +237,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   InParanoid
                 </span>
               </div>
@@ -261,9 +246,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   OMA
                 </span>
               </div>
@@ -272,9 +255,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   OrthoFinder
                 </span>
               </div>
@@ -283,9 +264,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   OrthoInspector
                 </span>
               </div>
@@ -294,9 +273,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   PANTHER
                 </span>
               </div>
@@ -305,9 +282,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   PhylomeDB
                 </span>
               </div>
@@ -316,9 +291,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   SonicParanoid
                 </span>
               </div>
@@ -327,9 +300,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   Xenbase
                 </span>
               </div>
@@ -338,9 +309,7 @@ exports[`AgrOrthology should render 1`] = `
               <div
                 class="method-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   ZFIN
                 </span>
               </div>
@@ -349,9 +318,7 @@ exports[`AgrOrthology should render 1`] = `
               <span
                 class="method-match-count-label"
               >
-                <span
-                  style="display: inline-block;"
-                >
+                <span>
                   Match count
                 </span>
               </span>
