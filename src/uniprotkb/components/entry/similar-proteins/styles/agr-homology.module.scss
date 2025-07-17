@@ -50,6 +50,7 @@
     margin-left: 1rem;
     margin-right: 1rem;
     & > span {
+      display: inline-block;
       white-space: nowrap;
       text-decoration: underline;
       transform: translate(5px, -25px) rotate(315deg);
@@ -67,6 +68,7 @@
     text-transform: none;
 
     & > span {
+      display: inline-block;
       transform: translate(0px, 117px) rotate(315deg);
       width: 1ch;
     }
