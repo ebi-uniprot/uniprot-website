@@ -5,6 +5,7 @@ import { stringifyUrl } from '../utils/url';
 import { fileFormatToUrlParameter } from './resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
+
 const externalUrls = {
   AlphaFoldPrediction: (id: string) =>
     `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
@@ -97,6 +98,7 @@ const externalUrls = {
     `https://www.alliancegenome.org/api/gene/${id}/${type}?filter.stringency=all&limit=10000`,
   AgrEntryHomologs: (id: string, section: 'orthology' | 'paralogy') =>
     `https://www.alliancegenome.org/gene/${id}#${section}`,
+  AgrHelp: '//www.alliancegenome.org/help',
 };
 
 export const getIntActQueryUrl = (

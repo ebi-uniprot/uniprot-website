@@ -211,6 +211,8 @@ const AgrOrthology = ({ agrId }: Props) => {
         <ExternalLink url={externalUrls.AgrEntryHomologs(agrId, 'orthology')}>
           View source data
         </ExternalLink>
+        {' | '}
+        <ExternalLink url={externalUrls.AgrHelp}>View source help</ExternalLink>
       </div>
       <TableFromData
         id="agr-orthology"
