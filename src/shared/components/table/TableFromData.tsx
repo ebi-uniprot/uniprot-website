@@ -1,6 +1,12 @@
 import cn from 'classnames';
 import { Message } from 'franklin-sites';
-import { ReactNode, useCallback, useMemo, useState } from 'react';
+import {
+  HTMLAttributes,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 
 import { MIN_ROWS_TO_EXPAND } from './constants';
 import styles from './styles/table.module.scss';
@@ -63,7 +69,7 @@ export type TableFromDataColumn<T> = {
 
 const OPTION_TYPES = new Set(['string', 'number']);
 
-type Props<T> = {
+type Props<T> = HTMLAttributes<HTMLTableElement> & {
   data: T[];
   columns: TableFromDataColumn<T>[];
   rowExtraContent?: (datum: T) => React.ReactNode;
@@ -77,6 +83,8 @@ type Props<T> = {
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
+
+const collator = new Intl.Collator('en');
 
 function TableFromData<T>({
   data,
@@ -103,6 +111,7 @@ function TableFromData<T>({
               return OPTION_TYPES.has(typeof r) ? r : null;
             })
             .filter((datum): datum is string => datum !== null)
+            .sort(collator.compare)
         );
       }
     }
