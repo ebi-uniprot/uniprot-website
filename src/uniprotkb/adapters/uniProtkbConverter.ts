@@ -53,7 +53,9 @@ export type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 
-export type AnnotationScoreValue = 1 | 2 | 3 | 4 | 5;
+export type AnnotationScoreValue = 0 | 1 | 2 | 3 | 4 | 5;
+// 0 usually not used, just added for the ProtNLM usecase but if you see this
+// comment later re-assess if it's still needed.
 
 export type UniProtKBSimplifiedTaxonomy = Omit<TaxonomyDatum, 'lineage'> & {
   lineage: string[];

@@ -10,6 +10,7 @@ type KeywordCategory =
   | 'Ligand'
   | 'Molecular function'
   | 'PTM'
-  | 'Technical term';
+  | 'Technical term'
+  | 'Unknown';
 
 export default KeywordCategory;
