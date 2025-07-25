@@ -2,9 +2,8 @@
  * @jest-environment node
  */
 
-import parseAndMatchQuery from '../parseAndMatchQuery';
-
 import searchTermsData from '../../components/__tests__/__mocks__/configureSearchTerms';
+import parseAndMatchQuery from '../parseAndMatchQuery';
 
 describe('query parser and validator', () => {
   test('with one xref', () => {

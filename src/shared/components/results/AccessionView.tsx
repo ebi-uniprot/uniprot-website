@@ -1,16 +1,12 @@
-import { Link } from 'react-router';
 import cn from 'classnames';
-
-import BasketStatus from '../../../basket/BasketStatus';
-import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
-
-import { reIds } from '../../../tools/utils/urls';
-
-import { Namespace, SearchableNamespace } from '../../types/namespaces';
-
+import BasketStatus from '../../../basket/BasketStatus';
+import { reIds } from '../../../jobs/utils/urls';
 import helper from '../../styles/helper.module.scss';
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
+import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';
 import styles from './styles/accession-view.module.scss';
 
 type Props = {

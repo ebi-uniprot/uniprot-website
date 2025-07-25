@@ -1,25 +1,22 @@
-import { useMemo } from 'react';
 import { groupBy } from 'lodash-es';
+import { useMemo } from 'react';
 
-import useUniProtDataVersion from './useUniProtDataVersion';
-import useDataApi from './useDataApi';
-
-import apiUrls from '../config/apiUrls/apiUrls';
-
-import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
-import accessionToNamespace from '../utils/accessionToNamespace';
-import { getIdKeyForNamespace } from '../utils/getIdKey';
-
-import { IdMaybeWithRange } from '../../tools/utils/urls';
-import { Namespace } from '../types/namespaces';
-import { SearchResults } from '../types/results';
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import { IdMaybeWithRange } from '../../jobs/utils/urls';
 import {
   UniParcAPIModel,
   UniParcLiteAPIModel,
 } from '../../uniparc/adapters/uniParcConverter';
+import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import apiUrls from '../config/apiUrls/apiUrls';
+import { Namespace } from '../types/namespaces';
+import { SearchResults } from '../types/results';
 import { FileFormat } from '../types/resultsDownload';
+import accessionToNamespace from '../utils/accessionToNamespace';
+import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';
+import { getIdKeyForNamespace } from '../utils/getIdKey';
+import useDataApi from './useDataApi';
+import useUniProtDataVersion from './useUniProtDataVersion';
 
 const groupByNamespace = ({ id }: IdMaybeWithRange) => accessionToNamespace(id);
 

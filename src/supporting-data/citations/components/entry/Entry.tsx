@@ -1,27 +1,23 @@
+import { Card, Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { Loader, Card } from 'franklin-sites';
 import { useParams } from 'react-router';
 import { SetOptional } from 'type-fest';
 
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import LiteratureCitation from '../LiteratureCitation';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
-import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
-import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
-import { CitationsAPIModel } from '../../adapters/citationsConverter';
-
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
+import { CitationsAPIModel } from '../../adapters/citationsConverter';
+import LiteratureCitation from '../LiteratureCitation';
 
 const CitationsEntry = () => {
   const { accession } = useParams<{ accession: string }>();

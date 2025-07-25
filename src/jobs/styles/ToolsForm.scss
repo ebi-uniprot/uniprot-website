@@ -1,0 +1,111 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+.tools-form-raw-text-input {
+  height: 30vh;
+  vertical-align: top;
+  font-family: $font-family-monospace;
+}
+
+.tools-form-section {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 2rem;
+
+  &--compact {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+  }
+
+  &--right {
+    float: right;
+  }
+
+  &__buttons {
+    align-items: center;
+
+    button {
+      font-weight: bold;
+    }
+  }
+
+  &__item {
+    display: inline-block;
+    margin-right: 2rem;
+
+    &--taxon-select {
+      width: 20rem;
+    }
+
+    &--selected-taxon {
+      margin-top: 1.5rem;
+    }
+
+    & [name='title'] {
+      // so that we have a calculable size in ch units
+      font-family: monospace;
+      min-width: 25ch;
+    }
+
+    &--full-width {
+      width: 100%;
+    }
+
+    &--hidden {
+      display: none;
+    }
+
+    &--compact {
+      margin-top: 1rem;
+      margin-bottom: 0rem;
+    }
+  }
+
+  &__file-input {
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 0.5ch;
+    color: $primary-color;
+    cursor: pointer;
+    user-select: none;
+
+    & input[type='file'] {
+      display: none;
+    }
+  }
+}
+
+.tools-form-warning-submit {
+  float: right;
+
+  & button.button[type='submit'] {
+    --main-color: var(--fr--color-warning);
+  }
+}
+.tools-form-advanced > summary {
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+
+  & > span {
+    position: relative;
+    display: inline;
+    font-size: 1.5em;
+    font-weight: bold;
+
+    &:after {
+      content: '';
+      position: absolute;
+      border-bottom: 2px solid $colour-gainsborough;
+      margin: auto;
+      height: 75%;
+      width: 100vw;
+      left: calc(100% + 1ch);
+    }
+  }
+}
+
+.import-sequence-section {
+  display: flex;
+}

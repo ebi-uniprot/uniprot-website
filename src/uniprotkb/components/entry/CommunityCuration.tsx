@@ -1,19 +1,16 @@
-import {
-  ExternalLink,
-  HeroContainer,
-  CommunityAnnotationIcon,
-  ChevronDownIcon,
-  Card,
-} from 'franklin-sites';
 import cn from 'classnames';
-
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import {
+  Card,
+  ChevronDownIcon,
+  CommunityAnnotationIcon,
+  HeroContainer,
+} from 'franklin-sites';
 
 import ORCIDiDLogo from '../../../images/ORCIDiD_icon.png';
-
-import { processUrlTemplate } from '../../../shared/utils/xrefs';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
-
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import {
   Citation,
   CommunityAnnotation,
@@ -21,7 +18,6 @@ import {
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import EntrySection from '../../types/entrySection';
 import { DatabaseInfoMaps } from '../../utils/database';
-
 import styles from './styles/community-curation.module.scss';
 
 const annotationGetter = (section: EntrySection) => {

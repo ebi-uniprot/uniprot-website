@@ -1,15 +1,11 @@
+import { fireEvent, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { screen, fireEvent } from '@testing-library/react';
 
+import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
 import customRender from '../../../__test-helpers__/customRender';
-
-import SequenceView from '../SequenceView';
-
 import useDataApi from '../../../hooks/useDataApi';
-
-import { FormParameters } from '../../../../tools/types/toolsFormParameters';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-
+import SequenceView from '../SequenceView';
 import SequenceUIDataJson from './__mocks__/sequenceUIData';
 
 jest.mock('../../../hooks/useDataApi.ts');

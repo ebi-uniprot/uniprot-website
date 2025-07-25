@@ -1,16 +1,14 @@
-import { Link } from 'react-router';
 import { ExpandableList } from 'franklin-sites';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
-import AccessionView from '../../../shared/components/results/AccessionView';
-import GeneOntologies from '../../../shared/components/results/GeneOntologies';
+import { Link } from 'react-router';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-
-import { LocationsAPIModel } from '../adapters/locationsConverter';
+import AccessionView from '../../../shared/components/results/AccessionView';
+import GeneOntologies from '../../../shared/components/results/GeneOntologies';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+import { LocationsAPIModel } from '../adapters/locationsConverter';
 
 export enum LocationsColumn {
   category = 'category',

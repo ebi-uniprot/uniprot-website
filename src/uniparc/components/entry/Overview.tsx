@@ -1,11 +1,10 @@
-import { Fragment } from 'react';
 import { InfoList } from 'franklin-sites';
+import { Fragment } from 'react';
 import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
-
-import { UniParcUIModel } from '../../adapters/uniParcConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import { UniParcUIModel } from '../../adapters/uniParcConverter';
 
 type Props = {
   data: UniParcUIModel;

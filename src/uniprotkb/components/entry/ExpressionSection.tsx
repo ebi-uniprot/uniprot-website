@@ -1,16 +1,14 @@
-import { memo } from 'react';
 import { Card } from 'franklin-sites';
+import { memo } from 'react';
 
 import { hasContent } from '../../../shared/utils/utils';
+import { UIModel } from '../../adapters/sectionConverter';
+import { FreeTextComment } from '../../types/commentTypes';
+import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
-
-import EntrySection from '../../types/entrySection';
-import { UIModel } from '../../adapters/sectionConverter';
-import { FreeTextComment } from '../../types/commentTypes';
 
 type Props = {
   data: UIModel;

@@ -1,11 +1,9 @@
-import { InfoList, ExpandableList } from 'franklin-sites';
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
-
-import { Namespace } from '../../../shared/types/namespaces';
-
 import { Xref } from '../../../shared/types/apiModel';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type Props = {
   data?: Xref[];

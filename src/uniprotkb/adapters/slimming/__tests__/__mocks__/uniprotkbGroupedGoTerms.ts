@@ -1,9 +1,8 @@
-import { getAspectGroupedGoTerms } from '../../../functionConverter';
+import mock from '../../../../__mocks__/nonHumanEntryModelData';
+import { getAspectGroupedGoTermsWithoutCellComp } from '../../../functionConverter';
 import { convertXrefProperties } from '../../../uniProtkbConverter';
 
-import mock from '../../../../__mocks__/nonHumanEntryModelData';
-
-const uniprotkbGroupedGoTerms = getAspectGroupedGoTerms(
+const uniprotkbGroupedGoTerms = getAspectGroupedGoTermsWithoutCellComp(
   convertXrefProperties(mock.uniProtKBCrossReferences)
 );
 export default uniprotkbGroupedGoTerms;

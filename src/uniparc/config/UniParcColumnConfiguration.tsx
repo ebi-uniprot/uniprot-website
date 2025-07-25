@@ -1,23 +1,20 @@
+import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
+import { partialRight } from 'lodash-es';
 import { Fragment } from 'react';
 import { Link } from 'react-router';
-import { partialRight } from 'lodash-es';
-import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 
+import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../shared/components/ExternalLink';
 import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyView from '../../shared/components/entry/TaxonomyView';
-
-import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
-
 import externalUrls from '../../shared/config/externalUrls';
-import { getEntryPath } from '../../app/config/urls';
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-
+import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
-
-import { Namespace } from '../../shared/types/namespaces';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { TabLocation } from '../../uniprotkb/types/entry';
 import {
   SequenceFeature,
   UniParcLiteAPIModel,
@@ -55,7 +52,7 @@ export enum UniParcColumn {
   smart = 'SMART',
   supfam = 'SUPFAM',
   ncbifam = 'NCBIfam',
-  funfam = 'FUNFAM',
+  funfam = 'FunFam',
   from = 'from',
 }
 
@@ -225,7 +222,7 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
 UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
   ...getLabelAndTooltip(
     'Common taxonomies',
-    'Common taxonomy identifiers shared by the sequence',
+    'Common taxonomy identifier(s) shared by the sequence as well as their corresponding top-level taxonomy within the taxonomy tree. It could be lower-level organisms or higher-level taxons if the sequence is present in multiple organisms',
     'taxonomic_identifier'
   ),
   render: ({ commonTaxons }) => (
@@ -247,8 +244,8 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
 
 UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {
   ...getLabelAndTooltip(
-    'Common Taxononmy IDs',
-    'Common taxonomy identifiers shared by the sequence',
+    'Common Taxonomy IDs',
+    'Common taxonomy identifier(s) shared by the sequence. It could be lower-level organisms or higher-level taxons if the sequence is present in multiple organisms',
     'taxonomic_identifier'
   ),
   render: ({ commonTaxons }) => (
@@ -292,7 +289,7 @@ UniParcColumnConfiguration.set(UniParcColumn.sequence, {
 UniParcColumnConfiguration.set(UniParcColumn.accession, {
   ...getLabelAndTooltip(
     'UniProtKB',
-    'UniProtKB entries describing this protein'
+    'UniProtKB entry or entries describing this protein'
   ),
   render: ({ uniProtKBAccessions }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
@@ -303,7 +300,7 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
         ) : (
           <Link
             key={accession}
-            to={getEntryPath(Namespace.uniprotkb, accession)}
+            to={getEntryPath(Namespace.uniprotkb, accession, TabLocation.Entry)}
           >
             {accession}
           </Link>
@@ -398,8 +395,8 @@ UniParcColumnConfiguration.set(UniParcColumn.ncbifam, {
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.funfam, {
-  label: 'FUNFAM',
-  render: partialRight(familyAndDomainRenderer, 'FUNFAM', (id: string) =>
+  label: 'FunFam',
+  render: partialRight(familyAndDomainRenderer, 'FunFam', (id: string) =>
     externalUrls.Funfam(id)
   ),
 });

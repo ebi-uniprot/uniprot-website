@@ -1,11 +1,10 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router';
 
-import { RichText } from './FreeTextView';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { RichText } from './FreeTextView';
 
 // For Ligand and LigandPart context refer to:
 // https://github.com/ebi-uniprot/uniprot-manual/blob/main/release-notes/2022-08-03-release.md#structuring-of-binding-site-annotations

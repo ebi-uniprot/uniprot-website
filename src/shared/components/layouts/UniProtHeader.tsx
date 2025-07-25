@@ -1,26 +1,21 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
-import { Link, useMatch, useLocation } from 'react-router';
-import { Header, Dropdown, Button } from 'franklin-sites';
 import cn from 'classnames';
-import { WithContext, Organization } from 'schema-dts';
+import { Button, Dropdown, Header } from 'franklin-sites';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { Link, useLocation, useMatch } from 'react-router';
+import { Organization, WithContext } from 'schema-dts';
 
-import ReleaseInfo from './ReleaseInfo';
-import SecondaryItems from './SecondaryItems';
-
-import useNS from '../../hooks/useNS';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-import useMatchMedia from '../../hooks/useMatchMedia';
-import useStructuredData from '../../hooks/useStructuredData';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
 import description from '../../../app/config/description';
 import * as socialUrls from '../../../app/config/socialUrls';
-
-import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
-
-import styles from './styles/uniprot-header.module.scss';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import Logo from '../../../images/uniprot-logo.img.svg';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import useMatchMedia from '../../hooks/useMatchMedia';
+import useNS from '../../hooks/useNS';
+import useStructuredData from '../../hooks/useStructuredData';
+import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
+import ReleaseInfo from './ReleaseInfo';
+import SecondaryItems from './SecondaryItems';
+import styles from './styles/uniprot-header.module.scss';
 
 const SearchContainer = lazy(
   () =>

@@ -1,12 +1,12 @@
-import KeywordCategory from '../types/keywordCategory';
-import { FamilyAndDomainsFeatures } from '../types/featureType';
-import EntrySection from '../types/entrySection';
-import { CommentType } from '../types/commentTypes';
-import { convertSection } from './sectionConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
+import { CommentType } from '../types/commentTypes';
+import EntrySection from '../types/entrySection';
+import { FamilyAndDomainsFeatures } from '../types/featureType';
+import KeywordCategory from '../types/keywordCategory';
 import { DatabaseInfoMaps } from '../utils/database';
+import { convertSection } from './sectionConverter';
+import { UniProtkbAPIModel } from './uniProtkbConverter';
 
 const keywordsCategories: KeywordCategory[] = ['Domain'];
 

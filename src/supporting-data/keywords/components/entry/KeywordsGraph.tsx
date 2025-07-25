@@ -1,13 +1,10 @@
+import { select } from 'd3';
 import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router';
-import { select } from 'd3';
-
-import useSize from '../../../../shared/hooks/useSize';
 
 import { getEntryPathFor } from '../../../../app/config/urls';
-
+import useSize from '../../../../shared/hooks/useSize';
 import { Namespace } from '../../../../shared/types/namespaces';
-
 import styles from './styles/keywords-graph.module.scss';
 
 const ARROW_WIDTH = 6;

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import initializer from '../utils/fieldInitializer';
-
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import initializer from '../utils/fieldInitializer';
 
 export type GoEvidenceFieldProps = {
   field: SearchTermType;
@@ -21,10 +20,9 @@ const GoEvidenceField = ({
 
   useEffect(() => {
     const trimmed = value?.trim();
-    if (trimmed) {
-      // GO has term:go for both GO-ID and evidence so use go_evidence for the query bit key instead
-      const queryBitKey =
-        field.id === 'go_evidence' ? 'go_evidence' : field.term;
+    // GO has term:go for both GO-ID and evidence so use go_evidence for the query bit key instead
+    const queryBitKey = field.id === 'go_evidence' ? 'go_evidence' : field.term;
+    if (trimmed && queryBitKey) {
       handleChange({ [queryBitKey]: trimmed });
     }
   }, [field, value, handleChange]);

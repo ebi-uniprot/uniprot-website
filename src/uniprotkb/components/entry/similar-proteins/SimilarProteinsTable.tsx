@@ -1,22 +1,20 @@
 import { DataTable, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router';
 
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-
+import helper from '../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
-import {
-  LocationToPath,
-  Location,
-  getEntryPath,
-} from '../../../../app/config/urls';
 import { stringifyQuery } from '../../../../shared/utils/url';
-
+import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
-
-import helper from '../../../../shared/styles/helper.module.scss';
+import { TabLocation } from '../../../types/entry';
 
 export const columns = [
   UniProtKBColumn.id,
@@ -38,7 +36,13 @@ const columnConfig = [
     label: 'Protein name',
     name: 'protein_name',
     render: (row: UniProtkbAPIModel) => (
-      <Link to={getEntryPath(Namespace.uniprotkb, row.primaryAccession)}>
+      <Link
+        to={getEntryPath(
+          Namespace.uniprotkb,
+          row.primaryAccession,
+          TabLocation.Entry
+        )}
+      >
         {row.proteinDescription?.recommendedName?.fullName.value ||
           row.proteinDescription?.submissionNames?.[0].fullName.value}
       </Link>

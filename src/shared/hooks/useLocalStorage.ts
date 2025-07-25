@@ -1,16 +1,15 @@
 import {
+  Dispatch,
+  SetStateAction,
   useCallback,
   useEffect,
   useState,
-  Dispatch,
-  SetStateAction,
 } from 'react';
 import { frame } from 'timing-functions';
 import { JsonValue } from 'type-fest';
 
-import * as logging from '../utils/logging';
-
 import { Namespace } from '../types/namespaces';
+import * as logging from '../utils/logging';
 
 export type UserPreferenceKey =
   // gpdr banner

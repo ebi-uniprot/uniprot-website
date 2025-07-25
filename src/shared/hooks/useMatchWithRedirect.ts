@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useNavigate, useMatch, useLocation, generatePath } from 'react-router';
+import { generatePath, useLocation, useMatch, useNavigate } from 'react-router';
 
-import { LocationToPath, Location } from '../../app/config/urls';
+import { Location, LocationToPath } from '../../app/config/urls';
 
 // Typos identified in Google Search Console of websites linking to wrong URL
 const weirdTypos = /^ |.html?$|;|&.*$/g;

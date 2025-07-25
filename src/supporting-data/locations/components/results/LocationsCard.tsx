@@ -1,21 +1,18 @@
-import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { useMemo } from 'react';
 import { Link } from 'react-router';
 
-import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
-import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
-
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 import { mapToLinks } from '../../../../shared/components/MapTo';
-
-import { LocationsAPIModel } from '../../adapters/locationsConverter';
+import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
+import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import { LocationsAPIModel } from '../../adapters/locationsConverter';
 import LocationsColumnConfiguration, {
   LocationsColumn,
 } from '../../config/LocationsColumnConfiguration';
-
-import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
 const category = LocationsColumnConfiguration.get(LocationsColumn.category);
 

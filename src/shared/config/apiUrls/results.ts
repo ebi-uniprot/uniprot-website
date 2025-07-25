@@ -1,25 +1,23 @@
 import joinUrl from 'url-join';
 
 import {
-  SortDirection,
   getApiSortDirection,
+  SortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
+import { Namespace } from '../../types/namespaces';
+import { DownloadUrlOptions } from '../../types/results';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   createFacetsQueryString,
   createSelectedQueryString,
   stringifyUrl,
 } from '../../utils/url';
-
 import {
-  fileFormatToUrlParameter,
   fileFormatsWithColumns,
+  fileFormatToUrlParameter,
 } from '../resultsDownload';
 import { apiPrefix } from './apiPrefix';
 import { searchPrefix } from './search';
-
-import { Namespace } from '../../types/namespaces';
-import { FileFormat } from '../../types/resultsDownload';
-import { DownloadUrlOptions } from '../../types/results';
 
 const streamPrefix = (namespace: Namespace) =>
   joinUrl(apiPrefix, namespace, 'stream');
@@ -43,6 +41,8 @@ type Parameters = {
   jobId?: string;
 };
 
+export const reProteomeId = /^\(*(upid|proteome):(UP\d+)\)*$/i;
+
 export const download = ({
   base,
   query,
@@ -59,6 +59,7 @@ export const download = ({
   accessions,
   download: isDownload = true,
   jobId,
+  uniparcProteomeFastaHeader,
 }: DownloadUrlOptions) => {
   // If the consumer of this fn has specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
@@ -149,6 +150,29 @@ export const download = ({
   // ID Mapping Async Download
   if (jobId) {
     parameters.jobId = jobId;
+  }
+
+  // UniParc proteome fasta endpoint
+  if (uniparcProteomeFastaHeader) {
+    const match = query?.match(reProteomeId);
+    if (match) {
+      const proteomeId = match[2];
+      if (size) {
+        endpoint = joinUrl(apiPrefix, namespace, 'proteome', proteomeId);
+      } else {
+        endpoint = joinUrl(
+          apiPrefix,
+          namespace,
+          'proteome',
+          proteomeId,
+          'stream'
+        );
+      }
+    }
+    return stringifyUrl(endpoint, {
+      format: fileFormatToUrlParameter[fileFormat],
+      compressed,
+    });
   }
   return stringifyUrl(endpoint, parameters);
 };

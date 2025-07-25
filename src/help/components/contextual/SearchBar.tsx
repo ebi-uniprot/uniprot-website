@@ -1,12 +1,10 @@
 import { SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
-import { useMemo, useEffect, useCallback, ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringifyQuery } from '../../../shared/utils/url';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-
 import styles from './styles/search-bar.module.scss';
 
 const SearchBar = ({ isLoading }: { isLoading: boolean }) => {

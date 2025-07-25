@@ -1,29 +1,26 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router';
-import { ExternalLink } from 'franklin-sites';
 
-import Timeline from '../components/entry/Timeline';
+import { getEntryPath } from '../../app/config/urls';
+import BasketStatus from '../../basket/BasketStatus';
 import EntryTypeIcon, {
   EntryType,
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
-import BasketStatus from '../../basket/BasketStatus';
-import EvidenceLink from '../../uniprotkb/components/protein-data-views/EvidenceLink';
-
-import { getEntryPath } from '../../app/config/urls';
-
-import parseDate from '../../shared/utils/parseDate';
-import * as logging from '../../shared/utils/logging';
-
+import ExternalLink from '../../shared/components/ExternalLink';
+import { ColumnDescriptor } from '../../shared/hooks/useColumns';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
+import * as logging from '../../shared/utils/logging';
+import parseDate from '../../shared/utils/parseDate';
+import EvidenceLink from '../../uniprotkb/components/protein-data-views/EvidenceLink';
+import { TabLocation } from '../../uniprotkb/types/entry';
 import {
   databaseToEntryType,
   UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
-import { ColumnDescriptor } from '../../shared/hooks/useColumns';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { TabLocation } from '../../uniprotkb/types/entry';
+import Timeline from '../components/entry/Timeline';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy

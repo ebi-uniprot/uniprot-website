@@ -1,12 +1,10 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import ComponentsDownload from '../ComponentsDownload';
-
-import { stringifyQuery } from '../../../../shared/utils/url';
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import { FileFormat } from '../../../../shared/types/resultsDownload';
+import { stringifyQuery } from '../../../../shared/utils/url';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import ComponentsDownload from '../ComponentsDownload';
 
 const initialColumns = [
   UniProtKBColumn.accession,
@@ -107,8 +105,18 @@ describe('Download proteins for a redundant proteome', () => {
         route: '/proteomes/UP000006503',
       }
     );
-    const downloadLink = screen.getByRole<HTMLAnchorElement>('link');
-    expect(downloadLink.href).toContain('uniparc');
+    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        '/uniparc/proteome/UP000006503/stream?compressed=true&format=fasta'
+      )
+    );
+    fireEvent.click(
+      screen.getByLabelText(
+        'Proceed with FASTA header for proteomes (recommended).'
+      )
+    );
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );

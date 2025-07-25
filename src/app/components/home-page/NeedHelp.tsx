@@ -1,39 +1,32 @@
-import { useMemo, lazy } from 'react';
-import { Link } from 'react-router';
+import cn from 'classnames';
 import {
-  HeroContainer,
-  Loader,
   CalendarIcon,
   CameraIcon,
-  WorldIcon,
+  HeroContainer,
+  Loader,
   LocationPinIcon,
+  WorldIcon,
 } from 'franklin-sites';
-import cn from 'classnames';
+import { lazy, useMemo } from 'react';
+import { Link } from 'react-router';
 
-import LazyComponent from '../../../shared/components/LazyComponent';
 import ContactLink from '../../../contact/components/ContactLink';
+import LinkedInLogo from '../../../images/linkedin-logo.svg';
+import traingImg from '../../../images/training.jpg';
+import XLogo from '../../../images/x-logo.svg';
 import ExternalLink from '../../../shared/components/ExternalLink';
-
+import LazyComponent from '../../../shared/components/LazyComponent';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
-
-import parseDate from '../../../shared/utils/parseDate';
 import cleanText, {
   cleanTextDefaultOptions,
   getTransformTags,
 } from '../../../shared/utils/cleanText';
-
-import { LocationToPath, Location } from '../../config/urls';
+import parseDate from '../../../shared/utils/parseDate';
 import { linkedIn, twitterX } from '../../config/socialUrls';
-
-import dataToSchema, { isCourseOnsite } from './training.structured';
-
+import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
-
-import LinkedInLogo from '../../../images/linkedin-logo.svg';
-import XLogo from '../../../images/x-logo.svg';
-
-import traingImg from '../../../images/training.jpg';
+import dataToSchema, { isCourseOnsite } from './training.structured';
 
 const YouTubeEmbed = lazy(
   () =>
@@ -246,7 +239,7 @@ const NeedHelp = () => {
           <CameraIcon width="1.5em" /> Tutorial &amp; videos
         </ExternalLink>
         <ExternalLink
-          url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
+          url="https://www.ebi.ac.uk/training/services/uniprot"
           noIcon
         >
           <WorldIcon width="1.5em" /> Online courses

@@ -1,7 +1,6 @@
+import { UniRefMember, UniRefUIModel } from '../adapters/uniRefConverter';
 import MembersSection from '../components/entry/MembersSection';
 import SequenceSection from '../components/entry/SequenceSection';
-
-import { UniRefMember, UniRefUIModel } from '../adapters/uniRefConverter';
 import EntrySection from '../types/entrySection';
 
 const UniRefEntryConfig: {
@@ -16,6 +15,7 @@ const UniRefEntryConfig: {
     id: EntrySection.Sequence,
     sectionContent: (data) => (
       <SequenceSection
+        id={data.id}
         data={data[EntrySection.Sequence].sequence}
         key={EntrySection.Sequence}
       />

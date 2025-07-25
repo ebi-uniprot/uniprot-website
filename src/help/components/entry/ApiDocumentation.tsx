@@ -1,13 +1,11 @@
-import { Tabs, Tab } from 'franklin-sites';
+import { Tab, Tabs } from 'franklin-sites';
 import { useEffect } from 'react';
-import { generatePath, Link, useNavigate, useMatch } from 'react-router';
+import { generatePath, Link, useMatch, useNavigate } from 'react-router';
 
-import DocumentationTab from './ApiDocumentationTab';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
-
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
+import DocumentationTab from './ApiDocumentationTab';
 
 const ApiDocumentation = () => {
   const navigate = useNavigate();

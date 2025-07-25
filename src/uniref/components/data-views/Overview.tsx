@@ -1,33 +1,27 @@
-import { Link } from 'react-router';
+import cn from 'classnames';
 import {
-  SpinnerIcon,
-  TremblIcon,
-  SwissProtIcon,
-  UniParcIcon,
   InfoList,
   LongNumber,
+  SpinnerIcon,
+  SwissProtIcon,
+  TremblIcon,
+  UniParcIcon,
 } from 'franklin-sites';
-import cn from 'classnames';
+import { Link } from 'react-router';
 
-import MemberLink from '../entry/MemberLink';
-import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { pluralise } from '../../../shared/utils/utils';
-import parseDate from '../../../shared/utils/parseDate';
 import { getEntryPath } from '../../../app/config/urls';
-import apiUrls from '../../config/apiUrls';
-
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-
+import parseDate from '../../../shared/utils/parseDate';
+import { pluralise } from '../../../shared/utils/utils';
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
-
+import apiUrls from '../../config/apiUrls';
 import {
-  UniRefMembersResults,
   uniRefMembersFacets,
+  UniRefMembersResults,
 } from '../../types/membersEndpoint';
-
+import MemberLink from '../entry/MemberLink';
 import styles from './styles/overview.module.scss';
 
 enum MemberTypes {

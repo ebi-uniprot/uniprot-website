@@ -1,27 +1,23 @@
+import { ExpandableList, InfoList } from 'franklin-sites';
 import { Fragment, ReactNode } from 'react';
-import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router';
 
-import ExternalLink from '../ExternalLink';
-import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import LazyComponent from '../LazyComponent';
-
-import useDataApi from '../../hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
-import { pluralise } from '../../utils/utils';
-
-import { Namespace } from '../../types/namespaces';
-import { Lineage } from '../../types/apiModel';
+import { ReferenceComment } from '../../../supporting-data/citations/adapters/citationsConverter';
 import {
   TaxonomyAPIModel,
   TaxonomyDatum,
 } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { ReferenceComment } from '../../../supporting-data/citations/adapters/citationsConverter';
-
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import externalUrls from '../../config/externalUrls';
+import useDataApi from '../../hooks/useDataApi';
+import { Lineage } from '../../types/apiModel';
+import { Namespace } from '../../types/namespaces';
+import { pluralise } from '../../utils/utils';
+import ExternalLink from '../ExternalLink';
+import LazyComponent from '../LazyComponent';
 import styles from './styles/taxonomy-view.module.css';
 
 const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
@@ -33,7 +29,7 @@ const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
       <Link
         to={getEntryPath(Namespace.taxonomy, taxonId)}
       >{`${taxonId} `}</Link>
-      <ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>
+      (<ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>)
     </>
   );
 };

@@ -1,60 +1,54 @@
-import {
-  useMemo,
-  Fragment,
-  useRef,
-  useEffect,
-  useState,
-  lazy,
-  ReactNode,
-  Suspense,
-  useId,
-} from 'react';
-import { Link, useLocation } from 'react-router';
-import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
-import cn from 'classnames';
-import { PartialDeep, SetRequired } from 'type-fest';
+import NightingaleManager from '@nightingale-elements/nightingale-manager';
 import {
   ProteinsAPIVariation,
   transformData,
 } from '@nightingale-elements/nightingale-variation';
-import NightingaleManager from '@nightingale-elements/nightingale-manager';
+import cn from 'classnames';
+import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
 import { filterConfig } from 'protvista-uniprot';
+import {
+  Fragment,
+  lazy,
+  ReactNode,
+  Suspense,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Link, useLocation } from 'react-router';
+import { PartialDeep, SetRequired } from 'type-fest';
 
-import ExternalLink from '../../../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
-import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
-import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
+import { getEntryPath } from '../../../../../app/config/urls';
+import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
-import NightingaleManagerComponent from '../../../../../shared/custom-elements/NightingaleManager';
+import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
+import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
+import ExternalLink from '../../../../../shared/components/ExternalLink';
 import TableFromData, {
   TableFromDataColumn,
 } from '../../../../../shared/components/table/TableFromData';
-
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
+import externalUrls from '../../../../../shared/config/externalUrls';
+import { VARIANT_COUNT_LIMIT } from '../../../../../shared/config/limits';
+import NightingaleManagerComponent from '../../../../../shared/custom-elements/NightingaleManager';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNightingaleFeatureTableScroll';
-
-import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
-import externalUrls from '../../../../../shared/config/externalUrls';
-
-import { sortByLocation } from '../../../../utils';
-import { getEntryPath } from '../../../../../app/config/urls';
+import helper from '../../../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../../../shared/types/namespaces';
 import {
   NightingaleViewRange,
   withinRange,
 } from '../../../../../shared/utils/nightingale';
-
-import { VARIANT_COUNT_LIMIT } from '../../../../../shared/config/limits';
-
-import { Evidence } from '../../../../types/modelTypes';
-import { Namespace } from '../../../../../shared/types/namespaces';
 import { TabLocation } from '../../../../types/entry';
-import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
+import { Evidence } from '../../../../types/modelTypes';
 import { TransformedVariant } from '../../../../types/variation';
-
-import styles from './styles/variation-viewer.module.scss';
+import { sortByLocation } from '../../../../utils';
+import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import tabsStyles from '../styles/tabs-styles.module.scss';
-import helper from '../../../../../shared/styles/helper.module.scss';
+import styles from './styles/variation-viewer.module.scss';
 
 const VisualVariationView = lazy(
   () =>
@@ -133,6 +127,9 @@ const getHighlightedCoordinates = (feature?: TransformedVariant) =>
 
 const getRowId = (data: TransformedVariant) => data.accession;
 
+const uuidRegExp =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
 const getColumns = (
   primaryAccession: string
 ): TableFromDataColumn<TransformedVariant>[] => [
@@ -149,7 +146,16 @@ const getColumns = (
       <>
         {
           // note that the type needs to be updated, xrefs is optional on association object
-          Array.from(new Set(data.xrefs?.map((xref) => xref.id)))
+          Array.from(
+            new Set(
+              data.xrefs
+                ?.map((xref) => xref.id)
+                // TODO: check if this can be removed, some variant IDs where
+                // UUIDs (mainly from NCI-TCGA, example P15056), that's not
+                // expected and not user friendly. Needs changes in Proteins API
+                .filter((id) => !uuidRegExp.test(id))
+            )
+          )
             .sort(sortIDByUniProtFirst)
             .map((id, i) => (
               <Fragment key={id}>

@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2025-02-04
+// Retrieved: 2025-06-19
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -790,6 +790,12 @@ const mock = [
         id: 'protein-protein_interaction/elm',
       },
       {
+        label: 'FunCoup',
+        name: 'xref_funcoup',
+        isMultiValueCrossReference: true,
+        id: 'protein-protein_interaction/funcoup',
+      },
+      {
         label: 'IntAct',
         name: 'xref_intact',
         isMultiValueCrossReference: true,
@@ -855,6 +861,12 @@ const mock = [
         name: 'xref_allergome',
         isMultiValueCrossReference: true,
         id: 'protein_family/group/allergome',
+      },
+      {
+        label: 'CARD',
+        name: 'xref_card',
+        isMultiValueCrossReference: true,
+        id: 'protein_family/group/card',
       },
       {
         label: 'CAZy',
@@ -1102,6 +1114,12 @@ const mock = [
         label: 'DNASU',
         name: 'xref_dnasu',
         id: 'protocols_and_materials/dnasu',
+      },
+      {
+        label: 'YCharOS',
+        name: 'xref_ycharos',
+        isMultiValueCrossReference: true,
+        id: 'protocols_and_materials/ycharos',
       },
     ],
   },
@@ -1447,6 +1465,12 @@ const mock = [
         id: 'phylogenomic/orthodb',
       },
       {
+        label: 'PAN-GO',
+        name: 'xref_pan-go',
+        isMultiValueCrossReference: true,
+        id: 'phylogenomic/pan-go',
+      },
+      {
         label: 'PhylomeDB',
         name: 'xref_phylomedb',
         id: 'phylogenomic/phylomedb',
@@ -1508,6 +1532,12 @@ const mock = [
         id: 'enzyme_and_pathway/signor',
       },
       {
+        label: 'STRENDA-DB',
+        name: 'xref_strenda-db',
+        isMultiValueCrossReference: true,
+        id: 'enzyme_and_pathway/strenda-db',
+      },
+      {
         label: 'SignaLink',
         name: 'xref_signalink',
         id: 'enzyme_and_pathway/signalink',
@@ -1530,6 +1560,12 @@ const mock = [
         name: 'xref_biogrid-orcs',
         isMultiValueCrossReference: true,
         id: 'other/biogrid-orcs',
+      },
+      {
+        label: 'CD-CODE',
+        name: 'xref_cd-code',
+        isMultiValueCrossReference: true,
+        id: 'other/cd-code',
       },
       {
         label: 'ChiTaRS',

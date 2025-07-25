@@ -1,33 +1,25 @@
+import cn from 'classnames';
+import { LongNumber, SwissProtIcon, TremblIcon } from 'franklin-sites';
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router';
-import {
-  ExternalLink,
-  LongNumber,
-  SwissProtIcon,
-  TremblIcon,
-} from 'franklin-sites';
-import cn from 'classnames';
 
-import StatisticsChart from './StatisticsChart';
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
-
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import ftpUrls from '../../../shared/config/ftpUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
-
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPath,
-} from '../../../app/config/urls';
-import ftpUrls from '../../../shared/config/ftpUrls';
-import { stringifyQuery } from '../../../shared/utils/url';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { SearchResults } from '../../../shared/types/results';
 import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { FacetsEnum } from '../../config/UniProtKBFacetConfiguration';
-
+import StatisticsChart from './StatisticsChart';
 import styles from './styles/landing-page.module.scss';
 
 const availableFTPFormats = {

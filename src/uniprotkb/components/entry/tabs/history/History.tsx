@@ -1,6 +1,4 @@
-import { Fragment, useMemo, ReactNode, useState, Suspense } from 'react';
-import { Link, useLocation } from 'react-router';
-import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
+import cn from 'classnames';
 import {
   Button,
   Card,
@@ -10,29 +8,27 @@ import {
   Message,
   SlidingPanel,
 } from 'franklin-sites';
-import cn from 'classnames';
+import { Fragment, ReactNode, Suspense, useMemo, useState } from 'react';
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
+import { Link, useLocation } from 'react-router';
 
+import { getEntryPath } from '../../../../../app/config/urls';
+import EntryTypeIcon from '../../../../../shared/components/entry/EntryTypeIcon';
 import ErrorBoundary from '../../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
-import EntryTypeIcon from '../../../../../shared/components/entry/EntryTypeIcon';
-import RemovedEntryMessage, {
-  DemergedEntryMessage,
-  MergedEntryMessage,
-} from './RemovedEntryMessage';
-
+import { ColumnDescriptor } from '../../../../../shared/hooks/useColumns';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../../shared/hooks/useItemSelect';
 import { useMediumScreen } from '../../../../../shared/hooks/useMatchMedia';
-
+import helper from '../../../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../../../shared/types/namespaces';
 import lazy from '../../../../../shared/utils/lazy';
-import parseDate from '../../../../../shared/utils/parseDate';
 import listFormat from '../../../../../shared/utils/listFormat';
-import apiUrls from '../../../../config/apiUrls/apiUrls';
-import { getEntryPath } from '../../../../../app/config/urls';
-import { stringifyQuery } from '../../../../../shared/utils/url';
 import * as logging from '../../../../../shared/utils/logging';
-
+import parseDate from '../../../../../shared/utils/parseDate';
+import { stringifyQuery } from '../../../../../shared/utils/url';
 import { InactiveEntryReason } from '../../../../adapters/uniProtkbConverter';
+import apiUrls from '../../../../config/apiUrls/apiUrls';
 import { TabLocation } from '../../../../types/entry';
 import {
   UniSaveAccession,
@@ -40,11 +36,11 @@ import {
   UniSaveStatus,
   UniSaveVersion,
 } from '../../../../types/uniSave';
-import { ColumnDescriptor } from '../../../../../shared/hooks/useColumns';
-import { Namespace } from '../../../../../shared/types/namespaces';
-
+import RemovedEntryMessage, {
+  DemergedEntryMessage,
+  MergedEntryMessage,
+} from './RemovedEntryMessage';
 import styles from './styles/history.module.scss';
-import helper from '../../../../../shared/styles/helper.module.scss';
 
 const DownloadComponent = lazy(
   /* istanbul ignore next */

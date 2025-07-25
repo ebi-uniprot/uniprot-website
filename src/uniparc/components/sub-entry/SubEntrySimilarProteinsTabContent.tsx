@@ -1,27 +1,24 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router';
 import { Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
+import { useEffect } from 'react';
+import { Link } from 'react-router';
 
-import useSafeState from '../../../shared/hooks/useSafeState';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import useSafeState from '../../../shared/hooks/useSafeState';
+import { Namespace } from '../../../shared/types/namespaces';
 import fetchData from '../../../shared/utils/fetchData';
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import SimilarProteinsTable, {
   columns,
 } from '../../../uniprotkb/components/entry/similar-proteins/SimilarProteinsTable';
-
 import {
   UniRefEntryType,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../uniref/adapters/uniRefConverter';
-import { Namespace } from '../../../shared/types/namespaces';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 type Props = {
   clusterType: string;

@@ -1,10 +1,9 @@
+import { Location } from 'history';
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { useLocation } from 'react-router';
-import { Location } from 'history';
-
-import ErrorComponent from './ErrorComponent';
 
 import * as logging from '../../utils/logging';
+import ErrorComponent from './ErrorComponent';
 
 type ErrorBoundaryProps = {
   children: ReactNode;

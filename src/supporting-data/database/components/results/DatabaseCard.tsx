@@ -1,21 +1,18 @@
-import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { useMemo } from 'react';
 import { Link } from 'react-router';
 
-import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
-import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
-
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 import { mapToLinks } from '../../../../shared/components/MapTo';
-
-import { DatabaseAPIModel } from '../../adapters/databaseConverter';
+import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
+import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import { DatabaseAPIModel } from '../../adapters/databaseConverter';
 import DatabaseColumnConfiguration, {
   DatabaseColumn,
 } from '../../config/DatabaseColumnConfiguration';
-
-import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
 const category = DatabaseColumnConfiguration.get(DatabaseColumn.category);
 

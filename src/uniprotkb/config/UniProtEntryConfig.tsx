@@ -1,20 +1,19 @@
-import FunctionSection from '../components/entry/FunctionSection';
-import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
-import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';
-import ProteinProcessingSection from '../components/entry/ProteinProcessingSection';
-import ExpressionSection from '../components/entry/ExpressionSection';
-import SubcellularLocationSection from '../components/entry/SubcellularLocationSection';
-import SequenceSection from '../components/entry/SequenceSection';
-import InteractionSection from '../components/entry/InteractionSection';
-import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';
-import StructureSection from '../components/entry/StructureSection';
-import SimilarProteinsSection from '../components/entry/similar-proteins/SimilarProteinsSection';
-
-import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
+import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';
+import ExpressionSection from '../components/entry/ExpressionSection';
+import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';
+import FunctionSection from '../components/entry/FunctionSection';
+import InteractionSection from '../components/entry/InteractionSection';
+import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
+import ProteinProcessingSection from '../components/entry/ProteinProcessingSection';
+import SequenceSection from '../components/entry/SequenceSection';
+import SimilarProteinsSection from '../components/entry/similar-proteins/SimilarProteinsSection';
+import StructureSection from '../components/entry/StructureSection';
+import SubcellularLocationSection from '../components/entry/SubcellularLocationSection';
 import EntrySection from '../types/entrySection';
-import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
@@ -122,6 +121,7 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence?.value}
+        uniParcID={data.extraAttributes?.uniParcId}
         key={EntrySection.Expression}
       />
     ),

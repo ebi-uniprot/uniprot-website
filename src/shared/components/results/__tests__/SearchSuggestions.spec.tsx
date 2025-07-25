@@ -2,13 +2,10 @@ import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import SearchSuggestions from '../SearchSuggestions';
-
-import { Namespace } from '../../../types/namespaces';
-
 import configureSearchTerms from '../../../../query-builder/components/__tests__/__mocks__/configureSearchTerms';
+import customRender from '../../../__test-helpers__/customRender';
+import { Namespace } from '../../../types/namespaces';
+import SearchSuggestions from '../SearchSuggestions';
 
 const mock = new MockAdapter(axios);
 
@@ -182,7 +179,7 @@ describe('SearchSuggestions', () => {
     await screen.findByText('or show only exact matches for', { exact: false });
     expect(screen.getByRole('link', { name: 'app' })).toHaveAttribute(
       'href',
-      '/?query=(gene_exact:app)'
+      '/uniprotkb?query=%28gene_exact%3Aapp%29'
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -223,7 +220,7 @@ describe('SearchSuggestions', () => {
     await screen.findByText('or restrict search to', { exact: false });
     expect(
       screen.getByRole('link', { name: 'exclude lower taxonomic ranks' })
-    ).toHaveAttribute('href', '/?query=(organism_id:9606)');
+    ).toHaveAttribute('href', '/uniprotkb?query=%28organism_id%3A9606%29');
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -263,7 +260,7 @@ describe('SearchSuggestions', () => {
     await screen.findByText('or expand search to', { exact: false });
     expect(screen.getByRole('link', { name: 'UP000005640' })).toHaveAttribute(
       'href',
-      '/?query=organism_id:9606 AND (proteome:UP000005640)'
+      '/uniprotkb?query=organism_id%3A9606+AND+%28proteome%3AUP000005640%29'
     );
     expect(asFragment()).toMatchSnapshot();
   });

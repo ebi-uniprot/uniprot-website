@@ -1,16 +1,14 @@
-import { Link } from 'react-router';
 import cn from 'classnames';
-
-import useUniProtDataVersion from '../../hooks/useUniProtDataVersion';
+import { Link } from 'react-router';
 
 import {
   getLocationEntryPath,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
-
-import helper from '../../styles/helper.module.scss';
+import useUniProtDataVersion from '../../hooks/useUniProtDataVersion';
 import blurLoading from '../../styles/blur-loading.module.scss';
+import helper from '../../styles/helper.module.scss';
 import styles from './styles/release-info.module.css';
 
 const today = new Date();

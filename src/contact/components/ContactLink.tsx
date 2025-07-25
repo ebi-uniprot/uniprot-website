@@ -1,9 +1,9 @@
+import { LocationDescriptorObject } from 'history';
 import { ComponentProps } from 'react';
 import { Link } from 'react-router';
 import { Except } from 'type-fest';
-import { LocationDescriptorObject } from 'history';
 
-import { LocationToPath, Location } from '../../app/config/urls';
+import { Location, LocationToPath } from '../../app/config/urls';
 import { ContactLocationState } from '../adapters/contactFormAdapter';
 
 type Props = Except<ComponentProps<Link<ContactLocationState>>, 'to'> & {

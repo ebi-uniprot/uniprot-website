@@ -3,6 +3,7 @@ export type Evidence = {
   source?: string;
   id?: string;
   url?: string;
+  properties?: Array<{ key: string; value: string }>;
 };
 
 export type ValueWithEvidence = {
@@ -31,6 +32,7 @@ export enum PropertyKey {
   Method = 'Method',
   MoleculeType = 'MoleculeType',
   NucleotideSequenceId = 'NucleotideSequenceId',
+  NumberOfInteractors = 'Number of interactors',
   OrganismId = 'OrganismId',
   OrganismName = 'OrganismName',
   PathwayName = 'PathwayName',
@@ -39,6 +41,8 @@ export enum PropertyKey {
   RectionId = 'RectionId',
   RefSeqNucleotideId = 'RefSeqNucleotideId',
   RefSeqProteinId = 'RefSeqProteinId',
+  ResistanceMechanismIdentifier = 'Resistance mechanism identifier',
+  ResistanceMechanismName = 'Resistance mechanism name',
   Resolution = 'Resolution',
   Status = 'Status',
   ToxinName = 'ToxinName',

@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2025-02-04
+// Retrieved: 2025-06-19
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -327,6 +327,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_agr',
       id: 'goslim_agr',
+      role: 'Ribbon',
+      taxIds: '33154',
+      shortLabel: 'Animals and fungi (Opisthokonta)',
     },
     {
       associations: [
@@ -849,6 +852,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_candida',
       id: 'goslim_candida',
+      role: 'Binning',
+      taxIds: '1535326',
+      shortLabel: 'Candida',
     },
     {
       associations: [
@@ -1286,7 +1292,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'lysophospholipase activity',
+          name: 'phosphatidylcholine lysophospholipase activity',
           id: 'GO:0004622',
           aspect: 'molecular_function',
         },
@@ -2631,6 +2637,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_chembl',
       id: 'goslim_chembl',
+      role: 'Binning',
+      taxIds: '1',
+      shortLabel: 'ChEMBL',
     },
     {
       associations: [
@@ -3392,7 +3401,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein localization',
+          name: 'intracellular protein localization',
           id: 'GO:0008104',
           aspect: 'biological_process',
         },
@@ -3675,6 +3684,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_drosophila',
       id: 'goslim_drosophila',
+      role: 'Binning',
+      taxIds: '50557',
+      shortLabel: 'Insects',
     },
     {
       associations: [
@@ -4047,6 +4059,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_euk_cellular_processes_ribbon',
       id: 'goslim_euk_cellular_processes_ribbon',
+      role: 'Ribbon',
+      taxIds: '2759',
+      shortLabel: 'Eukaroytic cellular processes',
     },
     {
       associations: [
@@ -4317,6 +4332,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_flybase_ribbon',
       id: 'goslim_flybase_ribbon',
+      role: 'Ribbon',
+      taxIds: '50557',
+      shortLabel: 'Insects',
     },
     {
       associations: [
@@ -4952,6 +4970,12 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
+          name: 'glycoprotein biosynthetic process',
+          id: 'GO:0009101',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
           name: 'programmed cell death',
           id: 'GO:0012501',
           aspect: 'biological_process',
@@ -5169,6 +5193,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_generic',
       id: 'goslim_generic',
+      role: 'Binning',
+      taxIds: '1',
+      shortLabel: 'All organisms',
     },
     {
       associations: [
@@ -5841,6 +5868,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_metagenomics',
       id: 'goslim_metagenomics',
+      role: 'Binning',
+      taxIds: '408169',
+      shortLabel: 'Metagenomics',
     },
     {
       associations: [
@@ -6117,6 +6147,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_mouse',
       id: 'goslim_mouse',
+      role: 'Binning',
+      taxIds: '10090',
+      shortLabel: 'Mouse',
     },
     {
       associations: [
@@ -7210,12 +7243,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'catalytic activity',
           id: 'GO:0003824',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'glycogen debranching enzyme activity',
-          id: 'GO:0004133',
           aspect: 'molecular_function',
         },
         {
@@ -8751,6 +8778,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_pir',
       id: 'goslim_pir',
+      role: 'Binning',
+      taxIds: '1',
+      shortLabel: 'PIR',
     },
     {
       associations: [
@@ -9339,6 +9369,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_plant',
       id: 'goslim_plant',
+      role: 'Binning',
+      taxIds: '33090',
+      shortLabel: 'Plants',
     },
     {
       associations: [
@@ -9717,6 +9750,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_plant_ribbon',
       id: 'goslim_plant_ribbon',
+      role: 'Ribbon',
+      taxIds: '33090',
+      shortLabel: 'Plants',
     },
     {
       associations: [
@@ -9806,14 +9842,14 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein glycosylation',
-          id: 'GO:0006486',
+          name: 'amino acid metabolic process',
+          id: 'GO:0006520',
           aspect: 'biological_process',
         },
         {
           associations: null,
-          name: 'amino acid metabolic process',
-          id: 'GO:0006520',
+          name: 'polyamine metabolic process',
+          id: 'GO:0006595',
           aspect: 'biological_process',
         },
         {
@@ -9886,6 +9922,12 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'biological_process',
           id: 'GO:0008150',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
+          name: 'glycoprotein biosynthetic process',
+          id: 'GO:0009101',
           aspect: 'biological_process',
         },
         {
@@ -9970,12 +10012,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'tetrapyrrole metabolic process',
           id: 'GO:0033013',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'lipoprotein biosynthetic process',
-          id: 'GO:0042158',
           aspect: 'biological_process',
         },
         {
@@ -10082,6 +10118,12 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
+          name: 'GPI anchored protein biosynthesis',
+          id: 'GO:0180046',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
           name: 'meiotic cell cycle process',
           id: 'GO:1903046',
           aspect: 'biological_process',
@@ -10089,6 +10131,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_pombe',
       id: 'goslim_pombe',
+      role: 'Binning',
+      taxIds: '4896',
+      shortLabel: 'Schizosaccharomyces pombe',
     },
     {
       associations: [
@@ -10389,6 +10434,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_prokaryote_ribbon',
       id: 'goslim_prokaryote_ribbon',
+      role: 'Ribbon',
+      taxIds: '2,2157',
+      shortLabel: 'Bacteria and Archaea (Prokaryotes)',
     },
     {
       associations: [
@@ -10996,12 +11044,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'G-protein gated potassium channel activity involved in regulation of postsynaptic membrane potential',
           id: 'GO:0099102',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'potassium channel activator activity involved in G protein-coupled receptor signaling pathway',
-          id: 'GO:0099108',
           aspect: 'molecular_function',
         },
         {
@@ -12537,6 +12579,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_synapse',
       id: 'goslim_synapse',
+      role: 'Binning',
+      taxIds: '10090,10116,6239,7227,7955,9606',
+      shortLabel: 'SynGO',
     },
     {
       associations: [
@@ -12663,6 +12708,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_virus',
       id: 'goslim_virus',
+      role: 'Binning,Ribbon',
+      taxIds: '10239',
+      shortLabel: 'Viruses',
     },
     {
       associations: [
@@ -13394,6 +13442,12 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
+          name: 'glycoprotein biosynthetic process',
+          id: 'GO:0009101',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
           name: 'oligosaccharide metabolic process',
           id: 'GO:0009311',
           aspect: 'biological_process',
@@ -13647,6 +13701,9 @@ const mock: { goSlimSets: SlimSet[] } = {
       ],
       name: 'goslim_yeast',
       id: 'goslim_yeast',
+      role: 'Binning',
+      taxIds: '559292',
+      shortLabel: 'Yeast',
     },
   ],
 };

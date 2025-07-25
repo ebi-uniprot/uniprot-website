@@ -15,12 +15,12 @@ exports[`Taxonomy Card tests should render 1`] = `
           class="checkbox-cell"
         >
           <input
-            data-id="37299"
+            data-id="11652"
             id="1"
             type="checkbox"
           />
           <label
-            aria-label="37299"
+            aria-label="11652"
             for="1"
             title="click to select, shift+click for multiple selection"
           />
@@ -29,11 +29,11 @@ exports[`Taxonomy Card tests should render 1`] = `
           class="small"
         >
           <a
-            href="/taxonomy/37299"
-            title="Primate calicivirus, taxon ID 37299"
+            href="/taxonomy/11652"
+            title="Primate lentivirus group, taxon ID 11652"
             translate="no"
           >
-            Primate calicivirus
+            Primate lentivirus group
           </a>
         </h2>
       </div>
@@ -59,66 +59,66 @@ exports[`Taxonomy Card tests should render 1`] = `
              &gt; 
             <a
               href="/taxonomy/2559587"
-              title="Riboviria, taxon ID 2559587"
+              title="Riboviria (RNA viruses and retroviruses), taxon ID 2559587"
               translate="no"
             >
-              Riboviria
+              Riboviria (RNA viruses and retroviruses)
             </a>
              &gt; 
             <a
-              href="/taxonomy/2732396"
-              title="Orthornavirae, taxon ID 2732396"
+              href="/taxonomy/2732397"
+              title="Pararnavirae, taxon ID 2732397"
               translate="no"
             >
-              Orthornavirae
+              Pararnavirae
             </a>
              &gt; 
             <a
-              href="/taxonomy/2732408"
-              title="Pisuviricota, taxon ID 2732408"
+              href="/taxonomy/2732409"
+              title="Artverviricota, taxon ID 2732409"
               translate="no"
             >
-              Pisuviricota
+              Artverviricota
             </a>
              &gt; 
             <a
-              href="/taxonomy/2732506"
-              title="Pisoniviricetes, taxon ID 2732506"
+              href="/taxonomy/2732514"
+              title="Revtraviricetes, taxon ID 2732514"
               translate="no"
             >
-              Pisoniviricetes
+              Revtraviricetes
             </a>
              &gt; 
             <a
-              href="/taxonomy/464095"
-              title="Picornavirales, taxon ID 464095"
+              href="/taxonomy/2169561"
+              title="Ortervirales, taxon ID 2169561"
               translate="no"
             >
-              Picornavirales
+              Ortervirales
             </a>
              &gt; 
             <a
-              href="/taxonomy/11974"
-              title="Caliciviridae, taxon ID 11974"
+              href="/taxonomy/11632"
+              title="Retroviridae, taxon ID 11632"
               translate="no"
             >
-              Caliciviridae
+              Retroviridae
             </a>
              &gt; 
             <a
-              href="/taxonomy/95337"
-              title="Vesivirus, taxon ID 95337"
+              href="/taxonomy/327045"
+              title="Orthoretrovirinae, taxon ID 327045"
               translate="no"
             >
-              Vesivirus
+              Orthoretrovirinae
             </a>
              &gt; 
             <a
-              href="/taxonomy/35612"
-              title="Vesicular exanthema of swine virus (VESV), taxon ID 35612"
+              href="/taxonomy/11646"
+              title="Lentivirus, taxon ID 11646"
               translate="no"
             >
-              Vesicular exanthema of swine virus (VESV)
+              Lentivirus
             </a>
           </span>
         </div>
@@ -128,14 +128,14 @@ exports[`Taxonomy Card tests should render 1`] = `
       class="card__actions"
     >
       <a
-        href="/uniprotkb?query=%28taxonomy_id%3A37299%29"
+        href="/uniprotkb?query=%28taxonomy_id%3A11652%29"
       >
-        3 UniProtKB entries
+        36,491 UniProtKB entries
       </a>
       <a
-        href="/uniprotkb?query=%28taxonomy_id%3A37299%29+AND+%28reviewed%3Afalse%29"
+        href="/uniprotkb?query=%28taxonomy_id%3A11652%29+AND+%28reviewed%3Afalse%29"
       >
-        3 unreviewed UniProtKB entries
+        36,491 unreviewed UniProtKB entries
       </a>
     </div>
   </section>

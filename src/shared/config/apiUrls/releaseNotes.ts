@@ -1,12 +1,11 @@
 import joinUrl from 'url-join';
 
-import { stringifyUrl } from '../../utils/url';
-
-import { apiPrefix } from './apiPrefix';
 import {
   getApiSortDirection,
   SortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
+import { stringifyUrl } from '../../utils/url';
+import { apiPrefix } from './apiPrefix';
 
 export const entry = (id?: string) =>
   id && joinUrl(apiPrefix, 'release-notes', id);

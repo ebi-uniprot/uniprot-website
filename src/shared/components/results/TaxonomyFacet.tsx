@@ -1,21 +1,16 @@
-import { Suspense, useState, useCallback, FC } from 'react';
-import { Link, useLocation } from 'react-router';
 import { Button, SlidingPanel } from 'franklin-sites';
-
-import ErrorBoundary from '../error-component/ErrorBoundary';
-
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-
-import lazy from '../../utils/lazy';
+import { FC, Suspense, useCallback, useState } from 'react';
+import { Link, useLocation } from 'react-router';
 
 import {
   parse,
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
-import { stringifyQuery } from '../../utils/url';
-
+import useJobFromUrl from '../../hooks/useJobFromUrl';
 import { SearchableNamespace } from '../../types/namespaces';
-
+import lazy from '../../utils/lazy';
+import { stringifyQuery } from '../../utils/url';
+import ErrorBoundary from '../error-component/ErrorBoundary';
 import facetsStyles from './styles/facets.module.scss';
 
 const QueryBuilder = lazy(
@@ -36,7 +31,7 @@ const TaxonomyFacet: FC<
   const parsedSearch = new URLSearchParams(search);
   const parsedClauses = parse(parsedSearch.get('query') || '');
   const interestingClauses = parsedClauses.filter((clause) =>
-    interestingTerms.test(clause.searchTerm.term)
+    interestingTerms.test(clause.searchTerm.term || '')
   );
 
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
@@ -47,7 +42,7 @@ const TaxonomyFacet: FC<
       <span className={facetsStyles['facet-name']}>Taxonomy</span>
       <ul className="expandable-list no-bullet">
         {interestingClauses.map((clause) => {
-          const textSearch = clause.searchTerm.term.includes('name');
+          const textSearch = clause.searchTerm.term?.includes('name');
           return (
             <li key={clause.id}>
               <Link
@@ -64,7 +59,8 @@ const TaxonomyFacet: FC<
                 })}
               >
                 {textSearch && '"'}
-                {clause.queryBits[clause.searchTerm.term]}
+                {clause.searchTerm.term &&
+                  clause.queryBits[clause.searchTerm.term]}
                 {textSearch && '"'}
               </Link>
             </li>

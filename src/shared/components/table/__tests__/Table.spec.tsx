@@ -1,7 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
-
 import Table from '../Table';
 
 describe('Table component', () => {

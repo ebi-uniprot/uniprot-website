@@ -1,13 +1,13 @@
+import cn from 'classnames';
 import {
+  HTMLAttributes,
   useEffect,
   useLayoutEffect,
   useRef,
   useState,
-  HTMLAttributes,
 } from 'react';
 import { Link, useLocation } from 'react-router';
-import { sleep, schedule } from 'timing-functions';
-import cn from 'classnames';
+import { schedule, sleep } from 'timing-functions';
 
 import styles from './styles/in-page-nav.module.scss';
 

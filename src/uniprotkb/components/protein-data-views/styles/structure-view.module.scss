@@ -1,14 +1,22 @@
-/* By default don't display the message */
+/* By default don't display the messages */
 .container :global(.message) {
   display: none;
 }
 
-/* If no support for has, we won't show the message, it's fine */
+/* If no support for has, we won't show the messages, it's fine */
 @supports selector(:has(*)) {
+  .container:has(nightingale-structure) {
+    /* Info message about feature viewer */
+    & :global(.message--info) {
+      display: grid;
+      margin-block-start: 0.5em;
+    }
+  }
+
   /* Target the message only if there's a protvista-structure with the
   "structureid" attribute set to something that looks like an AFDB ID */
   .container:has(nightingale-structure[structure-id^='AF']) {
-    & :global(.message) {
+    & :global(.message--warning) {
       /* Display and revert to the default style of the message */
       display: grid;
       margin-block-start: 0.5em;

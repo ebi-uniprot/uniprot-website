@@ -1,16 +1,16 @@
 import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P0DTR4
-// Retrieved: 2025-02-04
+// Retrieved: 2025-06-19
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P0DTR4',
   uniProtkbId: 'ADAC_FLAPL',
   entryAudit: {
     firstPublicDate: '2019-11-13',
-    lastAnnotationUpdateDate: '2024-11-27',
+    lastAnnotationUpdateDate: '2025-04-09',
     lastSequenceUpdateDate: '2019-11-13',
-    entryVersion: 15,
+    entryVersion: 17,
     sequenceVersion: 1,
   },
   annotationScore: 5,
@@ -20,6 +20,7 @@ const mock: UniProtkbAPIModel = {
     taxonId: 292800,
     lineage: [
       'Bacteria',
+      'Bacillati',
       'Bacillota',
       'Clostridia',
       'Eubacteriales',
@@ -256,7 +257,7 @@ const mock: UniProtkbAPIModel = {
     {
       commentType: 'WEB RESOURCE',
       resourceName: 'Protein Spotlight',
-      resourceUrl: 'https://web.expasy.org/spotlight/back_issues/220/',
+      resourceUrl: 'https://www.proteinspotlight.org/back_issues/220/',
       ftp: false,
       note: 'Dropping barriers - Issue 220 of December 2019',
     },
@@ -892,6 +893,20 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'MatchStatus',
           value: '2',
+        },
+      ],
+    },
+    {
+      database: 'Gene3D',
+      id: '2.115.10.20',
+      properties: [
+        {
+          key: 'EntryName',
+          value: 'Glycosyl hydrolase domain, family 43',
+        },
+        {
+          key: 'MatchStatus',
+          value: '1',
         },
       ],
     },

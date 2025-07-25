@@ -1,9 +1,9 @@
-import { getSource, getXRefsForId, isSourceDatabase } from '../utils/subEntry';
+import { isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
+  databaseToEntryType,
   UniParcLiteAPIModel,
   UniParcUIModel,
   UniParcXRef,
-  databaseToEntryType,
 } from './uniParcConverter';
 
 export type UniParcSubEntryUIModel = {
@@ -17,21 +17,20 @@ export type UniParcSubEntryUIModel = {
 
 const uniParcSubEntryConverter = (
   entryData: UniParcLiteAPIModel,
-  subEntryId: string
+  subEntryData: UniParcXRef
 ): UniParcSubEntryUIModel | null => {
   const transformedEntryData = uniParcConverter(entryData);
-
-  const subEntryData = getXRefsForId(subEntryId);
 
   if (!subEntryData) {
     return null;
   }
+
   const isUniprotkbEntry = Boolean(
     subEntryData.database && databaseToEntryType.has(subEntryData.database)
   );
 
   const isSource = isSourceDatabase(subEntryData.database);
-  const source = isSource ? undefined : getSource(subEntryData.organism);
+  const source = isSource ? undefined : subEntryData;
 
   return {
     entry: transformedEntryData,

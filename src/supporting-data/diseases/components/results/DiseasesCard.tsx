@@ -1,17 +1,14 @@
-import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
+import { useMemo } from 'react';
 import { Link } from 'react-router';
 
-import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
-
 import { getEntryPath } from '../../../../app/config/urls';
-import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 import { mapToLinks } from '../../../../shared/components/MapTo';
-
-import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
-import { Namespace } from '../../../../shared/types/namespaces';
-
 import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
+import { Namespace } from '../../../../shared/types/namespaces';
+import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
+import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
 
 const getIdKey = getIdKeyForNamespace(Namespace.diseases);
 

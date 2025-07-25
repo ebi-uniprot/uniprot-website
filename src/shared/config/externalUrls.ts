@@ -1,9 +1,11 @@
 import joinUrl from 'url-join';
-import { fileFormatToUrlParameter } from './resultsDownload';
-import { stringifyUrl } from '../utils/url';
+
 import { FileFormat } from '../types/resultsDownload';
+import { stringifyUrl } from '../utils/url';
+import { fileFormatToUrlParameter } from './resultsDownload';
 
 const IntActBase = '//www.ebi.ac.uk/intact/';
+
 const externalUrls = {
   AlphaFoldPrediction: (id: string) =>
     `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
@@ -24,6 +26,15 @@ const externalUrls = {
     `https://www.ebi.ac.uk/intact/complex-ws/export/${id}`,
   ComplexPortal: (id: string) =>
     `https://www.ebi.ac.uk/complexportal/complex/${id}`,
+  // GO-CAM
+  GeneOntologyModels: (id: string) =>
+    `https://api.geneontology.org/api/gp/UniProtKB:${id}/models`,
+  GeneOntologyModelInfo: (id: string) =>
+    `https://api.geneontology.org/api/go-cam/gomodel:${id}`,
+  GeneOntologyUniprotCuratedModels:
+    'https://geneontology.cloud/browse/g:UniProt',
+  NoctuaAlliancePathwayPreview: (id: string) =>
+    `http://noctua.geneontology.org/workbench/noctua-alliance-pathway-preview/?model_id=${id}`,
   // rule
   HAMAPRule: (id: string | number) => `//hamap.expasy.org/unirule/${id}`,
   ProRule: (id: string | number) => `//prosite.expasy.org/unirule/${id}`,
@@ -33,7 +44,6 @@ const externalUrls = {
       'G3DSA:',
       ''
     )}`,
-  // Temporary until https://www.ebi.ac.uk/panda/jira/browse/TRM-32233
   Funfam: (id: string) =>
     `http://www.cathdb.info/version/latest/funfam/${`${id}`.replace(
       'G3DSA:',
@@ -83,6 +93,12 @@ const externalUrls = {
     `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
   EspacenetPatent: (id: string | number) =>
     `https://worldwide.espacenet.com/textdoc?DB=EPODOC&IDX=${id}`,
+  // Homology
+  AgrHomologs: (id: string, type: 'orthologs' | 'paralogs') =>
+    `https://www.alliancegenome.org/api/gene/${id}/${type}?filter.stringency=all&limit=10000`,
+  AgrEntryHomologs: (id: string, section: 'orthology' | 'paralogy') =>
+    `https://www.alliancegenome.org/gene/${id}#${section}`,
+  AgrHelp: '//www.alliancegenome.org/help',
 };
 
 export const getIntActQueryUrl = (

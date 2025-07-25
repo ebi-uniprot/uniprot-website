@@ -1,23 +1,24 @@
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
+jest.mock('../../../hooks/useSupportsJobs', () => ({
+  __esModule: true,
+  default: () => true,
+}));
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import customRender from '../../../__test-helpers__/customRender';
-
-import Download from '../Download';
-
-import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
-
-import { stringifyQuery } from '../../../utils/url';
-
-import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
-
-import { FileFormat } from '../../../types/resultsDownload';
-import { Namespace } from '../../../types/namespaces';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-
+import SimpleMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/SimpleMappingDetails';
+import UniProtkbMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
+import { UniParcColumn } from '../../../../uniparc/config/UniParcColumnConfiguration';
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
-import SimpleMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/SimpleMappingDetails';
-import UniProtkbMappingDetails from '../../../../tools/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
-import '../../../../uniprotkb/components/__mocks__/mockApi';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import customRender from '../../../__test-helpers__/customRender';
+import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
+import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
+import { Namespace } from '../../../types/namespaces';
+import { FileFormat } from '../../../types/resultsDownload';
+import { stringifyQuery } from '../../../utils/url';
+import Download from '../Download';
 
 const initialColumns = [
   UniProtKBColumn.accession,
@@ -164,6 +165,58 @@ describe('Download with passed query and selectedQuery props', () => {
   });
 });
 
+describe('Download uniparc entries with passed proteome id as query', () => {
+  it('should display proteome-specific url for FASTA only', async () => {
+    const namespace = Namespace.uniparc;
+    const onCloseMock = jest.fn();
+    const query = '(upid:UP000001478)';
+    const numberSelectedEntries = 0;
+    const totalNumberResults = 4042;
+
+    customRender(
+      <Download
+        query={query}
+        numberSelectedEntries={numberSelectedEntries}
+        totalNumberResults={totalNumberResults}
+        onClose={onCloseMock}
+        namespace={namespace}
+      />,
+      {
+        route: '/uniprotkb?query=nod2',
+        initialLocalStorage: {
+          'table columns for uniparc': [UniParcColumn.accession],
+        },
+      }
+    );
+    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        '/uniparc/proteome/UP000001478/stream?compressed=true&format=fasta'
+      )
+    );
+    fireEvent.click(
+      screen.getByLabelText(
+        'Proceed with FASTA header for proteomes (recommended).'
+      )
+    );
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
+    );
+    fireEvent.click(
+      screen.getByLabelText(
+        'Proceed with FASTA header for proteomes (recommended).'
+      )
+    );
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(stringifyQuery({ query: `(${query})` }))
+    );
+  });
+});
+
 describe('Download with UniProtKB entry history / UniSave', () => {
   it('should render as expected, 2 selected', () => {
     const onCloseMock = jest.fn();
@@ -285,6 +338,7 @@ describe('Download with file generation job', () => {
   it('should show file generation form then confirmation with form elements disabled', async () => {
     Element.prototype.scrollIntoView = jest.fn();
     const onCloseMock = jest.fn();
+
     customRender(
       <Download
         totalNumberResults={DOWNLOAD_SIZE_LIMIT + 1}

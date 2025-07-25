@@ -1,7 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import EnumOrBooleanField from '../EnumOrBooleanField';
-
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const props = {
@@ -26,6 +25,6 @@ describe('Enum field', () => {
     expect(select.value).toBe('1');
     fireEvent.change(select, { target: { value: '2' } });
     expect(select.value).toBe('2');
-    expect(props.handleChange).toBeCalledWith({ existence: '2' });
+    expect(props.handleChange).toHaveBeenCalledWith({ existence: '2' });
   });
 });

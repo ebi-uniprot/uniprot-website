@@ -1,22 +1,17 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
+import cn from 'classnames';
 import { throttle } from 'lodash-es';
 import { Link } from 'react-router';
-import cn from 'classnames';
 
-import ExternalLink from '../../../shared/components/ExternalLink';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls';
-import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import {
   getLocationEntryPathFor,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
-
+import ExternalLink from '../../../shared/components/ExternalLink';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
+import apiUrls from '../../config/apiUrls';
 import { HelpEntryResponse } from '../../types/apiModel';
-
 import styles from './styles/landing.module.scss';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
@@ -77,7 +72,7 @@ const fallbackLandingContent = (
           </ExternalLink>
         </li>
         <li>
-          <ExternalLink url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets=">
+          <ExternalLink url="https://www.ebi.ac.uk/training/services/uniprot">
             Courses
           </ExternalLink>
         </li>

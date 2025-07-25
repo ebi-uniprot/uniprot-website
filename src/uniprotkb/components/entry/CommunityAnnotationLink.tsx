@@ -1,13 +1,11 @@
-import { FC } from 'react';
-import { generatePath, Link } from 'react-router';
 import { Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-// import externalUrls from '../../../shared/config/externalUrls';
+import { FC } from 'react';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { TabLocation } from '../../types/entry';
 
 const fetchOptions: { method: Method } = {
@@ -21,8 +19,7 @@ type CommunityAnnotationLinkProps = {
 const CommunityAnnotationLink: FC<
   React.PropsWithChildren<CommunityAnnotationLinkProps>
 > = ({ accession }) => {
-  // const url = externalUrls.CommunityCurationGetByAccession(accession);
-  const url = `https://rest.uniprot.org/uniprotkb/${accession}/publications?facetFilter=%28types%3A%220%22%29`;
+  const url = externalUrls.CommunityCurationGetByAccession(accession);
   const { headers } = useDataApi(url, fetchOptions);
   const nSubmissions = +(headers?.['x-total-results'] || 0);
   if (!nSubmissions) {

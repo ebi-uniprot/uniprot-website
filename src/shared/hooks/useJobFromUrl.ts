@@ -3,11 +3,10 @@ import { useLocation, useMatch } from 'react-router';
 
 import {
   getJobResultsLocation,
-  LocationToPath,
   Location,
+  LocationToPath,
   ToolsResultsLocations,
 } from '../../app/config/urls';
-
 import { Namespace, SearchableNamespace } from '../types/namespaces';
 
 export type JobFromUrl = {

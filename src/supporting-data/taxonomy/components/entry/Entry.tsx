@@ -1,44 +1,39 @@
+import { Card, InfoList, Loader } from 'franklin-sites';
+import { pick } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { Loader, Card, InfoList } from 'franklin-sites';
-import { pick } from 'lodash-es';
 import { frame } from 'timing-functions';
 
-import HTMLHead from '../../../../shared/components/HTMLHead';
-import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import { MapToDropdown } from '../../../../shared/components/MapTo';
-import ChildNavigation from './ChildNavigation';
-import RelatedResults from '../../../../shared/components/results/RelatedResults';
-import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
-import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import useMessagesDispatch from '../../../../shared/hooks/useMessagesDispatch';
-
-import { addMessage } from '../../../../messages/state/messagesActions';
-
-import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import generatePageTitle from '../../adapters/generatePageTitle';
 import { getEntryPath } from '../../../../app/config/urls';
-
-import {
-  Namespace,
-  searchableNamespaceLabels,
-} from '../../../../shared/types/namespaces';
+import { addMessage } from '../../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
   MessageTag,
 } from '../../../../messages/types/messagesTypes';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import HTMLHead from '../../../../shared/components/HTMLHead';
+import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
+import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../../shared/hooks/useDataApi';
+import useMessagesDispatch from '../../../../shared/hooks/useMessagesDispatch';
+import { Statistics } from '../../../../shared/types/apiModel';
+import {
+  Namespace,
+  searchableNamespaceLabels,
+} from '../../../../shared/types/namespaces';
+import { SearchResults } from '../../../../shared/types/results';
+import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
+import generatePageTitle from '../../adapters/generatePageTitle';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
-import { Statistics } from '../../../../shared/types/apiModel';
-import { SearchResults } from '../../../../shared/types/results';
-
-import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
+import ChildNavigation from './ChildNavigation';
 
 const firstColumns = [
   TaxonomyColumn.mnemonic,

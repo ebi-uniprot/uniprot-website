@@ -1,9 +1,8 @@
+import { Clause } from '../../query-builder/types/searchTypes';
 import {
   parse,
   stringify,
 } from '../../query-builder/utils/queryStringProcessor';
-
-import { Clause } from '../../query-builder/types/searchTypes';
 
 export const taxonHierarchySearchTerms = ['taxonomy_id', 'organism_id'];
 
@@ -18,7 +17,10 @@ export const modifyQueryWithSuggestions = (
   let searchValue = '';
 
   const modifiedClauses: Clause[] = parsedQuery.map((clause) => {
-    if (searchTerms.includes(clause.searchTerm.term)) {
+    if (
+      clause.searchTerm.term &&
+      searchTerms.includes(clause.searchTerm.term)
+    ) {
       const queryBit = clause.queryBits;
       const modifiedQueryBit: Record<string, string> = {};
       Object.entries(queryBit).forEach(([k, v]) => {

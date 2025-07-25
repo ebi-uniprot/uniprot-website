@@ -1,10 +1,8 @@
-import { screen, fireEvent } from '@testing-library/react';
-
-import EntryDownload, { Dataset } from '../EntryDownload';
-
-import { FileFormat } from '../../../types/resultsDownload';
+import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
+import { FileFormat } from '../../../types/resultsDownload';
+import EntryDownload, { Dataset } from '../EntryDownload';
 
 describe('EntryDownload', () => {
   let onCloseMock: jest.Mock;

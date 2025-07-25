@@ -1,10 +1,8 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import HomePage from '../HomePage';
-
 import { useReducedMotion } from '../../../../shared/hooks/useMatchMedia';
+import HomePage from '../HomePage';
 
 jest.mock('../../../../shared/hooks/useMatchMedia');
 

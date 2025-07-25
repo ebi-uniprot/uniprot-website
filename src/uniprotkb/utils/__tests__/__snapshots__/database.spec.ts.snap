@@ -41,6 +41,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PlantReactome",
       "ENZYME",
       "PathwayCommons",
+      "STRENDA-DB",
     ],
     "FMD": [
       "AntiFam",
@@ -108,6 +109,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PGenN",
       "ORCID",
       "PubTator",
+      "CD-CODE",
     ],
     "ORG": [
       "ArachnoServer",
@@ -161,6 +163,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ABCD",
       "Antibodypedia",
       "CPTC",
+      "YCharOS",
     ],
     "PFAM": [
       "Allergome",
@@ -175,6 +178,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "TCDB",
       "UniLectin",
       "GPCRDB",
+      "CARD",
     ],
     "PLG": [
       "eggNOG",
@@ -185,6 +189,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OrthoDB",
       "PhylomeDB",
       "TreeFam",
+      "PAN-GO",
     ],
     "PPI": [
       "BioGRID",
@@ -195,6 +200,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "FunCoup",
     ],
     "PRM": [
       "Proteomes",
@@ -251,8 +257,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "BioGRID": "PPI",
     "BioGRID-ORCS": "MISC",
     "BioMuta": "GVD",
+    "CARD": "PFAM",
     "CAZy": "PFAM",
     "CCDS": "SEQ",
+    "CD-CODE": "MISC",
     "CDD": "FMD",
     "CGD": "ORG",
     "CORUM": "PPI",
@@ -291,6 +299,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "EvolutionaryTrace": "MISC",
     "ExpressionAtlas": "GEP",
     "FlyBase": "ORG",
+    "FunCoup": "PPI",
     "FunFam": "FMD",
     "GO": "OTG",
     "GPCRDB": "PFAM",
@@ -346,6 +355,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "OpenTargets": "ORG",
     "Orphanet": "ORG",
     "OrthoDB": "PLG",
+    "PAN-GO": "PLG",
     "PANTHER": "FMD",
     "PATRIC": "GMA",
     "PCDDB": "3DS",
@@ -395,6 +405,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "SMR": "3DS",
     "SOURCE_MGI": "MISC",
     "SOURCE_MIM": "MISC",
+    "STRENDA-DB": "EAP",
     "STRING": "PPI",
     "SUPFAM": "FMD",
     "SWISS-MODEL-Workspace": "3DS",
@@ -416,6 +427,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "WBParaSite": "GMA",
     "WormBase": "ORG",
     "Xenbase": "ORG",
+    "YCharOS": "PAM",
     "ZFIN": "ORG",
     "dbSNP": "GVD",
     "dictyBase": "ORG",
@@ -631,6 +643,27 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "BioMuta",
       "uriLink": "https://hive.biochemistry.gwu.edu/tools/biomuta/biomuta.php?gene=%id",
     },
+    "CARD": {
+      "attributes": [
+        {
+          "name": "CARD short name",
+          "xmlTag": "molecule name",
+        },
+        {
+          "name": "Resistance mechanism identifier",
+          "uriLink": "https://card.mcmaster.ca/%id",
+          "xmlTag": "mechanism identifier",
+        },
+        {
+          "name": "Resistance mechanism name",
+          "xmlTag": "mechanism name",
+        },
+      ],
+      "category": "PFAM",
+      "displayName": "CARD",
+      "name": "CARD",
+      "uriLink": "https://card.mcmaster.ca/%id",
+    },
     "CAZy": {
       "attributes": [
         {
@@ -654,6 +687,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "CCDS",
       "name": "CCDS",
       "uriLink": "https://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&GO=MainBrowse&DATA=%id",
+    },
+    "CD-CODE": {
+      "attributes": [
+        {
+          "name": "EntryName",
+          "xmlTag": "entry name",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "CD-CODE",
+      "name": "CD-CODE",
+      "uriLink": "https://cd-code.org/condensate/%id",
     },
     "CDD": {
       "attributes": [
@@ -1174,6 +1219,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "FlyBase",
       "name": "FlyBase",
       "uriLink": "https://flybase.org/reports/%id.html",
+    },
+    "FunCoup": {
+      "attributes": [
+        {
+          "name": "Number of interactors",
+          "xmlTag": "interactions",
+        },
+      ],
+      "category": "PPI",
+      "displayName": "FunCoup",
+      "name": "FunCoup",
+      "uriLink": "https://funcoup.org/uniprot/%id",
     },
     "FunFam": {
       "attributes": [
@@ -1899,6 +1956,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "OrthoDB",
       "uriLink": "https://www.orthodb.org/?gene=%primaryAccession",
     },
+    "PAN-GO": {
+      "attributes": [
+        {
+          "name": "Number of GO annotations",
+          "xmlTag": "GO annotations",
+        },
+      ],
+      "category": "PLG",
+      "displayName": "PAN-GO",
+      "name": "PAN-GO",
+      "uriLink": "https://functionome.geneontology.org/gene/UniProtKB:%id",
+    },
     "PANTHER": {
       "attributes": [
         {
@@ -2532,6 +2601,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "SOURCE_MIM",
       "uriLink": "https://puma.princeton.edu/cgi-bin/source/sourceResult?criteria=%GeneName&choice=Gene&option=Symbol&organism=Hs",
     },
+    "STRENDA-DB": {
+      "attributes": [
+        {
+          "name": "ExperimentDescription",
+          "xmlTag": "experiment description",
+        },
+      ],
+      "category": "EAP",
+      "displayName": "STRENDA-DB",
+      "name": "STRENDA-DB",
+      "uriLink": "https://beilstein-strenda-db.org/strenda/public/doiQuery.xhtml?doi=10.22011/strenda_db.%id",
+    },
     "STRING": {
       "attributes": [
         {
@@ -2811,6 +2892,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "Xenbase",
       "uriLink": "https://www.xenbase.org/gene/showgene.do?method=display&geneId=%id",
     },
+    "YCharOS": {
+      "attributes": [
+        {
+          "name": "antibodies",
+          "xmlTag": "antibodies",
+        },
+      ],
+      "category": "PAM",
+      "displayName": "YCharOS",
+      "name": "YCharOS",
+      "uriLink": "https://f1000research.com/gateways/ycharos?selectedDomain=&n0=text&o0=&v0=%id",
+    },
     "ZFIN": {
       "attributes": [
         {
@@ -2967,8 +3060,14 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "SEQ",
       "GMA",
     ],
+    "similar_proteins": [
+      "ORG",
+    ],
     "structure": [
       "3DS",
+      "MISC",
+    ],
+    "subcellular_location": [
       "MISC",
     ],
   },
@@ -3016,10 +3115,12 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PGenN",
       "ORCID",
       "PubTator",
+      "CD-CODE",
       "DNASU",
       "ABCD",
       "Antibodypedia",
       "CPTC",
+      "YCharOS",
       "ArachnoServer",
       "Araport",
       "CGD",
@@ -3081,6 +3182,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OrthoDB",
       "PhylomeDB",
       "TreeFam",
+      "PAN-GO",
       "AntiFam",
       "CDD",
       "FunFam",
@@ -3113,6 +3215,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PlantReactome",
       "ENZYME",
       "PathwayCommons",
+      "STRENDA-DB",
       "Allergome",
       "CAZy",
       "ESTHER",
@@ -3125,6 +3228,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "TCDB",
       "UniLectin",
       "GPCRDB",
+      "CARD",
       "SwissLipids",
     ],
     "interaction": [
@@ -3136,6 +3240,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "FunCoup",
       "BindingDB",
       "RNAct",
     ],
@@ -3217,6 +3322,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "VectorBase",
       "WBParaSite",
     ],
+    "similar_proteins": [
+      "AGR",
+    ],
     "structure": [
       "PDB",
       "PDBsum",
@@ -3233,6 +3341,9 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "EMDB",
       "EvolutionaryTrace",
       "ModBase",
+    ],
+    "subcellular_location": [
+      "CD-CODE",
     ],
   },
   "implicitDatabaseXRefs": {

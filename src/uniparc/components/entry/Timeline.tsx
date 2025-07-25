@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
 import parseDate from '../../../shared/utils/parseDate';
-
 import styles from './styles/Timeline.module.scss';
 
 type Props = {

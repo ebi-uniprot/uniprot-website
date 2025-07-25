@@ -1,9 +1,8 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringifyUrl } from '../../../shared/utils/url';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
 
 const familyRegEx = /(Belongs to the .+family)/i;
 const familyExtractor = /( the |\. )([^.]+(?:sub|super|sub-sub)?family)/;

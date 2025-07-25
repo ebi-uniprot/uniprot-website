@@ -1,10 +1,8 @@
-import { useEffect, useState, FC } from 'react';
-
-import AutocompleteWrapper from './AutocompleteWrapper';
-
-import initializer from '../utils/fieldInitializer';
+import { FC, useEffect, useState } from 'react';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import initializer from '../utils/fieldInitializer';
+import AutocompleteWrapper from './AutocompleteWrapper';
 
 const AutocompleteField: FC<
   React.PropsWithChildren<{
@@ -32,7 +30,7 @@ const AutocompleteField: FC<
     const reset = term !== 'go';
     if (selectedId && autoCompleteQueryTerm) {
       handleChange({ [autoCompleteQueryTerm]: selectedId }, reset);
-    } else if (value) {
+    } else if (value && term) {
       handleChange({ [term]: value }, reset);
     }
   }, [id, term, autoCompleteQueryTerm, selectedId, value, handleChange]);

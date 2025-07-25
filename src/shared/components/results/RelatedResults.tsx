@@ -1,18 +1,15 @@
+import { DataListWithLoader, Loader, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router';
-import { Loader, DataListWithLoader, LongNumber } from 'franklin-sites';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
-
 import useNSQuery from '../../hooks/useNSQuery';
 import usePagination from '../../hooks/usePagination';
-
-import { pluralise } from '../../utils/utils';
-import { getIdKeyForNamespace } from '../../utils/getIdKey';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../types/namespaces';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { APIModel } from '../../types/apiModel';
+import { Namespace } from '../../types/namespaces';
+import { getIdKeyForNamespace } from '../../utils/getIdKey';
+import { pluralise } from '../../utils/utils';
 
 const getIdKey = getIdKeyForNamespace(Namespace.uniprotkb);
 const cardRenderer = (cardData: APIModel) => (

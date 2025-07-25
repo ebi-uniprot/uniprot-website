@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import GoEvidenceField, { GoEvidenceFieldProps } from '../GoEvidenceField';
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
@@ -31,7 +31,7 @@ describe('GoEvidenceField component', () => {
     fireEvent.change(evidenceSelect, {
       target: { value: 'automatic' },
     });
-    expect(props.handleChange).toBeCalledWith({
+    expect(props.handleChange).toHaveBeenCalledWith({
       go_evidence: 'automatic', // eslint-disable-line camelcase
     });
   });

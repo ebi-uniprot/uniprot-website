@@ -1,5 +1,5 @@
 // Source: uniparc/UPI0000000001/databases
-// Retrieved: 2025-02-04
+// Retrieved: 2025-06-19
 const mock = {
   results: [
     {
@@ -9,7 +9,7 @@ const mock = {
       version: 3,
       active: true,
       created: '2007-01-23',
-      lastUpdated: '2024-11-27',
+      lastUpdated: '2025-06-18',
       geneName: 'OPG099',
       proteinName: 'Entry-fusion complex associated protein OPG095',
       organism: {
@@ -40,7 +40,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2024-11-27',
+      lastUpdated: '2025-06-18',
       geneName: 'RPXV077',
       proteinName: 'RPXV077',
       organism: {
@@ -56,7 +56,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2024-11-27',
+      lastUpdated: '2025-06-18',
       geneName: 'N1R',
       proteinName: 'N1R protein',
       organism: {
@@ -72,7 +72,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-04-18',
-      lastUpdated: '2024-11-27',
+      lastUpdated: '2025-06-18',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
@@ -87,7 +87,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-10-03',
-      lastUpdated: '2024-11-27',
+      lastUpdated: '2025-06-18',
       geneName: 'HSPV_VK05_RKI-089',
       proteinName: 'HSPV089',
       organism: {
@@ -103,7 +103,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2018-02-28',
-      lastUpdated: '2024-11-27',
+      lastUpdated: '2025-06-18',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -119,7 +119,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2024-11-27',
-      lastUpdated: '2024-11-27',
+      lastUpdated: '2025-06-18',
       geneName: 'CPXV_FIN2000_MAN_093',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -160,7 +160,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2005-10-06',
-      lastUpdated: '2024-09-09',
+      lastUpdated: '2025-03-03',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -176,7 +176,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2022-10-19',
-      lastUpdated: '2024-09-09',
+      lastUpdated: '2025-03-03',
       geneName: 'OPG095',
       proteinName: 'IMV membrane protein L1R',
       organism: {
@@ -289,7 +289,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2024-07-17',
+      lastUpdated: '2025-04-16',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',

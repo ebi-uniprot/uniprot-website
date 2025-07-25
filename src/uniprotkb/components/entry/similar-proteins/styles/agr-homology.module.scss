@@ -1,0 +1,80 @@
+@import 'franklin-sites/src/styles/colours';
+
+.agr-link {
+  margin-left: 0.5em;
+  margin-top: 0.5em;
+  z-index: 1000;
+}
+
+.agr-orthology-table {
+  // Paralogs columns 7 to 16 are methods
+  td:nth-child(n + 6):nth-child(-n + 17) {
+    font-family: monospace;
+    width: 1ch;
+  }
+  th:nth-child(n + 6):nth-child(-n + 17) {
+    width: 1ch;
+  }
+  // Paralogs column 6 is just before the methods and we want a bit of extra space
+  th:nth-child(5) > span {
+    margin-right: 0.5rem;
+  }
+}
+
+.agr-paralogy-table {
+  // Paralogs columns 7 to 16 are methods
+  td:nth-child(n + 7):nth-child(-n + 16) {
+    font-family: monospace;
+    width: 1ch;
+  }
+  th:nth-child(n + 7):nth-child(-n + 16) {
+    width: 1ch;
+  }
+  // Paralogs column 6 is just before the methods and we want a bit of extra space
+  th:nth-child(6) > span {
+    margin-right: 0.5rem;
+  }
+}
+
+.agr-homology-table {
+  --table-header-vertical-align: bottom;
+
+  .methods-label-container {
+    position: relative;
+    .methods-label {
+      position: absolute;
+    }
+  }
+
+  .method-match-count-label {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    & > span {
+      display: inline-block;
+      white-space: nowrap;
+      text-decoration: underline;
+      transform: translate(5px, -25px) rotate(315deg);
+      width: 7ch;
+    }
+  }
+  .method-match-count-render {
+    cursor: default;
+    margin-left: 1.5rem;
+  }
+
+  .method-label {
+    white-space: nowrap;
+    height: 145px;
+    text-transform: none;
+
+    & > span {
+      display: inline-block;
+      transform: translate(0px, 117px) rotate(315deg);
+      width: 1ch;
+    }
+  }
+  .method-render {
+    font-size: 1.35rem;
+    cursor: default;
+  }
+}

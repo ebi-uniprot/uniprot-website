@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import { Button, ControlledDropdown } from 'franklin-sites';
 import {
   Fragment,
   HTMLAttributes,
@@ -5,14 +7,14 @@ import {
   MouseEventHandler,
   ReactNode,
   useCallback,
+  useEffect,
   useId,
+  useRef,
   useState,
 } from 'react';
-import { Button, ControlledDropdown } from 'franklin-sites';
-import cn from 'classnames';
+import { frame } from 'timing-functions';
 
 import useExpandTable from '../../hooks/useExpandTable';
-
 import styles from './styles/table.module.scss';
 
 const Table = ({
@@ -68,6 +70,34 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
 
   const handleClick = () => setExpanded((expanded) => !expanded);
 
+  const ref = useRef<HTMLTableCellElement>(null);
+
+  // effect to handle a click on anything closing the dropdown
+  useEffect(() => {
+    if (!expanded) {
+      return;
+    }
+
+    const listener = (event: MouseEvent | TouchEvent) => {
+      if (!ref.current) {
+        return;
+      }
+      const dropdown = ref.current.querySelector('div');
+
+      if (dropdown?.parentElement?.contains(event.target as Node)) {
+        return;
+      }
+      setExpanded(false);
+    };
+
+    window.document.addEventListener('mouseup', listener);
+    window.document.addEventListener('touchend', listener);
+    return () => {
+      window.document.removeEventListener('mouseup', listener);
+      window.document.removeEventListener('touchend', listener);
+    };
+  }, [expanded]);
+
   const handleToggle: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       const button = event.target as HTMLButtonElement;
@@ -82,7 +112,7 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
       for (const button of buttons || []) {
         button.click();
       }
-      setExpanded(false);
+      frame().then(() => setExpanded(false));
     },
     []
   );
@@ -90,7 +120,7 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
   return (
     <thead className={cn(className)} {...props}>
       <tr className={styles.row}>
-        <th>
+        <th ref={ref}>
           {toggleAll && (
             <ControlledDropdown
               visibleElement={
@@ -174,9 +204,10 @@ const Row = ({
   isOdd,
   onClick,
   ...props
-}: HTMLAttributes<HTMLTableRowElement> & {
+}: Omit<HTMLAttributes<HTMLTableRowElement>, 'onClick'> & {
   extraContent?: ReactNode;
   isOdd: boolean;
+  onClick?: (expanded: boolean) => void;
 }) => {
   const hasExtraContent = Boolean(extraContent);
 
@@ -185,7 +216,14 @@ const Row = ({
   const buttonId = useId();
 
   const handleClick: MouseEventHandler<HTMLTableRowElement> = (event) => {
-    onClick?.(event);
+    const toggleAllExpanded = (event.target as HTMLElement)
+      .closest('table')
+      ?.querySelector<HTMLButtonElement>(
+        ':scope > thead > tr > th > div[aria-expanded="true"]'
+      );
+    if (!toggleAllExpanded) {
+      onClick?.(!expanded);
+    }
     if (
       hasExtraContent &&
       !(event.target as HTMLElement).closest(

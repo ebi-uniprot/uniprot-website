@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
-
 import ResourceNotFound, { redirectFromTo } from '../ResourceNotFound';
 
 describe('ResourceNotFoundPage component', () => {

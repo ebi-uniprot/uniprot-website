@@ -1,27 +1,25 @@
-import { useId, useMemo, ChangeEvent } from 'react';
-import { generatePath, Link, useLocation, useMatch } from 'react-router';
+import cn from 'classnames';
 import {
   Button,
-  PageIntro,
   ErrorIcon,
-  SuccessIcon,
   Message,
+  PageIntro,
+  SuccessIcon,
 } from 'franklin-sites';
-import cn from 'classnames';
 import { createPath } from 'history';
+import { ChangeEvent, ReactNode, useId, useMemo } from 'react';
+import { generatePath, Link, useLocation, useMatch } from 'react-router';
 
-import HTMLHead from '../../shared/components/HTMLHead';
-import ContactLink from './ContactLink';
+import { Location, LocationToPath } from '../../app/config/urls';
 import ExternalLink from '../../shared/components/ExternalLink';
+import HTMLHead from '../../shared/components/HTMLHead';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
-
 import {
-  useFormLogic,
   ContactLocationState,
+  Suggestion,
+  useFormLogic,
 } from '../adapters/contactFormAdapter';
-
-import { LocationToPath, Location } from '../../app/config/urls';
-
+import ContactLink from './ContactLink';
 import styles from './styles/contact-form.module.scss';
 
 // ARIA hide all of these, are the state is available in the form already
@@ -42,6 +40,97 @@ const validity = (
     />
   </>
 );
+
+const suggestionMessages: Record<Suggestion, ReactNode> = {
+  update: (
+    <>
+      When submitting updates to an entry, please provide the relevant source
+      information, such as a reference to a publication.
+    </>
+  ),
+  PDB: (
+    <>
+      New structures published to PDB automatically get added to UniProtKB
+      entries, but there might be a bit of delay, please see{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'synchronization',
+        })}
+      >
+        this help article about the synchronization process
+      </Link>
+      .
+    </>
+  ),
+  buy: (
+    <>
+      the UniProt consortium does not sell any biological products, neither
+      proteins nor organisms. Please see{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'where_to_buy',
+        })}
+      >
+        this help page for more information
+      </Link>
+      .
+    </>
+  ),
+  blast: (
+    <>
+      Please find more information about the BLAST tool in our corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'blast-submission',
+        })}
+      >
+        BLAST help page
+      </Link>
+      .
+    </>
+  ),
+  align: (
+    <>
+      Please find more information about the Align tool in our corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'sequence-alignments',
+        })}
+      >
+        sequence alignment help page
+      </Link>
+      .
+    </>
+  ),
+  'id mapping': (
+    <>
+      Please find more information about the ID Mapping tool in our
+      corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'id_mapping',
+        })}
+      >
+        ID Mapping help page
+      </Link>
+      .
+    </>
+  ),
+  'peptide search': (
+    <>
+      Please find more information about the Peptide Search tool in our
+      corresponding{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'peptide_search',
+        })}
+      >
+        Peptide Search help page
+      </Link>
+      .
+    </>
+  ),
+};
 
 const ContactForm = () => {
   const formId = useId();
@@ -97,7 +186,8 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
     );
   };
 
-  const { handleSubmit, handleChange, sending } = useFormLogic(referrerValue);
+  const { handleSubmit, handleChange, sending, suggestion } =
+    useFormLogic(referrerValue);
 
   const description = isUpdate
     ? 'Submit updates or corrections to UniProt'
@@ -115,42 +205,6 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
         <hr />
-        {isUpdate ? null : (
-          <>
-            <Message level="info">
-              <small>
-                Frequently asked: issues accessing UniProt programmatically?
-                Have a look at the{' '}
-                <Link
-                  to={generatePath(LocationToPath[Location.HelpEntry], {
-                    accession: 'api',
-                  })}
-                >
-                  new API documentation
-                </Link>{' '}
-                including changes to the{' '}
-                <Link
-                  to={generatePath(LocationToPath[Location.HelpEntry], {
-                    accession: 'return_fields',
-                  })}
-                >
-                  return fields
-                </Link>{' '}
-                (aka &quot;columns&quot;) and specifically the{' '}
-                <Link
-                  to={generatePath(LocationToPath[Location.HelpEntry], {
-                    accession: 'return_fields_databases',
-                  })}
-                >
-                  cross-references return fields
-                </Link>{' '}
-                .
-              </small>
-            </Message>
-            <br />
-            <br />
-          </>
-        )}
         <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
           <label className={styles.label} htmlFor={`name-${formId}`}>
@@ -217,7 +271,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
           <span className={cn(styles.input, styles.input__message)}>
             <textarea
               name="message"
-              placeholder="my message"
+              placeholder="My message"
               id={`message-${formId}`}
               required
               minLength={1}
@@ -230,6 +284,11 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
             />
             {validity}
           </span>
+          {suggestion && (
+            <Message level="info" className={cn(styles.suggestion)}>
+              {suggestionMessages[suggestion]}
+            </Message>
+          )}
           <label
             className={cn(styles.label, styles['label-wide'])}
             htmlFor={`prefilled-${formId}`}
@@ -305,6 +364,13 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
                 <ExternalLink url="https://www.ebi.ac.uk/swissprot/Submissions/spin/">
                   Submit new protein sequence data
                 </ExternalLink>
+              </li>
+              <li>
+                <Link
+                  to={`${generatePath(LocationToPath[Location.SupportingData])}#integration-form`}
+                >
+                  Connect your database with UniProt
+                </Link>
               </li>
             </ul>
           </aside>

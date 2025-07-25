@@ -1,15 +1,24 @@
 import { Location as HistoryLocation } from 'history';
 
+import { Location } from '../../../../app/config/urls';
+import { IDMappingColumn } from '../../../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import { MappingDetails } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
+import { JobTypes } from '../../../../jobs/types/jobTypes';
+import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
+import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import { JobFromUrl } from '../../../hooks/useJobFromUrl';
-
+import { Namespace } from '../../../types/namespaces';
+import { FileFormat } from '../../../types/resultsDownload';
+import { DownloadProps } from '../Download';
+import { getDownloadInitialState } from '../downloadReducer';
 import {
   getColumnsNamespace,
+  getCountForCustomisableSet,
   getDownloadCount,
   getDownloadOptions,
   getExtraContent,
   getFtpFilenamesAndUrls,
   getIsAsyncDownload,
-  isAsyncDownloadIdMapping,
   getIsEmbeddings,
   getIsTooLargeForEmbeddings,
   getPreviewCount,
@@ -17,21 +26,10 @@ import {
   getPreviewOptions,
   getRedirectToIDMapping,
   hasColumns,
+  isAsyncDownloadIdMapping,
   isSubsequenceFrom,
-  getCountForCustomisableSet,
+  isUniParcProteomeSearch,
 } from '../downloadUtils';
-
-import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
-import { getDownloadInitialState } from '../downloadReducer';
-
-import { Location } from '../../../../app/config/urls';
-import { IDMappingColumn } from '../../../../tools/id-mapping/config/IdMappingColumnConfiguration';
-import { FileFormat } from '../../../types/resultsDownload';
-import { Namespace } from '../../../types/namespaces';
-import { JobTypes } from '../../../../tools/types/toolsJobTypes';
-import { DownloadProps } from '../Download';
-import { MappingDetails } from '../../../../tools/id-mapping/types/idMappingSearchResults';
 
 const subsequenceData = 'P05067[1-12345],P12345[5-15]';
 const notSubsequenceData = 'P05067[1-12345],P12345';
@@ -98,6 +96,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
     expect(getDownloadCount(state, props)).toEqual(24094);
@@ -169,6 +168,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.selectedFileFormat = FileFormat.tsv;
@@ -245,6 +245,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'url';
@@ -345,6 +346,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'generate';
@@ -444,6 +446,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'generate';
@@ -526,6 +529,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(1);
@@ -615,6 +619,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.tsvIdMappingFromTo);
     expect(getDownloadCount(state, props)).toEqual(335578);
@@ -688,6 +693,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.extraContent = 'ftp';
@@ -763,6 +769,7 @@ describe('Download Utils', () => {
       disableForm: false,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     // Manually set state
     state.selectedFileFormat = FileFormat.embeddings;
@@ -837,6 +844,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.text);
     expect(getDownloadCount(state, props)).toEqual(306);
@@ -923,6 +931,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 0,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaSubsequence);
     expect(getDownloadCount(state, props)).toEqual(1);
@@ -1002,6 +1011,7 @@ describe('Download Utils', () => {
       extraContent: null,
       nSelectedEntries: 2,
       fullXref: false,
+      proteomeFastaHeader: true,
     });
     expect(getCountForCustomisableSet(state, props)).toEqual({
       totalCount: 3,
@@ -1024,5 +1034,56 @@ describe('Download Utils', () => {
       selectedIdField: 'accession',
     });
     expect(getPreviewCount(state, props, location, job)).toEqual(1);
+  });
+  test('UniParc entries with upid in the query', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 4042,
+      namespace: Namespace.uniparc,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+
+    const location: HistoryLocation = {
+      pathname: '/uniparc',
+      search: '?query=upid:UP000001478',
+      hash: '',
+      key: 'foo',
+      state: undefined,
+    };
+    const job: JobFromUrl = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+
+    const downloadOptions = {
+      compressed: true,
+      fileFormat: FileFormat.fasta,
+      namespace: Namespace.uniparc,
+      query: 'upid:UP000001478',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'upi',
+      accessions: undefined,
+      base: undefined,
+      sortColumn: undefined,
+      sortDirection: undefined,
+      uniparcProteomeFastaHeader: true,
+    };
+
+    expect(getDownloadOptions(state, props, location, job)).toEqual(
+      downloadOptions
+    );
+
+    expect(
+      isUniParcProteomeSearch(state, props, downloadOptions.query)
+    ).toEqual(true);
   });
 });

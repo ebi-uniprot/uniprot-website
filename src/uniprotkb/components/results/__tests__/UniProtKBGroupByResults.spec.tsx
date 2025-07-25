@@ -2,15 +2,13 @@ import { fireEvent, screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import UniProtKBGroupByResults from '../UniProtKBGroupBy';
-
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import {
-  taxonomyRoot,
   ecNonRoot,
   taxonomyCellularOrgranisms,
+  taxonomyRoot,
 } from '../../../__mocks__/uniProtKBGroupByData';
+import UniProtKBGroupByResults from '../UniProtKBGroupBy';
 
 let rendered: ReturnType<typeof customRender>;
 

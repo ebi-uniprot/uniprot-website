@@ -1,12 +1,9 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
-import UniRefCard from '../UniRefCard';
-
-import { UniRefLiteAPIModel } from '../../../adapters/uniRefConverter';
-
 import data from '../../../__mocks__/uniRefResultsData';
+import { UniRefLiteAPIModel } from '../../../adapters/uniRefConverter';
+import UniRefCard from '../UniRefCard';
 
 describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {

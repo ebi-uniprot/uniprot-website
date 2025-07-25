@@ -1,19 +1,15 @@
-import { useState, ChangeEvent, useCallback, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router';
 import { Chip, CodeBlock } from 'franklin-sites';
 import fm from 'front-matter';
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
-import HelpEntry, { getCleanTextOptions } from './Entry';
 import HTMLHead from '../../../shared/components/HTMLHead';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
-
-import helpURL from '../../config/apiUrls';
 import { parseMarkdown } from '../../../shared/utils/markdown';
 import { pluralise } from '../../../shared/utils/utils';
-
+import helpURL from '../../config/apiUrls';
 import { HelpEntryResponse } from '../../types/apiModel';
-
+import HelpEntry, { getCleanTextOptions } from './Entry';
 import styles from './styles/entry-preview.module.scss';
 
 const ghWikiRE =

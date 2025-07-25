@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { LocationsAPIModel } from '../adapters/locationsConverter';
 
 // Source: locations/search?query=membrane&size=2
-// Retrieved: 2025-02-04
+// Retrieved: 2025-06-19
 const mock: SearchResults<LocationsAPIModel> = {
   results: [
     {
@@ -16,8 +16,8 @@ const mock: SearchResults<LocationsAPIModel> = {
         id: 'KW-0997',
       },
       statistics: {
-        reviewedProteinCount: 27478,
-        unreviewedProteinCount: 2457694,
+        reviewedProteinCount: 27507,
+        unreviewedProteinCount: 2831152,
       },
       category: 'Cellular component',
       geneOntologies: [
@@ -137,8 +137,8 @@ const mock: SearchResults<LocationsAPIModel> = {
         id: 'KW-0472',
       },
       statistics: {
-        reviewedProteinCount: 117826,
-        unreviewedProteinCount: 34603372,
+        reviewedProteinCount: 118419,
+        unreviewedProteinCount: 37738219,
       },
       category: 'Cellular component',
       geneOntologies: [

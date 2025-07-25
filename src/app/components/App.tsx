@@ -1,46 +1,42 @@
-import { lazy, Suspense, FC } from 'react';
+import 'franklin-sites/franklin.css';
+import './styles/app.scss';
+
+import {
+  init as SentryInit,
+  // reactRouterV5BrowserTracingIntegration,
+  setTag as sentrySetTag,
+} from '@sentry/react';
+// import { Loader } from 'franklin-sites';
+import { lazy, Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
 import {
   // Route,
   // generatePath,
-  createBrowserRouter,
-  RouterProvider,
+  // createBrowserRouter,
   Outlet,
+  // RouterProvider,
 } from 'react-router';
-import { Helmet } from 'react-helmet-async';
-import { Loader } from 'franklin-sites';
 import { sleep } from 'timing-functions';
-import {
-  init as SentryInit,
-  setTag as sentrySetTag,
-  reactRouterV5BrowserTracingIntegration,
-} from '@sentry/react';
-
-import BaseLayout from '../../shared/components/layouts/BaseLayout';
-import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
-import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
-import GDPR from '../../shared/components/gdpr/GDPR';
-import DevDeploymentWarning from './DevDeploymentWarning';
-import Covid19RedirectWarning from './Covid19RedirectWarning';
-
-import history from '../../shared/utils/browserHistory';
-import { stringifyUrl, stringifyQuery } from '../../shared/utils/url';
-
-import useScrollToTop from '../../shared/hooks/useScrollToTop';
-import useReloadApp from '../../shared/hooks/useReloadApp';
-
-import {
-  allSearchResultLocations,
-  Location,
-  LocationToPath,
-} from '../config/urls';
-import description from '../config/description';
-
-import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 import pkg from '../../../package.json';
-
-import 'franklin-sites/franklin.css';
-import './styles/app.scss';
+import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
+import GDPR from '../../shared/components/gdpr/GDPR';
+import BaseLayout from '../../shared/components/layouts/BaseLayout';
+// import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
+// import useReloadApp from '../../shared/hooks/useReloadApp';
+// import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
+// import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
+// import history from '../../shared/utils/browserHistory';
+// import { stringifyQuery, stringifyUrl } from '../../shared/utils/url';
+import description from '../config/description';
+// import {
+//   allSearchResultLocations,
+//   Location,
+//   LocationToPath,
+// } from '../config/urls';
+import Covid19RedirectWarning from './Covid19RedirectWarning';
+import DevDeploymentWarning from './DevDeploymentWarning';
 
 // This is hackery is to prevent define being repeatedly called for the same
 // name. This has been observed in Variant viewer and Feature viewer tabs.
@@ -63,7 +59,7 @@ if (process.env.NODE_ENV !== 'development') {
     // Release name in order to track which version is causing which report
     release: `${pkg.name}@${pkg.version}#${GIT_COMMIT_HASH}`,
     //
-    integrations: [reactRouterV5BrowserTracingIntegration({ history })],
+    // integrations: [reactRouterV5BrowserTracingIntegration({ history })],
     maxBreadcrumbs: 50,
     // Proportion of sessions being used to track performance
     // Adjust to a low value when we start getting enough data
@@ -146,12 +142,12 @@ if (process.env.NODE_ENV !== 'development') {
 //       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
 //     )
 // );
-// // const UniParcSubEntryPage = lazy(
-// //   () =>
-// //     import(
-// //       /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/sub-entry/SubEntry'
-// //     )
-// // );
+// const UniParcSubEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/sub-entry/SubEntry'
+//     )
+// );
 // const UniParcEntryPage = lazy(
 //   () =>
 //     import(
@@ -162,6 +158,12 @@ if (process.env.NODE_ENV !== 'development') {
 //   () =>
 //     import(
 //       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
+//     )
+// );
+// const SupportingDataLandingPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "supporting-data-landing" */ '../../supporting-data/landing-page/LandingPage'
 //     )
 // );
 // const TaxonomyEntryPage = lazy(
@@ -212,7 +214,7 @@ if (process.env.NODE_ENV !== 'development') {
 //       /* webpackChunkName: "arba-entry" */ '../../automatic-annotations/arba/components/entry/Entry'
 //     )
 // );
-// Tools
+// // Tools
 // const BlastResult = lazy(
 //   () =>
 //     import(
@@ -323,6 +325,13 @@ if (process.env.NODE_ENV !== 'development') {
 //     )
 // );
 
+// const JobsNotSupportedPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "jobs-not-supported" */ '../../shared/components/error-pages/JobsNotSupported'
+//     )
+// );
+
 // const ContextualHelp = lazy(() =>
 //   sleep(1000).then(
 //     () =>
@@ -409,7 +418,11 @@ const BackToTheTop = lazy(() =>
 //   );
 // };
 
-// eslint-disable-next-line arrow-body-style
+const IfSupportsJobs = ({ children }: React.PropsWithChildren) => {
+  const supportsJobs = useSupportsJobs();
+  return <>{supportsJobs ? children : <JobsNotSupportedPage />}</>;
+};
+
 const App = () => {
   // useScrollToTop(history);
   // useReloadApp(history);
@@ -447,7 +460,7 @@ const App = () => {
               path={LocationToPath[Location.UniRefEntry]}
               component={UniRefEntryPage}
             />
-            {/* <Route
+            <Route
               path={LocationToPath[Location.UniParcSubEntry]}
               component={UniParcSubEntryPage}
             />
@@ -458,6 +471,10 @@ const App = () => {
             <Route
               path={LocationToPath[Location.ProteomesEntry]}
               component={ProteomesEntryPage}
+            />
+            <Route
+              path={LocationToPath[Location.SupportingData]}
+              component={SupportingDataLandingPage}
             />
             <Route
               path={LocationToPath[Location.TaxonomyEntry]}
@@ -500,58 +517,84 @@ const App = () => {
             />
             <Route
               path={LocationToPath[Location.BlastResult]}
-              component={BlastResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <BlastResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.Blast]}
               render={() => (
-                <SingleColumnLayout>
-                  <BlastForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <BlastForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.AlignResult]}
-              component={AlignResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <AlignResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.Align]}
               render={() => (
-                <SingleColumnLayout>
-                  <AlignForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <AlignForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.PeptideSearchResult]}
-              component={PeptideSearchResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <PeptideSearchResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.PeptideSearch]}
               render={() => (
-                <SingleColumnLayout>
-                  <PeptideSearchForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <PeptideSearchForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.IDMappingResult]}
-              component={IDMappingResult}
+              render={() => (
+                <IfSupportsJobs>
+                  <IDMappingResult />
+                </IfSupportsJobs>
+              )}
             />
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (
-                <SingleColumnLayout>
-                  <IDMappingForm />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <IDMappingForm />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route
               path={LocationToPath[Location.Dashboard]}
               render={() => (
-                <SingleColumnLayout>
-                  <Dashboard />
-                </SingleColumnLayout>
+                <IfSupportsJobs>
+                  <SingleColumnLayout>
+                    <Dashboard />
+                  </SingleColumnLayout>
+                </IfSupportsJobs>
               )}
             />
             <Route

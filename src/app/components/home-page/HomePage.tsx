@@ -1,28 +1,26 @@
+import './styles/home-page.scss';
+
+import { CitedIcon, HeroHeader, Loader } from 'franklin-sites';
 import {
-  memo,
   lazy,
+  memo,
   Suspense,
-  useState,
+  useCallback,
   useEffect,
   useRef,
-  useCallback,
+  useState,
 } from 'react';
 import { generatePath, Link } from 'react-router';
-import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import HTMLHead from '../../../shared/components/HTMLHead';
-
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
-
-import { LocationToPath, Location } from '../../config/urls';
+import helper from '../../../shared/styles/helper.module.scss';
 import {
   Namespace,
   SearchableNamespace,
 } from '../../../shared/types/namespaces';
-
-import helper from '../../../shared/styles/helper.module.scss';
-import './styles/home-page.scss';
+import { Location, LocationToPath } from '../../config/urls';
 
 const SearchContainer = lazy(
   () =>
@@ -170,7 +168,9 @@ const HomePage = () => (
   <>
     <main>
       {/* Activate the HTML head logic, but no title, so uses default */}
-      <HTMLHead />
+      <HTMLHead>
+        <link rel="canonical" href={window.location.origin} />
+      </HTMLHead>
       <h1 className="visually-hidden">UniProt website home page</h1>
       <ErrorBoundary>
         <HomePageHeader />

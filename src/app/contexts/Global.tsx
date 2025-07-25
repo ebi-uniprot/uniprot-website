@@ -1,17 +1,11 @@
 import { FC } from 'react';
-
-// library context providers
 import { HelmetProvider } from 'react-helmet-async';
 
-// app own context providers
-import { MessagesProvider } from '../../shared/contexts/Messages';
-import { ToolsProvider } from '../../shared/contexts/Tools';
-import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
+// import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
-
-import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
-
-import history from '../../shared/utils/browserHistory';
+import { MessagesProvider } from '../../shared/contexts/Messages';
+import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
+// import history from '../../shared/utils/browserHistory';
 
 const GlobalContext: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
   <HelmetProvider>

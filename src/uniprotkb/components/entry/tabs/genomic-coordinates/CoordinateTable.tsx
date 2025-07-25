@@ -1,30 +1,26 @@
+import cn from 'classnames';
+import { Card, Chip, LongNumber } from 'franklin-sites';
 import { Fragment } from 'react';
 import { Link } from 'react-router';
-import { Card, Chip, LongNumber } from 'franklin-sites';
-import cn from 'classnames';
 
+import { getEntryPathFor, Location } from '../../../../../app/config/urls';
+import AddToBasketButton from '../../../../../shared/components/action-buttons/AddToBasket';
+import AlignButton from '../../../../../shared/components/action-buttons/Align';
+import CopyButton from '../../../../../shared/components/action-buttons/Copy';
+import ToolsButton from '../../../../../shared/components/action-buttons/ToolsButton';
+import ToolsDropdown from '../../../../../shared/components/action-buttons/ToolsDropdown';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import Table from '../../../../../shared/components/table/Table';
-import { getEnsemblLink } from './GenomicLoc';
-import AddToBasketButton from '../../../../../shared/components/action-buttons/AddToBasket';
-import ToolsDropdown from '../../../../../shared/components/action-buttons/ToolsDropdown';
-import AlignButton from '../../../../../shared/components/action-buttons/Align';
-import ToolsButton from '../../../../../shared/components/action-buttons/ToolsButton';
-import CopyButton from '../../../../../shared/components/action-buttons/Copy';
-
-import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
-import { getEntryPathFor, Location } from '../../../../../app/config/urls';
-import { groupByGenomicCoordinates } from './utils';
-
 import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../../../shared/config/limits';
-
-import { Namespace } from '../../../../../shared/types/namespaces';
-import { TabLocation } from '../../../../types/entry';
-import { FlatGenomicEntry, GenomicCoordinate, GroupedExon } from './types';
-import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
-
-import styles from './styles/coordinates-table.module.scss';
 import helper from '../../../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../../../shared/types/namespaces';
+import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
+import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
+import { TabLocation } from '../../../../types/entry';
+import { getEnsemblLink } from './GenomicLoc';
+import styles from './styles/coordinates-table.module.scss';
+import { FlatGenomicEntry, GenomicCoordinate, GroupedExon } from './types';
+import { groupByGenomicCoordinates } from './utils';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 
@@ -181,20 +177,22 @@ const CoordinateRow = ({
           <ExternalLink
             url={
               exons[0].genomeLocation.position
-                ? getEnsemblLink(
+                ? getEnsemblLink({
                     taxID,
-                    exons[0].genomeLocation.position.position
-                  )
-                : getEnsemblLink(
+                    start: exons[0].genomeLocation.position.position,
+                    end: exons[0].genomeLocation.position.position,
+                    chromosome: gnCoordinates.genomicLocation.chromosome,
+                  })
+                : getEnsemblLink({
                     taxID,
-                    gnCoordinates.genomicLocation.reverseStrand
+                    start: gnCoordinates.genomicLocation.reverseStrand
                       ? exons[0].genomeLocation.end.position
                       : exons[0].genomeLocation.begin.position,
-                    gnCoordinates.genomicLocation.reverseStrand
+                    end: gnCoordinates.genomicLocation.reverseStrand
                       ? exons[0].genomeLocation.begin.position
                       : exons[0].genomeLocation.end.position,
-                    gnCoordinates.genomicLocation.chromosome
-                  )
+                    chromosome: gnCoordinates.genomicLocation.chromosome,
+                  })
             }
           >
             {location}
@@ -345,50 +343,52 @@ const CoordinateTable = ({
   );
 
   return (
-    <Table className={cn(styles['coordinates-table'], helper['no-wrap'])}>
-      <Table.Head toggleAll={groupedExonEntries.length > 1}>
-        <th>Exon coordinates</th>
-        {mappedIsoforms.map((isoformID) => (
-          <th
-            key={isoformID}
-            title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
-            colSpan={4}
-          >
-            <Link to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}>
-              {isoformID}
-            </Link>
-            {canonical === isoformID && (
-              <>
-                <br />
-                <Chip compact>canonical</Chip>
-              </>
-            )}
-          </th>
-        ))}
-      </Table.Head>
-      <Table.Body data={groupedExonEntries}>
-        {([genomicCoordinates, exons]) => ({
-          key: genomicCoordinates,
-          row: (
-            <CoordinateRow
-              gnCoordinates={flatGenomicEntries[0].gnCoordinate}
-              taxID={flatGenomicEntries[0].taxid}
-              exons={exons}
-              isEnsemblID={isEnsemblID}
-              mappedIsoforms={mappedIsoforms}
-            />
-          ),
-          extraContent: (
-            <CoordinateExtraContent
-              exons={exons}
-              xrefInfo={xrefInfo}
-              isEnsemblID={isEnsemblID}
-              colSpan={1 + 4 * mappedIsoforms.length}
-            />
-          ),
-        })}
-      </Table.Body>
-    </Table>
+    <section className={cn(styles['table-container'])}>
+      <Table className={cn(styles['coordinates-table'], helper['no-wrap'])}>
+        <Table.Head toggleAll={groupedExonEntries.length > 1}>
+          <th>Exon coordinates</th>
+          {mappedIsoforms.map((isoformID) => (
+            <th
+              key={isoformID}
+              title={`Protein coordinates for ${isoformID} mapping to specific exons. Click to view isoform`}
+              colSpan={4}
+            >
+              <Link to={getEntryPathForUniprotKB(isoformID, TabLocation.Entry)}>
+                {isoformID}
+              </Link>
+              {canonical === isoformID && (
+                <>
+                  <br />
+                  <Chip compact>canonical</Chip>
+                </>
+              )}
+            </th>
+          ))}
+        </Table.Head>
+        <Table.Body data={groupedExonEntries}>
+          {([genomicCoordinates, exons]) => ({
+            key: genomicCoordinates,
+            row: (
+              <CoordinateRow
+                gnCoordinates={flatGenomicEntries[0].gnCoordinate}
+                taxID={flatGenomicEntries[0].taxid}
+                exons={exons}
+                isEnsemblID={isEnsemblID}
+                mappedIsoforms={mappedIsoforms}
+              />
+            ),
+            extraContent: (
+              <CoordinateExtraContent
+                exons={exons}
+                xrefInfo={xrefInfo}
+                isEnsemblID={isEnsemblID}
+                colSpan={1 + 4 * mappedIsoforms.length}
+              />
+            ),
+          })}
+        </Table.Body>
+      </Table>
+    </section>
   );
 };
 

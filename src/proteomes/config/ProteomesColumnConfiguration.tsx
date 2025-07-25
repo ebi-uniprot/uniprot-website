@@ -1,25 +1,22 @@
-import { Fragment } from 'react';
-import { Link } from 'react-router';
 import { ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
+import { Fragment } from 'react';
+import { Link } from 'react-router';
 
-import ExternalLink from '../../shared/components/ExternalLink';
-import BuscoView from '../components/BuscoView';
-import BuscoLegend from '../components/BuscoLegend';
-import AccessionView from '../../shared/components/results/AccessionView';
-
-import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
-
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';
 import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
-
+import ExternalLink from '../../shared/components/ExternalLink';
+import AccessionView from '../../shared/components/results/AccessionView';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import {
   ProteomesAPIModel,
   ProteomesUIModel,
 } from '../adapters/proteomesConverter';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import BuscoLegend from '../components/BuscoLegend';
+import BuscoView from '../components/BuscoView';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -169,6 +166,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     }
     const shouldPointToUniParc =
       proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
+
     return (
       <Link
         to={{
@@ -178,7 +176,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
                 ? Location.UniParcResults
                 : Location.UniProtKBResults
             ],
-          search: `query=${shouldPointToUniParc ? 'upid' : 'proteome'}:${id}`,
+          search: `query=proteome:${id}`,
         }}
       >
         <LongNumber>{proteinCount}</LongNumber>

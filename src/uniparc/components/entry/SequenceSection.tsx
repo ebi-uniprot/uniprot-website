@@ -1,14 +1,18 @@
 import { Card } from 'franklin-sites';
 
-import SimpleSequence from '../../../shared/components/simple-sequence/SimpleSequence';
-
+import CommonSequenceView from '../../../shared/components/common-sequence/CommonSequenceView';
+import { Sequence as SequenceType } from '../../../shared/types/sequence';
 import { hasContent } from '../../../shared/utils/utils';
+import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 
-import EntrySection from '../../types/entrySection';
-import { Sequence as SequenceType } from '../../../shared/types/sequence';
-
-const SequenceSection = ({ data }: { data?: SequenceType }) => {
+const SequenceSection = ({
+  accession,
+  data,
+}: {
+  accession: string;
+  data?: SequenceType;
+}) => {
   if (!data || !hasContent(data)) {
     return null;
   }
@@ -18,7 +22,7 @@ const SequenceSection = ({ data }: { data?: SequenceType }) => {
       header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
       id={EntrySection.Sequence}
     >
-      <SimpleSequence sequence={data} />
+      <CommonSequenceView accession={accession} sequence={data} />
     </Card>
   );
 };

@@ -1,6 +1,6 @@
-import { RefObject, useCallback } from 'react';
-import { ZoomIn, ZoomOut, ZoomToSequence } from 'franklin-sites';
 import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import { ZoomIn, ZoomOut, ZoomToSequence } from 'franklin-sites';
+import { RefObject, useCallback } from 'react';
 
 import styles from './styles/nightingale-zoom-tool.module.scss';
 
@@ -14,6 +14,8 @@ type Props = {
   nightingaleNavigationRef?: RefObject<NightingaleNavigation> | null;
   nightingaleNavigationGetter?: () => NightingaleNavigation | null;
 };
+
+export const AA_ZOOMED = 29 as const;
 
 const NightingaleZoomTool = ({
   length,
@@ -43,7 +45,7 @@ const NightingaleZoomTool = ({
       } else if (operation === 'zoom-out') {
         k = -scaleFactor;
       } else if (operation === 'zoom-in-seq') {
-        k = displayEnd - displayStart - 29;
+        k = displayEnd - displayStart - AA_ZOOMED;
       }
       const newEnd = displayEnd - k;
       let newStart = displayStart;

@@ -1,21 +1,35 @@
 import * as logging from '../../shared/utils/logging';
-import { phosphorylate, sumoylate } from '../utils/aa';
-
-import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
-import { Evidence } from '../types/modelTypes';
+import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 import {
   ConfidenceScore,
   FeatureDatum,
   Modification,
 } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
+import { Evidence } from '../types/modelTypes';
+import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
+import { acetylate, phosphorylate, sumoylate, ubiquitinate } from '../utils/aa';
+
+const getDescription = (modification: Modification, aa: string) => {
+  switch (modification) {
+    case 'Phosphorylation':
+      return phosphorylate(aa);
+    case 'SUMOylation':
+      return sumoylate(aa);
+    case 'Ubiquitinylation':
+      return ubiquitinate(aa);
+    case 'Acetylation':
+      return acetylate(aa);
+    default:
+      return '';
+  }
+};
 
 const convertPtmExchangePtms = (
   ptms: PTM[],
   aa: string,
   absolutePosition: number,
   evidenceCode: `ECO:${number}`
-): FeatureDatum => {
+): FeatureDatum[] => {
   const evidences = [
     {
       evidenceCode,
@@ -36,58 +50,52 @@ const convertPtmExchangePtms = (
       ])
     ),
   ];
-  const confidenceScores = new Set(
-    ptms.flatMap(({ dbReferences }) =>
-      dbReferences?.map(({ properties }) => properties['Confidence score'])
-    )
-  );
-  let confidenceScore: ConfidenceScore | undefined;
-  if (confidenceScores.size) {
-    if (confidenceScores.size > 1) {
-      logging.error(
-        `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
-          confidenceScores
-        )}`
-      );
+
+  const groupPtmsByModification: Record<string, PTM[]> = {};
+  for (const ptm of ptms) {
+    if (groupPtmsByModification[ptm.name]) {
+      groupPtmsByModification[ptm.name].push(ptm);
     } else {
-      [confidenceScore] = confidenceScores;
+      groupPtmsByModification[ptm.name] = [ptm];
     }
   }
 
-  const sources = ptms.flatMap(({ sources }) =>
-    sources?.map((source) => source)
-  );
-  const [source] = sources || [''];
-
-  let modification: Modification | undefined;
-  const modifications = new Set(
-    ptms.flatMap(({ name }) => name as Modification)
-  );
-  // Update the logic when there are multiple modifications for a species. As of now, only one is expected
-  if (modifications.size) {
-    if (modifications.size > 1) {
-      logging.error(
-        `PTMeXchange PTM has a mixture of modifications: ${Array.from(
-          modifications
-        )}`
-      );
-    } else {
-      [modification] = modifications;
+  return Object.entries(groupPtmsByModification).map(([key, value]) => {
+    const confidenceScores = new Set(
+      value.flatMap(({ dbReferences }) =>
+        dbReferences?.map(({ properties }) => properties['Confidence score'])
+      )
+    );
+    let confidenceScore: ConfidenceScore | undefined;
+    if (confidenceScores.size) {
+      if (confidenceScores.size > 1) {
+        logging.error(
+          `PTMeXchange PTM has a mixture of confidence scores: ${Array.from(
+            confidenceScores
+          )}`
+        );
+      } else {
+        [confidenceScore] = confidenceScores;
+      }
     }
-  }
 
-  return {
-    source,
-    type: 'Modified residue (large scale data)',
-    location: {
-      start: { value: absolutePosition, modifier: 'EXACT' },
-      end: { value: absolutePosition, modifier: 'EXACT' },
-    },
-    description:
-      modification === 'Phosphorylation' ? phosphorylate(aa) : sumoylate(aa),
-    confidenceScore,
-    evidences,
-  };
+    const sources = value.flatMap(({ sources }) =>
+      sources?.map((source) => source)
+    );
+    const [source] = sources || [''];
+
+    return {
+      source,
+      type: 'Modified residue (large scale data)',
+      location: {
+        start: { value: absolutePosition, modifier: 'EXACT' },
+        end: { value: absolutePosition, modifier: 'EXACT' },
+      },
+      description: getDescription(key as Modification, aa),
+      confidenceScore: confidenceScore,
+      evidences,
+    };
+  });
 };
 
 export const convertPtmExchangeFeatures = (
@@ -125,8 +133,9 @@ export const convertPtmExchangeFeatures = (
   // NOTE: we can expect the ECO code to be the same for all of the features
   const evidenceCode = features[0].evidences[0].code as `ECO:${number}`;
 
-  return Object.entries(absolutePositionToPtms).map(
-    ([absolutePosition, { ptms, aa }]) =>
+  return Object.entries(absolutePositionToPtms)
+    .map(([absolutePosition, { ptms, aa }]) =>
       convertPtmExchangePtms(ptms, aa, +absolutePosition, evidenceCode)
-  );
+    )
+    .flat();
 };

@@ -1,39 +1,35 @@
-import { memo, useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router';
 import { Card, DataTableWithLoader, Loader, LongNumber } from 'franklin-sites';
+import { memo, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router';
 
+import {
+  getEntryPathFor,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
+import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
-import BasketStatus from '../../../basket/BasketStatus';
-import MemberLink from './MemberLink';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import { pluralise } from '../../../shared/utils/utils';
+import helper from '../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
+import { pluralise } from '../../../shared/utils/utils';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import {
-  Location,
-  LocationToPath,
-  getEntryPathFor,
-} from '../../../app/config/urls';
-import apiUrls from '../../config/apiUrls';
-
-import EntrySection from '../../types/entrySection';
-import { Namespace } from '../../../shared/types/namespaces';
-import {
   Identity,
-  UniRefMember,
   RepresentativeMember,
+  UniRefMember,
 } from '../../adapters/uniRefConverter';
+import apiUrls from '../../config/apiUrls';
+import EntrySection from '../../types/entrySection';
 import { UniRefMembersResults } from '../../types/membersEndpoint';
-
-import helper from '../../../shared/styles/helper.module.scss';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import MemberLink from './MemberLink';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)

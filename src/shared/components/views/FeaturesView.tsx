@@ -1,3 +1,4 @@
+import { Feature } from '@nightingale-elements/nightingale-track';
 import {
   Fragment,
   lazy,
@@ -7,24 +8,24 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Feature } from '@nightingale-elements/nightingale-track';
-
-import LazyComponent from '../LazyComponent';
-import TableFromData from '../table/TableFromData';
-
-import { useSmallScreen } from '../../hooks/useMatchMedia';
-import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
+import { frame } from 'timing-functions';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
-
-import FeatureType from '../../../uniprotkb/types/featureType';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import {
   Ligand,
   LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-import { NightingaleViewRange } from '../../utils/nightingale';
+import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import FeatureType from '../../../uniprotkb/types/featureType';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import useAnimateRange from '../../hooks/useAnimateRange';
+import useFeatureViewScrollSync from '../../hooks/useFeatureViewScrollSync';
+import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
+import { getTargetRange, NightingaleViewRange } from '../../utils/nightingale';
+import LazyComponent from '../LazyComponent';
+import { MIN_ROWS_TO_EXPAND } from '../table/constants';
+import TableFromData from '../table/TableFromData';
 
 const VisualFeaturesView = lazy(
   () =>
@@ -100,8 +101,11 @@ function FeaturesView<T extends ProcessedFeature>({
   const [highlightedFeature, setHighlightedFeature] = useState<T | undefined>();
   const [nightingaleViewRange, setNightingaleViewRange] =
     useState<NightingaleViewRange>();
+  const [range, setRange] = useState<[number, number] | null>(null);
   const tableId = useId();
   const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
+  const [disableFeatureViewScrollSync, enableFeatureViewScrollSync] =
+    useFeatureViewScrollSync(tableId);
 
   const featureTypes = useMemo(
     () => Array.from(new Set<FeatureType>(features.map(({ type }) => type))),
@@ -121,6 +125,34 @@ function FeaturesView<T extends ProcessedFeature>({
       tableScroll(feature);
     },
     [tableScroll]
+  );
+
+  const animateRange = useAnimateRange(setRange);
+
+  const navigate = useCallback(
+    (feature: T) => {
+      if (nightingaleViewRange && sequence) {
+        const currentRange: [number, number] = [
+          nightingaleViewRange['display-start'],
+          nightingaleViewRange['display-end'],
+        ];
+        const targetRange = getTargetRange(
+          [+feature.start, +feature.end],
+          sequence.length
+        );
+        disableFeatureViewScrollSync(); // Don't scroll table
+        animateRange(currentRange, targetRange)
+          .then(frame)
+          .then(enableFeatureViewScrollSync);
+      }
+    },
+    [
+      nightingaleViewRange,
+      sequence,
+      disableFeatureViewScrollSync,
+      animateRange,
+      enableFeatureViewScrollSync,
+    ]
   );
 
   return !features.length ? null : (
@@ -156,9 +188,12 @@ function FeaturesView<T extends ProcessedFeature>({
             sequence={sequence}
             trackHeight={trackHeight}
             noLinkToFullView={noLinkToFullView}
-            onFeatureClick={(feature) => handleFeatureClick(feature as T)}
+            onFeatureClick={
+              handleFeatureClick as (feature: ProcessedFeature) => void
+            }
             onViewRangeChange={handleViewRangeChange}
             highlightedFeature={highlightedFeature}
+            range={range}
           />
         </LazyComponent>
       )}
@@ -176,8 +211,17 @@ function FeaturesView<T extends ProcessedFeature>({
         markBorder={
           markBorder && nightingaleViewRange && markBorder(nightingaleViewRange)
         }
-        onRowClick={setHighlightedFeature}
-        expandable={!inResultsTable}
+        onRowClick={(f, expanded) => {
+          if (f.accession === highlightedFeature?.accession || !expanded) {
+            setHighlightedFeature(undefined);
+          } else {
+            setHighlightedFeature(f);
+            if (!isSmallScreen) {
+              navigate(f);
+            }
+          }
+        }}
+        expandable={!inResultsTable && features.length > MIN_ROWS_TO_EXPAND}
       />
     </>
   );

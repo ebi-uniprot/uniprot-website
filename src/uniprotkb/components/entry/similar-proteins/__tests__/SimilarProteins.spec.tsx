@@ -3,25 +3,23 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-
 import SimilarProteins, { getClusterMapping } from '../SimilarProteins';
-
 import {
   allAccessions,
   clusterData,
   mapping,
 } from './__mocks__/clusterMappingData';
+import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 import unirefP05067 from './__mocks__/unirefP05067';
 import unirefP05067isoform4 from './__mocks__/unirefP05067-4';
-import uniprotkbClusterSearch from './__mocks__/uniprotkbClusterSearch';
 
 const axiosMock = new MockAdapter(axios);
 axiosMock
   // find clusters for canonical
-  .onGet(/query=%28uniprot_id%3DP05067%29/)
+  .onGet(/query=%28uniprotkb%3DP05067%29/)
   .reply(200, unirefP05067)
   // find clusters for isoform 4
-  .onGet(/query=%28uniprot_id%3DP05067-4%29/)
+  .onGet(/query=%28uniprotkb%3DP05067-4%29/)
   .reply(200, unirefP05067isoform4)
   // find members of cluster (always same response for testing)
   .onGet(/\/uniprotkb\/search/)

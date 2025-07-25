@@ -1,19 +1,16 @@
+import { Button, Dropdown, ShareNodesIcon } from 'franklin-sites';
+import { createPath } from 'history';
 import { Dispatch, SetStateAction } from 'react';
 import { useLocation } from 'react-router';
-import { Dropdown, Button, ShareNodesIcon } from 'franklin-sites';
-import { createPath } from 'history';
 
-import CopyButton from './Copy';
-
-import useNS from '../../hooks/useNS';
 import useColumnNames from '../../hooks/useColumnNames';
+import useNS from '../../hooks/useNS';
 import useViewMode from '../../hooks/useViewMode';
-
+import { Namespace } from '../../types/namespaces';
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 import { stringifyQuery } from '../../utils/url';
-
-import { Namespace } from '../../types/namespaces';
 import { ExtraContent } from '../download/downloadReducer';
+import CopyButton from './Copy';
 
 const isCopySupported = Boolean(
   'clipboard' in navigator &&

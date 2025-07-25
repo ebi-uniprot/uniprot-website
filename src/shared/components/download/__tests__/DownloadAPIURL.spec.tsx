@@ -1,8 +1,7 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import DownloadAPIURL, { getSearchURL } from '../DownloadAPIURL';
-
 import customRender from '../../../__test-helpers__/customRender';
+import DownloadAPIURL, { getSearchURL } from '../DownloadAPIURL';
 
 const apiURL = 'https://foo.org';
 
@@ -88,6 +87,16 @@ describe('getSearchURL', () => {
       )
     ).toEqual(
       'https://rest.uniprot.org/idmapping/uniprotkb/results/77035de28771bdd279b1c5ce66c3aebe8ec8b028?format=fasta&size=500'
+    );
+  });
+
+  it('should get uniparc-proteome search url for fasta download', () => {
+    expect(
+      getSearchURL(
+        'https://rest.uniprot.org/uniparc/proteome/UP000001478/stream?format=fasta'
+      )
+    ).toEqual(
+      'https://rest.uniprot.org/uniparc/proteome/UP000001478?format=fasta&size=500'
     );
   });
 });

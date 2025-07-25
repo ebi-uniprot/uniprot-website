@@ -1,21 +1,19 @@
+import { Card, InfoList, Message } from 'franklin-sites';
 import { Fragment } from 'react';
 import { Link } from 'react-router';
-import { Card, ExternalLink, InfoList, Message } from 'franklin-sites';
 
-import CoordinateTable from './CoordinateTable';
-import Isoform from './Isoform';
+import { getEntryPathFor } from '../../../../../app/config/urls';
+import ExternalLink from '../../../../../shared/components/ExternalLink';
 import LazyComponent from '../../../../../shared/components/LazyComponent';
-
 import useDatabaseInfoMaps from '../../../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Namespace } from '../../../../../shared/types/namespaces';
 import listFormat from '../../../../../shared/utils/listFormat';
 import { pluralise } from '../../../../../shared/utils/utils';
 import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
-import { getEntryPathFor } from '../../../../../app/config/urls';
-
-import { FlatGenomicEntry } from './types';
 import { TabLocation } from '../../../../types/entry';
-import { Namespace } from '../../../../../shared/types/namespaces';
+import CoordinateTable from './CoordinateTable';
+import Isoform from './Isoform';
+import { FlatGenomicEntry } from './types';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 

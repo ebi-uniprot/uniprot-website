@@ -1,32 +1,28 @@
-import { useState } from 'react';
-import { generatePath, Link } from 'react-router';
+import cn from 'classnames';
 import {
-  ExternalLink,
   LongNumber,
+  Message,
   ReferenceProteomeIcon,
   TremblIcon,
 } from 'franklin-sites';
-import cn from 'classnames';
+import { useState } from 'react';
+import { generatePath, Link } from 'react-router';
 import joinUrl from 'url-join';
 
-import StatisticsChart from './StatisticsChart';
-import HTMLHead from '../../../shared/components/HTMLHead';
-// import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import ftpUrls from '../../../shared/config/ftpUrls';
-import { stringifyQuery } from '../../../shared/utils/url';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { SearchResults } from '../../../shared/types/results';
-import { Namespace } from '../../../shared/types/namespaces';
-import { FacetsEnum } from '../../config/ProteomesFacetConfiguration';
-
-import styles from './styles/landing-page.module.scss';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import SpeciesIllustration from '../../../images/species_illustration.img.svg';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import HTMLHead from '../../../shared/components/HTMLHead';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import ftpUrls from '../../../shared/config/ftpUrls';
+// import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
+import { SearchResults } from '../../../shared/types/results';
+import { stringifyQuery } from '../../../shared/utils/url';
+import { FacetsEnum } from '../../config/ProteomesFacetConfiguration';
+import StatisticsChart from './StatisticsChart';
+import styles from './styles/landing-page.module.scss';
 
 const documentationLinks = [
   {
@@ -183,6 +179,16 @@ const LandingPage = () => {
             </Link>
           </p>
         </div>
+
+        <Message level="warning" className="uniprot-grid-cell--span-12">
+          We will be improving our pipelines for the selection of Reference
+          Proteomes over the next few months (September 2025–February 2026).
+          This might affect your data analysis,{' '}
+          <ExternalLink url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html">
+            please read this short article
+          </ExternalLink>{' '}
+          if you want to know more.
+        </Message>
 
         {/* Statistics */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">

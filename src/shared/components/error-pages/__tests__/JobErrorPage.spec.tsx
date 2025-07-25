@@ -1,5 +1,4 @@
 import customRender from '../../../__test-helpers__/customRender';
-
 import JobErrorPage from '../full-pages/JobErrorPage';
 
 describe('JobErrorPage component', () => {

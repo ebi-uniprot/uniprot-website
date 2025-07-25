@@ -1,17 +1,18 @@
-import { convertSection, UIModel } from './sectionConverter';
+import { Xref } from '../../shared/types/apiModel';
 import { hasContent } from '../../shared/utils/utils';
-
+import { UniProtKBColumn } from '../types/columnTypes';
+import { CommentType } from '../types/commentTypes';
+import EntrySection from '../types/entrySection';
+import { SubcellularLocationFeatures } from '../types/featureType';
+import KeywordCategory from '../types/keywordCategory';
+import { Evidence, GoEvidenceType } from '../types/modelTypes';
+import { DatabaseInfoMaps } from '../utils/database';
+import { getXrefsForSection } from '../utils/xrefUtils';
+import { convertSection, UIModel } from './sectionConverter';
 import {
   UniProtkbAPIModel,
   UniProtKBSimplifiedTaxonomy,
 } from './uniProtkbConverter';
-import { Xref } from '../../shared/types/apiModel';
-import KeywordCategory from '../types/keywordCategory';
-import { SubcellularLocationFeatures } from '../types/featureType';
-import { CommentType } from '../types/commentTypes';
-import { Evidence, GoEvidenceType } from '../types/modelTypes';
-import { UniProtKBColumn } from '../types/columnTypes';
-import { DatabaseInfoMaps } from '../utils/database';
 
 const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 
@@ -88,6 +89,18 @@ const convertSubcellularLocation = (
   if (hasContent(subcellularLocationData) && data.organism) {
     subcellularLocationData.organismData = data.organism;
   }
+
+  if (uniProtKBCrossReferences) {
+    const xrefs = getXrefsForSection(
+      databaseInfoMaps,
+      uniProtKBCrossReferences,
+      EntrySection.SubCellularLocation
+    );
+    if (xrefs && typeof xrefs !== 'undefined') {
+      subcellularLocationData.xrefData = xrefs;
+    }
+  }
+
   return subcellularLocationData;
 };
 

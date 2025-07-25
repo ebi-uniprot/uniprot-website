@@ -1,16 +1,13 @@
-import { Link } from 'react-router';
-import { Loader } from 'franklin-sites';
 import cn from 'classnames';
+import { Loader } from 'franklin-sites';
+import { Link } from 'react-router';
 
+import { getLocationEntryPath, Location } from '../../../app/config/urls';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import NoResultsPage from '../../../shared/components/error-pages/full-pages/NoResultsPage';
-import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
-
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
-
 import { HelpSearchResponse } from '../../types/apiModel';
-import { Location, getLocationEntryPath } from '../../../app/config/urls';
-
+import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 import styles from './styles/results.module.scss';
 
 const Results = ({

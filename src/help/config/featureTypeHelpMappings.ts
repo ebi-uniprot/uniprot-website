@@ -17,7 +17,6 @@ const FeatureTypeHelpMappings: Omit<Record<FeatureType, string>, 'Other'> = {
   'Coiled coil': 'coiled',
   Motif: 'motif',
   'Active site': 'act_site',
-  BINDING: 'binding',
   'Binding site': 'binding',
   Site: 'site',
   Intramembrane: 'intramem',

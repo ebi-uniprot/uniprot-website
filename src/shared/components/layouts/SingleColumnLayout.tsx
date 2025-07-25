@@ -1,9 +1,8 @@
-import { FC, lazy, Suspense } from 'react';
-import { Loader } from 'franklin-sites';
 import cn from 'classnames';
+import { Loader } from 'franklin-sites';
+import { FC, lazy, Suspense } from 'react';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
-
 import styles from './styles/single-column-layout.module.scss';
 
 const UniProtFooter = lazy(

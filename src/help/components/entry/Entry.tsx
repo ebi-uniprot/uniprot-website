@@ -1,45 +1,41 @@
-import { useCallback, MouseEventHandler, useMemo, useEffect } from 'react';
+import cn from 'classnames';
+import { Card, Loader } from 'franklin-sites';
+import { MouseEventHandler, useCallback, useEffect, useMemo } from 'react';
 import {
   generatePath,
-  useLocation,
-  useParams,
-  useNavigate,
   Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
 } from 'react-router';
-import { Card, Loader } from 'franklin-sites';
 import {
   Attributes,
   defaults,
+  IOptions,
   Tag,
   Transformer,
-  IOptions,
 } from 'sanitize-html';
-import cn from 'classnames';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import RelatedArticles from './RelatedArticles';
-
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import helpApiUrls from '../../config/apiUrls';
-import { parseMarkdown } from '../../../shared/utils/markdown';
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import helper from '../../../shared/styles/helper.module.scss';
 import {
   cleanTextDefaultOptions,
   getTransformTags,
   HeadingLevels,
 } from '../../../shared/utils/cleanText';
-import parseDate from '../../../shared/utils/parseDate';
-import * as logging from '../../../shared/utils/logging';
 import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
+import * as logging from '../../../shared/utils/logging';
+import { parseMarkdown } from '../../../shared/utils/markdown';
+import parseDate from '../../../shared/utils/parseDate';
 import { stringifyQuery } from '../../../shared/utils/url';
-
+import helpApiUrls from '../../config/apiUrls';
 import { HelpEntryResponse } from '../../types/apiModel';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
-import helper from '../../../shared/styles/helper.module.scss';
+import RelatedArticles from './RelatedArticles';
 import styles from './styles/entry.module.scss';
 
 const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;

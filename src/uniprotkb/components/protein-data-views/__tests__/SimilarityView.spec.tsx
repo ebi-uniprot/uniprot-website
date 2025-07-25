@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import SimilarityView from '../SimilarityView';
 
 describe('SimilarityView component', () => {

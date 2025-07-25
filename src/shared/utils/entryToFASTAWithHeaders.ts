@@ -1,16 +1,16 @@
 import { formatFASTA } from 'franklin-sites';
 
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { APISequenceData } from '../../jobs/blast/types/apiSequenceData';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import {
   UniRefAPIModel,
   UniRefLiteAPIModel,
 } from '../../uniref/adapters/uniRefConverter';
 import {
-  getEntryTypeFromString,
   EntryType,
+  getEntryTypeFromString,
 } from '../components/entry/EntryTypeIcon';
-import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
 
 type Subset = { start: number; end: number };
 

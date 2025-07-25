@@ -1,9 +1,9 @@
 import { generatePath } from 'react-router';
 
-import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
-import { processUrlTemplate } from '../../shared/utils/xrefs';
-
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
+import { processUrlTemplate } from '../../shared/utils/xrefs';
+import { TabLocation } from '../types/entry';
 
 type InternalSource =
   | 'ARBA'
@@ -80,7 +80,8 @@ const internalEvidenceUrls: Record<InternalSource, (value: string) => string> =
     SAAS: (value) => getEntryPath(Namespace.unirule, value),
     SAM: () =>
       generatePath(LocationToPath[Location.HelpEntry], { accession: 'sam' }),
-    UniProtKB: (value) => getEntryPath(Namespace.uniprotkb, value),
+    UniProtKB: (value) =>
+      getEntryPath(Namespace.uniprotkb, value, TabLocation.Entry),
     UniRule: (value) => getEntryPath(Namespace.unirule, value),
   };
 

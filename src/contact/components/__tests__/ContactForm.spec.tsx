@@ -1,15 +1,12 @@
 import { screen } from '@testing-library/react';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import customRender from '../../../shared/__test-helpers__/customRender';
-
-import ContactForm from '../ContactForm';
-
 import {
   useFormLogic,
   UseFormLogicReturnType,
 } from '../../adapters/contactFormAdapter';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
+import ContactForm from '../ContactForm';
 
 jest.mock('../../adapters/contactFormAdapter');
 const handleSubmit = jest.fn();
@@ -26,6 +23,7 @@ describe('ContactForm', () => {
     handleSubmit.mockClear();
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: false,
+      suggestion: undefined,
       handleSubmit,
       handleChange,
     });
@@ -57,6 +55,7 @@ describe('ContactForm', () => {
   it('should be disabled when submitting', () => {
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: true,
+      suggestion: undefined,
       handleSubmit,
       handleChange,
     });

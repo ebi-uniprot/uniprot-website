@@ -1,16 +1,14 @@
-import TaxonomyColumnConfiguration, {
-  TaxonomyColumn,
-} from '../TaxonomyColumnConfiguration';
-
+import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
+import data from '../../__mocks__/taxonomyModelData';
 import taxonomyConverter, {
   TaxonomyAPIModel,
   TaxonomyUIModel,
 } from '../../adapters/taxonomyConverter';
+import TaxonomyColumnConfiguration, {
+  TaxonomyColumn,
+} from '../TaxonomyColumnConfiguration';
 
-import data from '../../__mocks__/taxonomyModelData';
-import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
-
-jest.mock('../../../../tools/utils/storage');
+jest.mock('../../../../shared/workers/jobs/utils/storage');
 
 const transformedData: TaxonomyUIModel = taxonomyConverter(data[0]);
 

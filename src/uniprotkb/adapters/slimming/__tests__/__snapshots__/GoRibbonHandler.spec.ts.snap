@@ -262,121 +262,6 @@ exports[`GORibbonHandler should generate categories from slim set 1`] = `
     "id": "GO:0008150",
     "label": "biological_process",
   },
-  {
-    "description": "",
-    "groups": [
-      {
-        "description": "Show all Cellular Component annotations",
-        "id": "GO:0005575",
-        "label": "All Cellular Component",
-        "type": "All",
-      },
-      {
-        "description": "",
-        "id": "GO:0005576",
-        "label": "extracellular region",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005634",
-        "label": "nucleus",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005694",
-        "label": "chromosome",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005739",
-        "label": "mitochondrion",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005768",
-        "label": "endosome",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005773",
-        "label": "vacuole",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005783",
-        "label": "endoplasmic reticulum",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005794",
-        "label": "Golgi apparatus",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005829",
-        "label": "cytosol",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005856",
-        "label": "cytoskeleton",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005886",
-        "label": "plasma membrane",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0030054",
-        "label": "cell junction",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0031410",
-        "label": "cytoplasmic vesicle",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0032991",
-        "label": "protein-containing complex",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0042995",
-        "label": "cell projection",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0045202",
-        "label": "synapse",
-        "type": "Term",
-      },
-      {
-        "description": "",
-        "id": "GO:0005575",
-        "label": "Other Cellular Component",
-        "type": "Other",
-      },
-    ],
-    "id": "GO:0005575",
-    "label": "cellular_component",
-  },
 ]
 `;
 
@@ -409,28 +294,6 @@ exports[`GORibbonHandler should generate subjects from data 1`] = `
           "terms": [
             "GO:0004252",
             "GO:0008236",
-          ],
-        },
-      },
-      "GO:0005575": {
-        "ALL": {
-          "nb_annotations": 10,
-          "nb_classes": 5,
-          "terms": [
-            "GO:0070062",
-            "GO:0005576",
-            "GO:0005887",
-            "GO:0005654",
-            "GO:0005886",
-          ],
-        },
-      },
-      "GO:0005575-other": {
-        "ALL": {
-          "nb_annotations": 2,
-          "nb_classes": 1,
-          "terms": [
-            "GO:0005887",
           ],
         },
       },
@@ -504,8 +367,8 @@ exports[`GORibbonHandler should generate subjects from data 1`] = `
     },
     "id": "P05067",
     "label": "TP53",
-    "nb_annotations": 23,
-    "nb_classes": 11,
+    "nb_annotations": 13,
+    "nb_classes": 6,
     "taxon_id": "NCBITaxon:9606",
     "taxon_label": "Homo sapiens",
   },

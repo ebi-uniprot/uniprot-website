@@ -1,11 +1,10 @@
-import { memo } from 'react';
-import { Button } from 'franklin-sites';
 import cn from 'classnames';
+import { Button } from 'franklin-sites';
+import { memo } from 'react';
 
 import useScrollInfo from '../hooks/useScrollInfo';
-
-import styles from './styles/back-to-the-top.module.scss';
 import baseLayoutStyles from './layouts/styles/base-layout.module.scss';
+import styles from './styles/back-to-the-top.module.scss';
 
 const BackToTheTop = () => {
   const { direction, scrollY } = useScrollInfo(

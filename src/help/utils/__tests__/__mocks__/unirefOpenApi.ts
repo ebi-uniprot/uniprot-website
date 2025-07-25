@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2025-02-04
+// Retrieved: 2025-06-19
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -537,27 +537,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
           organismName: {
             type: 'string',
           },
@@ -586,6 +565,27 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
+          },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
+          },
+          memberId: {
+            type: 'string',
           },
         },
       },
@@ -625,6 +625,13 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/UniRefMember',
             },
           },
+          representativeMember: {
+            $ref: '#/components/schemas/RepresentativeMember',
+          },
+          entryType: {
+            type: 'string',
+            enum: ['UniRef100', 'UniRef90', 'UniRef50'],
+          },
           updated: {
             type: 'string',
             format: 'date',
@@ -645,39 +652,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           seedId: {
             type: 'string',
           },
-          representativeMember: {
-            $ref: '#/components/schemas/RepresentativeMember',
-          },
-          entryType: {
-            type: 'string',
-            enum: ['UniRef100', 'UniRef90', 'UniRef50'],
-          },
         },
       },
       UniRefMember: {
         type: 'object',
         properties: {
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
           organismName: {
             type: 'string',
           },
@@ -706,6 +685,27 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
+          },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
+          },
+          memberId: {
+            type: 'string',
           },
         },
       },

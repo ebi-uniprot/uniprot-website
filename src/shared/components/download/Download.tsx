@@ -1,72 +1,79 @@
-import { ChangeEvent, useCallback, useMemo, useReducer } from 'react';
-import { Location as HistoryLocation } from 'history';
-import { generatePath, Link, useLocation } from 'react-router';
-import { Button, DownloadIcon, LongNumber, Message } from 'franklin-sites';
 import cn from 'classnames';
-
-import ColumnSelect from '../column-select/ColumnSelect';
-import DownloadPreview from './DownloadPreview';
-import DownloadAPIURL from './DownloadAPIURL';
-import ExternalLink from '../ExternalLink';
-import AsyncDownloadForm from '../../../tools/async-download/components/AsyncDownloadForm';
-
-import useColumnNames from '../../hooks/useColumnNames';
-import useJobFromUrl from '../../hooks/useJobFromUrl';
-import useDataApi from '../../hooks/useDataApi';
-
 import {
-  DownloadSelectOptions,
-  downloadReducer,
-  getDownloadInitialState,
-  ExtraContent,
-} from './downloadReducer';
+  Button,
+  Chip,
+  DownloadIcon,
+  LongNumber,
+  Message,
+} from 'franklin-sites';
+import { Location as HistoryLocation } from 'history';
 import {
-  updateSelectedFileFormat,
-  updateSelectedColumns,
-  updateDownloadSelect,
-  updateCompressed,
-  updateExtraContent,
-  updateDisableForm,
-  updateFullXref,
-} from './downloadActions';
-import { prepareFieldData } from '../column-select/utils';
+  ChangeEvent,
+  ChangeEventHandler,
+  useCallback,
+  useMemo,
+  useReducer,
+} from 'react';
+import { generatePath, Link, useLocation } from 'react-router';
 
-import apiUrls from '../../config/apiUrls/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import {
-  getColumnsNamespace,
-  getDownloadCount,
-  getDownloadOptions,
-  getPreviewOptions,
-  getFtpFilenamesAndUrls,
-  getIsAsyncDownload,
-  getRedirectToIDMapping,
-  getExtraContent,
-  getIsEmbeddings,
-  getPreviewCount,
-  isAsyncDownloadIdMapping,
-  showColumnSelect,
-  filterFullXrefColumns,
-  getCountForCustomisableSet,
-  getIsUniParcLightResponse,
-  fullToStandardColumnName,
-} from './downloadUtils';
-
+import AsyncDownloadForm from '../../../jobs/async-download/components/AsyncDownloadForm';
+import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { JobTypes } from '../../../jobs/types/jobTypes';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
-
-import { FileFormat } from '../../types/resultsDownload';
+import useColumnNames from '../../hooks/useColumnNames';
+import useDataApi from '../../hooks/useDataApi';
+import useJobFromUrl from '../../hooks/useJobFromUrl';
+import helper from '../../styles/helper.module.scss';
+import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
-import { PublicServerParameters } from '../../../tools/types/toolsServerParameters';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-
-import sticky from '../../styles/sticky.module.scss';
+import ColumnSelect from '../column-select/ColumnSelect';
+import { prepareFieldData } from '../column-select/utils';
+import ExternalLink from '../ExternalLink';
+import {
+  updateCompressed,
+  updateDisableForm,
+  updateDownloadSelect,
+  updateExtraContent,
+  updateFastaHeader,
+  updateFullXref,
+  updateSelectedColumns,
+  updateSelectedFileFormat,
+} from './downloadActions';
+import DownloadAPIURL from './DownloadAPIURL';
+import DownloadPreview from './DownloadPreview';
+import {
+  downloadReducer,
+  DownloadSelectOptions,
+  ExtraContent,
+  getDownloadInitialState,
+} from './downloadReducer';
+import {
+  filterFullXrefColumns,
+  fullToStandardColumnName,
+  getColumnsNamespace,
+  getCountForCustomisableSet,
+  getDownloadCount,
+  getDownloadOptions,
+  getExtraContent,
+  getFtpFilenamesAndUrls,
+  getIsAsyncDownload,
+  getIsEmbeddings,
+  getPreviewCount,
+  getPreviewOptions,
+  getRedirectToIDMapping,
+  isAsyncDownloadIdMapping,
+  isUniParcProteomeSearch,
+  showColumnSelect,
+} from './downloadUtils';
 import styles from './styles/download.module.scss';
-import helper from '../../styles/helper.module.scss';
 
 export type DownloadProps<T extends JobTypes> = {
   query?: string;
@@ -88,6 +95,35 @@ export type DownloadProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
   extraContent?: ExtraContent;
 };
+
+export const proteomeFastaOption = (
+  fastaHeader: boolean,
+  handleFastaHeaderChange: ChangeEventHandler<HTMLInputElement>
+) => (
+  <fieldset>
+    <p className={styles['new-fasta-header']}>
+      <span data-article-id="fasta-headers#uniparc-proteomes">
+        FASTA header for proteomes
+      </span>
+      <small>
+        <Chip>New</Chip>
+      </small>
+      <br />
+      For proteomes, we provide a UniParc FASTA header that shows biologically
+      relevant information like protein, gene and organism names.
+      <label>
+        <input
+          aria-label="uniparc proteome-specific FASTA"
+          type="checkbox"
+          name="proteome FASTA"
+          checked={fastaHeader}
+          onChange={handleFastaHeaderChange}
+        />
+        Proceed with FASTA header for proteomes (recommended).
+      </label>
+    </p>
+  </fieldset>
+);
 
 const Download = (props: DownloadProps<JobTypes>) => {
   const {
@@ -139,6 +175,10 @@ const Download = (props: DownloadProps<JobTypes>) => {
     dispatch(updateSelectedColumns(state.selectedColumns, fieldData));
   };
 
+  const handleFastaHeaderChange = () => {
+    dispatch(updateFastaHeader(!state.proteomeFastaHeader));
+  };
+
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
   const downloadOptions = getDownloadOptions(state, props, location, job);
@@ -154,8 +194,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const isEmbeddings = getIsEmbeddings(state);
   const isAsyncDownload = getIsAsyncDownload(state, props, location, job);
   const redirectToIDMapping = getRedirectToIDMapping(state, props, job);
-  // This is added for release 2024_06. Remove it for the next release
-  const isUniParcLightResponse = getIsUniParcLightResponse(state, props);
 
   let extraContentNode: JSX.Element | null = null;
   switch (getExtraContent(state, props, location, job)) {
@@ -305,6 +343,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
           </select>
         </label>
       </fieldset>
+      {/* UniParc-proteome FASTA option */}
+      {isUniParcProteomeSearch(state, props, downloadOptions.query) &&
+        proteomeFastaOption(state.proteomeFastaHeader, handleFastaHeaderChange)}
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset disabled={state.disableForm}>
@@ -334,20 +375,6 @@ const Download = (props: DownloadProps<JobTypes>) => {
             No
           </label>
         </fieldset>
-      )}
-
-      {isUniParcLightResponse && (
-        <Message level="info">
-          {state.selectedFileFormat} files contain fewer fields since{' '}
-          <Link
-            to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-              accession: '2024-11-27-release',
-            })}
-          >
-            release 2024_06
-          </Link>
-          . Please see the release notes for more details.
-        </Message>
       )}
 
       {/* Peptide search download for matches exceeding the threshold */}

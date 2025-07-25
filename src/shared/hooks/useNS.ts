@@ -1,10 +1,10 @@
 import { useLocation, useMatch } from 'react-router';
+
 import {
   allSearchResultLocations,
   getJobResultsLocation,
   LocationToPath,
 } from '../../app/config/urls';
-
 import { Namespace } from '../types/namespaces';
 
 const findNamespace = (potentialNS: string) =>

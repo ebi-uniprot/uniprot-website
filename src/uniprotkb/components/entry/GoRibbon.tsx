@@ -1,24 +1,24 @@
-import { useEffect, useMemo, useState, useRef, ReactNode } from 'react';
 import { Loader } from 'franklin-sites';
+import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
-import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import LazyComponent from '../../../shared/components/LazyComponent';
-
-import useSafeState from '../../../shared/hooks/useSafeState';
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
-import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import TableFromData, {
+  TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
 import externalUrls from '../../../shared/config/externalUrls';
-
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useSafeState from '../../../shared/hooks/useSafeState';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   GoTerm,
   GOTermID,
   GroupedGoTerms,
 } from '../../adapters/functionConverter';
+import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import {
   AGRRibbonGroup,
   AGRRibbonSubject,
@@ -26,14 +26,10 @@ import {
   getSubjects,
   useGOData,
 } from '../../adapters/slimming/GORibbonHandler';
-import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
-
+import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
+import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/go-ribbon.module.scss';
-import TableFromData, {
-  TableFromDataColumn,
-} from '../../../shared/components/table/TableFromData';
 
 const useColumns = () => {
   const databaseInfoMaps = useDatabaseInfoMaps();
@@ -101,46 +97,9 @@ const GoRibbon = ({
 
   const nodeRef = useRef<HTMLElement>();
 
-  const [selectedSet, setSelectedSet] = useState(() => {
-    let defaultSS = 'goslim_generic';
-    if (organismData?.scientificName && organismData?.lineage) {
-      const taxonomyInfo = [
-        ...organismData.lineage,
-        organismData.scientificName,
-      ];
-
-      // SlimSets based on Taxonomy
-      const slimSetByTaxon = {
-        // eslint-disable-next-line camelcase
-        goslim_plant: [
-          'Viridiplantae',
-          'Bangiophyceae',
-          'Florideophyceae',
-          'Stylonematophyceae',
-          'Rhodellophyceae',
-          'Compsopogonophyceae',
-        ],
-        // prokaryotes: ['Bacteria', 'Archaea'],
-      };
-
-      // Check if the taxon matches a slimset
-      Object.entries(slimSetByTaxon).forEach(([key, value]) => {
-        const presentTaxon = taxonomyInfo?.filter(
-          (t) => value.includes(String(t)) // Lineage is Array of strings here
-        );
-        if (presentTaxon?.length) {
-          defaultSS = key;
-        }
-      });
-    }
-    return defaultSS;
-  });
-
   // NOTE: loading is also available, do we want to do anything with it?
-  const { loading, slimmedData, selectedSlimSet, slimSets } = useGOData(
-    goTerms,
-    selectedSet
-  );
+  const { loading, slimmedData, selectedSlimSet, onSlimSetSelect, slimSets } =
+    useGOData(goTerms, organismData?.taxonId);
 
   const [elementLoaded, setElementLoaded] = useSafeState(false);
 
@@ -258,11 +217,8 @@ const GoRibbon = ({
 
   return (
     <div className="GoRibbon">
-      <h3 data-article-id="gene_ontology">GO annotations</h3>
-      <div className={styles['quickgo-link']}>
-        <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
-          Access the complete set of GO annotations on QuickGO{' '}
-        </ExternalLink>
+      <div className={styles.preamble}>
+        Gene Ontology (GO) annotations organized by slimming set.
       </div>
 
       {!isSmallScreen && (
@@ -279,12 +235,12 @@ const GoRibbon = ({
         <label className={styles['set-selector']}>
           <div>Slimming set:</div>
           <select
-            onChange={(e) => setSelectedSet(e.target.value)}
-            value={selectedSet}
+            onChange={(e) => onSlimSetSelect(e.target.value)}
+            value={selectedSlimSet?.id}
           >
             {slimSets.map((slimSet) => (
-              <option value={slimSet} key={slimSet}>
-                {slimSet.replace('goslim_', '').replace('_ribbon', '')}
+              <option value={slimSet.id} key={slimSet.id}>
+                {slimSet.shortLabel}
               </option>
             ))}
           </select>
@@ -298,6 +254,11 @@ const GoRibbon = ({
           getRowId={getRowId}
         />
       )}
+      <div className={styles['quickgo-link']}>
+        <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
+          Access the complete set of GO annotations on QuickGO
+        </ExternalLink>
+      </div>
     </div>
   );
 };

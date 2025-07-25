@@ -1,16 +1,14 @@
-import { Link } from 'react-router';
 import { ExpandableList } from 'franklin-sites';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
-import KeywordsGraph from '../components/entry/KeywordsGraph';
-import GeneOntologies from '../../../shared/components/results/GeneOntologies';
+import { Link } from 'react-router';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-
-import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
+import GeneOntologies from '../../../shared/components/results/GeneOntologies';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+import { KeywordsAPIModel, KeywordsLite } from '../adapters/keywordsConverter';
+import KeywordsGraph from '../components/entry/KeywordsGraph';
 
 const CUTOFF = 10;
 

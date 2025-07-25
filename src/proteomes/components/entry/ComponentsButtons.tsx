@@ -1,29 +1,25 @@
-import { useState, Suspense, useMemo, useCallback } from 'react';
-import { Link, useLocation } from 'react-router';
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
+import { Suspense, useCallback, useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
-import lazy from '../../../shared/utils/lazy';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
 import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
+import lazy from '../../../shared/utils/lazy';
 import {
   createSelectedQueryString,
   stringifyUrl,
 } from '../../../shared/utils/url';
-
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 const ComponentsDownloadComponent = lazy(
   () =>

@@ -1,8 +1,6 @@
-import { selectDatabases } from '../database';
-
 import { DatabaseCategory } from '../../types/databaseRefs';
-
 import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
+import { selectDatabases } from '../database';
 
 describe('selectDatabases', () => {
   it('should select the correct databases', () => {

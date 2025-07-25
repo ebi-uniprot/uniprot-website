@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WrappedRow should render 1`] = `
+<DocumentFragment>
+  <div
+    class="track-label track-label--align-labels"
+    style="bottom: 7px; position: relative;"
+  >
+    <button
+      class="align-label align-label--active align-label--selectable"
+      style="height: 20px;"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="entry-title__status icon--reviewed"
+        title="This marks a reviewed UniProtKB entry"
+      >
+        <test-file-stub />
+      </span>
+      sp|
+      <a
+        href="/uniprotkb/P05066"
+      >
+        P05066
+      </a>
+      |PHR_YEAST
+    </button>
+    <button
+      class="align-label align-label--selectable"
+      style="height: 20px;"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="entry-title__status icon--reviewed"
+        title="This marks a reviewed UniProtKB entry"
+      >
+        <test-file-stub />
+      </span>
+      sp|
+      <a
+        href="/uniprotkb/P05067"
+      >
+        P05067
+      </a>
+      |A4_HUMAN
+    </button>
+    <button
+      class="align-label align-label--selectable"
+      style="height: 20px;"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="entry-title__status icon--reviewed"
+        title="This marks a reviewed UniProtKB entry"
+      >
+        <test-file-stub />
+      </span>
+      sp|
+      <a
+        href="/uniprotkb/P05062"
+      >
+        P05062
+      </a>
+      |ALDOB_HUMAN
+    </button>
+    <button
+      class="align-label align-label--selectable"
+      style="height: 20px;"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="entry-title__status icon--reviewed"
+        title="This marks a reviewed UniProtKB entry"
+      >
+        <test-file-stub />
+      </span>
+      sp|
+      <a
+        href="/uniprotkb/P05064"
+      >
+        P05064
+      </a>
+      |ALDOA_MOUSE
+    </button>
+  </div>
+  <div
+    class="track"
+    style="width: 810px;"
+  />
+  <span
+    class="right-coord"
+    style="bottom: 2px; position: relative;"
+  >
+    <div
+      style="height: 20px;"
+    >
+      4
+    </div>
+    <div
+      style="height: 20px;"
+    >
+      46
+    </div>
+    <div
+      style="height: 20px;"
+    >
+      0
+    </div>
+    <div
+      style="height: 20px;"
+    >
+      0
+    </div>
+  </span>
+  <span
+    class="track-label annotation-label"
+  >
+    P05066:Domain
+  </span>
+  <div
+    class="track annotation-track"
+    style="width: 810px;"
+  >
+    <nightingale-track-canvas
+      display-end="46"
+      display-start="1"
+      height="40"
+      highlight-color="#FFEB3B66"
+      length="46"
+      min-height="10"
+      min-width="10"
+      style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+    >
+      <!---->
+      
+      
+      <div
+        class="container"
+      >
+        
+        
+        <div
+          style="position: relative; z-index: 0;"
+        >
+          
+          
+          <canvas
+            style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 40px;"
+          />
+          
+          
+          <svg
+            height="40"
+            width="10"
+          >
+            <g
+              class="highlighted"
+            />
+          </svg>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </nightingale-track-canvas>
+  </div>
+</DocumentFragment>
+`;

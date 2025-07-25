@@ -1,37 +1,40 @@
-import { Fragment } from 'react';
-import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
-import { InfoList, ExpandableList } from 'franklin-sites';
-import { generatePath, Link } from 'react-router';
+import { ExpandableList, InfoList, Message } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
+import { generatePath, Link } from 'react-router';
 
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import PDBView from './PDBView';
-import EMBLView from './EMBLView';
-import { RichText } from './FreeTextView';
-import { AFDBOutOfSync } from './AFDBOutOfSync';
-
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-
+import { Xref } from '../../../shared/types/apiModel';
+import { Namespace } from '../../../shared/types/namespaces';
 import { pluralise } from '../../../shared/utils/utils';
-import {
-  databaseCategoryToString,
-  viewProteinLinkDatabases,
-} from '../../config/database';
-import {
-  XrefUIModel,
-  XrefsGoupedByDatabase,
-  partitionStructureDatabases,
-} from '../../utils/xrefUtils';
 import {
   getDatabaseInfoAttribute,
   processUrlTemplate,
 } from '../../../shared/utils/xrefs';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { Xref } from '../../../shared/types/apiModel';
+import { TabLocation } from '../../../uniparc/types/entry';
+import {
+  databaseCategoryToString,
+  viewProteinLinkDatabases,
+} from '../../config/database';
+import { DatabaseCategory, DatabaseInfoPoint } from '../../types/databaseRefs';
 import { PropertyKey } from '../../types/modelTypes';
-import { DatabaseInfoPoint, DatabaseCategory } from '../../types/databaseRefs';
 import { DatabaseToDatabaseInfo } from '../../utils/database';
+import {
+  partitionStructureDatabases,
+  XrefsGoupedByDatabase,
+  XrefUIModel,
+} from '../../utils/xrefUtils';
+import { AFDBOutOfSync } from './AFDBOutOfSync';
+import EMBLView from './EMBLView';
+import { RichText } from './FreeTextView';
+import PDBView from './PDBView';
+import styles from './styles/x-ref-view.module.scss';
 
 const formatSuffixWithCount = (prefix: string, number: string) => {
   const count = parseInt(number, 10);
@@ -48,7 +51,10 @@ export const getPropertyString = (key?: string, value?: string) => {
   if (key === PropertyKey.MatchStatus) {
     return formatSuffixWithCount('hit', value);
   }
-  if (key === PropertyKey.Interactions) {
+  if (
+    key === PropertyKey.Interactions ||
+    key === PropertyKey.NumberOfInteractors
+  ) {
     return formatSuffixWithCount('interactor', value);
   }
   return value;
@@ -85,6 +91,12 @@ const propertyKeySet = new Set<PropertyKey>([
   PropertyKey.NucleotideSequenceId,
 ]);
 
+// To be ignored when processing as strings because we should use them somehow somewhere else
+const propertyKeyIgnore = new Set<PropertyKey>([
+  PropertyKey.ResistanceMechanismIdentifier,
+  PropertyKey.ResistanceMechanismName,
+]);
+
 export const XRef = ({
   database,
   xref,
@@ -102,7 +114,9 @@ export const XRef = ({
   const propertyStrings = [];
   if (properties && !implicit) {
     for (const [key, value] of Object.entries(properties)) {
-      if (propertyKeySet.has(key as PropertyKey)) {
+      if (propertyKeyIgnore.has(key as PropertyKey)) {
+        continue;
+      } else if (propertyKeySet.has(key as PropertyKey)) {
         const attrs = getPropertyLinkAttributes(
           databaseInfo,
           key as PropertyKey,
@@ -115,6 +129,26 @@ export const XRef = ({
         propertyStrings.push(getPropertyString(key, value));
       }
     }
+  }
+
+  let resistanceMechanismNode;
+  if (database === 'CARD' && properties) {
+    resistanceMechanismNode = (
+      <div className={styles['resistance-mechanism-container']}>
+        <span className={styles['resistance-angle']}>∟</span> Resistance
+        mechanism:
+        <div className={styles['resistance-details']}>
+          <ExternalLink
+            url={processUrlTemplate(uriLink, {
+              id: properties[PropertyKey.ResistanceMechanismIdentifier],
+            })}
+          >
+            {properties[PropertyKey.ResistanceMechanismIdentifier]}
+          </ExternalLink>
+          {properties[PropertyKey.ResistanceMechanismName]}
+        </div>
+      </div>
+    );
   }
 
   let isoformNode;
@@ -189,6 +223,7 @@ export const XRef = ({
           // add space between strings
           .join(' ')}
       </RichText>
+      {resistanceMechanismNode && <> {resistanceMechanismNode}</>}
       {isoformNode && <> {isoformNode}</>}
     </>
   );
@@ -238,7 +273,7 @@ type XRefsGroupedByCategoryProps = {
   crc64?: string;
 };
 
-const XRefsGroupedByCategory = ({
+export const XRefsGroupedByCategory = ({
   databases,
   primaryAccession,
   crc64,
@@ -329,9 +364,15 @@ type XRefViewProps = {
   xrefs: XrefUIModel[];
   primaryAccession: string;
   crc64?: string;
+  uniParcID?: string;
 };
 
-const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
+const XRefView = ({
+  xrefs,
+  primaryAccession,
+  crc64,
+  uniParcID,
+}: XRefViewProps) => (
   <>
     {xrefs?.map(({ databases, category }, index): JSX.Element => {
       const xrefsNode =
@@ -353,10 +394,35 @@ const XRefView = ({ xrefs, primaryAccession, crc64 }: XRefViewProps) => (
         title = databaseCategoryToString[category];
       }
 
+      let linkToUniParcFeatures: null | ReactNode = null;
+      if (
+        category === DatabaseCategory.DOMAIN &&
+        uniParcID &&
+        databases.some((db) => db.database === 'InterPro')
+      ) {
+        linkToUniParcFeatures = (
+          <Message level="info">
+            View all family and domain features for this entry&apos;s canonical
+            sequence in the{' '}
+            <Link
+              to={getEntryPath(
+                Namespace.uniparc,
+                uniParcID,
+                TabLocation.FeatureViewer
+              )}
+            >
+              UniParc Feature Viewer
+            </Link>
+            .
+          </Message>
+        );
+      }
+
       return (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
           <h3>{title}</h3>
+          {linkToUniParcFeatures}
           {xrefsNode}
         </Fragment>
       );

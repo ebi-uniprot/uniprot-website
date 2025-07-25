@@ -1,19 +1,17 @@
+import { Button, Dropdown, LongNumber } from 'franklin-sites';
 import { ReactNode } from 'react';
 import { Link, LinkProps, useMatch } from 'react-router';
-import { Button, LongNumber, Dropdown } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
-
-import { pluralise } from '../utils/utils';
-import { stringifyQuery } from '../utils/url';
 
 import {
   allSupportingDataAndAAEntryLocations,
-  LocationToPath,
   Location,
+  LocationToPath,
 } from '../../app/config/urls';
-
-import { Namespace } from '../types/namespaces';
 import { Statistics } from '../types/apiModel';
+import { Namespace } from '../types/namespaces';
+import { stringifyQuery } from '../utils/url';
+import { pluralise } from '../utils/utils';
 
 const configMap = new Map<
   keyof Statistics | 'proteinCount',

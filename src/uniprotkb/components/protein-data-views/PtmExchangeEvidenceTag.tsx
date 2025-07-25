@@ -1,22 +1,19 @@
+import { EvidenceTag, ExpandableList } from 'franklin-sites';
+import { groupBy } from 'lodash-es';
 import { memo } from 'react';
 import { useMatch } from 'react-router';
-import { groupBy } from 'lodash-es';
-import { EvidenceTag, ExpandableList } from 'franklin-sites';
 
-import UniProtKBEntryPublications from './UniProtKBEntryPublications';
-import EvidenceLink from './EvidenceLink';
-
-import {
-  getEvidenceCodeData,
-  getEcoNumberFromString,
-} from '../../config/evidenceCodes';
 import { allEntryPages } from '../../../app/config/urls';
-
+import {
+  getEcoNumberFromString,
+  getEvidenceCodeData,
+} from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
-import { ConfidenceScore } from './UniProtKBFeaturesView';
-import { EvidenceTagSourceTypes } from './UniProtKBEvidenceTag';
-
+import EvidenceLink from './EvidenceLink';
 import style from './styles/ptmexchange-evidence-tag.module.scss';
+import UniProtKBEntryPublications from './UniProtKBEntryPublications';
+import { EvidenceTagSourceTypes } from './UniProtKBEvidenceTag';
+import { ConfidenceScore } from './UniProtKBFeaturesView';
 
 const PtmExchangeEvidence = ({ evidences }: { evidences?: Evidence[] }) => {
   if (!evidences?.length) {

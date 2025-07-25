@@ -1,21 +1,17 @@
-import { Fragment, useLayoutEffect, useMemo, useState, useRef } from 'react';
-import { Link } from 'react-router';
 import { EllipsisReveal } from 'franklin-sites';
+import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router';
 
-import useDataApi from '../../hooks/useDataApi';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-import listFormat from '../../utils/listFormat';
-import { flatten } from '../../../query-builder/utils/parseAndMatchQuery';
-import { stringifyUrl } from '../../utils/url';
-
-import { Namespace } from '../../types/namespaces';
-import { LocationToPath, Location } from '../../../app/config/urls';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { SearchTermType } from '../../../query-builder/types/searchTypes';
-import { MatchedField } from '../../types/results';
-
+import { flatten } from '../../../query-builder/utils/parseAndMatchQuery';
+import apiUrls from '../../config/apiUrls/apiUrls';
+import useDataApi from '../../hooks/useDataApi';
 import helper from '../../styles/helper.module.scss';
+import { Namespace } from '../../types/namespaces';
+import { MatchedField } from '../../types/results';
+import listFormat from '../../utils/listFormat';
+import { stringifyUrl } from '../../utils/url';
 
 type MatchedFieldsResponse = {
   matchedFields?: Array<MatchedField>;

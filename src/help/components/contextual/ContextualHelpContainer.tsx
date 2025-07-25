@@ -1,29 +1,23 @@
-import { useEffect, useRef } from 'react';
 import { SlidingPanel } from 'franklin-sites';
 import { createMemoryHistory, createPath, History } from 'history';
 import { Route, Router, Switch, useHistory, useLocation } from 'react-router';
 
+import {
+  getLocationEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import NavigationBar from './NavigationBar';
-import SearchBar from './SearchBar';
-import Shortcuts from './Shortcuts';
-
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import helpURL from '../../config/apiUrls';
+import { HelpSearchResponse } from '../../types/apiModel';
 import CatchAll from './CatchAll';
 import HelpEntryPage from './Entry';
-import HelpResultsPage from './Results';
 import HelpLandingPage from './Landing';
-
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-
-import helpURL from '../../config/apiUrls';
-
-import {
-  LocationToPath,
-  Location,
-  getLocationEntryPath,
-} from '../../../app/config/urls';
-import { HelpSearchResponse } from '../../types/apiModel';
-
+import NavigationBar from './NavigationBar';
+import HelpResultsPage from './Results';
+import SearchBar from './SearchBar';
+import Shortcuts from './Shortcuts';
 import styles from './styles/contextual-help.module.scss';
 
 const ContextualHelpRouterContent = ({

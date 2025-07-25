@@ -1,21 +1,19 @@
-import { generatePath, matchPath } from 'react-router';
 import { partial } from 'lodash-es';
-import { LocationDescriptorObject } from 'history';
+import { generatePath, Location as RRLocation, matchPath } from 'react-router';
 
+import { databaseToNamespace } from '../../jobs/blast/config/BlastFormData';
+import { FormParameters as BLASTFormParameters } from '../../jobs/blast/types/blastFormParameters';
+import { Database } from '../../jobs/blast/types/blastServerParameters';
+import { FormParameters as IdMappingFormParameters } from '../../jobs/id-mapping/types/idMappingFormParameters';
+import { JobTypes } from '../../jobs/types/jobTypes';
 import {
   Namespace,
-  searchableNamespaceLabels,
-  SearchableNamespace,
-  supportingDataAndAANamespaces,
   namespaceAndToolsLabels,
+  SearchableNamespace,
+  searchableNamespaceLabels,
+  supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
-import { databaseToNamespace } from '../../tools/blast/config/BlastFormData';
-
-import { FormParameters as IdMappingFormParameters } from '../../tools/id-mapping/types/idMappingFormParameters';
-import { FormParameters as BLASTFormParameters } from '../../tools/blast/types/blastFormParameters';
-import { Job, FinishedJob } from '../../tools/types/toolsJob';
-import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { Database } from '../../tools/blast/types/blastServerParameters';
+import { FinishedJob, Job } from '../../shared/workers/jobs/types/job';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,
@@ -45,6 +43,7 @@ export enum Location {
   ProteomesEntry = 'ProteomesEntry',
   ProteomesResults = 'ProteomesResults',
   // Supporting data
+  SupportingData = 'SupportingData',
   TaxonomyEntry = 'TaxonomyEntry',
   TaxonomyResults = 'TaxonomyResults',
   KeywordsEntry = 'KeywordsEntry',
@@ -99,6 +98,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.ProteomesEntry]: `/${Namespace.proteomes}/:accession`,
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,
   // Supporting data
+  [Location.SupportingData]: '/supporting-data',
   [Location.TaxonomyEntry]: `/${Namespace.taxonomy}/:accession`,
   [Location.TaxonomyResults]: `/${Namespace.taxonomy}`,
   [Location.KeywordsEntry]: `/${Namespace.keywords}/:accession`,
@@ -309,7 +309,7 @@ export const getURLToJobWithData = (
 
 export const changePathnameOnly =
   <S = unknown>(pathname: string) =>
-  (location: LocationDescriptorObject<S>) => ({
+  (location: RRLocation<S>) => ({
     ...location,
     pathname,
   });

@@ -1,15 +1,15 @@
+import './styles/entry-type-icon.scss';
+
 import {
+  CommunityAnnotationIcon,
+  ComputerMappedIcon,
+  ObsoleteIcon,
+  RedundantProteomeIcon,
+  ReferenceProteomeIcon,
   SwissProtIcon,
   TremblIcon,
   UniParcIcon,
-  ReferenceProteomeIcon,
-  RedundantProteomeIcon,
-  ObsoleteIcon,
-  CommunityAnnotationIcon,
-  ComputerMappedIcon,
 } from 'franklin-sites';
-
-import './styles/entry-type-icon.scss';
 
 export enum EntryType {
   REVIEWED,

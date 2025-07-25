@@ -1,7 +1,5 @@
 import customRender from '../../../../shared/__test-helpers__/customRender';
-
 import DiseaseInvolvement from '../DiseaseInvolvementView';
-
 import diseaseInvolvementUIData from './__mocks__/diseaseInvolvementUIData';
 
 describe('DiseaseInvolvement', () => {

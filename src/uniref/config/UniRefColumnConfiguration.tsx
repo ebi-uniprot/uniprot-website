@@ -1,20 +1,17 @@
-import { Link } from 'react-router';
 import { LongNumber, Sequence } from 'franklin-sites';
-
-import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
-import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyView from '../../shared/components/entry/TaxonomyView';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
+import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
+import AccessionView from '../../shared/components/results/AccessionView';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { Namespace } from '../../shared/types/namespaces';
+import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import parseDate from '../../shared/utils/parseDate';
 import { pluralise } from '../../shared/utils/utils';
-import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
-
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
-
-import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum UniRefColumn {
   id = 'id',
@@ -194,7 +191,8 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
                 member.startsWith('UPI')
                   ? Namespace.uniparc
                   : Namespace.uniprotkb,
-                member
+                member,
+                'entry'
               )}
             >
               {member}

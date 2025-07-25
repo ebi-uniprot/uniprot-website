@@ -46,3 +46,11 @@
   max-width: 100%;
   overflow-y: auto;
 }
+
+.padding-top-small {
+  padding-top: 0.5 * $global-padding;
+}
+
+.padding-top-med {
+  padding-top: $global-padding;
+}

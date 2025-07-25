@@ -1,12 +1,11 @@
 import { keyBy } from 'lodash-es';
 
+import { SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
-import { SearchTermType } from '../../../types/searchTypes';
-
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2025-02-04
-const configureSearchTerms = [
+// Retrieved: 2025-06-19
+const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',
     label: 'UniProtKB AC',
@@ -2532,6 +2531,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'string-',
           },
+          {
+            id: 'xref_funcoup',
+            label: 'FunCoup',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'funcoup-',
+          },
         ],
       },
       {
@@ -2698,6 +2706,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'unilectin-',
+          },
+          {
+            id: 'xref_card',
+            label: 'CARD',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'card-',
           },
         ],
       },
@@ -2994,6 +3011,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cptc-',
+          },
+          {
+            id: 'xref_ycharos',
+            label: 'YCharOS',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'ycharos-',
           },
         ],
       },
@@ -3556,6 +3582,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'treefam-',
           },
+          {
+            id: 'xref_pan-go',
+            label: 'PAN-GO',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'pan-go-',
+          },
         ],
       },
       {
@@ -3644,6 +3679,15 @@ const configureSearchTerms = [
             fieldType: 'general',
             valuePrefix: 'pathwaycommons-',
           },
+          {
+            id: 'xref_strenda-db',
+            label: 'STRENDA-DB',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'strenda-db-',
+          },
         ],
       },
       {
@@ -3731,6 +3775,15 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'biogrid-orcs-',
+          },
+          {
+            id: 'xref_cd-code',
+            label: 'CD-CODE',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'cd-code-',
           },
         ],
       },
@@ -4165,12 +4218,12 @@ const configureSearchTerms = [
     items: [
       {
         id: 'chebi_field',
-        label: 'CHEBI ID',
+        label: 'Name or ID (CHEBI)',
         itemType: 'single',
         term: 'chebi',
         dataType: 'string',
         fieldType: 'general',
-        example: '35155',
+        example: 'Search by Name or ID (CHEBI)',
         autoComplete: '/suggester?dict=chebi&query=?',
         autoCompleteQueryTerm: 'chebi',
       },
@@ -4380,9 +4433,7 @@ const configureSearchTerms = [
 ];
 
 const idToSearchTerm = keyBy(
-  flatten(configureSearchTerms as SearchTermType[]).filter(
-    ({ itemType }) => itemType !== 'group'
-  ),
+  flatten(configureSearchTerms).filter(({ itemType }) => itemType !== 'group'),
   ({ id }) => id
 );
 
@@ -4393,5 +4444,4 @@ export const getSearchTerm = (id: string) => {
   throw new Error(`${id} not in search term mock data`);
 };
 
-// TODO: remove type casting from configureSearchTerms https://www.ebi.ac.uk/panda/jira/browse/TRM-26787
-export default configureSearchTerms as SearchTermType[];
+export default configureSearchTerms;

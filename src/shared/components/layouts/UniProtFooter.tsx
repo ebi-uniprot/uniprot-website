@@ -1,25 +1,22 @@
-import { memo, HTMLAttributes } from 'react';
-import { Link, generatePath } from 'react-router';
-import { CitedIcon } from 'franklin-sites';
 import cn from 'classnames';
-
-import ExternalLink from '../ExternalLink';
-import ReleaseInfo from './ReleaseInfo';
-import Contact from './Contact';
+import { CitedIcon } from 'franklin-sites';
+import { HTMLAttributes, memo } from 'react';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-
-import helper from '../../styles/helper.module.scss';
-import footer from './styles/footer.module.scss';
-
-import UniProtLogo from '../../../images/uniprot-logo.img.svg';
-import EMBLEBILogo from '../../../images/embl-ebi-logo.img.svg';
-import PIRLogo from '../../../images/pir-logo.jpg';
-import SIBLogo from '../../../images/sib-logo.png';
-import SERILogo from '../../../images/seri-logo.png';
-import ElixirCDRLogo from '../../../images/elixir-cdr.png';
-import GBCGCBRLogo from '../../../images/gbc-gcbr.img.svg';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';
+import ElixirCDRLogo from '../../../images/elixir-cdr.png';
+import EMBLEBILogo from '../../../images/embl-ebi-logo.img.svg';
+import GBCGCBRLogo from '../../../images/gbc-gcbr.img.svg';
+import PIRLogo from '../../../images/pir-logo.jpg';
+import SERILogo from '../../../images/seri-logo.png';
+import SIBLogo from '../../../images/sib-logo.png';
+import UniProtLogo from '../../../images/uniprot-logo.img.svg';
+import helper from '../../styles/helper.module.scss';
+import ExternalLink from '../ExternalLink';
+import Contact from './Contact';
+import ReleaseInfo from './ReleaseInfo';
+import footer from './styles/footer.module.scss';
 
 const FooterConsortium = () => (
   <div className={footer.consortium}>
@@ -99,49 +96,34 @@ const FooterShortcuts = () => (
       <span className={footer.shortcuts__title}>Core data</span>
       <ul className="no-bullet">
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.UniProtKBResults]}>
             Proteins (UniProtKB)
           </Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.ProteomesResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.ProteomesResults]}>
             Species (Proteomes)
           </Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniRefResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.UniRefResults]}>
             Protein clusters (UniRef)
           </Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniParcResults],
-              search: 'query=*',
-            }}
-          >
+          <Link to={LocationToPath[Location.UniParcResults]}>
             Sequence archive (UniParc)
           </Link>
         </li>
       </ul>
     </li>
     <li>
-      <span className={footer.shortcuts__title}>Supporting data</span>
+      <Link
+        to={LocationToPath[Location.SupportingData]}
+        className={footer.shortcuts__title}
+      >
+        Supporting data
+      </Link>
       <ul className="no-bullet">
         <li>
           <Link
@@ -260,14 +242,12 @@ const FooterShortcuts = () => (
           &amp; <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
         </li>
         <li>
-          <Link
-            to={{
-              pathname: LocationToPath[Location.HelpResults],
-              search: '?query=*&facets=category:manual',
-            }}
+          <ExternalLink
+            url="https://www.ebi.ac.uk/training/online/courses/uniprot-exploring-protein-sequence-and-functional-info/"
+            noIcon
           >
             UniProtKB manual
-          </Link>
+          </ExternalLink>
         </li>
         <li>
           <Link
@@ -280,10 +260,9 @@ const FooterShortcuts = () => (
         </li>
         <li>
           <Link
-            to={{
-              pathname: LocationToPath[Location.HelpResults],
-              search: '?query=*&facets=category:biocuration',
-            }}
+            to={generatePath(LocationToPath[Location.HelpEntry], {
+              accession: 'biocuration',
+            })}
           >
             Expert biocuration
           </Link>

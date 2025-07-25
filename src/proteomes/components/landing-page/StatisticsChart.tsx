@@ -1,14 +1,11 @@
-import { useMemo } from 'react';
 import { schemeReds } from 'd3';
-
-import PieChart from '../../../uniprotkb/components/graphs/PieChart';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
+import { useMemo } from 'react';
 
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
+import PieChart from '../../../uniprotkb/components/graphs/PieChart';
 import { FacetsEnum } from '../../config/ProteomesFacetConfiguration';
 
 type StatisticsChartProps = {

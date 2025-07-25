@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import initializer from '../utils/fieldInitializer';
-
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import initializer from '../utils/fieldInitializer';
 
 export type ExperimentalEvidenceFieldProps = {
   field: SearchTermType;
@@ -32,7 +31,7 @@ const ExperimentalEvidenceField = ({
 
   useEffect(() => {
     const trimmed = value.trim();
-    if (trimmed) {
+    if (trimmed && field.term) {
       handleChange({ [field.term]: trimmed });
     }
   }, [field, value, handleChange]);

@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlignmentOverview BLAST should render 1`] = `
+<DocumentFragment>
+  <div>
+    <nightingale-track-canvas
+      display-end="-1"
+      display-start="1"
+      height="10"
+      highlight="41:125"
+      highlight-color="#FFEB3B66"
+      length="751"
+      min-height="10"
+      min-width="10"
+      style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+    >
+      <!---->
+      
+      
+      <div
+        class="container"
+      >
+        
+        
+        <div
+          style="position: relative; z-index: 0;"
+        >
+          
+          
+          <canvas
+            style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 10px;"
+          />
+          
+          
+          <svg
+            height="10"
+            width="10"
+          >
+            <g
+              class="highlighted"
+            />
+          </svg>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </nightingale-track-canvas>
+    <nightingale-track-canvas
+      display-end="-1"
+      display-start="1"
+      height="10"
+      highlight="41:125"
+      highlight-color="#FFEB3B66"
+      length="751"
+      min-height="10"
+      min-width="10"
+      style="display: inline-block; line-height: 0; width: 100%; height: 100%;"
+    >
+      <!---->
+      
+      
+      <div
+        class="container"
+      >
+        
+        
+        <div
+          style="position: relative; z-index: 0;"
+        >
+          
+          
+          <canvas
+            style="position: absolute; left: 0px; top: 0px; z-index: -1; width: 10px; height: 10px;"
+          />
+          
+          
+          <svg
+            height="10"
+            width="10"
+          >
+            <g
+              class="highlighted"
+            />
+          </svg>
+          
+        
+        </div>
+        
+      
+      </div>
+      
+    
+    </nightingale-track-canvas>
+  </div>
+</DocumentFragment>
+`;

@@ -1,9 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import { screen, waitFor } from '@testing-library/react';
 
-import InPageNav from '../InPageNav';
-
 import customRender from '../../__test-helpers__/customRender';
+import InPageNav from '../InPageNav';
 
 describe('InPageNav component', () => {
   beforeAll(() => {

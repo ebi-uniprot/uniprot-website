@@ -1,5 +1,4 @@
 import customRender from '../../../__test-helpers__/customRender';
-
 import Contact from '../Contact';
 
 describe('Contact component', () => {

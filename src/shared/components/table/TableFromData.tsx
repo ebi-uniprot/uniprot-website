@@ -1,13 +1,18 @@
-import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { Message } from 'franklin-sites';
 import cn from 'classnames';
+import { Message } from 'franklin-sites';
+import {
+  HTMLAttributes,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 
+import { MIN_ROWS_TO_EXPAND } from './constants';
+import styles from './styles/table.module.scss';
 import Table from './Table';
 
-import styles from './styles/table.module.scss';
-
 const UNFILTERED_OPTION = 'All' as const;
-const MIN_ROWS_TO_EXPAND = 10 as const;
 
 type TableHeaderFromDataProps<T> = {
   column: TableFromDataColumn<T>;
@@ -64,12 +69,12 @@ export type TableFromDataColumn<T> = {
 
 const OPTION_TYPES = new Set(['string', 'number']);
 
-type Props<T> = {
+type Props<T> = HTMLAttributes<HTMLTableElement> & {
   data: T[];
   columns: TableFromDataColumn<T>[];
   rowExtraContent?: (datum: T) => React.ReactNode;
   getRowId: (datum: T) => string;
-  onRowClick?: (datum: T) => void;
+  onRowClick?: (datum: T, expanded: boolean) => void;
   markBackground?: (datum: T) => boolean;
   markBorder?: (datum: T) => boolean;
   noTranslateBody?: boolean;
@@ -78,6 +83,8 @@ type Props<T> = {
 };
 
 type ColumnsToSelectedFilter = Record<string, string | undefined>;
+
+const collator = new Intl.Collator('en');
 
 function TableFromData<T>({
   data,
@@ -104,6 +111,7 @@ function TableFromData<T>({
               return OPTION_TYPES.has(typeof r) ? r : null;
             })
             .filter((datum): datum is string => datum !== null)
+            .sort(collator.compare)
         );
       }
     }
@@ -154,7 +162,7 @@ function TableFromData<T>({
                 )
               }
               key={getRowId(datum)}
-              onClick={() => onRowClick?.(datum)}
+              onClick={(expanded: boolean) => onRowClick?.(datum, expanded)}
               className={cn({
                 [styles['mark-background']]: markBackground?.(datum),
                 [styles['mark-border']]: markBorder?.(datum),

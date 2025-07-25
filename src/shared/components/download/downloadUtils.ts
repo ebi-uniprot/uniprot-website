@@ -1,33 +1,31 @@
 import { Location as HistoryLocation } from 'history';
 
-import { JobFromUrl } from '../../hooks/useJobFromUrl';
-
+import { Location } from '../../../app/config/urls';
+import { fileFormatsUnenrichedResultsDownload } from '../../../jobs/id-mapping/config/download';
+import { JobTypes } from '../../../jobs/types/jobTypes';
+import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
+import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../config/apiUrls/apiUrls';
+import { reProteomeId } from '../../config/apiUrls/results';
 import { nsToPrimaryKeyColumns } from '../../config/columns';
-import {
-  fileFormatsWithColumns,
-  nsToFileFormatsResultsDownload,
-} from '../../config/resultsDownload';
 import { getUniprotFtpFilenamesAndUrls } from '../../config/ftpUrls';
-import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
-import { fileFormatsUnenrichedResultsDownload } from '../../../tools/id-mapping/config/download';
-
 import {
   DOWNLOAD_SIZE_LIMIT,
   DOWNLOAD_SIZE_LIMIT_EMBEDDINGS,
   DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED,
   MAX_PEPTIDE_FACETS_OR_DOWNLOAD,
 } from '../../config/limits';
-
-import { Location } from '../../../app/config/urls';
-import { FileFormat } from '../../types/resultsDownload';
+import {
+  fileFormatsWithColumns,
+  nsToFileFormatsResultsDownload,
+} from '../../config/resultsDownload';
+import { JobFromUrl } from '../../hooks/useJobFromUrl';
 import { Namespace } from '../../types/namespaces';
-import { JobTypes } from '../../../tools/types/toolsJobTypes';
+import { DownloadUrlOptions } from '../../types/results';
+import { FileFormat } from '../../types/resultsDownload';
 import { DownloadProps } from './Download';
 import { DownloadState } from './downloadReducer';
-import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
-import { DownloadUrlOptions } from '../../types/results';
 
 const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
   Namespace.uniparc,
@@ -202,6 +200,24 @@ export const isXrefWithFullOption = (
   return false;
 };
 
+export const isUniParcProteomeSearch = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  query: string | undefined
+) => {
+  if (
+    props.namespace === Namespace.uniparc &&
+    state.selectedFileFormat === FileFormat.fasta &&
+    !state.nSelectedEntries
+  ) {
+    const match = query?.match(reProteomeId);
+    if (match && match.length > 1) {
+      return true;
+    }
+  }
+  return false;
+};
+
 export const filterFullXrefColumns = (
   columns: string[],
   fieldData: FieldData
@@ -281,6 +297,10 @@ export const getDownloadOptions = (
 
   if (hasColumns(state, props, job)) {
     downloadOptions.columns = state.selectedColumns;
+  }
+
+  if (isUniParcProteomeSearch(state, props, query)) {
+    downloadOptions.uniparcProteomeFastaHeader = state.proteomeFastaHeader;
   }
   return downloadOptions;
 };
@@ -414,15 +434,6 @@ export const getExtraContent = (
   }
   return null;
 };
-
-export const getIsUniParcLightResponse = (
-  state: DownloadState,
-  props: DownloadProps<JobTypes>
-) =>
-  props.namespace === Namespace.uniparc &&
-  (state.selectedFileFormat === FileFormat.json ||
-    state.selectedFileFormat === FileFormat.xml ||
-    state.selectedFileFormat === FileFormat.rdfXml);
 
 export const getRedirectToIDMapping = (
   state: DownloadState,

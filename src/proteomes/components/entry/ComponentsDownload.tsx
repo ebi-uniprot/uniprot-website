@@ -1,31 +1,27 @@
-import { useState, ChangeEvent, useMemo } from 'react';
-import { Button, LongNumber } from 'franklin-sites';
 import cn from 'classnames';
+import { Button, LongNumber } from 'franklin-sites';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
+import { proteomeFastaOption } from '../../../shared/components/download/Download';
 import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
-
-import useColumnNames from '../../../shared/hooks/useColumnNames';
-
+import styles from '../../../shared/components/download/styles/download.module.scss';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
 import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
 import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
-import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
-import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
-
+import useColumnNames from '../../../shared/hooks/useColumnNames';
+import sticky from '../../../shared/styles/sticky.module.scss';
+import { Statistics } from '../../../shared/types/apiModel';
 import { Namespace } from '../../../shared/types/namespaces';
+import { DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import {
-  DownloadPanelFormCloseReason,
   DownloadMethod,
+  DownloadPanelFormCloseReason,
 } from '../../../shared/utils/gtagEvents';
-import { Statistics } from '../../../shared/types/apiModel';
-import { DownloadUrlOptions } from '../../../shared/types/results';
-
-import sticky from '../../../shared/styles/sticky.module.scss';
-import styles from '../../../shared/components/download/styles/download.module.scss';
+import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
+import { fileFormatsResultsDownloadForRedundant } from '../../config/download';
 
 const getPreviewFileFormat = (
   fileFormat: FileFormat
@@ -49,6 +45,14 @@ type DownloadProps = {
 type ExtraContent = 'url' | 'preview';
 
 type DownloadSelectOptions = 'all' | 'selected' | 'reviewed';
+
+const isUniparcProteomeHeaderApplicable = (
+  namespace: Namespace,
+  numberSelectedEntries: number,
+  totalEntries: number
+) =>
+  namespace === Namespace.uniparc &&
+  (!numberSelectedEntries || numberSelectedEntries === totalEntries);
 
 const ComponentsDownload = ({
   query,
@@ -87,6 +91,19 @@ const ComponentsDownload = ({
   const [compressed, setCompressed] = useState(true);
   const [extraContent, setExtraContent] = useState<null | ExtraContent>(null);
   const [includeIsoform, setIncludeIsoform] = useState(false);
+  const [uniparcProteomeFasta, setUniparcProteomeFasta] = useState(false);
+
+  useEffect(
+    () =>
+      setUniparcProteomeFasta(
+        isUniparcProteomeHeaderApplicable(
+          namespace,
+          numberSelectedEntries,
+          totalNumberResults
+        )
+      ),
+    [namespace, numberSelectedEntries, totalNumberResults]
+  );
 
   const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 
@@ -101,6 +118,7 @@ const ComponentsDownload = ({
       downloadSelect === 'selected' && !selectedQuery ? selectedEntries : [],
     selectedIdField,
     namespace,
+    uniparcProteomeFastaHeader: uniparcProteomeFasta,
   };
 
   const isoformsAvailable = Boolean(proteomeStatistics.isoformProteinCount);
@@ -156,8 +174,13 @@ const ComponentsDownload = ({
     setDownloadSelect(e.target.name as DownloadSelectOptions);
   };
 
-  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCompressed(e.target.value === 'true');
+  };
+
+  const handleFastaHeaderChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUniparcProteomeFasta(e.target.checked === true);
+  };
 
   const handleIsoformSelect = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target.checked) {
@@ -294,6 +317,11 @@ const ComponentsDownload = ({
           </select>
         </label>
       </fieldset>
+      {isUniparcProteomeHeaderApplicable(
+        namespace,
+        numberSelectedEntries,
+        totalNumberResults
+      ) && proteomeFastaOption(uniparcProteomeFasta, handleFastaHeaderChange)}
       <fieldset>
         <legend data-article-id="compression">Compressed</legend>
         <label>

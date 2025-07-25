@@ -20,46 +20,6 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       Send us general questions and suggestions using the form below
     </h2>
     <hr />
-    <div
-      class="message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        classname="message--icon-align-top"
-        height="1.125em"
-        width="1.125em"
-      />
-      <div
-        class="message__title"
-      >
-        <small>
-          Frequently asked: issues accessing UniProt programmatically? Have a look at the 
-          <a
-            href="/help/api"
-          >
-            new API documentation
-          </a>
-           including changes to the 
-          <a
-            href="/help/return_fields"
-          >
-            return fields
-          </a>
-           (aka "columns") and specifically the 
-          <a
-            href="/help/return_fields_databases"
-          >
-            cross-references return fields
-          </a>
-           .
-        </small>
-      </div>
-    </div>
-    <br />
-    <br />
     <form
       aria-label="Contact form"
     >
@@ -186,7 +146,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="my message"
+          placeholder="My message"
           required=""
         />
         <span
@@ -292,6 +252,13 @@ Website version: #git_commit_id
                 data-testid="external-link-icon"
                 width="12.5"
               />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/supporting-data#integration-form"
+            >
+              Connect your database with UniProt
             </a>
           </li>
         </ul>
@@ -447,7 +414,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="my message"
+          placeholder="My message"
           required=""
         />
         <span
@@ -554,6 +521,13 @@ Website version: #git_commit_id
               />
             </a>
           </li>
+          <li>
+            <a
+              href="/supporting-data#integration-form"
+            >
+              Connect your database with UniProt
+            </a>
+          </li>
         </ul>
       </aside>
     </form>
@@ -581,46 +555,6 @@ exports[`ContactForm should render for generic contact form 1`] = `
       Send us general questions and suggestions using the form below
     </h2>
     <hr />
-    <div
-      class="message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        classname="message--icon-align-top"
-        height="1.125em"
-        width="1.125em"
-      />
-      <div
-        class="message__title"
-      >
-        <small>
-          Frequently asked: issues accessing UniProt programmatically? Have a look at the 
-          <a
-            href="/help/api"
-          >
-            new API documentation
-          </a>
-           including changes to the 
-          <a
-            href="/help/return_fields"
-          >
-            return fields
-          </a>
-           (aka "columns") and specifically the 
-          <a
-            href="/help/return_fields_databases"
-          >
-            cross-references return fields
-          </a>
-           .
-        </small>
-      </div>
-    </div>
-    <br />
-    <br />
     <form
       aria-label="Contact form"
     >
@@ -747,7 +681,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="my message"
+          placeholder="My message"
           required=""
         />
         <span
@@ -852,6 +786,13 @@ Website version: #git_commit_id
                 data-testid="external-link-icon"
                 width="12.5"
               />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/supporting-data#integration-form"
+            >
+              Connect your database with UniProt
             </a>
           </li>
         </ul>

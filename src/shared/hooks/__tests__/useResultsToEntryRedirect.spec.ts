@@ -1,16 +1,12 @@
 import { renderHook } from '@testing-library/react';
 
-import useResultsToEntryRedirect from '../useResultsToEntryRedirect';
-
 import { getEntryPathFor } from '../../../app/config/urls';
-import { getIdKeyForData } from '../../utils/getIdKey';
-
-import getCustomRenderHook from '../../__test-helpers__/customRenderHook';
-
-import { Namespace } from '../../types/namespaces';
-import { APIModel } from '../../types/apiModel';
-
 import results from '../../../uniprotkb/components/__mocks__/results';
+import getCustomRenderHook from '../../__test-helpers__/customRenderHook';
+import { APIModel } from '../../types/apiModel';
+import { Namespace } from '../../types/namespaces';
+import { getIdKeyForData } from '../../utils/getIdKey';
+import useResultsToEntryRedirect from '../useResultsToEntryRedirect';
 
 // TODO: fixme
 describe.skip('useResultsToEntryRedirect', () => {

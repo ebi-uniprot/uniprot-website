@@ -1,22 +1,19 @@
-import { lazy, useState, memo } from 'react';
-import { groupBy } from 'lodash-es';
 import { Button, Card, Message } from 'franklin-sites';
+import { groupBy } from 'lodash-es';
+import { lazy, memo, useState } from 'react';
 
+import LazyComponent from '../../../shared/components/LazyComponent';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import EntrySection from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
-import XRefView from '../protein-data-views/XRefView';
-import LazyComponent from '../../../shared/components/LazyComponent';
-
+import { DatabaseCategory } from '../../types/databaseRefs';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import {
   partitionStructureDatabases,
   XrefUIModel,
 } from '../../utils/xrefUtils';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
-
-import { DatabaseCategory } from '../../types/databaseRefs';
+import XRefView from '../protein-data-views/XRefView';
 
 const StructureView = lazy(
   () =>
@@ -88,7 +85,7 @@ const StructureSection = ({ data, primaryAccession, crc64 }: Props) => {
   return (
     <Card
       header={
-        <h2 data-article-id="structure_section">
+        <h2 data-article-id="structure_section#structure-section">
           {getEntrySectionNameAndId(EntrySection.Structure).name}
         </h2>
       }

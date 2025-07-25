@@ -1,22 +1,18 @@
-import { Tile, SwissProtIcon, TremblIcon, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router';
 import cn from 'classnames';
+import { LongNumber, SwissProtIcon, Tile, TremblIcon } from 'franklin-sites';
+import { Link } from 'react-router';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
+import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
+import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
+import SpeciesIllustration from '../../../images/species_illustration.img.svg';
+import UniProtKBIllustration from '../../../images/uniprotkb_illustration.img.svg';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-
-import { Location, LocationToPath } from '../../config/urls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
 import { FacetsEnum } from '../../../uniprotkb/config/UniProtKBFacetConfiguration';
-
+import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
-
-import UniProtKBIllustration from '../../../images/uniprotkb_illustration.img.svg';
-import SpeciesIllustration from '../../../images/species_illustration.img.svg';
-import ClusterIllustration from '../../../images/cluster_illustration.img.svg';
-import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 
 const UniProtKBLinks = () => {
   const { data } = useDataApi<SearchResults<never>>(
@@ -94,13 +90,7 @@ const CoreData = () => (
       )}
       subtitle="UniProt Knowledgebase"
       backgroundImage={
-        <img
-          src={UniProtKBIllustration}
-          width={240}
-          height={240}
-          loading="lazy"
-          alt=""
-        />
+        <img src={UniProtKBIllustration} width={240} height={240} alt="" />
       }
       backgroundColor="var(--fr--color-uniprotkb)"
       link={
@@ -125,13 +115,7 @@ const CoreData = () => (
       )}
       subtitle="Proteomes"
       backgroundImage={
-        <img
-          src={SpeciesIllustration}
-          width={240}
-          height={240}
-          loading="lazy"
-          alt=""
-        />
+        <img src={SpeciesIllustration} width={240} height={240} alt="" />
       }
       backgroundColor="var(--fr--color-proteomes)"
       link={
@@ -155,13 +139,7 @@ const CoreData = () => (
       )}
       subtitle="UniRef"
       backgroundImage={
-        <img
-          src={ClusterIllustration}
-          width={240}
-          height={240}
-          loading="lazy"
-          alt=""
-        />
+        <img src={ClusterIllustration} width={240} height={240} alt="" />
       }
       backgroundColor="var(--fr--color-uniref)"
       link={
@@ -184,13 +162,7 @@ const CoreData = () => (
       )}
       subtitle="UniParc"
       backgroundImage={
-        <img
-          src={ArchiveIllustration}
-          width={240}
-          height={240}
-          loading="lazy"
-          alt=""
-        />
+        <img src={ArchiveIllustration} width={240} height={240} alt="" />
       }
       backgroundColor="var(--fr--color-uniparc)"
       link={

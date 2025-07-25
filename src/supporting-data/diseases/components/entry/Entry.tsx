@@ -1,33 +1,29 @@
+import cn from 'classnames';
+import { Card, InfoList, Loader } from 'franklin-sites';
 import { useState } from 'react';
 import { Navigate, useParams } from 'react-router';
-import { Loader, Card, InfoList } from 'franklin-sites';
-import cn from 'classnames';
 
+import { getEntryPath } from '../../../../app/config/urls';
+import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import { MapToDropdown } from '../../../../shared/components/MapTo';
 import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 import RelatedResults from '../../../../shared/components/results/RelatedResults';
-import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
-
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import { getEntryPath } from '../../../../app/config/urls';
-
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import helper from '../../../../shared/styles/helper.module.scss';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
+import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
 import DiseasesColumnConfiguration, {
   DiseasesColumn,
 } from '../../config/DiseasesColumnConfiguration';
-
-import helper from '../../../../shared/styles/helper.module.scss';
-import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   DiseasesColumn.definition,

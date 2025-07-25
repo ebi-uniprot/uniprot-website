@@ -1,29 +1,25 @@
+import { Loader } from 'franklin-sites';
 import { useState } from 'react';
 import { Navigate, useParams } from 'react-router';
-import { Loader } from 'franklin-sites';
 
-import HTMLHead from '../../../../shared/components/HTMLHead';
-import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-
-import Source from './Source';
-import TemplateEntries from './TemplateEntries';
-import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
-import { MapToDropdown } from '../../../../shared/components/MapTo';
-import RelatedResults from '../../../../shared/components/results/RelatedResults';
+import { getEntryPath } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
-
-import useDataApi from '../../../../shared/hooks/useDataApi';
-
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import HTMLHead from '../../../../shared/components/HTMLHead';
+import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
+import { MapToDropdown } from '../../../../shared/components/MapTo';
+import RelatedResults from '../../../../shared/components/results/RelatedResults';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
-import { getEntryPath } from '../../../../app/config/urls';
-
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
+import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
+import Source from './Source';
+import TemplateEntries from './TemplateEntries';
 
 const UniRuleEntry = () => {
   const { accession } = useParams<{ accession: string }>();

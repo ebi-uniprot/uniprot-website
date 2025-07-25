@@ -1,51 +1,47 @@
-import {
-  Button,
-  CodeBlock,
-  CopyIcon,
-  ExternalLink,
-  LongNumber,
-} from 'franklin-sites';
+import cn from 'classnames';
+import { Button, CodeBlock, CopyIcon, LongNumber } from 'franklin-sites';
 import { useCallback, useEffect, useRef } from 'react';
 import { generatePath, Link } from 'react-router';
-import cn from 'classnames';
 
-import useMessagesDispatch from '../../hooks/useMessagesDispatch';
-import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
-
+import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   copyFailureMessage,
   copySuccessMessage,
 } from '../../../messages/state/messagesActions';
-
-import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
-import { splitUrl, stringifyUrl } from '../../utils/url';
-
-import { LocationToPath, Location } from '../../../app/config/urls';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import {
   DOWNLOAD_SIZE_LIMIT,
   DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED,
 } from '../../config/limits';
-import apiUrls from '../../config/apiUrls/apiUrls';
-
+import useMessagesDispatch from '../../hooks/useMessagesDispatch';
+import useScrollIntoViewRef from '../../hooks/useScrollIntoView';
 import { Namespace } from '../../types/namespaces';
-
+import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
+import { splitUrl, stringifyUrl } from '../../utils/url';
+import ExternalLink from '../ExternalLink';
 import styles from './styles/download-api-url.module.scss';
 
 const reIdMapping = new RegExp(
   `/idmapping/(?:(${Namespace.uniprotkb}|${Namespace.uniparc}|${Namespace.uniref})/)?(?:results/)?stream/`
 );
 
+const reUniparcProteome = new RegExp(`/uniparc/proteome/UP\\d+/stream`);
+
 export const getSearchURL = (streamURL: string, batchSize = 500) => {
   const { base, query } = splitUrl(streamURL);
-  return stringifyUrl(
-    base.search(reIdMapping) >= 0
-      ? base.replace(reIdMapping, (_match, namespace) =>
-          namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
-        )
-      : base.replace('/stream', '/search'),
-    query,
-    { size: batchSize }
-  );
+
+  let baseUrl = base;
+  if (base.search(reIdMapping) >= 0) {
+    baseUrl = base.replace(reIdMapping, (_match, namespace) =>
+      namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
+    );
+  } else if (base.search(reUniparcProteome) >= 0) {
+    baseUrl = base.replace('/stream', '');
+  } else {
+    baseUrl = base.replace('/stream', '/search');
+  }
+
+  return stringifyUrl(baseUrl, query, { size: batchSize });
 };
 
 type Props = {

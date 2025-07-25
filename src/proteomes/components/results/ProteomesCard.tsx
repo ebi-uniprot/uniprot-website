@@ -1,21 +1,18 @@
-import { Card } from 'franklin-sites';
 import cn from 'classnames';
+import { Card } from 'franklin-sites';
 import { Link } from 'react-router';
 
+import { getEntryPath } from '../../../app/config/urls';
+import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
-import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';
-
-import { getEntryPath } from '../../../app/config/urls';
+import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
-import { Namespace } from '../../../shared/types/namespaces';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
-
-import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import styles from './styles/proteomes-card.module.scss';
 
 const mainInfoColumns = [

@@ -1,50 +1,38 @@
-import { lazy, useMemo, memo, useState } from 'react';
-import { Link } from 'react-router';
 import { Button, Card, Dropdown } from 'franklin-sites';
-
+import { lazy, memo, useMemo, useState } from 'react';
+import { Link } from 'react-router';
 import { SetRequired } from 'type-fest/source/set-required';
+
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import EntrySection from '../../types/entrySection';
-import FreeTextView from '../protein-data-views/FreeTextView';
-import XRefView from '../protein-data-views/XRefView';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import TableFromData, {
   TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
-
-import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-
-import { hasContent } from '../../../shared/utils/utils';
 import externalUrls, {
   getIntActQueryUrl,
 } from '../../../shared/config/externalUrls';
-import {
-  getEntryPath,
-  LocationToPath,
-  Location,
-} from '../../../app/config/urls';
-import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import { Xref } from '../../../shared/types/apiModel';
+import { Namespace } from '../../../shared/types/namespaces';
 import { stringifyQuery } from '../../../shared/utils/url';
-
+import { hasContent } from '../../../shared/utils/utils';
+import { UIModel } from '../../adapters/sectionConverter';
 import {
   FreeTextComment,
   Interaction,
   InteractionComment,
 } from '../../types/commentTypes';
-import { UIModel } from '../../adapters/sectionConverter';
-import { Namespace } from '../../../shared/types/namespaces';
-import { Xref } from '../../../shared/types/apiModel';
-
+import { TabLocation } from '../../types/entry';
+import EntrySection from '../../types/entrySection';
+import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import FreeTextView from '../protein-data-views/FreeTextView';
+import XRefView from '../protein-data-views/XRefView';
 import styles from './styles/interaction-section.module.scss';
-
-const clickOnDropdown = (element: HTMLElement) => {
-  (
-    element.closest('.dropdown')?.firstElementChild as
-      | HTMLElement
-      | null
-      | undefined
-  )?.click();
-};
 
 const interactionSorter = (a: Interaction, b: Interaction) => {
   // Normalise what we'll sort on
@@ -125,7 +113,8 @@ const columns: TableFromDataColumn<Interaction>[] = [
         <Link
           to={getEntryPath(
             Namespace.uniprotkb,
-            data.interactantOne.uniProtKBAccession
+            data.interactantOne.uniProtKBAccession,
+            TabLocation.Entry
           )}
         >
           {data.interactantOne.geneName} {data.interactantOne.chainId}{' '}
@@ -148,7 +137,8 @@ const columns: TableFromDataColumn<Interaction>[] = [
         <Link
           to={getEntryPath(
             Namespace.uniprotkb,
-            data.interactantTwo.uniProtKBAccession
+            data.interactantTwo.uniProtKBAccession,
+            TabLocation.Entry
           )}
         >
           {data.interactantTwo.geneName} {data.interactantTwo.chainId}{' '}
@@ -243,9 +233,6 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
     | undefined;
 
   const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
-  const complexName =
-    complexPortalXrefs.get(complexId)?.properties?.EntryName || '';
-  const complexString = `${complexId} ${complexName}`;
 
   return (
     <Card
@@ -283,35 +270,24 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {complexPortalXrefs.size > 0 && !isSmallScreen && (
         <>
           <h3 data-article-id="complex_viewer">Complex viewer</h3>
-          <div className={styles['viewer-ids-container']}>
-            <Dropdown
-              // eslint-disable-next-line react/no-unstable-nested-components
-              visibleElement={(onClick: () => unknown) => (
-                <Button variant="primary" onClick={onClick}>
-                  {complexString}
-                </Button>
-              )}
-            >
-              <ul className={styles['ids-list']}>
+          <div>
+            <label>
+              Select complex
+              <select
+                value={complexId}
+                onChange={(e) => setViewerID(e.target.value)}
+                className={styles['id-select']}
+              >
                 {Array.from(complexPortalXrefs.values()).map(
                   ({ id, properties }) => (
-                    <li key={id}>
-                      <Button
-                        variant="tertiary"
-                        key={id}
-                        id={id}
-                        onClick={(event) => {
-                          setViewerID((event.target as HTMLButtonElement).id);
-                          clickOnDropdown(event.target as HTMLButtonElement);
-                        }}
-                      >
-                        {id} {properties?.EntryName || ''}
-                      </Button>
-                    </li>
+                    <option value={id} key={id}>
+                      {`${id} ${properties?.EntryName || ''}`}
+                    </option>
                   )
                 )}
-              </ul>
-            </Dropdown>
+              </select>
+            </label>
+
             <LazyComponent>
               <ComplexViewer complexID={complexId} />
             </LazyComponent>
@@ -325,11 +301,10 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
             >
               View interactors in UniProtKB
             </Link>
-            <br />
-            <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
-              View {complexId} in Complex Portal
-            </ExternalLink>
           </div>
+          <ExternalLink url={externalUrls.ComplexPortal(complexId)}>
+            View {complexId} in Complex Portal
+          </ExternalLink>
         </>
       )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

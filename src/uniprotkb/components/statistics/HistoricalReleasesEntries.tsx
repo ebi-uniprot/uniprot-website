@@ -1,20 +1,16 @@
 import { Card, Loader } from 'franklin-sites';
-import LazyComponent from '../../../shared/components/LazyComponent';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import UniProtKBStatsTabs from './UniProtKBStatsTabs';
+import LazyComponent from '../../../shared/components/LazyComponent';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import { counter } from '../../../shared/utils/utils';
+import apiUrls from '../../config/apiUrls/apiUrls';
 import HistoricalReleasesEntriesLinePlot, {
   Bounds,
   DateCount,
 } from './HistoricalReleasesEntriesLinePlot';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { counter } from '../../../shared/utils/utils';
-
-import apiUrls from '../../config/apiUrls/apiUrls';
-
 import styles from './styles/statistics-page.module.scss';
+import UniProtKBStatsTabs from './UniProtKBStatsTabs';
 
 type DateToCount = Record<string, number>;
 
@@ -39,10 +35,6 @@ const processResults = (results: Results): StatisticsTypeToDateCount => {
     UNREVIEWED: counter(),
   };
   for (const { entryCount, releaseDate, statisticsType } of results) {
-    // TODO: remove this once the data is made available
-    if (releaseDate.startsWith('2011')) {
-      continue;
-    }
     processed[statisticsType][releaseDate] += entryCount;
     processed.UNIPROTKB[releaseDate] += entryCount;
   }

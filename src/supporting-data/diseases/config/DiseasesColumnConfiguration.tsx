@@ -1,20 +1,16 @@
-import { Link } from 'react-router';
 import { ExpandableList } from 'franklin-sites';
-
-import ExternalLink from '../../../shared/components/ExternalLink';
+import { Link } from 'react-router';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { processUrlTemplate } from '../../../shared/utils/xrefs';
-import * as logging from '../../../shared/utils/logging';
-
-import databaseToDatabaseInfo from './databaseInfoMaps';
-
-import { DiseasesAPIModel } from '../adapters/diseasesConverter';
+import helper from '../../../shared/styles/helper.module.scss';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-
-import helper from '../../../shared/styles/helper.module.scss';
+import * as logging from '../../../shared/utils/logging';
+import { processUrlTemplate } from '../../../shared/utils/xrefs';
+import { DiseasesAPIModel } from '../adapters/diseasesConverter';
+import databaseToDatabaseInfo from './databaseInfoMaps';
 
 export enum DiseasesColumn {
   acronym = 'acronym',

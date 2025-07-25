@@ -1,13 +1,9 @@
-import { Link } from 'react-router';
-import { LongNumber } from 'franklin-sites';
 import cn from 'classnames';
+import { LongNumber } from 'franklin-sites';
 
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-
-import { LocationToPath, Location } from '../../../../app/config/urls';
-
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
-
 import styles from './styles/child-navigation.module.css';
 
 type ChildNavigationProps = {
