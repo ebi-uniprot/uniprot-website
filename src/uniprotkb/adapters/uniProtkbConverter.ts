@@ -20,10 +20,10 @@ import { Property } from '../types/modelTypes';
 import { transfromProperties } from '../utils';
 import { DatabaseInfoMaps } from '../utils/database';
 import { Keyword } from '../utils/KeywordsUtil';
+import { XrefUIModel } from '../utils/xrefUtils';
 import convertDiseaseAndDrugs from './diseaseAndDrugs';
 import convertExpression from './expressionConverter';
 import convertExternalLinks from './externalLinksConverter';
-import extractIsoforms from './extractIsoformsConverter';
 import convertFamilyAndDomains from './familyAndDomainsConverter';
 import convertFunction from './functionConverter';
 import convertInteraction from './interactionConverter';
@@ -40,6 +40,7 @@ import {
   EntryAudit,
   SequenceUIModel,
 } from './sequenceConverter';
+import convertSimilarProteins from './similarProteinsConverter';
 import convertStructure from './structureConverter';
 import convertSubcellularLocation from './subcellularLocationConverter';
 
@@ -53,7 +54,9 @@ export type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
 
-export type AnnotationScoreValue = 1 | 2 | 3 | 4 | 5;
+export type AnnotationScoreValue = 0 | 1 | 2 | 3 | 4 | 5;
+// 0 usually not used, just added for the ProtNLM usecase but if you see this
+// comment later re-assess if it's still needed.
 
 export type UniProtKBSimplifiedTaxonomy = Omit<TaxonomyDatum, 'lineage'> & {
   lineage: string[];
@@ -116,6 +119,7 @@ export type UniProtkbUIModel = {
   [EntrySection.SimilarProteins]: {
     canonical: string;
     isoforms: string[];
+    xrefs: XrefUIModel[];
   };
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
@@ -248,7 +252,11 @@ const uniProtKbConverter = (
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.SimilarProteins]: extractIsoforms(dataCopy),
+    [EntrySection.SimilarProteins]: convertSimilarProteins(
+      dataCopy,
+      databaseInfoMaps,
+      uniProtKBCrossReferences
+    ),
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
     from: dataCopy.from,

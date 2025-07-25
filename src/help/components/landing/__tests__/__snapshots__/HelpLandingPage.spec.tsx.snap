@@ -181,7 +181,7 @@ exports[`HelpLandingPage should render 1`] = `
             </li>
             <li>
               <a
-                href="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
+                href="https://www.ebi.ac.uk/training/services/uniprot"
               >
                 Courses
               </a>

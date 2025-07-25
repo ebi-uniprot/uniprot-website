@@ -5726,14 +5726,14 @@ exports[`Entry view should render for non-human entry 1`] = `
                     All
                   </option>
                   <option
-                    value="Region"
-                  >
-                    Region
-                  </option>
-                  <option
                     value="Domain"
                   >
                     Domain
+                  </option>
+                  <option
+                    value="Region"
+                  >
+                    Region
                   </option>
                 </select>
               </th>

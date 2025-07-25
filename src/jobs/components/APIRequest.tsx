@@ -27,14 +27,11 @@ const documentation = new Map<JobTypes, string>([
     JobTypes.BLAST,
     'https://www.ebi.ac.uk/seqdb/confluence/pages/viewpage.action?pageId=94147939#NCBIBLAST+HelpandDocumentation-RESTAPI',
   ],
-  [
-    JobTypes.ID_MAPPING,
-    `${API_PREFIX}/docs/?urls.primaryName=idmapping#/job/submitJob`,
-  ],
+  [JobTypes.ID_MAPPING, 'https://www.uniprot.org/api-documentation/idmapping'],
   [JobTypes.PEPTIDE_SEARCH, 'https://peptidesearch.uniprot.org/asyncrest/'],
   [
     JobTypes.ASYNC_DOWNLOAD,
-    `${API_PREFIX}/docs/?urls.primaryName=asyncdownload#/job/submitJob`, // TODO: determine final URL
+    'https://www.uniprot.org/api-documentation', // TODO: determine final URL
   ],
 ]);
 

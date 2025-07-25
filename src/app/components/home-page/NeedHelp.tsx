@@ -239,7 +239,7 @@ const NeedHelp = () => {
           <CameraIcon width="1.5em" /> Tutorial &amp; videos
         </ExternalLink>
         <ExternalLink
-          url="https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training&page=1&facets="
+          url="https://www.ebi.ac.uk/training/services/uniprot"
           noIcon
         >
           <WorldIcon width="1.5em" /> Online courses

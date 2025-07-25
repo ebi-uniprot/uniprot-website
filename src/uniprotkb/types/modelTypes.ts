@@ -3,6 +3,7 @@ export type Evidence = {
   source?: string;
   id?: string;
   url?: string;
+  properties?: Array<{ key: string; value: string }>;
 };
 
 export type ValueWithEvidence = {

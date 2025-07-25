@@ -1,4 +1,3 @@
-import { ErrorBoundary } from '@sentry/react';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
 import { useState } from 'react';
@@ -14,6 +13,7 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
