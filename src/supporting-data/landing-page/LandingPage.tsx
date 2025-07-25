@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Button } from 'franklin-sites';
 import { ChangeEvent, useEffect, useId, useRef } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import { useFormLogic } from '../../contact/adapters/contactFormAdapter';

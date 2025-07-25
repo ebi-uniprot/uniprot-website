@@ -4,7 +4,7 @@ import { Card, Chip, Loader, Message } from 'franklin-sites';
 import { Location as HistoryLocation } from 'history';
 import type { OpenAPIV3 } from 'openapi-types';
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { Outlet, useHistory } from 'react-router';
+import { Link, Outlet, useHistory } from 'react-router';
 import SwaggerUI from 'swagger-ui-react';
 import { frame } from 'timing-functions';
 

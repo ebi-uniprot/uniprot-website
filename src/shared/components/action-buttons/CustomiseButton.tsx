@@ -1,6 +1,5 @@
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
 import { FormEvent, Suspense, useEffect, useState } from 'react';
-import { FormEvent, Suspense, useEffect, useState } from 'react';
 import { useLocation, useMatch } from 'react-router';
 import { frame } from 'timing-functions';
 

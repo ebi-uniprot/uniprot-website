@@ -1,12 +1,10 @@
 import { lazy } from 'react';
 import { type RouteObject } from 'react-router';
 
-import App from '../components/App';
-import GlobalContext from '../contexts/Global';
-
 import ErrorComponent from '../../shared/components/error-component/ErrorComponent';
-
+import App from '../components/App';
 import { Location, LocationToPath } from '../config/urls';
+import GlobalContext from '../contexts/Global';
 
 const HomePage = lazy(
   () =>

@@ -1,4 +1,3 @@
-import { ExternalLink } from 'franklin-sites';
 import { FC, Fragment, ReactNode, useContext } from 'react';
 import { Link, useMatch } from 'react-router';
 

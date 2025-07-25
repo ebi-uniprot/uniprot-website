@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import { BinIcon, Button, FullViewIcon, Tab, Tabs } from 'franklin-sites';
 import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 import { generatePath, Link } from 'react-router';

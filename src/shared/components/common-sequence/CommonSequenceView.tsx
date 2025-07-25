@@ -1,6 +1,6 @@
 import { LongNumber, Sequence } from 'franklin-sites';
 import type { ComponentProps } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { reUniParc, reUniRefAccession } from '../../../uniprotkb/utils/regexes';

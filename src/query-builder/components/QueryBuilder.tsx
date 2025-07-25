@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { generatePath, useNavigate, useLocation } from 'react-router';
+import { generatePath, useLocation, useNavigate } from 'react-router';
 import { frame } from 'timing-functions';
 
 import {

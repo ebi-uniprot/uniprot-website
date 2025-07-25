@@ -25,7 +25,7 @@ import BaseLayout from '../../shared/components/layouts/BaseLayout';
 // import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 // import useReloadApp from '../../shared/hooks/useReloadApp';
 // import useScrollToTop from '../../shared/hooks/useScrollToTop';
-import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
+// import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
 // import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 // import history from '../../shared/utils/browserHistory';
 // import { stringifyQuery, stringifyUrl } from '../../shared/utils/url';

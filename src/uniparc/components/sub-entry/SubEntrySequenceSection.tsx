@@ -1,5 +1,5 @@
 import { Card, LongNumber, Sequence } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { uniParcTools } from '../../../shared/components/common-sequence/CommonSequenceView';

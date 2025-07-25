@@ -1,4 +1,4 @@
-import { Card, Loader, Message } from 'franklin-sites';
+import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Fragment, lazy, memo, Suspense } from 'react';
 import { Link } from 'react-router';
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import { Namespace } from '../types/namespaces';
