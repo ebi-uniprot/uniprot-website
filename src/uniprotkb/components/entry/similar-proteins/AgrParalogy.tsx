@@ -1,9 +1,10 @@
 import cn from 'classnames';
-import { ExternalLink, Loader } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import ExternalLink from '../../../../shared/components/ExternalLink';
 import TableFromData, {
   TableFromDataColumn,
 } from '../../../../shared/components/table/TableFromData';
