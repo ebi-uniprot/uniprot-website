@@ -20,22 +20,37 @@ exports[`non-critical HomePage component should render 1`] = `
       <div
         class="message__title"
       >
-        <small>
-          We need your help! Has UniProt saved you time or effort? Please take 15 minutes to fill in a survey and help EMBL-EBI make the case for why open data resources are critical to life science research.
-          <br />
-          <a
-            class="external-link"
-            href="https://www.surveymonkey.com/r/QGFMBH8?channel=[webpage]"
-            rel="noopener"
-            target="_blank"
-          >
-            https://www.surveymonkey.com/r/QGFMBH8
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-        </small>
+        Find out how much UniProt saves you!
+        <br />
+        Read CSIL’s cost-benefit analysis ‘
+        <a
+          class="external-link"
+          href="https://zenodo.org/records/15732022"
+          rel="noopener"
+          target="_blank"
+        >
+          ‘Measuring the value and impact of open science’
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        ’, a case study on the financial impact of UniProt.
+        <br />
+        Read a summary of the report in our blog post: ‘
+        <a
+          class="external-link"
+          href="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
+          rel="noopener"
+          target="_blank"
+        >
+          UniProt - the ultimate colleague on your biological research team
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        ’.
       </div>
     </div>
   </div>
