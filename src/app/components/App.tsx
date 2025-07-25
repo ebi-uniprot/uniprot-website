@@ -35,7 +35,6 @@ import description from '../config/description';
 //   Location,
 //   LocationToPath,
 // } from '../config/urls';
-import Covid19RedirectWarning from './Covid19RedirectWarning';
 import DevDeploymentWarning from './DevDeploymentWarning';
 
 // This is hackery is to prevent define being repeatedly called for the same
@@ -418,10 +417,10 @@ const BackToTheTop = lazy(() =>
 //   );
 // };
 
-const IfSupportsJobs = ({ children }: React.PropsWithChildren) => {
-  const supportsJobs = useSupportsJobs();
-  return <>{supportsJobs ? children : <JobsNotSupportedPage />}</>;
-};
+// const IfSupportsJobs = ({ children }: React.PropsWithChildren) => {
+//   const supportsJobs = useSupportsJobs();
+//   return <>{supportsJobs ? children : <JobsNotSupportedPage />}</>;
+// };
 
 const App = () => {
   // useScrollToTop(history);
@@ -437,7 +436,6 @@ const App = () => {
         />
       </Helmet>
       <DevDeploymentWarning />
-      <Covid19RedirectWarning />
       <BaseLayout>
         <Outlet />
         {/* <Suspense fallback={<Loader />}> */}

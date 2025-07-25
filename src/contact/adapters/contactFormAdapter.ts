@@ -35,12 +35,7 @@ export const modifyFormData = (formData: FormData, token: string) => {
   const output = new FormData();
   output.set('token', token);
   output.set('email', formData.get('email') || '');
-  output.set(
-    'subject',
-    `[uuw${globalThis.location.hostname.includes('beta') ? '-beta' : ''}] ${
-      formData.get('subject') || ''
-    }`
-  );
+  output.set('subject', `[uuw] ${formData.get('subject') || ''}`);
   output.set('requiredForRobots', formData.get('requiredForRobots') || '');
   const message = `${formData.get('message') || ''}
 
