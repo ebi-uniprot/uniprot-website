@@ -168,6 +168,7 @@ type EnrichedStatistics = {
   label: ReactNode;
   text?: ReactNode;
   to: LinkProps['to'];
+  state?: LinkProps['state'];
 };
 
 export type MapToConfig = EnrichedStatistics[];
@@ -233,10 +234,10 @@ export const MapToDropdownBasic = ({
     )}
   >
     <ul>
-      {config.map(({ key, count, label, to }) =>
+      {config.map(({ key, count, label, to, state }) =>
         count ? (
           <li key={key}>
-            <Link to={to}>
+            <Link to={to} state={state}>
               {label} (<LongNumber>{count}</LongNumber>)
             </Link>
           </li>

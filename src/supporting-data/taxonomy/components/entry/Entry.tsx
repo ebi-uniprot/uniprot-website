@@ -1,7 +1,7 @@
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { frame } from 'timing-functions';
 
 import { getEntryPath } from '../../../../app/config/urls';
@@ -54,9 +54,9 @@ const lastColumns = [
 ];
 
 const TaxonomyEntry = () => {
-  const { accession } = useParams<{ accession: string }>();
+  const { accession } = useParams();
   const dispatch = useMessagesDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const mainData = useDataApi<TaxonomyAPIModel>(
@@ -92,13 +92,13 @@ const TaxonomyEntry = () => {
         })
       );
       frame().then(() =>
-        history.replace(getEntryPath(Namespace.taxonomy, newEntry))
+        navigate(getEntryPath(Namespace.taxonomy, newEntry), { replace: true })
       );
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
     // eslint-disable-next-line reactHooks/exhaustive-deps
-  }, [dispatch, mainData.redirectedTo]);
+  }, [navigate, dispatch, mainData.redirectedTo]);
 
   if (mainData.error || (!mainData.loading && !mainData.data)) {
     return (

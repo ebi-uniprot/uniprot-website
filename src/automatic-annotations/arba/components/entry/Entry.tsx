@@ -19,7 +19,7 @@ import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { ARBAAPIModel } from '../../adapters/arbaConverter';
 
 const ArbaEntry = () => {
-  const { accession } = useParams<{ accession: string }>();
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const { data, loading, error, status, progress } = useDataApi<ARBAAPIModel>(

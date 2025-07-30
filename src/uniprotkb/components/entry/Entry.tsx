@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, Navigate, useHistory } from 'react-router';
+import { Link, Navigate, useNavigate } from 'react-router';
 import { frame } from 'timing-functions';
 
 import {
@@ -139,7 +139,7 @@ const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
 
 const Entry = () => {
   const dispatch = useMessagesDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const match = useMatchWithRedirect(
     Location.UniProtKBEntry,
     TabLocation,
@@ -303,7 +303,9 @@ const Entry = () => {
         const activeTab = match?.params.accession?.includes('.')
           ? TabLocation.History
           : TabLocation.Entry;
-        history.replace(getEntryPath(Namespace.uniprotkb, newEntry, activeTab));
+        navigate(getEntryPath(Namespace.uniprotkb, newEntry, activeTab), {
+          replace: true,
+        });
       });
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
@@ -314,16 +316,19 @@ const Entry = () => {
   useEffect(() => {
     if (match?.params.accession?.includes('-')) {
       const [accession] = match.params.accession.split('-');
-      history.replace({
-        pathname: getEntryPath(
-          Namespace.uniprotkb,
-          accession,
-          TabLocation.Entry
-        ),
-        hash: match.params.accession,
-      });
+      navigate(
+        {
+          pathname: getEntryPath(
+            Namespace.uniprotkb,
+            accession,
+            TabLocation.Entry
+          ),
+          hash: match.params.accession,
+        },
+        { replace: true }
+      );
     }
-  }, [history, match?.params.accession]);
+  }, [navigate, match?.params.accession]);
 
   let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
@@ -469,11 +474,7 @@ const Entry = () => {
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.Entry
-                )}
+                to={`../${TabLocation.Entry}`}
               >
                 Entry
               </Link>
@@ -553,13 +554,11 @@ const Entry = () => {
                     ? undefined
                     : -1
                 }
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
+                to={`../${
                   importedVariants === 'loading' || !importedVariants
                     ? TabLocation.Entry
                     : TabLocation.VariantViewer
-                )}
+                }`}
               >
                 Variant viewer
                 {data.sequence &&
@@ -605,11 +604,7 @@ const Entry = () => {
                 <Link
                   className={isObsolete ? helper.disabled : undefined}
                   tabIndex={isObsolete ? -1 : undefined}
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    accession,
-                    TabLocation.FeatureViewer
-                  )}
+                  to={`../${TabLocation.FeatureViewer}`}
                 >
                   Feature viewer
                 </Link>
@@ -620,14 +615,7 @@ const Entry = () => {
             onFocus={FeatureViewerTab.preload}
           >
             {smallScreen ? (
-              <Navigate
-                replace
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.Entry
-                )}
-              />
+              <Navigate replace to={`../${TabLocation.Entry}`} />
             ) : (
               <Suspense fallback={<Loader />}>
                 <ErrorBoundary>
@@ -666,13 +654,11 @@ const Entry = () => {
                     ? undefined
                     : -1
                 }
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
+                to={`../${
                   hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
                     ? TabLocation.Entry
                     : TabLocation.GenomicCoordinates
-                )}
+                }`}
               >
                 Genomic coordinates
               </Link>
@@ -728,11 +714,7 @@ const Entry = () => {
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.Publications
-                )}
+                to={`../${TabLocation.Publications}`}
               >
                 Publications
               </Link>
@@ -771,11 +753,7 @@ const Entry = () => {
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.ExternalLinks
-                )}
+                to={`../${TabLocation.ExternalLinks}`}
               >
                 External links
               </Link>
@@ -798,21 +776,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
-            title={
-              match.params.subPage === TabLocation.History ? (
-                'History'
-              ) : (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    accession,
-                    TabLocation.History
-                  )}
-                >
-                  History
-                </Link>
-              )
-            }
+            title={<Link to={`../${TabLocation.History}`}>History</Link>}
             id={TabLocation.History}
             onPointerOver={HistoryTab.preload}
             onFocus={HistoryTab.preload}

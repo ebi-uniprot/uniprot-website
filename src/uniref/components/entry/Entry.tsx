@@ -39,7 +39,7 @@ import EntryMain from './EntryMain';
 import MembersFacets from './MembersFacets';
 
 const Entry = () => {
-  const { accession } = useParams<{ accession: string }>();
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const dispatch = useMessagesDispatch();
 
@@ -47,7 +47,7 @@ const Entry = () => {
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniRefLiteAPIModel>(baseURL);
 
-  if (error) {
+  if (error || !accession) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 
@@ -117,11 +117,11 @@ const Entry = () => {
                 label: 'UniProtKB',
                 to: {
                   pathname: LocationToPath[Location.IDMapping],
-                  state: {
-                    parameters: {
-                      ids: uniProtKBMembers,
-                      name: `${accession} UniProtKB members`,
-                    },
+                },
+                state: {
+                  parameters: {
+                    ids: uniProtKBMembers,
+                    name: `${accession} UniProtKB members`,
                   },
                 },
               },
@@ -131,13 +131,13 @@ const Entry = () => {
                 label: 'UniParc',
                 to: {
                   pathname: LocationToPath[Location.IDMapping],
-                  state: {
-                    parameters: {
-                      ids: uniParcMembers,
-                      from: 'UniParc',
-                      to: 'UniParc',
-                      name: `${accession} UniParc members`,
-                    },
+                },
+                state: {
+                  parameters: {
+                    ids: uniParcMembers,
+                    from: 'UniParc',
+                    to: 'UniParc',
+                    name: `${accession} UniParc members`,
                   },
                 },
               },

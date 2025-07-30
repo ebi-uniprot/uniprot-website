@@ -54,7 +54,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   range,
 }: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const params = useParams<{ accession: string }>();
+  const params = useParams();
   const trackRef = useRef<NightingaleTrackCanvas>(null);
   const managerRef = useRef<NightingaleManager>(null);
   const navigationRef = useRef<NightingaleNavigation>(null);

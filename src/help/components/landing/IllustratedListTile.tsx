@@ -1,6 +1,6 @@
 import cn from 'classnames';
-import { ComponentProps, ReactElement } from 'react';
-import { Link } from 'react-router';
+import { ReactElement } from 'react';
+import { Link, type LinkProps } from 'react-router';
 import { RequireExactlyOne } from 'type-fest';
 
 import styles from './styles/illustrated-list-tile.module.scss';
@@ -8,7 +8,7 @@ import styles from './styles/illustrated-list-tile.module.scss';
 type LinkOrHref = RequireExactlyOne<
   {
     label: string;
-    to: ComponentProps<typeof Link>['to'];
+    to: LinkProps['to'];
     url: string;
   },
   'to' | 'url'
@@ -18,7 +18,7 @@ export type IllustratedListTileProps = {
   title: string;
   image: ReactElement;
   linkList: LinkOrHref[];
-  moreTo: ComponentProps<typeof Link>['to'];
+  moreTo: LinkProps['to'];
 };
 
 const IllustratedListTile = ({

@@ -118,7 +118,9 @@ const SequenceInfo = ({
           downloadUrl={apiUrls.entry.sequenceFasta(isoformId)}
           onBlastClick={() =>
             navigate(LocationToPath[Location.Blast], {
-              parameters: { sequence: dataToDisplay?.value },
+              state: {
+                parameters: { sequence: dataToDisplay?.value },
+              },
             })
           }
           addToBasketButton={

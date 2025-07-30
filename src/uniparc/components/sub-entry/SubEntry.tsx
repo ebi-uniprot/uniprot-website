@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
 import { useState } from 'react';
-import { Link, Navigate, useMatch } from 'react-router';
+import { Link, Navigate, useParams } from 'react-router';
 
 import {
   getEntryPath,
@@ -37,7 +37,6 @@ import uniparcApiUrls from '../../config/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
-import { getSubEntryPath } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
@@ -45,9 +44,8 @@ import { hasStructure } from './SubEntryStructureSection';
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
-  const match = useMatch(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const { accession, subEntryId, subPage } = match?.params || {};
+  const { accession, subEntryId, subPage } = useParams();
 
   const baseURL = `${apiUrls.entry.entry(
     subEntryId && accession,
@@ -75,7 +73,6 @@ const SubEntry = () => {
     !uniparcData.data ||
     subEntryData.error ||
     !subEntryData.data ||
-    !match ||
     !accession ||
     !subEntryId
   ) {
@@ -161,11 +158,7 @@ const SubEntry = () => {
       <Tabs active={subPage}>
         <Tab
           title={
-            <Link
-              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
-            >
-              Entry
-            </Link>
+            <Link to={`../../${TabLocation.Entry}/${subEntryId}`}>Entry</Link>
           }
           id={TabLocation.Entry}
         >
@@ -186,13 +179,7 @@ const SubEntry = () => {
         <Tab
           title={
             smallScreen ? null : (
-              <Link
-                to={getSubEntryPath(
-                  accession,
-                  subEntryId,
-                  TabLocation.FeatureViewer
-                )}
-              >
+              <Link to={`../../${TabLocation.FeatureViewer}/${subEntryId}`}>
                 Feature viewer
               </Link>
             )
@@ -200,10 +187,7 @@ const SubEntry = () => {
           id={TabLocation.FeatureViewer}
         >
           {smallScreen ? (
-            <Navigate
-              replace
-              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
-            />
+            <Navigate replace to={`../../${TabLocation.Entry}/${subEntryId}`} />
           ) : (
             <>
               <HTMLHead

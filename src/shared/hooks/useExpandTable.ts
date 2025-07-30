@@ -13,7 +13,7 @@ const useExpandTable = (
 ] => {
   const [showButton, setShowButton] = useState(Boolean(expandable));
   const [expandTable, setExpandTable] = useState<boolean | null>(null);
-  const params = useParams<{ accession?: string }>();
+  const params = useParams();
   const containerRef = useRef<HTMLDivElement>(null);
   const firstRenderRef = useRef(true);
   // On expand/collapse change

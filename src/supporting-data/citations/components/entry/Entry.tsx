@@ -20,7 +20,7 @@ import { CitationsAPIModel } from '../../adapters/citationsConverter';
 import LiteratureCitation from '../LiteratureCitation';
 
 const CitationsEntry = () => {
-  const { accession } = useParams<{ accession: string }>();
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const { data, loading, error, status, progress } = useDataApiWithStale<

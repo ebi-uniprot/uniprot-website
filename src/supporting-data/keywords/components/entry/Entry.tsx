@@ -36,7 +36,7 @@ const columns = [
 const reNumber = /^\d+$/;
 
 const KeywordsEntry = () => {
-  const { accession } = useParams<{ accession: string }>();
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   let redirectTo = '';

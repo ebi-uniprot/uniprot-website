@@ -34,7 +34,7 @@ const columns = [
 ];
 
 const DatabaseEntry = () => {
-  const { accession } = useParams<{ accession: string }>();
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const { data, loading, error, status, progress, isStale } =

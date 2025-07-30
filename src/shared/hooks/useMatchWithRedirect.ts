@@ -6,6 +6,7 @@ import { Location, LocationToPath } from '../../app/config/urls';
 // Typos identified in Google Search Console of websites linking to wrong URL
 const weirdTypos = /^ |.html?$|;|&.*$/g;
 
+// TODO: all of this needs to go in the react-router loaders!
 const useMatchWithRedirect = (
   location: Location,
   possibleSubPages: Record<string, string>,

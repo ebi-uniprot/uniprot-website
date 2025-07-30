@@ -16,7 +16,6 @@ import {
 } from 'franklin-sites';
 import {
   ChangeEvent,
-  ComponentProps,
   KeyboardEvent,
   memo,
   MouseEvent,
@@ -27,14 +26,13 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, type LinkProps, useLocation, useNavigate } from 'react-router';
 
 import {
   jobTypeToPath,
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
@@ -157,11 +155,16 @@ const SpinningNotify = ({ children }: { children: ReactNode }) => (
 
 interface NiceStatusProps {
   job: Job;
-  jobLink?: ComponentProps<typeof Link>['to'];
+  jobLink?: {
+    to: LinkProps['to'];
+    state: LinkProps['state'];
+  };
   jobUrl?: string;
 }
 
 const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
+  const location = useLocation();
+
   switch (job.status) {
     case Status.CREATED:
       return <SpinningNotify>Created</SpinningNotify>;
@@ -192,14 +195,13 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
               </span>
               <div className="dashboard__body__contact_link">
                 For further inquiry, please{' '}
-                <Link<ContactLocationState>
-                  to={(location) => ({
-                    pathname: LocationToPath[Location.ContactGeneric],
-                    state: {
-                      referrer: location,
-                      formValues: {
-                        subject: `Failed ${job.type} job`,
-                        context: `*** Job error ***
+                <Link
+                  to={LocationToPath[Location.ContactGeneric]}
+                  state={{
+                    referrer: location,
+                    formValues: {
+                      subject: `Failed ${job.type} job`,
+                      context: `*** Job error ***
 ${job.errorDescription}
 
 ${
@@ -215,9 +217,8 @@ ${Object.entries(job.parameters)
   .join(',\n')}`
 }
 `,
-                      },
                     },
-                  })}
+                  }}
                   title="Contact"
                 >
                   contact us
@@ -277,7 +278,9 @@ ${Object.entries(job.parameters)
                 {actualHits === 0 && job.type !== JobTypes.ID_MAPPING ? (
                   <span>Completed</span>
                 ) : (
-                  <Link to={jobLink}>Completed</Link>
+                  <Link to={jobLink.to} state={jobLink.state}>
+                    Completed
+                  </Link>
                 )}{' '}
                 <span
                   title={`${actualHits} ${hitText} found${
@@ -297,7 +300,9 @@ ${Object.entries(job.parameters)
         }
         return (
           <>
-            <Link to={jobLink}>Completed</Link>
+            <Link to={jobLink.to} state={jobLink.state}>
+              Completed
+            </Link>
             <Seen job={job} />
           </>
         );
@@ -495,7 +500,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       jobUrl = urlConfig.resultUrl(job.remoteID);
     } else {
       jobLink = {
-        pathname: jobTypeToPath(job.type, job),
+        to: { pathname: jobTypeToPath(job.type, job) },
         state: { internalID: job.internalID },
       };
     }
@@ -565,7 +570,11 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         );
       }
       if (jobLink) {
-        jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
+        jobIdNode = (
+          <Link to={jobLink.to} state={jobLink.state}>
+            {job.remoteID}
+          </Link>
+        );
       }
     }
   } else if (!hasExpired) {

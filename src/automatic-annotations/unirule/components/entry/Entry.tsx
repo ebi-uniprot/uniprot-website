@@ -22,7 +22,7 @@ import Source from './Source';
 import TemplateEntries from './TemplateEntries';
 
 const UniRuleEntry = () => {
-  const { accession } = useParams<{ accession: string }>();
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const { data, loading, error, status, progress } =
