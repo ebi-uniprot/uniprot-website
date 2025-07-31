@@ -1,17 +1,13 @@
 import { useLocation, useMatch } from 'react-router';
 
-import {
-  allSearchResultLocations,
-  getJobResultsLocation,
-  LocationToPath,
-} from '../../app/config/urls';
+import { getJobResultsLocation, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../types/namespaces';
 
 const findNamespace = (potentialNS: string) =>
   Object.values(Namespace).find((ns) => ns === potentialNS);
 
 const useNS = (override?: Namespace): Namespace | undefined => {
-  const match = useMatch(allSearchResultLocations);
+  const match = useMatch(`/:namespace`);
 
   const location = useLocation();
   const jobResultsLocation = getJobResultsLocation(location.pathname);

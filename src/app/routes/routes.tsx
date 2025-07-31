@@ -55,12 +55,12 @@ const UniRefLandingPage = lazy(
     )
 );
 // Search results
-// const GenericResultsPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "generic-results" */ '../../shared/components/results/Results'
-//     )
-// );
+const GenericResultsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "generic-results" */ '../../shared/components/results/Results'
+    )
+);
 //Entry pages
 const UniProtKBEntryPage = lazy(
   () =>
@@ -221,8 +221,7 @@ export const routes: RouteObject[] = [
           {
             index: true,
             Component: resultsOrLanding(
-              // TODO
-              Empty,
+              GenericResultsPage,
               LandingPages.get(Namespace.uniprotkb)
             ),
           },
@@ -248,8 +247,7 @@ export const routes: RouteObject[] = [
           {
             index: true,
             Component: resultsOrLanding(
-              // TODO
-              Empty,
+              GenericResultsPage,
               LandingPages.get(Namespace.proteomes)
             ),
           },
@@ -265,8 +263,7 @@ export const routes: RouteObject[] = [
           {
             index: true,
             Component: resultsOrLanding(
-              // TODO
-              Empty,
+              GenericResultsPage,
               LandingPages.get(Namespace.uniref)
             ),
           },
@@ -282,8 +279,7 @@ export const routes: RouteObject[] = [
           {
             index: true,
             Component: resultsOrLanding(
-              // TODO
-              Empty,
+              GenericResultsPage,
               LandingPages.get(Namespace.uniparc)
             ),
           },
@@ -313,8 +309,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
@@ -327,8 +322,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
@@ -341,8 +335,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
@@ -355,8 +348,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
@@ -369,8 +361,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
@@ -383,8 +374,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
@@ -397,8 +387,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
@@ -411,8 +400,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            // TODO
-            Component: resultsOrLanding(Empty),
+            Component: resultsOrLanding(GenericResultsPage),
           },
           {
             path: ':accession',
