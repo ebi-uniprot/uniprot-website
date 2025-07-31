@@ -78,13 +78,13 @@ const externalUrls = {
   DOI: (id: string | number) => `https://dx.doi.org/${id}`,
   PubMed: (id: string | number) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
   EuropePMC: (id: string | number) => `//europepmc.org/article/MED/${id}`,
-  CommunityCurationGetByAccession: (id: string) =>
+  CommunityCuratedGetByAccession: (id: string) =>
     `https://community.uniprot.org/cgi-bin/bbsub_query?accession=${id}`,
-  CommunityCurationGetByAccessionAndPmid: (accession: string, pmid: string) =>
+  CommunityCuratedGetByAccessionAndPmid: (accession: string, pmid: string) =>
     joinUrl(
       `https://community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}&pmid=${pmid}`
     ),
-  CommunityCurationAdd: (id: string | number) =>
+  CommunityCuratedAdd: (id: string | number) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
   RheaSearch: (id: string | number) =>
     `https://www.rhea-db.org/rhea?query=${id}`,

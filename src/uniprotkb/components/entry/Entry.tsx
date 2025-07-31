@@ -167,7 +167,7 @@ const Entry = () => {
     { method: 'HEAD' }
   );
 
-  const communityCurationPayload = useDataApi<SearchResults<CitationsAPIModel>>(
+  const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
     match?.params.accession &&
       uniprotkbApiUrls.publications.entryPublications({
         accession: match.params.accession,
@@ -181,12 +181,12 @@ const Entry = () => {
   );
 
   const communityReferences: Reference[] = useMemo(() => {
-    const filteredReferences = communityCurationPayload.data?.results?.flatMap(
+    const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
       ({ references }) =>
         references?.filter((reference) => reference.source?.name === 'ORCID')
     );
     return filteredReferences?.filter((r): r is Reference => Boolean(r)) || [];
-  }, [communityCurationPayload.data]);
+  }, [communityCuratedPayload.data]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
@@ -508,7 +508,7 @@ const Entry = () => {
                   <AddToBasketButton selectedEntries={accession} />
                   <CommunityAnnotationLink accession={accession} />
                   <a
-                    href={externalUrls.CommunityCurationAdd(accession)}
+                    href={externalUrls.CommunityCuratedAdd(accession)}
                     className="button tertiary"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -728,7 +728,7 @@ const Entry = () => {
                 <div className="button-group">
                   <CommunityAnnotationLink accession={accession} />
                   <a
-                    href={externalUrls.CommunityCurationAdd(accession)}
+                    href={externalUrls.CommunityCuratedAdd(accession)}
                     className="button tertiary"
                     target="_blank"
                     rel="noopener noreferrer"

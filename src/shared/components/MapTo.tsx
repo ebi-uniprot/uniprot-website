@@ -97,10 +97,10 @@ const configMap = new Map<
   [
     'communityMappedProteinCount',
     {
-      label: 'Community mapped proteins',
+      label: 'Community curated proteins',
       text: (count) => (
         <>
-          <LongNumber>{count}</LongNumber> community mapped{' '}
+          <LongNumber>{count}</LongNumber> community curated{' '}
           {pluralise('protein', count)}
         </>
       ),

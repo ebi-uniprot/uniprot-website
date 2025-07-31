@@ -342,7 +342,7 @@ const Statistics: FC<React.PropsWithChildren<StatisticsProps>> = ({
                   // NOTE: only works for PubMed IDs
                   search: `query=(community_pubmed_id:${id})`,
                 }}
-                title={`Community mapped entries: ${communityMappedProteinCount}`}
+                title={`Community curated entries: ${communityMappedProteinCount}`}
               >
                 <Bubble size="small">{communityMappedProteinCount}</Bubble>
                 <CommunityAnnotationIcon height="1em" />

@@ -18,7 +18,7 @@ import {
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import EntrySection from '../../types/entrySection';
 import { DatabaseInfoMaps } from '../../utils/database';
-import styles from './styles/community-curation.module.scss';
+import styles from './styles/community-curated.module.scss';
 
 const annotationGetter = (section: EntrySection) => {
   switch (section) {
@@ -119,11 +119,11 @@ const SubmissionDate = ({
   <ExternalLink
     url={
       citationId && citationId.match(/\d+/)
-        ? externalUrls.CommunityCurationGetByAccessionAndPmid(
+        ? externalUrls.CommunityCuratedGetByAccessionAndPmid(
             accession,
             citationId
           )
-        : externalUrls.CommunityCurationGetByAccession(accession)
+        : externalUrls.CommunityCuratedGetByAccession(accession)
     }
   >
     <time dateTime={submissionDate}>{submissionDate}</time>
@@ -148,7 +148,7 @@ const GroupedCommunityReference = ({
       <h4>Community suggested name: {annotation}</h4>
     ) : (
       <>
-        <h4>Community annotation</h4>
+        <h4>Community annotated</h4>
         <p>{annotation}</p>
       </>
     )}
@@ -202,7 +202,7 @@ const GroupedCommunityReference = ({
   </Card>
 );
 
-const CommunityCuration = ({
+const CommunityCurated = ({
   accession,
   section,
   communityReferences,
@@ -219,13 +219,13 @@ const CommunityCuration = ({
 
   if (groupedCommunityReferences?.size) {
     return (
-      <details className={styles['community-annotation-details']}>
+      <details className={styles['community-curated-details']}>
         <summary className={styles.header}>
           <span
             className={cn('button', 'tertiary', styles['community-button'])}
           >
             <CommunityAnnotationIcon width="1ch" />
-            {`Community curation (${communityReferences.length}) `}
+            {`Community curated (${communityReferences.length}) `}
             <ChevronDownIcon width="1ch" className={styles['chevron-icon']} />
           </span>
           <hr className={styles.separator} />
@@ -250,4 +250,4 @@ const CommunityCuration = ({
   return null;
 };
 
-export default CommunityCuration;
+export default CommunityCurated;

@@ -27,7 +27,7 @@ import UniProtKBEvidenceTag, {
   EvidenceTagSourceTypes,
 } from '../protein-data-views/UniProtKBEvidenceTag';
 import XRefView from '../protein-data-views/XRefView';
-import CommunityCuration from './CommunityCuration';
+import CommunityCurated from './CommunityCurated';
 
 type Props = {
   data: NamesAndTaxonomyUIModel;
@@ -144,7 +144,7 @@ const NamesAndTaxonomySection = ({
           <GeneNamesView geneNamesData={data.geneNamesData} />
         </>
       )}
-      <CommunityCuration
+      <CommunityCurated
         accession={primaryAccession}
         section={EntrySection.NamesAndTaxonomy}
         communityReferences={nameRelatedReferences}

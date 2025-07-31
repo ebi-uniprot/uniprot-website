@@ -20,7 +20,7 @@ export enum EntryType {
   REDUNDANT_PROTEOME,
   EXCLUDED_PROTEOME,
   OTHER_PROTEOME,
-  COMMUNITY_ANNOTATION,
+  COMMUNITY_CURATED,
   COMPUTATIONAL_ANNOTATION,
 }
 
@@ -41,7 +41,7 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
     return EntryType.REVIEWED;
   }
   if (entryTypeString.match(/ORCID$|community/gi)) {
-    return EntryType.COMMUNITY_ANNOTATION;
+    return EntryType.COMMUNITY_CURATED;
   }
   if (entryTypeString.match(/Reference|Representative/gi)) {
     return EntryType.REFERENCE_PROTEOME;
@@ -145,11 +145,11 @@ const EntryTypeIcon = ({
       </span>
     );
   }
-  if (entryTypeToCheck === EntryType.COMMUNITY_ANNOTATION) {
+  if (entryTypeToCheck === EntryType.COMMUNITY_CURATED) {
     return (
       <span
         className="entry-title__status icon--community-annotation"
-        title={title || 'Community annotation'}
+        title={title || 'Community curated'}
       >
         <CommunityAnnotationIcon />
       </span>

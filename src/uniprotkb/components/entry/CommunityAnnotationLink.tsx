@@ -19,7 +19,7 @@ type CommunityAnnotationLinkProps = {
 const CommunityAnnotationLink: FC<
   React.PropsWithChildren<CommunityAnnotationLinkProps>
 > = ({ accession }) => {
-  const url = externalUrls.CommunityCurationGetByAccession(accession);
+  const url = externalUrls.CommunityCuratedGetByAccession(accession);
   const { headers } = useDataApi(url, fetchOptions);
   const nSubmissions = +(headers?.['x-total-results'] || 0);
   if (!nSubmissions) {
@@ -36,7 +36,7 @@ const CommunityAnnotationLink: FC<
       }}
       className="button tertiary"
     >
-      <CommunityAnnotationIcon /> {`Community curation (${nSubmissions})`}
+      <CommunityAnnotationIcon /> {`Community curated (${nSubmissions})`}
     </Link>
   );
 };

@@ -16,7 +16,7 @@ describe('CommunityAnnotationLink', () => {
       <CommunityAnnotationLink accession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByText('Community curation (3)')).toBeInTheDocument();
+    expect(screen.getByText('Community curated (3)')).toBeInTheDocument();
   });
   it('should render nothing with no submission', () => {
     (useDataApi as jest.Mock).mockReturnValue({
@@ -24,6 +24,6 @@ describe('CommunityAnnotationLink', () => {
       headers: { 'x-total-results': 0 },
     });
     customRender(<CommunityAnnotationLink accession="P05067" />);
-    expect(screen.queryByText('Community curation')).not.toBeInTheDocument();
+    expect(screen.queryByText('Community curated')).not.toBeInTheDocument();
   });
 });

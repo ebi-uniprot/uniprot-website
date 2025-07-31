@@ -4,7 +4,7 @@ export enum EntryType {
   INACTIVE,
   UNIPARC,
   REFERENCE_PROTEOME,
-  COMMUNITY_ANNOTATION,
+  COMMUNITY_CURATED,
 }
 
 export const getEntryTypeFromString = (entryTypeString?: string) => {
@@ -24,7 +24,7 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
     return EntryType.REVIEWED;
   }
   if (entryTypeString.match(/ORCID$/gi)) {
-    return EntryType.COMMUNITY_ANNOTATION;
+    return EntryType.COMMUNITY_CURATED;
   }
   if (entryTypeString.match(/Reference|Representative/gi)) {
     return EntryType.REFERENCE_PROTEOME;
