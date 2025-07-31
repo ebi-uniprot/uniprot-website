@@ -2,15 +2,15 @@ import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import EntrySection from '../../../types/entrySection';
-import CommunityCuration, {
+import CommunityCurated, {
   groupByCommunityAnnotation,
-} from '../CommunityCuration';
-import mock from './__mocks__/communityCurationData';
+} from '../CommunityCurated';
+import mock from './__mocks__/communityCuratedData';
 
 describe('Community annotatation', () => {
   it('should render the community annotation content', async () => {
     const { asFragment } = customRender(
-      <CommunityCuration
+      <CommunityCurated
         accession="Q95PB5"
         section={EntrySection.NamesAndTaxonomy}
         communityReferences={mock}

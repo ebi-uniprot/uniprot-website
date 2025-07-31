@@ -36,7 +36,7 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView, {
   XRefsGroupedByCategory,
 } from '../protein-data-views/XRefView';
-import CommunityCuration from './CommunityCuration';
+import CommunityCurated from './CommunityCurated';
 import KineticsTableView from './KineticsTableView';
 
 const GoRibbon = lazy(
@@ -432,7 +432,7 @@ const FunctionSection = ({
       ) : null}
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      <CommunityCuration
+      <CommunityCurated
         accession={primaryAccession}
         section={EntrySection.Function}
         communityReferences={functionRelatedReferences}

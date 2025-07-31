@@ -3,7 +3,7 @@
 exports[`Community annotatation should render the community annotation content 1`] = `
 <DocumentFragment>
   <details
-    class="community-annotation-details"
+    class="community-curated-details"
   >
     <summary
       class="header"
@@ -14,7 +14,7 @@ exports[`Community annotatation should render the community annotation content 1
         <test-file-stub
           width="1ch"
         />
-        Community curation (8) 
+        Community curated (8) 
         <test-file-stub
           classname="chevron-icon"
           width="1ch"
