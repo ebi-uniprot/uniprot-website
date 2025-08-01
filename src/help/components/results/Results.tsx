@@ -21,7 +21,6 @@ import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';
 import HelpCard from './HelpCard';
 import HelpResultFacets from './HelpResultFacets';
 import styles from './styles/results.module.scss';
-import HelperImage from './svgs/helper.img.svg';
 
 const dataRenderer = (article: HelpAPIModel) => (
   <HelpCard
@@ -99,13 +98,6 @@ const Results = ({
 
   const searchNode = (
     <div className={styles['results-header']}>
-      <img
-        src={HelperImage}
-        className={styles.helper}
-        width="290"
-        height="123"
-        alt=""
-      />
       <strong className={cn('tiny', styles.title)}>
         <HelpIcon width="0.7em" height="0.7em" />{' '}
         {isReleaseNotes ? 'Release notes ' : 'Help '}search results
