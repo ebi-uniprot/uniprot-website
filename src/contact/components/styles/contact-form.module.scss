@@ -58,7 +58,7 @@
         'submit        submit        .             .';
     }
 
-    // Hide the honeypot from the view
+    // Hide the honeypot from the view, but not from the bots
     [name='requiredForRobots'] {
       position: absolute;
       top: -100%;

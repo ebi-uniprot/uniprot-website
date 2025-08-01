@@ -68,9 +68,9 @@ const peptideSearchRegExp = /(peptide search)|(search peptide)/i;
 
 export const getSuggestion = debounce(
   (
-    subject: string,
-    message: string,
-    callback: Dispatch<SetStateAction<Suggestion | undefined>>
+    callback: Dispatch<SetStateAction<Suggestion | undefined>>,
+    subject: string = '',
+    message: string = ''
   ): void => {
     if (entryUpdateRegExp.test(subject)) {
       // A bit specific, only test the subject as it would have been added by
@@ -208,9 +208,9 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
           return;
         }
         getSuggestion(
-          element.form?.subject.value,
-          element.form?.message.value,
-          setSuggestion
+          setSuggestion,
+          element.form?.subject?.value,
+          element.form?.message?.value
         );
         history.replace({
           ...history.location,

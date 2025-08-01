@@ -26,11 +26,16 @@
   }
 
   form {
-    // Hide the honeypot from the view
+    // Hide the honeypot from the view, but not from the bots
     [name='requiredForRobots'] {
       position: absolute;
       top: -100%;
       left: -100%;
+    }
+
+    // Hide the context
+    [name='context'] {
+      display: none;
     }
 
     & > input {
