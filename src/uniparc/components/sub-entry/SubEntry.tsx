@@ -58,7 +58,7 @@ const SubEntry = () => {
     Namespace.uniparc
   )}/light`;
   const xrefIdURL = accession
-    ? uniparcApiUrls.databases(accession, subEntryId)
+    ? uniparcApiUrls.databases(accession, subEntryId, true)
     : '';
 
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
