@@ -51,6 +51,12 @@ function SubEntrySequenceSection({ data }: { data?: UniParcSubEntryUIModel }) {
         }
         sequenceTools={uniParcTools}
       />
+      <h3>External sources</h3>
+      {/* TODO: Add external links to sources ids */}
+      {data.subEntry.properties?.map((property) => {
+        const sourceID = property.value.split(':')[0];
+        return <div key={sourceID}>{sourceID}</div>;
+      })}
     </Card>
   );
 }
