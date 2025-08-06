@@ -221,9 +221,6 @@ Website version: #git_commit_id
       >
         Sending message
       </button>
-      <div
-        class="illustration"
-      />
       <aside>
         <h2
           class="small"
@@ -488,9 +485,6 @@ Website version: #git_commit_id
       >
         Send message
       </button>
-      <div
-        class="illustration"
-      />
       <aside>
         <h2
           class="small"
@@ -755,9 +749,6 @@ Website version: #git_commit_id
       >
         Send message
       </button>
-      <div
-        class="illustration"
-      />
       <aside>
         <h2
           class="small"
