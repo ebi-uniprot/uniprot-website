@@ -44,12 +44,12 @@
     }
 
     @include fs-breakpoints('large') {
-      grid-template-columns: [label-start] min-content [label-end input-start] 2fr [input-end] 1fr max-content;
+      grid-template-columns: [label-start] min-content [label-end input-start] 2fr [input-end] 0.5fr max-content;
       grid-template-areas:
-        'label-name    input-name    illustration  aside'
-        'label-email   input-email   illustration  aside'
-        'label-subject input-subject illustration  aside'
-        'label-message .             illustration  aside'
+        'label-name    input-name     . aside'
+        'label-email   input-email    . aside'
+        'label-subject input-subject  . aside'
+        'label-message .              . aside'
         'input-message input-message input-message input-message'
         'suggestion    suggestion    suggestion    suggestion'
         'label-context label-context label-context label-context'
@@ -81,6 +81,7 @@
       @include fs-breakpoints('medium') {
         display: initial;
         grid-area: aside;
+        margin-right: 3em;
       }
     }
   }
@@ -163,19 +164,4 @@
   grid-column: 1 / -1;
   justify-self: start;
   font-weight: normal;
-}
-
-.illustration {
-  display: none;
-
-  @include fs-breakpoints('large') {
-    /* putting the image here means no network load if not displayed */
-    background: url('../svgs/helper-contact.img.svg') no-repeat 0 0;
-    display: initial;
-    width: 75%;
-    aspect-ratio: 211/140;
-    grid-area: illustration;
-    justify-self: center;
-    align-self: end;
-  }
 }

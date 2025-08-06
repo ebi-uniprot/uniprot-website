@@ -63,43 +63,6 @@
       <ellipse class="cls-10" cx="453.1" cy="483" rx="5.5" ry="5.8" transform="rotate(-27 453 483)"/>
       <ellipse class="cls-10" cx="455.4" cy="502.1" rx="2.8" ry="2.9" transform="rotate(-27 455 502)"/>
       <ellipse class="cls-10" cx="514" cy="505" rx="2.8" ry="2.9" transform="rotate(-27 514 505)"/>
-      <path style="fill:#c788d3" d="M480 425H126l40-74h353l-39 74z"/>
-      <path class="cls-14" d="M126 425h353v18H126z"/>
-      <rect class="cls-14" x="483.9" y=".1" width="10" height="383.3" rx="5"/>
-      <rect class="cls-14" x="160.4" width="10" height="383.3" rx="5"/>
-      <path d="M246 370c81-4 119-2 175-4 30-1-9 57-113 54-30-1-137-47-62-50Z" style="fill:#a67bad"/>
-      <circle class="cls-16" cx="610.8" cy="157" r="11.5"/>
-      <rect class="cls-6" x="591.5" y="156.7" width="9.2" height="27.6" rx="4.6" transform="rotate(-129 596 171)"/>
-      <circle class="cls-17" cx="565.9" cy="186.4" r="27"/>
-      <rect class="cls-6" x="525.8" y="155.1" width="15.9" height="47.8" rx="7.9" transform="rotate(-73 534 179)"/>
-      <circle class="cls-16" cx="14.9" cy="143.5" r="14.9"/>
-      <rect class="cls-6" x="27.9" y="141.4" width="12.3" height="37.1" rx="6.2" transform="rotate(-47 34 160)"/>
-      <circle class="cls-17" cx="63.6" cy="184.3" r="27"/>
-      <circle class="cls-18" cx="485.9" cy="167.8" r="37.5"/>
-      <circle class="cls-16" cx="323.8" cy="271" r="114"/>
-      <path d="M433 293a103 103 0 0 1-29 60 103 103 0 0 1-27 20c-10 5-30 13-36 12-15-2 49-22 53-31s11-9 18-20c9-13 16-37 17-46 1-8 4-8 4 5Z" style="fill:#00a7d5;opacity:.2"/>
-      <ellipse cx="487.4" cy="147.2" rx="15.1" ry="10.3" transform="rotate(-4 487 147)" style="fill:#61d8e5"/>
-      <rect class="cls-6" x="422.9" y="150.5" width="24.3" height="74.7" rx="12.1" transform="rotate(-117 435 188)"/>
-      <ellipse class="cls-17" cx="446.9" cy="273" rx="8.3" ry="38.4" transform="rotate(-19 447 273)"/>
-      <ellipse class="cls-17" cx="469.1" cy="278.7" rx="32.3" ry="6.3" transform="rotate(-73 469 279)"/>
-      <ellipse class="cls-17" cx="482.6" cy="237.9" rx="17.3" ry="5.8" transform="rotate(-62 483 238)"/>
-      <ellipse class="cls-17" cx="488.4" cy="242.8" rx="17.3" ry="4.4" transform="rotate(-34 488 243)"/>
-      <ellipse class="cls-17" cx="482.9" cy="251.6" rx="8.4" ry="3.5" transform="rotate(-11 483 252)"/>
-      <ellipse class="cls-17" cx="204.7" cy="273.5" rx="38.4" ry="8.3" transform="rotate(-69 205 273)"/>
-      <ellipse class="cls-17" cx="185" cy="278.2" rx="6.3" ry="32.3" transform="rotate(-11 185 278)"/>
-      <ellipse class="cls-17" cx="175.7" cy="236.2" rx="5.8" ry="17.3" transform="rotate(-23 176 236)"/>
-      <ellipse class="cls-17" cx="169.5" cy="240.2" rx="4.5" ry="17.6" transform="rotate(-50 169 240)"/>
-      <ellipse class="cls-17" cx="174.1" cy="249.7" rx="3.6" ry="8.6" transform="rotate(-73 174 250)"/>
-      <path class="cls-14" d="M286 338c12-25 57-33 87-20-27 7-59 15-87 20Z"/>
-      <ellipse class="cls-17" cx="322.5" cy="247.8" rx="59.6" ry="40.7"/>
-      <ellipse class="cls-18" cx="322.5" cy="259" rx="57.2" ry="30.7"/>
-      <ellipse class="cls-21" cx="321.9" cy="267.2" rx="53.1" ry="22.4"/>
-      <circle class="cls-14" cx="295.3" cy="264.9" r="21.2"/>
-      <circle class="cls-21" cx="295.3" cy="259.7" r="10.9"/>
-      <rect class="cls-6" x="94.8" y="152.1" width="15.9" height="47.8" rx="7.9" transform="rotate(71 103 176)"/>
-      <circle class="cls-18" cx="152.7" cy="162" r="37.5"/>
-      <rect class="cls-6" x="199.9" y="149.5" width="24.3" height="74.7" rx="12.1" transform="rotate(117 212 187)"/>
-      <ellipse class="cls-16" cx="152.7" cy="142.3" rx="9.9" ry="11.8" transform="rotate(-88 153 142)"/>
     </g>
   </g>
 </svg>
