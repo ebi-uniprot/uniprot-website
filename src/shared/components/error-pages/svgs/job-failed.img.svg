@@ -63,10 +63,6 @@
       <ellipse class="cls-10" cx="453.1" cy="483" rx="5.5" ry="5.8" transform="rotate(-27 453 483)"/>
       <ellipse class="cls-10" cx="455.4" cy="502.1" rx="2.8" ry="2.9" transform="rotate(-27 455 502)"/>
       <ellipse class="cls-10" cx="514" cy="505" rx="2.8" ry="2.9" transform="rotate(-27 514 505)"/>
-      <path style="fill:#c788d3" d="M480 425H126l40-74h353l-39 74z"/>
-      <path class="cls-14" d="M126 425h353v18H126z"/>
-      <rect class="cls-14" x="483.9" y=".1" width="10" height="383.3" rx="5"/>
-      <rect class="cls-14" x="160.4" width="10" height="383.3" rx="5"/>
     </g>
   </g>
 </svg>
