@@ -44,12 +44,12 @@
     }
 
     @include fs-breakpoints('large') {
-      grid-template-columns: [label-start] min-content [label-end input-start] 1fr [input-end] 1fr max-content;
+      grid-template-columns: [label-start] min-content [label-end input-start] 2fr [input-end] 0.5fr max-content;
       grid-template-areas:
-        'label-name    input-name     aside .'
-        'label-email   input-email    aside .'
-        'label-subject input-subject  aside .'
-        'label-message .              aside .'
+        'label-name    input-name     . aside'
+        'label-email   input-email    . aside'
+        'label-subject input-subject  . aside'
+        'label-message .              . aside'
         'input-message input-message input-message input-message'
         'suggestion    suggestion    suggestion    suggestion'
         'label-context label-context label-context label-context'
@@ -81,6 +81,7 @@
       @include fs-breakpoints('medium') {
         display: initial;
         grid-area: aside;
+        margin-right: 3em;
       }
     }
   }

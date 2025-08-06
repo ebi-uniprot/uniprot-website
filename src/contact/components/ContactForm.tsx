@@ -343,7 +343,6 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
           <Button type="submit" disabled={sending}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>
-          <div className={styles.illustration} />
           <aside>
             <h2 className="small">Other ways to contact us</h2>
             {/* Link to switch the contact form */}
