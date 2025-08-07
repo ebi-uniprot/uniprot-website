@@ -164,7 +164,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
 });
 
 export const excludeTaxonForDB = (db: BlastFormValue['selected']) =>
-  typeof db === 'string' && /uni(ref|parc)/i.test(db);
+  typeof db === 'string' && (db === 'afdb' || /uni(ref|parc)/i.test(db));
 
 export const databaseToNamespace = (
   database: Database

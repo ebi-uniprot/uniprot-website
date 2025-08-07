@@ -28,9 +28,7 @@ const LandingPage = () => {
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
-      e.target.value.trim().length >= 3
-        ? ''
-        : 'Please enter more details about the database'
+      e.target.checked ? '' : 'Please tick the box to agree.'
     );
   };
 
@@ -253,12 +251,12 @@ const LandingPage = () => {
                 onChange={handleChange}
               />
               {/* Database name */}
-              <label htmlFor={`database-name-${formId}`}>Database name *</label>
+              <label htmlFor={`subject-${formId}`}>Database name *</label>
               <input
                 type="text"
-                name="database-name"
+                name="subject"
                 placeholder=" "
-                id={`database-name-${formId}`}
+                id={`subject-${formId}`}
                 required
                 maxLength={100}
                 onChange={handleChange}
@@ -276,6 +274,13 @@ const LandingPage = () => {
                   handleTextareaChange(event);
                   handleChange(event);
                 }}
+              />
+              <textarea
+                name="context"
+                id={`context-${formId}`}
+                value="This is a message from the cross-reference form in the supporting data landing page"
+                readOnly
+                data-hj-allow
               />
               {/* Privacy */}
               <label className={styles.privacy}>
