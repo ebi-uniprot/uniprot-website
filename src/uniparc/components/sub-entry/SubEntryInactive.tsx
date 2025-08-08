@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom';
+
+import { getEntryPath } from '../../../app/config/urls';
 import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
 import apiUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
@@ -17,6 +21,15 @@ const SubEntryInactive = ({ data }: { data: UniParcSubEntryUIModel }) => {
     if (event && event?.deletedReason) {
       return (
         <span data-article-id="deleted_accessions">{event.deletedReason}</span>
+      );
+    } else if (event && event.eventType === 'merged') {
+      return (
+        <span data-article-id="merged_accession">
+          Merged into{' '}
+          <Link to={getEntryPath(Namespace.uniprotkb, event.targetAccession)}>
+            {event.targetAccession}
+          </Link>
+        </span>
       );
     }
   }

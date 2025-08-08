@@ -1,4 +1,5 @@
 enum SubEntrySection {
+  NamesAndTaxonomy = 'names_and_taxonomy',
   Structure = 'structure',
   FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',

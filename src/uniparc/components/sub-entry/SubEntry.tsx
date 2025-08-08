@@ -58,7 +58,7 @@ const SubEntry = () => {
     Namespace.uniparc
   )}/light`;
   const xrefIdURL = accession
-    ? uniparcApiUrls.databases(accession, subEntryId)
+    ? uniparcApiUrls.databases(accession, subEntryId, true)
     : '';
 
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
@@ -116,8 +116,10 @@ const SubEntry = () => {
       sections={Object.values(uniParcSubEntryConfig).map((section) => ({
         ...section,
         disabled:
-          section.id === SubEntrySection.Structure &&
-          !hasStructure(transformedData.subEntry),
+          (section.id === SubEntrySection.Structure &&
+            !hasStructure(transformedData.subEntry)) ||
+          (section.id === SubEntrySection.NamesAndTaxonomy &&
+            !transformedData.subEntry.proteinName),
       }))}
       rootElement={`.${sidebarStyles.content}`}
     />
