@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { memo } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
@@ -38,6 +38,7 @@ type Props = {
 const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const namespace = useNS(namespaceOverride);
   const { subPage } = useParams();
+  const { pathname } = useLocation();
 
   const { data, isStale, loading, progress } = dataApiObject;
 
@@ -108,7 +109,9 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
         subPage !== 'publications' && (
           <TaxonomyFacet namespace={namespace as SearchableNamespace} />
         )}
-      {namespace === Namespace.uniprotkb && <UniProtKBGroupByFacet />}
+      {namespace === Namespace.uniprotkb &&
+        // Not a job results page
+        pathname.startsWith(`/${namespace}`) && <UniProtKBGroupByFacet />}
       {after.map(
         (facet) =>
           facet.values && (

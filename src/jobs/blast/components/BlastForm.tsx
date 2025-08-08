@@ -16,7 +16,7 @@ import {
   useReducer,
   useRef,
 } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { sleep } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -122,7 +122,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
   // hooks
   const dispatchMessages = useMessagesDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
 
   const [
@@ -251,7 +251,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
     sleep(1000).then(async () => {
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
-      // internal state. Dispatching after history.push so that pop-up messages (as a
+      // internal state. Dispatching after navigate so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       for (let i = 0; i < parsedSequences.length; i += 1) {
         // take extracted name by default
@@ -283,8 +283,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
         await sleep(0);
       }
 
-      history.push(LocationToPath[Location.Dashboard], {
-        parameters: multipleParameters,
+      navigate(LocationToPath[Location.Dashboard], {
+        state: {
+          parameters: multipleParameters,
+        },
       });
     });
   };

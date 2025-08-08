@@ -1,6 +1,6 @@
 import { sequenceProcessor } from 'franklin-sites';
 import { useEffect, useMemo, useRef } from 'react';
-import { useHistory } from 'react-router';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import useGetFASTAFromAccesion from '../../shared/hooks/useGetFASTAFromAccession';
@@ -29,11 +29,6 @@ export type FormValue = {
 
 export type FormValues<Fields extends string> = Record<Fields, FormValue>;
 
-const alignmentLocations = new Set([
-  LocationToPath[Location.Blast],
-  LocationToPath[Location.Align],
-]);
-
 function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>,
@@ -43,16 +38,15 @@ function useInitialFormParameters<
   loading: boolean;
   initialFormValues: Readonly<FormValues<Fields>> | null;
 } {
-  const history = useHistory();
-  // Keep initial history.location?.search as we later remove this in a useEffect hook
-  const historyLocationSearch = useRef(history.location?.search).current;
+  const navigate = useNavigate();
+  const { pathname, search, state } = useLocation();
+  const [searchParams] = useSearchParams();
+  // Keep initial searchParams as we later remove this in a useEffect hook
+  const historyLocationSearch = useRef(searchParams).current;
 
   const parametersFromHistorySearch = useMemo(() => {
-    if (!historyLocationSearch) {
-      return null;
-    }
     const parameters = Object.fromEntries<SelectedType>(
-      new URLSearchParams(historyLocationSearch).entries()
+      historyLocationSearch.entries()
     );
     // At this point everything is strings, change/parse specific fields
     if (parameters.ids && typeof parameters.ids === 'string') {
@@ -62,28 +56,29 @@ function useInitialFormParameters<
   }, [historyLocationSearch]);
 
   const idsMaybeWithRange = useMemo(() => {
-    if (!alignmentLocations.has(history.location.pathname)) {
+    if (!(pathname.includes('blast') || pathname.includes('align'))) {
       return null;
     }
-    if (parametersFromHistorySearch?.ids) {
+    if (parametersFromHistorySearch.ids) {
       return parseIdsFromSearchParams(
         parametersFromHistorySearch.ids as string[]
       );
     }
     return null;
-  }, [history.location.pathname, parametersFromHistorySearch]);
+  }, [pathname, parametersFromHistorySearch]);
 
   const { loading: fastaLoading, fasta } =
     useGetFASTAFromAccesion(idsMaybeWithRange);
 
   // Discard 'search' part of url to avoid url state issues.
   useEffect(() => {
-    if (history.location?.search) {
-      history.replace({
-        pathname: history.location.pathname,
+    // If search and only has the initial '?'
+    if (search && search.length > 1) {
+      navigate(pathname, {
+        replace: true,
       });
     }
-  }, [history]);
+  }, [navigate, pathname, search]);
 
   const initialFormValues = useMemo(() => {
     if (fastaLoading) {
@@ -91,7 +86,7 @@ function useInitialFormParameters<
     }
 
     const parametersFromHistoryState = (
-      history.location?.state as CustomLocationState<FormParameters>
+      state as CustomLocationState<FormParameters>
     )?.parameters;
 
     // This will eventually be filled in
@@ -131,12 +126,12 @@ function useInitialFormParameters<
 
       let name = parsedSequences[0]?.name;
       // Job name for Align is taken after the first sequence followed by number of sequences
-      if (LocationToPath[Location.Align] === history.location.pathname) {
+      if (LocationToPath[Location.Align] === pathname) {
         name = `${parsedSequences[0]?.name} +${parsedSequences.length - 1}`;
       }
       // By default, job names should be after each submitted sequence for BLAST, hence do not set the name for multiple sequences.
       if (
-        LocationToPath[Location.Blast] === history.location.pathname &&
+        LocationToPath[Location.Blast] === pathname &&
         parsedSequences.length > 1
       ) {
         name = '';
@@ -150,10 +145,11 @@ function useInitialFormParameters<
     return Object.freeze(formValues as FormValues<Fields>);
   }, [
     fastaLoading,
-    history.location,
-    parametersFromHistorySearch,
+    state,
     fasta,
     defaultFormValues,
+    parametersFromHistorySearch,
+    pathname,
   ]);
 
   return {

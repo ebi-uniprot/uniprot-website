@@ -140,6 +140,62 @@ const ARBAEntryPage = lazy(
       /* webpackChunkName: "arba-entry" */ '../../automatic-annotations/arba/components/entry/Entry'
     )
 );
+// Jobs
+const BlastResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-result" */ '../../jobs/blast/components/results/BlastResult'
+    )
+);
+const BlastForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-form" */ '../../jobs/blast/components/BlastForm'
+    )
+);
+// const AlignResult = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "align-result" */ '../../jobs/align/components/results/AlignResult'
+//     )
+// );
+// const AlignForm = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "align-form" */ '../../jobs/align/components/AlignForm'
+//     )
+// );
+// const IDMappingResult = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "id-mapping-result" */ '../../jobs/id-mapping/components/results/IDMappingResult'
+//     )
+// );
+// const IDMappingForm = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "id-mapping-form" */ '../../jobs/id-mapping/components/IDMappingForm'
+//     )
+// );
+// const PeptideSearchResult = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "peptide-search-result" */ '../../jobs/peptide-search/components/results/PeptideSearchResult'
+//     )
+// );
+// const PeptideSearchForm = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "peptide-search-form" */ '../../jobs/peptide-search/components/PeptideSearchForm'
+//     )
+// );
+
+const Dashboard = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "dashboard" */ '../../jobs/dashboard/components/Dashboard'
+    )
+);
 
 const ResourceNotFoundPage = lazy(
   () =>
@@ -405,6 +461,34 @@ export const routes: RouteObject[] = [
           {
             path: ':accession',
             Component: ARBAEntryPage,
+          },
+        ],
+      },
+      {
+        path: 'blast',
+        children: [
+          {
+            index: true,
+            Component: BlastForm,
+          },
+          {
+            path: ':namespace/:id',
+            children: [
+              redirectToEntryRoute,
+              {
+                path: ':subPage',
+                Component: BlastResult,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'tool-dashboard',
+        children: [
+          {
+            index: true,
+            Component: Dashboard,
           },
         ],
       },

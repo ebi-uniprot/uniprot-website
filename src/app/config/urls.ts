@@ -92,8 +92,8 @@ export const LocationToPath: Record<Location, string> = {
   [Location.UniProtKBResults]: `/${Namespace.uniprotkb}`,
   [Location.UniRefEntry]: `/${Namespace.uniref}/:accession`,
   [Location.UniRefResults]: `/${Namespace.uniref}`,
-  [Location.UniParcSubEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)/:subEntryId`,
-  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)?`,
+  [Location.UniParcSubEntry]: `/${Namespace.uniparc}/:accession/:subPage/:subEntryId`,
+  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage?`,
   [Location.UniParcResults]: `/${Namespace.uniparc}`,
   [Location.ProteomesEntry]: `/${Namespace.proteomes}/:accession`,
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,
@@ -117,19 +117,15 @@ export const LocationToPath: Record<Location, string> = {
   [Location.ARBAEntry]: `/${Namespace.arba}/:accession`,
   [Location.ARBAResults]: `/${Namespace.arba}`,
   // Tools
-  [Location.Basket]: `/basket/:namespace(${basketNamespaces.join('|')})`,
+  [Location.Basket]: `/basket/:namespace`,
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',
-  [Location.BlastResult]: `/blast/:namespace(${blastNamespaces.join(
-    '|'
-  )})/:id/:subPage?`,
+  [Location.BlastResult]: `/blast/:namespace/:id/:subPage?`,
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  [Location.IDMappingResult]: `/id-mapping/:namespace(${IDMappingNamespaces.join(
-    '|'
-  )})?/:id/:subPage?`,
+  [Location.IDMappingResult]: `/id-mapping/:namespace?/:id/:subPage?`,
   [Location.IDMapping]: '/id-mapping',
   // Help
   [Location.HelpEntry]: '/help/:accession',
