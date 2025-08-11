@@ -2762,10 +2762,10 @@
   dependencies:
     apg-lite "^1.0.3"
 
-"@swissprot/rhea-reaction-visualizer@0.0.21":
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-visualizer/-/rhea-reaction-visualizer-0.0.21.tgz#f11b9f72363a3c0d95b9b3c69911ca5b8f4cb3e6"
-  integrity sha512-gwoZGC+Or4Vsi4LIUaOoSi+H6ZWFH/mdTMvSD4OoAkPB16OtVlMIN6MlsgW43IEUJcK+epuWR6+WEPyN+AGKew==
+"@swissprot/rhea-reaction-visualizer@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-visualizer/-/rhea-reaction-visualizer-0.0.24.tgz#20adfa7124b8f5f22dd3a8804ab5a138382b2985"
+  integrity sha512-7uTWD71m3caw2ueMf4So2kHTjYpMXCPQ7LpYC34XtltW5VlYb3BCl+l/bSHPUaDM7DfC7KLbvtrV0Nk40r5o+A==
 
 "@swissprot/swissbiopics-visualizer@0.0.28":
   version "0.0.28"

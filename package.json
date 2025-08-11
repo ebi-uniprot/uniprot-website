@@ -120,7 +120,7 @@
     "@sentry/react": "8.31.0",
     "@sentry/tracing": "7.27.0",
     "@sentry/types": "8.31.0",
-    "@swissprot/rhea-reaction-visualizer": "0.0.21",
+    "@swissprot/rhea-reaction-visualizer": "0.0.24",
     "@swissprot/swissbiopics-visualizer": "0.0.28",
     "axios": "1.7.9",
     "classnames": "2.5.1",
