@@ -71,6 +71,9 @@ export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
   [Namespace.unirule]: 'UniRule',
   [Namespace.arba]: 'ARBA',
 };
+export const searchableNamespaces = new Set(
+  Object.keys(searchableNamespaceLabels)
+);
 export const toolResults = 'toolResults' as const;
 export type ToolResults = typeof toolResults;
 export type Searchspace = SearchableNamespace | ToolResults;
