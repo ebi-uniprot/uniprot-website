@@ -6,18 +6,15 @@
     width: 500px;
   }
 
-  > .rhea-entry:not(:last-child) {
-    border-bottom: 0.5px solid black;
+  > .rhea-entry {
     margin-bottom: $global-margin;
-    // padding-bottom: $global-padding;
   }
 
-  // .rhea-entry > div:not(:last-child) {
-  //   border-bottom: 0.5px solid black;
-  //   margin-bottom: $global-margin;
-  //   padding-bottom: $global-padding;
-  // }
   .rhea-reaction-visualizer {
+    &__tabs {
+      min-height: 200px;
+      margin-top: -1.5rem;
+    }
     &__toggle {
       padding-top: 0.5 * $global-padding;
 
@@ -51,5 +48,9 @@
 
   :global(.rhea-reaction-source) {
     display: none;
+  }
+
+  :global(label) {
+    display: inline;
   }
 }
