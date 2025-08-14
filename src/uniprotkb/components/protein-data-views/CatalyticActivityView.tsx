@@ -1,7 +1,6 @@
 import {
   ChevronDownIcon,
   ChevronUpIcon,
-  InfoList,
   Loader,
   ModalBackdrop,
   useModal,
@@ -132,7 +131,7 @@ export const RheaReactionVisualizer = ({
           className="button tertiary"
           onClick={() => setShow(!show)}
         >
-          {`${show ? 'Hide' : 'View'} Rhea reaction`}
+          {`${show ? 'Hide' : 'View'} Rhea reaction and atom map`}
         </button>
         {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
       </div>
@@ -250,71 +249,75 @@ const CatalyticActivityView = ({
     return null;
   }
   let firstRheaId: number;
-  const infoData = comments
-    .filter(
-      (comment): comment is SetRequired<CatalyticActivityComment, 'reaction'> =>
-        Boolean(comment.reaction)
-    )
-    .map(({ molecule, reaction, physiologicalReactions }) => {
-      // Using only the first rhea reaction reference because FW has assured us that
-      // there will be either 0 or 1 types of this reference (ie never > 1)
-
-      const rheaReactionReference =
-        reaction.reactionCrossReferences &&
-        reaction.reactionCrossReferences.find(isRheaReactionReference);
-      const rheaId =
-        rheaReactionReference && getRheaId(rheaReactionReference.id);
-      if (rheaId && !firstRheaId) {
-        firstRheaId = rheaId;
-      }
-      return {
-        title: rheaId ? (
-          <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
-            Rhea {rheaId}
-          </ExternalLink>
-        ) : (
-          ''
-        ),
-        content: (
-          <span className="text-block">
-            {molecule && (
-              <h4 className="tiny">
-                {noEvidence ? (
-                  `${molecule}`
-                ) : (
-                  <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
-                )}
-              </h4>
-            )}
-            <RichText>{reaction.name}</RichText>
-            {!noEvidence && (
-              <UniProtKBEvidenceTag evidences={reaction.evidences} />
-            )}
-            {physiologicalReactions && physiologicalReactions.length && (
-              <ReactionDirection
-                physiologicalReactions={physiologicalReactions}
-                noEvidence={noEvidence}
-              />
-            )}
-            {reaction.ecNumber && (
-              <div>
-                <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
-              </div>
-            )}
-            {!!rheaId && (
-              <RheaReactionVisualizer
-                rheaId={rheaId}
-                show={defaultHideAllReactions ? false : rheaId === firstRheaId}
-              />
-            )}
-          </span>
-        ),
-      };
-    });
   return (
     <div className={styles['catalytic-activity']}>
       {title && <h3 data-article-id="catalytic_activity">{title}</h3>}
-      <InfoList infoData={infoData} />
+      {comments
+        .filter(
+          (
+            comment
+          ): comment is SetRequired<CatalyticActivityComment, 'reaction'> =>
+            Boolean(comment.reaction)
+        )
+        .map(({ molecule, reaction, physiologicalReactions }) => {
+          // Using only the first rhea reaction reference because FW has assured us that
+          // there will be either 0 or 1 types of this reference (ie never > 1)
+
+          const rheaReactionReference =
+            reaction.reactionCrossReferences &&
+            reaction.reactionCrossReferences.find(isRheaReactionReference);
+          const rheaId =
+            rheaReactionReference && getRheaId(rheaReactionReference.id);
+          if (rheaId && !firstRheaId) {
+            firstRheaId = rheaId;
+          }
+          return (
+            <div className={styles['rhea-entry']} key={rheaId}>
+              <h4>
+                {rheaId ? (
+                  <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
+                    Rhea {rheaId}
+                  </ExternalLink>
+                ) : (
+                  ''
+                )}
+              </h4>
+
+              {molecule && (
+                <h4 className="tiny">
+                  {noEvidence ? (
+                    `${molecule}`
+                  ) : (
+                    <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
+                  )}
+                </h4>
+              )}
+              <RichText>{reaction.name}</RichText>
+              {!noEvidence && (
+                <UniProtKBEvidenceTag evidences={reaction.evidences} />
+              )}
+              {physiologicalReactions && physiologicalReactions.length && (
+                <ReactionDirection
+                  physiologicalReactions={physiologicalReactions}
+                  noEvidence={noEvidence}
+                />
+              )}
+              {reaction.ecNumber && (
+                <div>
+                  <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
+                </div>
+              )}
+              {!!rheaId && (
+                <RheaReactionVisualizer
+                  rheaId={rheaId}
+                  show={
+                    defaultHideAllReactions ? false : rheaId === firstRheaId
+                  }
+                />
+              )}
+            </div>
+          );
+        })}
     </div>
   );
 };

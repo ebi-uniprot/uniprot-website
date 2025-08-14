@@ -6,14 +6,20 @@
     width: 500px;
   }
 
-  :global(.info-list) > li:not(:last-child) {
+  > .rhea-entry:not(:last-child) {
     border-bottom: 0.5px solid black;
     margin-bottom: $global-margin;
-    padding-bottom: $global-padding;
+    // padding-bottom: $global-padding;
   }
+
+  // .rhea-entry > div:not(:last-child) {
+  //   border-bottom: 0.5px solid black;
+  //   margin-bottom: $global-margin;
+  //   padding-bottom: $global-padding;
+  // }
   .rhea-reaction-visualizer {
     &__toggle {
-      padding-top: $global-padding;
+      padding-top: 0.5 * $global-padding;
 
       svg {
         position: relative;
