@@ -20,7 +20,7 @@ import ExternalLink from '../ExternalLink';
 import LazyComponent from '../LazyComponent';
 import styles from './styles/taxonomy-view.module.css';
 
-const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
+export const TaxonomyId = ({ taxonId }: { taxonId?: number }) => {
   if (!taxonId) {
     return null;
   }
