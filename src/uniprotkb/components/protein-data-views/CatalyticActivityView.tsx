@@ -110,7 +110,11 @@ export const RheaReactionVisualizer = ({
           .rhea-reaction-visualizer {
             border-bottom: 0.1rem solid var(--fr--color-platinum);
           }
-            
+
+          .name {
+            font-size: 16px;
+          }
+
           .tabs:first-child {
             border-left: 0.1rem solid var(--fr--color-platinum);
           }
