@@ -40,7 +40,7 @@ import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import apiUrls from '../config/apiUrls/apiUrls';
 import { Column, ColumnConfigurations } from '../config/columns';
 import { APIModel } from '../types/apiModel';
-import { mainNamespaces, Namespace } from '../types/namespaces';
+import { Namespace, searchableNamespaces } from '../types/namespaces';
 import { getIdKeyForData } from '../utils/getIdKey';
 import * as logging from '../utils/logging';
 import { showTooltip } from '../utils/tooltip';
@@ -181,9 +181,7 @@ const useColumns = (
     getParamsFromURL(queryParamFromUrl);
 
   const { data: dataResultFields, loading } = useDataApi<ReceivedFieldData>(
-    // For now, assume no configure endpoint for supporting data
-    // TODO: change this when the backend is fixed https://www.ebi.ac.uk/panda/jira/browse/TRM-26571
-    namespace !== 'id-mapping' && mainNamespaces.has(namespace)
+    searchableNamespaces.has(namespace)
       ? apiUrls.configure.resultsFields(namespace)
       : null
   );

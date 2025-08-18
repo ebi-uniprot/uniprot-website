@@ -2,58 +2,6 @@
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="uniprot-grid uniprot-grid--centered home-page-section"
-  >
-    <div
-      class="uniprot-grid-cell--span-12 message message--info"
-      role="status"
-    >
-      <div
-        class="message__side-border"
-      />
-      <test-file-stub
-        classname="message--icon-align-top"
-        height="1.125em"
-        width="1.125em"
-      />
-      <div
-        class="message__title"
-      >
-        Find out how much UniProt saves you!
-        <br />
-        Read CSIL’s cost-benefit analysis ‘
-        <a
-          class="external-link"
-          href="https://zenodo.org/records/15732022"
-          rel="noopener"
-          target="_blank"
-        >
-          ‘Measuring the value and impact of open science’
-          <test-file-stub
-            data-testid="external-link-icon"
-            width="12.5"
-          />
-        </a>
-        ’, a case study on the financial impact of UniProt.
-        <br />
-        Read a summary of the report in our blog post: ‘
-        <a
-          class="external-link"
-          href="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
-          rel="noopener"
-          target="_blank"
-        >
-          UniProt - the ultimate colleague on your biological research team
-          <test-file-stub
-            data-testid="external-link-icon"
-            width="12.5"
-          />
-        </a>
-        ’.
-      </div>
-    </div>
-  </div>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
