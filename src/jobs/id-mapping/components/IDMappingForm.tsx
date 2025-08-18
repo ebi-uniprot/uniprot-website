@@ -5,16 +5,12 @@ import {
   Loader,
   LongNumber,
   Message,
-  Message,
-  PageIntro,
   PageIntro,
   SpinnerIcon,
-  SpinnerIcon,
-  TreeSelect,
   TreeSelect,
 } from 'franklin-sites';
 import { FormEvent, useEffect, useMemo, useReducer, useRef } from 'react';
-import { generatePath, Link, useHistory } from 'react-router';
+import { generatePath, Link, useNavigate } from 'react-router';
 import { sleep } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -94,7 +90,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
 
   // hooks
   const dispatchMessages = useMessagesDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
 
   const [{ formValues, textIDs, sending, submitDisabled }, dispatch] =
@@ -167,13 +163,15 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
     // navigate to the dashboard, not immediately, to give the impression that
     // something is happening
     sleep(1000).then(() => {
-      history.push(LocationToPath[Location.Dashboard], {
-        parameters: [parameters],
+      navigate(LocationToPath[Location.Dashboard], {
+        state: {
+          parameters: [parameters],
+        },
       });
 
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
-      // internal state. Dispatching after history.push so that pop-up messages (as a
+      // internal state. Dispatching after navigate so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       dispatchJobs(
         createJob(

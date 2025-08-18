@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router';
+import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { frame } from 'timing-functions';
 
 import {
@@ -41,7 +41,6 @@ import {
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
-import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 import helper from '../../../shared/styles/helper.module.scss';
@@ -79,12 +78,6 @@ import dataToSchema from './entry.structured';
 import EntryMain from './EntryMain';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
-
-const legacyToNewSubPages = {
-  protvista: TabLocation.FeatureViewer,
-  'features-viewer': TabLocation.FeatureViewer,
-  'variants-viewer': TabLocation.VariantViewer,
-};
 
 const VariationViewerTab = lazy(
   () =>
@@ -140,37 +133,30 @@ const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
 const Entry = () => {
   const dispatch = useMessagesDispatch();
   const navigate = useNavigate();
-  const match = useMatchWithRedirect(
-    Location.UniProtKBEntry,
-    TabLocation,
-    TabLocation.Entry,
-    legacyToNewSubPages
-  );
+  const params = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
-      apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
+      apiUrls.entry.entry(params.accession, Namespace.uniprotkb)
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.variation(match?.params.accession),
+    params.accession && apiUrls.proteinsApi.variation(params.accession),
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.coordinates(match?.params.accession),
+    params.accession && apiUrls.proteinsApi.coordinates(params.accession),
     { method: 'HEAD' }
   );
 
   const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
-    match?.params.accession &&
+    params.accession &&
       uniprotkbApiUrls.publications.entryPublications({
-        accession: match.params.accession,
+        accession: params.accession,
         selectedFacets: [
           {
             name: 'types',
@@ -261,29 +247,25 @@ const Entry = () => {
   useEffect(() => {
     if (
       redirectedTo &&
-      match?.params.accession &&
-      match?.params.subPage !== TabLocation.History
+      params.accession &&
+      params.subPage !== TabLocation.History
     ) {
       const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
       // If the redirection is because of ID or version in which case, the following message doesn't make sense
-      if (
-        !match?.params.accession.includes('_') &&
-        !match?.params.accession.includes('.')
-      ) {
+      if (!params.accession.includes('_') && !params.accession.includes('.')) {
         dispatch(
           addMessage({
             id: 'accession-merge',
             content: (
               <>
-                {match.params.accession} has been merged into {newEntry}. You
-                have automatically been redirected. To see{' '}
-                {match.params.accession}
+                {params.accession} has been merged into {newEntry}. You have
+                automatically been redirected. To see {params.accession}
                 &apos;s history,{' '}
                 <Link
                   to={getEntryPath(
                     Namespace.uniprotkb,
-                    match.params.accession,
+                    params.accession,
                     TabLocation.History
                   )}
                 >
@@ -300,7 +282,7 @@ const Entry = () => {
       }
       frame().then(() => {
         // If accession contains version, it should be redirected to History tab
-        const activeTab = match?.params.accession?.includes('.')
+        const activeTab = params.accession?.includes('.')
           ? TabLocation.History
           : TabLocation.Entry;
         navigate(getEntryPath(Namespace.uniprotkb, newEntry, activeTab), {
@@ -314,8 +296,8 @@ const Entry = () => {
   }, [dispatch, redirectedTo]);
 
   useEffect(() => {
-    if (match?.params.accession?.includes('-')) {
-      const [accession] = match.params.accession.split('-');
+    if (params.accession?.includes('-')) {
+      const [accession] = params.accession.split('-');
       navigate(
         {
           pathname: getEntryPath(
@@ -323,12 +305,12 @@ const Entry = () => {
             accession,
             TabLocation.Entry
           ),
-          hash: match.params.accession,
+          hash: params.accession,
         },
         { replace: true }
       );
     }
-  }, [navigate, match?.params.accession]);
+  }, [navigate, params.accession]);
 
   let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
@@ -341,15 +323,15 @@ const Entry = () => {
   // Redirect to history when obsolete and not merged into a single new one
   if (
     isObsolete &&
-    match?.params.accession &&
-    match?.params.subPage !== TabLocation.History
+    params.accession &&
+    params.subPage !== TabLocation.History
   ) {
     return (
       <Navigate
         replace
         to={getEntryPath(
           Namespace.uniprotkb,
-          match?.params.accession,
+          params.accession,
           TabLocation.History
         )}
       />
@@ -360,7 +342,7 @@ const Entry = () => {
     loading ||
     !data ||
     // if we're gonna redirect, show loading in the meantime
-    (redirectedTo && match?.params.subPage !== TabLocation.History)
+    (redirectedTo && params.subPage !== TabLocation.History)
   ) {
     if (error) {
       return <ErrorHandler status={status} error={error} fullPage />;
@@ -371,7 +353,7 @@ const Entry = () => {
   // If there is redirection in place (might be an obsolete entry or an ID link), use the primary accession instead of match params
   const accession = redirectedTo
     ? data.primaryAccession
-    : match?.params.accession || '';
+    : params.accession || '';
 
   let importedVariants: number | 'loading' = 0;
   if (variantsHeadPayload.loading) {
@@ -396,7 +378,7 @@ const Entry = () => {
         '2000-01-01'
     ) > AFDB_CUTOFF_DATE;
 
-  if (error || !match?.params.accession || !transformedData) {
+  if (error || !params.accession || !transformedData) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 
@@ -408,14 +390,13 @@ const Entry = () => {
 
   // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
   // merged entry's history), the user is viewing content of an obsolete entry
-  isObsolete =
-    (redirectedTo && accession !== match.params.accession) || isObsolete;
+  isObsolete = (redirectedTo && accession !== params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {
-    if (match.params.subPage === TabLocation.Publications) {
+    if (params.subPage === TabLocation.Publications) {
       sidebar = publicationsSideBar;
-    } else if (match.params.subPage === TabLocation.Entry) {
+    } else if (params.subPage === TabLocation.Entry) {
       sidebar = entrySidebar;
     }
   }
@@ -433,7 +414,7 @@ const Entry = () => {
         <link rel="canonical" href={window.location.href} />
       </HTMLHead>
       {isObsolete ? (
-        <h1>{match.params.accession}</h1>
+        <h1>{params.accession}</h1>
       ) : (
         <ErrorBoundary>
           <HTMLHead
@@ -467,7 +448,7 @@ const Entry = () => {
         </ErrorBoundary>
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
-        <Tabs active={match.params.subPage}>
+        <Tabs active={params.subPage}>
           <Tab
             disabled={isObsolete}
             title={
@@ -791,7 +772,7 @@ const Entry = () => {
                   ]}
                 />
                 <HistoryTab
-                  accession={isObsolete ? match.params.accession : accession}
+                  accession={isObsolete ? params.accession : accession}
                   lastVersion={data.entryAudit?.entryVersion}
                   uniparc={data.extraAttributes?.uniParcId}
                   reason={data.inactiveReason}

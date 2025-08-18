@@ -4,7 +4,6 @@ import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router';
 import { Except } from 'type-fest';
 
-import { changePathnameOnly } from '../../../../app/config/urls';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -167,7 +166,6 @@ const enrich = (
 
 const BlastResult = () => {
   const location = useLocation();
-
   const { id, subPage } = useParams();
 
   const [hspDetailPanel, setHspDetailPanel] = useState<Except<
@@ -322,8 +320,6 @@ const BlastResult = () => {
       isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
     />
   );
-
-  const basePath = `/blast/${namespace}/${id}/`;
 
   return (
     <SidebarLayout sidebar={sidebar}>

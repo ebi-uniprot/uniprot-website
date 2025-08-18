@@ -4,11 +4,7 @@ import { pick } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useMatch } from 'react-router';
 
-import {
-  allEntryPages,
-  getLocationEntryPathFor,
-  Location,
-} from '../../../app/config/urls';
+import { getLocationEntryPathFor, Location } from '../../../app/config/urls';
 import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
 import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as proteomesFFED } from '../../../proteomes/config/download';
@@ -321,7 +317,7 @@ const EntryDownload = ({
   featureTypes,
   sequence,
 }: EntryDownloadProps) => {
-  const match = useMatch(allEntryPages);
+  const match = useMatch('/:namespace/:accession');
   const { namespace, accession } = (match?.params || {}) as {
     namespace: Namespace | undefined;
     accession: string | undefined;

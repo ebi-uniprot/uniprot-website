@@ -1,7 +1,8 @@
 import { CodeBlock } from 'franklin-sites';
-import { type ComponentType, lazy } from 'react';
+import { type ComponentType, lazy, Suspense } from 'react';
 import {
-  Navigate,
+  Outlet,
+  redirect,
   type RouteObject,
   useLocation,
   useParams,
@@ -9,6 +10,8 @@ import {
 } from 'react-router';
 
 import ErrorComponent from '../../shared/components/error-component/ErrorComponent';
+import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
+import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
 import {
   Namespace,
   type SearchableNamespace,
@@ -153,42 +156,42 @@ const BlastForm = lazy(
       /* webpackChunkName: "blast-form" */ '../../jobs/blast/components/BlastForm'
     )
 );
-// const AlignResult = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "align-result" */ '../../jobs/align/components/results/AlignResult'
-//     )
-// );
-// const AlignForm = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "align-form" */ '../../jobs/align/components/AlignForm'
-//     )
-// );
-// const IDMappingResult = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "id-mapping-result" */ '../../jobs/id-mapping/components/results/IDMappingResult'
-//     )
-// );
-// const IDMappingForm = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "id-mapping-form" */ '../../jobs/id-mapping/components/IDMappingForm'
-//     )
-// );
-// const PeptideSearchResult = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "peptide-search-result" */ '../../jobs/peptide-search/components/results/PeptideSearchResult'
-//     )
-// );
-// const PeptideSearchForm = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "peptide-search-form" */ '../../jobs/peptide-search/components/PeptideSearchForm'
-//     )
-// );
+const AlignResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "align-result" */ '../../jobs/align/components/results/AlignResult'
+    )
+);
+const AlignForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "align-form" */ '../../jobs/align/components/AlignForm'
+    )
+);
+const IDMappingResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-result" */ '../../jobs/id-mapping/components/results/IDMappingResult'
+    )
+);
+const IDMappingForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-form" */ '../../jobs/id-mapping/components/IDMappingForm'
+    )
+);
+const PeptideSearchResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "peptide-search-result" */ '../../jobs/peptide-search/components/results/PeptideSearchResult'
+    )
+);
+const PeptideSearchForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "peptide-search-form" */ '../../jobs/peptide-search/components/PeptideSearchForm'
+    )
+);
 
 const Dashboard = lazy(
   () =>
@@ -197,10 +200,24 @@ const Dashboard = lazy(
     )
 );
 
+const BasketFullView = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "basket-full-view" */ '../../basket/BasketFullView'
+    )
+);
+
 const ResourceNotFoundPage = lazy(
   () =>
     import(
       /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFound'
+    )
+);
+
+const JobsNotSupportedPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "jobs-not-supported" */ '../../shared/components/error-pages/JobsNotSupported'
     )
 );
 
@@ -254,7 +271,24 @@ const resultsOrLanding =
 
 const redirectToEntryRoute = {
   index: true,
-  element: <Navigate replace to="./entry" />,
+  loader: () => redirect('entry'),
+};
+
+const redirectToOverviewRoute = {
+  index: true,
+  loader: () => redirect('overview'),
+};
+
+const redirectToUPKBRoute = {
+  index: true,
+  loader: () => redirect('uniprotkb'),
+};
+
+const IfSupportsJobs = () => {
+  const supportsJobs = useSupportsJobs();
+  return (
+    <Suspense>{supportsJobs ? <Outlet /> : <JobsNotSupportedPage />}</Suspense>
+  );
 };
 
 export const routes: RouteObject[] = [
@@ -466,15 +500,20 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'blast',
+        Component: IfSupportsJobs,
         children: [
           {
             index: true,
-            Component: BlastForm,
+            element: (
+              <SingleColumnLayout>
+                <BlastForm />
+              </SingleColumnLayout>
+            ),
           },
           {
             path: ':namespace/:id',
             children: [
-              redirectToEntryRoute,
+              redirectToOverviewRoute,
               {
                 path: ':subPage',
                 Component: BlastResult,
@@ -484,13 +523,136 @@ export const routes: RouteObject[] = [
         ],
       },
       {
+        path: 'align',
+        Component: IfSupportsJobs,
+        children: [
+          {
+            index: true,
+            element: (
+              <SingleColumnLayout>
+                <AlignForm />
+              </SingleColumnLayout>
+            ),
+          },
+          {
+            path: ':id',
+            children: [
+              redirectToOverviewRoute,
+              {
+                path: ':subPage',
+                Component: AlignResult,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'id-mapping',
+        Component: IfSupportsJobs,
+        children: [
+          {
+            index: true,
+            element: (
+              <SingleColumnLayout>
+                <IDMappingForm />
+              </SingleColumnLayout>
+            ),
+          },
+          ...['uniprotkb', 'uniref', 'uniparc'].map((ns) => ({
+            path: `${ns}/:id`,
+            children: [
+              redirectToOverviewRoute,
+              {
+                path: ':subPage',
+                Component: IDMappingResult,
+              },
+            ],
+          })),
+          {
+            path: ':id',
+            children: [
+              redirectToOverviewRoute,
+              {
+                path: ':subPage',
+                Component: IDMappingResult,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'peptide-search',
+        Component: IfSupportsJobs,
+        children: [
+          {
+            index: true,
+            element: (
+              <SingleColumnLayout>
+                <PeptideSearchForm />
+              </SingleColumnLayout>
+            ),
+          },
+          {
+            path: ':id',
+            children: [
+              redirectToOverviewRoute,
+              {
+                path: ':subPage',
+                Component: PeptideSearchResult,
+              },
+            ],
+          },
+        ],
+      },
+      {
         path: 'tool-dashboard',
+        Component: IfSupportsJobs,
         children: [
           {
             index: true,
             Component: Dashboard,
           },
         ],
+      },
+      {
+        path: 'basket',
+        children: [
+          redirectToUPKBRoute,
+          {
+            path: ':namespace',
+            Component: BasketFullView,
+          },
+        ],
+      },
+      {
+        path: 'help',
+        children: [
+          { index: true, Component: Empty },
+          { path: '_preview', Component: Empty },
+          { path: ':accession', Component: Empty },
+        ],
+      },
+      {
+        path: 'api-documnentation',
+        children: [
+          redirectToUPKBRoute,
+          { path: ':definition', Component: Empty },
+        ],
+      },
+      {
+        path: 'release-notes',
+        children: [
+          { index: true, Component: Empty },
+          { path: ':accession', Component: Empty },
+        ],
+      },
+      {
+        path: 'contact',
+        Component: Empty,
+      },
+      {
+        path: 'update',
+        Component: Empty,
       },
       {
         path: '*',

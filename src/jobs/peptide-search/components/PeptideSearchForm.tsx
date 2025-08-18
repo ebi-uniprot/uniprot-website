@@ -10,7 +10,7 @@ import {
   useReducer,
   useRef,
 } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { sleep } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -107,7 +107,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
 
   // hooks
   const dispatchMessages = useMessagesDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
 
   const [{ parsedSequences, formValues, sending, submitDisabled }, dispatch] =
@@ -197,12 +197,14 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     // navigate to the dashboard, not immediately, to give the impression that
     // something is happening
     sleep(1000).then(() => {
-      history.push(LocationToPath[Location.Dashboard], {
-        parameters: [parameters],
+      navigate(LocationToPath[Location.Dashboard], {
+        state: {
+          parameters: [parameters],
+        },
       });
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
-      // internal state. Dispatching after history.push so that pop-up messages (as a
+      // internal state. Dispatching after navigate so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       dispatchJobs(
         createJob(

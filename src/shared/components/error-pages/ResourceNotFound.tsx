@@ -12,11 +12,12 @@ import ArtWork from './svgs/404.img.svg';
 
 type RedirectEntry = [pattern: RegExp, replacement: string];
 
+// TODO: add logic currently in useMatchWithRedirect when creating the loader
+// redirect logic in the new version of react-router
 export const misspeltHelpTuple: RedirectEntry = [
   /^\/(manual|faqs?|docs?|biocuration_project|program)(?<rest>\/.*)?$/i,
   `/help$<rest>`,
 ];
-
 // Regular expression magic incantations 🪄
 const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   // main data

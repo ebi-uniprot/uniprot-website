@@ -1,5 +1,5 @@
 import { partial } from 'lodash-es';
-import { generatePath, Location as RRLocation, matchPath } from 'react-router';
+import { generatePath, matchPath } from 'react-router';
 
 import { databaseToNamespace } from '../../jobs/blast/config/BlastFormData';
 import { FormParameters as BLASTFormParameters } from '../../jobs/blast/types/blastFormParameters';
@@ -10,8 +10,6 @@ import {
   Namespace,
   namespaceAndToolsLabels,
   SearchableNamespace,
-  searchableNamespaceLabels,
-  supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
 import { FinishedJob, Job } from '../../shared/workers/jobs/types/job';
 
@@ -157,21 +155,6 @@ export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   [Namespace.arba]: LocationToPath[Location.ARBAResults],
 };
 
-// "/:namespace(uniprotkb|uniparc|........)"
-export const allSearchResultLocations = `/:namespace(${Object.keys(
-  searchableNamespaceLabels
-).join('|')})`;
-
-// "/:namespace(uniprotkb|uniparc|........)/:accession"
-export const allEntryPages = `/:namespace(${Object.keys(
-  searchableNamespaceLabels
-).join('|')})/:accession`;
-
-// same as above, but with automatic annotations, and with accession
-export const allSupportingDataAndAAEntryLocations = `/:namespace(${Array.from(
-  supportingDataAndAANamespaces
-).join('|')})/:accession`;
-
 // All "entry" locations need to have a "accession" param in the pattern
 const EntryLocations: Record<SearchableNamespace, string> = {
   // Main data
@@ -302,13 +285,6 @@ export const getURLToJobWithData = (
   `${jobTypeToPath(jobType)}?ids=${primaryAccession}${
     options ? `[${options.start}-${options.end}]` : ''
   }`;
-
-export const changePathnameOnly =
-  <S = unknown>(pathname: string) =>
-  (location: RRLocation<S>) => ({
-    ...location,
-    pathname,
-  });
 
 export type ToolsResultsLocations =
   | Location.AlignResult

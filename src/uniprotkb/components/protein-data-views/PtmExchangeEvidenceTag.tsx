@@ -3,7 +3,6 @@ import { groupBy } from 'lodash-es';
 import { memo } from 'react';
 import { useMatch } from 'react-router';
 
-import { allEntryPages } from '../../../app/config/urls';
 import {
   getEcoNumberFromString,
   getEvidenceCodeData,
@@ -64,7 +63,7 @@ const PtmExchangeEvidenceTag = ({
   evidences?: Evidence[];
   confidenceScore?: ConfidenceScore;
 }) => {
-  const entryPageMatch = useMatch(allEntryPages);
+  const entryPageMatch = Boolean(useMatch('/:namespace/:accession'));
   if (!entryPageMatch || !evidences) {
     return null;
   }

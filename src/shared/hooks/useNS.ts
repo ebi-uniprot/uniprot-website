@@ -1,39 +1,46 @@
-import { useLocation, useMatch } from 'react-router';
+import { useMatch } from 'react-router';
 
-import { getJobResultsLocation, LocationToPath } from '../../app/config/urls';
-import { Namespace } from '../types/namespaces';
+import {
+  mainNamespaces,
+  Namespace,
+  supportingDataNamespaces,
+} from '../types/namespaces';
 
-const findNamespace = (potentialNS: string) =>
-  Object.values(Namespace).find((ns) => ns === potentialNS);
+const tools = new Set(['blast', 'align', 'id-mapping', 'peptide-search']);
+const toolNamespaces = new Set(['uniprotkb', 'uniref', 'uniparc']);
 
 const useNS = (override?: Namespace): Namespace | undefined => {
-  const match = useMatch(`/:namespace`);
+  const match = useMatch(`/:namespaceOrTool/:maybeNamespaceIfTool?`);
 
-  const location = useLocation();
-  const jobResultsLocation = getJobResultsLocation(location.pathname);
-
-  const toolMatch = useMatch(
-    jobResultsLocation && jobResultsLocation in LocationToPath
-      ? LocationToPath[jobResultsLocation]
-      : ''
-  );
-  const jobResultsNamespace = toolMatch?.params.namespace;
+  const { namespaceOrTool, maybeNamespaceIfTool } = match?.params || {};
 
   if (override) {
     return override;
   }
 
-  if (jobResultsNamespace) {
-    return findNamespace(jobResultsNamespace);
-  }
-
-  if (!match?.params.namespace) {
+  if (!namespaceOrTool) {
     return undefined;
   }
 
-  const potentialNS = match.params.namespace.toLowerCase();
+  if (tools.has(namespaceOrTool)) {
+    // e.g. /blast...
+    if (maybeNamespaceIfTool && toolNamespaces.has(maybeNamespaceIfTool)) {
+      // e.g. /blast/uniprotkb...
+      return maybeNamespaceIfTool as Namespace;
+    }
+    // e.g /blast exactly
+    return undefined;
+  }
 
-  return findNamespace(potentialNS);
+  // rename, here we know it's not a tool
+  const namespace = namespaceOrTool;
+
+  if (
+    mainNamespaces.has(namespace) ||
+    supportingDataNamespaces.has(namespace)
+  ) {
+    return namespace as Namespace;
+  }
 };
 
 export default useNS;

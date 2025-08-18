@@ -3,7 +3,6 @@ import { FormEvent, Suspense, useEffect, useState } from 'react';
 import { useLocation, useMatch } from 'react-router';
 import { frame } from 'timing-functions';
 
-import { allEntryPages } from '../../../app/config/urls';
 import { nsToDefaultColumns } from '../../config/columns';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { Namespace } from '../../types/namespaces';
@@ -25,7 +24,7 @@ const CustomiseTable = lazy(
 
 const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
-  const isEntryPage = Boolean(useMatch(allEntryPages));
+  const isEntryPage = Boolean(useMatch('/:namespace/:accession'));
   const { pathname } = useLocation();
   const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
   const [localStorageColumns, setLocalStorageColumns] = useLocalStorage(

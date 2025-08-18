@@ -3,11 +3,7 @@ import { ReactNode } from 'react';
 import { Link, LinkProps, useMatch } from 'react-router';
 import { SetOptional } from 'type-fest';
 
-import {
-  allSupportingDataAndAAEntryLocations,
-  Location,
-  LocationToPath,
-} from '../../app/config/urls';
+import { Location, LocationToPath } from '../../app/config/urls';
 import { Statistics } from '../types/apiModel';
 import { Namespace } from '../types/namespaces';
 import { stringifyQuery } from '../utils/url';
@@ -264,7 +260,7 @@ export const MapToDropdown = ({
   children = 'View proteins',
   fieldNameOverride,
 }: MapToDropdownProps) => {
-  const match = useMatch(allSupportingDataAndAAEntryLocations);
+  const match = useMatch('/:namespace/:accession');
   const { namespace, accession: accessionFromPath } = match?.params || {};
   const fieldName =
     fieldNameOverride ||

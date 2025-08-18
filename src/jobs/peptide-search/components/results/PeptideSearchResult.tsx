@@ -8,13 +8,9 @@ import {
 } from 'franklin-sites';
 import { partialRight } from 'lodash-es';
 import { lazy, Suspense, useMemo } from 'react';
-import { Link } from 'react-router';
+import { Link, useParams } from 'react-router';
 
-import {
-  changePathnameOnly,
-  Location,
-  LocationToPath,
-} from '../../../../app/config/urls';
+import { Location, LocationToPath } from '../../../../app/config/urls';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
@@ -26,7 +22,6 @@ import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../../shared/config/limits';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useNSQuery from '../../../../shared/hooks/useNSQuery';
 import usePaginatedAccessions from '../../../../shared/hooks/usePaginatedAccessions';
 import helper from '../../../../shared/styles/helper.module.scss';
@@ -87,9 +82,9 @@ enum ServerJobParameters {
 }
 
 const PeptideSearchResult = () => {
-  const match = useMatchWithRedirect(Location.PeptideSearchResult, TabLocation);
+  const { id, subPage } = useParams();
 
-  const jobID = match?.params.id || '';
+  const jobID = id || '';
   const {
     data: jobResultData,
     loading: jobResultLoading,
@@ -183,7 +178,7 @@ const PeptideSearchResult = () => {
     progress: resultsDataProgress,
   } = resultsDataObject;
 
-  useMarkJobAsSeen(resultsDataObject?.allResults.length, match?.params.id);
+  useMarkJobAsSeen(resultsDataObject?.allResults.length, id);
 
   // Don't use the response with facets for this, there's a bug returning 0 for
   // results when combining facets and isoforms
@@ -192,7 +187,7 @@ const PeptideSearchResult = () => {
     total = +resultsDataTotal;
   }
 
-  if (jobResultError || !match) {
+  if (jobResultError || !id) {
     return (
       <ErrorHandler status={jobResultStatus} error={jobResultError} fullPage />
     );
@@ -219,7 +214,7 @@ const PeptideSearchResult = () => {
 
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
-  switch (match.params.subPage) {
+  switch (subPage) {
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
       sidebar = <div className={sidebarStyles['empty-sidebar']} />;
@@ -240,7 +235,6 @@ const PeptideSearchResult = () => {
   if (excessAccessions) {
     sidebar = <div className={sidebarStyles['empty-sidebar']} />;
   }
-  const basePath = `/peptide-search/${match.params.id}/`;
 
   return (
     <SidebarLayout sidebar={sidebar}>
@@ -261,16 +255,12 @@ const PeptideSearchResult = () => {
         resultsCount={total}
       />
       <Tabs
-        active={match.params.subPage}
+        active={subPage}
         className={jobResultLoading ? helper.stale : undefined}
       >
         <Tab
           id={TabLocation.Overview}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
-              Overview
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.Overview}`}>Overview</Link>}
         >
           <Suspense fallback={<Loader />}>
             {excessAccessions && (
@@ -280,13 +270,11 @@ const PeptideSearchResult = () => {
                   <LongNumber>{MAX_PEPTIDE_FACETS_OR_DOWNLOAD}</LongNumber>{' '}
                   matches, please use the{' '}
                   <Link
-                    to={{
-                      pathname: LocationToPath[Location.IDMapping],
-                      state: {
-                        parameters: {
-                          ids: accessions,
-                          name: `Peptide search matches`,
-                        },
+                    to={LocationToPath[Location.IDMapping]}
+                    state={{
+                      parameters: {
+                        ids: accessions,
+                        name: `Peptide search matches`,
                       },
                     }}
                   >
@@ -308,9 +296,7 @@ const PeptideSearchResult = () => {
         <Tab
           id={TabLocation.InputParameters}
           title={
-            <Link
-              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
-            >
+            <Link to={`../${TabLocation.InputParameters}`}>
               Input Parameters
             </Link>
           }
@@ -318,7 +304,7 @@ const PeptideSearchResult = () => {
           <HTMLHead title={[title, 'Input Parameters']} />
           <Suspense fallback={<Loader />}>
             <InputParameters
-              id={match.params.id}
+              id={id}
               inputParamsData={jobInputParameters}
               jobType={jobType}
             />
@@ -326,11 +312,7 @@ const PeptideSearchResult = () => {
         </Tab>
         <Tab
           id={TabLocation.APIRequest}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
-              API Request
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.APIRequest}`}>API Request</Link>}
         >
           <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>

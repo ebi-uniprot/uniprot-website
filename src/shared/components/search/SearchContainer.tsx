@@ -283,7 +283,7 @@ const SearchContainer = ({
       return;
     }
     setSearchTerm(query || '');
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
   const searchspaces = jobId ? searchspaceLabels : searchableNamespaceLabels;
 

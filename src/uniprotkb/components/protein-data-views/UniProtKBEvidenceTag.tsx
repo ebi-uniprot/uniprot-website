@@ -3,7 +3,6 @@ import { groupBy } from 'lodash-es';
 import { memo } from 'react';
 import { useMatch } from 'react-router';
 
-import { allEntryPages } from '../../../app/config/urls';
 import { pluralise } from '../../../shared/utils/utils';
 import {
   EvidenceData,
@@ -85,7 +84,7 @@ const UniProtKBEvidenceTag = ({
   evidences?: Evidence[];
   goTermEvidence?: boolean;
 }) => {
-  const entryPageMatch = useMatch(allEntryPages);
+  const entryPageMatch = Boolean(useMatch('/:namespace/:accession'));
   if (!entryPageMatch || !evidences?.length) {
     return null;
   }
