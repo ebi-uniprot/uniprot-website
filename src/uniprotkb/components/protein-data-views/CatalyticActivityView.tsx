@@ -1,12 +1,5 @@
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  Loader,
-  ModalBackdrop,
-  useModal,
-  Window,
-} from 'franklin-sites';
-import { Fragment, useCallback, useRef, useState } from 'react';
+import { ChevronDownIcon, ChevronUpIcon, Loader } from 'franklin-sites';
+import { Fragment, useCallback, useState } from 'react';
 import { SetRequired } from 'type-fest';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -44,31 +37,6 @@ type ChebiImageData = {
   imgURL: string;
 };
 
-export const ZoomModalContent = ({ chebi, imgURL }: ChebiImageData) => {
-  const imageRef = useRef<HTMLImageElement>(null);
-  const [loading, setLoading] = useState(true);
-  const image = new Image();
-  image.src = imgURL;
-  image.onload = () => {
-    if (imageRef && imageRef.current) {
-      imageRef.current.src = image.src;
-      setLoading(false);
-    }
-  };
-  return (
-    <div className={styles['zoom-image-container']}>
-      <img
-        ref={imageRef}
-        alt={chebi}
-        style={{ display: loading ? 'none' : 'block' }}
-      />
-      {loading && <Loader />}
-    </div>
-  );
-};
-
-type ZoomClickedEvent = { detail: ChebiImageData };
-
 type RheaReactionVisualizerProps = {
   rheaId: number;
   show: boolean;
@@ -87,26 +55,20 @@ export const RheaReactionVisualizer = ({
   );
 
   const [show, setShow] = useState(initialShow);
-  const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
-  const { displayModal, setDisplayModal, Modal } = useModal(
-    ModalBackdrop,
-    Window
-  );
-  const callback = useCallback<React.RefCallback<HTMLElement>>(
-    (node): void => {
-      if (node) {
-        node.addEventListener(
-          'zoomClicked',
-          ({ detail }: { detail: ChebiImageData }) => {
-            setZoomImageData(detail);
-            setDisplayModal(true);
-          }
-        );
-        if (!node.shadowRoot) {
-          return;
+  const callback = useCallback<React.RefCallback<HTMLElement>>((node): void => {
+    if (node) {
+      node.addEventListener(
+        'zoomClicked',
+        ({ detail }: { detail: ChebiImageData }) => {
+          setZoomImageData(detail);
+          setDisplayModal(true);
         }
-        const styleElement = document.createElement('style');
-        styleElement.textContent = `
+      );
+      if (!node.shadowRoot) {
+        return;
+      }
+      const styleElement = document.createElement('style');
+      styleElement.textContent = `
           .rhea-reaction-visualizer {
             border-bottom: 0.1rem solid var(--fr--color-platinum);
           }
@@ -158,11 +120,9 @@ export const RheaReactionVisualizer = ({
             border-top: 0.1rem solid var(--fr--color-platinum);
           }
         `;
-        node.shadowRoot.appendChild(styleElement);
-      }
-    },
-    [setDisplayModal]
-  );
+      node.shadowRoot.appendChild(styleElement);
+    }
+  }, []);
 
   if (rheaVisualizerElement.errored) {
     // It's fine, just don't display anything
@@ -183,27 +143,12 @@ export const RheaReactionVisualizer = ({
       </div>
       {show &&
         (rheaVisualizerElement.defined ? (
-          <>
-            <rheaVisualizerElement.name
-              rheaid={rheaId}
-              showIds
-              zoom
-              ref={callback}
-              usehost="https://api.rhea-db.org"
-            />
-            {displayModal && zoomImageData?.imgURL && (
-              <Modal
-                handleExitModal={() => setDisplayModal(false)}
-                height="30vh"
-                width="30vw"
-              >
-                <ZoomModalContent
-                  chebi={zoomImageData.chebi}
-                  imgURL={zoomImageData.imgURL}
-                />
-              </Modal>
-            )}
-          </>
+          <rheaVisualizerElement.name
+            rheaid={rheaId}
+            showIds
+            ref={callback}
+            usehost="https://api.rhea-db.org"
+          />
         ) : (
           <Loader />
         ))}
