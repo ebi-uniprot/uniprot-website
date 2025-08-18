@@ -107,6 +107,10 @@ export const RheaReactionVisualizer = ({
         }
         const styleElement = document.createElement('style');
         styleElement.textContent = `
+          .rhea-reaction-visualizer {
+            border-bottom: 0.1rem solid var(--fr--color-platinum);
+          }
+            
           .tabs:first-child {
             border-left: 0.1rem solid var(--fr--color-platinum);
           }
