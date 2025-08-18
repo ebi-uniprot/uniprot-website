@@ -5,5 +5,6 @@ declare namespace JSX {
   interface IntrinsicElements {
     'rhea-reaction': any;
     'rhea-atommap': any;
+    'rhea-visualizer': any;
   }
 }
