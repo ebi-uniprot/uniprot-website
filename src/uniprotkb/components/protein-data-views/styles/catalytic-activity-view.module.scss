@@ -11,10 +11,6 @@
   }
 
   .rhea-reaction-visualizer {
-    &__tabs {
-      min-height: 200px;
-      margin-top: -1.5rem;
-    }
     &__toggle {
       padding-top: 0.5 * $global-padding;
 
@@ -23,11 +19,6 @@
         top: -0.6rem;
         margin-left: 0.5rem;
       }
-    }
-
-    &__component {
-      width: 100%;
-      overflow-x: auto;
     }
   }
 

@@ -3,8 +3,6 @@ import {
   ChevronUpIcon,
   Loader,
   ModalBackdrop,
-  Tab,
-  Tabs,
   useModal,
   Window,
 } from 'franklin-sites';
@@ -80,33 +78,22 @@ export const RheaReactionVisualizer = ({
   rheaId,
   show: initialShow,
 }: RheaReactionVisualizerProps) => {
-  const rheaReactionElement = useCustomElement(
+  const rheaVisualizerElement = useCustomElement(
     () =>
       import(
         /* webpackChunkName: "rhea-reaction-visualizer" */ '@swissprot/rhea-reaction-viz-test'
       ),
-    'rhea-reaction'
+    'rhea-visualizer'
   );
-  const rheaAtommapElement = useCustomElement(
-    () =>
-      import(
-        /* webpackChunkName: "rhea-reaction-visualizer" */ '@swissprot/rhea-reaction-viz-test'
-      ),
-    'rhea-atommap'
-  );
+
   const [show, setShow] = useState(initialShow);
   const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
   const { displayModal, setDisplayModal, Modal } = useModal(
     ModalBackdrop,
     Window
   );
-  const callback = useCallback(
-    (node: {
-      addEventListener: (
-        name: string,
-        event: ({ detail }: ZoomClickedEvent) => void
-      ) => void;
-    }): void => {
+  const callback = useCallback<React.RefCallback<HTMLElement>>(
+    (node): void => {
       if (node) {
         node.addEventListener(
           'zoomClicked',
@@ -115,12 +102,53 @@ export const RheaReactionVisualizer = ({
             setDisplayModal(true);
           }
         );
+        if (!node.shadowRoot) {
+          return;
+        }
+        const styleElement = document.createElement('style');
+        styleElement.textContent = `
+          .tabs:first-child {
+            border-left: 0.1rem solid var(--fr--color-platinum);
+          }
+
+          .tab {
+            border-right: 0.1rem solid var(--fr--color-platinum);
+            border-top: 0.1rem solid var(--fr--color-platinum);
+            border-radius: 0.2rem 0.2rem 0 0;
+            background-color: white;
+            color: var(--fr--color-sapphire-blue);
+            font-weight: 600;
+            margin-right: 0px;
+            padding: 1rem;
+            cursor: pointer;
+            user-select: none;
+          }
+
+          .tab:hover,
+          .tab:focus {
+            background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+            box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+          }
+
+          .tab.selected {
+            background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+            box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+            color: var(--fr--color-sapphire-blue);
+            font-weight: 600;
+          }
+
+          .tabpanel {
+            border: none;
+            border-top: 0.1rem solid var(--fr--color-platinum);
+          }
+        `;
+        node.shadowRoot.appendChild(styleElement);
       }
     },
     [setDisplayModal]
   );
 
-  if (rheaReactionElement.errored || rheaAtommapElement.errored) {
+  if (rheaVisualizerElement.errored) {
     // It's fine, just don't display anything
     return null;
   }
@@ -137,51 +165,32 @@ export const RheaReactionVisualizer = ({
         </button>
         {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
       </div>
-      {show && (
-        <Tabs className={styles['rhea-reaction-visualizer__tabs']} bordered>
-          <Tab title="Reaction">
-            {rheaReactionElement.defined ? (
-              <>
-                <div className={styles['rhea-reaction-visualizer__component']}>
-                  <rheaReactionElement.name
-                    rheaid={rheaId}
-                    showIds
-                    zoom
-                    ref={callback}
-                    usehost="https://api.rhea-db.org"
-                  />
-                </div>
-                {displayModal && zoomImageData?.imgURL && (
-                  <Modal
-                    handleExitModal={() => setDisplayModal(false)}
-                    height="30vh"
-                    width="30vw"
-                  >
-                    <ZoomModalContent
-                      chebi={zoomImageData.chebi}
-                      imgURL={zoomImageData.imgURL}
-                    />
-                  </Modal>
-                )}
-              </>
-            ) : (
-              <Loader />
+      {show &&
+        (rheaVisualizerElement.defined ? (
+          <>
+            <rheaVisualizerElement.name
+              rheaid={rheaId}
+              showIds
+              zoom
+              ref={callback}
+              usehost="https://api.rhea-db.org"
+            />
+            {displayModal && zoomImageData?.imgURL && (
+              <Modal
+                handleExitModal={() => setDisplayModal(false)}
+                height="30vh"
+                width="30vw"
+              >
+                <ZoomModalContent
+                  chebi={zoomImageData.chebi}
+                  imgURL={zoomImageData.imgURL}
+                />
+              </Modal>
             )}
-          </Tab>
-          <Tab title="Atom map">
-            {rheaAtommapElement.defined ? (
-              <rheaAtommapElement.name
-                rheaid={rheaId}
-                nosource
-                usehost="https://www.rhea-db.org"
-                imagehost="https://www.rhea-db.org"
-              />
-            ) : (
-              <Loader />
-            )}
-          </Tab>
-        </Tabs>
-      )}
+          </>
+        ) : (
+          <Loader />
+        ))}
     </>
   );
 };
