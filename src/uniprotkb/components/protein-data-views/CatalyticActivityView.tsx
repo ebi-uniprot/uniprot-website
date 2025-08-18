@@ -115,6 +115,14 @@ export const RheaReactionVisualizer = ({
             font-size: 16px;
           }
 
+          .info {
+            stroke: var(--fr--color-sapphire-blue);
+          }
+
+          .more path {
+            stroke: var(--fr--color-sapphire-blue);
+          }
+
           .tabs:first-child {
             border-left: 0.1rem solid var(--fr--color-platinum);
           }
