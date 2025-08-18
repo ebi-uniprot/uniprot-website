@@ -57,13 +57,6 @@ export const RheaReactionVisualizer = ({
   const [show, setShow] = useState(initialShow);
   const callback = useCallback<React.RefCallback<HTMLElement>>((node): void => {
     if (node) {
-      node.addEventListener(
-        'zoomClicked',
-        ({ detail }: { detail: ChebiImageData }) => {
-          setZoomImageData(detail);
-          setDisplayModal(true);
-        }
-      );
       if (!node.shadowRoot) {
         return;
       }
@@ -119,8 +112,51 @@ export const RheaReactionVisualizer = ({
             border: none;
             border-top: 0.1rem solid var(--fr--color-platinum);
           }
+
+          .icon_link {
+            color: #014371;
+            text-decoration: none;
+            font-weight: 600;
+          }
         `;
       node.shadowRoot.appendChild(styleElement);
+
+      const adaptRheaLink = (container: Element) => {
+        const span = container.querySelector(':scope > span');
+        if (!span) {
+          return;
+        }
+        const link = container.querySelector(
+          ':scope > a.icon_link'
+        ) as HTMLAnchorElement | null;
+        if (!link || link.contains(span)) {
+          return;
+        }
+
+        // TODO: open in new tab
+        const newLink = link.cloneNode(false) as HTMLAnchorElement;
+        container.insertBefore(newLink, span);
+        newLink.appendChild(span);
+        const svg = link.querySelector('svg');
+        if (svg) {
+          newLink.appendChild(svg);
+        }
+        link.remove();
+      };
+
+      const adaptRheaLinks = () => {
+        node.shadowRoot
+          ?.querySelectorAll('.rhea-reaction-source')
+          .forEach(adaptRheaLink);
+      };
+
+      adaptRheaLinks();
+
+      // Observe future changes for when web component re-renders
+      const mo = new MutationObserver(() => adaptRheaLinks());
+      mo.observe(node.shadowRoot, { childList: true, subtree: true });
+
+      // TODO: add MutationObserver clean up
     }
   }, []);
 
