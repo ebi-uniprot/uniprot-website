@@ -213,12 +213,7 @@ const EntryPreview = () => {
         )}
       </section>
       {parsedData.content !== 'content' && (
-        <HelpEntry
-          history={history}
-          match={match}
-          location={location}
-          overrideContent={parsedData}
-        />
+        <HelpEntry overrideContent={parsedData} />
       )}
     </>
   );

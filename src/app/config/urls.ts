@@ -130,7 +130,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.HelpResults]: '/help',
   [Location.Documentation]: '/api-documentation/:definition?',
   // News
-  [Location.ReleaseNotesEntry]: '/release-notes/:accession+',
+  [Location.ReleaseNotesEntry]: '/release-notes/:accession',
   [Location.ReleaseNotesResults]: '/release-notes',
   // Contact
   [Location.ContactGeneric]: '/contact',

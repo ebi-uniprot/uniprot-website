@@ -1,6 +1,7 @@
 import { CodeBlock } from 'franklin-sites';
 import { type ComponentType, lazy, Suspense } from 'react';
 import {
+  Navigate,
   Outlet,
   redirect,
   type RouteObject,
@@ -207,6 +208,38 @@ const BasketFullView = lazy(
     )
 );
 
+// Help
+const HelpLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "help-entry" */ '../../help/components/landing/HelpLandingPage'
+    )
+);
+const HelpEntryPreviewPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "help-entry-preview.noprecache" */ '../../help/components/entry/EntryPreview'
+    )
+);
+const HelpEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "help-entry" */ '../../help/components/entry/Entry'
+    )
+);
+const HelpResults = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "help-results" */ '../../help/components/results/Results'
+    )
+);
+// const ApiDocumentationPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "documentation" */ '../../help/components/entry/ApiDocumentation'
+//     )
+// );
+
 const ResourceNotFoundPage = lazy(
   () =>
     import(
@@ -233,18 +266,11 @@ const Empty = () => {
   );
 };
 
-const LandingPages = new Map<SearchableNamespace, ComponentType>([
-  [Namespace.uniprotkb, UniProtKBLandingPage],
-  [Namespace.uniparc, UniParcLandingPage],
-  [Namespace.proteomes, ProteomesLandingPage],
-  [Namespace.uniref, UniRefLandingPage],
-]);
-
 // Helper component to render a landing page or the results page depending on
 // the presence of absence of a query and of a corresponding landing page
 const resultsOrLanding =
   (ResultsPage: ComponentType, LandingPage?: ComponentType) => () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     // If there is a query is the URL
     if (searchParams.has('query')) {
       // ...and the query has a value
@@ -252,21 +278,14 @@ const resultsOrLanding =
         return <ResultsPage />;
       }
       // otherwise, if empty query value, redirect to star search
-      setSearchParams((searchParams) => {
-        searchParams.set('query', '*');
-        return searchParams;
-      });
-      return null;
+      return <Navigate to="?query=*" replace />;
     }
     // If no query at all, redirect to a landing page if it exists
     if (LandingPage) {
       return <LandingPage />;
     }
     // Otherwise, if no landing page, redirect to star search
-    setSearchParams((searchParams) => {
-      searchParams.set('query', '*');
-      return searchParams;
-    });
+    return <Navigate to="?query=*" replace />;
   };
 
 const redirectToEntryRoute = {
@@ -312,7 +331,7 @@ export const routes: RouteObject[] = [
             index: true,
             Component: resultsOrLanding(
               GenericResultsPage,
-              LandingPages.get(Namespace.uniprotkb)
+              UniProtKBLandingPage
             ),
           },
           {
@@ -338,7 +357,7 @@ export const routes: RouteObject[] = [
             index: true,
             Component: resultsOrLanding(
               GenericResultsPage,
-              LandingPages.get(Namespace.proteomes)
+              ProteomesLandingPage
             ),
           },
           {
@@ -352,10 +371,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            Component: resultsOrLanding(
-              GenericResultsPage,
-              LandingPages.get(Namespace.uniref)
-            ),
+            Component: resultsOrLanding(GenericResultsPage, UniRefLandingPage),
           },
           {
             path: ':accession',
@@ -368,10 +384,7 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            Component: resultsOrLanding(
-              GenericResultsPage,
-              LandingPages.get(Namespace.uniparc)
-            ),
+            Component: resultsOrLanding(GenericResultsPage, UniParcLandingPage),
           },
           {
             path: ':accession',
@@ -627,25 +640,29 @@ export const routes: RouteObject[] = [
       {
         path: 'help',
         children: [
-          { index: true, Component: Empty },
-          { path: '_preview', Component: Empty },
-          { path: ':accession', Component: Empty },
-        ],
-      },
-      {
-        path: 'api-documnentation',
-        children: [
-          redirectToUPKBRoute,
-          { path: ':definition', Component: Empty },
+          {
+            index: true,
+            Component: resultsOrLanding(HelpResults, HelpLandingPage),
+          },
+          { path: '_preview', Component: HelpEntryPreviewPage },
+          { path: ':accession', Component: HelpEntryPage },
         ],
       },
       {
         path: 'release-notes',
         children: [
-          { index: true, Component: Empty },
-          { path: ':accession', Component: Empty },
+          { index: true, Component: HelpResults },
+          { path: '_preview', Component: HelpEntryPreviewPage },
+          { path: ':accession', Component: HelpEntryPage },
         ],
       },
+      // {
+      //   path: 'api-documnentation',
+      //   children: [
+      //     redirectToUPKBRoute,
+      //     { path: ':definition', Component: ApiDocumentationPage },
+      //   ],
+      // },
       {
         path: 'contact',
         Component: Empty,
