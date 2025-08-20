@@ -1,6 +1,5 @@
 import { Tab, Tabs } from 'franklin-sites';
-import { useEffect } from 'react';
-import { generatePath, Link, useMatch, useNavigate } from 'react-router';
+import { generatePath, Link, Navigate, useParams } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
@@ -8,24 +7,21 @@ import { ApiDocsDefinition } from '../../types/apiDocumentation';
 import DocumentationTab from './ApiDocumentationTab';
 
 const ApiDocumentation = () => {
-  const navigate = useNavigate();
-  const match = useMatch(LocationToPath[Location.Documentation]);
-  const definition = match?.params.definition as ApiDocsDefinition | undefined;
+  const { definition } = useParams();
   const validDefinition =
-    definition && apiDocsDefinitionToString.has(definition);
+    definition &&
+    apiDocsDefinitionToString.has(definition as ApiDocsDefinition);
 
-  useEffect(() => {
-    if (!validDefinition) {
-      navigate(
-        {
-          pathname: generatePath(LocationToPath[Location.Documentation], {
-            definition: ApiDocsDefinition.uniprotkb,
-          }),
-        },
-        { replace: true }
-      );
-    }
-  }, [navigate, definition, validDefinition]);
+  if (!validDefinition) {
+    return (
+      <Navigate
+        to={generatePath(LocationToPath[Location.Documentation], {
+          definition: ApiDocsDefinition.uniprotkb,
+        })}
+        replace
+      />
+    );
+  }
 
   return !validDefinition ? null : (
     <Tabs active={definition}>

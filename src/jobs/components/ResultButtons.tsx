@@ -90,7 +90,7 @@ export const ResubmitButton = ({
       taxonMapping
     );
 
-    navigate(jobTypeToPath(jobType), { parameters });
+    navigate(jobTypeToPath(jobType), { state: { parameters } });
   };
 
   return (

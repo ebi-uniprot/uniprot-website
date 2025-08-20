@@ -233,12 +233,12 @@ const HelpResults = lazy(
       /* webpackChunkName: "help-results" */ '../../help/components/results/Results'
     )
 );
-// const ApiDocumentationPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "documentation" */ '../../help/components/entry/ApiDocumentation'
-//     )
-// );
+const ApiDocumentationPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "documentation" */ '../../help/components/entry/ApiDocumentation'
+    )
+);
 
 const ResourceNotFoundPage = lazy(
   () =>
@@ -656,13 +656,13 @@ export const routes: RouteObject[] = [
           { path: ':accession', Component: HelpEntryPage },
         ],
       },
-      // {
-      //   path: 'api-documnentation',
-      //   children: [
-      //     redirectToUPKBRoute,
-      //     { path: ':definition', Component: ApiDocumentationPage },
-      //   ],
-      // },
+      {
+        path: 'api-documentation',
+        children: [
+          redirectToUPKBRoute,
+          { path: ':definition', Component: ApiDocumentationPage },
+        ],
+      },
       {
         path: 'contact',
         Component: Empty,

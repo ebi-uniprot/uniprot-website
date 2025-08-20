@@ -1,9 +1,8 @@
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 import { Loader } from 'franklin-sites';
-import { useMatch } from 'react-router';
+import { useParams } from 'react-router';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -22,9 +21,7 @@ import EntryMain from './EntryMain';
 import Overview from './Overview';
 
 const Entry = () => {
-  const match = useMatch(LocationToPath[Location.ProteomesEntry]);
-
-  const accession = match?.params.accession;
+  const { accession } = useParams();
 
   const mainData = useDataApi<ProteomesAPIModel>(
     apiUrls.entry.entry(accession, Namespace.proteomes)

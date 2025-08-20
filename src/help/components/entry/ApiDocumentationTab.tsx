@@ -4,9 +4,8 @@ import { Card, Chip, Loader, Message } from 'franklin-sites';
 import { Location as HistoryLocation } from 'history';
 import type { OpenAPIV3 } from 'openapi-types';
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { Link, Outlet, useHistory } from 'react-router';
+import { Link, Outlet, useLocation } from 'react-router';
 import SwaggerUI from 'swagger-ui-react';
-import { frame } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -59,7 +58,7 @@ const OperationTag = ({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
-  const history = useHistory();
+  const location = useLocation();
   const BaseLayout = getComponent('BaseLayout', true);
   const [tagIds, sections, idToOperation] = useMemo(() => {
     const spec = getSpec().get('json');
@@ -69,6 +68,7 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
       idToOperation,
     ];
   }, [getSpec]);
+
   const openOperationAtLocation = useCallback(
     (location: HistoryLocation) => {
       const id = location.hash.replace('#', '');
@@ -87,12 +87,8 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   );
 
   useEffect(() => {
-    const unlisten = history.listen((location) =>
-      frame().then(() => openOperationAtLocation(location))
-    );
-    openOperationAtLocation(history.location);
-    return unlisten;
-  }, [history, openOperationAtLocation]);
+    openOperationAtLocation(location);
+  }, [location, openOperationAtLocation]);
 
   return (
     <SidebarLayout
