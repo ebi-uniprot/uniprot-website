@@ -1,4 +1,9 @@
-import { ChevronDownIcon, ChevronUpIcon, Loader } from 'franklin-sites';
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ExternalLinkIconRaw,
+  Loader,
+} from 'franklin-sites';
 import { Fragment, useCallback, useState } from 'react';
 import { SetRequired } from 'type-fest';
 
@@ -62,6 +67,9 @@ export const RheaReactionVisualizer = ({
     if (!shadowRoot.querySelector('style[data-rhea-overrides]')) {
       const styleElement = document.createElement('style');
       styleElement.setAttribute('data-rhea-overrides', '');
+      const externalLinkMask = `url("data:image/svg+xml;utf8,${encodeURIComponent(
+        ExternalLinkIconRaw
+      )}")`;
       styleElement.textContent = `
       .rhea-reaction-visualizer { border-bottom: 0.1rem solid var(--fr--color-platinum); }
       .name { font-size: 16px; }
@@ -97,14 +105,26 @@ export const RheaReactionVisualizer = ({
         display: inline-flex;
         align-items: center;
         gap: 0.25rem;
-        color: #014371;
+        color: var(--fr--color-sapphire-blue);
         text-decoration: none;
         font-weight: 600;
       }
-      .rhea-reaction-source > a.icon_link .externalLink {
-        width: 0.8rem;
-        height: 0.8rem;
-        flex: 0 0 auto;
+      .rhea-reaction-source > a.icon_link::after {
+          content: '';
+          background: currentColor;
+          -webkit-mask-image: ${externalLinkMask};
+          mask-image: ${externalLinkMask};
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: contain;
+          mask-size: contain;
+          -webkit-mask-position: center;
+          mask-position: center;
+          display: inline-block;
+          width: 0.75em;
+          height: 0.75em;
+          margin: 0 0.5ch;
+        }
       }
     `;
       shadowRoot.appendChild(styleElement);
