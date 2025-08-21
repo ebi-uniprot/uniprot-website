@@ -5,12 +5,15 @@ import {
   Loader,
 } from 'franklin-sites';
 import { Fragment, useCallback, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SetRequired } from 'type-fest';
 
+import { Location } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import * as logging from '../../../shared/utils/logging';
+import { getLocationForPathname } from '../../../shared/utils/url';
 import {
   CatalyticActivityComment,
   PhysiologicalReaction,
@@ -339,9 +342,12 @@ const CatalyticActivityView = ({
   defaultHideAllReactions = false,
   noEvidence,
 }: CatalyticActivityProps) => {
+  const { pathname } = useLocation();
   if (!comments?.length) {
     return null;
   }
+  const currentLocation = getLocationForPathname(pathname);
+  const inUniProtKBEntry = currentLocation === Location.UniProtKBEntry;
   let firstRheaId: number;
   return (
     <div className={styles['catalytic-activity']}>
@@ -401,7 +407,7 @@ const CatalyticActivityView = ({
                   <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
                 </div>
               )}
-              {!!rheaId && (
+              {inUniProtKBEntry && !!rheaId && (
                 <RheaReactionVisualizer
                   rheaId={rheaId}
                   show={
