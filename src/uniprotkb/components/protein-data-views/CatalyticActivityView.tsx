@@ -366,7 +366,7 @@ const CatalyticActivityView = ({
               <h4>
                 {rheaId ? (
                   <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
-                    Rhea {rheaId}
+                    Rhea:{rheaId}
                   </ExternalLink>
                 ) : (
                   ''
