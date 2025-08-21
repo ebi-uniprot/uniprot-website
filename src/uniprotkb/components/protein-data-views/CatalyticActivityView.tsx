@@ -134,6 +134,10 @@ a.icon_link:not(.no_icon)::after {
   }
 
   .tippy-box a.icon_link { color: white; text-decoration:underline }
+
+  rhea-reaction-block.smallMolecule:hover {
+      box-shadow: none;
+  }
     `;
       shadowRoot.appendChild(styleElement);
     }
