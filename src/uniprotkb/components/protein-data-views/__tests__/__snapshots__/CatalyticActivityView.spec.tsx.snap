@@ -13,7 +13,9 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
     <div
       class="rhea-entry"
     >
-      <h4 />
+      <div
+        class="small"
+      />
       Reaction name
       <div>
         This reaction proceeds in the 
@@ -78,7 +80,9 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <div
       class="rhea-entry"
     >
-      <h4 />
+      <div
+        class="small"
+      />
       Reaction name
       <div>
         This reaction proceeds in the 

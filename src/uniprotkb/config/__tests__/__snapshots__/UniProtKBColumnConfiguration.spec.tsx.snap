@@ -198,7 +198,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
     <div
       class="rhea-entry"
     >
-      <h4>
+      <div
+        class="small"
+      >
         <a
           class="external-link"
           href="https://www.rhea-db.org/rhea/12345"
@@ -211,12 +213,12 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
             width="12.5"
           />
         </a>
-      </h4>
-      <h4
-        class="tiny"
+      </div>
+      <div
+        class="small"
       >
         Isoform 3
-      </h4>
+      </div>
       some reaction
       <div>
         This reaction proceeds in the 
@@ -261,19 +263,6 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
           />
         </a>
         )
-      </div>
-      <div
-        class="rhea-reaction-visualizer__toggle"
-      >
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          View reaction details
-          <test-file-stub
-            width="1ch"
-          />
-        </button>
       </div>
     </div>
   </div>
