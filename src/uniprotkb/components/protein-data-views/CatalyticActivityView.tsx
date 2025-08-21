@@ -4,7 +4,7 @@ import {
   ExternalLinkIconRaw,
   Loader,
 } from 'franklin-sites';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useRef, useState } from 'react';
 import { SetRequired } from 'type-fest';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -53,17 +53,22 @@ export const RheaReactionVisualizer = ({
   );
 
   const [show, setShow] = useState(initialShow);
+  const moRef = useRef<MutationObserver | null>(null);
 
   const callback = useCallback<React.RefCallback<HTMLElement>>((node): void => {
     if (!node) {
+      if (moRef.current) {
+        moRef.current.disconnect();
+        moRef.current = null;
+      }
       return;
     }
-    const { shadowRoot } = node;
+
+    const shadowRoot = node.shadowRoot;
     if (!shadowRoot) {
       return;
     }
 
-    // Inject styles once
     if (!shadowRoot.querySelector('style[data-rhea-overrides]')) {
       const styleElement = document.createElement('style');
       styleElement.setAttribute('data-rhea-overrides', '');
@@ -71,78 +76,100 @@ export const RheaReactionVisualizer = ({
         ExternalLinkIconRaw
       )}")`;
       styleElement.textContent = `
-      .rhea-reaction-visualizer { border-bottom: 0.1rem solid var(--fr--color-platinum); }
-      .name { font-size: 16px; }
-      .info { stroke: var(--fr--color-sapphire-blue); }
-      .more path { stroke: var(--fr--color-sapphire-blue); }
+        .rhea-reaction-visualizer {
+          border-bottom: 0.1rem solid var(--fr--color-platinum);
+        }
 
-      .tabs:first-child { border-left: 0.1rem solid var(--fr--color-platinum); }
-      .tab {
-        border-right: 0.1rem solid var(--fr--color-platinum);
-        border-top: 0.1rem solid var(--fr--color-platinum);
-        border-radius: 0.2rem 0.2rem 0 0;
-        background-color: white;
-        color: var(--fr--color-sapphire-blue);
-        font-weight: 600;
-        margin-right: 0;
-        padding: 1rem;
-        cursor: pointer;
-        user-select: none;
-      }
-      .tab:hover, .tab:focus {
-        background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
-        box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
-      }
-      .tab.selected {
-        background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
-        box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
-        color: var(--fr--color-sapphire-blue);
-        font-weight: 600;
-      }
-      .tabpanel { border: none; border-top: 0.1rem solid var(--fr--color-platinum); }
+        .name {
+          font-size: 16px;
+        }
 
-     
+        .info {
+          stroke: var(--fr--color-sapphire-blue);
+        }
 
-  a.icon_link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    color: var(--fr--color-sapphire-blue);
-    text-decoration: none;
-    font-weight: 600;
-  }
+        .more path {
+          stroke: var(--fr--color-sapphire-blue);
+        }
 
-  a.icon_link:hover,
-  a.icon_link:focus { color: #0161a4; }
+        .tabs:first-child {
+          border-left: 0.1rem solid var(--fr--color-platinum);
+        }
 
-  /* The icon "mixin": applies to both places */
-a.icon_link:not(.no_icon)::after {
-    content: '';
-    background: currentColor;
-    -webkit-mask-image: ${externalLinkMask};
-    mask-image: ${externalLinkMask};
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-position: center;
-    mask-position: center;
-    display: inline-block;
-    width: 0.75em;
-    height: 0.75em;
-    margin: 0 0.5ch;
-  }
+        .tab {
+          border-right: 0.1rem solid var(--fr--color-platinum);
+          border-top: 0.1rem solid var(--fr--color-platinum);
+          border-radius: 0.2rem 0.2rem 0 0;
+          background-color: white;
+          color: var(--fr--color-sapphire-blue);
+          font-weight: 600;
+          margin-right: 0;
+          padding: 1rem;
+          cursor: pointer;
+          user-select: none;
+        }
 
-  .tippy-box a.icon_link { color: white; text-decoration:underline }
+        .tab:hover,
+        .tab:focus {
+          background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+          box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+        }
 
-  rhea-reaction-block.smallMolecule:hover {
-      box-shadow: none;
-  }
-    `;
+        .tab.selected {
+          background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+          box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+          color: var(--fr--color-sapphire-blue);
+          font-weight: 600;
+        }
+
+        .tabpanel {
+          border: none;
+          border-top: 0.1rem solid var(--fr--color-platinum);
+        }
+
+        a.icon_link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.25rem;
+          color: var(--fr--color-sapphire-blue);
+          text-decoration: none;
+          font-weight: 600;
+        }
+
+        a.icon_link:hover,
+        a.icon_link:focus {
+          color: color-mix(in srgb, var(--fr--color-sapphire-blue) 75%, white);
+        }
+
+        a.icon_link:not(.no_icon)::after {
+          content: '';
+          background: currentColor;
+          -webkit-mask-image: ${externalLinkMask};
+          mask-image: ${externalLinkMask};
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: contain;
+          mask-size: contain;
+          -webkit-mask-position: center;
+          mask-position: center;
+          display: inline-block;
+          width: 0.75em;
+          height: 0.75em;
+          margin: 0 0.5ch;
+        }
+
+        .tippy-box a.icon_link {
+          color: white;
+          text-decoration: underline;
+        }
+
+        rhea-reaction-block.smallMolecule:hover {
+          box-shadow: none;
+        }
+      `;
       shadowRoot.appendChild(styleElement);
     }
 
-    // Wrap span + svg in link (if needed) and replace icon
     const adaptRheaLink = (container: Element) => {
       const span = container.querySelector(':scope > span');
       if (!span) {
@@ -151,15 +178,12 @@ a.icon_link:not(.no_icon)::after {
       const link = container.querySelector(
         ':scope > a.icon_link'
       ) as HTMLAnchorElement | null;
-
-      let targetLink: HTMLAnchorElement;
       if (!link) {
         return;
-      } else if (link.contains(span)) {
-        // Already wrapped: keep using it
-        targetLink = link;
-      } else {
-        // Wrap the span (and old svg) with a new link that copies attributes
+      }
+
+      let targetLink = link;
+      if (!link.contains(span)) {
         targetLink = link.cloneNode(false) as HTMLAnchorElement;
         container.insertBefore(targetLink, span);
         targetLink.appendChild(span);
@@ -167,54 +191,52 @@ a.icon_link:not(.no_icon)::after {
       }
 
       targetLink.target = '_blank';
-      // ensure rel includes noopener and noreferrer without duplicating
-      const relSet = new Set(
-        (targetLink.rel || '').split(/\s+/).filter(Boolean)
-      );
-      relSet.add('noopener');
-      relSet.add('noreferrer');
-      targetLink.rel = Array.from(relSet).join(' ');
-      targetLink.querySelector(':scope > svg')?.remove();
+      const rel = new Set((targetLink.rel || '').split(/\s+/).filter(Boolean));
+      rel.add('noopener');
+      rel.add('noreferrer');
+      targetLink.rel = Array.from(rel).join(' ');
+      if (targetLink.querySelector(':scope > svg')) {
+        targetLink.querySelector(':scope > svg')?.remove();
+      }
     };
 
     const adaptTippyContent = (root: ShadowRoot) => {
-      const links = root.querySelectorAll('.tippy-box .tippy-content a[href]');
-      links.forEach((a) => {
-        if (a.textContent === 'Search proteins') {
-          // Don't have external link icon for UniProt links
-          a.classList.add('no_icon');
-        }
-        a.classList.add('icon_link');
-        a.setAttribute('target', '_blank');
-        const rel = new Set(
-          (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean)
-        );
-        rel.add('noopener');
-        rel.add('noreferrer');
-        a.setAttribute('rel', Array.from(rel).join(' '));
-      });
+      root
+        .querySelectorAll('.tippy-box .tippy-content a[href]')
+        .forEach((a) => {
+          const text = a.textContent?.trim() || '';
+          if (/^search proteins\b/i.test(text)) {
+            a.classList.add('no_icon');
+          }
+          a.classList.add('icon_link');
+          a.setAttribute('target', '_blank');
+          const rel = new Set(
+            (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean)
+          );
+          rel.add('noopener');
+          rel.add('noreferrer');
+          a.setAttribute('rel', Array.from(rel).join(' '));
+          a.querySelector(':scope > svg')?.remove();
+        });
     };
 
     const adaptAll = () => {
       shadowRoot
         .querySelectorAll('.rhea-reaction-source')
         .forEach(adaptRheaLink);
-
       adaptTippyContent(shadowRoot);
     };
 
-    // Initial pass
     adaptAll();
 
-    // Observe future shadow re-renders
-    const mo = new MutationObserver(adaptAll);
-    mo.observe(shadowRoot, { childList: true, subtree: true });
-
-    // TODO: add clean up
+    if (moRef.current) {
+      moRef.current.disconnect();
+    }
+    moRef.current = new MutationObserver(adaptAll);
+    moRef.current.observe(shadowRoot, { childList: true, subtree: true });
   }, []);
 
   if (rheaVisualizerElement.errored) {
-    // It's fine, just don't display anything
     return null;
   }
 
@@ -244,7 +266,6 @@ a.icon_link:not(.no_icon)::after {
     </>
   );
 };
-
 const physiologicalReactionDirectionToString = new Map<
   PhysiologicalReactionDirection,
   string
