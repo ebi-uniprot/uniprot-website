@@ -367,7 +367,7 @@ const CatalyticActivityView = ({
           }
           return (
             <div className={styles['rhea-entry']} key={rheaId}>
-              <h4>
+              <div className="small">
                 {rheaId ? (
                   <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
                     Rhea:{rheaId}
@@ -375,16 +375,16 @@ const CatalyticActivityView = ({
                 ) : (
                   ''
                 )}
-              </h4>
+              </div>
 
               {molecule && (
-                <h4 className="tiny">
+                <div className="small">
                   {noEvidence ? (
                     `${molecule}`
                   ) : (
                     <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
                   )}
-                </h4>
+                </div>
               )}
               <RichText>{reaction.name}</RichText>
               {!noEvidence && (
