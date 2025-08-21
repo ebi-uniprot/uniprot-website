@@ -249,8 +249,12 @@ export const RheaReactionVisualizer = ({
           onClick={() => setShow(!show)}
         >
           {`${show ? 'Hide' : 'View'} reaction and atom map`}
+          {show ? (
+            <ChevronUpIcon width="1ch" />
+          ) : (
+            <ChevronDownIcon width="1ch" />
+          )}
         </button>
-        {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
       </div>
       {show &&
         (rheaVisualizerElement.defined ? (
