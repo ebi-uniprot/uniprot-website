@@ -16,8 +16,6 @@ import { ECNumbersView } from './ProteinNamesView';
 import styles from './styles/catalytic-activity-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
-// example accessions to view this component: P31937, P0A879
-
 export const getRheaId = (referenceId: string) => {
   const re = /^RHEA:(\d+)$/i;
   const match = referenceId.match(re);
@@ -31,11 +29,6 @@ export const isRheaReactionReference = ({
   database: string;
   id: string;
 }) => database === 'Rhea' && !!getRheaId(id);
-
-type ChebiImageData = {
-  chebi: string;
-  imgURL: string;
-};
 
 type RheaReactionVisualizerProps = {
   rheaId: number;
@@ -55,109 +48,118 @@ export const RheaReactionVisualizer = ({
   );
 
   const [show, setShow] = useState(initialShow);
+
   const callback = useCallback<React.RefCallback<HTMLElement>>((node): void => {
-    if (node) {
-      if (!node.shadowRoot) {
+    if (!node) {
+      return;
+    }
+    const { shadowRoot } = node;
+    if (!shadowRoot) {
+      return;
+    }
+
+    // Inject styles once
+    if (!shadowRoot.querySelector('style[data-rhea-overrides]')) {
+      const styleElement = document.createElement('style');
+      styleElement.setAttribute('data-rhea-overrides', '');
+      styleElement.textContent = `
+      .rhea-reaction-visualizer { border-bottom: 0.1rem solid var(--fr--color-platinum); }
+      .name { font-size: 16px; }
+      .info { stroke: var(--fr--color-sapphire-blue); }
+      .more path { stroke: var(--fr--color-sapphire-blue); }
+
+      .tabs:first-child { border-left: 0.1rem solid var(--fr--color-platinum); }
+      .tab {
+        border-right: 0.1rem solid var(--fr--color-platinum);
+        border-top: 0.1rem solid var(--fr--color-platinum);
+        border-radius: 0.2rem 0.2rem 0 0;
+        background-color: white;
+        color: var(--fr--color-sapphire-blue);
+        font-weight: 600;
+        margin-right: 0;
+        padding: 1rem;
+        cursor: pointer;
+        user-select: none;
+      }
+      .tab:hover, .tab:focus {
+        background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+        box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+      }
+      .tab.selected {
+        background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+        box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+        color: var(--fr--color-sapphire-blue);
+        font-weight: 600;
+      }
+      .tabpanel { border: none; border-top: 0.1rem solid var(--fr--color-platinum); }
+
+      .rhea-reaction-source > a.icon_link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: #014371;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .rhea-reaction-source > a.icon_link .externalLink {
+        width: 0.8rem;
+        height: 0.8rem;
+        flex: 0 0 auto;
+      }
+    `;
+      shadowRoot.appendChild(styleElement);
+    }
+
+    // Wrap span + svg in link (if needed) and replace icon
+    const adaptRheaLink = (container: Element) => {
+      const span = container.querySelector(':scope > span');
+      if (!span) {
         return;
       }
-      const styleElement = document.createElement('style');
-      styleElement.textContent = `
-          .rhea-reaction-visualizer {
-            border-bottom: 0.1rem solid var(--fr--color-platinum);
-          }
 
-          .name {
-            font-size: 16px;
-          }
+      const link = container.querySelector(
+        ':scope > a.icon_link'
+      ) as HTMLAnchorElement | null;
 
-          .info {
-            stroke: var(--fr--color-sapphire-blue);
-          }
-
-          .more path {
-            stroke: var(--fr--color-sapphire-blue);
-          }
-
-          .tabs:first-child {
-            border-left: 0.1rem solid var(--fr--color-platinum);
-          }
-
-          .tab {
-            border-right: 0.1rem solid var(--fr--color-platinum);
-            border-top: 0.1rem solid var(--fr--color-platinum);
-            border-radius: 0.2rem 0.2rem 0 0;
-            background-color: white;
-            color: var(--fr--color-sapphire-blue);
-            font-weight: 600;
-            margin-right: 0px;
-            padding: 1rem;
-            cursor: pointer;
-            user-select: none;
-          }
-
-          .tab:hover,
-          .tab:focus {
-            background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
-            box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
-          }
-
-          .tab.selected {
-            background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
-            box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
-            color: var(--fr--color-sapphire-blue);
-            font-weight: 600;
-          }
-
-          .tabpanel {
-            border: none;
-            border-top: 0.1rem solid var(--fr--color-platinum);
-          }
-
-          .icon_link {
-            color: #014371;
-            text-decoration: none;
-            font-weight: 600;
-          }
-        `;
-      node.shadowRoot.appendChild(styleElement);
-
-      const adaptRheaLink = (container: Element) => {
-        const span = container.querySelector(':scope > span');
-        if (!span) {
-          return;
-        }
-        const link = container.querySelector(
-          ':scope > a.icon_link'
-        ) as HTMLAnchorElement | null;
-        if (!link || link.contains(span)) {
-          return;
-        }
-
-        // TODO: open in new tab
-        const newLink = link.cloneNode(false) as HTMLAnchorElement;
-        container.insertBefore(newLink, span);
-        newLink.appendChild(span);
-        const svg = link.querySelector('svg');
-        if (svg) {
-          newLink.appendChild(svg);
-        }
+      let targetLink: HTMLAnchorElement;
+      if (!link) {
+        return;
+      } else if (link.contains(span)) {
+        // Already wrapped: keep using it
+        targetLink = link;
+      } else {
+        // Wrap the span (and old svg) with a new link that copies attributes
+        targetLink = link.cloneNode(false) as HTMLAnchorElement;
+        container.insertBefore(targetLink, span);
+        targetLink.appendChild(span);
         link.remove();
-      };
+      }
 
-      const adaptRheaLinks = () => {
-        node.shadowRoot
-          ?.querySelectorAll('.rhea-reaction-source')
-          .forEach(adaptRheaLink);
-      };
+      targetLink.target = '_blank';
+      // ensure rel includes noopener and noreferrer without duplicating
+      const relSet = new Set(
+        (targetLink.rel || '').split(/\s+/).filter(Boolean)
+      );
+      relSet.add('noopener');
+      relSet.add('noreferrer');
+      targetLink.rel = Array.from(relSet).join(' ');
+      targetLink.querySelector(':scope > svg')?.remove();
+    };
 
-      adaptRheaLinks();
+    const adaptAll = () => {
+      shadowRoot
+        .querySelectorAll('.rhea-reaction-source')
+        .forEach(adaptRheaLink);
+    };
 
-      // Observe future changes for when web component re-renders
-      const mo = new MutationObserver(() => adaptRheaLinks());
-      mo.observe(node.shadowRoot, { childList: true, subtree: true });
+    // Initial pass
+    adaptAll();
 
-      // TODO: add MutationObserver clean up
-    }
+    // Observe future shadow re-renders
+    const mo = new MutationObserver(adaptAll);
+    mo.observe(shadowRoot, { childList: true, subtree: true });
+
+    // TODO: add clean up
   }, []);
 
   if (rheaVisualizerElement.errored) {
