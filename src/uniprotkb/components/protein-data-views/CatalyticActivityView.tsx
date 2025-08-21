@@ -109,6 +109,11 @@ export const RheaReactionVisualizer = ({
         text-decoration: none;
         font-weight: 600;
       }
+      .rhea-reaction-source > a.icon_link:hover,
+      .rhea-reaction-source > a.icon_link:focus {
+        /* Hardcoded equivalent of lighten($var(--fr--color-sapphire-blue), 10) */
+        color: #0161a4;
+      }
       .rhea-reaction-source > a.icon_link::after {
           content: '';
           background: currentColor;
