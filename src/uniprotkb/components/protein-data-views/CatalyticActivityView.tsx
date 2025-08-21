@@ -101,36 +101,39 @@ export const RheaReactionVisualizer = ({
       }
       .tabpanel { border: none; border-top: 0.1rem solid var(--fr--color-platinum); }
 
-      .rhea-reaction-source > a.icon_link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-        color: var(--fr--color-sapphire-blue);
-        text-decoration: none;
-        font-weight: 600;
-      }
-      .rhea-reaction-source > a.icon_link:hover,
-      .rhea-reaction-source > a.icon_link:focus {
-        /* Hardcoded equivalent of lighten($var(--fr--color-sapphire-blue), 10) */
-        color: #0161a4;
-      }
-      .rhea-reaction-source > a.icon_link::after {
-          content: '';
-          background: currentColor;
-          -webkit-mask-image: ${externalLinkMask};
-          mask-image: ${externalLinkMask};
-          -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-          -webkit-mask-size: contain;
-          mask-size: contain;
-          -webkit-mask-position: center;
-          mask-position: center;
-          display: inline-block;
-          width: 0.75em;
-          height: 0.75em;
-          margin: 0 0.5ch;
-        }
-      }
+     
+
+  a.icon_link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--fr--color-sapphire-blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  a.icon_link:hover,
+  a.icon_link:focus { color: #0161a4; }
+
+  /* The icon "mixin": applies to both places */
+  a.icon_link::after {
+    content: '';
+    background: currentColor;
+    -webkit-mask-image: ${externalLinkMask};
+    mask-image: ${externalLinkMask};
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    display: inline-block;
+    width: 0.75em;
+    height: 0.75em;
+    margin: 0 0.5ch;
+  }
+
+  .tippy-box a.icon_link { color: white; text-decoration:underline }
     `;
       shadowRoot.appendChild(styleElement);
     }
@@ -141,7 +144,6 @@ export const RheaReactionVisualizer = ({
       if (!span) {
         return;
       }
-
       const link = container.querySelector(
         ':scope > a.icon_link'
       ) as HTMLAnchorElement | null;
@@ -171,10 +173,26 @@ export const RheaReactionVisualizer = ({
       targetLink.querySelector(':scope > svg')?.remove();
     };
 
+    const adaptTippyContent = (root: ShadowRoot) => {
+      const links = root.querySelectorAll('.tippy-box .tippy-content a[href]');
+      links.forEach((a) => {
+        a.classList.add('icon_link');
+        a.setAttribute('target', '_blank');
+        const rel = new Set(
+          (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean)
+        );
+        rel.add('noopener');
+        rel.add('noreferrer');
+        a.setAttribute('rel', Array.from(rel).join(' '));
+      });
+    };
+
     const adaptAll = () => {
       shadowRoot
         .querySelectorAll('.rhea-reaction-source')
         .forEach(adaptRheaLink);
+
+      adaptTippyContent(shadowRoot);
     };
 
     // Initial pass
