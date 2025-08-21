@@ -192,15 +192,9 @@ export const RheaReactionVisualizer = ({
         targetLink.appendChild(span);
         link.remove();
       }
-
       targetLink.target = '_blank';
-      const rel = new Set((targetLink.rel || '').split(/\s+/).filter(Boolean));
-      rel.add('noopener');
-      rel.add('noreferrer');
-      targetLink.rel = Array.from(rel).join(' ');
-      if (targetLink.querySelector(':scope > svg')) {
-        targetLink.querySelector(':scope > svg')?.remove();
-      }
+      targetLink.rel = 'noopener noreferrer';
+      targetLink.querySelector(':scope > svg')?.remove();
     };
 
     const adaptTippyContent = (root: ShadowRoot) => {
