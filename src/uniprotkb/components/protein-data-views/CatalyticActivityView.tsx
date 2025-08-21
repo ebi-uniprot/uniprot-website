@@ -248,7 +248,7 @@ export const RheaReactionVisualizer = ({
           className="button tertiary"
           onClick={() => setShow(!show)}
         >
-          {`${show ? 'Hide' : 'View'} reaction and atom map`}
+          {`${show ? 'Hide' : 'View'} reaction details`}
           {show ? (
             <ChevronUpIcon width="1ch" />
           ) : (
