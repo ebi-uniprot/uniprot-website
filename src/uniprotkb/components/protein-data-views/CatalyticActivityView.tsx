@@ -116,7 +116,7 @@ export const RheaReactionVisualizer = ({
   a.icon_link:focus { color: #0161a4; }
 
   /* The icon "mixin": applies to both places */
-  a.icon_link::after {
+a.icon_link:not(.no_icon)::after {
     content: '';
     background: currentColor;
     -webkit-mask-image: ${externalLinkMask};
@@ -176,6 +176,10 @@ export const RheaReactionVisualizer = ({
     const adaptTippyContent = (root: ShadowRoot) => {
       const links = root.querySelectorAll('.tippy-box .tippy-content a[href]');
       links.forEach((a) => {
+        if (a.textContent === 'Search proteins') {
+          // Don't have external link icon for UniProt links
+          a.classList.add('no_icon');
+        }
         a.classList.add('icon_link');
         a.setAttribute('target', '_blank');
         const rel = new Set(
