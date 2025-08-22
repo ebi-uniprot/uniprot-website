@@ -173,28 +173,8 @@ export const RheaReactionVisualizer = ({
       shadowRoot.appendChild(styleElement);
     }
 
-    const adaptRheaLink = (container: Element) => {
-      const span = container.querySelector(':scope > span');
-      if (!span) {
-        return;
-      }
-      const link = container.querySelector(
-        ':scope > a.icon_link'
-      ) as HTMLAnchorElement | null;
-      if (!link) {
-        return;
-      }
-
-      let targetLink = link;
-      if (!link.contains(span)) {
-        targetLink = link.cloneNode(false) as HTMLAnchorElement;
-        container.insertBefore(targetLink, span);
-        targetLink.appendChild(span);
-        link.remove();
-      }
-      targetLink.target = '_blank';
-      targetLink.rel = 'noopener noreferrer';
-      targetLink.querySelector(':scope > svg')?.remove();
+    const removeRheaLink = (shadowRoot: ShadowRoot) => {
+      shadowRoot.querySelector('.rhea-reaction-source')?.remove();
     };
 
     const adaptTippyContent = (root: ShadowRoot) => {
@@ -218,9 +198,7 @@ export const RheaReactionVisualizer = ({
     };
 
     const adaptAll = () => {
-      shadowRoot
-        .querySelectorAll('.rhea-reaction-source')
-        .forEach(adaptRheaLink);
+      removeRheaLink(shadowRoot);
       adaptTippyContent(shadowRoot);
     };
 
