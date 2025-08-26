@@ -92,16 +92,16 @@ const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
     [hitsFilteredByServer, facet, selectedFacets]
   );
 
-  if (bounds.min === bounds.max) {
-    // If all values are the same then don't render the histogram
-    return null;
-  }
+  let maybeHistogram = (
+    <div className="blast-parameters-facet__fallback">
+      All values are the same ({bounds.min}
+      {facet === BlastFacet.IDENTITY ? '%' : ''})
+    </div>
+  );
 
-  return (
-    <li key={facet} className={blastFacetToKeyName[facet]}>
-      <span className="blast-parameters-facet__title">
-        {blastFacetToNiceName[facet]}
-      </span>
+  if (bounds.min !== bounds.max) {
+    // Only render histogram if values are different
+    maybeHistogram = (
       <HistogramFilter
         height={50}
         min={bounds.min}
@@ -113,6 +113,15 @@ const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
         unfilteredValues={unfilteredValues as number[]}
         unfilteredValuesShadow={0.1}
       />
+    );
+  }
+
+  return (
+    <li key={facet} className={blastFacetToKeyName[facet]}>
+      <span className="blast-parameters-facet__title">
+        {blastFacetToNiceName[facet]}
+      </span>
+      {maybeHistogram}
     </li>
   );
 };

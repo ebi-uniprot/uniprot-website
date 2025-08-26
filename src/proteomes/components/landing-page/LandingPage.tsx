@@ -215,7 +215,7 @@ const LandingPage = () => {
                   width="3ch"
                   className={styles['ref-prot-icon']}
                 />
-                <div>
+                <span>
                   Reference proteomes
                   <br />
                   {refProtCount && (
@@ -242,7 +242,7 @@ const LandingPage = () => {
                       </Link>
                     </em>
                   </small>
-                </div>
+                </span>
               </p>
               <p
                 onPointerEnter={() => setNonRefProtHovered(true)}

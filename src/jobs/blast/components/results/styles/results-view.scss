@@ -4,7 +4,12 @@
   font-weight: bold;
 
   &__title {
-    padding-left: 1ch;
+    padding-inline-start: 1ch;
+  }
+
+  &__fallback {
+    font-size: 80%;
+    padding-inline-start: 2ch;
   }
 
   .hsp_identity {
