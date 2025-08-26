@@ -283,11 +283,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
         await sleep(0);
       }
 
-      navigate(LocationToPath[Location.Dashboard], {
-        state: {
-          parameters: multipleParameters,
-        },
-      });
+      navigate(LocationToPath[Location.Dashboard]);
     });
   };
 

@@ -157,11 +157,6 @@ const AlignForm = ({ initialFormValues }: Props) => {
     // navigate to the dashboard, not immediately, to give the impression that
     // something is happening
     sleep(1000).then(() => {
-      navigate(LocationToPath[Location.Dashboard], {
-        state: {
-          parameters: [parameters],
-        },
-      });
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after navigate so that pop-up messages (as a
@@ -174,6 +169,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
         )
       );
       sendGtagEventJobSubmit(JobTypes.ALIGN);
+      navigate(LocationToPath[Location.Dashboard]);
     });
   };
 

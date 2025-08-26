@@ -1,9 +1,8 @@
 import cn from 'classnames';
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { Navigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 
-import { getEntryPath } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';

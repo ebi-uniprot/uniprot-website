@@ -455,15 +455,6 @@ const animationOptionsForDelete: KeyframeAnimationOptions = {
   fill: 'both',
 };
 
-const keyframesForNew = {
-  opacity: [0, 1],
-  transform: ['scale(0.8)', 'scale(1.05)', 'scale(1)'],
-};
-const animationOptionsForNew: KeyframeAnimationOptions = {
-  duration: 500,
-  easing: 'ease-in-out',
-  fill: 'both',
-};
 const keyframesForStatusUpdate = {
   opacity: [1, 0.5, 1, 0.5, 1],
 };
@@ -479,9 +470,8 @@ interface RowProps {
 
 const Row = memo(({ job, hasExpired }: RowProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const firstTime = useRef<boolean>(true);
+  const statusRef = useRef(job.status);
 
-  const location = useLocation();
   const reducedMotion = useReducedMotion();
 
   // For async download
@@ -514,36 +504,19 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
     ).onfinish = () => dispatchJobs(deleteJob(internalID));
   };
 
-  // if the state of the current location contains the parameters from this job,
-  // it means we just arrived from a submission form page and this is the job
-  // that was just added, animate it to have it visually represented as "new"
-  useLayoutEffect(() => {
-    if (!(ref.current && 'animate' in ref.current)) {
-      return;
-    }
-    if (!location.state?.parameters?.includes?.(job.parameters)) {
-      return;
-    }
-    ref.current.animate(
-      // use flash of opacity if prefers reduced motion, otherwise zoom in/out
-      reducedMotion ? keyframesForStatusUpdate : keyframesForNew,
-      animationOptionsForNew
-    );
-  }, [location, job.parameters, reducedMotion]);
-
   // if the status of the current job changes, make it "flash"
   useLayoutEffect(() => {
     if (!(ref.current && 'animate' in ref.current)) {
       return;
     }
-    if (firstTime.current) {
-      firstTime.current = false;
-      return;
+
+    if (statusRef.current !== job.status) {
+      ref.current.animate(
+        keyframesForStatusUpdate,
+        animationOptionsForStatusUpdate
+      );
+      statusRef.current = job.status;
     }
-    ref.current.animate(
-      keyframesForStatusUpdate,
-      animationOptionsForStatusUpdate
-    );
   }, [job.status]);
 
   const noResults =

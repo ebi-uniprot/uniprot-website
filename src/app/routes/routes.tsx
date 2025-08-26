@@ -688,7 +688,11 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            Component: Dashboard,
+            element: (
+              <SingleColumnLayout>
+                <Dashboard />
+              </SingleColumnLayout>
+            ),
           },
         ],
       },

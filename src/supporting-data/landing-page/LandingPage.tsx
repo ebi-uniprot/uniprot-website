@@ -8,7 +8,6 @@ import { useFormLogic } from '../../contact/adapters/contactFormAdapter';
 import SupportingDataIllustration from '../../images/Supporting_data_illustration.jpg';
 import ExternalLink from '../../shared/components/ExternalLink';
 import HTMLHead from '../../shared/components/HTMLHead';
-import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
 import styles from './styles/landing-page.module.scss';
 
 const metaDescription =
