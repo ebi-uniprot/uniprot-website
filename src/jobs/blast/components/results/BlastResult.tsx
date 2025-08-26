@@ -31,7 +31,7 @@ import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
-import { BlastHit, BlastResults } from '../../types/blastResults';
+import { BlastHit, BlastResults, TabLocation } from '../../types/blastResults';
 import { PublicServerParameters } from '../../types/blastServerParameters';
 import {
   filterBlastByFacets,
@@ -83,15 +83,6 @@ const APIRequest = lazy(
       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
     )
 );
-
-enum TabLocation {
-  Overview = 'overview',
-  Taxonomy = 'taxonomy',
-  HitDistribution = 'hit-distribution',
-  TextOutput = 'text-output',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
 
 // custom hook to get data from the input parameters endpoint, input sequence
 // then parse it and merge it.

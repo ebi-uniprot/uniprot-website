@@ -37,6 +37,7 @@ import {
   MappingFlat,
   MappingWarningCode,
   MappingWarningsErrors,
+  TabLocation,
 } from '../../types/idMappingSearchResults';
 import { ServerParameters } from '../../types/idMappingServerParameters';
 import { rawDBToNamespace } from '../../utils';
@@ -81,12 +82,6 @@ export const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
   }
   return null;
 };
-
-enum TabLocation {
-  Overview = 'overview',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
 
 const IDMappingResult = () => {
   const location = useLocation();

@@ -1,8 +1,7 @@
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { Navigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 
-import { getEntryPath } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -33,30 +32,14 @@ const columns = [
   KeywordsColumn.graphical,
 ];
 
-const reNumber = /^\d+$/;
-
 const KeywordsEntry = () => {
   const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  let redirectTo = '';
-  // If the accession is a number not prefixed with "KW-"
-  if (accession && reNumber.test(accession)) {
-    redirectTo = `KW-${accession.padStart(4, '0')}`;
-  }
-
   const { data, loading, error, status, progress } =
     useDataApi<KeywordsAPIModel>(
-      redirectTo
-        ? undefined
-        : apiUrls.entry.entry(accession, Namespace.keywords)
+      apiUrls.entry.entry(accession, Namespace.keywords)
     );
-
-  if (redirectTo) {
-    return (
-      <Navigate replace to={getEntryPath(Namespace.keywords, redirectTo)} />
-    );
-  }
 
   if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;

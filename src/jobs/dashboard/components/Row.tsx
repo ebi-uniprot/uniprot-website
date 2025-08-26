@@ -28,11 +28,8 @@ import {
 } from 'react';
 import { Link, type LinkProps, useLocation, useNavigate } from 'react-router';
 
-import {
-  jobTypeToPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { jobTypeToPath } from '../../../app/config/urls';
+import ContactLink from '../../../contact/components/ContactLink';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
@@ -195,8 +192,7 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
               </span>
               <div className="dashboard__body__contact_link">
                 For further inquiry, please{' '}
-                <Link
-                  to={LocationToPath[Location.ContactGeneric]}
+                <ContactLink
                   state={{
                     referrer: location,
                     formValues: {
@@ -222,7 +218,7 @@ ${Object.entries(job.parameters)
                   title="Contact"
                 >
                   contact us
-                </Link>
+                </ContactLink>
               </div>
             </>
           )}

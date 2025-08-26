@@ -3,10 +3,15 @@
  * https://testing-library.com/docs/react-testing-library/setup#custom-render
  */
 import { render, RenderOptions } from '@testing-library/react';
-import { createMemoryHistory, LocationState, MemoryHistory } from 'history';
 import { Component, Dispatch, ReactElement, ReactNode } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { Route, Router } from 'react-router';
+import {
+  createMemoryHistory,
+  LocationState,
+  MemoryHistory,
+  Route,
+  Router,
+} from 'react-router';
 import { JsonValue, SetRequired } from 'type-fest';
 
 import { MessagesState } from '../../messages/state/messagesInitialState';

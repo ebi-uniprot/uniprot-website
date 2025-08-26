@@ -6,7 +6,6 @@ import {
   LongNumber,
   Message,
 } from 'franklin-sites';
-import { Location as HistoryLocation } from 'history';
 import {
   ChangeEvent,
   ChangeEventHandler,
@@ -14,7 +13,12 @@ import {
   useMemo,
   useReducer,
 } from 'react';
-import { generatePath, Link, useLocation } from 'react-router';
+import {
+  generatePath,
+  Link,
+  type Location as HistoryLocation,
+  useLocation,
+} from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import AsyncDownloadForm from '../../../jobs/async-download/components/AsyncDownloadForm';

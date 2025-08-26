@@ -18,7 +18,7 @@ import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
-import { AlignResults } from '../../types/alignResults';
+import { AlignResults, TabLocation } from '../../types/alignResults';
 import { PublicServerParameters } from '../../types/alignServerParameters';
 import useSequenceInfo from '../../utils/useSequenceInfo';
 
@@ -59,15 +59,6 @@ const APIRequest = lazy(
       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
     )
 );
-
-enum TabLocation {
-  Overview = 'overview',
-  Trees = 'trees',
-  PIM = 'percent-identity-matrix',
-  TextOutput = 'text-output',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
 
 // custom hook to get data from the input parameters endpoint, input sequence
 // then parse it and merge it.

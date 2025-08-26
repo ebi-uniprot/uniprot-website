@@ -6,19 +6,21 @@ import {
   PageIntro,
   SuccessIcon,
 } from 'franklin-sites';
-import { createPath } from 'history';
 import { ChangeEvent, ReactNode, useId, useMemo } from 'react';
-import { generatePath, Link, useLocation, useMatch } from 'react-router';
+import {
+  createPath,
+  generatePath,
+  Link,
+  type Path,
+  useLocation,
+  useMatch,
+} from 'react-router';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import ExternalLink from '../../shared/components/ExternalLink';
 import HTMLHead from '../../shared/components/HTMLHead';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
-import {
-  ContactLocationState,
-  Suggestion,
-  useFormLogic,
-} from '../adapters/contactFormAdapter';
+import { Suggestion, useFormLogic } from '../adapters/contactFormAdapter';
 import ContactLink from './ContactLink';
 import styles from './styles/contact-form.module.scss';
 
@@ -137,13 +139,14 @@ const ContactForm = () => {
   const isUpdate = !!useMatch(LocationToPath[Location.ContactUpdate]);
   const { state, search } = useLocation();
 
-  const locationState = state as ContactLocationState;
+  const { referrer, formValues } = state || {};
+
   let referrerValue = '';
-  if (locationState?.referrer) {
+  if (referrer) {
     referrerValue =
-      typeof locationState.referrer === 'string'
-        ? locationState.referrer
-        : createPath(locationState.referrer);
+      typeof referrer === 'string'
+        ? referrer
+        : createPath(referrer as Partial<Path>);
   }
 
   let subjectDefault: undefined | string;
@@ -162,7 +165,7 @@ const ContactForm = () => {
 
   const context = useMemo(() => {
     const websiteTranslation = translatedWebsite();
-    let context = `${locationState?.formValues?.context || ''}
+    let context = `${formValues?.context || ''}
 Referred from: ${globalThis.location.origin}${referrerValue}
 User browser: ${navigator.userAgent}
 Website version: ${GIT_COMMIT_HASH}`.trim();
@@ -170,7 +173,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
       context += `\nWebsite translated to: ${websiteTranslation}`;
     }
     return context;
-  }, [locationState?.formValues?.context, referrerValue]);
+  }, [formValues?.context, referrerValue]);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
@@ -218,7 +221,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
               id={`name-${formId}`}
               maxLength={100}
               onChange={handleChange}
-              defaultValue={locationState?.formValues?.name}
+              defaultValue={formValues?.name}
               data-hj-allow
             />
             {validity}
@@ -237,7 +240,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
               minLength={4}
               maxLength={100}
               onChange={handleChange}
-              defaultValue={locationState?.formValues?.email}
+              defaultValue={formValues?.email}
               data-hj-allow
             />
             {validity}
@@ -257,9 +260,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
               minLength={1}
               maxLength={100}
               onChange={handleChange}
-              defaultValue={
-                locationState?.formValues?.subject || subjectDefault
-              }
+              defaultValue={formValues?.subject || subjectDefault}
               data-hj-allow
             />
             {validity}
@@ -279,7 +280,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
                 handleTextareaChange(event);
                 handleChange(event);
               }}
-              defaultValue={locationState?.formValues?.message}
+              defaultValue={formValues?.message}
               data-hj-allow
             />
             {validity}
@@ -345,14 +346,13 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
             <ul className="no-bullet">
               <li>
                 <ContactLink
-                  to={{
-                    pathname:
-                      LocationToPath[
-                        isUpdate
-                          ? Location.ContactGeneric
-                          : Location.ContactUpdate
-                      ],
-                  }}
+                  to={
+                    LocationToPath[
+                      isUpdate
+                        ? Location.ContactGeneric
+                        : Location.ContactUpdate
+                    ]
+                  }
                 >
                   {isUpdate
                     ? 'Send us general questions and suggestions'

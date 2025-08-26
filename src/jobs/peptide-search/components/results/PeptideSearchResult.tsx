@@ -40,7 +40,10 @@ import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
 import { FormParameters } from '../../types/peptideSearchFormParameters';
-import { PeptideSearchResults } from '../../types/peptideSearchResults';
+import {
+  PeptideSearchResults,
+  TabLocation,
+} from '../../types/peptideSearchResults';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -67,12 +70,6 @@ const APIRequest = lazy(
       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
     )
 );
-
-enum TabLocation {
-  Overview = 'overview',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
 
 enum ServerJobParameters {
   QueryPetides = 'QueryPetides',

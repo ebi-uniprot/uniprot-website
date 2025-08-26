@@ -38,28 +38,14 @@ const columns = [
   LocationsColumn.references,
 ];
 
-const reNumber = /^\d+$/;
-
 const LocationsEntry = () => {
   const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  let redirectTo = '';
-  // If the accession is a number not prefixed with "SL-"
-  if (accession && reNumber.test(accession)) {
-    redirectTo = `SL-${accession.padStart(4, '0')}`;
-  }
-
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<LocationsAPIModel>(
-      redirectTo
-        ? undefined
-        : apiUrls.entry.entry(accession, Namespace.locations)
+      apiUrls.entry.entry(accession, Namespace.locations)
     );
-
-  if (redirectTo) {
-    <Navigate replace to={getEntryPath(Namespace.locations, redirectTo)} />;
-  }
 
   if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;

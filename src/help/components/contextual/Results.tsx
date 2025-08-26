@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader } from 'franklin-sites';
-import { Link } from 'react-router';
+import { Link, useRouteLoaderData } from 'react-router';
 
 import { getLocationEntryPath, Location } from '../../../app/config/urls';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -10,22 +10,10 @@ import { HelpSearchResponse } from '../../types/apiModel';
 import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 import styles from './styles/results.module.scss';
 
-const Results = ({
-  data,
-  loading,
-  error,
-  status,
-  progress,
-}: UseDataAPIWithStaleState<HelpSearchResponse>) => {
-  if (error || (!loading && !data)) {
-    return <ErrorHandler status={status} error={error} noReload />;
-  }
+const Results = () => {
+  const data = useRouteLoaderData<HelpSearchResponse>('contextual-help-root');
 
-  if (!data) {
-    return <Loader progress={progress} />;
-  }
-
-  if (data.results.length) {
+  if (data?.results.length) {
     return (
       <ul className={cn('no-bullet', styles.container)}>
         {data.results.map(({ matches, title, id }) => {

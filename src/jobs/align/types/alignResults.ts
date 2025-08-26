@@ -27,3 +27,12 @@ export type AlnClustalNum = {
   sequences: AlnClustalSequence[];
   conservation: string;
 };
+
+export enum TabLocation {
+  Overview = 'overview',
+  Trees = 'trees',
+  PIM = 'percent-identity-matrix',
+  TextOutput = 'text-output',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
+}

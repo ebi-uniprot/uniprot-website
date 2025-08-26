@@ -1,10 +1,14 @@
 import 'swagger-ui-react/swagger-ui.css';
 
 import { Card, Chip, Loader, Message } from 'franklin-sites';
-import { Location as HistoryLocation } from 'history';
 import type { OpenAPIV3 } from 'openapi-types';
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { Link, Outlet, useLocation } from 'react-router';
+import {
+  Link,
+  type Location as HistoryLocation,
+  Outlet,
+  useLocation,
+} from 'react-router';
 import SwaggerUI from 'swagger-ui-react';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

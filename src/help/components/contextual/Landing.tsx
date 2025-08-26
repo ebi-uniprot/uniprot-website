@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { throttle } from 'lodash-es';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router';
 
 import {
@@ -12,6 +13,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import apiUrls from '../../config/apiUrls';
 import { HelpEntryResponse } from '../../types/apiModel';
+import Shortcuts from './Shortcuts';
 import styles from './styles/landing.module.scss';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);
@@ -236,29 +238,32 @@ const Landing = () => {
   let firstVisibleFound = false;
 
   return (
-    <section className={styles.container}>
-      <ul className="no-bullet">
-        <h2 className="medium">Start here</h2>
-        {inPageArticles.size
-          ? Array.from(inPageArticles).map(([id, isVisible]) => {
-              let firstVisible = false;
-              if (!firstVisibleFound && isVisible) {
-                firstVisible = true;
-                firstVisibleFound = true;
-              }
-              return (
-                <li key={id}>
-                  <ArticleTitle
-                    id={id}
-                    firstVisible={firstVisible}
-                    isVisible={isVisible}
-                  />
-                </li>
-              );
-            })
-          : fallbackLandingContent}
-      </ul>
-    </section>
+    <>
+      <Shortcuts />
+      <section className={styles.container}>
+        <ul className="no-bullet">
+          <h2 className="medium">Start here</h2>
+          {inPageArticles.size
+            ? Array.from(inPageArticles).map(([id, isVisible]) => {
+                let firstVisible = false;
+                if (!firstVisibleFound && isVisible) {
+                  firstVisible = true;
+                  firstVisibleFound = true;
+                }
+                return (
+                  <li key={id}>
+                    <ArticleTitle
+                      id={id}
+                      firstVisible={firstVisible}
+                      isVisible={isVisible}
+                    />
+                  </li>
+                );
+              })
+            : fallbackLandingContent}
+        </ul>
+      </section>
+    </>
   );
 };
 

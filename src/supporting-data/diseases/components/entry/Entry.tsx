@@ -1,9 +1,8 @@
 import cn from 'classnames';
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { Navigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 
-import { getEntryPath } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -37,21 +36,10 @@ const DiseasesEntry = () => {
   const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  let redirectTo = '';
-  if (accession && Number.isFinite(+accession)) {
-    redirectTo = `DI-${accession.padStart(5, '0')}`;
-  }
-
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<DiseasesAPIModel>(
-      redirectTo ? null : apiUrls.entry.entry(accession, Namespace.diseases)
+      apiUrls.entry.entry(accession, Namespace.diseases)
     );
-
-  if (redirectTo) {
-    return (
-      <Navigate replace to={getEntryPath(Namespace.diseases, redirectTo)} />
-    );
-  }
 
   if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;

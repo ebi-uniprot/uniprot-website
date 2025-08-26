@@ -1,6 +1,5 @@
-import { Location } from 'history';
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { useLocation } from 'react-router';
+import { type Location, useLocation } from 'react-router';
 
 import * as logging from '../../utils/logging';
 import ErrorComponent from './ErrorComponent';

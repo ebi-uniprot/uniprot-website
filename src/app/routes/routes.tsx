@@ -1,24 +1,31 @@
-import { CodeBlock } from 'franklin-sites';
-import { type ComponentType, lazy, Suspense } from 'react';
-import {
-  Navigate,
-  Outlet,
-  redirect,
-  type RouteObject,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from 'react-router';
+import { lazy } from 'react';
+import { type RouteObject } from 'react-router';
 
+import { TabLocation as AlignTabLocation } from '../../jobs/align/types/alignResults';
+import { TabLocation as BlastTabLocation } from '../../jobs/blast/types/blastResults';
+import { TabLocation as IDMappingTabLocation } from '../../jobs/id-mapping/types/idMappingSearchResults';
+import { TabLocation as PeptideSearchTabLocation } from '../../jobs/peptide-search/types/peptideSearchResults';
 import ErrorComponent from '../../shared/components/error-component/ErrorComponent';
 import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumnLayout';
-import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
-import {
-  Namespace,
-  type SearchableNamespace,
-} from '../../shared/types/namespaces';
+import { Namespace } from '../../shared/types/namespaces';
+import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
+import { TabLocation as UPKBTabLocation } from '../../uniprotkb/types/entry';
 import App from '../components/App';
 import GlobalContext from '../contexts/Global';
+import IfSupportsJobs from './helpers/IfSupportJobs';
+import {
+  redirectToEntryRoute,
+  redirectToOverviewRoute,
+  redirectToUPKBRoute,
+} from './helpers/redirectLoaders';
+import resultsOrLanding from './helpers/resultOrLanding';
+import {
+  catchAll,
+  cleanAccession,
+  getNumberWithPrefixAccession,
+  getSubPages,
+  uppercaseAccession,
+} from './loaders/composable-helpers';
 
 const HomePage = lazy(
   () =>
@@ -49,13 +56,19 @@ const UniParcLandingPage = lazy(
 const ProteomesLandingPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-landing" */ '../../proteomes/components/landing-page/LandingPage'
+      /* webpackChunkName: "proteomes-landing" */ '../../proteomes/components/landing-page/LandingPage'
     )
 );
 const UniRefLandingPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-landing" */ '../../uniref/components/landing-page/LandingPage'
+      /* webpackChunkName: "uniref-landing" */ '../../uniref/components/landing-page/LandingPage'
+    )
+);
+const SupportingDataLandingPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "supporting-data-landing" */ '../../supporting-data/landing-page/LandingPage'
     )
 );
 // Search results
@@ -240,6 +253,14 @@ const ApiDocumentationPage = lazy(
     )
 );
 
+// Contact
+const ContactForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "contact-form" */ '../../contact/components/ContactForm'
+    )
+);
+
 const ResourceNotFoundPage = lazy(
   () =>
     import(
@@ -247,68 +268,45 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
-const JobsNotSupportedPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "jobs-not-supported" */ '../../shared/components/error-pages/JobsNotSupported'
-    )
+// loaders
+const proteomesNumberAccession = getNumberWithPrefixAccession('UP', 9);
+const uniparcNumberAccession = getNumberWithPrefixAccession('UPI', 10);
+const keywordsNumberAccession = getNumberWithPrefixAccession('KW-', 4);
+const diseasesNumberAccession = getNumberWithPrefixAccession('DI-', 5);
+const xrefsNumberAccession = getNumberWithPrefixAccession('DB-', 4);
+const subcellNumberAccession = getNumberWithPrefixAccession('SL-', 5);
+const uniruleNumberAccession = getNumberWithPrefixAccession('UR', 9);
+const arbaNumberAccession = getNumberWithPrefixAccession('ARBA', 8);
+const uniprotkbSubPages = getSubPages(
+  new Set(Object.values(UPKBTabLocation)),
+  UPKBTabLocation.Entry,
+  new Map([
+    ['protvista', UPKBTabLocation.FeatureViewer],
+    ['features-viewer', UPKBTabLocation.FeatureViewer],
+    ['variants-viewer', UPKBTabLocation.VariantViewer],
+  ])
 );
-
-const Empty = () => {
-  const location = useLocation();
-  const params = useParams();
-
-  return (
-    <section>
-      <h1>Empty page to be implemented</h1>
-      <CodeBlock>{JSON.stringify({ location, params }, null, 2)}</CodeBlock>
-    </section>
-  );
-};
-
-// Helper component to render a landing page or the results page depending on
-// the presence of absence of a query and of a corresponding landing page
-const resultsOrLanding =
-  (ResultsPage: ComponentType, LandingPage?: ComponentType) => () => {
-    const [searchParams] = useSearchParams();
-    // If there is a query is the URL
-    if (searchParams.has('query')) {
-      // ...and the query has a value
-      if (searchParams.get('query')) {
-        return <ResultsPage />;
-      }
-      // otherwise, if empty query value, redirect to star search
-      return <Navigate to="?query=*" replace />;
-    }
-    // If no query at all, redirect to a landing page if it exists
-    if (LandingPage) {
-      return <LandingPage />;
-    }
-    // Otherwise, if no landing page, redirect to star search
-    return <Navigate to="?query=*" replace />;
-  };
-
-const redirectToEntryRoute = {
-  index: true,
-  loader: () => redirect('entry'),
-};
-
-const redirectToOverviewRoute = {
-  index: true,
-  loader: () => redirect('overview'),
-};
-
-const redirectToUPKBRoute = {
-  index: true,
-  loader: () => redirect('uniprotkb'),
-};
-
-const IfSupportsJobs = () => {
-  const supportsJobs = useSupportsJobs();
-  return (
-    <Suspense>{supportsJobs ? <Outlet /> : <JobsNotSupportedPage />}</Suspense>
-  );
-};
+const uniparcSubPages = getSubPages(
+  new Set(Object.values(UniParcTabLocation)),
+  UniParcTabLocation.Entry,
+  new Map([['protvista', UniParcTabLocation.FeatureViewer]])
+);
+const blastSubPages = getSubPages(
+  new Set(Object.values(BlastTabLocation)),
+  BlastTabLocation.Overview
+);
+const alignSubPages = getSubPages(
+  new Set(Object.values(AlignTabLocation)),
+  AlignTabLocation.Overview
+);
+const idMappingSubPages = getSubPages(
+  new Set(Object.values(IDMappingTabLocation)),
+  IDMappingTabLocation.Overview
+);
+const peptideSearchSubPages = getSubPages(
+  new Set(Object.values(PeptideSearchTabLocation)),
+  PeptideSearchTabLocation.Overview
+);
 
 export const routes: RouteObject[] = [
   {
@@ -320,12 +318,12 @@ export const routes: RouteObject[] = [
     errorElement: <ErrorComponent />,
     children: [
       {
-        index: true,
+        index: true, // Check is this needed here?
         path: '/',
         Component: HomePage,
       },
       {
-        path: 'uniprotkb',
+        path: Namespace.uniprotkb,
         children: [
           {
             index: true,
@@ -340,18 +338,25 @@ export const routes: RouteObject[] = [
           },
           {
             path: ':accession',
+            loader: (args) => {
+              cleanAccession(args);
+              uppercaseAccession(args);
+            },
             children: [
               redirectToEntryRoute,
               {
                 path: ':subPage',
                 Component: UniProtKBEntryPage,
+                loader: (args) => {
+                  uniprotkbSubPages(args);
+                },
               },
             ],
           },
         ],
       },
       {
-        path: 'proteomes',
+        path: Namespace.proteomes,
         children: [
           {
             index: true,
@@ -362,12 +367,17 @@ export const routes: RouteObject[] = [
           },
           {
             path: ':accession',
+            loader: (args) => {
+              cleanAccession(args);
+              uppercaseAccession(args);
+              proteomesNumberAccession(args);
+            },
             Component: ProteomesEntryPage,
           },
         ],
       },
       {
-        path: 'uniref',
+        path: Namespace.uniref,
         children: [
           {
             index: true,
@@ -375,12 +385,15 @@ export const routes: RouteObject[] = [
           },
           {
             path: ':accession',
+            loader: (args) => {
+              cleanAccession(args);
+            },
             Component: UniRefEntryPage,
           },
         ],
       },
       {
-        path: 'uniparc',
+        path: Namespace.uniparc,
         children: [
           {
             index: true,
@@ -388,10 +401,18 @@ export const routes: RouteObject[] = [
           },
           {
             path: ':accession',
+            loader: (args) => {
+              cleanAccession(args);
+              uppercaseAccession(args);
+              uniparcNumberAccession(args);
+            },
             children: [
               redirectToEntryRoute,
               {
                 path: ':subPage',
+                loader: (args) => {
+                  uniparcSubPages(args);
+                },
                 children: [
                   {
                     index: true,
@@ -408,7 +429,15 @@ export const routes: RouteObject[] = [
         ],
       },
       {
-        path: 'taxonomy',
+        path: 'supporting-data',
+        element: (
+          <SingleColumnLayout>
+            <SupportingDataLandingPage />
+          </SingleColumnLayout>
+        ),
+      },
+      {
+        path: Namespace.taxonomy,
         children: [
           {
             index: true,
@@ -421,7 +450,7 @@ export const routes: RouteObject[] = [
         ],
       },
       {
-        path: 'keywords',
+        path: Namespace.keywords,
         children: [
           {
             index: true,
@@ -430,11 +459,14 @@ export const routes: RouteObject[] = [
           {
             path: ':accession',
             Component: KeywordsEntryPage,
+            loader: (args) => {
+              keywordsNumberAccession(args);
+            },
           },
         ],
       },
       {
-        path: 'citations',
+        path: Namespace.citations,
         children: [
           {
             index: true,
@@ -447,7 +479,7 @@ export const routes: RouteObject[] = [
         ],
       },
       {
-        path: 'diseases',
+        path: Namespace.diseases,
         children: [
           {
             index: true,
@@ -456,11 +488,14 @@ export const routes: RouteObject[] = [
           {
             path: ':accession',
             Component: DiseasesEntryPage,
+            loader: (args) => {
+              diseasesNumberAccession(args);
+            },
           },
         ],
       },
       {
-        path: 'database',
+        path: Namespace.database,
         children: [
           {
             index: true,
@@ -469,11 +504,14 @@ export const routes: RouteObject[] = [
           {
             path: ':accession',
             Component: DatabaseEntryPage,
+            loader: (args) => {
+              xrefsNumberAccession(args);
+            },
           },
         ],
       },
       {
-        path: 'locations',
+        path: Namespace.locations,
         children: [
           {
             index: true,
@@ -482,11 +520,14 @@ export const routes: RouteObject[] = [
           {
             path: ':accession',
             Component: LocationsEntryPage,
+            loader: (args) => {
+              subcellNumberAccession(args);
+            },
           },
         ],
       },
       {
-        path: 'unirule',
+        path: Namespace.unirule,
         children: [
           {
             index: true,
@@ -495,11 +536,14 @@ export const routes: RouteObject[] = [
           {
             path: ':accession',
             Component: UniRuleEntryPage,
+            loader: (args) => {
+              uniruleNumberAccession(args);
+            },
           },
         ],
       },
       {
-        path: 'arba',
+        path: Namespace.arba,
         children: [
           {
             index: true,
@@ -508,6 +552,9 @@ export const routes: RouteObject[] = [
           {
             path: ':accession',
             Component: ARBAEntryPage,
+            loader: (args) => {
+              arbaNumberAccession(args);
+            },
           },
         ],
       },
@@ -530,6 +577,9 @@ export const routes: RouteObject[] = [
               {
                 path: ':subPage',
                 Component: BlastResult,
+                loader: (args) => {
+                  blastSubPages(args);
+                },
               },
             ],
           },
@@ -554,6 +604,9 @@ export const routes: RouteObject[] = [
               {
                 path: ':subPage',
                 Component: AlignResult,
+                loader: (args) => {
+                  alignSubPages(args);
+                },
               },
             ],
           },
@@ -571,16 +624,22 @@ export const routes: RouteObject[] = [
               </SingleColumnLayout>
             ),
           },
-          ...['uniprotkb', 'uniref', 'uniparc'].map((ns) => ({
-            path: `${ns}/:id`,
-            children: [
-              redirectToOverviewRoute,
-              {
-                path: ':subPage',
-                Component: IDMappingResult,
-              },
-            ],
-          })),
+          ...[Namespace.uniprotkb, Namespace.uniref, Namespace.uniparc].map(
+            (ns) =>
+              ({
+                path: `${ns}/:id`,
+                children: [
+                  redirectToOverviewRoute,
+                  {
+                    path: ':subPage',
+                    Component: IDMappingResult,
+                    loader: (args) => {
+                      idMappingSubPages(args);
+                    },
+                  },
+                ],
+              }) satisfies RouteObject
+          ),
           {
             path: ':id',
             children: [
@@ -588,6 +647,9 @@ export const routes: RouteObject[] = [
               {
                 path: ':subPage',
                 Component: IDMappingResult,
+                loader: (args) => {
+                  idMappingSubPages(args);
+                },
               },
             ],
           },
@@ -612,6 +674,9 @@ export const routes: RouteObject[] = [
               {
                 path: ':subPage',
                 Component: PeptideSearchResult,
+                loader: (args) => {
+                  peptideSearchSubPages(args);
+                },
               },
             ],
           },
@@ -665,15 +730,26 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'contact',
-        Component: Empty,
+        element: (
+          <SingleColumnLayout>
+            <ContactForm />
+          </SingleColumnLayout>
+        ),
       },
       {
         path: 'update',
-        Component: Empty,
+        element: (
+          <SingleColumnLayout>
+            <ContactForm />
+          </SingleColumnLayout>
+        ),
       },
       {
         path: '*',
         Component: ResourceNotFoundPage,
+        loader: (args) => {
+          catchAll(args);
+        },
       },
     ],
   },
