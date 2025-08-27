@@ -7,7 +7,7 @@ import {
   setTag as sentrySetTag,
 } from '@sentry/react';
 import { lazy, Suspense } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Outlet } from 'react-router';
 import { sleep } from 'timing-functions';
 
@@ -15,8 +15,17 @@ import pkg from '../../../package.json';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
+import apiUrls from '../../shared/config/apiUrls/apiUrls';
+import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
+import { MessagesProvider } from '../../shared/contexts/Messages';
 import useReloadApp from '../../shared/hooks/useReloadApp';
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
+import { Namespace } from '../../shared/types/namespaces';
+import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
+import {
+  databaseInfoColumnsSanityCheck,
+  getDatabaseInfoMaps,
+} from '../../uniprotkb/utils/database';
 import description from '../config/description';
 import DevDeploymentWarning from './DevDeploymentWarning';
 
@@ -87,38 +96,67 @@ const BackToTheTop = lazy(() =>
   )
 );
 
-const App = () => {
+export const loader = async () => {
+  try {
+    const response = await fetch(
+      apiUrls.configure.allDatabases(Namespace.uniprotkb)
+    );
+    if (!response.ok) {
+      new Response(response.statusText, { status: response.status });
+    }
+    const uniProtDataVersion = {
+      releaseNumber: response.headers.get('x-uniprot-release'),
+      releaseDate: new Date(response.headers.get('x-uniprot-release-date')!),
+    };
+    const data: DatabaseInfo = await response.json();
+    if (process.env.NODE_ENV === 'development' && data) {
+      databaseInfoColumnsSanityCheck(data);
+    }
+    const databaseInfoMaps = getDatabaseInfoMaps(data);
+    return { uniProtDataVersion, databaseInfoMaps };
+  } catch {
+    throw new Response('Unexpected error', { status: 500 });
+  }
+};
+
+const Root = () => {
   useReloadApp();
   useScrollToTop();
 
   return (
-    <>
-      <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
-        <meta
-          name="description"
-          // default description, to override wherever needed
-          content={description}
-        />
-      </Helmet>
-      <DevDeploymentWarning />
-      <BaseLayout>
-        <Outlet />
-      </BaseLayout>
-      <ErrorBoundary fallback={null}>
-        <GDPR />
-      </ErrorBoundary>
-      <Suspense fallback={null}>
-        <ErrorBoundary fallback={null}>
-          <ContextualHelp />
-        </ErrorBoundary>
-      </Suspense>
-      <Suspense fallback={null}>
-        <ErrorBoundary fallback={null}>
-          <BackToTheTop />
-        </ErrorBoundary>
-      </Suspense>
-    </>
+    <ErrorBoundary>
+      <HelmetProvider>
+        <MessagesProvider>
+          <IDMappingDetailsProvider>
+            <Helmet titleTemplate="%s | UniProt" defaultTitle="UniProt">
+              <meta
+                name="description"
+                // default description, to override wherever needed
+                content={description}
+              />
+            </Helmet>
+            <DevDeploymentWarning />
+            <BaseLayout>
+              <Outlet />
+            </BaseLayout>
+            <ErrorBoundary fallback={null}>
+              <GDPR />
+            </ErrorBoundary>
+            <Suspense fallback={null}>
+              <ErrorBoundary fallback={null}>
+                <ContextualHelp />
+              </ErrorBoundary>
+            </Suspense>
+            <Suspense fallback={null}>
+              <ErrorBoundary fallback={null}>
+                <BackToTheTop />
+              </ErrorBoundary>
+            </Suspense>
+          </IDMappingDetailsProvider>
+        </MessagesProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
   );
 };
 
-export default App;
+export default Root;

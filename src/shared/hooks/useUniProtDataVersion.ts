@@ -1,4 +1,14 @@
-import getContextHook from '../contexts/getContextHook';
-import { UniProtDataVersionContext } from '../contexts/UniProtData';
+import { useRouteLoaderData } from 'react-router';
 
-export default getContextHook(UniProtDataVersionContext);
+import { UniProtDataVersion } from '../contexts/UniProtData';
+
+export default () => {
+  const { uniProtDataVersion } =
+    useRouteLoaderData<{
+      uniProtDataVersion: UniProtDataVersion;
+    }>('root') || {};
+  if (!uniProtDataVersion) {
+    throw new Error('Unexpected error');
+  }
+  return uniProtDataVersion;
+};

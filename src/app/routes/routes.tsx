@@ -1,3 +1,4 @@
+import { Loader } from 'franklin-sites';
 import { lazy } from 'react';
 import { type RouteObject } from 'react-router';
 
@@ -10,8 +11,7 @@ import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumn
 import { Namespace } from '../../shared/types/namespaces';
 import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
 import { TabLocation as UPKBTabLocation } from '../../uniprotkb/types/entry';
-import App from '../components/App';
-import GlobalContext from '../contexts/Global';
+import Root, { loader as rootLoader } from '../components/Root';
 import IfSupportsJobs from './helpers/IfSupportJobs';
 import {
   redirectToEntryRoute,
@@ -310,16 +310,15 @@ const peptideSearchSubPages = getSubPages(
 
 export const routes: RouteObject[] = [
   {
-    element: (
-      <GlobalContext>
-        <App />
-      </GlobalContext>
-    ),
-    errorElement: <ErrorComponent />,
+    path: '/',
+    id: 'root',
+    Component: Root,
+    HydrateFallback: Loader,
+    ErrorBoundary: ErrorComponent,
+    loader: rootLoader,
     children: [
       {
-        index: true, // Check is this needed here?
-        path: '/',
+        index: true,
         Component: HomePage,
       },
       {
