@@ -34,7 +34,7 @@ describe('EntryDownload', () => {
     const downloadLink = screen.getByTitle<HTMLAnchorElement>('Download file');
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
-        '/uniref/UniRef100_A0A009E088/members?format=list'
+        '/uniref/UniRef100_A0A009E088/members/stream?format=list'
       )
     );
   });

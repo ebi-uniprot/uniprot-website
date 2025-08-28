@@ -7,20 +7,34 @@ import { stringifyUrl } from '../../shared/utils/url';
 
 const members = (
   id: string,
+  isDownload: boolean = false,
   options: {
     facets?: Readonly<string[]>;
     selectedFacets?: string[];
     size?: number;
     format?: FileFormat.json | FileFormat.list;
   } = {}
-) =>
-  stringifyUrl(joinUrl(apiPrefix, 'uniref', id, 'members'), {
-    size: options.size,
-    facets: options.facets?.join(',') || undefined,
-    facetFilter: options.selectedFacets?.join(' AND ') || undefined,
+) => {
+  const baseUrl = joinUrl(
+    apiPrefix,
+    'uniref',
+    id,
+    'members',
+    isDownload ? 'stream' : ''
+  );
+
+  const params = {
     format: options.format
       ? fileFormatToUrlParameter[options.format]
       : undefined,
-  });
+    ...(!isDownload && {
+      size: options.size,
+      facets: options.facets?.join(',') || undefined,
+      facetFilter: options.selectedFacets?.join(' AND ') || undefined,
+    }),
+  };
+
+  return stringifyUrl(baseUrl, params);
+};
 
 export default { members };
