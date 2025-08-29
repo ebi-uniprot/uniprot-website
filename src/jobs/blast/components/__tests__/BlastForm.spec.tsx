@@ -1,11 +1,14 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { enableFetchMocks, FetchMock } from 'jest-fetch-mock';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import BlastForm from '../BlastForm';
+
+enableFetchMocks();
 
 const mock = new MockAdapter(axios);
 mock.onGet().reply(200, mockSuggesterApi.response);
@@ -131,6 +134,13 @@ describe('BlastForm test', () => {
   });
 
   it('Adds and removes a taxon', async () => {
+    (fetch as FetchMock).mockResponse('OK', {
+      status: 200,
+      headers: {
+        'X-Total-Results': '1000',
+      },
+    });
+
     const autocompleteInput = screen.getByRole('searchbox', {
       name: 'Restrict by taxonomy',
     });
