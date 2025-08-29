@@ -77,11 +77,10 @@ const alphaFoldCoordinatesFormats = [
 const alphaFoldConfidenceFormats = [FileFormat.json];
 const alphaMissenseAnnotationsFormats = [FileFormat.csv];
 
-// once it is OK to expose peff format, uncomment the following
-// const proteinsAPIVariationFormats = [
-//   ...proteinsAPICommonFormats,
-//   FileFormat.peff,
-// ];
+const proteinsAPIVariationFormats = [
+  ...proteinsAPICommonFormats,
+  FileFormat.peff,
+];
 
 export enum Dataset {
   uniprotData = 'Entry',
@@ -543,10 +542,9 @@ const EntryDownload = ({
       case Dataset.selectedFeatures:
         setFileFormats(uniprotkbSpecificFeatureFormats);
         break;
-      // case Dataset.variation:
-      //   setFileFormats(proteinsAPIVariationFormats);
-      //   break;
       case Dataset.variation:
+        setFileFormats(proteinsAPIVariationFormats);
+        break;
       case Dataset.proteomicsNonPtm:
       case Dataset.proteomicsPtm:
       case Dataset.coordinates:
