@@ -463,18 +463,24 @@ const BlastForm = ({ initialFormValues }: Props) => {
             {searchSpaceTotal !== Infinity &&
             (formValues[BlastFields.taxons]?.selected as SelectedTaxon[])
               ?.length ? (
-              <Message level={searchSpaceTotal === 0 ? 'failure' : 'info'}>
+              <Message
+                level={searchSpaceTotal === 0 ? 'failure' : 'info'}
+                className="taxonomy-selection-message"
+              >
                 {searchSpaceTotal === 0 ? (
-                  <span>
-                    There is no sequence matching the taxonomy filtering in the
-                    selected database
-                  </span>
+                  <>
+                    <strong>No sequences found for your selection</strong>
+                    <br />
+                    The chosen database has no results that match the selected
+                    taxonomy filter. Please adjust your filters to proceed
+                  </>
                 ) : (
-                  <span>
-                    Total number of sequences in the selected database with the
-                    applied taxonomic filtering:{' '}
-                    <strong>{searchSpaceTotal}</strong>
-                  </span>
+                  <>
+                    <strong>Sequences Available: {searchSpaceTotal}</strong>
+                    <br />
+                    This is the total number of sequences in the selected
+                    database that match your current taxonomy filter.
+                  </>
                 )}
               </Message>
             ) : null}
