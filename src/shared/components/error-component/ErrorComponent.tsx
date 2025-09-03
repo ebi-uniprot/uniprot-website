@@ -2,6 +2,7 @@ import { Message } from 'franklin-sites';
 import { Link } from 'react-router';
 
 import { getLocationEntryPath, Location } from '../../../app/config/urls';
+import ContactLink from '../../../contact/components/ContactLink';
 import styles from './styles/error-component.module.scss';
 
 const ErrorComponent = () => (
@@ -23,14 +24,7 @@ const ErrorComponent = () => (
         </p>
         <p>
           If the error persists, please{' '}
-          <a
-            target="_blank"
-            href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-            rel="noopener noreferrer"
-          >
-            report this bug here
-          </a>
-          .
+          <ContactLink>report this bug here</ContactLink>.
         </p>
       </small>
     </Message>

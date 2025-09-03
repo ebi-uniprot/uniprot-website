@@ -611,17 +611,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/281/"
+          href="https://www.proteinspotlight.org/back_issues/282/"
           rel="noopener"
           target="_blank"
         >
-          Foam etc.
+          Ramifications
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/281/"
+        href="https://www.proteinspotlight.org/back_issues/282/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -630,14 +630,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt281.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt282.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          The  nice  thing  about  shampoo  is  the  foam  it  produces.  When  it  doesn't,  we  usually  add  a  little  more  to  froth  things  up  -  because  foam  is  a  very  pleasant  part  of  the  procedure...
+          There  is  much  talk  about  plastic  these  days.  And  with  reason.  Besides  depending  on  fossil  fuels,  plastic  is  infesting  every  nook  and  cranny  of  our  planet  because  there  is  simply  too  much  of  it...
       </p>
     </article>
   </section>
