@@ -38,9 +38,7 @@ exports[`ErrorComponent should render 1`] = `
           <p>
             If the error persists, please 
             <a
-              href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-              rel="noopener noreferrer"
-              target="_blank"
+              href="/contact"
             >
               report this bug here
             </a>

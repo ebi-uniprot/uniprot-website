@@ -13,8 +13,6 @@ type Props = {
 };
 
 const SideButtons = ({ displayHelp, onClick }: Props) => {
-  // const [displayFeedback, setDisplayFeedback] = useState(false);
-
   useEffect(() => {
     // Checking if there is a scroll bar
     const mainContent = document?.querySelector<HTMLElement>(
@@ -50,30 +48,12 @@ const SideButtons = ({ displayHelp, onClick }: Props) => {
             document.head.appendChild(style);
           }
         }
-
-        // return;
       }
-      // setDisplayFeedback(true);
     });
   }, []);
 
   return (
     <span className={sideButtonStyles.container}>
-      {/* <a
-        className={cn(
-          sideButtonStyles['side-button'],
-          sideButtonStyles.feedback,
-          {
-            [sideButtonStyles.visible]: displayFeedback,
-          }
-        )}
-        target="_blank"
-        href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-        rel="noopener noreferrer"
-        tabIndex={-1}
-      >
-        Feedback
-      </a> */}
       <Link
         to={LocationToPath[Location.HelpResults]}
         onClick={onClick}
