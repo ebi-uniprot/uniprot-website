@@ -8,6 +8,7 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
+import { RefProtMoveProteomesEntryMessage } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import {
@@ -65,6 +66,7 @@ const Entry = () => {
           searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
+      <RefProtMoveProteomesEntryMessage />
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}

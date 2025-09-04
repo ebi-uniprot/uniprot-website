@@ -19,10 +19,10 @@ const UniProtKBGenericPreamble = () => (
   </>
 );
 
-const UniProtKBRemovePreamble = () => (
+const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
   <>
-    This entry (accession) is under consideration for removal in release 2026_01
-    (planned for the first quarter of 2026).
+    This entry ({accession}) is under consideration for removal in release
+    2026_01 (planned for the first quarter of 2026).
   </>
 );
 
@@ -48,7 +48,7 @@ const UniProtKBGenericMessage = () => (
 
 const ProteomesMessage = () => (
   <>
-    ⚠️We are updating the reference proteomes selection procedure. As a result,
+    We are updating the reference proteomes selection procedure. As a result,
     the UniProtKB Unreviewed/TrEMBL database will become smaller in release
     2026_01 (planned for the first quarter of 2026) and will only include
     reference proteomes and selected entries with experimental or biologically
@@ -80,6 +80,16 @@ export const RefProtMoveResultsMessage: FC<{
   );
 };
 
+export const RefProtMoveProteomesEntryMessage = () => (
+  <Message
+    level="warning"
+    className="uniprot-grid-cell--span-12"
+    style={{ marginBottom: '1rem', marginTop: '1rem' }}
+  >
+    <ProteomesMessage />
+  </Message>
+);
+
 type CheckMoveResponse = {
   move?: string[];
   stay?: string[];
@@ -87,10 +97,11 @@ type CheckMoveResponse = {
 };
 
 export const RefProtMoveUniProtKBEntryMessage: FC<{
-  upids?: string[];
-}> = ({ upids }) => {
+  accession: string;
+  upids: string[];
+}> = ({ accession, upids }) => {
   const { data, loading } = useDataApi<CheckMoveResponse>(
-    stringifyUrl(checkMoveUrl, { upids })
+    upids.length ? stringifyUrl(checkMoveUrl, { upids }) : null
   );
   const isEntryUnderReview = !!data?.move?.length;
   return (
@@ -101,7 +112,7 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
     >
       {!loading &&
         (isEntryUnderReview ? (
-          <UniProtKBRemovePreamble />
+          <UniProtKBRemovePreamble accession={accession} />
         ) : (
           <UniProtKBGenericPreamble />
         ))}

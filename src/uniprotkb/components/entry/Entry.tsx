@@ -460,9 +460,12 @@ const Entry = () => {
             />
           </HTMLHead>
           <RefProtMoveUniProtKBEntryMessage
-            upids={data.uniProtKBCrossReferences
-              ?.filter((db) => db.database === 'Proteomes')
-              ?.map((db) => db.id)}
+            accession={accession}
+            upids={
+              data.uniProtKBCrossReferences
+                ?.filter((db) => db.database === 'Proteomes' && db.id)
+                ?.map((db) => db.id) as string[]
+            }
           />
           <h1>
             <EntryTitle
