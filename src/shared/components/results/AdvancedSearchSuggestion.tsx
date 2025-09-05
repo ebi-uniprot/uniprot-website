@@ -1,6 +1,6 @@
 import { EllipsisReveal } from 'franklin-sites';
 import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { SearchTermType } from '../../../query-builder/types/searchTypes';

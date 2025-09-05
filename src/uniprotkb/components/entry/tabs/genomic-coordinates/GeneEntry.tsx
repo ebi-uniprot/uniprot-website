@@ -1,6 +1,6 @@
 import { Card, InfoList, Message } from 'franklin-sites';
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPathFor } from '../../../../../app/config/urls';
 import ExternalLink from '../../../../../shared/components/ExternalLink';

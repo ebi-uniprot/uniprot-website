@@ -1,8 +1,13 @@
 import { Card, DataListWithLoader, InfoList, Loader } from 'franklin-sites';
-import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { capitalize, groupBy } from 'lodash-es';
-import { Fragment, useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import {
+  type ComponentProps,
+  Fragment,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { Link, useLocation } from 'react-router';
 import { Except, SetRequired, Simplify } from 'type-fest';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
@@ -212,7 +217,8 @@ export const PublicationReference = ({
   });
 
   // Merging all of them into one
-  let mergedInfoList: InfoListItem[] = [];
+  let mergedInfoList: NonNullable<ComponentProps<typeof InfoList>['infoData']> =
+    [];
   infoListWithContent.forEach((arr) => {
     if (mergedInfoList.length) {
       arr.forEach((obj, i) => {

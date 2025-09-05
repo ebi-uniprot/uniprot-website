@@ -1,5 +1,5 @@
 import { BytesNumber, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { jobTypeToPath, Location } from '../../app/config/urls';
 import { pluralise } from '../../shared/utils/utils';

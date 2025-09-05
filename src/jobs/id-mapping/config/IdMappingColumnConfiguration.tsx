@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';

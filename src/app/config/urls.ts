@@ -1,6 +1,5 @@
-import { LocationDescriptorObject } from 'history';
 import { partial } from 'lodash-es';
-import { generatePath, matchPath } from 'react-router-dom';
+import { generatePath, matchPath } from 'react-router';
 
 import { databaseToNamespace } from '../../jobs/blast/config/BlastFormData';
 import { FormParameters as BLASTFormParameters } from '../../jobs/blast/types/blastFormParameters';
@@ -11,8 +10,6 @@ import {
   Namespace,
   namespaceAndToolsLabels,
   SearchableNamespace,
-  searchableNamespaceLabels,
-  supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
 import { FinishedJob, Job } from '../../shared/workers/jobs/types/job';
 
@@ -93,8 +90,8 @@ export const LocationToPath: Record<Location, string> = {
   [Location.UniProtKBResults]: `/${Namespace.uniprotkb}`,
   [Location.UniRefEntry]: `/${Namespace.uniref}/:accession`,
   [Location.UniRefResults]: `/${Namespace.uniref}`,
-  [Location.UniParcSubEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)/:subEntryId`,
-  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)?`,
+  [Location.UniParcSubEntry]: `/${Namespace.uniparc}/:accession/:subPage/:subEntryId`,
+  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage?`,
   [Location.UniParcResults]: `/${Namespace.uniparc}`,
   [Location.ProteomesEntry]: `/${Namespace.proteomes}/:accession`,
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,
@@ -118,26 +115,22 @@ export const LocationToPath: Record<Location, string> = {
   [Location.ARBAEntry]: `/${Namespace.arba}/:accession`,
   [Location.ARBAResults]: `/${Namespace.arba}`,
   // Tools
-  [Location.Basket]: `/basket/:namespace(${basketNamespaces.join('|')})`,
+  [Location.Basket]: `/basket/:namespace`,
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',
-  [Location.BlastResult]: `/blast/:namespace(${blastNamespaces.join(
-    '|'
-  )})/:id/:subPage?`,
+  [Location.BlastResult]: `/blast/:namespace/:id/:subPage?`,
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  [Location.IDMappingResult]: `/id-mapping/:namespace(${IDMappingNamespaces.join(
-    '|'
-  )})?/:id/:subPage?`,
+  [Location.IDMappingResult]: `/id-mapping/:namespace?/:id/:subPage?`,
   [Location.IDMapping]: '/id-mapping',
   // Help
   [Location.HelpEntry]: '/help/:accession',
   [Location.HelpResults]: '/help',
   [Location.Documentation]: '/api-documentation/:definition?',
   // News
-  [Location.ReleaseNotesEntry]: '/release-notes/:accession+',
+  [Location.ReleaseNotesEntry]: '/release-notes/:accession',
   [Location.ReleaseNotesResults]: '/release-notes',
   // Contact
   [Location.ContactGeneric]: '/contact',
@@ -161,21 +154,6 @@ export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   [Namespace.unirule]: LocationToPath[Location.UniRuleResults],
   [Namespace.arba]: LocationToPath[Location.ARBAResults],
 };
-
-// "/:namespace(uniprotkb|uniparc|........)"
-export const allSearchResultLocations = `/:namespace(${Object.keys(
-  searchableNamespaceLabels
-).join('|')})`;
-
-// "/:namespace(uniprotkb|uniparc|........)/:accession"
-export const allEntryPages = `/:namespace(${Object.keys(
-  searchableNamespaceLabels
-).join('|')})/:accession`;
-
-// same as above, but with automatic annotations, and with accession
-export const allSupportingDataAndAAEntryLocations = `/:namespace(${Array.from(
-  supportingDataAndAANamespaces
-).join('|')})/:accession`;
 
 // All "entry" locations need to have a "accession" param in the pattern
 const EntryLocations: Record<SearchableNamespace, string> = {
@@ -308,13 +286,6 @@ export const getURLToJobWithData = (
     options ? `[${options.start}-${options.end}]` : ''
   }`;
 
-export const changePathnameOnly =
-  <S = unknown>(pathname: string) =>
-  (location: LocationDescriptorObject<S>) => ({
-    ...location,
-    pathname,
-  });
-
 export type ToolsResultsLocations =
   | Location.AlignResult
   | Location.BlastResult
@@ -342,5 +313,5 @@ export const getJobResultsLocation = (
   pathname: string
 ): ToolsResultsLocations | undefined =>
   toolsResultsLocations.find((location) =>
-    matchPath(pathname, { path: LocationToPath[location] })
+    matchPath({ path: LocationToPath[location] }, pathname)
   );

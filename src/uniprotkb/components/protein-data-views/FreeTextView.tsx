@@ -1,11 +1,7 @@
 import { FC, Fragment, ReactNode, useContext } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router';
 
-import {
-  allEntryPages,
-  getEntryPath,
-  getEntryPathFor,
-} from '../../../app/config/urls';
+import { getEntryPath, getEntryPathFor } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { IsoformsContext } from '../../../shared/contexts/Isoforms';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
@@ -206,7 +202,7 @@ const FreeTextView: FC<React.PropsWithChildren<FreeTextProps>> = ({
   articleId,
   showMolecule = true,
 }) => {
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = Boolean(useMatch('/:namespace/:accession'));
 
   if (!comments?.length) {
     return null;

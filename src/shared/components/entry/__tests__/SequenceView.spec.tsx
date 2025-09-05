@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
+import { createMemoryHistory } from 'react-router';
 
 import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
 import { JobTypes } from '../../../../jobs/types/jobTypes';

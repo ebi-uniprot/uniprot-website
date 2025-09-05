@@ -1,6 +1,6 @@
 import { partition } from 'lodash-es';
 import { Dispatch, SetStateAction } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { IDMappingColumn } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';

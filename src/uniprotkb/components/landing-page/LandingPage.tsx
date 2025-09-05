@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { LongNumber, SwissProtIcon, TremblIcon } from 'franklin-sites';
 import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import {
   getLocationEntryPath,

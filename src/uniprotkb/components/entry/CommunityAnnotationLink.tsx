@@ -1,7 +1,7 @@
 import { Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 import { FC } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';

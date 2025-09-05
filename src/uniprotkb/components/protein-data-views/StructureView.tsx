@@ -1,5 +1,5 @@
 import { Loader, Message } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import useCustomElement from '../../../shared/hooks/useCustomElement';

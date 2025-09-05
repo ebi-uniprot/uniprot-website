@@ -3,10 +3,9 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
 import { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router';
 import joinUrl from 'url-join';
 
-import { getEntryPath, Location } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
@@ -23,7 +22,6 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
@@ -42,10 +40,7 @@ import Overview from './Overview';
 import UniParcFeaturesView from './UniParcFeaturesView';
 
 const Entry = () => {
-  const match = useMatchWithRedirect<{
-    accession: string;
-    subPage?: TabLocation;
-  }>(Location.UniParcEntry, TabLocation);
+  const { accession, subPage } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
 
@@ -54,12 +49,11 @@ const Entry = () => {
     defaultColumns
   );
 
-  const baseURL =
-    apiUrls.entry.entry(match?.params.accession, Namespace.uniparc) || '';
+  const baseURL = apiUrls.entry.entry(accession, Namespace.uniparc) || '';
 
   // Query for xref facets
   const initialApiFacetUrl = useXref({
-    accession: match?.params.accession,
+    accession,
     size: 0,
     withFacets: true,
   });
@@ -76,7 +70,7 @@ const Entry = () => {
     isStale: facetHasStaleData,
   } = xRefsFacetApiObject;
 
-  if (!match?.params.accession || !match || lightObject.error) {
+  if (!accession || lightObject.error) {
     return (
       <ErrorHandler
         status={lightObject.status}
@@ -100,7 +94,7 @@ const Entry = () => {
 
   let sidebar;
 
-  switch (match.params.subPage) {
+  switch (subPage) {
     case TabLocation.FeatureViewer:
       sidebar = null;
       break;
@@ -135,19 +129,9 @@ const Entry = () => {
         </h1>
         <Overview data={transformedData} />
       </ErrorBoundary>
-      <Tabs active={match.params.subPage}>
+      <Tabs active={subPage}>
         <Tab
-          title={
-            <Link
-              to={getEntryPath(
-                Namespace.uniparc,
-                match.params.accession,
-                TabLocation.Entry
-              )}
-            >
-              Entry
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.Entry}`}>Entry</Link>}
           id={TabLocation.Entry}
         >
           {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
@@ -159,40 +143,22 @@ const Entry = () => {
             />
           )}
           <div className="button-group">
-            <ToolsDropdown
-              selectedEntries={[match.params.accession]}
-              blast
-              mapID
-            />
+            <ToolsDropdown selectedEntries={[accession]} blast mapID />
             <EntryDownloadButton handleToggle={handleToggleDownload} />
-            <AddToBasketButton selectedEntries={match.params.accession} />
+            <AddToBasketButton selectedEntries={accession} />
           </div>
           <EntryMain transformedData={transformedData} />
         </Tab>
         <Tab
           title={
             smallScreen ? null : (
-              <Link
-                to={getEntryPath(
-                  Namespace.uniparc,
-                  match.params.accession,
-                  TabLocation.FeatureViewer
-                )}
-              >
-                Feature viewer
-              </Link>
+              <Link to={`../${TabLocation.FeatureViewer}`}>Feature viewer</Link>
             )
           }
           id={TabLocation.FeatureViewer}
         >
           {smallScreen ? (
-            <Redirect
-              to={getEntryPath(
-                Namespace.uniparc,
-                match.params.accession,
-                TabLocation.Entry
-              )}
-            />
+            <Navigate replace to={`../${TabLocation.Entry}`} />
           ) : (
             <>
               <HTMLHead

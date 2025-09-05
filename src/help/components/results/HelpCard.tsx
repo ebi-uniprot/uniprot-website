@@ -1,6 +1,6 @@
 import { Card } from 'franklin-sites';
 import { memo } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router';
 
 import {
   getLocationEntryPath,
@@ -29,7 +29,7 @@ const HelpCard = ({
   headingLevel = 'h2',
 }: Props) => {
   const isReleaseNote = Boolean(
-    useRouteMatch(LocationToPath[Location.ReleaseNotesResults])
+    useMatch(LocationToPath[Location.ReleaseNotesResults])
   );
   const to = getLocationEntryPath(
     isReleaseNote ? Location.ReleaseNotesEntry : Location.HelpEntry,

@@ -1,6 +1,6 @@
 import { Card } from 'franklin-sites';
 import { lazy, memo, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { SetRequired } from 'type-fest/source/set-required';
 
 import {

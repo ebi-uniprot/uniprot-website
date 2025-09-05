@@ -1,7 +1,6 @@
 import { Button, Dropdown, ShareNodesIcon } from 'franklin-sites';
-import { createPath } from 'history';
 import { Dispatch, SetStateAction } from 'react';
-import { useLocation } from 'react-router-dom';
+import { createPath, useLocation } from 'react-router';
 
 import useColumnNames from '../../hooks/useColumnNames';
 import useNS from '../../hooks/useNS';

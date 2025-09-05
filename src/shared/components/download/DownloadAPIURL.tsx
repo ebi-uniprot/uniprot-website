@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Button, CodeBlock, CopyIcon, LongNumber } from 'franklin-sites';
 import { useCallback, useEffect, useRef } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import {

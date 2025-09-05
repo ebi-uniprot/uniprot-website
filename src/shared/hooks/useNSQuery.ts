@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { HeroContainer, Tile } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import FTPIllustration from '../../../images/ftp_illustration.img.svg';
 import ProgrammaticIllustration from '../../../images/programmatic_illustration.img.svg';

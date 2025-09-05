@@ -1,5 +1,5 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
-import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
+import { generatePath, useMatch } from 'react-router';
 import { frame } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -12,17 +12,14 @@ import ContextualHelpContainer from './ContextualHelpContainer';
 import SideButtons from './SideButtons';
 
 const ContextualHelp = () => {
-  const history = useHistory();
   const [articlePath, setArticlePath] = useState<string | undefined>(undefined);
   const [displayButton, setDisplayButton] = useState<boolean | undefined>();
   // Needs to match the height value in the contextual-help stylesheet
   const smallScreen = useMatchMedia('only screen and (max-height: 35em)');
 
-  const isHelpResults = useRouteMatch(LocationToPath[Location.HelpResults]);
-  const isGenericContact = useRouteMatch(
-    LocationToPath[Location.ContactGeneric]
-  );
-  const isUpdateContact = useRouteMatch(LocationToPath[Location.ContactUpdate]);
+  const isHelpResults = useMatch(LocationToPath[Location.HelpResults]);
+  const isGenericContact = useMatch(LocationToPath[Location.ContactGeneric]);
+  const isUpdateContact = useMatch(LocationToPath[Location.ContactUpdate]);
 
   const shouldBeVisible =
     !isHelpResults && !isGenericContact && !isUpdateContact && !smallScreen;
@@ -68,7 +65,7 @@ const ContextualHelp = () => {
     return () => {
       document.removeEventListener('click', eventHandler, { capture: true });
     };
-  }, [history, smallScreen]);
+  }, [smallScreen]);
 
   const handleClose = useCallback<
     (reason: 'outside' | 'x-button' | 'navigation' | 'escape') => void

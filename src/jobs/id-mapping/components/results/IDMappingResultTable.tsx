@@ -1,5 +1,5 @@
 import { ExpandableList, HeroContainer, LongNumber } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';

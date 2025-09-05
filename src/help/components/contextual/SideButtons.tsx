@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { MouseEventHandler, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { sleep } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

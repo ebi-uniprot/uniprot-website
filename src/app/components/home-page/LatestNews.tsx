@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Chip, HeroContainer } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { Location, LocationToPath } from '../../config/urls';

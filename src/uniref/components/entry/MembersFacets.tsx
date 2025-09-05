@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { memo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { Facets } from '../../../shared/components/results/Facets';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';

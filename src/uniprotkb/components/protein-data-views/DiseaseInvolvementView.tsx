@@ -1,9 +1,9 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
 import { Fragment, memo } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router';
 
-import { allEntryPages, getEntryPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
 import Table from '../../../shared/components/table/Table';
@@ -145,7 +145,7 @@ const DiseaseInvolvementEntry = ({
   accession,
 }: DiseaseInvolvementEntryProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = Boolean(useMatch('/:namespace/:accession'));
   const { disease, molecule, note } = comment;
 
   if (!disease && !note) {

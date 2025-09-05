@@ -1,7 +1,7 @@
 import { Loader, Message, sequenceProcessor } from 'franklin-sites';
 import { orderBy, truncate } from 'lodash-es';
 import { ReactNode, useEffect, useMemo, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { sleep } from 'timing-functions';
 
 import {

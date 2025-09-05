@@ -1,23 +1,24 @@
-import { History } from 'history';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router';
 
 import { needsReload } from '../../service-worker/reload-flag';
 
-const useReloadApp = (history: History) => {
-  useEffect(() => {
-    let previousPathname = history.location.pathname;
-    const unlisten = history.listen((location) => {
-      // if the path changes, and the app needs a reload
-      if (previousPathname !== location.pathname && needsReload.current) {
-        window.location.reload();
-      }
-      previousPathname = location.pathname;
-    });
+const useReloadApp = () => {
+  const { pathname } = useLocation();
 
-    return () => {
-      unlisten();
-    };
-  }, [history]);
+  // Initial pathname
+  const pathnameRef = useRef(pathname);
+
+  useEffect(() => {
+    // If flag for "needs reload" has been set to true
+    // and, whenever the current path changes
+    if (needsReload.current && pathname !== pathnameRef.current) {
+      window.location.reload();
+    } else {
+      // Otherwise just keep storing the current pathname
+      pathnameRef.current = pathname;
+    }
+  }, [pathname]);
 };
 
 export default useReloadApp;

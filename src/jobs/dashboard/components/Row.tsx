@@ -14,7 +14,6 @@ import {
   SpinnerIcon,
   WarningTriangleIcon,
 } from 'franklin-sites';
-import { LocationDescriptor } from 'history';
 import {
   ChangeEvent,
   KeyboardEvent,
@@ -27,14 +26,10 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, type LinkProps, useLocation, useNavigate } from 'react-router';
 
-import {
-  jobTypeToPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import { jobTypeToPath } from '../../../app/config/urls';
+import ContactLink from '../../../contact/components/ContactLink';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
@@ -54,7 +49,6 @@ import {
 import { Status } from '../../../shared/workers/jobs/types/jobStatuses';
 import { databaseValueToName } from '../../blast/config/BlastFormData';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
-import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
 import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
 import { SelectedTaxon } from '../../types/jobsFormData';
 import { FormParameters } from '../../types/jobsFormParameters';
@@ -158,11 +152,16 @@ const SpinningNotify = ({ children }: { children: ReactNode }) => (
 
 interface NiceStatusProps {
   job: Job;
-  jobLink?: LocationDescriptor;
+  jobLink?: {
+    to: LinkProps['to'];
+    state: LinkProps['state'];
+  };
   jobUrl?: string;
 }
 
 const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
+  const location = useLocation();
+
   switch (job.status) {
     case Status.CREATED:
       return <SpinningNotify>Created</SpinningNotify>;
@@ -193,14 +192,12 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
               </span>
               <div className="dashboard__body__contact_link">
                 For further inquiry, please{' '}
-                <Link<ContactLocationState>
-                  to={(location) => ({
-                    pathname: LocationToPath[Location.ContactGeneric],
-                    state: {
-                      referrer: location,
-                      formValues: {
-                        subject: `Failed ${job.type} job`,
-                        context: `*** Job error ***
+                <ContactLink
+                  state={{
+                    referrer: location,
+                    formValues: {
+                      subject: `Failed ${job.type} job`,
+                      context: `*** Job error ***
 ${job.errorDescription}
 
 ${
@@ -216,13 +213,12 @@ ${Object.entries(job.parameters)
   .join(',\n')}`
 }
 `,
-                      },
                     },
-                  })}
+                  }}
                   title="Contact"
                 >
                   contact us
-                </Link>
+                </ContactLink>
               </div>
             </>
           )}
@@ -278,7 +274,9 @@ ${Object.entries(job.parameters)
                 {actualHits === 0 && job.type !== JobTypes.ID_MAPPING ? (
                   <span>Completed</span>
                 ) : (
-                  <Link to={jobLink}>Completed</Link>
+                  <Link to={jobLink.to} state={jobLink.state}>
+                    Completed
+                  </Link>
                 )}{' '}
                 <span
                   title={`${actualHits} ${hitText} found${
@@ -298,7 +296,9 @@ ${Object.entries(job.parameters)
         }
         return (
           <>
-            <Link to={jobLink}>Completed</Link>
+            <Link to={jobLink.to} state={jobLink.state}>
+              Completed
+            </Link>
             <Seen job={job} />
           </>
         );
@@ -399,7 +399,7 @@ interface ActionsProps {
 }
 
 const Actions = ({ job, onDelete }: ActionsProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <span className="dashboard__body__actions">
@@ -419,8 +419,10 @@ const Actions = ({ job, onDelete }: ActionsProps) => {
           title="resubmit this job"
           onClick={(event) => {
             event.stopPropagation();
-            history.push(jobTypeToPath(job.type), {
-              parameters: { ...job.parameters, name: job.title },
+            navigate(jobTypeToPath(job.type), {
+              state: {
+                parameters: { ...job.parameters, name: job.title },
+              },
             });
           }}
         >
@@ -453,15 +455,6 @@ const animationOptionsForDelete: KeyframeAnimationOptions = {
   fill: 'both',
 };
 
-const keyframesForNew = {
-  opacity: [0, 1],
-  transform: ['scale(0.8)', 'scale(1.05)', 'scale(1)'],
-};
-const animationOptionsForNew: KeyframeAnimationOptions = {
-  duration: 500,
-  easing: 'ease-in-out',
-  fill: 'both',
-};
 const keyframesForStatusUpdate = {
   opacity: [1, 0.5, 1, 0.5, 1],
 };
@@ -475,21 +468,16 @@ interface RowProps {
   hasExpired?: boolean;
 }
 
-interface CustomLocationState {
-  parameters?: Job['parameters'][];
-}
-
 const Row = memo(({ job, hasExpired }: RowProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const firstTime = useRef<boolean>(true);
+  const statusRef = useRef(job.status);
 
-  const history = useHistory<CustomLocationState | undefined>();
   const reducedMotion = useReducedMotion();
 
   // For async download
   let jobUrl: string | undefined;
   // For everything else
-  let jobLink: LocationDescriptor<LocationStateFromJobLink> | undefined;
+  let jobLink;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
     if (job.type === JobTypes.ASYNC_DOWNLOAD) {
       const urlConfig = asyncDownloadUrlObjectCreator(
@@ -498,7 +486,7 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
       jobUrl = urlConfig.resultUrl(job.remoteID);
     } else {
       jobLink = {
-        pathname: jobTypeToPath(job.type, job),
+        to: { pathname: jobTypeToPath(job.type, job) },
         state: { internalID: job.internalID },
       };
     }
@@ -516,36 +504,19 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
     ).onfinish = () => dispatchJobs(deleteJob(internalID));
   };
 
-  // if the state of the current location contains the parameters from this job,
-  // it means we just arrived from a submission form page and this is the job
-  // that was just added, animate it to have it visually represented as "new"
-  useLayoutEffect(() => {
-    if (!(ref.current && 'animate' in ref.current)) {
-      return;
-    }
-    if (!history.location?.state?.parameters?.includes?.(job.parameters)) {
-      return;
-    }
-    ref.current.animate(
-      // use flash of opacity if prefers reduced motion, otherwise zoom in/out
-      reducedMotion ? keyframesForStatusUpdate : keyframesForNew,
-      animationOptionsForNew
-    );
-  }, [history, job.parameters, reducedMotion]);
-
   // if the status of the current job changes, make it "flash"
   useLayoutEffect(() => {
     if (!(ref.current && 'animate' in ref.current)) {
       return;
     }
-    if (firstTime.current) {
-      firstTime.current = false;
-      return;
+
+    if (statusRef.current !== job.status) {
+      ref.current.animate(
+        keyframesForStatusUpdate,
+        animationOptionsForStatusUpdate
+      );
+      statusRef.current = job.status;
     }
-    ref.current.animate(
-      keyframesForStatusUpdate,
-      animationOptionsForStatusUpdate
-    );
   }, [job.status]);
 
   const noResults =
@@ -568,7 +539,11 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
         );
       }
       if (jobLink) {
-        jobIdNode = <Link to={jobLink}>{job.remoteID}</Link>;
+        jobIdNode = (
+          <Link to={jobLink.to} state={jobLink.state}>
+            {job.remoteID}
+          </Link>
+        );
       }
     }
   } else if (!hasExpired) {

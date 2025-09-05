@@ -1,7 +1,7 @@
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import { useEffect, useState } from 'react';
-import { RouteChildrenProps, useHistory } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { frame } from 'timing-functions';
 
 import { getEntryPath } from '../../../../app/config/urls';
@@ -53,12 +53,11 @@ const lastColumns = [
   TaxonomyColumn.links,
 ];
 
-const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const TaxonomyEntry = () => {
+  const { accession } = useParams();
   const dispatch = useMessagesDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   const mainData = useDataApi<TaxonomyAPIModel>(
     apiUrls.entry.entry(accession, Namespace.taxonomy)
@@ -93,15 +92,15 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         })
       );
       frame().then(() =>
-        history.replace(getEntryPath(Namespace.taxonomy, newEntry))
+        navigate(getEntryPath(Namespace.taxonomy, newEntry), { replace: true })
       );
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
-    // match?.params.subPage had when the component was mounted.
+    // accession had when the component was mounted.
     // eslint-disable-next-line reactHooks/exhaustive-deps
-  }, [dispatch, mainData.redirectedTo]);
+  }, [navigate, dispatch, mainData.redirectedTo]);
 
-  if (mainData.error || !accession || (!mainData.loading && !mainData.data)) {
+  if (mainData.error || (!mainData.loading && !mainData.data)) {
     return (
       <ErrorHandler status={mainData.status} error={mainData.error} fullPage />
     );

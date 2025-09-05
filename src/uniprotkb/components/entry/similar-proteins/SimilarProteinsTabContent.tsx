@@ -1,7 +1,7 @@
 import { Loader } from 'franklin-sites';
 import { zip } from 'lodash-es';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';

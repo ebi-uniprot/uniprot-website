@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../app/config/urls';
 import ErrorComponent from '../shared/components/error-pages/ErrorComponent';

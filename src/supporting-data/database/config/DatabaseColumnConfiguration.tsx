@@ -1,5 +1,5 @@
 import { CodeBlock, ExpandableList } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';

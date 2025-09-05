@@ -1,6 +1,6 @@
 import { groupBy } from 'lodash-es';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import useMessagesState from '../../shared/hooks/useMessagesState';

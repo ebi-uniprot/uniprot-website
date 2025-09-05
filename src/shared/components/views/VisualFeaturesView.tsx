@@ -3,7 +3,7 @@ import NightingaleNavigation from '@nightingale-elements/nightingale-navigation'
 import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import { FullViewIcon } from 'franklin-sites';
 import { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import NightingaleZoomTool, {
@@ -54,7 +54,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   range,
 }: Props<T>) {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const params = useParams<{ accession: string }>();
+  const params = useParams();
   const trackRef = useRef<NightingaleTrackCanvas>(null);
   const managerRef = useRef<NightingaleManager>(null);
   const navigationRef = useRef<NightingaleNavigation>(null);
@@ -148,7 +148,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
         nightingaleNavigationRef={navigationRef}
       />
       <EntryDownloadButton handleToggle={handleToggleDownload} />
-      {!noLinkToFullView && (
+      {!noLinkToFullView && params.accession && (
         <Link
           to={getEntryPath(
             Namespace.uniprotkb,
@@ -157,7 +157,9 @@ function VisualFeaturesView<T extends ProcessedFeature>({
           )}
           title="View in the Feature Viewer"
           onClick={() => {
-            sendGtagEventFeatureViewerFullViewClick(params.accession);
+            if (params.accession) {
+              sendGtagEventFeatureViewerFullViewClick(params.accession);
+            }
           }}
           className={styles['full-view']}
         >

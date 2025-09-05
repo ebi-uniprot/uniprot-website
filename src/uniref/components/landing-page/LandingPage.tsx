@@ -2,7 +2,7 @@
 import { Loader, LongNumber } from 'franklin-sites';
 import { fromPairs } from 'lodash-es';
 import { ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

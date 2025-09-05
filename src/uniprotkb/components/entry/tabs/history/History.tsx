@@ -10,7 +10,7 @@ import {
 } from 'franklin-sites';
 import { Fragment, ReactNode, Suspense, useMemo, useState } from 'react';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 
 import { getEntryPath } from '../../../../../app/config/urls';
 import EntryTypeIcon from '../../../../../shared/components/entry/EntryTypeIcon';

@@ -1,4 +1,4 @@
-import { generatePath } from 'react-router-dom';
+import { generatePath } from 'react-router';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
