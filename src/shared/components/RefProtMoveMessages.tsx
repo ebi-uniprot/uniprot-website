@@ -48,11 +48,11 @@ const UniProtKBGenericMessage = () => (
 
 const ProteomesMessage = () => (
   <>
-    We are updating the reference proteomes selection procedure. As a result,
-    the UniProtKB Unreviewed/TrEMBL database will become smaller in release
-    2026_01 (planned for the first quarter of 2026) and will only include
-    reference proteomes and selected entries with experimental or biologically
-    important data.
+    We are updating the reference proteomes selection procedure (planned for the
+    first quarter of 2026). While all proteomes will remain accessible through
+    the proteomes database, proteins in UniProtKB will only include reference
+    proteomes and selected entries with experimental or biologically important
+    data.
     <br />
     <br />
     Entries removed from UniProtKB will remain accessible in UniParc. Please see{' '}
