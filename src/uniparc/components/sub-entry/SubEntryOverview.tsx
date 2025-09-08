@@ -48,27 +48,6 @@ const SubEntryOverview = ({ data }: Props) => {
   const dataDB = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
-  let [proteomeId, component]: (string | null)[] = [null, null];
-  if (
-    data.subEntry.isSource &&
-    data.subEntry.proteomeId &&
-    data.subEntry.component
-  ) {
-    [proteomeId, component] = [
-      data.subEntry.proteomeId,
-      data.subEntry.component,
-    ];
-  }
-  if (
-    data.subEntry.source &&
-    data.subEntry.source.proteomeId &&
-    data.subEntry.source.component
-  ) {
-    [proteomeId, component] = [
-      data.subEntry.source.proteomeId,
-      data.subEntry.source.component,
-    ];
-  }
 
   if (dataDB.loading || !dataDB.data) {
     return <Loader />;
@@ -137,18 +116,6 @@ const SubEntryOverview = ({ data }: Props) => {
           {`${data.entry.sequence?.length} `}
           <Link to={`#${EntrySection.Sequence}`}>(go to sequence)</Link>
         </>
-      ),
-    },
-    {
-      title: 'Proteome',
-      content: proteomeId && component && (
-        <Link
-          to={{
-            pathname: getEntryPath(Namespace.proteomes, proteomeId),
-          }}
-        >
-          {proteomeId} ({component})
-        </Link>
       ),
     },
   ];

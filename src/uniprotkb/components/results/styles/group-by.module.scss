@@ -11,11 +11,13 @@
   ul.groupby {
     border-left: 1px solid var(--fr--color-gainsborough);
     margin-bottom: 0;
+    margin-left: 1rem;
 
     &__header {
       border-left: 0;
       margin-left: 0;
       border-bottom: 1px solid var(--fr--color-gainsborough);
+      padding-bottom: 0.5rem;
 
       li.header {
         h3 {

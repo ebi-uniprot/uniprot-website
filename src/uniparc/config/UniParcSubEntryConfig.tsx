@@ -1,5 +1,6 @@
 import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
+import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNamesAndTaxonomySection';
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
@@ -14,6 +15,16 @@ const uniParcSubEntryConfig: Record<
     sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
   }
 > = {
+  [EntrySection.NamesAndTaxonomy]: {
+    id: EntrySection.NamesAndTaxonomy,
+    label: entrySectionToLabel[EntrySection.NamesAndTaxonomy],
+    sectionContent: (data) => (
+      <SubEntryNamesAndTaxonomySection
+        data={data}
+        key={EntrySection.NamesAndTaxonomy}
+      />
+    ),
+  },
   [EntrySection.Structure]: {
     id: EntrySection.Structure,
     label: entrySectionToLabel[EntrySection.Structure],
@@ -27,7 +38,12 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
     label: entrySectionToLabel[EntrySection.FamilyAndDomains],
-    sectionContent: (data) => <SubEntryFamilyAndDomains data={data.entry} />,
+    sectionContent: (data) => (
+      <SubEntryFamilyAndDomains
+        data={data.entry}
+        key={EntrySection.FamilyAndDomains}
+      />
+    ),
   },
   [EntrySection.Sequence]: {
     id: EntrySection.Sequence,

@@ -9,7 +9,11 @@ import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter'
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
 
-function SubEntrySequenceSection({ data }: { data?: UniParcSubEntryUIModel }) {
+const SubEntrySequenceSection = ({
+  data,
+}: {
+  data?: UniParcSubEntryUIModel;
+}) => {
   const history = useHistory();
 
   const sequence = data?.entry[EntrySection.Sequence];
@@ -35,6 +39,9 @@ function SubEntrySequenceSection({ data }: { data?: UniParcSubEntryUIModel }) {
     },
   ];
 
+  const sourceDatabases = data.subEntry.properties?.filter(
+    (property) => property.key === 'sources'
+  );
   return (
     <Card
       header={<h2>{entrySectionToLabel[EntrySection.Sequence]}</h2>}
@@ -51,8 +58,28 @@ function SubEntrySequenceSection({ data }: { data?: UniParcSubEntryUIModel }) {
         }
         sequenceTools={uniParcTools}
       />
+      {sourceDatabases?.length ? (
+        <>
+          <h3>External sources</h3>
+
+          {sourceDatabases?.map((source) => {
+            // EMBL:AC12345:UP000005640:Chromosome
+            // TODO when we get sourceDB info from the payload
+            // uncomment the following and point to the right external URL
+            // const sourceDB = source.value.split(':')[0];
+            // const sourceID = source.value.split(':')[1];
+            // return <InfoList infoData={[
+            // {
+            // title: sourceDB,
+            // content: <a href={`https://example.com/${sourceID}`}>{sourceID}</a>,
+            // }]} />
+            const sourceID = source.value.split(':')[0];
+            return <div key={sourceID}>{sourceID}</div>;
+          })}
+        </>
+      ) : null}
     </Card>
   );
-}
+};
 
 export default SubEntrySequenceSection;

@@ -14,7 +14,7 @@ const insideUniProtAbstract2 =
   'Advances in genome sequencing technology means that large-scale efforts such as the Earth Biogenome project and the Darwin Tree of Life';
 
 const proteinSpotlightAbstract =
-  "The nice thing about shampoo is the foam it produces. When it doesn't, we usually add a little more to froth things up - because foam is a very pleasant part of the procedure...";
+  'There is much talk about plastic these days. And with reason. Besides depending on fossil fuels, plastic is infesting every nook and cranny of our planet because there is simply too much of it...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -350,21 +350,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/281/"
+            url="https://www.proteinspotlight.org/back_issues/282/"
             noIcon
           >
-            Foam etc.
+            Ramifications
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/281/"
+          url="https://www.proteinspotlight.org/back_issues/282/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt281.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt282.jpg"
             alt=""
             width="123"
             height="129"
