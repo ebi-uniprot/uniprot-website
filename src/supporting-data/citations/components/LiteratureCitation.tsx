@@ -29,6 +29,7 @@ import cleanText, {
   getTransformTags,
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
+import { stringifyQuery } from '../../../shared/utils/url';
 import {
   CitationsAPIModel,
   CitationType,
@@ -287,7 +288,10 @@ const Statistics: FC<React.PropsWithChildren<StatisticsProps>> = ({
               <Link
                 to={{
                   pathname: LocationToPath[Location.UniProtKBResults],
-                  search: `facets=reviewed:true&query=(lit_citation_id:${id})`,
+                  search: stringifyQuery({
+                    facets: 'reviewed:true',
+                    query: `(lit_pubmed:${id})`,
+                  }),
                 }}
                 title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
               >
@@ -302,7 +306,10 @@ const Statistics: FC<React.PropsWithChildren<StatisticsProps>> = ({
               <Link
                 to={{
                   pathname: LocationToPath[Location.UniProtKBResults],
-                  search: `facets=reviewed:false&query=(lit_citation_id:${id})`,
+                  search: stringifyQuery({
+                    facets: 'reviewed:false',
+                    query: `(lit_pubmed:${id})`,
+                  }),
                 }}
                 title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
               >
@@ -324,8 +331,10 @@ const Statistics: FC<React.PropsWithChildren<StatisticsProps>> = ({
               <Link
                 to={{
                   pathname: LocationToPath[Location.UniProtKBResults],
-                  // NOTE: only works for PubMed IDs
-                  search: `query=(computational_pubmed_id:${id})`,
+                  search: stringifyQuery({
+                    // NOTE: only works for PubMed IDs
+                    query: `(computational_pubmed_id:${id})`,
+                  }),
                 }}
                 title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
               >
@@ -339,8 +348,10 @@ const Statistics: FC<React.PropsWithChildren<StatisticsProps>> = ({
               <Link
                 to={{
                   pathname: LocationToPath[Location.UniProtKBResults],
-                  // NOTE: only works for PubMed IDs
-                  search: `query=(community_pubmed_id:${id})`,
+                  search: stringifyQuery({
+                    // NOTE: only works for PubMed IDs
+                    query: `(community_pubmed_id:${id})`,
+                  }),
                 }}
                 title={`Community curated entries: ${communityMappedProteinCount}`}
               >
