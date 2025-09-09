@@ -1,4 +1,4 @@
-import { ExternalLink, Message } from 'franklin-sites';
+import { ExternalLink, Loader, Message } from 'franklin-sites';
 import { FC } from 'react';
 
 import { Location, LocationToPath } from '../../app/config/urls';
@@ -175,9 +175,12 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
   scientificName: string;
   taxonId: string;
 }> = ({ accession, upids, scientificName, taxonId }) => {
-  const { data } = useDataApi<CheckMoveResponse>(
+  const { data, loading } = useDataApi<CheckMoveResponse>(
     upids.length ? stringifyUrl(checkMoveUrl, { upids }) : null
   );
+  if (loading) {
+    return <Loader />;
+  }
   return !data?.move?.length ? null : (
     <Message
       level="failure"
