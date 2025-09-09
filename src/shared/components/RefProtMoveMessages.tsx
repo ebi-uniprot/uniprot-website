@@ -56,10 +56,18 @@ const UniProtKBGenericMain: FC<{
                     `Organism: ${scientificName}`,
                     `Taxon ID: ${taxonId}`,
                   ].join('\n'),
+                  subject: `Question about UniProtKB entry ${accession} being removed in 2026_01`,
                 },
               },
             }
-          : undefined
+          : {
+              pathname: LocationToPath[Location.ContactGeneric],
+              state: {
+                formValues: {
+                  subject: `Question about UniProtKB/TrEMBL changes in 2026_01`,
+                },
+              },
+            }
       }
     >
       contact us
@@ -103,10 +111,18 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
                     `Taxon ID: ${taxonomy.taxonId}`,
                     `Mnemonic: ${taxonomy.mnemonic}`,
                   ].join('\n'),
+                  subject: `Question about Proteome ${id} being removed in 2026_01`,
                 },
               },
             }
-          : undefined
+          : {
+              pathname: LocationToPath[Location.ContactGeneric],
+              state: {
+                formValues: {
+                  subject: `Question about Proteomes changes in 2026_01`,
+                },
+              },
+            }
       }
     >
       contact us
