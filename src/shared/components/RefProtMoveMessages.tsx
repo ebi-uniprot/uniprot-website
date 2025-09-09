@@ -6,7 +6,7 @@ import ContactLink from '../../contact/components/ContactLink';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
-import { stringifyQuery, stringifyUrl } from '../utils/url';
+import { stringifyUrl } from '../utils/url';
 
 const blogEntryUrl =
   'https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html';
@@ -28,7 +28,12 @@ const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
   </>
 );
 
-const UniProtKBGenericMain = () => (
+const UniProtKBGenericMain: FC<{
+  accession?: string;
+  scientificName?: string;
+  taxonId?: string;
+  upids?: string[];
+}> = ({ accession, scientificName, taxonId, upids }) => (
   <>
     <br />
     <br />
@@ -37,7 +42,29 @@ const UniProtKBGenericMain = () => (
     important data. Entries removed from UniProtKB will remain accessible in
     UniParc. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, or <ContactLink>contact us</ContactLink> with any questions.
+    information, or{' '}
+    <ContactLink
+      to={
+        accession && scientificName && taxonId && upids
+          ? {
+              pathname: LocationToPath[Location.ContactGeneric],
+              state: {
+                formValues: {
+                  context: [
+                    `UniProtKB accession: ${accession}`,
+                    `UniParc UPIDs for this UniProtKB entry: ${upids.join(', ')}`,
+                    `Organism: ${scientificName}`,
+                    `Taxon ID: ${taxonId}`,
+                  ].join('\n'),
+                },
+              },
+            }
+          : undefined
+      }
+    >
+      contact us
+    </ContactLink>{' '}
+    with any questions.
   </>
 );
 
@@ -129,24 +156,25 @@ type CheckMoveResponse = {
 export const RefProtMoveUniProtKBEntryMessage: FC<{
   accession: string;
   upids: string[];
-}> = ({ accession, upids }) => {
-  const { data, loading } = useDataApi<CheckMoveResponse>(
+  scientificName: string;
+  taxonId: string;
+}> = ({ accession, upids, scientificName, taxonId }) => {
+  const { data } = useDataApi<CheckMoveResponse>(
     upids.length ? stringifyUrl(checkMoveUrl, { upids }) : null
   );
-  const isEntryUnderReview = !!data?.move?.length;
-  return (
+  return !data?.move?.length ? null : (
     <Message
       level="warning"
       className="uniprot-grid-cell--span-12"
       style={{ marginBottom: '1rem', marginTop: '1rem' }}
     >
-      {!loading &&
-        (isEntryUnderReview ? (
-          <UniProtKBRemovePreamble accession={accession} />
-        ) : (
-          <UniProtKBGenericPreamble />
-        ))}
-      <UniProtKBGenericMain />
+      <UniProtKBRemovePreamble accession={accession} />
+      <UniProtKBGenericMain
+        accession={accession}
+        scientificName={scientificName}
+        taxonId={taxonId}
+        upids={upids}
+      />
     </Message>
   );
 };

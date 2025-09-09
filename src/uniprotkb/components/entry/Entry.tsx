@@ -466,6 +466,8 @@ const Entry = () => {
                 ?.filter((db) => db.database === 'Proteomes' && db.id)
                 ?.map((db) => db.id) as string[]
             }
+            scientificName={data.organism?.scientificName || ''}
+            taxonId={(data.organism?.taxonId || '').toString()}
           />
           <h1>
             <EntryTitle
