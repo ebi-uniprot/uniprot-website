@@ -164,7 +164,7 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
   );
   return !data?.move?.length ? null : (
     <Message
-      level="warning"
+      level="failure"
       className="uniprot-grid-cell--span-12"
       style={{ marginBottom: '1rem', marginTop: '1rem' }}
     >
