@@ -16,7 +16,7 @@ const checkMoveUrl =
 
 const UniProtKBGenericPreamble = () => (
   <>
-    The UniProtKB Unreviewed/TrEMBL database will reduce in size in release
+    The Unreviewed UniProtKB/TrEMBL database will reduce in size in release
     2026_01 (planned for the first quarter of 2026).
   </>
 );
@@ -37,7 +37,7 @@ const UniProtKBGenericMain: FC<{
   <>
     <br />
     <br />
-    From 2026_01 onwards, UniProtKB Unreviewed/TrEMBL will only include
+    From 2026_01 onwards, Unreviewed UniProtKB/TrEMBL will only include
     reference proteomes and selected entries with experimental or biologically
     important data. Entries removed from UniProtKB will remain accessible in
     UniParc. Please see{' '}
