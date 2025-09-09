@@ -1,4 +1,5 @@
 import { Card, LongNumber } from 'franklin-sites';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
@@ -10,7 +11,6 @@ import RenderColumnsInCard from '../../../shared/components/results/RenderColumn
 import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-import { pluralise } from '../../../shared/utils/utils';
 import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
 import UniParcColumnConfiguration, {
   UniParcColumn,
@@ -28,7 +28,7 @@ const getIdKey = getIdKeyForNamespace(Namespace.uniparc);
 const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
   const id = getIdKey(data);
 
-  const taxonCount = data.commonTaxons?.length;
+  const taxonCount = data.commonTaxons?.length ?? 0;
   const uniProtKBCount = data.uniProtKBAccessions?.length;
 
   return (
@@ -47,15 +47,26 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
       headerSeparator={false}
     >
       <div className={renderColumnsInCardStyles['result-card__info-container']}>
-        {taxonCount && (
+        {taxonCount > 0 && (
           <span className={renderColumnsInCardStyles['result-card__info-bit']}>
-            <strong>{pluralise('Common taxon', taxonCount)}: </strong>
-            <LongNumber>{taxonCount}</LongNumber>
+            <strong>
+              {taxonCount === 1 ? 'Common taxon' : 'Common taxons'}:{' '}
+            </strong>
+            {(data.commonTaxons ?? []).map((taxon, i) => (
+              <Fragment key={taxon.commonTaxonId}>
+                <Link
+                  to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}
+                >
+                  {taxon.commonTaxon}
+                </Link>
+                {i < taxonCount - 1 ? ', ' : ''}
+              </Fragment>
+            ))}
           </span>
         )}
         {uniProtKBCount && (
           <span className={renderColumnsInCardStyles['result-card__info-bit']}>
-            <strong>UniProtKB entries: </strong>
+            <strong> UniProtKB entries: </strong>
             <LongNumber>{uniProtKBCount}</LongNumber>
           </span>
         )}
