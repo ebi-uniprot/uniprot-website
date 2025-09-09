@@ -1,10 +1,12 @@
 import { ExternalLink, Message } from 'franklin-sites';
 import { FC } from 'react';
 
+import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
-import { stringifyUrl } from '../utils/url';
+import { stringifyQuery, stringifyUrl } from '../utils/url';
 
 const blogEntryUrl =
   'https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html';
@@ -46,7 +48,10 @@ const UniProtKBGenericMessage = () => (
   </>
 );
 
-const ProteomesMessage = () => (
+const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
+  id,
+  taxonomy,
+}) => (
   <>
     We are updating the reference proteomes selection procedure (planned for the
     first quarter of 2026). While all proteomes will remain accessible through
@@ -57,7 +62,29 @@ const ProteomesMessage = () => (
     <br />
     Entries removed from UniProtKB will remain accessible in UniParc. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, or <ContactLink>contact us</ContactLink> with any questions.
+    information, or{' '}
+    <ContactLink
+      to={
+        id && taxonomy
+          ? {
+              pathname: LocationToPath[Location.ContactGeneric],
+              state: {
+                formValues: {
+                  context: [
+                    `Proteome ID: ${id}`,
+                    `Organism: ${taxonomy.scientificName}`,
+                    `Taxon ID: ${taxonomy.taxonId}`,
+                    `Mnemonic: ${taxonomy.mnemonic}`,
+                  ].join('\n'),
+                },
+              },
+            }
+          : undefined
+      }
+    >
+      contact us
+    </ContactLink>{' '}
+    with any questions.
   </>
 );
 
@@ -80,13 +107,16 @@ export const RefProtMoveResultsMessage: FC<{
   );
 };
 
-export const RefProtMoveProteomesEntryMessage = () => (
+export const RefProtMoveProteomesEntryMessage: FC<{
+  id: string;
+  taxonomy: TaxonomyDatum;
+}> = ({ id, taxonomy }) => (
   <Message
     level="warning"
     className="uniprot-grid-cell--span-12"
     style={{ marginBottom: '1rem', marginTop: '1rem' }}
   >
-    <ProteomesMessage />
+    <ProteomesMessage id={id} taxonomy={taxonomy} />
   </Message>
 );
 
