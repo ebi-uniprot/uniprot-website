@@ -80,7 +80,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-               UniProtKB entries: 
+              UniProtKB entries: 
             </strong>
             10
           </span>
