@@ -66,7 +66,7 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
         )}
         {uniProtKBCount && (
           <span className={renderColumnsInCardStyles['result-card__info-bit']}>
-            <strong> UniProtKB entries: </strong>
+            <strong>UniProtKB entries: </strong>
             <LongNumber>{uniProtKBCount}</LongNumber>
           </span>
         )}
