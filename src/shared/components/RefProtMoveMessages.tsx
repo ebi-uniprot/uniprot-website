@@ -39,8 +39,8 @@ const UniProtKBGenericMain: FC<{
     <br />
     From 2026_01 onwards, Unreviewed UniProtKB/TrEMBL will only include
     reference proteomes and selected entries with experimental or biologically
-    important data. Entries removed from UniProtKB will remain accessible in
-    UniParc. Please see{' '}
+    important data. Entries removed from Unreviewed UniProtKB/TrEMBL will remain
+    accessible in UniParc. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
     information, or{' '}
     <ContactLink
@@ -90,12 +90,13 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
   <>
     We are updating the reference proteomes selection procedure (planned for the
     first quarter of 2026). While all proteomes will remain accessible through
-    the proteomes database, proteins in UniProtKB will only include reference
-    proteomes and selected entries with experimental or biologically important
-    data.
+    the proteomes database, proteins in Unreviewed UniProtKB/TrEMBL will only
+    include reference proteomes and selected entries with experimental or
+    biologically important data.
     <br />
     <br />
-    Entries removed from UniProtKB will remain accessible in UniParc. Please see{' '}
+    Entries removed from Unreviewed UniProtKB/TrEMBL will remain accessible in
+    UniParc. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
     information, or{' '}
     <ContactLink
