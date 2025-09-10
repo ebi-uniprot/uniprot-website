@@ -1,8 +1,10 @@
 import '../../styles/ToolsForm.scss';
 
+import axios from 'axios';
 import cn from 'classnames';
 import {
   Chip,
+  formatLargeNumber,
   Message,
   PageIntro,
   sequenceProcessor,
@@ -40,8 +42,11 @@ import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import { FileFormat } from '../../../shared/types/resultsDownload';
+import fetchData from '../../../shared/utils/fetchData';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import * as logging from '../../../shared/utils/logging';
 import { stringifyUrl } from '../../../shared/utils/url';
+import { pluralise } from '../../../shared/utils/utils';
 import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/jobActions';
 import ChecksumSuggester from '../../components/ChecksumSuggester';
@@ -56,6 +61,7 @@ import defaultFormValues, {
   BlastFields,
   BlastFormValue,
   BlastFormValues,
+  databaseValueToName,
   excludeTaxonForDB,
 } from '../config/BlastFormData';
 import {
@@ -158,13 +164,24 @@ const BlastForm = ({ initialFormValues }: Props) => {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!excludeTaxonField && formValues[BlastFields.taxons].selected) {
+    // eslint-disable-next-line import/no-named-as-default-member
+    const cancelTokenSource = axios.CancelToken.source();
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    signal.addEventListener('abort', () => {
+      cancelTokenSource.cancel('Operation canceled by the user.');
+    });
+
+    async function fetchSearchSpaceCount() {
+      if (
+        !excludeTaxonField &&
+        (formValues[BlastFields.taxons].selected as SelectedTaxon[])?.length
+      ) {
         const baseUrl = joinUrl(apiPrefix, 'uniprotkb', 'search');
         let query = `(${(formValues[BlastFields.taxons].selected as SelectedTaxon[]).map((taxon) => `organism_id:${taxon.id}`).join(' OR ')})`;
         switch (formValues[BlastFields.database].selected) {
           case 'uniprotkb_refprotswissprot':
-            query += ' AND (keyword:KW-1185 AND reviewed:true)';
+            query += ' AND (keyword:KW-1185 OR reviewed:true)';
             break;
           case 'uniprotkb_reference_proteomes':
             query += ' AND (keyword:KW-1185)';
@@ -183,21 +200,34 @@ const BlastForm = ({ initialFormValues }: Props) => {
           includeIsoform: true,
           query,
         });
-        const headResponse = await fetch(url, {
-          method: 'HEAD',
-        });
-        if (headResponse.ok && headResponse.headers.get('X-Total-Results')) {
-          setSearchSpaceTotal(
-            Number(headResponse.headers.get('X-Total-Results'))
-          );
-        } else {
-          setSearchSpaceTotal(0);
+        try {
+          fetchData(url, cancelTokenSource.token, {
+            method: 'HEAD',
+          }).then((response) => {
+            if (response.headers['X-Total-Results']) {
+              setSearchSpaceTotal(Number(response.headers['X-Total-Results']));
+            } else {
+              setSearchSpaceTotal(0);
+            }
+          });
+        } catch (error) {
+          if (error instanceof Error) {
+            if (error.name === 'AbortError') {
+              // The operation was aborted; silently bail
+              return;
+            }
+            logging.error(error);
+          }
         }
       } else {
         setSearchSpaceTotal(Infinity);
       }
+    }
+
+    fetchSearchSpaceCount();
+    return () => {
+      abortController.abort();
     };
-    fetchData();
   }, [excludeTaxonField, formValues]);
 
   // TODO: eventually incorporate negativeTaxIDs into the form
@@ -469,17 +499,40 @@ const BlastForm = ({ initialFormValues }: Props) => {
               >
                 {searchSpaceTotal === 0 ? (
                   <>
-                    <strong>No sequences found for your selection</strong>
+                    <strong>Search space has no protein sequences</strong>
                     <br />
-                    The chosen database has no results that match the selected
-                    taxonomy filter. Please adjust your filters to proceed
+                    Filtering the target database{' '}
+                    {databaseValueToName(
+                      formValues[BlastFields.database].selected as string
+                    )}{' '}
+                    by the selected{' '}
+                    {
+                      (
+                        formValues[BlastFields.taxons]
+                          ?.selected as SelectedTaxon[]
+                      ).length
+                    }{' '}
+                    {pluralise(
+                      'taxonomy',
+                      (
+                        formValues[BlastFields.taxons]
+                          ?.selected as SelectedTaxon[]
+                      ).length,
+                      'taxa'
+                    )}{' '}
+                    returns no protein sequences. Adjust the target database or
+                    taxonomy filters to continue.
                   </>
                 ) : (
                   <>
-                    <strong>Sequences Available: {searchSpaceTotal}</strong>
+                    <strong>
+                      Search space: {formatLargeNumber(searchSpaceTotal)}{' '}
+                      protein{' '}
+                      {pluralise('sequence', searchSpaceTotal, 'sequences')}
+                    </strong>
                     <br />
-                    This is the total number of sequences in the selected
-                    database that match your current taxonomy filter.
+                    This is a filtered subset of the target database based on
+                    your taxonomy filters
                   </>
                 )}
               </Message>
