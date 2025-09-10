@@ -1,19 +1,19 @@
 import {
   ChevronDownIcon,
   ChevronUpIcon,
-  InfoList,
+  ExternalLinkIconRaw,
   Loader,
-  ModalBackdrop,
-  useModal,
-  Window,
 } from 'franklin-sites';
 import { Fragment, useCallback, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SetRequired } from 'type-fest';
 
+import { Location } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import * as logging from '../../../shared/utils/logging';
+import { getLocationForPathname } from '../../../shared/utils/url';
 import {
   CatalyticActivityComment,
   PhysiologicalReaction,
@@ -23,8 +23,6 @@ import { RichText } from './FreeTextView';
 import { ECNumbersView } from './ProteinNamesView';
 import styles from './styles/catalytic-activity-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-
-// example accessions to view this component: P31937, P0A879
 
 export const getRheaId = (referenceId: string) => {
   const re = /^RHEA:(\d+)$/i;
@@ -40,36 +38,6 @@ export const isRheaReactionReference = ({
   id: string;
 }) => database === 'Rhea' && !!getRheaId(id);
 
-type ChebiImageData = {
-  chebi: string;
-  imgURL: string;
-};
-
-export const ZoomModalContent = ({ chebi, imgURL }: ChebiImageData) => {
-  const imageRef = useRef<HTMLImageElement>(null);
-  const [loading, setLoading] = useState(true);
-  const image = new Image();
-  image.src = imgURL;
-  image.onload = () => {
-    if (imageRef && imageRef.current) {
-      imageRef.current.src = image.src;
-      setLoading(false);
-    }
-  };
-  return (
-    <div className={styles['zoom-image-container']}>
-      <img
-        ref={imageRef}
-        alt={chebi}
-        style={{ display: loading ? 'none' : 'block' }}
-      />
-      {loading && <Loader />}
-    </div>
-  );
-};
-
-type ZoomClickedEvent = { detail: ChebiImageData };
-
 type RheaReactionVisualizerProps = {
   rheaId: number;
   show: boolean;
@@ -79,41 +47,171 @@ export const RheaReactionVisualizer = ({
   rheaId,
   show: initialShow,
 }: RheaReactionVisualizerProps) => {
-  const rheaReactionElement = useCustomElement(
+  const rheaVisualizerElement = useCustomElement(
     () =>
       import(
-        /* webpackChunkName: "rhea-reaction-visualizer" */ '@swissprot/rhea-reaction-visualizer'
+        /* webpackChunkName: "rhea-reaction-visualizer" */ '@swissprot/rhea-reaction-viz-test'
       ),
-    'rhea-reaction'
-  );
-  const [show, setShow] = useState(initialShow);
-  const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
-  const { displayModal, setDisplayModal, Modal } = useModal(
-    ModalBackdrop,
-    Window
-  );
-  const callback = useCallback(
-    (node: {
-      addEventListener: (
-        name: string,
-        event: ({ detail }: ZoomClickedEvent) => void
-      ) => void;
-    }): void => {
-      if (node) {
-        node.addEventListener(
-          'zoomClicked',
-          ({ detail }: { detail: ChebiImageData }) => {
-            setZoomImageData(detail);
-            setDisplayModal(true);
-          }
-        );
-      }
-    },
-    [setDisplayModal]
+    'rhea-visualizer'
   );
 
-  if (rheaReactionElement.errored) {
-    // It's fine, just don't display anything
+  const [show, setShow] = useState(initialShow);
+  const moRef = useRef<MutationObserver | null>(null);
+
+  const callback = useCallback<React.RefCallback<HTMLElement>>((node): void => {
+    if (!node) {
+      if (moRef.current) {
+        moRef.current.disconnect();
+        moRef.current = null;
+      }
+      return;
+    }
+
+    const shadowRoot = node.shadowRoot;
+    if (!shadowRoot) {
+      return;
+    }
+
+    if (!shadowRoot.querySelector('style[data-rhea-overrides]')) {
+      const styleElement = document.createElement('style');
+      styleElement.setAttribute('data-rhea-overrides', '');
+      const externalLinkMask = `url("data:image/svg+xml;utf8,${encodeURIComponent(
+        ExternalLinkIconRaw
+      )}")`;
+      styleElement.textContent = `
+        .rhea-reaction-visualizer {
+          border-bottom: 0.1rem solid var(--fr--color-platinum);
+        }
+
+        .name {
+          font-size: 16px;
+        }
+
+        .info {
+          stroke: var(--fr--color-sapphire-blue);
+        }
+
+        .more path {
+          stroke: var(--fr--color-sapphire-blue);
+        }
+
+        .tabs:first-child {
+          border-left: 0.1rem solid var(--fr--color-platinum);
+        }
+
+        .tab {
+          border-right: 0.1rem solid var(--fr--color-platinum);
+          border-top: 0.1rem solid var(--fr--color-platinum);
+          border-radius: 0.2rem 0.2rem 0 0;
+          background-color: white;
+          color: var(--fr--color-sapphire-blue);
+          font-weight: 600;
+          margin-right: 0;
+          padding: 1rem;
+          cursor: pointer;
+          user-select: none;
+        }
+
+        .tab:hover,
+        .tab:focus {
+          background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+          box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+        }
+
+        .tab.selected {
+          background-color: color(from var(--fr--color-pastel-blue) srgb r g b / 0.19);
+          box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-sea-blue);
+          color: var(--fr--color-sapphire-blue);
+          font-weight: 600;
+        }
+
+        .tabpanel {
+          border: none;
+          border-top: 0.1rem solid var(--fr--color-platinum);
+        }
+
+        a.icon_link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.25rem;
+          color: var(--fr--color-sapphire-blue);
+          text-decoration: none;
+          font-weight: 600;
+        }
+
+        a.icon_link:hover,
+        a.icon_link:focus {
+          color: color-mix(in srgb, var(--fr--color-sapphire-blue) 75%, white);
+        }
+
+        a.icon_link:not(.no_icon)::after {
+          content: '';
+          background: currentColor;
+          -webkit-mask-image: ${externalLinkMask};
+          mask-image: ${externalLinkMask};
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: contain;
+          mask-size: contain;
+          -webkit-mask-position: center;
+          mask-position: center;
+          display: inline-block;
+          width: 0.75em;
+          height: 0.75em;
+          margin: 0 0.5ch;
+        }
+
+        .tippy-box a.icon_link {
+          color: white;
+          text-decoration: underline;
+        }
+
+        rhea-reaction-block.smallMolecule:hover {
+          box-shadow: none;
+        }
+      `;
+      shadowRoot.appendChild(styleElement);
+    }
+
+    const removeRheaLink = (shadowRoot: ShadowRoot) => {
+      shadowRoot.querySelector('.rhea-reaction-source')?.remove();
+    };
+
+    const adaptTippyContent = (root: ShadowRoot) => {
+      root
+        .querySelectorAll('.tippy-box .tippy-content a[href]')
+        .forEach((a) => {
+          const text = a.textContent?.trim() || '';
+          if (/^search proteins\b/i.test(text)) {
+            a.classList.add('no_icon');
+          }
+          a.classList.add('icon_link');
+          a.setAttribute('target', '_blank');
+          const rel = new Set(
+            (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean)
+          );
+          rel.add('noopener');
+          rel.add('noreferrer');
+          a.setAttribute('rel', Array.from(rel).join(' '));
+          a.querySelector(':scope > svg')?.remove();
+        });
+    };
+
+    const adaptAll = () => {
+      removeRheaLink(shadowRoot);
+      adaptTippyContent(shadowRoot);
+    };
+
+    adaptAll();
+
+    if (moRef.current) {
+      moRef.current.disconnect();
+    }
+    moRef.current = new MutationObserver(adaptAll);
+    moRef.current.observe(shadowRoot, { childList: true, subtree: true });
+  }, []);
+
+  if (rheaVisualizerElement.errored) {
     return null;
   }
 
@@ -125,42 +223,28 @@ export const RheaReactionVisualizer = ({
           className="button tertiary"
           onClick={() => setShow(!show)}
         >
-          {`${show ? 'Hide' : 'View'} Rhea reaction`}
+          {`${show ? 'Hide' : 'View'} reaction details`}
+          {show ? (
+            <ChevronUpIcon width="1ch" />
+          ) : (
+            <ChevronDownIcon width="1ch" />
+          )}
         </button>
-        {show ? <ChevronUpIcon width="1ch" /> : <ChevronDownIcon width="1ch" />}
       </div>
       {show &&
-        (rheaReactionElement.defined ? (
-          <>
-            <div className={styles['rhea-reaction-visualizer__component']}>
-              <rheaReactionElement.name
-                rheaid={rheaId}
-                showIds
-                zoom
-                ref={callback}
-                usehost="https://api.rhea-db.org"
-              />
-            </div>
-            {displayModal && zoomImageData?.imgURL && (
-              <Modal
-                handleExitModal={() => setDisplayModal(false)}
-                height="30vh"
-                width="30vw"
-              >
-                <ZoomModalContent
-                  chebi={zoomImageData.chebi}
-                  imgURL={zoomImageData.imgURL}
-                />
-              </Modal>
-            )}
-          </>
+        (rheaVisualizerElement.defined ? (
+          <rheaVisualizerElement.name
+            rheaid={rheaId}
+            showIds
+            ref={callback}
+            usehost="https://api.rhea-db.org"
+          />
         ) : (
           <Loader />
         ))}
     </>
   );
 };
-
 const physiologicalReactionDirectionToString = new Map<
   PhysiologicalReactionDirection,
   string
@@ -230,75 +314,82 @@ const CatalyticActivityView = ({
   defaultHideAllReactions = false,
   noEvidence,
 }: CatalyticActivityProps) => {
+  const { pathname } = useLocation();
   if (!comments?.length) {
     return null;
   }
+  const currentLocation = getLocationForPathname(pathname);
+  const inUniProtKBEntry = currentLocation === Location.UniProtKBEntry;
   let firstRheaId: number;
-  const infoData = comments
-    .filter(
-      (comment): comment is SetRequired<CatalyticActivityComment, 'reaction'> =>
-        Boolean(comment.reaction)
-    )
-    .map(({ molecule, reaction, physiologicalReactions }) => {
-      // Using only the first rhea reaction reference because FW has assured us that
-      // there will be either 0 or 1 types of this reference (ie never > 1)
-
-      const rheaReactionReference =
-        reaction.reactionCrossReferences &&
-        reaction.reactionCrossReferences.find(isRheaReactionReference);
-      const rheaId =
-        rheaReactionReference && getRheaId(rheaReactionReference.id);
-      if (rheaId && !firstRheaId) {
-        firstRheaId = rheaId;
-      }
-      return {
-        title: rheaId ? (
-          <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
-            Rhea {rheaId}
-          </ExternalLink>
-        ) : (
-          ''
-        ),
-        content: (
-          <span className="text-block">
-            {molecule && (
-              <h4 className="tiny">
-                {noEvidence ? (
-                  `${molecule}`
-                ) : (
-                  <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
-                )}
-              </h4>
-            )}
-            <RichText>{reaction.name}</RichText>
-            {!noEvidence && (
-              <UniProtKBEvidenceTag evidences={reaction.evidences} />
-            )}
-            {physiologicalReactions && physiologicalReactions.length && (
-              <ReactionDirection
-                physiologicalReactions={physiologicalReactions}
-                noEvidence={noEvidence}
-              />
-            )}
-            {reaction.ecNumber && (
-              <div>
-                <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
-              </div>
-            )}
-            {!!rheaId && (
-              <RheaReactionVisualizer
-                rheaId={rheaId}
-                show={defaultHideAllReactions ? false : rheaId === firstRheaId}
-              />
-            )}
-          </span>
-        ),
-      };
-    });
   return (
     <div className={styles['catalytic-activity']}>
       {title && <h3 data-article-id="catalytic_activity">{title}</h3>}
-      <InfoList infoData={infoData} />
+      {comments
+        .filter(
+          (
+            comment
+          ): comment is SetRequired<CatalyticActivityComment, 'reaction'> =>
+            Boolean(comment.reaction)
+        )
+        .map(({ molecule, reaction, physiologicalReactions }) => {
+          // Using only the first rhea reaction reference because FW has assured us that
+          // there will be either 0 or 1 types of this reference (ie never > 1)
+
+          const rheaReactionReference =
+            reaction.reactionCrossReferences &&
+            reaction.reactionCrossReferences.find(isRheaReactionReference);
+          const rheaId =
+            rheaReactionReference && getRheaId(rheaReactionReference.id);
+          if (rheaId && !firstRheaId) {
+            firstRheaId = rheaId;
+          }
+          return (
+            <div className={styles['rhea-entry']} key={rheaId}>
+              <div className="small">
+                {rheaId ? (
+                  <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
+                    Rhea:{rheaId}
+                  </ExternalLink>
+                ) : (
+                  ''
+                )}
+              </div>
+
+              {molecule && (
+                <div className="small">
+                  {noEvidence ? (
+                    `${molecule}`
+                  ) : (
+                    <a href={`#${molecule.replaceAll(' ', '_')}`}>{molecule}</a>
+                  )}
+                </div>
+              )}
+              <RichText>{reaction.name}</RichText>
+              {!noEvidence && (
+                <UniProtKBEvidenceTag evidences={reaction.evidences} />
+              )}
+              {physiologicalReactions && physiologicalReactions.length && (
+                <ReactionDirection
+                  physiologicalReactions={physiologicalReactions}
+                  noEvidence={noEvidence}
+                />
+              )}
+              {reaction.ecNumber && (
+                <div>
+                  <ECNumbersView ecNumbers={[{ value: reaction.ecNumber }]} />
+                </div>
+              )}
+              {inUniProtKBEntry && !!rheaId && (
+                <RheaReactionVisualizer
+                  rheaId={rheaId}
+                  show={
+                    defaultHideAllReactions ? false : rheaId === firstRheaId
+                  }
+                />
+              )}
+            </div>
+          );
+        })}
     </div>
   );
 };

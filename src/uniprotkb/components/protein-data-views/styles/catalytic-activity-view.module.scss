@@ -6,25 +6,19 @@
     width: 500px;
   }
 
-  :global(.info-list) > li:not(:last-child) {
-    border-bottom: 0.5px solid black;
+  > .rhea-entry {
     margin-bottom: $global-margin;
-    padding-bottom: $global-padding;
   }
+
   .rhea-reaction-visualizer {
     &__toggle {
-      padding-top: $global-padding;
+      padding-top: 0.5 * $global-padding;
 
       svg {
         position: relative;
-        top: -0.6rem;
         margin-left: 0.5rem;
+        width: 0.7rem;
       }
-    }
-
-    &__component {
-      width: 100%;
-      overflow-x: auto;
     }
   }
 
@@ -45,5 +39,9 @@
 
   :global(.rhea-reaction-source) {
     display: none;
+  }
+
+  :global(label) {
+    display: inline;
   }
 }

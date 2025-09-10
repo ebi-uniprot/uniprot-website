@@ -42,3 +42,9 @@ declare module '*.module.css' {
 
 // Just for one test file
 declare module 'react-beautiful-dnd-test-utils';
+
+// Custom elements lib without types
+declare module '@swissprot/rhea-reaction-viz-test' {
+  const content: CustomElementConstructor;
+  export default content;
+}
