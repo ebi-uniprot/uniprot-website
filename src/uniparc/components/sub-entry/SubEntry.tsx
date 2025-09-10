@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Loader, Tab, Tabs } from 'franklin-sites';
+import { Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router';
 
@@ -8,6 +8,7 @@ import {
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
+import ContactLink from '../../../contact/components/ContactLink';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -156,6 +157,14 @@ const SubEntry = () => {
           />
         </h1>
         <SubEntryOverview data={transformedData} />
+        <Message level="info">
+          These pages are in beta version, please{' '}
+          <ContactLink>
+            provide feedback about them through our contact form
+          </ContactLink>
+          . These are <span data-article-id="uniparc">UniParc</span> pages and
+          not <span data-article-id="uniprotkb">UniProtKB</span> pages.
+        </Message>
       </ErrorBoundary>
       <Tabs active={subPage}>
         <Tab

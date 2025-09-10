@@ -6,7 +6,6 @@ import CatalyticActivityView, {
   isRheaReactionReference,
   ReactionDirection,
   RheaReactionVisualizer,
-  ZoomModalContent,
 } from '../CatalyticActivityView';
 import catalyticActivityUIData from './__mocks__/catalyticActivityUIData';
 
@@ -109,14 +108,5 @@ describe('ReactionDirection component', () => {
       />
     );
     expect(asFragment().childElementCount).toEqual(0);
-  });
-});
-
-describe('ZoomModalContent component', () => {
-  it('should render', () => {
-    const { asFragment } = render(
-      <ZoomModalContent imgURL="https://image.png" chebi="chebi:12345" />
-    );
-    expect(asFragment()).toMatchSnapshot();
   });
 });

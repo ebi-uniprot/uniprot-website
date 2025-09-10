@@ -167,7 +167,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 class="publication__statistics__content__body"
               >
                 <a
-                  href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:undefined)"
+                  href="/uniprotkb?facets=reviewed%3Atrue&query=%28lit_pubmed%3Aundefined%29"
                   title="UniProtKB reviewed entries: 2"
                 >
                   <span
@@ -339,7 +339,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 class="publication__statistics__content__body"
               >
                 <a
-                  href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:undefined)"
+                  href="/uniprotkb?facets=reviewed%3Atrue&query=%28lit_pubmed%3Aundefined%29"
                   title="UniProtKB reviewed entries: 6"
                 >
                   <span
@@ -537,7 +537,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 class="publication__statistics__content__body"
               >
                 <a
-                  href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:undefined)"
+                  href="/uniprotkb?facets=reviewed%3Atrue&query=%28lit_pubmed%3Aundefined%29"
                   title="UniProtKB reviewed entries: 1"
                 >
                   <span

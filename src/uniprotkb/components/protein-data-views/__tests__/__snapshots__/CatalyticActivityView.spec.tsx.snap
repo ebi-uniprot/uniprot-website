@@ -10,75 +10,64 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
     >
       Catalytic activity
     </h3>
-    <ul
-      class="info-list"
+    <div
+      class="rhea-entry"
     >
-      <li>
-        <div
-          class="decorated-list-item"
+      <div
+        class="small"
+      />
+      Reaction name
+      <div>
+        This reaction proceeds in the 
+        <span
+          data-testid="direction-text"
         >
-          <div
-            class="decorated-list-item__content"
-          >
-            <span
-              class="text-block"
-            >
-              Reaction name
-              <div>
-                This reaction proceeds in the 
-                <span
-                  data-testid="direction-text"
-                >
-                  forward
-                </span>
-                 and the 
-                <span
-                  data-testid="direction-text"
-                >
-                  backward
-                </span>
-                 directions.
-              </div>
-              <div>
-                EC:EC:12112 (
-                <a
-                  href="/uniprotkb?query=ec:EC:12112"
-                >
-                  UniProtKB
-                </a>
-                 | 
-                <a
-                  class="external-link"
-                  href="https://enzyme.expasy.org/EC/EC:12112"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  ENZYME
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                 | 
-                <a
-                  class="external-link"
-                  href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  Rhea
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                )
-              </div>
-            </span>
-          </div>
-        </div>
-      </li>
-    </ul>
+          forward
+        </span>
+         and the 
+        <span
+          data-testid="direction-text"
+        >
+          backward
+        </span>
+         directions.
+      </div>
+      <div>
+        EC:EC:12112 (
+        <a
+          href="/uniprotkb?query=ec:EC:12112"
+        >
+          UniProtKB
+        </a>
+         | 
+        <a
+          class="external-link"
+          href="https://enzyme.expasy.org/EC/EC:12112"
+          rel="noopener"
+          target="_blank"
+        >
+          ENZYME
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+         | 
+        <a
+          class="external-link"
+          href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
+          rel="noopener"
+          target="_blank"
+        >
+          Rhea
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        )
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -88,75 +77,64 @@ exports[`CatalyticActivityView component should render catalytic activity when c
   <div
     class="catalytic-activity"
   >
-    <ul
-      class="info-list"
+    <div
+      class="rhea-entry"
     >
-      <li>
-        <div
-          class="decorated-list-item"
+      <div
+        class="small"
+      />
+      Reaction name
+      <div>
+        This reaction proceeds in the 
+        <span
+          data-testid="direction-text"
         >
-          <div
-            class="decorated-list-item__content"
-          >
-            <span
-              class="text-block"
-            >
-              Reaction name
-              <div>
-                This reaction proceeds in the 
-                <span
-                  data-testid="direction-text"
-                >
-                  forward
-                </span>
-                 and the 
-                <span
-                  data-testid="direction-text"
-                >
-                  backward
-                </span>
-                 directions.
-              </div>
-              <div>
-                EC:EC:12112 (
-                <a
-                  href="/uniprotkb?query=ec:EC:12112"
-                >
-                  UniProtKB
-                </a>
-                 | 
-                <a
-                  class="external-link"
-                  href="https://enzyme.expasy.org/EC/EC:12112"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  ENZYME
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                 | 
-                <a
-                  class="external-link"
-                  href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  Rhea
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-                )
-              </div>
-            </span>
-          </div>
-        </div>
-      </li>
-    </ul>
+          forward
+        </span>
+         and the 
+        <span
+          data-testid="direction-text"
+        >
+          backward
+        </span>
+         directions.
+      </div>
+      <div>
+        EC:EC:12112 (
+        <a
+          href="/uniprotkb?query=ec:EC:12112"
+        >
+          UniProtKB
+        </a>
+         | 
+        <a
+          class="external-link"
+          href="https://enzyme.expasy.org/EC/EC:12112"
+          rel="noopener"
+          target="_blank"
+        >
+          ENZYME
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+         | 
+        <a
+          class="external-link"
+          href="https://www.rhea-db.org/rhea?query=ec:EC:12112"
+          rel="noopener"
+          target="_blank"
+        >
+          Rhea
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        )
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -204,33 +182,11 @@ exports[`RheaReactionVisualizer component should render RheaReactionVisualizer 1
       class="button tertiary"
       type="button"
     >
-      View Rhea reaction
-    </button>
-    <test-file-stub
-      width="1ch"
-    />
-  </div>
-</DocumentFragment>
-`;
-
-exports[`ZoomModalContent component should render 1`] = `
-<DocumentFragment>
-  <div
-    class="zoom-image-container"
-  >
-    <img
-      alt="chebi:12345"
-      style="display: none;"
-    />
-    <div
-      class="loader-container"
-    >
+      View reaction details
       <test-file-stub
-        classname="loader"
-        height="100"
-        width="100"
+        width="1ch"
       />
-    </div>
+    </button>
   </div>
 </DocumentFragment>
 `;

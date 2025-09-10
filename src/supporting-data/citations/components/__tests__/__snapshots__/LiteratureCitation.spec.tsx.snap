@@ -180,7 +180,7 @@ exports[`Publication component should render 1`] = `
                 class="publication__statistics__content__body"
               >
                 <a
-                  href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:14702039)"
+                  href="/uniprotkb?facets=reviewed%3Atrue&query=%28lit_pubmed%3A14702039%29"
                   title="UniProtKB reviewed entries: 32172"
                 >
                   <span
@@ -194,7 +194,7 @@ exports[`Publication component should render 1`] = `
                   />
                 </a>
                 <a
-                  href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:14702039)"
+                  href="/uniprotkb?facets=reviewed%3Afalse&query=%28lit_pubmed%3A14702039%29"
                   title="UniProtKB unreviewed entries: 2615"
                 >
                   <span

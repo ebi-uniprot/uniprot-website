@@ -18,11 +18,7 @@ const SubEntryInactive = ({ data }: { data: UniParcSubEntryUIModel }) => {
   if (!loading && statusData) {
     const event = statusData.events?.[0];
 
-    if (event && event?.deletedReason) {
-      return (
-        <span data-article-id="deleted_accessions">{event.deletedReason}</span>
-      );
-    } else if (event && event.eventType === 'merged') {
+    if (event?.eventType === 'merged') {
       return (
         <span data-article-id="merged_accession">
           Merged into{' '}
@@ -32,6 +28,12 @@ const SubEntryInactive = ({ data }: { data: UniParcSubEntryUIModel }) => {
         </span>
       );
     }
+
+    return (
+      <span data-article-id="deleted_accessions">
+        {event?.deletedReason || 'Deleted'}
+      </span>
+    );
   }
   return null;
 };
