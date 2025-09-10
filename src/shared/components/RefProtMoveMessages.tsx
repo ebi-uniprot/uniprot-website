@@ -22,10 +22,10 @@ const UniProtKBGenericPreamble = () => (
 );
 
 const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
-  <>
+  <b>
     This entry ({accession}) is under consideration for removal in release
     2026_01 (planned for the first quarter of 2026).
-  </>
+  </b>
 );
 
 const UniProtKBGenericMain: FC<{
