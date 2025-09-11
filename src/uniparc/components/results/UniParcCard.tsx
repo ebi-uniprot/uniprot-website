@@ -47,7 +47,7 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
       headerSeparator={false}
     >
       <div className={renderColumnsInCardStyles['result-card__info-container']}>
-        {taxonCount > 0 && (
+        {taxonCount && (
           <span className={renderColumnsInCardStyles['result-card__info-bit']}>
             <strong>
              {pluralise('Common taxonomy', taxonCount, 'Common taxonomies')}:{' '}
