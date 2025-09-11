@@ -56,7 +56,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Common taxons: 
+              Common taxonomies: 
             </strong>
             <a
               href="/taxonomy/32630"
