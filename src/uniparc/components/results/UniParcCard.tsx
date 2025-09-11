@@ -52,7 +52,7 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
             <strong>
               {taxonCount === 1 ? 'Common taxon' : 'Common taxons'}:{' '}
             </strong>
-            {(data.commonTaxons ?? []).map((taxon, i) => (
+            {data.commonTaxons?.map((taxon, i) => (
               <Fragment key={taxon.commonTaxonId}>
                 <Link
                   to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}
