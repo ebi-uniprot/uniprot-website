@@ -50,7 +50,7 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
         {taxonCount > 0 && (
           <span className={renderColumnsInCardStyles['result-card__info-bit']}>
             <strong>
-              {taxonCount === 1 ? 'Common taxon' : 'Common taxons'}:{' '}
+             {pluralise('Common taxonomy', taxonCount, 'Common taxonomies')}:{' '}
             </strong>
             {data.commonTaxons?.map((taxon, i) => (
               <Fragment key={taxon.commonTaxonId}>
