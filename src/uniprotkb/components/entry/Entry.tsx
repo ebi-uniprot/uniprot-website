@@ -32,6 +32,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import { RefProtMoveUniProtKBEntryMessage } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
@@ -458,6 +459,16 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
+          <RefProtMoveUniProtKBEntryMessage
+            accession={accession}
+            upids={
+              data.uniProtKBCrossReferences
+                ?.filter((db) => db.database === 'Proteomes' && db.id)
+                ?.map((db) => db.id) as string[]
+            }
+            scientificName={data.organism?.scientificName || ''}
+            taxonId={(data.organism?.taxonId || '').toString()}
+          />
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}

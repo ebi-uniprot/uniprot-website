@@ -5,6 +5,7 @@ import { toolsResultsLocationToLabel } from '../../../app/config/urls';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useNS from '../../hooks/useNS';
 import { Namespace, namespaceAndToolsLabels } from '../../types/namespaces';
+import { RefProtMoveResultsMessage } from '../RefProtMoveMessages';
 import ResultsButtons from './ResultsButtons';
 
 const ResultsDataHeader: FC<
@@ -33,6 +34,7 @@ const ResultsDataHeader: FC<
   const { jobResultsLocation } = useJobFromUrl();
   return (
     <>
+      <RefProtMoveResultsMessage namespace={namespace} />
       <PageIntro
         heading={
           jobResultsLocation

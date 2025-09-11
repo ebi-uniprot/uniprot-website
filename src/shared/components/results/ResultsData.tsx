@@ -34,7 +34,6 @@ import useViewMode from '../../hooks/useViewMode';
 import { APIModel } from '../../types/apiModel';
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { getIdKeyForData } from '../../utils/getIdKey';
-import ExternalLink from '../ExternalLink';
 import styles from './styles/results-data.module.scss';
 
 type Props = {
@@ -208,18 +207,6 @@ const ResultsData = ({
         </Message>
       )}
 
-      {namespace === Namespace.proteomes ? (
-        <Message level="warning" className="uniprot-grid-cell--span-12">
-          We will be improving our pipelines for the selection of Reference
-          Proteomes over the next few months (September 2025–February 2026).
-          <br />
-          This might affect your data analysis,{' '}
-          <ExternalLink url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html">
-            please read this short article
-          </ExternalLink>{' '}
-          if you want to know more.
-        </Message>
-      ) : null}
       {content}
     </div>
   );
