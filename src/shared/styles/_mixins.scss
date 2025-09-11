@@ -2,10 +2,8 @@
 @mixin scroll-shadow($background-color: white) {
   /* shadow trick from http://lea.verou.me/2012/04/background-attachment-local/ */
   background:
-    /* Shadow covers */ linear-gradient(
-      $background-color 30%,
-      rgba(255, 255, 255, 0)
-    ),
+    /* Shadow covers */
+    linear-gradient($background-color 30%, rgba(255, 255, 255, 0)),
     linear-gradient(rgba(255, 255, 255, 0), $background-color 70%) 0 100%,
     /* Shadows */
       radial-gradient(
@@ -22,10 +20,8 @@
       )
       0 100%;
   background:
-    /* Shadow covers */ linear-gradient(
-      $background-color 30%,
-      rgba(255, 255, 255, 0)
-    ),
+    /* Shadow covers */
+    linear-gradient($background-color 30%, rgba(255, 255, 255, 0)),
     linear-gradient(rgba(255, 255, 255, 0), $background-color 70%) 0 100%,
     /* Shadows */
       radial-gradient(
@@ -41,7 +37,11 @@
       0 100%;
   background-repeat: no-repeat;
   background-color: $background-color;
-  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-size:
+    100% 40px,
+    100% 40px,
+    100% 14px,
+    100% 14px;
   /* Opera doesn't support this in the shorthand */
   background-attachment: local, local, scroll, scroll;
 }

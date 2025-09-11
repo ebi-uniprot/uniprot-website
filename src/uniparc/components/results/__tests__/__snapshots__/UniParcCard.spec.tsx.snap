@@ -56,9 +56,25 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Common taxons: 
+              Common taxonomies: 
             </strong>
-            3
+            <a
+              href="/taxonomy/32630"
+            >
+              synthetic construct
+            </a>
+            , 
+            <a
+              href="/taxonomy/9606"
+            >
+              Homo sapiens
+            </a>
+            , 
+            <a
+              href="/taxonomy/10242"
+            >
+              Orthopoxvirus
+            </a>
           </span>
           <span
             class="result-card__info-bit"
