@@ -204,8 +204,8 @@ const BlastForm = ({ initialFormValues }: Props) => {
           fetchData(url, cancelTokenSource.token, {
             method: 'HEAD',
           }).then((response) => {
-            if (response.headers['X-Total-Results']) {
-              setSearchSpaceTotal(Number(response.headers['X-Total-Results']));
+            if (response.headers['x-total-results']) {
+              setSearchSpaceTotal(Number(response.headers['x-total-results']));
             } else {
               setSearchSpaceTotal(0);
             }
@@ -531,8 +531,11 @@ const BlastForm = ({ initialFormValues }: Props) => {
                       {pluralise('sequence', searchSpaceTotal, 'sequences')}
                     </strong>
                     <br />
-                    This is a filtered subset of the target database based on
-                    your taxonomy filters
+                    This is a filtered subset of the target database{' '}
+                    {databaseValueToName(
+                      formValues[BlastFields.database].selected as string
+                    )}{' '}
+                    based on your taxonomy filters
                   </>
                 )}
               </Message>
