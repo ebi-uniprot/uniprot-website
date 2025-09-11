@@ -1,9 +1,11 @@
 import { ExternalLink, Loader, Message } from 'franklin-sites';
 import { FC } from 'react';
+import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
 import { stringifyUrl } from '../utils/url';
@@ -11,8 +13,7 @@ import { stringifyUrl } from '../utils/url';
 const blogEntryUrl =
   'https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html';
 
-const checkMoveUrl =
-  'https://wwwdev.ebi.ac.uk/uniprot/api/refprotmove-check/check-move';
+const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
 
 const UniProtKBGenericPreamble = () => (
   <>
