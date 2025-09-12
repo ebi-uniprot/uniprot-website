@@ -41,7 +41,10 @@ const SimilarProteinsSection = ({ uniparcId, subEntry }: Props) =>
       </LazyComponent>
       {subEntry.geneName && subEntry.organism?.taxonId ? (
         <>
-          <h3>{subEntry.geneName} gene in this entry&apos;s taxonomy tree</h3>
+          <h3>
+            &quot;{subEntry.geneName}&quot; gene in this entry&apos;s taxonomy
+            tree
+          </h3>
           <LazyComponent>
             <SubEntrySameGene
               geneName={subEntry.geneName}

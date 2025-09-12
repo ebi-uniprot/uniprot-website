@@ -21,7 +21,7 @@ import { TabLocation } from '../../../uniprotkb/types/entry';
 const selectRanks = (taxonomy?: TaxonomyAPIModel) => {
   // Keep only the nodes with a rank and that are not hidden
   const selectedRanks = (taxonomy?.lineage || []).filter((taxon) =>
-    Boolean(taxon.rank && !taxon.hidden)
+    Boolean(taxon.rank !== 'no rank' /* && !taxon.hidden*/)
   );
 
   // Add the current node if it has a rank (even if it's hidden)
@@ -99,7 +99,7 @@ const SameGeneTable = ({ geneName, taxonId }: Props) => {
   if (!data?.results.length) {
     return (
       <em>
-        No UniProtKB entry found with the same gene name within this taxon
+        No UniProtKB entry found with the same gene name within this taxon.
       </em>
     );
   }
@@ -145,7 +145,11 @@ const SameGene = ({ geneName, taxonId }: Props) => {
   const selectedRanks = selectRanks(data);
 
   if (!selectedRanks.length) {
-    return <em>No higher taxonomy rank available</em>;
+    return (
+      <div>
+        <em>No higher taxonomy rank available.</em>
+      </div>
+    );
   }
 
   return (
