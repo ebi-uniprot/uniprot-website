@@ -201,15 +201,14 @@ const BlastForm = ({ initialFormValues }: Props) => {
           query,
         });
         try {
-          fetchData(url, cancelTokenSource.token, {
+          const response = await fetchData(url, cancelTokenSource.token, {
             method: 'HEAD',
-          }).then((response) => {
-            if (response.headers['x-total-results']) {
-              setSearchSpaceTotal(Number(response.headers['x-total-results']));
-            } else {
-              setSearchSpaceTotal(0);
-            }
           });
+          if (response.headers['x-total-results']) {
+            setSearchSpaceTotal(Number(response.headers['x-total-results']));
+          } else {
+            setSearchSpaceTotal(0);
+          }
         } catch (error) {
           if (error instanceof Error) {
             if (error.name === 'AbortError') {
