@@ -120,7 +120,9 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
       )}
     </Tabs>
   ) : (
-    <em>No similar UniProtKB entry found.</em>
+    <div>
+      <em>No similar UniProtKB entry found.</em>
+    </div>
   );
 };
 
