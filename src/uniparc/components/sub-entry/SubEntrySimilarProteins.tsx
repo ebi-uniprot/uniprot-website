@@ -50,7 +50,9 @@ const SimilarProteins = ({ uniparcId }: Props) => {
       )}
     </Tabs>
   ) : (
-    <em>No similar UniProtKB entry found.</em>
+    <div>
+      <em>No similar UniProtKB entry found.</em>
+    </div>
   );
 };
 
