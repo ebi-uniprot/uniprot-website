@@ -27,6 +27,9 @@ const SimilarProteinsSection = ({ uniparcId }: Props) =>
       id={SubEntrySection.SimilarProteins}
       data-entry-section
     >
+      <h3 data-article-id="similar_proteins_section#uniref-clusters">
+        UniRef clusters
+      </h3>
       <LazyComponent>
         <SubEntrySimilarProteins uniparcId={uniparcId} />
       </LazyComponent>
