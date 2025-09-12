@@ -1,8 +1,11 @@
 import '../../styles/ToolsForm.scss';
 
+import axios from 'axios';
 import cn from 'classnames';
 import {
   Chip,
+  formatLargeNumber,
+  Message,
   PageIntro,
   sequenceProcessor,
   SequenceSubmission,
@@ -15,9 +18,11 @@ import {
   useEffect,
   useReducer,
   useRef,
+  useState,
 } from 'react';
 import { useNavigate } from 'react-router';
 import { sleep } from 'timing-functions';
+import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -27,14 +32,21 @@ import {
 } from '../../../messages/types/messagesTypes';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import HTMLHead from '../../../shared/components/HTMLHead';
+import { apiPrefix } from '../../../shared/config/apiUrls/apiPrefix';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { BLAST_LIMIT } from '../../../shared/config/limits';
+import { fileFormatToUrlParameter } from '../../../shared/config/resultsDownload';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
+import { FileFormat } from '../../../shared/types/resultsDownload';
+import fetchData from '../../../shared/utils/fetchData';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
+import * as logging from '../../../shared/utils/logging';
+import { stringifyUrl } from '../../../shared/utils/url';
+import { pluralise } from '../../../shared/utils/utils';
 import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/jobActions';
 import ChecksumSuggester from '../../components/ChecksumSuggester';
@@ -49,6 +61,7 @@ import defaultFormValues, {
   BlastFields,
   BlastFormValue,
   BlastFormValues,
+  databaseValueToName,
   excludeTaxonForDB,
 } from '../config/BlastFormData';
 import {
@@ -119,6 +132,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // refs
   const sslRef = useRef<SequenceSearchLoaderInterface>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [searchSpaceTotal, setSearchSpaceTotal] = useState(Infinity);
 
   // hooks
   const dispatchMessages = useMessagesDispatch();
@@ -148,6 +162,73 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const excludeTaxonField = excludeTaxonForDB(
     formValues[BlastFields.database].selected
   );
+
+  useEffect(() => {
+    // eslint-disable-next-line import/no-named-as-default-member
+    const cancelTokenSource = axios.CancelToken.source();
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    signal.addEventListener('abort', () => {
+      cancelTokenSource.cancel('Operation canceled by the user.');
+    });
+
+    async function fetchSearchSpaceCount() {
+      if (
+        !excludeTaxonField &&
+        (formValues[BlastFields.taxons].selected as SelectedTaxon[])?.length
+      ) {
+        const baseUrl = joinUrl(apiPrefix, 'uniprotkb', 'search');
+        let query = `(${(formValues[BlastFields.taxons].selected as SelectedTaxon[]).map((taxon) => `organism_id:${taxon.id}`).join(' OR ')})`;
+        switch (formValues[BlastFields.database].selected) {
+          case 'uniprotkb_refprotswissprot':
+            query += ' AND (keyword:KW-1185 OR reviewed:true)';
+            break;
+          case 'uniprotkb_reference_proteomes':
+            query += ' AND (keyword:KW-1185)';
+            break;
+          case 'uniprotkb_swissprot':
+            query += ' AND (reviewed:true)';
+            break;
+          case 'uniprotkb_pdb':
+            query += ' AND (structure_3d:true)';
+            break;
+          default:
+            break;
+        }
+        const url = stringifyUrl(baseUrl, {
+          format: fileFormatToUrlParameter[FileFormat.fasta],
+          includeIsoform: true,
+          query,
+        });
+        try {
+          fetchData(url, cancelTokenSource.token, {
+            method: 'HEAD',
+          }).then((response) => {
+            if (response.headers['x-total-results']) {
+              setSearchSpaceTotal(Number(response.headers['x-total-results']));
+            } else {
+              setSearchSpaceTotal(0);
+            }
+          });
+        } catch (error) {
+          if (error instanceof Error) {
+            if (error.name === 'AbortError') {
+              // The operation was aborted; silently bail
+              return;
+            }
+            logging.error(error);
+          }
+        }
+      } else {
+        setSearchSpaceTotal(Infinity);
+      }
+    }
+
+    fetchSearchSpaceCount();
+    return () => {
+      abortController.abort();
+    };
+  }, [excludeTaxonField, formValues]);
 
   // TODO: eventually incorporate negativeTaxIDs into the form
 
@@ -407,6 +488,56 @@ const BlastForm = ({ initialFormValues }: Props) => {
                 </div>
               ))}
             </section>
+            {searchSpaceTotal !== Infinity &&
+            (formValues[BlastFields.taxons]?.selected as SelectedTaxon[])
+              ?.length ? (
+              <Message
+                level={searchSpaceTotal === 0 ? 'failure' : 'info'}
+                className="taxonomy-selection-message"
+              >
+                {searchSpaceTotal === 0 ? (
+                  <>
+                    <strong>Search space has no protein sequences</strong>
+                    <br />
+                    Filtering the target database{' '}
+                    {databaseValueToName(
+                      formValues[BlastFields.database].selected as string
+                    )}{' '}
+                    by the selected{' '}
+                    {
+                      (
+                        formValues[BlastFields.taxons]
+                          ?.selected as SelectedTaxon[]
+                      ).length
+                    }{' '}
+                    {pluralise(
+                      'taxonomy',
+                      (
+                        formValues[BlastFields.taxons]
+                          ?.selected as SelectedTaxon[]
+                      ).length,
+                      'taxa'
+                    )}{' '}
+                    returns no protein sequences. Adjust the target database or
+                    taxonomy filters to continue.
+                  </>
+                ) : (
+                  <>
+                    <strong>
+                      Search space: {formatLargeNumber(searchSpaceTotal)}{' '}
+                      protein{' '}
+                      {pluralise('sequence', searchSpaceTotal, 'sequences')}
+                    </strong>
+                    <br />
+                    This is a filtered subset of the target database{' '}
+                    {databaseValueToName(
+                      formValues[BlastFields.database].selected as string
+                    )}{' '}
+                    based on your taxonomy filters
+                  </>
+                )}
+              </Message>
+            ) : null}
           </section>
           <section className="tools-form-section">
             <section className="tools-form-section__item">
@@ -479,7 +610,14 @@ const BlastForm = ({ initialFormValues }: Props) => {
               <button
                 className="button primary"
                 type="submit"
-                disabled={submitDisabled}
+                disabled={
+                  submitDisabled ||
+                  (searchSpaceTotal === 0 &&
+                    (
+                      formValues[BlastFields.taxons]
+                        ?.selected as SelectedTaxon[]
+                    ).length > 0)
+                }
                 onClick={submitBlastJob}
               >
                 {parsedSequences.length <= 1 ? (

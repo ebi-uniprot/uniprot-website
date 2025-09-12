@@ -7,8 +7,17 @@ import { mockSuggesterApi } from '../../../../query-builder/components/__tests__
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import BlastForm from '../BlastForm';
 
+global.AbortController = jest.fn(() => ({
+  abort: jest.fn(),
+  signal: { addEventListener: jest.fn() },
+})) as unknown as {
+  new (): AbortController;
+  prototype: AbortController;
+};
+
 const mock = new MockAdapter(axios);
 mock.onGet().reply(200, mockSuggesterApi.response);
+mock.onHead().reply(200, {}, { 'x-total-results': '1000' });
 
 const aaSequence = 'ABCDEFGHIJKLMNOPQRST';
 const ntSequence = 'ATCGAGCGATAGCGAGGGAC';
@@ -134,28 +143,36 @@ describe('BlastForm test', () => {
     const autocompleteInput = screen.getByRole('searchbox', {
       name: 'Restrict by taxonomy',
     });
+
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },
     });
+
     const autocompleteItem = await screen.findByText('rotavirus [1906931]');
     fireEvent.click(autocompleteItem);
-    expect(screen.getByText('Human rotavirus [1906931]')).toBeInTheDocument();
-    fireEvent.click(screen.getByTestId('remove-icon'));
-    expect(
-      screen.queryByText('Human rotavirus [1906931]')
-    ).not.toBeInTheDocument();
-  });
 
-  it('should reset the form when clicking on reset', () => {
+    expect(
+      await screen.findByText('Human rotavirus [1906931]')
+    ).toBeInTheDocument();
+
+    expect(await screen.findByText(/Search space:/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('remove-icon'));
+
+    await waitFor(() =>
+      expect(screen.queryByText(/Search space:/i)).not.toBeInTheDocument()
+    );
+  });
+  it('should reset the form when clicking on reset', async () => {
     const resetButton = screen.getByRole('button', { name: 'Reset' });
 
     const textArea = screen.getByTestId<HTMLTextAreaElement>(
       'sequence-submission-input'
     );
-    setTextArea(textArea, aaSequence);
+
+    await setTextArea(textArea, aaSequence);
 
     fireEvent.click(resetButton);
-
     expect(textArea.value).toBe('');
   });
 
@@ -166,7 +183,7 @@ describe('BlastForm test', () => {
     const textArea = screen.getByTestId<HTMLTextAreaElement>(
       'sequence-submission-input'
     );
-    setTextArea(textArea, aaSequence);
+    await setTextArea(textArea, aaSequence);
     fireEvent.submit(submitButton);
     expect(submitButton).toBeDisabled();
     jest.runAllTimers();

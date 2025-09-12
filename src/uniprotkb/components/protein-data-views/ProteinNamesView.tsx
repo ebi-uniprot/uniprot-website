@@ -25,7 +25,12 @@ const ProteinName = ({
 }) => (
   <>
     {withLink ? (
-      <Link to={(location) => ({ ...location, hash: stringToID(value) })}>
+      <Link
+        to={{
+          pathname: '.',
+          hash: stringToID(value),
+        }}
+      >
         {value}
       </Link>
     ) : (

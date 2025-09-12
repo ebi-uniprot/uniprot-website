@@ -3,7 +3,7 @@ import splitAndTidyText from '../splitAndTidyText';
 const testCases: [
   input: string | undefined,
   separator: RegExp | undefined,
-  length: number
+  length: number,
 ][] = [
   [undefined, undefined, 0],
   ['abc', undefined, 1],

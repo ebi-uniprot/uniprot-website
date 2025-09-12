@@ -57,7 +57,7 @@ If a typecasting is needed, it should be somewhere else:
 ```ts
 // Source: <URL>
 // Retrieved: <date>
-const mock = {field: 'data'} as any;
+const mock = { field: 'data' } as any;
 
 export default mock as any;
 ```

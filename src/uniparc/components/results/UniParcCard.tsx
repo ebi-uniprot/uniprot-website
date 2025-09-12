@@ -1,4 +1,5 @@
 import { Card, LongNumber } from 'franklin-sites';
+import { Fragment } from 'react';
 import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
@@ -28,7 +29,7 @@ const getIdKey = getIdKeyForNamespace(Namespace.uniparc);
 const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
   const id = getIdKey(data);
 
-  const taxonCount = data.commonTaxons?.length;
+  const taxonCount = data.commonTaxons?.length ?? 0;
   const uniProtKBCount = data.uniProtKBAccessions?.length;
 
   return (
@@ -49,8 +50,19 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
       <div className={renderColumnsInCardStyles['result-card__info-container']}>
         {taxonCount && (
           <span className={renderColumnsInCardStyles['result-card__info-bit']}>
-            <strong>{pluralise('Common taxon', taxonCount)}: </strong>
-            <LongNumber>{taxonCount}</LongNumber>
+            <strong>
+              {pluralise('Common taxonomy', taxonCount, 'Common taxonomies')}:{' '}
+            </strong>
+            {data.commonTaxons?.map((taxon, i) => (
+              <Fragment key={taxon.commonTaxonId}>
+                <Link
+                  to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}
+                >
+                  {taxon.commonTaxon}
+                </Link>
+                {i < taxonCount - 1 ? ', ' : ''}
+              </Fragment>
+            ))}
           </span>
         )}
         {uniProtKBCount && (
