@@ -14,7 +14,7 @@ type UseCustomElement = <T extends string>(
 
 const useCustomElement: UseCustomElement = (customElementGetter, name) => {
   const [defined, setDefined] = useSafeState(
-    Boolean(window.customElements && window.customElements.get(name))
+    Boolean(isSupported && window.customElements.get(name))
   );
   const [errored, setErrored] = useSafeState(false);
 
