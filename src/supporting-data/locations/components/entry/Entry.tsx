@@ -80,7 +80,9 @@ const LocationsEntry = () => {
         title={[data.name, searchableNamespaceLabels[Namespace.locations]]}
       >
         <meta name="description" content={data.definition} />
-        <link rel="canonical" href={window.location.href} />
+        {typeof window !== 'undefined' && (
+          <link rel="canonical" href={window.location.href} />
+        )}
       </HTMLHead>
       {/* Here we don't want to use the exact label atm */}
       <h1>Cellular component - {data.name}</h1>

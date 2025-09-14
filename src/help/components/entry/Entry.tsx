@@ -39,7 +39,10 @@ import RelatedArticles from './RelatedArticles';
 import styles from './styles/entry.module.scss';
 
 const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
-const sameAppURL = new RegExp(window.location.origin + BASE_URL, 'i');
+const sameAppURL =
+  typeof window !== 'undefined'
+    ? new RegExp(window.location.origin + BASE_URL, 'i')
+    : internalRE;
 // NOTE: in production, internalRE and sameAppURL should be the same
 
 const aTransformer: Transformer = (_: string, attribs: Attributes) => {

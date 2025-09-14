@@ -412,7 +412,9 @@ const Entry = () => {
       className={cn('entry-page', sticky['sticky-tabs-container'])}
     >
       <HTMLHead>
-        <link rel="canonical" href={window.location.href} />
+        {typeof window !== 'undefined' && (
+          <link rel="canonical" href={window.location.href} />
+        )}
       </HTMLHead>
       {isObsolete ? (
         <h1>{params.accession}</h1>

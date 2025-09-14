@@ -117,10 +117,12 @@ const Results = () => {
           searchableNamespaceLabels[ns as SearchableNamespace]
         } dataset of UniProt`}
       />
-      <link
-        rel="canonical"
-        href={`${window.location.origin}${window.location.pathname}?query=*`}
-      />
+      {typeof window !== 'undefined' && (
+        <link
+          rel="canonical"
+          href={`${window.location.origin}${window.location.pathname}?query=*`}
+        />
+      )}
     </HTMLHead>
   );
 

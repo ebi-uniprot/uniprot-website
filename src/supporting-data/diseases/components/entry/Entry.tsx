@@ -75,7 +75,9 @@ const DiseasesEntry = () => {
         title={[data.name, searchableNamespaceLabels[Namespace.diseases]]}
       >
         <meta name="description" content={data.definition} />
-        <link rel="canonical" href={window.location.href} />
+        {typeof window !== 'undefined' && (
+          <link rel="canonical" href={window.location.href} />
+        )}
       </HTMLHead>
       {/* Here we don't want to use the full label atm */}
       <h1>Disease - {data.name}</h1>

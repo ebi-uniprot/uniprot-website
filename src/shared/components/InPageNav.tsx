@@ -42,7 +42,7 @@ const InPageNav = ({
     let elements: HTMLElement[] = [];
 
     // Intersection Observer to watch when sections appear/disappear
-    if (!('IntersectionObserver' in window)) {
+    if (!(typeof window === 'undefined' || 'IntersectionObserver' in window)) {
       // 🤷🏽‍♂️ too bad...
       return;
     }
@@ -147,7 +147,7 @@ const InPageNav = ({
       !(
         marker.current &&
         'animate' in marker.current &&
-        'IntersectionObserver' in window
+        (typeof window === 'undefined' || 'IntersectionObserver' in window)
       )
     ) {
       return;
