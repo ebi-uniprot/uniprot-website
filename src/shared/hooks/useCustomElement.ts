@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import * as logging from '../utils/logging';
 import useSafeState from './useSafeState';
 
-const isSupported = 'customElements' in window;
+const isSupported = typeof window !== 'undefined' && 'customElements' in window;
 
 type UseCustomElement = <T extends string>(
   customElementGetter: () => Promise<{

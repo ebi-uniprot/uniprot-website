@@ -7,9 +7,11 @@ const reUniProtOrg = /^https?:\/\/www\.uniprot\.org/;
 
 const DevDeploymentWarning = () => {
   const [dismissed, setDismissed] = useState(false);
+
   return (
     <>
-      {!window.location.href.match(reUniProtOrg) &&
+      {typeof window !== 'undefined' &&
+      !window.location.href.match(reUniProtOrg) &&
       !LIVE_RELOAD &&
       !dismissed ? (
         <Message

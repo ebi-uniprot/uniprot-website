@@ -24,7 +24,11 @@ root.render(
   </StrictMode>
 );
 
-if ('serviceWorker' in navigator && navigator.serviceWorker) {
+if (
+  typeof navigator !== 'undefined' &&
+  'serviceWorker' in navigator &&
+  navigator.serviceWorker
+) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
@@ -36,7 +40,7 @@ if ('serviceWorker' in navigator && navigator.serviceWorker) {
 }
 
 /* Page tracking */
-if (process.env.NODE_ENV !== 'development') {
+if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'development') {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const title = document.querySelector('title')!;
 
@@ -70,7 +74,7 @@ if (process.env.NODE_ENV !== 'development') {
     attributeFilter: ['data-loaded'],
   });
 
-  if (window && typeof window.hj === 'function') {
+  if (typeof window.hj === 'function') {
     window.hj('identify', null, {
       Bundle: MODERN_BUNDLE ? 'modern' : 'legacy',
     });

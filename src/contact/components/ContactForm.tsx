@@ -200,10 +200,12 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
   return (
     <>
       <HTMLHead title="Contact us">
-        <link
-          rel="canonical"
-          href={window.location.origin + window.location.pathname}
-        />
+        {typeof window !== 'undefined' && (
+          <link
+            rel="canonical"
+            href={window.location.origin + window.location.pathname}
+          />
+        )}
       </HTMLHead>
       <PageIntro heading="Contact us" />
       <section className={styles.container}>
