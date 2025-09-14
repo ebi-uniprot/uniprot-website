@@ -1,31 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 
-const isSupported = 'matchMedia' in window;
+const isSupported = typeof window !== 'undefined' && 'matchMedia' in window;
 
 const useMatchMedia = (query: string, defaultMatch = false) => {
-  const [match, setMatch] = useState(
-    isSupported ? window.matchMedia(query).matches : defaultMatch
-  );
-
-  useEffect(() => {
+  const store = useMemo(() => {
+    const getServerSnapshot = () => defaultMatch;
     if (!isSupported) {
-      return;
+      return {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        subscribe: (_: () => void) => () => {},
+        getSnapshot: () => defaultMatch,
+        getServerSnapshot,
+      };
     }
-
     const mediaQueryList = window.matchMedia(query);
 
-    const listener = (event: MediaQueryListEvent) => {
-      setMatch(event.matches);
+    const subscribe = (callback: () => void) => {
+      mediaQueryList.addEventListener('change', callback);
+      return () => {
+        mediaQueryList.removeEventListener('change', callback);
+      };
     };
+    const getSnapshot = () => mediaQueryList.matches;
 
-    mediaQueryList.addEventListener('change', listener);
-
-    return () => {
-      mediaQueryList.removeEventListener('change', listener);
+    return {
+      subscribe,
+      getSnapshot,
+      getServerSnapshot,
     };
-  }, [query]);
+  }, [query, defaultMatch]);
 
-  return match;
+  return useSyncExternalStore(
+    store.subscribe,
+    store.getSnapshot,
+    store.getServerSnapshot
+  );
 };
 
 export default useMatchMedia;
