@@ -1,6 +1,6 @@
 import { Button, LongNumber } from 'franklin-sites';
 import { useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringifyQuery } from '../../../shared/utils/url';

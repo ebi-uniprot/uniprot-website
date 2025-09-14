@@ -1,5 +1,5 @@
-import { LocationDescriptorObject } from 'history';
 import { ReactNode } from 'react';
+import { type Path } from 'react-router';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
 import { StatisticsItem, TableProps } from './StatisticsPage';
@@ -13,7 +13,7 @@ type Props = TableProps & {
   locationGetter?: (
     name: StatisticsItem['name'],
     reviewed: boolean
-  ) => LocationDescriptorObject | null;
+  ) => Partial<Path> | null;
 };
 
 const FrequencyTable = ({

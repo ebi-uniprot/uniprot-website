@@ -2,7 +2,7 @@ import '../styles/overview.scss';
 
 import { Card, DataTable, LongNumber } from 'franklin-sites';
 import { Fragment, ReactNode, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';

@@ -1,6 +1,6 @@
 import { Button, SlidingPanel } from 'franklin-sites';
 import { FC, Suspense, useCallback, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 
 import {
   parse,

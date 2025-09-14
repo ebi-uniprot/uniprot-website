@@ -1,6 +1,6 @@
 import { Card, Chip, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { Fragment, lazy, memo, Suspense, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';

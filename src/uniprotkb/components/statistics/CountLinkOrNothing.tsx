@@ -1,16 +1,16 @@
 import { LongNumber } from 'franklin-sites';
-import { Link, LinkProps } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router';
 
-type CountLinkOrNothingProps<T> = {
+type CountLinkOrNothingProps = {
   condition?: boolean;
   children: number;
-} & Omit<LinkProps<T>, 'children'>;
+} & Omit<LinkProps, 'children'>;
 
-const CountLinkOrNothing = <T,>({
+const CountLinkOrNothing = ({
   condition = true,
   children,
   ...props
-}: CountLinkOrNothingProps<T>) => {
+}: CountLinkOrNothingProps) => {
   if (children && condition) {
     return (
       <Link {...props}>

@@ -1,21 +1,22 @@
 import { SlidingPanel } from 'franklin-sites';
-import { createMemoryHistory, createPath, History } from 'history';
-import { useEffect, useRef } from 'react';
+import { StrictMode, useContext, useEffect, useMemo, useRef } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
 import {
-  Route,
-  Router,
-  Switch,
-  useHistory,
+  createMemoryRouter,
+  type LoaderFunction,
+  Outlet,
+  type RouteObject,
+  RouterProvider,
   useLocation,
-} from 'react-router-dom';
+  useNavigate,
+  useRouteError,
+} from 'react-router';
 
-import {
-  getLocationEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { getLocationEntryPath, Location } from '../../../app/config/urls';
+import resultsOrLanding from '../../../app/routes/helpers/resultOrLanding';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import { ContextualHelpContext } from '../../../shared/contexts/ContextualHelp';
 import helpURL from '../../config/apiUrls';
 import { HelpSearchResponse } from '../../types/apiModel';
 import CatchAll from './CatchAll';
@@ -24,101 +25,141 @@ import HelpLandingPage from './Landing';
 import NavigationBar from './NavigationBar';
 import HelpResultsPage from './Results';
 import SearchBar from './SearchBar';
-import Shortcuts from './Shortcuts';
 import styles from './styles/contextual-help.module.scss';
 
-const ContextualHelpRouterContent = ({
-  globalHistory,
-}: {
-  globalHistory: History;
-}) => {
-  const location = useLocation();
-
-  const sp = new URLSearchParams(location.search);
-  const query = sp.get('query');
-  const dataObject = useDataApiWithStale<HelpSearchResponse>(
-    query && helpURL.search({ query })
+const ContextualHelpLayout = () => {
+  const { articlePath, globalPathname, onClose } = useContext(
+    ContextualHelpContext
   );
-
-  return (
-    <>
-      <SearchBar isLoading={dataObject.loading} />
-      <Switch>
-        {/* Just here to handle initial empty location */}
-        <Route path="/" exact />
-        {/* Specific entries */}
-        <Route
-          path={LocationToPath[Location.HelpEntry]}
-          component={HelpEntryPage}
-        />
-        {/* Will get content from page later, for now, star search */}
-        <Route
-          path={LocationToPath[Location.HelpResults]}
-          render={(props) => {
-            if (props.location.search) {
-              return <HelpResultsPage {...dataObject} />;
-            }
-            return (
-              <>
-                <Shortcuts globalHistory={globalHistory} />
-                <HelpLandingPage />
-              </>
-            );
-          }}
-        />
-        {/* Catch-all handler -> Redirect (within or global history) */}
-        <Route
-          path="*"
-          render={(props) => (
-            <CatchAll globalHistory={globalHistory} {...props} />
-          )}
-        />
-      </Switch>
-    </>
-  );
-};
-
-type Props = {
-  articlePath?: string;
-  onClose: (reason: 'outside' | 'x-button' | 'navigation' | 'escape') => void;
-};
-
-const ContextualHelpContainer = ({ articlePath, onClose }: Props) => {
-  const [articleId, hash] = (articlePath || '').split('#');
-  const globalHistory = useHistory();
-  const { pathname } = useLocation();
-  const localHistoryRef = useRef(createMemoryHistory());
+  const navigate = useNavigate();
 
   useEffect(() => {
-    let action: 'push' | 'replace' = 'push';
-    if (localHistoryRef.current.length === 1) {
-      action = 'replace';
+    const [articleId, hash] = (articlePath || '').split('#');
+    if (articleId) {
+      navigate({
+        pathname: getLocationEntryPath(Location.HelpEntry, articleId),
+        hash,
+      });
     }
-    localHistoryRef.current[action](
-      articleId
-        ? createPath({
-            pathname: getLocationEntryPath(Location.HelpEntry, articleId),
-            hash,
-          })
-        : LocationToPath[Location.HelpResults]
-    );
-  }, [articleId, hash]);
+  }, [articlePath, navigate]);
 
   return (
     <SlidingPanel
-      title={<NavigationBar localHistory={localHistoryRef.current} />}
+      title={<NavigationBar />}
       onClose={onClose}
       className={styles['contextual-help-panel']}
       size="small"
       position="right"
-      pathname={pathname}
+      pathname={globalPathname}
     >
       <ErrorBoundary>
-        <Router history={localHistoryRef.current}>
-          <ContextualHelpRouterContent globalHistory={globalHistory} />
-        </Router>
+        <SearchBar />
+        <Outlet />
       </ErrorBoundary>
     </SlidingPanel>
+  );
+};
+
+const loader: LoaderFunction = async ({ request }) => {
+  const url = new URL(request.url);
+  const sp = new URLSearchParams(url.search);
+  const query = sp.get('query');
+
+  if (query) {
+    const response = await fetch(helpURL.search({ query, facets: null }), {
+      signal: request.signal,
+    });
+    if (!response.ok) {
+      throw response.status;
+    }
+    const data: HelpSearchResponse = await response.json();
+    if (!data.results.length) {
+      throw response.status;
+    }
+    return data;
+  }
+};
+
+const routes: RouteObject[] = [
+  {
+    id: 'contextual-help-root',
+    Component: ContextualHelpLayout,
+    loader,
+    children: [
+      {
+        path: '/',
+        children: [
+          {
+            path: 'help',
+            children: [
+              {
+                index: true,
+                Component: resultsOrLanding(HelpResultsPage, HelpLandingPage),
+              },
+              {
+                path: ':accession',
+                Component: HelpEntryPage,
+              },
+            ],
+          },
+          {
+            path: '*',
+            Component: CatchAll,
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const router = createMemoryRouter(routes, {
+  initialEntries: [{ pathname: '/help', state: { initial: true } }],
+});
+
+type ContextualHelpContainerProps = {
+  articlePath?: string;
+  onClose: (reason: 'outside' | 'x-button' | 'navigation' | 'escape') => void;
+};
+
+const ContextualHelpContainer = ({
+  articlePath,
+  onClose,
+}: ContextualHelpContainerProps) => {
+  const { pathname: globalPathname } = useLocation();
+  const globalNavigate = useNavigate();
+
+  const reactRootRef = useRef<Root>();
+
+  const contextValue = useMemo(
+    () => ({ articlePath, onClose, globalPathname, globalNavigate }),
+    [articlePath, onClose, globalPathname, globalNavigate]
+  );
+
+  useEffect(() => {
+    if (!reactRootRef.current) {
+      return;
+    }
+    reactRootRef.current.render(
+      <StrictMode>
+        <ContextualHelpContext.Provider value={contextValue}>
+          <RouterProvider router={router} />
+        </ContextualHelpContext.Provider>
+      </StrictMode>
+    );
+  }, [contextValue]);
+
+  // Unrender everything on unmount
+  useEffect(() => () => reactRootRef.current?.render(null), []);
+
+  return (
+    <div
+      ref={(node) => {
+        if (node) {
+          // Make sure to create it only once
+          reactRootRef.current = createRoot(node);
+        }
+      }}
+    />
   );
 };
 

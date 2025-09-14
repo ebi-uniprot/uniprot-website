@@ -17,11 +17,11 @@ import {
   useRef,
   useState,
 } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { generatePath, Link, useLocation } from 'react-router';
 import { schedule } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import ContactLink from '../../../contact/components/ContactLink';
 import useBasket from '../../hooks/useBasket';
 import useJobState from '../../hooks/useJobsState';
 import useSafeState from '../../hooks/useSafeState';
@@ -262,20 +262,14 @@ const Basket = () => {
 
 const SecondaryItems = () => {
   const supportsJobs = useSupportsJobs();
+
   return (
     <>
       {supportsJobs && <JobsDashboard />}
       <Basket />
-      <Link<ContactLocationState>
-        to={(location) => ({
-          pathname: LocationToPath[Location.ContactGeneric],
-          state: { referrer: location },
-        })}
-        title="Contact"
-        className={styles['secondary-item']}
-      >
+      <ContactLink title="Contact" className={styles['secondary-item']}>
         <EnvelopeIcon width={secondaryItemIconSize} />
-      </Link>
+      </ContactLink>
       <Link to={LocationToPath[Location.HelpResults]}>Help</Link>
     </>
   );

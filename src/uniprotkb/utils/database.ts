@@ -1,4 +1,5 @@
 import { Xref } from '../../shared/types/apiModel';
+import * as logging from '../../shared/utils/logging';
 import {
   EntrySectionToDatabaseNames,
   getEntrySectionToDatabaseNames,
@@ -26,6 +27,46 @@ export type DatabaseInfoMaps = {
   implicitDatabaseXRefs: ImplicitDatabaseXRefs;
   entrySectionToDatabaseNames: EntrySectionToDatabaseNames;
   entrySectionToDatabaseCategoryOrder: EntrySectionToDatabaseCategoryOrder;
+};
+
+export type UniProtDataVersion = {
+  releaseNumber: string;
+  releaseDate: Date;
+};
+
+const reXrefPrefix = /^xref_/;
+
+export const isDatabaseColumn = (column: UniProtKBColumn) =>
+  column.match(reXrefPrefix);
+
+export const getDatabaseNameFromColumn = (column: UniProtKBColumn) =>
+  column.replace(reXrefPrefix, '');
+
+export const databaseInfoColumnsSanityCheck = (databaseInfo: DatabaseInfo) => {
+  const definedColumns = new Set<string>();
+  Object.values(UniProtKBColumn).forEach((column) => {
+    if (isDatabaseColumn(column)) {
+      definedColumns.add(getDatabaseNameFromColumn(column));
+    }
+  });
+  databaseInfo.forEach((databaseInfoPoint) => {
+    // "implicit" are constructed from other properties
+    if (!databaseInfoPoint.implicit) {
+      const removed = definedColumns.delete(
+        databaseInfoPoint.name.toLowerCase()
+      );
+      /* istanbul ignore if */
+      if (!removed) {
+        logging.warn(`Missing column definition for ${databaseInfoPoint.name}`);
+      }
+    }
+  });
+  /* istanbul ignore if */
+  if (definedColumns.size > 0) {
+    logging.warn(
+      `Unused column definition for ${Array.from(definedColumns).join(', ')}`
+    );
+  }
 };
 
 const getEntrySectionToDatabaseCategoryOrder = (
@@ -89,11 +130,3 @@ export const getDatabaseInfoMaps = (
     entrySectionToDatabaseCategoryOrder,
   };
 };
-
-const reXrefPrefix = /^xref_/;
-
-export const isDatabaseColumn = (column: UniProtKBColumn) =>
-  column.match(reXrefPrefix);
-
-export const getDatabaseNameFromColumn = (column: UniProtKBColumn) =>
-  column.replace(reXrefPrefix, '');

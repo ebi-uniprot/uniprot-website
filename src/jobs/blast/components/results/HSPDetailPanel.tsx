@@ -3,7 +3,7 @@ import './styles/HSPDetailPanel.scss';
 
 import { Loader, SlidingPanel } from 'franklin-sites';
 import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';

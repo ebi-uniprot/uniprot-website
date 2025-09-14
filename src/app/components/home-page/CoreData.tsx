@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { LongNumber, SwissProtIcon, Tile, TremblIcon } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import ArchiveIllustration from '../../../images/archive_illustration.img.svg';
 import ClusterIllustration from '../../../images/cluster_illustration.img.svg';

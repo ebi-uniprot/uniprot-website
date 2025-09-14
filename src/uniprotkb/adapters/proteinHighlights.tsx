@@ -1,6 +1,5 @@
-import { LocationDescriptorObject } from 'history';
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, type Path } from 'react-router';
 
 import { getEntryPath } from '../../app/config/urls';
 import {
@@ -31,8 +30,8 @@ const highlightToEntrySection: Record<
   highlightSection,
   {
     link:
-      | LocationDescriptorObject
-      | ((accession: string, taxId?: number) => LocationDescriptorObject);
+      | Partial<Path>
+      | ((accession: string, taxId?: number) => Partial<Path>);
     prefixResolver?: (entryType: string) => string;
   }
 > = {
@@ -70,7 +69,7 @@ const highlightToEntrySection: Record<
     },
   },
   [highlightSection.publications]: {
-    link: (accession) => ({
+    link: (accession: string) => ({
       pathname: getEntryPath(
         Namespace.uniprotkb,
         accession,

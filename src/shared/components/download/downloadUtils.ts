@@ -1,4 +1,4 @@
-import { Location as HistoryLocation } from 'history';
+import { Location as HistoryLocation } from 'react-router';
 
 import { Location } from '../../../app/config/urls';
 import { fileFormatsUnenrichedResultsDownload } from '../../../jobs/id-mapping/config/download';

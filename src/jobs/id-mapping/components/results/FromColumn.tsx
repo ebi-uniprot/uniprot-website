@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import AccessionView from '../../../../shared/components/results/AccessionView';

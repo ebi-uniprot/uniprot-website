@@ -14,7 +14,7 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
+import { generatePath, Link, useLocation } from 'react-router';
 
 import {
   getEntryPathFor,
@@ -62,7 +62,6 @@ const ResultsData = ({
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
-  const history = useHistory();
   const [{ query, direct, groupBy }] = getParamsFromURL(useLocation().search);
   const [columns, updateColumnSort, tooltipOnHoverRef] = useColumns(
     namespaceOverride,
@@ -102,7 +101,6 @@ const ResultsData = ({
   }, [setSelectedEntries, viewMode]);
 
   useResultsToEntryRedirect(
-    history,
     direct,
     hasMoreData,
     allResults,

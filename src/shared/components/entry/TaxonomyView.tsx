@@ -1,6 +1,6 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
 import { Fragment, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { ReferenceComment } from '../../../supporting-data/citations/adapters/citationsConverter';

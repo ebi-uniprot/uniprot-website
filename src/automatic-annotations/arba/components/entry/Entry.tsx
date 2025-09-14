@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
@@ -18,10 +18,9 @@ import {
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
 import { ARBAAPIModel } from '../../adapters/arbaConverter';
 
-const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const ArbaEntry = () => {
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } = useDataApi<ARBAAPIModel>(
     apiUrls.entry.entry(accession, Namespace.arba)
@@ -73,4 +72,4 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   );
 };
 
-export default UniRuleEntry;
+export default ArbaEntry;

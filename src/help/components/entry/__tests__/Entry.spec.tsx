@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { Route } from 'react-router-dom';
+import { Route } from 'react-router';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import customRender from '../../../../shared/__test-helpers__/customRender';

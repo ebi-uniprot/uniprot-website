@@ -10,7 +10,7 @@ import {
 } from 'franklin-sites';
 import { sumBy } from 'lodash-es';
 import { ReactNode, useCallback, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 import {
   getEntryPath,
@@ -165,12 +165,12 @@ type ParentNodeLinkProps = {
 
 const ParentNodeLink = ({ label, id, parent }: ParentNodeLinkProps) => (
   <Link
-    to={(location) => ({
-      ...location,
+    to={{
+      pathname: '.',
       search: stringifyQuery(location.search, {
         parent,
       }),
-    })}
+    }}
     title={`Set parent node to ${label}${id ? `ID:${id}` : ''}`}
   >
     {label}
@@ -539,7 +539,7 @@ type UniProtKBGroupByResultsProps = {
 };
 
 const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const locationSearch = useLocation().search;
   const [params] = getParamsFromURL(locationSearch);
   // This query will include facets
@@ -550,15 +550,15 @@ const UniProtKBGroupByResults = ({ total }: UniProtKBGroupByResultsProps) => {
     (_: unknown, id?: string) => {
       // Only proceed if a node is selected
       if (id) {
-        history.push({
-          pathname: history.location.pathname,
+        navigate({
+          pathname: '.',
           search: stringifyQuery(locationSearch, {
             parent: id,
           }),
         });
       }
     },
-    [history, locationSearch]
+    [navigate, locationSearch]
   );
 
   if (!groupBy) {

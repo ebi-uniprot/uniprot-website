@@ -7,9 +7,8 @@ import {
   schemeBlues,
   select,
 } from 'd3';
-import { LocationDescriptor } from 'history';
 import { useEffect, useMemo, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, type LinkProps } from 'react-router';
 
 import { StatisticsItem } from '../statistics/StatisticsPage';
 import styles from './styles/pie-chart.module.scss';
@@ -18,7 +17,7 @@ export type StatisticsGraphItem = Pick<
   StatisticsItem,
   'name' | 'entryCount'
 > & {
-  to?: LocationDescriptor;
+  to?: LinkProps['to'];
 };
 
 // Specify the chart’s dimensions.

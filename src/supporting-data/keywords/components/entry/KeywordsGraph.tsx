@@ -1,6 +1,6 @@
 import { select } from 'd3';
 import { useLayoutEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPathFor } from '../../../../app/config/urls';
 import useSize from '../../../../shared/hooks/useSize';

@@ -1,6 +1,6 @@
 import { LongNumber, Sequence } from 'franklin-sites';
 import type { ComponentProps } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { reUniParc, reUniRefAccession } from '../../../uniprotkb/utils/regexes';
@@ -27,7 +27,7 @@ const CommonSequenceView = ({
   sequence: SequenceType;
 }) => {
   const mediumScreen = useMediumScreen();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   let namespace = Namespace.uniprotkb;
   if (reUniParc.test(accession)) {
@@ -59,8 +59,10 @@ const CommonSequenceView = ({
       }
       accession={accession}
       onBlastClick={() =>
-        history.push(LocationToPath[Location.Blast], {
-          parameters: { sequence: sequence.value },
+        navigate(LocationToPath[Location.Blast], {
+          state: {
+            parameters: { sequence: sequence.value },
+          },
         })
       }
       downloadUrl={apiUrls.entry.sequenceFasta(accession, namespace)}
