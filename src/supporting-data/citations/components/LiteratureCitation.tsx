@@ -23,6 +23,7 @@ import {
 } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
+import useNS from '../../../shared/hooks/useNS';
 import { Namespace } from '../../../shared/types/namespaces';
 import cleanText, {
   cleanTextDefaultOptions,
@@ -42,10 +43,17 @@ type AuthorProps = {
   limit?: number;
 };
 
-const getLinkToAuthor = (author: string) => ({
-  pathname: LocationToPath[Location.UniProtKBResults],
-  search: `query=lit_author:"${author}"`,
-});
+const getLinkToAuthorForNamespace =
+  (namespace?: Namespace) => (author: string) =>
+    namespace === Namespace.citations
+      ? {
+          pathname: LocationToPath[Location.CitationsResults],
+          search: stringifyQuery({ query: `author:"${author}"` }),
+        }
+      : {
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: stringifyQuery({ query: `lit_author:"${author}"` }),
+        };
 
 const WORM_BREEDERS_GAZETTE_URL = 'http://www.wormbook.org/wli/';
 // const ARVO_URL = 'http://iovs.arvojournals.org/article.aspx?articleid=';
@@ -91,9 +99,14 @@ const Authors: FC<React.PropsWithChildren<AuthorProps>> = ({
   authoringGroup,
   limit = 10,
 }) => {
+  const namespace = useNS();
   const { displayedAuthors, hiddenAuthors, lastAuthor } = getChoppedAuthorLists(
     authors || [],
     limit
+  );
+
+  const getLinkToAuthor = getLinkToAuthorForNamespace(
+    namespace || Namespace.uniprotkb
   );
 
   return (
