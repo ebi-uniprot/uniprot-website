@@ -8,10 +8,10 @@ import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 const insideUniProtAbstract1 =
-  'How many members do you have on your team and have you ever considered UniProt as one of them?';
+  'With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?';
 
 const insideUniProtAbstract2 =
-  'Advances in genome sequencing technology means that large-scale efforts such as the Earth Biogenome project and the Darwin Tree of Life';
+  'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const proteinSpotlightAbstract =
   'There is much talk about plastic these days. And with reason. Besides depending on fossil fuels, plastic is infesting every nook and cranny of our planet because there is simply too much of it...';
@@ -269,6 +269,39 @@ const LatestNews = () => {
       >
         <article>
           <ExternalLink
+            url="https://insideuniprot.blogspot.com/2025/09/using-uniprotkb-to-navigate-large-and.html"
+            noIcon
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <img
+              loading="lazy"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGpOH8Kn5qgGPBDK_qSSxDEU_ddihIo6bQjYf5DnSRGhhEvN4oICW9NLMlYL1rpN6H6vOD043jciygkXxSbGPc_z-0V7AjfHLYurZr2bG-7WHyeVItlY48nsW_PFiBgH_W8hm_Ar3Zn2OrPvPn3Vg4YiIDJNl7E5gyv2YbAgkANwcxvwh1JOcSrt1pIZY/s320/Figure1.png"
+              style={{ background: 'white' }}
+              alt=""
+              width="184.305"
+              height="96"
+            />
+          </ExternalLink>
+          <h3 className="tiny">
+            <ExternalLink
+              url="https://insideuniprot.blogspot.com/2025/09/using-uniprotkb-to-navigate-large-and.html"
+              noIcon
+            >
+              Using UniProtKB to navigate large and complex structures
+            </ExternalLink>
+          </h3>
+          <p
+            className={cn(
+              styles['latest-news__abstract'],
+              styles['latest-news__abstract--4-lines']
+            )}
+          >
+            {insideUniProtAbstract1}
+          </p>
+        </article>
+        <article>
+          <ExternalLink
             url="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
             noIcon
             aria-hidden="true"
@@ -289,39 +322,6 @@ const LatestNews = () => {
               noIcon
             >
               UniProt - the ultimate colleague on your biological research team!
-            </ExternalLink>
-          </h3>
-          <p
-            className={cn(
-              styles['latest-news__abstract'],
-              styles['latest-news__abstract--4-lines']
-            )}
-          >
-            {insideUniProtAbstract1}
-          </p>
-        </article>
-        <article>
-          <ExternalLink
-            url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
-            noIcon
-            aria-hidden="true"
-            tabIndex={-1}
-          >
-            <img
-              loading="lazy"
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirk3tkRBOtzcDOTuqYSaFrGGQ1Io-VRfUIKfUEa0C5B4DhxuQqMyYanGHhvzH9mG-i4Of2uPZuK7H7d-34yYHKv6-FVqtW-27BEt9t0EukH9ECDTgRQiuarZdYC143Nr-t1RtmD_55avFfIiGIpmjCAM4VTNM9mo739WbLH5r0D2joTOyK8q8hRfKGPhA/w400-h200/Picture1.png"
-              alt=""
-              width="184.305"
-              height="96"
-            />
-          </ExternalLink>
-          <h3 className="tiny">
-            <ExternalLink
-              url="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html"
-              noIcon
-            >
-              Capturing the Diversity of Life - Reorganizing the Protein Space
-              in UniProtKB
             </ExternalLink>
           </h3>
           <p
