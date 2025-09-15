@@ -1395,31 +1395,31 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Genovese G.""
+                          href="/citations?query=author%3A%22Genovese+G.%22"
                         >
                           Genovese G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Handsaker R.E.""
+                          href="/citations?query=author%3A%22Handsaker+R.E.%22"
                         >
                           Handsaker R.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Li H.""
+                          href="/citations?query=author%3A%22Li+H.%22"
                         >
                           Li H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kenny E.E.""
+                          href="/citations?query=author%3A%22Kenny+E.E.%22"
                         >
                           Kenny E.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"McCarroll S.A.""
+                          href="/citations?query=author%3A%22McCarroll+S.A.%22"
                         >
                           McCarroll S.A.
                         </a>
@@ -1534,55 +1534,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Cole C.G.""
+                          href="/citations?query=author%3A%22Cole+C.G.%22"
                         >
                           Cole C.G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"McCann O.T.""
+                          href="/citations?query=author%3A%22McCann+O.T.%22"
                         >
                           McCann O.T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Collins J.E.""
+                          href="/citations?query=author%3A%22Collins+J.E.%22"
                         >
                           Collins J.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Oliver K.""
+                          href="/citations?query=author%3A%22Oliver+K.%22"
                         >
                           Oliver K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Willey D.""
+                          href="/citations?query=author%3A%22Willey+D.%22"
                         >
                           Willey D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gribble S.M.""
+                          href="/citations?query=author%3A%22Gribble+S.M.%22"
                         >
                           Gribble S.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Yang F.""
+                          href="/citations?query=author%3A%22Yang+F.%22"
                         >
                           Yang F.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"McLaren K.""
+                          href="/citations?query=author%3A%22McLaren+K.%22"
                         >
                           McLaren K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Rogers J.""
+                          href="/citations?query=author%3A%22Rogers+J.%22"
                         >
                           Rogers J.
                         </a>
@@ -1596,7 +1596,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Dunham I.""
+                          href="/citations?query=author%3A%22Dunham+I.%22"
                         >
                           Dunham I.
                         </a>
@@ -1711,37 +1711,37 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Andrews R.M.""
+                          href="/citations?query=author%3A%22Andrews+R.M.%22"
                         >
                           Andrews R.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kubacka I.""
+                          href="/citations?query=author%3A%22Kubacka+I.%22"
                         >
                           Kubacka I.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chinnery P.F.""
+                          href="/citations?query=author%3A%22Chinnery+P.F.%22"
                         >
                           Chinnery P.F.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lightowlers R.N.""
+                          href="/citations?query=author%3A%22Lightowlers+R.N.%22"
                         >
                           Lightowlers R.N.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Turnbull D.M.""
+                          href="/citations?query=author%3A%22Turnbull+D.M.%22"
                         >
                           Turnbull D.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Howell N.""
+                          href="/citations?query=author%3A%22Howell+N.%22"
                         >
                           Howell N.
                         </a>
@@ -1856,55 +1856,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Genovese G.""
+                          href="/citations?query=author%3A%22Genovese+G.%22"
                         >
                           Genovese G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Handsaker R.E.""
+                          href="/citations?query=author%3A%22Handsaker+R.E.%22"
                         >
                           Handsaker R.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Li H.""
+                          href="/citations?query=author%3A%22Li+H.%22"
                         >
                           Li H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Altemose N.""
+                          href="/citations?query=author%3A%22Altemose+N.%22"
                         >
                           Altemose N.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lindgren A.M.""
+                          href="/citations?query=author%3A%22Lindgren+A.M.%22"
                         >
                           Lindgren A.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chambert K.""
+                          href="/citations?query=author%3A%22Chambert+K.%22"
                         >
                           Chambert K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Pasaniuc B.""
+                          href="/citations?query=author%3A%22Pasaniuc+B.%22"
                         >
                           Pasaniuc B.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Price A.L.""
+                          href="/citations?query=author%3A%22Price+A.L.%22"
                         >
                           Price A.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Reich D.""
+                          href="/citations?query=author%3A%22Reich+D.%22"
                         >
                           Reich D.
                         </a>
@@ -1918,7 +1918,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"McCarroll S.A.""
+                          href="/citations?query=author%3A%22McCarroll+S.A.%22"
                         >
                           McCarroll S.A.
                         </a>
@@ -2033,55 +2033,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Anderson S.""
+                          href="/citations?query=author%3A%22Anderson+S.%22"
                         >
                           Anderson S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Bankier A.T.""
+                          href="/citations?query=author%3A%22Bankier+A.T.%22"
                         >
                           Bankier A.T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Barrell B.G.""
+                          href="/citations?query=author%3A%22Barrell+B.G.%22"
                         >
                           Barrell B.G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"de Bruijn M.H.""
+                          href="/citations?query=author%3A%22de+Bruijn+M.H.%22"
                         >
                           de Bruijn M.H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Coulson A.R.""
+                          href="/citations?query=author%3A%22Coulson+A.R.%22"
                         >
                           Coulson A.R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Drouin J.""
+                          href="/citations?query=author%3A%22Drouin+J.%22"
                         >
                           Drouin J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Eperon I.C.""
+                          href="/citations?query=author%3A%22Eperon+I.C.%22"
                         >
                           Eperon I.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Nierlich D.P.""
+                          href="/citations?query=author%3A%22Nierlich+D.P.%22"
                         >
                           Nierlich D.P.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Roe B.A.""
+                          href="/citations?query=author%3A%22Roe+B.A.%22"
                         >
                           Roe B.A.
                         </a>
@@ -2095,7 +2095,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Young I.G.""
+                          href="/citations?query=author%3A%22Young+I.G.%22"
                         >
                           Young I.G.
                         </a>
@@ -2209,61 +2209,61 @@ exports[`EntryMain view should render 1`] = `
                         class="publication__authors"
                       >
                         <a
-                          href="/uniprotkb?query=lit_author:"Chromosome 21 mapping and sequencing consortium""
+                          href="/citations?query=author%3A%22Chromosome+21+mapping+and+sequencing+consortium%22"
                         >
                           Chromosome 21 mapping and sequencing consortium
                         </a>
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Hattori M.""
+                          href="/citations?query=author%3A%22Hattori+M.%22"
                         >
                           Hattori M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Fujiyama A.""
+                          href="/citations?query=author%3A%22Fujiyama+A.%22"
                         >
                           Fujiyama A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Taylor T.D.""
+                          href="/citations?query=author%3A%22Taylor+T.D.%22"
                         >
                           Taylor T.D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Watanabe H.""
+                          href="/citations?query=author%3A%22Watanabe+H.%22"
                         >
                           Watanabe H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Yada T.""
+                          href="/citations?query=author%3A%22Yada+T.%22"
                         >
                           Yada T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Park H.S.""
+                          href="/citations?query=author%3A%22Park+H.S.%22"
                         >
                           Park H.S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Toyoda A.""
+                          href="/citations?query=author%3A%22Toyoda+A.%22"
                         >
                           Toyoda A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ishii K.""
+                          href="/citations?query=author%3A%22Ishii+K.%22"
                         >
                           Ishii K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Totoki Y.""
+                          href="/citations?query=author%3A%22Totoki+Y.%22"
                         >
                           Totoki Y.
                         </a>
@@ -2277,7 +2277,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Yaspo M.L.""
+                          href="/citations?query=author%3A%22Yaspo+M.L.%22"
                         >
                           Yaspo M.L.
                         </a>
@@ -2391,61 +2391,61 @@ exports[`EntryMain view should render 1`] = `
                         class="publication__authors"
                       >
                         <a
-                          href="/uniprotkb?query=lit_author:"International Human Genome Sequencing Consortium""
+                          href="/citations?query=author%3A%22International+Human+Genome+Sequencing+Consortium%22"
                         >
                           International Human Genome Sequencing Consortium
                         </a>
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Lander E.S.""
+                          href="/citations?query=author%3A%22Lander+E.S.%22"
                         >
                           Lander E.S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Linton L.M.""
+                          href="/citations?query=author%3A%22Linton+L.M.%22"
                         >
                           Linton L.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Birren B.""
+                          href="/citations?query=author%3A%22Birren+B.%22"
                         >
                           Birren B.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Nusbaum C.""
+                          href="/citations?query=author%3A%22Nusbaum+C.%22"
                         >
                           Nusbaum C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Zody M.C.""
+                          href="/citations?query=author%3A%22Zody+M.C.%22"
                         >
                           Zody M.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Baldwin J.""
+                          href="/citations?query=author%3A%22Baldwin+J.%22"
                         >
                           Baldwin J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Devon K.""
+                          href="/citations?query=author%3A%22Devon+K.%22"
                         >
                           Devon K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Dewar K.""
+                          href="/citations?query=author%3A%22Dewar+K.%22"
                         >
                           Dewar K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Doyle M.""
+                          href="/citations?query=author%3A%22Doyle+M.%22"
                         >
                           Doyle M.
                         </a>
@@ -2459,7 +2459,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chen Y.J.""
+                          href="/citations?query=author%3A%22Chen+Y.J.%22"
                         >
                           Chen Y.J.
                         </a>
@@ -2574,55 +2574,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Deloukas P.""
+                          href="/citations?query=author%3A%22Deloukas+P.%22"
                         >
                           Deloukas P.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Matthews L.H.""
+                          href="/citations?query=author%3A%22Matthews+L.H.%22"
                         >
                           Matthews L.H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ashurst J.""
+                          href="/citations?query=author%3A%22Ashurst+J.%22"
                         >
                           Ashurst J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Burton J.""
+                          href="/citations?query=author%3A%22Burton+J.%22"
                         >
                           Burton J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gilbert J.G.""
+                          href="/citations?query=author%3A%22Gilbert+J.G.%22"
                         >
                           Gilbert J.G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Jones M.""
+                          href="/citations?query=author%3A%22Jones+M.%22"
                         >
                           Jones M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Stavrides G.""
+                          href="/citations?query=author%3A%22Stavrides+G.%22"
                         >
                           Stavrides G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Almeida J.P.""
+                          href="/citations?query=author%3A%22Almeida+J.P.%22"
                         >
                           Almeida J.P.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Babbage A.K.""
+                          href="/citations?query=author%3A%22Babbage+A.K.%22"
                         >
                           Babbage A.K.
                         </a>
@@ -2636,7 +2636,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Rogers J.""
+                          href="/citations?query=author%3A%22Rogers+J.%22"
                         >
                           Rogers J.
                         </a>
@@ -2751,55 +2751,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Heilig R.""
+                          href="/citations?query=author%3A%22Heilig+R.%22"
                         >
                           Heilig R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Eckenberg R.""
+                          href="/citations?query=author%3A%22Eckenberg+R.%22"
                         >
                           Eckenberg R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Petit J.L.""
+                          href="/citations?query=author%3A%22Petit+J.L.%22"
                         >
                           Petit J.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Fonknechten N.""
+                          href="/citations?query=author%3A%22Fonknechten+N.%22"
                         >
                           Fonknechten N.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Da Silva C.""
+                          href="/citations?query=author%3A%22Da+Silva+C.%22"
                         >
                           Da Silva C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Cattolico L.""
+                          href="/citations?query=author%3A%22Cattolico+L.%22"
                         >
                           Cattolico L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Levy M.""
+                          href="/citations?query=author%3A%22Levy+M.%22"
                         >
                           Levy M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Barbe V.""
+                          href="/citations?query=author%3A%22Barbe+V.%22"
                         >
                           Barbe V.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"de Berardinis V.""
+                          href="/citations?query=author%3A%22de+Berardinis+V.%22"
                         >
                           de Berardinis V.
                         </a>
@@ -2813,7 +2813,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Weissenbach J.""
+                          href="/citations?query=author%3A%22Weissenbach+J.%22"
                         >
                           Weissenbach J.
                         </a>
@@ -2928,55 +2928,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Skaletsky H.""
+                          href="/citations?query=author%3A%22Skaletsky+H.%22"
                         >
                           Skaletsky H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kuroda-Kawaguchi T.""
+                          href="/citations?query=author%3A%22Kuroda-Kawaguchi+T.%22"
                         >
                           Kuroda-Kawaguchi T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Minx P.J.""
+                          href="/citations?query=author%3A%22Minx+P.J.%22"
                         >
                           Minx P.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Cordum H.S.""
+                          href="/citations?query=author%3A%22Cordum+H.S.%22"
                         >
                           Cordum H.S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Hillier L.""
+                          href="/citations?query=author%3A%22Hillier+L.%22"
                         >
                           Hillier L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Brown L.G.""
+                          href="/citations?query=author%3A%22Brown+L.G.%22"
                         >
                           Brown L.G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Repping S.""
+                          href="/citations?query=author%3A%22Repping+S.%22"
                         >
                           Repping S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Pyntikova T.""
+                          href="/citations?query=author%3A%22Pyntikova+T.%22"
                         >
                           Pyntikova T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ali J.""
+                          href="/citations?query=author%3A%22Ali+J.%22"
                         >
                           Ali J.
                         </a>
@@ -2990,7 +2990,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Page D.C.""
+                          href="/citations?query=author%3A%22Page+D.C.%22"
                         >
                           Page D.C.
                         </a>
@@ -3105,55 +3105,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Hillier L.W.""
+                          href="/citations?query=author%3A%22Hillier+L.W.%22"
                         >
                           Hillier L.W.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Fulton R.S.""
+                          href="/citations?query=author%3A%22Fulton+R.S.%22"
                         >
                           Fulton R.S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Fulton L.A.""
+                          href="/citations?query=author%3A%22Fulton+L.A.%22"
                         >
                           Fulton L.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Graves T.A.""
+                          href="/citations?query=author%3A%22Graves+T.A.%22"
                         >
                           Graves T.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Pepin K.H.""
+                          href="/citations?query=author%3A%22Pepin+K.H.%22"
                         >
                           Pepin K.H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wagner-McPherson C.""
+                          href="/citations?query=author%3A%22Wagner-McPherson+C.%22"
                         >
                           Wagner-McPherson C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Layman D.""
+                          href="/citations?query=author%3A%22Layman+D.%22"
                         >
                           Layman D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Maas J.""
+                          href="/citations?query=author%3A%22Maas+J.%22"
                         >
                           Maas J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Jaeger S.""
+                          href="/citations?query=author%3A%22Jaeger+S.%22"
                         >
                           Jaeger S.
                         </a>
@@ -3167,7 +3167,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wilson R.K.""
+                          href="/citations?query=author%3A%22Wilson+R.K.%22"
                         >
                           Wilson R.K.
                         </a>
@@ -3282,55 +3282,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Mungall A.J.""
+                          href="/citations?query=author%3A%22Mungall+A.J.%22"
                         >
                           Mungall A.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Palmer S.A.""
+                          href="/citations?query=author%3A%22Palmer+S.A.%22"
                         >
                           Palmer S.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Sims S.K.""
+                          href="/citations?query=author%3A%22Sims+S.K.%22"
                         >
                           Sims S.K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Edwards C.A.""
+                          href="/citations?query=author%3A%22Edwards+C.A.%22"
                         >
                           Edwards C.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ashurst J.L.""
+                          href="/citations?query=author%3A%22Ashurst+J.L.%22"
                         >
                           Ashurst J.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wilming L.""
+                          href="/citations?query=author%3A%22Wilming+L.%22"
                         >
                           Wilming L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Jones M.C.""
+                          href="/citations?query=author%3A%22Jones+M.C.%22"
                         >
                           Jones M.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Horton R.""
+                          href="/citations?query=author%3A%22Horton+R.%22"
                         >
                           Horton R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Hunt S.E.""
+                          href="/citations?query=author%3A%22Hunt+S.E.%22"
                         >
                           Hunt S.E.
                         </a>
@@ -3344,7 +3344,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Beck S.""
+                          href="/citations?query=author%3A%22Beck+S.%22"
                         >
                           Beck S.
                         </a>
@@ -3459,55 +3459,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Dunham A.""
+                          href="/citations?query=author%3A%22Dunham+A.%22"
                         >
                           Dunham A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Matthews L.H.""
+                          href="/citations?query=author%3A%22Matthews+L.H.%22"
                         >
                           Matthews L.H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Burton J.""
+                          href="/citations?query=author%3A%22Burton+J.%22"
                         >
                           Burton J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ashurst J.L.""
+                          href="/citations?query=author%3A%22Ashurst+J.L.%22"
                         >
                           Ashurst J.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Howe K.L.""
+                          href="/citations?query=author%3A%22Howe+K.L.%22"
                         >
                           Howe K.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ashcroft K.J.""
+                          href="/citations?query=author%3A%22Ashcroft+K.J.%22"
                         >
                           Ashcroft K.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Beare D.M.""
+                          href="/citations?query=author%3A%22Beare+D.M.%22"
                         >
                           Beare D.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Burford D.C.""
+                          href="/citations?query=author%3A%22Burford+D.C.%22"
                         >
                           Burford D.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Hunt S.E.""
+                          href="/citations?query=author%3A%22Hunt+S.E.%22"
                         >
                           Hunt S.E.
                         </a>
@@ -3521,7 +3521,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ross M.T.""
+                          href="/citations?query=author%3A%22Ross+M.T.%22"
                         >
                           Ross M.T.
                         </a>
@@ -3636,55 +3636,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Grimwood J.""
+                          href="/citations?query=author%3A%22Grimwood+J.%22"
                         >
                           Grimwood J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gordon L.A.""
+                          href="/citations?query=author%3A%22Gordon+L.A.%22"
                         >
                           Gordon L.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Olsen A.""
+                          href="/citations?query=author%3A%22Olsen+A.%22"
                         >
                           Olsen A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Terry A.""
+                          href="/citations?query=author%3A%22Terry+A.%22"
                         >
                           Terry A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Schmutz J.""
+                          href="/citations?query=author%3A%22Schmutz+J.%22"
                         >
                           Schmutz J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lamerdin J.""
+                          href="/citations?query=author%3A%22Lamerdin+J.%22"
                         >
                           Lamerdin J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Hellsten U.""
+                          href="/citations?query=author%3A%22Hellsten+U.%22"
                         >
                           Hellsten U.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Goodstein D.""
+                          href="/citations?query=author%3A%22Goodstein+D.%22"
                         >
                           Goodstein D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Couronne O.""
+                          href="/citations?query=author%3A%22Couronne+O.%22"
                         >
                           Couronne O.
                         </a>
@@ -3698,7 +3698,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lucas S.M.""
+                          href="/citations?query=author%3A%22Lucas+S.M.%22"
                         >
                           Lucas S.M.
                         </a>
@@ -3813,55 +3813,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Humphray S.J.""
+                          href="/citations?query=author%3A%22Humphray+S.J.%22"
                         >
                           Humphray S.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Oliver K.""
+                          href="/citations?query=author%3A%22Oliver+K.%22"
                         >
                           Oliver K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Hunt A.R.""
+                          href="/citations?query=author%3A%22Hunt+A.R.%22"
                         >
                           Hunt A.R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Plumb R.W.""
+                          href="/citations?query=author%3A%22Plumb+R.W.%22"
                         >
                           Plumb R.W.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Loveland J.E.""
+                          href="/citations?query=author%3A%22Loveland+J.E.%22"
                         >
                           Loveland J.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Howe K.L.""
+                          href="/citations?query=author%3A%22Howe+K.L.%22"
                         >
                           Howe K.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Andrews T.D.""
+                          href="/citations?query=author%3A%22Andrews+T.D.%22"
                         >
                           Andrews T.D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Searle S.""
+                          href="/citations?query=author%3A%22Searle+S.%22"
                         >
                           Searle S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Hunt S.E.""
+                          href="/citations?query=author%3A%22Hunt+S.E.%22"
                         >
                           Hunt S.E.
                         </a>
@@ -3875,7 +3875,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Dunham I.""
+                          href="/citations?query=author%3A%22Dunham+I.%22"
                         >
                           Dunham I.
                         </a>
@@ -3990,55 +3990,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Deloukas P.""
+                          href="/citations?query=author%3A%22Deloukas+P.%22"
                         >
                           Deloukas P.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Earthrowl M.E.""
+                          href="/citations?query=author%3A%22Earthrowl+M.E.%22"
                         >
                           Earthrowl M.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Grafham D.V.""
+                          href="/citations?query=author%3A%22Grafham+D.V.%22"
                         >
                           Grafham D.V.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Rubenfield M.""
+                          href="/citations?query=author%3A%22Rubenfield+M.%22"
                         >
                           Rubenfield M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"French L.""
+                          href="/citations?query=author%3A%22French+L.%22"
                         >
                           French L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Steward C.A.""
+                          href="/citations?query=author%3A%22Steward+C.A.%22"
                         >
                           Steward C.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Sims S.K.""
+                          href="/citations?query=author%3A%22Sims+S.K.%22"
                         >
                           Sims S.K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Jones M.C.""
+                          href="/citations?query=author%3A%22Jones+M.C.%22"
                         >
                           Jones M.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Searle S.""
+                          href="/citations?query=author%3A%22Searle+S.%22"
                         >
                           Searle S.
                         </a>
@@ -4052,7 +4052,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Rogers J.""
+                          href="/citations?query=author%3A%22Rogers+J.%22"
                         >
                           Rogers J.
                         </a>
@@ -4167,55 +4167,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Schmutz J.""
+                          href="/citations?query=author%3A%22Schmutz+J.%22"
                         >
                           Schmutz J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Martin J.""
+                          href="/citations?query=author%3A%22Martin+J.%22"
                         >
                           Martin J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Terry A.""
+                          href="/citations?query=author%3A%22Terry+A.%22"
                         >
                           Terry A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Couronne O.""
+                          href="/citations?query=author%3A%22Couronne+O.%22"
                         >
                           Couronne O.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Grimwood J.""
+                          href="/citations?query=author%3A%22Grimwood+J.%22"
                         >
                           Grimwood J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lowry S.""
+                          href="/citations?query=author%3A%22Lowry+S.%22"
                         >
                           Lowry S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gordon L.A.""
+                          href="/citations?query=author%3A%22Gordon+L.A.%22"
                         >
                           Gordon L.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Scott D.""
+                          href="/citations?query=author%3A%22Scott+D.%22"
                         >
                           Scott D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Xie G.""
+                          href="/citations?query=author%3A%22Xie+G.%22"
                         >
                           Xie G.
                         </a>
@@ -4229,7 +4229,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Rubin E.M.""
+                          href="/citations?query=author%3A%22Rubin+E.M.%22"
                         >
                           Rubin E.M.
                         </a>
@@ -4343,13 +4343,13 @@ exports[`EntryMain view should render 1`] = `
                         class="publication__authors"
                       >
                         <a
-                          href="/uniprotkb?query=lit_author:"International Human Genome Sequencing Consortium""
+                          href="/citations?query=author%3A%22International+Human+Genome+Sequencing+Consortium%22"
                         >
                           International Human Genome Sequencing Consortium
                         </a>
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"""
+                          href="/citations?query=author%3A%22%22"
                         />
                       </div>
                     </div>
@@ -4462,55 +4462,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Martin J.""
+                          href="/citations?query=author%3A%22Martin+J.%22"
                         >
                           Martin J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Han C.""
+                          href="/citations?query=author%3A%22Han+C.%22"
                         >
                           Han C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gordon L.A.""
+                          href="/citations?query=author%3A%22Gordon+L.A.%22"
                         >
                           Gordon L.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Terry A.""
+                          href="/citations?query=author%3A%22Terry+A.%22"
                         >
                           Terry A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Prabhakar S.""
+                          href="/citations?query=author%3A%22Prabhakar+S.%22"
                         >
                           Prabhakar S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"She X.""
+                          href="/citations?query=author%3A%22She+X.%22"
                         >
                           She X.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Xie G.""
+                          href="/citations?query=author%3A%22Xie+G.%22"
                         >
                           Xie G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Hellsten U.""
+                          href="/citations?query=author%3A%22Hellsten+U.%22"
                         >
                           Hellsten U.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chan Y.M.""
+                          href="/citations?query=author%3A%22Chan+Y.M.%22"
                         >
                           Chan Y.M.
                         </a>
@@ -4524,7 +4524,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Pennacchio L.A.""
+                          href="/citations?query=author%3A%22Pennacchio+L.A.%22"
                         >
                           Pennacchio L.A.
                         </a>
@@ -4639,55 +4639,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Ross M.T.""
+                          href="/citations?query=author%3A%22Ross+M.T.%22"
                         >
                           Ross M.T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Grafham D.V.""
+                          href="/citations?query=author%3A%22Grafham+D.V.%22"
                         >
                           Grafham D.V.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Coffey A.J.""
+                          href="/citations?query=author%3A%22Coffey+A.J.%22"
                         >
                           Coffey A.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Scherer S.""
+                          href="/citations?query=author%3A%22Scherer+S.%22"
                         >
                           Scherer S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"McLay K.""
+                          href="/citations?query=author%3A%22McLay+K.%22"
                         >
                           McLay K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Muzny D.""
+                          href="/citations?query=author%3A%22Muzny+D.%22"
                         >
                           Muzny D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Platzer M.""
+                          href="/citations?query=author%3A%22Platzer+M.%22"
                         >
                           Platzer M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Howell G.R.""
+                          href="/citations?query=author%3A%22Howell+G.R.%22"
                         >
                           Howell G.R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Burrows C.""
+                          href="/citations?query=author%3A%22Burrows+C.%22"
                         >
                           Burrows C.
                         </a>
@@ -4701,7 +4701,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Bentley D.R.""
+                          href="/citations?query=author%3A%22Bentley+D.R.%22"
                         >
                           Bentley D.R.
                         </a>
@@ -4816,55 +4816,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Hillier L.W.""
+                          href="/citations?query=author%3A%22Hillier+L.W.%22"
                         >
                           Hillier L.W.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Graves T.A.""
+                          href="/citations?query=author%3A%22Graves+T.A.%22"
                         >
                           Graves T.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Fulton R.S.""
+                          href="/citations?query=author%3A%22Fulton+R.S.%22"
                         >
                           Fulton R.S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Fulton L.A.""
+                          href="/citations?query=author%3A%22Fulton+L.A.%22"
                         >
                           Fulton L.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Pepin K.H.""
+                          href="/citations?query=author%3A%22Pepin+K.H.%22"
                         >
                           Pepin K.H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Minx P.""
+                          href="/citations?query=author%3A%22Minx+P.%22"
                         >
                           Minx P.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wagner-McPherson C.""
+                          href="/citations?query=author%3A%22Wagner-McPherson+C.%22"
                         >
                           Wagner-McPherson C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Layman D.""
+                          href="/citations?query=author%3A%22Layman+D.%22"
                         >
                           Layman D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wylie K.""
+                          href="/citations?query=author%3A%22Wylie+K.%22"
                         >
                           Wylie K.
                         </a>
@@ -4878,7 +4878,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wilson R.K.""
+                          href="/citations?query=author%3A%22Wilson+R.K.%22"
                         >
                           Wilson R.K.
                         </a>
@@ -4993,55 +4993,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Nusbaum C.""
+                          href="/citations?query=author%3A%22Nusbaum+C.%22"
                         >
                           Nusbaum C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Zody M.C.""
+                          href="/citations?query=author%3A%22Zody+M.C.%22"
                         >
                           Zody M.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Borowsky M.L.""
+                          href="/citations?query=author%3A%22Borowsky+M.L.%22"
                         >
                           Borowsky M.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kamal M.""
+                          href="/citations?query=author%3A%22Kamal+M.%22"
                         >
                           Kamal M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kodira C.D.""
+                          href="/citations?query=author%3A%22Kodira+C.D.%22"
                         >
                           Kodira C.D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Taylor T.D.""
+                          href="/citations?query=author%3A%22Taylor+T.D.%22"
                         >
                           Taylor T.D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Whittaker C.A.""
+                          href="/citations?query=author%3A%22Whittaker+C.A.%22"
                         >
                           Whittaker C.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chang J.L.""
+                          href="/citations?query=author%3A%22Chang+J.L.%22"
                         >
                           Chang J.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Cuomo C.A.""
+                          href="/citations?query=author%3A%22Cuomo+C.A.%22"
                         >
                           Cuomo C.A.
                         </a>
@@ -5055,7 +5055,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lander E.S.""
+                          href="/citations?query=author%3A%22Lander+E.S.%22"
                         >
                           Lander E.S.
                         </a>
@@ -5170,55 +5170,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Nusbaum C.""
+                          href="/citations?query=author%3A%22Nusbaum+C.%22"
                         >
                           Nusbaum C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Mikkelsen T.S.""
+                          href="/citations?query=author%3A%22Mikkelsen+T.S.%22"
                         >
                           Mikkelsen T.S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Zody M.C.""
+                          href="/citations?query=author%3A%22Zody+M.C.%22"
                         >
                           Zody M.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Asakawa S.""
+                          href="/citations?query=author%3A%22Asakawa+S.%22"
                         >
                           Asakawa S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Taudien S.""
+                          href="/citations?query=author%3A%22Taudien+S.%22"
                         >
                           Taudien S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Garber M.""
+                          href="/citations?query=author%3A%22Garber+M.%22"
                         >
                           Garber M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kodira C.D.""
+                          href="/citations?query=author%3A%22Kodira+C.D.%22"
                         >
                           Kodira C.D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Schueler M.G.""
+                          href="/citations?query=author%3A%22Schueler+M.G.%22"
                         >
                           Schueler M.G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Shimizu A.""
+                          href="/citations?query=author%3A%22Shimizu+A.%22"
                         >
                           Shimizu A.
                         </a>
@@ -5232,7 +5232,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lander E.S.""
+                          href="/citations?query=author%3A%22Lander+E.S.%22"
                         >
                           Lander E.S.
                         </a>
@@ -5347,55 +5347,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Zody M.C.""
+                          href="/citations?query=author%3A%22Zody+M.C.%22"
                         >
                           Zody M.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Garber M.""
+                          href="/citations?query=author%3A%22Garber+M.%22"
                         >
                           Garber M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Adams D.J.""
+                          href="/citations?query=author%3A%22Adams+D.J.%22"
                         >
                           Adams D.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Sharpe T.""
+                          href="/citations?query=author%3A%22Sharpe+T.%22"
                         >
                           Sharpe T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Harrow J.""
+                          href="/citations?query=author%3A%22Harrow+J.%22"
                         >
                           Harrow J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lupski J.R.""
+                          href="/citations?query=author%3A%22Lupski+J.R.%22"
                         >
                           Lupski J.R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Nicholson C.""
+                          href="/citations?query=author%3A%22Nicholson+C.%22"
                         >
                           Nicholson C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Searle S.M.""
+                          href="/citations?query=author%3A%22Searle+S.M.%22"
                         >
                           Searle S.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wilming L.""
+                          href="/citations?query=author%3A%22Wilming+L.%22"
                         >
                           Wilming L.
                         </a>
@@ -5409,7 +5409,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Nusbaum C.""
+                          href="/citations?query=author%3A%22Nusbaum+C.%22"
                         >
                           Nusbaum C.
                         </a>
@@ -5524,55 +5524,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Muzny D.M.""
+                          href="/citations?query=author%3A%22Muzny+D.M.%22"
                         >
                           Muzny D.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Scherer S.E.""
+                          href="/citations?query=author%3A%22Scherer+S.E.%22"
                         >
                           Scherer S.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kaul R.""
+                          href="/citations?query=author%3A%22Kaul+R.%22"
                         >
                           Kaul R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Wang J.""
+                          href="/citations?query=author%3A%22Wang+J.%22"
                         >
                           Wang J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Yu J.""
+                          href="/citations?query=author%3A%22Yu+J.%22"
                         >
                           Yu J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Sudbrak R.""
+                          href="/citations?query=author%3A%22Sudbrak+R.%22"
                         >
                           Sudbrak R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Buhay C.J.""
+                          href="/citations?query=author%3A%22Buhay+C.J.%22"
                         >
                           Buhay C.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chen R.""
+                          href="/citations?query=author%3A%22Chen+R.%22"
                         >
                           Chen R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Cree A.""
+                          href="/citations?query=author%3A%22Cree+A.%22"
                         >
                           Cree A.
                         </a>
@@ -5586,7 +5586,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gibbs R.A.""
+                          href="/citations?query=author%3A%22Gibbs+R.A.%22"
                         >
                           Gibbs R.A.
                         </a>
@@ -5700,61 +5700,61 @@ exports[`EntryMain view should render 1`] = `
                         class="publication__authors"
                       >
                         <a
-                          href="/uniprotkb?query=lit_author:"Baylor College of Medicine Human Genome Sequencing Center Sequence Production Team""
+                          href="/citations?query=author%3A%22Baylor+College+of+Medicine+Human+Genome+Sequencing+Center+Sequence+Production+Team%22"
                         >
                           Baylor College of Medicine Human Genome Sequencing Center Sequence Production Team
                         </a>
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Scherer S.E.""
+                          href="/citations?query=author%3A%22Scherer+S.E.%22"
                         >
                           Scherer S.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Muzny D.M.""
+                          href="/citations?query=author%3A%22Muzny+D.M.%22"
                         >
                           Muzny D.M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Buhay C.J.""
+                          href="/citations?query=author%3A%22Buhay+C.J.%22"
                         >
                           Buhay C.J.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chen R.""
+                          href="/citations?query=author%3A%22Chen+R.%22"
                         >
                           Chen R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Cree A.""
+                          href="/citations?query=author%3A%22Cree+A.%22"
                         >
                           Cree A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Ding Y.""
+                          href="/citations?query=author%3A%22Ding+Y.%22"
                         >
                           Ding Y.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Dugan-Rocha S.""
+                          href="/citations?query=author%3A%22Dugan-Rocha+S.%22"
                         >
                           Dugan-Rocha S.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gill R.""
+                          href="/citations?query=author%3A%22Gill+R.%22"
                         >
                           Gill R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gunaratne P.""
+                          href="/citations?query=author%3A%22Gunaratne+P.%22"
                         >
                           Gunaratne P.
                         </a>
@@ -5768,7 +5768,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Gibbs R.A.""
+                          href="/citations?query=author%3A%22Gibbs+R.A.%22"
                         >
                           Gibbs R.A.
                         </a>
@@ -5883,55 +5883,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Taylor T.D.""
+                          href="/citations?query=author%3A%22Taylor+T.D.%22"
                         >
                           Taylor T.D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Noguchi H.""
+                          href="/citations?query=author%3A%22Noguchi+H.%22"
                         >
                           Noguchi H.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Totoki Y.""
+                          href="/citations?query=author%3A%22Totoki+Y.%22"
                         >
                           Totoki Y.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Toyoda A.""
+                          href="/citations?query=author%3A%22Toyoda+A.%22"
                         >
                           Toyoda A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kuroki Y.""
+                          href="/citations?query=author%3A%22Kuroki+Y.%22"
                         >
                           Kuroki Y.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Dewar K.""
+                          href="/citations?query=author%3A%22Dewar+K.%22"
                         >
                           Dewar K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Lloyd C.""
+                          href="/citations?query=author%3A%22Lloyd+C.%22"
                         >
                           Lloyd C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Itoh T.""
+                          href="/citations?query=author%3A%22Itoh+T.%22"
                         >
                           Itoh T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Takeda T.""
+                          href="/citations?query=author%3A%22Takeda+T.%22"
                         >
                           Takeda T.
                         </a>
@@ -5945,7 +5945,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Sakaki Y.""
+                          href="/citations?query=author%3A%22Sakaki+Y.%22"
                         >
                           Sakaki Y.
                         </a>
@@ -6060,55 +6060,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Zody M.C.""
+                          href="/citations?query=author%3A%22Zody+M.C.%22"
                         >
                           Zody M.C.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Garber M.""
+                          href="/citations?query=author%3A%22Garber+M.%22"
                         >
                           Garber M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Sharpe T.""
+                          href="/citations?query=author%3A%22Sharpe+T.%22"
                         >
                           Sharpe T.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Young S.K.""
+                          href="/citations?query=author%3A%22Young+S.K.%22"
                         >
                           Young S.K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Rowen L.""
+                          href="/citations?query=author%3A%22Rowen+L.%22"
                         >
                           Rowen L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"O'Neill K.""
+                          href="/citations?query=author%3A%22O%27Neill+K.%22"
                         >
                           O'Neill K.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Whittaker C.A.""
+                          href="/citations?query=author%3A%22Whittaker+C.A.%22"
                         >
                           Whittaker C.A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kamal M.""
+                          href="/citations?query=author%3A%22Kamal+M.%22"
                         >
                           Kamal M.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Chang J.L.""
+                          href="/citations?query=author%3A%22Chang+J.L.%22"
                         >
                           Chang J.L.
                         </a>
@@ -6122,7 +6122,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Nusbaum C.""
+                          href="/citations?query=author%3A%22Nusbaum+C.%22"
                         >
                           Nusbaum C.
                         </a>
@@ -6237,55 +6237,55 @@ exports[`EntryMain view should render 1`] = `
                       >
                         <br />
                         <a
-                          href="/uniprotkb?query=lit_author:"Gregory S.G.""
+                          href="/citations?query=author%3A%22Gregory+S.G.%22"
                         >
                           Gregory S.G.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Barlow K.F.""
+                          href="/citations?query=author%3A%22Barlow+K.F.%22"
                         >
                           Barlow K.F.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"McLay K.E.""
+                          href="/citations?query=author%3A%22McLay+K.E.%22"
                         >
                           McLay K.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Kaul R.""
+                          href="/citations?query=author%3A%22Kaul+R.%22"
                         >
                           Kaul R.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Swarbreck D.""
+                          href="/citations?query=author%3A%22Swarbreck+D.%22"
                         >
                           Swarbreck D.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Dunham A.""
+                          href="/citations?query=author%3A%22Dunham+A.%22"
                         >
                           Dunham A.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Scott C.E.""
+                          href="/citations?query=author%3A%22Scott+C.E.%22"
                         >
                           Scott C.E.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Howe K.L.""
+                          href="/citations?query=author%3A%22Howe+K.L.%22"
                         >
                           Howe K.L.
                         </a>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Woodfine K.""
+                          href="/citations?query=author%3A%22Woodfine+K.%22"
                         >
                           Woodfine K.
                         </a>
@@ -6299,7 +6299,7 @@ exports[`EntryMain view should render 1`] = `
                         </button>
                         , 
                         <a
-                          href="/uniprotkb?query=lit_author:"Prigmore E.""
+                          href="/citations?query=author%3A%22Prigmore+E.%22"
                         >
                           Prigmore E.
                         </a>

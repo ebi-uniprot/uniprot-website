@@ -51,55 +51,55 @@ exports[`CitationsCard tests should render the card component 1`] = `
                 >
                   <br />
                   <a
-                    href="/uniprotkb?query=lit_author:"Ota T.""
+                    href="/citations?query=author%3A%22Ota+T.%22"
                   >
                     Ota T.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Suzuki Y.""
+                    href="/citations?query=author%3A%22Suzuki+Y.%22"
                   >
                     Suzuki Y.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Nishikawa T.""
+                    href="/citations?query=author%3A%22Nishikawa+T.%22"
                   >
                     Nishikawa T.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Otsuki T.""
+                    href="/citations?query=author%3A%22Otsuki+T.%22"
                   >
                     Otsuki T.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Sugiyama T.""
+                    href="/citations?query=author%3A%22Sugiyama+T.%22"
                   >
                     Sugiyama T.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Irie R.""
+                    href="/citations?query=author%3A%22Irie+R.%22"
                   >
                     Irie R.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Wakamatsu A.""
+                    href="/citations?query=author%3A%22Wakamatsu+A.%22"
                   >
                     Wakamatsu A.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Hayashi K.""
+                    href="/citations?query=author%3A%22Hayashi+K.%22"
                   >
                     Hayashi K.
                   </a>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Sato H.""
+                    href="/citations?query=author%3A%22Sato+H.%22"
                   >
                     Sato H.
                   </a>
@@ -113,7 +113,7 @@ exports[`CitationsCard tests should render the card component 1`] = `
                   </button>
                   , 
                   <a
-                    href="/uniprotkb?query=lit_author:"Sugano S.""
+                    href="/citations?query=author%3A%22Sugano+S.%22"
                   >
                     Sugano S.
                   </a>
