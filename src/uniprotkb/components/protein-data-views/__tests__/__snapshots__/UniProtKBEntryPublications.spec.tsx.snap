@@ -46,31 +46,31 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         >
           <br />
           <a
-            href="/uniprotkb?query=lit_author:"Satpute-Krishnan P.""
+            href="/uniprotkb?query=lit_author%3A%22Satpute-Krishnan+P.%22"
           >
             Satpute-Krishnan P.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"DeGiorgis J.A.""
+            href="/uniprotkb?query=lit_author%3A%22DeGiorgis+J.A.%22"
           >
             DeGiorgis J.A.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Conley M.P.""
+            href="/uniprotkb?query=lit_author%3A%22Conley+M.P.%22"
           >
             Conley M.P.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Jang M.""
+            href="/uniprotkb?query=lit_author%3A%22Jang+M.%22"
           >
             Jang M.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Bearer E.L.""
+            href="/uniprotkb?query=lit_author%3A%22Bearer+E.L.%22"
           >
             Bearer E.L.
           </a>
@@ -206,43 +206,43 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         >
           <br />
           <a
-            href="/uniprotkb?query=lit_author:"Seamster P.E.""
+            href="/uniprotkb?query=lit_author%3A%22Seamster+P.E.%22"
           >
             Seamster P.E.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Loewenberg M.""
+            href="/uniprotkb?query=lit_author%3A%22Loewenberg+M.%22"
           >
             Loewenberg M.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Pascal J.""
+            href="/uniprotkb?query=lit_author%3A%22Pascal+J.%22"
           >
             Pascal J.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Chauviere A.""
+            href="/uniprotkb?query=lit_author%3A%22Chauviere+A.%22"
           >
             Chauviere A.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Gonzales A.""
+            href="/uniprotkb?query=lit_author%3A%22Gonzales+A.%22"
           >
             Gonzales A.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Cristini V.""
+            href="/uniprotkb?query=lit_author%3A%22Cristini+V.%22"
           >
             Cristini V.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Bearer E.L.""
+            href="/uniprotkb?query=lit_author%3A%22Bearer+E.L.%22"
           >
             Bearer E.L.
           </a>
@@ -378,55 +378,55 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         >
           <br />
           <a
-            href="/uniprotkb?query=lit_author:"Baumkotter F.""
+            href="/uniprotkb?query=lit_author%3A%22Baumkotter+F.%22"
           >
             Baumkotter F.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Schmidt N.""
+            href="/uniprotkb?query=lit_author%3A%22Schmidt+N.%22"
           >
             Schmidt N.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Vargas C.""
+            href="/uniprotkb?query=lit_author%3A%22Vargas+C.%22"
           >
             Vargas C.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Schilling S.""
+            href="/uniprotkb?query=lit_author%3A%22Schilling+S.%22"
           >
             Schilling S.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Weber R.""
+            href="/uniprotkb?query=lit_author%3A%22Weber+R.%22"
           >
             Weber R.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Wagner K.""
+            href="/uniprotkb?query=lit_author%3A%22Wagner+K.%22"
           >
             Wagner K.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Fiedler S.""
+            href="/uniprotkb?query=lit_author%3A%22Fiedler+S.%22"
           >
             Fiedler S.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Klug W.""
+            href="/uniprotkb?query=lit_author%3A%22Klug+W.%22"
           >
             Klug W.
           </a>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Radzimanowski J.""
+            href="/uniprotkb?query=lit_author%3A%22Radzimanowski+J.%22"
           >
             Radzimanowski J.
           </a>
@@ -440,7 +440,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           </button>
           , 
           <a
-            href="/uniprotkb?query=lit_author:"Kins S.""
+            href="/uniprotkb?query=lit_author%3A%22Kins+S.%22"
           >
             Kins S.
           </a>
