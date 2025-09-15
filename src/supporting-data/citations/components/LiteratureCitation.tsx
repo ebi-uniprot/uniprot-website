@@ -43,8 +43,8 @@ type AuthorProps = {
 };
 
 const getLinkToAuthor = (author: string) => ({
-  pathname: LocationToPath[Location.UniProtKBResults],
-  search: `query=lit_author:"${author}"`,
+  pathname: LocationToPath[Location.CitationsResults],
+  search: stringifyQuery({ query: `author:"${author}"` }),
 });
 
 const WORM_BREEDERS_GAZETTE_URL = 'http://www.wormbook.org/wli/';
