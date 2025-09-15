@@ -8,10 +8,10 @@ import {
   youtube,
 } from '../../../app/config/socialUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import BloggerLogo from '../../../images/blogger-logo.svg';
-import LinkedInLogo from '../../../images/linkedin-logo.svg';
-import XLogo from '../../../images/x-logo.svg';
-import YouTubeLogo from '../../../images/youtube-logo.svg';
+import BloggerLogo from '../../../images/blogger-logo.svg?react';
+import LinkedInLogo from '../../../images/linkedin-logo.svg?react';
+import XLogo from '../../../images/x-logo.svg?react';
+import YouTubeLogo from '../../../images/youtube-logo.svg?react';
 import ExternalLink from '../ExternalLink';
 import footer from './styles/contact.module.scss';
 

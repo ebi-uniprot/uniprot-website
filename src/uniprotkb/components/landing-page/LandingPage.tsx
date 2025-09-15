@@ -78,9 +78,9 @@ const LandingPage = () => {
 
   return (
     <div className={styles['landing-page']}>
-      <HTMLHead title="UniProt Knowledgebase (UniProtKB)">
+      {/* <HTMLHead title="UniProt Knowledgebase (UniProtKB)">
         <meta name="description" content={metaDescription} />
-      </HTMLHead>
+      </HTMLHead> */}
       <section className="uniprot-grid">
         <h1 className="uniprot-grid-cell--span-12">UniProtKB</h1>
         <div className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4">

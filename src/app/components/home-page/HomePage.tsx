@@ -1,19 +1,13 @@
 import './styles/home-page.scss';
 
-import { CitedIcon, HeroHeader, Loader } from 'franklin-sites';
-import {
-  lazy,
-  memo,
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { CitedIcon, HeroHeader } from 'franklin-sites';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { generatePath, Link } from 'react-router';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import HTMLHead from '../../../shared/components/HTMLHead';
+import UniProtFooter from '../../../shared/components/layouts/UniProtFooter';
+import SearchContainer from '../../../shared/components/search/SearchContainer';
+// import HTMLHead from '../../../shared/components/HTMLHead';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import helper from '../../../shared/styles/helper.module.scss';
 import {
@@ -21,24 +15,7 @@ import {
   SearchableNamespace,
 } from '../../../shared/types/namespaces';
 import { Location, LocationToPath } from '../../config/urls';
-
-const SearchContainer = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "search-container" */ '../../../shared/components/search/SearchContainer'
-    )
-);
-
-const HomePageNonCritical = lazy(
-  () => import(/* webpackChunkName: "home-page-non-critical" */ './NonCritical')
-);
-
-const UniProtFooter = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "footer" */ '../../../shared/components/layouts/UniProtFooter'
-    )
-);
+import HomePageNonCritical from './NonCritical';
 
 const mission = (
   <>
@@ -145,20 +122,18 @@ const HomePageHeader = memo(() => {
       footer={mission}
     >
       <div className="uniprot-grid uniprot-grid--centered">
-        <Suspense fallback={null}>
-          <SearchContainer
-            searchspace={selectedNamespace}
-            onSearchspaceChange={useCallback((namespace) => {
-              setSelectedNamespace(namespace as SearchableNamespace);
-              const textInput: HTMLInputElement | null = document.querySelector(
-                'form.main-search input[type="text"]'
-              );
-              textInput?.focus();
-            }, [])}
-            className="uniprot-grid-cell--span-12"
-            isOnHomePage
-          />
-        </Suspense>
+        <SearchContainer
+          searchspace={selectedNamespace}
+          onSearchspaceChange={useCallback((namespace) => {
+            setSelectedNamespace(namespace as SearchableNamespace);
+            const textInput: HTMLInputElement | null = document.querySelector(
+              'form.main-search input[type="text"]'
+            );
+            textInput?.focus();
+          }, [])}
+          className="uniprot-grid-cell--span-12"
+          isOnHomePage
+        />
       </div>
     </HeroHeader>
   );
@@ -168,25 +143,21 @@ const HomePage = () => (
   <>
     <main>
       {/* Activate the HTML head logic, but no title, so uses default */}
-      <HTMLHead>
+      {/* <HTMLHead>
         {typeof window !== 'undefined' && (
           <link rel="canonical" href={window.location.origin} />
         )}
-      </HTMLHead>
+      </HTMLHead> */}
       <h1 className="visually-hidden">UniProt website home page</h1>
       <ErrorBoundary>
         <HomePageHeader />
       </ErrorBoundary>
       <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <HomePageNonCritical />
-        </Suspense>
+        <HomePageNonCritical />
       </ErrorBoundary>
     </main>
     <ErrorBoundary>
-      <Suspense fallback={null}>
-        <UniProtFooter />
-      </Suspense>
+      <UniProtFooter />
     </ErrorBoundary>
   </>
 );
