@@ -221,8 +221,6 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
   // and 2: not saved as biologically relevant
   const display = !hasSavedProteome && !isBiologicallyRelevant;
 
-  console.table({ isBiologicallyRelevant, hasSavedProteome, display });
-
   if (loading || !display) {
     // Don't render anything, avoid space being used then disappearing
     return null;
