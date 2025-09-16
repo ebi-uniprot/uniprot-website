@@ -11,9 +11,9 @@ import { lazy, useMemo } from 'react';
 import { Link } from 'react-router';
 
 import ContactLink from '../../../contact/components/ContactLink';
-import LinkedInLogo from '../../../images/linkedin-logo.svg';
+import LinkedInLogo from '../../../images/linkedin-logo.svg?react';
 import traingImg from '../../../images/training.jpg';
-import XLogo from '../../../images/x-logo.svg';
+import XLogo from '../../../images/x-logo.svg?react';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import useDataApi from '../../../shared/hooks/useDataApi';

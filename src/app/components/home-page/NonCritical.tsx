@@ -13,7 +13,7 @@ const HomePageNonCritical = () => (
     <SupportingData />
     <LatestNews />
     <AnalysisTools />
-    {/* <NeedHelp /> */}
+    <NeedHelp />
     <UniProtData />
   </>
 );
