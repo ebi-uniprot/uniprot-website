@@ -1,10 +1,14 @@
-import { ExternalLink, Loader, Message } from 'franklin-sites';
-import { FC } from 'react';
+import { ExternalLink, Message } from 'franklin-sites';
+import { FC, useMemo } from 'react';
 import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  UniProtkbAPIModel,
+  UniProtKBSimplifiedTaxonomy,
+} from '../../uniprotkb/adapters/uniProtkbConverter';
 import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
@@ -31,10 +35,9 @@ const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
 
 const UniProtKBGenericMain: FC<{
   accession?: string;
-  scientificName?: string;
-  taxonId?: string;
+  organism?: UniProtKBSimplifiedTaxonomy;
   upids?: string[];
-}> = ({ accession, scientificName, taxonId, upids }) => (
+}> = ({ accession, organism, upids }) => (
   <>
     <br />
     <br />
@@ -46,16 +49,16 @@ const UniProtKBGenericMain: FC<{
     information, or{' '}
     <ContactLink
       to={
-        accession && scientificName && taxonId && upids
+        accession && organism && upids
           ? {
               pathname: LocationToPath[Location.ContactGeneric],
               state: {
                 formValues: {
                   context: [
                     `UniProtKB accession: ${accession}`,
-                    `UniParc UPIDs for this UniProtKB entry: ${upids.join(', ')}`,
-                    `Organism: ${scientificName}`,
-                    `Taxon ID: ${taxonId}`,
+                    `UniParc UPIDs for this UniProtKB entry: ${upids.join(', ') || '<none>'}`,
+                    `Organism: ${organism.scientificName || organism.commonName || '<no name>'}`,
+                    `Taxon ID: ${organism.taxonId}`,
                   ].join('\n'),
                   subject: `Question about UniProtKB entry ${accession} being removed in 2026_01`,
                 },
@@ -165,6 +168,30 @@ export const RefProtMoveProteomesEntryMessage: FC<{
   </Message>
 );
 
+const getCrossRefsFor = (dbName: string) => (entry: UniProtkbAPIModel) =>
+  entry.uniProtKBCrossReferences
+    ?.filter((db) => db.database === dbName)
+    ?.map((db) => db.id)
+    ?.filter((idOrUndef: string | undefined): idOrUndef is string =>
+      Boolean(idOrUndef)
+    );
+
+const getCrossRefsForPDB = getCrossRefsFor('PDB');
+const biologicallyRelevant = (entry: UniProtkbAPIModel) => {
+  // The entry is reviewed
+  if (entry.entryType.includes('UniProtKB reviewed')) {
+    return true;
+  }
+  // The entry has xrefs to PDB
+  if (getCrossRefsForPDB(entry)?.length) {
+    return true;
+  }
+  // Add new conditions here
+  return false;
+};
+
+const getProteomes = getCrossRefsFor('Proteomes');
+
 type CheckMoveResponse = {
   move?: string[];
   stay?: string[];
@@ -172,18 +199,39 @@ type CheckMoveResponse = {
 };
 
 export const RefProtMoveUniProtKBEntryMessage: FC<{
-  accession: string;
-  upids: string[];
-  scientificName: string;
-  taxonId: string;
-}> = ({ accession, upids, scientificName, taxonId }) => {
-  const { data, loading } = useDataApi<CheckMoveResponse>(
-    upids.length ? stringifyUrl(checkMoveUrl, { upids }) : null
+  entry: UniProtkbAPIModel;
+}> = ({ entry }) => {
+  const upids = useMemo(() => getProteomes(entry), [entry]);
+  const isBiologicallyRelevant = useMemo(
+    () => biologicallyRelevant(entry),
+    [entry]
   );
-  if (loading) {
-    return <Loader />;
+
+  const { data, loading } = useDataApi<CheckMoveResponse>(
+    upids?.length ? stringifyUrl(checkMoveUrl, { upids }) : null
+  );
+
+  // saved through proteome if:
+  // 1:     has a proteome
+  // and 2: has any proteome that stays
+  const hasSavedProteome = Boolean(upids?.length && data?.stay?.length);
+
+  // display message if:
+  // 1:     not saved through proteome
+  // and 2: not saved as biologically relevant
+  const display = !hasSavedProteome && !isBiologicallyRelevant;
+
+  console.table({ isBiologicallyRelevant, hasSavedProteome, display });
+
+  if (loading || !display) {
+    // Don't render anything, avoid space being used then disappearing
+    return null;
   }
-  return !data?.move?.length ? null : (
+
+  const accession = entry.primaryAccession;
+  const organism = entry.organism;
+
+  return (
     <Message
       level="failure"
       className="uniprot-grid-cell--span-12"
@@ -192,8 +240,7 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
       <UniProtKBRemovePreamble accession={accession} />
       <UniProtKBGenericMain
         accession={accession}
-        scientificName={scientificName}
-        taxonId={taxonId}
+        organism={organism}
         upids={upids}
       />
     </Message>

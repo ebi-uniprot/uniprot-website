@@ -459,16 +459,7 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          <RefProtMoveUniProtKBEntryMessage
-            accession={accession}
-            upids={
-              data.uniProtKBCrossReferences
-                ?.filter((db) => db.database === 'Proteomes' && db.id)
-                ?.map((db) => db.id) as string[]
-            }
-            scientificName={data.organism?.scientificName || ''}
-            taxonId={(data.organism?.taxonId || '').toString()}
-          />
+          <RefProtMoveUniProtKBEntryMessage entry={data} />
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
