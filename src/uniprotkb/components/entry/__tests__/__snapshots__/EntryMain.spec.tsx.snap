@@ -2428,7 +2428,7 @@ exports[`Entry view should render 1`] = `
             role="tablist"
           >
             <div
-              aria-controls="53"
+              aria-controls="69"
               class="tabs__header__item tabs__header__item--bordered tabs__header__item--active"
               data-target="0"
               data-testid="tab-title"
@@ -2438,7 +2438,7 @@ exports[`Entry view should render 1`] = `
               UniProt Annotation
             </div>
             <div
-              aria-controls="53"
+              aria-controls="69"
               class="tabs__header__item tabs__header__item--bordered"
               data-target="1"
               data-testid="tab-title"
@@ -2450,7 +2450,7 @@ exports[`Entry view should render 1`] = `
           </div>
           <div
             data-testid="tab-content"
-            id="53"
+            id="69"
             role="tabpanel"
           >
             <div
@@ -2479,7 +2479,7 @@ exports[`Entry view should render 1`] = `
                   </strong>
                    
                   <button
-                    aria-controls="54"
+                    aria-controls="70"
                     aria-expanded="false"
                     class="svg-colour-unreviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -2498,11 +2498,11 @@ exports[`Entry view should render 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="54"
+                    id="70"
                   />
                   ; topology value 
                   <button
-                    aria-controls="55"
+                    aria-controls="71"
                     aria-expanded="false"
                     class="svg-colour-unreviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -2521,7 +2521,7 @@ exports[`Entry view should render 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="55"
+                    id="71"
                   />
                 </div>
                 <div
@@ -2529,7 +2529,7 @@ exports[`Entry view should render 1`] = `
                 >
                   Note: value.
                   <button
-                    aria-controls="56"
+                    aria-controls="72"
                     aria-expanded="false"
                     class="svg-colour-unreviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -2548,7 +2548,7 @@ exports[`Entry view should render 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="56"
+                    id="72"
                   />
                 </div>
               </section>
@@ -2606,7 +2606,7 @@ exports[`Entry view should render 1`] = `
           class="text-block"
         >
           <button
-            aria-controls="57"
+            aria-controls="56"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2625,7 +2625,7 @@ exports[`Entry view should render 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="57"
+            id="56"
           />
         </span>
         <ul
@@ -2649,7 +2649,7 @@ exports[`Entry view should render 1`] = `
                   <li>
                     value2
                     <button
-                      aria-controls="58"
+                      aria-controls="57"
                       aria-expanded="false"
                       class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2668,7 +2668,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="58"
+                      id="57"
                     />
                   </li>
                 </ul>
@@ -2739,6 +2739,42 @@ exports[`Entry view should render 1`] = `
         >
           value.
           <button
+            aria-controls="58"
+            aria-expanded="false"
+            class="svg-colour-unreviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              automatic annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="58"
+          />
+        </div>
+        <h4
+          class="tiny"
+        >
+          <a
+            href="#Isoform_4_dfs"
+          >
+            Isoform 4 dfs
+          </a>
+        </h4>
+        <div
+          class="text-block"
+        >
+          value.
+          <button
             aria-controls="59"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
@@ -2759,42 +2795,6 @@ exports[`Entry view should render 1`] = `
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
             id="59"
-          />
-        </div>
-        <h4
-          class="tiny"
-        >
-          <a
-            href="#Isoform_4_dfs"
-          >
-            Isoform 4 dfs
-          </a>
-        </h4>
-        <div
-          class="text-block"
-        >
-          value.
-          <button
-            aria-controls="60"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="60"
           />
         </div>
       </div>
@@ -3140,7 +3140,7 @@ exports[`Entry view should render 1`] = `
                       #keyword value
                     </a>
                     <button
-                      aria-controls="63"
+                      aria-controls="62"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3159,7 +3159,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="63"
+                      id="62"
                     />
                   </li>
                 </ul>
@@ -3346,7 +3346,7 @@ exports[`Entry view should render 1`] = `
               >
                 syn value
                 <button
-                  aria-controls="64"
+                  aria-controls="63"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -3365,7 +3365,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="64"
+                  id="63"
                 />
               </div>
             </div>
@@ -3445,6 +3445,41 @@ exports[`Entry view should render 1`] = `
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
           <button
+            aria-controls="64"
+            aria-expanded="false"
+            class="svg-colour-unreviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              automatic annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="64"
+          />
+        </section>
+        <h3
+          data-article-id="mass_spectrometry"
+        >
+          Mass Spectrometry
+        </h3>
+        <section
+          class="text-block"
+        >
+          <h4>
+            isoform 1
+          </h4>
+          Molecular mass is 2.1 Da. Determined by LSI. note value
+          <button
             aria-controls="65"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
@@ -3468,41 +3503,6 @@ exports[`Entry view should render 1`] = `
           />
         </section>
         <h3
-          data-article-id="mass_spectrometry"
-        >
-          Mass Spectrometry
-        </h3>
-        <section
-          class="text-block"
-        >
-          <h4>
-            isoform 1
-          </h4>
-          Molecular mass is 2.1 Da. Determined by LSI. note value
-          <button
-            aria-controls="66"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="66"
-          />
-        </section>
-        <h3
           data-article-id="rna_editing"
         >
           RNA Editing
@@ -3514,6 +3514,33 @@ exports[`Entry view should render 1`] = `
             Edited at position 
             <span>
               1 
+              <button
+                aria-controls="66"
+                aria-expanded="false"
+                class="svg-colour-unreviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="66"
+              />
+            </span>
+          </div>
+          <div>
+            <span>
+              value 
               <button
                 aria-controls="67"
                 aria-expanded="false"
@@ -3535,33 +3562,6 @@ exports[`Entry view should render 1`] = `
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
                 id="67"
-              />
-            </span>
-          </div>
-          <div>
-            <span>
-              value 
-              <button
-                aria-controls="68"
-                aria-expanded="false"
-                class="svg-colour-unreviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="68"
               />
             </span>
           </div>
