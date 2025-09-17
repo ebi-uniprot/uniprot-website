@@ -1,4 +1,4 @@
-import { ExternalLink, Message } from 'franklin-sites';
+import { Message } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import joinUrl from 'url-join';
 
@@ -13,6 +13,7 @@ import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
 import { stringifyUrl } from '../utils/url';
+import ExternalLink from './ExternalLink';
 
 const blogEntryUrl =
   'https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html';
