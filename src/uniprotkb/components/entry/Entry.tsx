@@ -131,49 +131,61 @@ const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
     return Boolean('xrefData' in data && data.xrefData?.length);
   });
 
-const Entry = () => {
-  const dispatch = useMessagesDispatch();
+type Props = {
+  data: UniProtkbAPIModel;
+  importedVariants: number;
+  hasGenomicCoordinates: boolean;
+  communityReferences: Reference[];
+};
+
+const Entry = ({
+  data,
+  importedVariants,
+  hasGenomicCoordinates,
+  communityReferences,
+}: Props) => {
+  // const dispatch = useMessagesDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
 
-  const { loading, data, status, error, redirectedTo, progress } =
-    useDataApi<UniProtkbAPIModel>(
-      apiUrls.entry.entry(params.accession, Namespace.uniprotkb)
-    );
+  // const { loading, data, status, error, redirectedTo, progress } =
+  //   useDataApi<UniProtkbAPIModel>(
+  //     apiUrls.entry.entry(params.accession, Namespace.uniprotkb)
+  //   );
 
-  const variantsHeadPayload = useDataApi(
-    params.accession && apiUrls.proteinsApi.variation(params.accession),
-    { method: 'HEAD' }
-  );
+  // const variantsHeadPayload = useDataApi(
+  //   params.accession && apiUrls.proteinsApi.variation(params.accession),
+  //   { method: 'HEAD' }
+  // );
 
-  const coordinatesHeadPayload = useDataApi(
-    params.accession && apiUrls.proteinsApi.coordinates(params.accession),
-    { method: 'HEAD' }
-  );
+  // const coordinatesHeadPayload = useDataApi(
+  //   params.accession && apiUrls.proteinsApi.coordinates(params.accession),
+  //   { method: 'HEAD' }
+  // );
 
-  const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
-    params.accession &&
-      uniprotkbApiUrls.publications.entryPublications({
-        accession: params.accession,
-        selectedFacets: [
-          {
-            name: 'types',
-            value: '0',
-          },
-        ],
-      })
-  );
+  // const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
+  //   params.accession &&
+  //     uniprotkbApiUrls.publications.entryPublications({
+  //       accession: params.accession,
+  //       selectedFacets: [
+  //         {
+  //           name: 'types',
+  //           value: '0',
+  //         },
+  //       ],
+  //     })
+  // );
 
-  const communityReferences: Reference[] = useMemo(() => {
-    const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
-      ({ references }) =>
-        references?.filter((reference) => reference.source?.name === 'ORCID')
-    );
-    return filteredReferences?.filter((r): r is Reference => Boolean(r)) || [];
-  }, [communityCuratedPayload.data]);
+  // const communityReferences: Reference[] = useMemo(() => {
+  //   const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
+  //     ({ references }) =>
+  //       references?.filter((reference) => reference.source?.name === 'ORCID')
+  //   );
+  //   return filteredReferences?.filter((r): r is Reference => Boolean(r)) || [];
+  // }, [communityCuratedPayload.data]);
 
   const databaseInfoMaps = useDatabaseInfoMaps();
 
@@ -245,56 +257,56 @@ const Entry = () => {
   const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
 
   // Redirect to new entry when obsolete and merged into one
-  useEffect(() => {
-    if (
-      redirectedTo &&
-      params.accession &&
-      params.subPage !== TabLocation.History
-    ) {
-      const split = new URL(redirectedTo).pathname.split('/');
-      const newEntry = split[split.length - 1];
-      // If the redirection is because of ID or version in which case, the following message doesn't make sense
-      if (!params.accession.includes('_') && !params.accession.includes('.')) {
-        dispatch(
-          addMessage({
-            id: 'accession-merge',
-            content: (
-              <>
-                {params.accession} has been merged into {newEntry}. You have
-                automatically been redirected. To see {params.accession}
-                &apos;s history,{' '}
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    params.accession,
-                    TabLocation.History
-                  )}
-                >
-                  click here
-                </Link>
-                .
-              </>
-            ),
-            format: MessageFormat.IN_PAGE,
-            level: MessageLevel.SUCCESS,
-            tag: MessageTag.REDIRECT,
-          })
-        );
-      }
-      frame().then(() => {
-        // If accession contains version, it should be redirected to History tab
-        const activeTab = params.accession?.includes('.')
-          ? TabLocation.History
-          : TabLocation.Entry;
-        navigate(getEntryPath(Namespace.uniprotkb, newEntry, activeTab), {
-          replace: true,
-        });
-      });
-    }
-    // (I hope) I know what I'm doing here, I want to stick with whatever value
-    // params.accession and params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
-  }, [dispatch, redirectedTo]);
+  // useEffect(() => {
+  //   if (
+  //     redirectedTo &&
+  //     params.accession &&
+  //     params.subPage !== TabLocation.History
+  //   ) {
+  //     const split = new URL(redirectedTo).pathname.split('/');
+  //     const newEntry = split[split.length - 1];
+  //     // If the redirection is because of ID or version in which case, the following message doesn't make sense
+  //     if (!params.accession.includes('_') && !params.accession.includes('.')) {
+  //       dispatch(
+  //         addMessage({
+  //           id: 'accession-merge',
+  //           content: (
+  //             <>
+  //               {params.accession} has been merged into {newEntry}. You have
+  //               automatically been redirected. To see {params.accession}
+  //               &apos;s history,{' '}
+  //               <Link
+  //                 to={getEntryPath(
+  //                   Namespace.uniprotkb,
+  //                   params.accession,
+  //                   TabLocation.History
+  //                 )}
+  //               >
+  //                 click here
+  //               </Link>
+  //               .
+  //             </>
+  //           ),
+  //           format: MessageFormat.IN_PAGE,
+  //           level: MessageLevel.SUCCESS,
+  //           tag: MessageTag.REDIRECT,
+  //         })
+  //       );
+  //     }
+  //     frame().then(() => {
+  //       // If accession contains version, it should be redirected to History tab
+  //       const activeTab = params.accession?.includes('.')
+  //         ? TabLocation.History
+  //         : TabLocation.Entry;
+  //       navigate(getEntryPath(Namespace.uniprotkb, newEntry, activeTab), {
+  //         replace: true,
+  //       });
+  //     });
+  //   }
+  //   // (I hope) I know what I'm doing here, I want to stick with whatever value
+  //   // params.accession and params.subPage had when the component was mounted.
+  //   // eslint-disable-next-line reactHooks/exhaustive-deps
+  // }, [dispatch, redirectedTo]);
 
   useEffect(() => {
     if (params.accession?.includes('-')) {
@@ -313,7 +325,8 @@ const Entry = () => {
     }
   }, [navigate, params.accession]);
 
-  let isObsolete = Boolean(
+  // let isObsolete = Boolean(
+  const isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
   );
@@ -339,39 +352,40 @@ const Entry = () => {
     );
   }
 
-  if (
-    loading ||
-    !data ||
-    // if we're gonna redirect, show loading in the meantime
-    (redirectedTo && params.subPage !== TabLocation.History)
-  ) {
-    if (error) {
-      return <ErrorHandler status={status} error={error} fullPage />;
-    }
-    return <Loader progress={progress} />;
-  }
+  // if (
+  //   loading ||
+  //   !data ||
+  //   // if we're gonna redirect, show loading in the meantime
+  //   (redirectedTo && params.subPage !== TabLocation.History)
+  // ) {
+  //   if (error) {
+  //     return <ErrorHandler status={status} error={error} fullPage />;
+  //   }
+  //   return <Loader progress={progress} />;
+  // }
 
-  // If there is redirection in place (might be an obsolete entry or an ID link), use the primary accession instead of match params
-  const accession = redirectedTo
-    ? data.primaryAccession
-    : params.accession || '';
+  // // If there is redirection in place (might be an obsolete entry or an ID link), use the primary accession instead of match params
+  // const accession = redirectedTo
+  //   ? data.primaryAccession
+  //   : params.accession || '';
+  const accession = data.primaryAccession;
 
-  let importedVariants: number | 'loading' = 0;
-  if (variantsHeadPayload.loading) {
-    importedVariants = 'loading';
-  } else {
-    const count = +(variantsHeadPayload.headers?.['x-feature-records'] ?? 0);
-    if (variantsHeadPayload.status === 200 && !Number.isNaN(count)) {
-      importedVariants = count;
-    }
-  }
+  // let importedVariants: number | 'loading' = 0;
+  // if (variantsHeadPayload.loading) {
+  //   importedVariants = 'loading';
+  // } else {
+  //   const count = +(variantsHeadPayload.headers?.['x-feature-records'] ?? 0);
+  //   if (variantsHeadPayload.status === 200 && !Number.isNaN(count)) {
+  //     importedVariants = count;
+  //   }
+  // }
 
-  let hasGenomicCoordinates: boolean | 'loading' = false;
-  if (coordinatesHeadPayload.loading) {
-    hasGenomicCoordinates = 'loading';
-  } else {
-    hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
-  }
+  // let hasGenomicCoordinates: boolean | 'loading' = false;
+  // if (coordinatesHeadPayload.loading) {
+  //   hasGenomicCoordinates = 'loading';
+  // } else {
+  //   hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
+  // }
 
   const isAFDBOutOfSync =
     new Date(
@@ -379,7 +393,7 @@ const Entry = () => {
         '2000-01-01'
     ) > AFDB_CUTOFF_DATE;
 
-  if (error || !params.accession || !transformedData) {
+  if (!transformedData) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 
@@ -391,7 +405,7 @@ const Entry = () => {
 
   // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
   // merged entry's history), the user is viewing content of an obsolete entry
-  isObsolete = (redirectedTo && accession !== params.accession) || isObsolete;
+  // isObsolete = (redirectedTo && accession !== params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {
@@ -525,37 +539,28 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
-            disabled={importedVariants === 'loading' || !importedVariants}
+            disabled={!importedVariants}
             title={
               <Link
                 className={cn({
-                  [helper.disabled]:
-                    importedVariants === 'loading' || !importedVariants,
-                  loading: importedVariants === 'loading',
+                  [helper.disabled]: !importedVariants,
                 })}
-                tabIndex={
-                  importedVariants !== 'loading' && importedVariants
-                    ? undefined
-                    : -1
-                }
+                tabIndex={importedVariants ? undefined : -1}
                 to={`../${
-                  importedVariants === 'loading' || !importedVariants
+                  !importedVariants
                     ? TabLocation.Entry
                     : TabLocation.VariantViewer
                 }`}
               >
                 Variant viewer
-                {data.sequence &&
-                  !mediumScreen &&
-                  importedVariants !== 'loading' &&
-                  importedVariants > 0 && (
-                    <>
-                      {' '}
-                      <Chip compact>
-                        <LongNumber>{importedVariants}</LongNumber>
-                      </Chip>
-                    </>
-                  )}
+                {data.sequence && !mediumScreen && importedVariants > 0 && (
+                  <>
+                    {' '}
+                    <Chip compact>
+                      <LongNumber>{importedVariants}</LongNumber>
+                    </Chip>
+                  </>
+                )}
               </Link>
             }
             id={TabLocation.VariantViewer}
@@ -622,24 +627,15 @@ const Entry = () => {
             )}
           </Tab>
           <Tab
-            disabled={
-              hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
-            }
+            disabled={!hasGenomicCoordinates}
             title={
               <Link
                 className={cn({
-                  [helper.disabled]:
-                    hasGenomicCoordinates === 'loading' ||
-                    !hasGenomicCoordinates,
-                  loading: hasGenomicCoordinates === 'loading',
+                  [helper.disabled]: !hasGenomicCoordinates,
                 })}
-                tabIndex={
-                  hasGenomicCoordinates !== 'loading' && hasGenomicCoordinates
-                    ? undefined
-                    : -1
-                }
+                tabIndex={hasGenomicCoordinates ? undefined : -1}
                 to={`../${
-                  hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
+                  !hasGenomicCoordinates
                     ? TabLocation.Entry
                     : TabLocation.GenomicCoordinates
                 }`}

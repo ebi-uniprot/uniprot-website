@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+// import { Helmet } from 'react-helmet-async';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import LazyComponent from '../../../shared/components/LazyComponent';
@@ -223,12 +223,12 @@ const GoRibbon = ({
 
       {!isSmallScreen && (
         <LazyComponent fallback={null}>
-          <Helmet>
+          {/* <Helmet>
             <script
               type="module"
               src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
             />
-          </Helmet>
+          </Helmet> */}
         </LazyComponent>
       )}
       {elementLoaded && slimSets && (

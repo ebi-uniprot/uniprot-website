@@ -2,7 +2,7 @@ import { HTMLAttributes, lazy, Suspense } from 'react';
 
 import { CustomError } from '../../hooks/useDataApi';
 import ErrorBoundary from '../error-component/ErrorBoundary';
-import HTMLHead from '../HTMLHead';
+// import HTMLHead from '../HTMLHead';
 import NordVPNIssue from './NordVPNIssue';
 import ResourceNotFound from './ResourceNotFound';
 import ServiceUnavailable from './ServiceUnavailable';
@@ -43,10 +43,10 @@ const ErrorHandler = ({
   if (fullPage) {
     return (
       <>
-        <HTMLHead>
-          {/* Don't index error pages */}
-          <meta name="robots" content="noindex" />
-        </HTMLHead>
+        {/* <HTMLHead> */}
+        {/* Don't index error pages */}
+        {/* <meta name="robots" content="noindex" />
+        </HTMLHead> */}
         {component}
         <ErrorBoundary>
           <Suspense fallback={null}>

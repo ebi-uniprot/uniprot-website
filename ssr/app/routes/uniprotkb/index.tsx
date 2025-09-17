@@ -1,5 +1,5 @@
 import { SingleColumnLayout } from '../../../../src/shared/components/layouts/SingleColumnLayout';
-// import GenericResultsPage from '../../../../src/shared/components/results/Results';
+import GenericResultsPage from '../../../../src/shared/components/results/Results';
 import UniProtKBLandingPage from '../../../../src/uniprotkb/components/landing-page/LandingPage';
 import { isLandingPageLoader } from '../_utils/result-or-landing';
 import type { Route } from './+types/index';
@@ -15,12 +15,12 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
+export function loader({ request }: Route.LoaderArgs) {
   const [isLandingPage] = isLandingPageLoader(request);
   return isLandingPage;
 }
 
-export default function UniProtKB({
+export default function Component({
   loaderData: isLandingPage,
 }: Route.ComponentProps) {
   if (isLandingPage) {
@@ -30,5 +30,5 @@ export default function UniProtKB({
       </SingleColumnLayout>
     );
   }
-  // return <GenericResultsPage />;
+  return <GenericResultsPage />;
 }

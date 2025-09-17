@@ -13,15 +13,15 @@ import useNS from '../../hooks/useNS';
 import useNSQuery from '../../hooks/useNSQuery';
 import usePagination from '../../hooks/usePagination';
 import { APIModel } from '../../types/apiModel';
-import {
-  SearchableNamespace,
-  searchableNamespaceLabels,
-} from '../../types/namespaces';
+// import {
+//   SearchableNamespace,
+//   searchableNamespaceLabels,
+// } from '../../types/namespaces';
 import { SearchResults, Suggestion } from '../../types/results';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import NoResultsPage from '../error-pages/full-pages/NoResultsPage';
-import HTMLHead from '../HTMLHead';
+// import HTMLHead from '../HTMLHead';
 import { SidebarLayout } from '../layouts/SideBarLayout';
 import DidYouMean from './DidYouMean';
 import ResultsData from './ResultsData';
@@ -104,27 +104,27 @@ const Results = () => {
     escapedColonQueryData?.headers?.['x-total-results'];
   const escapedColonQueryTotal = xTotalResults ? +xTotalResults : 0;
 
-  const helmet = ns && (
-    <HTMLHead
-      title={`${params.query} in ${
-        searchableNamespaceLabels[ns as SearchableNamespace]
-      } search${total !== undefined ? ` (${total})` : ''}`}
-      titleLoading={resultsDataInitialLoading}
-    >
-      <meta
-        name="description"
-        content={`Search results in the ${
-          searchableNamespaceLabels[ns as SearchableNamespace]
-        } dataset of UniProt`}
-      />
-      {typeof window !== 'undefined' && (
-        <link
-          rel="canonical"
-          href={`${window.location.origin}${window.location.pathname}?query=*`}
-        />
-      )}
-    </HTMLHead>
-  );
+  // const helmet = ns && (
+  //   <HTMLHead
+  //     title={`${params.query} in ${
+  //       searchableNamespaceLabels[ns as SearchableNamespace]
+  //     } search${total !== undefined ? ` (${total})` : ''}`}
+  //     titleLoading={resultsDataInitialLoading}
+  //   >
+  //     <meta
+  //       name="description"
+  //       content={`Search results in the ${
+  //         searchableNamespaceLabels[ns as SearchableNamespace]
+  //       } dataset of UniProt`}
+  //     />
+  //     {typeof window !== 'undefined' && (
+  //       <link
+  //         rel="canonical"
+  //         href={`${window.location.origin}${window.location.pathname}?query=*`}
+  //       />
+  //     )}
+  //   </HTMLHead>
+  // );
 
   if (
     facetInitialLoading &&
@@ -134,7 +134,7 @@ const Results = () => {
   ) {
     return (
       <>
-        {helmet}
+        {/* {helmet} */}
         <Loader progress={resultsDataProgress} />
       </>
     );
@@ -170,7 +170,7 @@ const Results = () => {
   ) {
     return (
       <>
-        {helmet}
+        {/* {helmet} */}
         <NoResultsPage>
           <DidYouMean suggestions={suggestions} />
         </NoResultsPage>
@@ -180,7 +180,7 @@ const Results = () => {
 
   return (
     <SidebarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
-      {helmet}
+      {/* {helmet} */}
       <ResultsDataHeader
         total={total}
         loadedTotal={resultsDataObject.allResults.length}
