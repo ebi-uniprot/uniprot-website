@@ -1,13 +1,5 @@
 import { Loader } from 'franklin-sites';
-import {
-  FC,
-  ReactNode,
-  Suspense,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { FC, ReactNode, Suspense, useEffect, useRef, useState } from 'react';
 
 import ErrorBoundary from './error-component/ErrorBoundary';
 import baseLayoutStyles from './layouts/styles/base-layout.module.scss';
@@ -22,7 +14,11 @@ type Props = {
   render?: boolean;
 };
 
-const ioSupported = globalThis && 'IntersectionObserver' in globalThis;
+const inBrowser =
+  typeof window !== 'undefined' &&
+  !!window.document &&
+  !!window.document.createElement;
+const ioSupported = inBrowser && 'IntersectionObserver' in window;
 
 const LazyComponent: FC<React.PropsWithChildren<Props>> = ({
   fallback = defaultFallback,
@@ -30,38 +26,52 @@ const LazyComponent: FC<React.PropsWithChildren<Props>> = ({
   children,
   render,
 }) => {
-  // In case of not supported browser, just display the component
-  const [wasShown, setWasShown] = useState(!ioSupported);
+  // consistently start in the same way in the browser or on the server, and
+  // and update in the browser through a useEffect
+  const [shouldRender, setShouldRender] = useState(() => Boolean(render));
   const ref = useRef<HTMLDivElement>(null);
 
-  const observer = useMemo(
-    () =>
-      render === undefined &&
-      ioSupported &&
-      new globalThis.IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setWasShown(true);
-          }
-        },
-        {
-          // Need to specify this to have the rootMargin work with new layout
-          root: document.querySelector(`.${baseLayoutStyles['main-content']}`),
-          rootMargin,
-        }
-      ),
-    [rootMargin, render]
-  );
-
   useEffect(() => {
-    if (render === undefined && observer && ref.current && !wasShown) {
-      observer.observe(ref.current);
-      // Should disconnect as soon as the intersection observer was triggered
-      return () => observer.disconnect();
+    // Always follow props, in case it changes
+    if (typeof render !== 'undefined') {
+      setShouldRender(render);
     }
-  }, [render, observer, wasShown]);
 
-  if (render ?? wasShown) {
+    if (!inBrowser) {
+      // This shouldn't happen in a useEffect, but still...
+      return;
+    }
+
+    if (!ioSupported) {
+      // Just render if IntersectionObserver is not supported
+      setShouldRender(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries?.[0]?.isIntersecting) {
+          setShouldRender(true);
+          observer.disconnect();
+        }
+      },
+      {
+        // Need to specify this to have the rootMargin work with new layout
+        root: document.querySelector(`.${baseLayoutStyles['main-content']}`),
+        rootMargin,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [render, rootMargin]);
+
+  if (shouldRender) {
     return (
       <Suspense fallback={fallback}>
         <ErrorBoundary>{children}</ErrorBoundary>
