@@ -34,8 +34,8 @@ const uniprotkbSubPages = getSubPages(
 );
 
 const getData = async (accession: string) => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const request = await fetch(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     apiUrls.entry.entry(accession, Namespace.uniprotkb)!
   );
   const data: UniProtkbAPIModel = await request.json();

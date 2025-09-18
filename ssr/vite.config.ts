@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { reactRouter } from '@react-router/dev/vite';
-import svg from 'rollup-plugin-svg-import';
+// import svg from 'rollup-plugin-svg-import';
 import { defineConfig } from 'vite';
 import commonjs from 'vite-plugin-commonjs';
 import svgr from 'vite-plugin-svgr';
@@ -13,8 +13,10 @@ export default defineConfig({
     commonjs(),
     // import SVGs as react (if using `?react` at the end)
     svgr(),
-    // import SVGs as raw string of their content
-    svg({ stringify: true }),
+    // import SVGs as raw string of their content in theory to make
+    // ExternalLinkIconRaw work, but then there are issues with importing svgs
+    // as assets... And also now it seems like it's working fine without this...
+    // svg({ stringify: true }),
   ],
   ssr: {
     noExternal: ['franklin-sites'],
