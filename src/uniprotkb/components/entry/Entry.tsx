@@ -78,11 +78,7 @@ import dataToSchema from './entry.structured';
 import EntryMain from './EntryMain';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
-
-const SummaryTab = lazy(
-  () =>
-    import(/* webpackChunkName: "uniprotkb-entry-summary" */ './tabs/Summary')
-);
+import SummaryTab from './tabs/Summary';
 
 const VariationViewerTab = lazy(
   () =>
@@ -141,6 +137,7 @@ type Props = {
   importedVariants: number;
   hasGenomicCoordinates: boolean;
   communityReferences: Reference[];
+  aiSummary?: FreeTextComment[];
 };
 
 const Entry = ({
@@ -148,6 +145,7 @@ const Entry = ({
   importedVariants,
   hasGenomicCoordinates,
   communityReferences,
+  aiSummary,
 }: Props) => {
   // const dispatch = useMessagesDispatch();
   const navigate = useNavigate();
@@ -487,11 +485,9 @@ const Entry = ({
             }
             id={TabLocation.Summary}
           >
-            <Suspense fallback={<Loader />}>
-              <ErrorBoundary>
-                <SummaryTab accession={accession} />
-              </ErrorBoundary>
-            </Suspense>
+            <ErrorBoundary>
+              <SummaryTab accession={accession} comments={aiSummary} />
+            </ErrorBoundary>
           </Tab>
           <Tab
             disabled={isObsolete}
@@ -798,7 +794,8 @@ const Entry = ({
                   ]}
                 />
                 <HistoryTab
-                  accession={isObsolete ? params.accession : accession}
+                  // accession={isObsolete ? params.accession : accession}
+                  accession={accession}
                   lastVersion={data.entryAudit?.entryVersion}
                   uniparc={data.extraAttributes?.uniParcId}
                   reason={data.inactiveReason}

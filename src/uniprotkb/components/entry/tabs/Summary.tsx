@@ -1,28 +1,21 @@
-import { AxiosRequestConfig } from 'axios';
-import { Card, HeroContainer, Loader } from 'franklin-sites';
+import { Card, HeroContainer } from 'franklin-sites';
 import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import ContactLink from '../../../../contact/components/ContactLink';
 import ExternalLink from '../../../../shared/components/ExternalLink';
-import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { FreeTextComment } from '../../../types/commentTypes';
 import { TabLocation } from '../../../types/entry';
 import FreeTextView from '../../protein-data-views/FreeTextView';
 
-const fetchOptions: AxiosRequestConfig = { responseType: 'text' };
+type Props = {
+  accession: string;
+  comments?: FreeTextComment[];
+};
 
-const SummaryTab = ({ accession }: { accession: string }) => {
-  const { data, loading, error, progress } = useDataApi<string>(
-    `https://wwwdev.ebi.ac.uk/uniprot/api/lmic/${accession.slice(-2)}/${accession}.dat`,
-    fetchOptions
-  );
-
-  if (loading) {
-    return <Loader progress={progress} />;
-  }
-
-  if (error || !data) {
+const SummaryTab = ({ accession, comments }: Props) => {
+  if (!comments) {
     return (
       <Card header={<h2>✨ AI-generated summary ✨</h2>}>
         No AI-generated summary available for this entry
@@ -60,12 +53,7 @@ const SummaryTab = ({ accession }: { accession: string }) => {
           about this summary.
         </em>
       </HeroContainer>
-      <FreeTextView
-        comments={data.split(/\s*\n\s*/).map((paragraph) => ({
-          commentType: 'FUNCTION',
-          texts: [{ value: paragraph }],
-        }))}
-      />
+      <FreeTextView comments={comments} />
     </Card>
   );
 };
