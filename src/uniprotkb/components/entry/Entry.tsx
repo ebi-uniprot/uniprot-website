@@ -4,8 +4,8 @@ import cn from 'classnames';
 import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
-import { frame } from 'timing-functions';
 
+// import { frame } from 'timing-functions';
 import {
   getEntryPath,
   Location,
@@ -13,12 +13,12 @@ import {
 } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import ContactLink from '../../../contact/components/ContactLink';
-import { addMessage } from '../../../messages/state/messagesActions';
-import {
-  MessageFormat,
-  MessageLevel,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
+// import { addMessage } from '../../../messages/state/messagesActions';
+// import {
+//   MessageFormat,
+//   MessageLevel,
+//   MessageTag,
+// } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
@@ -32,16 +32,16 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+// import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
-import useDataApi from '../../../shared/hooks/useDataApi';
+// import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import {
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
-import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+// import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -49,12 +49,12 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+// import { SearchResults } from '../../../shared/types/results';
 import lazy from '../../../shared/utils/lazy';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
 import {
-  CitationsAPIModel,
+  // CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
@@ -63,7 +63,7 @@ import uniProtKbConverter, {
   UniProtkbAPIModel,
   UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
-import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
+// import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 import { DatabaseCategory } from '../../types/databaseRefs';
 import { TabLocation } from '../../types/entry';
