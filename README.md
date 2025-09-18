@@ -58,3 +58,4 @@ the `unregister` function instead of the `register` function.
 | ------------ | --------------------------------- |
 | `build:prod` | Web Production Kubernetes cluster |
 | `build:dev`  | Debugging service workers         |
+| `build:lmic` | LMIC deployment                   |

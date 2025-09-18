@@ -79,6 +79,11 @@ import EntryMain from './EntryMain';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 
+const SummaryTab = lazy(
+  () =>
+    import(/* webpackChunkName: "uniprotkb-entry-summary" */ './tabs/Summary')
+);
+
 const VariationViewerTab = lazy(
   () =>
     import(
@@ -394,7 +399,7 @@ const Entry = ({
     ) > AFDB_CUTOFF_DATE;
 
   if (!transformedData) {
-    return <ErrorHandler status={status} error={error} fullPage />;
+    return <ErrorHandler fullPage />;
   }
 
   const entrySidebar = (
@@ -466,6 +471,28 @@ const Entry = ({
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
         <Tabs active={params.subPage}>
+          <Tab
+            title={
+              <Link
+                className={isObsolete ? helper.disabled : undefined}
+                tabIndex={isObsolete ? -1 : undefined}
+                to={getEntryPath(
+                  Namespace.uniprotkb,
+                  accession,
+                  TabLocation.Summary
+                )}
+              >
+                ✨ AI summary ✨
+              </Link>
+            }
+            id={TabLocation.Summary}
+          >
+            <Suspense fallback={<Loader />}>
+              <ErrorBoundary>
+                <SummaryTab accession={accession} />
+              </ErrorBoundary>
+            </Suspense>
+          </Tab>
           <Tab
             disabled={isObsolete}
             title={
