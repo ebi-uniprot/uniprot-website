@@ -22,7 +22,7 @@ const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
 
 const UniProtKBGenericPreamble = () => (
   <>
-    The Unreviewed UniProtKB/TrEMBL database will reduce in size in release
+    The Unreviewed UniProtKB/TrEMBL database will reduce in size from release
     2026_01 (planned for the first quarter of 2026).
   </>
 );
@@ -42,10 +42,11 @@ const UniProtKBGenericMain: FC<{
   <>
     <br />
     <br />
-    From 2026_01 onwards, Unreviewed UniProtKB/TrEMBL will only include
-    reference proteomes and selected entries with experimental or biologically
-    important data. Entries removed from Unreviewed UniProtKB/TrEMBL will remain
-    accessible in UniParc. Please see{' '}
+    From 2026_01 onwards, Unreviewed UniProtKB/TrEMBL will include only proteins
+    from reference proteomes and selected entries with experimental or
+    biologically important data. Entries removed from Unreviewed
+    UniProtKB/TrEMBL will remain accessible in the UniParc sequence archive.
+    Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
     information, or{' '}
     <ContactLink
@@ -69,7 +70,7 @@ const UniProtKBGenericMain: FC<{
               pathname: LocationToPath[Location.ContactGeneric],
               state: {
                 formValues: {
-                  subject: `Question about UniProtKB/TrEMBL changes in 2026_01`,
+                  subject: `Question about Unreviewed UniProtKB/TrEMBL changes in 2026_01`,
                 },
               },
             }
@@ -93,15 +94,16 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
   taxonomy,
 }) => (
   <>
-    We are updating the reference proteomes selection procedure (planned for the
-    first quarter of 2026). While all proteomes will remain accessible through
-    the proteomes database, proteins in Unreviewed UniProtKB/TrEMBL will only
-    include reference proteomes and selected entries with experimental or
-    biologically important data.
+    We are updating the reference proteome selection procedure. As a result,
+    some proteomes may lose their reference proteome status, but all proteomes
+    will remain accessible in the Proteomes database. Additionally, starting
+    with release 2026_01, Unreviewed UniProtKB/TrEMBL will include only proteins
+    from reference proteomes selected by the new procedure, along with selected
+    entries with experimental or biologically important data.
     <br />
     <br />
     Entries removed from Unreviewed UniProtKB/TrEMBL will remain accessible in
-    UniParc. Please see{' '}
+    the UniParc sequence archive. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
     information, or{' '}
     <ContactLink
@@ -117,7 +119,7 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
                     `Taxon ID: ${taxonomy.taxonId}`,
                     `Mnemonic: ${taxonomy.mnemonic}`,
                   ].join('\n'),
-                  subject: `Question about Proteome ${id} being removed in 2026_01`,
+                  subject: `Question about proteome ${id} status in 2026_01`,
                 },
               },
             }
@@ -125,7 +127,7 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
               pathname: LocationToPath[Location.ContactGeneric],
               state: {
                 formValues: {
-                  subject: `Question about Proteomes changes in 2026_01`,
+                  subject: `Question about proteomes changes in 2026_01`,
                 },
               },
             }
