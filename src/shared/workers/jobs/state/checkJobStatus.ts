@@ -7,6 +7,8 @@ import toolsURLs, {
 import { MappingError } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
 import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
 import { JobTypes } from '../../../../jobs/types/jobTypes';
+import { PaginatedResults } from '../../../hooks/usePagination';
+import { SearchResults } from '../../../types/results';
 import fetchData from '../../../utils/fetchData';
 import * as logging from '../../../utils/logging';
 import { JobSharedWorkerMessage } from '../jobSharedWorker';
@@ -118,10 +120,9 @@ const checkJobStatus = async (
           }),
         });
         throw new Error(
-          response?.data &&
-            `"${JSON.stringify(
-              response?.data
-            )}" is not a valid result for this job`
+          `"${JSON.stringify(
+            response?.data
+          )}" is not a valid result for this job`
         );
       }
 
@@ -139,25 +140,26 @@ const checkJobStatus = async (
       });
     } else if (job.type === JobTypes.ID_MAPPING && idMappingResultsUrl) {
       // only ID Mapping jobs
-      const response = await fetchData(idMappingResultsUrl, undefined, {
-        method: 'HEAD',
-      });
-
+      const response = await fetchData<
+        SearchResults<never> &
+          Pick<PaginatedResults, 'failedIds' | 'suggestedIds'>
+      >(idMappingResultsUrl);
       // get a new reference to the job
       currentStateOfJob = await store.get<Job>(job.internalID);
       // check that the job is still in the state (it might have been removed)
       if (!currentStateOfJob) {
         return;
       }
+      const { results, suggestedIds } = response?.data;
 
-      const hits: string = response.headers['x-total-results'] || '0';
+      const hits = results.length;
 
       actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
-          data: { hits: +hits },
+          data: { hits, suggestedIds: suggestedIds.length },
         }),
         messageAction: { job: currentStateOfJob, nHits: +hits },
       });
