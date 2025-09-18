@@ -1,3 +1,5 @@
+import { redirect } from 'react-router';
+
 import { getSubPages } from '../../../../../src/app/routes/loaders/composable-helpers';
 import apiUrls from '../../../../../src/shared/config/apiUrls/apiUrls';
 import { Namespace } from '../../../../../src/shared/types/namespaces';
@@ -98,8 +100,46 @@ const getAISummary = async (accession: string) => {
   }
 };
 
+const redirectSummaryEntry = (request: Request, subPage: string) => {
+  if (subPage !== TabLocation.Entry && subPage !== TabLocation.Summary) {
+    return;
+  }
+  const { search } = new URL(request.url);
+
+  const saveData = request.headers.get('Save-Data');
+  const downlink = +(request.headers.get('Downlink') || 0);
+  const deviceMemory = +(request.headers.get('Device-Memory') || 0);
+  const RTT = +(request.headers.get('RTT') || 0); // Round-trip time
+  const ECT = request.headers.get('ECT'); // Effective connection type
+  console.log(
+    `Save-Data: ${saveData}; Downlink: ${downlink}MB/s; Device-Memory: ${deviceMemory}MB; RTT: ${RTT}ms; ECT: ${ECT}`
+  );
+
+  const sp = new URLSearchParams(search);
+  if (sp.has('force')) {
+    return;
+  }
+
+  const shouldGoToSummary =
+    saveData === 'on' ||
+    downlink < 1 ||
+    deviceMemory < 4 ||
+    RTT > 300 ||
+    ECT === 'slow-2g' ||
+    ECT === '2g' ||
+    ECT === '3g';
+
+  if (shouldGoToSummary && subPage === TabLocation.Entry) {
+    throw redirect(`../${TabLocation.Summary}`);
+  } else if (!shouldGoToSummary && subPage === TabLocation.Summary) {
+    throw redirect(`../${TabLocation.Entry}`);
+  }
+};
+
 export async function loader(args: Route.LoaderArgs) {
   uniprotkbSubPages(args);
+
+  redirectSummaryEntry(args.request, args.params.subPage);
 
   const {
     params: { accession },

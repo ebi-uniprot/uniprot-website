@@ -65,6 +65,7 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 // import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
+import { FreeTextComment } from '../../types/commentTypes';
 import { DatabaseCategory } from '../../types/databaseRefs';
 import { TabLocation } from '../../types/entry';
 import EntrySection, {
@@ -474,11 +475,7 @@ const Entry = ({
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.Summary
-                )}
+                to={`../${TabLocation.Summary}?force`}
               >
                 ✨ AI summary ✨
               </Link>
@@ -495,7 +492,7 @@ const Entry = ({
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={`../${TabLocation.Entry}`}
+                to={`../${TabLocation.Entry}?force`}
               >
                 Entry
               </Link>

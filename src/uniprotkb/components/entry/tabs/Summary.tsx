@@ -1,10 +1,8 @@
 import { Card, HeroContainer } from 'franklin-sites';
 import { Link } from 'react-router';
 
-import { getEntryPath } from '../../../../app/config/urls';
 import ContactLink from '../../../../contact/components/ContactLink';
 import ExternalLink from '../../../../shared/components/ExternalLink';
-import { Namespace } from '../../../../shared/types/namespaces';
 import { FreeTextComment } from '../../../types/commentTypes';
 import { TabLocation } from '../../../types/entry';
 import FreeTextView from '../../protein-data-views/FreeTextView';
@@ -41,11 +39,7 @@ const SummaryTab = ({ accession, comments }: Props) => {
           .<br />
           This provides an overview of the actual information that we have
           available on the{' '}
-          <Link
-            to={getEntryPath(Namespace.uniprotkb, accession, TabLocation.Entry)}
-          >
-            main entry tab
-          </Link>
+          <Link to={`../${TabLocation.Entry}?force`}>main entry tab</Link>
           . We cannot guarantee 100% accurancy and this should not replace
           exploring the actual data from UniProt.
           <br />

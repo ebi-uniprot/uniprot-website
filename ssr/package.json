@@ -22,6 +22,7 @@
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-basic-ssl": "2.1.0",
     "rollup-plugin-svg-import": "3.0.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",

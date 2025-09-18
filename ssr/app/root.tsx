@@ -60,6 +60,12 @@ export async function loader() {
   }
 }
 
+export function headers() {
+  return {
+    'Accept-CH': 'Save-Data, Downlink, Device-Memory, RTT, ECT',
+  };
+}
+
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
