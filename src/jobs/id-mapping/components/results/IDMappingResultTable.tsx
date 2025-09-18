@@ -1,7 +1,11 @@
 import { ExpandableList, HeroContainer, LongNumber } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import { getEntryPath } from '../../../../app/config/urls';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
 import ResultsData from '../../../../shared/components/results/ResultsData';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
@@ -17,6 +21,8 @@ import { PublicServerParameters } from '../../types/idMappingServerParameters';
 import { rawDBToNamespace } from '../../utils';
 import { IDMappingFromContext } from './FromColumn';
 import styles from './styles/id-mapping-result-table.module.scss';
+
+const UNIPARC_DIRECT_LINK_LIMIT = 93;
 
 type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
@@ -77,7 +83,7 @@ const IDMappingResultTable = ({
               <strong>
                 <LongNumber>{failedLength}</LongNumber>
               </strong>{' '}
-              ID {pluralise('was', failedLength, 'were')} not mapped:
+              {pluralise('ID was', failedLength, 'IDs were')} not mapped:
               <ExpandableList
                 descriptionString="IDs"
                 numberCollapsedItems={0}
@@ -92,11 +98,39 @@ const IDMappingResultTable = ({
               <strong>
                 <LongNumber>{suggestedLength}</LongNumber>
               </strong>{' '}
-              ID {pluralise('was', suggestedLength, 'were')} mapped to UniParc
-              instead:
+              {pluralise('ID was', suggestedLength, 'IDs were')} mapped to
+              UniParc:
+              <br />
+              {suggestedLength <= UNIPARC_DIRECT_LINK_LIMIT ? (
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.UniParcResults],
+                    search: `query=${resultsDataObject.suggestedIds?.map(({ to }) => to).join(' OR ')}`,
+                  }}
+                  className={styles['uniparc-link']}
+                >
+                  View all in UniParc
+                </Link>
+              ) : (
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.IDMapping],
+                    search: stringifyQuery({
+                      ids: resultsDataObject.suggestedIds
+                        ?.map(({ to }) => to)
+                        .join(','),
+                      from: 'UniParc',
+                      to: 'UniParc',
+                    }),
+                  }}
+                  className={styles['uniparc-link']}
+                >
+                  Submit ID mapping job to view all in UniParc
+                </Link>
+              )}
               <ExpandableList
                 descriptionString="IDs"
-                numberCollapsedItems={0}
+                numberCollapsedItems={3}
                 className={styles['expandable-list']}
               >
                 {resultsDataObject.suggestedIds?.map(({ from, to }) => (
