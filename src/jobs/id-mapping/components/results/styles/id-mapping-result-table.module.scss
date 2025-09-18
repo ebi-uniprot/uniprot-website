@@ -2,7 +2,11 @@
   .expandable-list {
     margin-inline-start: 1em;
   }
-  .uniparc-link {
+  .uniparc-download {
     margin-left: 1em;
+  }
+  .uniparc-link {
+    position: relative;
+    top: 3px;
   }
 }

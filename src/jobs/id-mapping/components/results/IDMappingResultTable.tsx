@@ -1,4 +1,9 @@
-import { ExpandableList, HeroContainer, LongNumber } from 'franklin-sites';
+import {
+  Button,
+  ExpandableList,
+  HeroContainer,
+  LongNumber,
+} from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import {
@@ -13,7 +18,10 @@ import { PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { Namespace } from '../../../../shared/types/namespaces';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 import { stringifyQuery } from '../../../../shared/utils/url';
-import { pluralise } from '../../../../shared/utils/utils';
+import {
+  generateAndDownloadTSV,
+  pluralise,
+} from '../../../../shared/utils/utils';
 import { TabLocation } from '../../../../uniparc/types/entry';
 import { JobTypes } from '../../../types/jobTypes';
 import { MappingDetails } from '../../types/idMappingSearchResults';
@@ -101,6 +109,27 @@ const IDMappingResultTable = ({
               {pluralise('ID was', suggestedLength, 'IDs were')} mapped to
               UniParc:
               <br />
+              <Button
+                variant="tertiary"
+                style={{
+                  color: '#014371',
+                  fontSize: '16px',
+                  marginBottom: 0,
+                  fontWeight: 600,
+                }}
+                onClick={() =>
+                  generateAndDownloadTSV(
+                    resultsDataObject.suggestedIds,
+                    inputParamsData?.from
+                      ? `${inputParamsData.from}_to_UniParc.tsv`
+                      : `mapped_to_UniParc.tsv`
+                  )
+                }
+                className={styles['uniparc-download']}
+              >
+                Download as TSV
+              </Button>
+              {' | '}
               {suggestedLength <= UNIPARC_DIRECT_LINK_LIMIT ? (
                 <Link
                   to={{
@@ -109,7 +138,7 @@ const IDMappingResultTable = ({
                   }}
                   className={styles['uniparc-link']}
                 >
-                  View all in UniParc
+                  View in UniParc
                 </Link>
               ) : (
                 <Link
