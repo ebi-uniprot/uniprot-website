@@ -378,7 +378,11 @@ const BlastForm = ({ initialFormValues }: Props) => {
       <HTMLHead title={title} />
       <PageIntro
         translate="no"
-        heading={<span data-article-id="blast-submission">{title}</span>}
+        heading={
+          <span key="blast-submission" data-article-id="blast-submission">
+            {title}
+          </span>
+        }
       />
       <form
         onSubmit={submitBlastJob}
