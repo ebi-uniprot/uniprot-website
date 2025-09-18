@@ -259,7 +259,8 @@ ${Object.entries(job.parameters)
         // either a BLAST, ID Mapping, or Peptide Search job could have those
         if ('data' in job && job.data && 'hits' in job.data) {
           const actualHits = job.data.hits;
-          const suggestedIds = job.data?.suggestedIds || 0;
+          const suggestedIds =
+            'suggestedIds' in job.data ? job.data.suggestedIds : 0;
           let expectedHits: number | undefined;
           if ('hits' in job.parameters) {
             // BLAST-specific

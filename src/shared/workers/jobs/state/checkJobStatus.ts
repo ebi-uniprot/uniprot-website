@@ -150,16 +150,16 @@ const checkJobStatus = async (
       if (!currentStateOfJob) {
         return;
       }
-      const { results, suggestedIds } = response?.data;
 
-      const hits = results.length;
+      const hits = response.data.results.length;
+      const suggestedIds = response.data.suggestedIds?.length;
 
       actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
-          data: { hits, suggestedIds: suggestedIds.length },
+          data: { hits, suggestedIds },
         }),
         messageAction: { job: currentStateOfJob, nHits: +hits },
       });

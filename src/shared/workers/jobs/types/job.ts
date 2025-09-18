@@ -47,7 +47,7 @@ export type DataForDashboard = {
   [JobTypes.ID_MAPPING]: {
     hits: number;
     idMappingTarget: IDMappingNamespace;
-    suggestedIds: Array<{ from: string; to: string }>;
+    suggestedIds: number;
   };
   [JobTypes.PEPTIDE_SEARCH]: never;
   [JobTypes.ASYNC_DOWNLOAD]: { fileSizeBytes: number };
