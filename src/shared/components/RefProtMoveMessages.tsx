@@ -155,7 +155,7 @@ export const RefProtMoveResultsMessage: FC<{
   return (
     <Message
       level="warning"
-      className={cn('uniprot-grid-cell--span-12', 'results-message')}
+      className={cn('uniprot-grid-cell--span-12', styles['results-message'])}
     >
       {(namespace === Namespace.uniprotkb && <UniProtKBGenericMessage />) ||
         (namespace === Namespace.proteomes && <ProteomesMessage />)}
