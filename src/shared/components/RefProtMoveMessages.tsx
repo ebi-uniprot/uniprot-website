@@ -196,6 +196,7 @@ type CheckMoveResponse = {
 const referenceProteomeTypes = new Set([
   'Reference and representative proteome',
   'Reference proteome',
+  'Representative proteome',
 ]);
 
 export const RefProtMoveProteomesEntryMessage: FC<{
@@ -208,6 +209,7 @@ export const RefProtMoveProteomesEntryMessage: FC<{
       ? stringifyUrl(checkMoveUrl, { upids: [id] })
       : null
   );
+
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
