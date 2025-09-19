@@ -255,7 +255,7 @@ export const RefProtMoveProteomesEntryMessage: FC<{
     >
       <b>
         {id} is currently under review and may lose its reference proteome
-        status from release 2026_01 (planned for the first quarter of 2026).
+        status from release {release} (planned for the {releaseDate}).
       </b>
       <br />
       <br />
