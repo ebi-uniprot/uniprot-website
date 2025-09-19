@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader, Message } from 'franklin-sites';
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
@@ -206,9 +206,17 @@ export const RefProtMoveProteomesEntryMessage: FC<{
       ? stringifyUrl(checkMoveUrl, { upids: [id] })
       : null
   );
+  const [showSkeleton, setShowSkeleton] = useState(true);
 
-  const becomingNonRP = data?.move?.[0] === id;
-  if (loading) {
+  useEffect(() => {
+    if (!loading) {
+      // once loading is finished, delay hiding skeleton
+      const timer = setTimeout(() => setShowSkeleton(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
+
+  if (showSkeleton) {
     return (
       <Message
         className={cn(
@@ -216,11 +224,27 @@ export const RefProtMoveProteomesEntryMessage: FC<{
           styles['entry-message'],
           styles['loading-filler']
         )}
+        aria-busy
+        aria-live="polite"
       >
-        <Loader />
+        <div className={styles.skeleton}>
+          <span className={styles.line} />
+          <span className={styles.line} />
+          <span className={styles.line} />
+          <span className={cn(styles.line, styles.short)} />
+
+          <div className={styles.blockSpace} />
+
+          <span className={styles.line} />
+          <span className={styles.line} />
+          <span className={cn(styles.line, styles.medium)} />
+        </div>
       </Message>
     );
   }
+
+  const becomingNonRP = data?.move?.[0] === id;
+
   return becomingNonRP ? (
     <Message
       level="failure"

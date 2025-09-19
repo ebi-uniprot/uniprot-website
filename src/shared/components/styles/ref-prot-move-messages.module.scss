@@ -9,12 +9,62 @@
 }
 
 .loading-filler {
-  height: 12em;
+  min-height: 10em;
+  display: block;
+  padding-left: 3em;
+  padding-right: 2em;
 
   :global(.message__side-border) {
-    background-color: transparent;
+    display: none;
   }
+
   svg {
-    color: transparent;
+    display: none;
+  }
+
+  .skeleton {
+    display: grid;
+    row-gap: 0.5rem;
+  }
+
+  .line {
+    display: block;
+    height: 0.9rem;
+    border-radius: 0.35rem;
+    background: linear-gradient(
+      90deg,
+      var(--skeleton-bg, #ececec) 25%,
+      var(--skeleton-shimmer, #f5f5f5) 37%,
+      var(--skeleton-bg, #ececec) 63%
+    );
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  }
+
+  .short {
+    width: 35%;
+  }
+  .medium {
+    width: 60%;
+  }
+
+  .blockSpace {
+    height: 0.75rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .line {
+      animation: none;
+      background: var(--skeleton-bg, #ececec);
+    }
+  }
+
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
   }
 }
