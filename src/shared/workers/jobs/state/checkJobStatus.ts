@@ -7,6 +7,7 @@ import toolsURLs, {
 import { MappingError } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
 import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
 import { JobTypes } from '../../../../jobs/types/jobTypes';
+import { reUniParc } from '../../../../uniprotkb/utils/regexes';
 import { PaginatedResults } from '../../../hooks/usePagination';
 import { SearchResults } from '../../../types/results';
 import fetchData from '../../../utils/fetchData';
@@ -152,14 +153,19 @@ const checkJobStatus = async (
       }
 
       const hits = +(response.headers['x-total-results'] || '0');
-      const suggestedIds = response.data.suggestedIds?.length || 0;
+      const suggestedUniParcIds =
+        response.data.suggestedIds?.filter(({ to }) => reUniParc.test(to))
+          .length || 0;
 
       actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
           seen: false,
           status,
-          data: { hits, suggestedIds },
+          data: {
+            hits,
+            suggestedUniParcIds,
+          },
         }),
         messageAction: { job: currentStateOfJob, nHits: hits },
       });

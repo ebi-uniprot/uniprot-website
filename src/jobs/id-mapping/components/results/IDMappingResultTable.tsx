@@ -5,6 +5,7 @@ import {
   HeroContainer,
   LongNumber,
 } from 'franklin-sites';
+import { partition } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
 import {
@@ -24,6 +25,7 @@ import {
   pluralise,
 } from '../../../../shared/utils/utils';
 import { TabLocation } from '../../../../uniparc/types/entry';
+import { reUniParc } from '../../../../uniprotkb/utils/regexes';
 import { JobTypes } from '../../../types/jobTypes';
 import { MappingDetails } from '../../types/idMappingSearchResults';
 import { PublicServerParameters } from '../../types/idMappingServerParameters';
@@ -55,9 +57,13 @@ const IDMappingResultTable = ({
   const failedLength = resultsDataObject.failedIds?.length || 0;
   const suggestedLength = resultsDataObject.suggestedIds?.length || 0;
   const obsoleteLength = resultsDataObject.obsoleteCount || 0;
-
   const mappedLength = inputLength - failedLength - suggestedLength;
   const activeLength = mappedLength - obsoleteLength;
+  const [uniParcSuggestedIds, otherSuggestedIds] = partition(
+    resultsDataObject.suggestedIds,
+    ({ to }) => reUniParc.test(to)
+  );
+  const uniParcSuggestedIdsTo = uniParcSuggestedIds?.map(({ to }) => to);
 
   return (
     <>
@@ -80,8 +86,7 @@ const IDMappingResultTable = ({
             <strong>
               <LongNumber>{mappedLength}</LongNumber>
             </strong>{' '}
-            {pluralise('ID', mappedLength)}{' '}
-            {pluralise('was', mappedLength, 'were')} mapped to{' '}
+            {pluralise('ID', mappedLength)} mapped to{' '}
             <strong>
               <LongNumber>{resultsDataObject.total || 0}</LongNumber>
             </strong>{' '}
@@ -92,7 +97,7 @@ const IDMappingResultTable = ({
               <strong>
                 <LongNumber>{failedLength}</LongNumber>
               </strong>{' '}
-              {pluralise('ID was', failedLength, 'IDs were')} not mapped:
+              {pluralise('ID', failedLength)} not mapped:
               <ExpandableList
                 descriptionString="IDs"
                 numberCollapsedItems={0}
@@ -102,13 +107,12 @@ const IDMappingResultTable = ({
               </ExpandableList>
             </div>
           )}
-          {suggestedLength > 0 && (
+          {uniParcSuggestedIds.length > 0 && (
             <div>
               <strong>
                 <LongNumber>{suggestedLength}</LongNumber>
               </strong>{' '}
-              {pluralise('ID was', suggestedLength, 'IDs were')} mapped to
-              UniParc:
+              {pluralise('ID', suggestedLength)} mapped to UniParc:
               <br />
               <div
                 className={cn('button-group', styles['uniparc-button-group'])}
@@ -117,7 +121,7 @@ const IDMappingResultTable = ({
                   variant="tertiary"
                   onClick={() =>
                     generateAndDownloadTSV(
-                      resultsDataObject.suggestedIds,
+                      uniParcSuggestedIds,
                       inputParamsData?.from
                         ? `${inputParamsData.from}_to_UniParc.tsv`
                         : `mapped_to_UniParc.tsv`
@@ -127,11 +131,11 @@ const IDMappingResultTable = ({
                   Download as TSV
                 </Button>
                 {' | '}
-                {suggestedLength <= UNIPARC_DIRECT_LINK_LIMIT ? (
+                {uniParcSuggestedIdsTo.length <= UNIPARC_DIRECT_LINK_LIMIT ? (
                   <Link
                     to={{
                       pathname: LocationToPath[Location.UniParcResults],
-                      search: `query=${resultsDataObject.suggestedIds?.map(({ to }) => to).join(' OR ')}`,
+                      search: `query=${uniParcSuggestedIdsTo.join(' OR ')}`,
                     }}
                     className="button tertiary"
                   >
@@ -142,9 +146,7 @@ const IDMappingResultTable = ({
                     to={{
                       pathname: LocationToPath[Location.IDMapping],
                       search: stringifyQuery({
-                        ids: resultsDataObject.suggestedIds
-                          ?.map(({ to }) => to)
-                          .join(','),
+                        ids: uniParcSuggestedIdsTo.join(','),
                         from: 'UniParc',
                         to: 'UniParc',
                       }),
@@ -159,7 +161,36 @@ const IDMappingResultTable = ({
                 numberCollapsedItems={3}
                 className={styles['expandable-list']}
               >
-                {resultsDataObject.suggestedIds?.map(({ from, to }) => (
+                {uniParcSuggestedIds?.map(({ from, to }) => (
+                  <span key={`${from}|${to}`}>
+                    {from} →{' '}
+                    <Link
+                      to={getEntryPath(
+                        Namespace.uniparc,
+                        to,
+                        TabLocation.Entry
+                      )}
+                    >
+                      {to}
+                    </Link>
+                  </span>
+                ))}
+              </ExpandableList>
+            </div>
+          )}
+          {otherSuggestedIds.length > 0 && (
+            <div>
+              <strong>
+                <LongNumber>{suggestedLength}</LongNumber>
+              </strong>{' '}
+              {/* TODO: generalise */}
+              {pluralise('ID', suggestedLength)} mapped to another UniProt DB:
+              <ExpandableList
+                descriptionString="IDs"
+                numberCollapsedItems={0}
+                className={styles['expandable-list']}
+              >
+                {otherSuggestedIds?.map(({ from, to }) => (
                   <span key={`${from}|${to}`}>
                     {from} →{' '}
                     <Link
