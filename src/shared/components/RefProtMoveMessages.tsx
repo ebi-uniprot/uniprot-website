@@ -196,7 +196,6 @@ type CheckMoveResponse = {
 const referenceProteomeTypes = new Set([
   'Reference and representative proteome',
   'Reference proteome',
-  'Representative proteome',
 ]);
 
 export const RefProtMoveProteomesEntryMessage: FC<{
