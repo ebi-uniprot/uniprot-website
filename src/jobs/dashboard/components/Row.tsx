@@ -291,7 +291,8 @@ ${Object.entries(job.parameters)
                 >
                   (
                   {actualHits ? `${actualHits} ${hitText}` : 'no results found'}
-                  {` | ${suggestedIds} ${pluralise('ID', suggestedIds)} mapped to UniParc`}
+                  {suggestedIds &&
+                    ` | ${suggestedIds} ${pluralise('hit', suggestedIds)} mapped to UniParc`}
                   )
                 </span>
                 <Seen job={job} />
