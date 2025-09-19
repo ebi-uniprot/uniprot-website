@@ -1,0 +1,20 @@
+.results-message {
+  margin-bottom: -0.75rem;
+  margin-top: 0.5rem;
+}
+
+.entry-message {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.loading-filler {
+  height: 12em;
+
+  :global(.message__side-border) {
+    background-color: transparent;
+  }
+  svg {
+    color: transparent;
+  }
+}

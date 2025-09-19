@@ -1,4 +1,5 @@
-import { Message } from 'franklin-sites';
+import cn from 'classnames';
+import { Loader, Message } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import joinUrl from 'url-join';
 
@@ -15,6 +16,7 @@ import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
 import { stringifyUrl } from '../utils/url';
 import ExternalLink from './ExternalLink';
+import styles from './styles/ref-prot-move-messages.module.scss';
 
 const blogEntryUrl =
   'https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html';
@@ -150,8 +152,7 @@ export const RefProtMoveResultsMessage: FC<{
   return (
     <Message
       level="warning"
-      className="uniprot-grid-cell--span-12"
-      style={{ marginBottom: '-0.75rem', marginTop: '0.5rem' }}
+      className={cn('uniprot-grid-cell--span-12', 'results-message')}
     >
       {(namespace === Namespace.uniprotkb && <UniProtKBGenericMessage />) ||
         (namespace === Namespace.proteomes && <ProteomesMessage />)}
@@ -208,13 +209,22 @@ export const RefProtMoveProteomesEntryMessage: FC<{
 
   const becomingNonRP = data?.move?.[0] === id;
   if (loading) {
-    return null;
+    return (
+      <Message
+        className={cn(
+          'uniprot-grid-cell--span-12',
+          styles['entry-message'],
+          styles['loading-filler']
+        )}
+      >
+        <Loader />
+      </Message>
+    );
   }
   return becomingNonRP ? (
     <Message
       level="failure"
-      className="uniprot-grid-cell--span-12"
-      style={{ marginBottom: '1rem', marginTop: '1rem' }}
+      className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
     >
       {id} is currently under review and may lose its reference proteome status
       from release 2026_01 (planned for the first quarter of 2026).
@@ -225,8 +235,7 @@ export const RefProtMoveProteomesEntryMessage: FC<{
   ) : (
     <Message
       level="warning"
-      className="uniprot-grid-cell--span-12"
-      style={{ marginBottom: '1rem', marginTop: '1rem' }}
+      className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
     >
       <ProteomesMessage id={id} taxonomy={taxonomy} />
     </Message>
@@ -267,8 +276,7 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
   return (
     <Message
       level="failure"
-      className="uniprot-grid-cell--span-12"
-      style={{ marginBottom: '1rem', marginTop: '1rem' }}
+      className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
     >
       <UniProtKBRemovePreamble accession={accession} />
       <UniProtKBGenericMain
