@@ -69,6 +69,7 @@ const Entry = () => {
       <RefProtMoveProteomesEntryMessage
         id={transformedData.id}
         taxonomy={transformedData.taxonomy}
+        proteomeType={transformedData.proteomeType}
       />
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}

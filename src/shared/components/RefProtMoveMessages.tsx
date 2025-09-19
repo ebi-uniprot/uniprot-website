@@ -4,6 +4,7 @@ import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
+import { ProteomeType } from '../../proteomes/adapters/proteomesConverter';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
   UniProtkbAPIModel,
@@ -158,19 +159,6 @@ export const RefProtMoveResultsMessage: FC<{
   );
 };
 
-export const RefProtMoveProteomesEntryMessage: FC<{
-  id: string;
-  taxonomy: TaxonomyDatum;
-}> = ({ id, taxonomy }) => (
-  <Message
-    level="warning"
-    className="uniprot-grid-cell--span-12"
-    style={{ marginBottom: '1rem', marginTop: '1rem' }}
-  >
-    <ProteomesMessage id={id} taxonomy={taxonomy} />
-  </Message>
-);
-
 const getCrossRefsFor = (dbName: string) => (entry: UniProtkbAPIModel) =>
   entry.uniProtKBCrossReferences
     ?.filter((db) => db.database === dbName)
@@ -199,6 +187,50 @@ type CheckMoveResponse = {
   move?: string[];
   stay?: string[];
   unknown?: string[];
+};
+
+const referenceProteomeTypes = new Set([
+  'Reference and representative proteome',
+  'Reference proteome',
+  'Representative proteome',
+]);
+
+export const RefProtMoveProteomesEntryMessage: FC<{
+  id: string;
+  taxonomy: TaxonomyDatum;
+  proteomeType: ProteomeType;
+}> = ({ id, taxonomy, proteomeType }) => {
+  const { data, loading } = useDataApi<CheckMoveResponse>(
+    referenceProteomeTypes.has(proteomeType)
+      ? stringifyUrl(checkMoveUrl, { upids: [id] })
+      : null
+  );
+
+  const becomingNonRP = data?.move?.[0] === id;
+  if (loading) {
+    return null;
+  }
+  return becomingNonRP ? (
+    <Message
+      level="failure"
+      className="uniprot-grid-cell--span-12"
+      style={{ marginBottom: '1rem', marginTop: '1rem' }}
+    >
+      {id} is currently under review and may lose its reference proteome status
+      from release 2026_01 (planned for the first quarter of 2026).
+      <br />
+      <br />
+      <ProteomesMessage id={id} taxonomy={taxonomy} />
+    </Message>
+  ) : (
+    <Message
+      level="warning"
+      className="uniprot-grid-cell--span-12"
+      style={{ marginBottom: '1rem', marginTop: '1rem' }}
+    >
+      <ProteomesMessage id={id} taxonomy={taxonomy} />
+    </Message>
+  );
 };
 
 export const RefProtMoveUniProtKBEntryMessage: FC<{
