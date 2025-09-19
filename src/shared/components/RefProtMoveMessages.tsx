@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Loader, Message } from 'franklin-sites';
+import { Message } from 'franklin-sites';
 import { FC, useEffect, useMemo, useState } from 'react';
 import joinUrl from 'url-join';
 
@@ -211,7 +211,7 @@ export const RefProtMoveProteomesEntryMessage: FC<{
   useEffect(() => {
     if (!loading) {
       // once loading is finished, delay hiding skeleton
-      const timer = setTimeout(() => setShowSkeleton(false), 500);
+      const timer = setTimeout(() => setShowSkeleton(false), 750);
       return () => clearTimeout(timer);
     }
   }, [loading]);
@@ -250,8 +250,10 @@ export const RefProtMoveProteomesEntryMessage: FC<{
       level="failure"
       className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
     >
-      {id} is currently under review and may lose its reference proteome status
-      from release 2026_01 (planned for the first quarter of 2026).
+      <b>
+        {id} is currently under review and may lose its reference proteome
+        status from release 2026_01 (planned for the first quarter of 2026).
+      </b>
       <br />
       <br />
       <ProteomesMessage id={id} taxonomy={taxonomy} />
