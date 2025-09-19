@@ -23,17 +23,20 @@ const blogEntryUrl =
 
 const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
 
+const release = '2026_02';
+const releaseDate = 'first half of 2026';
+
 const UniProtKBGenericPreamble = () => (
   <>
-    The Unreviewed UniProtKB/TrEMBL database will reduce in size from release
-    2026_01 (planned for the first quarter of 2026).
+    The Unreviewed UniProtKB/TrEMBL database will reduce in size from release{' '}
+    {release} (planned for the {releaseDate}).
   </>
 );
 
 const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
   <b>
-    This entry ({accession}) is under consideration for removal in release
-    2026_01 (planned for the first quarter of 2026).
+    This entry ({accession}) is under consideration for removal in release{' '}
+    {release} (planned for the {releaseDate}).
   </b>
 );
 
@@ -45,8 +48,8 @@ const UniProtKBGenericMain: FC<{
   <>
     <br />
     <br />
-    From 2026_01 onwards, Unreviewed UniProtKB/TrEMBL will include only proteins
-    from reference proteomes and selected entries with experimental or
+    From {release} onwards, Unreviewed UniProtKB/TrEMBL will include only
+    proteins from reference proteomes and selected entries with experimental or
     biologically important data. Entries removed from Unreviewed
     UniProtKB/TrEMBL will remain accessible in the UniParc sequence archive.
     Please see{' '}
@@ -65,7 +68,7 @@ const UniProtKBGenericMain: FC<{
                     `Organism: ${organism.scientificName || organism.commonName || '<no name>'}`,
                     `Taxon ID: ${organism.taxonId}`,
                   ].join('\n'),
-                  subject: `Question about UniProtKB entry ${accession} being removed in 2026_01`,
+                  subject: `Question about UniProtKB entry ${accession} being removed in ${release}`,
                 },
               },
             }
@@ -73,7 +76,7 @@ const UniProtKBGenericMain: FC<{
               pathname: LocationToPath[Location.ContactGeneric],
               state: {
                 formValues: {
-                  subject: `Question about Unreviewed UniProtKB/TrEMBL changes in 2026_01`,
+                  subject: `Question about Unreviewed UniProtKB/TrEMBL changes in ${release}`,
                 },
               },
             }
@@ -100,9 +103,9 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
     We are updating the reference proteome selection procedure. As a result,
     some proteomes may lose their reference proteome status, but all proteomes
     will remain accessible in the Proteomes database. Additionally, starting
-    with release 2026_01, Unreviewed UniProtKB/TrEMBL will include only proteins
-    from reference proteomes selected by the new procedure, along with selected
-    entries with experimental or biologically important data.
+    with release {release}, Unreviewed UniProtKB/TrEMBL will include only
+    proteins from reference proteomes selected by the new procedure, along with
+    selected entries with experimental or biologically important data.
     <br />
     <br />
     Entries removed from Unreviewed UniProtKB/TrEMBL will remain accessible in
@@ -122,7 +125,7 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
                     `Taxon ID: ${taxonomy.taxonId}`,
                     `Mnemonic: ${taxonomy.mnemonic}`,
                   ].join('\n'),
-                  subject: `Question about proteome ${id} status in 2026_01`,
+                  subject: `Question about proteome ${id} status in ${release}`,
                 },
               },
             }
@@ -130,7 +133,7 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
               pathname: LocationToPath[Location.ContactGeneric],
               state: {
                 formValues: {
-                  subject: `Question about proteomes changes in 2026_01`,
+                  subject: `Question about proteomes changes in ${release}`,
                 },
               },
             }
