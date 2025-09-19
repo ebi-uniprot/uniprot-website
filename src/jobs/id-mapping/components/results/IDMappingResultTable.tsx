@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import {
   Button,
   ExpandableList,
@@ -109,54 +110,50 @@ const IDMappingResultTable = ({
               {pluralise('ID was', suggestedLength, 'IDs were')} mapped to
               UniParc:
               <br />
-              <Button
-                variant="tertiary"
-                style={{
-                  color: '#014371',
-                  fontSize: '16px',
-                  marginBottom: 0,
-                  fontWeight: 600,
-                }}
-                onClick={() =>
-                  generateAndDownloadTSV(
-                    resultsDataObject.suggestedIds,
-                    inputParamsData?.from
-                      ? `${inputParamsData.from}_to_UniParc.tsv`
-                      : `mapped_to_UniParc.tsv`
-                  )
-                }
-                className={styles['uniparc-download']}
+              <div
+                className={cn('button-group', styles['uniparc-button-group'])}
               >
-                Download as TSV
-              </Button>
-              {' | '}
-              {suggestedLength <= UNIPARC_DIRECT_LINK_LIMIT ? (
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.UniParcResults],
-                    search: `query=${resultsDataObject.suggestedIds?.map(({ to }) => to).join(' OR ')}`,
-                  }}
-                  className={styles['uniparc-link']}
+                <Button
+                  variant="tertiary"
+                  onClick={() =>
+                    generateAndDownloadTSV(
+                      resultsDataObject.suggestedIds,
+                      inputParamsData?.from
+                        ? `${inputParamsData.from}_to_UniParc.tsv`
+                        : `mapped_to_UniParc.tsv`
+                    )
+                  }
                 >
-                  View in UniParc
-                </Link>
-              ) : (
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.IDMapping],
-                    search: stringifyQuery({
-                      ids: resultsDataObject.suggestedIds
-                        ?.map(({ to }) => to)
-                        .join(','),
-                      from: 'UniParc',
-                      to: 'UniParc',
-                    }),
-                  }}
-                  className={styles['uniparc-link']}
-                >
-                  Submit ID mapping job to view all in UniParc
-                </Link>
-              )}
+                  Download as TSV
+                </Button>
+                {' | '}
+                {suggestedLength <= UNIPARC_DIRECT_LINK_LIMIT ? (
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.UniParcResults],
+                      search: `query=${resultsDataObject.suggestedIds?.map(({ to }) => to).join(' OR ')}`,
+                    }}
+                    className="button tertiary"
+                  >
+                    View in UniParc
+                  </Link>
+                ) : (
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.IDMapping],
+                      search: stringifyQuery({
+                        ids: resultsDataObject.suggestedIds
+                          ?.map(({ to }) => to)
+                          .join(','),
+                        from: 'UniParc',
+                        to: 'UniParc',
+                      }),
+                    }}
+                  >
+                    Submit ID mapping job to view all in UniParc
+                  </Link>
+                )}
+              </div>
               <ExpandableList
                 descriptionString="IDs"
                 numberCollapsedItems={3}

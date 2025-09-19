@@ -2,11 +2,20 @@
   .expandable-list {
     margin-inline-start: 1em;
   }
-  .uniparc-download {
+
+  .uniparc-button-group {
     margin-left: 1em;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
-  .uniparc-link {
-    position: relative;
-    top: 3px;
+
+  :global(.button-group) {
+    :global(.tertiary) {
+      margin-right: 0.5em;
+    }
+
+    :global(.button:last-child) {
+      margin-left: 0.5em;
+    }
   }
 }
