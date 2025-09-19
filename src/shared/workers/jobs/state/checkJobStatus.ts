@@ -151,8 +151,8 @@ const checkJobStatus = async (
         return;
       }
 
-      const hits = response.data.results.length;
-      const suggestedIds = response.data.suggestedIds?.length;
+      const hits = +(response.headers['x-total-results'] || '0');
+      const suggestedIds = response.data.suggestedIds?.length || 0;
 
       actionHandler({
         jobAction: updateJob(job.internalID, {
@@ -161,7 +161,7 @@ const checkJobStatus = async (
           status,
           data: { hits, suggestedIds },
         }),
-        messageAction: { job: currentStateOfJob, nHits: +hits },
+        messageAction: { job: currentStateOfJob, nHits: hits },
       });
     } else if (job.type === JobTypes.ASYNC_DOWNLOAD) {
       // Only Async Download jobs
