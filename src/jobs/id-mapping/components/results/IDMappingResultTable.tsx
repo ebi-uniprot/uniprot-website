@@ -34,7 +34,14 @@ import { rawDBToNamespace } from '../../utils';
 import { IDMappingFromContext } from './FromColumn';
 import styles from './styles/id-mapping-result-table.module.scss';
 
-const UNIPARC_DIRECT_LINK_LIMIT = 93;
+/*
+prefix = len("https://www.uniprot.org/uniparc?query=")
+encoded_or = len("%20OR%20")
+upid = len("upi:UPI0000000001")
+url_length = prefix + n * upid + (n-1) * encoded_or
+For n = 78, above gives 1980 as url_length which is < 2000.
+*/
+const UNIPARC_DIRECT_LINK_LIMIT = 78;
 
 type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
@@ -65,7 +72,9 @@ const IDMappingResultTable = ({
     ({ to }) => reUniParc.test(to)
   );
 
-  const suggestedUniParcIdsTo = suggestedUniParcIds?.map(({ to }) => to);
+  const uniqueSuggestedUniParcIds = [
+    ...new Set(suggestedUniParcIds?.map(({ to }) => to)),
+  ];
 
   if (suggestedOtherIds?.length) {
     logging.warn('Non-UniParc IDs have been suggested for an ID Mapping job.');
@@ -137,11 +146,12 @@ const IDMappingResultTable = ({
                   Download as TSV
                 </Button>
                 {' | '}
-                {suggestedUniParcIdsTo.length <= UNIPARC_DIRECT_LINK_LIMIT ? (
+                {uniqueSuggestedUniParcIds.length <=
+                UNIPARC_DIRECT_LINK_LIMIT ? (
                   <Link
                     to={{
                       pathname: LocationToPath[Location.UniParcResults],
-                      search: `query=${suggestedUniParcIdsTo.join(' OR ')}`,
+                      search: `query=${uniqueSuggestedUniParcIds.map((upi) => `upi:${upi}`).join(' OR ')}`,
                     }}
                     className="button tertiary"
                   >
@@ -152,7 +162,7 @@ const IDMappingResultTable = ({
                     to={{
                       pathname: LocationToPath[Location.IDMapping],
                       search: stringifyQuery({
-                        ids: suggestedUniParcIdsTo.join(','),
+                        ids: uniqueSuggestedUniParcIds.join(','),
                         from: 'UniParc',
                         to: 'UniParc',
                       }),
