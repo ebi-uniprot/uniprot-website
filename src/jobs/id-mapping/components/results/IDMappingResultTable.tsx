@@ -18,13 +18,11 @@ import ResultsData from '../../../../shared/components/results/ResultsData';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { Namespace } from '../../../../shared/types/namespaces';
+import generateAndDownloadTSV from '../../../../shared/utils/generateAndDownloadTSV';
 import * as logging from '../../../../shared/utils/logging';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 import { stringifyQuery } from '../../../../shared/utils/url';
-import {
-  generateAndDownloadTSV,
-  pluralise,
-} from '../../../../shared/utils/utils';
+import { pluralise } from '../../../../shared/utils/utils';
 import { TabLocation } from '../../../../uniparc/types/entry';
 import { reUniParc } from '../../../../uniprotkb/utils/regexes';
 import { JobTypes } from '../../../types/jobTypes';
