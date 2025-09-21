@@ -48,6 +48,7 @@ export type DataForDashboard = {
     hits: number;
     idMappingTarget: IDMappingNamespace;
     suggestedUniParcIds: number;
+    suggestedOtherIds: number;
   };
   [JobTypes.PEPTIDE_SEARCH]: never;
   [JobTypes.ASYNC_DOWNLOAD]: { fileSizeBytes: number };

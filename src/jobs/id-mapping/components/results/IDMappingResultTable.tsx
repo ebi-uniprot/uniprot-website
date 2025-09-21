@@ -18,6 +18,7 @@ import ResultsData from '../../../../shared/components/results/ResultsData';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import { PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { Namespace } from '../../../../shared/types/namespaces';
+import * as logging from '../../../../shared/utils/logging';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import {
@@ -59,11 +60,16 @@ const IDMappingResultTable = ({
   const obsoleteLength = resultsDataObject.obsoleteCount || 0;
   const mappedLength = inputLength - failedLength - suggestedLength;
   const activeLength = mappedLength - obsoleteLength;
-  const [suggestedUniParcIds, otherSuggestedIds] = partition(
+  const [suggestedUniParcIds, suggestedOtherIds] = partition(
     resultsDataObject.suggestedIds,
     ({ to }) => reUniParc.test(to)
   );
+
   const suggestedUniParcIdsTo = suggestedUniParcIds?.map(({ to }) => to);
+
+  if (suggestedOtherIds?.length) {
+    logging.warn('Non-UniParc IDs have been suggested for an ID Mapping job.');
+  }
 
   return (
     <>
@@ -178,30 +184,23 @@ const IDMappingResultTable = ({
               </ExpandableList>
             </div>
           )}
-          {otherSuggestedIds.length > 0 && (
+          {/* Shouldn't really get here but putting it here in case.  There is a 
+          logging warning above so it can be picked up in HotJar if it arises. */}
+          {suggestedOtherIds.length > 0 && (
             <div>
               <strong>
-                <LongNumber>{suggestedLength}</LongNumber>
+                <LongNumber>{suggestedOtherIds.length}</LongNumber>
               </strong>{' '}
-              {/* TODO: generalise */}
-              {pluralise('ID', suggestedLength)} mapped to another UniProt DB:
+              {pluralise('ID', suggestedOtherIds.length)} mapped to another
+              UniProt DB:
               <ExpandableList
                 descriptionString="IDs"
                 numberCollapsedItems={0}
                 className={styles['expandable-list']}
               >
-                {otherSuggestedIds?.map(({ from, to }) => (
+                {suggestedOtherIds?.map(({ from, to }) => (
                   <span key={`${from}|${to}`}>
-                    {from} →{' '}
-                    <Link
-                      to={getEntryPath(
-                        Namespace.uniparc,
-                        to,
-                        TabLocation.Entry
-                      )}
-                    >
-                      {to}
-                    </Link>
+                    {from} → {to}
                   </span>
                 ))}
               </ExpandableList>

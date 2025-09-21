@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { partition } from 'lodash-es';
 
 import { BlastResults } from '../../../../jobs/blast/types/blastResults';
 import toolsURLs, {
@@ -153,10 +154,15 @@ const checkJobStatus = async (
       }
 
       const hits = +(response.headers['x-total-results'] || '0');
-      const suggestedUniParcIds =
-        response.data.suggestedIds?.filter(({ to }) => reUniParc.test(to))
-          .length || 0;
-
+      const [suggestedUniParcIds, suggestedOtherIds] = partition(
+        response.data.suggestedIds,
+        ({ to }) => reUniParc.test(to)
+      );
+      if (suggestedOtherIds.length) {
+        logging.warn(
+          'Non-UniParc IDs have been suggested for an ID Mapping job.'
+        );
+      }
       actionHandler({
         jobAction: updateJob(job.internalID, {
           timeFinished: Date.now(),
@@ -164,7 +170,8 @@ const checkJobStatus = async (
           status,
           data: {
             hits,
-            suggestedUniParcIds,
+            suggestedOtherIds: suggestedOtherIds.length,
+            suggestedUniParcIds: suggestedUniParcIds.length,
           },
         }),
         messageAction: { job: currentStateOfJob, nHits: hits },
