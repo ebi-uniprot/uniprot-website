@@ -8,13 +8,19 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import { RefProtMoveProteomesEntryMessage } from '../../../shared/components/RefProtMoveMessages';
+import {
+  CheckMoveResponse,
+  checkMoveUrl,
+  referenceProteomeTypes,
+  RefProtMoveProteomesEntryMessage,
+} from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
+import { stringifyUrl } from '../../../shared/utils/url';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import proteomesConverter, {
   ProteomesAPIModel,
@@ -39,7 +45,13 @@ const Entry = () => {
       : null
   );
 
-  if (mainData.loading || panProteomeData.loading) {
+  const refprotmoveData = useDataApi<CheckMoveResponse>(
+    mainData.data && referenceProteomeTypes.has(mainData.data.proteomeType)
+      ? stringifyUrl(checkMoveUrl, { upids: [mainData.data.id] })
+      : null
+  );
+
+  if (mainData.loading || panProteomeData.loading || refprotmoveData.loading) {
     return <Loader progress={mainData.progress || panProteomeData.progress} />;
   }
 
@@ -69,7 +81,7 @@ const Entry = () => {
       <RefProtMoveProteomesEntryMessage
         id={transformedData.id}
         taxonomy={transformedData.taxonomy}
-        proteomeType={transformedData.proteomeType}
+        becomingNonRP={refprotmoveData.data?.move?.[0] === transformedData.id}
       />
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
