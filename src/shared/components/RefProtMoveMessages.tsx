@@ -22,6 +22,8 @@ export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
 
 const release = '2026_02';
 const releaseDate = 'first half of 2026';
+const rpChangesRelease = '2025_04';
+const rpChangesReleaseDate = 'October 2025';
 
 const UniProtKBGenericPreamble = () => (
   <>
@@ -98,11 +100,13 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
 }) => (
   <>
     We are updating the reference proteome selection procedure. As a result,
-    some proteomes may lose their reference proteome status, but all proteomes
-    will remain accessible in the Proteomes database. Additionally, starting
-    with release {release}, Unreviewed UniProtKB/TrEMBL will include only
-    proteins from reference proteomes selected by the new procedure, along with
-    selected entries with experimental or biologically important data.
+    from release {rpChangesRelease} (planned for {rpChangesReleaseDate}) some
+    proteomes may lose their reference proteome status, but all proteomes will
+    remain accessible in the Proteomes database. Additionally, starting with
+    release {release} (planned for the {releaseDate}), Unreviewed
+    UniProtKB/TrEMBL will include only proteins from reference proteomes
+    selected by the new procedure, along with selected entries with experimental
+    or biologically important data.
     <br />
     <br />
     Entries removed from Unreviewed UniProtKB/TrEMBL will remain accessible in
@@ -208,7 +212,8 @@ export const RefProtMoveProteomesEntryMessage: FC<{
     >
       <b>
         {id} is currently under review and may lose its reference proteome
-        status from release {release} (planned for the {releaseDate}).
+        status from release {rpChangesRelease} (planned for{' '}
+        {rpChangesReleaseDate}).
       </b>
       <br />
       <br />
