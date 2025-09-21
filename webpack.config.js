@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports, global-require, consistent-return */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const path = require('path');
 const fs = require('fs');
 
@@ -213,6 +213,9 @@ const getConfigFor = ({
           type: 'asset/resource',
         },
       ],
+    },
+    infrastructureLogging: {
+      level: 'warn',
     },
     // END MODULE
     stats: {
