@@ -59,11 +59,11 @@ const IDMappingResultTable = ({
   const obsoleteLength = resultsDataObject.obsoleteCount || 0;
   const mappedLength = inputLength - failedLength - suggestedLength;
   const activeLength = mappedLength - obsoleteLength;
-  const [uniParcSuggestedIds, otherSuggestedIds] = partition(
+  const [suggestedUniParcIds, otherSuggestedIds] = partition(
     resultsDataObject.suggestedIds,
     ({ to }) => reUniParc.test(to)
   );
-  const uniParcSuggestedIdsTo = uniParcSuggestedIds?.map(({ to }) => to);
+  const suggestedUniParcIdsTo = suggestedUniParcIds?.map(({ to }) => to);
 
   return (
     <>
@@ -107,7 +107,7 @@ const IDMappingResultTable = ({
               </ExpandableList>
             </div>
           )}
-          {uniParcSuggestedIds.length > 0 && (
+          {suggestedUniParcIds.length > 0 && (
             <div>
               <strong>
                 <LongNumber>{suggestedLength}</LongNumber>
@@ -121,7 +121,7 @@ const IDMappingResultTable = ({
                   variant="tertiary"
                   onClick={() =>
                     generateAndDownloadTSV(
-                      uniParcSuggestedIds,
+                      suggestedUniParcIds,
                       inputParamsData?.from
                         ? `${inputParamsData.from}_to_UniParc.tsv`
                         : `mapped_to_UniParc.tsv`
@@ -131,11 +131,11 @@ const IDMappingResultTable = ({
                   Download as TSV
                 </Button>
                 {' | '}
-                {uniParcSuggestedIdsTo.length <= UNIPARC_DIRECT_LINK_LIMIT ? (
+                {suggestedUniParcIdsTo.length <= UNIPARC_DIRECT_LINK_LIMIT ? (
                   <Link
                     to={{
                       pathname: LocationToPath[Location.UniParcResults],
-                      search: `query=${uniParcSuggestedIdsTo.join(' OR ')}`,
+                      search: `query=${suggestedUniParcIdsTo.join(' OR ')}`,
                     }}
                     className="button tertiary"
                   >
@@ -146,7 +146,7 @@ const IDMappingResultTable = ({
                     to={{
                       pathname: LocationToPath[Location.IDMapping],
                       search: stringifyQuery({
-                        ids: uniParcSuggestedIdsTo.join(','),
+                        ids: suggestedUniParcIdsTo.join(','),
                         from: 'UniParc',
                         to: 'UniParc',
                       }),
@@ -161,7 +161,7 @@ const IDMappingResultTable = ({
                 numberCollapsedItems={3}
                 className={styles['expandable-list']}
               >
-                {uniParcSuggestedIds?.map(({ from, to }) => (
+                {suggestedUniParcIds?.map(({ from, to }) => (
                   <span key={`${from}|${to}`}>
                     {from} →{' '}
                     <Link
