@@ -18,6 +18,8 @@ import styles from './styles/ref-prot-move-messages.module.scss';
 const blogEntryUrl =
   'https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html';
 
+const ftpProteomes = 'https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/';
+
 export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
 
 const release = '2026_02';
@@ -53,7 +55,11 @@ const UniProtKBGenericMain: FC<{
     UniProtKB/TrEMBL will remain accessible in the UniParc sequence archive.
     Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, or{' '}
+    information, view the{' '}
+    <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
+      list of affected proteins and proteomes
+    </ExternalLink>
+    {', or '}
     <ContactLink
       to={
         accession && organism && upids
@@ -112,7 +118,11 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
     Entries removed from Unreviewed UniProtKB/TrEMBL will remain accessible in
     the UniParc sequence archive. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, or{' '}
+    information, view the{' '}
+    <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
+      list of affected proteins and proteomes
+    </ExternalLink>
+    {', or '}
     <ContactLink
       to={
         id && taxonomy
