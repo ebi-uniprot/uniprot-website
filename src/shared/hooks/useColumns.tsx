@@ -9,7 +9,7 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
 import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
@@ -166,7 +166,7 @@ const useColumns = (
   ((columnName: string) => void) | null,
   MutableRefObject<HTMLDivElement | null>,
 ] => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const location = useLocation();
   const { columnNames } = useColumnNames({
@@ -292,9 +292,9 @@ const useColumns = (
           : SortDirection.descend;
 
       // TODO: this changes the URL from encoded to decoded which is different to the facet behavior
-      history.push(
+      navigate(
         getLocationObjForParams({
-          pathname: history.location.pathname,
+          pathname: '.',
           query,
           selectedFacets,
           sortColumn: newSortColumn,
@@ -303,7 +303,7 @@ const useColumns = (
       );
     },
     [
-      history,
+      navigate,
       namespace,
       query,
       selectedFacets,

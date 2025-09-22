@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Button } from 'franklin-sites';
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import helper from '../../styles/helper.module.scss';

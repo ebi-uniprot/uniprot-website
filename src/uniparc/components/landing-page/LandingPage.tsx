@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
 import { useState } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import {
   getLocationEntryPath,

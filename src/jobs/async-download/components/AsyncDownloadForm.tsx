@@ -2,7 +2,7 @@ import '../../styles/ToolsForm.scss';
 
 import { Chip, LongNumber, Message, SpinnerIcon } from 'franklin-sites';
 import { FormEvent, useCallback, useEffect, useReducer } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { sleep } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -72,7 +72,7 @@ const AsyncDownloadForm = ({
   jobType,
   inputParamsData,
 }: Props<JobTypes>) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
   const scrollRef = useScrollIntoViewRef<HTMLFormElement>();
   const { jobId } = useJobFromUrl();
@@ -130,12 +130,12 @@ const AsyncDownloadForm = ({
       // navigate to the dashboard, but not immediately, to give the impression that
       // something is happening
       sleep(1000).then(() => {
-        history.push(LocationToPath[Location.Dashboard]);
+        navigate(LocationToPath[Location.Dashboard]);
         onClose();
 
         // We emit an action containing only the parameters and the type of job
         // the reducer will be in charge of generating a proper job object for
-        // internal state. Dispatching after history.push so that pop-up messages (as a
+        // internal state. Dispatching after navigate so that pop-up messages (as a
         // side-effect of createJob) cannot mount immediately before navigating away.
         dispatchJobs(
           createJob(
@@ -152,7 +152,14 @@ const AsyncDownloadForm = ({
     },
     // NOTE: maybe no point using useCallback if all the values of the form
     // cause this to be re-created. Maybe review submit callback in all 4 forms?
-    [history, onClose, downloadUrlOptions, isIdMappingResult, jobId, formValues]
+    [
+      navigate,
+      onClose,
+      downloadUrlOptions,
+      isIdMappingResult,
+      jobId,
+      formValues,
+    ]
   );
 
   if (!supportsJobs) {

@@ -5,7 +5,7 @@ import {
   Loader,
 } from 'franklin-sites';
 import { Fragment, useCallback, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { SetRequired } from 'type-fest';
 
 import { Location } from '../../../app/config/urls';

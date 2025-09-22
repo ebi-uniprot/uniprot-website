@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Card, Chip, LongNumber } from 'franklin-sites';
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPathFor, Location } from '../../../../../app/config/urls';
 import AddToBasketButton from '../../../../../shared/components/action-buttons/AddToBasket';

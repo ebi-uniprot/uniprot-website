@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import ftpUrls from '../../../shared/config/ftpUrls';

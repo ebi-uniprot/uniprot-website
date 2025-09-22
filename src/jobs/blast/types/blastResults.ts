@@ -74,3 +74,12 @@ export enum BlastFacet {
   SCORE = 'score',
   EVALUE = 'evalue',
 }
+
+export enum TabLocation {
+  Overview = 'overview',
+  Taxonomy = 'taxonomy',
+  HitDistribution = 'hit-distribution',
+  TextOutput = 'text-output',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
+}

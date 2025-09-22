@@ -1,6 +1,6 @@
 import { BinIcon, Button, FullViewIcon, Tab, Tabs } from 'franklin-sites';
 import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../app/config/urls';
 import { reIds } from '../jobs/utils/urls';

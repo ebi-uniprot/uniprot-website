@@ -1,10 +1,8 @@
 import cn from 'classnames';
 import { Card, InfoList, Loader } from 'franklin-sites';
-import { LocationDescriptor } from 'history';
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { useParams } from 'react-router';
 
-import { getEntryPathFor } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -39,35 +37,16 @@ const columns = [
   LocationsColumn.references,
 ];
 
-const reNumber = /^\d+$/;
-
-const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const LocationsEntry = () => {
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
-
-  let redirectTo: LocationDescriptor | null = null;
-  // If the accession is a number not prefixed with "SL-"
-  if (accession && reNumber.test(accession)) {
-    redirectTo = {
-      pathname: getEntryPathFor(Namespace.locations)(
-        `SL-${accession.padStart(4, '0')}`
-      ),
-    };
-  }
 
   const { data, loading, error, status, progress, isStale } =
     useDataApiWithStale<LocationsAPIModel>(
-      redirectTo
-        ? undefined
-        : apiUrls.entry.entry(accession, Namespace.locations)
+      apiUrls.entry.entry(accession, Namespace.locations)
     );
 
-  if (redirectTo) {
-    return <Redirect to={redirectTo} />;
-  }
-
-  if (error || !accession || (!loading && !data)) {
+  if (error || (!loading && !data)) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 

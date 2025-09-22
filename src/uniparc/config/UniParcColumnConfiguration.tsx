@@ -1,7 +1,7 @@
 import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { partialRight } from 'lodash-es';
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../app/config/urls';
 import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';

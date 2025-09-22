@@ -1,9 +1,8 @@
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 import { memo } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useMatch } from 'react-router';
 
-import { allEntryPages } from '../../../app/config/urls';
 import { pluralise } from '../../../shared/utils/utils';
 import {
   EvidenceData,
@@ -85,7 +84,7 @@ const UniProtKBEvidenceTag = ({
   evidences?: Evidence[];
   goTermEvidence?: boolean;
 }) => {
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = Boolean(useMatch('/:namespace/:accession'));
   if (!entryPageMatch || !evidences?.length) {
     return null;
   }

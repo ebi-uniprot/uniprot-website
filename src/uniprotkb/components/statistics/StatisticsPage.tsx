@@ -2,7 +2,7 @@
 import { schemeReds } from 'd3';
 import { Card, Loader, LongNumber } from 'franklin-sites';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import {
   getLocationEntryPath,
@@ -103,6 +103,7 @@ const IntroductionEntriesTable = ({
     reviewedData.items,
     unreviewedData.items
   );
+
   return (
     <>
       <AbstractSectionTable

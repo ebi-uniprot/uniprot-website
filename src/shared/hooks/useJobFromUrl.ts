@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useLocation, useMatch } from 'react-router';
 
 import {
   getJobResultsLocation,
@@ -16,23 +16,20 @@ export type JobFromUrl = {
 };
 
 const useJobFromUrl = (): JobFromUrl => {
-  const history = useHistory();
+  const location = useLocation();
   const jobResultsLocation = useMemo(
-    () => getJobResultsLocation(history.location.pathname),
-    [history.location.pathname]
+    () => getJobResultsLocation(location.pathname),
+    [location.pathname]
   );
-  const match = useRouteMatch<{
-    id: string;
-    namespace?: string;
-  }>(
+  const match = useMatch(
     jobResultsLocation && jobResultsLocation in LocationToPath
       ? LocationToPath[jobResultsLocation]
-      : []
+      : ''
   );
-  const jobId = match?.params.id;
+  const jobId = match?.params?.id;
   let jobResultsNamespace: SearchableNamespace | undefined;
-  if (match?.params.namespace) {
-    jobResultsNamespace = match?.params.namespace as SearchableNamespace;
+  if (match?.params?.namespace) {
+    jobResultsNamespace = match.params.namespace as SearchableNamespace;
   } else if (jobResultsLocation === Location.PeptideSearchResult) {
     jobResultsNamespace = Namespace.uniprotkb;
   }

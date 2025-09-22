@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Card } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import CardCheckboxCell from '../../../shared/components/CardCheckboxCell';

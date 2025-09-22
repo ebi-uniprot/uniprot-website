@@ -1,7 +1,7 @@
 import './styles/gdpr.scss';
 
 import { Button } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import useLocalStorage from '../../hooks/useLocalStorage';

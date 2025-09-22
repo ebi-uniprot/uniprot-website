@@ -1,8 +1,7 @@
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router';
 
-import { changePathnameOnly, Location } from '../../../../app/config/urls';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -11,7 +10,6 @@ import useDataApi, {
   UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
-import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import sticky from '../../../../shared/styles/sticky.module.scss';
 import { namespaceAndToolsLabels } from '../../../../shared/types/namespaces';
 import accessionToNamespace from '../../../../shared/utils/accessionToNamespace';
@@ -20,7 +18,7 @@ import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
-import { AlignResults } from '../../types/alignResults';
+import { AlignResults, TabLocation } from '../../types/alignResults';
 import { PublicServerParameters } from '../../types/alignServerParameters';
 import useSequenceInfo from '../../utils/useSequenceInfo';
 
@@ -62,15 +60,6 @@ const APIRequest = lazy(
     )
 );
 
-enum TabLocation {
-  Overview = 'overview',
-  Trees = 'trees',
-  PIM = 'percent-identity-matrix',
-  TextOutput = 'text-output',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
-
 // custom hook to get data from the input parameters endpoint, input sequence
 // then parse it and merge it.
 // This is kinda 'faking' useDataApi for the kind of object it outputs
@@ -107,13 +96,8 @@ const useParamsData = (
   return paramsData;
 };
 
-type Params = {
-  id: string;
-  subPage?: TabLocation;
-};
-
 const AlignResult = () => {
-  const match = useMatchWithRedirect<Params>(Location.AlignResult, TabLocation);
+  const { id, subPage } = useParams();
 
   const [selectedEntries, , setSelectedEntries] = useItemSelect();
   const handleEntrySelection = useCallback(
@@ -129,21 +113,20 @@ const AlignResult = () => {
 
   // get data from the align endpoint
   const { loading, data, error, status, progress } = useDataApi<AlignResults>(
-    match?.params.id &&
-      urls.resultUrl(match.params.id, { format: 'aln-clustal_num' })
+    id && urls.resultUrl(id, { format: 'aln-clustal_num' })
   );
 
-  const inputParamsData = useParamsData(match?.params.id || '');
+  const inputParamsData = useParamsData(id || '');
 
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
 
-  useMarkJobAsSeen(data, match?.params.id);
+  useMarkJobAsSeen(data, id);
 
   if (loading) {
     return <Loader progress={progress} />;
   }
 
-  if (error || !data || !match) {
+  if (error || !data || !id) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 
@@ -151,13 +134,11 @@ const AlignResult = () => {
     <ResultButtons
       namespace={accessionToNamespace(selectedEntries[0])}
       jobType={jobType}
-      jobId={match.params.id}
+      jobId={id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
     />
   );
-
-  const basePath = `/align/${match.params.id}/`;
 
   return (
     <SingleColumnLayout className={sticky['sticky-tabs-container']}>
@@ -170,14 +151,10 @@ const AlignResult = () => {
         the React key warnings messages and children are rendered as array... */
         headingPostscript={<small key="postscript"> results</small>}
       />
-      <Tabs active={match.params.subPage}>
+      <Tabs active={subPage}>
         <Tab
           id={TabLocation.Overview}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
-              Overview
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.Overview}`}>Overview</Link>}
         >
           {actionBar}
           <Suspense fallback={<Loader />}>
@@ -193,18 +170,14 @@ const AlignResult = () => {
         </Tab>
         <Tab
           id={TabLocation.Trees}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.Trees)}>
-              Trees
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.Trees}`}>Trees</Link>}
         >
           <HTMLHead title={[title, 'Trees']} />
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <AlignResultTrees
-                id={match.params.id}
+                id={id}
                 sequenceInfo={sequenceInfo}
                 selectedEntries={selectedEntries}
                 handleEntrySelection={handleEntrySelection}
@@ -215,9 +188,7 @@ const AlignResult = () => {
         <Tab
           id={TabLocation.PIM}
           title={
-            <Link to={changePathnameOnly(basePath + TabLocation.PIM)}>
-              Percent Identity Matrix
-            </Link>
+            <Link to={`../${TabLocation.PIM}`}>Percent Identity Matrix</Link>
           }
         >
           <HTMLHead title={[title, 'Phylogenetic Tree']} />
@@ -225,7 +196,7 @@ const AlignResult = () => {
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <AlignResultPIM
-                id={match.params.id}
+                id={id}
                 sequenceInfo={sequenceInfo}
                 selectedEntries={selectedEntries}
                 handleEntrySelection={handleEntrySelection}
@@ -235,25 +206,19 @@ const AlignResult = () => {
         </Tab>
         <Tab
           id={TabLocation.TextOutput}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.TextOutput)}>
-              Text Output
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.TextOutput}`}>Text Output</Link>}
         >
           <HTMLHead title={[title, 'Text Output']} />
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <TextOutput id={match.params.id} jobType={jobType} />
+              <TextOutput id={id} jobType={jobType} />
             </Suspense>
           </ErrorBoundary>
         </Tab>
         <Tab
           id={TabLocation.InputParameters}
           title={
-            <Link
-              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
-            >
+            <Link to={`../${TabLocation.InputParameters}`}>
               Input Parameters
             </Link>
           }
@@ -262,7 +227,7 @@ const AlignResult = () => {
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <InputParameters
-                id={match.params.id}
+                id={id}
                 inputParamsData={inputParamsData}
                 jobType={jobType}
               />
@@ -271,11 +236,7 @@ const AlignResult = () => {
         </Tab>
         <Tab
           id={TabLocation.APIRequest}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
-              API Request
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.APIRequest}`}>API Request</Link>}
         >
           <HTMLHead title={[title, 'API Request']} />
           <ErrorBoundary>

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { DecoratedListItem, HeroContainer } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';

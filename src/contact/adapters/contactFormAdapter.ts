@@ -1,5 +1,4 @@
 import { AxiosRequestConfig } from 'axios';
-import { LocationDescriptor } from 'history';
 import { debounce } from 'lodash-es';
 import {
   Dispatch,
@@ -11,7 +10,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -23,13 +22,6 @@ import useDataApi from '../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import { stringifyUrl } from '../../shared/utils/url';
 import apiUrls from '../config/apiUrls';
-
-export type ContactLocationState =
-  | undefined
-  | {
-      referrer?: LocationDescriptor;
-      formValues?: Record<string, string>;
-    };
 
 export const modifyFormData = (formData: FormData, token: string) => {
   const output = new FormData();
@@ -107,7 +99,9 @@ export type UseFormLogicReturnType = {
 
 export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const dispatch = useMessagesDispatch();
-  const history = useHistory<ContactLocationState>();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
   const [formData, setFormData] = useState<undefined | FormData>();
   const [suggestion, setSuggestion] = useState<undefined | Suggestion>(
     undefined
@@ -166,9 +160,9 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
       // Clear the current form (just in case)
       document.querySelector<HTMLFormElement>('main form')?.reset();
       // Navigate the user to previous page, or to the homepage if not possible
-      history.push(referrer || LocationToPath[Location.Home]);
+      navigate(referrer || LocationToPath[Location.Home]);
     }
-  }, [sendData.data, dispatch, history, referrer]);
+  }, [sendData.data, dispatch, navigate, referrer]);
 
   const previousLoading = useRef(loading);
   // Reset custom hook form data (to retry sending if needed)
@@ -194,37 +188,35 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   // on unmount, cancel any pending suggestion calculation
   useEffect(() => getSuggestion.cancel, []);
 
-  const handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement> =
-    useCallback(
-      (event) => {
-        const element = event.target;
-        if (
-          !(
-            element instanceof HTMLInputElement ||
-            element instanceof HTMLTextAreaElement
-          ) ||
-          loading
-        ) {
-          return;
-        }
-        getSuggestion(
-          setSuggestion,
-          element.form?.subject?.value,
-          element.form?.message?.value
-        );
-        history.replace({
-          ...history.location,
-          state: {
-            ...history.location.state,
-            formValues: {
-              ...(history.location.state?.formValues || {}),
-              [element.name]: element.value,
-            },
-          },
-        });
-      },
-      [loading, history, setSuggestion]
+  const handleChange: FormEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (event) => {
+    const element = event.target;
+    if (
+      !(
+        element instanceof HTMLInputElement ||
+        element instanceof HTMLTextAreaElement
+      ) ||
+      loading
+    ) {
+      return;
+    }
+    getSuggestion(
+      setSuggestion,
+      element.form?.subject?.value,
+      element.form?.message?.value
     );
+    navigate('.', {
+      replace: true,
+      state: {
+        ...state,
+        formValues: {
+          ...(state?.formValues || {}),
+          [element.name]: element.value,
+        },
+      },
+    });
+  };
 
   return { sending: loading, suggestion, handleSubmit, handleChange };
 };

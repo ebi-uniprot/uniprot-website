@@ -1,6 +1,6 @@
 import { Card, FullViewIcon, LongNumber } from 'franklin-sites';
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import variantsImg from '../../../images/variants.jpg';

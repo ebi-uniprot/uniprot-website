@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
@@ -21,10 +21,9 @@ import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 import Source from './Source';
 import TemplateEntries from './TemplateEntries';
 
-const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
+const UniRuleEntry = () => {
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const accession = props.match?.params.accession;
 
   const { data, loading, error, status, progress } =
     useDataApi<UniRuleAPIModel>(
@@ -35,12 +34,14 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Loader progress={progress} />;
   }
 
-  if (error || !accession || !data) {
+  if (error || !data) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 
   if (accession !== data.uniRuleId) {
-    return <Redirect to={getEntryPath(Namespace.unirule, data.uniRuleId)} />;
+    return (
+      <Navigate replace to={getEntryPath(Namespace.unirule, data.uniRuleId)} />
+    );
   }
 
   const hasRelated = Boolean(

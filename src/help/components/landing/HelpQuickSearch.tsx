@@ -1,7 +1,7 @@
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 import {
   getLocationEntryPath,
@@ -17,13 +17,11 @@ import styles from './styles/help-quick-search.module.scss';
 
 const numberResultsInView = 5 as const;
 
-type LocationState = { query: string };
-
 const HelpQuickSearch = () => {
-  const location = useLocation<undefined | LocationState>();
-  const history = useHistory();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const query = location?.state?.query || '';
+  const query = location.state?.query || '';
   const [searchValue, setSearchValue] = useState<string>(query);
   const dataObject = useDataApiWithStale<HelpSearchResponse>(
     query && helpURL.search({ query, size: `${numberResultsInView}` })
@@ -31,14 +29,14 @@ const HelpQuickSearch = () => {
   const replaceQueryInHistory = useMemo(
     () =>
       debounce((searchValue: string) => {
-        history.replace({
-          pathname: LocationToPath[Location.HelpResults],
+        navigate(LocationToPath[Location.HelpResults], {
+          replace: true,
           state: {
             query: searchValue || undefined,
           },
         });
       }, 500),
-    [history]
+    [navigate]
   );
 
   useEffect(() => {
@@ -82,7 +80,7 @@ const HelpQuickSearch = () => {
         value={searchValue}
         onKeyDown={({ key }) => {
           if (key === 'Enter' && searchValue) {
-            history.push(allArticlesLocation);
+            navigate(allArticlesLocation);
           }
         }}
         // eslint-disable-next-line jsx-a11y/no-autofocus

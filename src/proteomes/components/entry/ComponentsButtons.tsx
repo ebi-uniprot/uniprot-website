@@ -1,6 +1,6 @@
 import { Button, DownloadIcon, SlidingPanel } from 'franklin-sites';
 import { Suspense, useCallback, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';

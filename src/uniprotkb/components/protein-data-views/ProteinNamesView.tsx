@@ -1,6 +1,6 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -25,7 +25,12 @@ const ProteinName = ({
 }) => (
   <>
     {withLink ? (
-      <Link to={(location) => ({ ...location, hash: stringToID(value) })}>
+      <Link
+        to={{
+          pathname: '.',
+          hash: stringToID(value),
+        }}
+      >
         {value}
       </Link>
     ) : (

@@ -9,7 +9,7 @@ import {
 } from 'franklin-sites';
 import { partition } from 'lodash-es';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import HTMLHead from '../../../shared/components/HTMLHead';

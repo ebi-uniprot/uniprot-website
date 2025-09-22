@@ -1,13 +1,8 @@
 import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { partition, uniqBy } from 'lodash-es';
 import { lazy, Suspense, useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router';
 
-import {
-  changePathnameOnly,
-  IDMappingNamespaces,
-  Location,
-} from '../../../../app/config/urls';
 import { MessageLevel } from '../../../../messages/types/messagesTypes';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -22,7 +17,6 @@ import useColumnNames from '../../../../shared/hooks/useColumnNames';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useIDMappingDetails from '../../../../shared/hooks/useIDMappingDetails';
-import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import usePagination from '../../../../shared/hooks/usePagination';
 import {
   Namespace,
@@ -43,6 +37,7 @@ import {
   MappingFlat,
   MappingWarningCode,
   MappingWarningsErrors,
+  TabLocation,
 } from '../../types/idMappingSearchResults';
 import { ServerParameters } from '../../types/idMappingServerParameters';
 import { rawDBToNamespace } from '../../utils';
@@ -88,24 +83,9 @@ export const findUriLink = (fields?: IDMappingFormConfig, dbName?: string) => {
   return null;
 };
 
-enum TabLocation {
-  Overview = 'overview',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
-
-type Params = {
-  id: string;
-  namespace?: (typeof IDMappingNamespaces)[number];
-  subPage?: TabLocation;
-};
-
 const IDMappingResult = () => {
   const location = useLocation();
-  const match = useMatchWithRedirect<Params>(
-    Location.IDMappingResult,
-    TabLocation
-  );
+  const { id, subPage } = useParams();
   const idMappingDetails = useIDMappingDetails();
   const {
     data: detailsData,
@@ -175,7 +155,7 @@ const IDMappingResult = () => {
     data: facetsData,
   } = facetsDataApiObject;
 
-  useMarkJobAsSeen(resultsDataObject.allResults.length, match?.params.id);
+  useMarkJobAsSeen(resultsDataObject.allResults.length, id);
 
   const [warnings, notCustomisable] = useMemo(() => {
     const allWarnings = uniqBy(
@@ -190,7 +170,7 @@ const IDMappingResult = () => {
     if (warningsUnrecognized.length) {
       logging.warn(
         `Unrecognized ID Mapping warning codes found for job ID ${
-          match?.params.id
+          id
         } ${JSON.stringify(warningsUnrecognized)}`
       );
     }
@@ -198,7 +178,7 @@ const IDMappingResult = () => {
       ({ code }) => code === MappingWarningCode.EnrichmentDisabled
     );
     return [warningsRecognized, notCustomisable];
-  }, [detailsData?.warnings, facetsData?.warnings, match?.params.id]);
+  }, [detailsData?.warnings, facetsData?.warnings, id]);
 
   const errors = useMemo(() => {
     const allErrors = uniqBy(
@@ -213,14 +193,14 @@ const IDMappingResult = () => {
     if (errorsUnrecognized.length) {
       logging.warn(
         `Unrecognized ID Mapping error codes found for job ID ${
-          match?.params.id
+          id
         } ${JSON.stringify(errorsUnrecognized)}`
       );
     }
     return errorsRecognized;
-  }, [detailsData?.errors, facetsData?.errors, match?.params.id]);
+  }, [detailsData?.errors, facetsData?.errors, id]);
 
-  if (!match || detailsError) {
+  if (!id || detailsError) {
     return (
       <ErrorHandler status={detailsStatus} error={detailsError} fullPage />
     );
@@ -258,7 +238,7 @@ const IDMappingResult = () => {
 
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
-  switch (match.params.subPage) {
+  switch (subPage) {
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
       sidebar = <div className={sidebarStyles['empty-sidebar']} />;
@@ -279,10 +259,6 @@ const IDMappingResult = () => {
       }
       break;
   }
-
-  const basePath = `/id-mapping/${
-    namespaceOverride === Namespace.idmapping ? '' : `${namespaceOverride}/`
-  }${match.params.id}/`;
 
   return (
     <SidebarLayout sidebar={sidebar}>
@@ -327,14 +303,10 @@ const IDMappingResult = () => {
           </small>
         </Message>
       )}
-      <Tabs active={match.params.subPage}>
+      <Tabs active={subPage}>
         <Tab
           id={TabLocation.Overview}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
-              Overview
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.Overview}`}>Overview</Link>}
         >
           <Suspense fallback={<Loader />}>
             <IDMappingResultTable
@@ -351,9 +323,7 @@ const IDMappingResult = () => {
         <Tab
           id={TabLocation.InputParameters}
           title={
-            <Link
-              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
-            >
+            <Link to={`../${TabLocation.InputParameters}`}>
               Input Parameters
             </Link>
           }
@@ -361,7 +331,7 @@ const IDMappingResult = () => {
           <HTMLHead title={[title, 'Input Parameters']} />
           <Suspense fallback={<Loader />}>
             <InputParameters
-              id={match.params.id}
+              id={id}
               inputParamsData={idMappingDetails}
               jobType={jobType}
             />
@@ -369,11 +339,7 @@ const IDMappingResult = () => {
         </Tab>
         <Tab
           id={TabLocation.APIRequest}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
-              API Request
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.APIRequest}`}>API Request</Link>}
         >
           <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>

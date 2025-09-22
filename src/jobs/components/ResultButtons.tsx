@@ -5,7 +5,7 @@ import {
   SlidingPanel,
 } from 'franklin-sites';
 import { ReactNode, Suspense, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { sleep } from 'timing-functions';
 
 import { jobTypeToPath } from '../../app/config/urls';
@@ -33,7 +33,7 @@ export const ResubmitButton = ({
   jobType,
   inputParamsData,
 }: ResubmitButtonProps<JobTypes>) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [disabled, setDisabled] = useState(false);
 
@@ -90,7 +90,7 @@ export const ResubmitButton = ({
       taxonMapping
     );
 
-    history.push(jobTypeToPath(jobType), { parameters });
+    navigate(jobTypeToPath(jobType), { state: { parameters } });
   };
 
   return (

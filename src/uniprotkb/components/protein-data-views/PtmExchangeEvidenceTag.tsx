@@ -1,9 +1,8 @@
 import { EvidenceTag, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 import { memo } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useMatch } from 'react-router';
 
-import { allEntryPages } from '../../../app/config/urls';
 import {
   getEcoNumberFromString,
   getEvidenceCodeData,
@@ -64,7 +63,7 @@ const PtmExchangeEvidenceTag = ({
   evidences?: Evidence[];
   confidenceScore?: ConfidenceScore;
 }) => {
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = Boolean(useMatch('/:namespace/:accession'));
   if (!entryPageMatch || !evidences) {
     return null;
   }

@@ -1,5 +1,5 @@
 import { Card, LongNumber, Sequence } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { uniParcTools } from '../../../shared/components/common-sequence/CommonSequenceView';
@@ -9,12 +9,8 @@ import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter'
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
 
-const SubEntrySequenceSection = ({
-  data,
-}: {
-  data?: UniParcSubEntryUIModel;
-}) => {
-  const history = useHistory();
+function SubEntrySequenceSection({ data }: { data?: UniParcSubEntryUIModel }) {
+  const navigate = useNavigate();
 
   const sequence = data?.entry[EntrySection.Sequence];
   if (!data || !hasContent(data) || !sequence) {
@@ -52,8 +48,10 @@ const SubEntrySequenceSection = ({
         sequence={sequence.value}
         infoData={infoData}
         onBlastClick={() =>
-          history.push(LocationToPath[Location.Blast], {
-            parameters: { sequence: sequence.value },
+          navigate(LocationToPath[Location.Blast], {
+            state: {
+              parameters: { sequence: sequence.value },
+            },
           })
         }
         sequenceTools={uniParcTools}
@@ -80,6 +78,6 @@ const SubEntrySequenceSection = ({
       ) : null}
     </Card>
   );
-};
+}
 
 export default SubEntrySequenceSection;

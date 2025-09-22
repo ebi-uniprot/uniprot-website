@@ -1,5 +1,5 @@
 import { Loader, PageIntro } from 'franklin-sites';
-import { useRouteMatch } from 'react-router-dom';
+import { useMatch } from 'react-router';
 
 import { basketNamespaces, Location, LocationToPath } from '../app/config/urls';
 import { reIds } from '../jobs/utils/urls';
@@ -26,11 +26,12 @@ import EmptyBasket from './EmptyBasket';
 const BasketFullView = () => {
   // Basket specific data
   const [basket, setBasket] = useBasket();
-  const fullViewMatch = useRouteMatch<{
-    namespace: (typeof basketNamespaces)[number];
-  }>(LocationToPath[Location.Basket]);
+  const fullViewMatch = useMatch(LocationToPath[Location.Basket]);
 
-  const namespace = fullViewMatch?.params.namespace || Namespace.uniprotkb;
+  const namespace =
+    (fullViewMatch?.params?.namespace as
+      | (typeof basketNamespaces)[number]
+      | undefined) || Namespace.uniprotkb;
   const subBasket = basket.get(namespace) || new Set();
   const accessions = Array.from(subBasket);
 

@@ -1,14 +1,9 @@
 import cn from 'classnames';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router';
 import { Except } from 'type-fest';
 
-import {
-  blastNamespaces,
-  changePathnameOnly,
-  Location,
-} from '../../../../app/config/urls';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../../shared/components/HTMLHead';
@@ -20,7 +15,6 @@ import useDataApi, {
   UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
-import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import helper from '../../../../shared/styles/helper.module.scss';
 import {
   Namespace,
@@ -37,7 +31,7 @@ import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
-import { BlastHit, BlastResults } from '../../types/blastResults';
+import { BlastHit, BlastResults, TabLocation } from '../../types/blastResults';
 import { PublicServerParameters } from '../../types/blastServerParameters';
 import {
   filterBlastByFacets,
@@ -89,21 +83,6 @@ const APIRequest = lazy(
       /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
     )
 );
-
-enum TabLocation {
-  Overview = 'overview',
-  Taxonomy = 'taxonomy',
-  HitDistribution = 'hit-distribution',
-  TextOutput = 'text-output',
-  InputParameters = 'input-parameters',
-  APIRequest = 'api-request',
-}
-
-type Params = {
-  id: string;
-  namespace?: (typeof blastNamespaces)[number];
-  subPage?: TabLocation;
-};
 
 // custom hook to get data from the input parameters endpoint, input sequence
 // then parse it and merge it.
@@ -178,8 +157,7 @@ const enrich = (
 
 const BlastResult = () => {
   const location = useLocation();
-
-  const match = useMatchWithRedirect<Params>(Location.BlastResult, TabLocation);
+  const { id, subPage } = useParams();
 
   const [hspDetailPanel, setHspDetailPanel] = useState<Except<
     HSPDetailPanelProps,
@@ -195,9 +173,7 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(
-    urls.resultUrl(match?.params.id || '', { format: 'json' })
-  );
+  } = useDataApi<BlastResults>(urls.resultUrl(id || '', { format: 'json' }));
 
   // extract facets and other info from URL querystring
   const [urlParams] = useMemo(
@@ -283,9 +259,9 @@ const BlastResult = () => {
     [data]
   );
 
-  useMarkJobAsSeen(data, match?.params.id);
+  useMarkJobAsSeen(data, id);
 
-  const inputParamsData = useParamsData(match?.params.id || '');
+  const inputParamsData = useParamsData(id || '');
 
   const resultTableData = useMemo<BlastResults | null>(() => {
     if (!blastData || accessionsLoading || !hitsFiltered.length) {
@@ -298,13 +274,13 @@ const BlastResult = () => {
     return <Loader progress={blastProgress} />;
   }
 
-  if (blastError || !blastData || !match) {
+  if (blastError || !blastData || !id) {
     return <ErrorHandler status={blastStatus} error={blastError} fullPage />;
   }
 
   let sidebar: JSX.Element;
   // Deciding what should be displayed on the sidebar
-  switch (match.params.subPage) {
+  switch (subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
@@ -328,15 +304,13 @@ const BlastResult = () => {
     <ResultButtons
       namespace={namespace}
       jobType={jobType}
-      jobId={match.params.id}
+      jobId={id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
       nHits={blastData.hits.length}
       isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
     />
   );
-
-  const basePath = `/blast/${namespace}/${match.params.id}/`;
 
   return (
     <SidebarLayout sidebar={sidebar}>
@@ -357,16 +331,12 @@ const BlastResult = () => {
         resultsCount={loading ? undefined : hitsFiltered.length}
       />
       <Tabs
-        active={match.params.subPage}
+        active={subPage}
         className={accessionsLoading ? helper.stale : undefined}
       >
         <Tab
           id={TabLocation.Overview}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
-              Overview
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.Overview}`}>Overview</Link>}
         >
           {actionBar}
           <Suspense fallback={<Loader />}>
@@ -388,7 +358,7 @@ const BlastResult = () => {
           })}
           title={
             <Link
-              to={changePathnameOnly(basePath + TabLocation.Taxonomy)}
+              to={`../${TabLocation.Taxonomy}`}
               tabIndex={namespace !== Namespace.uniprotkb ? -1 : undefined}
             >
               Taxonomy
@@ -402,9 +372,7 @@ const BlastResult = () => {
         <Tab
           id={TabLocation.HitDistribution}
           title={
-            <Link
-              to={changePathnameOnly(basePath + TabLocation.HitDistribution)}
-            >
+            <Link to={`../${TabLocation.HitDistribution}`}>
               Hit Distribution
             </Link>
           }
@@ -419,23 +387,17 @@ const BlastResult = () => {
         </Tab>
         <Tab
           id={TabLocation.TextOutput}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.TextOutput)}>
-              Text Output
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.TextOutput}`}>Text Output</Link>}
         >
           <HTMLHead title={[title, 'Text Output']} />
           <Suspense fallback={<Loader />}>
-            <TextOutput id={match.params.id} jobType={jobType} />
+            <TextOutput id={id} jobType={jobType} />
           </Suspense>
         </Tab>
         <Tab
           id={TabLocation.InputParameters}
           title={
-            <Link
-              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
-            >
+            <Link to={`../${TabLocation.InputParameters}`}>
               Input Parameters
             </Link>
           }
@@ -443,7 +405,7 @@ const BlastResult = () => {
           <HTMLHead title={[title, 'Input Parameters']} />
           <Suspense fallback={<Loader />}>
             <InputParameters
-              id={match.params.id}
+              id={id}
               inputParamsData={inputParamsData}
               jobType={jobType}
             />
@@ -451,11 +413,7 @@ const BlastResult = () => {
         </Tab>
         <Tab
           id={TabLocation.APIRequest}
-          title={
-            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
-              API Request
-            </Link>
-          }
+          title={<Link to={`../${TabLocation.APIRequest}`}>API Request</Link>}
         >
           <HTMLHead title={[title, 'API Request']} />
           <Suspense fallback={<Loader />}>

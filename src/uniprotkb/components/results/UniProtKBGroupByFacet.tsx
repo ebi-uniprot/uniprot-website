@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 
 import facetsStyles from '../../../shared/components/results/styles/facets.module.scss';
 import { stringifyUrl } from '../../../shared/utils/url';

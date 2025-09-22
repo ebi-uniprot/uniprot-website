@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { memo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';

@@ -1,7 +1,6 @@
 import cn from 'classnames';
-import { LocationDescriptor } from 'history';
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, type LinkProps } from 'react-router';
 import { RequireExactlyOne } from 'type-fest';
 
 import styles from './styles/illustrated-list-tile.module.scss';
@@ -9,7 +8,7 @@ import styles from './styles/illustrated-list-tile.module.scss';
 type LinkOrHref = RequireExactlyOne<
   {
     label: string;
-    to: LocationDescriptor;
+    to: LinkProps['to'];
     url: string;
   },
   'to' | 'url'
@@ -19,7 +18,7 @@ export type IllustratedListTileProps = {
   title: string;
   image: ReactElement;
   linkList: LinkOrHref[];
-  moreTo: LocationDescriptor;
+  moreTo: LinkProps['to'];
 };
 
 const IllustratedListTile = ({

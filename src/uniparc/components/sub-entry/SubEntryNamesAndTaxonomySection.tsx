@@ -1,6 +1,6 @@
 import { Card, InfoList } from 'franklin-sites';
 import { Fragment } from 'react/jsx-runtime';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView, {

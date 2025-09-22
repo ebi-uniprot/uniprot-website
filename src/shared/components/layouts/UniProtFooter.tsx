@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { CitedIcon } from 'franklin-sites';
 import { HTMLAttributes, memo } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import CTSLogo from '../../../images/core-trust-seal-logo.png';

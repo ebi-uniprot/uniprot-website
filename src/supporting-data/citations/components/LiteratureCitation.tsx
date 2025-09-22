@@ -13,7 +13,7 @@ import {
 } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 import { createElement, FC, Fragment, HTMLAttributes, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { SetOptional } from 'type-fest';
 
 import {

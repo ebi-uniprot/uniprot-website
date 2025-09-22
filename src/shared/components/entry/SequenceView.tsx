@@ -1,6 +1,6 @@
 import { InfoList, LongNumber, Sequence } from 'franklin-sites';
 import { Fragment, ReactNode, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 
 import {
   getEntryPath,
@@ -69,7 +69,7 @@ const SequenceInfo = ({
 }: SequenceInfoProps) => {
   const [isoformToFetch, setIsoformToFetch] = useState<string>();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { data, loading } = useDataApi<UniProtkbAPIModel>(
     isoformToFetch && apiUrls.entry.entry(isoformToFetch, Namespace.uniprotkb)
@@ -117,8 +117,10 @@ const SequenceInfo = ({
           accession={isoformId}
           downloadUrl={apiUrls.entry.sequenceFasta(isoformId)}
           onBlastClick={() =>
-            history.push(LocationToPath[Location.Blast], {
-              parameters: { sequence: dataToDisplay?.value },
+            navigate(LocationToPath[Location.Blast], {
+              state: {
+                parameters: { sequence: dataToDisplay?.value },
+              },
             })
           }
           addToBasketButton={

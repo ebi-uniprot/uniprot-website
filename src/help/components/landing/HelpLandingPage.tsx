@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { CommunityAnnotationIcon, PageIntro } from 'franklin-sites';
 import { lazy, Suspense } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import {
   getLocationEntryPathFor,

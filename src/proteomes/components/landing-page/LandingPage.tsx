@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { LongNumber, ReferenceProteomeIcon, TremblIcon } from 'franklin-sites';
 import { useState } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

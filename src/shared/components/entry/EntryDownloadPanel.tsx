@@ -1,6 +1,6 @@
 import { SlidingPanel } from 'franklin-sites';
 import { Suspense } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { Column } from '../../config/columns';
 import ErrorBoundary from '../error-component/ErrorBoundary';

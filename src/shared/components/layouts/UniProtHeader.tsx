@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Button, Dropdown, Header } from 'franklin-sites';
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { Link, useLocation, useRouteMatch } from 'react-router-dom';
+import { Link, useLocation, useMatch } from 'react-router';
 import { Organization, WithContext } from 'schema-dts';
 
 import description from '../../../app/config/description';
@@ -140,9 +140,9 @@ const organizationSchema: WithContext<Organization> = {
 };
 
 const UniProtHeader = () => {
-  const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
+  const homeMatch = useMatch(LocationToPath[Location.Home]);
 
-  const isHomePage = Boolean(homeMatch?.isExact);
+  const isHomePage = Boolean(homeMatch);
 
   useStructuredData(organizationSchema);
 

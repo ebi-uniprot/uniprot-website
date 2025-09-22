@@ -8,7 +8,7 @@ import {
   WorldIcon,
 } from 'franklin-sites';
 import { lazy, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import ContactLink from '../../../contact/components/ContactLink';
 import LinkedInLogo from '../../../images/linkedin-logo.svg';

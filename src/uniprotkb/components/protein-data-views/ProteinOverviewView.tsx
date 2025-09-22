@@ -1,6 +1,6 @@
 import { DoughnutChart, InfoList } from 'franklin-sites';
 import { Fragment, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';

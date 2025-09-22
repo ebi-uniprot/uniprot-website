@@ -1,6 +1,6 @@
 import { Loader, Message } from 'franklin-sites';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { Dataset } from '../../../../shared/components/entry/EntryDownload';

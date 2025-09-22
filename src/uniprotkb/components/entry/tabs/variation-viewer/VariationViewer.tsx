@@ -17,7 +17,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { PartialDeep, SetRequired } from 'type-fest';
 
 import { getEntryPath } from '../../../../../app/config/urls';

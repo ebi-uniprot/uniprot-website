@@ -1,4 +1,4 @@
-import { matchPath } from 'react-router-dom';
+import { matchPath } from 'react-router';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import { BlastFacet } from '../../jobs/blast/types/blastResults';
@@ -16,7 +16,7 @@ import { fromCleanMapper } from './getIdKey';
 
 export const getLocationForPathname = (pathname: string) => {
   const found = Object.entries(LocationToPath).find(([, path]) =>
-    matchPath(pathname, { path, exact: path === '/' })
+    matchPath({ path }, pathname)
   );
   return found?.[0] as Location | undefined;
 };

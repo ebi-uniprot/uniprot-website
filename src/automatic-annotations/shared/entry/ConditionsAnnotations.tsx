@@ -7,7 +7,7 @@ import {
 } from 'franklin-sites';
 import { isEqual, pullAll /* , omit */ } from 'lodash-es';
 import { Fragment, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';

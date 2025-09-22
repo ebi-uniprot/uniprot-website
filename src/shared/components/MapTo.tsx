@@ -1,13 +1,9 @@
 import { Button, Dropdown, LongNumber } from 'franklin-sites';
 import { ReactNode } from 'react';
-import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
+import { Link, LinkProps, useMatch } from 'react-router';
 import { SetOptional } from 'type-fest';
 
-import {
-  allSupportingDataAndAAEntryLocations,
-  Location,
-  LocationToPath,
-} from '../../app/config/urls';
+import { Location, LocationToPath } from '../../app/config/urls';
 import { Statistics } from '../types/apiModel';
 import { Namespace } from '../types/namespaces';
 import { stringifyQuery } from '../utils/url';
@@ -168,6 +164,7 @@ type EnrichedStatistics = {
   label: ReactNode;
   text?: ReactNode;
   to: LinkProps['to'];
+  state?: LinkProps['state'];
 };
 
 export type MapToConfig = EnrichedStatistics[];
@@ -233,10 +230,10 @@ export const MapToDropdownBasic = ({
     )}
   >
     <ul>
-      {config.map(({ key, count, label, to }) =>
+      {config.map(({ key, count, label, to, state }) =>
         count ? (
           <li key={key}>
-            <Link to={to}>
+            <Link to={to} state={state}>
               {label} (<LongNumber>{count}</LongNumber>)
             </Link>
           </li>
@@ -263,13 +260,11 @@ export const MapToDropdown = ({
   children = 'View proteins',
   fieldNameOverride,
 }: MapToDropdownProps) => {
-  const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
-    allSupportingDataAndAAEntryLocations
-  );
+  const match = useMatch('/:namespace/:accession');
   const { namespace, accession: accessionFromPath } = match?.params || {};
   const fieldName =
     fieldNameOverride ||
-    (namespace && namespaceToUniProtKBFieldMap.get(namespace));
+    (namespace && namespaceToUniProtKBFieldMap.get(namespace as Namespace));
 
   if (!(statistics && namespace && accessionFromPath && fieldName)) {
     return null;

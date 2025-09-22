@@ -59,3 +59,9 @@ export type MappingFlat = (
   | MappingTo
 ) &
   MappingFrom;
+
+export enum TabLocation {
+  Overview = 'overview',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
+}

@@ -2,13 +2,9 @@ import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router';
 
-import {
-  allEntryPages,
-  getLocationEntryPathFor,
-  Location,
-} from '../../../app/config/urls';
+import { getLocationEntryPathFor, Location } from '../../../app/config/urls';
 import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
 import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as proteomesFFED } from '../../../proteomes/config/download';
@@ -320,10 +316,11 @@ const EntryDownload = ({
   featureTypes,
   sequence,
 }: EntryDownloadProps) => {
-  const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
-    allEntryPages
-  );
-  const { namespace, accession } = match?.params || {};
+  const match = useMatch('/:namespace/:accession');
+  const { namespace, accession } = (match?.params || {}) as {
+    namespace: Namespace | undefined;
+    accession: string | undefined;
+  };
 
   const [downloadColumns, setDownloadColumns] = useState(columns);
   const [fileFormats, setFileFormats] = useState(

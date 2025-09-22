@@ -2,7 +2,7 @@ import { ExpandableList, InfoList, Message } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
 import { Fragment, ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import {
   getEntryPath,

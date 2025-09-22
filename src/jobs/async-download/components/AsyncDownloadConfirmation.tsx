@@ -11,7 +11,7 @@ import {
 } from 'franklin-sites';
 import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { keyBy } from 'lodash-es';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';

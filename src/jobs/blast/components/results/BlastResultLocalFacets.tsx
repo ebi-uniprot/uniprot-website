@@ -2,7 +2,7 @@ import './styles/results-view.scss';
 
 import { HistogramFilter } from 'franklin-sites';
 import { FC, useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { Facets } from '../../../../shared/components/results/Facets';
 import facetsStyles from '../../../../shared/components/results/styles/facets.module.scss';
@@ -50,7 +50,7 @@ const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
   unfilteredValues,
   optimisedBinNumber,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   // handle modifying querystring to reflect the chosen values in the URL
@@ -70,8 +70,9 @@ const LocalFacet: FC<React.PropsWithChildren<LocalFacetProps>> = ({
       nextFacets = [...facetsWithoutModified, { name: facet, value }];
     }
 
-    history.replace(
-      getLocationObjForParams({ pathname, selectedFacets: nextFacets })
+    navigate(
+      getLocationObjForParams({ pathname, selectedFacets: nextFacets }),
+      { replace: true }
     );
   };
 

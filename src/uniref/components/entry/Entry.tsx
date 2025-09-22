@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import { Loader } from 'franklin-sites';
 import { partition } from 'lodash-es';
 import { useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
@@ -39,13 +39,9 @@ import EntryMain from './EntryMain';
 import MembersFacets from './MembersFacets';
 
 const Entry = () => {
+  const { accession } = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const dispatch = useMessagesDispatch();
-  const match = useRouteMatch<{ accession: string }>(
-    LocationToPath[Location.UniRefEntry]
-  );
-
-  const accession = match?.params.accession;
 
   const baseURL = `${apiUrls.entry.entry(accession, Namespace.uniref)}/light`;
   const { loading, data, status, error, redirectedTo, progress } =
@@ -121,11 +117,11 @@ const Entry = () => {
                 label: 'UniProtKB',
                 to: {
                   pathname: LocationToPath[Location.IDMapping],
-                  state: {
-                    parameters: {
-                      ids: uniProtKBMembers,
-                      name: `${accession} UniProtKB members`,
-                    },
+                },
+                state: {
+                  parameters: {
+                    ids: uniProtKBMembers,
+                    name: `${accession} UniProtKB members`,
                   },
                 },
               },
@@ -135,13 +131,13 @@ const Entry = () => {
                 label: 'UniParc',
                 to: {
                   pathname: LocationToPath[Location.IDMapping],
-                  state: {
-                    parameters: {
-                      ids: uniParcMembers,
-                      from: 'UniParc',
-                      to: 'UniParc',
-                      name: `${accession} UniParc members`,
-                    },
+                },
+                state: {
+                  parameters: {
+                    ids: uniParcMembers,
+                    from: 'UniParc',
+                    to: 'UniParc',
+                    name: `${accession} UniParc members`,
                   },
                 },
               },

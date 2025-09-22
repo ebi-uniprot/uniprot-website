@@ -62,7 +62,6 @@ const getConfigFor = ({
         // make all dependencies using react and related use our versions
         react: path.resolve('./node_modules/react'),
         'react-dom': path.resolve('./node_modules/react-dom'),
-        'react-router-dom': path.resolve('./node_modules/react-router-dom'),
         // other packages
         classnames: path.resolve('./node_modules/classnames'),
         // go package uses a slightly earlier version of axios, link it to ours

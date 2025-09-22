@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { sendGtagEventFeatureDataTableViewClick } from '../utils/gtagEvents';
 
@@ -13,7 +13,7 @@ const useExpandTable = (
 ] => {
   const [showButton, setShowButton] = useState(Boolean(expandable));
   const [expandTable, setExpandTable] = useState<boolean | null>(null);
-  const params = useParams<{ accession?: string }>();
+  const params = useParams();
   const containerRef = useRef<HTMLDivElement>(null);
   const firstRenderRef = useRef(true);
   // On expand/collapse change

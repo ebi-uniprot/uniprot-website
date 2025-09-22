@@ -1,7 +1,7 @@
 import { ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { organismRenderer } from '../../automatic-annotations/shared/column-renderers/Organism';

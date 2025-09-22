@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { generatePath, useHistory, useLocation } from 'react-router-dom';
+import { generatePath, useLocation, useNavigate } from 'react-router';
 import { frame } from 'timing-functions';
 
 import {
@@ -89,7 +89,7 @@ const QueryNotPossibleMessage = ({
 );
 
 const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useMessagesDispatch();
   const [clauses, setClauses] = useState<Clause[]>([]);
@@ -265,7 +265,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
             namespace: jobResultsNamespace,
           })
         : SearchResultsLocations[searchspace as SearchableNamespace];
-    history.push({
+    navigate({
       pathname,
       search,
     });

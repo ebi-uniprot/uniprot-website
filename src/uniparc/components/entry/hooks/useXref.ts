@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';

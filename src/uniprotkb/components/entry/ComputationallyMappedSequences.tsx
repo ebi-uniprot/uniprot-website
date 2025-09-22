@@ -1,6 +1,6 @@
 import { DataTable, Message } from 'franklin-sites';
 import { ReactNode, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { MessageLevel } from '../../../messages/types/messagesTypes';

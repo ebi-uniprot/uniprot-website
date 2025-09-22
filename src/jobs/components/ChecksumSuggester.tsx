@@ -1,6 +1,6 @@
 import { Message } from 'franklin-sites';
 import { Fragment, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import styles from '../../shared/components/results/styles/did-you-mean.module.scss';

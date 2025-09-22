@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { frame } from 'timing-functions';
 
 import {
@@ -42,7 +42,6 @@ import {
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
-import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 import helper from '../../../shared/styles/helper.module.scss';
@@ -80,12 +79,6 @@ import dataToSchema from './entry.structured';
 import EntryMain from './EntryMain';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
-
-const legacyToNewSubPages = {
-  protvista: TabLocation.FeatureViewer,
-  'features-viewer': TabLocation.FeatureViewer,
-  'variants-viewer': TabLocation.VariantViewer,
-};
 
 const VariationViewerTab = lazy(
   () =>
@@ -141,41 +134,31 @@ const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
 
 const Entry = () => {
   const dispatch = useMessagesDispatch();
-  const history = useHistory();
-  const match = useMatchWithRedirect<{
-    accession: string;
-    subPage?: TabLocation;
-  }>(
-    Location.UniProtKBEntry,
-    TabLocation,
-    TabLocation.Entry,
-    legacyToNewSubPages
-  );
+  const navigate = useNavigate();
+  const params = useParams();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
-      apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
+      apiUrls.entry.entry(params.accession, Namespace.uniprotkb)
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.variation(match?.params.accession),
+    params.accession && apiUrls.proteinsApi.variation(params.accession),
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.coordinates(match?.params.accession),
+    params.accession && apiUrls.proteinsApi.coordinates(params.accession),
     { method: 'HEAD' }
   );
 
   const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
-    match?.params.accession &&
+    params.accession &&
       uniprotkbApiUrls.publications.entryPublications({
-        accession: match.params.accession,
+        accession: params.accession,
         selectedFacets: [
           {
             name: 'types',
@@ -266,29 +249,25 @@ const Entry = () => {
   useEffect(() => {
     if (
       redirectedTo &&
-      match?.params.accession &&
-      match?.params.subPage !== TabLocation.History
+      params.accession &&
+      params.subPage !== TabLocation.History
     ) {
       const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
       // If the redirection is because of ID or version in which case, the following message doesn't make sense
-      if (
-        !match?.params.accession.includes('_') &&
-        !match?.params.accession.includes('.')
-      ) {
+      if (!params.accession.includes('_') && !params.accession.includes('.')) {
         dispatch(
           addMessage({
             id: 'accession-merge',
             content: (
               <>
-                {match.params.accession} has been merged into {newEntry}. You
-                have automatically been redirected. To see{' '}
-                {match.params.accession}
+                {params.accession} has been merged into {newEntry}. You have
+                automatically been redirected. To see {params.accession}
                 &apos;s history,{' '}
                 <Link
                   to={getEntryPath(
                     Namespace.uniprotkb,
-                    match.params.accession,
+                    params.accession,
                     TabLocation.History
                   )}
                 >
@@ -305,66 +284,67 @@ const Entry = () => {
       }
       frame().then(() => {
         // If accession contains version, it should be redirected to History tab
-        const activeTab = match?.params.accession.includes('.')
+        const activeTab = params.accession?.includes('.')
           ? TabLocation.History
           : TabLocation.Entry;
-        history.replace(getEntryPath(Namespace.uniprotkb, newEntry, activeTab));
+        navigate(getEntryPath(Namespace.uniprotkb, newEntry, activeTab), {
+          replace: true,
+        });
       });
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
-    // match?.params.subPage had when the component was mounted.
+    // params.accession and params.subPage had when the component was mounted.
     // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [dispatch, redirectedTo]);
 
   useEffect(() => {
-    if (match?.params.accession.includes('-')) {
-      const [accession] = match.params.accession.split('-');
-      history.replace({
-        pathname: getEntryPath(
-          Namespace.uniprotkb,
-          accession,
-          TabLocation.Entry
-        ),
-        hash: match.params.accession,
-      });
+    if (params.accession?.includes('-')) {
+      const [accession] = params.accession.split('-');
+      navigate(
+        {
+          pathname: getEntryPath(
+            Namespace.uniprotkb,
+            accession,
+            TabLocation.Entry
+          ),
+          hash: params.accession,
+        },
+        { replace: true }
+      );
     }
-  }, [history, match?.params.accession]);
+  }, [navigate, params.accession]);
 
   let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
       transformedData.inactiveReason
   );
 
-  // Redirect to history when obsolete and not merged into a single new one
-  useEffect(() => {
-    if (
-      isObsolete &&
-      match?.params.accession &&
-      match?.params.subPage !== TabLocation.History
-    ) {
-      frame().then(() => {
-        history.replace(
-          getEntryPath(
-            Namespace.uniprotkb,
-            match?.params.accession,
-            TabLocation.History
-          )
-        );
-      });
-    }
-    // (I hope) I know what I'm doing here, I want to stick with whatever value
-    // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
-  }, [isObsolete]);
-
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
+
+  // Redirect to history when obsolete and not merged into a single new one
+  if (
+    isObsolete &&
+    params.accession &&
+    params.subPage !== TabLocation.History
+  ) {
+    return (
+      <Navigate
+        replace
+        to={getEntryPath(
+          Namespace.uniprotkb,
+          params.accession,
+          TabLocation.History
+        )}
+      />
+    );
+  }
 
   if (
     loading ||
     !data ||
     // if we're gonna redirect, show loading in the meantime
-    (redirectedTo && match?.params.subPage !== TabLocation.History)
+    (redirectedTo && params.subPage !== TabLocation.History)
   ) {
     if (error) {
       return <ErrorHandler status={status} error={error} fullPage />;
@@ -375,7 +355,7 @@ const Entry = () => {
   // If there is redirection in place (might be an obsolete entry or an ID link), use the primary accession instead of match params
   const accession = redirectedTo
     ? data.primaryAccession
-    : match?.params.accession || '';
+    : params.accession || '';
 
   let importedVariants: number | 'loading' = 0;
   if (variantsHeadPayload.loading) {
@@ -400,7 +380,7 @@ const Entry = () => {
         '2000-01-01'
     ) > AFDB_CUTOFF_DATE;
 
-  if (error || !match?.params.accession || !transformedData) {
+  if (error || !params.accession || !transformedData) {
     return <ErrorHandler status={status} error={error} fullPage />;
   }
 
@@ -412,14 +392,13 @@ const Entry = () => {
 
   // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
   // merged entry's history), the user is viewing content of an obsolete entry
-  isObsolete =
-    (redirectedTo && accession !== match.params.accession) || isObsolete;
+  isObsolete = (redirectedTo && accession !== params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {
-    if (match.params.subPage === TabLocation.Publications) {
+    if (params.subPage === TabLocation.Publications) {
       sidebar = publicationsSideBar;
-    } else if (match.params.subPage === TabLocation.Entry) {
+    } else if (params.subPage === TabLocation.Entry) {
       sidebar = entrySidebar;
     }
   }
@@ -439,7 +418,7 @@ const Entry = () => {
         )}
       </HTMLHead>
       {isObsolete ? (
-        <h1>{match.params.accession}</h1>
+        <h1>{params.accession}</h1>
       ) : (
         <ErrorBoundary>
           <HTMLHead
@@ -474,18 +453,14 @@ const Entry = () => {
         </ErrorBoundary>
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
-        <Tabs active={match.params.subPage}>
+        <Tabs active={params.subPage}>
           <Tab
             disabled={isObsolete}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.Entry
-                )}
+                to={`../${TabLocation.Entry}`}
               >
                 Entry
               </Link>
@@ -565,13 +540,11 @@ const Entry = () => {
                     ? undefined
                     : -1
                 }
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
+                to={`../${
                   importedVariants === 'loading' || !importedVariants
                     ? TabLocation.Entry
                     : TabLocation.VariantViewer
-                )}
+                }`}
               >
                 Variant viewer
                 {data.sequence &&
@@ -617,11 +590,7 @@ const Entry = () => {
                 <Link
                   className={isObsolete ? helper.disabled : undefined}
                   tabIndex={isObsolete ? -1 : undefined}
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    accession,
-                    TabLocation.FeatureViewer
-                  )}
+                  to={`../${TabLocation.FeatureViewer}`}
                 >
                   Feature viewer
                 </Link>
@@ -632,13 +601,7 @@ const Entry = () => {
             onFocus={FeatureViewerTab.preload}
           >
             {smallScreen ? (
-              <Redirect
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.Entry
-                )}
-              />
+              <Navigate replace to={`../${TabLocation.Entry}`} />
             ) : (
               <Suspense fallback={<Loader />}>
                 <ErrorBoundary>
@@ -677,13 +640,11 @@ const Entry = () => {
                     ? undefined
                     : -1
                 }
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
+                to={`../${
                   hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
                     ? TabLocation.Entry
                     : TabLocation.GenomicCoordinates
-                )}
+                }`}
               >
                 Genomic coordinates
               </Link>
@@ -739,11 +700,7 @@ const Entry = () => {
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.Publications
-                )}
+                to={`../${TabLocation.Publications}`}
               >
                 Publications
               </Link>
@@ -782,11 +739,7 @@ const Entry = () => {
               <Link
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
-                to={getEntryPath(
-                  Namespace.uniprotkb,
-                  accession,
-                  TabLocation.ExternalLinks
-                )}
+                to={`../${TabLocation.ExternalLinks}`}
               >
                 External links
               </Link>
@@ -809,21 +762,7 @@ const Entry = () => {
             </Suspense>
           </Tab>
           <Tab
-            title={
-              match.params.subPage === TabLocation.History ? (
-                'History'
-              ) : (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    accession,
-                    TabLocation.History
-                  )}
-                >
-                  History
-                </Link>
-              )
-            }
+            title={<Link to={`../${TabLocation.History}`}>History</Link>}
             id={TabLocation.History}
             onPointerOver={HistoryTab.preload}
             onFocus={HistoryTab.preload}
@@ -838,7 +777,7 @@ const Entry = () => {
                   ]}
                 />
                 <HistoryTab
-                  accession={isObsolete ? match.params.accession : accession}
+                  accession={isObsolete ? params.accession : accession}
                   lastVersion={data.entryAudit?.entryVersion}
                   uniparc={data.extraAttributes?.uniParcId}
                   reason={data.inactiveReason}
