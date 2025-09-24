@@ -32,7 +32,13 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import { RefProtMoveUniProtKBEntryMessage } from '../../../shared/components/RefProtMoveMessages';
+import {
+  biologicallyRelevant,
+  CheckMoveResponse,
+  checkMoveUrl,
+  getProteomes,
+  RefProtMoveUniProtKBEntryMessage,
+} from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
@@ -53,7 +59,7 @@ import {
 } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
 import lazy from '../../../shared/utils/lazy';
-import { stringifyQuery } from '../../../shared/utils/url';
+import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
 import {
   CitationsAPIModel,
@@ -183,6 +189,17 @@ const Entry = () => {
           },
         ],
       })
+  );
+
+  const [upids, isBiologicallyRelevant] = useMemo(
+    () => [data && getProteomes(data), data && biologicallyRelevant(data)],
+    [data]
+  );
+
+  const refprotmoveData = useDataApi<CheckMoveResponse>(
+    upids?.length && !isBiologicallyRelevant
+      ? stringifyUrl(checkMoveUrl, { upids })
+      : null
   );
 
   const communityReferences: Reference[] = useMemo(() => {
@@ -364,7 +381,8 @@ const Entry = () => {
     loading ||
     !data ||
     // if we're gonna redirect, show loading in the meantime
-    (redirectedTo && match?.params.subPage !== TabLocation.History)
+    (redirectedTo && match?.params.subPage !== TabLocation.History) ||
+    refprotmoveData.loading
   ) {
     if (error) {
       return <ErrorHandler status={status} error={error} fullPage />;
@@ -461,7 +479,15 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          <RefProtMoveUniProtKBEntryMessage entry={data} />
+          {!upids ||
+          !refprotmoveData.data ||
+          refprotmoveData.data?.stay?.length ? null : (
+            <RefProtMoveUniProtKBEntryMessage
+              accession={data.primaryAccession}
+              upids={upids}
+              organism={data.organism}
+            />
+          )}
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
