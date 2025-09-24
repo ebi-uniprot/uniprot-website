@@ -3,7 +3,8 @@
  * library's configuration
  */
 import deepFreeze from 'deep-freeze';
-import sanitizeHtml, { Attributes, defaults, IOptions } from 'sanitize-html';
+import type { Attributes, IOptions } from 'sanitize-html';
+import sanitizeHtml from 'sanitize-html';
 
 import styles from './styles/clean-text.module.scss';
 
@@ -56,13 +57,15 @@ export const getTransformTags = (currentHLevel: HeadingLevels = 'h1') => ({
 
 export const cleanTextDefaultOptions = deepFreeze<IOptions>({
   // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
-  allowedTags: defaults.allowedTags.filter((tag) => !excludedTags.has(tag)),
+  allowedTags: sanitizeHtml.defaults.allowedTags.filter(
+    (tag) => !excludedTags.has(tag)
+  ),
   allowedClasses: {
     // Allow only the class names that we add here from the CSS module imported
     '*': Object.values(styles),
   },
   allowedAttributes: {
-    ...defaults.allowedAttributes,
+    ...sanitizeHtml.defaults.allowedAttributes,
     img: ['src', 'alt'],
     '*': ['id', 'style'],
   },

@@ -262,10 +262,16 @@ const Basket = () => {
 
 const SecondaryItems = () => {
   const supportsJobs = useSupportsJobs();
+  const [displayDashboard, setDisplayDashboard] = useState(false);
+
+  // This is to avoid react hydration issues
+  useEffect(() => {
+    setDisplayDashboard(true);
+  }, [supportsJobs]);
 
   return (
     <>
-      {supportsJobs && <JobsDashboard />}
+      {displayDashboard && <JobsDashboard />}
       <Basket />
       <ContactLink title="Contact" className={styles['secondary-item']}>
         <EnvelopeIcon width={secondaryItemIconSize} />

@@ -28,8 +28,10 @@ const subscribe = (listener: Listener) => {
 
 const getSnapshot = () => state;
 
+const getServerSnapshot = () => state;
+
 function useJobState() {
-  return useSyncExternalStore(subscribe, getSnapshot);
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 export default useJobState;

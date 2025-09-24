@@ -2,7 +2,7 @@ import { Message } from 'franklin-sites';
 import { lazy, ReactElement, Suspense } from 'react';
 
 import ErrorBoundary from '../../error-component/ErrorBoundary';
-import HTMLHead from '../../HTMLHead';
+// import HTMLHead from '../../HTMLHead';
 import ErrorComponent from '../ErrorComponent';
 import ArtWork from '../svgs/no-results-found.img.svg';
 
@@ -25,10 +25,10 @@ type Props = {
 
 const NoResultsPage = ({ children = <ErrorMessage /> }: Props) => (
   <>
-    <HTMLHead>
-      {/* Don't index error pages */}
-      <meta name="robots" content="noindex" />
-    </HTMLHead>
+    {/* <HTMLHead> */}
+    {/* Don't index error pages */}
+    {/* <meta name="robots" content="noindex" />
+    </HTMLHead> */}
     <ErrorComponent
       artwork={<img src={ArtWork} width="400" height="400" alt="" />}
     >

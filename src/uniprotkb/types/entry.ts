@@ -1,4 +1,5 @@
 export enum TabLocation {
+  Summary = 'summary',
   Entry = 'entry',
   VariantViewer = 'variant-viewer',
   FeatureViewer = 'feature-viewer',

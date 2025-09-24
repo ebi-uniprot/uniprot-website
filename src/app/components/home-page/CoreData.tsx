@@ -90,7 +90,13 @@ const CoreData = () => (
       )}
       subtitle="UniProt Knowledgebase"
       backgroundImage={
-        <img src={UniProtKBIllustration} width={240} height={240} alt="" />
+        <img
+          src={UniProtKBIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
       }
       backgroundColor="var(--fr--color-uniprotkb)"
       link={
@@ -115,7 +121,13 @@ const CoreData = () => (
       )}
       subtitle="Proteomes"
       backgroundImage={
-        <img src={SpeciesIllustration} width={240} height={240} alt="" />
+        <img
+          src={SpeciesIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
       }
       backgroundColor="var(--fr--color-proteomes)"
       link={
@@ -139,7 +151,13 @@ const CoreData = () => (
       )}
       subtitle="UniRef"
       backgroundImage={
-        <img src={ClusterIllustration} width={240} height={240} alt="" />
+        <img
+          src={ClusterIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
       }
       backgroundColor="var(--fr--color-uniref)"
       link={
@@ -162,7 +180,13 @@ const CoreData = () => (
       )}
       subtitle="UniParc"
       backgroundImage={
-        <img src={ArchiveIllustration} width={240} height={240} alt="" />
+        <img
+          src={ArchiveIllustration}
+          width={240}
+          height={240}
+          loading="lazy"
+          alt=""
+        />
       }
       backgroundColor="var(--fr--color-uniparc)"
       link={
