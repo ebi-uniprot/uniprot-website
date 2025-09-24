@@ -29,19 +29,19 @@ const rpChangesReleaseDate = 'October 2025';
 
 const UniProtKBGenericPreamble = () => (
   <>
-    The Unreviewed UniProtKB/TrEMBL database will reduce in size in release
-    2025_04 (October 2025, due to the removal of unclassified organisms) and
-    again in release {release} ({releaseDate}, due to the removal of proteins
-    from non-reference proteomes).
+    The Unreviewed UniProtKB/TrEMBL database will be reduced in size in release
+    {rpChangesRelease} ({rpChangesReleaseDate}, due to the removal of
+    unclassified organisms) and again in release {release} ({releaseDate}, due
+    to the removal of proteins from non-reference proteomes).
   </>
 );
 
 const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
   <b>
-    This entry ({accession}) is under consideration for removal in release{' '}
-    2025_04 (October 2025, due to the removal of unclassified organisms) or in
-    release {release} ({releaseDate}, due to the removal of proteins from
-    non-reference proteomes).
+    This entry ({accession}) is likely to be removed from UniProtKB/TrEMBL in
+    release {rpChangesRelease} ({rpChangesReleaseDate}, due to the removal of
+    unclassified organisms) or in release {release} ({releaseDate}, due to the
+    removal of proteins from non-reference proteomes).
   </b>
 );
 
@@ -53,7 +53,7 @@ const UniProtKBGenericMain: FC<{
   <>
     <br />
     <br />
-    From {release} onwards, Unreviewed UniProtKB/TrEMBL will include only
+    From release {release}, Unreviewed UniProtKB/TrEMBL will include only
     proteins from reference proteomes and selected entries with experimental or
     biologically important data. Entries removed from Unreviewed
     UniProtKB/TrEMBL will remain accessible in the UniParc sequence archive.
@@ -63,7 +63,7 @@ const UniProtKBGenericMain: FC<{
     <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
       list of affected proteins and proteomes
     </ExternalLink>
-    {', or '}
+    , or{' '}
     <ContactLink
       to={
         accession && organism && upids
@@ -109,24 +109,22 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
   taxonomy,
 }) => (
   <>
-    We are updating the reference proteome selection procedure. As a result,
-    from release {rpChangesRelease} (planned for {rpChangesReleaseDate}) some
-    proteomes may lose their reference proteome status, but all proteomes will
-    remain accessible in the Proteomes database. Additionally, starting with
-    release {release} (planned for the {releaseDate}), Unreviewed
+    We are updating the reference proteome selection procedure. As a result, in
+    release 2025_04 (October 2025) some proteomes may lose their reference
+    proteome status, but all proteomes will remain accessible in the Proteomes
+    database.
+    <br />
+    <br />
+    Additionally, starting with release {release} ({releaseDate}), Unreviewed
     UniProtKB/TrEMBL will include only proteins from reference proteomes
     selected by the new procedure, along with selected entries with experimental
-    or biologically important data.
-    <br />
-    <br />
-    Entries removed from Unreviewed UniProtKB/TrEMBL will remain accessible in
-    the UniParc sequence archive. Please see{' '}
+    or biologically important data. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
     information, view the{' '}
     <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
       list of affected proteins and proteomes
     </ExternalLink>
-    {', or '}
+    , or{' '}
     <ContactLink
       to={
         id && taxonomy
@@ -226,8 +224,10 @@ export const RefProtMoveProteomesEntryMessage: FC<{
     >
       <b>
         {id} is currently under review and may lose its reference proteome
-        status from release {rpChangesRelease} (planned for{' '}
-        {rpChangesReleaseDate}).
+        status in release {rpChangesRelease} ({rpChangesReleaseDate}). If this
+        happens, its Unreviewed UniProtKB/TrEMBL entries will be removed from
+        UniProtKB, but their sequences will remain accessible in the UniParc
+        sequence archive.
       </b>
       <br />
       <br />
