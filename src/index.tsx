@@ -24,6 +24,10 @@ root.render(
   </StrictMode>
 );
 
+// These obsolete hosts have been routed to the uniprot.org front-end so that
+// the user's cache can be cleared
+const obsoleteHosts = new Set(['beta.uniprot.org', 'covid-19.uniprot.org']);
+
 if (
   typeof navigator !== 'undefined' &&
   'serviceWorker' in navigator &&
@@ -32,11 +36,19 @@ if (
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
-    serviceWorkerModule.register();
-    // switch commented lines if we want to enable/disable service worker
-    // Use in case of emergency! (if something wrong with caching in production)
-    // serviceWorkerModule.unregister();
+    if (obsoleteHosts.has(window.location.host)) {
+      serviceWorkerModule.unregister().finally(() => {
+        location.replace('https://www.uniprot.org');
+      });
+    } else {
+      serviceWorkerModule.register();
+      // switch commented lines if we want to enable/disable service worker
+      // Use in case of emergency! (if something wrong with caching in production)
+      // serviceWorkerModule.unregister();
+    }
   });
+} else if (obsoleteHosts.has(window.location.host)) {
+  location.replace('https://www.uniprot.org');
 }
 
 /* Page tracking */

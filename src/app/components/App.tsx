@@ -35,6 +35,7 @@ import {
   Location,
   LocationToPath,
 } from '../config/urls';
+import Covid19RedirectWarning from './Covid19RedirectWarning';
 import DevDeploymentWarning from './DevDeploymentWarning';
 
 // This is hackery is to prevent define being repeatedly called for the same
@@ -437,6 +438,7 @@ const App = () => {
         />
       </Helmet>
       <DevDeploymentWarning />
+      <Covid19RedirectWarning />
       <BaseLayout>
         <Suspense fallback={<Loader />}>
           <Switch>
