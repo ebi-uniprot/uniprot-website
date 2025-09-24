@@ -14,7 +14,7 @@ const insideUniProtAbstract2 =
   'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const proteinSpotlightAbstract =
-  'There is much talk about plastic these days. And with reason. Besides depending on fossil fuels, plastic is infesting every nook and cranny of our planet because there is simply too much of it...';
+  "My grandmother had a lovely pantry. It was a small room next to the kitchen, dedicated to the accumulation of 'non-perishables', i.e. mainly jam, rice, flour, sugar, dried potato, packets of biscuits and noodles.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -350,21 +350,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/282/"
+            url="https://www.proteinspotlight.org/back_issues/283/"
             noIcon
           >
-            Ramifications
+            Elusive
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/282/"
+          url="https://www.proteinspotlight.org/back_issues/283/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt282.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt283.jpg"
             alt=""
             width="123"
             height="129"

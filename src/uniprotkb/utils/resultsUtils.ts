@@ -56,6 +56,7 @@ export const getParamsFromURL = (
     ids, // Handled in ToolsButton
     groupBy, // Handled in UniProtKB/groupBy
     parent, // Handled in UniProtKB/groupBy
+    fromCovid19Portal, // Flag to indicate to user they have been redirected from the now obsolete Covid-19 portal
     ...restParams
   } = Object.fromEntries(new URLSearchParams(url));
 
