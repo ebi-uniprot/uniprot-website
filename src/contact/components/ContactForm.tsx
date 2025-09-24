@@ -132,6 +132,13 @@ const suggestionMessages: Record<Suggestion, ReactNode> = {
       .
     </>
   ),
+  'not English': (
+    <>
+      Our team can only guarantee support in English. If you are able to, please
+      try to formulate your request in English so that our team can help you
+      quicker.
+    </>
+  ),
 };
 
 const ContactForm = () => {
@@ -183,13 +190,13 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
 
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.target.setCustomValidity(
-      e.target.value.trim().length >= 3
+      e.target.value.trim().length >= 8
         ? ''
-        : 'Please enter a message for our helpdesk.'
+        : 'Please enter a complete message for our helpdesk.'
     );
   };
 
-  const { handleSubmit, handleChange, sending, suggestion } =
+  const { handleSubmit, handleChange, sending, suggestions } =
     useFormLogic(referrerValue);
 
   const description = isUpdate
@@ -209,6 +216,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
       <PageIntro heading="Contact us" />
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>
+        <p>Our helpdesk team will receive and review your message</p>
         <hr />
         <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
@@ -268,13 +276,23 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
             {validity}
           </span>
           {/* Message */}
-          <label className={styles.label} htmlFor={`message-${formId}`}>
+          <label
+            className={cn(styles.label, styles['label-wide'])}
+            htmlFor={`message-${formId}`}
+          >
             Message:
+            <br />
+            <small>
+              This will be received and reviewed by our team. If you are
+              submitting an error report, please explain what you have been
+              trying, include your input, specify what happened, and include the
+              error message if there is one.
+            </small>
           </label>
           <span className={cn(styles.input, styles.input__message)}>
             <textarea
               name="message"
-              placeholder="My message"
+              placeholder="My detailed message to the UniProt team"
               id={`message-${formId}`}
               required
               minLength={1}
@@ -287,17 +305,25 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
             />
             {validity}
           </span>
-          {suggestion && (
-            <Message level="info" className={cn(styles.suggestion)}>
-              {suggestionMessages[suggestion]}
-            </Message>
+          {suggestions?.length && (
+            <div className={cn(styles.suggestion)}>
+              {suggestions.map((suggestion) => (
+                <Message level="info" key={suggestion}>
+                  {suggestionMessages[suggestion]}
+                </Message>
+              ))}
+            </div>
           )}
           <label
             className={cn(styles.label, styles['label-wide'])}
             htmlFor={`prefilled-${formId}`}
           >
-            Additional information (sent with your message to help our helpdesk
-            help you):
+            Additional information:
+            <br />
+            <small>
+              This is sent with your message in order to help our helpdesk help
+              you.
+            </small>
           </label>
           <span className={cn(styles.input, styles.input__message)}>
             <textarea

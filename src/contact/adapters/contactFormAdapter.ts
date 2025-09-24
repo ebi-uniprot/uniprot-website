@@ -49,7 +49,8 @@ export type Suggestion =
   | 'blast'
   | 'align'
   | 'id mapping'
-  | 'peptide search';
+  | 'peptide search'
+  | 'not English';
 const entryUpdateRegExp = /entry update request/i;
 const pdbRegExp = /(structure)|(pdb)/i;
 const buyRegExp = /(buy)|(purchas)|(ship)|(cost)|(quote)/i;
@@ -57,34 +58,57 @@ const blastRegExp = /blast/i;
 const alignRegExp = /(clustal)|(align)/i;
 const idMappingRegExp = /(map)/i;
 const peptideSearchRegExp = /(peptide search)|(search peptide)/i;
+// anything not outside the printable ASCII range
+// eslint-disable-next-line no-control-regex
+let nonLatin = /[^\x00-\x7F]/;
+try {
+  // any Unicode letter minus characters whose Script Extensions include Latin
+  // α: true, 東: true, t: false, é: false
+  nonLatin = /[\p{L}--\p{scx=Latin}]/v;
+} catch {
+  /* */
+}
 
 export const getSuggestion = debounce(
   (
-    callback: Dispatch<SetStateAction<Suggestion | undefined>>,
+    callback: Dispatch<SetStateAction<Suggestion[] | undefined>>,
     subject: string = '',
     message: string = ''
   ): void => {
+    const suggestions: Suggestion[] = [];
     if (entryUpdateRegExp.test(subject)) {
       // A bit specific, only test the subject as it would have been added by
       // the link from entry page to suggest an update
-      callback('update');
-    } else if (pdbRegExp.test(subject) || pdbRegExp.test(message)) {
-      callback('PDB');
-    } else if (buyRegExp.test(subject) || buyRegExp.test(message)) {
-      callback('buy');
-    } else if (blastRegExp.test(subject) || blastRegExp.test(message)) {
-      callback('blast');
-    } else if (alignRegExp.test(subject) || alignRegExp.test(message)) {
-      callback('align');
-    } else if (idMappingRegExp.test(subject) || idMappingRegExp.test(message)) {
-      callback('id mapping');
-    } else if (
+      suggestions.push('update');
+    }
+    if (pdbRegExp.test(subject) || pdbRegExp.test(message)) {
+      suggestions.push('PDB');
+    }
+    if (buyRegExp.test(subject) || buyRegExp.test(message)) {
+      suggestions.push('buy');
+    }
+    if (blastRegExp.test(subject) || blastRegExp.test(message)) {
+      suggestions.push('blast');
+    }
+    if (alignRegExp.test(subject) || alignRegExp.test(message)) {
+      suggestions.push('align');
+    }
+    if (idMappingRegExp.test(subject) || idMappingRegExp.test(message)) {
+      suggestions.push('id mapping');
+    }
+    if (
       peptideSearchRegExp.test(subject) ||
       peptideSearchRegExp.test(message)
     ) {
-      callback('peptide search');
-    } else {
+      suggestions.push('peptide search');
+    }
+    if (nonLatin.test(message)) {
+      suggestions.push('not English');
+    }
+    if (!suggestions.length) {
       callback(undefined);
+    } else {
+      callback(suggestions);
     }
   },
   DEBOUNCE_TIME
@@ -92,7 +116,7 @@ export const getSuggestion = debounce(
 
 export type UseFormLogicReturnType = {
   sending: boolean;
-  suggestion: undefined | Suggestion;
+  suggestions: undefined | Suggestion[];
   handleSubmit: FormEventHandler<HTMLFormElement>;
   handleChange: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
@@ -103,7 +127,7 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
   const { state } = useLocation();
 
   const [formData, setFormData] = useState<undefined | FormData>();
-  const [suggestion, setSuggestion] = useState<undefined | Suggestion>(
+  const [suggestions, setSuggestions] = useState<undefined | Suggestion[]>(
     undefined
   );
 
@@ -202,7 +226,7 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
       return;
     }
     getSuggestion(
-      setSuggestion,
+      setSuggestions,
       element.form?.subject?.value,
       element.form?.message?.value
     );
@@ -218,5 +242,5 @@ export const useFormLogic = (referrer?: string): UseFormLogicReturnType => {
     });
   };
 
-  return { sending: loading, suggestion, handleSubmit, handleChange };
+  return { sending: loading, suggestions, handleSubmit, handleChange };
 };

@@ -19,6 +19,9 @@ exports[`ContactForm should be disabled when submitting 1`] = `
     >
       Send us general questions and suggestions using the form below
     </h2>
+    <p>
+      Our helpdesk team will receive and review your message
+    </p>
     <hr />
     <form
       aria-label="Contact form"
@@ -133,10 +136,14 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         />
       </span>
       <label
-        class="label"
+        class="label label-wide"
         for="message-1"
       >
         Message:
+        <br />
+        <small>
+          This will be received and reviewed by our team. If you are submitting an error report, please explain what you have been trying, include your input, specify what happened, and include the error message if there is one.
+        </small>
       </label>
       <span
         class="input input__message"
@@ -146,7 +153,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="My message"
+          placeholder="My detailed message to the UniProt team"
           required=""
         />
         <span
@@ -170,7 +177,11 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="label label-wide"
         for="prefilled-1"
       >
-        Additional information (sent with your message to help our helpdesk help you):
+        Additional information:
+        <br />
+        <small>
+          This is sent with your message in order to help our helpdesk help you.
+        </small>
       </label>
       <span
         class="input input__message"
@@ -284,6 +295,9 @@ exports[`ContactForm should render for feedback contact form 1`] = `
     >
       Submit updates or corrections to UniProt
     </h2>
+    <p>
+      Our helpdesk team will receive and review your message
+    </p>
     <hr />
     <form
       aria-label="Contact form"
@@ -398,10 +412,14 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         />
       </span>
       <label
-        class="label"
+        class="label label-wide"
         for="message-1"
       >
         Message:
+        <br />
+        <small>
+          This will be received and reviewed by our team. If you are submitting an error report, please explain what you have been trying, include your input, specify what happened, and include the error message if there is one.
+        </small>
       </label>
       <span
         class="input input__message"
@@ -411,7 +429,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="My message"
+          placeholder="My detailed message to the UniProt team"
           required=""
         />
         <span
@@ -435,7 +453,11 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="label label-wide"
         for="prefilled-1"
       >
-        Additional information (sent with your message to help our helpdesk help you):
+        Additional information:
+        <br />
+        <small>
+          This is sent with your message in order to help our helpdesk help you.
+        </small>
       </label>
       <span
         class="input input__message"
@@ -548,6 +570,9 @@ exports[`ContactForm should render for generic contact form 1`] = `
     >
       Send us general questions and suggestions using the form below
     </h2>
+    <p>
+      Our helpdesk team will receive and review your message
+    </p>
     <hr />
     <form
       aria-label="Contact form"
@@ -662,10 +687,14 @@ exports[`ContactForm should render for generic contact form 1`] = `
         />
       </span>
       <label
-        class="label"
+        class="label label-wide"
         for="message-1"
       >
         Message:
+        <br />
+        <small>
+          This will be received and reviewed by our team. If you are submitting an error report, please explain what you have been trying, include your input, specify what happened, and include the error message if there is one.
+        </small>
       </label>
       <span
         class="input input__message"
@@ -675,7 +704,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
           id="message-1"
           minlength="1"
           name="message"
-          placeholder="My message"
+          placeholder="My detailed message to the UniProt team"
           required=""
         />
         <span
@@ -699,7 +728,11 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="label label-wide"
         for="prefilled-1"
       >
-        Additional information (sent with your message to help our helpdesk help you):
+        Additional information:
+        <br />
+        <small>
+          This is sent with your message in order to help our helpdesk help you.
+        </small>
       </label>
       <span
         class="input input__message"
