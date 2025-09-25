@@ -674,7 +674,9 @@ const Entry = () => {
                       'Feature viewer',
                       searchableNamespaceLabels[Namespace.uniprotkb],
                     ]}
-                  />
+                  >
+                    <meta name="robots" content="noindex" />
+                  </HTMLHead>
                   {data.sequence && (
                     <FeatureViewerTab
                       accession={accession}
