@@ -865,7 +865,6 @@ const Entry = () => {
                 />
                 <HistoryTab
                   accession={isObsolete ? match.params.accession : accession}
-                  lastVersion={data.entryAudit?.entryVersion}
                   uniparc={data.extraAttributes?.uniParcId}
                   reason={data.inactiveReason}
                 />
