@@ -54,7 +54,7 @@ const UniProtKBGenericMain: FC<{
     <br />
     <br />
     From release {release}, Unreviewed UniProtKB/TrEMBL will include only
-    proteins from reference proteomes and selected entries with experimental or
+    proteins from reference proteomes and selected entries with experimental and
     biologically important data. Entries removed from Unreviewed
     UniProtKB/TrEMBL will remain accessible in the UniParc sequence archive.
     Please see{' '}
@@ -118,7 +118,7 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
     Additionally, starting with release {release} ({releaseDate}), Unreviewed
     UniProtKB/TrEMBL will include only proteins from reference proteomes
     selected by the new procedure, along with selected entries with experimental
-    or biologically important data. Please see{' '}
+    and biologically important data. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
     information, view the{' '}
     <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
