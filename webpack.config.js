@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, optimize } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -315,6 +315,9 @@ const getConfigFor = ({
           chunkFilename: `styles.[contenthash:6].css`,
           ignoreOrder: true,
         }),
+      new optimize.MinChunkSizePlugin({
+        minChunkSize: 200_000,
+      }),
     ].filter(Boolean),
     // END PLUGINS
     optimization: {
