@@ -73,7 +73,7 @@ const UniProtKBGenericMain: FC<{
                 formValues: {
                   context: [
                     `UniProtKB accession: ${accession}`,
-                    `UniParc IDs for this UniProtKB entry: ${upids.join(', ') || '<none>'}`,
+                    `Proteome IDs for this UniProtKB entry: ${upids.join(', ') || '<none>'}`,
                     `Organism: ${organism.scientificName || organism.commonName || '<no name>'}`,
                     `Taxon ID: ${organism.taxonId}`,
                   ].join('\n'),
@@ -244,7 +244,7 @@ export const RefProtMoveProteomesEntryMessage: FC<{
 
 export const RefProtMoveUniProtKBEntryMessage: FC<{
   accession: string;
-  upids: string[];
+  upids?: string[];
   organism?: UniProtKBSimplifiedTaxonomy;
 }> = ({ accession, upids, organism }) => (
   <Message

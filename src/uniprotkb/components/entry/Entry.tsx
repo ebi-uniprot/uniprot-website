@@ -191,16 +191,31 @@ const Entry = () => {
       })
   );
 
-  const [upids, isBiologicallyRelevant] = useMemo(
-    () => [data && getProteomes(data), data && biologicallyRelevant(data)],
-    [data]
-  );
+  const [upids, isBiologicallyRelevant] = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    return [getProteomes(data), biologicallyRelevant(data)];
+  }, [data]);
 
   const refprotmoveData = useDataApi<CheckMoveResponse>(
     upids?.length && !isBiologicallyRelevant
       ? stringifyUrl(checkMoveUrl, { upids })
       : null
   );
+
+  const willBeKept = useMemo(() => {
+    if (isBiologicallyRelevant) {
+      return true;
+    }
+    if (!upids?.length) {
+      return false;
+    }
+    if (!refprotmoveData.data) {
+      return true;
+    }
+    return Boolean(refprotmoveData.data.stay?.length);
+  }, [upids, isBiologicallyRelevant, refprotmoveData.data]);
 
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
@@ -479,9 +494,7 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          {!upids ||
-          !refprotmoveData.data ||
-          refprotmoveData.data?.stay?.length ? null : (
+          {willBeKept ? null : (
             <RefProtMoveUniProtKBEntryMessage
               accession={data.primaryAccession}
               upids={upids}
