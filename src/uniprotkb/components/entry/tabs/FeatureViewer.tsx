@@ -19,6 +19,13 @@ import tabsStyles from './styles/tabs-styles.module.scss';
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
+const tempMessage = (
+  <Message>
+    We are experiencing intermittent issues with some of our servers, if this
+    page doesn&apos;t load please retry later
+  </Message>
+);
+
 const FeatureViewer = ({
   accession,
   importedVariants,
@@ -122,11 +129,16 @@ const FeatureViewer = ({
   const loadAllFeatures = searchParams.get('loadFeatures');
 
   if (loading) {
-    return <Loader />;
+    return (
+      <>
+        {tempMessage}
+        <Loader />
+      </>
+    );
   }
 
   if (!data) {
-    return null;
+    return tempMessage;
   }
 
   const shouldRender =
