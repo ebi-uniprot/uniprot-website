@@ -44,7 +44,12 @@ export interface RunningJob extends BaseJob<JobTypes> {
 export type DataForDashboard = {
   [JobTypes.ALIGN]: never;
   [JobTypes.BLAST]: { hits: number };
-  [JobTypes.ID_MAPPING]: { hits: number; idMappingTarget: IDMappingNamespace };
+  [JobTypes.ID_MAPPING]: {
+    hits: number;
+    idMappingTarget: IDMappingNamespace;
+    suggestedUniParcIds: number;
+    suggestedOtherIds: number;
+  };
   [JobTypes.PEPTIDE_SEARCH]: never;
   [JobTypes.ASYNC_DOWNLOAD]: { fileSizeBytes: number };
 };
