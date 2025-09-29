@@ -401,6 +401,9 @@ const Entry = () => {
   useStructuredData(structuredData);
 
   useEffect(() => {
+    if (isLikelyHuman) {
+      return;
+    }
     const handler = () => {
       window.botChallenge = true;
       sessionStorage.setItem('botChallenge', 'true');
@@ -424,7 +427,7 @@ const Entry = () => {
       document.documentElement.removeEventListener('pointerdown', handler);
       document.documentElement.removeEventListener('pointerover', handler);
     };
-  }, []);
+  }, [isLikelyHuman]);
 
   if (!isLikelyHuman) {
     // bot challenge
