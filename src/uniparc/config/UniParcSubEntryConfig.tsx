@@ -4,6 +4,7 @@ import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNam
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
+import SubEntryUniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
 import EntrySection from '../types/subEntrySection';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
@@ -15,6 +16,19 @@ const uniParcSubEntryConfig: Record<
     sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
   }
 > = {
+  [EntrySection.Function]: {
+    id: EntrySection.Function,
+    label: entrySectionToLabel[EntrySection.Function],
+    sectionContent: ({ unifire }) => (
+      <SubEntryUniFireInferredSection
+        data={unifire}
+        annotationType="comment.function"
+        freeTextType="FUNCTION"
+        section={EntrySection.Function}
+        key={EntrySection.Function}
+      />
+    ),
+  },
   [EntrySection.NamesAndTaxonomy]: {
     id: EntrySection.NamesAndTaxonomy,
     label: entrySectionToLabel[EntrySection.NamesAndTaxonomy],
@@ -22,6 +36,19 @@ const uniParcSubEntryConfig: Record<
       <SubEntryNamesAndTaxonomySection
         data={data}
         key={EntrySection.NamesAndTaxonomy}
+      />
+    ),
+  },
+  [EntrySection.SubcellularLocation]: {
+    id: EntrySection.SubcellularLocation,
+    label: entrySectionToLabel[EntrySection.SubcellularLocation],
+    sectionContent: ({ unifire }) => (
+      <SubEntryUniFireInferredSection
+        data={unifire}
+        annotationType="comment.subcellular_location"
+        freeTextType="SUBCELLULAR LOCATION"
+        section={EntrySection.SubcellularLocation}
+        key={EntrySection.SubcellularLocation}
       />
     ),
   },
@@ -40,7 +67,7 @@ const uniParcSubEntryConfig: Record<
     label: entrySectionToLabel[EntrySection.FamilyAndDomains],
     sectionContent: (data) => (
       <SubEntryFamilyAndDomains
-        data={data.entry}
+        data={data}
         key={EntrySection.FamilyAndDomains}
       />
     ),

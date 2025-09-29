@@ -36,7 +36,9 @@ import {
   UniParcLiteAPIModel,
   UniParcXRef,
 } from '../../adapters/uniParcConverter';
-import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
+import uniParcSubEntryConverter, {
+  UniFireModel,
+} from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
@@ -47,17 +49,6 @@ import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
 
-type Prediction = {
-  evidence: string[];
-  annotationType: string;
-  annotationValue: string;
-};
-
-type UniFireModel = {
-  accession: string;
-  predictions: Prediction[];
-};
-
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
   const match = useRouteMatch<{
@@ -66,7 +57,7 @@ const SubEntry = () => {
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [uniFireData, setUniFireData] = useState<UniFireModel | null>(null);
+  const [uniFireData, setUniFireData] = useState<UniFireModel>();
 
   const { accession, subEntryId, subPage } = match?.params || {};
 
@@ -152,7 +143,8 @@ const SubEntry = () => {
 
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryData.data?.results[0]
+    subEntryData.data?.results[0],
+    uniFireData
   );
 
   if (!transformedData) {

@@ -13,11 +13,24 @@ export type UniParcSubEntryUIModel = {
     source?: Partial<UniParcXRef> | null;
     isUniprotkbEntry: boolean;
   };
+  unifire?: UniFireModel;
+};
+
+export type Prediction = {
+  evidence: string[];
+  annotationType: string;
+  annotationValue: string;
+};
+
+export type UniFireModel = {
+  accession: string;
+  predictions: Prediction[];
 };
 
 const uniParcSubEntryConverter = (
   entryData: UniParcLiteAPIModel,
-  subEntryData: UniParcXRef
+  subEntryData: UniParcXRef,
+  uniFireData?: UniFireModel
 ): UniParcSubEntryUIModel | null => {
   const transformedEntryData = uniParcConverter(entryData);
 
@@ -35,6 +48,7 @@ const uniParcSubEntryConverter = (
   return {
     entry: transformedEntryData,
     subEntry: { ...subEntryData, isSource, source, isUniprotkbEntry },
+    unifire: uniFireData,
   };
 };
 

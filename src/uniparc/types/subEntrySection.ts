@@ -1,5 +1,7 @@
 enum SubEntrySection {
+  Function = 'function',
   NamesAndTaxonomy = 'names_and_taxonomy',
+  SubcellularLocation = 'subcellular_location',
   Structure = 'structure',
   FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',
