@@ -1,7 +1,7 @@
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
-import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
@@ -160,35 +160,43 @@ const Entry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
+  const [isLikelyHuman, setIsLikelyHuman] = useState(
+    Boolean(window.botChallenge)
+  );
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
-      apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
+      isLikelyHuman
+        ? apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
+        : null
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.variation(match?.params.accession),
+    isLikelyHuman && match?.params.accession
+      ? apiUrls.proteinsApi.variation(match?.params.accession)
+      : null,
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.coordinates(match?.params.accession),
+    isLikelyHuman && match?.params.accession
+      ? apiUrls.proteinsApi.coordinates(match?.params.accession)
+      : null,
     { method: 'HEAD' }
   );
 
   const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
-    match?.params.accession &&
-      uniprotkbApiUrls.publications.entryPublications({
-        accession: match.params.accession,
-        selectedFacets: [
-          {
-            name: 'types',
-            value: '0',
-          },
-        ],
-      })
+    isLikelyHuman && match?.params.accession
+      ? uniprotkbApiUrls.publications.entryPublications({
+          accession: match.params.accession,
+          selectedFacets: [
+            {
+              name: 'types',
+              value: '0',
+            },
+          ],
+        })
+      : null
   );
 
   const [upids, isBiologicallyRelevant] = useMemo(() => {
@@ -199,7 +207,7 @@ const Entry = () => {
   }, [data]);
 
   const refprotmoveData = useDataApi<CheckMoveResponse>(
-    upids?.length && !isBiologicallyRelevant
+    isLikelyHuman && upids?.length && !isBiologicallyRelevant
       ? stringifyUrl(checkMoveUrl, { upids })
       : null
   );
@@ -391,6 +399,52 @@ const Entry = () => {
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
+
+  useEffect(() => {
+    const handler = () => {
+      window.botChallenge = true;
+      sessionStorage.setItem('botChallenge', 'true');
+      setIsLikelyHuman(true);
+    };
+    document.documentElement.addEventListener('mousemove', handler);
+    document.documentElement.addEventListener('mouseenter', handler);
+    document.documentElement.addEventListener('pointermove', handler, {
+      once: true,
+    });
+    document.documentElement.addEventListener('pointerdown', handler, {
+      once: true,
+    });
+    document.documentElement.addEventListener('pointerover', handler, {
+      once: true,
+    });
+    return () => {
+      document.documentElement.removeEventListener('mousemove', handler);
+      document.documentElement.removeEventListener('mouseenter', handler);
+      document.documentElement.removeEventListener('pointermove', handler);
+      document.documentElement.removeEventListener('pointerdown', handler);
+      document.documentElement.removeEventListener('pointerover', handler);
+    };
+  }, []);
+
+  if (!isLikelyHuman) {
+    // bot challenge
+    return (
+      <>
+        {/* 🍯 */}
+        <Button onClick={() => {}} style={{ transform: 'translateX(-200%)' }}>
+          Click me
+        </Button>
+        <div style={{ padding: '3em 0', width: '100%', display: 'flex' }}>
+          <div style={{ marginInline: 'auto' }}>
+            Please click this button to confirm that you are a real user <br />
+            <Button onClick={() => setIsLikelyHuman(true)}>
+              Click to load the page
+            </Button>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (
     loading ||
