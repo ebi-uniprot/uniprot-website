@@ -1,5 +1,6 @@
 import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
+import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
 import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNamesAndTaxonomySection';
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
@@ -94,13 +95,7 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection.Keywords,
     label: entrySectionToLabel[EntrySection.Keywords],
     sectionContent: ({ unifire }) => (
-      <UniFireInferredSection
-        data={unifire}
-        annotationType="keyword"
-        freeTextType="KEYWORDS"
-        section={EntrySection.Keywords}
-        key={EntrySection.Keywords}
-      />
+      <SubEntryKeywordsSection data={unifire} key={EntrySection.Keywords} />
     ),
   },
 };
