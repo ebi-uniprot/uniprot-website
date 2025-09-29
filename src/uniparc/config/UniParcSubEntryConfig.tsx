@@ -4,7 +4,7 @@ import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNam
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
-import SubEntryUniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
+import UniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
 import EntrySection from '../types/subEntrySection';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
@@ -20,7 +20,7 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection.Function,
     label: entrySectionToLabel[EntrySection.Function],
     sectionContent: ({ unifire }) => (
-      <SubEntryUniFireInferredSection
+      <UniFireInferredSection
         data={unifire}
         annotationType="comment.function"
         freeTextType="FUNCTION"
@@ -43,7 +43,7 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection.SubcellularLocation,
     label: entrySectionToLabel[EntrySection.SubcellularLocation],
     sectionContent: ({ unifire }) => (
-      <SubEntryUniFireInferredSection
+      <UniFireInferredSection
         data={unifire}
         annotationType="comment.subcellular_location"
         freeTextType="SUBCELLULAR LOCATION"
@@ -86,6 +86,20 @@ const uniParcSubEntryConfig: Record<
       <SubEntrySimilarProteinsSection
         uniparcId={data.entry.uniParcId}
         key={EntrySection.SimilarProteins}
+      />
+    ),
+  },
+  // Dedicated section for Keywords as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
+  [EntrySection.Keywords]: {
+    id: EntrySection.Keywords,
+    label: entrySectionToLabel[EntrySection.Keywords],
+    sectionContent: ({ unifire }) => (
+      <UniFireInferredSection
+        data={unifire}
+        annotationType="keyword"
+        freeTextType="KEYWORDS"
+        section={EntrySection.Keywords}
+        key={EntrySection.Keywords}
       />
     ),
   },

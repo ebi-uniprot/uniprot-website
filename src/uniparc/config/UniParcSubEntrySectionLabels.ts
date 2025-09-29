@@ -8,4 +8,5 @@ export const entrySectionToLabel = {
   [SubEntrySection.FamilyAndDomains]: 'Family And Domains',
   [SubEntrySection.Sequence]: 'Sequence',
   [SubEntrySection.SimilarProteins]: 'Similar Proteins',
+  [SubEntrySection.Keywords]: 'Keywords',
 };

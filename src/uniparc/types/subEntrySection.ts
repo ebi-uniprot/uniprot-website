@@ -6,6 +6,7 @@ enum SubEntrySection {
   FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',
   SimilarProteins = 'similar_proteins',
+  Keywords = 'keywords',
 }
 
 export type EntrySectionNameAndId = {

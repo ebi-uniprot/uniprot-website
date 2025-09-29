@@ -14,7 +14,7 @@ import { constructPredictionEvidences } from './UniFirePredictionsList';
 type Props = {
   data: UniFireModel | undefined;
   annotationType: string;
-  freeTextType: CommentType;
+  freeTextType: CommentType | string; // To be removed: 'string' type to allow 'KEYWORDS' which is not in CommentType
   section: SubEntrySection;
 };
 
