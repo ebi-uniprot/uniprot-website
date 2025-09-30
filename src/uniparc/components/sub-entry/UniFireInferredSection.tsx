@@ -15,6 +15,7 @@ type Props = {
   annotationType: string;
   freeTextType: CommentType;
   section: SubEntrySection;
+  subSection?: string;
 };
 
 const UniFireInferredSection = ({
@@ -22,6 +23,7 @@ const UniFireInferredSection = ({
   annotationType,
   freeTextType,
   section,
+  subSection,
 }: Props) => {
   const predictions = getPredictionsByType(data?.predictions, annotationType);
   if (predictions?.length) {
@@ -34,6 +36,7 @@ const UniFireInferredSection = ({
         id={section}
         data-entry-section
       >
+        {subSection ? <h3>{subSection}</h3> : null}
         {predictions.map((prediction, index) => (
           <FreeTextView
             // eslint-disable-next-line react/no-array-index-key

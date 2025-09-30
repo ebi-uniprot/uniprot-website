@@ -53,6 +53,20 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
+  [EntrySection.Interaction]: {
+    id: EntrySection.Interaction,
+    label: entrySectionToLabel[EntrySection.Interaction],
+    sectionContent: ({ unifire }) => (
+      <UniFireInferredSection
+        data={unifire}
+        annotationType="comment.subunit"
+        freeTextType="SUBUNIT"
+        section={EntrySection.Interaction}
+        subSection="Subunit"
+        key={EntrySection.Interaction}
+      />
+    ),
+  },
   [EntrySection.Structure]: {
     id: EntrySection.Structure,
     label: entrySectionToLabel[EntrySection.Structure],
