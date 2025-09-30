@@ -5,7 +5,7 @@ import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter'
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
-import UniFirePredictionsList from './UniFirePredictionsList';
+import UniFirePredictionsFreeTextViewList from './UniFirePredictionsFreeTextViewList';
 
 type Props = {
   data?: UniParcSubEntryUIModel;
@@ -37,7 +37,7 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
       {similarityPredictions && (
         <>
           <h3>Sequence similarities</h3>
-          <UniFirePredictionsList
+          <UniFirePredictionsFreeTextViewList
             annotationType="similarity"
             predictions={similarityPredictions}
             freeTextType="SIMILARITY"

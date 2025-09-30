@@ -1,3 +1,4 @@
+import { Evidence } from '../../uniprotkb/types/modelTypes';
 import { isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
   databaseToEntryType,
@@ -25,6 +26,12 @@ export type Prediction = {
 export type UniFireModel = {
   accession: string;
   predictions: Prediction[];
+};
+
+export type ModifiedPrediction = {
+  evidence: Evidence[];
+  annotationType: string;
+  annotationValue: string;
 };
 
 const uniParcSubEntryConverter = (

@@ -7,6 +7,7 @@ import {
 } from '../../../uniprotkb/types/commentTypes';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { Prediction } from '../../adapters/uniParcSubEntryConverter';
+import { constructPredictionEvidences } from '../../utils/subEntry';
 
 type Props = {
   annotationType: string;
@@ -14,19 +15,7 @@ type Props = {
   freeTextType: CommentType;
 };
 
-export const constructPredictionEvidences = (
-  evidences: string[] | undefined
-): Evidence[] => {
-  return (
-    evidences?.map((e) => ({
-      evidenceCode: 'ECO:0000256',
-      source: e.startsWith('ARBA') ? 'ARBA' : 'UniRule',
-      id: e,
-    })) || []
-  );
-};
-
-const UniFirePredictionsList = ({
+const UniFirePredictionsFreeTextViewList = ({
   annotationType,
   predictions,
   freeTextType,
@@ -60,4 +49,4 @@ const UniFirePredictionsList = ({
   return <InfoList infoData={infoData} />;
 };
 
-export default UniFirePredictionsList;
+export default UniFirePredictionsFreeTextViewList;

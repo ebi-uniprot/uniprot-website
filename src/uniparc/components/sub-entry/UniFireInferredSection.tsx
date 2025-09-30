@@ -5,11 +5,10 @@ import {
   CommentType,
   FreeTextType,
 } from '../../../uniprotkb/types/commentTypes';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { UniFireModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
-import { constructPredictionEvidences } from './UniFirePredictionsList';
+import { getPredictionsByType } from '../../utils/subEntry';
 
 type Props = {
   data: UniFireModel | undefined;
@@ -24,9 +23,7 @@ const UniFireInferredSection = ({
   freeTextType,
   section,
 }: Props) => {
-  const predictions = data?.predictions?.filter(
-    (prediction) => prediction.annotationType === annotationType
-  );
+  const predictions = getPredictionsByType(data?.predictions, annotationType);
   if (predictions?.length) {
     return (
       <Card
@@ -37,25 +34,23 @@ const UniFireInferredSection = ({
         id={section}
         data-entry-section
       >
-        {predictions.map((prediction, index) => {
-          const evidences: Evidence[] = constructPredictionEvidences(
-            prediction.evidence
-          );
-          return (
-            <FreeTextView
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              comments={[
-                {
-                  texts: [
-                    { value: prediction.annotationValue, evidences: evidences },
-                  ],
-                  commentType: freeTextType as FreeTextType,
-                },
-              ]}
-            />
-          );
-        })}
+        {predictions.map((prediction, index) => (
+          <FreeTextView
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            comments={[
+              {
+                texts: [
+                  {
+                    value: prediction.annotationValue,
+                    evidences: prediction.evidence,
+                  },
+                ],
+                commentType: freeTextType as FreeTextType,
+              },
+            ]}
+          />
+        ))}
       </Card>
     );
   }
