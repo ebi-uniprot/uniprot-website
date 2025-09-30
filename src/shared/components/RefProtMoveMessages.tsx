@@ -29,7 +29,7 @@ const rpChangesReleaseDate = 'October 2025';
 
 const UniProtKBGenericPreamble = () => (
   <>
-    The Unreviewed UniProtKB/TrEMBL database will be reduced in size in release
+    The Unreviewed UniProtKB/TrEMBL database will be reduced in size in release{' '}
     {rpChangesRelease} ({rpChangesReleaseDate}, due to the removal of
     unclassified organisms) and again in release {release} ({releaseDate}, due
     to the removal of proteins from non-reference proteomes).
