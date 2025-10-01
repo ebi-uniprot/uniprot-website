@@ -166,7 +166,7 @@ const IDMappingResultTable = ({
                       }),
                     }}
                   >
-                    Submit ID mapping job to view all{' '}
+                    Submit ID mapping job to view{' '}
                     {uniqueSuggestedUniParcIds.length} UniParc entries
                   </Link>
                 )}
