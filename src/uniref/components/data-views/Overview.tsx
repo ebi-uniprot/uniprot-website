@@ -32,7 +32,7 @@ enum MemberTypes {
 
 const MemberIcons = ({ id }: { id: string }) => {
   const { loading, data } = useDataApi<UniRefMembersResults>(
-    apiUrls.members(id, {
+    apiUrls.members(id, false, {
       facets: uniRefMembersFacets,
       size: 0,
     })
