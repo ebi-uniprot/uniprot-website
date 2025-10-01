@@ -141,7 +141,7 @@ const IDMappingResultTable = ({
                     )
                   }
                 >
-                  Download as TSV
+                  Download TSV
                 </Button>
                 {' | '}
                 {uniqueSuggestedUniParcIds.length <=
@@ -153,7 +153,7 @@ const IDMappingResultTable = ({
                     }}
                     className="button tertiary"
                   >
-                    View in UniParc
+                    View {uniqueSuggestedUniParcIds.length} UniParc entries
                   </Link>
                 ) : (
                   <Link
@@ -166,13 +166,14 @@ const IDMappingResultTable = ({
                       }),
                     }}
                   >
-                    Submit ID mapping job to view all in UniParc
+                    Submit ID mapping job to view{' '}
+                    {uniqueSuggestedUniParcIds.length} UniParc entries
                   </Link>
                 )}
               </div>
               <ExpandableList
                 descriptionString="IDs"
-                numberCollapsedItems={3}
+                numberCollapsedItems={2}
                 className={styles['expandable-list']}
               >
                 {suggestedUniParcIds?.map(({ from, to }) => (
