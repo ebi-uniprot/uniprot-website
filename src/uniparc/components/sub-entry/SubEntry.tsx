@@ -1,6 +1,7 @@
+import axios from 'axios';
 import cn from 'classnames';
 import { Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -29,12 +30,17 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
+import fetchData from '../../../shared/utils/fetchData';
+import * as logging from '../../../shared/utils/logging';
 import {
   UniParcLiteAPIModel,
   UniParcXRef,
 } from '../../adapters/uniParcConverter';
-import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
+import uniParcSubEntryConverter, {
+  UniFireModel,
+} from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
+import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
@@ -52,6 +58,8 @@ const SubEntry = () => {
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [uniFireData, setUniFireData] = useState<UniFireModel>();
+
   const { accession, subEntryId, subPage } = match?.params || {};
 
   const baseURL = `${apiUrls.entry.entry(
@@ -64,6 +72,47 @@ const SubEntry = () => {
 
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
+
+  useEffect(() => {
+    // eslint-disable-next-line import/no-named-as-default-member
+    const cancelTokenSource = axios.CancelToken.source();
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    signal.addEventListener('abort', () => {
+      cancelTokenSource.cancel('Operation canceled by the user.');
+    });
+
+    async function fetchUniFireData() {
+      if (accession && subEntryData.data?.results?.length) {
+        const subEntrytaxId = subEntryData.data.results[0].organism?.taxonId;
+        if (subEntrytaxId) {
+          try {
+            const response = await fetchData(
+              apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
+              cancelTokenSource.token
+            );
+            // It should be response.data but temporarily using response.data[0] until the API is fixed
+            if (response.data?.length) {
+              setUniFireData(response.data[0] as UniFireModel);
+            }
+          } catch (error) {
+            if (error instanceof Error) {
+              if (error.name === 'AbortError') {
+                // The operation was aborted; silently bail
+                return;
+              }
+              logging.error(error);
+            }
+          }
+        }
+      }
+    }
+
+    fetchUniFireData();
+    return () => {
+      abortController.abort();
+    };
+  }, [accession, subEntryData.data]);
 
   if (uniparcData.loading || subEntryData.loading) {
     return (
@@ -95,7 +144,8 @@ const SubEntry = () => {
 
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryData.data?.results[0]
+    subEntryData.data?.results[0],
+    uniFireData
   );
 
   if (!transformedData) {
@@ -120,7 +170,41 @@ const SubEntry = () => {
           (section.id === SubEntrySection.Structure &&
             !hasStructure(transformedData.subEntry)) ||
           (section.id === SubEntrySection.NamesAndTaxonomy &&
-            !transformedData.subEntry.proteinName),
+            !transformedData.subEntry.proteinName) ||
+          (section.id === SubEntrySection.Function &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Function).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.SubcellularLocation &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.SubcellularLocation).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Expression &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Expression).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.ProteinProcessing &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.ProteinProcessing).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Interaction &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Interaction).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Keywords &&
+            !transformedData.unifire?.predictions.some(
+              (p) => p.annotationType === 'keyword'
+            )),
       }))}
       rootElement={`.${sidebarStyles.content}`}
     />

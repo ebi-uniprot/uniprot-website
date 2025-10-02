@@ -1,17 +1,24 @@
 import { Card } from 'franklin-sites';
 import { memo } from 'react';
 
-import { UniParcUIModel } from '../../adapters/uniParcConverter';
+import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
+import UniFirePredictionsFreeTextViewList from './UniFirePredictionsFreeTextViewList';
 
 type Props = {
-  data?: Partial<UniParcUIModel>;
+  data?: UniParcSubEntryUIModel;
 };
 
 const FamilyAndDomainsSection = ({ data }: Props) => {
-  const { sequenceFeatures, sequence } = data || {};
+  const { entry, unifire } = data || {};
+  const { sequenceFeatures, sequence } = entry || {};
+
+  const similarityPredictions = unifire?.predictions.filter(
+    (p) => p.annotationType === 'comment.similarity'
+  );
+  //  TODO: comment.domain
   if (!sequenceFeatures || !sequence?.value) {
     return null;
   }
@@ -27,6 +34,16 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
       data-entry-section
     >
       <UniParcFeaturesView data={sequenceFeatures} sequence={sequence.value} />
+      {similarityPredictions && (
+        <>
+          <h3>Sequence similarities</h3>
+          <UniFirePredictionsFreeTextViewList
+            annotationType="similarity"
+            predictions={similarityPredictions}
+            freeTextType="SIMILARITY"
+          />
+        </>
+      )}
     </Card>
   );
 };
