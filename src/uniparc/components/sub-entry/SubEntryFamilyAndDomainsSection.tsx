@@ -18,7 +18,7 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
   const similarityPredictions = unifire?.predictions.filter(
     (p) => p.annotationType === 'comment.similarity'
   );
-
+  //  TODO: comment.domain
   if (!sequenceFeatures || !sequence?.value) {
     return null;
   }

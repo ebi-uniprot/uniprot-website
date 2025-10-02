@@ -51,25 +51,34 @@ const SubEntryNamesAndTaxonomySection = ({
   const { proteinName, geneName, organism, properties } = data.subEntry;
   const { predictions } = data.unifire || { predictions: [] };
 
-  // TODO: Cover all of the below cases
-  // protein.alternativeName.ecNumber
-  // protein.alternativeName.fullName
-  // protein.alternativeName.shortName
-  // protein.flag
-  // protein.recommendedName.ecNumber
-  // protein.recommendedName.fullName
-  // protein.recommendedName.shortName
-  const recommendedNamePrediction = getPredictionsByType(
+  // TODO: Handle type 'protein.flag'
+  const recommendedFullNamePrediction = getPredictionsByType(
     predictions,
     'protein.recommendedName.fullName'
+  );
+  const recommendedShortNamePrediction = getPredictionsByType(
+    predictions,
+    'protein.recommendedName.shortName'
   );
   const recommendedECPrediction = getPredictionsByType(
     predictions,
     'protein.recommendedName.ecNumber'
   );
-  const alternativeNamePrediction = getPredictionsByType(
+  const alternativeNamePrediction = getPredictionsByType(predictions, [
+    'protein.alternativeName.fullName',
+    'protein.alternativeName.shortName',
+  ]);
+  const alternativeECPrediction = getPredictionsByType(
     predictions,
-    'protein.alternativeName.fullName'
+    'protein.alternativeName.ecNumber'
+  );
+  const geneNamePrediction = getPredictionsByType(
+    predictions,
+    'gene.name.primary'
+  );
+  const geneNameSynonymsPrediction = getPredictionsByType(
+    predictions,
+    'gene.name.synonym'
   );
 
   const nameContent = (
@@ -130,7 +139,11 @@ const SubEntryNamesAndTaxonomySection = ({
     { title: 'Name', content: nameContent(proteinName, 'protein_name') },
     {
       title: 'Recommended name',
-      content: nameContent(recommendedNamePrediction, 'protein_name'),
+      content: nameContent(recommendedFullNamePrediction, 'protein_name'),
+    },
+    {
+      title: 'Short names',
+      content: nameContent(recommendedShortNamePrediction, 'protein_name'),
     },
     {
       title: 'EC number',
@@ -145,10 +158,31 @@ const SubEntryNamesAndTaxonomySection = ({
       title: 'Alternative names',
       content: nameContent(alternativeNamePrediction, 'protein_name'),
     },
+    {
+      title: 'Alternative EC number',
+      content:
+        alternativeECPrediction.length > 0
+          ? alternativeECPrediction.map((prediction, index) => (
+              <span key={index}>{prediction.annotationValue}</span>
+            ))
+          : null,
+    },
   ];
 
   const geneNameInfoData = [
-    { title: 'Name', content: geneName && nameContent(geneName, 'gene') },
+    {
+      title: 'Name',
+      content: (
+        <>
+          {geneName && nameContent(geneName, 'gene')}
+          {nameContent(geneNamePrediction, 'gene')}
+        </>
+      ),
+    },
+    {
+      title: 'Synonyms',
+      content: nameContent(geneNameSynonymsPrediction, 'gene'),
+    },
   ];
 
   const organismInfoData = [

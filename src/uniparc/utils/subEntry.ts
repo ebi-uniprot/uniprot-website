@@ -52,10 +52,10 @@ export const constructPredictionEvidences = (
   );
 };
 
-export const getPredictionsByType = (
+const filterPredictions = (
   predictions: Prediction[] | undefined,
   annotationType: string
-): ModifiedPrediction[] => {
+) => {
   return (
     predictions
       ?.filter((prediction) => prediction.annotationType === annotationType)
@@ -64,4 +64,16 @@ export const getPredictionsByType = (
         evidence: constructPredictionEvidences(prediction.evidence) || [],
       })) || []
   );
+};
+
+export const getPredictionsByType = (
+  predictions: Prediction[] | undefined,
+  annotationType: string | string[]
+): ModifiedPrediction[] => {
+  if (Array.isArray(annotationType)) {
+    return annotationType
+      .map((type) => filterPredictions(predictions, type))
+      .flat();
+  }
+  return filterPredictions(predictions, annotationType);
 };
