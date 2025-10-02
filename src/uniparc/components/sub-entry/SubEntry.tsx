@@ -40,6 +40,7 @@ import uniParcSubEntryConverter, {
   UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
+import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
@@ -169,7 +170,41 @@ const SubEntry = () => {
           (section.id === SubEntrySection.Structure &&
             !hasStructure(transformedData.subEntry)) ||
           (section.id === SubEntrySection.NamesAndTaxonomy &&
-            !transformedData.subEntry.proteinName),
+            !transformedData.subEntry.proteinName) ||
+          (section.id === SubEntrySection.Function &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Function).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.SubcellularLocation &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.SubcellularLocation).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Expression &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Expression).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.ProteinProcessing &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.ProteinProcessing).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Interaction &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Interaction).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Keywords &&
+            !transformedData.unifire?.predictions.some(
+              (p) => p.annotationType === 'keyword'
+            )),
       }))}
       rootElement={`.${sidebarStyles.content}`}
     />
