@@ -90,6 +90,7 @@
       "<rootDir>/jest.setup.ts"
     ],
     "globalSetup": "<rootDir>/jest.global.setup.ts",
+    "clearMocks": true,
     "testEnvironment": "jsdom"
   },
   "lint-staged": {
