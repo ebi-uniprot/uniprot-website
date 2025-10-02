@@ -23,8 +23,7 @@ const uniParcSubEntryConfig: Record<
     sectionContent: ({ unifire }) => (
       <UniFireInferredSection
         data={unifire}
-        annotationType="comment.function"
-        freeTextType="FUNCTION"
+        annotationTypes={['comment.function']}
         section={EntrySection.Function}
         key={EntrySection.Function}
       />
@@ -46,8 +45,7 @@ const uniParcSubEntryConfig: Record<
     sectionContent: ({ unifire }) => (
       <UniFireInferredSection
         data={unifire}
-        annotationType="comment.subcellular_location"
-        freeTextType="SUBCELLULAR LOCATION"
+        annotationTypes={['comment.subcellular_location']}
         section={EntrySection.SubcellularLocation}
         key={EntrySection.SubcellularLocation}
       />
@@ -59,10 +57,8 @@ const uniParcSubEntryConfig: Record<
     sectionContent: ({ unifire }) => (
       <UniFireInferredSection
         data={unifire}
-        annotationType="comment.subunit"
-        freeTextType="SUBUNIT"
+        annotationTypes={['comment.subunit']}
         section={EntrySection.Interaction}
-        subSection="Subunit"
         key={EntrySection.Interaction}
       />
     ),
