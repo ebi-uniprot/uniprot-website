@@ -4,6 +4,8 @@ export const entrySectionToLabel = {
   [SubEntrySection.Function]: 'Function',
   [SubEntrySection.NamesAndTaxonomy]: 'Names & Taxonomy',
   [SubEntrySection.SubcellularLocation]: 'Subcellular Location',
+  [SubEntrySection.Expression]: 'Expression',
+  [SubEntrySection.ProteinProcessing]: 'PTM/Processing',
   [SubEntrySection.Interaction]: 'Interaction',
   [SubEntrySection.Structure]: 'Structure',
   [SubEntrySection.FamilyAndDomains]: 'Family And Domains',

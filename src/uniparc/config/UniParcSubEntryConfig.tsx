@@ -7,6 +7,7 @@ import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimi
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
 import UniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
 import EntrySection from '../types/subEntrySection';
+import { groupTypesBySection } from './UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
 const uniParcSubEntryConfig: Record<
@@ -23,7 +24,7 @@ const uniParcSubEntryConfig: Record<
     sectionContent: ({ unifire }) => (
       <UniFireInferredSection
         data={unifire}
-        annotationTypes={['comment.function']}
+        annotationTypes={groupTypesBySection(EntrySection.Function)}
         section={EntrySection.Function}
         key={EntrySection.Function}
       />
@@ -45,9 +46,33 @@ const uniParcSubEntryConfig: Record<
     sectionContent: ({ unifire }) => (
       <UniFireInferredSection
         data={unifire}
-        annotationTypes={['comment.subcellular_location']}
+        annotationTypes={groupTypesBySection(EntrySection.SubcellularLocation)}
         section={EntrySection.SubcellularLocation}
         key={EntrySection.SubcellularLocation}
+      />
+    ),
+  },
+  [EntrySection.Expression]: {
+    id: EntrySection.Expression,
+    label: entrySectionToLabel[EntrySection.Expression],
+    sectionContent: ({ unifire }) => (
+      <UniFireInferredSection
+        data={unifire}
+        annotationTypes={groupTypesBySection(EntrySection.Expression)}
+        section={EntrySection.Expression}
+        key={EntrySection.Expression}
+      />
+    ),
+  },
+  [EntrySection.ProteinProcessing]: {
+    id: EntrySection.ProteinProcessing,
+    label: entrySectionToLabel[EntrySection.ProteinProcessing],
+    sectionContent: ({ unifire }) => (
+      <UniFireInferredSection
+        data={unifire}
+        annotationTypes={groupTypesBySection(EntrySection.ProteinProcessing)}
+        section={EntrySection.ProteinProcessing}
+        key={EntrySection.ProteinProcessing}
       />
     ),
   },
@@ -57,7 +82,7 @@ const uniParcSubEntryConfig: Record<
     sectionContent: ({ unifire }) => (
       <UniFireInferredSection
         data={unifire}
-        annotationTypes={['comment.subunit']}
+        annotationTypes={groupTypesBySection(EntrySection.Interaction)}
         section={EntrySection.Interaction}
         key={EntrySection.Interaction}
       />

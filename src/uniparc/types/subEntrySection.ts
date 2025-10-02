@@ -2,6 +2,8 @@ enum SubEntrySection {
   Function = 'function',
   NamesAndTaxonomy = 'names_and_taxonomy',
   SubcellularLocation = 'subcellular_location',
+  Expression = 'expression',
+  ProteinProcessing = 'ptm_processing',
   Interaction = 'interaction',
   Structure = 'structure',
   FamilyAndDomains = 'family_and_domains',

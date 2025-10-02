@@ -51,6 +51,14 @@ const SubEntryNamesAndTaxonomySection = ({
   const { proteinName, geneName, organism, properties } = data.subEntry;
   const { predictions } = data.unifire || { predictions: [] };
 
+  // TODO: Cover all of the below cases
+  // protein.alternativeName.ecNumber
+  // protein.alternativeName.fullName
+  // protein.alternativeName.shortName
+  // protein.flag
+  // protein.recommendedName.ecNumber
+  // protein.recommendedName.fullName
+  // protein.recommendedName.shortName
   const recommendedNamePrediction = getPredictionsByType(
     predictions,
     'protein.recommendedName.fullName'
