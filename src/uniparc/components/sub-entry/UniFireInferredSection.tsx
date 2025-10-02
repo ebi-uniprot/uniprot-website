@@ -1,25 +1,15 @@
 import { Card } from 'franklin-sites';
 
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
-import {
-  CommentType,
-  FreeTextType,
-} from '../../../uniprotkb/types/commentTypes';
+import { FreeTextType } from '../../../uniprotkb/types/commentTypes';
 import {
   ModifiedPrediction,
   UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
+import annotationTypeToSection from '../../config/UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import { getPredictionsByType } from '../../utils/subEntry';
-
-const annotationTypeToFreeTextTypeMap: Map<string, FreeTextType | CommentType> =
-  new Map([
-    ['comment.function', 'FUNCTION'],
-    ['comment.subcellular_location', 'SUBCELLULAR LOCATION'],
-    ['comment.subunit', 'SUBUNIT'],
-    ['comment.similarity', 'SIMILARITY'],
-  ]);
 
 type Props = {
   data: UniFireModel | undefined;
@@ -49,7 +39,9 @@ const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
             {predictions?.length ? (
               <>
                 {/* TODO: Add help */}
-                <h3>{type}</h3>
+                {annotationTypeToSection[type].subSectionLabel ? (
+                  <h3>{annotationTypeToSection[type].subSectionLabel}</h3>
+                ) : null}
                 {predictions.map((prediction, index) => (
                   <FreeTextView
                     // eslint-disable-next-line react/no-array-index-key
@@ -62,9 +54,8 @@ const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
                             evidences: prediction.evidence,
                           },
                         ],
-                        commentType: annotationTypeToFreeTextTypeMap.get(
-                          type
-                        ) as FreeTextType,
+                        commentType: annotationTypeToSection[type]
+                          .freeTextType as FreeTextType,
                       },
                     ]}
                   />
