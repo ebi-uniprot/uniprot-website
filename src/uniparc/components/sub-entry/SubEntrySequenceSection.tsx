@@ -1,13 +1,17 @@
-import { Card, LongNumber, Sequence } from 'franklin-sites';
+import { Card, InfoList, LongNumber, Sequence } from 'franklin-sites';
+import { Fragment } from 'react/jsx-runtime';
 import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { uniParcTools } from '../../../shared/components/common-sequence/CommonSequenceView';
 import helper from '../../../shared/styles/helper.module.scss';
 import { hasContent } from '../../../shared/utils/utils';
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
+import { constructPredictionEvidences } from '../../utils/subEntry';
 
 const SubEntrySequenceSection = ({
   data,
@@ -42,11 +46,44 @@ const SubEntrySequenceSection = ({
   const sourceDatabases = data.subEntry.properties?.filter(
     (property) => property.key === 'sources'
   );
+
+  const flagPredictions =
+    data.unifire?.predictions.filter(
+      (p) => p.annotationType === 'protein.flag'
+    ) || [];
+
   return (
     <Card
       header={<h2>{entrySectionToLabel[EntrySection.Sequence]}</h2>}
       id={EntrySection.Sequence}
     >
+      {flagPredictions.length ? (
+        <InfoList
+          infoData={[
+            {
+              title: (
+                <span data-article-id="sequence_status">Sequence status</span>
+              ),
+              content: (
+                <div>
+                  {flagPredictions.map((p, index) => {
+                    const evidences: Evidence[] = constructPredictionEvidences(
+                      p.evidence
+                    );
+                    return (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <Fragment key={index}>
+                        {p.annotationValue}
+                        <UniProtKBEvidenceTag evidences={evidences} />
+                      </Fragment>
+                    );
+                  })}
+                </div>
+              ),
+            },
+          ]}
+        />
+      ) : null}
       <Sequence
         accession={data.entry.uniParcId}
         sequence={sequence.value}

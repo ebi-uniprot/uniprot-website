@@ -20,33 +20,34 @@ const UniFirePredictionsFreeTextViewList = ({
   predictions,
   freeTextType,
 }: Props) => {
-  const infoData = predictions.map((prediction, index) => {
+  const infoDataContent = predictions.map((prediction, index) => {
     const evidences: Evidence[] = constructPredictionEvidences(
       prediction.evidence
     );
-    return {
-      title: annotationType,
-      content: (
-        <FreeTextView
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          comments={[
-            {
-              texts: [
-                {
-                  value: prediction.annotationValue,
-                  evidences: evidences,
-                },
-              ],
-              commentType: freeTextType as FreeTextType,
-            },
-          ]}
-        />
-      ),
-    };
+    return (
+      <FreeTextView
+        // eslint-disable-next-line react/no-array-index-key
+        key={index}
+        comments={[
+          {
+            texts: [
+              {
+                value: prediction.annotationValue,
+                evidences: evidences,
+              },
+            ],
+            commentType: freeTextType as FreeTextType,
+          },
+        ]}
+      />
+    );
   });
 
-  return <InfoList infoData={infoData} />;
+  return (
+    <InfoList
+      infoData={[{ title: annotationType, content: infoDataContent }]}
+    />
+  );
 };
 
 export default UniFirePredictionsFreeTextViewList;

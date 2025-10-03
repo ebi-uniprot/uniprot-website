@@ -150,7 +150,7 @@ const SubEntryNamesAndTaxonomySection = ({
       content:
         recommendedECPrediction.length > 0
           ? recommendedECPrediction.map((prediction, index) => (
-              <span key={index}>{prediction.annotationValue}</span>
+              <div key={index}>{prediction.annotationValue}</div>
             ))
           : null,
     },
@@ -163,7 +163,7 @@ const SubEntryNamesAndTaxonomySection = ({
       content:
         alternativeECPrediction.length > 0
           ? alternativeECPrediction.map((prediction, index) => (
-              <span key={index}>{prediction.annotationValue}</span>
+              <div key={index}>{prediction.annotationValue}</div>
             ))
           : null,
     },
