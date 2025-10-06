@@ -10,8 +10,11 @@ export const reUniProtKBAccessionWithIsoform = new RegExp(
 export const reUniRefAccession = /UniRef(?:50|90|100)_[\w|-]+/i;
 export const reUniParc = /UPI[\w]{10}/i;
 
-export const reAC = new RegExp(`AC ${reUniProtKBAccession.source}`, 'i');
-export const reACCapture = new RegExp(
+export const reACNoneCapture = new RegExp(
+  `AC ${reUniProtKBAccession.source}`,
+  'i'
+);
+export const reAC = new RegExp(
   `AC (?<uniprotkbAccession>${reUniProtKBAccession.source})`,
   'i'
 );
@@ -32,8 +35,23 @@ const reDbSnpNonCapture = new RegExp(`dbSNP:${reDbSnpID.source}`, 'i');
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
+// Tokens that can be embedded within word characters
+const tokensWithinText = `(?:${[
+  reSubscript.source,
+  reSuperscript.source,
+  reIsoform.source,
+  'By similarity',
+].join('|')})`;
+
+// Tokens that must be delimited eg shouldn't find P05067 within AP05067_
+const tokensOutsideText = `(?:(?<=^|\\W)(?:${[
+  rePubMedNonCapture.source,
+  reACNoneCapture.source,
+  reDbSnpNonCapture.source,
+].join('|')})(?=\\W|$))`;
+
 const reNeedsTextProcessing = new RegExp(
-  `(?<=^|\\W)(${rePubMedNonCapture.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnpNonCapture.source})(?=\\W|$)`,
+  `(${tokensWithinText}|${tokensOutsideText})`,
   'i'
 );
 
