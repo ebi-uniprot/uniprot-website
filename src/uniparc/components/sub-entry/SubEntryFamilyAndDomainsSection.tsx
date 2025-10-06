@@ -5,9 +5,11 @@ import {
   ModifiedPrediction,
   UniParcSubEntryUIModel,
 } from '../../adapters/uniParcSubEntryConverter';
+import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
+import SubEntryFeaturesView from './SubEntryFeaturesView';
 import UniFirePredictionsFreeTextViewList from './UniFirePredictionsFreeTextViewList';
 
 type Props = {
@@ -21,6 +23,20 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
   const similarityPredictions = unifire?.predictions?.filter(
     (p) => p.annotationType === 'comment.similarity'
   );
+
+  const familyAndDomainFeatureTypes = groupTypesBySection(
+    SubEntrySection.FamilyAndDomains
+  ).filter((type) => type.startsWith('feature'));
+
+  const featurePredictions = familyAndDomainFeatureTypes
+    .map((featureType) =>
+      (unifire?.predictions as ModifiedPrediction[])?.filter(
+        (p) => p.annotationType === featureType
+      )
+    )
+    .filter(Boolean)
+    .flat();
+
   //  TODO: comment.domain
   if (!sequenceFeatures || !sequence?.value) {
     return null;
@@ -36,6 +52,12 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
       id={SubEntrySection.FamilyAndDomains}
       data-entry-section
     >
+      {featurePredictions.length ? (
+        <SubEntryFeaturesView
+          sequence={sequence.value}
+          predictions={featurePredictions}
+        />
+      ) : null}
       <UniParcFeaturesView data={sequenceFeatures} sequence={sequence.value} />
       {similarityPredictions && (
         <>

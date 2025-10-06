@@ -10,6 +10,7 @@ type SectionObject = {
 };
 
 // AnnotationTypes yet to add
+// comment.domain
 // xref.GO
 // feature.METAL
 // feature.NP_BIND
