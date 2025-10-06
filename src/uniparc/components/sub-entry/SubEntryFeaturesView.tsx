@@ -10,13 +10,15 @@ import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-vie
 import FeatureType from '../../../uniprotkb/types/featureType';
 import { sortByLocation } from '../../../uniprotkb/utils';
 import { ModifiedPrediction } from '../../adapters/uniParcSubEntryConverter';
+import annotationTypeToSection from '../../config/UniFireAnnotationTypeToSection';
 
 // Convert data
 export const convertData = (data: ModifiedPrediction[]): ProcessedFeature[] =>
   data
     .flatMap((prediction) => ({
       accession: v1(), // there is no accession
-      type: prediction.annotationType as FeatureType,
+      type: annotationTypeToSection[prediction.annotationType]
+        .featureType as FeatureType,
       start: Number(prediction.start),
       end: Number(prediction.end),
       description: prediction.annotationValue,
