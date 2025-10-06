@@ -21,9 +21,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Function]: {
     id: EntrySection.Function,
     label: entrySectionToLabel[EntrySection.Function],
-    sectionContent: ({ unifire }) => (
+    sectionContent: (data) => (
       <UniFireInferredSection
-        data={unifire}
+        data={data}
         annotationTypes={groupTypesBySection(EntrySection.Function)}
         section={EntrySection.Function}
         key={EntrySection.Function}
@@ -43,9 +43,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.SubcellularLocation]: {
     id: EntrySection.SubcellularLocation,
     label: entrySectionToLabel[EntrySection.SubcellularLocation],
-    sectionContent: ({ unifire }) => (
+    sectionContent: (data) => (
       <UniFireInferredSection
-        data={unifire}
+        data={data}
         annotationTypes={groupTypesBySection(EntrySection.SubcellularLocation)}
         section={EntrySection.SubcellularLocation}
         key={EntrySection.SubcellularLocation}
@@ -55,9 +55,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Expression]: {
     id: EntrySection.Expression,
     label: entrySectionToLabel[EntrySection.Expression],
-    sectionContent: ({ unifire }) => (
+    sectionContent: (data) => (
       <UniFireInferredSection
-        data={unifire}
+        data={data}
         annotationTypes={groupTypesBySection(EntrySection.Expression)}
         section={EntrySection.Expression}
         key={EntrySection.Expression}
@@ -67,9 +67,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.ProteinProcessing]: {
     id: EntrySection.ProteinProcessing,
     label: entrySectionToLabel[EntrySection.ProteinProcessing],
-    sectionContent: ({ unifire }) => (
+    sectionContent: (data) => (
       <UniFireInferredSection
-        data={unifire}
+        data={data}
         annotationTypes={groupTypesBySection(EntrySection.ProteinProcessing)}
         section={EntrySection.ProteinProcessing}
         key={EntrySection.ProteinProcessing}
@@ -79,9 +79,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Interaction]: {
     id: EntrySection.Interaction,
     label: entrySectionToLabel[EntrySection.Interaction],
-    sectionContent: ({ unifire }) => (
+    sectionContent: (data) => (
       <UniFireInferredSection
-        data={unifire}
+        data={data}
         annotationTypes={groupTypesBySection(EntrySection.Interaction)}
         section={EntrySection.Interaction}
         key={EntrySection.Interaction}

@@ -78,7 +78,9 @@ const annotationTypeToSection: Record<string, SectionObject> = {
   },
   'feature.REGION': {
     section: SubEntrySection.FamilyAndDomains,
-    subSectionLabel: 'Features',
+  },
+  'feature.DISULFID': {
+    section: SubEntrySection.ProteinProcessing,
   },
 };
 

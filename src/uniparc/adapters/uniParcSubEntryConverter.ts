@@ -21,6 +21,8 @@ export type Prediction = {
   evidence: string[];
   annotationType: string;
   annotationValue: string;
+  start?: number;
+  end?: number;
 };
 
 export type UniFireModel = {
@@ -28,12 +30,8 @@ export type UniFireModel = {
   predictions: Prediction[] | ModifiedPrediction[];
 };
 
-export type ModifiedPrediction = {
+export type ModifiedPrediction = Prediction & {
   evidence: Evidence[];
-  annotationType: string;
-  annotationValue: string;
-  type?: string;
-  description?: string;
 };
 
 const constructPredictionEvidences = (
@@ -74,12 +72,11 @@ const uniParcSubEntryConverter = (
   if (uniFireData?.predictions) {
     const modifiedPredictions = uniFireData.predictions.map((prediction) => ({
       ...prediction,
-      type: prediction.annotationType,
-      evidence:
-        constructPredictionEvidences(prediction.evidence as string[]) || [],
-      description: prediction.annotationValue,
+      evidence: constructPredictionEvidences(
+        prediction.evidence as string[]
+      ) as Evidence[],
     }));
-    uniFireData.predictions = [...modifiedPredictions];
+    uniFireData.predictions = modifiedPredictions as ModifiedPrediction[];
   }
 
   return {

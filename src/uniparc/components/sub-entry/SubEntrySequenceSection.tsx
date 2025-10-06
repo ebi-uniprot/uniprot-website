@@ -70,7 +70,7 @@ const SubEntrySequenceSection = ({
                     <Fragment key={index}>
                       {p.annotationValue}
                       <UniProtKBEvidenceTag
-                        evidences={p.evidence as Evidence[]}
+                        evidences={p.evidence as unknown as Evidence[]}
                       />
                     </Fragment>
                   ))}
