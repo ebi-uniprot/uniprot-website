@@ -3,7 +3,7 @@ import SubEntrySection from '../types/subEntrySection';
 
 type SectionObject = {
   section: SubEntrySection;
-  freeTextType: FreeTextType | CommentType;
+  freeTextType?: FreeTextType | CommentType;
   subSectionLabel?: string;
 };
 
@@ -71,6 +71,14 @@ const annotationTypeToSection: Record<string, SectionObject> = {
     section: SubEntrySection.FamilyAndDomains,
     freeTextType: 'SIMILARITY',
     subSectionLabel: 'Sequence similarities',
+  },
+  'feature.ACT_SITE': {
+    section: SubEntrySection.Function,
+    subSectionLabel: 'Features',
+  },
+  'feature.REGION': {
+    section: SubEntrySection.FamilyAndDomains,
+    subSectionLabel: 'Features',
   },
 };
 

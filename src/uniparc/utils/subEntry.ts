@@ -1,11 +1,6 @@
 import { generatePath } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
-import { Evidence } from '../../uniprotkb/types/modelTypes';
-import {
-  ModifiedPrediction,
-  Prediction,
-} from '../adapters/uniParcSubEntryConverter';
 
 export const getSubEntryPath = (
   accession: string,
@@ -38,42 +33,4 @@ export const getSubEntryProteomes = (
     });
   }
   return proteomeComponentObject;
-};
-
-export const constructPredictionEvidences = (
-  evidences: string[] | undefined
-): Evidence[] => {
-  return (
-    evidences?.map((e) => ({
-      evidenceCode: 'ECO:0000256',
-      source: e.startsWith('ARBA') ? 'ARBA' : 'UniRule',
-      id: e,
-    })) || []
-  );
-};
-
-const filterPredictions = (
-  predictions: Prediction[] | undefined,
-  annotationType: string
-) => {
-  return (
-    predictions
-      ?.filter((prediction) => prediction.annotationType === annotationType)
-      .map((prediction) => ({
-        ...prediction,
-        evidence: constructPredictionEvidences(prediction.evidence) || [],
-      })) || []
-  );
-};
-
-export const getPredictionsByType = (
-  predictions: Prediction[] | undefined,
-  annotationType: string | string[]
-): ModifiedPrediction[] => {
-  if (Array.isArray(annotationType)) {
-    return annotationType
-      .map((type) => filterPredictions(predictions, type))
-      .flat();
-  }
-  return filterPredictions(predictions, annotationType);
 };

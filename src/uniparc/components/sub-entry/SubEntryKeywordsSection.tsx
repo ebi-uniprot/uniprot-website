@@ -3,15 +3,20 @@ import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import { UniFireModel } from '../../adapters/uniParcSubEntryConverter';
-import { getPredictionsByType } from '../../utils/subEntry';
+import {
+  ModifiedPrediction,
+  UniFireModel,
+} from '../../adapters/uniParcSubEntryConverter';
 
 type Props = {
   data: UniFireModel | undefined;
 };
 
 const SubEntryKeywordsSection = ({ data }: Props) => {
-  const predictions = getPredictionsByType(data?.predictions, 'keyword');
+  const predictions =
+    (data?.predictions as ModifiedPrediction[])?.filter(
+      (prediction) => prediction.annotationType === 'keyword'
+    ) || [];
   if (predictions?.length) {
     return (
       <Card header={<h2>Keywords</h2>} id="keywords" data-entry-section>

@@ -9,7 +9,6 @@ import {
 import annotationTypeToSection from '../../config/UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
-import { getPredictionsByType } from '../../utils/subEntry';
 
 type Props = {
   data: UniFireModel | undefined;
@@ -21,7 +20,10 @@ const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
   const predictionsByType: Record<string, ModifiedPrediction[] | undefined> =
     {};
   annotationTypes.forEach((type) => {
-    predictionsByType[type] = getPredictionsByType(data?.predictions, type);
+    predictionsByType[type] =
+      (data?.predictions as ModifiedPrediction[])?.filter(
+        (prediction) => prediction.annotationType === type
+      ) || [];
   });
 
   if (Object.values(predictionsByType).flat().length) {

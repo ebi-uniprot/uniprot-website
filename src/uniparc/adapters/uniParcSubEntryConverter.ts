@@ -25,13 +25,32 @@ export type Prediction = {
 
 export type UniFireModel = {
   accession: string;
-  predictions: Prediction[];
+  predictions: Prediction[] | ModifiedPrediction[];
 };
 
 export type ModifiedPrediction = {
   evidence: Evidence[];
   annotationType: string;
   annotationValue: string;
+  type?: string;
+  description?: string;
+};
+
+const constructPredictionEvidences = (
+  evidences: string[] | undefined
+): Evidence[] => {
+  return (
+    evidences?.map((e) => {
+      if (typeof e === 'string') {
+        return {
+          evidenceCode: 'ECO:0000256',
+          source: e.startsWith('ARBA') ? 'ARBA' : 'UniRule',
+          id: e,
+        };
+      }
+      return e;
+    }) || []
+  );
 };
 
 const uniParcSubEntryConverter = (
@@ -51,6 +70,17 @@ const uniParcSubEntryConverter = (
 
   const isSource = isSourceDatabase(subEntryData.database);
   const source = isSource ? undefined : subEntryData;
+
+  if (uniFireData?.predictions) {
+    const modifiedPredictions = uniFireData.predictions.map((prediction) => ({
+      ...prediction,
+      type: prediction.annotationType,
+      evidence:
+        constructPredictionEvidences(prediction.evidence as string[]) || [],
+      description: prediction.annotationValue,
+    }));
+    uniFireData.predictions = [...modifiedPredictions];
+  }
 
   return {
     entry: transformedEntryData,

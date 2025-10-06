@@ -23,10 +23,7 @@ import {
 } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
-import {
-  getPredictionsByType,
-  getSubEntryProteomes,
-} from '../../utils/subEntry';
+import { getSubEntryProteomes } from '../../utils/subEntry';
 
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
@@ -52,34 +49,51 @@ const SubEntryNamesAndTaxonomySection = ({
   const { predictions } = data.unifire || { predictions: [] };
 
   // TODO: Handle type 'protein.flag'
-  const recommendedFullNamePrediction = getPredictionsByType(
-    predictions,
-    'protein.recommendedName.fullName'
-  );
-  const recommendedShortNamePrediction = getPredictionsByType(
-    predictions,
-    'protein.recommendedName.shortName'
-  );
-  const recommendedECPrediction = getPredictionsByType(
-    predictions,
-    'protein.recommendedName.ecNumber'
-  );
-  const alternativeNamePrediction = getPredictionsByType(predictions, [
+  const recommendedFullNamePrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.recommendedName.fullName'
+    ) || [];
+
+  const recommendedShortNamePrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.recommendedName.shortName'
+    ) || [];
+
+  const recommendedECPrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.recommendedName.ecNumber'
+    ) || [];
+
+  const alternativeNamePrediction = [
     'protein.alternativeName.fullName',
     'protein.alternativeName.shortName',
-  ]);
-  const alternativeECPrediction = getPredictionsByType(
-    predictions,
-    'protein.alternativeName.ecNumber'
-  );
-  const geneNamePrediction = getPredictionsByType(
-    predictions,
-    'gene.name.primary'
-  );
-  const geneNameSynonymsPrediction = getPredictionsByType(
-    predictions,
-    'gene.name.synonym'
-  );
+  ]
+    .map(
+      (type) =>
+        (predictions as ModifiedPrediction[])?.filter(
+          (prediction) => prediction.annotationType === type
+        ) || []
+    )
+    .flat();
+
+  const alternativeECPrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.alternativeName.ecNumber'
+    ) || [];
+
+  const geneNamePrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) => prediction.annotationType === 'gene.name.primary'
+    ) || [];
+
+  const geneNameSynonymsPrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) => prediction.annotationType === 'gene.name.synonym'
+    ) || [];
 
   const nameContent = (
     predictions: ModifiedPrediction[] | string,

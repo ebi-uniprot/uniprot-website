@@ -5,13 +5,11 @@ import {
   CommentType,
   FreeTextType,
 } from '../../../uniprotkb/types/commentTypes';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import { Prediction } from '../../adapters/uniParcSubEntryConverter';
-import { constructPredictionEvidences } from '../../utils/subEntry';
+import { ModifiedPrediction } from '../../adapters/uniParcSubEntryConverter';
 
 type Props = {
   annotationType: string;
-  predictions: Prediction[];
+  predictions: ModifiedPrediction[];
   freeTextType: CommentType;
 };
 
@@ -21,9 +19,6 @@ const UniFirePredictionsFreeTextViewList = ({
   freeTextType,
 }: Props) => {
   const infoDataContent = predictions.map((prediction, index) => {
-    const evidences: Evidence[] = constructPredictionEvidences(
-      prediction.evidence
-    );
     return (
       <FreeTextView
         // eslint-disable-next-line react/no-array-index-key
@@ -33,7 +28,7 @@ const UniFirePredictionsFreeTextViewList = ({
             texts: [
               {
                 value: prediction.annotationValue,
-                evidences: evidences,
+                evidences: prediction.evidence,
               },
             ],
             commentType: freeTextType as FreeTextType,

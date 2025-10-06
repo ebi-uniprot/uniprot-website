@@ -1,7 +1,10 @@
 import { Card } from 'franklin-sites';
 import { memo } from 'react';
 
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import {
+  ModifiedPrediction,
+  UniParcSubEntryUIModel,
+} from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
@@ -15,7 +18,7 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
   const { entry, unifire } = data || {};
   const { sequenceFeatures, sequence } = entry || {};
 
-  const similarityPredictions = unifire?.predictions.filter(
+  const similarityPredictions = unifire?.predictions?.filter(
     (p) => p.annotationType === 'comment.similarity'
   );
   //  TODO: comment.domain
@@ -39,7 +42,7 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
           <h3>Sequence similarities</h3>
           <UniFirePredictionsFreeTextViewList
             annotationType="similarity"
-            predictions={similarityPredictions}
+            predictions={similarityPredictions as ModifiedPrediction[]}
             freeTextType="SIMILARITY"
           />
         </>

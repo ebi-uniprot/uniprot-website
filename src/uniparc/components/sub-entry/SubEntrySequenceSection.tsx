@@ -11,7 +11,6 @@ import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
-import { constructPredictionEvidences } from '../../utils/subEntry';
 
 const SubEntrySequenceSection = ({
   data,
@@ -66,18 +65,15 @@ const SubEntrySequenceSection = ({
               ),
               content: (
                 <div>
-                  {flagPredictions.map((p, index) => {
-                    const evidences: Evidence[] = constructPredictionEvidences(
-                      p.evidence
-                    );
-                    return (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <Fragment key={index}>
-                        {p.annotationValue}
-                        <UniProtKBEvidenceTag evidences={evidences} />
-                      </Fragment>
-                    );
-                  })}
+                  {flagPredictions.map((p, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Fragment key={index}>
+                      {p.annotationValue}
+                      <UniProtKBEvidenceTag
+                        evidences={p.evidence as Evidence[]}
+                      />
+                    </Fragment>
+                  ))}
                 </div>
               ),
             },
