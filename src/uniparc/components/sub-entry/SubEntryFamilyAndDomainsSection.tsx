@@ -1,11 +1,14 @@
 import { Card } from 'franklin-sites';
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 
+import { CommentType } from '../../../uniprotkb/types/commentTypes';
 import {
   ModifiedPrediction,
   UniParcSubEntryUIModel,
 } from '../../adapters/uniParcSubEntryConverter';
-import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
+import annotationTypeToSection, {
+  groupTypesBySection,
+} from '../../config/UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
@@ -20,9 +23,18 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
   const { entry, unifire } = data || {};
   const { sequenceFeatures, sequence } = entry || {};
 
-  const similarityPredictions = unifire?.predictions?.filter(
-    (p) => p.annotationType === 'comment.similarity'
-  );
+  const familyAndDomainSubsections = groupTypesBySection(
+    SubEntrySection.FamilyAndDomains
+  ).filter((type) => type.startsWith('comment'));
+
+  const commentPredictions = familyAndDomainSubsections
+    .map((commentType) =>
+      (unifire?.predictions as ModifiedPrediction[])?.filter(
+        (p) => p.annotationType === commentType
+      )
+    )
+    .filter(Boolean)
+    .flat();
 
   const familyAndDomainFeatureTypes = groupTypesBySection(
     SubEntrySection.FamilyAndDomains
@@ -37,7 +49,6 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
     .filter(Boolean)
     .flat();
 
-  //  TODO: comment.domain
   if (!sequenceFeatures || !sequence?.value) {
     return null;
   }
@@ -59,16 +70,26 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
         />
       ) : null}
       <UniParcFeaturesView data={sequenceFeatures} sequence={sequence.value} />
-      {similarityPredictions && (
-        <>
-          <h3>Sequence similarities</h3>
-          <UniFirePredictionsFreeTextViewList
-            annotationType="similarity"
-            predictions={similarityPredictions as ModifiedPrediction[]}
-            freeTextType="SIMILARITY"
-          />
-        </>
-      )}
+      {commentPredictions.length
+        ? commentPredictions.map((p) => (
+            <Fragment key={p.annotationType}>
+              <h3>
+                {annotationTypeToSection[p.annotationType].subSectionLabel}
+              </h3>
+              <UniFirePredictionsFreeTextViewList
+                annotationType={(
+                  annotationTypeToSection[p.annotationType]
+                    .freeTextType as string
+                )?.toLowerCase()}
+                predictions={[p]}
+                freeTextType={
+                  annotationTypeToSection[p.annotationType]
+                    .freeTextType as CommentType
+                }
+              />
+            </Fragment>
+          ))
+        : null}
     </Card>
   );
 };
