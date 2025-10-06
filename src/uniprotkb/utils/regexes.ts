@@ -10,7 +10,7 @@ export const reUniProtKBAccessionWithIsoform = new RegExp(
 export const reUniRefAccession = /UniRef(?:50|90|100)_[\w|-]+/i;
 export const reUniParc = /UPI[\w]{10}/i;
 
-export const reACNoneCapture = new RegExp(
+export const reACNonCapture = new RegExp(
   `AC ${reUniProtKBAccession.source}`,
   'i'
 );
@@ -46,7 +46,7 @@ const tokensWithinText = `(?:${[
 // Tokens that must be delimited eg shouldn't find P05067 within AP05067_
 const tokensOutsideText = `(?:(?<=^|\\W)(?:${[
   rePubMedNonCapture.source,
-  reACNoneCapture.source,
+  reACNonCapture.source,
   reDbSnpNonCapture.source,
 ].join('|')})(?=\\W|$))`;
 
