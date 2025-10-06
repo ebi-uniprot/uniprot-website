@@ -1,11 +1,18 @@
 import { CommentType, FreeTextType } from '../../uniprotkb/types/commentTypes';
+import FeatureType from '../../uniprotkb/types/featureType';
 import SubEntrySection from '../types/subEntrySection';
 
 type SectionObject = {
   section: SubEntrySection;
   freeTextType?: FreeTextType | CommentType;
   subSectionLabel?: string;
+  featureType?: FeatureType;
 };
+
+// AnnotationTypes yet to add
+// xref.GO
+// feature.METAL
+// feature.NP_BIND
 
 const annotationTypeToSection: Record<string, SectionObject> = {
   'comment.function': {
@@ -42,7 +49,6 @@ const annotationTypeToSection: Record<string, SectionObject> = {
     freeTextType: 'PATHWAY',
     subSectionLabel: 'Pathway',
   },
-
   'comment.subcellular_location': {
     section: SubEntrySection.SubcellularLocation,
     freeTextType: 'SUBCELLULAR LOCATION',
@@ -74,13 +80,99 @@ const annotationTypeToSection: Record<string, SectionObject> = {
   },
   'feature.ACT_SITE': {
     section: SubEntrySection.Function,
-    subSectionLabel: 'Features',
+    featureType: 'Active site',
+  },
+  'feature.BINDING': {
+    section: SubEntrySection.Function,
+    featureType: 'Binding site',
+  },
+  'feature.DNA_BIND': {
+    section: SubEntrySection.Function,
+    featureType: 'DNA binding',
+  },
+  'feature.SITE': {
+    section: SubEntrySection.Function,
+    featureType: 'Site',
+  },
+  'feature.TOPO_DOM': {
+    section: SubEntrySection.SubcellularLocation,
+    featureType: 'Topological domain',
+  },
+  'feature.INTRAMEM': {
+    section: SubEntrySection.SubcellularLocation,
+    featureType: 'Intramembrane',
+  },
+  'feature.TRANSMEM': {
+    section: SubEntrySection.SubcellularLocation,
+    featureType: 'Transmembrane',
+  },
+  'feature.MOTIF': {
+    section: SubEntrySection.FamilyAndDomains,
+    featureType: 'Motif',
+  },
+  'feature.REPEAT': {
+    section: SubEntrySection.FamilyAndDomains,
+    featureType: 'Repeat',
   },
   'feature.REGION': {
     section: SubEntrySection.FamilyAndDomains,
+    featureType: 'Region',
+  },
+  'feature.ZN_FING': {
+    section: SubEntrySection.FamilyAndDomains,
+    featureType: 'Zinc finger',
+  },
+  'feature.COILED': {
+    section: SubEntrySection.FamilyAndDomains,
+    featureType: 'Coiled coil',
+  },
+  'feature.DOMAIN': {
+    section: SubEntrySection.FamilyAndDomains,
+    featureType: 'Domain',
+  },
+  'feature.feature.CHAIN': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Chain',
   },
   'feature.DISULFID': {
     section: SubEntrySection.ProteinProcessing,
+    featureType: 'Disulfide bond',
+  },
+  'feature.INIT_MET': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Initiator methionine',
+  },
+  'feature.MOD_RES': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Modified residue',
+  },
+  'feature.CARBOHYD': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Glycosylation',
+  },
+  'feature.LIPID': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Lipidation',
+  },
+  'feature.PEPTIDE': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Peptide',
+  },
+  'feature.PROPEP': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Propeptide',
+  },
+  'feature.SIGNAL': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Signal',
+  },
+  'feature.TRANSIT': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Transit peptide',
+  },
+  'feature.CROSSLNK': {
+    section: SubEntrySection.ProteinProcessing,
+    featureType: 'Cross-link',
   },
 };
 
