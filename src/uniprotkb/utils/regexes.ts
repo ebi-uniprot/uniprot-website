@@ -10,7 +10,11 @@ export const reUniProtKBAccessionWithIsoform = new RegExp(
 export const reUniRefAccession = /UniRef(?:50|90|100)_[\w|-]+/i;
 export const reUniParc = /UPI[\w]{10}/i;
 
-export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
+export const reAC = new RegExp(`AC ${reUniProtKBAccession.source}`, 'i');
+export const reACCapture = new RegExp(
+  `AC (?<uniprotkbAccession>${reUniProtKBAccession.source})`,
+  'i'
+);
 export const reIsoform = /\bisoform [\w-]+/i;
 
 const rePubMedID = /\d{7,8}/;
@@ -29,7 +33,7 @@ export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
 const reNeedsTextProcessing = new RegExp(
-  `(${rePubMedNonCapture.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnpNonCapture.source})`,
+  `(?<=^|\\W)(${rePubMedNonCapture.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnpNonCapture.source})(?=\\W|$)`,
   'i'
 );
 
