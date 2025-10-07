@@ -88,12 +88,13 @@ const SubEntry = () => {
         if (subEntrytaxId) {
           try {
             const response = await fetchData(
-              apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
+              // Below line should be uncommented once the data is returned as JSON instead of JSON array
+              // apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
+              `http://hh-rke-wp-webadmin-74-worker-4.caas.ebi.ac.uk:32324/uniprotkb/unifire/run?id=${accession}&taxId=${subEntrytaxId}`,
               cancelTokenSource.token
             );
-            // It should be response.data but temporarily using response.data[0] until the API is fixed
-            if (response.data?.length) {
-              setUniFireData(response.data[0] as UniFireModel);
+            if (response.data) {
+              setUniFireData(response.data as UniFireModel);
             }
           } catch (error) {
             if (error instanceof Error) {
