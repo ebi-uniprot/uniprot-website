@@ -44,6 +44,7 @@ const tokensWithinText = `(?:${[
 ].join('|')})`;
 
 // Tokens that must be delimited eg shouldn't find P05067 within AP05067_
+// Lookbehind and lookahead now supported by Safari (and all other major browsers)
 const tokensOutsideText = `(?:(?<=^|\\W)(?:${[
   rePubMedNonCapture.source,
   reACNonCapture.source,
@@ -56,8 +57,5 @@ const reNeedsTextProcessing = new RegExp(
 );
 
 export const getTextProcessingParts = (s?: string) =>
-  // Capturing group will allow split to conserve that bit in the split parts
-  // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
-  // it is not supported in Safari yet. It's OK, we just get more chunks when splitting.
-  // For now don't use capture groups in reNeedsTextProcessing
+  // Don't use capture groups in reNeedsTextProcessing
   s?.split(reNeedsTextProcessing);
