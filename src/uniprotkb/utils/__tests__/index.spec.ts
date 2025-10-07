@@ -37,6 +37,12 @@ const testCases: [string, string[]][] = [
     'in CAA-APP; Italian type; dbSNP:rs63750921',
     ['in CAA-APP; Italian type; ', 'dbSNP:rs63750921', ''],
   ],
+  [
+    'Was originally thought to be the product of one gene (ARTEMIS) that in fact corresponds to two separate genes At1g24485 and At1g24490.',
+    [
+      'Was originally thought to be the product of one gene (ARTEMIS) that in fact corresponds to two separate genes At1g24485 and At1g24490.',
+    ],
+  ],
 ];
 
 describe('getNeedsTextProcessingParts', () => {
