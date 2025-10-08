@@ -121,6 +121,7 @@ const uniParcSubEntryConfig: Record<
     sectionContent: (data) => (
       <SubEntrySimilarProteinsSection
         uniparcId={data.entry.uniParcId}
+        subEntry={data.subEntry}
         key={EntrySection.SimilarProteins}
       />
     ),
