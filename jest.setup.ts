@@ -95,3 +95,8 @@ global.ResizeObserver = ResizeObserver;
 //   error.apply(console, [message, ...rest]); // keep default behaviour
 //   throw message instanceof Error ? message : new Error(message);
 // };
+
+afterAll(() => {
+  jest.restoreAllMocks();
+  jest.useRealTimers();
+});

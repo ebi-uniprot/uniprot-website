@@ -1,7 +1,7 @@
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
-import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
@@ -32,7 +32,13 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import { RefProtMoveUniProtKBEntryMessage } from '../../../shared/components/RefProtMoveMessages';
+import {
+  biologicallyRelevant,
+  CheckMoveResponse,
+  checkMoveUrl,
+  getProteomes,
+  RefProtMoveUniProtKBEntryMessage,
+} from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
@@ -53,7 +59,7 @@ import {
 } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
 import lazy from '../../../shared/utils/lazy';
-import { stringifyQuery } from '../../../shared/utils/url';
+import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
 import {
   CitationsAPIModel,
@@ -154,36 +160,70 @@ const Entry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
+  const [isLikelyHuman, setIsLikelyHuman] = useState(
+    Boolean(window.botChallenge)
+  );
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
-      apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
+      isLikelyHuman
+        ? apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
+        : null
     );
 
   const variantsHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.variation(match?.params.accession),
+    isLikelyHuman && match?.params.accession
+      ? apiUrls.proteinsApi.variation(match?.params.accession)
+      : null,
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    match?.params.accession &&
-      apiUrls.proteinsApi.coordinates(match?.params.accession),
+    isLikelyHuman && match?.params.accession
+      ? apiUrls.proteinsApi.coordinates(match?.params.accession)
+      : null,
     { method: 'HEAD' }
   );
 
   const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
-    match?.params.accession &&
-      uniprotkbApiUrls.publications.entryPublications({
-        accession: match.params.accession,
-        selectedFacets: [
-          {
-            name: 'types',
-            value: '0',
-          },
-        ],
-      })
+    isLikelyHuman && match?.params.accession
+      ? uniprotkbApiUrls.publications.entryPublications({
+          accession: match.params.accession,
+          selectedFacets: [
+            {
+              name: 'types',
+              value: '0',
+            },
+          ],
+        })
+      : null
   );
+
+  const [upids, isBiologicallyRelevant] = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    return [getProteomes(data), biologicallyRelevant(data)];
+  }, [data]);
+
+  const refprotmoveData = useDataApi<CheckMoveResponse>(
+    isLikelyHuman && upids?.length && !isBiologicallyRelevant
+      ? stringifyUrl(checkMoveUrl, { upids })
+      : null
+  );
+
+  const willBeKept = useMemo(() => {
+    if (isBiologicallyRelevant) {
+      return true;
+    }
+    if (!upids?.length) {
+      return false;
+    }
+    if (!refprotmoveData.data) {
+      return true;
+    }
+    return Boolean(refprotmoveData.data.stay?.length);
+  }, [upids, isBiologicallyRelevant, refprotmoveData.data]);
 
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
@@ -360,11 +400,61 @@ const Entry = () => {
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
 
+  useEffect(() => {
+    if (isLikelyHuman) {
+      return;
+    }
+    const handler = () => {
+      window.botChallenge = true;
+      sessionStorage.setItem('botChallenge', 'true');
+      setIsLikelyHuman(true);
+    };
+    document.documentElement.addEventListener('mousemove', handler);
+    document.documentElement.addEventListener('mouseenter', handler);
+    document.documentElement.addEventListener('pointermove', handler, {
+      once: true,
+    });
+    document.documentElement.addEventListener('pointerdown', handler, {
+      once: true,
+    });
+    document.documentElement.addEventListener('pointerover', handler, {
+      once: true,
+    });
+    return () => {
+      document.documentElement.removeEventListener('mousemove', handler);
+      document.documentElement.removeEventListener('mouseenter', handler);
+      document.documentElement.removeEventListener('pointermove', handler);
+      document.documentElement.removeEventListener('pointerdown', handler);
+      document.documentElement.removeEventListener('pointerover', handler);
+    };
+  }, [isLikelyHuman]);
+
+  if (!isLikelyHuman) {
+    // bot challenge
+    return (
+      <>
+        {/* 🍯 */}
+        <Button onClick={() => {}} style={{ transform: 'translateX(-200%)' }}>
+          Click me
+        </Button>
+        <div style={{ padding: '3em 0', width: '100%', display: 'flex' }}>
+          <div style={{ marginInline: 'auto' }}>
+            Please click this button to confirm that you are a real user <br />
+            <Button onClick={() => setIsLikelyHuman(true)}>
+              Click to load the page
+            </Button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   if (
     loading ||
     !data ||
     // if we're gonna redirect, show loading in the meantime
-    (redirectedTo && match?.params.subPage !== TabLocation.History)
+    (redirectedTo && match?.params.subPage !== TabLocation.History) ||
+    refprotmoveData.loading
   ) {
     if (error) {
       return <ErrorHandler status={status} error={error} fullPage />;
@@ -461,7 +551,13 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          <RefProtMoveUniProtKBEntryMessage entry={data} />
+          {willBeKept ? null : (
+            <RefProtMoveUniProtKBEntryMessage
+              accession={data.primaryAccession}
+              upids={upids}
+              organism={data.organism}
+            />
+          )}
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -648,7 +744,9 @@ const Entry = () => {
                       'Feature viewer',
                       searchableNamespaceLabels[Namespace.uniprotkb],
                     ]}
-                  />
+                  >
+                    <meta name="robots" content="noindex" />
+                  </HTMLHead>
                   {data.sequence && (
                     <FeatureViewerTab
                       accession={accession}
@@ -839,7 +937,6 @@ const Entry = () => {
                 />
                 <HistoryTab
                   accession={isObsolete ? match.params.accession : accession}
-                  lastVersion={data.entryAudit?.entryVersion}
                   uniparc={data.extraAttributes?.uniParcId}
                   reason={data.inactiveReason}
                 />

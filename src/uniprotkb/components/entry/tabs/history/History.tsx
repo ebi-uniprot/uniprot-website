@@ -50,36 +50,50 @@ const DownloadComponent = lazy(
     )
 );
 
-export const getOtherDiffs = (v1: number, v2: number, lastVersion = 0) =>
-  (
-    ((v1 >= v2 || !lastVersion) && []) || // Shouldn't be the case so return empty array
-    (v2 - v1 === 1 && [
-      // Consecutive versions
+const onlyWithinBounds =
+  (lastVersion: number) =>
+  ([v1, v2]: number[]) =>
+    v1 >= 1 && v2 <= lastVersion;
+
+export const getOtherDiffs = (v1: number, v2: number, lastVersion = 0) => {
+  if (v1 >= v2 || !lastVersion) {
+    return []; // Shouldn't be the case so return empty array
+  }
+  const onlyWithinBoundsFilter = onlyWithinBounds(lastVersion);
+  if (v2 - v1 === 1) {
+    // Consecutive versions
+    return [
       [v1 - 1, v2 - 1],
       [v1 + 1, v2 + 1],
-    ]) ||
-    (v1 === 1 &&
-      v2 === lastVersion && [
-        // First and last version
-        [v1, v1 + 1],
-        [v2 - 1, v2],
-      ]) ||
-    (v2 === lastVersion && [
-      // Last version and something else
+    ].filter(onlyWithinBoundsFilter);
+  }
+  if (v1 === 1 && v2 === lastVersion) {
+    // First and last version
+    return [
+      [v1, v1 + 1],
+      [v2 - 1, v2],
+    ].filter(onlyWithinBoundsFilter);
+  }
+  if (v2 === lastVersion) {
+    // Last version and something else
+    return [
       [v1 - 1, v1],
       [v2 - 1, v2],
-    ]) ||
-    (v1 === 1 && [
-      // First version and something else
+    ].filter(onlyWithinBoundsFilter);
+  }
+  if (v1 === 1) {
+    // First version and something else
+    return [
       [v1, v1 + 1],
       [v2, v2 + 1],
-    ]) || [
-      // Everything else
-      [v1 - 1, v1],
-      [v2, v2 + 1],
-    ]
-  ) // Only keep links that are within the bounds
-    .filter(([w1, w2]) => w1 >= 1 && w2 <= lastVersion);
+    ].filter(onlyWithinBoundsFilter);
+  }
+  // Everything else
+  return [
+    [v1 - 1, v1],
+    [v2, v2 + 1],
+  ].filter(onlyWithinBoundsFilter);
+};
 
 type UniSaveVersionWithEvents = UniSaveVersion & {
   events?: Record<UniSaveEventType, string[]>;
@@ -279,19 +293,18 @@ const getIdKey = (entry: UniSaveVersionWithEvents) => `${entry.entryVersion}`;
 
 type EntryHistoryListProps = {
   accession: string;
+  uniSaveData?: UniSaveAccession;
   uniparc?: string;
   reason?: InactiveEntryReason;
 };
 
 const EntryHistoryList = ({
   accession,
+  uniSaveData,
   uniparc,
   reason,
 }: EntryHistoryListProps) => {
   const location = useLocation();
-  const accessionData = useDataApi<UniSaveAccession>(
-    apiUrls.unisave.entry(accession)
-  );
   const statusData = useDataApi<UniSaveStatus>(
     apiUrls.unisave.status(accession)
   );
@@ -303,7 +316,7 @@ const EntryHistoryList = ({
   const data = useMemo<UniSaveVersionWithEvents[]>(
     () =>
       (statusData.data
-        ? accessionData.data?.results.map((version) => {
+        ? uniSaveData?.results.map((version) => {
             const eventList =
               statusData.data?.events?.filter(
                 (event) => event.release === version.firstRelease
@@ -324,18 +337,15 @@ const EntryHistoryList = ({
               events: eventList.length ? events : undefined,
             };
           })
-        : accessionData.data?.results) || [],
-    [accessionData.data, statusData.data]
+        : uniSaveData?.results) || [],
+    [uniSaveData, statusData.data]
   );
 
-  if (accessionData.loading) {
-    return <Loader progress={accessionData.progress} />;
+  if (statusData.loading) {
+    return <Loader progress={statusData.progress} />;
   }
 
-  // Don't check accessionData.error!
-  // Might return 404 when no history, not a bug, just a weird edge case we need
-  // to take into account. Example: P50409
-  // Don't check statusData.error either!
+  // Don't check statusData.error!
   // Might return 404 when no events in the data (most TrEMBL entries)
   // if (statusData.error || !data) {
   //   return (
@@ -473,14 +483,14 @@ const EntryHistoryList = ({
   );
 };
 
+const title = <h2>Entry history</h2>;
+
 const EntryHistory = ({
   accession,
-  lastVersion,
   uniparc,
   reason,
 }: {
   accession: string;
-  lastVersion?: number;
   uniparc?: string;
   reason?: InactiveEntryReason;
 }) => {
@@ -490,10 +500,25 @@ const EntryHistory = ({
 
   const defaultView = useMediumScreen() ? 'unified' : 'split';
 
-  const title = <h2>Entry history</h2>;
-
   const versions = rawVersions?.split(',').map((v) => +v);
   const view = (rawView || defaultView) as 'split' | 'unified';
+
+  const uniSaveData = useDataApi<UniSaveAccession>(
+    apiUrls.unisave.entry(accession)
+  );
+
+  if (uniSaveData.loading) {
+    return <Loader />;
+  }
+
+  // Don't check uniSaveData.error!
+  // Might return 404 when no history, not a bug, just a weird edge case we need
+  // to take into account. Example: P50409
+  // if (uniSaveData.error || !uniSaveData.data?.results.length) {
+  //   return (
+  //     <ErrorHandler status={uniSaveData.status} error={uniSaveData.error} />
+  //   );
+  // }
 
   if (versions?.length === 2) {
     const v1 = versions[0] || 0;
@@ -501,7 +526,11 @@ const EntryHistory = ({
     const min = Math.min(v1, v2);
     const max = Math.max(v1, v2);
 
-    const otherDiffs = getOtherDiffs(min, max, lastVersion);
+    const otherDiffs = getOtherDiffs(
+      min,
+      max,
+      uniSaveData.data?.results?.[0]?.entryVersion
+    );
 
     return (
       <Card
@@ -543,7 +572,7 @@ const EntryHistory = ({
           >
             Display in {view === 'unified' ? 'split' : 'unified'} view
           </Link>
-          {otherDiffs.length && (
+          {otherDiffs.length ? (
             <span className={styles['other-diffs']}>
               <span>Jump to</span>
               <ul className="no-bullet">
@@ -567,7 +596,7 @@ const EntryHistory = ({
                 ))}
               </ul>
             </span>
-          )}
+          ) : null}
         </div>
         <EntryHistoryDiff
           accession={accession}
@@ -582,6 +611,7 @@ const EntryHistory = ({
     <Card header={title} className="wider-tab-content">
       <EntryHistoryList
         accession={accession}
+        uniSaveData={uniSaveData.data}
         uniparc={uniparc}
         reason={reason}
       />

@@ -1,5 +1,6 @@
+import cn from 'classnames';
 import { Message } from 'franklin-sites';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
@@ -10,30 +11,37 @@ import {
   UniProtKBSimplifiedTaxonomy,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { apiPrefix } from '../config/apiUrls/apiPrefix';
-import useDataApi from '../hooks/useDataApi';
 import { Namespace } from '../types/namespaces';
-import { stringifyUrl } from '../utils/url';
 import ExternalLink from './ExternalLink';
+import styles from './styles/ref-prot-move-messages.module.scss';
 
 const blogEntryUrl =
   'https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html';
 
-const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
+const ftpProteomes = 'https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/';
+
+export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
 
 const release = '2026_02';
 const releaseDate = 'first half of 2026';
+const rpChangesRelease = '2025_04';
+const rpChangesReleaseDate = 'October 2025';
 
 const UniProtKBGenericPreamble = () => (
   <>
-    The Unreviewed UniProtKB/TrEMBL database will reduce in size from release{' '}
-    {release} (planned for the {releaseDate}).
+    The Unreviewed UniProtKB/TrEMBL database will be reduced in size in release{' '}
+    {rpChangesRelease} ({rpChangesReleaseDate}, due to the removal of
+    unclassified organisms) and again in release {release} ({releaseDate}, due
+    to the removal of proteins from non-reference proteomes).
   </>
 );
 
 const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
   <b>
-    This entry ({accession}) is under consideration for removal in release{' '}
-    {release} (planned for the {releaseDate}).
+    This entry ({accession}) is likely to be removed from UniProtKB/TrEMBL in
+    release {rpChangesRelease} ({rpChangesReleaseDate}, due to the removal of
+    unclassified organisms) or in release {release} ({releaseDate}, due to the
+    removal of proteins from non-reference proteomes).
   </b>
 );
 
@@ -45,13 +53,17 @@ const UniProtKBGenericMain: FC<{
   <>
     <br />
     <br />
-    From {release} onwards, Unreviewed UniProtKB/TrEMBL will include only
-    proteins from reference proteomes and selected entries with experimental or
+    From release {release}, Unreviewed UniProtKB/TrEMBL will include only
+    proteins from reference proteomes and selected entries with experimental and
     biologically important data. Entries removed from Unreviewed
     UniProtKB/TrEMBL will remain accessible in the UniParc sequence archive.
     Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, or{' '}
+    information, view the{' '}
+    <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
+      list of affected proteins and proteomes
+    </ExternalLink>
+    , or{' '}
     <ContactLink
       to={
         accession && organism && upids
@@ -61,7 +73,7 @@ const UniProtKBGenericMain: FC<{
                 formValues: {
                   context: [
                     `UniProtKB accession: ${accession}`,
-                    `UniParc UPIDs for this UniProtKB entry: ${upids.join(', ') || '<none>'}`,
+                    `Proteome IDs for this UniProtKB entry: ${upids.join(', ') || '<none>'}`,
                     `Organism: ${organism.scientificName || organism.commonName || '<no name>'}`,
                     `Taxon ID: ${organism.taxonId}`,
                   ].join('\n'),
@@ -97,18 +109,22 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
   taxonomy,
 }) => (
   <>
-    We are updating the reference proteome selection procedure. As a result,
-    some proteomes may lose their reference proteome status, but all proteomes
-    will remain accessible in the Proteomes database. Additionally, starting
-    with release {release}, Unreviewed UniProtKB/TrEMBL will include only
-    proteins from reference proteomes selected by the new procedure, along with
-    selected entries with experimental or biologically important data.
+    We are updating the reference proteome selection procedure. As a result, in
+    release 2025_04 (October 2025) some proteomes may lose their reference
+    proteome status, but all proteomes will remain accessible in the Proteomes
+    database.
     <br />
     <br />
-    Entries removed from Unreviewed UniProtKB/TrEMBL will remain accessible in
-    the UniParc sequence archive. Please see{' '}
+    Additionally, starting with release {release} ({releaseDate}), Unreviewed
+    UniProtKB/TrEMBL will include only proteins from reference proteomes
+    selected by the new procedure, along with selected entries with experimental
+    and biologically important data. Please see{' '}
     <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, or{' '}
+    information, view the{' '}
+    <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
+      list of affected proteins and proteomes
+    </ExternalLink>
+    , or{' '}
     <ContactLink
       to={
         id && taxonomy
@@ -152,27 +168,13 @@ export const RefProtMoveResultsMessage: FC<{
   return (
     <Message
       level="warning"
-      className="uniprot-grid-cell--span-12"
-      style={{ marginBottom: '-0.75rem', marginTop: '0.5rem' }}
+      className={cn('uniprot-grid-cell--span-12', styles['results-message'])}
     >
       {(namespace === Namespace.uniprotkb && <UniProtKBGenericMessage />) ||
         (namespace === Namespace.proteomes && <ProteomesMessage />)}
     </Message>
   );
 };
-
-export const RefProtMoveProteomesEntryMessage: FC<{
-  id: string;
-  taxonomy: TaxonomyDatum;
-}> = ({ id, taxonomy }) => (
-  <Message
-    level="warning"
-    className="uniprot-grid-cell--span-12"
-    style={{ marginBottom: '1rem', marginTop: '1rem' }}
-  >
-    <ProteomesMessage id={id} taxonomy={taxonomy} />
-  </Message>
-);
 
 const getCrossRefsFor = (dbName: string) => (entry: UniProtkbAPIModel) =>
   entry.uniProtKBCrossReferences
@@ -183,7 +185,7 @@ const getCrossRefsFor = (dbName: string) => (entry: UniProtkbAPIModel) =>
     );
 
 const getCrossRefsForPDB = getCrossRefsFor('PDB');
-const biologicallyRelevant = (entry: UniProtkbAPIModel) => {
+export const biologicallyRelevant = (entry: UniProtkbAPIModel) => {
   // The entry is reviewed
   if (entry.entryType.includes('UniProtKB reviewed')) {
     return true;
@@ -196,57 +198,64 @@ const biologicallyRelevant = (entry: UniProtkbAPIModel) => {
   return false;
 };
 
-const getProteomes = getCrossRefsFor('Proteomes');
+export const getProteomes = getCrossRefsFor('Proteomes');
 
-type CheckMoveResponse = {
+export type CheckMoveResponse = {
   move?: string[];
   stay?: string[];
   unknown?: string[];
 };
 
-export const RefProtMoveUniProtKBEntryMessage: FC<{
-  entry: UniProtkbAPIModel;
-}> = ({ entry }) => {
-  const upids = useMemo(() => getProteomes(entry), [entry]);
-  const isBiologicallyRelevant = useMemo(
-    () => biologicallyRelevant(entry),
-    [entry]
-  );
+export const referenceProteomeTypes = new Set([
+  'Reference and representative proteome',
+  'Reference proteome',
+  'Representative proteome',
+]);
 
-  const { data, loading } = useDataApi<CheckMoveResponse>(
-    upids?.length ? stringifyUrl(checkMoveUrl, { upids }) : null
-  );
-
-  // saved through proteome if:
-  // 1:     has a proteome
-  // and 2: has any proteome that stays
-  const hasSavedProteome = Boolean(upids?.length && data?.stay?.length);
-
-  // display message if:
-  // 1:     not saved through proteome
-  // and 2: not saved as biologically relevant
-  const display = !hasSavedProteome && !isBiologicallyRelevant;
-
-  if (loading || !display) {
-    // Don't render anything, avoid space being used then disappearing
-    return null;
-  }
-
-  const accession = entry.primaryAccession;
-  const organism = entry.organism;
-
-  return (
+export const RefProtMoveProteomesEntryMessage: FC<{
+  id: string;
+  taxonomy: TaxonomyDatum;
+  becomingNonRP: boolean;
+}> = ({ id, taxonomy, becomingNonRP }) =>
+  becomingNonRP ? (
     <Message
       level="failure"
-      className="uniprot-grid-cell--span-12"
-      style={{ marginBottom: '1rem', marginTop: '1rem' }}
+      className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
     >
-      <UniProtKBRemovePreamble accession={accession} />
-      <UniProtKBGenericMain
-        accession={accession}
-        organism={organism}
-        upids={upids}
-      />
+      <b>
+        {id} is currently under review and may lose its reference proteome
+        status in release {rpChangesRelease} ({rpChangesReleaseDate}). If this
+        happens, its Unreviewed UniProtKB/TrEMBL entries will be removed from
+        UniProtKB, but their sequences will remain accessible in the UniParc
+        sequence archive.
+      </b>
+      <br />
+      <br />
+      <ProteomesMessage id={id} taxonomy={taxonomy} />
+    </Message>
+  ) : (
+    <Message
+      level="warning"
+      className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
+    >
+      <ProteomesMessage id={id} taxonomy={taxonomy} />
     </Message>
   );
-};
+
+export const RefProtMoveUniProtKBEntryMessage: FC<{
+  accession: string;
+  upids?: string[];
+  organism?: UniProtKBSimplifiedTaxonomy;
+}> = ({ accession, upids, organism }) => (
+  <Message
+    level="failure"
+    className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
+  >
+    <UniProtKBRemovePreamble accession={accession} />
+    <UniProtKBGenericMain
+      accession={accession}
+      organism={organism}
+      upids={upids}
+    />
+  </Message>
+);

@@ -25,7 +25,6 @@ import {
   rePubMedCapture,
   reSubscript,
   reSuperscript,
-  reUniProtKBAccession,
 } from '../../utils/regexes';
 import SimilarityView from './SimilarityView';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -70,8 +69,8 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
               </Fragment>
             );
           }
-          const accession = part.match(reUniProtKBAccession)?.[0];
-          if (reAC.test(part) && accession) {
+          const { uniprotkbAccession } = part.match(reAC)?.groups || {};
+          if (uniprotkbAccession) {
             // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
             // eg A0A075B6S6
             return (
@@ -82,11 +81,11 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
                 <Link
                   to={getEntryPath(
                     Namespace.uniprotkb,
-                    accession,
+                    uniprotkbAccession,
                     TabLocation.Entry
                   )}
                 >
-                  {accession}
+                  {uniprotkbAccession}
                 </Link>
               </Fragment>
             );

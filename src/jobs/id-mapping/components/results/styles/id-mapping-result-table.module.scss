@@ -2,4 +2,25 @@
   .expandable-list {
     margin-inline-start: 1em;
   }
+
+  button {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .uniparc-button-group {
+    margin-left: 1em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  :global(.button-group) {
+    :global(.tertiary) {
+      margin-right: 0.5em;
+    }
+
+    :global(.button:last-child) {
+      margin-left: 0.5em;
+    }
+  }
 }
