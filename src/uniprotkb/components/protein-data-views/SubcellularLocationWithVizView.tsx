@@ -18,7 +18,7 @@ import SubcellularLocationView from './SubcellularLocationView';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz =
-  'customElements' in window
+  typeof window !== 'undefined' && 'customElements' in window
     ? lazy(() => import(/* webpackChunkName: "subcellviz" */ './SubCellViz'))
     : // Fallback for now custom elements supports
       ({ children }: { children?: ReactNode }) => <>{children}</>;

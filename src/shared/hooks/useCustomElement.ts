@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import * as logging from '../utils/logging';
 import useSafeState from './useSafeState';
 
-const isSupported = 'customElements' in window;
+const isSupported = typeof window !== 'undefined' && 'customElements' in window;
 
 type UseCustomElement = <T extends string>(
   customElementGetter: () => Promise<{
@@ -14,7 +14,7 @@ type UseCustomElement = <T extends string>(
 
 const useCustomElement: UseCustomElement = (customElementGetter, name) => {
   const [defined, setDefined] = useSafeState(
-    Boolean(window.customElements && window.customElements.get(name))
+    Boolean(isSupported && window.customElements.get(name))
   );
   const [errored, setErrored] = useSafeState(false);
 

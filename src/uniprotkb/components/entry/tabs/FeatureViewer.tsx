@@ -19,6 +19,8 @@ import tabsStyles from './styles/tabs-styles.module.scss';
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
+const fetchOptions = { method: 'HEAD' };
+
 const FeatureViewer = ({
   accession,
   importedVariants,
@@ -34,8 +36,9 @@ const FeatureViewer = ({
     typeof showTooltipAtCoordinates
   > | null>(null);
   // just to make sure not to render protvista-uniprot if we won't get any data
-  const { loading, data } = useDataApi<UniProtkbAPIModel>(
-    apiUrls.proteinsApi.proteins(accession)
+  const { loading, status } = useDataApi<UniProtkbAPIModel>(
+    apiUrls.proteinsApi.proteins(accession),
+    fetchOptions
   );
 
   const protvistaUniprotElement = useCustomElement(
@@ -125,8 +128,15 @@ const FeatureViewer = ({
     return <Loader />;
   }
 
-  if (!data) {
-    return null;
+  if (status !== 200) {
+    return (
+      <section className="wider-tab-content hotjar-margin">
+        <h3>Feature viewer</h3>
+        <div className={tabsStyles['no-data']}>
+          No feature information available for {accession}
+        </div>
+      </section>
+    );
   }
 
   const shouldRender =
@@ -150,21 +160,17 @@ const FeatureViewer = ({
           sequence={sequence}
         />
       )}
-      {data?.features && (
-        <>
-          {shouldRender && (
-            <NightingaleZoomTool
-              length={sequence.length}
-              nightingaleNavigationGetter={() =>
-                protvistaUniprotRef.current?.querySelector(
-                  'nightingale-navigation'
-                ) || null
-              }
-            />
-          )}
-          <EntryDownloadButton handleToggle={handleToggleDownload} />
-        </>
+      {shouldRender && (
+        <NightingaleZoomTool
+          length={sequence.length}
+          nightingaleNavigationGetter={() =>
+            protvistaUniprotRef.current?.querySelector(
+              'nightingale-navigation'
+            ) || null
+          }
+        />
       )}
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
       {shouldRender ? (
         <protvistaUniprotElement.name
           accession={accession}

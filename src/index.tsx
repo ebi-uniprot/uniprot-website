@@ -24,19 +24,64 @@ root.render(
   </StrictMode>
 );
 
-if ('serviceWorker' in navigator && navigator.serviceWorker) {
+// These obsolete hosts have been routed to the uniprot.org front-end so that
+// the user's cache can be cleared
+const obsoleteHosts = new Set(['beta.uniprot.org', 'covid-19.uniprot.org']);
+
+try {
+  const botChallenge = JSON.parse(
+    sessionStorage.getItem('botChallenge') || 'false'
+  );
+  if (botChallenge) {
+    window.botChallenge = true;
+  } else {
+    const events = [
+      'mousemove',
+      'mouseenter',
+      'pointermove',
+      'pointerdown',
+      'pointerover',
+    ] as const;
+    const handler = () => {
+      window.botChallenge = true;
+      sessionStorage.setItem('botChallenge', 'true');
+      for (const event of events) {
+        container.removeEventListener(event, handler);
+      }
+    };
+    for (const event of events) {
+      container.addEventListener(event, handler);
+    }
+  }
+} catch {
+  window.botChallenge = true;
+}
+
+if (
+  typeof navigator !== 'undefined' &&
+  'serviceWorker' in navigator &&
+  navigator.serviceWorker
+) {
   import(
     /* webpackChunkName: "service-worker-client" */ './service-worker/client'
   ).then((serviceWorkerModule) => {
-    serviceWorkerModule.register();
-    // switch commented lines if we want to enable/disable service worker
-    // Use in case of emergency! (if something wrong with caching in production)
-    // serviceWorkerModule.unregister();
+    if (obsoleteHosts.has(window.location.host)) {
+      serviceWorkerModule.unregister().finally(() => {
+        location.replace('https://www.uniprot.org');
+      });
+    } else {
+      serviceWorkerModule.register();
+      // switch commented lines if we want to enable/disable service worker
+      // Use in case of emergency! (if something wrong with caching in production)
+      // serviceWorkerModule.unregister();
+    }
   });
+} else if (obsoleteHosts.has(window.location.host)) {
+  location.replace('https://www.uniprot.org');
 }
 
 /* Page tracking */
-if (process.env.NODE_ENV !== 'development') {
+if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'development') {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const title = document.querySelector('title')!;
 
@@ -70,7 +115,7 @@ if (process.env.NODE_ENV !== 'development') {
     attributeFilter: ['data-loaded'],
   });
 
-  if (window && typeof window.hj === 'function') {
+  if (typeof window.hj === 'function') {
     window.hj('identify', null, {
       Bundle: MODERN_BUNDLE ? 'modern' : 'legacy',
     });

@@ -23,7 +23,7 @@ describe('ContactForm', () => {
     handleSubmit.mockClear();
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: false,
-      suggestion: undefined,
+      suggestions: undefined,
       handleSubmit,
       handleChange,
     });
@@ -55,7 +55,7 @@ describe('ContactForm', () => {
   it('should be disabled when submitting', () => {
     (useFormLogic as jest.Mock<UseFormLogicReturnType>).mockReturnValue({
       sending: true,
-      suggestion: undefined,
+      suggestions: undefined,
       handleSubmit,
       handleChange,
     });

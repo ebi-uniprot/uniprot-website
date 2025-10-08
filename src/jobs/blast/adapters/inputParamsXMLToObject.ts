@@ -6,8 +6,13 @@ const inputParamsXMLToObject = (
   xmlString: string,
   sequence: string
 ): PublicServerParameters => {
+  const out: { [key: string]: string } = { sequence };
+
+  if (typeof window === 'undefined') {
+    return out as unknown as PublicServerParameters;
+  }
+
   const doc = new window.DOMParser().parseFromString(xmlString, 'text/xml');
-  const out: { [key: string]: string } = {};
 
   for (const node of doc.firstElementChild?.children || []) {
     let key;

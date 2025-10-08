@@ -1,6 +1,5 @@
 import '../../styles/ToolsForm.scss';
 
-import axios from 'axios';
 import cn from 'classnames';
 import {
   Chip,
@@ -16,9 +15,9 @@ import {
   FormEvent,
   MouseEvent,
   useEffect,
+  useMemo,
   useReducer,
   useRef,
-  useState,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -36,15 +35,14 @@ import { apiPrefix } from '../../../shared/config/apiUrls/apiPrefix';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import { BLAST_LIMIT } from '../../../shared/config/limits';
 import { fileFormatToUrlParameter } from '../../../shared/config/resultsDownload';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import { FileFormat } from '../../../shared/types/resultsDownload';
-import fetchData from '../../../shared/utils/fetchData';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
-import * as logging from '../../../shared/utils/logging';
 import { stringifyUrl } from '../../../shared/utils/url';
 import { pluralise } from '../../../shared/utils/utils';
 import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
@@ -124,6 +122,44 @@ const FormSelect: FC<
   );
 };
 
+const baseQueryCountUrl = joinUrl(apiPrefix, 'uniprotkb', 'search');
+const getQueryForCount = (database?: Database, taxons?: SelectedTaxon[]) => {
+  if (!database || !taxons?.length || excludeTaxonForDB(database)) {
+    return null;
+  }
+  const taxonomyQuery = taxons
+    .map((taxon) => `taxonomy_id:${taxon.id}`)
+    .join(' OR ');
+  let databaseQuery = null;
+  switch (database) {
+    case 'uniprotkb_refprotswissprot':
+      databaseQuery = 'keyword:KW-1185 OR reviewed:true';
+      break;
+    case 'uniprotkb_reference_proteomes':
+      databaseQuery = 'keyword:KW-1185';
+      break;
+    case 'uniprotkb_swissprot':
+      databaseQuery = 'reviewed:true';
+      break;
+    case 'uniprotkb_pdb':
+      databaseQuery = 'structure_3d:true';
+      break;
+    case 'uniprotkb':
+      // No extra filter
+      break;
+    default:
+      return null;
+  }
+  return stringifyUrl(baseQueryCountUrl, {
+    format: fileFormatToUrlParameter[FileFormat.fasta],
+    includeIsoform: true,
+    query: databaseQuery
+      ? `(${taxonomyQuery}) AND (${databaseQuery})`
+      : taxonomyQuery,
+  });
+};
+const countFetchOptions = { method: 'HEAD' };
+
 type Props = {
   initialFormValues: Readonly<BlastFormValues>;
 };
@@ -132,7 +168,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
   // refs
   const sslRef = useRef<SequenceSearchLoaderInterface>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [searchSpaceTotal, setSearchSpaceTotal] = useState(Infinity);
 
   // hooks
   const dispatchMessages = useMessagesDispatch();
@@ -154,6 +189,25 @@ const BlastForm = ({ initialFormValues }: Props) => {
     getBlastFormInitialState
   );
 
+  // check number of results in the search space
+  const database = formValues[BlastFields.database].selected as
+    | Database
+    | undefined;
+  const taxons = formValues[BlastFields.taxons].selected as
+    | SelectedTaxon[]
+    | undefined;
+  const countFetchUrl = useMemo(
+    () => getQueryForCount(database, taxons),
+    [database, taxons]
+  );
+  const { loading, headers } = useDataApi(countFetchUrl, countFetchOptions);
+  const searchSpaceTotal = useMemo(() => {
+    if (!loading && headers?.['x-total-results']) {
+      return Number(headers['x-total-results']);
+    }
+    return Infinity;
+  }, [loading, headers]);
+
   useEffect(() => {
     dispatch(resetFormState(initialFormValues));
   }, [initialFormValues]);
@@ -162,73 +216,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const excludeTaxonField = excludeTaxonForDB(
     formValues[BlastFields.database].selected
   );
-
-  useEffect(() => {
-    // eslint-disable-next-line import/no-named-as-default-member
-    const cancelTokenSource = axios.CancelToken.source();
-    const abortController = new AbortController();
-    const { signal } = abortController;
-    signal.addEventListener('abort', () => {
-      cancelTokenSource.cancel('Operation canceled by the user.');
-    });
-
-    async function fetchSearchSpaceCount() {
-      if (
-        !excludeTaxonField &&
-        (formValues[BlastFields.taxons].selected as SelectedTaxon[])?.length
-      ) {
-        const baseUrl = joinUrl(apiPrefix, 'uniprotkb', 'search');
-        let query = `(${(formValues[BlastFields.taxons].selected as SelectedTaxon[]).map((taxon) => `organism_id:${taxon.id}`).join(' OR ')})`;
-        switch (formValues[BlastFields.database].selected) {
-          case 'uniprotkb_refprotswissprot':
-            query += ' AND (keyword:KW-1185 OR reviewed:true)';
-            break;
-          case 'uniprotkb_reference_proteomes':
-            query += ' AND (keyword:KW-1185)';
-            break;
-          case 'uniprotkb_swissprot':
-            query += ' AND (reviewed:true)';
-            break;
-          case 'uniprotkb_pdb':
-            query += ' AND (structure_3d:true)';
-            break;
-          default:
-            break;
-        }
-        const url = stringifyUrl(baseUrl, {
-          format: fileFormatToUrlParameter[FileFormat.fasta],
-          includeIsoform: true,
-          query,
-        });
-        try {
-          fetchData(url, cancelTokenSource.token, {
-            method: 'HEAD',
-          }).then((response) => {
-            if (response.headers['x-total-results']) {
-              setSearchSpaceTotal(Number(response.headers['x-total-results']));
-            } else {
-              setSearchSpaceTotal(0);
-            }
-          });
-        } catch (error) {
-          if (error instanceof Error) {
-            if (error.name === 'AbortError') {
-              // The operation was aborted; silently bail
-              return;
-            }
-            logging.error(error);
-          }
-        }
-      } else {
-        setSearchSpaceTotal(Infinity);
-      }
-    }
-
-    fetchSearchSpaceCount();
-    return () => {
-      abortController.abort();
-    };
-  }, [excludeTaxonField, formValues]);
 
   // TODO: eventually incorporate negativeTaxIDs into the form
 
@@ -391,7 +378,11 @@ const BlastForm = ({ initialFormValues }: Props) => {
       <HTMLHead title={title} />
       <PageIntro
         translate="no"
-        heading={<span data-article-id="blast-submission">{title}</span>}
+        heading={
+          <span key="blast-submission" data-article-id="blast-submission">
+            {title}
+          </span>
+        }
       />
       <form
         onSubmit={submitBlastJob}

@@ -10,7 +10,14 @@ export const reUniProtKBAccessionWithIsoform = new RegExp(
 export const reUniRefAccession = /UniRef(?:50|90|100)_[\w|-]+/i;
 export const reUniParc = /UPI[\w]{10}/i;
 
-export const reAC = new RegExp(`(?:AC ${reUniProtKBAccession.source})`, 'i');
+export const reACNonCapture = new RegExp(
+  `AC ${reUniProtKBAccession.source}`,
+  'i'
+);
+export const reAC = new RegExp(
+  `AC (?<uniprotkbAccession>${reUniProtKBAccession.source})`,
+  'i'
+);
 export const reIsoform = /\bisoform [\w-]+/i;
 
 const rePubMedID = /\d{7,8}/;
@@ -28,14 +35,27 @@ const reDbSnpNonCapture = new RegExp(`dbSNP:${reDbSnpID.source}`, 'i');
 export const reSubscript = /\(\d+\)/;
 export const reSuperscript = /\(\d?[+-]\)|\(-\d\)/;
 
+// Tokens that can be embedded within word characters
+const tokensWithinText = `(?:${[
+  reSubscript.source,
+  reSuperscript.source,
+  reIsoform.source,
+  'By similarity',
+].join('|')})`;
+
+// Tokens that must be delimited eg shouldn't find P05067 within AP05067_
+// Lookbehind and lookahead now supported by Safari (and all other major browsers)
+const tokensOutsideText = `(?:(?<=^|\\W)(?:${[
+  rePubMedNonCapture.source,
+  reACNonCapture.source,
+  reDbSnpNonCapture.source,
+].join('|')})(?=\\W|$))`;
+
 const reNeedsTextProcessing = new RegExp(
-  `(${rePubMedNonCapture.source}|${reAC.source}|${reIsoform.source}|By similarity|${reSubscript.source}|${reSuperscript.source}|${reDbSnpNonCapture.source})`,
+  `(${tokensWithinText}|${tokensOutsideText})`,
   'i'
 );
 
 export const getTextProcessingParts = (s?: string) =>
-  // Capturing group will allow split to conserve that bit in the split parts
-  // NOTE: rePubMed and reAC should be using a lookbehind eg `/(?<=pubmed:)(\d{7,8})/i` but
-  // it is not supported in Safari yet. It's OK, we just get more chunks when splitting.
-  // For now don't use capture groups in reNeedsTextProcessing
+  // Don't use capture groups in reNeedsTextProcessing
   s?.split(reNeedsTextProcessing);
