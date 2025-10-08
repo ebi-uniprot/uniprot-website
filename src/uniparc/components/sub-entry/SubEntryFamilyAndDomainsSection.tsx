@@ -27,14 +27,15 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
     SubEntrySection.FamilyAndDomains
   ).filter((type) => type.startsWith('comment'));
 
-  const commentPredictions = familyAndDomainSubsections
-    .map((commentType) =>
-      (unifire?.predictions as ModifiedPrediction[])?.filter(
-        (p) => p.annotationType === commentType
-      )
-    )
-    .filter(Boolean)
-    .flat();
+  const commentPredictions: Record<string, ModifiedPrediction[]> = {};
+  familyAndDomainSubsections.forEach((commentType) => {
+    const predictions = (unifire?.predictions as ModifiedPrediction[])
+      ?.filter((p) => p.annotationType === commentType)
+      .filter(Boolean);
+    if (predictions?.length) {
+      commentPredictions[commentType] = predictions;
+    }
+  });
 
   const familyAndDomainFeatureTypes = groupTypesBySection(
     SubEntrySection.FamilyAndDomains
@@ -70,21 +71,17 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
         />
       ) : null}
       <UniParcFeaturesView data={sequenceFeatures} sequence={sequence.value} />
-      {commentPredictions.length
-        ? commentPredictions.map((p) => (
-            <Fragment key={p.annotationType}>
-              <h3>
-                {annotationTypeToSection[p.annotationType].subSectionLabel}
-              </h3>
+      {Object.keys(commentPredictions)?.length
+        ? Object.entries(commentPredictions)?.map(([type, predictions]) => (
+            <Fragment key={type}>
+              <h3>{annotationTypeToSection[type].subSectionLabel}</h3>
               <UniFirePredictionsFreeTextViewList
                 annotationType={(
-                  annotationTypeToSection[p.annotationType]
-                    .freeTextType as string
+                  annotationTypeToSection[type].freeTextType as string
                 )?.toLowerCase()}
-                predictions={[p]}
+                predictions={predictions}
                 freeTextType={
-                  annotationTypeToSection[p.annotationType]
-                    .freeTextType as CommentType
+                  annotationTypeToSection[type].freeTextType as CommentType
                 }
               />
             </Fragment>
