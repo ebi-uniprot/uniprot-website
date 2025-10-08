@@ -20,8 +20,6 @@ export enum Namespace {
   arba = 'arba',
   // UniSave
   unisave = 'unisave',
-  // UniFire
-  unifire = 'unifire',
 }
 
 export const mainNamespaces = new Set<Namespace>([
@@ -53,7 +51,7 @@ export const supportingDataAndAANamespaces = new Set<Namespace>([
 
 export type SearchableNamespace = Exclude<
   Namespace,
-  Namespace.idmapping | Namespace.unisave | Namespace.unifire
+  Namespace.idmapping | Namespace.unisave
 >;
 
 export const searchableNamespaceLabels: Record<SearchableNamespace, string> = {
@@ -89,7 +87,6 @@ export const namespaceAndToolsLabels: Record<Namespace | JobTypes, string> = {
   // Non-searchable namespace
   [Namespace.idmapping]: 'ID mapping',
   [Namespace.unisave]: 'UniProtKB entry history', // unused at the moment
-  [Namespace.unifire]: 'UniFire',
   // Tools
   [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
   [JobTypes.ALIGN]: 'Align',
