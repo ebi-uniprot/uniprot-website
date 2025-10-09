@@ -382,6 +382,20 @@ const Entry = () => {
       match?.params.accession &&
       match?.params.subPage !== TabLocation.History
     ) {
+      dispatch(
+        addMessage({
+          id: 'deleted-entry',
+          content: (
+            <>
+              You’ve been redirected to UniParc because{' '}
+              {match?.params.accession} is no longer available in UniProtKB.
+            </>
+          ),
+          format: MessageFormat.IN_PAGE,
+          level: MessageLevel.INFO,
+          tag: MessageTag.REDIRECT,
+        })
+      );
       frame().then(() => {
         history.replace({
           pathname: generatePath(LocationToPath[Location.UniParcResults]),

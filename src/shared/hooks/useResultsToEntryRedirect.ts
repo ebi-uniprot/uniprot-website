@@ -37,12 +37,12 @@ const useResultsToEntryRedirect = (
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
         history.replace(getEntryPathForEntry(uniqueItem));
-      }
-      // hits single UniParc search and ID is an UniProtKB ID...
-      if (
+      } else if (
+        !direct &&
         'uniParcId' in uniqueItem &&
         trimmedQuery.match(reUniProtKBAccession)
       ) {
+        // hits single UniParc search and ID is an UniProtKB ID...
         history.replace(
           getSubEntryPath(uniqueItem.uniParcId, trimmedQuery, TabLocation.Entry)
         );
