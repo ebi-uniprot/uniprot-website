@@ -133,7 +133,7 @@ const getAccessionColumn =
                   TabLocation.Entry
                 )}
               >
-                {xref.id} (UniParc)
+                {xref.id}
               </Link>
             )}
           </>
