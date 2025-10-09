@@ -136,7 +136,7 @@ const SubEntry = () => {
         abortController.abort();
       };
     }
-  }, [runUniFire, accession, subEntryData.data]);
+  }, [runUniFire, accession, subEntryData.data, dispatch]);
 
   if (uniparcData.loading || subEntryData.loading) {
     return (
