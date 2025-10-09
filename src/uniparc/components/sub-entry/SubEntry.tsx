@@ -10,6 +10,12 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -24,6 +30,7 @@ import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-lay
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
@@ -53,6 +60,7 @@ import { hasStructure } from './SubEntryStructureSection';
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
+  const dispatch = useMessagesDispatch();
   const match = useRouteMatch<{
     accession: string;
     subPage: string;
@@ -98,6 +106,17 @@ const SubEntry = () => {
               );
               if (response.data) {
                 setUniFireData(response.data as UniFireModel);
+                dispatch(
+                  addMessage({
+                    id: 'load-AA-annotations',
+                    content: (
+                      <>Predictions by automatic annotation rules are loaded</>
+                    ),
+                    format: MessageFormat.POP_UP,
+                    level: MessageLevel.SUCCESS,
+                    tag: MessageTag.JOB,
+                  })
+                );
               }
             } catch (error) {
               if (error instanceof Error) {
