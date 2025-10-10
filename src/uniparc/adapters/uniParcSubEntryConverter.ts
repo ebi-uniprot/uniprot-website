@@ -1,4 +1,5 @@
 import { Evidence } from '../../uniprotkb/types/modelTypes';
+import { UniSaveStatus } from '../../uniprotkb/types/uniSave';
 import { isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
   databaseToEntryType,
@@ -14,6 +15,7 @@ export type UniParcSubEntryUIModel = {
     source?: Partial<UniParcXRef> | null;
     isUniprotkbEntry: boolean;
   };
+  unisave: UniSaveStatus;
   unifire?: UniFireModel;
 };
 
@@ -54,6 +56,7 @@ const constructPredictionEvidences = (
 const uniParcSubEntryConverter = (
   entryData: UniParcLiteAPIModel,
   subEntryData: UniParcXRef,
+  unisaveData: UniSaveStatus,
   uniFireData?: UniFireModel
 ): UniParcSubEntryUIModel | null => {
   const transformedEntryData = uniParcConverter(entryData);
@@ -82,6 +85,7 @@ const uniParcSubEntryConverter = (
   return {
     entry: transformedEntryData,
     subEntry: { ...subEntryData, isSource, source, isUniprotkbEntry },
+    unisave: unisaveData,
     unifire: uniFireData,
   };
 };

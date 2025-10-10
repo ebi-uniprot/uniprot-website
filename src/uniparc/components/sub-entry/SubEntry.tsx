@@ -1,6 +1,6 @@
 import axios from 'axios';
 import cn from 'classnames';
-import { Button, Card, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import { Button, InfoList, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
@@ -39,6 +39,8 @@ import {
 import { SearchResults } from '../../../shared/types/results';
 import fetchData from '../../../shared/utils/fetchData';
 import * as logging from '../../../shared/utils/logging';
+import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
+import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import {
   UniParcLiteAPIModel,
   UniParcXRef,
@@ -82,6 +84,9 @@ const SubEntry = () => {
 
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
+  const unisaveData = useDataApi<UniSaveStatus>(
+    uniprotkbUrls.unisave.status(subEntryId as string)
+  );
 
   useEffect(() => {
     if (runUniFire) {
@@ -138,7 +143,7 @@ const SubEntry = () => {
     }
   }, [runUniFire, accession, subEntryData.data, dispatch]);
 
-  if (uniparcData.loading || subEntryData.loading) {
+  if (uniparcData.loading || subEntryData.loading || unisaveData.loading) {
     return (
       <Loader
         progress={
@@ -153,6 +158,7 @@ const SubEntry = () => {
     !uniparcData.data ||
     subEntryData.error ||
     !subEntryData.data ||
+    !unisaveData.data ||
     !match ||
     !accession ||
     !subEntryId
@@ -166,9 +172,105 @@ const SubEntry = () => {
     );
   }
 
+  let contextInfo;
+  if (unisaveData.data?.events) {
+    contextInfo = unisaveData.data.events.map((event) => {
+      const infoData = [
+        {
+          title: 'Availability',
+          content: (
+            <>
+              <div className={styles['availability-content']}>
+                <input
+                  type="checkbox"
+                  className={styles['availability-checkbox']}
+                  checked={event.eventType === 'merged'}
+                  readOnly
+                />{' '}
+                UniProtKB <br />
+                {event.eventType === 'deleted' &&
+                  `Removed because ${subEntryId} is ${event.deletedReason?.toLocaleLowerCase() || 'deleted'}`}
+                {event.eventType === 'merged' && (
+                  <>
+                    {subEntryId} is merged into{' '}
+                    <Link
+                      to={getEntryPath(
+                        Namespace.uniprotkb,
+                        event.targetAccession
+                      )}
+                    >
+                      {' '}
+                      {event.targetAccession}{' '}
+                    </Link>
+                  </>
+                )}
+              </div>
+              <div className={styles['availability-checkboxes']}>
+                <input
+                  type="checkbox"
+                  className={styles['availability-checkbox']}
+                  checked
+                  readOnly
+                />{' '}
+                UniParc
+                <br />
+                Current location, UniProt’s sequence archive
+              </div>
+            </>
+          ),
+        },
+        {
+          title: 'Actions',
+          content: event.eventType === 'deleted' && (
+            <>
+              Since {subEntryId} is no longer in UniProtKB, its annotations have
+              been removed. However, annotation may be generated on demand using
+              automatic annotation rules.
+              <br />
+              <Button
+                variant="primary"
+                onClick={() => setRunUniFire(true)}
+                className={styles['run-unifire-button']}
+                disabled={runUniFire}
+              >
+                {!runUniFire && 'Generate annotations'}
+                {runUniFire && !uniFireData && 'Generating...'}
+                {runUniFire && uniFireData && 'Predictions loaded'}
+              </Button>
+            </>
+          ),
+        },
+        {
+          title: 'Further information',
+          content: (
+            <ul>
+              <li>
+                <Link to="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html">
+                  Reference proteome move
+                </Link>
+              </li>
+              <li>
+                <Link to={LocationToPath[Location.UniParcResults]}>
+                  About UniParc
+                </Link>
+              </li>
+            </ul>
+          ),
+        },
+      ];
+      return (
+        <InfoList
+          key={`${event.eventType}-${subEntryId}`}
+          infoData={infoData}
+        />
+      );
+    });
+  }
+
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
     subEntryData.data?.results[0],
+    unisaveData.data,
     uniFireData
   );
 
@@ -276,27 +378,12 @@ const SubEntry = () => {
           . These are <span data-article-id="uniparc">UniParc</span> pages and
           not <span data-article-id="uniprotkb">UniProtKB</span> pages.
         </Message>
-        <Card className={styles['unifire-info']}>
-          You’ve been redirected from UniProtKB to UniParc because of [removal
-          reason]. This ensures you can still access the underlying sequence,
-          even if the UniProtKB entry is no longer available.
-        </Card>
-        <Card className={styles['unifire-info']}>
-          To view additional predictions generated by our automatic annotation
-          rules, please click on the button shown below. This will enable more
-          insights associated with this sequence.
-          <br />
-          <Button
-            variant="primary"
-            onClick={() => setRunUniFire(true)}
-            className={styles['run-unifire-button']}
-            disabled={runUniFire}
-          >
-            {runUniFire
-              ? 'Predicted annotations loaded'
-              : 'Load predicted annotations'}
-          </Button>
-        </Card>
+        {contextInfo && (
+          <Message level="info">
+            <h4>Attention: You are viewing this entry in UniParc.</h4>
+            {contextInfo}
+          </Message>
+        )}
       </ErrorBoundary>
       <Tabs active={subPage}>
         <Tab

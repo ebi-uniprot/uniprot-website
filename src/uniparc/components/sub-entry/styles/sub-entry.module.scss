@@ -1,7 +1,17 @@
 .unifire-info {
   background-color: #e9f5f1;
+}
 
-  & .run-unifire-button {
-    margin-top: 0.5rem;
-  }
+.availability-content {
+  margin-bottom: 1.5em;
+  line-height: 0.2rem;
+}
+
+.availability-checkbox {
+  opacity: 0.5;
+}
+
+.run-unifire-button {
+  margin-top: 0.5rem;
+  align-items: center;
 }
