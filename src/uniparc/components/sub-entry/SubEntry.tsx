@@ -287,7 +287,8 @@ const SubEntry = () => {
                   uniFireData?.accession === '' &&
                   'No predictions generated'}
                 {runUniFire &&
-                  uniFireData?.accession !== '' &&
+                  uniFireData &&
+                  uniFireData.accession !== '' &&
                   'Predictions loaded'}
               </Button>
             </>
