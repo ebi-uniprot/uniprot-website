@@ -123,6 +123,19 @@ const SubEntry = () => {
                   })
                 );
               }
+
+              if (response.status === 204) {
+                setUniFireData({ accession: '', predictions: [] });
+                dispatch(
+                  addMessage({
+                    id: 'load-AA-annotations',
+                    content: <>No predictions generated</>,
+                    format: MessageFormat.POP_UP,
+                    level: MessageLevel.SUCCESS,
+                    tag: MessageTag.JOB,
+                  })
+                );
+              }
             } catch (error) {
               if (error instanceof Error) {
                 if (error.name === 'AbortError') {
@@ -253,7 +266,12 @@ const SubEntry = () => {
               >
                 {!runUniFire && 'Generate annotations'}
                 {runUniFire && !uniFireData && 'Generating...'}
-                {runUniFire && uniFireData && 'Predictions loaded'}
+                {runUniFire &&
+                  uniFireData?.accession === '' &&
+                  'No predictions generated'}
+                {runUniFire &&
+                  uniFireData?.accession !== '' &&
+                  'Predictions loaded'}
               </Button>
             </>
           ),
