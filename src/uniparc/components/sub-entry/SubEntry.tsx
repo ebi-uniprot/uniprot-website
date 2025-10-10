@@ -105,8 +105,7 @@ const SubEntry = () => {
             try {
               const response = await fetchData(
                 // Below line should be uncommented once the data is returned as JSON instead of JSON array
-                // apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
-                `http://hh-rke-wp-webadmin-74-worker-4.caas.ebi.ac.uk:32324/uniprotkb/unifire/run?id=${accession}&taxId=${subEntrytaxId}`,
+                apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
                 cancelTokenSource.token
               );
               if (response.data) {
