@@ -223,8 +223,8 @@ const SubEntry = () => {
                     checked={presentInUniprotkb}
                     readOnly
                     disabled={!presentInUniprotkb}
-                  />{' '}
-                  UniProtKB
+                  />
+                  <span data-article-id="uniprotkb">UniProtKB</span>
                 </label>
                 <br />
                 {event.eventType === 'deleted' &&
@@ -258,7 +258,8 @@ const SubEntry = () => {
               </div>
               <div className={styles['availability-content']}>
                 <label>
-                  <input type="checkbox" checked readOnly /> UniParc
+                  <input type="checkbox" checked readOnly />
+                  <span data-article-id="uniparc">UniParc</span>
                 </label>
                 <br />
                 Current location, UniProt’s sequence archive
@@ -410,8 +411,7 @@ const SubEntry = () => {
           <ContactLink>
             provide feedback about them through our contact form
           </ContactLink>
-          . These are <span data-article-id="uniparc">UniParc</span> pages and
-          not <span data-article-id="uniprotkb">UniProtKB</span> pages.
+          .
         </Message>
         {contextInfo && (
           <Message level="info">
