@@ -78,7 +78,7 @@ const SubEntryOverview = ({ data }: Props) => {
     },
     {
       title: 'Status',
-      content: !data.subEntry.active && <SubEntryInactive data={data} />,
+      content: data.unisave.events?.length && <SubEntryInactive data={data} />,
     },
     {
       title: <span data-article-id="accession">UniProtKB accession</span>,
@@ -94,7 +94,7 @@ const SubEntryOverview = ({ data }: Props) => {
             ),
           }}
         >
-          {data.subEntry.id} {data.subEntry.active ? '' : ' (History)'}
+          {data.subEntry.id} {data.unisave.events?.length ? '(History)' : ''}
         </Link>
       ),
     },

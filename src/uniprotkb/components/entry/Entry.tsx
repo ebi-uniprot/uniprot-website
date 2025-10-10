@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
 import {
@@ -382,14 +382,25 @@ const Entry = () => {
       match?.params.accession &&
       match?.params.subPage !== TabLocation.History
     ) {
+      dispatch(
+        addMessage({
+          id: 'deleted-entry',
+          content: (
+            <>
+              You’ve been redirected to UniParc because{' '}
+              {match?.params.accession} is no longer available in UniProtKB.
+            </>
+          ),
+          format: MessageFormat.IN_PAGE,
+          level: MessageLevel.INFO,
+          tag: MessageTag.REDIRECT,
+        })
+      );
       frame().then(() => {
-        history.replace(
-          getEntryPath(
-            Namespace.uniprotkb,
-            match?.params.accession,
-            TabLocation.History
-          )
-        );
+        history.replace({
+          pathname: generatePath(LocationToPath[Location.UniParcResults]),
+          search: stringifyQuery({ query: match?.params.accession }),
+        });
       });
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
