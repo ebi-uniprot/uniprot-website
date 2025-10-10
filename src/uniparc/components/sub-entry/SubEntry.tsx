@@ -194,6 +194,14 @@ const SubEntry = () => {
       const demergedEntries = events.map((event) => event.targetAccession);
       events = [{ ...events[0], targetAccession: demergedEntries.join(', ') }];
     }
+
+    if (
+      unisaveData.data.events.length > 1 &&
+      unisaveData.data.events[0].eventType === 'replacing'
+    ) {
+      const replacedEntries = events.map((event) => event.targetAccession);
+      events = [{ ...events[0], targetAccession: replacedEntries.join(', ') }];
+    }
     contextInfo = events.map((event) => {
       const infoData = [
         {
@@ -204,19 +212,24 @@ const SubEntry = () => {
                 <input
                   type="checkbox"
                   className={styles['availability-checkbox']}
-                  checked={event.eventType === 'merged'}
+                  checked={
+                    event.eventType === 'merged' ||
+                    event.eventType === 'replacing'
+                  }
                   readOnly
                 />{' '}
                 UniProtKB <br />
                 {event.eventType === 'deleted' &&
                   `Removed because ${subEntryId} is ${event.deletedReason?.toLocaleLowerCase() || 'deleted'}`}
-                {event.eventType === 'merged' && (
+                {(event.eventType === 'merged' ||
+                  event.eventType === 'replacing') && (
                   <>
                     {subEntryId} is{' '}
-                    {event.targetAccession.split(', ').length > 1
-                      ? 'demerged'
-                      : 'merged'}{' '}
-                    into{' '}
+                    {event.eventType === 'merged' &&
+                      (event.targetAccession.split(', ').length > 1
+                        ? 'demerged into '
+                        : 'merged into ')}
+                    {event.eventType === 'replacing' && 'replaced by '}
                     {event.targetAccession
                       .split(', ')
                       .map((targetAccession, index, array) => (
