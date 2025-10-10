@@ -203,22 +203,30 @@ const SubEntry = () => {
       events = [{ ...events[0], targetAccession: replacedEntries.join(', ') }];
     }
     contextInfo = events.map((event) => {
+      const presentInUniprotkb =
+        event.eventType === 'merged' || event.eventType === 'replacing';
       const infoData = [
         {
           title: 'Availability',
           content: (
             <>
               <div className={styles['availability-content']}>
-                <input
-                  type="checkbox"
-                  className={styles['availability-checkbox']}
-                  checked={
-                    event.eventType === 'merged' ||
-                    event.eventType === 'replacing'
+                <label
+                  className={
+                    presentInUniprotkb
+                      ? ''
+                      : styles['availability-label-disabled']
                   }
-                  readOnly
-                />{' '}
-                UniProtKB <br />
+                >
+                  <input
+                    type="checkbox"
+                    checked={presentInUniprotkb}
+                    readOnly
+                    disabled={!presentInUniprotkb}
+                  />{' '}
+                  UniProtKB
+                </label>
+                <br />
                 {event.eventType === 'deleted' &&
                   `Removed because ${subEntryId} is ${event.deletedReason?.toLocaleLowerCase() || 'deleted'}`}
                 {(event.eventType === 'merged' ||
@@ -249,13 +257,9 @@ const SubEntry = () => {
                 )}
               </div>
               <div className={styles['availability-content']}>
-                <input
-                  type="checkbox"
-                  className={styles['availability-checkbox']}
-                  checked
-                  readOnly
-                />{' '}
-                UniParc
+                <label>
+                  <input type="checkbox" checked readOnly /> UniParc
+                </label>
                 <br />
                 Current location, UniProt’s sequence archive
               </div>
@@ -286,23 +290,6 @@ const SubEntry = () => {
                   'Predictions loaded'}
               </Button>
             </>
-          ),
-        },
-        {
-          title: 'Further information',
-          content: (
-            <ul>
-              <li>
-                <Link to="https://insideuniprot.blogspot.com/2025/06/capturing-diversity-of-life.html">
-                  Reference proteome move
-                </Link>
-              </li>
-              <li>
-                <Link to={LocationToPath[Location.UniParcResults]}>
-                  About UniParc
-                </Link>
-              </li>
-            </ul>
           ),
         },
       ];
@@ -428,7 +415,9 @@ const SubEntry = () => {
         </Message>
         {contextInfo && (
           <Message level="info">
-            <h4>Attention: You are viewing this entry in UniParc.</h4>
+            <h4>
+              Attention: You are currently viewing {subEntryId} within UniParc
+            </h4>
             {contextInfo}
           </Message>
         )}
