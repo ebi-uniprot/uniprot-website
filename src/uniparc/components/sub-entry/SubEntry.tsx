@@ -174,7 +174,15 @@ const SubEntry = () => {
 
   let contextInfo;
   if (unisaveData.data?.events) {
-    contextInfo = unisaveData.data.events.map((event) => {
+    let events = unisaveData.data.events;
+    if (
+      unisaveData.data.events.length > 1 &&
+      unisaveData.data.events[0].eventType === 'merged'
+    ) {
+      const demergedEntries = events.map((event) => event.targetAccession);
+      events = [{ ...events[0], targetAccession: demergedEntries.join(', ') }];
+    }
+    contextInfo = events.map((event) => {
       const infoData = [
         {
           title: 'Availability',
@@ -192,20 +200,30 @@ const SubEntry = () => {
                   `Removed because ${subEntryId} is ${event.deletedReason?.toLocaleLowerCase() || 'deleted'}`}
                 {event.eventType === 'merged' && (
                   <>
-                    {subEntryId} is merged into{' '}
-                    <Link
-                      to={getEntryPath(
-                        Namespace.uniprotkb,
-                        event.targetAccession
-                      )}
-                    >
-                      {' '}
-                      {event.targetAccession}{' '}
-                    </Link>
+                    {subEntryId} is{' '}
+                    {event.targetAccession.split(', ').length > 1
+                      ? 'demerged'
+                      : 'merged'}{' '}
+                    into{' '}
+                    {event.targetAccession
+                      .split(', ')
+                      .map((targetAccession, index, array) => (
+                        <span key={targetAccession}>
+                          <Link
+                            to={getEntryPath(
+                              Namespace.uniprotkb,
+                              targetAccession
+                            )}
+                          >
+                            {targetAccession}
+                          </Link>
+                          {index < array.length - 1 ? ', ' : ''}
+                        </span>
+                      ))}
                   </>
                 )}
               </div>
-              <div className={styles['availability-checkboxes']}>
+              <div className={styles['availability-content']}>
                 <input
                   type="checkbox"
                   className={styles['availability-checkbox']}
@@ -224,8 +242,8 @@ const SubEntry = () => {
           content: event.eventType === 'deleted' && (
             <>
               Since {subEntryId} is no longer in UniProtKB, its annotations have
-              been removed. However, annotation may be generated on demand using
-              automatic annotation rules.
+              been removed. However, annotations may be generated on demand
+              using automatic annotation rules.
               <br />
               <Button
                 variant="primary"
