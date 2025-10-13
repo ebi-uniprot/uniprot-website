@@ -104,11 +104,12 @@ const SubEntry = () => {
           if (subEntrytaxId) {
             try {
               const response = await fetchData(
-                // Below line should be uncommented once the data is returned as JSON instead of JSON array
-                apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
+                // Below line should be uncommented once the CORS issue is resolved
+                // apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
+                `http://hh-rke-wp-webadmin-74-worker-4.caas.ebi.ac.uk:32324/uniprotkb/unifire/run?id=${accession}&taxId=${subEntrytaxId}`,
                 cancelTokenSource.token
               );
-              if (response.data) {
+              if (response.status === 200 && response.data) {
                 setUniFireData(response.data as UniFireModel);
                 dispatch(
                   addMessage({
