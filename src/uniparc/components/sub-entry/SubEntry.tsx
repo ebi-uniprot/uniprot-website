@@ -104,9 +104,7 @@ const SubEntry = () => {
           if (subEntrytaxId) {
             try {
               const response = await fetchData(
-                // Below line should be uncommented once the CORS issue is resolved
-                // apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
-                `http://hh-rke-wp-webadmin-74-worker-4.caas.ebi.ac.uk:32324/uniprotkb/unifire/run?id=${accession}&taxId=${subEntrytaxId}`,
+                apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
                 cancelTokenSource.token
               );
               if (response.status === 200 && response.data) {
