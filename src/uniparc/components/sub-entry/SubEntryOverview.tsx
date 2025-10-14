@@ -2,18 +2,15 @@ import { InfoList, Loader } from 'franklin-sites';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniParcXRef } from '../../adapters/uniParcConverter';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import EntrySection from '../../types/subEntrySection';
 import { DataDBModel } from '../entry/XRefsSection';
-import SubEntryInactive from './SubEntryInactive';
 
 type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
 
@@ -74,28 +71,6 @@ const SubEntryOverview = ({ data }: Props) => {
       title: 'Identifier',
       content: !data.subEntry.isUniprotkbEntry && (
         <ExternalXrefLink xref={data.subEntry} dataDB={dataDB.data} />
-      ),
-    },
-    {
-      title: 'Status',
-      content: data.unisave.events?.length && <SubEntryInactive data={data} />,
-    },
-    {
-      title: <span data-article-id="accession">UniProtKB accession</span>,
-      content: data.subEntry.id && data.subEntry.isUniprotkbEntry && (
-        <Link
-          to={{
-            pathname: getEntryPath(
-              Namespace.uniprotkb,
-              data.subEntry.id,
-              data.subEntry.active
-                ? UniprotkbTabLocation.Entry
-                : UniprotkbTabLocation.History
-            ),
-          }}
-        >
-          {data.subEntry.id} {data.unisave.events?.length ? '(History)' : ''}
-        </Link>
       ),
     },
     {

@@ -40,6 +40,7 @@ import { SearchResults } from '../../../shared/types/results';
 import fetchData from '../../../shared/utils/fetchData';
 import * as logging from '../../../shared/utils/logging';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
+import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import {
   UniParcLiteAPIModel,
@@ -206,7 +207,7 @@ const SubEntry = () => {
         event.eventType === 'merged' || event.eventType === 'replacing';
       const infoData = [
         {
-          title: 'Availability',
+          title: 'Status',
           content: (
             <>
               <div className={styles['availability-content']}>
@@ -226,8 +227,14 @@ const SubEntry = () => {
                   <span data-article-id="uniprotkb">UniProtKB</span>
                 </label>
                 <br />
-                {event.eventType === 'deleted' &&
-                  `Removed because ${subEntryId} is ${event.deletedReason?.toLocaleLowerCase() || 'deleted'}`}
+                {event.eventType === 'deleted' && (
+                  <>
+                    Removed from UniProtKB because {subEntryId} is{' '}
+                    <strong>
+                      {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
+                    </strong>
+                  </>
+                )}
                 {(event.eventType === 'merged' ||
                   event.eventType === 'replacing') && (
                   <>
@@ -267,10 +274,35 @@ const SubEntry = () => {
           ),
         },
         {
-          title: 'Actions',
+          title: (
+            <div>
+              Available <br /> actions
+            </div>
+          ),
           content: event.eventType === 'deleted' && (
-            <>
-              Since {subEntryId} is no longer in UniProtKB, its annotations have
+            <div>
+              <Link
+                to={{
+                  pathname: getEntryPath(
+                    Namespace.uniprotkb,
+                    subEntryId,
+                    UniprotkbTabLocation.History
+                  ),
+                }}
+              >
+                View history
+              </Link>{' '}
+              in UniProtKB
+            </div>
+          ),
+        },
+        {
+          title: ' ',
+          content: event.eventType === 'deleted' && (
+            <div>
+              <span>Generate additional annotations:</span>
+              <br />
+              As {subEntryId} is no longer in UniProtKB, its annotations have
               been removed. However, annotations may be generated on demand
               using automatic annotation rules.
               <br />
@@ -290,7 +322,7 @@ const SubEntry = () => {
                   uniFireData.accession !== '' &&
                   'Predictions loaded'}
               </Button>
-            </>
+            </div>
           ),
         },
       ];
