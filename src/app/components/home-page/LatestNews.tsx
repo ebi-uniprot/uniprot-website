@@ -128,6 +128,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2025-10-15-release',
+                  })}
+                >
+                  UniProt release 2025_04
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                The strange case of the Cheetah and Leopard proteomes |
+                UniProtKB/Swiss-Prot not updated in release 2025_04...
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2025-06-18-release',
                   })}
                 >
@@ -231,29 +253,6 @@ const LatestNews = () => {
                 Plasma membrane rupture during cell death: from a passive
                 hypothesis to an active process | Changes to the controlled
                 vocabulary of human diseases
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-07-24-release',
-                  })}
-                >
-                  UniProt release 2024_04
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Oocyte waste disposal strategy: &#39;store to degrade later&#39;
-                | Removal of the cross-references to CLAE | Removal of the
-                cross-references to COMPLUYEAST-2DPAGE
               </p>
             </article>
           </li>
