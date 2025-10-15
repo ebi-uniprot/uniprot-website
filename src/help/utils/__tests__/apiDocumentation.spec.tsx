@@ -35,11 +35,17 @@ describe('getTagIdsAndSections', () => {
           label: <span className="label-class">{'/uniref/{id}/members'}</span>,
         },
         {
+          id: 'operations-UniRef-stream',
+          label: (
+            <span className="label-class">{'/uniref/{id}/members/stream'}</span>
+          ),
+        },
+        {
           id: 'operations-UniRef-getById_1',
           label: <span className="label-class">{'/uniref/{id}/light'}</span>,
         },
         {
-          id: 'operations-UniRef-stream',
+          id: 'operations-UniRef-stream_1',
           label: <span className="label-class">/uniref/stream</span>,
         },
 
@@ -93,6 +99,14 @@ describe('getIdToOperation', () => {
         },
       ],
       [
+        'operations-UniRef-stream',
+        {
+          path: '/uniref/{id}/members/stream',
+          tag: 'UniRef',
+          operationId: 'stream',
+        },
+      ],
+      [
         'operations-UniRef-getById_1',
         {
           path: '/uniref/{id}/light',
@@ -101,11 +115,11 @@ describe('getIdToOperation', () => {
         },
       ],
       [
-        'operations-UniRef-stream',
+        'operations-UniRef-stream_1',
         {
           path: '/uniref/stream',
           tag: 'UniRef',
-          operationId: 'stream',
+          operationId: 'stream_1',
         },
       ],
       [

@@ -96,12 +96,11 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "MISC": [
       "ChiTaRS",
       "EvolutionaryTrace",
+      "Agora",
       "GeneWiki",
       "GenomeRNAi",
       "PHI-base",
       "PRO",
-      "SOURCE_MIM",
-      "SOURCE_MGI",
       "Pharos",
       "RNAct",
       "BioGRID-ORCS",
@@ -110,6 +109,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ORCID",
       "PubTator",
       "CD-CODE",
+      "MedGen",
+      "MeSH",
     ],
     "ORG": [
       "ArachnoServer",
@@ -242,6 +243,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   "databaseNameToCategory": {
     "ABCD": "PAM",
     "AGR": "ORG",
+    "Agora": "MISC",
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
     "Alzforum": "GVD",
@@ -342,6 +344,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "MaizeGDB": "ORG",
     "MalaCards": "ORG",
     "MassIVE": "PROTEOMIC",
+    "MeSH": "MISC",
+    "MedGen": "MISC",
     "MetOSite": "PTM",
     "MobiDB": "FMD",
     "ModBase": "3DS",
@@ -403,8 +407,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "SIGNOR": "EAP",
     "SMART": "FMD",
     "SMR": "3DS",
-    "SOURCE_MGI": "MISC",
-    "SOURCE_MIM": "MISC",
     "STRENDA-DB": "EAP",
     "STRING": "PPI",
     "SUPFAM": "FMD",
@@ -462,6 +464,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "AGR",
       "name": "AGR",
       "uriLink": "https://alliancegenome.org/gene/%id",
+    },
+    "Agora": {
+      "attributes": [
+        {
+          "name": "NominatedTarget",
+          "xmlTag": "nominated target",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "Agora",
+      "name": "Agora",
+      "uriLink": "https://agora.adknowledgeportal.org/genes/%id",
     },
     "Allergome": {
       "attributes": [
@@ -1194,7 +1208,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "MISC",
       "displayName": "EvolutionaryTrace",
       "name": "EvolutionaryTrace",
-      "uriLink": "http://mammoth.bcm.tmc.edu/cgi-bin/report_maker_ls/uniprotTraceServerResults.pl?identifier=%id",
+      "uriLink": "https://evolution.lichtargelab.org/cgi-bin/report_maker_ls/uniprotTraceServerResults.pl?identifier=%id",
     },
     "ExpressionAtlas": {
       "attributes": [
@@ -1792,6 +1806,30 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "MassIVE",
       "uriLink": "https://massive.ucsd.edu/ProteoSAFe/protein_explorer.jsp?libraries=2&protein_name=%id",
     },
+    "MeSH": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "MeSH",
+      "name": "MeSH",
+      "uriLink": "https://meshb.nlm.nih.gov/record/ui?ui=%id",
+    },
+    "MedGen": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "MISC",
+      "displayName": "MedGen",
+      "name": "MedGen",
+      "uriLink": "https://www.ncbi.nlm.nih.gov/medgen/%id",
+    },
     "MetOSite": {
       "attributes": [
         {
@@ -2246,7 +2284,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "ORG",
       "displayName": "PharmGKB",
       "name": "PharmGKB",
-      "uriLink": "https://www.pharmgkb.org/gene/%id",
+      "uriLink": "https://www.clinpgx.org/gene/%id",
     },
     "Pharos": {
       "attributes": [
@@ -2572,34 +2610,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "SMR",
       "name": "SMR",
       "uriLink": "https://swissmodel.expasy.org/repository/uniprot/%id?csm=%crc64",
-    },
-    "SOURCE_MGI": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "MISC",
-      "displayName": "SOURCE",
-      "implicit": true,
-      "linkedReason": "DR:MGI",
-      "name": "SOURCE_MGI",
-      "uriLink": "https://puma.princeton.edu/cgi-bin/source/sourceResult?criteria=%GeneName&choice=Gene&option=Symbol&organism=Mm",
-    },
-    "SOURCE_MIM": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "MISC",
-      "displayName": "SOURCE",
-      "implicit": true,
-      "linkedReason": "DR:MIM",
-      "name": "SOURCE_MIM",
-      "uriLink": "https://puma.princeton.edu/cgi-bin/source/sourceResult?criteria=%GeneName&choice=Gene&option=Symbol&organism=Hs",
     },
     "STRENDA-DB": {
       "attributes": [
@@ -2962,7 +2972,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PLG",
       "displayName": "eggNOG",
       "name": "eggNOG",
-      "uriLink": "http://eggnogdb.embl.de/#/app/results?seqid=%primaryAccession&target_nogs=%id",
+      "uriLink": "http://eggnog.embl.de/search/ogs/%id",
     },
     "euHCVdb": {
       "attributes": [
@@ -3102,12 +3112,11 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "external_links": [
       "ChiTaRS",
       "EvolutionaryTrace",
+      "Agora",
       "GeneWiki",
       "GenomeRNAi",
       "PHI-base",
       "PRO",
-      "SOURCE_MIM",
-      "SOURCE_MGI",
       "Pharos",
       "RNAct",
       "BioGRID-ORCS",
@@ -3116,6 +3125,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ORCID",
       "PubTator",
       "CD-CODE",
+      "MedGen",
+      "MeSH",
       "DNASU",
       "ABCD",
       "Antibodypedia",
@@ -3401,14 +3412,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     },
     "Rouge": {
       "database": "Rouge",
-      "implicit": true,
-    },
-    "SOURCE_MGI": {
-      "database": "SOURCE_MGI",
-      "implicit": true,
-    },
-    "SOURCE_MIM": {
-      "database": "SOURCE_MIM",
       "implicit": true,
     },
     "SWISS-MODEL-Workspace": {

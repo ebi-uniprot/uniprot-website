@@ -6,7 +6,7 @@ import { DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -1486,7 +1486,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PharmGKB',
     displayName: 'PharmGKB',
     category: 'ORG',
-    uriLink: 'https://www.pharmgkb.org/gene/%id',
+    uriLink: 'https://www.clinpgx.org/gene/%id',
     attributes: [
       {
         name: 'Description',
@@ -1661,8 +1661,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'eggNOG',
     displayName: 'eggNOG',
     category: 'PLG',
-    uriLink:
-      'http://eggnogdb.embl.de/#/app/results?seqid=%primaryAccession&target_nogs=%id',
+    uriLink: 'http://eggnog.embl.de/search/ogs/%id',
     attributes: [
       {
         name: 'ToxonomicScope',
@@ -1884,11 +1883,23 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'EvolutionaryTrace',
     category: 'MISC',
     uriLink:
-      'http://mammoth.bcm.tmc.edu/cgi-bin/report_maker_ls/uniprotTraceServerResults.pl?identifier=%id',
+      'https://evolution.lichtargelab.org/cgi-bin/report_maker_ls/uniprotTraceServerResults.pl?identifier=%id',
     attributes: [
       {
         name: 'Description',
         xmlTag: 'description',
+      },
+    ],
+  },
+  {
+    name: 'Agora',
+    displayName: 'Agora',
+    category: 'MISC',
+    uriLink: 'https://agora.adknowledgeportal.org/genes/%id',
+    attributes: [
+      {
+        name: 'NominatedTarget',
+        xmlTag: 'nominated target',
       },
     ],
   },
@@ -1939,36 +1950,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'description',
       },
     ],
-  },
-  {
-    name: 'SOURCE_MIM',
-    displayName: 'SOURCE',
-    category: 'MISC',
-    uriLink:
-      'https://puma.princeton.edu/cgi-bin/source/sourceResult?criteria=%GeneName&choice=Gene&option=Symbol&organism=Hs',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-    implicit: true,
-    linkedReason: 'DR:MIM',
-  },
-  {
-    name: 'SOURCE_MGI',
-    displayName: 'SOURCE',
-    category: 'MISC',
-    uriLink:
-      'https://puma.princeton.edu/cgi-bin/source/sourceResult?criteria=%GeneName&choice=Gene&option=Symbol&organism=Mm',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-    implicit: true,
-    linkedReason: 'DR:MGI',
   },
   {
     name: 'Bgee',
@@ -2617,6 +2598,30 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'antibodies',
         xmlTag: 'antibodies',
+      },
+    ],
+  },
+  {
+    name: 'MedGen',
+    displayName: 'MedGen',
+    category: 'MISC',
+    uriLink: 'https://www.ncbi.nlm.nih.gov/medgen/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
+      },
+    ],
+  },
+  {
+    name: 'MeSH',
+    displayName: 'MeSH',
+    category: 'MISC',
+    uriLink: 'https://meshb.nlm.nih.gov/record/ui?ui=%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
       },
     ],
   },

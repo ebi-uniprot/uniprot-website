@@ -1,7 +1,7 @@
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P05067.json
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P05067',
@@ -32459,6 +32459,11 @@ const mock: UniProtkbAPIModel = {
         },
       ],
       evidences: [
+        {
+          evidenceCode: 'ECO:0000314',
+          source: 'PubMed',
+          id: '23459077',
+        },
         {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',

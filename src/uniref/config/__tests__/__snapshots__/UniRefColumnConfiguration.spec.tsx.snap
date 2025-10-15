@@ -3,11 +3,11 @@
 exports[`UniRefColumnConfiguration component should render column "common_taxon": common_taxon 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/2"
-    title="Bacteria, taxon ID 2"
+    href="/taxonomy/88456"
+    title="Cyclospora cayetanensis, taxon ID 88456"
     translate="no"
   >
-    Bacteria
+    Cyclospora cayetanensis
   </a>
 </DocumentFragment>
 `;
@@ -15,27 +15,27 @@ exports[`UniRefColumnConfiguration component should render column "common_taxon"
 exports[`UniRefColumnConfiguration component should render column "common_taxonid": common_taxonid 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/2"
-    title="Bacteria, taxon ID 2"
+    href="/taxonomy/88456"
+    title="Cyclospora cayetanensis, taxon ID 88456"
     translate="no"
   >
-    2
+    88456
   </a>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "count": count 1`] = `
 <DocumentFragment>
-  6 members
+  1 member
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "date_modified": date_modified 1`] = `
 <DocumentFragment>
   <time
-    datetime="2024-10-02T00:00:00.000Z"
+    datetime="2016-11-30T00:00:00.000Z"
   >
-    2024-10-02
+    2016-11-30
   </time>
 </DocumentFragment>
 `;
@@ -49,9 +49,9 @@ exports[`UniRefColumnConfiguration component should render column "id": id 1`] =
   >
     <a
       class="accession"
-      href="/uniref/UniRef50_A0A3E1E969"
+      href="/uniref/UniRef50_A0A1D3CUQ5"
     >
-      UniRef50_A0A3E1E969
+      UniRef50_A0A1D3CUQ5
     </a>
   </span>
 </DocumentFragment>
@@ -65,7 +65,7 @@ exports[`UniRefColumnConfiguration component should render column "identity": id
 
 exports[`UniRefColumnConfiguration component should render column "length": length 1`] = `
 <DocumentFragment>
-  1,227
+  127
 </DocumentFragment>
 `;
 
@@ -76,52 +76,18 @@ exports[`UniRefColumnConfiguration component should render column "members": mem
   >
     <li>
       <a
-        href="/uniprotkb/A0A3E1E969/entry"
+        href="/uniprotkb/A0A1D3CUQ5/entry"
       >
-        A0A3E1E969
+        A0A1D3CUQ5
       </a>
     </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A7Y5C7M4/entry"
-      >
-        A0A7Y5C7M4
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/B4CTX8/entry"
-      >
-        B4CTX8
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A3C1H8I3/entry"
-      >
-        A0A3C1H8I3
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniparc/UPI0032A75626/entry"
-      >
-        UPI0032A75626
-      </a>
-    </li>
-    <a
-      class="button tertiary"
-      href="/uniref/UniRef50_A0A3E1E969"
-    >
-      1 more member
-    </a>
   </ul>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "name": name 1`] = `
 <DocumentFragment>
-  Cluster: Glucose dehydrogenase/Glucose dehydrogenase/Glucose dehydrogenase
+  Cluster: Glucose
 </DocumentFragment>
 `;
 
@@ -132,55 +98,13 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
   >
     <li>
       <a
-        href="/taxonomy/2026799"
-        title="Verrucomicrobiota bacterium, taxon ID 2026799"
+        href="/taxonomy/88456"
+        title="Cyclospora cayetanensis, taxon ID 88456"
         translate="no"
       >
-        Verrucomicrobiota bacterium
+        Cyclospora cayetanensis
       </a>
     </li>
-    <li>
-      <a
-        href="/taxonomy/2030809"
-        title="Hydrogenedentota bacterium, taxon ID 2030809"
-        translate="no"
-      >
-        Hydrogenedentota bacterium
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/497964"
-        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
-        translate="no"
-      >
-        Chthoniobacter flavus Ellin428
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/2026801"
-        title="Verrucomicrobiales bacterium, taxon ID 2026801"
-        translate="no"
-      >
-        Verrucomicrobiales bacterium
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/2510640"
-        title="Chthoniobacter sp., taxon ID 2510640"
-        translate="no"
-      >
-        Chthoniobacter sp.
-      </a>
-    </li>
-    <a
-      class="button tertiary"
-      href="/uniref/UniRef50_A0A3E1E969"
-    >
-      More organisms
-    </a>
   </ul>
 </DocumentFragment>
 `;
@@ -192,55 +116,13 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
   >
     <li>
       <a
-        href="/taxonomy/2026799"
-        title="Verrucomicrobiota bacterium, taxon ID 2026799"
+        href="/taxonomy/88456"
+        title="Cyclospora cayetanensis, taxon ID 88456"
         translate="no"
       >
-        2026799
+        88456
       </a>
     </li>
-    <li>
-      <a
-        href="/taxonomy/2030809"
-        title="Hydrogenedentota bacterium, taxon ID 2030809"
-        translate="no"
-      >
-        2030809
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/497964"
-        title="Chthoniobacter flavus Ellin428, taxon ID 497964"
-        translate="no"
-      >
-        497964
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/2026801"
-        title="Verrucomicrobiales bacterium, taxon ID 2026801"
-        translate="no"
-      >
-        2026801
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/2510640"
-        title="Chthoniobacter sp., taxon ID 2510640"
-        translate="no"
-      >
-        2510640
-      </a>
-    </li>
-    <a
-      class="button tertiary"
-      href="/uniref/UniRef50_A0A3E1E969"
-    >
-      More organism IDs
-    </a>
   </ul>
 </DocumentFragment>
 `;
@@ -248,12 +130,79 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
 exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
   <div>
-    <button
-      class="button secondary"
-      type="button"
+    <section
+      class="sequence-container"
     >
-      Show sequence 
-    </button>
+      <div
+        class="sequence"
+      >
+        <span
+          class="sequence__chunk"
+        >
+          MQIGEEGVKG
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          VAQSIAGLMC
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          VAAGFSICVA
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          GAVLQPLQQD
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          FRLCGSQFAC
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          TEKGAFVAVF
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          APGAAVGSLV
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          GGFVADAVGR
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          WRSLFWTSLA
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          FIAATGLTVM
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          SATYAPLGWR
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          EGRFESSALS
+        </span>
+        <span
+          class="sequence__chunk"
+        >
+          ETLPSVY
+        </span>
+      </div>
+    </section>
   </div>
 </DocumentFragment>
 `;
@@ -263,12 +212,6 @@ exports[`UniRefColumnConfiguration component should render column "types": types
   <span
     class="entry-title__status icon--unreviewed"
     title="This marks an unreviewed UniProtKB entry"
-  >
-    <test-file-stub />
-  </span>
-  <span
-    class="entry-title__status icon--uniparc"
-    title="This marks a UniParc entry"
   >
     <test-file-stub />
   </span>

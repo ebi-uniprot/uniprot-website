@@ -15,12 +15,12 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           class="checkbox-cell"
         >
           <input
-            data-id="UniRef50_A0A3E1E969"
+            data-id="UniRef50_A0A1D3CUQ5"
             id="1"
             type="checkbox"
           />
           <label
-            aria-label="UniRef50_A0A3E1E969"
+            aria-label="UniRef50_A0A1D3CUQ5"
             for="1"
             title="click to select, shift+click for multiple selection"
           />
@@ -29,7 +29,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           class="small"
         >
           <a
-            href="/uniref/UniRef50_A0A3E1E969"
+            href="/uniref/UniRef50_A0A1D3CUQ5"
           >
             <span
               class="entry-title"
@@ -41,13 +41,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               >
                 <test-file-stub />
               </span>
-              <span
-                class="entry-title__status icon--uniparc"
-                title="This marks a UniParc entry"
-              >
-                <test-file-stub />
-              </span>
-              UniRef50_A0A3E1E969
+              UniRef50_A0A1D3CUQ5
             </span>
           </a>
         </h2>
@@ -67,7 +61,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               </span>
               : 
             </strong>
-            Cluster: Glucose dehydrogenase/Glucose dehydrogenase/Glucose dehydrogenase
+            Cluster: Glucose
           </span>
           <span
             class="result-card__info-bit"
@@ -78,7 +72,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               </span>
               : 
             </strong>
-            6 members
+            1 member
           </span>
           <span
             class="result-card__info-bit"
@@ -89,7 +83,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               </span>
               : 
             </strong>
-            1,227
+            127
           </span>
           <span
             class="result-card__info-bit"
