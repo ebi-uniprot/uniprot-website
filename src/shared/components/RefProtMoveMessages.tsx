@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { Message } from 'franklin-sites';
 import { FC } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
@@ -28,12 +29,23 @@ const rpChangesRelease = '2025_04';
 const rpChangesReleaseDate = 'October 2025';
 
 const UniProtKBGenericPreamble = () => (
-  <>
-    The Unreviewed UniProtKB/TrEMBL database will be reduced in size in release{' '}
-    {rpChangesRelease} ({rpChangesReleaseDate}, due to the removal of
-    unclassified organisms) and again in release {release} ({releaseDate}, due
-    to the removal of proteins from non-reference proteomes).
-  </>
+  <div>
+    <strong>
+      The unreviewed UniProtKB/TrEMBL database will be reduced in size in
+      release {release} ({releaseDate}).
+    </strong>
+    <br />✅ Entries to be retained:
+    <ul className={styles['retained']}>
+      <li>Entries from reference proteomes</li>
+      <li>All reviewed (Swiss-Prot) entries</li>
+      <li>
+        Selected unreviewed (TrEMBL) entries with experimental or biologically
+        important data
+      </li>
+    </ul>
+    ❌ Entries to be removed: Unreviewed (TrEMBL) entries that are not part of a
+    reference proteome
+  </div>
 );
 
 const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
@@ -52,16 +64,18 @@ const UniProtKBGenericMain: FC<{
 }> = ({ accession, organism, upids }) => (
   <>
     <br />
-    <br />
-    From release {release}, Unreviewed UniProtKB/TrEMBL will include only
-    proteins from reference proteomes and selected entries with experimental and
-    biologically important data. Entries removed from Unreviewed
-    UniProtKB/TrEMBL will remain accessible in the UniParc sequence archive.
-    Please see{' '}
-    <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, view the{' '}
+    Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
+    sequence archive. Read our{' '}
+    <Link
+      to={generatePath(LocationToPath[Location.HelpEntry], {
+        accession: 'refprot_only_changes',
+      })}
+    >
+      help page
+    </Link>
+    , view{' '}
     <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
-      list of affected proteins and proteomes
+      affected entries and proteomes
     </ExternalLink>
     , or{' '}
     <ContactLink
