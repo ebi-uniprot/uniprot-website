@@ -193,10 +193,10 @@ export const RefProtMoveHomePage = () => (
   </Message>
 );
 
-export const RefProtMoveHelp = () => (
+export const RefProtMoveHelpLandingPage = () => (
   <Message
     level="warning"
-    className={cn('uniprot-grid-cell--span-12', styles['help'])}
+    className={cn('uniprot-grid-cell--span-12', styles['help-landing-page'])}
   >
     Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
     transition. <HelpFtpContact />
@@ -207,6 +207,16 @@ export const RefProtMoveHelpEntry = () => (
   <Message
     level="warning"
     className={cn('uniprot-grid-cell--span-12', styles['help-entry'])}
+  >
+    Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
+    transition. <HelpFtpContact />
+  </Message>
+);
+
+export const RefProtMoveHelpResults = () => (
+  <Message
+    level="warning"
+    className={cn('uniprot-grid-cell--span-12', styles['help-results'])}
   >
     Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
     transition. <HelpFtpContact />

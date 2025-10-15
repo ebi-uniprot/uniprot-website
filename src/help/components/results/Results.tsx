@@ -13,6 +13,7 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
+import { RefProtMoveHelpResults } from '../../../shared/components/RefProtMoveMessages';
 import sharedApiUrls from '../../../shared/config/apiUrls/apiUrls';
 import usePagination from '../../../shared/hooks/usePagination';
 import { stringifyQuery } from '../../../shared/utils/url';
@@ -163,6 +164,7 @@ const Results = ({
           isReleaseNotes ? 'release notes' : 'help'
         } search`}
       />
+      <RefProtMoveHelpResults />
       {searchNode}
       {main}
     </SidebarLayout>

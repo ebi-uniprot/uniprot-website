@@ -11,7 +11,7 @@ import {
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import Contact from '../../../shared/components/layouts/Contact';
-import { RefProtMoveHelp } from '../../../shared/components/RefProtMoveMessages';
+import { RefProtMoveHelpLandingPage } from '../../../shared/components/RefProtMoveMessages';
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import HelpQuickSearch from './HelpQuickSearch';
@@ -175,7 +175,7 @@ const HelpLandingPage = () => (
       )}
     >
       <HTMLHead title="Help" />
-      <RefProtMoveHelp />
+      <RefProtMoveHelpLandingPage />
       <PageIntro heading="Help center" className="uniprot-grid-cell--span-12" />
       <div className="uniprot-grid-cell--span-9">
         <HelpQuickSearch />
