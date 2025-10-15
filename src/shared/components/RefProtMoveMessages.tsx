@@ -203,6 +203,16 @@ export const RefProtMoveHelp = () => (
   </Message>
 );
 
+export const RefProtMoveHelpEntry = () => (
+  <Message
+    level="warning"
+    className={cn('uniprot-grid-cell--span-12', styles['help-entry'])}
+  >
+    Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
+    transition. <HelpFtpContact />
+  </Message>
+);
+
 export const RefProtMoveResultsMessage: FC<{
   namespace: Namespace;
 }> = ({ namespace }) => {
