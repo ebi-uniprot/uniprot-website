@@ -183,10 +183,20 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
   </>
 );
 
-export const RefProtMoveHomePageAndHelp = () => (
+export const RefProtMoveHomePage = () => (
   <Message
     level="warning"
     className={cn('uniprot-grid-cell--span-12', styles['homepage'])}
+  >
+    Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
+    transition. <HelpFtpContact />
+  </Message>
+);
+
+export const RefProtMoveHelp = () => (
+  <Message
+    level="warning"
+    className={cn('uniprot-grid-cell--span-12', styles['help'])}
   >
     Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
     transition. <HelpFtpContact />
