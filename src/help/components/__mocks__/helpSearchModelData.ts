@@ -1,7 +1,7 @@
 import { HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -119,7 +119,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2025-06-18',
+      lastModified: '2025-08-14',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -175,7 +175,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2025-06-18',
+      lastModified: '2025-08-14',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
@@ -250,7 +250,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'structure_section',
       title: 'Structure annotation in UniProt',
-      lastModified: '2025-06-12',
+      lastModified: '2025-09-16',
       type: 'help',
       categories: ['3D structure', 'manual'],
       matches: {
@@ -334,7 +334,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2025-06-18',
+      lastModified: '2025-08-14',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -379,7 +379,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2025-06-18',
+      lastModified: '2025-08-14',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -391,12 +391,12 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequence_origin',
       title: 'Where do the UniProtKB protein sequences come from?',
-      lastModified: '2023-01-16',
+      lastModified: '2025-08-22',
       type: 'help',
       categories: ['UniProtKB', 'Sequence', 'faq'],
       matches: {
         content: [
-          ' set? How do I get the nucleotide sequence that corresponds to the <span class="match-highlight">canonical</span> UniProtKB sequence?',
+          ' the <span class="match-highlight">canonical</span> UniProtKB sequence? Sequences Related terms: imported, source, origin',
         ],
       },
     },
@@ -446,7 +446,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2025-06-18',
+      lastModified: '2025-08-14',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {

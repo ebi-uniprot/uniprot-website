@@ -253,7 +253,7 @@ const MembersSection = ({ id, identity, representativeMember }: Props) => {
   const { search } = useLocation();
   const [{ selectedFacets }] = getParamsFromURL(search);
 
-  const initialUrl = apiUrls.members(id, {
+  const initialUrl = apiUrls.members(id, false, {
     selectedFacets: selectedFacets.map(
       (facet) => `${facet.name}:${facet.value}`
     ),

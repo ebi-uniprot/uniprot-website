@@ -251,17 +251,17 @@ const LandingPage = () => {
               <br />
               <ul>
                 <li>
-                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/xml/all/">
+                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/xml/all/">
                     xml
                   </ExternalLink>
                 </li>
                 <li>
-                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/fasta/active/">
+                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/fasta/active/">
                     fasta
                   </ExternalLink>
                 </li>
                 <li>
-                  <ExternalLink url="https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniparc/README">
+                  <ExternalLink url="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/uniparc/READMEE">
                     README
                   </ExternalLink>
                 </li>

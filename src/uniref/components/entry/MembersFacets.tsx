@@ -19,7 +19,7 @@ const MembersFacet = memo<{ accession: string }>(({ accession }) => {
   const selectedFacetsStrings = selectedFacets.map(
     (facet) => `${facet.name}:${facet.value}`
   );
-  const facetsURL = apiUrls.members(accession, {
+  const facetsURL = apiUrls.members(accession, false, {
     facets: uniRefMembersFacets,
     selectedFacets: selectedFacetsStrings,
     size: 0,

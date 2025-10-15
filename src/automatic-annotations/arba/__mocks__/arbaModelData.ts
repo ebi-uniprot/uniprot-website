@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { ARBAAPIModel } from '../adapters/arbaConverter';
 
 // Source: arba/search?query=insulin&size=2
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock: SearchResults<ARBAAPIModel> = {
   results: [
     {
@@ -147,7 +147,7 @@ const mock: SearchResults<ARBAAPIModel> = {
       },
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 1045,
+        unreviewedProteinCount: 1050,
       },
       createdDate: '2020-05-12',
       modifiedDate: '2025-03-21',

@@ -43,7 +43,7 @@ exports[`ResultsFacets should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                Unreviewed (TrEMBL) (3,402,070)
+                Unreviewed (TrEMBL) (2,252,041)
               </a>
             </li>
           </ul>
@@ -64,7 +64,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=model_organism%3A10116"
               >
-                Rat (2,258)
+                Rat (2,203)
               </a>
             </li>
             <li>
@@ -72,7 +72,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=model_organism%3A9606"
               >
-                Human (2,011)
+                Human (2,052)
               </a>
             </li>
             <li>
@@ -80,7 +80,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=model_organism%3A3702"
               >
-                A. thaliana (1,795)
+                A. thaliana (1,826)
               </a>
             </li>
             <li>
@@ -88,15 +88,15 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=model_organism%3A10090"
               >
-                Mouse (1,538)
+                Mouse (1,597)
               </a>
             </li>
             <li>
               <a
                 class=""
-                href="/uniprotkb?query=blah&facets=model_organism%3A9913"
+                href="/uniprotkb?query=blah&facets=model_organism%3A39947"
               >
-                Bovine (1,102)
+                Rice (1,075)
               </a>
             </li>
           </ul>
@@ -183,7 +183,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=proteins_with%3A1"
               >
-                3D structure (2,760)
+                3D structure (2,747)
               </a>
             </li>
             <li>
@@ -191,7 +191,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=proteins_with%3A2"
               >
-                Active site (661,744)
+                Active site (407,455)
               </a>
             </li>
             <li>
@@ -199,7 +199,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=proteins_with%3A3"
               >
-                Activity regulation (40,160)
+                Activity regulation (26,206)
               </a>
             </li>
             <li>
@@ -245,7 +245,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=existence%3A3"
               >
-                Homology (2,480,533)
+                Homology (1,625,627)
               </a>
             </li>
             <li>
@@ -253,7 +253,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=existence%3A4"
               >
-                Predicted (903,075)
+                Predicted (608,045)
               </a>
             </li>
             <li>
@@ -261,7 +261,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=existence%3A2"
               >
-                Transcript level (24,023)
+                Transcript level (23,845)
               </a>
             </li>
             <li>
@@ -269,7 +269,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=existence%3A1"
               >
-                Protein level (10,939)
+                Protein level (11,024)
               </a>
             </li>
             <li>
@@ -298,7 +298,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=annotation_score%3A5"
               >
-                5 (16,765)
+                5 (18,871)
               </a>
             </li>
             <li>
@@ -306,7 +306,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=annotation_score%3A4"
               >
-                4 (69,319)
+                4 (51,689)
               </a>
             </li>
             <li>
@@ -314,7 +314,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=annotation_score%3A3"
               >
-                3 (459,208)
+                3 (307,266)
               </a>
             </li>
             <li>
@@ -322,7 +322,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=annotation_score%3A2"
               >
-                2 (1,307,867)
+                2 (920,102)
               </a>
             </li>
             <li>
@@ -330,7 +330,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=annotation_score%3A1"
               >
-                1 (1,565,435)
+                1 (970,637)
               </a>
             </li>
           </ul>
@@ -351,7 +351,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=length%3A%5B1+TO+200%5D"
               >
-                1 - 200 (301,944)
+                1 - 200 (181,465)
               </a>
             </li>
             <li>
@@ -359,7 +359,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=length%3A%5B201+TO+400%5D"
               >
-                201 - 400 (1,329,671)
+                201 - 400 (821,453)
               </a>
             </li>
             <li>
@@ -367,7 +367,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=length%3A%5B401+TO+600%5D"
               >
-                401 - 600 (1,191,709)
+                401 - 600 (812,887)
               </a>
             </li>
             <li>
@@ -375,7 +375,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=length%3A%5B601+TO+800%5D"
               >
-                601 - 800 (365,053)
+                601 - 800 (267,953)
               </a>
             </li>
             <li>
@@ -383,7 +383,7 @@ exports[`ResultsFacets should render 1`] = `
                 class=""
                 href="/uniprotkb?query=blah&facets=length%3A%5B801+TO+*%5D"
               >
-                &gt;= 801 (230,217)
+                &gt;= 801 (184,807)
               </a>
             </li>
           </ul>

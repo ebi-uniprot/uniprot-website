@@ -4,7 +4,7 @@ import { SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',
@@ -752,6 +752,8 @@ const configureSearchTerms: SearchTermType[] = [
             dataType: 'string',
             fieldType: 'general',
             example: 'nephrotic',
+            autoComplete: '/suggester?dict=disease&query=?',
+            autoCompleteQueryTerm: 'cc_disease',
           },
           {
             id: 'cc_disease_exp',
@@ -1984,10 +1986,10 @@ const configureSearchTerms: SearchTermType[] = [
         regex: '^true|false$',
       },
       {
-        id: 'organelle',
+        id: 'encoded_in',
         label: 'Encoded in',
         itemType: 'single',
-        term: 'organelle',
+        term: 'encoded_in',
         dataType: 'enum',
         fieldType: 'general',
         example: 'mitochondrion',
@@ -3714,6 +3716,15 @@ const configureSearchTerms: SearchTermType[] = [
             valuePrefix: 'evolutionarytrace-',
           },
           {
+            id: 'xref_agora',
+            label: 'Agora',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'agora-',
+          },
+          {
             id: 'xref_genewiki',
             label: 'GeneWiki',
             itemType: 'single',
@@ -3784,6 +3795,24 @@ const configureSearchTerms: SearchTermType[] = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cd-code-',
+          },
+          {
+            id: 'xref_medgen',
+            label: 'MedGen',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'medgen-',
+          },
+          {
+            id: 'xref_mesh',
+            label: 'MeSH',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'mesh-',
           },
         ],
       },

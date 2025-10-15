@@ -2173,6 +2173,8 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_abcd": xref_abcd 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_agora": xref_agora 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_agr": xref_agr 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_allergome": xref_allergome 1`] = `<DocumentFragment />`;
@@ -2443,7 +2445,11 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_mane-
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_massive": xref_massive 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_medgen": xref_medgen 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_merops": xref_merops 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_mesh": xref_mesh 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_metosite": xref_metosite 1`] = `<DocumentFragment />`;
 

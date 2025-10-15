@@ -20,6 +20,6 @@ describe('UniRefCard tests', () => {
       <UniRefCard data={row as UniRefLiteAPIModel} />
     );
     fireEvent.click(within(screen.getByRole('heading')).getByRole('link'));
-    expect(history.location.pathname).toMatch('/uniref/UniRef50_A0A3E1E969');
+    expect(history.location.pathname).toMatch('uniref/UniRef50_A0A1D3CUQ5');
   });
 });

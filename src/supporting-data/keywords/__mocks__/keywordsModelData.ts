@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 
 // Source: keywords/search?query=site&size=2
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock: SearchResults<KeywordsAPIModel> = {
   results: [
     {
@@ -36,7 +36,7 @@ const mock: SearchResults<KeywordsAPIModel> = {
       },
       statistics: {
         reviewedProteinCount: 2514,
-        unreviewedProteinCount: 227818,
+        unreviewedProteinCount: 161023,
       },
     },
     {
@@ -75,7 +75,7 @@ const mock: SearchResults<KeywordsAPIModel> = {
       },
       statistics: {
         reviewedProteinCount: 105,
-        unreviewedProteinCount: 25982,
+        unreviewedProteinCount: 25971,
       },
     },
   ],

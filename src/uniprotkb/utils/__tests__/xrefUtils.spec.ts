@@ -46,11 +46,6 @@ describe('xrefUtils tests', () => {
         properties: { GeneName: 'APP' },
       },
       {
-        database: 'SOURCE_MIM',
-        implicit: true,
-        properties: { GeneName: 'APP' },
-      },
-      {
         database: 'GenAtlas',
         implicit: true,
         properties: { GeneName: 'APP' },

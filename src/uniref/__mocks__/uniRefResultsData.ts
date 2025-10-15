@@ -7,7 +7,7 @@ type Payload = {
 };
 
 // Source: uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock: Payload = {
   facets: [
     {
@@ -18,107 +18,71 @@ const mock: Payload = {
         {
           label: '100%',
           value: '1.0',
-          count: 1297879,
+          count: 1230334,
         },
         {
           label: '90%',
           value: '0.9',
-          count: 475006,
+          count: 367753,
         },
         {
           label: '50%',
           value: '0.5',
-          count: 69987,
+          count: 47919,
         },
       ],
     },
   ],
   results: [
     {
-      id: 'UniRef50_A0A3E1E969',
-      name: 'Cluster: Glucose dehydrogenase/Glucose dehydrogenase/Glucose dehydrogenase',
-      updated: '2024-10-02',
+      id: 'UniRef50_A0A1D3CUQ5',
+      name: 'Cluster: Glucose',
+      updated: '2016-11-30',
       entryType: 'UniRef50',
       commonTaxon: {
-        scientificName: 'Bacteria',
-        taxonId: 2,
+        scientificName: 'Cyclospora cayetanensis',
+        taxonId: 88456,
       },
-      memberCount: 6,
-      organismCount: 6,
+      memberCount: 1,
+      organismCount: 1,
       representativeMember: {
         memberIdType: 'UniProtKB ID',
-        memberId: 'A0A3E1E969_UNCVE',
-        organismName: 'Verrucomicrobiota bacterium',
-        organismTaxId: 2026799,
-        sequenceLength: 1227,
-        proteinName:
-          'Glucose dehydrogenase/Glucose dehydrogenase/Glucose dehydrogenase',
-        accessions: ['A0A3E1E969'],
-        uniref90Id: 'UniRef90_A0A3E1E969',
-        uniref100Id: 'UniRef100_A0A3E1E969',
-        uniparcId: 'UPI000E38EA28',
+        memberId: 'A0A1D3CUQ5_9EIME',
+        organismName: 'Cyclospora cayetanensis',
+        organismTaxId: 88456,
+        sequenceLength: 127,
+        proteinName: 'Glucose',
+        accessions: ['A0A1D3CUQ5'],
+        uniref90Id: 'UniRef90_A0A1D3CUQ5',
+        uniref100Id: 'UniRef100_A0A1D3CUQ5',
+        uniparcId: 'UPI00086F6574',
         seed: true,
         sequence: {
           value:
-            'MKTTFLLNHTLSALAAFALSALAPPVQAATPPSQPASAAPAQKSPELFRSSNLAAWCIVPFDKGKRNPEQRAEMLEKLGFSKFVYDYRKEHILEWDAEMEALKRHHVDLTGWWFPGSLNPEALTALELFRKHHFKPQLWVSGGGGSLKADSAEEQARRVANEVRRLKPIAEAARADGLTVGLYNHGSWFGEPDNQIEILNALKAEGFSNVGLVYNQHHGHGHIEGFKELLERMKPHLIFLNLNGMDIRGDQVGRKILPLGIGTEDLSLLKIIAKSGYTGPIGILNHTGEDAEARLQDNLEGLRWLTPQLQGDPAGPKPVPRSFNATPAPAGAKAAPSSASATSVPSLSPAFGNALHGSLALEGKDSYRTPPLSVECRAKLNSATSFNILVASDTKASADHWELYTYSKSGFLSLYMPGRGGEIRSEINVCDGTWHALAATIGPEKVRLYVDGKLVKEAPLRPRVGTPIPGGLALGALVEGRPSCDGLLDNVRISSGEREISAPGDAPLKTDATTLGLWDFEALPATPAQAAAIAPIPELDRSQLASSFILPAAKPERLTPANGWPSDTSSGNWERSLGGPTSNRFSNLKQITRENVAQLEPAWTYRSGDGNANIQCNPIVVHGTMFTPTPGKNIVAVDAATGKERWRFAPKTLIGGESSNPARRGLLYWKGDAIAPPRLLFGDGNWLIALHPDTGLPVEGFGTGGKTQVPTGTTAVGALHGHIFVLPGYGGDVYGFDARDGKLLWTFKTRPPAGEFGNETWSKLESGANCWGGMAMDESRGIAFISLGSPKPNFIGINHQGDNLFSNCVLALDATNGKRLWHFQELRHDIWDWDIPAPPNLVTVERHGRRVDALAQVTKLGNTLLLDRVTGEPLYDFRFVRVDTHGLPGDSTAVYQPAPELPQPFARQAYTRADMPSNPEARAALLPLLDRANLGPFPSFDEARPTLLFNIHGGAEWTGAAADPKGFLYVTSNEIPWSITCFRDDDPAPLLPPSAGEQIYQTNCSACHGPDRKGLGHAPPMRGLRHRLAEPDVRAILKTGRASMPPMPHLTEEQLQPLLDFVLCRDRPSAPQGASKGKEWTFSGFNRLLDSNGYPACSTPWGTLNCINLNTGETAWSVPLGEYPELKEKGVPKTGQENFGGAIVTSSGLVFVSGTRDKKIRAFDASTGAELWSQSLPLHGTAPPSSYEAEGRQFILQPATGGGKLGGPAGDTWVAFALPKGRLADSR',
-          length: 1227,
-          molWeight: 132326,
-          crc64: '5BD17156D82A1662',
-          md5: '64A3B23507FDB3D06385EC05AFF2736C',
+            'MQIGEEGVKGVAQSIAGLMCVAAGFSICVAGAVLQPLQQDFRLCGSQFACTEKGAFVAVFAPGAAVGSLVGGFVADAVGRWRSLFWTSLAFIAATGLTVMSATYAPLGWREGRFESSALSETLPSVY',
+          length: 127,
+          molWeight: 13118,
+          crc64: 'F39F2BBDF6EB0234',
+          md5: '96B17A3C27CEEC4943C0FCA2A801381C',
         },
       },
-      seedId: 'A0A3E1E969',
-      memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)', 'UniParc'],
-      members: [
-        'A0A3E1E969',
-        'A0A7Y5C7M4',
-        'B4CTX8',
-        'A0A3C1H8I3',
-        'UPI0032A75626',
-        'UPI00104BEFB8',
-      ],
+      seedId: 'A0A1D3CUQ5',
+      memberIdTypes: ['UniProtKB Unreviewed (TrEMBL)'],
+      members: ['A0A1D3CUQ5'],
       organisms: [
         {
-          scientificName: 'Verrucomicrobiota bacterium',
-          taxonId: 2026799,
-        },
-        {
-          scientificName: 'Hydrogenedentota bacterium',
-          taxonId: 2030809,
-        },
-        {
-          scientificName: 'Chthoniobacter flavus Ellin428',
-          taxonId: 497964,
-        },
-        {
-          scientificName: 'Verrucomicrobiales bacterium',
-          taxonId: 2026801,
-        },
-        {
-          scientificName: 'Chthoniobacter sp.',
-          taxonId: 2510640,
-        },
-        {
-          scientificName: 'Chthoniobacter flavus',
-          taxonId: 191863,
+          scientificName: 'Cyclospora cayetanensis',
+          taxonId: 88456,
         },
       ],
       goTerms: [
         {
-          goId: 'GO:0020037',
+          goId: 'GO:0022857',
           aspect: 'GO Molecular Function',
         },
         {
-          goId: 'GO:0046872',
-          aspect: 'GO Molecular Function',
-        },
-        {
-          goId: 'GO:0009055',
-          aspect: 'GO Molecular Function',
-        },
-        {
-          goId: 'GO:0016491',
-          aspect: 'GO Molecular Function',
+          goId: 'GO:0016020',
+          aspect: 'GO Cellular Component',
         },
       ],
     },

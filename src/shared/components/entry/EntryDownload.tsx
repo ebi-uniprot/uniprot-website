@@ -2,13 +2,9 @@ import type { AlphaFoldPayload } from '@nightingale-elements/nightingale-structu
 import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 
-import {
-  allEntryPages,
-  getLocationEntryPathFor,
-  Location,
-} from '../../../app/config/urls';
+import { allEntryPages } from '../../../app/config/urls';
 import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
 import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as proteomesFFED } from '../../../proteomes/config/download';
@@ -168,10 +164,8 @@ const getEntryDownloadUrl = (
         });
       }
       if (isUniRefList(namespace, fileFormat)) {
-        return unirefApiUrls.members(accession, {
+        return unirefApiUrls.members(accession, true, {
           format: fileFormat as FileFormat.list,
-          // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
-          size: 500,
         });
       }
 
@@ -637,40 +631,6 @@ const EntryDownload = ({
               <LongNumber>{nResults as number}</LongNumber> of the
               cross-references in the <pre>uniParcCrossReferences</pre>{' '}
               attribute.
-            </li>
-          </ul>
-        </div>
-      );
-    }
-    if (namespace === Namespace.uniref && selectedFormat === FileFormat.list) {
-      additionalInformation = (
-        <div>
-          There is a current limitation where UniRef member list downloads are
-          limited to {maxPaginationDownload} entries. Until this is fixed, there
-          are several options:
-          <ul>
-            <li>
-              View the{' '}
-              <Link
-                to={getLocationEntryPathFor(Location.HelpEntry)('pagination')}
-              >
-                pagination documentation
-              </Link>{' '}
-              to download all <LongNumber>{nResults as number}</LongNumber>{' '}
-              members programmatically
-            </li>
-            <li>
-              Continue to download the{' '}
-              <DownloadAnchor
-                accession={accession as string}
-                fileFormat={FileFormat.list}
-                namespace={namespace}
-                dataset={selectedDataset}
-                columns={downloadColumns}
-              />{' '}
-              file format which has only {maxPaginationDownload} entries
-              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
-              members will not be downloaded)
             </li>
           </ul>
         </div>
