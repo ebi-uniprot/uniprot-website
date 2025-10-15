@@ -230,7 +230,7 @@ const SubEntry = () => {
                 {event.eventType === 'deleted' && (
                   <>
                     Removed from UniProtKB because {subEntryId} is{' '}
-                    <strong>
+                    <strong data-article-id="deleted_accessions">
                       {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
                     </strong>
                   </>
