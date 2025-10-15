@@ -57,15 +57,13 @@ const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
   </b>
 );
 
-const UniProtKBGenericMain: FC<{
+const HelpFtpContact: FC<{
   accession?: string;
   organism?: UniProtKBSimplifiedTaxonomy;
   upids?: string[];
 }> = ({ accession, organism, upids }) => (
   <>
-    <br />
-    Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
-    sequence archive. Read our{' '}
+    Read our{' '}
     <Link
       to={generatePath(LocationToPath[Location.HelpEntry], {
         accession: 'refprot_only_changes',
@@ -108,6 +106,19 @@ const UniProtKBGenericMain: FC<{
       contact us
     </ContactLink>{' '}
     with any questions.
+  </>
+);
+
+const UniProtKBGenericMain: FC<{
+  accession?: string;
+  organism?: UniProtKBSimplifiedTaxonomy;
+  upids?: string[];
+}> = ({ accession, organism, upids }) => (
+  <>
+    <br />
+    Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
+    sequence archive.
+    <HelpFtpContact accession={accession} organism={organism} upids={upids} />
   </>
 );
 
@@ -170,6 +181,16 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
     </ContactLink>{' '}
     with any questions.
   </>
+);
+
+export const RefProtMoveHomePageAndHelp = () => (
+  <Message
+    level="warning"
+    className={cn('uniprot-grid-cell--span-12', styles['homepage'])}
+  >
+    Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
+    transition. <HelpFtpContact />
+  </Message>
 );
 
 export const RefProtMoveResultsMessage: FC<{
