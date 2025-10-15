@@ -121,10 +121,10 @@ const uniprotKBEntryDatasets = {
   ],
 };
 
-type AlphafoldPayloadEntry = AlphaFoldPayload[number];
+type AlphaFoldPayloadEntry = AlphaFoldPayload[number];
 
 type AlphaFoldUrls = Pick<
-  AlphafoldPayloadEntry,
+  AlphaFoldPayloadEntry,
   'cifUrl' | 'bcifUrl' | 'pdbUrl' | 'amAnnotationsUrl'
 > & { confidenceUrl: string };
 
@@ -134,9 +134,9 @@ const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
 const isUniRefList = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniref && fileFormat === FileFormat.list;
 const getAlphaFoldUrls = (
-  alphafoldPayloadEntry: AlphafoldPayloadEntry
+  alphaFoldPayloadEntry: AlphaFoldPayloadEntry
 ): AlphaFoldUrls | undefined => {
-  const { cifUrl, bcifUrl, pdbUrl, amAnnotationsUrl } = alphafoldPayloadEntry;
+  const { cifUrl, bcifUrl, pdbUrl, amAnnotationsUrl } = alphaFoldPayloadEntry;
   return cifUrl && bcifUrl && pdbUrl
     ? {
         cifUrl,
