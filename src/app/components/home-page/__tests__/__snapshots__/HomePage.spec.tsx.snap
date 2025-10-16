@@ -164,6 +164,53 @@ exports[`HomePage component should render 1`] = `
         </a>
       </div>
     </div>
+    <div
+      class="uniprot-grid uniprot-grid--centered"
+    >
+      <div
+        class="uniprot-grid-cell--span-12 homepage message message--warning"
+        role="status"
+      >
+        <div
+          class="message__side-border"
+        />
+        <test-file-stub
+          classname="message--icon-align-top"
+          height="1.125em"
+          width="1.125em"
+        />
+        <div
+          class="message__title"
+        >
+          Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Read our 
+          <a
+            href="/help/refprot_only_changes"
+          >
+            help page
+          </a>
+          , view 
+          <a
+            class="external-link no-right-margin"
+            href="https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/"
+            rel="noopener"
+            target="_blank"
+          >
+            affected entries and proteomes
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          , or 
+          <a
+            href="/contact"
+          >
+            contact us
+          </a>
+           with any questions.
+        </div>
+      </div>
+    </div>
     {{ NonCritical }}
   </main>
   {{ UniProtFooter }}
