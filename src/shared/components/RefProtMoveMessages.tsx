@@ -121,6 +121,7 @@ const UniProtKBGenericMain: FC<{
   <div className={styles['generic']}>
     Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
     sequence archive.
+    <br />
     <HelpFtpContact accession={accession} organism={organism} upids={upids} />
   </div>
 );
