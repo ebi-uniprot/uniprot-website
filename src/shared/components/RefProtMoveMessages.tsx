@@ -30,7 +30,7 @@ const UniProtKBGenericPreamble = () => (
       release {release} ({releaseDate}).
     </strong>
     <br />✅ Entries to be retained in UniProtKB:
-    <ul className={styles['retained']}>
+    <ul className={cn(styles['retained'], styles['indented'])}>
       <li>Entries from reference proteomes</li>
       <li>All reviewed (Swiss-Prot) entries</li>
       <li>
@@ -51,7 +51,7 @@ const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
     </strong>
     <br />
     From release {release} ({releaseDate}), UniProtKB/TrEMBL will include only:
-    <ul className={styles['retained']}>
+    <ul className={cn(styles['retained'])}>
       <li>Entries from reference proteomes</li>
       <li>
         Selected unreviewed (TrEMBL) entries with experimental or biologically
