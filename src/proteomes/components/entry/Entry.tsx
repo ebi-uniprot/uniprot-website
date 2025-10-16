@@ -46,7 +46,7 @@ const Entry = () => {
   );
 
   const refprotmoveData = useDataApi<CheckMoveResponse>(
-    mainData.data && referenceProteomeTypes.has(mainData.data.proteomeType)
+    mainData.data
       ? stringifyUrl(checkMoveUrl, { upids: [mainData.data.id] })
       : null
   );

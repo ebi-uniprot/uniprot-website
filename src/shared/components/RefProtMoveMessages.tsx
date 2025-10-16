@@ -137,57 +137,26 @@ const UniProtKBGenericMessage = () => (
   </>
 );
 
-const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = ({
-  id,
-  taxonomy,
-}) => (
+const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = () => (
   <>
-    We are updating the reference proteome selection procedure. As a result, in
-    release 2025_04 (October 2025) some proteomes may lose their reference
-    proteome status, but all proteomes will remain accessible in the Proteomes
-    database.
+    <strong>
+      Our reference proteome selection procedure is being updated, and some
+      proteomes may lose their reference proteome status.
+    </strong>
     <br />
+    From release {release} ({releaseDate}), UniProtKB/TrEMBL will include only:
+    <ul className={styles['retained-proteomes']}>
+      <li>Entries from reference proteomes</li>
+      <li>
+        Selected unreviewed (TrEMBL) entries with experimental or biologically
+        important data
+      </li>
+    </ul>
+    All proteomes will remain accessible in the Proteomes database. Entries
+    removed from UniProtKB/TrEMBL will remain accessible in the UniParc sequence
+    archive.
     <br />
-    Additionally, starting with release {release} ({releaseDate}), Unreviewed
-    UniProtKB/TrEMBL will include only proteins from reference proteomes
-    selected by the new procedure, along with selected entries with experimental
-    and biologically important data. Please see{' '}
-    <ExternalLink url={blogEntryUrl}>this short article</ExternalLink> for more
-    information, view the{' '}
-    <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
-      list of affected proteins and proteomes
-    </ExternalLink>
-    , or{' '}
-    <ContactLink
-      to={
-        id && taxonomy
-          ? {
-              pathname: LocationToPath[Location.ContactGeneric],
-              state: {
-                formValues: {
-                  context: [
-                    `Proteome ID: ${id}`,
-                    `Organism: ${taxonomy.scientificName}`,
-                    `Taxon ID: ${taxonomy.taxonId}`,
-                    `Mnemonic: ${taxonomy.mnemonic}`,
-                  ].join('\n'),
-                  subject: `Question about proteome ${id} status in ${release}`,
-                },
-              },
-            }
-          : {
-              pathname: LocationToPath[Location.ContactGeneric],
-              state: {
-                formValues: {
-                  subject: `Question about proteomes changes in ${release}`,
-                },
-              },
-            }
-      }
-    >
-      contact us
-    </ContactLink>{' '}
-    with any questions.
+    <HelpFtpContact />
   </>
 );
 
@@ -306,15 +275,66 @@ export const RefProtMoveProteomesEntryMessage: FC<{
       className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
     >
       <strong>
-        {id} is currently under review and may lose its reference proteome
-        status in release {rpChangesRelease} ({rpChangesReleaseDate}). If this
-        happens, its Unreviewed UniProtKB/TrEMBL entries will be removed from
-        UniProtKB, but their sequences will remain accessible in the UniParc
-        sequence archive.
+        Proteome {id} is currently not a reference proteome. Its unreviewed
+        (TrEMBL) entries are likely to be removed in release 2026_02 (first half
+        of 2026).
       </strong>
       <br />
+      If not selected as a reference proteome, its associated:
+      <ul>
+        <li>
+          Unreviewed (TrEMBL) entries will be removed (except selected entries
+          with experimental or biologically important data)
+        </li>
+        <li>Reviewed (Swiss-Prot) entries will be retained</li>
+      </ul>
+      All proteomes will remain accessible in the Proteomes database. Entries
+      removed from Unreviewed (TrEMBL) will remain accessible in the UniParc
+      sequence archive.
       <br />
-      <ProteomesMessage id={id} taxonomy={taxonomy} />
+      Read our{' '}
+      <Link
+        to={generatePath(LocationToPath[Location.HelpEntry], {
+          accession: 'refprot_only_changes',
+        })}
+      >
+        help page
+      </Link>
+      , view{' '}
+      <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
+        affected entries and proteomes
+      </ExternalLink>
+      , or{' '}
+      <ContactLink
+        to={
+          id && taxonomy
+            ? {
+                pathname: LocationToPath[Location.ContactGeneric],
+                state: {
+                  formValues: {
+                    context: [
+                      `Proteome ID: ${id}`,
+                      `Organism: ${taxonomy.scientificName}`,
+                      `Taxon ID: ${taxonomy.taxonId}`,
+                      `Mnemonic: ${taxonomy.mnemonic}`,
+                    ].join('\n'),
+                    subject: `Question about proteome ${id} status in ${release}`,
+                  },
+                },
+              }
+            : {
+                pathname: LocationToPath[Location.ContactGeneric],
+                state: {
+                  formValues: {
+                    subject: `Question about proteomes changes in ${release}`,
+                  },
+                },
+              }
+        }
+      >
+        contact us
+      </ContactLink>{' '}
+      with any questions.
     </Message>
   ) : (
     <Message
