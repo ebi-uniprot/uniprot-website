@@ -202,7 +202,9 @@ export const RefProtMoveSwaggerDocs = () => (
     className={cn('uniprot-grid-cell--span-12', styles['swagger-docs'])}
   >
     Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
-    transition. <HelpFtpContact />
+    transition that may affect downstream user workflows.
+    <br />
+    <HelpFtpContact />
   </Message>
 );
 
