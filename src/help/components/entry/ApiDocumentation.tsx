@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+import { RefProtMoveSwaggerDocs } from '../../../shared/components/RefProtMoveMessages';
 import { apiDocsDefinitionToString } from '../../config/apiDocumentation';
 import { ApiDocsDefinition } from '../../types/apiDocumentation';
 import DocumentationTab from './ApiDocumentationTab';
@@ -32,25 +33,28 @@ const ApiDocumentation = () => {
   }, [definition, history, validDefinition]);
 
   return !validDefinition ? null : (
-    <Tabs active={definition}>
-      {Array.from(apiDocsDefinitionToString).map(([id, label]) => (
-        <Tab
-          title={
-            <Link
-              to={generatePath(LocationToPath[Location.Documentation], {
-                definition: id,
-              })}
-            >
-              {label}
-            </Link>
-          }
-          id={id}
-          key={id}
-        >
-          <DocumentationTab id={id} />
-        </Tab>
-      ))}
-    </Tabs>
+    <>
+      <RefProtMoveSwaggerDocs />
+      <Tabs active={definition}>
+        {Array.from(apiDocsDefinitionToString).map(([id, label]) => (
+          <Tab
+            title={
+              <Link
+                to={generatePath(LocationToPath[Location.Documentation], {
+                  definition: id,
+                })}
+              >
+                {label}
+              </Link>
+            }
+            id={id}
+            key={id}
+          >
+            <DocumentationTab id={id} />
+          </Tab>
+        ))}
+      </Tabs>
+    </>
   );
 };
 

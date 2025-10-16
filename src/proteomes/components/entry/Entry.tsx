@@ -11,7 +11,6 @@ import { SingleColumnLayout } from '../../../shared/components/layouts/SingleCol
 import {
   CheckMoveResponse,
   checkMoveUrl,
-  referenceProteomeTypes,
   RefProtMoveProteomesEntryMessage,
 } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -46,7 +45,7 @@ const Entry = () => {
   );
 
   const refprotmoveData = useDataApi<CheckMoveResponse>(
-    mainData.data && referenceProteomeTypes.has(mainData.data.proteomeType)
+    mainData.data
       ? stringifyUrl(checkMoveUrl, { upids: [mainData.data.id] })
       : null
   );
@@ -70,6 +69,8 @@ const Entry = () => {
     panProteomeData.data
   );
 
+  const becomingNonRP = refprotmoveData.data?.move?.[0] === transformedData.id;
+
   return (
     <SingleColumnLayout className="entry-page">
       <HTMLHead
@@ -78,11 +79,12 @@ const Entry = () => {
           searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
-      <RefProtMoveProteomesEntryMessage
-        id={transformedData.id}
-        taxonomy={transformedData.taxonomy}
-        becomingNonRP={refprotmoveData.data?.move?.[0] === transformedData.id}
-      />
+      {becomingNonRP && (
+        <RefProtMoveProteomesEntryMessage
+          id={transformedData.id}
+          taxonomy={transformedData.taxonomy}
+        />
+      )}
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}
