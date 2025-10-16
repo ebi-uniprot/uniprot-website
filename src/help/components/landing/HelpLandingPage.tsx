@@ -109,6 +109,10 @@ const tileData: IllustratedListTileProps[] = [
         label: 'Programmatic access',
       },
       {
+        to: LocationToPath[Location.Documentation],
+        label: 'Swagger documentation',
+      },
+      {
         to: getHelpEntryPath('programmatic_access'),
         label: 'UniProt JAPI', // TODO: this goes to the same place as above but these links are subject to change anyway
       },

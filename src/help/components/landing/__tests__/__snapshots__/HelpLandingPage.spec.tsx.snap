@@ -267,6 +267,13 @@ exports[`HelpLandingPage should render 1`] = `
             </li>
             <li>
               <a
+                href="/api-documentation/:definition"
+              >
+                Swagger documentation
+              </a>
+            </li>
+            <li>
+              <a
                 href="/help/programmatic_access"
               >
                 UniProt JAPI
