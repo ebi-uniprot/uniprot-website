@@ -119,8 +119,8 @@ const UniProtKBGenericMain: FC<{
   upids?: string[];
 }> = ({ accession, organism, upids }) => (
   <div className={styles['generic']}>
-    Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
-    sequence archive.
+    Entries removed from unreviewed UniProtKB/TrEMBL will remain accessible in
+    the UniParc sequence archive.
     <br />
     <HelpFtpContact accession={accession} organism={organism} upids={upids} />
   </div>
@@ -149,8 +149,8 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = () => (
       </li>
     </ul>
     All proteomes will remain accessible in the Proteomes database. Entries
-    removed from UniProtKB/TrEMBL will remain accessible in the UniParc sequence
-    archive.
+    removed from unreviewed UniProtKB/TrEMBL will remain accessible in the
+    UniParc sequence archive.
     <br />
     <HelpFtpContact />
   </>
@@ -273,21 +273,22 @@ export const RefProtMoveProteomesEntryMessage: FC<{
   >
     <strong>
       Proteome {id} is currently not a reference proteome. Its unreviewed
-      (TrEMBL) entries are likely to be removed in release 2026_02 (first half
-      of 2026).
+      (TrEMBL) entries are likely to be removed from UniProtKB in release
+      2026_02 (first half of 2026).
     </strong>
     <br />
     If not selected as a reference proteome, its associated:
     <ul>
       <li>
-        Existing unreviewed (TrEMBL) entries will be removed (except selected
-        entries with experimental or biologically important data)
+        Existing unreviewed (TrEMBL) entries will be removed from UniProtKB
+        (except selected entries with experimental or biologically important
+        data)
       </li>
-      <li>Reviewed (Swiss-Prot) entries will be retained</li>
+      <li>Reviewed (Swiss-Prot) entries will be retained in UniProtKB</li>
     </ul>
     All proteomes will remain accessible in the Proteomes database. Entries
-    removed from Unreviewed (TrEMBL) will remain accessible in the UniParc
-    sequence archive.
+    removed from unreviewed UniProtKB/TrEMBL will remain accessible in the
+    UniParc sequence archive.
     <br />
     Read our{' '}
     <Link
