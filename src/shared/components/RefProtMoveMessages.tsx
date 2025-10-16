@@ -49,12 +49,21 @@ const UniProtKBGenericPreamble = () => (
 );
 
 const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
-  <b>
-    This entry ({accession}) is likely to be removed from UniProtKB/TrEMBL in
-    release {rpChangesRelease} ({rpChangesReleaseDate}, due to the removal of
-    unclassified organisms) or in release {release} ({releaseDate}, due to the
-    removal of proteins from non-reference proteomes).
-  </b>
+  <>
+    <strong>
+      Entry {accession} is scheduled for removal from UniProtKB/TrEMBL as it is
+      not part of a reference proteome.
+    </strong>
+    <br />
+    From release {release} ({releaseDate}), UniProtKB/TrEMBL will include only:
+    <ul className={styles['retained']}>
+      <li>Entries from reference proteomes</li>
+      <li>
+        Selected unreviewed (TrEMBL) entries with experimental or biologically
+        important data
+      </li>
+    </ul>
+  </>
 );
 
 const HelpFtpContact: FC<{
@@ -114,12 +123,11 @@ const UniProtKBGenericMain: FC<{
   organism?: UniProtKBSimplifiedTaxonomy;
   upids?: string[];
 }> = ({ accession, organism, upids }) => (
-  <>
-    <br />
+  <div className={styles['generic']}>
     Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
     sequence archive.
     <HelpFtpContact accession={accession} organism={organism} upids={upids} />
-  </>
+  </div>
 );
 
 const UniProtKBGenericMessage = () => (
@@ -297,13 +305,13 @@ export const RefProtMoveProteomesEntryMessage: FC<{
       level="failure"
       className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
     >
-      <b>
+      <strong>
         {id} is currently under review and may lose its reference proteome
         status in release {rpChangesRelease} ({rpChangesReleaseDate}). If this
         happens, its Unreviewed UniProtKB/TrEMBL entries will be removed from
         UniProtKB, but their sequences will remain accessible in the UniParc
         sequence archive.
-      </b>
+      </strong>
       <br />
       <br />
       <ProteomesMessage id={id} taxonomy={taxonomy} />
