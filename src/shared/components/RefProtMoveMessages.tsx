@@ -223,6 +223,16 @@ export const RefProtMoveHelpResults = () => (
   </Message>
 );
 
+export const RefProtMoveSwaggerDocs = () => (
+  <Message
+    level="warning"
+    className={cn('uniprot-grid-cell--span-12', styles['swagger-docs'])}
+  >
+    Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
+    transition. <HelpFtpContact />
+  </Message>
+);
+
 export const RefProtMoveResultsMessage: FC<{
   namespace: Namespace;
 }> = ({ namespace }) => {
