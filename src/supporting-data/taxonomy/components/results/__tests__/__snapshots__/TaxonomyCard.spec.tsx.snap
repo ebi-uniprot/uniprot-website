@@ -51,82 +51,82 @@ exports[`Taxonomy Card tests should render 1`] = `
             </strong>
             <a
               href="/taxonomy/10239"
-              title="Viruses (), taxon ID 10239"
+              title="Viruses, taxon ID 10239"
               translate="no"
             >
-              Viruses ()
+              Viruses
             </a>
              &gt; 
             <a
               href="/taxonomy/2559587"
-              title="Riboviria (RNA viruses and retroviruses) (), taxon ID 2559587"
+              title="Riboviria (RNA viruses and retroviruses), taxon ID 2559587"
               translate="no"
             >
-              Riboviria (RNA viruses and retroviruses) ()
+              Riboviria (RNA viruses and retroviruses)
             </a>
              &gt; 
             <a
               href="/taxonomy/2732396"
-              title="Orthornavirae (), taxon ID 2732396"
+              title="Orthornavirae, taxon ID 2732396"
               translate="no"
             >
-              Orthornavirae ()
+              Orthornavirae
             </a>
              &gt; 
             <a
               href="/taxonomy/2732408"
-              title="Pisuviricota (), taxon ID 2732408"
+              title="Pisuviricota, taxon ID 2732408"
               translate="no"
             >
-              Pisuviricota ()
+              Pisuviricota
             </a>
              &gt; 
             <a
               href="/taxonomy/2732506"
-              title="Pisoniviricetes (), taxon ID 2732506"
+              title="Pisoniviricetes, taxon ID 2732506"
               translate="no"
             >
-              Pisoniviricetes ()
+              Pisoniviricetes
             </a>
              &gt; 
             <a
               href="/taxonomy/464095"
-              title="Picornavirales (), taxon ID 464095"
+              title="Picornavirales, taxon ID 464095"
               translate="no"
             >
-              Picornavirales ()
+              Picornavirales
             </a>
              &gt; 
             <a
               href="/taxonomy/11974"
-              title="Caliciviridae (), taxon ID 11974"
+              title="Caliciviridae, taxon ID 11974"
               translate="no"
             >
-              Caliciviridae ()
+              Caliciviridae
             </a>
              &gt; 
             <a
               href="/taxonomy/95337"
-              title="Vesivirus (), taxon ID 95337"
+              title="Vesivirus, taxon ID 95337"
               translate="no"
             >
-              Vesivirus ()
+              Vesivirus
             </a>
              &gt; 
             <a
               href="/taxonomy/3433198"
-              title="Vesivirus exanthema (), taxon ID 3433198"
+              title="Vesivirus exanthema, taxon ID 3433198"
               translate="no"
             >
-              Vesivirus exanthema ()
+              Vesivirus exanthema
             </a>
              &gt; 
             <a
               href="/taxonomy/35612"
-              title="Vesicular exanthema of swine virus (VESV) (), taxon ID 35612"
+              title="Vesicular exanthema of swine virus (VESV), taxon ID 35612"
               translate="no"
             >
-              Vesicular exanthema of swine virus (VESV) ()
+              Vesicular exanthema of swine virus (VESV)
             </a>
           </span>
         </div>

@@ -56,11 +56,21 @@ const TaxonomyView = ({
     return <span className={className}>Top level (root)</span>;
   }
 
-  const termValue = `${scientificName || taxonId}${
-    commonName ? ` (${commonName})` : ''
-  }${synonyms?.length ? ` (${synonyms.join(', ')})` : ''}${
-    strain ? ` (${strain})` : ''
-  }`;
+  let termValue = `${scientificName || taxonId}`;
+  if (commonName) {
+    termValue += ` (${commonName})`;
+  }
+  if (synonyms?.length) {
+    // Remove `""` synonyms introduced in 2025_04 data
+    // In the future check if this is still needed
+    const cleanedSynonyms = synonyms.filter((synonym) => Boolean(synonym));
+    if (cleanedSynonyms.length) {
+      termValue += ` (${synonyms.join(', ')})`;
+    }
+  }
+  if (strain) {
+    termValue += ` (${strain})`;
+  }
 
   const content = displayOnlyID ? String(taxonId) : termValue;
   const title = `${
