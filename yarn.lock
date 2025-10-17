@@ -11370,10 +11370,10 @@ protvista-tooltip@^3.8.4:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
-protvista-uniprot@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.5.0.tgz#49d61abcd7ab5e61d84fcafc3d5ed3eeab7660b3"
-  integrity sha512-6Yw0F61anYoZXMsCvN/9Rw1MGhKbQEY2dV/E7xR4pgC/rIF6jBKy2Bd9vtMUMX/sNdPPmQO/bkUC8IQWix0aTQ==
+protvista-uniprot@4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.5.1.tgz#64f746f13311db5ff6e51e976e6b64839518d160"
+  integrity sha512-9zIGA7ioYFlC6WxfMh0LNxLJ1WqKfNdd4PRRq52SZmz2nxOXENWb/SZ5layEHDWH1F8vbYYST/X/04VekboG3Q==
   dependencies:
     "@nightingale-elements/nightingale-colored-sequence" "5.6.0"
     "@nightingale-elements/nightingale-filter" "5.6.0"
