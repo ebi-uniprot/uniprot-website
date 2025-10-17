@@ -136,8 +136,8 @@ const HistoryTab = lazy(
 );
 
 // Watch out, hardcoded!
-// Currently, just a bit before 2021_04
-const AFDB_CUTOFF_DATE = new Date('2021-09-20');
+// Currently, just a bit before 2025_03
+const AFDB_CUTOFF_DATE = new Date('2025-06-01');
 
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
