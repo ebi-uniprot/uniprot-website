@@ -2,8 +2,8 @@ import cn from 'classnames';
 import { Message } from 'franklin-sites';
 import { FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import joinUrl from 'url-join';
 
+// import joinUrl from 'url-join';
 import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -11,14 +11,16 @@ import {
   UniProtkbAPIModel,
   UniProtKBSimplifiedTaxonomy,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { apiPrefix } from '../config/apiUrls/apiPrefix';
+// import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { Namespace } from '../types/namespaces';
 import ExternalLink from './ExternalLink';
 import styles from './styles/ref-prot-move-messages.module.scss';
 
 const ftpProteomes = 'https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/';
 
-export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
+// export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check');
+export const checkMoveUrl =
+  'https://wwwdev.ebi.ac.uk/uniprot/api/refprotmove-check';
 
 const release = '2026_02';
 const releaseDate = 'first half of 2026';
@@ -250,10 +252,8 @@ export const biologicallyRelevant = (entry: UniProtkbAPIModel) => {
 
 export const getProteomes = getCrossRefsFor('Proteomes');
 
-export type CheckMoveResponse = {
-  move?: string[];
-  stay?: string[];
-  unknown?: string[];
+export type ProteomesCheckMoveResponse = {
+  status: 'became-non-reference' | 'no-change' | 'unknown';
 };
 
 export const referenceProteomeTypes = new Set([
