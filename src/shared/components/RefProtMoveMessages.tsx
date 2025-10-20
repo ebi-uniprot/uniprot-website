@@ -256,11 +256,9 @@ export type ProteomesCheckMoveResponse = {
   status: 'became-non-reference' | 'no-change' | 'unknown';
 };
 
-export const referenceProteomeTypes = new Set([
-  'Reference and representative proteome',
-  'Reference proteome',
-  'Representative proteome',
-]);
+export type UniProtKBCheckMoveResponse = {
+  status: 'remove' | 'stay' | 'unknown';
+};
 
 // Only show in the case that the proteome is non-reference.
 export const RefProtMoveProteomesEntryMessage: FC<{
