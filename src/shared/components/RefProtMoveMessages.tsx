@@ -3,7 +3,6 @@ import { Message } from 'franklin-sites';
 import { FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
-// import joinUrl from 'url-join';
 import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -11,13 +10,15 @@ import {
   UniProtkbAPIModel,
   UniProtKBSimplifiedTaxonomy,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
-// import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { Namespace } from '../types/namespaces';
 import ExternalLink from './ExternalLink';
 import styles from './styles/ref-prot-move-messages.module.scss';
 
 const ftpProteomes = 'https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/';
 
+// TODO: uncomment the following and remove the hardcoded wwwdev url
+// import joinUrl from 'url-join';
+// import { apiPrefix } from '../config/apiUrls/apiPrefix';
 // export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check');
 export const checkMoveUrl =
   'https://wwwdev.ebi.ac.uk/uniprot/api/refprotmove-check';
@@ -235,20 +236,6 @@ const getCrossRefsFor = (dbName: string) => (entry: UniProtkbAPIModel) =>
     ?.filter((idOrUndef: string | undefined): idOrUndef is string =>
       Boolean(idOrUndef)
     );
-
-const getCrossRefsForPDB = getCrossRefsFor('PDB');
-export const biologicallyRelevant = (entry: UniProtkbAPIModel) => {
-  // The entry is reviewed
-  if (entry.entryType.includes('UniProtKB reviewed')) {
-    return true;
-  }
-  // The entry has xrefs to PDB
-  if (getCrossRefsForPDB(entry)?.length) {
-    return true;
-  }
-  // Add new conditions here
-  return false;
-};
 
 export const getProteomes = getCrossRefsFor('Proteomes');
 
