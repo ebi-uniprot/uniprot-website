@@ -206,10 +206,7 @@ const Entry = () => {
   );
   const upids = useMemo(() => data && getProteomes(data), [data]);
 
-  const willBeRemoved = useMemo(
-    () => Boolean(refprotmoveData.data?.status === 'remove'),
-    [refprotmoveData.data]
-  );
+  const willBeRemoved = refprotmoveData.data?.status === 'remove';
 
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
