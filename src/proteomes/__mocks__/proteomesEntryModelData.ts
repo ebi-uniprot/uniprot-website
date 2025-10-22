@@ -1,7 +1,7 @@
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 // Source: proteomes/UP000005640
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
   description:
@@ -12,14 +12,14 @@ const mock: ProteomesAPIModel = {
     taxonId: 9606,
     mnemonic: 'HUMAN',
   },
-  modified: '2025-01-30',
+  modified: '2025-05-13',
   proteomeType: 'Reference and representative proteome',
   components: [
     {
       name: 'Chromosome 1',
       description:
         'Homo sapiens chromosome 1, GRCh38 reference primary assembly.',
-      proteinCount: 6965,
+      proteinCount: 6964,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -34,7 +34,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 2',
       description:
         'Homo sapiens chromosome 2, GRCh38 reference primary assembly.',
-      proteinCount: 5492,
+      proteinCount: 5495,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -57,7 +57,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 3',
       description:
         'Homo sapiens chromosome 3, GRCh38 reference primary assembly.',
-      proteinCount: 4933,
+      proteinCount: 4935,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -76,7 +76,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 4',
       description:
         'Homo sapiens chromosome 4, GRCh38 reference primary assembly.',
-      proteinCount: 3089,
+      proteinCount: 3090,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -129,7 +129,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 7',
       description:
         'Homo sapiens chromosome 7, GRCh38 reference primary assembly.',
-      proteinCount: 3626,
+      proteinCount: 3627,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -159,7 +159,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 9',
       description:
         'Homo sapiens chromosome 9, GRCh38 reference primary assembly.',
-      proteinCount: 2658,
+      proteinCount: 2662,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -193,7 +193,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome X',
       description:
         'Homo sapiens chromosome X, GRCh38 reference primary assembly.',
-      proteinCount: 2632,
+      proteinCount: 2636,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -227,7 +227,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 12',
       description:
         'Homo sapiens chromosome 12, GRCh38 reference primary assembly.',
-      proteinCount: 4789,
+      proteinCount: 4794,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -257,7 +257,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 14',
       description:
         'Homo sapiens chromosome 14, GRCh38 reference primary assembly.',
-      proteinCount: 3120,
+      proteinCount: 3123,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -284,7 +284,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 15',
       description:
         'Homo sapiens chromosome 15, GRCh38 reference primary assembly.',
-      proteinCount: 2749,
+      proteinCount: 2747,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -303,7 +303,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 16',
       description:
         'Homo sapiens chromosome 16, GRCh38 reference primary assembly.',
-      proteinCount: 4157,
+      proteinCount: 4158,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -322,7 +322,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 17',
       description:
         'Homo sapiens chromosome 17, GRCh38 reference primary assembly.',
-      proteinCount: 5498,
+      proteinCount: 5499,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -364,7 +364,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 19',
       description:
         'Homo sapiens chromosome 19, GRCh38 reference primary assembly.',
-      proteinCount: 5922,
+      proteinCount: 5924,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -394,7 +394,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 21',
       description:
         'Homo sapiens chromosome 21, GRCh38 reference primary assembly.',
-      proteinCount: 681,
+      proteinCount: 680,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -409,7 +409,7 @@ const mock: ProteomesAPIModel = {
       name: 'Chromosome 22',
       description:
         'Homo sapiens chromosome 22, GRCh38 reference primary assembly.',
-      proteinCount: 1755,
+      proteinCount: 1754,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -456,7 +456,7 @@ const mock: ProteomesAPIModel = {
     {
       name: 'Unplaced',
       description: 'HUMAN_Unplaced',
-      proteinCount: 3075,
+      proteinCount: 3068,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -3979,7 +3979,7 @@ const mock: ProteomesAPIModel = {
       score: 99,
     },
     cpdReport: {
-      proteomeCount: 74,
+      proteomeCount: 77,
       stdCdss: 0,
       averageCdss: 0,
       confidence: 0,
@@ -3992,8 +3992,8 @@ const mock: ProteomesAPIModel = {
     level: 'full',
     source: 'Ensembl',
   },
-  geneCount: 20663,
-  proteinCount: 83587,
+  geneCount: 20659,
+  proteinCount: 83569,
   genomeAnnotation: {
     source: 'Ensembl',
     url: 'http://www.ensembl.org/Homo_sapiens/Info/Annotation',
@@ -4001,6 +4001,7 @@ const mock: ProteomesAPIModel = {
   taxonLineage: [
     {
       scientificName: 'cellular organisms',
+      synonyms: [''],
       taxonId: 131567,
       rank: 'no rank',
       hidden: true,
@@ -4008,12 +4009,14 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Eukaryota',
       commonName: 'eucaryotes',
+      synonyms: [''],
       taxonId: 2759,
       rank: 'domain',
       hidden: false,
     },
     {
       scientificName: 'Opisthokonta',
+      synonyms: [''],
       taxonId: 33154,
       rank: 'clade',
       hidden: true,
@@ -4021,24 +4024,28 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Metazoa',
       commonName: 'metazoans',
+      synonyms: [''],
       taxonId: 33208,
       rank: 'kingdom',
       hidden: false,
     },
     {
       scientificName: 'Eumetazoa',
+      synonyms: [''],
       taxonId: 6072,
       rank: 'clade',
       hidden: true,
     },
     {
       scientificName: 'Bilateria',
+      synonyms: [''],
       taxonId: 33213,
       rank: 'clade',
       hidden: true,
     },
     {
       scientificName: 'Deuterostomia',
+      synonyms: [''],
       taxonId: 33511,
       rank: 'clade',
       hidden: true,
@@ -4046,12 +4053,14 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Chordata',
       commonName: 'chordates',
+      synonyms: [''],
       taxonId: 7711,
       rank: 'phylum',
       hidden: false,
     },
     {
       scientificName: 'Craniata',
+      synonyms: [''],
       taxonId: 89593,
       rank: 'subphylum',
       hidden: false,
@@ -4059,6 +4068,7 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Vertebrata',
       commonName: 'vertebrates',
+      synonyms: [''],
       taxonId: 7742,
       rank: 'clade',
       hidden: false,
@@ -4066,12 +4076,14 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Gnathostomata',
       commonName: 'jawed vertebrates',
+      synonyms: [''],
       taxonId: 7776,
       rank: 'clade',
       hidden: true,
     },
     {
       scientificName: 'Teleostomi',
+      synonyms: [''],
       taxonId: 117570,
       rank: 'clade',
       hidden: true,
@@ -4079,18 +4091,21 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Euteleostomi',
       commonName: 'bony vertebrates',
+      synonyms: [''],
       taxonId: 117571,
       rank: 'clade',
       hidden: false,
     },
     {
       scientificName: 'Sarcopterygii',
+      synonyms: [''],
       taxonId: 8287,
       rank: 'superclass',
       hidden: true,
     },
     {
       scientificName: 'Dipnotetrapodomorpha',
+      synonyms: [''],
       taxonId: 1338369,
       rank: 'clade',
       hidden: true,
@@ -4098,6 +4113,7 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Tetrapoda',
       commonName: 'tetrapods',
+      synonyms: [''],
       taxonId: 32523,
       rank: 'clade',
       hidden: true,
@@ -4105,6 +4121,7 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Amniota',
       commonName: 'amniotes',
+      synonyms: [''],
       taxonId: 32524,
       rank: 'clade',
       hidden: true,
@@ -4112,12 +4129,14 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Mammalia',
       commonName: 'mammals',
+      synonyms: [''],
       taxonId: 40674,
       rank: 'class',
       hidden: false,
     },
     {
       scientificName: 'Theria',
+      synonyms: [''],
       taxonId: 32525,
       rank: 'clade',
       hidden: true,
@@ -4125,42 +4144,49 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Eutheria',
       commonName: 'placentals',
+      synonyms: [''],
       taxonId: 9347,
       rank: 'clade',
       hidden: false,
     },
     {
       scientificName: 'Boreoeutheria',
+      synonyms: [''],
       taxonId: 1437010,
       rank: 'clade',
       hidden: true,
     },
     {
       scientificName: 'Euarchontoglires',
+      synonyms: [''],
       taxonId: 314146,
       rank: 'superorder',
       hidden: false,
     },
     {
       scientificName: 'Primates',
+      synonyms: [''],
       taxonId: 9443,
       rank: 'order',
       hidden: false,
     },
     {
       scientificName: 'Haplorrhini',
+      synonyms: [''],
       taxonId: 376913,
       rank: 'suborder',
       hidden: false,
     },
     {
       scientificName: 'Simiiformes',
+      synonyms: [''],
       taxonId: 314293,
       rank: 'infraorder',
       hidden: true,
     },
     {
       scientificName: 'Catarrhini',
+      synonyms: [''],
       taxonId: 9526,
       rank: 'parvorder',
       hidden: false,
@@ -4168,6 +4194,7 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Hominoidea',
       commonName: 'apes',
+      synonyms: [''],
       taxonId: 314295,
       rank: 'superfamily',
       hidden: true,
@@ -4175,18 +4202,21 @@ const mock: ProteomesAPIModel = {
     {
       scientificName: 'Hominidae',
       commonName: 'great apes',
+      synonyms: [''],
       taxonId: 9604,
       rank: 'family',
       hidden: false,
     },
     {
       scientificName: 'Homininae',
+      synonyms: [''],
       taxonId: 207598,
       rank: 'subfamily',
       hidden: true,
     },
     {
       scientificName: 'Homo',
+      synonyms: [''],
       taxonId: 9605,
       rank: 'genus',
       hidden: false,
@@ -4194,7 +4224,7 @@ const mock: ProteomesAPIModel = {
   ],
   proteomeStatistics: {
     reviewedProteinCount: 20405,
-    unreviewedProteinCount: 63182,
+    unreviewedProteinCount: 63202,
     isoformProteinCount: 22112,
   },
 };

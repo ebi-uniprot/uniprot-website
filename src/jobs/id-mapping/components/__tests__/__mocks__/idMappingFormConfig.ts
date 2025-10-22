@@ -1,7 +1,7 @@
 import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: configure/idmapping/fields
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -629,7 +629,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink: 'https://www.pharmgkb.org/gene/%id',
+          uriLink: 'https://www.clinpgx.org/gene/%id',
         },
         {
           displayName: 'PomBase',
@@ -740,8 +740,7 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 7,
-          uriLink:
-            'http://eggnogdb.embl.de/#/app/results?seqid=%primaryAccession&target_nogs=%id',
+          uriLink: 'http://eggnog.embl.de/search/ogs/%id',
         },
         {
           displayName: 'GeneTree',

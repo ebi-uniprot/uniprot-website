@@ -3,7 +3,7 @@ import { AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -550,7 +550,7 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0046598', 'GO:0098670', 'GO:0019081'],
+            terms: ['GO:0019081', 'GO:0098670', 'GO:0046598'],
             nb_classes: 3,
             nb_annotations: 5,
           },
@@ -560,7 +560,7 @@ const goRibbonData: AGRRibbonData = {
             nb_annotations: 1,
           },
           IDA: {
-            terms: ['GO:0046598', 'GO:0098670'],
+            terms: ['GO:0098670', 'GO:0046598'],
             nb_classes: 2,
             nb_annotations: 4,
           },

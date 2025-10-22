@@ -5,6 +5,7 @@ import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
+import joinUrl from 'url-join';
 
 import {
   getEntryPath,
@@ -33,11 +34,10 @@ import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import {
-  biologicallyRelevant,
-  CheckMoveResponse,
   checkMoveUrl,
   getProteomes,
   RefProtMoveUniProtKBEntryMessage,
+  UniProtKBCheckMoveResponse,
 } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -59,7 +59,7 @@ import {
 } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
 import lazy from '../../../shared/utils/lazy';
-import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
 import {
   CitationsAPIModel,
@@ -136,8 +136,8 @@ const HistoryTab = lazy(
 );
 
 // Watch out, hardcoded!
-// Currently, just a bit before 2021_04
-const AFDB_CUTOFF_DATE = new Date('2021-09-20');
+// Currently, just a bit before 2025_04 (latest AFDB release based on 2025_03)
+const AFDB_CUTOFF_DATE = new Date('2025-10-01');
 
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
@@ -199,31 +199,14 @@ const Entry = () => {
       : null
   );
 
-  const [upids, isBiologicallyRelevant] = useMemo(() => {
-    if (!data) {
-      return [];
-    }
-    return [getProteomes(data), biologicallyRelevant(data)];
-  }, [data]);
-
-  const refprotmoveData = useDataApi<CheckMoveResponse>(
-    isLikelyHuman && upids?.length && !isBiologicallyRelevant
-      ? stringifyUrl(checkMoveUrl, { upids })
+  const refprotmoveData = useDataApi<UniProtKBCheckMoveResponse>(
+    isLikelyHuman && match?.params.accession
+      ? joinUrl(checkMoveUrl, 'uniprotkb', match?.params.accession)
       : null
   );
+  const upids = useMemo(() => data && getProteomes(data), [data]);
 
-  const willBeKept = useMemo(() => {
-    if (isBiologicallyRelevant) {
-      return true;
-    }
-    if (!upids?.length) {
-      return false;
-    }
-    if (!refprotmoveData.data) {
-      return true;
-    }
-    return Boolean(refprotmoveData.data.stay?.length);
-  }, [upids, isBiologicallyRelevant, refprotmoveData.data]);
+  const willBeRemoved = refprotmoveData.data?.status === 'remove';
 
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
@@ -562,13 +545,13 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          {willBeKept ? null : (
+          {willBeRemoved ? (
             <RefProtMoveUniProtKBEntryMessage
               accession={data.primaryAccession}
               upids={upids}
               organism={data.organism}
             />
-          )}
+          ) : null}
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}

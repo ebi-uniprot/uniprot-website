@@ -11,6 +11,7 @@ import {
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import Contact from '../../../shared/components/layouts/Contact';
+import { RefProtMoveHelpLandingPage } from '../../../shared/components/RefProtMoveMessages';
 import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import HelpQuickSearch from './HelpQuickSearch';
@@ -108,6 +109,10 @@ const tileData: IllustratedListTileProps[] = [
         label: 'Programmatic access',
       },
       {
+        to: LocationToPath[Location.Documentation],
+        label: 'Swagger documentation',
+      },
+      {
         to: getHelpEntryPath('programmatic_access'),
         label: 'UniProt JAPI', // TODO: this goes to the same place as above but these links are subject to change anyway
       },
@@ -174,6 +179,7 @@ const HelpLandingPage = () => (
       )}
     >
       <HTMLHead title="Help" />
+      <RefProtMoveHelpLandingPage />
       <PageIntro heading="Help center" className="uniprot-grid-cell--span-12" />
       <div className="uniprot-grid-cell--span-9">
         <HelpQuickSearch />

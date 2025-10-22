@@ -1,7 +1,7 @@
 import { ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -102,7 +102,7 @@ const mock = [
       },
       {
         label: 'Erroneous gene model prediction',
-        name: 'error_gmodel_pred',
+        name: 'cc_sc_epred',
         id: 'sequences/erroneous_gene_model_prediction',
       },
       {
@@ -111,9 +111,9 @@ const mock = [
         id: 'sequences/fragment',
       },
       {
-        label: 'Gene encoded by',
-        name: 'organelle',
-        id: 'sequences/gene_encoded_by',
+        label: 'Encoded in',
+        name: 'encoded_in',
+        id: 'sequences/gene_encoded_in',
       },
       {
         label: 'Length',
@@ -1556,6 +1556,12 @@ const mock = [
     id: 'other',
     fields: [
       {
+        label: 'Agora',
+        name: 'xref_agora',
+        isMultiValueCrossReference: true,
+        id: 'other/agora',
+      },
+      {
         label: 'BioGRID-ORCS',
         name: 'xref_biogrid-orcs',
         isMultiValueCrossReference: true,
@@ -1587,6 +1593,16 @@ const mock = [
         label: 'GenomeRNAi',
         name: 'xref_genomernai',
         id: 'other/genomernai',
+      },
+      {
+        label: 'MeSH',
+        name: 'xref_mesh',
+        id: 'other/mesh',
+      },
+      {
+        label: 'MedGen',
+        name: 'xref_medgen',
+        id: 'other/medgen',
       },
       {
         label: 'ORCID',

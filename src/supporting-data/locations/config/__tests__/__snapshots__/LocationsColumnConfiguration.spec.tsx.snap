@@ -105,7 +105,7 @@ exports[`LocationsColumnConfiguration component should render column "statistics
       <a
         href="/uniprotkb?query=%28cc_scl_term%3ASL-0037%29"
       >
-        2,858,659 UniProtKB entries
+        1,783,652 UniProtKB entries
       </a>
     </li>
     <li>
@@ -119,7 +119,7 @@ exports[`LocationsColumnConfiguration component should render column "statistics
       <a
         href="/uniprotkb?query=%28cc_scl_term%3ASL-0037%29+AND+%28reviewed%3Afalse%29"
       >
-        2,831,152 unreviewed UniProtKB entries
+        1,756,145 unreviewed UniProtKB entries
       </a>
     </li>
   </ul>

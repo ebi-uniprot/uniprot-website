@@ -1834,10 +1834,10 @@
     "@nightingale-elements/nightingale-new-core" "^5.6.0"
     d3 "7.9.0"
 
-"@nightingale-elements/nightingale-structure@5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-structure/-/nightingale-structure-5.7.0.tgz#dcfb75b3d73332c01abc0e34090bec173f211bf6"
-  integrity sha512-sP554EZqt1gJcZTok5qVa4kdBC7pM1OSTbqnx15LYqThqHiUJ0RwiJoCVyPD6RcjlKUZEM4l60e7kISnaKGNbA==
+"@nightingale-elements/nightingale-structure@5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-structure/-/nightingale-structure-5.8.0.tgz#55e69196a05206fa6cb8507a7e97836f2c3765b9"
+  integrity sha512-HdInDB0hh7d7LSyAOUJwEYgoBNffR/kvOU1p8I9ezMccpQ4YYf6E/Fj3xUd9NxWfULNfGk9AF/Fsg43qC6HzHw==
   dependencies:
     "@nightingale-elements/nightingale-new-core" "^5.6.0"
     d3 "7.9.0"
@@ -11370,10 +11370,10 @@ protvista-tooltip@^3.8.4:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
-protvista-uniprot@4.4.8:
-  version "4.4.8"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.4.8.tgz#5e4c39d24764a6c78e886de7cb76a36d3610802f"
-  integrity sha512-2L9wU8KkUuE2+wR+oHyYXx40QgDDN12BOPB2QWV10bdOIzcHOC8ac3vhvVEnzi0PGpfjz2dCT7BoozZV/Pf8ZQ==
+protvista-uniprot@4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.5.2.tgz#55181e265f7cfe0f56a237019d39e05352fce954"
+  integrity sha512-rX/3EAoHyfOwzm0D0r6BDpQZoE8aIeNE5jpbuMte6XztYHa6lTAPzkmiMfalZ9NgeP9uLp28+pESlzOLDjd11Q==
   dependencies:
     "@nightingale-elements/nightingale-colored-sequence" "5.6.0"
     "@nightingale-elements/nightingale-filter" "5.6.0"
@@ -11383,7 +11383,7 @@ protvista-uniprot@4.4.8:
     "@nightingale-elements/nightingale-navigation" "5.6.0"
     "@nightingale-elements/nightingale-sequence" "5.6.0"
     "@nightingale-elements/nightingale-sequence-heatmap" "5.6.2"
-    "@nightingale-elements/nightingale-structure" "5.7.0"
+    "@nightingale-elements/nightingale-structure" "5.8.0"
     "@nightingale-elements/nightingale-track-canvas" "5.6.0"
     "@nightingale-elements/nightingale-variation" "5.6.0"
     color-hash "2.0.2"

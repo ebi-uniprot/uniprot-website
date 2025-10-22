@@ -109,7 +109,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                Community mapped (1)
+                Community curated (1)
               </a>
             </li>
           </ul>

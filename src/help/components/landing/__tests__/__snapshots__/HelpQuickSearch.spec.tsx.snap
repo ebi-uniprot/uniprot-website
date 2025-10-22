@@ -768,13 +768,13 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     class="decorated-list-item__content"
                   >
                     <span>
-                       set? How do I get the nucleotide sequence that corresponds to the 
+                       the 
                       <span
                         class="match-highlight"
                       >
                         canonical
                       </span>
-                       UniProtKB sequence?
+                       UniProtKB sequence? Sequences Related terms: imported, source, origin
                     </span>
                   </div>
                 </div>

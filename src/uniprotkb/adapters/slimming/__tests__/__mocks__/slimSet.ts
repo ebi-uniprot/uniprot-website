@@ -1,7 +1,7 @@
 import { SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -4862,12 +4862,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein glycosylation',
-          id: 'GO:0006486',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'amino acid metabolic process',
           id: 'GO:0006520',
           aspect: 'biological_process',
@@ -7793,12 +7787,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'glycerol ether metabolic process',
-          id: 'GO:0006662',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'one-carbon metabolic process',
           id: 'GO:0006730',
           aspect: 'biological_process',
@@ -8087,12 +8075,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'mucilage metabolic process',
-          id: 'GO:0010191',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'protein transport',
           id: 'GO:0015031',
           aspect: 'biological_process',
@@ -8215,18 +8197,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'vesicle-mediated transport',
           id: 'GO:0016192',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'ether metabolic process',
-          id: 'GO:0018904',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'organometal metabolic process',
-          id: 'GO:0018942',
           aspect: 'biological_process',
         },
         {
@@ -8449,24 +8419,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'macromolecule modification',
           id: 'GO:0043412',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'alkane metabolic process',
-          id: 'GO:0043446',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'alkene metabolic process',
-          id: 'GO:0043449',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'alkyne metabolic process',
-          id: 'GO:0043452',
           aspect: 'biological_process',
         },
         {
@@ -9908,6 +9860,12 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
+          name: 'sister chromatid cohesion',
+          id: 'GO:0007062',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
           name: 'cell adhesion',
           id: 'GO:0007155',
           aspect: 'biological_process',
@@ -10120,6 +10078,12 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'GPI anchored protein biosynthesis',
           id: 'GO:0180046',
+          aspect: 'biological_process',
+        },
+        {
+          associations: null,
+          name: 'dolichol phosphate mannose biosynthetic process',
+          id: 'GO:0180047',
           aspect: 'biological_process',
         },
         {
@@ -11674,12 +11638,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'dendritic transport of ribonucleoprotein complex',
           id: 'GO:0098961',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'regulation of postsynaptic neurotransmitter receptor activity',
-          id: 'GO:0098962',
           aspect: 'biological_process',
         },
         {
@@ -13270,12 +13228,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'protein dephosphorylation',
           id: 'GO:0006470',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'protein glycosylation',
-          id: 'GO:0006486',
           aspect: 'biological_process',
         },
         {

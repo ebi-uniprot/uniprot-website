@@ -11,3 +11,40 @@
 .no-right-margin svg {
   margin-right: 0;
 }
+
+ul.indented {
+  padding-left: 1rem;
+}
+
+ul.retained {
+  margin-bottom: 0;
+}
+ul.retained-proteomes {
+  margin-bottom: 0.5rem;
+}
+
+.generic {
+  margin-top: 1rem;
+}
+
+.homepage {
+  margin-bottom: 2rem;
+}
+
+.help-landing-page {
+  margin-bottom: -1.5rem;
+  margin-top: 1rem;
+}
+
+.help-entry {
+  margin-top: 1rem;
+}
+
+.help-results {
+  margin-top: 1rem;
+  margin-bottom: -4rem;
+}
+
+.swagger-docs {
+  margin: 1rem;
+}

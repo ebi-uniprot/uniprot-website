@@ -2,6 +2,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 import { Loader } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
+import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
@@ -9,9 +10,8 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
 import {
-  CheckMoveResponse,
   checkMoveUrl,
-  referenceProteomeTypes,
+  ProteomesCheckMoveResponse,
   RefProtMoveProteomesEntryMessage,
 } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -20,7 +20,6 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { stringifyUrl } from '../../../shared/utils/url';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import proteomesConverter, {
   ProteomesAPIModel,
@@ -45,10 +44,8 @@ const Entry = () => {
       : null
   );
 
-  const refprotmoveData = useDataApi<CheckMoveResponse>(
-    mainData.data && referenceProteomeTypes.has(mainData.data.proteomeType)
-      ? stringifyUrl(checkMoveUrl, { upids: [mainData.data.id] })
-      : null
+  const refprotmoveData = useDataApi<ProteomesCheckMoveResponse>(
+    accession ? joinUrl(checkMoveUrl, 'proteomes', accession) : null
   );
 
   if (mainData.loading || panProteomeData.loading || refprotmoveData.loading) {
@@ -70,6 +67,8 @@ const Entry = () => {
     panProteomeData.data
   );
 
+  const becomingNonRP = refprotmoveData.data?.status === 'became-non-reference';
+
   return (
     <SingleColumnLayout className="entry-page">
       <HTMLHead
@@ -78,11 +77,12 @@ const Entry = () => {
           searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
-      <RefProtMoveProteomesEntryMessage
-        id={transformedData.id}
-        taxonomy={transformedData.taxonomy}
-        becomingNonRP={refprotmoveData.data?.move?.[0] === transformedData.id}
-      />
+      {becomingNonRP && (
+        <RefProtMoveProteomesEntryMessage
+          id={transformedData.id}
+          taxonomy={transformedData.taxonomy}
+        />
+      )}
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}

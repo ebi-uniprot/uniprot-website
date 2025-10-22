@@ -1,5 +1,5 @@
 // Source: uniparc/UPI0000000001/databases
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock = {
   results: [
     {
@@ -40,7 +40,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2025-06-18',
+      lastUpdated: '2025-10-08',
       geneName: 'RPXV077',
       proteinName: 'RPXV077',
       organism: {
@@ -56,7 +56,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2004-07-05',
-      lastUpdated: '2025-06-18',
+      lastUpdated: '2025-10-08',
       geneName: 'N1R',
       proteinName: 'N1R protein',
       organism: {
@@ -72,11 +72,11 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-04-18',
-      lastUpdated: '2025-06-18',
+      lastUpdated: '2025-10-08',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
-        scientificName: 'Vaccinia virus',
+        scientificName: 'Orthopoxvirus vaccinia',
         taxonId: 10245,
       },
     },
@@ -87,7 +87,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-10-03',
-      lastUpdated: '2025-06-18',
+      lastUpdated: '2025-10-08',
       geneName: 'HSPV_VK05_RKI-089',
       proteinName: 'HSPV089',
       organism: {
@@ -103,7 +103,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2018-02-28',
-      lastUpdated: '2025-06-18',
+      lastUpdated: '2025-10-08',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -119,7 +119,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2024-11-27',
-      lastUpdated: '2025-06-18',
+      lastUpdated: '2025-10-08',
       geneName: 'CPXV_FIN2000_MAN_093',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -160,11 +160,11 @@ const mock = {
       version: 1,
       active: true,
       created: '2005-10-06',
-      lastUpdated: '2025-03-03',
+      lastUpdated: '2025-07-07',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
-        scientificName: 'Vaccinia virus',
+        scientificName: 'Orthopoxvirus vaccinia',
         taxonId: 10245,
       },
       ncbiGi: '66275885',
@@ -176,7 +176,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2022-10-19',
-      lastUpdated: '2025-03-03',
+      lastUpdated: '2025-07-07',
       geneName: 'OPG095',
       proteinName: 'IMV membrane protein L1R',
       organism: {
@@ -243,7 +243,7 @@ const mock = {
       },
       ncbiGi: '29692194',
       proteomeId: 'UP000000344',
-      component: 'Genome',
+      component: 'Segment',
     },
     {
       database: 'EMBL',
@@ -289,7 +289,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2025-04-16',
+      lastUpdated: '2025-06-13',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',
@@ -330,12 +330,12 @@ const mock = {
       geneName: 'VACV_TT8_108',
       proteinName: 'Myristylated MP IMV',
       organism: {
-        scientificName: 'Vaccinia virus',
+        scientificName: 'Orthopoxvirus vaccinia',
         taxonId: 10245,
       },
       ncbiGi: '480542501',
       proteomeId: 'UP000181229',
-      component: 'Genome',
+      component: 'Segment',
     },
     {
       database: 'EMBL',
@@ -348,7 +348,7 @@ const mock = {
       geneName: 'VACV_TT12_108',
       proteinName: 'Myristylated MP IMV',
       organism: {
-        scientificName: 'Vaccinia virus',
+        scientificName: 'Orthopoxvirus vaccinia',
         taxonId: 10245,
       },
       ncbiGi: '480543595',
@@ -366,7 +366,7 @@ const mock = {
       geneName: 'VAC_TKT3_078',
       proteinName: 'Neutralizing antibody IMV membrane protein target',
       organism: {
-        scientificName: 'Vaccinia virus',
+        scientificName: 'Orthopoxvirus vaccinia',
         taxonId: 10245,
       },
       ncbiGi: '723605536',
@@ -384,7 +384,7 @@ const mock = {
       geneName: 'VAC_TKT4_078',
       proteinName: 'Neutralizing antibody IMV membrane protein target',
       organism: {
-        scientificName: 'Vaccinia virus',
+        scientificName: 'Orthopoxvirus vaccinia',
         taxonId: 10245,
       },
       ncbiGi: '723605742',
@@ -402,7 +402,7 @@ const mock = {
       geneName: 'VACV_IOC_B141_114',
       proteinName: 'Neutralizing antibody MV membrane protein',
       organism: {
-        scientificName: 'Vaccinia virus',
+        scientificName: 'Orthopoxvirus vaccinia',
         taxonId: 10245,
       },
       ncbiGi: '929050100',

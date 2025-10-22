@@ -1,14 +1,10 @@
+import type { AlphaFoldPayload } from '@nightingale-elements/nightingale-structure';
 import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
-import { pick } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 
-import {
-  allEntryPages,
-  getLocationEntryPathFor,
-  Location,
-} from '../../../app/config/urls';
+import { allEntryPages } from '../../../app/config/urls';
 import { fileFormatEntryDownload as arbaFFED } from '../../../automatic-annotations/arba/config/download';
 import { fileFormatEntryDownload as uniRuleFFED } from '../../../automatic-annotations/unirule/config/download';
 import { fileFormatEntryDownload as proteomesFFED } from '../../../proteomes/config/download';
@@ -36,6 +32,7 @@ import {
   DownloadMethod,
   DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
+import * as logging from '../../utils/logging';
 import { stringifyUrl } from '../../utils/url';
 import ColumnSelect from '../column-select/ColumnSelect';
 import DownloadAPIURL from '../download/DownloadAPIURL';
@@ -120,34 +117,12 @@ const uniprotKBEntryDatasets = {
   ],
 };
 
-type AlphafoldPayloadEntry = {
-  entryId: string;
-  gene: string;
-  uniprotAccession: string;
-  uniprotId: string;
-  uniprotDescription: string;
-  taxId: number;
-  organismScientificName: string;
-  uniprotStart: number;
-  uniprotEnd: number;
-  uniprotSequence: string;
-  modelCreatedDate: string;
-  latestVersion: number;
-  allVersions: number[];
-  cifUrl: string;
-  bcifUrl: string;
-  pdbUrl: string;
-  paeImageUrl: string;
-  paeDocUrl: string;
-  amAnnotationsUrl?: string;
-};
-
-type AlphafoldPayload = AlphafoldPayloadEntry[];
+type AlphaFoldPayloadEntry = AlphaFoldPayload[number];
 
 type AlphaFoldUrls = Pick<
-  AlphafoldPayloadEntry,
+  AlphaFoldPayloadEntry,
   'cifUrl' | 'bcifUrl' | 'pdbUrl' | 'amAnnotationsUrl'
-> & { confidenceUrl?: string };
+> & { confidenceUrl: string };
 
 const maxPaginationDownload = 500;
 const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
@@ -155,23 +130,20 @@ const isUniparcTsv = (namespace: Namespace, fileFormat: FileFormat) =>
 const isUniRefList = (namespace: Namespace, fileFormat: FileFormat) =>
   namespace === Namespace.uniref && fileFormat === FileFormat.list;
 const getAlphaFoldUrls = (
-  data?: AlphafoldPayload
+  alphaFoldPayloadEntry: AlphaFoldPayloadEntry
 ): AlphaFoldUrls | undefined => {
-  const first = data?.[0];
-  if (!first) {
-    return undefined;
-  }
-  const alphaFoldUrls = pick(first, ['cifUrl', 'bcifUrl', 'pdbUrl']);
-  if (Object.values(alphaFoldUrls).some((url) => !url)) {
-    return undefined;
-  }
-  return {
-    ...alphaFoldUrls,
-    amAnnotationsUrl: first.amAnnotationsUrl,
-    confidenceUrl: alphaFoldUrls.cifUrl
-      .replace('-model', '-confidence')
-      .replace('.cif', '.json'),
-  };
+  const { cifUrl, bcifUrl, pdbUrl, amAnnotationsUrl } = alphaFoldPayloadEntry;
+  return cifUrl && bcifUrl && pdbUrl
+    ? {
+        cifUrl,
+        bcifUrl,
+        pdbUrl,
+        amAnnotationsUrl,
+        confidenceUrl: cifUrl
+          .replace('-model', '-confidence')
+          .replace('.cif', '.json'),
+      }
+    : undefined;
 };
 
 const getEntryDownloadUrl = (
@@ -192,10 +164,8 @@ const getEntryDownloadUrl = (
         });
       }
       if (isUniRefList(namespace, fileFormat)) {
-        return unirefApiUrls.members(accession, {
+        return unirefApiUrls.members(accession, true, {
           format: fileFormat as FileFormat.list,
-          // TODO: remove when this endpoint has streaming https://www.ebi.ac.uk/panda/jira/browse/TRM-27650
-          size: 500,
         });
       }
 
@@ -449,18 +419,27 @@ const EntryDownload = ({
     { method: 'HEAD' }
   );
 
-  const alphaFoldPrediction = useDataApi<AlphafoldPayload>(
+  const alphaFoldPrediction = useDataApi<AlphaFoldPayload>(
     namespace === Namespace.uniprotkb && accession
       ? externalUrls.AlphaFoldPrediction(accession)
       : ''
   );
 
-  const alphaFoldUrls =
-    // As there can be a build mismatch only use AlphaFold predictions if the sequence is the same as the entry's
-    sequence && sequence === alphaFoldPrediction?.data?.[0].uniprotSequence
-      ? getAlphaFoldUrls(alphaFoldPrediction?.data)
-      : undefined;
-
+  // As there can be a build mismatch only use AlphaFold predictions if the sequence is the same as the entry's
+  // Also need now need to filter all AF results as the canonical can be anywhere the array.
+  let alphaFoldUrls;
+  if (alphaFoldPrediction?.data) {
+    const alphaFoldSequenceMatch = alphaFoldPrediction.data.filter(
+      (af) => af.sequence === sequence
+    );
+    if (alphaFoldSequenceMatch.length === 1) {
+      alphaFoldUrls = getAlphaFoldUrls(alphaFoldSequenceMatch[0]);
+    } else if (alphaFoldSequenceMatch.length > 1) {
+      logging.warn(
+        `Found more than one match (${alphaFoldSequenceMatch.length}) for AlphaFold against accession ${accession} with protein sequence: ${sequence}`
+      );
+    }
+  }
   if (alphaFoldUrls) {
     availableDatasets.push(Dataset.alphaFoldCoordinates);
     availableDatasets.push(Dataset.alphaFoldConfidence);
@@ -468,7 +447,6 @@ const EntryDownload = ({
       availableDatasets.push(Dataset.alphaMissenseAnnotations);
     }
   }
-
   if (!entryFeatures.loading && entryFeatures.data) {
     if (entryFeatures.data?.features) {
       availableDatasets.push(Dataset.features);
@@ -658,40 +636,6 @@ const EntryDownload = ({
         </div>
       );
     }
-    if (namespace === Namespace.uniref && selectedFormat === FileFormat.list) {
-      additionalInformation = (
-        <div>
-          There is a current limitation where UniRef member list downloads are
-          limited to {maxPaginationDownload} entries. Until this is fixed, there
-          are several options:
-          <ul>
-            <li>
-              View the{' '}
-              <Link
-                to={getLocationEntryPathFor(Location.HelpEntry)('pagination')}
-              >
-                pagination documentation
-              </Link>{' '}
-              to download all <LongNumber>{nResults as number}</LongNumber>{' '}
-              members programmatically
-            </li>
-            <li>
-              Continue to download the{' '}
-              <DownloadAnchor
-                accession={accession as string}
-                fileFormat={FileFormat.list}
-                namespace={namespace}
-                dataset={selectedDataset}
-                columns={downloadColumns}
-              />{' '}
-              file format which has only {maxPaginationDownload} entries
-              (meaning <LongNumber>{(nResults as number) - 500}</LongNumber>{' '}
-              members will not be downloaded)
-            </li>
-          </ul>
-        </div>
-      );
-    }
   }
   if (
     selectedDataset === Dataset.selectedFeatures &&
@@ -730,7 +674,7 @@ const EntryDownload = ({
         }
       />
     );
-  } else if (extraContent === 'url') {
+  } else if (extraContent === 'url' && downloadUrl) {
     extraContentNode = (
       <DownloadAPIURL
         apiURL={downloadUrl}

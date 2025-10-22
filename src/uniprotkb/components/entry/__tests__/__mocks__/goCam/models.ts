@@ -1,5 +1,5 @@
 // Source: https://api.geneontology.org/api/gp/UniProtKB:Q9GZQ8/models
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const models = [
   {
     gocam: 'http://model.geneontology.org/5e72450500001269',

@@ -83,7 +83,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <a
               href="/uniprotkb?query=proteome:UP000005640"
             >
-              83,587
+              83,569
             </a>
           </span>
           <span

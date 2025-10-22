@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -10,7 +10,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
   },
   servers: [
     {
-      url: 'https://rest.uniprot.org/',
+      url: 'https://wwwdev.ebi.ac.uk/uniprot/api/',
       description: 'UniProt REST API Server',
     },
   ],
@@ -85,7 +85,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
         tags: ['UniRef'],
         summary: 'Retrieve UniRef cluster members by a single cluster id.',
         description:
-          'Search UniRef entry by member id to return all data associated with that entry. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you',
+          'Search UniRef entry by id to return all member data associated with that entry. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you',
         operationId: 'search',
         parameters: [
           {
@@ -137,6 +137,64 @@ const unirefApiDocs: OpenAPIV3.Document = {
                 },
               },
               'text/plain;format=list': {},
+            },
+          },
+        },
+      },
+    },
+    '/uniref/{id}/members/stream': {
+      get: {
+        tags: ['UniRef'],
+        summary: 'Download UniRef cluster members by a single cluster id.',
+        description:
+          'Search UniRef entry by id to return all member data associated with that entry. ',
+        operationId: 'stream',
+        parameters: [
+          {
+            name: 'id',
+            in: 'query',
+            description: 'Unique identifier for the UniRef cluster',
+            required: true,
+            schema: {
+              pattern: '(UniRef100|UniRef90|UniRef50)_\\w+(-[0-9]+)?',
+              type: 'string',
+            },
+            example: 'UniRef100_P05067',
+          },
+          {
+            name: 'download',
+            in: 'query',
+            description:
+              'Specify <tt>true</tt> to download as file, default is <tt>false</tt>.',
+            required: false,
+            schema: {
+              pattern: '^true$|^false$',
+              type: 'string',
+            },
+          },
+        ],
+        responses: {
+          default: {
+            description: 'default response',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/StreamResult',
+                },
+              },
+              'application/xml': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Entry',
+                  },
+                },
+              },
+              'text/plain;format=tsv': {},
+              'text/plain;format=list': {},
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                {},
+              'text/plain;format=fasta': {},
             },
           },
         },
@@ -205,7 +263,7 @@ const unirefApiDocs: OpenAPIV3.Document = {
           'Download light UniRef cluster entries retrieved by a search query. (Max. 10 million entries)',
         description:
           "The stream endpoint uses a request query to return all entries associated with the search term in a single download. Specify <tt>fields</tt> to return only data for specific sections of that entry that are of interest to you The stream endpoint has a maximum limit of 10 million entries. For larger requests, please use the 'UniRef asynchronous download job' requests described below. The 'UniRef asynchronous download job' requests can be used for any size -- the asynchronous download jobs can be paused and resumed at your convenience, unlike the stream endpoint.",
-        operationId: 'stream',
+        operationId: 'stream_1',
         parameters: [
           {
             name: 'query',
@@ -422,11 +480,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           name: {
             type: 'string',
           },
-          evidenceDatabaseDetail: {
-            $ref: '#/components/schemas/EvidenceDatabaseDetail',
-          },
           reference: {
             type: 'boolean',
+          },
+          evidenceDatabaseDetail: {
+            $ref: '#/components/schemas/EvidenceDatabaseDetail',
           },
         },
       },
@@ -487,6 +545,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
             type: 'integer',
             format: 'int64',
           },
+          commonName: {
+            type: 'string',
+          },
           scientificName: {
             type: 'string',
           },
@@ -495,9 +556,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
             items: {
               type: 'string',
             },
-          },
-          commonName: {
-            type: 'string',
           },
           evidences: {
             type: 'array',
@@ -537,9 +595,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
-          organismName: {
-            type: 'string',
-          },
           organismTaxId: {
             type: 'integer',
             format: 'int64',
@@ -549,6 +604,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
             format: 'int32',
           },
           proteinName: {
+            type: 'string',
+          },
+          organismName: {
             type: 'string',
           },
           uniRef50Id: {
@@ -565,6 +623,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
+          },
+          memberId: {
+            type: 'string',
           },
           uniProtAccessions: {
             type: 'array',
@@ -583,9 +644,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           seed: {
             type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
           },
         },
       },
@@ -625,12 +683,12 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/UniRefMember',
             },
           },
-          representativeMember: {
-            $ref: '#/components/schemas/RepresentativeMember',
-          },
           entryType: {
             type: 'string',
             enum: ['UniRef100', 'UniRef90', 'UniRef50'],
+          },
+          representativeMember: {
+            $ref: '#/components/schemas/RepresentativeMember',
           },
           updated: {
             type: 'string',
@@ -657,9 +715,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
       UniRefMember: {
         type: 'object',
         properties: {
-          organismName: {
-            type: 'string',
-          },
           organismTaxId: {
             type: 'integer',
             format: 'int64',
@@ -669,6 +724,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
             format: 'int32',
           },
           proteinName: {
+            type: 'string',
+          },
+          organismName: {
             type: 'string',
           },
           uniRef50Id: {
@@ -685,6 +743,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
+          },
+          memberId: {
+            type: 'string',
           },
           uniProtAccessions: {
             type: 'array',
@@ -703,9 +764,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           seed: {
             type: 'boolean',
-          },
-          memberId: {
-            type: 'string',
           },
         },
       },

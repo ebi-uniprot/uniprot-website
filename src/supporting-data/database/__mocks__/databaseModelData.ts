@@ -2,7 +2,7 @@ import { SearchResults } from '../../../shared/types/results';
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 
 // Source: database/search?query=embl&size=2
-// Retrieved: 2025-06-19
+// Retrieved: 2025-10-15
 const mock: SearchResults<DatabaseAPIModel> = {
   results: [
     {
@@ -17,7 +17,7 @@ const mock: SearchResults<DatabaseAPIModel> = {
       category: 'Sequence databases',
       statistics: {
         reviewedProteinCount: 560693,
-        unreviewedProteinCount: 237090595,
+        unreviewedProteinCount: 182383424,
       },
     },
     {
