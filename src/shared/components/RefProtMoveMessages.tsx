@@ -18,7 +18,7 @@ import styles from './styles/ref-prot-move-messages.module.scss';
 
 const ftpProteomes = 'https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/';
 
-export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check/check-move');
+export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check');
 
 const release = '2026_02';
 const releaseDate = 'first half of 2026';
@@ -234,33 +234,15 @@ const getCrossRefsFor = (dbName: string) => (entry: UniProtkbAPIModel) =>
       Boolean(idOrUndef)
     );
 
-const getCrossRefsForPDB = getCrossRefsFor('PDB');
-export const biologicallyRelevant = (entry: UniProtkbAPIModel) => {
-  // The entry is reviewed
-  if (entry.entryType.includes('UniProtKB reviewed')) {
-    return true;
-  }
-  // The entry has xrefs to PDB
-  if (getCrossRefsForPDB(entry)?.length) {
-    return true;
-  }
-  // Add new conditions here
-  return false;
-};
-
 export const getProteomes = getCrossRefsFor('Proteomes');
 
-export type CheckMoveResponse = {
-  move?: string[];
-  stay?: string[];
-  unknown?: string[];
+export type ProteomesCheckMoveResponse = {
+  status: 'became-non-reference' | 'no-change' | 'unknown';
 };
 
-export const referenceProteomeTypes = new Set([
-  'Reference and representative proteome',
-  'Reference proteome',
-  'Representative proteome',
-]);
+export type UniProtKBCheckMoveResponse = {
+  status: 'remove' | 'stay' | 'unknown';
+};
 
 // Only show in the case that the proteome is non-reference.
 export const RefProtMoveProteomesEntryMessage: FC<{
