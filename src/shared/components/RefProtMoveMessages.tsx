@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { Message } from 'franklin-sites';
 import { FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
+import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
@@ -10,18 +11,14 @@ import {
   UniProtkbAPIModel,
   UniProtKBSimplifiedTaxonomy,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { Namespace } from '../types/namespaces';
 import ExternalLink from './ExternalLink';
 import styles from './styles/ref-prot-move-messages.module.scss';
 
 const ftpProteomes = 'https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/';
 
-// TODO: uncomment the following and remove the hardcoded wwwdev url
-// import joinUrl from 'url-join';
-// import { apiPrefix } from '../config/apiUrls/apiPrefix';
-// export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check');
-export const checkMoveUrl =
-  'https://wwwdev.ebi.ac.uk/uniprot/api/refprotmove-check';
+export const checkMoveUrl = joinUrl(apiPrefix, 'refprotmove-check');
 
 const release = '2026_02';
 const releaseDate = 'first half of 2026';
