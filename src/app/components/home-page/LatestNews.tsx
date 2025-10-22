@@ -14,7 +14,7 @@ const insideUniProtAbstract2 =
   'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const proteinSpotlightAbstract =
-  "My grandmother had a lovely pantry. It was a small room next to the kitchen, dedicated to the accumulation of 'non-perishables', i.e. mainly jam, rice, flour, sugar, dried potato, packets of biscuits and noodles.";
+  "Who hasn't gone out for some fresh air and been incommoded by the pungent smell of manure? Why have farmers been flinging dung on their ploughed fields for thousands of years? The answer is nitrogen.";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -349,21 +349,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/283/"
+            url="https://www.proteinspotlight.org/back_issues/284/"
             noIcon
           >
-            Elusive
+            Why dung?
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/283/"
+          url="https://www.proteinspotlight.org/back_issues/284/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt283.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt284.jpg"
             alt=""
             width="123"
             height="129"
