@@ -134,7 +134,7 @@ type State = {
   isLoading: boolean;
   showNoResults: boolean;
   showSidebarEmpty: boolean;
-  showIdMappingWarning: boolean;
+  showWarning: boolean;
 };
 
 type updatePayload = Partial<State>;
@@ -164,7 +164,7 @@ const initialState: State = {
   isLoading: true,
   showNoResults: false,
   showSidebarEmpty: false,
-  showIdMappingWarning: false,
+  showWarning: false,
 };
 
 const parseJobParameters = (str?: string): ParsedParams => {
@@ -263,7 +263,7 @@ const reducer = (state: State, action: Action): State => {
         merged.subPage === TabLocation.InputParameters ||
         merged.subPage === TabLocation.APIRequest;
 
-      const showIdMappingWarning = !!hasExcessAccessions;
+      const showWarning = !!hasExcessAccessions;
 
       return {
         ...merged,
@@ -276,7 +276,7 @@ const reducer = (state: State, action: Action): State => {
         total,
         showNoResults,
         showSidebarEmpty,
-        showIdMappingWarning,
+        showWarning,
       };
     }
     default:
@@ -443,7 +443,7 @@ const PeptideSearchResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            {state.showIdMappingWarning && (
+            {state.showWarning && (
               <Message level="warning">
                 <small>
                   To filter peptide search results of more than{' '}
