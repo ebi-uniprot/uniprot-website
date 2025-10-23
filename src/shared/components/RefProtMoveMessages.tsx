@@ -88,6 +88,7 @@ const HelpFtpContact: FC<{
               state: {
                 formValues: {
                   context: [
+                    'Message from RefProt change banner',
                     `UniProtKB accession: ${accession}`,
                     `Proteome IDs for this UniProtKB entry: ${upids.join(', ') || '<none>'}`,
                     `Organism: ${organism.scientificName || organism.commonName || '<no name>'}`,
@@ -101,7 +102,7 @@ const HelpFtpContact: FC<{
               pathname: LocationToPath[Location.ContactGeneric],
               state: {
                 formValues: {
-                  subject: `Question about Unreviewed UniProtKB/TrEMBL changes in ${release}`,
+                  context: 'Message from RefProt change banner',
                 },
               },
             }
@@ -293,12 +294,12 @@ export const RefProtMoveProteomesEntryMessage: FC<{
               state: {
                 formValues: {
                   context: [
+                    'Message from RefProt change banner',
                     `Proteome ID: ${id}`,
                     `Organism: ${taxonomy.scientificName}`,
                     `Taxon ID: ${taxonomy.taxonId}`,
                     `Mnemonic: ${taxonomy.mnemonic}`,
                   ].join('\n'),
-                  subject: `Question about proteome ${id} status in ${release}`,
                 },
               },
             }
@@ -306,7 +307,7 @@ export const RefProtMoveProteomesEntryMessage: FC<{
               pathname: LocationToPath[Location.ContactGeneric],
               state: {
                 formValues: {
-                  subject: `Question about proteomes changes in ${release}`,
+                  context: 'Message from RefProt change banner',
                 },
               },
             }
