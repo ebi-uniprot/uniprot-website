@@ -121,13 +121,13 @@ type State = {
 
   resultsInitialLoading: boolean;
   progress?: number;
-  allResultsLen?: number;
+  allResultsLength?: number;
 
   // Derived
   parsedParams: ParsedParams;
   jobInputParameters: FormParameters;
   accessions?: string[];
-  excessAccessions: boolean;
+  hasExcessAccessions: boolean;
   total?: number;
 
   // UI
@@ -137,7 +137,7 @@ type State = {
   showIdMappingWarning: boolean;
 };
 
-type SyncPayload = Partial<
+type updatePayload = Partial<
   Pick<
     State,
     | 'jobID'
@@ -153,11 +153,11 @@ type SyncPayload = Partial<
     | 'facetHasStaleData'
     | 'resultsInitialLoading'
     | 'progress'
-    | 'allResultsLen'
+    | 'allResultsLength'
   >
 >;
 
-type Action = { type: 'SYNC'; payload: SyncPayload };
+type Action = { type: 'UPDATE'; payload: updatePayload };
 
 const initialParsed: ParsedParams = {
   peps: '',
@@ -178,7 +178,7 @@ const initialState: State = {
   resultsInitialLoading: true,
   parsedParams: initialParsed,
   jobInputParameters: { peps: '', lEQi: 'off', spOnly: 'off' },
-  excessAccessions: false,
+  hasExcessAccessions: false,
   isLoading: true,
   showNoResults: false,
   showSidebarEmpty: false,
@@ -243,7 +243,7 @@ const parseAccessions = (csv?: string): string[] | undefined => {
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'SYNC': {
+    case 'UPDATE': {
       const merged = { ...state, ...action.payload };
 
       const basePath = joinUrl(BASE_PATH, merged.jobID);
@@ -258,7 +258,7 @@ const reducer = (state: State, action: Action): State => {
 
       const accessions = parseAccessions(merged.jobResultData);
 
-      const excessAccessions =
+      const hasExcessAccessions =
         Array.isArray(accessions) &&
         accessions.length > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
@@ -269,19 +269,19 @@ const reducer = (state: State, action: Action): State => {
         (!!merged.facetInititialLoading && !merged.facetHasStaleData);
 
       const total =
-        !isLoading && typeof merged.allResultsLen !== 'undefined'
-          ? merged.allResultsLen
+        !isLoading && typeof merged.allResultsLength !== 'undefined'
+          ? merged.allResultsLength
           : undefined;
 
       const noAccessions = Array.isArray(accessions) && accessions.length === 0;
-      const showNoResults = !excessAccessions && !isLoading && noAccessions;
+      const showNoResults = !hasExcessAccessions && !isLoading && noAccessions;
 
       const showSidebarEmpty =
-        excessAccessions ||
+        hasExcessAccessions ||
         merged.subPage === TabLocation.InputParameters ||
         merged.subPage === TabLocation.APIRequest;
 
-      const showIdMappingWarning = !!excessAccessions;
+      const showIdMappingWarning = !!hasExcessAccessions;
 
       return {
         ...merged,
@@ -289,7 +289,7 @@ const reducer = (state: State, action: Action): State => {
         parsedParams,
         jobInputParameters,
         accessions,
-        excessAccessions,
+        hasExcessAccessions,
         isLoading,
         total,
         showNoResults,
@@ -347,7 +347,7 @@ const PeptideSearchResult = () => {
     size: 0,
     withFacets: true,
     withColumns: false,
-    accessions: state.excessAccessions ? [] : state.accessions,
+    accessions: state.hasExcessAccessions ? [] : state.accessions,
   });
 
   const facetApiObject =
@@ -364,7 +364,7 @@ const PeptideSearchResult = () => {
 
   useEffect(() => {
     dispatch({
-      type: 'SYNC',
+      type: 'UPDATE',
       payload: {
         jobID,
         subPage: match?.params.subPage,
@@ -379,7 +379,7 @@ const PeptideSearchResult = () => {
         facetHasStaleData: !!facetApiObject.isStale,
         resultsInitialLoading: resultsDataObject.initialLoading,
         progress: resultsDataObject.progress,
-        allResultsLen: resultsDataObject?.allResults?.length,
+        allResultsLength: resultsDataObject?.allResults?.length,
       },
     });
   }, [
