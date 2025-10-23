@@ -137,25 +137,7 @@ type State = {
   showIdMappingWarning: boolean;
 };
 
-type updatePayload = Partial<
-  Pick<
-    State,
-    | 'jobID'
-    | 'subPage'
-    | 'jobResultError'
-    | 'jobResultStatus'
-    | 'jobResultLoading'
-    | 'jobParameters'
-    | 'jobResultData'
-    | 'taxonomyLoading'
-    | 'taxonomyData'
-    | 'facetInititialLoading'
-    | 'facetHasStaleData'
-    | 'resultsInitialLoading'
-    | 'progress'
-    | 'allResultsLength'
-  >
->;
+type updatePayload = Partial<State>;
 
 type Action = { type: 'UPDATE'; payload: updatePayload };
 
