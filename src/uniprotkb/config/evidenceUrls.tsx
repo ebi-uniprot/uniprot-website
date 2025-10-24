@@ -150,7 +150,7 @@ export const formatEvidenceContent = (id: string, source?: string) => {
     return `UniRule PIRSR: ${id}`;
   }
   if (id.match(/^PRU[0-9]{5}/)) {
-    return `UniRule PROSITE-ProRule: ${id}`;
+    return `PROSITE-ProRule: ${id}`;
   }
   // regexp generated from https://www.ebi.ac.uk/pride/markdownpage/submitdatapage "PXDxxxxxx"
   if (id.match(/^PXD\d{6}/)) {

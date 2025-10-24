@@ -137,7 +137,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 2`] 
               rel="noopener"
               target="_blank"
             >
-              UniRule PROSITE-ProRule: PRU10023
+              PROSITE-ProRule: PRU10023
               <test-file-stub
                 data-testid="external-link-icon"
                 width="12.5"

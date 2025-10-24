@@ -27,7 +27,7 @@ describe('Evidence urls', () => {
       expect(formatEvidenceContent('PIRNR123')).toBe('UniRule PIRNR: PIRNR123');
       expect(formatEvidenceContent('PIRSR123')).toBe('UniRule PIRSR: PIRSR123');
       expect(formatEvidenceContent('PRU12345')).toBe(
-        'UniRule PROSITE-ProRule: PRU12345'
+        'PROSITE-ProRule: PRU12345'
       );
       expect(formatEvidenceContent('abcd', 'source')).toBe('source: abcd');
     });
