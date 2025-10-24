@@ -322,15 +322,11 @@ const FunctionSection = ({
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning" heading={<h3>Caution</h3>}>
-          <small>
-            <FreeTextView
-              comments={
-                data.commentsData.get('CAUTION') as
-                  | FreeTextComment[]
-                  | undefined
-              }
-            />
-          </small>
+          <FreeTextView
+            comments={
+              data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
+            }
+          />
         </Message>
       ) : undefined}
       <CatalyticActivityView
