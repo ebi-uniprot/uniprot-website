@@ -1970,6 +1970,14 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_n
 
 exports[`UniProtKBColumnConfiguration component should render column "ph_dependence": ph_dependence 1`] = `
 <DocumentFragment>
+  <h4
+    class="tiny"
+  />
+  <h4
+    class="tiny"
+  >
+    Isoform 3
+  </h4>
   <div
     class="text-block"
   >

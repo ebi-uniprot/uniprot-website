@@ -547,6 +547,15 @@ exports[`Entry view should render 1`] = `
         >
           pH Dependence
         </h3>
+        <h4
+          class="tiny"
+        >
+          <a
+            href="#Isoform_3"
+          >
+            Isoform 3
+          </a>
+        </h4>
         <div
           class="text-block"
         >
@@ -4041,6 +4050,15 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           pH Dependence
         </h3>
+        <h4
+          class="tiny"
+        >
+          <a
+            href="#canonical"
+          >
+            canonical
+          </a>
+        </h4>
         <div
           class="text-block"
         >
