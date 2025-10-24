@@ -344,7 +344,10 @@ const CatalyticActivityView = ({
             firstRheaId = rheaId;
           }
           return (
-            <div className={styles['rhea-entry']} key={rheaId}>
+            <div
+              className={styles['rhea-entry']}
+              key={[rheaId, molecule || ''].join('-')}
+            >
               <div className="small">
                 {rheaId ? (
                   <ExternalLink url={externalUrls.RheaEntry(rheaId)}>
