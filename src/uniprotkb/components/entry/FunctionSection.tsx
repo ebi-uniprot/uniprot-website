@@ -127,14 +127,18 @@ const BioPhysicoChemicalPropertiesView = ({
           ))}
         </>
       )}
-      {data.pHDependence && (
-        <>
-          <h3 data-article-id="biophysicochemical_properties#3-ph-dependence">
-            pH Dependence
-          </h3>
-          <TextView comments={data.pHDependence} />
-        </>
-      )}
+      {data.pHDependence &&
+        Object.entries(data.pHDependence).map(([key, value]) => (
+          <>
+            <h3 data-article-id="biophysicochemical_properties#3-ph-dependence">
+              pH Dependence
+            </h3>
+            <h4 className="tiny">
+              <a href={`#${key.replaceAll(' ', '_')}`}>{key}</a>
+            </h4>
+            <TextView comments={value} />
+          </>
+        ))}
       {data.redoxPotential && (
         <>
           <h3 data-article-id="biophysicochemical_properties#4-rodex-potential">

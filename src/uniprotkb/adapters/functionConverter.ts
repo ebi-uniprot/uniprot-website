@@ -59,7 +59,7 @@ export type KineticParameters = {
 export type BioPhysicoChemicalProperties = {
   absorption?: Absorption;
   kinetics?: { [key: string]: KineticParameters };
-  pHDependence?: TextWithEvidence[];
+  pHDependence?: { [key: string]: TextWithEvidence[] };
   redoxPotential?: TextWithEvidence[];
   temperatureDependence?: TextWithEvidence[];
 };
@@ -205,7 +205,7 @@ const convertFunction = (
   );
   convertedSection.bioPhysicoChemicalProperties = {};
   if (bpcProperties) {
-    bpcProperties.forEach((bpcProperty) => {
+    for (const bpcProperty of bpcProperties) {
       if ((bpcProperty as AbsorptionComment).absorption) {
         convertedSection.bioPhysicoChemicalProperties.absorption = (
           bpcProperty as AbsorptionComment
@@ -221,9 +221,13 @@ const convertFunction = (
         };
       }
       if ((bpcProperty as pHDependenceComment).phDependence) {
-        convertedSection.bioPhysicoChemicalProperties.pHDependence = (
-          bpcProperty as pHDependenceComment
-        ).phDependence.texts;
+        const existingData =
+          convertedSection.bioPhysicoChemicalProperties.pHDependence;
+        const isoform = bpcProperty.molecule || 'canonical';
+        convertedSection.bioPhysicoChemicalProperties.pHDependence = {
+          ...existingData,
+          [isoform]: (bpcProperty as pHDependenceComment).phDependence.texts,
+        };
       }
       if ((bpcProperty as RedoxPotentialComment).redoxPotential) {
         convertedSection.bioPhysicoChemicalProperties.redoxPotential = (
@@ -235,7 +239,7 @@ const convertFunction = (
           bpcProperty as TemperatureDependenceComment
         ).temperatureDependence.texts;
       }
-    });
+    }
   }
   convertedSection.commentsData.delete('BIOPHYSICOCHEMICAL PROPERTIES');
 
