@@ -1,15 +1,6 @@
 import axios from 'axios';
 import cn from 'classnames';
-import {
-  Button,
-  InfoList,
-  InformationIcon,
-  Loader,
-  Message,
-  SuccessIcon,
-  Tab,
-  Tabs,
-} from 'franklin-sites';
+import { Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
@@ -49,7 +40,6 @@ import { SearchResults } from '../../../shared/types/results';
 import fetchData from '../../../shared/utils/fetchData';
 import * as logging from '../../../shared/utils/logging';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
-import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import {
   UniParcLiteAPIModel,
@@ -65,12 +55,10 @@ import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
-import styles from './styles/sub-entry.module.scss';
+import SubEntryContext from './SubEntryContext';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
-
-const iconSize = '1.125em';
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
@@ -153,6 +141,15 @@ const SubEntry = () => {
                   return;
                 }
                 logging.error(error);
+                dispatch(
+                  addMessage({
+                    id: 'load-AA-annotations',
+                    content: <>Encountered error in running the service</>,
+                    format: MessageFormat.POP_UP,
+                    level: MessageLevel.FAILURE,
+                    tag: MessageTag.JOB,
+                  })
+                );
               }
             }
           }
@@ -193,171 +190,6 @@ const SubEntry = () => {
         fullPage
       />
     );
-  }
-
-  let contextInfo;
-  if (unisaveData.data?.events) {
-    let events = unisaveData.data.events;
-    if (
-      unisaveData.data.events.length > 1 &&
-      unisaveData.data.events[0].eventType === 'merged'
-    ) {
-      const demergedEntries = events.map((event) => event.targetAccession);
-      events = [{ ...events[0], targetAccession: demergedEntries.join(', ') }];
-    }
-
-    if (
-      unisaveData.data.events.length > 1 &&
-      unisaveData.data.events[0].eventType === 'replacing'
-    ) {
-      const replacedEntries = events.map((event) => event.targetAccession);
-      events = [{ ...events[0], targetAccession: replacedEntries.join(', ') }];
-    }
-    contextInfo = events.map((event) => {
-      const presentInUniprotkb =
-        event.eventType === 'merged' || event.eventType === 'replacing';
-      const infoData = [
-        {
-          title: 'Status',
-          content: (
-            <>
-              <div className={styles['availability-content']}>
-                <label
-                  className={
-                    presentInUniprotkb
-                      ? ''
-                      : styles['availability-label-disabled']
-                  }
-                >
-                  <input
-                    type="checkbox"
-                    checked={presentInUniprotkb}
-                    readOnly
-                    disabled={!presentInUniprotkb}
-                  />
-                  <span data-article-id="uniprotkb">UniProtKB</span>
-                </label>
-                <br />
-                {event.eventType === 'deleted' && (
-                  <>
-                    Removed from UniProtKB because {subEntryId} is{' '}
-                    <strong data-article-id="deleted_accessions">
-                      {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
-                    </strong>
-                  </>
-                )}
-                {(event.eventType === 'merged' ||
-                  event.eventType === 'replacing') && (
-                  <>
-                    {subEntryId} is{' '}
-                    {event.eventType === 'merged' &&
-                      (event.targetAccession.split(', ').length > 1
-                        ? 'demerged into '
-                        : 'merged into ')}
-                    {event.eventType === 'replacing' && 'replaced by '}
-                    {event.targetAccession
-                      .split(', ')
-                      .map((targetAccession, index, array) => (
-                        <span key={targetAccession}>
-                          <Link
-                            to={getEntryPath(
-                              Namespace.uniprotkb,
-                              targetAccession
-                            )}
-                          >
-                            {targetAccession}
-                          </Link>
-                          {index < array.length - 1 ? ', ' : ''}
-                        </span>
-                      ))}
-                  </>
-                )}
-              </div>
-              <div className={styles['availability-content']}>
-                <label>
-                  <input type="checkbox" checked readOnly />
-                  <span data-article-id="uniparc">UniParc</span>
-                </label>
-                <br />
-                Current location, UniProt’s sequence archive
-              </div>
-            </>
-          ),
-        },
-        {
-          title: (
-            <div>
-              Available <br /> actions
-            </div>
-          ),
-          content: event.eventType === 'deleted' && (
-            <div>
-              <Link
-                to={{
-                  pathname: getEntryPath(
-                    Namespace.uniprotkb,
-                    subEntryId,
-                    UniprotkbTabLocation.History
-                  ),
-                }}
-              >
-                View history
-              </Link>{' '}
-              in UniProtKB
-            </div>
-          ),
-        },
-        {
-          title: ' ',
-          content: event.eventType === 'deleted' && (
-            <div>
-              <span>Generate additional annotations:</span>
-              <br />
-              As {subEntryId} is no longer in UniProtKB, its annotations have
-              been removed. However, annotations may be generated on demand
-              using automatic annotation rules.
-              <br />
-              {!runUniFire && (
-                <Button
-                  variant="primary"
-                  onClick={() => setRunUniFire(true)}
-                  className={styles['run-unifire-button']}
-                  disabled={runUniFire}
-                >
-                  Generate annotations
-                </Button>
-              )}
-              {runUniFire && uniFireData?.accession === '' && (
-                <span>
-                  <InformationIcon
-                    className={styles['info-icon']}
-                    width={iconSize}
-                    height={iconSize}
-                  />
-                  No predictions generated
-                </span>
-              )}
-              {runUniFire && uniFireData && uniFireData.accession !== '' && (
-                <span>
-                  <SuccessIcon
-                    className={styles['success-icon']}
-                    width={iconSize}
-                    height={iconSize}
-                  />
-                  Predictions generated
-                </span>
-              )}
-            </div>
-          ),
-        },
-      ];
-      return (
-        <InfoList
-          key={`${event.eventType}-${subEntryId}`}
-          infoData={infoData}
-        />
-      );
-    });
   }
 
   const transformedData = uniParcSubEntryConverter(
@@ -470,14 +302,13 @@ const SubEntry = () => {
           </ContactLink>
           .
         </Message>
-        {contextInfo && (
-          <Message level="info">
-            <h4>
-              Attention: You are currently viewing {subEntryId} within UniParc
-            </h4>
-            {contextInfo}
-          </Message>
-        )}
+        <SubEntryContext
+          subEntryId={subEntryId}
+          data={unisaveData.data}
+          uniFireData={uniFireData}
+          runUniFire={runUniFire}
+          setRunUniFire={setRunUniFire}
+        />
       </ErrorBoundary>
       <Tabs active={subPage}>
         <Tab
