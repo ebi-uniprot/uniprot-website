@@ -794,9 +794,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
       bioPhysicoChemicalProperties.kinetics && (
         <>
           {Object.entries(bioPhysicoChemicalProperties.kinetics).map(
-            ([key, value]) => (
-              <Fragment key={key}>
-                {key !== 'canonical' && <h4 className="tiny">{key}</h4>}
+            ([isoform, value]) => (
+              <Fragment key={isoform}>
+                {isoform !== 'canonical' && <h4 className="tiny">{isoform}</h4>}
                 <KineticsView data={value} />
               </Fragment>
             )
@@ -834,13 +834,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
     return (
       bioPhysicoChemicalProperties.pHDependence &&
       Object.entries(bioPhysicoChemicalProperties.pHDependence).map(
-        ([key, value]) => (
-          <>
+        ([isoform, value]) => (
+          <Fragment key={isoform}>
             <h4 className="tiny">
-              {key !== 'canonical' && <h4 className="tiny">{key}</h4>}
+              {isoform !== 'canonical' && <h4 className="tiny">{isoform}</h4>}
             </h4>
             <TextView comments={value} />
-          </>
+          </Fragment>
         )
       )
     );

@@ -58,8 +58,8 @@ export type KineticParameters = {
 
 export type BioPhysicoChemicalProperties = {
   absorption?: Absorption;
-  kinetics?: { [key: string]: KineticParameters };
-  pHDependence?: { [key: string]: TextWithEvidence[] };
+  kinetics?: { [isoform: string]: KineticParameters };
+  pHDependence?: { [isoform: string]: TextWithEvidence[] };
   redoxPotential?: TextWithEvidence[];
   temperatureDependence?: TextWithEvidence[];
 };
