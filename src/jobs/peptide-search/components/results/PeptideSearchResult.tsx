@@ -242,39 +242,33 @@ const PeptideSearchResult = () => {
 
   useMarkJobAsSeen(resultsDataObject?.allResults?.length, jobID);
 
-  const isLoading =
-    jobResultLoading ||
-    accessions === undefined ||
-    resultsDataObject.initialLoading ||
-    (facetApiObject.loading && !facetApiObject.isStale);
-
-  const total =
-    !isLoading && typeof resultsDataObject?.allResults?.length !== 'undefined'
-      ? resultsDataObject.allResults.length
-      : undefined;
-
-  const noAccessions = Array.isArray(accessions) && accessions.length === 0;
-
-  const showNoResults = !hasExcessAccessions && !isLoading && noAccessions;
-
-  const showSidebarEmpty =
-    hasExcessAccessions ||
-    match?.params.subPage === TabLocation.InputParameters ||
-    match?.params.subPage === TabLocation.APIRequest;
-
   if (jobResultError || !match) {
     return (
       <ErrorHandler status={jobResultStatus} error={jobResultError} fullPage />
     );
   }
 
-  if (isLoading) {
+  if (
+    jobResultLoading ||
+    accessions === undefined ||
+    resultsDataObject.initialLoading ||
+    (facetApiObject.loading && !facetApiObject.isStale)
+  ) {
     return <Loader progress={resultsDataObject.progress} />;
   }
 
-  if (showNoResults) {
+  if (!hasExcessAccessions && accessions.length === 0) {
     return <NoResultsPage />;
   }
+
+  const total = resultsDataObject?.allResults?.length;
+
+  const basePath = joinUrl('/peptide-search', jobID);
+
+  const showSidebarEmpty =
+    hasExcessAccessions ||
+    match?.params.subPage === TabLocation.InputParameters ||
+    match?.params.subPage === TabLocation.APIRequest;
 
   const sidebar = showSidebarEmpty ? (
     <div className={sidebarStyles['empty-sidebar']} />
@@ -286,8 +280,6 @@ const PeptideSearchResult = () => {
       />
     </ErrorBoundary>
   );
-
-  const basePath = joinUrl('/peptide-search', jobID);
 
   return (
     <SidebarLayout sidebar={sidebar}>
