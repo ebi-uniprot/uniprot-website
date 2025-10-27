@@ -44,7 +44,6 @@ import {
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
-// import KineticsTableView from '../components/entry/KineticsTableView';
 import {
   functionFeaturesToColumns,
   FunctionUIModel,
@@ -795,9 +794,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
       bioPhysicoChemicalProperties.kinetics && (
         <>
           {Object.entries(bioPhysicoChemicalProperties.kinetics).map(
-            ([key, value]) => (
-              <Fragment key={key}>
-                {key !== 'canonical' && <h4 className="tiny">{key}</h4>}
+            ([isoform, value]) => (
+              <Fragment key={isoform}>
+                {isoform !== 'canonical' && <h4 className="tiny">{isoform}</h4>}
                 <KineticsView data={value} />
               </Fragment>
             )
@@ -833,8 +832,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
       EntrySection.Function
     ] as FunctionUIModel;
     return (
-      bioPhysicoChemicalProperties.pHDependence && (
-        <TextView comments={bioPhysicoChemicalProperties.pHDependence} />
+      bioPhysicoChemicalProperties.pHDependence &&
+      Object.entries(bioPhysicoChemicalProperties.pHDependence).map(
+        ([isoform, value]) => (
+          <Fragment key={isoform}>
+            {isoform !== 'canonical' && <h4 className="tiny">{isoform}</h4>}
+            <TextView comments={value} />
+          </Fragment>
+        )
       )
     );
   },
