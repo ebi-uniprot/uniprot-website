@@ -1,6 +1,15 @@
 import axios from 'axios';
 import cn from 'classnames';
-import { Button, InfoList, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import {
+  Button,
+  InfoList,
+  InformationIcon,
+  Loader,
+  Message,
+  SuccessIcon,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import { useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
@@ -60,6 +69,8 @@ import styles from './styles/sub-entry.module.scss';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
+
+const iconSize = '1.125em';
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
@@ -306,22 +317,36 @@ const SubEntry = () => {
               been removed. However, annotations may be generated on demand
               using automatic annotation rules.
               <br />
-              <Button
-                variant="primary"
-                onClick={() => setRunUniFire(true)}
-                className={styles['run-unifire-button']}
-                disabled={runUniFire}
-              >
-                {!runUniFire && 'Generate annotations'}
-                {runUniFire && !uniFireData && 'Generating...'}
-                {runUniFire &&
-                  uniFireData?.accession === '' &&
-                  'No predictions generated'}
-                {runUniFire &&
-                  uniFireData &&
-                  uniFireData.accession !== '' &&
-                  'Predictions loaded'}
-              </Button>
+              {!runUniFire && (
+                <Button
+                  variant="primary"
+                  onClick={() => setRunUniFire(true)}
+                  className={styles['run-unifire-button']}
+                  disabled={runUniFire}
+                >
+                  Generate annotations
+                </Button>
+              )}
+              {runUniFire && uniFireData?.accession === '' && (
+                <span>
+                  <InformationIcon
+                    className={styles['info-icon']}
+                    width={iconSize}
+                    height={iconSize}
+                  />
+                  No predictions generated
+                </span>
+              )}
+              {runUniFire && uniFireData && uniFireData.accession !== '' && (
+                <span>
+                  <SuccessIcon
+                    className={styles['success-icon']}
+                    width={iconSize}
+                    height={iconSize}
+                  />
+                  Predictions generated
+                </span>
+              )}
             </div>
           ),
         },

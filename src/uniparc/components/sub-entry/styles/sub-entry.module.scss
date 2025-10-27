@@ -1,3 +1,5 @@
+@import 'franklin-sites/src/styles/colours';
+
 .unifire-info {
   background-color: #e9f5f1;
 }
@@ -14,4 +16,16 @@
 .run-unifire-button {
   margin-top: 0.5rem;
   align-items: center;
+}
+
+.success-icon {
+  color: $colour-success;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+
+.info-icon {
+  color: $colour-info;
+  vertical-align: middle;
+  margin-right: 0.5em;
 }
