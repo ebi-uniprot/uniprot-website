@@ -199,6 +199,14 @@ const Entry = () => {
       : null
   );
 
+  const protnlmPayload = useDataApi<UniProtkbAPIModel>(
+    isLikelyHuman
+      ? uniprotkbApiUrls.protnlm.entry(match?.params.accession)
+      : null
+  );
+
+  console.log(protnlmPayload);
+
   const refprotmoveData = useDataApi<UniProtKBCheckMoveResponse>(
     isLikelyHuman && match?.params.accession
       ? joinUrl(checkMoveUrl, 'uniprotkb', match?.params.accession)
