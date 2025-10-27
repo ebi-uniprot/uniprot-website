@@ -1972,9 +1972,6 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
 <DocumentFragment>
   <h4
     class="tiny"
-  />
-  <h4
-    class="tiny"
   >
     Isoform 3
   </h4>

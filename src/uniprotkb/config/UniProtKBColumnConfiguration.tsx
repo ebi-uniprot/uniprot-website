@@ -836,9 +836,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
       Object.entries(bioPhysicoChemicalProperties.pHDependence).map(
         ([isoform, value]) => (
           <Fragment key={isoform}>
-            <h4 className="tiny">
-              {isoform !== 'canonical' && <h4 className="tiny">{isoform}</h4>}
-            </h4>
+            {isoform !== 'canonical' && <h4 className="tiny">{isoform}</h4>}
             <TextView comments={value} />
           </Fragment>
         )
