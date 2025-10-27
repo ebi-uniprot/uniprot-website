@@ -7,7 +7,7 @@ import {
   Tabs,
 } from 'franklin-sites';
 import { partialRight } from 'lodash-es';
-import { lazy, Suspense, useEffect, useMemo, useReducer } from 'react';
+import { lazy, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import joinUrl from 'url-join';
 
@@ -25,7 +25,7 @@ import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../../shared/config/limits';
-import useDataApi, { CustomError } from '../../../../shared/hooks/useDataApi';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
 import useNSQuery from '../../../../shared/hooks/useNSQuery';
@@ -67,7 +67,7 @@ const InputParameters = lazy(
       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
     )
 );
-// input-parameters
+// api-request
 const APIRequest = lazy(
   () =>
     import(
@@ -100,47 +100,6 @@ type ParsedParams = {
   taxonIds: string;
 };
 
-type State = {
-  // Route
-  jobID: string;
-  subPage?: TabLocation;
-  basePath: string;
-
-  // Network state/data
-  jobResultError?: CustomError | undefined;
-  jobResultStatus?: number;
-  jobResultLoading: boolean;
-  jobParameters?: string;
-  jobResultData?: string;
-
-  taxonomyLoading: boolean;
-  taxonomyData?: SearchResults<TaxonomyAPIModel>;
-
-  facetInititialLoading: boolean;
-  facetHasStaleData: boolean;
-
-  resultsInitialLoading: boolean;
-  progress?: number;
-  allResultsLength?: number;
-
-  // Derived
-  parsedParams: ParsedParams;
-  jobInputParameters: FormParameters;
-  accessions?: string[];
-  hasExcessAccessions: boolean;
-  total?: number;
-
-  // UI
-  isLoading: boolean;
-  showNoResults: boolean;
-  showSidebarEmpty: boolean;
-  showWarning: boolean;
-};
-
-type updatePayload = Partial<State>;
-
-type Action = { type: 'UPDATE'; payload: updatePayload };
-
 const initialParsed: ParsedParams = {
   peps: '',
   lEQi: 'off',
@@ -148,34 +107,17 @@ const initialParsed: ParsedParams = {
   taxonIds: '',
 };
 
-const BASE_PATH = '/peptide-search' as const;
-
-const initialState: State = {
-  jobID: '',
-  basePath: BASE_PATH,
-  jobResultLoading: true,
-  taxonomyLoading: true,
-  facetInititialLoading: true,
-  facetHasStaleData: false,
-  resultsInitialLoading: true,
-  parsedParams: initialParsed,
-  jobInputParameters: { peps: '', lEQi: 'off', spOnly: 'off' },
-  hasExcessAccessions: false,
-  isLoading: true,
-  showNoResults: false,
-  showSidebarEmpty: false,
-  showWarning: false,
-};
-
-const parseJobParameters = (str?: string): ParsedParams => {
-  if (!str) {
+const parseJobParameters = (jobParameters?: string): ParsedParams => {
+  if (!jobParameters) {
     return initialParsed;
   }
+
   let peps = '';
   let lEQi: ParsedParams['lEQi'] = 'off';
   let spOnly: ParsedParams['spOnly'] = 'off';
   let taxonIds = '';
-  str.split(/\n/).forEach((line) => {
+
+  jobParameters.split(/\n/).forEach((line) => {
     const [key, value] = line.split(':');
     switch (key) {
       case ServerJobParameters.QueryPetides:
@@ -195,6 +137,7 @@ const parseJobParameters = (str?: string): ParsedParams => {
       default:
     }
   });
+
   return { peps, lEQi, spOnly, taxonIds };
 };
 
@@ -208,6 +151,7 @@ const getJobInputParameters = (
     lEQi: parsed.lEQi,
     spOnly: parsed.spOnly,
   };
+
   if (!taxonomyLoading && taxonomyData?.results?.length) {
     jobInputParameters.taxIds = taxonomyData.results.map(
       (t: TaxonomyDatum) => ({
@@ -216,73 +160,12 @@ const getJobInputParameters = (
       })
     );
   }
+
   return jobInputParameters;
 };
 
-const parseAccessions = (csv?: string): string[] | undefined => {
-  return csv?.split(',').filter(Boolean);
-};
-
-const reducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case 'UPDATE': {
-      const merged = { ...state, ...action.payload };
-
-      const basePath = joinUrl(BASE_PATH, merged.jobID);
-
-      const parsedParams = parseJobParameters(merged.jobParameters);
-
-      const jobInputParameters = getJobInputParameters(
-        parsedParams,
-        !!merged.taxonomyLoading,
-        merged.taxonomyData
-      );
-
-      const accessions = parseAccessions(merged.jobResultData);
-
-      const hasExcessAccessions =
-        Array.isArray(accessions) &&
-        accessions.length > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
-
-      const isLoading =
-        !!merged.jobResultLoading ||
-        accessions === undefined ||
-        !!merged.resultsInitialLoading ||
-        (!!merged.facetInititialLoading && !merged.facetHasStaleData);
-
-      const total =
-        !isLoading && typeof merged.allResultsLength !== 'undefined'
-          ? merged.allResultsLength
-          : undefined;
-
-      const noAccessions = Array.isArray(accessions) && accessions.length === 0;
-      const showNoResults = !hasExcessAccessions && !isLoading && noAccessions;
-
-      const showSidebarEmpty =
-        hasExcessAccessions ||
-        merged.subPage === TabLocation.InputParameters ||
-        merged.subPage === TabLocation.APIRequest;
-
-      const showWarning = !!hasExcessAccessions;
-
-      return {
-        ...merged,
-        basePath,
-        parsedParams,
-        jobInputParameters,
-        accessions,
-        hasExcessAccessions,
-        isLoading,
-        total,
-        showNoResults,
-        showSidebarEmpty,
-        showWarning,
-      };
-    }
-    default:
-      return state;
-  }
-};
+const parseAccessions = (csv?: string): string[] | undefined =>
+  csv?.split(',').filter(Boolean);
 
 const PeptideSearchResult = () => {
   const match = useMatchWithRedirect<Params>(
@@ -302,104 +185,98 @@ const PeptideSearchResult = () => {
 
   const { data: jobParameters } = useDataApi<PeptideSearchResults>(
     urls.detailsUrl?.(jobID),
-    {
-      headers: { Accept: 'text/plain' },
-    }
+    { headers: { Accept: 'text/plain' } }
   );
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const parsedParams = useMemo(
+    () => parseJobParameters(jobParameters),
+    [jobParameters]
+  );
 
   const { data: taxonomyData, loading: taxonomyLoading } = useDataApi<
     SearchResults<TaxonomyAPIModel>
   >(
-    state.parsedParams.taxonIds
+    parsedParams.taxonIds
       ? stringifyUrl(
           joinUrl(
             apiPrefix,
             Namespace.taxonomy,
             'taxonIds',
-            state.parsedParams.taxonIds
+            parsedParams.taxonIds
           ),
           { fields: 'scientific_name' }
         )
       : null
   );
 
+  const jobInputParameters = useMemo(
+    () => getJobInputParameters(parsedParams, taxonomyLoading, taxonomyData),
+    [parsedParams, taxonomyLoading, taxonomyData]
+  );
+
+  const accessions = useMemo(
+    () => parseAccessions(jobResultData),
+    [jobResultData]
+  );
+
+  const hasExcessAccessions =
+    Array.isArray(accessions) &&
+    accessions.length > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+
   const initialApiFacetUrl = useNSQuery({
     size: 0,
     withFacets: true,
     withColumns: false,
-    accessions: state.hasExcessAccessions ? [] : state.accessions,
+    accessions: hasExcessAccessions ? [] : accessions,
   });
 
   const facetApiObject =
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
 
   const converter = useMemo(() => {
-    const pepSeq = state.jobInputParameters.peps;
+    const pepSeq = jobInputParameters.peps;
     return pepSeq ? partialRight(peptideSearchConverter, pepSeq) : undefined;
-  }, [state.jobInputParameters.peps]);
+  }, [jobInputParameters.peps]);
 
-  const resultsDataObject = usePaginatedAccessions(state.accessions, converter);
+  const resultsDataObject = usePaginatedAccessions(accessions, converter);
 
-  useMarkJobAsSeen(resultsDataObject?.allResults.length, jobID);
+  useMarkJobAsSeen(resultsDataObject?.allResults?.length, jobID);
 
-  useEffect(() => {
-    dispatch({
-      type: 'UPDATE',
-      payload: {
-        jobID,
-        subPage: match?.params.subPage,
-        jobResultError,
-        jobResultStatus,
-        jobResultLoading,
-        jobParameters,
-        jobResultData,
-        taxonomyLoading,
-        taxonomyData,
-        facetInititialLoading: facetApiObject.loading,
-        facetHasStaleData: !!facetApiObject.isStale,
-        resultsInitialLoading: resultsDataObject.initialLoading,
-        progress: resultsDataObject.progress,
-        allResultsLength: resultsDataObject?.allResults?.length,
-      },
-    });
-  }, [
-    jobID,
-    match?.params.subPage,
-    jobResultError,
-    jobResultStatus,
-    jobResultLoading,
-    jobParameters,
-    jobResultData,
-    taxonomyLoading,
-    taxonomyData,
-    facetApiObject.loading,
-    facetApiObject.isStale,
-    resultsDataObject.initialLoading,
-    resultsDataObject.progress,
-    resultsDataObject?.allResults?.length,
-  ]);
+  const isLoading =
+    jobResultLoading ||
+    accessions === undefined ||
+    resultsDataObject.initialLoading ||
+    (facetApiObject.loading && !facetApiObject.isStale);
 
-  if (state.jobResultError || !match) {
+  const total =
+    !isLoading && typeof resultsDataObject?.allResults?.length !== 'undefined'
+      ? resultsDataObject.allResults.length
+      : undefined;
+
+  const noAccessions = Array.isArray(accessions) && accessions.length === 0;
+
+  const showNoResults = !hasExcessAccessions && !isLoading && noAccessions;
+
+  const showSidebarEmpty =
+    hasExcessAccessions ||
+    match?.params.subPage === TabLocation.InputParameters ||
+    match?.params.subPage === TabLocation.APIRequest;
+
+  if (jobResultError || !match) {
     return (
-      <ErrorHandler
-        status={state.jobResultStatus}
-        error={state.jobResultError}
-        fullPage
-      />
+      <ErrorHandler status={jobResultStatus} error={jobResultError} fullPage />
     );
   }
 
-  if (state.isLoading) {
-    return <Loader progress={state.progress} />;
+  if (isLoading) {
+    return <Loader progress={resultsDataObject.progress} />;
   }
 
-  if (state.showNoResults) {
+  if (showNoResults) {
     return <NoResultsPage />;
   }
 
-  const sidebar = state.showSidebarEmpty ? (
+  const sidebar = showSidebarEmpty ? (
     <div className={sidebarStyles['empty-sidebar']} />
   ) : (
     <ErrorBoundary>
@@ -410,40 +287,42 @@ const PeptideSearchResult = () => {
     </ErrorBoundary>
   );
 
+  const basePath = joinUrl('/peptide-search', jobID);
+
   return (
     <SidebarLayout sidebar={sidebar}>
       <HTMLHead title={title}>
         <meta name="robots" content="noindex" />
       </HTMLHead>
+
       <PageIntro
         heading={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
         headingPostscript={
-          state.total && (
+          total && (
             <small key="postscript">
               found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
             </small>
           )
         }
-        resultsCount={state.total}
+        resultsCount={total}
       />
+
       <Tabs
         active={match.params.subPage}
-        className={state.isLoading ? helper.stale : undefined}
+        className={facetApiObject.isStale ? helper.stale : undefined}
       >
         <Tab
           id={TabLocation.Overview}
           title={
             <Link
-              to={changePathnameOnly(
-                joinUrl(state.basePath, TabLocation.Overview)
-              )}
+              to={changePathnameOnly(joinUrl(basePath, TabLocation.Overview))}
             >
               Overview
             </Link>
           }
         >
           <Suspense fallback={<Loader />}>
-            {state.showWarning && (
+            {hasExcessAccessions && (
               <Message level="warning">
                 <small>
                   To filter peptide search results of more than{' '}
@@ -454,7 +333,7 @@ const PeptideSearchResult = () => {
                       pathname: LocationToPath[Location.IDMapping],
                       state: {
                         parameters: {
-                          ids: state.accessions,
+                          ids: accessions,
                           name: `Peptide search matches`,
                         },
                       },
@@ -466,20 +345,22 @@ const PeptideSearchResult = () => {
                 </small>
               </Message>
             )}
+
             <PeptideSearchResultTable
-              total={state.total}
+              total={total}
               resultsDataObject={resultsDataObject}
-              accessions={state.accessions}
-              inputParamsData={state.jobInputParameters}
+              accessions={accessions}
+              inputParamsData={jobInputParameters}
             />
           </Suspense>
         </Tab>
+
         <Tab
           id={TabLocation.InputParameters}
           title={
             <Link
               to={changePathnameOnly(
-                joinUrl(state.basePath, TabLocation.InputParameters)
+                joinUrl(basePath, TabLocation.InputParameters)
               )}
             >
               Input Parameters
@@ -490,18 +371,17 @@ const PeptideSearchResult = () => {
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
-              inputParamsData={state.jobInputParameters}
+              inputParamsData={jobInputParameters}
               jobType={jobType}
             />
           </Suspense>
         </Tab>
+
         <Tab
           id={TabLocation.APIRequest}
           title={
             <Link
-              to={changePathnameOnly(
-                joinUrl(state.basePath, TabLocation.APIRequest)
-              )}
+              to={changePathnameOnly(joinUrl(basePath, TabLocation.APIRequest))}
             >
               API Request
             </Link>
@@ -511,7 +391,7 @@ const PeptideSearchResult = () => {
           <Suspense fallback={<Loader />}>
             <APIRequest
               jobType={jobType}
-              inputParamsData={state.jobInputParameters}
+              inputParamsData={jobInputParameters}
             />
           </Suspense>
         </Tab>
