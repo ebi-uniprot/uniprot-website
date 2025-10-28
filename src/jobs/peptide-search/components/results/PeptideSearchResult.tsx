@@ -286,7 +286,6 @@ const PeptideSearchResult = () => {
       <HTMLHead title={title}>
         <meta name="robots" content="noindex" />
       </HTMLHead>
-
       <PageIntro
         heading={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
         headingPostscript={
@@ -298,7 +297,6 @@ const PeptideSearchResult = () => {
         }
         resultsCount={total}
       />
-
       <Tabs
         active={match.params.subPage}
         className={facetApiObject.isStale ? helper.stale : undefined}
@@ -337,7 +335,6 @@ const PeptideSearchResult = () => {
                 </small>
               </Message>
             )}
-
             <PeptideSearchResultTable
               total={total}
               resultsDataObject={resultsDataObject}
@@ -346,7 +343,6 @@ const PeptideSearchResult = () => {
             />
           </Suspense>
         </Tab>
-
         <Tab
           id={TabLocation.InputParameters}
           title={
@@ -368,7 +364,6 @@ const PeptideSearchResult = () => {
             />
           </Suspense>
         </Tab>
-
         <Tab
           id={TabLocation.APIRequest}
           title={
