@@ -200,8 +200,8 @@ const Entry = () => {
   );
 
   const protnlmPayload = useDataApi<UniProtkbAPIModel>(
-    isLikelyHuman
-      ? uniprotkbApiUrls.protnlm.entry(match?.params.accession)
+    isLikelyHuman && match?.params.accession
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null
   );
 
@@ -390,6 +390,15 @@ const Entry = () => {
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
+
+  const transformedProtnlmData = useMemo(() => {
+    if (!protnlmPayload.data || !databaseInfoMaps) {
+      return null;
+    }
+    return uniProtKbConverter(protnlmPayload.data, databaseInfoMaps);
+  }, [databaseInfoMaps, protnlmPayload.data]);
+
+  console.log(transformedProtnlmData);
 
   useEffect(() => {
     if (isLikelyHuman) {
