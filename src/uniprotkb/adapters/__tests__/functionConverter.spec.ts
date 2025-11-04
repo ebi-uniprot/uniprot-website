@@ -92,58 +92,58 @@ describe('Function data converter', () => {
     const { bioPhysicoChemicalProperties } = data;
     expect(bioPhysicoChemicalProperties).toEqual({
       absorption: {
-        approximate: true,
-        evidences: [
-          {
-            evidenceCode: 'ECO:0000255',
-            id: 'PRU10028',
-            source: 'PROSITE-ProRule',
-          },
-        ],
         max: 10,
+        approximate: true,
         note: {
           texts: [
             {
               evidences: [
                 {
                   evidenceCode: 'ECO:0000255',
-                  id: 'PRU10028',
                   source: 'PROSITE-ProRule',
+                  id: 'PRU10028',
                 },
               ],
               value: 'value1',
             },
           ],
         },
+        evidences: [
+          {
+            evidenceCode: 'ECO:0000255',
+            source: 'PROSITE-ProRule',
+            id: 'PRU10028',
+          },
+        ],
       },
       kinetics: {
         'Isoform 3': {
           maximumVelocities: [
             {
+              velocity: 1,
+              unit: 'unit1',
               enzyme: 'enzyme1',
               evidences: [
                 {
                   evidenceCode: 'ECO:0000255',
-                  id: 'PRU10028',
                   source: 'PROSITE-ProRule',
+                  id: 'PRU10028',
                 },
               ],
-              unit: 'unit1',
-              velocity: 1,
             },
           ],
           michaelisConstants: [
             {
               constant: 2.0999999046325684,
+              unit: 'uM',
+              substrate: 'sub1',
               evidences: [
                 {
                   evidenceCode: 'ECO:0000255',
-                  id: 'PRU10028',
                   source: 'PROSITE-ProRule',
+                  id: 'PRU10028',
                 },
               ],
-              substrate: 'sub1',
-              unit: 'uM',
             },
           ],
           note: {
@@ -152,8 +152,8 @@ describe('Function data converter', () => {
                 evidences: [
                   {
                     evidenceCode: 'ECO:0000255',
-                    id: 'PRU10028',
                     source: 'PROSITE-ProRule',
+                    id: 'PRU10028',
                   },
                 ],
                 value: 'value1',
@@ -162,25 +162,27 @@ describe('Function data converter', () => {
           },
         },
       },
-      pHDependence: [
-        {
-          evidences: [
-            {
-              evidenceCode: 'ECO:0000255',
-              id: 'PRU10028',
-              source: 'PROSITE-ProRule',
-            },
-          ],
-          value: 'value1',
-        },
-      ],
+      pHDependence: {
+        'Isoform 3': [
+          {
+            evidences: [
+              {
+                evidenceCode: 'ECO:0000255',
+                source: 'PROSITE-ProRule',
+                id: 'PRU10028',
+              },
+            ],
+            value: 'value1',
+          },
+        ],
+      },
       redoxPotential: [
         {
           evidences: [
             {
               evidenceCode: 'ECO:0000255',
-              id: 'PRU10028',
               source: 'PROSITE-ProRule',
+              id: 'PRU10028',
             },
           ],
           value: 'value1',
@@ -191,8 +193,8 @@ describe('Function data converter', () => {
           evidences: [
             {
               evidenceCode: 'ECO:0000255',
-              id: 'PRU10028',
               source: 'PROSITE-ProRule',
+              id: 'PRU10028',
             },
           ],
           value: 'value1',

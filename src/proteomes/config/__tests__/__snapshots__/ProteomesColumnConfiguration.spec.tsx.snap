@@ -400,6 +400,12 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   >
     83,569
   </a>
+   entries in 
+  <span
+    data-article-id="uniprotkb"
+  >
+    UniProtKB
+  </span>
 </DocumentFragment>
 `;
 

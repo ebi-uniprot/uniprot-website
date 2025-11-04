@@ -115,11 +115,11 @@ const BioPhysicoChemicalPropertiesView = ({
           <h3 data-article-id="biophysicochemical_properties#2-kinetic-parameters">
             Kinetics
           </h3>
-          {Object.entries(data.kinetics).map(([key, value]) => (
-            <Fragment key={key}>
-              {key !== 'canonical' && (
+          {Object.entries(data.kinetics).map(([isoform, value]) => (
+            <Fragment key={isoform}>
+              {isoform !== 'canonical' && (
                 <h4 className="tiny">
-                  <a href={`#${key.replaceAll(' ', '_')}`}>{key}</a>
+                  <a href={`#${isoform.replaceAll(' ', '_')}`}>{isoform}</a>
                 </h4>
               )}
               <KineticsTableView data={value} />
@@ -127,14 +127,18 @@ const BioPhysicoChemicalPropertiesView = ({
           ))}
         </>
       )}
-      {data.pHDependence && (
-        <>
-          <h3 data-article-id="biophysicochemical_properties#3-ph-dependence">
-            pH Dependence
-          </h3>
-          <TextView comments={data.pHDependence} />
-        </>
-      )}
+      {data.pHDependence &&
+        Object.entries(data.pHDependence).map(([isoform, value]) => (
+          <>
+            <h3 data-article-id="biophysicochemical_properties#3-ph-dependence">
+              pH Dependence
+            </h3>
+            <h4 className="tiny">
+              <a href={`#${isoform.replaceAll(' ', '_')}`}>{isoform}</a>
+            </h4>
+            <TextView comments={value} />
+          </>
+        ))}
       {data.redoxPotential && (
         <>
           <h3 data-article-id="biophysicochemical_properties#4-rodex-potential">
@@ -322,15 +326,11 @@ const FunctionSection = ({
       />
       {data.commentsData.get('CAUTION')?.length ? (
         <Message level="warning" heading={<h3>Caution</h3>}>
-          <small>
-            <FreeTextView
-              comments={
-                data.commentsData.get('CAUTION') as
-                  | FreeTextComment[]
-                  | undefined
-              }
-            />
-          </small>
+          <FreeTextView
+            comments={
+              data.commentsData.get('CAUTION') as FreeTextComment[] | undefined
+            }
+          />
         </Message>
       ) : undefined}
       <CatalyticActivityView

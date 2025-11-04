@@ -29,6 +29,9 @@ describe('Evidence urls', () => {
       expect(formatEvidenceContent('PRU12345')).toBe(
         'UniRule PROSITE-ProRule: PRU12345'
       );
+      expect(formatEvidenceContent('PRU12345', 'PROSITE-ProRule')).toBe(
+        'PROSITE-ProRule: PRU12345'
+      );
       expect(formatEvidenceContent('abcd', 'source')).toBe('source: abcd');
     });
   });

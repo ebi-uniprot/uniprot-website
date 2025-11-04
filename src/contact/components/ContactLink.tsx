@@ -10,19 +10,23 @@ type Props = Except<ComponentProps<Link<ContactLocationState>>, 'to'> & {
   to?: LocationDescriptorObject<ContactLocationState>;
 };
 
-const ContactLink = ({ to, ...props }: Props) => (
-  <Link<ContactLocationState>
-    to={(location) => ({
-      pathname: LocationToPath[Location.ContactGeneric],
-      state: {
-        // pass along the previous referrer if it was set
-        // otherwise set the previous location as new referrer
-        referrer: location.state?.referrer || location,
-      },
-      ...to,
-    })}
-    {...props}
-  />
-);
+const ContactLink = ({ to, ...props }: Props) => {
+  const { state, ...restOfTo } = to || {};
+  return (
+    <Link<ContactLocationState>
+      to={(location) => ({
+        pathname: LocationToPath[Location.ContactGeneric],
+        state: {
+          ...(state || {}),
+          // pass along the previous referrer if it was set
+          // otherwise set the previous location as new referrer
+          referrer: location.state?.referrer || location,
+        },
+        ...restOfTo,
+      })}
+      {...props}
+    />
+  );
+};
 
 export default ContactLink;

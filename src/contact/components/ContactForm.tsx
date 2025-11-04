@@ -191,7 +191,10 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
 
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.target.setCustomValidity(
-      e.target.value.trim().length >= 8
+      // At least 16 characters, and...
+      e.target.value.trim().length >= 16 &&
+        // ...at least 4 words
+        e.target.value.trim().split(/\s+/).length >= 4
         ? ''
         : 'Please enter a complete message for our helpdesk.'
     );

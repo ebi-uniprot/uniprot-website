@@ -612,17 +612,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/283/"
+          href="https://www.proteinspotlight.org/back_issues/284/"
           rel="noopener"
           target="_blank"
         >
-          Elusive
+          Why dung?
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/283/"
+        href="https://www.proteinspotlight.org/back_issues/284/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -631,14 +631,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt283.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt284.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          My  grandmother  had  a  lovely  pantry.  It  was  a  small  room  next  to  the  kitchen,  dedicated  to  the  accumulation  of  'non-perishables',  i.e.  mainly  jam,  rice,  flour,  sugar,  dried  potato,  packets  of  biscuits  and  noodles.
+          Who  hasn't  gone  out  for  some  fresh  air  and  been  incommoded  by  the  pungent  smell  of  manure?  Why  have  farmers  been  flinging  dung  on  their  ploughed  fields  for  thousands  of  years?  The  answer  is  nitrogen.
       </p>
     </article>
   </section>
