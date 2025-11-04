@@ -20,6 +20,7 @@ export type UserPreferenceKey =
   | `table columns for ${Namespace}`
   // column selection for the xrefs table views for UniParc entries
   | `table columns for ${Namespace} entry page`
+  | `table columns for ${Namespace} entry page v2`
   // basket content
   | 'basket';
 

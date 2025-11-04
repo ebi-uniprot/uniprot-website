@@ -51,7 +51,7 @@ const XRefsSection = ({ entryData }: Props) => {
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
   const [columns] = useLocalStorage(
-    `table columns for ${Namespace.uniparc} entry page` as const,
+    `table columns for ${Namespace.uniparc} entry page v2` as const,
     defaultColumns
   );
 
