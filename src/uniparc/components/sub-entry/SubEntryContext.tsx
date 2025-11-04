@@ -5,9 +5,13 @@ import {
   Message,
   SuccessIcon,
 } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { generatePath, Link, Redirect } from 'react-router-dom';
 
-import { getEntryPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
@@ -24,7 +28,7 @@ interface SubEntryContextProps {
   setRunUniFire: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SubEntryContect = ({
+const SubEntryContext = ({
   subEntryId,
   data,
   uniFireData,
@@ -32,7 +36,15 @@ const SubEntryContect = ({
   setRunUniFire,
 }: SubEntryContextProps) => {
   if (!data?.events) {
-    return null;
+    return (
+      <Redirect
+        to={{
+          pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+            accession: subEntryId,
+          }),
+        }}
+      />
+    );
   }
 
   let events = data.events;
@@ -205,4 +217,4 @@ const SubEntryContect = ({
   );
 };
 
-export default SubEntryContect;
+export default SubEntryContext;
