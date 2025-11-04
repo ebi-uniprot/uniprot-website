@@ -20,7 +20,7 @@ exports[`HelpLandingPage should render 1`] = `
       <div
         class="message__title"
       >
-        Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Read our 
+        Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Please read our 
         <a
           href="/help/refprot_only_changes"
         >

@@ -45,7 +45,9 @@ const Entry = () => {
   );
 
   const refprotmoveData = useDataApi<ProteomesCheckMoveResponse>(
-    accession ? joinUrl(checkMoveUrl, 'proteomes', accession) : null
+    accession && mainData.data?.proteomeType === 'Other proteome'
+      ? joinUrl(checkMoveUrl, 'proteomes', accession)
+      : null
   );
 
   if (mainData.loading || panProteomeData.loading || refprotmoveData.loading) {

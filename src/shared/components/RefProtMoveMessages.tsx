@@ -67,7 +67,7 @@ const HelpFtpContact: FC<{
   upids?: string[];
 }> = ({ accession, organism, upids }) => (
   <>
-    Read our{' '}
+    Please read our{' '}
     <Link
       to={generatePath(LocationToPath[Location.HelpEntry], {
         accession: 'refprot_only_changes',
@@ -255,25 +255,22 @@ export const RefProtMoveProteomesEntryMessage: FC<{
     className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
   >
     <strong>
-      Proteome {id} is currently not a reference proteome. Its unreviewed
-      (TrEMBL) entries are likely to be removed from UniProtKB in release
-      2026_02 (first half of 2026).
+      Proteome {id} is currently not a reference proteome. If it is not selected
+      as a reference proteome by release {release} ({releaseDate}), its
+      associated:
     </strong>
-    <br />
-    If not selected as a reference proteome, its associated:
     <ul>
       <li>
-        Existing unreviewed (TrEMBL) entries will be removed from UniProtKB
-        (except selected entries with experimental or biologically important
-        data)
+        Unreviewed (TrEMBL) entries will be removed (except selected entries
+        with experimental or biologically important data)
       </li>
-      <li>Reviewed (Swiss-Prot) entries will be retained in UniProtKB</li>
+      <li>Reviewed (Swiss-Prot) entries will be retained</li>
     </ul>
     All proteomes will remain accessible in the Proteomes database. Entries
     removed from unreviewed UniProtKB/TrEMBL will remain accessible in the
     UniParc sequence archive.
     <br />
-    Read our{' '}
+    Please read our{' '}
     <Link
       to={generatePath(LocationToPath[Location.HelpEntry], {
         accession: 'refprot_only_changes',
