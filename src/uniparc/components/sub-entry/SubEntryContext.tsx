@@ -151,36 +151,37 @@ const SubEntryContect = ({
             As {subEntryId} is no longer in UniProtKB, its annotations have been
             removed. However, annotations may be generated on demand using
             automatic annotation rules.
-            <br />
             {!runUniFire && (
-              <Button
-                variant="primary"
-                onClick={() => setRunUniFire(true)}
-                className={styles['run-unifire-button']}
-                disabled={runUniFire}
-              >
-                Generate annotations
-              </Button>
+              <div className={styles['predictions-status']}>
+                <Button
+                  variant="primary"
+                  onClick={() => setRunUniFire(true)}
+                  className={styles['run-unifire-button']}
+                  disabled={runUniFire}
+                >
+                  Generate annotations
+                </Button>
+              </div>
             )}
             {runUniFire && !uniFireData?.accession && (
-              <span>
+              <div className={styles['predictions-status']}>
                 <InformationIcon
                   className={styles['info-icon']}
                   width={iconSize}
                   height={iconSize}
                 />
                 No predictions generated
-              </span>
+              </div>
             )}
             {runUniFire && uniFireData?.accession && (
-              <span>
+              <div className={styles['predictions-status']}>
                 <SuccessIcon
                   className={styles['success-icon']}
                   width={iconSize}
                   height={iconSize}
                 />
                 Predictions generated
-              </span>
+              </div>
             )}
           </div>
         ),
