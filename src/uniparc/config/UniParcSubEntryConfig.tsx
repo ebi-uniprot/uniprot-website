@@ -92,10 +92,7 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection.Structure,
     label: entrySectionToLabel[EntrySection.Structure],
     sectionContent: (data) => (
-      <SubEntryStructureSection
-        data={data.subEntry}
-        key={EntrySection.Structure}
-      />
+      <SubEntryStructureSection data={data} key={EntrySection.Structure} />
     ),
   },
   [EntrySection.FamilyAndDomains]: {

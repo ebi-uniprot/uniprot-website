@@ -8,7 +8,15 @@ import { TabLocation } from '../../types/entry';
 import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';
 
-const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
+const StructureView = ({
+  primaryAccession,
+  sequence,
+  viewerOnly = false,
+}: {
+  primaryAccession: string;
+  sequence?: string;
+  viewerOnly?: boolean;
+}) => {
   const structureElement = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -23,24 +31,31 @@ const StructureView = ({ primaryAccession }: { primaryAccession: string }) => {
   }
   return (
     <div className={styles.container}>
-      <Message level="info">
-        View UniProt features on this structure in the{' '}
-        <Link
-          to={{
-            pathname: getEntryPath(
-              Namespace.uniprotkb,
-              primaryAccession,
-              TabLocation.FeatureViewer
-            ),
-            hash: 'structure',
-          }}
-        >
-          Feature Viewer
-        </Link>
-        .
-      </Message>
-      <AFDBOutOfSync modal />
-      <protvista-uniprot-structure accession={primaryAccession} />
+      {!viewerOnly && (
+        <>
+          <Message level="info">
+            View UniProt features on this structure in the{' '}
+            <Link
+              to={{
+                pathname: getEntryPath(
+                  Namespace.uniprotkb,
+                  primaryAccession,
+                  TabLocation.FeatureViewer
+                ),
+                hash: 'structure',
+              }}
+            >
+              Feature Viewer
+            </Link>
+            .
+          </Message>
+          <AFDBOutOfSync modal />
+        </>
+      )}
+      <protvista-uniprot-structure
+        accession={primaryAccession}
+        sequence={sequence}
+      />
     </div>
   );
 };
