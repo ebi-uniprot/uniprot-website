@@ -275,6 +275,7 @@ const SubEntry = () => {
         <SubEntryContext
           subEntryId={subEntryId}
           data={unisaveData.data}
+          showUniFireOption={!!canLoadUniFire}
           uniFireData={uniFireData.data}
           uniFireLoading={uniFireData.loading}
           runUniFire={runUniFire}

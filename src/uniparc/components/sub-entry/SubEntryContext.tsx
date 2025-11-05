@@ -23,6 +23,7 @@ const iconSize = '1.125em';
 interface SubEntryContextProps {
   subEntryId: string;
   data: UniSaveStatus;
+  showUniFireOption: boolean;
   uniFireData?: UniFireModel;
   uniFireLoading?: boolean;
   runUniFire: boolean;
@@ -32,6 +33,7 @@ interface SubEntryContextProps {
 const SubEntryContext = ({
   subEntryId,
   data,
+  showUniFireOption,
   uniFireData,
   uniFireLoading,
   runUniFire,
@@ -158,7 +160,7 @@ const SubEntryContext = ({
       },
       {
         title: ' ',
-        content: event.eventType === 'deleted' && (
+        content: event.eventType === 'deleted' && showUniFireOption && (
           <div>
             <span>Generate additional annotations:</span>
             <br />
