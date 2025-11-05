@@ -88,7 +88,6 @@ const SubEntryContext = ({
                 />
                 <span data-article-id="uniprotkb">UniProtKB</span>
               </label>
-              <br />
               {event.eventType === 'deleted' && (
                 <>
                   Removed from UniProtKB because {subEntryId} is{' '}
@@ -129,7 +128,6 @@ const SubEntryContext = ({
                 <input type="checkbox" checked readOnly />
                 <span data-article-id="uniparc">UniParc</span>
               </label>
-              <br />
               Current location, UniProt’s sequence archive
             </div>
           </>
