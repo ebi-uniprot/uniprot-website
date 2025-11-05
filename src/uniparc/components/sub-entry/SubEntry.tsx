@@ -1,4 +1,3 @@
-import axios from 'axios';
 import cn from 'classnames';
 import { Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { useEffect, useState } from 'react';
@@ -37,7 +36,6 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
-import fetchData from '../../../shared/utils/fetchData';
 import * as logging from '../../../shared/utils/logging';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
@@ -70,7 +68,6 @@ const SubEntry = () => {
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const [runUniFire, setRunUniFire] = useState(false);
-  const [uniFireData, setUniFireData] = useState<UniFireModel>();
 
   const { accession, subEntryId, subPage } = match?.params || {};
 
@@ -88,80 +85,52 @@ const SubEntry = () => {
     uniprotkbUrls.unisave.status(subEntryId as string)
   );
 
+  const subEntrytaxId = subEntryData.data?.results[0].organism?.taxonId;
+  const canLoadUniFire =
+    subEntrytaxId &&
+    accession &&
+    subEntryData.data?.results?.length &&
+    subEntryData.data.results[0].organism?.taxonId;
+  const uniFireData = useDataApi<UniFireModel>(
+    canLoadUniFire && runUniFire
+      ? apiUrls.unifire.unifire(accession, `${subEntrytaxId}`)
+      : null
+  );
+
   useEffect(() => {
-    if (runUniFire) {
-      // eslint-disable-next-line import/no-named-as-default-member
-      const cancelTokenSource = axios.CancelToken.source();
-      const abortController = new AbortController();
-      const { signal } = abortController;
-      signal.addEventListener('abort', () => {
-        cancelTokenSource.cancel('Operation canceled by the user.');
-      });
-
-      async function fetchUniFireData() {
-        if (accession && subEntryData.data?.results?.length) {
-          const subEntrytaxId = subEntryData.data.results[0].organism?.taxonId;
-          if (subEntrytaxId) {
-            try {
-              const response = await fetchData(
-                apiUrls.unifire.unifire(accession, `${subEntrytaxId}`),
-                cancelTokenSource.token
-              );
-              if (response.status === 200 && response.data) {
-                setUniFireData(response.data as UniFireModel);
-                dispatch(
-                  addMessage({
-                    id: 'load-AA-annotations',
-                    content: (
-                      <>Predictions by automatic annotation rules are loaded</>
-                    ),
-                    format: MessageFormat.POP_UP,
-                    level: MessageLevel.SUCCESS,
-                    tag: MessageTag.JOB,
-                  })
-                );
-              }
-
-              if (response.status === 204) {
-                setUniFireData({ accession: '', predictions: [] });
-                dispatch(
-                  addMessage({
-                    id: 'load-AA-annotations',
-                    content: <>No predictions generated</>,
-                    format: MessageFormat.POP_UP,
-                    level: MessageLevel.SUCCESS,
-                    tag: MessageTag.JOB,
-                  })
-                );
-              }
-            } catch (error) {
-              if (error instanceof Error) {
-                if (error.name === 'AbortError') {
-                  // The operation was aborted; silently bail
-                  return;
-                }
-                logging.error(error);
-                dispatch(
-                  addMessage({
-                    id: 'load-AA-annotations',
-                    content: <>Encountered error in running the service</>,
-                    format: MessageFormat.POP_UP,
-                    level: MessageLevel.FAILURE,
-                    tag: MessageTag.JOB,
-                  })
-                );
-              }
-            }
-          }
-        }
-      }
-
-      fetchUniFireData();
-      return () => {
-        abortController.abort();
-      };
+    if (uniFireData.status === 200 && uniFireData.data) {
+      dispatch(
+        addMessage({
+          id: 'load-AA-annotations',
+          content: <>Predictions by automatic annotation rules are loaded</>,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.SUCCESS,
+          tag: MessageTag.JOB,
+        })
+      );
+    } else if (uniFireData.status === 204) {
+      dispatch(
+        addMessage({
+          id: 'load-AA-annotations',
+          content: <>No predictions generated</>,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.SUCCESS,
+          tag: MessageTag.JOB,
+        })
+      );
+    } else if (uniFireData.error) {
+      logging.error(uniFireData.error);
+      dispatch(
+        addMessage({
+          id: 'load-AA-annotations',
+          content: <>Encountered error in running the service</>,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+          tag: MessageTag.JOB,
+        })
+      );
     }
-  }, [runUniFire, accession, subEntryData.data, dispatch]);
+  }, [dispatch, uniFireData.data, uniFireData.error, uniFireData.status]);
 
   if (uniparcData.loading || subEntryData.loading || unisaveData.loading) {
     return (
@@ -196,7 +165,8 @@ const SubEntry = () => {
     uniparcData.data,
     subEntryData.data?.results[0],
     unisaveData.data,
-    uniFireData
+    // If no data, it would be an empty string
+    uniFireData.data || undefined
   );
 
   if (!transformedData) {
@@ -305,7 +275,8 @@ const SubEntry = () => {
         <SubEntryContext
           subEntryId={subEntryId}
           data={unisaveData.data}
-          uniFireData={uniFireData}
+          uniFireData={uniFireData.data}
+          uniFireLoading={uniFireData.loading}
           runUniFire={runUniFire}
           setRunUniFire={setRunUniFire}
         />

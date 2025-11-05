@@ -24,6 +24,7 @@ interface SubEntryContextProps {
   subEntryId: string;
   data: UniSaveStatus;
   uniFireData?: UniFireModel;
+  uniFireLoading?: boolean;
   runUniFire: boolean;
   setRunUniFire: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -32,6 +33,7 @@ const SubEntryContext = ({
   subEntryId,
   data,
   uniFireData,
+  uniFireLoading,
   runUniFire,
   setRunUniFire,
 }: SubEntryContextProps) => {
@@ -163,8 +165,8 @@ const SubEntryContext = ({
             As {subEntryId} is no longer in UniProtKB, its annotations have been
             removed. However, annotations may be generated on demand using
             automatic annotation rules.
-            {!runUniFire && (
-              <div className={styles['predictions-status']}>
+            <div className={styles['predictions-status']}>
+              {!runUniFire && (
                 <Button
                   variant="primary"
                   onClick={() => setRunUniFire(true)}
@@ -173,28 +175,37 @@ const SubEntryContext = ({
                 >
                   Generate annotations
                 </Button>
-              </div>
-            )}
-            {runUniFire && !uniFireData?.accession && (
-              <div className={styles['predictions-status']}>
-                <InformationIcon
-                  className={styles['info-icon']}
-                  width={iconSize}
-                  height={iconSize}
-                />
-                No predictions generated
-              </div>
-            )}
-            {runUniFire && uniFireData?.accession && (
-              <div className={styles['predictions-status']}>
-                <SuccessIcon
-                  className={styles['success-icon']}
-                  width={iconSize}
-                  height={iconSize}
-                />
-                Predictions generated
-              </div>
-            )}
+              )}
+              {runUniFire && uniFireLoading && (
+                <Button
+                  variant="primary"
+                  className={styles['run-unifire-button']}
+                  disabled={true}
+                >
+                  Generating annotations
+                </Button>
+              )}
+              {runUniFire && !uniFireLoading && !uniFireData?.accession && (
+                <>
+                  <InformationIcon
+                    className={styles['info-icon']}
+                    width={iconSize}
+                    height={iconSize}
+                  />
+                  No predictions generated
+                </>
+              )}
+              {runUniFire && !uniFireLoading && uniFireData?.accession && (
+                <>
+                  <SuccessIcon
+                    className={styles['success-icon']}
+                    width={iconSize}
+                    height={iconSize}
+                  />
+                  Predictions generated
+                </>
+              )}
+            </div>
           </div>
         ),
       },
