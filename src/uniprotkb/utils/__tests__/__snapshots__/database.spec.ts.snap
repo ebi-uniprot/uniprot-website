@@ -3059,7 +3059,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     ],
     "names_and_taxonomy": [
       "ORG",
-      "GMA",
     ],
     "ptm_processing": [
       "PROTEOMIC",
@@ -3266,7 +3265,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "VEuPathDB",
       "JaponicusDB",
       "FlyBase",
-      "Gramene",
       "HGNC",
       "LegioList",
       "Leproma",

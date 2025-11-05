@@ -127,7 +127,6 @@ export const getEntrySectionToDatabaseNames = (
     'VEuPathDB',
     'JaponicusDB',
     'FlyBase',
-    'Gramene',
     'HGNC',
     'LegioList',
     'Leproma',
