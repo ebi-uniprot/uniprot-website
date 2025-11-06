@@ -27,7 +27,7 @@ import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApi, { UseDataAPIState } from '../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -57,6 +57,21 @@ import SubEntryContext from './SubEntryContext';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
+
+const getErrorStatus = (
+  uniparcData: UseDataAPIState<UniParcLiteAPIModel>,
+  subEntryData: UseDataAPIState<SearchResults<UniParcXRef>>,
+  unisaveData: UseDataAPIState<UniSaveStatus>
+) => {
+  if (uniparcData.error) {
+    return uniparcData.status;
+  } else if (subEntryData.error) {
+    return subEntryData.status;
+  } else if (unisaveData.error) {
+    return unisaveData.status;
+  }
+  return undefined;
+};
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
@@ -147,6 +162,7 @@ const SubEntry = () => {
     !uniparcData.data ||
     subEntryData.error ||
     !subEntryData.data ||
+    unisaveData.error ||
     !unisaveData.data ||
     !match ||
     !accession ||
@@ -154,8 +170,8 @@ const SubEntry = () => {
   ) {
     return (
       <ErrorHandler
-        status={uniparcData.error ? uniparcData.status : subEntryData.status}
-        error={uniparcData.error || subEntryData.error}
+        status={getErrorStatus(uniparcData, subEntryData, unisaveData)}
+        error={uniparcData.error || subEntryData.error || unisaveData.error}
         fullPage
       />
     );
