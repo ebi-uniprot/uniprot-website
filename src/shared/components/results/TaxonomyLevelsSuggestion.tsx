@@ -1,3 +1,5 @@
+import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
@@ -27,7 +29,9 @@ const TaxonomyLevelsSuggestion = ({
     taxonHierarchySearchTerms
   );
 
-  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+  const { headers } = useDataApi<
+    SearchResults<UniProtkbAPIModel | UniParcAPIModel | ProteomesAPIModel>
+  >(
     stringifyUrl(apiUrls.search.searchPrefix(namespace), {
       query: `${modifiedQuery}`,
       size: 0,
@@ -57,11 +61,13 @@ const TaxonomyLevelsSuggestion = ({
             ) : (
               ''
             )}
-            <ProteomeSuggestion
-              query={query}
-              organismID={searchValue}
-              namespace={namespace}
-            />
+            {namespace !== Namespace.proteomes && (
+              <ProteomeSuggestion
+                query={query}
+                organismID={searchValue}
+                namespace={namespace}
+              />
+            )}
           </>
         ) : (
           <OrganismSuggestion

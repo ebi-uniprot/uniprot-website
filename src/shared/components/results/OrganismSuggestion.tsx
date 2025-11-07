@@ -1,3 +1,4 @@
+import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
@@ -19,7 +20,7 @@ const OrganismSuggestion = ({
   namespace: Namespace;
 }) => {
   const { headers } = useDataApi<
-    SearchResults<UniProtkbAPIModel | UniParcAPIModel>
+    SearchResults<UniProtkbAPIModel | UniParcAPIModel | ProteomesAPIModel>
   >(
     stringifyUrl(apiUrls.search.searchPrefix(namespace), {
       query: `organism_id:${taxonID}`,

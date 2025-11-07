@@ -41,7 +41,9 @@ const SearchSuggestions = ({
     }
     if (
       hasMatchingQuery(taxonHierarchySearchTerms, query) &&
-      (namespace === Namespace.uniprotkb || namespace === Namespace.uniparc)
+      (namespace === Namespace.uniprotkb ||
+        namespace === Namespace.uniparc ||
+        namespace === Namespace.proteomes)
     ) {
       return (
         <TaxonomyLevelsSuggestion
