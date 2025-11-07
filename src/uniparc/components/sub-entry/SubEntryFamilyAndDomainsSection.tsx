@@ -1,7 +1,8 @@
 import { Card } from 'franklin-sites';
 import { Fragment, memo } from 'react';
 
-import { CommentType } from '../../../uniprotkb/types/commentTypes';
+import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
+import { FreeTextType } from '../../../uniprotkb/types/commentTypes';
 import {
   ModifiedPrediction,
   UniParcSubEntryUIModel,
@@ -13,7 +14,6 @@ import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import SubEntryFeaturesView from './SubEntryFeaturesView';
-import UniFirePredictionsFreeTextViewList from './UniFirePredictionsFreeTextViewList';
 
 type Props = {
   data?: UniParcSubEntryUIModel;
@@ -75,15 +75,24 @@ const FamilyAndDomainsSection = ({ data }: Props) => {
         ? Object.entries(commentPredictions)?.map(([type, predictions]) => (
             <Fragment key={type}>
               <h3>{annotationTypeToSection[type].subSectionLabel}</h3>
-              <UniFirePredictionsFreeTextViewList
-                annotationType={(
-                  annotationTypeToSection[type].freeTextType as string
-                )?.toLowerCase()}
-                predictions={predictions}
-                freeTextType={
-                  annotationTypeToSection[type].freeTextType as CommentType
-                }
-              />
+              {predictions.map((prediction, index) => (
+                <FreeTextView
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  comments={[
+                    {
+                      texts: [
+                        {
+                          value: prediction.annotationValue,
+                          evidences: prediction.evidence,
+                        },
+                      ],
+                      commentType: annotationTypeToSection[type]
+                        .freeTextType as FreeTextType,
+                    },
+                  ]}
+                />
+              ))}
             </Fragment>
           ))
         : null}
