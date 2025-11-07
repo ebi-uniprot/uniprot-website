@@ -51,7 +51,7 @@ export type UniProtKBReference = Omit<Reference, 'citationId'> & {
 
 // Specific to the API, will be transformed by the adaptor into something usable
 export type UniProtKBXref = Omit<Xref, 'properties'> & {
-  properties?: Array<{ key: string; value: string }>;
+  properties?: Array<{ key: string; value: string | null }>;
 };
 
 export type AnnotationScoreValue = 0 | 1 | 2 | 3 | 4 | 5;
