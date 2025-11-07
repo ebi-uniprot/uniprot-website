@@ -1,17 +1,19 @@
-export type UniProtKBProtNLMAPIModel = {
-  annotationScore: number;
+import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
+
+export interface UniProtKBProtNLMAPIModel extends UniProtkbAPIModel {
+  annotationScore: 0;
   comments?: Comment[];
   entryAudit: EntryAudit;
-  entryType: EntryType;
+  entryType: 'UniProtKB unreviewed (TrEMBL)';
   extraAttributes?: ExtraAttributes;
   keywords?: Keyword[];
   primaryAccession: string;
   proteinDescription: ProteinDescription;
-  proteinExistence: ProteinExistence;
+  proteinExistence: '5: Uncertain';
   references: Reference[];
   uniProtKBCrossReferences?: UniProtKBCrossReference[];
   uniProtkbId: string;
-};
+}
 
 type Comment = {
   commentType: CommentType;
@@ -31,15 +33,11 @@ type FullName = {
 };
 
 type Evidence = {
-  evidenceCode: EvidenceCode;
-  id: Evidenceid;
+  evidenceCode: 'ECO:0008006';
+  id: 'ProtNLM2';
   properties: Property[];
-  source: Source;
+  source: 'Google';
 };
-
-type EvidenceCode = 'ECO:0008006';
-
-type Evidenceid = 'ProtNLM2';
 
 type Property = {
   key: Key;
@@ -65,17 +63,13 @@ type Key =
   | 'EntryName'
   | 'MatchStatus';
 
-type Source = 'Google';
-
 type EntryAudit = {
-  entryVersion: number;
-  firstPublicDate: Date;
-  lastAnnotationUpdateDate: Date;
-  lastSequenceUpdateDate: Date;
-  sequenceVersion: number;
+  entryVersion: 1;
+  firstPublicDate: '1111-11-10';
+  lastAnnotationUpdateDate: '1111-11-10';
+  lastSequenceUpdateDate: '1111-11-10';
+  sequenceVersion: 1;
 };
-
-type EntryType = 'UniProtKB unreviewed (TrEMBL)';
 
 type ExtraAttributes = {
   countByCommentType: CountByCommentType;
@@ -87,13 +81,11 @@ type CountByCommentType = {
 };
 
 type Keyword = {
-  category: Category;
+  category: 'Unknown';
   evidences: Evidence[];
-  id: string;
+  id: 'ProtNLM2';
   name: string;
 };
-
-type Category = 'Unknown';
 
 type ProteinDescription = {
   recommendedName?: Name;
@@ -104,29 +96,21 @@ type Name = {
   fullName: FullName;
 };
 
-type ProteinExistence = '5: Uncertain';
-
 type Reference = {
   citation: Citation;
-  referenceNumber: number;
-  referencePositions: ReferencePosition[];
+  referenceNumber: 1;
+  referencePositions: 'required field'[];
 };
 
 type Citation = {
-  citationType: CitationType;
-  id: Citationid;
+  citationType: 'unpublished observations';
+  id: 'ProtNLM2';
 };
-
-type CitationType = 'unpublished observations';
-
-type Citationid = 'CI-FC84BSHK1H4IL';
-
-type ReferencePosition = 'required field';
 
 type UniProtKBCrossReference = {
   database: Database;
   evidences: Evidence[];
-  id: string;
+  id: 'ProtNLM2';
   properties: Property[];
 };
 
