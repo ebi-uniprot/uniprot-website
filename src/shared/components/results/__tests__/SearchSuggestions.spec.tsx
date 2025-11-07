@@ -99,6 +99,14 @@ mock
     ],
   });
 
+mock.onGet(/\/uniparc\/search\?query=%28taxonomy_id%3A9606%29&size=0/).reply(
+  200,
+  {
+    results: [],
+  },
+  { 'x-total-results': 3128760 }
+);
+
 describe('SearchSuggestions', () => {
   describe('No render', () => {
     it('should not render anything on complex queries', () => {
@@ -155,7 +163,7 @@ describe('SearchSuggestions', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should not render suggestions if there is only one suggestion that has same numb er of hits as the original search', async () => {
+  it('should not render suggestions if there is only one suggestion that has same number of hits as the original search', async () => {
     const { container } = customRender(
       <SearchSuggestions
         query="bsu06210"
@@ -263,5 +271,20 @@ describe('SearchSuggestions', () => {
       '/uniprotkb?query=organism_id%3A9606+AND+%28proteome%3AUP000005640%29'
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should render taxon suggestions given an organism id for UniParc', async () => {
+    customRender(
+      <SearchSuggestions
+        query="organism_id:9606"
+        namespace={Namespace.uniparc}
+        total={3128683}
+      />
+    );
+
+    await screen.findByText('or expand search to', { exact: false });
+    expect(
+      screen.getByRole('link', { name: 'include lower taxonomic ranks' })
+    ).toHaveAttribute('href', '/uniparc?query=%28taxonomy_id%3A9606%29');
   });
 });
