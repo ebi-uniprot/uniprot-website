@@ -11,9 +11,11 @@ import { SearchTextLink } from './SearchTextLink';
 const ProteomeSuggestion = ({
   query,
   organismID,
+  namespace,
 }: {
   query: string;
   organismID: string;
+  namespace: Namespace;
 }) => {
   const [proteomeInfo, setProteomeInfo] = useState<ProteomesAPIModel>();
 
@@ -38,6 +40,7 @@ const ProteomeSuggestion = ({
         <SearchTextLink
           query={`${query} AND (proteome:${proteomeInfo.id})`}
           text={proteomeInfo.id}
+          namespace={namespace}
         />
       </>
     );

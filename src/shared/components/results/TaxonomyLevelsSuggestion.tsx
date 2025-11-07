@@ -15,9 +15,11 @@ import { SearchTextLink } from './SearchTextLink';
 const TaxonomyLevelsSuggestion = ({
   query,
   total,
+  namespace,
 }: {
   query: string;
   total: number;
+  namespace: Namespace;
 }) => {
   const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
     query,
@@ -26,7 +28,7 @@ const TaxonomyLevelsSuggestion = ({
   );
 
   const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
+    stringifyUrl(apiUrls.search.searchPrefix(namespace), {
       query: `${modifiedQuery}`,
       size: 0,
     })
@@ -49,18 +51,24 @@ const TaxonomyLevelsSuggestion = ({
                 <SearchTextLink
                   query={modifiedQuery}
                   text="include lower taxonomic ranks"
+                  namespace={namespace}
                 />
               </>
             ) : (
               ''
             )}
-            <ProteomeSuggestion query={query} organismID={searchValue} />
+            <ProteomeSuggestion
+              query={query}
+              organismID={searchValue}
+              namespace={namespace}
+            />
           </>
         ) : (
           <OrganismSuggestion
             query={modifiedQuery}
             taxonID={searchValue}
             total={total}
+            namespace={namespace}
           />
         )}
       </small>
