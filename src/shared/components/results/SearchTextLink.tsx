@@ -6,7 +6,7 @@ import { stringifyUrl } from '../../utils/url';
 
 type SearchTextLinkProps = {
   query: string;
-  text: string;
+  text: string | React.ReactNode;
   namespace?: Namespace;
 };
 

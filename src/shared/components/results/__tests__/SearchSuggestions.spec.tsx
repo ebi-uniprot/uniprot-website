@@ -89,11 +89,19 @@ mock.onGet(/\/uniprotkb\/search\?organism_id%3A2/).reply(200, {
 });
 
 mock
-  .onGet(/\/proteomes\/search\?fields=upid&query=organism_id%3A9606/)
+  .onGet(
+    /\/proteomes\/search\?fields=upid%2Corganism&query=organism_id%3A9606&size=500/
+  )
   .reply(200, {
     results: [
       {
         id: 'UP000005640',
+        taxonomy: {
+          scientificName: 'Homo sapiens',
+          commonName: 'Human',
+          taxonId: 9606,
+          mnemonic: 'HUMAN',
+        },
         proteomeType: 'Reference and representative proteome',
       },
     ],
