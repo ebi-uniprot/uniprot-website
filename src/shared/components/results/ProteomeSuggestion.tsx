@@ -9,11 +9,9 @@ import { stringifyUrl } from '../../utils/url';
 import { SearchTextLink } from './SearchTextLink';
 
 const ProteomeSuggestion = ({
-  query,
   organismID,
   namespace,
 }: {
-  query: string;
   organismID: string;
   namespace: Namespace;
 }) => {
@@ -38,7 +36,7 @@ const ProteomeSuggestion = ({
         {' '}
         or restrict to reference proteome{' '}
         <SearchTextLink
-          query={`${query} AND (proteome:${proteomeInfo.id})`}
+          query={`proteome:${proteomeInfo.id}`}
           text={proteomeInfo.id}
           namespace={namespace}
         />

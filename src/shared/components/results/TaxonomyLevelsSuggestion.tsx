@@ -63,7 +63,6 @@ const TaxonomyLevelsSuggestion = ({
             )}
             {namespace !== Namespace.proteomes && (
               <ProteomeSuggestion
-                query={query}
                 organismID={searchValue}
                 namespace={namespace}
               />
