@@ -238,6 +238,13 @@ const SubEntry = () => {
                 p.annotationType
               )
             )) ||
+          (section.id === SubEntrySection.FamilyAndDomains &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.FamilyAndDomains).includes(
+                p.annotationType
+              )
+            ) &&
+            !transformedData.entry.sequenceFeatures) ||
           (section.id === SubEntrySection.Keywords &&
             !transformedData.unifire?.predictions.some(
               (p) => p.annotationType === 'keyword'

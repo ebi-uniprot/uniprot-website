@@ -8,7 +8,7 @@ export const entrySectionToLabel = {
   [SubEntrySection.ProteinProcessing]: 'PTM/Processing',
   [SubEntrySection.Interaction]: 'Interaction',
   [SubEntrySection.Structure]: 'Structure',
-  [SubEntrySection.FamilyAndDomains]: 'Family And Domains',
+  [SubEntrySection.FamilyAndDomains]: 'Family & Domains',
   [SubEntrySection.Sequence]: 'Sequence',
   [SubEntrySection.SimilarProteins]: 'Similar Proteins',
   [SubEntrySection.Keywords]: 'Keywords',
