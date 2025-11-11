@@ -139,7 +139,7 @@ const SubEntryContext = ({
             Available <br /> actions
           </div>
         ),
-        content: event.eventType === 'deleted' && (
+        content: (
           <div>
             <Link
               to={{
