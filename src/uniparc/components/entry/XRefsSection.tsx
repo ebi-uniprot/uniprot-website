@@ -50,10 +50,29 @@ const XRefsSection = ({ entryData }: Props) => {
   const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
-  const [columns] = useLocalStorage(
+
+  const [resetFlag, setResetFlag] = useLocalStorage(
+    'reset-Nov-2025' as const,
+    false as boolean
+  );
+
+  const [columns, setColumns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
     defaultColumns
   );
+
+  // TEMPORARY: One-time reset to add proteome column to default view
+  // This resets all users' column preferences to include the new proteome column
+  // TODO: Remove this block after sufficient time has passed (i.e. 2026_01 release)
+  // When removing, also:
+  // 1. Remove the 'reset-Nov-2025' key from UserPreferenceKey type in useLocalStorage.ts
+  // 2. Remove the resetFlag useState declaration above
+  // 3. Change [columns, setColumns] back to [columns] (read-only)
+  // jira link: https://embl.atlassian.net/browse/TRM-33318
+  if (!resetFlag) {
+    setColumns(defaultColumns);
+    setResetFlag(true);
+  }
 
   const {
     initialLoading,
