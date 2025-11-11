@@ -70,8 +70,8 @@ const XRefsSection = ({ entryData }: Props) => {
   // 3. Change [columns, setColumns] back to [columns] (read-only)
   // jira link: https://embl.atlassian.net/browse/TRM-33318
   if (!resetFlag) {
-    setResetFlag(true);
     setColumns(defaultColumns);
+    setResetFlag(true);
   }
 
   const {
