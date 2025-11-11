@@ -53,7 +53,7 @@ const XRefsSection = ({ entryData }: Props) => {
 
   const [resetFlag, setResetFlag] = useLocalStorage(
     'reset-Nov-2025' as const,
-    false
+    false as boolean
   );
 
   const [columns, setColumns] = useLocalStorage(
