@@ -100,7 +100,7 @@ export enum UniProtKBColumn {
   litDoiId = 'lit_doi_id',
   mass = 'mass',
   matchedText = 'matched_text',
-  organelle = 'organelle',
+  encodedIn = 'encoded_in',
   organismId = 'organism_id',
   organismName = 'organism_name',
   phDependence = 'ph_dependence',

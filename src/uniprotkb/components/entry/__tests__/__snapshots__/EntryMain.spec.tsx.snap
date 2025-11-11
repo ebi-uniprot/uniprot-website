@@ -2166,9 +2166,9 @@ exports[`Entry view should render 1`] = `
           </li>
         </ul>
         <h3
-          data-article-id="encoded_on"
+          data-article-id="encoded_in"
         >
-          Encoded on
+          Encoded in
         </h3>
         <div>
           <ul

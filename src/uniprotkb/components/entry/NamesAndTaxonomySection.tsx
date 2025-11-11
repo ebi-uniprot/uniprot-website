@@ -151,7 +151,7 @@ const NamesAndTaxonomySection = ({
       />
       {data.geneLocations?.length && (
         <>
-          <h3 data-article-id="encoded_on">Encoded on</h3>
+          <h3 data-article-id="encoded_in">Encoded in</h3>
           <div>
             {data.geneLocations.map((og) => {
               let content = og.geneEncodingType;
