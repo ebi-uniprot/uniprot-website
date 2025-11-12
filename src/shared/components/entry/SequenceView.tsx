@@ -148,7 +148,7 @@ const SeeAlso = ({ isoform }: { isoform: string }) => (
     <Link
       to={{
         pathname: LocationToPath[Location.UniParcResults],
-        search: `query=(isoform:${isoform})&direct`,
+        search: `query=(dbid:${isoform})&direct`,
       }}
     >
       UniParc

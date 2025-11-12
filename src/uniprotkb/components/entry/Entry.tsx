@@ -393,7 +393,9 @@ const Entry = () => {
         frame().then(() => {
           history.replace({
             pathname: generatePath(LocationToPath[Location.UniParcResults]),
-            search: stringifyQuery({ query: match?.params.accession }),
+            search: stringifyQuery({
+              query: `dbid:${match?.params.accession}`,
+            }),
           });
         });
       }

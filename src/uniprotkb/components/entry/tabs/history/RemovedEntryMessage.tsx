@@ -40,7 +40,7 @@ const RemovedEntryHeading = ({
         }
       : {
           pathname: LocationToPath[Location.UniParcResults],
-          search: stringifyQuery({ query: accession, direct: true }),
+          search: stringifyQuery({ query: `dbid:${accession}`, direct: true }),
         };
   return (
     <h4 data-article-id="deleted_accessions">
