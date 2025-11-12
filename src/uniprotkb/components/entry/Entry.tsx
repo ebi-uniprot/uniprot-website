@@ -358,33 +358,45 @@ const Entry = () => {
       transformedData.inactiveReason
   );
 
-  // Redirect to history when obsolete and not merged into a single new one
+  // Redirect to history when demerged and to UniParc when deleted
   useEffect(() => {
     if (
       isObsolete &&
       match?.params.accession &&
       match?.params.subPage !== TabLocation.History
     ) {
-      dispatch(
-        addMessage({
-          id: 'deleted-entry',
-          content: (
-            <>
-              You’ve been redirected to UniParc because{' '}
-              {match?.params.accession} is no longer available in UniProtKB.
-            </>
-          ),
-          format: MessageFormat.IN_PAGE,
-          level: MessageLevel.INFO,
-          tag: MessageTag.REDIRECT,
-        })
-      );
-      frame().then(() => {
-        history.replace({
-          pathname: generatePath(LocationToPath[Location.UniParcResults]),
-          search: stringifyQuery({ query: match?.params.accession }),
+      if (transformedData?.inactiveReason?.inactiveReasonType === 'DEMERGED') {
+        frame().then(() => {
+          history.replace(
+            getEntryPath(
+              Namespace.uniprotkb,
+              match?.params.accession,
+              TabLocation.History
+            )
+          );
         });
-      });
+      } else {
+        dispatch(
+          addMessage({
+            id: 'deleted-entry',
+            content: (
+              <>
+                You’ve been redirected to UniParc because{' '}
+                {match?.params.accession} is no longer available in UniProtKB.
+              </>
+            ),
+            format: MessageFormat.IN_PAGE,
+            level: MessageLevel.INFO,
+            tag: MessageTag.REDIRECT,
+          })
+        );
+        frame().then(() => {
+          history.replace({
+            pathname: generatePath(LocationToPath[Location.UniParcResults]),
+            search: stringifyQuery({ query: match?.params.accession }),
+          });
+        });
+      }
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
