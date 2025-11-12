@@ -13,6 +13,8 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
+import { pickArticle } from '../../../shared/utils/utils';
+import { DeletedReason } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { UniFireModel } from '../../adapters/uniParcSubEntryConverter';
@@ -29,6 +31,19 @@ interface SubEntryContextProps {
   runUniFire: boolean;
   setRunUniFire: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const getDeletedReasonText = (reason?: DeletedReason) => {
+  switch (reason) {
+    case 'Redundant proteome':
+    case 'Excluded proteome':
+      return `belongs to ${pickArticle(reason)}`;
+    case 'Over-represented sequence':
+    case 'Redundant sequence':
+      return `is ${pickArticle(reason)}`;
+    default:
+      return 'is';
+  }
+};
 
 const SubEntryContext = ({
   subEntryId,
@@ -87,7 +102,8 @@ const SubEntryContext = ({
               </label>
               {event.eventType === 'deleted' && (
                 <>
-                  Removed from UniProtKB because {subEntryId} is{' '}
+                  Removed from UniProtKB because {subEntryId}{' '}
+                  {getDeletedReasonText(event.deletedReason)}{' '}
                   <strong data-article-id="deleted_accessions">
                     {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
                   </strong>

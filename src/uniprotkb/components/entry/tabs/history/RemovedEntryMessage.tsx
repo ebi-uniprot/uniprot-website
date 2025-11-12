@@ -9,6 +9,7 @@ import {
 import { Namespace } from '../../../../../shared/types/namespaces';
 import listFormat from '../../../../../shared/utils/listFormat';
 import { stringifyQuery } from '../../../../../shared/utils/url';
+import { pickArticle } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
   DeletedReason,
@@ -95,7 +96,9 @@ const RemovedEntryMessage = ({
           <div>
             Reason:{' '}
             <strong data-article-id={helpArticleLink}>
-              {reason.deletedReason}
+              {reason.deletedReason.includes('proteome')
+                ? `Belongs to ${pickArticle(reason.deletedReason)} ${reason.deletedReason.toLocaleLowerCase()}`
+                : reason.deletedReason}
             </strong>
           </div>
         ))}
