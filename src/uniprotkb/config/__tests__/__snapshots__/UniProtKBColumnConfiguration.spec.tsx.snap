@@ -155,7 +155,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
         >
           sequence in 
           <a
-            href="/uniparc?query=(isoform:isoID1)&direct"
+            href="/uniparc?query=(dbid:isoID1)&direct"
           >
             UniParc
           </a>

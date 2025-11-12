@@ -155,7 +155,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         >
           sequence in 
           <a
-            href="/uniparc?query=(isoform:P05067-1)&direct"
+            href="/uniparc?query=(dbid:P05067-1)&direct"
           >
             UniParc
           </a>
@@ -396,7 +396,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         >
           sequence in 
           <a
-            href="/uniparc?query=(isoform:P05067-2)&direct"
+            href="/uniparc?query=(dbid:P05067-2)&direct"
           >
             UniParc
           </a>
