@@ -51,9 +51,9 @@ const XRefsSection = ({ entryData }: Props) => {
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
 
-  const [resetFlag, setResetFlag] = useLocalStorage(
+  const [resetFlag, setResetFlag] = useLocalStorage<boolean>(
     'reset-Nov-2025' as const,
-    false as boolean
+    false
   );
 
   const [columns, setColumns] = useLocalStorage(
