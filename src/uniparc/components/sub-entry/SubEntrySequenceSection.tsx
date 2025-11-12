@@ -1,16 +1,31 @@
-import { Card, InfoList, LongNumber, Sequence } from 'franklin-sites';
+import {
+  Card,
+  ExternalLink,
+  InfoList,
+  Loader,
+  LongNumber,
+  Sequence,
+} from 'franklin-sites';
+import { useMemo } from 'react';
 import { Fragment } from 'react/jsx-runtime';
 import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { uniParcTools } from '../../../shared/components/common-sequence/CommonSequenceView';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import helper from '../../../shared/styles/helper.module.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 import { hasContent } from '../../../shared/utils/utils';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
+import { DataDBModel } from '../entry/XRefsSection';
+
+const getTemplateMap = (dataDB?: DataDBModel) =>
+  new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 const SubEntrySequenceSection = ({
   data,
@@ -19,10 +34,20 @@ const SubEntrySequenceSection = ({
 }) => {
   const history = useHistory();
 
+  const dataDB = useDataApi<DataDBModel>(
+    apiUrls.configure.allDatabases(Namespace.uniparc)
+  );
+  const templateMap = useMemo(() => getTemplateMap(dataDB.data), [dataDB.data]);
+
   const sequence = data?.entry[EntrySection.Sequence];
   if (!data || !hasContent(data) || !sequence) {
     return null;
   }
+
+  if (dataDB.loading || !dataDB.data) {
+    return <Loader />;
+  }
+
   const infoData = [
     {
       title: 'Length',
@@ -96,18 +121,32 @@ const SubEntrySequenceSection = ({
           <h3>External sources</h3>
 
           {sourceDatabases?.map((source) => {
-            // EMBL:AC12345:UP000005640:Chromosome
-            // TODO when we get sourceDB info from the payload
-            // uncomment the following and point to the right external URL
-            // const sourceDB = source.value.split(':')[0];
-            // const sourceID = source.value.split(':')[1];
-            // return <InfoList infoData={[
-            // {
-            // title: sourceDB,
-            // content: <a href={`https://example.com/${sourceID}`}>{sourceID}</a>,
-            // }]} />
-            const sourceID = source.value.split(':')[0];
-            return <div key={sourceID}>{sourceID}</div>;
+            const [sourceDB, sourceID] = source.value.split(':');
+
+            const template = sourceDB && templateMap.get(sourceDB);
+            let id = sourceID;
+            // NOTE: exception for FusionGDB we need to remove the underscore number
+            if (sourceDB === 'FusionGDB') {
+              id = id.replace(/_\d+$/, '');
+            }
+            const content = template ? (
+              <ExternalLink url={template.replace('%id', id)}>
+                {sourceID}
+              </ExternalLink>
+            ) : (
+              sourceID
+            );
+            return (
+              <InfoList
+                key={sourceDB}
+                infoData={[
+                  {
+                    title: sourceDB,
+                    content: content,
+                  },
+                ]}
+              />
+            );
           })}
         </>
       ) : null}
