@@ -69,7 +69,7 @@ const SubEntryContext = ({
     );
   }
 
-  let events = data.events;
+  let events = data.events.filter((event) => event.eventType !== 'replacing');
 
   if (events.length > 1 && events[0].eventType === 'merged') {
     const demergedEntries = events.map((event) => event.targetAccession);
