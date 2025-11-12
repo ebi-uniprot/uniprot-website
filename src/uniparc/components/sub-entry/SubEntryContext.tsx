@@ -39,7 +39,10 @@ const SubEntryContext = ({
   runUniFire,
   setRunUniFire,
 }: SubEntryContextProps) => {
-  if (!data?.events) {
+  if (
+    !data?.events ||
+    (data.events.length > 1 && data.events[0].eventType === 'replacing')
+  ) {
     return (
       <Redirect
         to={{
@@ -58,14 +61,8 @@ const SubEntryContext = ({
     events = [{ ...events[0], targetAccession: demergedEntries.join(', ') }];
   }
 
-  if (events.length > 1 && events[0].eventType === 'replacing') {
-    const replacedEntries = events.map((event) => event.targetAccession);
-    events = [{ ...events[0], targetAccession: replacedEntries.join(', ') }];
-  }
-
   const contextInfo = events.map((event) => {
-    const presentInUniprotkb =
-      event.eventType === 'merged' || event.eventType === 'replacing';
+    const presentInUniprotkb = event.eventType === 'merged';
 
     const infoData = [
       {
@@ -96,15 +93,13 @@ const SubEntryContext = ({
                   </strong>
                 </>
               )}
-              {(event.eventType === 'merged' ||
-                event.eventType === 'replacing') && (
+              {event.eventType === 'merged' && (
                 <>
                   {subEntryId} is{' '}
                   {event.eventType === 'merged' &&
                     (event.targetAccession.split(', ').length > 1
                       ? 'demerged into '
                       : 'merged into ')}
-                  {event.eventType === 'replacing' && 'replaced by '}
                   {event.targetAccession
                     .split(', ')
                     .map((targetAccession, index, array) => (
