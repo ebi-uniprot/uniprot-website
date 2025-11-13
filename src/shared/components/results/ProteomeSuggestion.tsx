@@ -8,13 +8,15 @@ import { Namespace } from '../../types/namespaces';
 import { SearchResults } from '../../types/results';
 import { stringifyUrl } from '../../utils/url';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
-import { SearchTextLink } from './SearchTextLink';
+import { SearchLink } from './SearchTextLink';
 
 const ProteomeSuggestion = ({
   organismID,
+  query,
   namespace,
 }: {
   organismID: string;
+  query: string;
   namespace: Namespace;
 }) => {
   const [proteomeInfo, setProteomeInfo] = useState<
@@ -33,23 +35,23 @@ const ProteomeSuggestion = ({
     if (data?.results.length) {
       if (namespace === Namespace.uniprotkb) {
         setProteomeInfo(data.results[0]);
-      }
-      if (namespace === Namespace.uniparc) {
+      } else if (namespace === Namespace.uniparc) {
         setProteomeInfo(data.results);
       }
     }
   }, [data, namespace]);
 
-  if ((proteomeInfo as ProteomesAPIModel)?.id) {
+  if (!Array.isArray(proteomeInfo) && proteomeInfo?.id) {
     return (
       <>
         {' '}
         or restrict to reference proteome{' '}
-        <SearchTextLink
-          query={`proteome:${(proteomeInfo as ProteomesAPIModel).id}`}
-          text={(proteomeInfo as ProteomesAPIModel).id}
+        <SearchLink
+          query={`${query} AND proteome:${proteomeInfo.id}`}
           namespace={namespace}
-        />
+        >
+          {proteomeInfo.id}
+        </SearchLink>
       </>
     );
   } else if (Array.isArray(proteomeInfo) && proteomeInfo.length > 0) {
@@ -68,17 +70,16 @@ const ProteomeSuggestion = ({
           <ul>
             {proteomeInfo.map(({ id, proteomeType, taxonomy, strain }) => (
               <li key={id}>
-                <SearchTextLink
-                  query={`proteome:${id}`}
-                  text={
-                    <span>
-                      <EntryTypeIcon entryType={proteomeType} />
-                      {id} - {taxonomy.scientificName}{' '}
-                      {strain ? `(${strain})` : null}{' '}
-                    </span>
-                  }
+                <SearchLink
+                  query={`${query} AND proteome:${id}`}
                   namespace={namespace}
-                />
+                >
+                  <span>
+                    <EntryTypeIcon entryType={proteomeType} />
+                    {id} - {taxonomy.scientificName}{' '}
+                    {strain ? `(${strain})` : null}{' '}
+                  </span>
+                </SearchLink>
               </li>
             ))}
           </ul>

@@ -12,7 +12,7 @@ import {
 import { stringifyUrl } from '../../utils/url';
 import OrganismSuggestion from './OrganismSuggestion';
 import ProteomeSuggestion from './ProteomeSuggestion';
-import { SearchTextLink } from './SearchTextLink';
+import { SearchLink } from './SearchTextLink';
 
 const TaxonomyLevelsSuggestion = ({
   query,
@@ -52,11 +52,9 @@ const TaxonomyLevelsSuggestion = ({
               <>
                 {' '}
                 or expand search to &quot;<b>{searchValue}</b>&quot; to{' '}
-                <SearchTextLink
-                  query={modifiedQuery}
-                  text="include lower taxonomic ranks"
-                  namespace={namespace}
-                />
+                <SearchLink query={modifiedQuery} namespace={namespace}>
+                  include lower taxonomic ranks
+                </SearchLink>
               </>
             ) : (
               ''
@@ -64,6 +62,7 @@ const TaxonomyLevelsSuggestion = ({
             {namespace !== Namespace.proteomes && (
               <ProteomeSuggestion
                 organismID={searchValue}
+                query={query}
                 namespace={namespace}
               />
             )}

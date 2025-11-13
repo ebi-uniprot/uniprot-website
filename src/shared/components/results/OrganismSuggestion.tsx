@@ -6,7 +6,7 @@ import useDataApi from '../../hooks/useDataApi';
 import { Namespace } from '../../types/namespaces';
 import { SearchResults } from '../../types/results';
 import { stringifyUrl } from '../../utils/url';
-import { SearchTextLink } from './SearchTextLink';
+import { SearchLink } from './SearchTextLink';
 
 const OrganismSuggestion = ({
   query,
@@ -37,7 +37,7 @@ const OrganismSuggestion = ({
       <>
         {' '}
         or restrict search to &quot;<b>{taxonID}</b>&quot; to{' '}
-        <SearchTextLink
+        <SearchLink
           query={query}
           text="exclude lower taxonomic ranks"
           namespace={namespace}

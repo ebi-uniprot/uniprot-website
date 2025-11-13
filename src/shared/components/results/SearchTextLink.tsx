@@ -4,22 +4,22 @@ import { SearchResultsLocations } from '../../../app/config/urls';
 import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { stringifyUrl } from '../../utils/url';
 
-type SearchTextLinkProps = {
+type SearchLinkProps = {
   query: string;
-  text: string | React.ReactNode;
+  children: React.ReactNode;
   namespace?: Namespace;
 };
 
-export const SearchTextLink = ({
+export const SearchLink = ({
   query,
-  text,
+  children,
   namespace = Namespace.uniprotkb,
-}: SearchTextLinkProps) => (
+}: SearchLinkProps) => (
   <Link
     to={stringifyUrl(SearchResultsLocations[namespace as SearchableNamespace], {
       query,
     })}
   >
-    {text}
+    {children}
   </Link>
 );

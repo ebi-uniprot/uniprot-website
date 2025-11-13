@@ -8,7 +8,7 @@ import {
   modifyQueryWithSuggestions,
 } from '../../utils/searchSuggestions';
 import { stringifyUrl } from '../../utils/url';
-import { SearchTextLink } from './SearchTextLink';
+import { SearchLink } from './SearchTextLink';
 
 const ExactFieldSuggestion = ({
   query,
@@ -39,7 +39,7 @@ const ExactFieldSuggestion = ({
       <small>
         {' '}
         or show only exact matches for{' '}
-        <SearchTextLink query={modifiedQuery} text={searchValue} />
+        <SearchLink query={modifiedQuery} text={searchValue} />
       </small>
     );
   }
