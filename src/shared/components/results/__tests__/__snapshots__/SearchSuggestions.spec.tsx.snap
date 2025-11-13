@@ -15,7 +15,7 @@ exports[`SearchSuggestions should render proteome suggestions given an organism 
     </a>
      or restrict to reference proteome 
     <a
-      href="/uniprotkb?query=proteome%3AUP000005640"
+      href="/uniprotkb?query=organism_id%3A9606+AND+proteome%3AUP000005640"
     >
       UP000005640
     </a>

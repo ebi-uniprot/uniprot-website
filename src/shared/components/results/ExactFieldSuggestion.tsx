@@ -39,7 +39,7 @@ const ExactFieldSuggestion = ({
       <small>
         {' '}
         or show only exact matches for{' '}
-        <SearchLink query={modifiedQuery} text={searchValue} />
+        <SearchLink query={modifiedQuery}>{searchValue}</SearchLink>
       </small>
     );
   }
