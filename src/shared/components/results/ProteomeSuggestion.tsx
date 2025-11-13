@@ -9,6 +9,7 @@ import { SearchResults } from '../../types/results';
 import { stringifyUrl } from '../../utils/url';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 import { SearchLink } from './SearchTextLink';
+import styles from './styles/proteome-suggestion.module.scss';
 
 const ProteomeSuggestion = ({
   organismID,
@@ -62,7 +63,11 @@ const ProteomeSuggestion = ({
         <Dropdown
           // eslint-disable-next-line react/no-unstable-nested-components
           visibleElement={(onClick: () => unknown) => (
-            <Button variant="tertiary" onClick={onClick} className="small">
+            <Button
+              variant="tertiary"
+              onClick={onClick}
+              className={styles['proteome-dropdown-button']}
+            >
               one of {proteomeInfo.length} proteomes
             </Button>
           )}
