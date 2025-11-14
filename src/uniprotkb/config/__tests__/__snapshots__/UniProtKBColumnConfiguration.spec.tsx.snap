@@ -529,6 +529,29 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "cc_sc_epred": cc_sc_epred 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    The sequence 
+    <a
+      class="external-link"
+      href="https://www.ebi.ac.uk/ena/data/view/sequence"
+      rel="noopener"
+      target="_blank"
+    >
+      sequence
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+     differs from that shown. Reason: Erroneous gene model prediction Text note
+  </section>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "cc_sequence_caution": cc_sequence_caution 1`] = `
 <DocumentFragment>
   <section
@@ -1200,29 +1223,6 @@ exports[`UniProtKBColumnConfiguration component should render column "encoded_in
       </span>
     </li>
   </ul>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render column "error_gmodel_pred": error_gmodel_pred 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  >
-    The sequence 
-    <a
-      class="external-link"
-      href="https://www.ebi.ac.uk/ena/data/view/sequence"
-      rel="noopener"
-      target="_blank"
-    >
-      sequence
-      <test-file-stub
-        data-testid="external-link-icon"
-        width="12.5"
-      />
-    </a>
-     differs from that shown. Reason: Erroneous gene model prediction Text note
-  </section>
 </DocumentFragment>
 `;
 
