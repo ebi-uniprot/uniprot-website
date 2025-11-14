@@ -25,23 +25,33 @@ const SearchSuggestions = ({
   const validQueryWithContent = // Only when there are results
     // also serves to delay the requests below to prioritise getting the results
     total &&
-    // Only for UniProtKB
-    namespace === Namespace.uniprotkb &&
     // Only for queries with content
     !!query?.length;
 
   if (validQueryWithContent) {
-    if (simpleQuery.test(query)) {
+    if (simpleQuery.test(query) && namespace === Namespace.uniprotkb) {
       return <AdvancedSearchSuggestion query={query} total={total} />;
     }
     if (
       hasMatchingQuery(exactMatchSearchTerms, query) &&
-      !query.includes('exact')
+      !query.includes('exact') &&
+      namespace === Namespace.uniprotkb
     ) {
       return <ExactFieldSuggestion query={query} total={total} />;
     }
-    if (hasMatchingQuery(taxonHierarchySearchTerms, query)) {
-      return <TaxonomyLevelsSuggestion query={query} total={total} />;
+    if (
+      hasMatchingQuery(taxonHierarchySearchTerms, query) &&
+      (namespace === Namespace.uniprotkb ||
+        namespace === Namespace.uniparc ||
+        namespace === Namespace.proteomes)
+    ) {
+      return (
+        <TaxonomyLevelsSuggestion
+          namespace={namespace}
+          query={query}
+          total={total}
+        />
+      );
     }
     // Add more suggestions in the future here
   }

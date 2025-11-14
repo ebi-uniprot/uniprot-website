@@ -1,0 +1,7 @@
+@import 'franklin-sites/src/styles/colours';
+
+:global(.button.tertiary).proteome-dropdown-button {
+  font-size: inherit;
+  color: $colour-sapphire-blue;
+  padding-bottom: 0.1em;
+}
