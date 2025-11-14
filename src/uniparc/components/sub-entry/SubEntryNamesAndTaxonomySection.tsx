@@ -160,75 +160,72 @@ const SubEntryNamesAndTaxonomySection = ({
   const proteinNameInfoData = [
     {
       title: 'Name',
-      content: (
+      content: proteinName.length ? (
         <NameContent predictions={proteinName} queryParam="protein_name" />
-      ),
+      ) : null,
     },
     {
       title: 'Recommended name',
-      content: (
+      content: recommendedFullNamePrediction.length ? (
         <NameContent
           predictions={recommendedFullNamePrediction}
           queryParam="protein_name"
         />
-      ),
+      ) : null,
     },
     {
       title: 'Short names',
-      content: (
+      content: recommendedShortNamePrediction.length ? (
         <NameContent
           predictions={recommendedShortNamePrediction}
           queryParam="protein_name"
         />
-      ),
+      ) : null,
     },
     {
       title: 'EC number',
-      content:
-        recommendedECPrediction.length > 0
-          ? recommendedECPrediction.map((prediction, index) => (
-              <div key={index}>{prediction.annotationValue}</div>
-            ))
-          : null,
+      content: recommendedECPrediction.length ? (
+        <NameContent predictions={recommendedECPrediction} queryParam="ec" />
+      ) : null,
     },
     {
       title: 'Alternative names',
-      content: (
+      content: alternativeNamePrediction.length ? (
         <NameContent
           predictions={alternativeNamePrediction}
           queryParam="protein_name"
         />
-      ),
+      ) : null,
     },
     {
       title: 'Alternative EC number',
-      content:
-        alternativeECPrediction.length > 0
-          ? alternativeECPrediction.map((prediction, index) => (
-              <div key={index}>{prediction.annotationValue}</div>
-            ))
-          : null,
+      content: alternativeECPrediction.length ? (
+        <NameContent predictions={alternativeECPrediction} queryParam="ec" />
+      ) : null,
     },
   ];
 
   const geneNameInfoData = [
     {
       title: 'Name',
-      content: (
-        <>
-          {geneName && <NameContent predictions={geneName} queryParam="gene" />}
-          <NameContent predictions={geneNamePrediction} queryParam="gene" />
-        </>
-      ),
+      content:
+        geneName || geneNamePrediction.length ? (
+          <>
+            {geneName && (
+              <NameContent predictions={geneName} queryParam="gene" />
+            )}
+            <NameContent predictions={geneNamePrediction} queryParam="gene" />
+          </>
+        ) : null,
     },
     {
       title: 'Synonyms',
-      content: (
+      content: geneNameSynonymsPrediction.length ? (
         <NameContent
           predictions={geneNameSynonymsPrediction}
           queryParam="gene"
         />
-      ),
+      ) : null,
     },
   ];
 
