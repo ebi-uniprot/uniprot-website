@@ -571,10 +571,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
+UniProtKBColumnConfiguration.set(UniProtKBColumn.ccScEpred, {
   ...getLabelAndTooltip(
     'Sequence Caution',
-    'Discrepancies between the canonical and submitted sequences due to an erroneous gene model predictionk'
+    'Discrepancies between the canonical and submitted sequences due to an erroneous gene model prediction'
   ),
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
