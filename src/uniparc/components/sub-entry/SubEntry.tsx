@@ -100,7 +100,7 @@ const SubEntry = () => {
     uniprotkbUrls.unisave.status(subEntryId as string)
   );
 
-  const subEntrytaxId = subEntryData.data?.results[0].organism?.taxonId;
+  const subEntrytaxId = subEntryData.data?.results[0]?.organism?.taxonId;
   const canLoadUniFire =
     subEntrytaxId &&
     accession &&

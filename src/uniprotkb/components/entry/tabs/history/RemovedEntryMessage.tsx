@@ -33,9 +33,10 @@ const RemovedEntryHeading = ({
     // UniParc of the new entry, so don't pass that to not get wrong link
     uniparc && !merged
       ? {
-          pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+          pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
             accession: uniparc,
             subPage: UniParcTabLocation.Entry,
+            subEntryId: accession,
           }),
         }
       : {

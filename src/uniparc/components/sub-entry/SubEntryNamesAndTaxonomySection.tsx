@@ -15,6 +15,7 @@ import TaxonomyView, {
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
+import { stringifyQuery } from '../../../shared/utils/url';
 import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import {
@@ -25,6 +26,53 @@ import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryProteomes } from '../../utils/subEntry';
 
+const NameContent = ({
+  predictions,
+  queryParam,
+}: {
+  predictions: ModifiedPrediction[] | string;
+  queryParam: string;
+}) => {
+  if (typeof predictions === 'string') {
+    return (
+      <div>
+        {predictions}
+        {' ('}
+        <Link
+          to={{
+            pathname: LocationToPath[Location.UniProtKBResults],
+            search: stringifyQuery({
+              query: `(${queryParam}:"${predictions}")`,
+            }),
+          }}
+        >
+          Search in UniProtKB
+        </Link>
+        )
+      </div>
+    );
+  }
+  return predictions.length > 0
+    ? predictions.map((prediction, index) => (
+        <div key={index}>
+          {prediction.annotationValue}
+          {' ('}
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: stringifyQuery({
+                query: `(${queryParam}:"${prediction.annotationValue}")`,
+              }),
+            }}
+          >
+            Search in UniProtKB
+          </Link>
+          )
+          <UniProtKBEvidenceTag evidences={prediction.evidence} />
+        </div>
+      ))
+    : null;
+};
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
 };
@@ -95,46 +143,6 @@ const SubEntryNamesAndTaxonomySection = ({
       (prediction) => prediction.annotationType === 'gene.name.synonym'
     ) || [];
 
-  const nameContent = (
-    predictions: ModifiedPrediction[] | string,
-    queryParam: string
-  ) => {
-    if (typeof predictions === 'string') {
-      return (
-        <div>
-          {predictions}
-          {' ('}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniParcResults],
-              search: `query=(${queryParam}:${predictions})`,
-            }}
-          >
-            Search in UniParc
-          </Link>
-          )
-        </div>
-      );
-    }
-    return predictions.length > 0
-      ? predictions.map((prediction, index) => (
-          <div key={index}>
-            {prediction.annotationValue}
-            {' ('}
-            <Link
-              to={{
-                pathname: LocationToPath[Location.UniParcResults],
-                search: `query=(${queryParam}:${prediction.annotationValue})`,
-              }}
-            >
-              Search in UniParc
-            </Link>
-            )
-            <UniProtKBEvidenceTag evidences={prediction.evidence} />
-          </div>
-        ))
-      : null;
-  };
   const proteomeComponentObject = getSubEntryProteomes(properties);
 
   const proteomeContent = Object.entries(proteomeComponentObject).map(
@@ -150,14 +158,29 @@ const SubEntryNamesAndTaxonomySection = ({
   );
 
   const proteinNameInfoData = [
-    { title: 'Name', content: nameContent(proteinName, 'protein_name') },
+    {
+      title: 'Name',
+      content: (
+        <NameContent predictions={proteinName} queryParam="protein_name" />
+      ),
+    },
     {
       title: 'Recommended name',
-      content: nameContent(recommendedFullNamePrediction, 'protein_name'),
+      content: (
+        <NameContent
+          predictions={recommendedFullNamePrediction}
+          queryParam="protein_name"
+        />
+      ),
     },
     {
       title: 'Short names',
-      content: nameContent(recommendedShortNamePrediction, 'protein_name'),
+      content: (
+        <NameContent
+          predictions={recommendedShortNamePrediction}
+          queryParam="protein_name"
+        />
+      ),
     },
     {
       title: 'EC number',
@@ -170,7 +193,12 @@ const SubEntryNamesAndTaxonomySection = ({
     },
     {
       title: 'Alternative names',
-      content: nameContent(alternativeNamePrediction, 'protein_name'),
+      content: (
+        <NameContent
+          predictions={alternativeNamePrediction}
+          queryParam="protein_name"
+        />
+      ),
     },
     {
       title: 'Alternative EC number',
@@ -188,14 +216,19 @@ const SubEntryNamesAndTaxonomySection = ({
       title: 'Name',
       content: (
         <>
-          {geneName && nameContent(geneName, 'gene')}
-          {nameContent(geneNamePrediction, 'gene')}
+          {geneName && <NameContent predictions={geneName} queryParam="gene" />}
+          <NameContent predictions={geneNamePrediction} queryParam="gene" />
         </>
       ),
     },
     {
       title: 'Synonyms',
-      content: nameContent(geneNameSynonymsPrediction, 'gene'),
+      content: (
+        <NameContent
+          predictions={geneNameSynonymsPrediction}
+          queryParam="gene"
+        />
+      ),
     },
   ];
 

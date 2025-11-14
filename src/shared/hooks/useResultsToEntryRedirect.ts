@@ -37,15 +37,19 @@ const useResultsToEntryRedirect = (
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
         history.replace(getEntryPathForEntry(uniqueItem));
-      } else if (
-        !direct &&
-        'uniParcId' in uniqueItem &&
-        trimmedQuery.match(reUniProtKBAccession)
-      ) {
-        // hits single UniParc search and ID is an UniProtKB ID...
-        history.replace(
-          getSubEntryPath(uniqueItem.uniParcId, trimmedQuery, TabLocation.Entry)
-        );
+      } else if (!direct && 'uniParcId' in uniqueItem) {
+        // hits single UniParc search...
+        const upkbAccession = trimmedQuery.match(reUniProtKBAccession)?.[0];
+        // ... and ID is an UniProtKB ID...
+        if (upkbAccession) {
+          history.replace(
+            getSubEntryPath(
+              uniqueItem.uniParcId,
+              upkbAccession,
+              TabLocation.Entry
+            )
+          );
+        }
       }
     } else if (
       // Limit it to the first set of results as the exact match is very likely in the top results and it applies only for UniProtKB
