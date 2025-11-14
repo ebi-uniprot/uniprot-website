@@ -1,6 +1,5 @@
-/* eslint-disable react/no-array-index-key */
 import { Card, InfoList } from 'franklin-sites';
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -33,46 +32,34 @@ const NameContent = ({
   predictions: ModifiedPrediction[] | string;
   queryParam: string;
 }) => {
-  if (typeof predictions === 'string') {
-    return (
-      <div>
-        {predictions}
-        {' ('}
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: stringifyQuery({
-              query: `(${queryParam}:"${predictions}")`,
-            }),
-          }}
-        >
-          Search in UniProtKB
-        </Link>
-        )
-      </div>
-    );
-  }
-  return predictions.length > 0
-    ? predictions.map((prediction, index) => (
-        <div key={index}>
-          {prediction.annotationValue}
-          {' ('}
-          <Link
-            to={{
-              pathname: LocationToPath[Location.UniProtKBResults],
-              search: stringifyQuery({
-                query: `(${queryParam}:"${prediction.annotationValue}")`,
-              }),
-            }}
-          >
-            Search in UniProtKB
-          </Link>
-          )
-          <UniProtKBEvidenceTag evidences={prediction.evidence} />
-        </div>
-      ))
-    : null;
+  const renderedPredictions: Partial<ModifiedPrediction>[] =
+    typeof predictions === 'string'
+      ? [{ annotationValue: predictions }]
+      : predictions;
+
+  return renderedPredictions.map((prediction, index) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <div key={index}>
+      {prediction.annotationValue}
+      {' ('}
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: stringifyQuery({
+            query: `(${queryParam}:"${prediction.annotationValue}")`,
+          }),
+        }}
+      >
+        Search in UniProtKB
+      </Link>
+      )
+      {prediction.evidence && (
+        <UniProtKBEvidenceTag evidences={prediction.evidence} />
+      )}
+    </div>
+  ));
 };
+
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
 };
