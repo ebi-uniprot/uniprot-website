@@ -20,6 +20,10 @@ export const pluralise = (singular: string, count: number, plural?: string) => {
   return `${singular}s`;
 };
 
+export const pickArticle = (nextWord = '') => {
+  return /^[aeiou]/i.test(nextWord) ? 'an' : 'a';
+};
+
 export function moveItemInArray<T>(array: T[], from: number, to: number): T[] {
   const newArray = array.slice();
   newArray.splice(

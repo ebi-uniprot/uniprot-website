@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 import joinUrl from 'url-join';
 
@@ -358,22 +358,47 @@ const Entry = () => {
       transformedData.inactiveReason
   );
 
-  // Redirect to history when obsolete and not merged into a single new one
+  // Redirect to history when demerged and to UniParc when deleted
   useEffect(() => {
     if (
       isObsolete &&
       match?.params.accession &&
       match?.params.subPage !== TabLocation.History
     ) {
-      frame().then(() => {
-        history.replace(
-          getEntryPath(
-            Namespace.uniprotkb,
-            match?.params.accession,
-            TabLocation.History
-          )
+      if (transformedData?.inactiveReason?.inactiveReasonType === 'DEMERGED') {
+        frame().then(() => {
+          history.replace(
+            getEntryPath(
+              Namespace.uniprotkb,
+              match?.params.accession,
+              TabLocation.History
+            )
+          );
+        });
+      } else {
+        dispatch(
+          addMessage({
+            id: 'deleted-entry',
+            content: (
+              <>
+                You’ve been redirected to UniParc because{' '}
+                {match?.params.accession} is no longer available in UniProtKB.
+              </>
+            ),
+            format: MessageFormat.IN_PAGE,
+            level: MessageLevel.INFO,
+            tag: MessageTag.REDIRECT,
+          })
         );
-      });
+        frame().then(() => {
+          history.replace({
+            pathname: generatePath(LocationToPath[Location.UniParcResults]),
+            search: stringifyQuery({
+              query: `dbid:${match?.params.accession}`,
+            }),
+          });
+        });
+      }
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.

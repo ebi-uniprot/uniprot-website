@@ -9,6 +9,7 @@ import {
 import { Namespace } from '../../../../../shared/types/namespaces';
 import listFormat from '../../../../../shared/utils/listFormat';
 import { stringifyQuery } from '../../../../../shared/utils/url';
+import { pickArticle } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
   DeletedReason,
@@ -32,14 +33,15 @@ const RemovedEntryHeading = ({
     // UniParc of the new entry, so don't pass that to not get wrong link
     uniparc && !merged
       ? {
-          pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+          pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
             accession: uniparc,
             subPage: UniParcTabLocation.Entry,
+            subEntryId: accession,
           }),
         }
       : {
           pathname: LocationToPath[Location.UniParcResults],
-          search: stringifyQuery({ query: accession, direct: true }),
+          search: stringifyQuery({ query: `dbid:${accession}`, direct: true }),
         };
   return (
     <h4 data-article-id="deleted_accessions">
@@ -95,7 +97,9 @@ const RemovedEntryMessage = ({
           <div>
             Reason:{' '}
             <strong data-article-id={helpArticleLink}>
-              {reason.deletedReason}
+              {reason.deletedReason.includes('proteome')
+                ? `Belongs to ${pickArticle(reason.deletedReason)} ${reason.deletedReason.toLocaleLowerCase()}`
+                : reason.deletedReason}
             </strong>
           </div>
         ))}

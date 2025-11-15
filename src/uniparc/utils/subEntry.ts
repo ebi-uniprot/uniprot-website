@@ -5,7 +5,7 @@ import { Location, LocationToPath } from '../../app/config/urls';
 export const getSubEntryPath = (
   accession: string,
   subEntryId: string,
-  subPage?: string
+  subPage: string
 ) =>
   generatePath(LocationToPath[Location.UniParcSubEntry], {
     accession,
@@ -25,7 +25,7 @@ export const getSubEntryProteomes = (
   if (properties) {
     properties.forEach((property) => {
       if (property.key === 'sources') {
-        const [, proteomeId, ...component] = property.value.split(':');
+        const [, , proteomeId, ...component] = property.value.split(':');
         if (!proteomeComponentObject[proteomeId]) {
           proteomeComponentObject[proteomeId] = component.join(':');
         }

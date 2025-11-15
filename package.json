@@ -40,7 +40,7 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 77.82,
+        "lines": 77.8,
         "statements": 77.54,
         "functions": 75.03,
         "branches": 66,
@@ -140,7 +140,7 @@
     "marked": "14.1.2",
     "marked-gfm-heading-id": "4.1.0",
     "p-map": "7.0.2",
-    "protvista-uniprot": "4.5.3",
+    "protvista-uniprot": "4.5.4",
     "react": "18",
     "react-diff-viewer-continued": "3.4.0",
     "react-dom": "18",

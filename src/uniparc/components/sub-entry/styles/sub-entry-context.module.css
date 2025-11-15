@@ -1,0 +1,33 @@
+.unifire-info {
+  background-color: #e9f5f1;
+}
+
+.availability-content {
+  margin-bottom: 1.5em;
+}
+
+.availability-label-disabled {
+  color: #5f5757f7;
+}
+
+.run-unifire-button {
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.predictions-status {
+  margin-top: 1rem;
+}
+
+.icon {
+  vertical-align: middle;
+  margin-right: 0.5em;
+
+  &.success {
+    color: var(--fr--color-success);
+  }
+
+  &.info {
+    color: var(--fr--color-info);
+  }
+}

@@ -1,7 +1,10 @@
 import { History } from 'history';
 import { useEffect } from 'react';
 
+import { getSubEntryPath } from '../../uniparc/utils/subEntry';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { TabLocation } from '../../uniprotkb/types/entry';
+import { reUniProtKBAccession } from '../../uniprotkb/utils/regexes';
 import { APIModel } from '../types/apiModel';
 
 const useResultsToEntryRedirect = (
@@ -34,6 +37,19 @@ const useResultsToEntryRedirect = (
         ('uniProtkbId' in uniqueItem && uniqueItem.uniProtkbId === trimmedQuery)
       ) {
         history.replace(getEntryPathForEntry(uniqueItem));
+      } else if (!direct && 'uniParcId' in uniqueItem) {
+        // hits single UniParc search...
+        const upkbAccession = trimmedQuery.match(reUniProtKBAccession)?.[0];
+        // ... and ID is an UniProtKB ID...
+        if (upkbAccession) {
+          history.replace(
+            getSubEntryPath(
+              uniqueItem.uniParcId,
+              upkbAccession,
+              TabLocation.Entry
+            )
+          );
+        }
       }
     } else if (
       // Limit it to the first set of results as the exact match is very likely in the top results and it applies only for UniProtKB
