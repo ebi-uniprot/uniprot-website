@@ -358,7 +358,10 @@ const SubEntry = () => {
                   'Feature viewer',
                   searchableNamespaceLabels[Namespace.uniparc],
                 ]}
-              />
+              >
+                {/* Keep until 2026_02 is released */}
+                <meta name="robots" content="noindex" />
+              </HTMLHead>
               {transformedData.entry.sequenceFeatures &&
               transformedData.entry.sequence?.value ? (
                 <div className="wider-tab-content">
