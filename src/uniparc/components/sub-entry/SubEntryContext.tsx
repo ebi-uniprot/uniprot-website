@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import {
   Button,
   InfoList,
@@ -18,7 +19,7 @@ import { DeletedReason } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { UniFireModel } from '../../adapters/uniParcSubEntryConverter';
-import styles from './styles/sub-entry-context.module.scss';
+import styles from './styles/sub-entry-context.module.css';
 
 const iconSize = '1.125em';
 
@@ -88,7 +89,7 @@ const SubEntryContext = ({
               <label
                 className={
                   presentInUniprotkb
-                    ? ''
+                    ? undefined
                     : styles['availability-label-disabled']
                 }
               >
@@ -139,7 +140,7 @@ const SubEntryContext = ({
                 <input type="checkbox" checked readOnly />
                 <span data-article-id="uniparc">UniParc</span>
               </label>
-              Current location, UniProt’s sequence archive
+              Current location, UniProt&apos;s sequence archive
             </div>
           </>
         ),
@@ -199,7 +200,7 @@ const SubEntryContext = ({
               {runUniFire && !uniFireLoading && !uniFireData?.accession && (
                 <>
                   <InformationIcon
-                    className={styles['info-icon']}
+                    className={cn(styles.icon, styles.info)}
                     width={iconSize}
                     height={iconSize}
                   />
@@ -209,7 +210,7 @@ const SubEntryContext = ({
               {runUniFire && !uniFireLoading && uniFireData?.accession && (
                 <>
                   <SuccessIcon
-                    className={styles['success-icon']}
+                    className={cn(styles.icon, styles.success)}
                     width={iconSize}
                     height={iconSize}
                   />
