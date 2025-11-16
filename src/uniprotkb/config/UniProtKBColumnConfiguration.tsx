@@ -347,11 +347,11 @@ UniProtKBColumnConfiguration.set(
 
 // NOTE: - Presently referred to as "organelle" by the API in search-fields
 //       - Historically called "Gene encoded by" by uniprot.org
-UniProtKBColumnConfiguration.set(UniProtKBColumn.organelle, {
+UniProtKBColumnConfiguration.set(UniProtKBColumn.encodedIn, {
   ...getLabelAndTooltip(
     'Encoded in',
     'Location of the gene if not on the main chromosomal element(s)',
-    'encoded_on'
+    'encoded_in'
   ),
   render: (data) => (
     <ExpandableList displayNumberOfHiddenItems descriptionString="locations">
@@ -571,10 +571,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
+UniProtKBColumnConfiguration.set(UniProtKBColumn.ccScEpred, {
   ...getLabelAndTooltip(
     'Sequence Caution',
-    'Discrepancies between the canonical and submitted sequences due to an erroneous gene model predictionk'
+    'Discrepancies between the canonical and submitted sequences due to an erroneous gene model prediction'
   ),
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];

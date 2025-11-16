@@ -48,6 +48,7 @@ export const defaultColumns = [
   UniParcXRefsColumn.accession,
   UniParcXRefsColumn.version,
   UniParcXRefsColumn.organism,
+  UniParcXRefsColumn.proteome,
   UniParcXRefsColumn.firstSeen,
   UniParcXRefsColumn.lastSeen,
   UniParcXRefsColumn.active,

@@ -529,6 +529,29 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "cc_sc_epred": cc_sc_epred 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    The sequence 
+    <a
+      class="external-link"
+      href="https://www.ebi.ac.uk/ena/data/view/sequence"
+      rel="noopener"
+      target="_blank"
+    >
+      sequence
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+     differs from that shown. Reason: Erroneous gene model prediction Text note
+  </section>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "cc_sequence_caution": cc_sequence_caution 1`] = `
 <DocumentFragment>
   <section
@@ -1189,26 +1212,17 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec-ex
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "error_gmodel_pred": error_gmodel_pred 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "encoded_in": encoded_in 1`] = `
 <DocumentFragment>
-  <section
-    class="text-block"
+  <ul
+    class="expandable-list no-bullet"
   >
-    The sequence 
-    <a
-      class="external-link"
-      href="https://www.ebi.ac.uk/ena/data/view/sequence"
-      rel="noopener"
-      target="_blank"
-    >
-      sequence
-      <test-file-stub
-        data-testid="external-link-icon"
-        width="12.5"
-      />
-    </a>
-     differs from that shown. Reason: Erroneous gene model prediction Text note
-  </section>
+    <li>
+      <span>
+        Cyanelle geneLocation value
+      </span>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
@@ -1929,20 +1943,6 @@ exports[`UniProtKBColumnConfiguration component should render column "mass": mas
 `;
 
 exports[`UniProtKBColumnConfiguration component should render column "match": match 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "organelle": organelle 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      <span>
-        Cyanelle geneLocation value
-      </span>
-    </li>
-  </ul>
-</DocumentFragment>
-`;
 
 exports[`UniProtKBColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
