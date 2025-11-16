@@ -3393,7 +3393,7 @@ exports[`Entry view should render 1`] = `
               >
                 sequence in 
                 <a
-                  href="/uniparc?query=(isoform:isoID1)&direct"
+                  href="/uniparc?query=(dbid:isoID1)&direct"
                 >
                   UniParc
                 </a>
@@ -6718,7 +6718,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 sequence in 
                 <a
-                  href="/uniparc?query=(isoform:P0DTR4)&direct"
+                  href="/uniparc?query=(dbid:P0DTR4)&direct"
                 >
                   UniParc
                 </a>

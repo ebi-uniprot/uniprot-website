@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -9,6 +9,12 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
+import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+  MessageTag,
+} from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -21,37 +27,63 @@ import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApi, { UseDataAPIState } from '../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { SearchResults } from '../../../shared/types/results';
+import * as logging from '../../../shared/utils/logging';
+import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
+import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import {
   UniParcLiteAPIModel,
   UniParcXRef,
 } from '../../adapters/uniParcConverter';
-import uniParcSubEntryConverter from '../../adapters/uniParcSubEntryConverter';
+import uniParcSubEntryConverter, {
+  UniFireModel,
+} from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
+import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
+import SubEntryContext from './SubEntryContext';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
 
+const getErrorStatus = (
+  uniparcData: UseDataAPIState<UniParcLiteAPIModel>,
+  subEntryData: UseDataAPIState<SearchResults<UniParcXRef>>,
+  unisaveData: UseDataAPIState<UniSaveStatus>
+) => {
+  if (uniparcData.error) {
+    return uniparcData.status;
+  } else if (subEntryData.error) {
+    return subEntryData.status;
+  } else if (unisaveData.error) {
+    return unisaveData.status;
+  }
+  return undefined;
+};
+
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
+  const dispatch = useMessagesDispatch();
   const match = useRouteMatch<{
     accession: string;
     subPage: string;
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [runUniFire, setRunUniFire] = useState(false);
+
   const { accession, subEntryId, subPage } = match?.params || {};
 
   const baseURL = `${apiUrls.entry.entry(
@@ -64,8 +96,58 @@ const SubEntry = () => {
 
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
+  const unisaveData = useDataApi<UniSaveStatus>(
+    uniprotkbUrls.unisave.status(subEntryId as string)
+  );
 
-  if (uniparcData.loading || subEntryData.loading) {
+  const subEntrytaxId = subEntryData.data?.results[0]?.organism?.taxonId;
+  const canLoadUniFire =
+    subEntrytaxId &&
+    accession &&
+    subEntryData.data?.results?.length &&
+    subEntryData.data.results[0].organism?.taxonId;
+  const uniFireData = useDataApi<UniFireModel>(
+    canLoadUniFire && runUniFire
+      ? apiUrls.unifire.unifire(accession, `${subEntrytaxId}`)
+      : null
+  );
+
+  useEffect(() => {
+    if (uniFireData.status === 200 && uniFireData.data) {
+      dispatch(
+        addMessage({
+          id: 'load-AA-annotations',
+          content: <>Predictions by automatic annotation rules are loaded</>,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.SUCCESS,
+          tag: MessageTag.JOB,
+        })
+      );
+    } else if (uniFireData.status === 204) {
+      dispatch(
+        addMessage({
+          id: 'load-AA-annotations',
+          content: <>No predictions generated</>,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.SUCCESS,
+          tag: MessageTag.JOB,
+        })
+      );
+    } else if (uniFireData.error) {
+      logging.error(uniFireData.error);
+      dispatch(
+        addMessage({
+          id: 'load-AA-annotations',
+          content: <>Encountered error in running the service</>,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+          tag: MessageTag.JOB,
+        })
+      );
+    }
+  }, [dispatch, uniFireData.data, uniFireData.error, uniFireData.status]);
+
+  if (uniparcData.loading || subEntryData.loading || unisaveData.loading) {
     return (
       <Loader
         progress={
@@ -80,14 +162,16 @@ const SubEntry = () => {
     !uniparcData.data ||
     subEntryData.error ||
     !subEntryData.data ||
+    unisaveData.error ||
+    !unisaveData.data ||
     !match ||
     !accession ||
     !subEntryId
   ) {
     return (
       <ErrorHandler
-        status={uniparcData.error ? uniparcData.status : subEntryData.status}
-        error={uniparcData.error || subEntryData.error}
+        status={getErrorStatus(uniparcData, subEntryData, unisaveData)}
+        error={uniparcData.error || subEntryData.error || unisaveData.error}
         fullPage
       />
     );
@@ -95,7 +179,10 @@ const SubEntry = () => {
 
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryData.data?.results[0]
+    subEntryData.data?.results[0],
+    unisaveData.data,
+    // If no data, it would be an empty string
+    uniFireData.data || undefined
   );
 
   if (!transformedData) {
@@ -120,7 +207,48 @@ const SubEntry = () => {
           (section.id === SubEntrySection.Structure &&
             !hasStructure(transformedData.subEntry)) ||
           (section.id === SubEntrySection.NamesAndTaxonomy &&
-            !transformedData.subEntry.proteinName),
+            !transformedData.subEntry.proteinName) ||
+          (section.id === SubEntrySection.Function &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Function).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.SubcellularLocation &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.SubcellularLocation).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Expression &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Expression).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.ProteinProcessing &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.ProteinProcessing).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.Interaction &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.Interaction).includes(
+                p.annotationType
+              )
+            )) ||
+          (section.id === SubEntrySection.FamilyAndDomains &&
+            !transformedData.unifire?.predictions.some((p) =>
+              groupTypesBySection(SubEntrySection.FamilyAndDomains).includes(
+                p.annotationType
+              )
+            ) &&
+            !transformedData.entry.sequenceFeatures) ||
+          (section.id === SubEntrySection.Keywords &&
+            !transformedData.unifire?.predictions.some(
+              (p) => p.annotationType === 'keyword'
+            )),
       }))}
       rootElement={`.${sidebarStyles.content}`}
     />
@@ -140,7 +268,7 @@ const SubEntry = () => {
             searchableNamespaceLabels[Namespace.uniparc],
           ]}
         >
-          {/* Keep while not publicly available */}
+          {/* Keep until 2026_02 is released */}
           <meta name="robots" content="noindex" />
         </HTMLHead>
         <h1>
@@ -168,9 +296,17 @@ const SubEntry = () => {
           <ContactLink>
             provide feedback about them through our contact form
           </ContactLink>
-          . These are <span data-article-id="uniparc">UniParc</span> pages and
-          not <span data-article-id="uniprotkb">UniProtKB</span> pages.
+          .
         </Message>
+        <SubEntryContext
+          subEntryId={subEntryId}
+          data={unisaveData.data}
+          showUniFireOption={!!canLoadUniFire}
+          uniFireData={uniFireData.data}
+          uniFireLoading={uniFireData.loading}
+          runUniFire={runUniFire}
+          setRunUniFire={setRunUniFire}
+        />
       </ErrorBoundary>
       <Tabs active={subPage}>
         <Tab
@@ -226,6 +362,7 @@ const SubEntry = () => {
                   searchableNamespaceLabels[Namespace.uniparc],
                 ]}
               />
+
               {transformedData.entry.sequenceFeatures &&
               transformedData.entry.sequence?.value ? (
                 <div className="wider-tab-content">

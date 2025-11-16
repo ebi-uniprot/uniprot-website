@@ -91,10 +91,11 @@ const XRefsSection = ({ entryData }: Props) => {
       getUniParcXRefsColumns(
         columns,
         getTemplateMap(dataDB),
+        entryData.uniParcId,
         firstSeen,
         lastSeen
       ),
-    [columns, dataDB, firstSeen, lastSeen]
+    [columns, dataDB, entryData.uniParcId, firstSeen, lastSeen]
   );
 
   if (initialLoading) {

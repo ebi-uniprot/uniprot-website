@@ -165,7 +165,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     class="xref-inactive"
                   >
                     <a
-                      href="/uniprotkb/P07612/history"
+                      href="/uniparc/UPI0000000001/entry/P07612"
                     >
                       P07612
                     </a>
@@ -568,7 +568,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     class="xref-inactive"
                   >
                     <a
-                      href="/uniprotkb/Q76ZT7/history"
+                      href="/uniparc/UPI0000000001/entry/Q76ZT7"
                     >
                       Q76ZT7
                     </a>
@@ -626,7 +626,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     class="xref-inactive"
                   >
                     <a
-                      href="/uniprotkb/A0A7I8V511/history"
+                      href="/uniparc/UPI0000000001/entry/A0A7I8V511"
                     >
                       A0A7I8V511
                     </a>
