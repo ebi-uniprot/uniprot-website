@@ -56,13 +56,11 @@ const getNoAnnotationMessage = (name: string) => (
 );
 
 const SubcellularLocationWithVizView: FC<
-  React.PropsWithChildren<
-    {
-      primaryAccession?: string;
-      comments?: SubcellularLocationComment[];
-      goXrefs?: GoXref[];
-    } & Partial<Pick<UniProtKBSimplifiedTaxonomy, 'taxonId' | 'lineage'>>
-  >
+  {
+    primaryAccession?: string;
+    comments?: SubcellularLocationComment[];
+    goXrefs?: GoXref[];
+  } & Partial<Pick<UniProtKBSimplifiedTaxonomy, 'taxonId' | 'lineage'>>
 > = ({ primaryAccession, comments, taxonId, lineage, goXrefs }) => {
   // Examples for different cases:
   // P05067      lots of UniProt & GO data
