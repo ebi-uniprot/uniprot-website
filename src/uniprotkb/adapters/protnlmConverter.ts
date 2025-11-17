@@ -11,7 +11,7 @@ export const augmentAPIDataWithProtnlmPredictions = (
       (comment) => comment.commentType === 'FUNCTION'
     ) || [];
 
-  const protnlmSubcellularLocatoinComments =
+  const protnlmSubcellularLocationComments =
     protnlmData.comments?.filter(
       (comment) => comment.commentType === 'SUBCELLULAR LOCATION'
     ) || [];
@@ -21,7 +21,7 @@ export const augmentAPIDataWithProtnlmPredictions = (
     comments: [
       ...(data.comments || []),
       ...protnlmFunctionComments,
-      ...protnlmSubcellularLocatoinComments,
+      ...protnlmSubcellularLocationComments,
     ],
   };
 };
