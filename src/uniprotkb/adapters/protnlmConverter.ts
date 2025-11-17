@@ -16,6 +16,10 @@ export const augmentAPIDataWithProtnlmPredictions = (
       (comment) => comment.commentType === 'SUBCELLULAR LOCATION'
     ) || [];
 
+  // Currently GO & PFAM
+  // TODO: currently the ":-" GoEvidenceType breaks getEcoNumberFromGoEvidenceType
+  // const protnlmCrossReferences = protnlmData.uniProtKBCrossReferences || [];
+
   return {
     ...data,
     comments: [
@@ -23,6 +27,10 @@ export const augmentAPIDataWithProtnlmPredictions = (
       ...protnlmFunctionComments,
       ...protnlmSubcellularLocationComments,
     ],
+    // uniProtKBCrossReferences: [
+    //   ...(data.uniProtKBCrossReferences || []),
+    //   ...protnlmCrossReferences,
+    // ],
   };
 };
 
