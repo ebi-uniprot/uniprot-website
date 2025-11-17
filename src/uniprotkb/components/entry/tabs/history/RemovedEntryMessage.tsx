@@ -97,7 +97,8 @@ const RemovedEntryMessage = ({
           <div>
             Reason:{' '}
             <strong data-article-id={helpArticleLink}>
-              {reason.deletedReason.includes('proteome')
+              {reason.deletedReason.includes('proteome') &&
+              !reason.deletedReason.includes('reference')
                 ? `Belongs to ${pickArticle(reason.deletedReason)} ${reason.deletedReason.toLocaleLowerCase()}`
                 : reason.deletedReason}
             </strong>
