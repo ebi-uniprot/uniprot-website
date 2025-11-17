@@ -67,7 +67,10 @@ import {
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
-import augmentProtnlmPredictions from '../../adapters/protnlmConverter';
+import {
+  augmentAPIDataWithProtnlmPredictions,
+  augmentUIDataWithProtnlmPredictions,
+} from '../../adapters/protnlmConverter';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
   UniProtkbUIModel,
@@ -230,18 +233,23 @@ const Entry = () => {
     if (!data || !databaseInfoMaps) {
       return [];
     }
-    const transformedData = uniProtKbConverter(data, databaseInfoMaps);
+
+    // Augment UniProtKB data with ProtNLM data. Some augmentations
+    // happen before transformations, and some after. Transform data
+    // as soon as possible, ie even if the protnlm predictions are
+    // still loading.
+    const transformedData = protnlmPayload.data
+      ? augmentUIDataWithProtnlmPredictions(
+          protnlmPayload.data,
+          uniProtKbConverter(
+            augmentAPIDataWithProtnlmPredictions(protnlmPayload.data, data),
+            databaseInfoMaps
+          )
+        )
+      : uniProtKbConverter(data, databaseInfoMaps);
+
     return [transformedData, generatePageTitle(transformedData)];
-  }, [data, databaseInfoMaps]);
-
-  const augmented = useMemo(() => {
-    if (!protnlmPayload.data || !data || !databaseInfoMaps) {
-      return null;
-    }
-    return augmentProtnlmPredictions(protnlmPayload.data, data);
   }, [data, databaseInfoMaps, protnlmPayload.data]);
-
-  console.log(augmented);
 
   const sections = useMemo(() => {
     if (transformedData) {

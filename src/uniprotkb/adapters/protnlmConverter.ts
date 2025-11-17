@@ -1,7 +1,8 @@
+import EntrySection from '../types/entrySection';
 import { UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { UniProtkbAPIModel, UniProtkbUIModel } from './uniProtkbConverter';
 
-const augmentProtnlmPredictions = (
+export const augmentAPIDataWithProtnlmPredictions = (
   protnlmData: UniProtKBProtNLMAPIModel,
   data: UniProtkbAPIModel
 ): UniProtkbAPIModel => {
@@ -25,4 +26,19 @@ const augmentProtnlmPredictions = (
   };
 };
 
-export default augmentProtnlmPredictions;
+export const augmentUIDataWithProtnlmPredictions = (
+  protnlmData: UniProtKBProtNLMAPIModel,
+  data: UniProtkbUIModel
+): UniProtkbUIModel => {
+  const uniprotkbNamesAndTaxonomy = data[EntrySection.NamesAndTaxonomy];
+  uniprotkbNamesAndTaxonomy.protnlmProteinNamesData =
+    protnlmData.proteinDescription;
+
+  return {
+    ...data,
+    [EntrySection.NamesAndTaxonomy]: {
+      ...uniprotkbNamesAndTaxonomy,
+      protnlmProteinNamesData: protnlmData.proteinDescription,
+    },
+  };
+};
