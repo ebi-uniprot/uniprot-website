@@ -83,7 +83,6 @@ const SubEntryNamesAndTaxonomySection = ({
   const { proteinName, geneName, organism, properties } = data.subEntry;
   const { predictions } = data.unifire || { predictions: [] };
 
-  // TODO: Handle type 'protein.flag'
   const recommendedFullNamePrediction =
     (predictions as ModifiedPrediction[])?.filter(
       (prediction) =>
