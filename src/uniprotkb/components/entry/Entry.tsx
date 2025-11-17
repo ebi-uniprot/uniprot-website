@@ -67,6 +67,7 @@ import {
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import augmentProtnlmPredictions from '../../adapters/protnlmConverter';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
   UniProtkbUIModel,
@@ -78,6 +79,7 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
+import { UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
@@ -199,13 +201,11 @@ const Entry = () => {
       : null
   );
 
-  const protnlmPayload = useDataApi<UniProtkbAPIModel>(
+  const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
     isLikelyHuman && match?.params.accession
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null
   );
-
-  console.log(protnlmPayload);
 
   const refprotmoveData = useDataApi<UniProtKBCheckMoveResponse>(
     isLikelyHuman && match?.params.accession
@@ -233,6 +233,15 @@ const Entry = () => {
     const transformedData = uniProtKbConverter(data, databaseInfoMaps);
     return [transformedData, generatePageTitle(transformedData)];
   }, [data, databaseInfoMaps]);
+
+  const augmented = useMemo(() => {
+    if (!protnlmPayload.data || !data || !databaseInfoMaps) {
+      return null;
+    }
+    return augmentProtnlmPredictions(protnlmPayload.data, data);
+  }, [data, databaseInfoMaps, protnlmPayload.data]);
+
+  console.log(augmented);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -390,15 +399,6 @@ const Entry = () => {
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
-
-  const transformedProtnlmData = useMemo(() => {
-    if (!protnlmPayload.data || !databaseInfoMaps) {
-      return null;
-    }
-    return uniProtKbConverter(protnlmPayload.data, databaseInfoMaps);
-  }, [databaseInfoMaps, protnlmPayload.data]);
-
-  console.log(transformedProtnlmData);
 
   useEffect(() => {
     if (isLikelyHuman) {
