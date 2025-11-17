@@ -11,6 +11,8 @@ import EntryTypeIcon from '../entry/EntryTypeIcon';
 import { SearchLink } from './SearchTextLink';
 import styles from './styles/proteome-suggestion.module.scss';
 
+const PROTEOME_LIST_SIZE = 7;
+
 const ProteomeSuggestion = ({
   organismID,
   query,
@@ -24,11 +26,11 @@ const ProteomeSuggestion = ({
     ProteomesAPIModel | ProteomesAPIModel[]
   >();
 
-  const { data } = useDataApi<SearchResults<ProteomesAPIModel>>(
+  const { data, headers } = useDataApi<SearchResults<ProteomesAPIModel>>(
     stringifyUrl(apiUrls.search.searchPrefix(Namespace.proteomes), {
       query: `organism_id:${organismID}`,
       fields: 'upid,organism',
-      size: 500, // to get all proteomes for UniParc
+      size: PROTEOME_LIST_SIZE,
     })
   );
 
@@ -55,7 +57,11 @@ const ProteomeSuggestion = ({
         </SearchLink>
       </>
     );
-  } else if (Array.isArray(proteomeInfo) && proteomeInfo.length > 0) {
+  } else if (
+    Array.isArray(proteomeInfo) &&
+    proteomeInfo.length > 0 &&
+    headers?.['x-total-results']
+  ) {
     return (
       <>
         {' '}
@@ -68,7 +74,7 @@ const ProteomeSuggestion = ({
               onClick={onClick}
               className={styles['proteome-dropdown-button']}
             >
-              one of {proteomeInfo.length} proteomes
+              one of {headers['x-total-results']} proteomes
             </Button>
           )}
         >
@@ -87,6 +93,17 @@ const ProteomeSuggestion = ({
                 </SearchLink>
               </li>
             ))}
+            {Number(headers['x-total-results']) > PROTEOME_LIST_SIZE && (
+              <li>
+                <SearchLink
+                  query={`organism_id:${organismID}`}
+                  namespace={Namespace.proteomes}
+                  openInNewTab={true}
+                >
+                  View all {headers['x-total-results']} in Proteomes database
+                </SearchLink>
+              </li>
+            )}
           </ul>
         </Dropdown>
       </>
