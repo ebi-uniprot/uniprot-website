@@ -21,7 +21,7 @@ export const SearchLink = ({
     to={stringifyUrl(SearchResultsLocations[namespace as SearchableNamespace], {
       query,
     })}
-    target={openInNewTab ? '_blank' : ''}
+    target={openInNewTab ? '_blank' : '_self'}
   >
     {children}
   </Link>
