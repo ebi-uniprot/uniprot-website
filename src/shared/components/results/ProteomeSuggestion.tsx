@@ -101,7 +101,8 @@ const ProteomeSuggestion = ({
                     query: `organism_id:${organismID}`,
                   })}
                 >
-                  View all {headers['x-total-results']} in Proteomes database
+                  View all {headers['x-total-results']} in the Proteomes
+                  database
                 </ExternalLink>
               </li>
             )}
