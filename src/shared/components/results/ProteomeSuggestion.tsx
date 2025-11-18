@@ -1,6 +1,7 @@
-import { Button, Dropdown } from 'franklin-sites';
+import { Button, Dropdown, ExternalLink } from 'franklin-sites';
 import { useEffect, useState } from 'react';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
@@ -95,13 +96,13 @@ const ProteomeSuggestion = ({
             ))}
             {Number(headers['x-total-results']) > PROTEOME_LIST_SIZE && (
               <li>
-                <SearchLink
-                  query={`organism_id:${organismID}`}
-                  namespace={Namespace.proteomes}
-                  openInNewTab={true}
+                <ExternalLink
+                  url={stringifyUrl(LocationToPath[Location.ProteomesResults], {
+                    query: `organism_id:${organismID}`,
+                  })}
                 >
                   View all {headers['x-total-results']} in Proteomes database
-                </SearchLink>
+                </ExternalLink>
               </li>
             )}
           </ul>
