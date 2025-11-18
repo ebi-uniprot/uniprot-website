@@ -51,7 +51,7 @@ const ProteomeSuggestion = ({
         {' '}
         or restrict to reference proteome{' '}
         <SearchLink
-          query={`${query} AND proteome:${proteomeInfo.id}`}
+          query={`${query} AND (proteome:${proteomeInfo.id})`}
           namespace={namespace}
         >
           {proteomeInfo.id}
@@ -83,7 +83,7 @@ const ProteomeSuggestion = ({
             {proteomeInfo.map(({ id, proteomeType, taxonomy, strain }) => (
               <li key={id}>
                 <SearchLink
-                  query={`${query} AND proteome:${id}`}
+                  query={`${query} AND (proteome:${id})`}
                   namespace={namespace}
                 >
                   <span>
