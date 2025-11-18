@@ -1,6 +1,7 @@
-import { Button, Dropdown } from 'franklin-sites';
+import { Button, Dropdown, ExternalLink } from 'franklin-sites';
 import { useEffect, useState } from 'react';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
@@ -10,6 +11,8 @@ import { stringifyUrl } from '../../utils/url';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 import { SearchLink } from './SearchTextLink';
 import styles from './styles/proteome-suggestion.module.scss';
+
+const PROTEOME_LIST_SIZE = 7;
 
 const ProteomeSuggestion = ({
   organismID,
@@ -24,11 +27,11 @@ const ProteomeSuggestion = ({
     ProteomesAPIModel | ProteomesAPIModel[]
   >();
 
-  const { data } = useDataApi<SearchResults<ProteomesAPIModel>>(
+  const { data, headers } = useDataApi<SearchResults<ProteomesAPIModel>>(
     stringifyUrl(apiUrls.search.searchPrefix(Namespace.proteomes), {
       query: `organism_id:${organismID}`,
       fields: 'upid,organism',
-      size: 500, // to get all proteomes for UniParc
+      size: PROTEOME_LIST_SIZE,
     })
   );
 
@@ -55,7 +58,11 @@ const ProteomeSuggestion = ({
         </SearchLink>
       </>
     );
-  } else if (Array.isArray(proteomeInfo) && proteomeInfo.length > 0) {
+  } else if (
+    Array.isArray(proteomeInfo) &&
+    proteomeInfo.length > 0 &&
+    headers?.['x-total-results']
+  ) {
     return (
       <>
         {' '}
@@ -68,7 +75,7 @@ const ProteomeSuggestion = ({
               onClick={onClick}
               className={styles['proteome-dropdown-button']}
             >
-              one of {proteomeInfo.length} proteomes
+              one of {headers['x-total-results']} proteomes
             </Button>
           )}
         >
@@ -87,6 +94,18 @@ const ProteomeSuggestion = ({
                 </SearchLink>
               </li>
             ))}
+            {Number(headers['x-total-results']) > PROTEOME_LIST_SIZE && (
+              <li>
+                <ExternalLink
+                  url={stringifyUrl(LocationToPath[Location.ProteomesResults], {
+                    query: `organism_id:${organismID}`,
+                  })}
+                >
+                  View all {headers['x-total-results']} in the Proteomes
+                  database
+                </ExternalLink>
+              </li>
+            )}
           </ul>
         </Dropdown>
       </>

@@ -90,7 +90,7 @@ mock.onGet(/\/uniprotkb\/search\?organism_id%3A2/).reply(200, {
 
 mock
   .onGet(
-    /\/proteomes\/search\?fields=upid%2Corganism&query=organism_id%3A9606&size=500/
+    /\/proteomes\/search\?fields=upid%2Corganism&query=organism_id%3A9606&size=7/
   )
   .reply(200, {
     results: [
