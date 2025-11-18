@@ -1,15 +1,25 @@
 import { Link } from 'react-router-dom';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { SearchResultsLocations } from '../../../app/config/urls';
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { stringifyUrl } from '../../utils/url';
 
-type SearchTextLinkProps = {
+type SearchLinkProps = {
   query: string;
-  text: string;
+  children: React.ReactNode;
+  namespace?: Namespace;
 };
 
-export const SearchTextLink = ({ query, text }: SearchTextLinkProps) => (
-  <Link to={stringifyUrl(LocationToPath[Location.UniProtKBResults], { query })}>
-    {text}
+export const SearchLink = ({
+  query,
+  children,
+  namespace = Namespace.uniprotkb,
+}: SearchLinkProps) => (
+  <Link
+    to={stringifyUrl(SearchResultsLocations[namespace as SearchableNamespace], {
+      query,
+    })}
+  >
+    {children}
   </Link>
 );
