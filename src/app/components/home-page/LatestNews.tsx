@@ -7,8 +7,9 @@ import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
+
 const insideUniProtAbstract1 =
-  'With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?';
+  'Antimicrobial resistance contributes to almost 5 million deaths annually, worldwide. To mark World AMR Awareness Week...';
 
 const insideUniProtAbstract2 =
   'How many members do you have on your team and have you ever considered UniProt as one of them?';
@@ -268,6 +269,40 @@ const LatestNews = () => {
       >
         <article>
           <ExternalLink
+            url="https://insideuniprot.blogspot.com/2025/11/germ-warfare-arsenal-of-antimicrobial.html"
+            noIcon
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <img
+              loading="lazy"
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPhueF7GaqM1eZpOU9xGZBkx6Sw_uwFI66eigkahrFVm74QmISsgDrKs6CWL4uEjfgQoxZirkOHhU8RsUXNzzra6WWiKrNTOuWiVqD_PaHBLsIIQmTiGO86yyKn-aKMWuZCnnbfMije4X7fBfMP5rPuxz70WUUwM0fbPOgWmzKgr9F96i4yo0i9cgheDoD/s1280/AMR_blog1.png"
+              style={{ background: 'white' }}
+              alt=""
+              width="184.305"
+              height="96"
+            />
+          </ExternalLink>
+          <h3 className="tiny">
+            <ExternalLink
+              url="https://insideuniprot.blogspot.com/2025/11/germ-warfare-arsenal-of-antimicrobial.html"
+              noIcon
+            >
+              Germ Warfare: Arsenal of Antimicrobial Resistance Proteins in
+              UniProt
+            </ExternalLink>
+          </h3>
+          <p
+            className={cn(
+              styles['latest-news__abstract'],
+              styles['latest-news__abstract--4-lines']
+            )}
+          >
+            {insideUniProtAbstract1}
+          </p>
+        </article>
+        <article>
+          <ExternalLink
             url="https://insideuniprot.blogspot.com/2025/09/using-uniprotkb-to-navigate-large-and.html"
             noIcon
             aria-hidden="true"
@@ -288,39 +323,6 @@ const LatestNews = () => {
               noIcon
             >
               Using UniProtKB to navigate large and complex structures
-            </ExternalLink>
-          </h3>
-          <p
-            className={cn(
-              styles['latest-news__abstract'],
-              styles['latest-news__abstract--4-lines']
-            )}
-          >
-            {insideUniProtAbstract1}
-          </p>
-        </article>
-        <article>
-          <ExternalLink
-            url="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
-            noIcon
-            aria-hidden="true"
-            tabIndex={-1}
-          >
-            <img
-              loading="lazy"
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3OR6x6_Tx_GoAIRCHoalCg6IlBgwwrI1YlxoCtzS4J6EO_8aO5ALgMaOErbSlqPL3IXmBvCLtmPMouQB-RkK5aAHbAeM1sWF5V-k8E-6ufjNbPF2u16_s9qI8cGYKHEt8-2PWy_fZgZWdbaDcBvnQByXvf2wmVsIqY1FRyf8F8xB1CW5Jlzv1Xdvjq1g/w418-h260/scales.png"
-              style={{ background: 'white' }}
-              alt=""
-              width="184.305"
-              height="96"
-            />
-          </ExternalLink>
-          <h3 className="tiny">
-            <ExternalLink
-              url="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
-              noIcon
-            >
-              UniProt - the ultimate colleague on your biological research team!
             </ExternalLink>
           </h3>
           <p
