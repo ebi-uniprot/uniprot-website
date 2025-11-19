@@ -109,6 +109,18 @@ const getAccessionColumn =
     ) {
       if (xref.database.includes('isoforms') && !xref.active) {
         cell = xref.id;
+      } else if (
+        xref.database === XRefsInternalDatabasesEnum.REVIEWED &&
+        !xref.active
+      ) {
+        // Link to history page for inactive entries that were reviewed
+        cell = (
+          <Link
+            to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
+          >
+            {xref.id}
+          </Link>
+        );
       } else {
         // internal link
         cell = (
