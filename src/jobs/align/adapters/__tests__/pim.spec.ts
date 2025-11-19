@@ -70,7 +70,7 @@ describe('pim', () => {
           values: [100.0, 80.0, 63.64],
         },
         {
-          name: 'EMBOSS_002',
+          name: '2',
           values: [80.0, 100.0, 66.67],
         },
         {

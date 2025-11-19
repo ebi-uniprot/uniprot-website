@@ -17,12 +17,12 @@ export default (string: string): PIM => {
   // match indices:
   //        ([1])      (                                                 [2])
   const re = new RegExp(
-    `^\\d+: (\\S.*\\S)\\s+(((\\d{1,3}\\.\\d{2}|(-?nan))\\s*){${numberOfValues}})$`
+    `^\\d+: (\\S(?:.*\\S)?)\\s+(((\\d{1,3}\\.\\d{2}|(-?nan))\\s*){${numberOfValues}})$`
     //  ↳ index of the sequence in the file
     //         ↳ identifier of the sequence (group match)
-    //                         ↳ any decimal number between 0.00 and 100.00
-    //                                          ↳ "-nan" is a possible value
-    //                                                         ↳ n values per line
+    //                              ↳ any decimal number between 0.00 and 100.00
+    //                                               ↳ "-nan" is a possible value
+    //                                                              ↳ n values per line
   );
 
   for (const line of linesOfData) {
