@@ -36,7 +36,8 @@ const OrganismSuggestion = ({
     return (
       <>
         {' '}
-        or restrict search to &quot;<b>{taxonID}</b>&quot; to{' '}
+        or restrict search to organism with taxon ID &quot;<b>{taxonID}</b>
+        &quot; to{' '}
         <SearchLink query={query} namespace={namespace}>
           exclude lower taxonomic ranks
         </SearchLink>

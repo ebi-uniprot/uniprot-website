@@ -3,7 +3,7 @@
 exports[`SearchSuggestions should render proteome suggestions given an organism id 1`] = `
 <DocumentFragment>
   <small>
-     or expand search to "
+     or expand search to taxon ID "
     <b>
       9606
     </b>
@@ -13,7 +13,7 @@ exports[`SearchSuggestions should render proteome suggestions given an organism 
     >
       include lower taxonomic ranks
     </a>
-     or restrict to reference proteome 
+     or restrict search to reference proteome 
     <a
       href="/uniprotkb?query=organism_id%3A9606+AND+%28proteome%3AUP000005640%29"
     >
@@ -83,7 +83,7 @@ exports[`SearchSuggestions should render suggestions 1`] = `
 exports[`SearchSuggestions should render suggestions for fields that has different taxon level 1`] = `
 <DocumentFragment>
   <small>
-     or restrict search to "
+     or restrict search to organism with taxon ID "
     <b>
       9606
     </b>

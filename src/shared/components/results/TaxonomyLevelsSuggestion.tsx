@@ -51,7 +51,7 @@ const TaxonomyLevelsSuggestion = ({
             {hasTaxonSuggestion ? (
               <>
                 {' '}
-                or expand search to &quot;<b>{searchValue}</b>&quot; to{' '}
+                or expand search to taxon ID &quot;<b>{searchValue}</b>&quot; to{' '}
                 <SearchLink query={modifiedQuery} namespace={namespace}>
                   include lower taxonomic ranks
                 </SearchLink>
