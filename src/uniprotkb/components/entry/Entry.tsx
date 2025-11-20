@@ -26,7 +26,10 @@ import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdo
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../../shared/components/entry/EntryTypeIcon';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -78,6 +81,7 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
+import { UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
@@ -170,6 +174,14 @@ const Entry = () => {
         ? apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
         : null
     );
+
+  const { data: uniSaveData } = useDataApi<UniSaveAccession>(
+    match?.params.accession &&
+      getEntryTypeFromString(data?.entryType) === EntryType.INACTIVE &&
+      data?.inactiveReason
+      ? uniprotkbApiUrls.unisave.entry(match?.params.accession)
+      : null
+  );
 
   const variantsHeadPayload = useDataApi(
     isLikelyHuman && match?.params.accession
@@ -363,9 +375,16 @@ const Entry = () => {
     if (
       isObsolete &&
       match?.params.accession &&
-      match?.params.subPage !== TabLocation.History
+      match?.params.subPage !== TabLocation.History &&
+      uniSaveData?.results?.length
     ) {
-      if (transformedData?.inactiveReason?.inactiveReasonType === 'DEMERGED') {
+      if (
+        transformedData?.inactiveReason?.inactiveReasonType === 'DEMERGED' ||
+        (transformedData?.inactiveReason?.inactiveReasonType === 'DELETED' &&
+          uniSaveData?.results?.[0]?.database &&
+          getEntryTypeFromString(uniSaveData.results[0].database) ===
+            EntryType.REVIEWED)
+      ) {
         frame().then(() => {
           history.replace(
             getEntryPath(
@@ -403,7 +422,7 @@ const Entry = () => {
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
     // eslint-disable-next-line reactHooks/exhaustive-deps
-  }, [isObsolete]);
+  }, [uniSaveData]);
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
