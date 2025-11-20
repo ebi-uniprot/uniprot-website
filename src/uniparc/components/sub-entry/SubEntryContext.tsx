@@ -80,6 +80,56 @@ const SubEntryContext = ({
             <strong data-article-id="deleted_accessions">
               {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
             </strong>
+            .{' '}
+            {showUniFireOption ? (
+              <>
+                <span>
+                  However, annotations may be generated on demand using
+                  automatic annotation rules.
+                </span>
+                <div className={styles['predictions-status']}>
+                  {!runUniFire && (
+                    <Button
+                      variant="primary"
+                      onClick={() => setRunUniFire(true)}
+                      className={styles['run-unifire-button']}
+                      disabled={runUniFire}
+                    >
+                      Generate annotations
+                    </Button>
+                  )}
+                  {runUniFire && uniFireLoading && (
+                    <Button
+                      variant="primary"
+                      className={styles['run-unifire-button']}
+                      disabled={true}
+                    >
+                      Generating annotations
+                    </Button>
+                  )}
+                  {runUniFire && !uniFireLoading && !uniFireData?.accession && (
+                    <>
+                      <InformationIcon
+                        className={cn(styles.icon, styles.info)}
+                        width={iconSize}
+                        height={iconSize}
+                      />
+                      No predictions generated
+                    </>
+                  )}
+                  {runUniFire && !uniFireLoading && uniFireData?.accession && (
+                    <>
+                      <SuccessIcon
+                        className={cn(styles.icon, styles.success)}
+                        width={iconSize}
+                        height={iconSize}
+                      />
+                      Predictions generated
+                    </>
+                  )}
+                </div>
+              </>
+            ) : null}
           </div>
         ),
       },
@@ -100,64 +150,64 @@ const SubEntryContext = ({
                 ),
               }}
             >
-              Entry history
+              View history
             </Link>{' '}
             in UniProtKB
           </div>
         ),
       },
-      {
-        title: ' ',
-        content: showUniFireOption && (
-          <div>
-            <span>
-              Generate annotations on demand, using automatic annotation rules
-            </span>
+      // {
+      //   title: ' ',
+      //   content: showUniFireOption && (
+      //     <div>
+      //       <span>
+      //         Generate annotations on demand, using automatic annotation rules
+      //       </span>
 
-            <div className={styles['predictions-status']}>
-              {!runUniFire && (
-                <Button
-                  variant="primary"
-                  onClick={() => setRunUniFire(true)}
-                  className={styles['run-unifire-button']}
-                  disabled={runUniFire}
-                >
-                  Generate annotations
-                </Button>
-              )}
-              {runUniFire && uniFireLoading && (
-                <Button
-                  variant="primary"
-                  className={styles['run-unifire-button']}
-                  disabled={true}
-                >
-                  Generating annotations
-                </Button>
-              )}
-              {runUniFire && !uniFireLoading && !uniFireData?.accession && (
-                <>
-                  <InformationIcon
-                    className={cn(styles.icon, styles.info)}
-                    width={iconSize}
-                    height={iconSize}
-                  />
-                  No predictions generated
-                </>
-              )}
-              {runUniFire && !uniFireLoading && uniFireData?.accession && (
-                <>
-                  <SuccessIcon
-                    className={cn(styles.icon, styles.success)}
-                    width={iconSize}
-                    height={iconSize}
-                  />
-                  Predictions generated
-                </>
-              )}
-            </div>
-          </div>
-        ),
-      },
+      //       <div className={styles['predictions-status']}>
+      //         {!runUniFire && (
+      //           <Button
+      //             variant="primary"
+      //             onClick={() => setRunUniFire(true)}
+      //             className={styles['run-unifire-button']}
+      //             disabled={runUniFire}
+      //           >
+      //             Generate annotations
+      //           </Button>
+      //         )}
+      //         {runUniFire && uniFireLoading && (
+      //           <Button
+      //             variant="primary"
+      //             className={styles['run-unifire-button']}
+      //             disabled={true}
+      //           >
+      //             Generating annotations
+      //           </Button>
+      //         )}
+      //         {runUniFire && !uniFireLoading && !uniFireData?.accession && (
+      //           <>
+      //             <InformationIcon
+      //               className={cn(styles.icon, styles.info)}
+      //               width={iconSize}
+      //               height={iconSize}
+      //             />
+      //             No predictions generated
+      //           </>
+      //         )}
+      //         {runUniFire && !uniFireLoading && uniFireData?.accession && (
+      //           <>
+      //             <SuccessIcon
+      //               className={cn(styles.icon, styles.success)}
+      //               width={iconSize}
+      //               height={iconSize}
+      //             />
+      //             Predictions generated
+      //           </>
+      //         )}
+      //       </div>
+      //     </div>
+      //   ),
+      // },
     ];
 
     return (
@@ -168,9 +218,9 @@ const SubEntryContext = ({
   return (
     contextInfo && (
       <Message level="info">
-        <h4>
+        {/* <h4>
           Attention: You are currently viewing {subEntryId} within UniParc
-        </h4>
+        </h4> */}
         {contextInfo}
       </Message>
     )

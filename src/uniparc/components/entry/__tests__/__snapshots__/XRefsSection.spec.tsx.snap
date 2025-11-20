@@ -165,7 +165,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     class="xref-inactive"
                   >
                     <a
-                      href="/uniparc/UPI0000000001/entry/P07612"
+                      href="/uniprotkb/P07612/history"
                     >
                       P07612
                     </a>
