@@ -88,9 +88,25 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
             databaseInfoMaps?.databaseToDatabaseInfo[database];
           // Additional prefix 'G3DSA:' in UniParc will be removed in https://www.ebi.ac.uk/panda/jira/browse/TRM-32164.
           // Adjust the below logic accordingly
-          let revisedDatabaseId;
-          if (database === 'FunFam' || database === 'Gene3D') {
+          let revisedDatabaseId = databaseId;
+          if (databaseId && (database === 'FunFam' || database === 'Gene3D')) {
             revisedDatabaseId = databaseId.replace('G3DSA:', '');
+          }
+
+          if (revisedDatabaseId) {
+            if (databaseInfo?.uriLink) {
+              return (
+                <ExternalLink
+                  url={processUrlTemplate(databaseInfo.uriLink, {
+                    id: revisedDatabaseId,
+                  })}
+                >
+                  {revisedDatabaseId}
+                </ExternalLink>
+              );
+            } else {
+              return revisedDatabaseId;
+            }
           }
 
           return (
