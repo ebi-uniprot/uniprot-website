@@ -407,6 +407,7 @@ const EntryHistoryList = ({
         uniparc={uniparc}
         release={deleteEvent?.release}
         reason={reason}
+        sourceDatabase={data[0]?.database}
       />
     );
   }

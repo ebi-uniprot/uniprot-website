@@ -1,17 +1,10 @@
-.unifire-info {
+/* Potential background color to use for unifire prediction*/
+/* .unifire-info {
   background-color: #e9f5f1;
-}
-
-.availability-content {
-  margin-bottom: 1.5em;
-}
-
-.availability-label-disabled {
-  color: #5f5757f7;
-}
+} */
 
 .run-unifire-button {
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
   align-items: center;
 }
 
