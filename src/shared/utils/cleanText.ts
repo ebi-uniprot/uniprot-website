@@ -65,6 +65,8 @@ export const cleanTextDefaultOptions = deepFreeze<IOptions>({
     ...defaults.allowedAttributes,
     img: ['src', 'alt'],
     '*': ['id', 'style'],
+    td: ['colspan', 'rowspan'],
+    th: ['colspan', 'rowspan'],
   },
   transformTags: getTransformTags(),
 }) as IOptions;
