@@ -55,10 +55,9 @@ const SubEntryContext = ({
   runUniFire,
   setRunUniFire,
 }: SubEntryContextProps) => {
-  if (
-    !data?.events ||
-    (data.events.length > 1 && data.events[0].eventType === 'replacing')
-  ) {
+  const events = data?.events?.filter((event) => event.eventType === 'deleted');
+
+  if (!events || events.length === 0) {
     return (
       <Redirect
         to={{
@@ -70,79 +69,68 @@ const SubEntryContext = ({
     );
   }
 
-  let events = data.events.filter((event) => event.eventType !== 'replacing');
-
-  if (events.length > 1 && events[0].eventType === 'merged') {
-    const demergedEntries = events.map((event) => event.targetAccession);
-    events = [{ ...events[0], targetAccession: demergedEntries.join(', ') }];
-  }
-
   const contextInfo = events.map((event) => {
-    const presentInUniprotkb = event.eventType === 'merged';
-
     const infoData = [
       {
         title: 'Status',
         content: (
-          <>
-            <div className={styles['availability-content']}>
-              <label
-                className={
-                  presentInUniprotkb
-                    ? undefined
-                    : styles['availability-label-disabled']
-                }
-              >
-                <input
-                  type="checkbox"
-                  checked={presentInUniprotkb}
-                  readOnly
-                  disabled={!presentInUniprotkb}
-                />
-                <span data-article-id="uniprotkb">UniProtKB</span>
-              </label>
-              {event.eventType === 'deleted' && (
-                <>
-                  Removed from UniProtKB because {subEntryId}{' '}
-                  {getDeletedReasonText(event.deletedReason)}{' '}
-                  <strong data-article-id="deleted_accessions">
-                    {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
-                  </strong>
-                </>
-              )}
-              {event.eventType === 'merged' && (
-                <>
-                  {subEntryId} is{' '}
-                  {event.eventType === 'merged' &&
-                    (event.targetAccession.split(', ').length > 1
-                      ? 'demerged into '
-                      : 'merged into ')}
-                  {event.targetAccession
-                    .split(', ')
-                    .map((targetAccession, index, array) => (
-                      <span key={targetAccession}>
-                        <Link
-                          to={getEntryPath(
-                            Namespace.uniprotkb,
-                            targetAccession
-                          )}
-                        >
-                          {targetAccession}
-                        </Link>
-                        {index < array.length - 1 ? ', ' : ''}
-                      </span>
-                    ))}
-                </>
-              )}
-            </div>
-            <div className={styles['availability-content']}>
-              <label>
-                <input type="checkbox" checked readOnly />
-                <span data-article-id="uniparc">UniParc</span>
-              </label>
-              Current location, UniProt&apos;s sequence archive
-            </div>
-          </>
+          <div>
+            Removed from UniProtKB because {subEntryId}{' '}
+            {getDeletedReasonText(event.deletedReason)}{' '}
+            <strong data-article-id="deleted_accessions">
+              {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
+            </strong>
+            .{' '}
+            {showUniFireOption ? (
+              <>
+                <span>
+                  However, annotations may be generated on demand using
+                  automatic annotation rules.
+                </span>
+                <div className={styles['predictions-status']}>
+                  {!runUniFire && (
+                    <Button
+                      variant="primary"
+                      onClick={() => setRunUniFire(true)}
+                      className={styles['run-unifire-button']}
+                      disabled={runUniFire}
+                    >
+                      Generate annotations
+                    </Button>
+                  )}
+                  {runUniFire && uniFireLoading && (
+                    <Button
+                      variant="primary"
+                      className={styles['run-unifire-button']}
+                      disabled={true}
+                    >
+                      Generating annotations
+                    </Button>
+                  )}
+                  {runUniFire && !uniFireLoading && !uniFireData?.accession && (
+                    <>
+                      <InformationIcon
+                        className={cn(styles.icon, styles.info)}
+                        width={iconSize}
+                        height={iconSize}
+                      />
+                      No predictions generated
+                    </>
+                  )}
+                  {runUniFire && !uniFireLoading && uniFireData?.accession && (
+                    <>
+                      <SuccessIcon
+                        className={cn(styles.icon, styles.success)}
+                        width={iconSize}
+                        height={iconSize}
+                      />
+                      Predictions generated
+                    </>
+                  )}
+                </div>
+              </>
+            ) : null}
+          </div>
         ),
       },
       {
@@ -168,59 +156,6 @@ const SubEntryContext = ({
           </div>
         ),
       },
-      {
-        title: ' ',
-        content: event.eventType === 'deleted' && showUniFireOption && (
-          <div>
-            <span>Generate additional annotations:</span>
-            <br />
-            As {subEntryId} is no longer in UniProtKB, its annotations have been
-            removed. However, annotations may be generated on demand using
-            automatic annotation rules.
-            <div className={styles['predictions-status']}>
-              {!runUniFire && (
-                <Button
-                  variant="primary"
-                  onClick={() => setRunUniFire(true)}
-                  className={styles['run-unifire-button']}
-                  disabled={runUniFire}
-                >
-                  Generate annotations
-                </Button>
-              )}
-              {runUniFire && uniFireLoading && (
-                <Button
-                  variant="primary"
-                  className={styles['run-unifire-button']}
-                  disabled={true}
-                >
-                  Generating annotations
-                </Button>
-              )}
-              {runUniFire && !uniFireLoading && !uniFireData?.accession && (
-                <>
-                  <InformationIcon
-                    className={cn(styles.icon, styles.info)}
-                    width={iconSize}
-                    height={iconSize}
-                  />
-                  No predictions generated
-                </>
-              )}
-              {runUniFire && !uniFireLoading && uniFireData?.accession && (
-                <>
-                  <SuccessIcon
-                    className={cn(styles.icon, styles.success)}
-                    width={iconSize}
-                    height={iconSize}
-                  />
-                  Predictions generated
-                </>
-              )}
-            </div>
-          </div>
-        ),
-      },
     ];
 
     return (
@@ -228,16 +163,7 @@ const SubEntryContext = ({
     );
   });
 
-  return (
-    contextInfo && (
-      <Message level="info">
-        <h4>
-          Attention: You are currently viewing {subEntryId} within UniParc
-        </h4>
-        {contextInfo}
-      </Message>
-    )
-  );
+  return contextInfo && <Message level="info">{contextInfo}</Message>;
 };
 
 export default SubEntryContext;

@@ -6,6 +6,10 @@ import {
   Location,
   LocationToPath,
 } from '../../../../../app/config/urls';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../../../../shared/config/entryTypeIcon';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import listFormat from '../../../../../shared/utils/listFormat';
 import { stringifyQuery } from '../../../../../shared/utils/url';
@@ -21,28 +25,42 @@ type RemovedEntryHeadingProps = {
   accession: string;
   uniparc?: string;
   merged?: boolean;
+  sourceDatabase?: string;
 };
 
 const RemovedEntryHeading = ({
   accession,
   uniparc,
   merged,
+  sourceDatabase,
 }: RemovedEntryHeadingProps) => {
-  const uniParcLink =
+  let uniParcLink;
+  if (
+    uniparc &&
+    getEntryTypeFromString(sourceDatabase) === EntryType.REVIEWED
+  ) {
+    uniParcLink = {
+      pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+        accession: uniparc,
+      }),
+    };
+  } else if (uniparc && !merged) {
     // In case of merging, we'll get the data of the new entry, so the
     // UniParc of the new entry, so don't pass that to not get wrong link
-    uniparc && !merged
-      ? {
-          pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
-            accession: uniparc,
-            subPage: UniParcTabLocation.Entry,
-            subEntryId: accession,
-          }),
-        }
-      : {
-          pathname: LocationToPath[Location.UniParcResults],
-          search: stringifyQuery({ query: `dbid:${accession}`, direct: true }),
-        };
+    uniParcLink = {
+      pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
+        accession: uniparc,
+        subPage: UniParcTabLocation.Entry,
+        subEntryId: accession,
+      }),
+    };
+  } else {
+    uniParcLink = {
+      pathname: LocationToPath[Location.UniParcResults],
+      search: stringifyQuery({ query: `dbid:${accession}`, direct: true }),
+    };
+  }
+
   return (
     <h4 data-article-id="deleted_accessions">
       This entry{!merged && ' is no longer annotated in UniProtKB and'} can be
@@ -70,6 +88,7 @@ type RemovedEntryMessageProps = RemovedEntryHeadingProps & {
   release?: string;
   children?: ReactNode;
   merged?: boolean;
+  sourceDatabase?: string;
 };
 
 const RemovedEntryMessage = ({
@@ -78,19 +97,20 @@ const RemovedEntryMessage = ({
   uniparc,
   release,
   merged,
+  sourceDatabase,
   children,
 }: RemovedEntryMessageProps) => {
   let helpArticleLink = 'deleted_accessions';
   if (reason?.deletedReason) {
     helpArticleLink += `#${reasonToFragment[reason.deletedReason]}`;
   }
-
   return (
     <>
       <RemovedEntryHeading
         accession={accession}
         uniparc={uniparc}
         merged={merged}
+        sourceDatabase={sourceDatabase}
       />
       {children ||
         (reason?.deletedReason && (
