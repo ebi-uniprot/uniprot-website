@@ -72,6 +72,7 @@ import {
   CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { TabLocation as UniParcTabLocation } from '../../../uniparc/types/entry';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import uniProtKbConverter, {
@@ -416,14 +417,28 @@ const Entry = () => {
             tag: MessageTag.REDIRECT,
           })
         );
-        frame().then(() => {
-          history.replace({
-            pathname: generatePath(LocationToPath[Location.UniParcResults]),
-            search: stringifyQuery({
-              query: `dbid:${match?.params.accession}`,
-            }),
+
+        const uniparcId = transformedData?.extraAttributes?.uniParcId;
+        if (uniparcId) {
+          frame().then(() => {
+            history.replace({
+              pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
+                accession: uniparcId,
+                subPage: UniParcTabLocation.Entry,
+                subEntryId: match?.params.accession,
+              }),
+            });
           });
-        });
+        } else {
+          frame().then(() => {
+            history.replace({
+              pathname: generatePath(LocationToPath[Location.UniParcResults]),
+              search: stringifyQuery({
+                query: `dbid:${match?.params.accession}`,
+              }),
+            });
+          });
+        }
       }
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
