@@ -315,6 +315,8 @@ const Entry = () => {
         !match?.params.accession.includes('_') &&
         !match?.params.accession.includes('.')
       ) {
+        // Note: Delete Message is called in unmount logic of component it is redirected to.
+        // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
         dispatch(
           addMessage({
             id: 'accession-merge',
@@ -398,6 +400,8 @@ const Entry = () => {
           );
         });
       } else {
+        // Note: Delete Message is called in unmount logic of component it is redirected to.
+        // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
         dispatch(
           addMessage({
             id: 'deleted-entry',
