@@ -156,58 +156,6 @@ const SubEntryContext = ({
           </div>
         ),
       },
-      // {
-      //   title: ' ',
-      //   content: showUniFireOption && (
-      //     <div>
-      //       <span>
-      //         Generate annotations on demand, using automatic annotation rules
-      //       </span>
-
-      //       <div className={styles['predictions-status']}>
-      //         {!runUniFire && (
-      //           <Button
-      //             variant="primary"
-      //             onClick={() => setRunUniFire(true)}
-      //             className={styles['run-unifire-button']}
-      //             disabled={runUniFire}
-      //           >
-      //             Generate annotations
-      //           </Button>
-      //         )}
-      //         {runUniFire && uniFireLoading && (
-      //           <Button
-      //             variant="primary"
-      //             className={styles['run-unifire-button']}
-      //             disabled={true}
-      //           >
-      //             Generating annotations
-      //           </Button>
-      //         )}
-      //         {runUniFire && !uniFireLoading && !uniFireData?.accession && (
-      //           <>
-      //             <InformationIcon
-      //               className={cn(styles.icon, styles.info)}
-      //               width={iconSize}
-      //               height={iconSize}
-      //             />
-      //             No predictions generated
-      //           </>
-      //         )}
-      //         {runUniFire && !uniFireLoading && uniFireData?.accession && (
-      //           <>
-      //             <SuccessIcon
-      //               className={cn(styles.icon, styles.success)}
-      //               width={iconSize}
-      //               height={iconSize}
-      //             />
-      //             Predictions generated
-      //           </>
-      //         )}
-      //       </div>
-      //     </div>
-      //   ),
-      // },
     ];
 
     return (
@@ -215,16 +163,7 @@ const SubEntryContext = ({
     );
   });
 
-  return (
-    contextInfo && (
-      <Message level="info">
-        {/* <h4>
-          Attention: You are currently viewing {subEntryId} within UniParc
-        </h4> */}
-        {contextInfo}
-      </Message>
-    )
-  );
+  return contextInfo && <Message level="info">{contextInfo}</Message>;
 };
 
 export default SubEntryContext;
