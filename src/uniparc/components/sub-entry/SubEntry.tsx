@@ -9,7 +9,10 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
-import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  addMessage,
+  deleteMessage,
+} from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
@@ -146,6 +149,12 @@ const SubEntry = () => {
       );
     }
   }, [dispatch, uniFireData.data, uniFireData.error, uniFireData.status]);
+
+  useEffect(() => {
+    // Delete the message when user navigates away from the sub-entry page
+    return () => dispatch(deleteMessage('deleted-entry'));
+    // eslint-disable-next-line reactHooks/exhaustive-deps
+  }, []);
 
   if (uniparcData.loading || subEntryData.loading || unisaveData.loading) {
     return (

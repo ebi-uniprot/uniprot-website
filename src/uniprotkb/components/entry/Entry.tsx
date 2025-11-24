@@ -1,3 +1,4 @@
+/* eslint-disable reactHooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
@@ -14,7 +15,10 @@ import {
 } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import ContactLink from '../../../contact/components/ContactLink';
-import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  addMessage,
+  deleteMessage,
+} from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
@@ -348,7 +352,6 @@ const Entry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [dispatch, redirectedTo]);
 
   useEffect(() => {
@@ -421,8 +424,11 @@ const Entry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [uniSaveData]);
+
+  useEffect(() => {
+    return () => dispatch(deleteMessage('accession-merge'));
+  }, []);
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
