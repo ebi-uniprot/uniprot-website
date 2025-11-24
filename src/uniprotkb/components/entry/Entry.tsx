@@ -1,3 +1,4 @@
+/* eslint-disable reactHooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
@@ -14,7 +15,10 @@ import {
 } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import ContactLink from '../../../contact/components/ContactLink';
-import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  addMessage,
+  deleteMessage,
+} from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
@@ -311,6 +315,8 @@ const Entry = () => {
         !match?.params.accession.includes('_') &&
         !match?.params.accession.includes('.')
       ) {
+        // Note: Delete Message is called in unmount logic of component it is redirected to.
+        // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
         dispatch(
           addMessage({
             id: 'accession-merge',
@@ -348,7 +354,6 @@ const Entry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [dispatch, redirectedTo]);
 
   useEffect(() => {
@@ -395,6 +400,8 @@ const Entry = () => {
           );
         });
       } else {
+        // Note: Delete Message is called in unmount logic of component it is redirected to.
+        // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
         dispatch(
           addMessage({
             id: 'deleted-entry',
@@ -421,8 +428,11 @@ const Entry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [uniSaveData]);
+
+  useEffect(() => {
+    return () => dispatch(deleteMessage('accession-merge'));
+  }, []);
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
