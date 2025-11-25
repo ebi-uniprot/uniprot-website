@@ -55,8 +55,8 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
   const columns: TableFromDataColumn<UniParcProcessedFeature>[] = useMemo(
     () => [
       {
-        label: 'InterPro Group',
-        id: 'interpro-group',
+        label: 'InterPro Name',
+        id: 'interpro-name',
         render: (feature) =>
           feature.interproGroupId ? (
             <ExternalLink
@@ -65,7 +65,7 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
               {feature.interproGroupName}
             </ExternalLink>
           ) : (
-            'N/A'
+            <em>Not integrated into an InterPro entry</em>
           ),
       },
       {
