@@ -311,7 +311,7 @@ exports[`HomePage component should render 1`] = `
             <li>
               <a
                 class="external-link"
-                href="https://www.ebi.ac.uk/training/online/courses/uniprot-exploring-protein-sequence-and-functional-info/"
+                href="https://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/complete/docs/userman.htm"
                 rel="noopener"
                 target="_blank"
               >
