@@ -131,7 +131,7 @@ const FeatureViewer = ({
   if (status !== 200) {
     return (
       <section className="wider-tab-content hotjar-margin">
-        <h3>Feature viewer</h3>
+        <h3 data-article-id="feature_viewer">Feature viewer</h3>
         <div className={tabsStyles['no-data']}>
           No feature information available for {accession}
         </div>
@@ -152,25 +152,28 @@ const FeatureViewer = ({
       className="wider-tab-content hotjar-margin"
       ref={containerRefCallback}
     >
-      <h3>Feature viewer</h3>
-      {displayDownloadPanel && (
-        <EntryDownloadPanel
-          handleToggle={handleToggleDownload}
-          dataset={Dataset.features}
-          sequence={sequence}
-        />
-      )}
-      {shouldRender && (
-        <NightingaleZoomTool
-          length={sequence.length}
-          nightingaleNavigationGetter={() =>
-            protvistaUniprotRef.current?.querySelector(
-              'nightingale-navigation'
-            ) || null
-          }
-        />
-      )}
-      <EntryDownloadButton handleToggle={handleToggleDownload} />
+      <h3 data-article-id="feature_viewer">Feature viewer</h3>
+      <div>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel
+            handleToggle={handleToggleDownload}
+            dataset={Dataset.features}
+            sequence={sequence}
+          />
+        )}
+        {shouldRender && (
+          <NightingaleZoomTool
+            length={sequence.length}
+            nightingaleNavigationGetter={() =>
+              protvistaUniprotRef.current?.querySelector(
+                'nightingale-navigation'
+              ) || null
+            }
+          />
+        )}
+        <EntryDownloadButton handleToggle={handleToggleDownload} />
+      </div>
+
       {shouldRender ? (
         <protvistaUniprotElement.name
           accession={accession}

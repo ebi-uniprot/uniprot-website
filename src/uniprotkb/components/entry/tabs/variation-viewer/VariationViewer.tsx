@@ -508,14 +508,16 @@ const VariationViewer = ({
   if (!shouldRender) {
     return (
       <div className="wider-tab-content hotjar-margin">
-        {title && <h3>{title}</h3>}
-        {displayDownloadPanel && (
-          <EntryDownloadPanel
-            handleToggle={handleToggleDownload}
-            dataset={Dataset.variation}
-          />
-        )}
-        <EntryDownloadButton handleToggle={handleToggleDownload} />
+        {title && <h3 data-article-id="variant_viewer">{title}</h3>}
+        <div>
+          {displayDownloadPanel && (
+            <EntryDownloadPanel
+              handleToggle={handleToggleDownload}
+              dataset={Dataset.variation}
+            />
+          )}
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
+        </div>
         <div className={tabsStyles['too-many']}>
           <Message>
             Due to the large number (<LongNumber>{importedVariants}</LongNumber>
@@ -561,7 +563,7 @@ const VariationViewer = ({
   ) {
     return (
       <section className="wider-tab-content hotjar-margin">
-        {title && <h3>{title}</h3>}
+        {title && <h3 data-article-id="variant_viewer">{title}</h3>}
         <div className={tabsStyles['no-data']}>
           No variation information available for {primaryAccession}
         </div>
@@ -572,7 +574,7 @@ const VariationViewer = ({
   if (isSmallScreen) {
     return (
       <section>
-        {title && <h2>{title}</h2>}
+        {title && <h2 data-article-id="variant_viewer">{title}</h2>}
         <TableFromData
           columns={getColumns(primaryAccession)}
           data={filteredVariants}
@@ -584,13 +586,15 @@ const VariationViewer = ({
 
   return (
     <section className="wider-tab-content hotjar-margin">
-      {title && <h2>{title}</h2>}
-      {displayDownloadPanel && (
-        <EntryDownloadPanel
-          handleToggle={handleToggleDownload}
-          dataset={Dataset.variation}
-        />
-      )}
+      {title && <h2 data-article-id="variant_viewer">{title}</h2>}
+      <div>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel
+            handleToggle={handleToggleDownload}
+            dataset={Dataset.variation}
+          />
+        )}
+      </div>
       <EntryDownloadButton handleToggle={handleToggleDownload} />
       <NightingaleManagerComponent
         reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
