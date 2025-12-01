@@ -380,6 +380,7 @@ const Entry = () => {
   useEffect(() => {
     if (
       isObsolete &&
+      !redirectedTo &&
       match?.params.accession &&
       match?.params.subPage !== TabLocation.History &&
       uniSaveData?.results?.length
@@ -387,9 +388,12 @@ const Entry = () => {
       if (
         transformedData?.inactiveReason?.inactiveReasonType === 'DEMERGED' ||
         (transformedData?.inactiveReason?.inactiveReasonType === 'DELETED' &&
-          uniSaveData?.results?.[0]?.database &&
-          getEntryTypeFromString(uniSaveData.results[0].database) ===
-            EntryType.REVIEWED)
+          // Sometimes there is no reason provided for Swiss-Prot deletions probably old ones
+          ((uniSaveData?.results?.[0]?.database &&
+            getEntryTypeFromString(uniSaveData.results[0].database) ===
+              EntryType.REVIEWED) ||
+            transformedData?.inactiveReason?.deletedReason ===
+              'Deleted from Swiss-Prot'))
       ) {
         frame().then(() => {
           history.replace(
