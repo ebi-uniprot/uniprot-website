@@ -9,10 +9,6 @@ type SectionObject = {
   featureType?: FeatureType;
 };
 
-// AnnotationTypes yet to add
-// F
-// feature.NP_BIND
-
 const annotationTypeToSection: Record<string, SectionObject> = {
   'comment.function': {
     section: SubEntrySection.Function,
@@ -86,6 +82,15 @@ const annotationTypeToSection: Record<string, SectionObject> = {
     featureType: 'Active site',
   },
   'feature.BINDING': {
+    section: SubEntrySection.Function,
+    featureType: 'Binding site',
+  },
+  // Metal binding and Nucleotide binding are deprecated and should point to binding
+  'feature.METAL': {
+    section: SubEntrySection.Function,
+    featureType: 'Binding site',
+  },
+  'feature.NP_BIND': {
     section: SubEntrySection.Function,
     featureType: 'Binding site',
   },
