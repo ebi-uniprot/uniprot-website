@@ -188,19 +188,22 @@ const InPageNav = ({
   }, [active]);
 
   return (
-    <ul className={styles['in-page-nav']} {...props}>
-      <div ref={marker} className={styles.marker} />
-      {sections.map(({ id, label, disabled }) => (
-        <li key={id} className={cn({ [styles.disabled]: disabled })}>
-          <Link
-            to={`#${id}`}
-            className={cn({ [styles.active]: active === id })}
-          >
-            {label}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className={styles['in-page-nav']} {...props}>
+        <div ref={marker} className={styles.marker} />
+        {sections.map(({ id, label, disabled }) => (
+          <li key={id} className={cn({ [styles.disabled]: disabled })}>
+            <Link
+              to={`#${id}`}
+              className={cn({ [styles.active]: active === id })}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <section>AI annotations</section>
+    </>
   );
 };
 
