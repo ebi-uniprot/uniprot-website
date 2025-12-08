@@ -10,8 +10,7 @@ type SectionObject = {
 };
 
 // AnnotationTypes yet to add
-// xref.GO
-// feature.METAL
+// F
 // feature.NP_BIND
 
 const annotationTypeToSection: Record<string, SectionObject> = {
@@ -48,6 +47,10 @@ const annotationTypeToSection: Record<string, SectionObject> = {
     section: SubEntrySection.Function,
     freeTextType: 'PATHWAY',
     subSectionLabel: 'Pathway',
+  },
+  'xref.GO': {
+    section: SubEntrySection.Function,
+    subSectionLabel: 'Gene Ontology',
   },
   'comment.subcellular_location': {
     section: SubEntrySection.SubcellularLocation,
