@@ -273,12 +273,14 @@ type ProteinNamesViewProps = {
   proteinNames?: ProteinNamesData;
   noEvidence?: boolean;
   noTitles?: boolean;
+  protnlmProteinNames?: ProteinNamesData;
 };
 
 const ProteinNamesView = ({
   proteinNames,
   noEvidence = false,
   noTitles = false,
+  protnlmProteinNames,
 }: ProteinNamesViewProps) => {
   if (!proteinNames) {
     return null;
@@ -286,6 +288,20 @@ const ProteinNamesView = ({
   let infoData: { title: string; content: JSX.Element }[] = [];
   if (proteinNames.recommendedName) {
     infoData = getInfoListForNames(proteinNames.recommendedName, noEvidence);
+  }
+  // If noEvidence, don't show this ProtNLM annotatation otherwise users will
+  // think it's from UniProt.
+  if (protnlmProteinNames?.recommendedName && !noEvidence) {
+    infoData.push({
+      title: 'AI recommended name',
+      content: (
+        <strong>
+          <NameWithEvidence
+            data={protnlmProteinNames.recommendedName.fullName}
+          />
+        </strong>
+      ),
+    });
   }
   if (proteinNames.alternativeNames) {
     infoData.push({
