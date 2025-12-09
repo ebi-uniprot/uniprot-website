@@ -71,7 +71,9 @@ export type UniProtkbAPIModel = {
   secondaryAccessions?: string[];
   uniProtkbId: string;
   proteinExistence: string;
-  entryType: string;
+  entryType:
+    | 'UniProtKB reviewed (Swiss-Prot)'
+    | 'UniProtKB unreviewed (TrEMBL)';
   inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];
