@@ -204,8 +204,22 @@ const Entry = () => {
       : null
   );
 
+  const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    isLikelyHuman &&
+      match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)'
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null,
+    { method: 'HEAD' }
+  );
+
+  // TODO: load this conditionally
   const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
-    isLikelyHuman && match?.params.accession
+    isLikelyHuman &&
+      match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)'
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null
   );
@@ -491,6 +505,16 @@ const Entry = () => {
   } else {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
+
+  let hasProtnlm: boolean | 'loading' = false;
+  if (protnlmHeadPayload.loading) {
+    hasProtnlm = 'loading';
+  } else {
+    hasProtnlm = coordinatesHeadPayload.status === 200;
+  }
+
+  // TODO: use hasProtnlm to conditionally show the toggle-switch in the sidebar
+  console.log(hasProtnlm);
 
   const isAFDBOutOfSync =
     new Date(
