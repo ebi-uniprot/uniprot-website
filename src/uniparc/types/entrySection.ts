@@ -1,5 +1,6 @@
 enum EntrySection {
   Sequence = 'sequence',
+  Structure = 'structure',
   XRefs = 'cross_references',
 }
 
