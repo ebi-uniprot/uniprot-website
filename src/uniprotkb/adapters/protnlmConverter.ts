@@ -42,7 +42,9 @@ export const augmentUIDataWithProtnlmPredictions = (
   // Only proteinDescription.recommendedName.fullName at the moment.
   // If there is no evidence, assume it is filler and not actual predicted annotation.
   if (
-    protnlmData.proteinDescription?.recommendedName?.fullName?.evidences?.length
+    protnlmData.proteinDescription?.recommendedName?.fullName?.evidences
+      ?.length ||
+    protnlmData.proteinDescription?.submissionNames?.length
   ) {
     uniprotkbNamesAndTaxonomy.protnlmProteinNamesData =
       protnlmData.proteinDescription;

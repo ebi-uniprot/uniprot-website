@@ -170,38 +170,34 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
   );
 };
 
-type TextViewProps = {
-  comments: TextWithEvidence[];
-  type?: FreeTextType;
-  children?: ReactNode;
-};
-
 const isProtNLM2 = (comments: TextWithEvidence[]) =>
   comments.some(
     (comment) =>
       !!comment.evidences?.some((evidence) => evidence.id === 'ProtNLM2')
   );
 
-export const TextView = ({ comments, type, children }: TextViewProps) => {
-  return (
-    <div
-      className={cn('text-block', { 'ai-annotation': isProtNLM2(comments) })}
-    >
-      {children}
-      {comments.map((comment, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Fragment key={index}>
-          {type && type === 'SIMILARITY' ? (
-            <SimilarityView>{comment.value}</SimilarityView>
-          ) : (
-            <RichText addPeriod>{comment.value}</RichText>
-          )}
-          <UniProtKBEvidenceTag evidences={comment.evidences} />
-        </Fragment>
-      ))}
-    </div>
-  );
+type TextViewProps = {
+  comments: TextWithEvidence[];
+  type?: FreeTextType;
+  children?: ReactNode;
 };
+
+export const TextView = ({ comments, type, children }: TextViewProps) => (
+  <div className={cn('text-block', { 'ai-annotation': isProtNLM2(comments) })}>
+    {children}
+    {comments.map((comment, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
+        {type && type === 'SIMILARITY' ? (
+          <SimilarityView>{comment.value}</SimilarityView>
+        ) : (
+          <RichText addPeriod>{comment.value}</RichText>
+        )}
+        <UniProtKBEvidenceTag evidences={comment.evidences} />
+      </Fragment>
+    ))}
+  </div>
+);
 
 type FreeTextProps = {
   comments?: FreeTextComment[];

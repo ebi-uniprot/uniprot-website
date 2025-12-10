@@ -360,6 +360,24 @@ const ProteinNamesView = ({
       ),
     });
   }
+  if (protnlmProteinNames?.submissionNames && !noEvidence) {
+    infoData.push({
+      title: 'AI submitted names',
+      content: (
+        <span className="ai-annotation">
+          <ExpandableList descriptionString="submitted names">
+            {protnlmProteinNames.submissionNames.map((submission, index) => (
+              <ProteinNamesViewFlat
+                key={index} // eslint-disable-line react/no-array-index-key
+                names={submission}
+                noEvidence={noEvidence}
+              />
+            ))}
+          </ExpandableList>
+        </span>
+      ),
+    });
+  }
   if (proteinNames.biotechName) {
     infoData.push({
       title: 'Biotech name',
