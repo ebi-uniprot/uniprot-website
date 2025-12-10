@@ -39,14 +39,18 @@ export const augmentUIDataWithProtnlmPredictions = (
   data: UniProtkbUIModel
 ): UniProtkbUIModel => {
   const uniprotkbNamesAndTaxonomy = data[EntrySection.NamesAndTaxonomy];
-  uniprotkbNamesAndTaxonomy.protnlmProteinNamesData =
-    protnlmData.proteinDescription;
-
+  // Only proteinDescription.recommendedName.fullName at the moment.
+  // If there is no evidence, assume it is filler and not actual predicted annotation.
+  if (
+    protnlmData.proteinDescription?.recommendedName?.fullName?.evidences?.length
+  ) {
+    uniprotkbNamesAndTaxonomy.protnlmProteinNamesData =
+      protnlmData.proteinDescription;
+  }
   return {
     ...data,
     [EntrySection.NamesAndTaxonomy]: {
       ...uniprotkbNamesAndTaxonomy,
-      protnlmProteinNamesData: protnlmData.proteinDescription,
     },
   };
 };
