@@ -81,7 +81,6 @@ const HSPDetailPanel = ({
   namespace,
 }: HSPDetailPanelProps) => {
   const { pathname } = useLocation();
-  const { hsp_align_len } = hsp;
   let url = apiUrls.entry.entry(hitAccession, namespace);
   if (namespace === Namespace.uniref) {
     url += '/light';
@@ -126,8 +125,11 @@ const HSPDetailPanel = ({
   } else {
     content = (
       <div className="hsp-detail-panel__body">
+        Match between &ldquo;query&rdquo; sequence positions{' '}
+        {hsp.hsp_query_from} to {hsp.hsp_query_to} and &ldquo;hit&rdquo;
+        sequence positions {hsp.hsp_hit_from} to {hsp.hsp_hit_to}.
         <AlignmentView
-          alignmentLength={hsp_align_len}
+          alignmentLength={hsp.hsp_align_len}
           alignment={alignment}
           defaultView={View.overview}
           tool={Tool.blast}

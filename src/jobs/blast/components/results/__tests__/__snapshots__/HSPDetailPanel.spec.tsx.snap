@@ -178,6 +178,16 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
     <div
       class="hsp-detail-panel__body"
     >
+      Match between “query” sequence positions
+       
+      3
+       to 
+      30
+       and “hit” sequence positions 
+      418
+       to 
+      445
+      .
       <div
         class="button-group"
       >
