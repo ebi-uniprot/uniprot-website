@@ -214,7 +214,7 @@ const Entry = () => {
     { method: 'HEAD' }
   );
 
-  // TODO: load this conditionally
+  // TODO: load this conditionally based on the HEAD request
   const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
     isLikelyHuman &&
       match?.params.accession &&

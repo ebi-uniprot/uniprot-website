@@ -1,3 +1,5 @@
+import '../../../shared/styles/ai-annotations.scss';
+
 import { ExpandableList, InfoList } from 'franklin-sites';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
@@ -295,11 +297,11 @@ const ProteinNamesView = ({
     infoData.push({
       title: 'AI recommended name',
       content: (
-        <strong>
+        <span className="ai-annotation">
           <NameWithEvidence
             data={protnlmProteinNames.recommendedName.fullName}
           />
-        </strong>
+        </span>
       ),
     });
   }
