@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { FC, Fragment, ReactNode, useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
@@ -175,22 +176,32 @@ type TextViewProps = {
   children?: ReactNode;
 };
 
-export const TextView = ({ comments, type, children }: TextViewProps) => (
-  <div className="text-block">
-    {children}
-    {comments.map((comment, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <Fragment key={index}>
-        {type && type === 'SIMILARITY' ? (
-          <SimilarityView>{comment.value}</SimilarityView>
-        ) : (
-          <RichText addPeriod>{comment.value}</RichText>
-        )}
-        <UniProtKBEvidenceTag evidences={comment.evidences} />
-      </Fragment>
-    ))}
-  </div>
-);
+const isProtNLM2 = (comments: TextWithEvidence[]) =>
+  comments.some(
+    (comment) =>
+      !!comment.evidences?.some((evidence) => evidence.id === 'ProtNLM2')
+  );
+
+export const TextView = ({ comments, type, children }: TextViewProps) => {
+  return (
+    <div
+      className={cn('text-block', { 'ai-annotation': isProtNLM2(comments) })}
+    >
+      {children}
+      {comments.map((comment, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
+          {type && type === 'SIMILARITY' ? (
+            <SimilarityView>{comment.value}</SimilarityView>
+          ) : (
+            <RichText addPeriod>{comment.value}</RichText>
+          )}
+          <UniProtKBEvidenceTag evidences={comment.evidences} />
+        </Fragment>
+      ))}
+    </div>
+  );
+};
 
 type FreeTextProps = {
   comments?: FreeTextComment[];

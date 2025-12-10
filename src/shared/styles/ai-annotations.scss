@@ -1,9 +1,0 @@
-// Specify here for now, eventually will be imported from Franklin
-:root {
-  --fr--color-purple-mid: #691eaa;
-}
-
-.decorated-list-item:has(.ai-annotation) {
-  background-color: color-mix(in srgb, var(--fr--color-purple-mid) 6%, white);
-  padding: 0.5rem;
-}

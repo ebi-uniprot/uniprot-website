@@ -1,4 +1,5 @@
 import '../../../shared/components/entry/styles/entry-page.scss';
+import './styles/protnlm.scss';
 
 import cn from 'classnames';
 import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
