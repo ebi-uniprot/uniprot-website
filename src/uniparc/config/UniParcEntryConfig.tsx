@@ -1,6 +1,5 @@
 import { UniParcUIModel } from '../adapters/uniParcConverter';
 import SequenceSection from '../components/entry/SequenceSection';
-import StructureSection from '../components/entry/StructureSection';
 import XRefsSection from '../components/entry/XRefsSection';
 import EntrySection from '../types/entrySection';
 
@@ -15,15 +14,6 @@ const UniParcEntryConfig: {
         accession={data.uniParcId}
         data={data[EntrySection.Sequence]}
         key={EntrySection.Sequence}
-      />
-    ),
-  },
-  {
-    id: EntrySection.Structure,
-    sectionContent: (data) => (
-      <StructureSection
-        data={data[EntrySection.Sequence]}
-        key={EntrySection.Structure}
       />
     ),
   },

@@ -16,7 +16,7 @@ type Props = {
   data: Sequence;
 };
 
-const StructureSection = ({ data }: Props) =>
+const UniParcStructureView = ({ data }: Props) =>
   !data?.md5 ? null : (
     <Card
       header={
@@ -31,4 +31,4 @@ const StructureSection = ({ data }: Props) =>
     </Card>
   );
 
-export default StructureSection;
+export default UniParcStructureView;
