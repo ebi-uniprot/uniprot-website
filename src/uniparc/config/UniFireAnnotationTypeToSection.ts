@@ -44,10 +44,6 @@ const annotationTypeToSection: Record<string, SectionObject> = {
     freeTextType: 'PATHWAY',
     subSectionLabel: 'Pathway',
   },
-  'xref.GO': {
-    section: SubEntrySection.Function,
-    subSectionLabel: 'Gene Ontology',
-  },
   'comment.subcellular_location': {
     section: SubEntrySection.SubcellularLocation,
     freeTextType: 'SUBCELLULAR LOCATION',
