@@ -23,4 +23,13 @@
       color: white;
     }
   }
+
+  &.ai-annotation.lookedAt,
+  &.ai-annotation:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--fr--color-purple-mid) 20%,
+      white
+    );
+  }
 }
