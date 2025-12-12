@@ -16,9 +16,20 @@ export const augmentAPIDataWithProtnlmPredictions = (
       (comment) => comment.commentType === 'SUBCELLULAR LOCATION'
     ) || [];
 
-  // Currently GO & PFAM
   // TODO: currently the ":-" GoEvidenceType breaks getEcoNumberFromGoEvidenceType
-  // const protnlmCrossReferences = protnlmData.uniProtKBCrossReferences || [];
+  // Whenever this is fixed remove the transformation that is happening here.
+  const protnlmCrossReferences = (
+    protnlmData.uniProtKBCrossReferences || []
+  ).map((xref) => ({
+    ...xref,
+    properties: xref.properties.map((property) =>
+      property.key === 'GoEvidenceType' && property.value === ':-'
+        ? { key: 'GoEvidenceType', value: 'IEA:ProtNLM2' }
+        : property
+    ),
+  }));
+
+  // TODO: what to do about PFAM?
 
   return {
     ...data,
@@ -27,10 +38,10 @@ export const augmentAPIDataWithProtnlmPredictions = (
       ...protnlmFunctionComments,
       ...protnlmSubcellularLocationComments,
     ],
-    // uniProtKBCrossReferences: [
-    //   ...(data.uniProtKBCrossReferences || []),
-    //   ...protnlmCrossReferences,
-    // ],
+    uniProtKBCrossReferences: [
+      ...(data.uniProtKBCrossReferences || []),
+      ...protnlmCrossReferences,
+    ],
   };
 };
 
