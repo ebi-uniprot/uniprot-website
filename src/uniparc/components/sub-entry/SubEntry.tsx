@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -52,6 +52,7 @@ import uniParcSubEntryConverter, {
 import uniparcApiUrls from '../../config/apiUrls';
 import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
+import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
@@ -156,6 +157,49 @@ const SubEntry = () => {
     // eslint-disable-next-line reactHooks/exhaustive-deps
   }, []);
 
+  const transformedData = useMemo(
+    () =>
+      uniParcSubEntryConverter(
+        uniparcData.data,
+        subEntryData.data?.results[0],
+        unisaveData.data,
+        // If no data, it would be an empty string
+        uniFireData.data || undefined
+      ),
+    [
+      subEntryData.data?.results,
+      uniFireData.data,
+      uniparcData.data,
+      unisaveData.data,
+    ]
+  );
+
+  const sections = useMemo(
+    () =>
+      uniParcSubEntryConfig.map(({ id }) => {
+        const label = entrySectionToLabel[id];
+        let disabled = true;
+        if (transformedData) {
+          switch (id) {
+            case SubEntrySection.Structure:
+              disabled = !hasStructure(transformedData.subEntry);
+              break;
+            case SubEntrySection.NamesAndTaxonomy:
+              disabled =
+                !transformedData.subEntry.proteinName ||
+                !transformedData.subEntry.geneName ||
+                !transformedData.subEntry.organism ||
+                !transformedData.unifire?.[id];
+              break;
+            default:
+              disabled = !transformedData.unifire?.[id];
+          }
+        }
+        return { label, id, disabled };
+      }),
+    [transformedData]
+  );
+
   if (uniparcData.loading || subEntryData.loading || unisaveData.loading) {
     return (
       <Loader
@@ -186,14 +230,6 @@ const SubEntry = () => {
     );
   }
 
-  const transformedData = uniParcSubEntryConverter(
-    uniparcData.data,
-    subEntryData.data?.results[0],
-    unisaveData.data,
-    // If no data, it would be an empty string
-    uniFireData.data || undefined
-  );
-
   if (!transformedData) {
     return (
       <Redirect
@@ -209,59 +245,7 @@ const SubEntry = () => {
     setDisplayDownloadPanel(!displayDownloadPanel);
 
   const sidebar = subPage === TabLocation.Entry && (
-    <InPageNav
-      sections={Object.values(uniParcSubEntryConfig).map((section) => ({
-        ...section,
-        disabled:
-          (section.id === SubEntrySection.Structure &&
-            !hasStructure(transformedData.subEntry)) ||
-          (section.id === SubEntrySection.NamesAndTaxonomy &&
-            !transformedData.subEntry.proteinName) ||
-          (section.id === SubEntrySection.Function &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Function).includes(
-                p.annotationType
-              )
-            )) ||
-          (section.id === SubEntrySection.SubcellularLocation &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.SubcellularLocation).includes(
-                p.annotationType
-              )
-            )) ||
-          (section.id === SubEntrySection.Expression &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Expression).includes(
-                p.annotationType
-              )
-            )) ||
-          (section.id === SubEntrySection.ProteinProcessing &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.ProteinProcessing).includes(
-                p.annotationType
-              )
-            )) ||
-          (section.id === SubEntrySection.Interaction &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Interaction).includes(
-                p.annotationType
-              )
-            )) ||
-          (section.id === SubEntrySection.FamilyAndDomains &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.FamilyAndDomains).includes(
-                p.annotationType
-              )
-            ) &&
-            !transformedData.entry.sequenceFeatures) ||
-          (section.id === SubEntrySection.KeywordsAndGO &&
-            !transformedData.unifire?.predictions.some(
-              (p) =>
-                p.annotationType === 'keyword' || p.annotationType === 'xref.GO'
-            )),
-      }))}
-      rootElement={`.${sidebarStyles.content}`}
-    />
+    <InPageNav sections={sections} rootElement={`.${sidebarStyles.content}`} />
   );
 
   return (

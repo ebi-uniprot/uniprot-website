@@ -72,9 +72,7 @@ const SubEntrySequenceSection = ({
   );
 
   const flagPredictions =
-    data.unifire?.predictions.filter(
-      (p) => p.annotationType === 'protein.flag'
-    ) || [];
+    data.unifire?.filter((p) => p.annotationType === 'protein.flag') || [];
 
   return (
     <Card

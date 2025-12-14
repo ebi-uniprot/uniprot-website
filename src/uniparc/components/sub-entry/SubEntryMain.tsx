@@ -11,7 +11,7 @@ type EntryMainProps = {
 
 const SubEntryMain = ({ transformedData }: EntryMainProps) => (
   <>
-    {Object.values(UniParcSubEntryConfig).map(({ id, sectionContent }) => (
+    {UniParcSubEntryConfig.map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
         <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
       </Suspense>

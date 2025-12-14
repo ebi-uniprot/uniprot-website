@@ -8,19 +8,13 @@ import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureS
 import UniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
 import EntrySection from '../types/subEntrySection';
 import { groupTypesBySection } from './UniFireAnnotationTypeToSection';
-import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
-const uniParcSubEntryConfig: Record<
-  EntrySection,
+const uniParcSubEntryConfig: {
+  id: EntrySection;
+  sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
+}[] = [
   {
-    id: EntrySection;
-    label: string;
-    sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
-  }
-> = {
-  [EntrySection.Function]: {
     id: EntrySection.Function,
-    label: entrySectionToLabel[EntrySection.Function],
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
@@ -30,9 +24,8 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  [EntrySection.NamesAndTaxonomy]: {
+  {
     id: EntrySection.NamesAndTaxonomy,
-    label: entrySectionToLabel[EntrySection.NamesAndTaxonomy],
     sectionContent: (data) => (
       <SubEntryNamesAndTaxonomySection
         data={data}
@@ -40,9 +33,8 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  [EntrySection.SubcellularLocation]: {
+  {
     id: EntrySection.SubcellularLocation,
-    label: entrySectionToLabel[EntrySection.SubcellularLocation],
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
@@ -52,9 +44,8 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  [EntrySection.Expression]: {
+  {
     id: EntrySection.Expression,
-    label: entrySectionToLabel[EntrySection.Expression],
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
@@ -64,9 +55,8 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  [EntrySection.ProteinProcessing]: {
+  {
     id: EntrySection.ProteinProcessing,
-    label: entrySectionToLabel[EntrySection.ProteinProcessing],
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
@@ -76,9 +66,8 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  [EntrySection.Interaction]: {
+  {
     id: EntrySection.Interaction,
-    label: entrySectionToLabel[EntrySection.Interaction],
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
@@ -88,16 +77,14 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  [EntrySection.Structure]: {
+  {
     id: EntrySection.Structure,
-    label: entrySectionToLabel[EntrySection.Structure],
     sectionContent: (data) => (
       <SubEntryStructureSection data={data} key={EntrySection.Structure} />
     ),
   },
-  [EntrySection.FamilyAndDomains]: {
+  {
     id: EntrySection.FamilyAndDomains,
-    label: entrySectionToLabel[EntrySection.FamilyAndDomains],
     sectionContent: (data) => (
       <SubEntryFamilyAndDomains
         data={data}
@@ -105,16 +92,14 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  [EntrySection.Sequence]: {
+  {
     id: EntrySection.Sequence,
-    label: entrySectionToLabel[EntrySection.Sequence],
     sectionContent: (data) => (
       <SubEntrySequenceSection data={data} key={EntrySection.Sequence} />
     ),
   },
-  [EntrySection.SimilarProteins]: {
+  {
     id: EntrySection.SimilarProteins,
-    label: entrySectionToLabel[EntrySection.SimilarProteins],
     sectionContent: (data) => (
       <SubEntrySimilarProteinsSection
         uniparcId={data.entry.uniParcId}
@@ -124,9 +109,8 @@ const uniParcSubEntryConfig: Record<
     ),
   },
   // Dedicated section for Keywords and GO as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
-  [EntrySection.KeywordsAndGO]: {
+  {
     id: EntrySection.KeywordsAndGO,
-    label: entrySectionToLabel[EntrySection.KeywordsAndGO],
     sectionContent: ({ unifire }) => (
       <SubEntryKeywordsSection
         data={unifire}
@@ -134,6 +118,6 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-};
+];
 
 export default uniParcSubEntryConfig;
