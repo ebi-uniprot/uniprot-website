@@ -1032,7 +1032,12 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Cleaved into 1 chains
+                Cleaved into 
+                <a
+                  href="/uniprotkb/P05067/entry#ptm_processing"
+                >
+                  1 chain
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1041,12 +1046,7 @@ exports[`Entry view should render 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
-                    <a
-                      href="/uniprotkb/P05067/entry#containsrec_full_Name"
-                    >
-                      containsrec full Name
-                    </a>
-                     
+                    containsrec full Name 
                     <button
                       aria-controls="22"
                       aria-expanded="false"
@@ -1092,39 +1092,7 @@ exports[`Entry view should render 1`] = `
                       data-testid="evidence-tag-content"
                       id="23"
                     />
-                    )  (EC:1.2.3.4 (
-                    <a
-                      href="/uniprotkb?query=ec:1.2.3.4"
-                    >
-                      UniProtKB
-                    </a>
-                     | 
-                    <a
-                      class="external-link"
-                      href="https://enzyme.expasy.org/EC/1.2.3.4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      ENZYME
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                     | 
-                    <a
-                      class="external-link"
-                      href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Rhea
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                    )
+                    )  (EC:1.2.3.4
                     <button
                       aria-controls="24"
                       aria-expanded="false"
