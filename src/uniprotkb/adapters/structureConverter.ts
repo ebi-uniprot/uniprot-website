@@ -10,7 +10,7 @@ import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 
 type GroupedStructureInfo = { [key: string]: Xref[] };
-type IsoformSequences = {
+export type IsoformSequences = {
   isoformId: string;
   sequence: string;
   length: number;
