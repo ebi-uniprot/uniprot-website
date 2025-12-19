@@ -5,7 +5,9 @@ import AgrOrthology from './AgrOrthology';
 import AgrParalogy from './AgrParalogy';
 
 export const getAgrId = (xrefs: XrefUIModel[]) => {
-  const hgncXref = xrefs[0]?.databases.find((xref) => xref.database === 'AGR');
+  const hgncXref = xrefs
+    ?.find((xref) => xref.category === 'ORG')
+    ?.databases.find((xref) => xref.database === 'AGR');
   return hgncXref?.xrefs.find((xref) => xref.database === 'AGR');
 };
 
