@@ -4,7 +4,7 @@ import { XrefUIModel } from '../../../utils/xrefUtils';
 import AgrOrthology from './AgrOrthology';
 import AgrParalogy from './AgrParalogy';
 
-export const getAgrId = (xrefs: XrefUIModel[]) => {
+export const findAgrId = (xrefs: XrefUIModel[]) => {
   const hgncXref = xrefs
     ?.find((xref) => xref.category === 'ORG')
     ?.databases.find((xref) => xref.database === 'AGR');
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const AgrHomology = ({ xrefs }: Props) => {
-  const agrXref = getAgrId(xrefs);
+  const agrXref = findAgrId(xrefs);
 
   if (!agrXref?.id) {
     return (
