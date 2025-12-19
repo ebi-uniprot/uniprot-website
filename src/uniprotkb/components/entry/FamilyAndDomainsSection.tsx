@@ -1,5 +1,6 @@
-import { Card } from 'franklin-sites';
+import { Card, Message } from 'franklin-sites';
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
@@ -61,6 +62,15 @@ const FamilyAndDomainsSection = ({
         xrefs={data.xrefData}
         primaryAccession={primaryAccession}
         uniParcID={uniParcID}
+        extra={
+          <Message level="info">
+            View the Phylogenomic databases for this entry within in the{' '}
+            <Link to={`#${EntrySection.SimilarProteins}`}>
+              Similar Proteins section
+            </Link>
+            .
+          </Message>
+        }
       />
     </Card>
   );

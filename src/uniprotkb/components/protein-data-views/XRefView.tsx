@@ -366,6 +366,7 @@ type XRefViewProps = {
   primaryAccession: string;
   crc64?: string;
   uniParcID?: string;
+  extra?: ReactNode;
 };
 
 const XRefView = ({
@@ -373,6 +374,7 @@ const XRefView = ({
   primaryAccession,
   crc64,
   uniParcID,
+  extra,
 }: XRefViewProps) => (
   <>
     {xrefs?.map(({ databases, category }, index): JSX.Element => {
@@ -424,6 +426,7 @@ const XRefView = ({
         <Fragment key={index}>
           <h3>{title}</h3>
           {linkToUniParcFeatures}
+          {extra}
           {xrefsNode}
         </Fragment>
       );
