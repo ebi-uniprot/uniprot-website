@@ -2,7 +2,7 @@ import { CommentType, FreeTextType } from '../../uniprotkb/types/commentTypes';
 import FeatureType from '../../uniprotkb/types/featureType';
 import SubEntrySection from '../types/subEntrySection';
 
-export type SectionObject = {
+type SectionObject = {
   section: SubEntrySection;
   freeTextType?: FreeTextType | CommentType;
   subSectionLabel?: string;
@@ -177,12 +177,6 @@ const annotationTypeToSection: Record<string, SectionObject> = {
   'feature.CROSSLNK': {
     section: SubEntrySection.ProteinProcessing,
     featureType: 'Cross-link',
-  },
-  keyword: {
-    section: SubEntrySection.KeywordsAndGO,
-  },
-  'xref.GO': {
-    section: SubEntrySection.KeywordsAndGO,
   },
 };
 

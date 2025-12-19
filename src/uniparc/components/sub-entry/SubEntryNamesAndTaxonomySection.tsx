@@ -81,21 +81,22 @@ const SubEntryNamesAndTaxonomySection = ({
   }
 
   const { proteinName, geneName, organism, properties } = data.subEntry;
+  const { predictions } = data.unifire || { predictions: [] };
 
   const recommendedFullNamePrediction =
-    data.unifire?.filter(
+    (predictions as ModifiedPrediction[])?.filter(
       (prediction) =>
         prediction.annotationType === 'protein.recommendedName.fullName'
     ) || [];
 
   const recommendedShortNamePrediction =
-    data.unifire?.filter(
+    (predictions as ModifiedPrediction[])?.filter(
       (prediction) =>
         prediction.annotationType === 'protein.recommendedName.shortName'
     ) || [];
 
   const recommendedECPrediction =
-    data.unifire?.filter(
+    (predictions as ModifiedPrediction[])?.filter(
       (prediction) =>
         prediction.annotationType === 'protein.recommendedName.ecNumber'
     ) || [];
@@ -106,25 +107,25 @@ const SubEntryNamesAndTaxonomySection = ({
   ]
     .map(
       (type) =>
-        data.unifire?.filter(
+        (predictions as ModifiedPrediction[])?.filter(
           (prediction) => prediction.annotationType === type
         ) || []
     )
     .flat();
 
   const alternativeECPrediction =
-    data.unifire?.filter(
+    (predictions as ModifiedPrediction[])?.filter(
       (prediction) =>
         prediction.annotationType === 'protein.alternativeName.ecNumber'
     ) || [];
 
   const geneNamePrediction =
-    data.unifire?.filter(
+    (predictions as ModifiedPrediction[])?.filter(
       (prediction) => prediction.annotationType === 'gene.name.primary'
     ) || [];
 
   const geneNameSynonymsPrediction =
-    data.unifire?.filter(
+    (predictions as ModifiedPrediction[])?.filter(
       (prediction) => prediction.annotationType === 'gene.name.synonym'
     ) || [];
 

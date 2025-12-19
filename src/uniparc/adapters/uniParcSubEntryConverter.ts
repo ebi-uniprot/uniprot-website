@@ -1,12 +1,5 @@
-import { Except } from 'type-fest';
-
-import * as logging from '../../shared/utils/logging';
 import { Evidence } from '../../uniprotkb/types/modelTypes';
 import { UniSaveStatus } from '../../uniprotkb/types/uniSave';
-import annotationTypeToSection, {
-  type SectionObject,
-} from '../config/UniFireAnnotationTypeToSection';
-import SubEntrySection from '../types/subEntrySection';
 import { isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
   databaseToEntryType,
@@ -22,8 +15,8 @@ export type UniParcSubEntryUIModel = {
     source?: Partial<UniParcXRef> | null;
     isUniprotkbEntry: boolean;
   };
-  unisave?: UniSaveStatus;
-  unifire?: Partial<Record<SubEntrySection, ModifiedPrediction[]>>;
+  unisave: UniSaveStatus;
+  unifire?: UniFireModel;
 };
 
 export type Prediction = {
@@ -36,12 +29,11 @@ export type Prediction = {
 
 export type UniFireModel = {
   accession: string;
-  predictions: Prediction[];
+  predictions: Prediction[] | ModifiedPrediction[];
 };
 
-export type ModifiedPrediction = Except<Prediction, 'evidence'> & {
+export type ModifiedPrediction = Prediction & {
   evidence: Evidence[];
-  sectionObject: SectionObject;
 };
 
 const constructPredictionEvidences = (
@@ -62,16 +54,16 @@ const constructPredictionEvidences = (
 };
 
 const uniParcSubEntryConverter = (
-  entryData?: UniParcLiteAPIModel,
-  subEntryData?: UniParcXRef,
-  unisaveData?: UniSaveStatus,
+  entryData: UniParcLiteAPIModel,
+  subEntryData: UniParcXRef,
+  unisaveData: UniSaveStatus,
   uniFireData?: UniFireModel
 ): UniParcSubEntryUIModel | null => {
-  if (!entryData || !subEntryData) {
+  const transformedEntryData = uniParcConverter(entryData);
+
+  if (!subEntryData) {
     return null;
   }
-
-  const transformedEntryData = uniParcConverter(entryData);
 
   const isUniprotkbEntry = Boolean(
     subEntryData.database && databaseToEntryType.has(subEntryData.database)
@@ -80,35 +72,21 @@ const uniParcSubEntryConverter = (
   const isSource = isSourceDatabase(subEntryData.database);
   const source = isSource ? undefined : subEntryData;
 
-  const unifire: Partial<Record<SubEntrySection, ModifiedPrediction[]>> = {};
-  for (const prediction of uniFireData?.predictions || []) {
-    const sectionObject = annotationTypeToSection[prediction.annotationType];
-    // Sanity check
-    if (!sectionObject) {
-      logging.warn('missing case for unifire', {
-        extra: { data: prediction.annotationType },
-      });
-      continue;
-    }
-    // Add proper evidence
-    const modifiedPrediction: ModifiedPrediction = {
+  if (uniFireData?.predictions) {
+    const modifiedPredictions = uniFireData.predictions.map((prediction) => ({
       ...prediction,
-      evidence: constructPredictionEvidences(prediction.evidence),
-      sectionObject,
-    };
-    // Add correct section if not there yet
-    if (!(sectionObject.section in unifire)) {
-      unifire[sectionObject.section] = [];
-    }
-    // Assign to correct section
-    unifire[sectionObject.section]?.push(modifiedPrediction);
+      evidence: constructPredictionEvidences(
+        prediction.evidence as string[]
+      ) as Evidence[],
+    }));
+    uniFireData.predictions = modifiedPredictions as ModifiedPrediction[];
   }
 
   return {
     entry: transformedEntryData,
     subEntry: { ...subEntryData, isSource, source, isUniprotkbEntry },
     unisave: unisaveData,
-    unifire: uniFireData?.predictions.length ? unifire : undefined,
+    unifire: uniFireData,
   };
 };
 

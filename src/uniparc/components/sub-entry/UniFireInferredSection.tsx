@@ -24,7 +24,7 @@ const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
 
   annotationTypes.forEach((type) => {
     predictionsByType[type] =
-      data.unifire?.filter(
+      (data.unifire?.predictions as ModifiedPrediction[])?.filter(
         (prediction) => prediction.annotationType === type
       ) || [];
   });
