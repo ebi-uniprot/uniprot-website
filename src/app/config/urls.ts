@@ -94,7 +94,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.UniRefEntry]: `/${Namespace.uniref}/:accession`,
   [Location.UniRefResults]: `/${Namespace.uniref}`,
   [Location.UniParcSubEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)/:subEntryId`,
-  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer)?`,
+  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage(entry|feature-viewer|structure-viewer)?`,
   [Location.UniParcResults]: `/${Namespace.uniparc}`,
   [Location.ProteomesEntry]: `/${Namespace.proteomes}/:accession`,
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,

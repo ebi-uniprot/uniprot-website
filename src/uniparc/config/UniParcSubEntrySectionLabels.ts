@@ -11,5 +11,5 @@ export const entrySectionToLabel = {
   [SubEntrySection.FamilyAndDomains]: 'Family & Domains',
   [SubEntrySection.Sequence]: 'Sequence',
   [SubEntrySection.SimilarProteins]: 'Similar Proteins',
-  [SubEntrySection.Keywords]: 'Keywords',
+  [SubEntrySection.KeywordsAndGO]: 'Keywords/GO',
 };

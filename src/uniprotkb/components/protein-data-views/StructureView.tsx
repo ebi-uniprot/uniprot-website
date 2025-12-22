@@ -11,9 +11,11 @@ import styles from './styles/structure-view.module.scss';
 const StructureView = ({
   primaryAccession,
   sequence,
+  checksum,
   viewerOnly = false,
 }: {
-  primaryAccession: string;
+  primaryAccession?: string;
+  checksum?: string;
   sequence?: string;
   viewerOnly?: boolean;
 }) => {
@@ -31,7 +33,7 @@ const StructureView = ({
   }
   return (
     <div className={styles.container}>
-      {!viewerOnly && (
+      {primaryAccession && !viewerOnly && (
         <>
           <Message level="info">
             View UniProt features on this structure in the{' '}
@@ -54,6 +56,7 @@ const StructureView = ({
       )}
       <protvista-uniprot-structure
         accession={primaryAccession}
+        checksum={checksum}
         sequence={sequence}
       />
     </div>

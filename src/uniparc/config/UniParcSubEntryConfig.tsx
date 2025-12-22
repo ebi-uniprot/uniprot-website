@@ -123,12 +123,15 @@ const uniParcSubEntryConfig: Record<
       />
     ),
   },
-  // Dedicated section for Keywords as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
-  [EntrySection.Keywords]: {
-    id: EntrySection.Keywords,
-    label: entrySectionToLabel[EntrySection.Keywords],
+  // Dedicated section for Keywords and GO as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
+  [EntrySection.KeywordsAndGO]: {
+    id: EntrySection.KeywordsAndGO,
+    label: entrySectionToLabel[EntrySection.KeywordsAndGO],
     sectionContent: ({ unifire }) => (
-      <SubEntryKeywordsSection data={unifire} key={EntrySection.Keywords} />
+      <SubEntryKeywordsSection
+        data={unifire}
+        key={EntrySection.KeywordsAndGO}
+      />
     ),
   },
 };
