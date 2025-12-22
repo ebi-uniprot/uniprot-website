@@ -3147,6 +3147,34 @@ exports[`Entry view should render 1`] = `
         <h3>
           Family and domain databases
         </h3>
+        <div
+          class="message message--info"
+          role="status"
+        >
+          <div
+            class="message__side-border"
+          />
+          <test-file-stub
+            classname="message--icon-align-top"
+            height="1.125em"
+            width="1.125em"
+          />
+          <div
+            class="message__title"
+          >
+            <ul>
+              <li>
+                View the Phylogenomic databases for this entry within the 
+                <a
+                  href="/uniprotkb/P05067/entry#similar_proteins"
+                >
+                  Similar Proteins section
+                </a>
+                .
+              </li>
+            </ul>
+          </div>
+        </div>
         <ul
           class="info-list info-list--columns"
         >
@@ -6117,13 +6145,26 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="message__title"
           >
-            View all family and domain features for this entry's canonical sequence in the 
-            <a
-              href="/uniparc/UPI000246C4A6/feature-viewer"
-            >
-              UniParc Feature Viewer
-            </a>
-            .
+            <ul>
+              <li>
+                View the Phylogenomic databases for this entry within the 
+                <a
+                  href="/uniprotkb/P05067/entry#similar_proteins"
+                >
+                  Similar Proteins section
+                </a>
+                .
+              </li>
+              <li>
+                View all family and domain features for this entry's canonical sequence in the 
+                <a
+                  href="/uniparc/UPI000246C4A6/feature-viewer"
+                >
+                  UniParc Feature Viewer
+                </a>
+                .
+              </li>
+            </ul>
           </div>
         </div>
         <ul
