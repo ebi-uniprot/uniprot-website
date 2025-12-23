@@ -1,12 +1,12 @@
 import { groupBy } from 'lodash-es';
 
 import { Xref } from '../../shared/types/apiModel';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { UniProtKBColumn } from '../types/columnTypes';
-import { AlternativeProductsComment, Isoform } from '../types/commentTypes';
+import { AlternativeProductsComment } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
 import { StructureFeatures } from '../types/featureType';
 import { DatabaseInfoMaps } from '../utils/database';
+import { constructIsoformSequence } from './extractIsoformsConverter';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 
@@ -32,49 +32,6 @@ export const structureFeaturesToColumns: Readonly<
 const featuresCategories = Object.keys(
   structureFeaturesToColumns
 ) as StructureFeatures[];
-
-const constructIsoformSequence = (
-  isoform: Isoform,
-  variantSequences: FeatureDatum[],
-  canonicalSequence: string
-) => {
-  const isoformSequence: string[] = [];
-  let tailIndex = 0;
-  if (isoform.sequenceIds && variantSequences.length !== 0) {
-    isoform.sequenceIds.forEach((sequenceId) => {
-      const variantSeq = variantSequences.find(
-        (varSeq) => varSeq.featureId === sequenceId
-      );
-      if (variantSeq) {
-        isoformSequence.push(
-          canonicalSequence.slice(
-            tailIndex,
-            variantSeq.location.start.value - 1
-          )
-        );
-        if (
-          variantSeq.alternativeSequence?.originalSequence &&
-          variantSeq.alternativeSequence?.alternativeSequences?.length
-        ) {
-          variantSeq.alternativeSequence?.alternativeSequences.forEach(
-            (altSeq) => isoformSequence.push(altSeq)
-          );
-        }
-        tailIndex = variantSeq.location.end.value;
-      }
-    });
-    if (tailIndex < canonicalSequence.length) {
-      isoformSequence.push(
-        canonicalSequence.slice(tailIndex, canonicalSequence.length)
-      );
-    }
-  }
-
-  return {
-    isoformId: isoform.isoformIds[0],
-    sequence: isoformSequence.join(''),
-  };
-};
 
 const convertStructure = (
   data: UniProtkbAPIModel,

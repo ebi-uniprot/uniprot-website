@@ -85,7 +85,6 @@ describe('Structure data converter', () => {
       isoforms: [
         {
           isoformId: 'isoID1',
-          length: 0,
           sequence: '',
         },
       ],
