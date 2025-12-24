@@ -60,9 +60,19 @@ const convertStructure = (
     );
 
     isoforms =
-      alternativeProducts?.[0]?.isoforms?.map((isoform) =>
-        constructIsoformSequence(isoform, variantSequences, canonicalSequence)
-      ) ?? [];
+      alternativeProducts?.[0]?.isoforms?.map((isoform) => {
+        if (isoform.isoformSequenceStatus === 'Displayed') {
+          return {
+            isoformId: isoform.isoformIds[0],
+            sequence: canonicalSequence,
+          };
+        }
+        return constructIsoformSequence(
+          isoform,
+          variantSequences,
+          canonicalSequence
+        );
+      }) ?? [];
   }
 
   if (isoforms.length > 0) {
