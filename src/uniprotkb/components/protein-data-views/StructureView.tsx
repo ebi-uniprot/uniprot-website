@@ -15,9 +15,11 @@ const StructureView = ({
   primaryAccession,
   sequence,
   isoforms,
+  checksum,
   viewerOnly = false,
 }: {
-  primaryAccession: string;
+  primaryAccession?: string;
+  checksum?: string;
   sequence?: string;
   isoforms?: IsoformSequences[];
   viewerOnly?: boolean;
@@ -47,7 +49,7 @@ const StructureView = ({
   }
   return (
     <div className={styles.container}>
-      {!viewerOnly && (
+      {primaryAccession && !viewerOnly && (
         <>
           <Message level="info">
             View UniProt features on this structure in the{' '}
@@ -71,6 +73,7 @@ const StructureView = ({
       <protvista-uniprot-structure
         ref={setStructureRef}
         accession={primaryAccession}
+        checksum={checksum}
         sequence={sequence}
       />
     </div>

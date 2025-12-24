@@ -3,6 +3,7 @@ type ProtvistaUniprotElement = React.DetailedHTMLProps<
   HTMLElement
 > & {
   accession?: string;
+  checksum?: string;
   sequence?: string;
   isoforms?: object;
 };
