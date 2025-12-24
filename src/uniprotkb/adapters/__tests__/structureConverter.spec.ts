@@ -10,9 +10,84 @@ describe('Structure data converter', () => {
       databaseInfoMaps,
       convertXrefProperties(modelData.uniProtKBCrossReferences)
     );
+
     expect(convertedData).toEqual({
-      commentsData: new Map(),
+      commentsData: new Map([
+        [
+          'ALTERNATIVE PRODUCTS',
+          [
+            {
+              commentType: 'ALTERNATIVE PRODUCTS',
+              events: ['Alternative initiation'],
+              isoforms: [
+                {
+                  isoformIds: ['isoID1'],
+                  isoformSequenceStatus: 'Described',
+                  name: {
+                    value: 'name',
+                    evidences: [
+                      {
+                        evidenceCode: 'ECO:0000255',
+                        id: 'PRU10028',
+                        source: 'PROSITE-ProRule',
+                      },
+                    ],
+                  },
+                  note: {
+                    texts: [
+                      {
+                        value: 'value1',
+                        evidences: [
+                          {
+                            evidenceCode: 'ECO:0000255',
+                            id: 'PRU10028',
+                            source: 'PROSITE-ProRule',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  sequenceIds: ['SequenceID'],
+                  synonyms: [
+                    {
+                      value: 'syn value',
+                      evidences: [
+                        {
+                          evidenceCode: 'ECO:0000255',
+                          id: 'PRU10028',
+                          source: 'PROSITE-ProRule',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+              note: {
+                texts: [
+                  {
+                    value: 'value1',
+                    evidences: [
+                      {
+                        evidenceCode: 'ECO:0000255',
+                        id: 'PRU10028',
+                        source: 'PROSITE-ProRule',
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        ],
+      ]),
+
       featuresData: [],
+      isoforms: [
+        {
+          isoformId: 'isoID1',
+          sequence: '',
+        },
+      ],
       keywordData: [],
       structures: {},
       xrefData: [

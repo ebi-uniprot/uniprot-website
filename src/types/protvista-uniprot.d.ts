@@ -5,6 +5,7 @@ type ProtvistaUniprotElement = React.DetailedHTMLProps<
   accession?: string;
   checksum?: string;
   sequence?: string;
+  isoforms?: object;
 };
 
 declare namespace JSX {

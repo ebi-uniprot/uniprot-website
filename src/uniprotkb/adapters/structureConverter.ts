@@ -2,16 +2,23 @@ import { groupBy } from 'lodash-es';
 
 import { Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
+import { AlternativeProductsComment } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
 import { StructureFeatures } from '../types/featureType';
 import { DatabaseInfoMaps } from '../utils/database';
+import { constructIsoformSequence } from './extractIsoformsConverter';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 
 type GroupedStructureInfo = { [key: string]: Xref[] };
+export type IsoformSequences = {
+  isoformId: string;
+  sequence: string;
+}[];
 
 export type StructureUIModel = {
   structures?: GroupedStructureInfo;
+  isoforms?: IsoformSequences;
 } & UIModel;
 
 export const structureFeaturesToColumns: Readonly<
@@ -34,12 +41,44 @@ const convertStructure = (
   const structureData: StructureUIModel = convertSection(
     data,
     databaseInfoMaps,
+    ['ALTERNATIVE PRODUCTS'],
     undefined,
-    undefined,
-    featuresCategories,
+    [...featuresCategories, 'Alternative sequence'],
     EntrySection.Structure,
     uniProtKBCrossReferences
   );
+
+  const canonicalSequence = data.sequence?.value || '';
+
+  let isoforms: IsoformSequences = [];
+  if (structureData.commentsData.size) {
+    const alternativeProducts = structureData.commentsData.get(
+      'ALTERNATIVE PRODUCTS'
+    ) as AlternativeProductsComment[] | undefined;
+    const variantSequences = structureData.featuresData.filter(
+      (feature) => feature.type === 'Alternative sequence'
+    );
+
+    isoforms =
+      alternativeProducts?.[0]?.isoforms?.map((isoform) => {
+        if (isoform.isoformSequenceStatus === 'Displayed') {
+          return {
+            isoformId: isoform.isoformIds[0],
+            sequence: canonicalSequence,
+          };
+        }
+        return constructIsoformSequence(
+          isoform,
+          variantSequences,
+          canonicalSequence
+        );
+      }) ?? [];
+  }
+
+  if (isoforms.length > 0) {
+    structureData.isoforms = isoforms;
+  }
+
   // Extract xrefs to PDB
   if (uniProtKBCrossReferences) {
     const structureInfo = uniProtKBCrossReferences
