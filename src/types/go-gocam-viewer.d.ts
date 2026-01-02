@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-declare module '@geneontology/wc-gocam-viz';
+declare module '@geneontology/web-components';
 
 declare namespace JSX {
   interface IntrinsicElements {
-    'wc-gocam-viz': any;
+    'go-gocam-viewer': any;
   }
 }
