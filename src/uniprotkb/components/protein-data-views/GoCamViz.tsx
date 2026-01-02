@@ -1,4 +1,4 @@
-import * as goCamVizLoader from '@geneontology/wc-gocam-viz/loader';
+import { defineCustomElements } from '@geneontology/web-components/loader';
 import { Loader } from 'franklin-sites';
 import { useEffect } from 'react';
 
@@ -12,15 +12,15 @@ type Props = {
 const GoCamViz = ({ id }: Props) => {
   const [defined, setDefined] = useSafeState(false);
   useEffect(() => {
-    goCamVizLoader.defineCustomElements();
-    customElements.whenDefined('wc-gocam-viz').then(() => {
+    defineCustomElements();
+    customElements.whenDefined('go-gocam-viewer').then(() => {
       setDefined(true);
     });
   }, [setDefined]);
 
   return (
     <div className={styles['go-cam-viz-container']}>
-      {defined ? <wc-gocam-viz id="gocam" gocam-id={id} /> : <Loader />}
+      {defined ? <go-gocam-viewer id="gocam" gocam-id={id} /> : <Loader />}
     </div>
   );
 };
