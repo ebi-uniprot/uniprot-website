@@ -7,7 +7,6 @@ import {
   Sequence,
 } from 'franklin-sites';
 import { useMemo } from 'react';
-import { Fragment } from 'react/jsx-runtime';
 import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -17,8 +16,6 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { hasContent } from '../../../shared/utils/utils';
-import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
@@ -71,15 +68,15 @@ const SubEntrySequenceSection = ({
     (property) => property.key === 'sources'
   );
 
-  const flagPredictions =
-    data.unifire?.filter((p) => p.annotationType === 'protein.flag') || [];
+  // const flagPredictions =
+  //   data.unifire?.filter((p) => p.annotationType === 'protein.flag') || [];
 
   return (
     <Card
       header={<h2>{entrySectionToLabel[EntrySection.Sequence]}</h2>}
       id={EntrySection.Sequence}
     >
-      {flagPredictions.length ? (
+      {/* {flagPredictions.length ? (
         <InfoList
           infoData={[
             {
@@ -102,7 +99,7 @@ const SubEntrySequenceSection = ({
             },
           ]}
         />
-      ) : null}
+      ) : null} */}
       <Sequence
         accession={data.entry.uniParcId}
         sequence={sequence.value}

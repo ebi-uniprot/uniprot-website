@@ -6,28 +6,30 @@ import {
   ModifiedPrediction,
   UniParcSubEntryUIModel,
 } from '../../adapters/uniParcSubEntryConverter';
-import annotationTypeToSection from '../../config/UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import SubEntryFeaturesView from './SubEntryFeaturesView';
 
 type Props = {
   data: UniParcSubEntryUIModel;
-  annotationTypes: string[];
   section: SubEntrySection;
 };
 
-const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
+const noSubSection = 'NoSubSection';
+
+const UniFireInferredSection = ({ data, section }: Props) => {
   const { sequence } = data.entry;
   const predictionsByType: Record<string, ModifiedPrediction[] | undefined> =
     {};
 
-  annotationTypes.forEach((type) => {
-    predictionsByType[type] =
-      data.unifire?.filter(
-        (prediction) => prediction.annotationType === type
-      ) || [];
-  });
+  for (const prediction of data.unifire?.[section] || []) {
+    const subSectionLabel =
+      prediction?.sectionObject?.subSectionLabel || noSubSection;
+    if (!predictionsByType[subSectionLabel]) {
+      predictionsByType[subSectionLabel] = [];
+    }
+    predictionsByType[subSectionLabel]?.push(prediction);
+  }
 
   if (Object.values(predictionsByType).flat().length) {
     return (
@@ -44,9 +46,7 @@ const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
             {predictions?.length ? (
               <>
                 {/* TODO: Add help */}
-                {annotationTypeToSection[type].subSectionLabel ? (
-                  <h3>{annotationTypeToSection[type].subSectionLabel}</h3>
-                ) : null}
+                {type === noSubSection ? null : <h3>{type}</h3>}
                 {type.startsWith('feature') && sequence?.value ? (
                   <SubEntryFeaturesView
                     sequence={sequence.value}
@@ -65,7 +65,7 @@ const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
                               evidences: prediction.evidence,
                             },
                           ],
-                          commentType: annotationTypeToSection[type]
+                          commentType: prediction.sectionObject
                             .freeTextType as FreeTextType,
                         },
                       ]}

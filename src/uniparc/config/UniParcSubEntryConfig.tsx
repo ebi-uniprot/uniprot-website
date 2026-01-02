@@ -1,13 +1,12 @@
 import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
-import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
+// import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
 import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNamesAndTaxonomySection';
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
 import UniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
 import EntrySection from '../types/subEntrySection';
-import { groupTypesBySection } from './UniFireAnnotationTypeToSection';
 
 const uniParcSubEntryConfig: {
   id: EntrySection;
@@ -18,7 +17,6 @@ const uniParcSubEntryConfig: {
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Function)}
         section={EntrySection.Function}
         key={EntrySection.Function}
       />
@@ -38,7 +36,6 @@ const uniParcSubEntryConfig: {
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
-        annotationTypes={groupTypesBySection(EntrySection.SubcellularLocation)}
         section={EntrySection.SubcellularLocation}
         key={EntrySection.SubcellularLocation}
       />
@@ -49,7 +46,6 @@ const uniParcSubEntryConfig: {
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Expression)}
         section={EntrySection.Expression}
         key={EntrySection.Expression}
       />
@@ -60,7 +56,6 @@ const uniParcSubEntryConfig: {
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
-        annotationTypes={groupTypesBySection(EntrySection.ProteinProcessing)}
         section={EntrySection.ProteinProcessing}
         key={EntrySection.ProteinProcessing}
       />
@@ -71,7 +66,6 @@ const uniParcSubEntryConfig: {
     sectionContent: (data) => (
       <UniFireInferredSection
         data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Interaction)}
         section={EntrySection.Interaction}
         key={EntrySection.Interaction}
       />
@@ -108,16 +102,17 @@ const uniParcSubEntryConfig: {
       />
     ),
   },
-  // Dedicated section for Keywords and GO as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
-  {
-    id: EntrySection.KeywordsAndGO,
-    sectionContent: ({ unifire }) => (
-      <SubEntryKeywordsSection
-        data={unifire}
-        key={EntrySection.KeywordsAndGO}
-      />
-    ),
-  },
+  // Dedicated section for Keywords and GO as we don't know which section they correspond to yet.
+  // Ideally we need to have keyword ids to link and the section they belong to.
+  // {
+  //   id: EntrySection.KeywordsAndGO,
+  //   sectionContent: ({ unifire }) => (
+  //     <SubEntryKeywordsSection
+  //       data={unifire}
+  //       key={EntrySection.KeywordsAndGO}
+  //     />
+  //   ),
+  // },
 ];
 
 export default uniParcSubEntryConfig;

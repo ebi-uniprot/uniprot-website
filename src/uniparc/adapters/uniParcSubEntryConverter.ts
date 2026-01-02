@@ -3,7 +3,8 @@ import { Except } from 'type-fest';
 import * as logging from '../../shared/utils/logging';
 import { Evidence } from '../../uniprotkb/types/modelTypes';
 import { UniSaveStatus } from '../../uniprotkb/types/uniSave';
-import annotationTypeToSection, {
+import {
+  getSectionObject,
   type SectionObject,
 } from '../config/UniFireAnnotationTypeToSection';
 import SubEntrySection from '../types/subEntrySection';
@@ -29,7 +30,7 @@ export type UniParcSubEntryUIModel = {
 export type Prediction = {
   evidence: string[];
   annotationType: string;
-  annotationValue: string;
+  annotationValue?: string;
   start?: number;
   end?: number;
 };
@@ -61,6 +62,8 @@ const constructPredictionEvidences = (
   );
 };
 
+const moleculeRegExp = /^\[([^\]]+)\]: /;
+
 const uniParcSubEntryConverter = (
   entryData?: UniParcLiteAPIModel,
   subEntryData?: UniParcXRef,
@@ -82,12 +85,10 @@ const uniParcSubEntryConverter = (
 
   const unifire: Partial<Record<SubEntrySection, ModifiedPrediction[]>> = {};
   for (const prediction of uniFireData?.predictions || []) {
-    const sectionObject = annotationTypeToSection[prediction.annotationType];
+    const sectionObject = getSectionObject(prediction.annotationType);
     // Sanity check
     if (!sectionObject) {
-      logging.warn('missing case for unifire', {
-        extra: { data: prediction.annotationType },
-      });
+      // already logged as an issue, just move on here
       continue;
     }
     // Add proper evidence
@@ -96,6 +97,17 @@ const uniParcSubEntryConverter = (
       evidence: constructPredictionEvidences(prediction.evidence),
       sectionObject,
     };
+    // Assign to molecule (if that's the case)
+    const moleculeMatch =
+      modifiedPrediction.annotationValue?.match(moleculeRegExp);
+    if (modifiedPrediction.annotationValue && moleculeMatch?.[1]) {
+      if (modifiedPrediction.sectionObject.subSectionLabel) {
+        logging.warn('UniFIRE: conflicting annotation molecule and subSection');
+      }
+      modifiedPrediction.annotationValue =
+        modifiedPrediction.annotationValue.replace(moleculeRegExp, '');
+      modifiedPrediction.sectionObject.subSectionLabel = moleculeMatch[1];
+    }
     // Add correct section if not there yet
     if (!(sectionObject.section in unifire)) {
       unifire[sectionObject.section] = [];

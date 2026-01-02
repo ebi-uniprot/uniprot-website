@@ -50,7 +50,6 @@ import uniParcSubEntryConverter, {
   UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
-import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import { TabLocation } from '../../types/entry';

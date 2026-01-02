@@ -82,51 +82,52 @@ const SubEntryNamesAndTaxonomySection = ({
 
   const { proteinName, geneName, organism, properties } = data.subEntry;
 
-  const recommendedFullNamePrediction =
-    data.unifire?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.fullName'
-    ) || [];
+  // const recommendedFullNamePrediction =
+  //   data.unifire?.filter(
+  //     (prediction) =>
+  //       prediction.annotationType === 'protein.recommendedName.fullName'
+  //   ) || [];
 
-  const recommendedShortNamePrediction =
-    data.unifire?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.shortName'
-    ) || [];
+  // const recommendedShortNamePrediction =
+  //   data.unifire?.filter(
+  //     (prediction) =>
+  //       prediction.annotationType === 'protein.recommendedName.shortName'
+  //   ) || [];
 
-  const recommendedECPrediction =
-    data.unifire?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.ecNumber'
-    ) || [];
+  // const recommendedECPrediction =
+  //   data.unifire?.filter(
+  //     (prediction) =>
+  //       prediction.annotationType === 'protein.recommendedName.ecNumber'
+  //   ) || [];
 
-  const alternativeNamePrediction = [
-    'protein.alternativeName.fullName',
-    'protein.alternativeName.shortName',
-  ]
-    .map(
-      (type) =>
-        data.unifire?.filter(
-          (prediction) => prediction.annotationType === type
-        ) || []
-    )
-    .flat();
+  // const alternativeNamePrediction = [
+  //   'protein.alternativeName.fullName',
+  //   'protein.alternativeName.shortName',
+  // ]
+  //   .map(
+  //     (type) =>
+  //       data.unifire?.filter(
+  //         (prediction) => prediction.annotationType === type
+  //       ) || []
+  //   )
+  //   .flat();
 
-  const alternativeECPrediction =
-    data.unifire?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.alternativeName.ecNumber'
-    ) || [];
+  // const alternativeECPrediction =
+  //   data.unifire?.filter(
+  //     (prediction) =>
+  //       prediction.annotationType === 'protein.alternativeName.ecNumber'
+  //   ) || [];
 
-  const geneNamePrediction =
-    data.unifire?.filter(
-      (prediction) => prediction.annotationType === 'gene.name.primary'
-    ) || [];
+  // const geneNamePrediction =
+  //   data.unifire?.filter(
+  //     (prediction) => prediction.annotationType === 'gene.name.primary'
+  //   ) || [];
+  const geneNamePrediction = [];
 
-  const geneNameSynonymsPrediction =
-    data.unifire?.filter(
-      (prediction) => prediction.annotationType === 'gene.name.synonym'
-    ) || [];
+  // const geneNameSynonymsPrediction =
+  //   data.unifire?.filter(
+  //     (prediction) => prediction.annotationType === 'gene.name.synonym'
+  //   ) || [];
 
   const proteomeComponentObject = getSubEntryProteomes(properties);
 
@@ -149,45 +150,45 @@ const SubEntryNamesAndTaxonomySection = ({
         <NameContent predictions={proteinName} queryParam="protein_name" />
       ) : null,
     },
-    {
-      title: 'Recommended name',
-      content: recommendedFullNamePrediction.length ? (
-        <NameContent
-          predictions={recommendedFullNamePrediction}
-          queryParam="protein_name"
-        />
-      ) : null,
-    },
-    {
-      title: 'Short names',
-      content: recommendedShortNamePrediction.length ? (
-        <NameContent
-          predictions={recommendedShortNamePrediction}
-          queryParam="protein_name"
-        />
-      ) : null,
-    },
-    {
-      title: 'EC number',
-      content: recommendedECPrediction.length ? (
-        <NameContent predictions={recommendedECPrediction} queryParam="ec" />
-      ) : null,
-    },
-    {
-      title: 'Alternative names',
-      content: alternativeNamePrediction.length ? (
-        <NameContent
-          predictions={alternativeNamePrediction}
-          queryParam="protein_name"
-        />
-      ) : null,
-    },
-    {
-      title: 'Alternative EC number',
-      content: alternativeECPrediction.length ? (
-        <NameContent predictions={alternativeECPrediction} queryParam="ec" />
-      ) : null,
-    },
+    //   {
+    //     title: 'Recommended name',
+    //     content: recommendedFullNamePrediction.length ? (
+    //       <NameContent
+    //         predictions={recommendedFullNamePrediction}
+    //         queryParam="protein_name"
+    //       />
+    //     ) : null,
+    //   },
+    //   {
+    //     title: 'Short names',
+    //     content: recommendedShortNamePrediction.length ? (
+    //       <NameContent
+    //         predictions={recommendedShortNamePrediction}
+    //         queryParam="protein_name"
+    //       />
+    //     ) : null,
+    //   },
+    //   {
+    //     title: 'EC number',
+    //     content: recommendedECPrediction.length ? (
+    //       <NameContent predictions={recommendedECPrediction} queryParam="ec" />
+    //     ) : null,
+    //   },
+    //   {
+    //     title: 'Alternative names',
+    //     content: alternativeNamePrediction.length ? (
+    //       <NameContent
+    //         predictions={alternativeNamePrediction}
+    //         queryParam="protein_name"
+    //       />
+    //     ) : null,
+    //   },
+    //   {
+    //     title: 'Alternative EC number',
+    //     content: alternativeECPrediction.length ? (
+    //       <NameContent predictions={alternativeECPrediction} queryParam="ec" />
+    //     ) : null,
+    //   },
   ];
 
   const geneNameInfoData = [
@@ -203,15 +204,15 @@ const SubEntryNamesAndTaxonomySection = ({
           </>
         ) : null,
     },
-    {
-      title: 'Synonyms',
-      content: geneNameSynonymsPrediction.length ? (
-        <NameContent
-          predictions={geneNameSynonymsPrediction}
-          queryParam="gene"
-        />
-      ) : null,
-    },
+    //   {
+    //     title: 'Synonyms',
+    //     content: geneNameSynonymsPrediction.length ? (
+    //       <NameContent
+    //         predictions={geneNameSynonymsPrediction}
+    //         queryParam="gene"
+    //       />
+    //     ) : null,
+    //   },
   ];
 
   const organismInfoData = [
