@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const proteinSpotlightAbstract =
-  "Water is one of the major molecules of life. Which is why the greater part of us is made of it. As a child, I found this hard to fathom. Should we not then be relatively liquid? I don't think I ever found a satisfying answer, nor did I really seek one, until I gained knowledge on the underlying physiology of organisms.";
+  'As I crossed Geneva this morning and approached the office, I felt a growing sadness. I realised that, if I was walking in this direction in the first place, it was thanks to Amos Bairoch.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -351,21 +351,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/285/"
+            url="https://www.proteinspotlight.org/back_issues/286/"
             noIcon
           >
-            Thirst
+            A tribute
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/285/"
+          url="https://www.proteinspotlight.org/back_issues/286/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt285.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt286.jpg"
             alt=""
             width="123"
             height="129"
