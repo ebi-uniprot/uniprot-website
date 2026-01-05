@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`PeptideSearchResult should render with the correct number of results in the title, not own job 1`] = `
 <DocumentFragment>

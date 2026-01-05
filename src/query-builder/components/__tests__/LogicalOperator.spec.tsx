@@ -17,7 +17,7 @@ describe('LogicalOperator component', () => {
     render(<LogicalOperator {...props} />);
     const select = screen.getByRole('combobox');
     fireEvent.change(select, { target: { value: 'OR' } });
-    expect(props.handleChange).toBeCalled();
+    expect(props.handleChange).toHaveBeenCalled();
   });
 
   it('should render', () => {

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`UniProtKBEntryPublications Should make a call with pubmed ids and fail 1`] = `
 <DocumentFragment>

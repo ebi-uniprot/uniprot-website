@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`SearchSuggestions should render proteome suggestions given an organism id 1`] = `
 <DocumentFragment>
