@@ -3536,18 +3536,18 @@
   dependencies:
     apg-lite "^1.0.4"
 
-"@swissprot/rhea-reaction-viz-test@0.0.24":
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-viz-test/-/rhea-reaction-viz-test-0.0.24.tgz#6bf833ddef17c437b6af543f10b20152ee86e7ae"
-  integrity sha512-Vepgap1ZQoalghWPeuEZkLGVH3xCg5FOZ5MORj/X4Bn0Ce6UQY03c74HYAmz6L3AzS7Lx1HWq8RHqxbOHvAumA==
+"@swissprot/rhea-reaction-viz-test@0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-viz-test/-/rhea-reaction-viz-test-0.0.25.tgz#b85b354db3f36a8b5439ded865fd8c230cc0e99f"
+  integrity sha512-nRjl07pzPLWLBmnQjoqi+EeNQ1IgkCWLkAZ/nh7v5JNbZrf8gk9UUI7FhbreVhgp9hPxOG30f6k06RcOkKoLoA==
   dependencies:
     normalize.css "^8.0.1"
     tippy.js "^6.3.7"
 
-"@swissprot/swissbiopics-visualizer@0.0.28":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@swissprot/swissbiopics-visualizer/-/swissbiopics-visualizer-0.0.28.tgz#5942b7347278c571b588f29906748a4aee72c448"
-  integrity sha512-8hbHJgET9iZzKSBKMQLTheZSIuf7a78jgYjOBBslet5gKujgK9yZVmtfzvKOtCgWd81F1L/BuWLv2B1rHKoYlQ==
+"@swissprot/swissbiopics-visualizer@0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@swissprot/swissbiopics-visualizer/-/swissbiopics-visualizer-0.0.29.tgz#1532c78ce0481ea1c0856605b3f34cd1c6b66970"
+  integrity sha512-p9ee+6ASJlSRepS9yD30WimH0CeuSdKMuZ56Vu2tTrR+kJeqqFhREoDutWWW3io6e0LBukakitfqzXGU58Irlw==
 
 "@testing-library/dom@10.4.1":
   version "10.4.1"
