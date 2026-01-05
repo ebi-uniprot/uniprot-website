@@ -18,7 +18,7 @@ type VariationViewProps = {
 };
 
 const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
-  const navigationRef = useRef<NightingaleNavigation>(null);
+  const navigationRef = useRef<NightingaleNavigation | null>(null);
   const setNightingaleVariation = useCallback(
     (node: NightingaleVariation) => {
       if (node && sequence && variants) {

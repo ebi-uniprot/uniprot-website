@@ -1,5 +1,5 @@
 import { InfoList, LongNumber, Sequence } from 'franklin-sites';
-import { Fragment, ReactNode, useState } from 'react';
+import { Fragment, JSX, ReactNode, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import {

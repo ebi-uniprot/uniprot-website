@@ -95,7 +95,7 @@ const GoRibbon = ({
   const isSmallScreen = useSmallScreen();
   const columns = useColumns();
 
-  const nodeRef = useRef<HTMLElement>();
+  const nodeRef = useRef<HTMLElement | null>(null);
 
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, onSlimSetSelect, slimSets } =

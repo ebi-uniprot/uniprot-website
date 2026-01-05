@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { UniRefMember, UniRefUIModel } from '../adapters/uniRefConverter';
 import MembersSection from '../components/entry/MembersSection';
 import SequenceSection from '../components/entry/SequenceSection';

@@ -57,7 +57,7 @@ function VisualFeaturesView<T extends ProcessedFeature>({
   const params = useParams<{ accession: string }>();
   const trackRef = useRef<NightingaleTrackCanvas>(null);
   const managerRef = useRef<NightingaleManager>(null);
-  const navigationRef = useRef<NightingaleNavigation>(null);
+  const navigationRef = useRef<NightingaleNavigation | null>(null);
 
   // NightingaleTrack data loading and feature click event handler
   useEffect(() => {

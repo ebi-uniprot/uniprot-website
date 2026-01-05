@@ -1,7 +1,7 @@
 import type { AlphaFoldPayload } from '@nightingale-elements/nightingale-structure';
 import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
-import { useEffect, useMemo, useState } from 'react';
+import { JSX, useEffect, useMemo, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import { allEntryPages } from '../../../app/config/urls';

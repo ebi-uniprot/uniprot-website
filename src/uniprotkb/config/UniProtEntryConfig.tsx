@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';

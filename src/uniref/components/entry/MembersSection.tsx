@@ -1,5 +1,5 @@
 import { Card, DataTableWithLoader, Loader, LongNumber } from 'franklin-sites';
-import { memo, useEffect, useState } from 'react';
+import { JSX, memo, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import {

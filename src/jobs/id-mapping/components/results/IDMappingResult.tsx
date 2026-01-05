@@ -1,6 +1,6 @@
 import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { partition, uniqBy } from 'lodash-es';
-import { lazy, Suspense, useMemo } from 'react';
+import { JSX, lazy, Suspense, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import {

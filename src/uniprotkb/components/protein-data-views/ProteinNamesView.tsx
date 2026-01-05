@@ -1,5 +1,5 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
-import { type ComponentProps, Fragment } from 'react';
+import { type ComponentProps, Fragment, JSX } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

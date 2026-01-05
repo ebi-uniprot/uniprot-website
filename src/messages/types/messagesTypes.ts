@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { Location } from '../../app/config/urls';
 
 export enum MessageLevel {

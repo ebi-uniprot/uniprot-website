@@ -11,7 +11,7 @@ export const iconSize = 19;
 
 type Props = {
   length: number;
-  nightingaleNavigationRef?: RefObject<NightingaleNavigation> | null;
+  nightingaleNavigationRef?: RefObject<NightingaleNavigation | null>;
   nightingaleNavigationGetter?: () => NightingaleNavigation | null;
 };
 

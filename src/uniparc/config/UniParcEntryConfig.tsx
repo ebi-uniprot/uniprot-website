@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { UniParcUIModel } from '../adapters/uniParcConverter';
 import SequenceSection from '../components/entry/SequenceSection';
 import XRefsSection from '../components/entry/XRefsSection';

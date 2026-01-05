@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, JSX, useEffect, useMemo, useState } from 'react';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import { proteomeFastaOption } from '../../../shared/components/download/Download';

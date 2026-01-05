@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { JSX, lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Except } from 'type-fest';
 

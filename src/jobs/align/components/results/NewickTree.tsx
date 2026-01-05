@@ -62,7 +62,7 @@ const NewickTree: FC<React.PropsWithChildren<NewickTreeProps>> = ({
   handleEntrySelection,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const redrawRef = useRef<Redraw & Cancelable>();
+  const redrawRef = useRef<(Redraw & Cancelable) | null>(null);
 
   const [size] = useSize(svgRef);
   const reducedMotion = useReducedMotion();

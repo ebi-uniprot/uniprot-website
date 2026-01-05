@@ -15,7 +15,7 @@ function useDataApiWithStale<T>(
   url?: string | null,
   options?: AxiosRequestConfig
 ): UseDataAPIWithStaleState<T> {
-  const staleDataRef = useRef<T>();
+  const staleDataRef = useRef<T | null>(null);
 
   const state = useDataApi<T>(url, options);
 

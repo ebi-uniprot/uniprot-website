@@ -20,7 +20,7 @@ const useStructuredData = <Schema extends Thing>(
   structuredData?: WithContext<Schema> | Graph,
   throttleTime = 250
 ) => {
-  const script = useRef<HTMLScriptElement>();
+  const script = useRef<HTMLScriptElement | null>(null);
 
   const inject = useRef(
     throttle((value?: WithContext<Schema> | Graph) => {
