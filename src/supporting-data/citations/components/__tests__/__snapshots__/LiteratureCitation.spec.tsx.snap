@@ -189,7 +189,7 @@ exports[`Publication component should render 1`] = `
                     99+
                   </span>
                   <test-file-stub
-                    classname="publication__statistics__content__body--reviewed"
+                    class="publication__statistics__content__body--reviewed"
                     height="1em"
                   />
                 </a>
@@ -203,7 +203,7 @@ exports[`Publication component should render 1`] = `
                     99+
                   </span>
                   <test-file-stub
-                    classname="publication__statistics__content__body--unreviewed"
+                    class="publication__statistics__content__body--unreviewed"
                     height="1em"
                   />
                 </a>

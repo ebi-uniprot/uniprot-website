@@ -212,7 +212,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 2`] = 
         class="loader-container"
       >
         <test-file-stub
-          classname="loader"
+          class="loader"
           height="100"
           width="100"
         />

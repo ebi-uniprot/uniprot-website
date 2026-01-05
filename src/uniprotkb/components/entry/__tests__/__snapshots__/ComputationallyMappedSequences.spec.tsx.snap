@@ -58,12 +58,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
                 class="checkbox-cell"
               >
                 <input
-                  id="7"
+                  id="6"
                   type="checkbox"
                 />
                 <label
                   aria-label="Selection control for all visible items"
-                  for="7"
+                  for="6"
                 />
               </div>
             </th>

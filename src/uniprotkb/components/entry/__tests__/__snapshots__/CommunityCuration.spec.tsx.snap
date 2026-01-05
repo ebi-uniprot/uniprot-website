@@ -16,7 +16,7 @@ exports[`Community annotatation should render the community annotation content 1
         />
         Community curated (8) 
         <test-file-stub
-          classname="chevron-icon"
+          class="chevron-icon"
           width="1ch"
         />
       </span>

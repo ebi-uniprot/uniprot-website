@@ -162,7 +162,7 @@ exports[`Entry view should render 1`] = `
             </div>
             <rhea-visualizer
               rheaid="12345"
-              showids="true"
+              showids=""
               usehost="https://api.rhea-db.org"
             />
           </div>
@@ -2443,7 +2443,7 @@ exports[`Entry view should render 1`] = `
                   id="id1term"
                 >
                   <test-file-stub
-                    classname="sub-cell-viz__in-view-pin"
+                    class="sub-cell-viz__in-view-pin"
                     height="1em"
                   />
                   <strong>
@@ -2807,7 +2807,7 @@ exports[`Entry view should render 1`] = `
           class="loader-container"
         >
           <test-file-stub
-            classname="loader"
+            class="loader"
             height="100"
             width="100"
           />
@@ -2974,7 +2974,7 @@ exports[`Entry view should render 1`] = `
           class="loader-container"
         >
           <test-file-stub
-            classname="loader"
+            class="loader"
             height="100"
             width="100"
           />
@@ -3785,7 +3785,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
             <rhea-visualizer
               rheaid="14869"
-              showids="true"
+              showids=""
               usehost="https://api.rhea-db.org"
             />
           </div>
@@ -4579,7 +4579,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="loader-container"
             >
               <test-file-stub
-                classname="loader"
+                class="loader"
                 height="100"
                 width="100"
               />
@@ -5421,7 +5421,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="message__side-border"
             />
             <test-file-stub
-              classname="message--icon-align-top"
+              class="message--icon-align-top"
               height="1.125em"
               width="1.125em"
             />
@@ -6110,7 +6110,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="message__side-border"
           />
           <test-file-stub
-            classname="message--icon-align-top"
+            class="message--icon-align-top"
             height="1.125em"
             width="1.125em"
           />

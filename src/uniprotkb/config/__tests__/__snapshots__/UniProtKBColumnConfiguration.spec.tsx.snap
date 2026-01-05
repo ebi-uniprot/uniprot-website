@@ -589,7 +589,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
       id="id1term"
     >
       <test-file-stub
-        classname="sub-cell-viz__in-view-pin"
+        class="sub-cell-viz__in-view-pin"
         height="1em"
       />
       <strong>

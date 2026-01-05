@@ -9,7 +9,7 @@ exports[`SubcellularLocationGOView should render 1`] = `
       class="GO5576"
     >
       <test-file-stub
-        classname="sub-cell-viz__in-view-pin"
+        class="sub-cell-viz__in-view-pin"
         height="1em"
       />
       <a
@@ -51,7 +51,7 @@ exports[`SubcellularLocationGOView should render 1`] = `
       class="GO5615"
     >
       <test-file-stub
-        classname="sub-cell-viz__in-view-pin"
+        class="sub-cell-viz__in-view-pin"
         height="1em"
       />
       <a

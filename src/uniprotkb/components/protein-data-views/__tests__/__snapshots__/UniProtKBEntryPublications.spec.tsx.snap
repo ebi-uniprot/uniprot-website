@@ -10,7 +10,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and fail 
       class="message__side-border"
     />
     <test-file-stub
-      classname="message--icon-align-top"
+      class="message--icon-align-top"
       height="1.125em"
       width="1.125em"
     />
@@ -176,7 +176,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                     2
                   </span>
                   <test-file-stub
-                    classname="publication__statistics__content__body--reviewed"
+                    class="publication__statistics__content__body--reviewed"
                     height="1em"
                   />
                 </a>
@@ -348,7 +348,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                     6
                   </span>
                   <test-file-stub
-                    classname="publication__statistics__content__body--reviewed"
+                    class="publication__statistics__content__body--reviewed"
                     height="1em"
                   />
                 </a>
@@ -546,7 +546,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                     1
                   </span>
                   <test-file-stub
-                    classname="publication__statistics__content__body--reviewed"
+                    class="publication__statistics__content__body--reviewed"
                     height="1em"
                   />
                 </a>

@@ -42,7 +42,6 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           name="name"
           placeholder=" "
           type="text"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -52,12 +51,12 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -79,7 +78,6 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           placeholder="myemail@example.com"
           required=""
           type="email"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -89,12 +87,12 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -116,7 +114,6 @@ exports[`ContactForm should be disabled when submitting 1`] = `
           placeholder=" "
           required=""
           type="text"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -126,12 +123,12 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -164,12 +161,12 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -318,7 +315,6 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           name="name"
           placeholder=" "
           type="text"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -328,12 +324,12 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -355,7 +351,6 @@ exports[`ContactForm should render for feedback contact form 1`] = `
           placeholder="myemail@example.com"
           required=""
           type="email"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -365,12 +360,12 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -402,12 +397,12 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -440,12 +435,12 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -593,7 +588,6 @@ exports[`ContactForm should render for generic contact form 1`] = `
           name="name"
           placeholder=" "
           type="text"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -603,12 +597,12 @@ exports[`ContactForm should render for generic contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -630,7 +624,6 @@ exports[`ContactForm should render for generic contact form 1`] = `
           placeholder="myemail@example.com"
           required=""
           type="email"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -640,12 +633,12 @@ exports[`ContactForm should render for generic contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -667,7 +660,6 @@ exports[`ContactForm should render for generic contact form 1`] = `
           placeholder=" "
           required=""
           type="text"
-          value=""
         />
         <span
           aria-hidden="true"
@@ -677,12 +669,12 @@ exports[`ContactForm should render for generic contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>
@@ -715,12 +707,12 @@ exports[`ContactForm should render for generic contact form 1`] = `
         </span>
         <test-file-stub
           aria-hidden="true"
-          classname="validity valid"
+          class="validity valid"
           width="1em"
         />
         <test-file-stub
           aria-hidden="true"
-          classname="validity invalid"
+          class="validity invalid"
           width="1em"
         />
       </span>

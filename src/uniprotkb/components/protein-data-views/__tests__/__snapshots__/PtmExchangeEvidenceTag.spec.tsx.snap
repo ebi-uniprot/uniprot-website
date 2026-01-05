@@ -115,7 +115,7 @@ exports[`PtmExchangeEvidenceTag components should render 1`] = `
               class="loader-container"
             >
               <test-file-stub
-                classname="loader"
+                class="loader"
                 height="100"
                 width="100"
               />
