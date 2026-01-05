@@ -2828,7 +2828,9 @@ exports[`Entry view should render 1`] = `
               <th>
                 Entry 1
                 <br />
-                <select>
+                <select
+                  style="width: fit-content;"
+                >
                   <option
                     value="All"
                   >
@@ -5667,7 +5669,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               <th>
                 Type
                 <br />
-                <select>
+                <select
+                  style="width: fit-content;"
+                >
                   <option
                     value="All"
                   >
