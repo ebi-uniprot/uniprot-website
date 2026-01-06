@@ -177,7 +177,11 @@ const getConfigFor = ({
                   // Suppress Sass @import deprecation warnings.
                   // These are triggered by legacy SCSS in foundation-sites.
                   // Remove this once all imported SCSS is migrated to @use/@forward.
-                  silenceDeprecations: ['import'],
+                  silenceDeprecations: [
+                    'import',
+                    'global-builtin',
+                    'if-function',
+                  ],
                 },
               },
             },
