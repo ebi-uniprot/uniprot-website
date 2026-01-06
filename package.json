@@ -59,7 +59,7 @@
       "jsx"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!franklin-sites|p-map|aggregate-error|clean-stack|protvista-uniprot|@nightingale|@lit/react|url-join).+\\.js"
+      "<rootDir>/node_modules/(?!franklin-sites|p-map|aggregate-error|clean-stack|protvista-uniprot|@nightingale|@lit/react|url-join|marked|marked-gfm-heading-id).+\\.js"
     ],
     "testPathIgnorePatterns": [
       "/__mocks__/",
