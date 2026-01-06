@@ -85,7 +85,7 @@ const SubEntry = () => {
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [runUniFire, setRunUniFire] = useState(false);
+  const [runUniFire, setRunUniFire] = useState(true);
 
   const { accession, subEntryId, subPage } = match?.params || {};
 
