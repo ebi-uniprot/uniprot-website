@@ -1,4 +1,4 @@
-import { ReceivedFieldData } from '../../../../../../uniprotkb/types/resultsTypes';
+import { type ReceivedFieldData } from '../../../../../../uniprotkb/types/resultsTypes';
 
 const mock = [
   {

@@ -1,6 +1,6 @@
-import { SetRequired } from 'type-fest';
+import { type SetRequired } from 'type-fest';
 
-import { SearchResults } from '../../shared/types/results';
+import { type SearchResults } from '../../shared/types/results';
 
 export type HelpAPIModel = {
   id: string;

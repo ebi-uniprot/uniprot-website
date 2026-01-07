@@ -1,4 +1,4 @@
-import { CategoryName, CategoryToStatistics } from './StatisticsPage';
+import { type CategoryName, type CategoryToStatistics } from './StatisticsPage';
 import StatsTable from './StatsTable';
 import UniProtKBStatsTabs from './UniProtKBStatsTabs';
 

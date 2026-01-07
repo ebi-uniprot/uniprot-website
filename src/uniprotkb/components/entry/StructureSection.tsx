@@ -5,14 +5,14 @@ import { lazy, memo, useState } from 'react';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import { UIModel } from '../../adapters/sectionConverter';
-import { IsoformSequences } from '../../adapters/structureConverter';
+import { type UIModel } from '../../adapters/sectionConverter';
+import { type IsoformSequences } from '../../adapters/structureConverter';
 import { DatabaseCategory } from '../../types/databaseRefs';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import {
   partitionStructureDatabases,
-  XrefUIModel,
+  type XrefUIModel,
 } from '../../utils/xrefUtils';
 import XRefView from '../protein-data-views/XRefView';
 

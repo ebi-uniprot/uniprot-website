@@ -1,12 +1,12 @@
 import * as logging from '../../shared/utils/logging';
 import { EvidenceTagSourceTypes } from '../components/protein-data-views/UniProtKBEvidenceTag';
 import {
-  ConfidenceScore,
-  FeatureDatum,
-  Modification,
+  type ConfidenceScore,
+  type FeatureDatum,
+  type Modification,
 } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { Evidence } from '../types/modelTypes';
-import { ProteomicsPtmFeature, PTM } from '../types/proteomicsPtm';
+import { type Evidence } from '../types/modelTypes';
+import { type ProteomicsPtmFeature, type PTM } from '../types/proteomicsPtm';
 import { acetylate, phosphorylate, sumoylate, ubiquitinate } from '../utils/aa';
 
 const getDescription = (modification: Modification, aa: string) => {

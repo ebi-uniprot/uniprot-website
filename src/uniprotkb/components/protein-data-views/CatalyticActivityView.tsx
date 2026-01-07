@@ -6,7 +6,7 @@ import {
 } from 'franklin-sites';
 import { Fragment, useCallback, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { SetRequired } from 'type-fest';
+import { type SetRequired } from 'type-fest';
 
 import { Location } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -15,9 +15,9 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import * as logging from '../../../shared/utils/logging';
 import { getLocationForPathname } from '../../../shared/utils/url';
 import {
-  CatalyticActivityComment,
-  PhysiologicalReaction,
-  PhysiologicalReactionDirection,
+  type CatalyticActivityComment,
+  type PhysiologicalReaction,
+  type PhysiologicalReactionDirection,
 } from '../../types/commentTypes';
 import { RichText } from './FreeTextView';
 import { ECNumbersView } from './ProteinNamesView';

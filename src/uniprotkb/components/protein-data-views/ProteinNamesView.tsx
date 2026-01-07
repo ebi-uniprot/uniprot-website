@@ -1,5 +1,5 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
-import { type ComponentProps, Fragment, JSX } from 'react';
+import { type ComponentProps, Fragment, type JSX } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -9,11 +9,11 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { pluralise } from '../../../shared/utils/utils';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
-  ProteinDescription,
-  ProteinNames,
-  ProteinNamesData,
+  type ProteinDescription,
+  type ProteinNames,
+  type ProteinNamesData,
 } from '../../adapters/namesAndTaxonomyConverter';
-import { ValueWithEvidence } from '../../types/modelTypes';
+import { type ValueWithEvidence } from '../../types/modelTypes';
 import { stringToID } from '../../utils';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 

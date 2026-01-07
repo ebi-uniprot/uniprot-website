@@ -13,8 +13,8 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { stringifyQuery } from '../../../shared/utils/url';
-import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { columns } from '../../../uniprotkb/components/entry/similar-proteins/SimilarProteinsTable';
 import { TabLocation } from '../../../uniprotkb/types/entry';
 

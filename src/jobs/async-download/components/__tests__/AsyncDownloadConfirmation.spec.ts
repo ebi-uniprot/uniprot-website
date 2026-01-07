@@ -1,4 +1,4 @@
-import { FacetObject } from '../../../../shared/types/results';
+import { type FacetObject } from '../../../../shared/types/results';
 import mockResults from '../../../../uniprotkb/components/__mocks__/results';
 import { getFacetString } from '../AsyncDownloadConfirmation';
 

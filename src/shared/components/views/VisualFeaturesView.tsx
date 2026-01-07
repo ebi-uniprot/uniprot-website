@@ -1,6 +1,6 @@
-import NightingaleManager from '@nightingale-elements/nightingale-manager';
-import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
-import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
+import type NightingaleManager from '@nightingale-elements/nightingale-manager';
+import type NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import type NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import { FullViewIcon } from 'franklin-sites';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -18,12 +18,12 @@ import { Namespace } from '../../types/namespaces';
 import { sendGtagEventFeatureViewerFullViewClick } from '../../utils/gtagEvents';
 import {
   getZoomedInRange,
-  NightingaleViewRange,
+  type NightingaleViewRange,
 } from '../../utils/nightingale';
 import { Dataset } from '../entry/EntryDownload';
 import EntryDownloadButton from '../entry/EntryDownloadButton';
 import EntryDownloadPanel from '../entry/EntryDownloadPanel';
-import { ProcessedFeature } from './FeaturesView';
+import { type ProcessedFeature } from './FeaturesView';
 import styles from './styles/visual-features-view.module.scss';
 
 function getHighlightedCoordinates<T extends ProcessedFeature>(feature?: T) {

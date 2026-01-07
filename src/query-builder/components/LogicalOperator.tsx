@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { Operator } from '../types/searchTypes';
+import { type Operator } from '../types/searchTypes';
 
 const operators: Operator[] = ['AND', 'OR', 'NOT'];
 

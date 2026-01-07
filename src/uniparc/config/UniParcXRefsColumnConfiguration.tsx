@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../app/config/urls';
@@ -8,8 +8,8 @@ import EntryTypeIcon, {
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../shared/components/ExternalLink';
-import { ColumnDescriptor } from '../../shared/hooks/useColumns';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { type ColumnDescriptor } from '../../shared/hooks/useColumns';
+import { type ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import * as logging from '../../shared/utils/logging';
 import parseDate from '../../shared/utils/parseDate';
@@ -17,7 +17,7 @@ import EvidenceLink from '../../uniprotkb/components/protein-data-views/Evidence
 import { TabLocation } from '../../uniprotkb/types/entry';
 import {
   databaseToEntryType,
-  UniParcXRef,
+  type UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
 import Timeline from '../components/entry/Timeline';

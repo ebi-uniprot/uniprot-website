@@ -1,6 +1,12 @@
 import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
-import { ChangeEvent, JSX, useEffect, useMemo, useState } from 'react';
+import {
+  type ChangeEvent,
+  type JSX,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 import { proteomeFastaOption } from '../../../shared/components/download/Download';
@@ -8,17 +14,20 @@ import DownloadAPIURL from '../../../shared/components/download/DownloadAPIURL';
 import DownloadPreview from '../../../shared/components/download/DownloadPreview';
 import styles from '../../../shared/components/download/styles/download.module.scss';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import { Column, nsToPrimaryKeyColumns } from '../../../shared/config/columns';
+import {
+  type Column,
+  nsToPrimaryKeyColumns,
+} from '../../../shared/config/columns';
 import { fileFormatsWithColumns } from '../../../shared/config/resultsDownload';
 import useColumnNames from '../../../shared/hooks/useColumnNames';
 import sticky from '../../../shared/styles/sticky.module.scss';
-import { Statistics } from '../../../shared/types/apiModel';
+import { type Statistics } from '../../../shared/types/apiModel';
 import { Namespace } from '../../../shared/types/namespaces';
-import { DownloadUrlOptions } from '../../../shared/types/results';
+import { type DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import {
-  DownloadMethod,
-  DownloadPanelFormCloseReason,
+  type DownloadMethod,
+  type DownloadPanelFormCloseReason,
 } from '../../../shared/utils/gtagEvents';
 import { fileFormatsResultsDownload as fileFormatsUniPortKBResultsDownload } from '../../../uniprotkb/config/download';
 import { fileFormatsResultsDownloadForRedundant } from '../../config/download';

@@ -1,9 +1,9 @@
 import { Loader } from 'franklin-sites';
-import { JSX, useEffect } from 'react';
+import { type JSX, useEffect } from 'react';
 
 import * as logging from '../../shared/utils/logging';
 import useInitialFormParameters, {
-  FormValues,
+  type FormValues,
 } from '../hooks/useInitialFormParameters';
 
 const InitialFormParametersProvider = <T extends Readonly<FormValues<string>>>({

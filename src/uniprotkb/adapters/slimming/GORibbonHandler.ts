@@ -8,18 +8,18 @@ import { Namespace } from '../../../shared/types/namespaces';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyUrl } from '../../../shared/utils/url';
 import {
-  TaxonomyAPIModel,
-  TaxonomyDatum,
+  type TaxonomyAPIModel,
+  type TaxonomyDatum,
 } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
-  GOAspectName,
+  type GOAspectName,
   goAspects,
-  GoTerm,
-  GOTermID,
-  GroupedGoTerms,
+  type GoTerm,
+  type GOTermID,
+  type GroupedGoTerms,
 } from '../functionConverter';
-import { GeneNamesData } from '../namesAndTaxonomyConverter';
-import { UniProtKBSimplifiedTaxonomy } from '../uniProtkbConverter';
+import { type GeneNamesData } from '../namesAndTaxonomyConverter';
+import { type UniProtKBSimplifiedTaxonomy } from '../uniProtkbConverter';
 
 const SLIM_SETS_URL =
   'https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets';

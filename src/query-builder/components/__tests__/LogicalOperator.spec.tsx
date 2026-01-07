@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import LogicalOperator, { LogicalOperatorProps } from '../LogicalOperator';
+import LogicalOperator, { type LogicalOperatorProps } from '../LogicalOperator';
 
 const props: LogicalOperatorProps = {
   value: 'AND',

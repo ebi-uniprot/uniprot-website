@@ -1,9 +1,9 @@
-import { JSX } from 'react';
+import { type JSX } from 'react';
 
-import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
-import { FunctionUIModel } from '../adapters/functionConverter';
-import { SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
-import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import { type Reference } from '../../supporting-data/citations/adapters/citationsConverter';
+import { type FunctionUIModel } from '../adapters/functionConverter';
+import { type SubcellularLocationUIModel } from '../adapters/subcellularLocationConverter';
+import { type UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';
 import ExpressionSection from '../components/entry/ExpressionSection';
 import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';

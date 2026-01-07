@@ -13,7 +13,7 @@ import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
 import { TabLocation } from '../../../../types/entry';
 import CoordinateTable from './CoordinateTable';
 import Isoform from './Isoform';
-import { FlatGenomicEntry } from './types';
+import { type FlatGenomicEntry } from './types';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 

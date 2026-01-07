@@ -1,11 +1,11 @@
-import { FC, useMemo } from 'react';
+import { type FC, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ResultsFacets from '../../../shared/components/results/ResultsFacets';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import helpURL from '../../config/apiUrls';
-import { HelpSearchResponse } from '../../types/apiModel';
+import { type HelpSearchResponse } from '../../types/apiModel';
 
 const HelpResultFacets: FC<React.PropsWithChildren<unknown>> = () => {
   const { search } = useLocation();

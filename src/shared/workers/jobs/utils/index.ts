@@ -1,11 +1,11 @@
-import { AxiosResponse } from 'axios';
-import { MutableRefObject } from 'react';
+import { type AxiosResponse } from 'axios';
+import { type MutableRefObject } from 'react';
 
-import { ServerStatus } from '../../../../jobs/async-download/types/asyncDownloadServerStatus';
+import { type ServerStatus } from '../../../../jobs/async-download/types/asyncDownloadServerStatus';
 import { JobTypes } from '../../../../jobs/types/jobTypes';
 import * as logging from '../../../utils/logging';
-import { JobsState } from '../state/jobsInitialState';
-import { Job } from '../types/job';
+import { type JobsState } from '../state/jobsInitialState';
+import { type Job } from '../types/job';
 import { Status } from '../types/jobStatuses';
 
 const validServerID: Record<JobTypes, RegExp> = {

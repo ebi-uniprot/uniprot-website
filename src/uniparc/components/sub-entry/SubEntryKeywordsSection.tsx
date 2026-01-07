@@ -5,8 +5,8 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import {
-  ModifiedPrediction,
-  UniFireModel,
+  type ModifiedPrediction,
+  type UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 
 type Props = {

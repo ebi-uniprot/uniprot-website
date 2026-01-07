@@ -1,6 +1,6 @@
 import { throttle } from 'lodash-es';
 import { useEffect, useRef } from 'react';
-import { Graph, Thing, WithContext } from 'schema-dts';
+import { type Graph, type Thing, type WithContext } from 'schema-dts';
 
 import * as logging from '../utils/logging';
 

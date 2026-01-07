@@ -6,11 +6,11 @@ import {
   LongNumber,
   Message,
 } from 'franklin-sites';
-import { Location as HistoryLocation } from 'history';
+import { type Location as HistoryLocation } from 'history';
 import {
-  ChangeEvent,
-  ChangeEventHandler,
-  JSX,
+  type ChangeEvent,
+  type ChangeEventHandler,
+  type JSX,
   useCallback,
   useMemo,
   useReducer,
@@ -19,9 +19,9 @@ import { generatePath, Link, useLocation } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import AsyncDownloadForm from '../../../jobs/async-download/components/AsyncDownloadForm';
-import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
-import { JobTypes } from '../../../jobs/types/jobTypes';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import { type PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { type JobTypes } from '../../../jobs/types/jobTypes';
+import { type ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
 import useColumnNames from '../../hooks/useColumnNames';
@@ -30,10 +30,10 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 import helper from '../../styles/helper.module.scss';
 import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
-import { FileFormat } from '../../types/resultsDownload';
+import { type FileFormat } from '../../types/resultsDownload';
 import {
-  DownloadMethod,
-  DownloadPanelFormCloseReason,
+  type DownloadMethod,
+  type DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
 import ColumnSelect from '../column-select/ColumnSelect';
 import { prepareFieldData } from '../column-select/utils';
@@ -52,8 +52,8 @@ import DownloadAPIURL from './DownloadAPIURL';
 import DownloadPreview from './DownloadPreview';
 import {
   downloadReducer,
-  DownloadSelectOptions,
-  ExtraContent,
+  type DownloadSelectOptions,
+  type ExtraContent,
   getDownloadInitialState,
 } from './downloadReducer';
 import {

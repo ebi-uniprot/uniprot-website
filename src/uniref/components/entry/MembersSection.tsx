@@ -1,5 +1,5 @@
 import { Card, DataTableWithLoader, Loader, LongNumber } from 'franklin-sites';
-import { JSX, memo, useEffect, useState } from 'react';
+import { type JSX, memo, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import {
@@ -21,13 +21,13 @@ import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { pluralise } from '../../../shared/utils/utils';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import {
-  Identity,
-  RepresentativeMember,
-  UniRefMember,
+  type Identity,
+  type RepresentativeMember,
+  type UniRefMember,
 } from '../../adapters/uniRefConverter';
 import apiUrls from '../../config/apiUrls';
 import EntrySection from '../../types/entrySection';
-import { UniRefMembersResults } from '../../types/membersEndpoint';
+import { type UniRefMembersResults } from '../../types/membersEndpoint';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import MemberLink from './MemberLink';
 

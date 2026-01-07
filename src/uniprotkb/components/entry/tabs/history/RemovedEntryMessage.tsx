@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
@@ -16,8 +16,8 @@ import { stringifyQuery } from '../../../../../shared/utils/url';
 import { pickArticle } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
-  DeletedReason,
-  InactiveEntryReason,
+  type DeletedReason,
+  type InactiveEntryReason,
 } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
 

@@ -1,7 +1,7 @@
-import { SetRequired } from 'type-fest';
+import { type SetRequired } from 'type-fest';
 
-import { Statistics } from '../../../shared/types/apiModel';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import { type Statistics } from '../../../shared/types/apiModel';
+import { type Evidence } from '../../../uniprotkb/types/modelTypes';
 
 type InactiveReason = {
   inactiveReasonType: 'MERGED' | 'DELETED';

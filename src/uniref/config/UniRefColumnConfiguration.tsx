@@ -6,12 +6,12 @@ import { fromColumnConfig } from '../../jobs/id-mapping/config/IdMappingColumnCo
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import AccessionView from '../../shared/components/results/AccessionView';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import parseDate from '../../shared/utils/parseDate';
 import { pluralise } from '../../shared/utils/utils';
-import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 export enum UniRefColumn {
   id = 'id',

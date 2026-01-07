@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { SearchResultsLocations } from '../../../app/config/urls';
-import { Namespace, SearchableNamespace } from '../../types/namespaces';
+import { Namespace, type SearchableNamespace } from '../../types/namespaces';
 import { stringifyUrl } from '../../utils/url';
 
 type SearchLinkProps = {

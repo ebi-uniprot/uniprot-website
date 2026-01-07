@@ -12,7 +12,7 @@ import useCustomElement from '../../../../shared/hooks/useCustomElement';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../../types/entry';
 import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 import tabsStyles from './styles/tabs-styles.module.scss';

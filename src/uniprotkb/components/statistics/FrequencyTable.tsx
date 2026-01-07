@@ -1,8 +1,8 @@
-import { LocationDescriptorObject } from 'history';
-import { ReactNode } from 'react';
+import { type LocationDescriptorObject } from 'history';
+import { type ReactNode } from 'react';
 
 import CountLinkOrNothing from './CountLinkOrNothing';
-import { StatisticsItem, TableProps } from './StatisticsPage';
+import { type StatisticsItem, type TableProps } from './StatisticsPage';
 import styles from './styles/statistics-page.module.scss';
 import { ReviewedLabel, UnreviewedLabel } from './UniProtKBLabels';
 import { frequencySort, merge } from './utils';

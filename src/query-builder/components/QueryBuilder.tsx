@@ -3,9 +3,9 @@ import './styles/query-builder.scss';
 
 import { Button, Loader, Message } from 'franklin-sites';
 import {
-  CSSProperties,
-  FormEvent,
-  JSX,
+  type CSSProperties,
+  type FormEvent,
+  type JSX,
   useCallback,
   useEffect,
   useMemo,
@@ -36,15 +36,15 @@ import useJobFromUrl from '../../shared/hooks/useJobFromUrl';
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import {
   Namespace,
-  SearchableNamespace,
+  type SearchableNamespace,
   searchableNamespaceLabels,
-  Searchspace,
+  type Searchspace,
   searchspaceLabels,
   toolResults,
 } from '../../shared/types/namespaces';
 import { stringifyQuery } from '../../shared/utils/url';
 import { pluralise } from '../../shared/utils/utils';
-import { Clause, SearchTermType } from '../types/searchTypes';
+import { type Clause, type SearchTermType } from '../types/searchTypes';
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 import { stringify } from '../utils/queryStringProcessor';

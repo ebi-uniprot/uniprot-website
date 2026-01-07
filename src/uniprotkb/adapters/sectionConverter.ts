@@ -1,16 +1,17 @@
-import { Xref } from '../../shared/types/apiModel';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
-import Comment, { CommentType, FreeTextComment } from '../types/commentTypes';
-import EntrySection from '../types/entrySection';
-import FeatureType from '../types/featureType';
-import KeywordCategory from '../types/keywordCategory';
-import { DatabaseInfoMaps } from '../utils/database';
+import { type Xref } from '../../shared/types/apiModel';
+import { type FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import type Comment from '../types/commentTypes';
+import { type CommentType, type FreeTextComment } from '../types/commentTypes';
+import type EntrySection from '../types/entrySection';
+import type FeatureType from '../types/featureType';
+import type KeywordCategory from '../types/keywordCategory';
+import { type DatabaseInfoMaps } from '../utils/database';
 import {
   getKeywordsForCategories,
-  KeywordUIModel,
+  type KeywordUIModel,
 } from '../utils/KeywordsUtil';
-import { getXrefsForSection, XrefUIModel } from '../utils/xrefUtils';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { getXrefsForSection, type XrefUIModel } from '../utils/xrefUtils';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 export type UIModel = {
   commentsData: Map<CommentType, Comment[] | undefined>;

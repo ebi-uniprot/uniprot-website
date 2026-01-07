@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
 import pMap from 'p-map';
 
-import { JobSharedWorkerMessage } from './jobSharedWorker';
+import { type JobSharedWorkerMessage } from './jobSharedWorker';
 import checkJobStatus from './state/checkJobStatus';
 import getJobs from './state/getJobs';
 import { deleteJob } from './state/jobActions';
 import submitJob from './state/submitJob';
-import { Job } from './types/job';
+import { type Job } from './types/job';
 import { Status } from './types/jobStatuses';
 import { heuristic } from './utils/heuristic';
 import { Scheduler } from './utils/scheduler';
-import JobStore from './utils/storage';
+import type JobStore from './utils/storage';
 
 const BASE_POLLING_INTERVAL = 1_000 * 15; // 15 seconds baseline / minimum
 // See ./utils/heuristic.ts possible changing factors => min 15s, max 4min

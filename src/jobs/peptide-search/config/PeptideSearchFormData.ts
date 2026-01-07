@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze';
 
-import { SelectedTaxon } from '../../types/jobsFormData';
+import { type SelectedTaxon } from '../../types/jobsFormData';
 
 export type PeptideSearchFormValue = {
   fieldName: string;

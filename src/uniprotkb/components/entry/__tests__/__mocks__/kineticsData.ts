@@ -1,4 +1,4 @@
-import { KineticParameters } from '../../../../adapters/functionConverter';
+import { type KineticParameters } from '../../../../adapters/functionConverter';
 
 // Examples : D4GUJ7, P45470, P0A006
 const mock: { [key: string]: KineticParameters } = {

@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { DiseasesAPIModel } from '../adapters/diseasesConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type DiseasesAPIModel } from '../adapters/diseasesConverter';
 
 // Source: diseases/search?query=cancer&size=2
 // Retrieved: 2025-10-15

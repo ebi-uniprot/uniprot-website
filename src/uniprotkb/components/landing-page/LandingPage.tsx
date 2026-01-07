@@ -16,7 +16,7 @@ import ftpUrls from '../../../shared/config/ftpUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { FacetsEnum } from '../../config/UniProtKBFacetConfiguration';
 import StatisticsChart from './StatisticsChart';

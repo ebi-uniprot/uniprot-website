@@ -1,4 +1,4 @@
-import FeatureType from '../../uniprotkb/types/featureType';
+import type FeatureType from '../../uniprotkb/types/featureType';
 
 const FeatureTypeHelpMappings: Omit<Record<FeatureType, string>, 'Other'> = {
   'Compositional bias': 'compbias',

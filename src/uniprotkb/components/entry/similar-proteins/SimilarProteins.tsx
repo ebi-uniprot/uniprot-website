@@ -7,9 +7,9 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import fetchData from '../../../../shared/utils/fetchData';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import {
-  UniRefEntryType,
+  type UniRefEntryType,
   uniRefEntryTypeToPercent,
-  UniRefLiteAPIModel,
+  type UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 import { UniRefColumn } from '../../../../uniref/config/UniRefColumnConfiguration';
 import SimilarProteinsTabContent from './SimilarProteinsTabContent';

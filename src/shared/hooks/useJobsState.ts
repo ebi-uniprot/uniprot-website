@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react';
 
 import { jobsSharedWorker } from '../workers/jobs/getJobSharedWorker';
-import { JobsState } from '../workers/jobs/state/jobsInitialState';
+import { type JobsState } from '../workers/jobs/state/jobsInitialState';
 
 type Listener = () => void;
 

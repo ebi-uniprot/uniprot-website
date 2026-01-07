@@ -1,11 +1,11 @@
 import { Loader, Message, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { partition, uniqBy } from 'lodash-es';
-import { JSX, lazy, Suspense, useMemo } from 'react';
+import { type JSX, lazy, Suspense, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import {
   changePathnameOnly,
-  IDMappingNamespaces,
+  type IDMappingNamespaces,
   Location,
 } from '../../../../app/config/urls';
 import { MessageLevel } from '../../../../messages/types/messagesTypes';
@@ -28,23 +28,23 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import { type SearchResults } from '../../../../shared/types/results';
 import * as logging from '../../../../shared/utils/logging';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import idMappingConverter from '../../adapters/idMappingConverter';
-import { IDMappingFormConfig } from '../../types/idMappingFormConfig';
+import { type IDMappingFormConfig } from '../../types/idMappingFormConfig';
 import {
-  MappingAPIModel,
+  type MappingAPIModel,
   MappingErrorCode,
-  MappingFlat,
+  type MappingFlat,
   MappingWarningCode,
-  MappingWarningsErrors,
+  type MappingWarningsErrors,
 } from '../../types/idMappingSearchResults';
-import { ServerParameters } from '../../types/idMappingServerParameters';
+import { type ServerParameters } from '../../types/idMappingServerParameters';
 import { rawDBToNamespace } from '../../utils';
 import styles from './styles/id-mapping-result.module.scss';
 

@@ -4,17 +4,19 @@ import './styles/NewickTree.scss';
 import { cluster, easeQuadOut, hierarchy, max, select } from 'd3';
 import { Message } from 'franklin-sites';
 import { debounce } from 'lodash-es';
-import { FC, useEffect, useMemo, useRef } from 'react';
+import { type FC, useEffect, useMemo, useRef } from 'react';
 
 import { useReducedMotion } from '../../../../shared/hooks/useMatchMedia';
 import useSize from '../../../../shared/hooks/useSize';
 import newicktree from '../../adapters/newicktree';
-import { NewickTreeNode } from '../../types/alignResults';
-import customLayout, { CustomHierarchyNode } from '../../utils/customLayout';
+import { type NewickTreeNode } from '../../types/alignResults';
+import customLayout, {
+  type CustomHierarchyNode,
+} from '../../utils/customLayout';
 import extractAccession from '../../utils/extractAccession';
 import pathMaker from '../../utils/pathMaker';
 import { polarToX, polarToY } from '../../utils/trigonometry';
-import { SequenceInfo } from '../../utils/useSequenceInfo';
+import { type SequenceInfo } from '../../utils/useSequenceInfo';
 import AlignLabel from './AlignLabel';
 
 const DURATION = 500;

@@ -1,8 +1,8 @@
 import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
 import mock from '../../__mocks__/uniRefResultsData';
-import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 import UniRefColumnConfiguration, {
-  UniRefColumn,
+  type UniRefColumn,
 } from '../UniRefColumnConfiguration';
 
 jest.mock('../../../shared/workers/jobs/utils/storage');

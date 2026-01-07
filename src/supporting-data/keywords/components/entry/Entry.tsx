@@ -1,7 +1,7 @@
 import { Card, InfoList, Loader } from 'franklin-sites';
-import { LocationDescriptor } from 'history';
+import { type LocationDescriptor } from 'history';
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, type RouteChildrenProps } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
@@ -18,7 +18,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
+import { type KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import KeywordsColumnConfiguration, {
   KeywordsColumn,
 } from '../../config/KeywordsColumnConfiguration';
@@ -84,7 +84,7 @@ const KeywordsEntry = ({
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount
+    data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(keyword:${accession})`;

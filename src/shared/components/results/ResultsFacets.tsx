@@ -4,15 +4,15 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
-import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
+import { type UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import useNS from '../../hooks/useNS';
 import helper from '../../styles/helper.module.scss';
 import {
   mainNamespaces,
   Namespace,
-  SearchableNamespace,
+  type SearchableNamespace,
 } from '../../types/namespaces';
-import { FacetObject, FacetValue } from '../../types/results';
+import { type FacetObject, type FacetValue } from '../../types/results';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 import baseLayoutStyles from '../layouts/styles/base-layout.module.scss';
 import { Facet, Facets } from './Facets';

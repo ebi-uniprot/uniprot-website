@@ -6,8 +6,11 @@ import { getEntryPath } from '../../../app/config/urls';
 import variantsImg from '../../../images/variants.jpg';
 import { Namespace } from '../../../shared/types/namespaces';
 import { hasContent, pluralise } from '../../../shared/utils/utils';
-import { UIModel } from '../../adapters/sectionConverter';
-import { DiseaseComment, FreeTextComment } from '../../types/commentTypes';
+import { type UIModel } from '../../adapters/sectionConverter';
+import {
+  type DiseaseComment,
+  type FreeTextComment,
+} from '../../types/commentTypes';
 import { TabLocation } from '../../types/entry';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';

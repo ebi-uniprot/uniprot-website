@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { Card, InfoList, Loader } from 'franklin-sites';
-import { LocationDescriptor } from 'history';
+import { type LocationDescriptor } from 'history';
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, type RouteChildrenProps } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
@@ -20,7 +20,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-import { LocationsAPIModel } from '../../adapters/locationsConverter';
+import { type LocationsAPIModel } from '../../adapters/locationsConverter';
 import LocationsColumnConfiguration, {
   LocationsColumn,
 } from '../../config/LocationsColumnConfiguration';
@@ -87,7 +87,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount
+    data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(cc_scl_term:${accession})`;

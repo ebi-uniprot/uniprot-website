@@ -1,6 +1,6 @@
-import { JSX } from 'react';
+import { type JSX } from 'react';
 
-import { UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
+import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
 import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNamesAndTaxonomySection';

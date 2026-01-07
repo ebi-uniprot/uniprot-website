@@ -2,10 +2,10 @@ import { Card } from 'franklin-sites';
 import { Fragment, memo } from 'react';
 
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
-import { FreeTextType } from '../../../uniprotkb/types/commentTypes';
+import { type FreeTextType } from '../../../uniprotkb/types/commentTypes';
 import {
-  ModifiedPrediction,
-  UniParcSubEntryUIModel,
+  type ModifiedPrediction,
+  type UniParcSubEntryUIModel,
 } from '../../adapters/uniParcSubEntryConverter';
 import annotationTypeToSection, {
   groupTypesBySection,
