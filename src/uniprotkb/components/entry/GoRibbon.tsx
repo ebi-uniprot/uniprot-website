@@ -9,6 +9,7 @@ import TableFromData, {
 } from '../../../shared/components/table/TableFromData';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
@@ -89,6 +90,7 @@ const GoRibbon = ({
   geneNamesData,
   organismData,
 }: GoRibbonProps) => {
+  const isSmallScreen = useSmallScreen();
   const columns = useColumns();
 
   const nodeRef = useRef<HTMLElement>();
@@ -159,7 +161,7 @@ const GoRibbon = ({
       // @ts-ignore
       node.removeEventListener('cellClick', clickHandler);
     };
-  }, [data]);
+  }, [isSmallScreen, data]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
 
@@ -205,7 +207,7 @@ const GoRibbon = ({
       <div className={styles.preamble}>
         Gene Ontology (GO) annotations organized by slimming set.
       </div>
-      {slimSets && (
+      {!isSmallScreen && slimSets && (
         <label className={styles['set-selector']}>
           <div>Slimming set:</div>
           <select
@@ -220,7 +222,7 @@ const GoRibbon = ({
           </select>
         </label>
       )}
-      {ribbon}
+      {!isSmallScreen && ribbon}
       {!!filteredGoTerms.length && (
         <TableFromData
           columns={columns}
