@@ -1371,7 +1371,7 @@
   resolved "https://registry.yarnpkg.com/@geneontology/dbxrefs/-/dbxrefs-1.2.0.tgz#3bf2e9b09bd986c21874298449e1be5db4b55984"
   integrity sha512-0za//P3EOCR0WTyK6qWQUORc7S9sQUQuRrKPQcjMRYAYeCXkw53zGnu86PVjF1NhMYHhZRQynajTWxk/xi5zEA==
 
-"@geneontology/web-components@^1.0.0":
+"@geneontology/web-components@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@geneontology/web-components/-/web-components-1.0.0.tgz#2b1e1816fba4e2f9adc0670a748558e2ec74fd00"
   integrity sha512-DMIYaV4mcDZ3aGjNyAzRDrzS3TjgfS5/6S+eeIPorT5AEyGSTFgwclqrcnrzVkAQYLrjFw5JUzxNqtTlpzvupg==
