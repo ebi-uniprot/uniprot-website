@@ -1,9 +1,9 @@
 import deepFreeze from 'deep-freeze';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { SelectedTaxon } from '../../types/jobsFormData';
-import { FormParameters } from '../types/blastFormParameters';
-import { Database, Program } from '../types/blastServerParameters';
+import { type SelectedTaxon } from '../../types/jobsFormData';
+import { type FormParameters } from '../types/blastFormParameters';
+import { type Database, type Program } from '../types/blastServerParameters';
 
 export type BlastFormValue = {
   fieldName: string;

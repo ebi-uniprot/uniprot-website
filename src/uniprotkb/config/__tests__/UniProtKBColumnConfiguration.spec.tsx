@@ -1,9 +1,9 @@
 import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/uniProtKBEntryModelData';
 import uniProtKbConverter, {
-  UniProtkbUIModel,
+  type UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
-import { UniProtKBColumn } from '../../types/columnTypes';
+import { type UniProtKBColumn } from '../../types/columnTypes';
 import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
 import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 

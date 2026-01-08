@@ -1,5 +1,5 @@
 import { DatabaseCategory } from '../../../../types/databaseRefs';
-import { XrefUIModel } from '../../../../utils/xrefUtils';
+import { type XrefUIModel } from '../../../../utils/xrefUtils';
 
 const data: Record<string, XrefUIModel[]> = {
   standard: [

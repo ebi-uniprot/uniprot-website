@@ -1,5 +1,5 @@
 import { Button, SlidingPanel } from 'franklin-sites';
-import { FC, Suspense, useCallback, useState } from 'react';
+import { type FC, Suspense, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import {
@@ -7,7 +7,7 @@ import {
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
-import { SearchableNamespace } from '../../types/namespaces';
+import { type SearchableNamespace } from '../../types/namespaces';
 import lazy from '../../utils/lazy';
 import { stringifyQuery } from '../../utils/url';
 import ErrorBoundary from '../error-component/ErrorBoundary';

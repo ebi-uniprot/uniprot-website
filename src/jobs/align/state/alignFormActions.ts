@@ -1,10 +1,10 @@
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
+import { type SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { action } from 'typesafe-actions';
 
 import {
-  AlignFields,
-  AlignFormValue,
-  AlignFormValues,
+  type AlignFields,
+  type AlignFormValue,
+  type AlignFormValues,
 } from '../config/AlignFormData';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';

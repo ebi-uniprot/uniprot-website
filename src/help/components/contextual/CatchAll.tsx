@@ -1,5 +1,5 @@
-import { History } from 'history';
-import { Redirect, RouteChildrenProps, Router } from 'react-router-dom';
+import { type History } from 'history';
+import { Redirect, type RouteChildrenProps, Router } from 'react-router-dom';
 
 import {
   misspeltHelpTuple,

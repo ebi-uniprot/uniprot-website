@@ -6,7 +6,7 @@
 $shadow-padding: 0.125rem;
 
 .container {
-  background: lighten($colour-help-green, 50%);
+  background: color-mix(in srgb, $colour-help-green 17%, white);
   margin: -$global-margin;
   margin-block: 0;
   display: grid;

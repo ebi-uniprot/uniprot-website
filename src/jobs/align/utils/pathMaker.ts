@@ -1,4 +1,4 @@
-import { CustomHierarchyNode } from './customLayout';
+import { type CustomHierarchyNode } from './customLayout';
 import { polarToX, polarToY } from './trigonometry';
 
 const pathMaker =

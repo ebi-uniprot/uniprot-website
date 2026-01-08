@@ -1,16 +1,16 @@
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { IdMaybeWithRange } from '../../jobs/utils/urls';
+import { type IdMaybeWithRange } from '../../jobs/utils/urls';
 import {
-  UniParcAPIModel,
-  UniParcLiteAPIModel,
+  type UniParcAPIModel,
+  type UniParcLiteAPIModel,
 } from '../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import apiUrls from '../config/apiUrls/apiUrls';
 import { Namespace } from '../types/namespaces';
-import { SearchResults } from '../types/results';
+import { type SearchResults } from '../types/results';
 import { FileFormat } from '../types/resultsDownload';
 import accessionToNamespace from '../utils/accessionToNamespace';
 import entryToFASTAWithHeaders from '../utils/entryToFASTAWithHeaders';

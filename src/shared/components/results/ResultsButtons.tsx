@@ -6,10 +6,10 @@ import {
   SlidingPanel,
 } from 'franklin-sites';
 import {
-  ChangeEvent,
-  Dispatch,
-  FC,
-  SetStateAction,
+  type ChangeEvent,
+  type Dispatch,
+  type FC,
+  type SetStateAction,
   Suspense,
   useCallback,
   useEffect,
@@ -18,8 +18,8 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { ResubmitButton } from '../../../jobs/components/ResultButtons';
-import { PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
-import { JobTypes } from '../../../jobs/types/jobTypes';
+import { type PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
+import { type JobTypes } from '../../../jobs/types/jobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
@@ -27,16 +27,16 @@ import {
 } from '../../../messages/types/messagesTypes';
 import {
   getParamsFromURL,
-  InvalidParamValue,
+  type InvalidParamValue,
 } from '../../../uniprotkb/utils/resultsUtils';
 import useColumnNames from '../../hooks/useColumnNames';
 import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import useNS from '../../hooks/useNS';
-import useViewMode, { ViewMode } from '../../hooks/useViewMode';
+import useViewMode, { type ViewMode } from '../../hooks/useViewMode';
 import { mainNamespaces, Namespace } from '../../types/namespaces';
 import {
-  DownloadMethod,
-  DownloadPanelFormCloseReason,
+  type DownloadMethod,
+  type DownloadPanelFormCloseReason,
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
   sendGtagEventViewMode,
@@ -47,7 +47,7 @@ import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 import ShareDropdown from '../action-buttons/ShareDropdown';
 import ToolsDropdown from '../action-buttons/ToolsDropdown';
-import { ExtraContent } from '../download/downloadReducer';
+import { type ExtraContent } from '../download/downloadReducer';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ItemCount from '../ItemCount';
 import FirstTimeSelection from './FirstTimeSelection';

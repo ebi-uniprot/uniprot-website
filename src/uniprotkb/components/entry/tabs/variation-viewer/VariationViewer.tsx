@@ -1,6 +1,6 @@
-import NightingaleManager from '@nightingale-elements/nightingale-manager';
+import type NightingaleManager from '@nightingale-elements/nightingale-manager';
 import {
-  ProteinsAPIVariation,
+  type ProteinsAPIVariation,
   transformData,
 } from '@nightingale-elements/nightingale-variation';
 import cn from 'classnames';
@@ -9,7 +9,7 @@ import { filterConfig } from 'protvista-uniprot';
 import {
   Fragment,
   lazy,
-  ReactNode,
+  type ReactNode,
   Suspense,
   useEffect,
   useId,
@@ -18,7 +18,7 @@ import {
   useState,
 } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { PartialDeep, SetRequired } from 'type-fest';
+import { type PartialDeep, type SetRequired } from 'type-fest';
 
 import { getEntryPath } from '../../../../../app/config/urls';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
@@ -27,7 +27,7 @@ import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDown
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import TableFromData, {
-  TableFromDataColumn,
+  type TableFromDataColumn,
 } from '../../../../../shared/components/table/TableFromData';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
@@ -39,12 +39,12 @@ import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNig
 import helper from '../../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import {
-  NightingaleViewRange,
+  type NightingaleViewRange,
   withinRange,
 } from '../../../../../shared/utils/nightingale';
 import { TabLocation } from '../../../../types/entry';
-import { Evidence } from '../../../../types/modelTypes';
-import { TransformedVariant } from '../../../../types/variation';
+import { type Evidence } from '../../../../types/modelTypes';
+import { type TransformedVariant } from '../../../../types/variation';
 import { sortByLocation } from '../../../../utils';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import tabsStyles from '../styles/tabs-styles.module.scss';

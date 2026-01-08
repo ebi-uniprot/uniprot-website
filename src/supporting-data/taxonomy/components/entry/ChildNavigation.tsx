@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
+import { type TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import styles from './styles/child-navigation.module.css';
 
 type ChildNavigationProps = {

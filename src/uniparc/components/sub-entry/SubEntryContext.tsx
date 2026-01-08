@@ -15,10 +15,10 @@ import {
 } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { pickArticle } from '../../../shared/utils/utils';
-import { DeletedReason } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type DeletedReason } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
-import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
-import { UniFireModel } from '../../adapters/uniParcSubEntryConverter';
+import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
+import { type UniFireModel } from '../../adapters/uniParcSubEntryConverter';
 import styles from './styles/sub-entry-context.module.css';
 
 const iconSize = '1.125em';

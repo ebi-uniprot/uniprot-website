@@ -2,17 +2,17 @@ import { formParametersToServerParameters } from '../../../../jobs/adapters/para
 import toolsURLs, {
   asyncDownloadUrlObjectCreator,
 } from '../../../../jobs/config/urls';
-import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { type FormParameters } from '../../../../jobs/types/jobsFormParameters';
 import { JobTypes } from '../../../../jobs/types/jobTypes';
-import { JobSharedWorkerMessage } from '../jobSharedWorker';
-import { CreatedJob, Job } from '../types/job';
+import { type JobSharedWorkerMessage } from '../jobSharedWorker';
+import { type CreatedJob, type Job } from '../types/job';
 import { Status } from '../types/jobStatuses';
 import {
   getRemoteIDFromResponse,
   getServerErrorDescription,
-  ServerError,
+  type ServerError,
 } from '../utils';
-import JobStore from '../utils/storage';
+import type JobStore from '../utils/storage';
 import { updateJob } from './jobActions';
 
 const getFormJobUrlAndBody = (job: CreatedJob) => {

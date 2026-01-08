@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { HTMLAttributes } from 'react';
+import { type HTMLAttributes } from 'react';
 
 import ErrorComponent from './ErrorComponent';
 import ArtWork from './svgs/job-failed.img.svg';

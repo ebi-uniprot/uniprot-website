@@ -32,26 +32,26 @@ import AccessionView from '../../shared/components/results/AccessionView';
 import externalUrls from '../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
 import helper from '../../shared/styles/helper.module.scss';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import * as logging from '../../shared/utils/logging';
 import { deepFindAllByKey, excludeKeys } from '../../shared/utils/utils';
 import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
 import {
-  CitationXRef,
+  type CitationXRef,
   CitationXRefDB,
 } from '../../supporting-data/citations/adapters/citationsConverter';
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 import {
   functionFeaturesToColumns,
-  FunctionUIModel,
-  GOAspectLabel,
-  GoTerm,
+  type FunctionUIModel,
+  type GOAspectLabel,
+  type GoTerm,
 } from '../adapters/functionConverter';
-import { Interactant } from '../adapters/interactionConverter';
-import { ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
+import { type Interactant } from '../adapters/interactionConverter';
+import { type ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
 import {
   fragmentFlags,
@@ -59,10 +59,10 @@ import {
 } from '../adapters/sequenceConverter';
 import {
   structureFeaturesToColumns,
-  StructureUIModel,
+  type StructureUIModel,
 } from '../adapters/structureConverter';
 import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
-import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import { type UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import {
   AbsorptionView,
   CofactorView,
@@ -89,27 +89,30 @@ import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import { UniProtKBColumn } from '../types/columnTypes';
 import {
-  CatalyticActivityComment,
-  CofactorComment,
-  CommentType,
-  DiseaseComment,
-  FreeTextComment,
-  InteractionComment,
+  type CatalyticActivityComment,
+  type CofactorComment,
+  type CommentType,
+  type DiseaseComment,
+  type FreeTextComment,
+  type InteractionComment,
   InteractionType,
-  SubcellularLocationComment,
+  type SubcellularLocationComment,
 } from '../types/commentTypes';
 import { TabLocation } from '../types/entry';
-import EntrySection, { EntrySectionWithFeatures } from '../types/entrySection';
-import FeatureType, {
-  DiseaseAndDrugsFeatures,
-  FamilyAndDomainsFeatures,
-  FunctionFeatures,
-  ProteinProcessingFeatures,
-  SequenceFeatures,
-  StructureFeatures,
-  SubcellularLocationFeatures,
+import EntrySection, {
+  type EntrySectionWithFeatures,
+} from '../types/entrySection';
+import type FeatureType from '../types/featureType';
+import {
+  type DiseaseAndDrugsFeatures,
+  type FamilyAndDomainsFeatures,
+  type FunctionFeatures,
+  type ProteinProcessingFeatures,
+  type SequenceFeatures,
+  type StructureFeatures,
+  type SubcellularLocationFeatures,
 } from '../types/featureType';
-import { ValueWithEvidence } from '../types/modelTypes';
+import { type ValueWithEvidence } from '../types/modelTypes';
 import { getDatabaseNameFromColumn, isDatabaseColumn } from '../utils/database';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import { sortInteractionData } from '../utils/resultsUtils';

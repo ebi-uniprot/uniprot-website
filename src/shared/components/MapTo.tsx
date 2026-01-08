@@ -1,14 +1,14 @@
 import { Button, Dropdown, LongNumber } from 'franklin-sites';
-import { ReactNode } from 'react';
-import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
-import { SetOptional } from 'type-fest';
+import { type ReactNode } from 'react';
+import { Link, type LinkProps, useRouteMatch } from 'react-router-dom';
+import { type SetOptional } from 'type-fest';
 
 import {
   allSupportingDataAndAAEntryLocations,
   Location,
   LocationToPath,
 } from '../../app/config/urls';
-import { Statistics } from '../types/apiModel';
+import { type Statistics } from '../types/apiModel';
 import { Namespace } from '../types/namespaces';
 import { stringifyQuery } from '../utils/url';
 import { pluralise } from '../utils/utils';

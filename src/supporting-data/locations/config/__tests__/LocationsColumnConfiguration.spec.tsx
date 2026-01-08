@@ -1,11 +1,11 @@
 import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/locationsModelData';
 import locationsConverter, {
-  LocationsAPIModel,
-  LocationsUIModel,
+  type LocationsAPIModel,
+  type LocationsUIModel,
 } from '../../adapters/locationsConverter';
 import LocationsColumnConfiguration, {
-  LocationsColumn,
+  type LocationsColumn,
 } from '../LocationsColumnConfiguration';
 
 jest.mock('../../../../shared/workers/jobs/utils/storage');

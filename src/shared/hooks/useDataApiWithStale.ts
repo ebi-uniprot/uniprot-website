@@ -1,7 +1,7 @@
-import { AxiosRequestConfig } from 'axios';
+import { type AxiosRequestConfig } from 'axios';
 import { useRef } from 'react';
 
-import useDataApi, { UseDataAPIState } from './useDataApi';
+import useDataApi, { type UseDataAPIState } from './useDataApi';
 
 export type UseDataAPIWithStaleState<T> = UseDataAPIState<T> & {
   isStale?: boolean;
@@ -15,7 +15,7 @@ function useDataApiWithStale<T>(
   url?: string | null,
   options?: AxiosRequestConfig
 ): UseDataAPIWithStaleState<T> {
-  const staleDataRef = useRef<T>();
+  const staleDataRef = useRef<T | null>(null);
 
   const state = useDataApi<T>(url, options);
 

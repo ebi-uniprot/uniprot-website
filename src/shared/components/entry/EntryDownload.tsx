@@ -1,7 +1,7 @@
 import type { AlphaFoldPayload } from '@nightingale-elements/nightingale-structure';
 import cn from 'classnames';
 import { Button, LongNumber } from 'franklin-sites';
-import { useEffect, useMemo, useState } from 'react';
+import { type JSX, useEffect, useMemo, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import { allEntryPages } from '../../../app/config/urls';
@@ -16,21 +16,21 @@ import { fileFormatEntryDownload as locationsFFED } from '../../../supporting-da
 import { fileFormatEntryDownload as taxonomyFFED } from '../../../supporting-data/taxonomy/config/download';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import { type ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 import unirefApiUrls from '../../../uniref/config/apiUrls';
 import { fileFormatEntryDownload as uniRefFFED } from '../../../uniref/config/download';
 import apiUrls from '../../config/apiUrls/apiUrls';
-import { Column } from '../../config/columns';
+import { type Column } from '../../config/columns';
 import externalUrls from '../../config/externalUrls';
 import useDataApi from '../../hooks/useDataApi';
 import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
 import {
-  DownloadMethod,
-  DownloadPanelFormCloseReason,
+  type DownloadMethod,
+  type DownloadPanelFormCloseReason,
 } from '../../utils/gtagEvents';
 import * as logging from '../../utils/logging';
 import { stringifyUrl } from '../../utils/url';

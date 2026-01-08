@@ -1,4 +1,6 @@
-import { ProteomesUIModel } from '../adapters/proteomesConverter';
+import { type JSX } from 'react';
+
+import { type ProteomesUIModel } from '../adapters/proteomesConverter';
 import Components from '../components/entry/Components';
 import Description from '../components/entry/Description';
 import Publications from '../components/entry/Publications';

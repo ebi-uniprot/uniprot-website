@@ -1,4 +1,4 @@
-import { ReceivedFieldData } from '../types/resultsTypes';
+import { type ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
 // Retrieved: 2025-10-15

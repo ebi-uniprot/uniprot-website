@@ -5,7 +5,7 @@ import {
   getEcoNumberFromGoEvidenceType,
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
-import { GoEvidenceType } from '../../types/modelTypes';
+import { type GoEvidenceType } from '../../types/modelTypes';
 
 const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
   if (!evidence) {

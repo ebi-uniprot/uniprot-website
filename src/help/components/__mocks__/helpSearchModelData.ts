@@ -1,4 +1,4 @@
-import { HelpSearchResponse } from '../../types/apiModel';
+import { type HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
 // Retrieved: 2025-10-15

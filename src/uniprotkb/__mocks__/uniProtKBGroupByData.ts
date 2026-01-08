@@ -1,4 +1,4 @@
-import { GroupByAPIModel } from '../components/results/UniProtKBGroupBy';
+import { type GroupByAPIModel } from '../components/results/UniProtKBGroupBy';
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?query=%28%2A%29
 // Retrieved: 2025-10-15

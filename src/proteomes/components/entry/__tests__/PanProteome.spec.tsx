@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import data from '../../../__mocks__/proteomesEntryModelData';
 import proteomesConverter, {
-  ProteomesUIModel,
+  type ProteomesUIModel,
 } from '../../../adapters/proteomesConverter';
 import { PanProteome } from '../PanProteome';
 

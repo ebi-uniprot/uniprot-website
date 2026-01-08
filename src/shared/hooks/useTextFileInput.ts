@@ -1,6 +1,6 @@
 import {
-  MutableRefObject,
-  ReactElement,
+  type MutableRefObject,
+  type ReactElement,
   useCallback,
   useEffect,
   useRef,

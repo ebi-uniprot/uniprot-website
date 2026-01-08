@@ -15,11 +15,11 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import parseDate from '../../../shared/utils/parseDate';
 import { pluralise } from '../../../shared/utils/utils';
-import { UniRefUIModel } from '../../adapters/uniRefConverter';
+import { type UniRefUIModel } from '../../adapters/uniRefConverter';
 import apiUrls from '../../config/apiUrls';
 import {
   uniRefMembersFacets,
-  UniRefMembersResults,
+  type UniRefMembersResults,
 } from '../../types/membersEndpoint';
 import MemberLink from '../entry/MemberLink';
 import styles from './styles/overview.module.scss';

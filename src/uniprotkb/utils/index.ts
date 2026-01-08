@@ -1,5 +1,5 @@
-import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
-import { Property, PropertyKey } from '../types/modelTypes';
+import { type UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
+import { type Property, type PropertyKey } from '../types/modelTypes';
 
 export const getListOfIsoformAccessions = (data?: UniProtkbAPIModel) => {
   // will push all isoform accessions in this variable

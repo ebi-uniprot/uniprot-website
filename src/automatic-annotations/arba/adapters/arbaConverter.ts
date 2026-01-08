@@ -1,4 +1,4 @@
-import { AAModel } from '../../shared/model';
+import { type AAModel } from '../../shared/model';
 
 export type ARBAAPIModel = AAModel & {
   // TODO: change that in the model (backend)

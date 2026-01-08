@@ -1,9 +1,9 @@
 import './styles/alignment-view.scss';
 
-import NightingaleManager from '@nightingale-elements/nightingale-manager';
-import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
-import { Feature } from '@nightingale-elements/nightingale-track';
-import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
+import type NightingaleManager from '@nightingale-elements/nightingale-manager';
+import type NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import { type Feature } from '@nightingale-elements/nightingale-track';
+import type NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import NightingaleManagerComponent from '../../shared/custom-elements/NightingaleManager';
@@ -11,7 +11,7 @@ import NightingaleMSA from '../../shared/custom-elements/NightingaleMSA';
 import NightingaleNavigationComponent from '../../shared/custom-elements/NightingaleNavigation';
 import NightingaleTrackCanvasComponent from '../../shared/custom-elements/NightingaleTrackCanvas';
 import AlignLabel from '../align/components/results/AlignLabel';
-import { AlignmentComponentProps } from '../types/alignment';
+import { type AlignmentComponentProps } from '../types/alignment';
 import {
   createGappedFeature,
   getEndCoordinate,

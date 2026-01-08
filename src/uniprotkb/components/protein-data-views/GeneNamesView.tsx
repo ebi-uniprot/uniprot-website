@@ -1,8 +1,8 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
-import { FC, Fragment } from 'react';
+import { type FC, Fragment } from 'react';
 
-import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
-import { ValueWithEvidence } from '../../types/modelTypes';
+import { type GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
+import { type ValueWithEvidence } from '../../types/modelTypes';
 import { NameWithEvidence } from './ProteinNamesView';
 
 const geneAlternativeNamesView = (

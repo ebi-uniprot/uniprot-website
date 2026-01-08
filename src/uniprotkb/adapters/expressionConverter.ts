@@ -1,10 +1,10 @@
-import { Xref } from '../../shared/types/apiModel';
-import { CommentType } from '../types/commentTypes';
+import { type Xref } from '../../shared/types/apiModel';
+import { type CommentType } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import KeywordCategory from '../types/keywordCategory';
-import { DatabaseInfoMaps } from '../utils/database';
+import type KeywordCategory from '../types/keywordCategory';
+import { type DatabaseInfoMaps } from '../utils/database';
 import { convertSection } from './sectionConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 const keywordsCategories: KeywordCategory[] = ['Developmental stage'];
 

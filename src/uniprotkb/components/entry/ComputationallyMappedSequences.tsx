@@ -1,5 +1,5 @@
 import { DataTable, Message } from 'franklin-sites';
-import { ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -13,11 +13,11 @@ import useItemSelect from '../../../shared/hooks/useItemSelect';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
-import { Sequence } from '../../../shared/types/sequence';
+import { type SearchResults } from '../../../shared/types/results';
+import { type Sequence } from '../../../shared/types/sequence';
 import { pluralise } from '../../../shared/utils/utils';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { Flag } from '../../adapters/sequenceConverter';
+import { type TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type Flag } from '../../adapters/sequenceConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 
 type ProteinEntryLight = {

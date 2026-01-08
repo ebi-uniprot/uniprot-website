@@ -7,7 +7,7 @@ import {
   SuccessIcon,
 } from 'franklin-sites';
 import { createPath } from 'history';
-import { ChangeEvent, ReactNode, useId, useMemo } from 'react';
+import { type ChangeEvent, type ReactNode, useId, useMemo } from 'react';
 import {
   generatePath,
   Link,
@@ -20,8 +20,8 @@ import ExternalLink from '../../shared/components/ExternalLink';
 import HTMLHead from '../../shared/components/HTMLHead';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
 import {
-  ContactLocationState,
-  Suggestion,
+  type ContactLocationState,
+  type Suggestion,
   useFormLogic,
 } from '../adapters/contactFormAdapter';
 import ContactLink from './ContactLink';

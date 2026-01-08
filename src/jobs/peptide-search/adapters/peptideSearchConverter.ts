@@ -1,5 +1,5 @@
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { PeptideSearchMatch } from '../components/PeptideSearchMatches';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type PeptideSearchMatch } from '../components/PeptideSearchMatches';
 
 export const getMatches = (
   entrySequence: string,

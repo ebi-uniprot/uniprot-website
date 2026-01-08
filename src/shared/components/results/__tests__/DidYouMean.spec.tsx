@@ -3,7 +3,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../__test-helpers__/customRender';
-import { Suggestion } from '../../../types/results';
+import { type Suggestion } from '../../../types/results';
 import DidYouMean from '../DidYouMean';
 
 const mock = new MockAdapter(axios);

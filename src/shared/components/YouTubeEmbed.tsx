@@ -1,6 +1,6 @@
 import 'lite-youtube-embed/src/lite-yt-embed.css';
 
-import { HTMLAttributes } from 'react';
+import { type HTMLAttributes } from 'react';
 
 import useCustomElement from '../hooks/useCustomElement';
 import ExternalLink from './ExternalLink';

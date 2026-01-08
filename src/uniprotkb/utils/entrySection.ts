@@ -1,4 +1,6 @@
-import EntrySection, { EntrySectionNameAndId } from '../types/entrySection';
+import EntrySection, {
+  type EntrySectionNameAndId,
+} from '../types/entrySection';
 
 export const getEntrySectionNameAndId = (
   section: EntrySection,

@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { type AxiosResponse } from 'axios';
 
 const re = /<([0-9a-zA-Z$\-_.+!*'(),?/:=&%]+)>; rel="next"/;
 

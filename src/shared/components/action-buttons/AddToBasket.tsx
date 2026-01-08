@@ -1,10 +1,10 @@
 import { BasketIcon, Button } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
-import { Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 
 import useBasket from '../../hooks/useBasket';
 import helper from '../../styles/helper.module.scss';
-import { Namespace } from '../../types/namespaces';
+import { type Namespace } from '../../types/namespaces';
 import accessionToNamespace from '../../utils/accessionToNamespace';
 import { fromCleanMapper } from '../../utils/getIdKey';
 import { pluralise } from '../../utils/utils';

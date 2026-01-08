@@ -1,8 +1,8 @@
 import { action } from 'typesafe-actions';
 
-import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
-import { JobTypes } from '../../../../jobs/types/jobTypes';
-import { Job } from '../types/job';
+import { type FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { type JobTypes } from '../../../../jobs/types/jobTypes';
+import { type Job } from '../types/job';
 
 export const CREATE_JOB = 'CREATE_JOB';
 export const DELETE_JOB = 'DELETE_JOB';

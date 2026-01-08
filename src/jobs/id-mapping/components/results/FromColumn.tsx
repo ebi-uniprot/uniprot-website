@@ -5,7 +5,7 @@ import { Location, LocationToPath } from '../../../../app/config/urls';
 import AccessionView from '../../../../shared/components/results/AccessionView';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { reUniProtKBAccession } from '../../../../uniprotkb/utils/regexes';
-import { MappingFlat } from '../../types/idMappingSearchResults';
+import { type MappingFlat } from '../../types/idMappingSearchResults';
 
 export const IDMappingFromContext = createContext<Namespace | undefined>(
   undefined

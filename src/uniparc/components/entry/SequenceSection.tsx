@@ -1,7 +1,7 @@
 import { Card } from 'franklin-sites';
 
 import CommonSequenceView from '../../../shared/components/common-sequence/CommonSequenceView';
-import { Sequence as SequenceType } from '../../../shared/types/sequence';
+import { type Sequence as SequenceType } from '../../../shared/types/sequence';
 import { hasContent } from '../../../shared/utils/utils';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';

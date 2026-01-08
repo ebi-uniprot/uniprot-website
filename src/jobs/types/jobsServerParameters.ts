@@ -1,15 +1,15 @@
 import {
-  PublicServerParameters as PublicAlignSP,
-  ServerParameters as AlignSP,
+  type PublicServerParameters as PublicAlignSP,
+  type ServerParameters as AlignSP,
 } from '../align/types/alignServerParameters';
 import {
-  PublicServerParameters as PublicBlastSP,
-  ServerParameters as BlastSP,
+  type PublicServerParameters as PublicBlastSP,
+  type ServerParameters as BlastSP,
 } from '../blast/types/blastServerParameters';
-import { ServerParameters as IDMappingSP } from '../id-mapping/types/idMappingServerParameters';
-import { FormParameters as PeptideSearchFP } from '../peptide-search/types/peptideSearchFormParameters';
-import { ServerParameters as PeptideSearchSP } from '../peptide-search/types/peptideSearchServerParameters';
-import { JobTypes } from './jobTypes';
+import { type ServerParameters as IDMappingSP } from '../id-mapping/types/idMappingServerParameters';
+import { type FormParameters as PeptideSearchFP } from '../peptide-search/types/peptideSearchFormParameters';
+import { type ServerParameters as PeptideSearchSP } from '../peptide-search/types/peptideSearchServerParameters';
+import { type JobTypes } from './jobTypes';
 
 export type ServerParameters = {
   [JobTypes.ALIGN]: AlignSP;

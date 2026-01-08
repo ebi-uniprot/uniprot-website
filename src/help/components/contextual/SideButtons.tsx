@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { MouseEventHandler, useEffect } from 'react';
+import { type MouseEventHandler, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 

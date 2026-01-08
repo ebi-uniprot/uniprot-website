@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { LocationsAPIModel } from '../adapters/locationsConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type LocationsAPIModel } from '../adapters/locationsConverter';
 
 // Source: locations/search?query=membrane&size=2
 // Retrieved: 2025-10-15

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { Loader, LongNumber } from 'franklin-sites';
 import { fromPairs } from 'lodash-es';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import joinUrl from 'url-join';
 
@@ -16,7 +16,7 @@ import ftpUrls from '../../../shared/config/ftpUrls';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { FacetsEnum } from '../../config/UniRefFacetConfiguration';
 import styles from './styles/landing-page.module.scss';

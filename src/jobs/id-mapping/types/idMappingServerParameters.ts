@@ -1,5 +1,5 @@
 /* Parameters of a ID mapping job as required by the server */
-import { Namespace } from '../../../shared/types/namespaces';
+import { type Namespace } from '../../../shared/types/namespaces';
 
 export type From = string;
 

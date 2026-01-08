@@ -1,7 +1,7 @@
 import Table from '../../../shared/components/table/Table';
 import helper from '../../../shared/styles/helper.module.scss';
-import { KineticParameters } from '../../adapters/functionConverter';
-import { Evidence } from '../../types/modelTypes';
+import { type KineticParameters } from '../../adapters/functionConverter';
+import { type Evidence } from '../../types/modelTypes';
 import { RichText, TextView } from '../protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/kinetics-table.module.scss';

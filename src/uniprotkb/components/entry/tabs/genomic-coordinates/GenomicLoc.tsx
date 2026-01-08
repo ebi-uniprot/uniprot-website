@@ -2,7 +2,7 @@ import { LongNumber } from 'franklin-sites';
 
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import helper from '../../../../../shared/styles/helper.module.scss';
-import { GenomicLocation } from './types';
+import { type GenomicLocation } from './types';
 
 type GetEnsembLinkArgs = {
   taxID: number;

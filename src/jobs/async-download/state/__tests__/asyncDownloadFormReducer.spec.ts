@@ -5,7 +5,7 @@ import { AsyncDownloadFields } from '../../config/asyncDownloadFormData';
 import * as actions from '../asyncDownloadFormActions';
 import {
   asyncDownloadFormDataReducer as reducer,
-  AsyncDownloadFormState,
+  type AsyncDownloadFormState,
 } from '../asyncDownloadFormReducer';
 
 export const mockDownloadUrlOptions = {

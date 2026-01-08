@@ -1,7 +1,11 @@
-import { Lineage, Statistics, Xref } from '../../shared/types/apiModel';
-import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { AnnotationScoreValue } from '../../uniprotkb/adapters/uniProtkbConverter';
+import {
+  type Lineage,
+  type Statistics,
+  type Xref,
+} from '../../shared/types/apiModel';
+import { type Citation } from '../../supporting-data/citations/adapters/citationsConverter';
+import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type AnnotationScoreValue } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 export type GenomeAnnotation = {
   source: string;

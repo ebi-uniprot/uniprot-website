@@ -1,10 +1,10 @@
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
+import { type SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { action } from 'typesafe-actions';
 
 import {
-  BlastFields,
-  BlastFormValue,
-  BlastFormValues,
+  type BlastFields,
+  type BlastFormValue,
+  type BlastFormValues,
 } from '../config/BlastFormData';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';

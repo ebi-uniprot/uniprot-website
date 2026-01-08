@@ -1,10 +1,10 @@
-import { AxiosRequestConfig } from 'axios';
-import { LocationDescriptor } from 'history';
+import { type AxiosRequestConfig } from 'axios';
+import { type LocationDescriptor } from 'history';
 import { debounce } from 'lodash-es';
 import {
-  Dispatch,
-  FormEventHandler,
-  SetStateAction,
+  type Dispatch,
+  type FormEventHandler,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,

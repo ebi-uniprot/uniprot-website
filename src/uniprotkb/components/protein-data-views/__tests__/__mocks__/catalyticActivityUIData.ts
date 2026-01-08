@@ -1,4 +1,4 @@
-import { CatalyticActivityComment } from '../../../../types/commentTypes';
+import { type CatalyticActivityComment } from '../../../../types/commentTypes';
 
 const mock: CatalyticActivityComment[] = [
   {

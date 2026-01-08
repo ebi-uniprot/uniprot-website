@@ -1,11 +1,11 @@
-import { ActionType } from 'typesafe-actions';
+import { type ActionType } from 'typesafe-actions';
 
-import { JobTypes } from '../../../jobs/types/jobTypes';
-import { Column } from '../../config/columns';
-import { JobFromUrl } from '../../hooks/useJobFromUrl';
+import { type JobTypes } from '../../../jobs/types/jobTypes';
+import { type Column } from '../../config/columns';
+import { type JobFromUrl } from '../../hooks/useJobFromUrl';
 import { Namespace } from '../../types/namespaces';
-import { FileFormat } from '../../types/resultsDownload';
-import { DownloadProps } from './Download';
+import { type FileFormat } from '../../types/resultsDownload';
+import { type DownloadProps } from './Download';
 import * as downloadActions from './downloadActions';
 import {
   filterFullXrefColumns,

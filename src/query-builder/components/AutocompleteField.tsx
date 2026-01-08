@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+import { type QueryBit, type SearchTermType } from '../types/searchTypes';
 import initializer from '../utils/fieldInitializer';
 import AutocompleteWrapper from './AutocompleteWrapper';
 

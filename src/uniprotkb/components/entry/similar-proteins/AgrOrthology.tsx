@@ -6,15 +6,15 @@ import { Location, LocationToPath } from '../../../../app/config/urls';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../shared/components/ExternalLink';
 import TableFromData, {
-  TableFromDataColumn,
+  type TableFromDataColumn,
 } from '../../../../shared/components/table/TableFromData';
 import externalUrls from '../../../../shared/config/externalUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import {
-  AgrOrthologs,
-  AgrOrthologsResult,
-  PredictionMethodName,
+  type AgrOrthologs,
+  type AgrOrthologsResult,
+  type PredictionMethodName,
 } from '../../../types/agrOrthologs';
 import { getXrefAndTaxonQuery } from '../../../utils/agr-homology';
 import getHomologyMethodColumnConfig from './getHomologyMethodColumnConfig';

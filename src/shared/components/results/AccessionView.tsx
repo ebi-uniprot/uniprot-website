@@ -5,8 +5,8 @@ import { getEntryPath } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import { reIds } from '../../../jobs/utils/urls';
 import helper from '../../styles/helper.module.scss';
-import { Namespace, SearchableNamespace } from '../../types/namespaces';
-import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';
+import { Namespace, type SearchableNamespace } from '../../types/namespaces';
+import EntryTypeIcon, { type EntryType } from '../entry/EntryTypeIcon';
 import styles from './styles/accession-view.module.scss';
 
 type Props = {

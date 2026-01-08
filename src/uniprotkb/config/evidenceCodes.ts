@@ -1,6 +1,6 @@
 import * as logging from '../../shared/utils/logging';
 import { pluralise } from '../../shared/utils/utils';
-import { Evidence, GoEvidenceType } from '../types/modelTypes';
+import { type Evidence, type GoEvidenceType } from '../types/modelTypes';
 
 export const ecoCode = {
   EXP: 269,

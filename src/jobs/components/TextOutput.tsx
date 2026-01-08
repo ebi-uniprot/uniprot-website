@@ -1,5 +1,5 @@
 import { CodeBlock, Loader } from 'franklin-sites';
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
 import useDataApi from '../../shared/hooks/useDataApi';

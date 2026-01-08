@@ -1,4 +1,4 @@
-import { TaxonomyUIModel } from './taxonomyConverter';
+import { type TaxonomyUIModel } from './taxonomyConverter';
 
 export default (data: TaxonomyUIModel) => {
   let organismName: string | number | undefined;

@@ -1,9 +1,9 @@
 import { action } from 'typesafe-actions';
 
 import {
-  PeptideSearchFields,
-  PeptideSearchFormValue,
-  PeptideSearchFormValues,
+  type PeptideSearchFields,
+  type PeptideSearchFormValue,
+  type PeptideSearchFormValues,
 } from '../config/PeptideSearchFormData';
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';

@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { KeywordsAPIModel } from '../adapters/keywordsConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type KeywordsAPIModel } from '../adapters/keywordsConverter';
 
 // Source: keywords/search?query=site&size=2
 // Retrieved: 2025-10-15

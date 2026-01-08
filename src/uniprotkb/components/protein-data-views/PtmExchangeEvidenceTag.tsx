@@ -8,12 +8,12 @@ import {
   getEcoNumberFromString,
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
-import { Evidence } from '../../types/modelTypes';
+import { type Evidence } from '../../types/modelTypes';
 import EvidenceLink from './EvidenceLink';
 import style from './styles/ptmexchange-evidence-tag.module.scss';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 import { EvidenceTagSourceTypes } from './UniProtKBEvidenceTag';
-import { ConfidenceScore } from './UniProtKBFeaturesView';
+import { type ConfidenceScore } from './UniProtKBFeaturesView';
 
 const PtmExchangeEvidence = ({ evidences }: { evidences?: Evidence[] }) => {
   if (!evidences?.length) {

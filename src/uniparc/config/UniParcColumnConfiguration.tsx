@@ -10,14 +10,14 @@ import ExternalLink from '../../shared/components/ExternalLink';
 import AccessionView from '../../shared/components/results/AccessionView';
 import externalUrls from '../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../shared/hooks/useDatabaseInfoMaps';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { getUrlFromDatabaseInfo } from '../../shared/utils/xrefs';
 import { TabLocation } from '../../uniprotkb/types/entry';
 import {
-  SequenceFeature,
-  UniParcLiteAPIModel,
+  type SequenceFeature,
+  type UniParcLiteAPIModel,
 } from '../adapters/uniParcConverter';
 
 export enum UniParcColumn {
@@ -146,7 +146,9 @@ UniParcColumnConfiguration.set(UniParcColumn.gene, {
   ),
   render: ({ geneNames }) => (
     <ExpandableList descriptionString="gene names" displayNumberOfHiddenItems>
-      {geneNames?.map((gene) => <span key={gene}>{gene}</span>)}
+      {geneNames?.map((gene) => (
+        <span key={gene}>{gene}</span>
+      ))}
     </ExpandableList>
   ),
 });

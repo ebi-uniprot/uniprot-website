@@ -6,7 +6,7 @@ import { sendGtagEventFeatureDataTableViewClick } from '../utils/gtagEvents';
 const useExpandTable = (
   expandable?: boolean
 ): [
-  containerRef: React.RefObject<HTMLDivElement>,
+  containerRef: React.RefObject<HTMLDivElement | null>,
   expandTable: boolean | null,
   setExpandTable: React.Dispatch<React.SetStateAction<boolean | null>>,
   showButton: boolean,

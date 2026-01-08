@@ -1,7 +1,7 @@
 import './styles/results-view.scss';
 
 import { HistogramFilter } from 'franklin-sites';
-import { FC, useMemo } from 'react';
+import { type FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { Facets } from '../../../../shared/components/results/Facets';
@@ -10,15 +10,15 @@ import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import helper from '../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import { type SearchResults } from '../../../../shared/types/results';
 import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 import {
   getLocationObjForParams,
   getParamsFromURL,
 } from '../../../../uniprotkb/utils/resultsUtils';
-import { BlastFacet, BlastHit } from '../../types/blastResults';
+import { BlastFacet, type BlastHit } from '../../types/blastResults';
 import {
   blastFacetToKeyName,
   blastFacetToNiceName,

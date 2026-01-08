@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import EntrySection from '../../types/subEntrySection';
 
 // type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };

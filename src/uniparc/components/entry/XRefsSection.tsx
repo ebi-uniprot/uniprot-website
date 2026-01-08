@@ -10,7 +10,10 @@ import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import usePagination from '../../../shared/hooks/usePagination';
 import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
-import { UniParcUIModel, UniParcXRef } from '../../adapters/uniParcConverter';
+import {
+  type UniParcUIModel,
+  type UniParcXRef,
+} from '../../adapters/uniParcConverter';
 import {
   defaultColumns,
   getUniParcXRefsColumns,

@@ -1,11 +1,11 @@
 import { sequenceProcessor } from 'franklin-sites';
 
 import * as logging from '../../shared/utils/logging';
-import { SelectedTaxon } from '../types/jobsFormData';
-import { FormParameters } from '../types/jobsFormParameters';
+import { type SelectedTaxon } from '../types/jobsFormData';
+import { type FormParameters } from '../types/jobsFormParameters';
 import {
-  PublicServerParameters,
-  ServerParameters,
+  type PublicServerParameters,
+  type ServerParameters,
 } from '../types/jobsServerParameters';
 import { JobTypes } from '../types/jobTypes';
 

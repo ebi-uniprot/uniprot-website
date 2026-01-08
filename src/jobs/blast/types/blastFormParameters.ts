@@ -1,16 +1,16 @@
-import { SelectedTaxon } from '../../types/jobsFormData';
+import { type SelectedTaxon } from '../../types/jobsFormData';
 import {
-  Alignments,
-  Database,
-  Exp,
-  Filter,
-  GapAlign,
-  HSPs,
-  Matrix,
-  Program,
-  Scores,
-  Sequence,
-  SType,
+  type Alignments,
+  type Database,
+  type Exp,
+  type Filter,
+  type GapAlign,
+  type HSPs,
+  type Matrix,
+  type Program,
+  type Scores,
+  type Sequence,
+  type SType,
 } from './blastServerParameters';
 
 export type FormParameters = {

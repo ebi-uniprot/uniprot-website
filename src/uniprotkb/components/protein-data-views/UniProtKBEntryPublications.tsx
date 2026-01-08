@@ -6,8 +6,8 @@ import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
-import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 import style from './styles/inline-publication.module.scss';
 

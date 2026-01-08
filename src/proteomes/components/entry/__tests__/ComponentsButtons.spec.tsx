@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import { Component } from '../../../adapters/proteomesConverter';
+import { type Component } from '../../../adapters/proteomesConverter';
 import ComponentsButtons from '../ComponentsButtons';
 
 describe('ComponentsButtons', () => {

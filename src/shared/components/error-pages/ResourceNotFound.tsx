@@ -1,9 +1,9 @@
 import { Message } from 'franklin-sites';
 import { createPath } from 'history';
-import { HTMLAttributes, useEffect } from 'react';
+import { type HTMLAttributes, useEffect } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 
-import { CustomError } from '../../hooks/useDataApi';
+import { type CustomError } from '../../hooks/useDataApi';
 import { Namespace } from '../../types/namespaces';
 import * as logging from '../../utils/logging';
 import HTMLHead from '../HTMLHead';

@@ -1,34 +1,34 @@
 /* eslint-disable camelcase */
 import './styles/BlastResultTable.scss';
 
-import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
+import type NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import cn from 'classnames';
 import { Button, Chip, DataTable, Loader } from 'franklin-sites';
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useMemo,
   useRef,
   useState,
 } from 'react';
-import { Except } from 'type-fest';
+import { type Except } from 'type-fest';
 import { v1 } from 'uuid';
 
 import NoResultsPage from '../../../../shared/components/error-pages/full-pages/NoResultsPage';
 import NightingaleNavigationComponent from '../../../../shared/custom-elements/NightingaleNavigation';
 import NightingaleTrackCanvasComponent from '../../../../shared/custom-elements/NightingaleTrackCanvas';
 import useColumns, {
-  ColumnDescriptor,
+  type ColumnDescriptor,
 } from '../../../../shared/hooks/useColumns';
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
-import { SearchableNamespace } from '../../../../shared/types/namespaces';
-import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
-import { BlastHsp, BlastResults } from '../../types/blastResults';
-import { EnrichedBlastHit } from './BlastResult';
-import { HSPDetailPanelProps } from './HSPDetailPanel';
+import { type SearchableNamespace } from '../../../../shared/types/namespaces';
+import { type UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { type BlastHsp, type BlastResults } from '../../types/blastResults';
+import { type EnrichedBlastHit } from './BlastResult';
+import { type HSPDetailPanelProps } from './HSPDetailPanel';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',

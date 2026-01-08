@@ -6,10 +6,10 @@ import { getEntryPathFor } from '../../../../../app/config/urls';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
-import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
+import { type DatabaseInfoPoint } from '../../../../types/databaseRefs';
 import { TabLocation } from '../../../../types/entry';
 import GenomicLoc from './GenomicLoc';
-import { FlatGenomicEntry } from './types';
+import { type FlatGenomicEntry } from './types';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);
 

@@ -1,6 +1,6 @@
-import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import type NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
 import { ZoomIn, ZoomOut, ZoomToSequence } from 'franklin-sites';
-import { RefObject, useCallback } from 'react';
+import { type RefObject, useCallback } from 'react';
 
 import styles from './styles/nightingale-zoom-tool.module.scss';
 
@@ -11,7 +11,7 @@ export const iconSize = 19;
 
 type Props = {
   length: number;
-  nightingaleNavigationRef?: RefObject<NightingaleNavigation> | null;
+  nightingaleNavigationRef?: RefObject<NightingaleNavigation | null>;
   nightingaleNavigationGetter?: () => NightingaleNavigation | null;
 };
 

@@ -1,20 +1,23 @@
-import { LocationDescriptorObject } from 'history';
+import { type LocationDescriptorObject } from 'history';
 import { partial } from 'lodash-es';
 import { generatePath, matchPath } from 'react-router-dom';
 
 import { databaseToNamespace } from '../../jobs/blast/config/BlastFormData';
-import { FormParameters as BLASTFormParameters } from '../../jobs/blast/types/blastFormParameters';
-import { Database } from '../../jobs/blast/types/blastServerParameters';
-import { FormParameters as IdMappingFormParameters } from '../../jobs/id-mapping/types/idMappingFormParameters';
+import { type FormParameters as BLASTFormParameters } from '../../jobs/blast/types/blastFormParameters';
+import { type Database } from '../../jobs/blast/types/blastServerParameters';
+import { type FormParameters as IdMappingFormParameters } from '../../jobs/id-mapping/types/idMappingFormParameters';
 import { JobTypes } from '../../jobs/types/jobTypes';
 import {
   Namespace,
   namespaceAndToolsLabels,
-  SearchableNamespace,
+  type SearchableNamespace,
   searchableNamespaceLabels,
   supportingDataAndAANamespaces,
 } from '../../shared/types/namespaces';
-import { FinishedJob, Job } from '../../shared/workers/jobs/types/job';
+import {
+  type FinishedJob,
+  type Job,
+} from '../../shared/workers/jobs/types/job';
 
 export const IDMappingNamespaces = [
   Namespace.uniprotkb,

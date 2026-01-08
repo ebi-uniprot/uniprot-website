@@ -3,7 +3,11 @@
  * library's configuration
  */
 import deepFreeze from 'deep-freeze';
-import sanitizeHtml, { Attributes, defaults, IOptions } from 'sanitize-html';
+import sanitizeHtml, {
+  type Attributes,
+  defaults,
+  type IOptions,
+} from 'sanitize-html';
 
 import styles from './styles/clean-text.module.scss';
 

@@ -1,37 +1,37 @@
-import { Region } from '@nightingale-elements/nightingale-msa';
-import { Feature } from '@nightingale-elements/nightingale-track';
-import NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
+import { type Region } from '@nightingale-elements/nightingale-msa';
+import { type Feature } from '@nightingale-elements/nightingale-track';
+import type NightingaleTrackCanvas from '@nightingale-elements/nightingale-track-canvas';
 import { debounce } from 'lodash-es';
 import {
-  Dispatch,
+  type Dispatch,
   lazy,
-  SetStateAction,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
   useRef,
 } from 'react';
 
-import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import { type ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import NightingaleTrackCanvasComponent from '../../shared/custom-elements/NightingaleTrackCanvas';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useSize from '../../shared/hooks/useSize';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
-import FeatureType from '../../uniprotkb/types/featureType';
+import type FeatureType from '../../uniprotkb/types/featureType';
 import AlignLabel from '../align/components/results/AlignLabel';
-import { MsaColorScheme } from '../config/msaColorSchemes';
+import { type MsaColorScheme } from '../config/msaColorSchemes';
 import {
-  AlignmentComponentProps,
-  ConservationOptions,
-  MSAInput,
-  NightingaleChangeEvent,
-  OnMSAFeatureClick,
-  UpdateTooltip,
+  type AlignmentComponentProps,
+  type ConservationOptions,
+  type MSAInput,
+  type NightingaleChangeEvent,
+  type OnMSAFeatureClick,
+  type UpdateTooltip,
 } from '../types/alignment';
 import {
   createGappedFeature,
   getEndCoordinate,
-  MSAFeature,
+  type MSAFeature,
 } from '../utils/sequences';
 
 const NightingaleMSA = lazy(

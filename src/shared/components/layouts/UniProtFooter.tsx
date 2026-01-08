@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { CitedIcon } from 'franklin-sites';
-import { HTMLAttributes, memo } from 'react';
+import { type HTMLAttributes, memo } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

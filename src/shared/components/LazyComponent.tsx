@@ -1,5 +1,12 @@
 import { Loader } from 'franklin-sites';
-import { FC, ReactNode, Suspense, useEffect, useRef, useState } from 'react';
+import {
+  type FC,
+  type ReactNode,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import ErrorBoundary from './error-component/ErrorBoundary';
 import baseLayoutStyles from './layouts/styles/base-layout.module.scss';

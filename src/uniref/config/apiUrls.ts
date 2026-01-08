@@ -2,7 +2,7 @@ import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
 import { fileFormatToUrlParameter } from '../../shared/config/resultsDownload';
-import { FileFormat } from '../../shared/types/resultsDownload';
+import { type FileFormat } from '../../shared/types/resultsDownload';
 import { stringifyUrl } from '../../shared/utils/url';
 
 const members = (

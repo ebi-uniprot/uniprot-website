@@ -1,11 +1,11 @@
 import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/arbaModelData';
 import databaseConverter, {
-  ARBAAPIModel,
-  ARBAUIModel,
+  type ARBAAPIModel,
+  type ARBAUIModel,
 } from '../../adapters/arbaConverter';
 import ARBAColumnConfiguration, {
-  ARBAColumn,
+  type ARBAColumn,
 } from '../ARBAColumnConfiguration';
 
 jest.mock('../../../../shared/workers/jobs/utils/storage');

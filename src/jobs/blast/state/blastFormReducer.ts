@@ -1,9 +1,9 @@
 import { sequenceProcessor } from 'franklin-sites';
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
-import { ActionType } from 'typesafe-actions';
+import { type SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
+import { type ActionType } from 'typesafe-actions';
 
 import { BLAST_LIMIT } from '../../../shared/config/limits';
-import { BlastFields, BlastFormValues } from '../config/BlastFormData';
+import { BlastFields, type BlastFormValues } from '../config/BlastFormData';
 import { getAutoMatrixFor } from '../utils';
 import * as blastFormActions from './blastFormActions';
 

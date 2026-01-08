@@ -1,10 +1,10 @@
-import { ActionType } from 'typesafe-actions';
+import { type ActionType } from 'typesafe-actions';
 import { v1 } from 'uuid';
 
-import { JobSharedWorkerMessage } from '../jobSharedWorker';
-import { CreatedJob, Job } from '../types/job';
+import { type JobSharedWorkerMessage } from '../jobSharedWorker';
+import { type CreatedJob, type Job } from '../types/job';
 import { Status } from '../types/jobStatuses';
-import JobStore from '../utils/storage';
+import type JobStore from '../utils/storage';
 import getJobs from './getJobs';
 import * as jobActions from './jobActions';
 

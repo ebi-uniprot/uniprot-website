@@ -1,10 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { GetJobMessageArgs } from '../../../../../messages/utils';
+import { type GetJobMessageArgs } from '../../../../../messages/utils';
 import { Status } from '../../types/jobStatuses';
-import JobStore from '../../utils/storage';
-import { JobAction } from '../actionHandler';
+import type JobStore from '../../utils/storage';
+import { type JobAction } from '../actionHandler';
 import checkJobStatus from '../checkJobStatus';
 import { updateJob } from '../jobActions';
 import runningJob from './__mocks__/running';

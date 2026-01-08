@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { Message } from 'franklin-sites';
 import {
-  HTMLAttributes,
-  ReactNode,
+  type HTMLAttributes,
+  type ReactNode,
   useCallback,
   useMemo,
   useState,

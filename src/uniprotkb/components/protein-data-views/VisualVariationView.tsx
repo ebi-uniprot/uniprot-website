@@ -1,6 +1,6 @@
-import { Filter } from '@nightingale-elements/nightingale-filter';
-import NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
-import NightingaleVariation from '@nightingale-elements/nightingale-variation';
+import { type Filter } from '@nightingale-elements/nightingale-filter';
+import type NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
+import type NightingaleVariation from '@nightingale-elements/nightingale-variation';
 import { colorConfig, filterConfig } from 'protvista-uniprot';
 import { useCallback, useRef } from 'react';
 
@@ -8,7 +8,7 @@ import NightingaleFilterComponent from '../../../shared/custom-elements/Nighting
 import NightingaleNavigationComponent from '../../../shared/custom-elements/NightingaleNavigation';
 import NightingaleSequenceComponent from '../../../shared/custom-elements/NightingaleSequence';
 import NightingaleVariationComponent from '../../../shared/custom-elements/NightingaleVariation';
-import { TransformedVariant } from '../../types/variation';
+import { type TransformedVariant } from '../../types/variation';
 import NightingaleZoomTool from './NightingaleZoomTool';
 import styles from './styles/visual-variation-view.module.scss';
 
@@ -18,7 +18,7 @@ type VariationViewProps = {
 };
 
 const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
-  const navigationRef = useRef<NightingaleNavigation>(null);
+  const navigationRef = useRef<NightingaleNavigation | null>(null);
   const setNightingaleVariation = useCallback(
     (node: NightingaleVariation) => {
       if (node && sequence && variants) {

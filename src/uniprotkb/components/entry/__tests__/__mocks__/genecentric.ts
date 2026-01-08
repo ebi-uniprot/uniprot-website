@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../../../shared/types/results';
-import { GeneCentricData } from '../../ComputationallyMappedSequences';
+import { type SearchResults } from '../../../../../shared/types/results';
+import { type GeneCentricData } from '../../ComputationallyMappedSequences';
 
 const data: SearchResults<GeneCentricData> = {
   results: [

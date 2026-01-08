@@ -5,9 +5,9 @@ import { getEntryPathFor } from '../../../app/config/urls';
 import { TaxonomyLineage } from '../../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
+import { type TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',

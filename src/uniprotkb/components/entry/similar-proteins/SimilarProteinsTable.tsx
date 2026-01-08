@@ -11,8 +11,8 @@ import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import helper from '../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { stringifyQuery } from '../../../../shared/utils/url';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
+import { type UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { type UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
 import { TabLocation } from '../../../types/entry';
 

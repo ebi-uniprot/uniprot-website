@@ -1,9 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
-import { JsonValue } from 'type-fest';
+import { type JsonValue } from 'type-fest';
 
 import useLocalStorage, {
   localStorageCache,
-  UserPreferenceKey,
+  type UserPreferenceKey,
 } from '../useLocalStorage';
 
 describe('useLocalStorage hook', () => {

@@ -5,8 +5,8 @@ import CopyButton from '../../shared/components/action-buttons/Copy';
 import ToolsDropdown from '../../shared/components/action-buttons/ToolsDropdown';
 import ExternalLink from '../../shared/components/ExternalLink';
 import {
-  FeatureColumnConfiguration,
-  ProcessedFeature,
+  type FeatureColumnConfiguration,
+  type ProcessedFeature,
 } from '../../shared/components/views/FeaturesView';
 import externalUrls from '../../shared/config/externalUrls';
 import { RichText } from '../components/protein-data-views/FreeTextView';

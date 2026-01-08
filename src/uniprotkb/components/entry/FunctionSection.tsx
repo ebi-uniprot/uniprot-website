@@ -11,17 +11,17 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import helper from '../../../shared/styles/helper.module.scss';
 import { hasContent } from '../../../shared/utils/utils';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { type Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 import {
-  Absorption,
-  BioPhysicoChemicalProperties,
-  FunctionUIModel,
-  KineticParameters,
+  type Absorption,
+  type BioPhysicoChemicalProperties,
+  type FunctionUIModel,
+  type KineticParameters,
 } from '../../adapters/functionConverter';
 import {
-  CatalyticActivityComment,
-  CofactorComment,
-  FreeTextComment,
+  type CatalyticActivityComment,
+  type CofactorComment,
+  type FreeTextComment,
 } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';

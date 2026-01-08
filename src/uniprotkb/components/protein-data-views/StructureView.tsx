@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { getEntryPath } from '../../../app/config/urls';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { Namespace } from '../../../shared/types/namespaces';
-import { IsoformSequences } from '../../adapters/structureConverter';
+import { type IsoformSequences } from '../../adapters/structureConverter';
 import { TabLocation } from '../../types/entry';
 import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';

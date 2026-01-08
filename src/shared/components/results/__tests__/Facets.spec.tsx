@@ -1,7 +1,13 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
-import { CustomParsedQuery, Facet, Facets, parse, stringify } from '../Facets';
+import {
+  type CustomParsedQuery,
+  Facet,
+  Facets,
+  parse,
+  stringify,
+} from '../Facets';
 import facets, { proteinsWithFacet, statusFacet } from './__mocks__/facets';
 
 describe('<Facet />', () => {

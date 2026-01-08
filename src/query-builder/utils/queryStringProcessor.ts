@@ -1,4 +1,4 @@
-import { Clause, Operator } from '../types/searchTypes';
+import { type Clause, type Operator } from '../types/searchTypes';
 import { getAllTerm } from './clause';
 
 const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;

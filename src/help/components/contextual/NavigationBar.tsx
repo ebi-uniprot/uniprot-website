@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Button, ExternalLinkIcon } from 'franklin-sites';
-import { MemoryHistory } from 'history';
+import { type MemoryHistory } from 'history';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 

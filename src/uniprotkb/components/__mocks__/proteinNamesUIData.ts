@@ -1,4 +1,4 @@
-import { ProteinNamesData } from '../../adapters/namesAndTaxonomyConverter';
+import { type ProteinNamesData } from '../../adapters/namesAndTaxonomyConverter';
 
 const mock: ProteinNamesData = {
   recommendedName: {

@@ -1,4 +1,4 @@
-import { HelpEntryResponse } from '../../types/apiModel';
+import { type HelpEntryResponse } from '../../types/apiModel';
 
 // Source: help/canonical_and_isoforms
 // Retrieved: 2025-10-15

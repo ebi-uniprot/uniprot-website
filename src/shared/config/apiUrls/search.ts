@@ -1,19 +1,19 @@
 import joinUrl from 'url-join';
 
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import { type SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import {
   getApiSortDirection,
-  SelectedFacet,
+  type SelectedFacet,
   SortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
-import { Facets } from '../../types/facets';
+import { type Facets } from '../../types/facets';
 import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
 import {
   createFacetsQueryString,
   excludeLocalBlastFacets,
   getSearchParams,
-  SearchOptions,
+  type SearchOptions,
   stringifyUrl,
 } from '../../utils/url';
 import { defaultFacets } from '../facets';

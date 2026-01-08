@@ -1,10 +1,10 @@
 import { EllipsisReveal, SearchInput, sequenceProcessor } from 'franklin-sites';
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
+import { type SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import {
-  ChangeEvent,
-  ClipboardEvent,
+  type ChangeEvent,
+  type ClipboardEvent,
   forwardRef,
-  KeyboardEvent,
+  type KeyboardEvent,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -26,7 +26,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../shared/hooks/useMessagesDispatch';
 import useUniProtDataVersion from '../../shared/hooks/useUniProtDataVersion';
 import { Namespace } from '../../shared/types/namespaces';
-import { SearchResults } from '../../shared/types/results';
+import { type SearchResults } from '../../shared/types/results';
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import fetchData from '../../shared/utils/fetchData';
 import * as logging from '../../shared/utils/logging';
@@ -36,7 +36,7 @@ import {
   reUniProtKBAccession,
   reUniRefAccession,
 } from '../../uniprotkb/utils/regexes';
-import { APISequenceData } from '../blast/types/apiSequenceData';
+import { type APISequenceData } from '../blast/types/apiSequenceData';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim();

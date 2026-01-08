@@ -67,7 +67,11 @@
     }
 
     :global(.opblock.opblock-get) :global(.opblock-summary-method) {
-      background: lighten($colour-sea-blue, 10%);
+      background: color-mix(
+        in srgb,
+        $colour-sea-blue 50%,
+        $colour-vivid-cerulean
+      );
     }
 
     :global(table.model tr.property-row td) {

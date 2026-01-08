@@ -1,11 +1,11 @@
 import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/taxonomyModelData';
 import taxonomyConverter, {
-  TaxonomyAPIModel,
-  TaxonomyUIModel,
+  type TaxonomyAPIModel,
+  type TaxonomyUIModel,
 } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
-  TaxonomyColumn,
+  type TaxonomyColumn,
 } from '../TaxonomyColumnConfiguration';
 
 jest.mock('../../../../shared/workers/jobs/utils/storage');

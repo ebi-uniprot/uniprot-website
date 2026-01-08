@@ -1,4 +1,4 @@
-import { CitationsAPIModel } from '../../adapters/citationsConverter';
+import { type CitationsAPIModel } from '../../adapters/citationsConverter';
 
 const mock: Record<string, CitationsAPIModel> = {
   // api/citations/14702039

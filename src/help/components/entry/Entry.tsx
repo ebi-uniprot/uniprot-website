@@ -1,18 +1,18 @@
 import cn from 'classnames';
 import { Card, Loader } from 'franklin-sites';
-import { MouseEventHandler, useCallback, useEffect, useMemo } from 'react';
+import { type MouseEventHandler, useCallback, useEffect, useMemo } from 'react';
 import {
   generatePath,
   Redirect,
-  RouteChildrenProps,
+  type RouteChildrenProps,
   useHistory,
 } from 'react-router-dom';
 import {
-  Attributes,
+  type Attributes,
   defaults,
-  IOptions,
-  Tag,
-  Transformer,
+  type IOptions,
+  type Tag,
+  type Transformer,
 } from 'sanitize-html';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -26,7 +26,7 @@ import helper from '../../../shared/styles/helper.module.scss';
 import {
   cleanTextDefaultOptions,
   getTransformTags,
-  HeadingLevels,
+  type HeadingLevels,
 } from '../../../shared/utils/cleanText';
 import { sendGtagEventOutboundLinkClick } from '../../../shared/utils/gtagEvents';
 import * as logging from '../../../shared/utils/logging';
@@ -34,7 +34,7 @@ import { parseMarkdown } from '../../../shared/utils/markdown';
 import parseDate from '../../../shared/utils/parseDate';
 import { stringifyQuery } from '../../../shared/utils/url';
 import helpApiUrls from '../../config/apiUrls';
-import { HelpEntryResponse } from '../../types/apiModel';
+import { type HelpEntryResponse } from '../../types/apiModel';
 import RelatedArticles from './RelatedArticles';
 import styles from './styles/entry.module.scss';
 

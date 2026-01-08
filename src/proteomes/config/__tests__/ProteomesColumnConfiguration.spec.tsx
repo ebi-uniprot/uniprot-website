@@ -1,10 +1,10 @@
 import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/proteomesEntryModelData';
 import proteomesConverter, {
-  ProteomesUIModel,
+  type ProteomesUIModel,
 } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
-  ProteomesColumn,
+  type ProteomesColumn,
 } from '../ProteomesColumnConfiguration';
 
 jest.mock('../../../shared/workers/jobs/utils/storage');

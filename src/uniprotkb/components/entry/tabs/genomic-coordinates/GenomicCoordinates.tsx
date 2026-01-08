@@ -1,5 +1,5 @@
 import { Loader } from 'franklin-sites';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
@@ -7,10 +7,10 @@ import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDown
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
-import { Isoform } from '../../../../types/commentTypes';
+import { type Isoform } from '../../../../types/commentTypes';
 import tabsStyles from '../styles/tabs-styles.module.scss';
 import GeneEntry from './GeneEntry';
-import { GenomicEntry } from './types';
+import { type GenomicEntry } from './types';
 import { groupByGene } from './utils';
 
 type GenomicCoordinatesProps = {

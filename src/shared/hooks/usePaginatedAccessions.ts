@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { APIModel } from '../types/apiModel';
-import { SearchResults } from '../types/results';
+import { type APIModel } from '../types/apiModel';
+import { type SearchResults } from '../types/results';
 import useDataApi from './useDataApi';
 import useNSQuery from './useNSQuery';
-import { PaginatedResults } from './usePagination';
+import { type PaginatedResults } from './usePagination';
 
 const BATCHSIZE = 1000;
 

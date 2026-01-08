@@ -1,4 +1,4 @@
-import { Column } from '../../shared/config/columns';
+import { type Column } from '../../shared/config/columns';
 
 export enum SortDirection {
   ascend = 'ascend',

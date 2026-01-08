@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 
 const SubEntryInactive = ({ data }: { data: UniParcSubEntryUIModel }) => {
   const { unisave } = data;

@@ -2,10 +2,10 @@ import cn from 'classnames';
 import { Button, ControlledDropdown } from 'franklin-sites';
 import {
   Fragment,
-  HTMLAttributes,
-  Key,
-  MouseEventHandler,
-  ReactNode,
+  type HTMLAttributes,
+  type Key,
+  type MouseEventHandler,
+  type ReactNode,
   useCallback,
   useEffect,
   useId,
@@ -151,14 +151,18 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
   );
 };
 
-interface NodeBodyProps
-  extends Omit<HTMLAttributes<HTMLTableSectionElement>, 'children'> {
+interface NodeBodyProps extends Omit<
+  HTMLAttributes<HTMLTableSectionElement>,
+  'children'
+> {
   data?: never;
   children: ReactNode;
 }
 
-interface FunctionBodyProps<T>
-  extends Omit<HTMLAttributes<HTMLTableSectionElement>, 'children'> {
+interface FunctionBodyProps<T> extends Omit<
+  HTMLAttributes<HTMLTableSectionElement>,
+  'children'
+> {
   data: T[];
   children: (
     datum: T,

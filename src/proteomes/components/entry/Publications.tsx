@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { type CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import { type ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 const dataRenderer = (citation: CitationsAPIModel) => (
   <CitationsCard data={citation} headingLevel="h3" notSelectable />

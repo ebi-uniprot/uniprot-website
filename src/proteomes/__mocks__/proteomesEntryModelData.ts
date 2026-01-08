@@ -1,4 +1,4 @@
-import { ProteomesAPIModel } from '../adapters/proteomesConverter';
+import { type ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 // Source: proteomes/UP000005640
 // Retrieved: 2025-10-15

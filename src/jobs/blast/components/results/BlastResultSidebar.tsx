@@ -6,12 +6,12 @@ import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 import { Namespace } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import { type SearchResults } from '../../../../shared/types/results';
 import { defaultFacets as defaultFacetsUniParc } from '../../../../uniparc/config/UniParcFacetConfiguration';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { FacetsEnum as FacetsEnumUniProtKB } from '../../../../uniprotkb/config/UniProtKBFacetConfiguration';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
-import { BlastHit } from '../../types/blastResults';
+import { type BlastHit } from '../../types/blastResults';
 import BlastResultLocalFacets from './BlastResultLocalFacets';
 
 // Same as default, but with OtherOrganism in the middle too

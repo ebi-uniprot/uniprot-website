@@ -5,11 +5,11 @@ import { getEntryPathFor } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
 import helper from '../../../shared/styles/helper.module.scss';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 import * as logging from '../../../shared/utils/logging';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
-import { DiseasesAPIModel } from '../adapters/diseasesConverter';
+import { type DiseasesAPIModel } from '../adapters/diseasesConverter';
 import databaseToDatabaseInfo from './databaseInfoMaps';
 
 export enum DiseasesColumn {

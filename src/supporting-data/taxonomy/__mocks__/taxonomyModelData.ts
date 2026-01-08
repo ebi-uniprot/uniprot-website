@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 // Source: taxonomy/search?size=2&query=primate
 // Retrieved: 2025-10-15

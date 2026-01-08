@@ -1,5 +1,5 @@
 import { JobTypes } from '../../../../../../jobs/types/jobTypes';
-import { RunningJob } from '../../../types/job';
+import { type RunningJob } from '../../../types/job';
 import { Status } from '../../../types/jobStatuses';
 
 const now = Date.now();

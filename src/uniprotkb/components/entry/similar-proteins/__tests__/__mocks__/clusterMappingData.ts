@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { UniRefLiteAPIModel } from '../../../../../../uniref/adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../../../../../uniref/adapters/uniRefConverter';
 
 /*
 The data in this file has been generated from the P05067 entry with the clusterData's keys

@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type UniRuleAPIModel } from '../adapters/uniRuleConverter';
 
 // Source: unirule/search?query=insulin&size=2
 // Retrieved: 2025-10-15

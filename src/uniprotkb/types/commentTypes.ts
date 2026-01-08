@@ -1,8 +1,11 @@
-import { Xref } from '../../shared/types/apiModel';
-import { Absorption, KineticParameters } from '../adapters/functionConverter';
-import { Interactant } from '../adapters/interactionConverter';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
-import { Evidence } from './modelTypes';
+import { type Xref } from '../../shared/types/apiModel';
+import {
+  type Absorption,
+  type KineticParameters,
+} from '../adapters/functionConverter';
+import { type Interactant } from '../adapters/interactionConverter';
+import { type FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { type Evidence } from './modelTypes';
 
 export type FreeTextType =
   | 'DISRUPTION PHENOTYPE'
@@ -56,13 +59,11 @@ export interface FreeTextComment extends GenericComment<FreeTextType> {
   texts?: TextWithEvidence[];
 }
 
-export interface AbsorptionComment
-  extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
+export interface AbsorptionComment extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
   absorption?: Absorption;
 }
 
-export interface KineticsComment
-  extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
+export interface KineticsComment extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
   kineticParameters?: KineticParameters;
 }
 
@@ -72,15 +73,13 @@ export interface pHDependenceComment extends KineticsComment {
   };
 }
 
-export interface RedoxPotentialComment
-  extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
+export interface RedoxPotentialComment extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
   redoxPotential: {
     texts: TextWithEvidence[];
   };
 }
 
-export interface TemperatureDependenceComment
-  extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
+export interface TemperatureDependenceComment extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
   temperatureDependence: {
     texts: TextWithEvidence[];
   };
@@ -94,8 +93,7 @@ export type PhysiologicalReaction = {
   evidences: Evidence[];
 };
 
-export interface CatalyticActivityComment
-  extends GenericComment<'CATALYTIC ACTIVITY'> {
+export interface CatalyticActivityComment extends GenericComment<'CATALYTIC ACTIVITY'> {
   reaction?: {
     name: string;
     reactionCrossReferences?: { database: string; id: string }[];
@@ -141,7 +139,7 @@ export interface InteractionComment extends GenericComment<'INTERACTION'> {
 export type Isoform = {
   name: TextWithEvidence;
   isoformSequenceStatus: // Canonical (when there are multiple isoforms)
-  | 'Displayed'
+    | 'Displayed'
     // When the accession of the isoform isn't the same as that of the canonical
     // - examples in Q7KQZ4
     | 'External'
@@ -156,23 +154,20 @@ export type Isoform = {
   varSeqs?: FeatureDatum[];
 };
 
-export interface AlternativeProductsComment
-  extends GenericComment<'ALTERNATIVE PRODUCTS'> {
+export interface AlternativeProductsComment extends GenericComment<'ALTERNATIVE PRODUCTS'> {
   isoforms: Isoform[];
   note?: { texts: TextWithEvidence[] };
   events: string[];
 }
 
-export interface SequenceCautionComment
-  extends GenericComment<'SEQUENCE CAUTION'> {
+export interface SequenceCautionComment extends GenericComment<'SEQUENCE CAUTION'> {
   sequenceCautionType: string;
   sequence: string;
   note?: string;
   evidences?: Evidence[];
 }
 
-export interface MassSpectrometryComment
-  extends GenericComment<'MASS SPECTROMETRY'> {
+export interface MassSpectrometryComment extends GenericComment<'MASS SPECTROMETRY'> {
   method?: string;
   note?: string;
   molWeight: number;
@@ -186,8 +181,7 @@ export interface RNAEditingComment extends GenericComment<'RNA EDITING'> {
   note?: { texts: TextWithEvidence[] };
 }
 
-export interface SubcellularLocationComment
-  extends GenericComment<'SUBCELLULAR LOCATION'> {
+export interface SubcellularLocationComment extends GenericComment<'SUBCELLULAR LOCATION'> {
   note?: { texts: TextWithEvidence[] };
   molecule?: string;
   subcellularLocations?: {

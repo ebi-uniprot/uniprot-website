@@ -2,7 +2,7 @@ import { Loader } from 'franklin-sites';
 import { Suspense } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import { UniParcUIModel } from '../../adapters/uniParcConverter';
+import { type UniParcUIModel } from '../../adapters/uniParcConverter';
 import UniParcEntryConfig from '../../config/UniParcEntryConfig';
 
 type EntryMainProps = {

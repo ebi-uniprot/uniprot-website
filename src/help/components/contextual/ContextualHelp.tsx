@@ -1,4 +1,9 @@
-import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import {
+  type MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { generatePath, useHistory, useRouteMatch } from 'react-router-dom';
 import { frame } from 'timing-functions';
 

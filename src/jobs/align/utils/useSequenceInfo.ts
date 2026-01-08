@@ -1,15 +1,15 @@
 import { sequenceProcessor } from 'franklin-sites';
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
+import { type SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor';
 import { useMemo } from 'react';
 
-import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
+import { type ProcessedFeature } from '../../../shared/components/views/FeaturesView';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
-import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { convertData as processUniParcFeaturesData } from '../../../uniparc/components/entry/UniParcFeaturesView';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { processFeaturesData as processUniProtKBFeaturesData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import { removeFeaturesWithUnknownModifier } from '../../utils/sequences';
 import extractAccession from './extractAccession';

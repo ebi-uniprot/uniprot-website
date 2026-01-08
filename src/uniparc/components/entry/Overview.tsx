@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-import { UniParcUIModel } from '../../adapters/uniParcConverter';
+import { type UniParcUIModel } from '../../adapters/uniParcConverter';
 
 type Props = {
   data: UniParcUIModel;

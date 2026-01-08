@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 export type ColumRenderer<Schema extends Record<string, unknown>> = {
   label: ReactNode;

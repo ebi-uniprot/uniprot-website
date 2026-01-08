@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
-import { FieldProps } from './Field';
+import { type FieldProps } from './Field';
 
 const TextField = ({ field, handleChange, initialValue }: FieldProps) => {
   const [value, setValue] = useState(

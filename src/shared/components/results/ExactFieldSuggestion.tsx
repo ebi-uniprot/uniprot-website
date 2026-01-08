@@ -1,8 +1,8 @@
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
 import { Namespace } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
+import { type SearchResults } from '../../types/results';
 import {
   exactMatchSearchTerms,
   modifyQueryWithSuggestions,

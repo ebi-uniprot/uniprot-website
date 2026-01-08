@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { lazy, ReactElement, Suspense } from 'react';
+import { lazy, type ReactElement, Suspense } from 'react';
 
 import ErrorBoundary from '../../error-component/ErrorBoundary';
 import HTMLHead from '../../HTMLHead';

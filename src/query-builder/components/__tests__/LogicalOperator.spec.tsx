@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import LogicalOperator, { LogicalOperatorProps } from '../LogicalOperator';
+import LogicalOperator, { type LogicalOperatorProps } from '../LogicalOperator';
 
 const props: LogicalOperatorProps = {
   value: 'AND',
@@ -17,7 +17,7 @@ describe('LogicalOperator component', () => {
     render(<LogicalOperator {...props} />);
     const select = screen.getByRole('combobox');
     fireEvent.change(select, { target: { value: 'OR' } });
-    expect(props.handleChange).toBeCalled();
+    expect(props.handleChange).toHaveBeenCalled();
   });
 
   it('should render', () => {

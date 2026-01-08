@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { SlidingPanel } from 'franklin-sites';
-import { ComponentProps } from 'react';
+import { type SlidingPanel } from 'franklin-sites';
+import { type ComponentProps } from 'react';
 
-import { JobTypes } from '../../jobs/types/jobTypes';
-import { Column } from '../config/columns';
-import { ViewMode } from '../hooks/useViewMode';
+import { type JobTypes } from '../../jobs/types/jobTypes';
+import { type Column } from '../config/columns';
+import { type ViewMode } from '../hooks/useViewMode';
 
 type GtagEventName =
   | 'api_data_load_fail'

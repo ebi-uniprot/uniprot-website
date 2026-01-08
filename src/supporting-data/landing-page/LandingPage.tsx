@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Button } from 'franklin-sites';
-import { ChangeEvent, useEffect, useId, useRef } from 'react';
+import { type ChangeEvent, useEffect, useId, useRef } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';

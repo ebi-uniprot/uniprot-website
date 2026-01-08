@@ -1,11 +1,11 @@
 import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/uniRuleModelData';
 import databaseConverter, {
-  UniRuleAPIModel,
-  UniRuleUIModel,
+  type UniRuleAPIModel,
+  type UniRuleUIModel,
 } from '../../adapters/uniRuleConverter';
 import UniRuleColumnConfiguration, {
-  UniRuleColumn,
+  type UniRuleColumn,
 } from '../UniRuleColumnConfiguration';
 
 jest.mock('../../../../shared/workers/jobs/utils/storage');

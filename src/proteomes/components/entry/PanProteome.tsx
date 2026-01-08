@@ -4,7 +4,7 @@ import { getEntryPath } from '../../../app/config/urls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import { Namespace } from '../../../shared/types/namespaces';
 import * as logging from '../../../shared/utils/logging';
-import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 export const PanProteome = ({ proteome }: { proteome: ProteomesUIModel }) => {
   if (!proteome.panproteome) {

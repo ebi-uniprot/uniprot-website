@@ -9,7 +9,7 @@ import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../config/apiUrls';
 import {
   uniRefMembersFacets,
-  UniRefMembersResults,
+  type UniRefMembersResults,
 } from '../../types/membersEndpoint';
 
 const MembersFacet = memo<{ accession: string }>(({ accession }) => {

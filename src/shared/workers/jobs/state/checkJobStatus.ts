@@ -1,20 +1,25 @@
-import { AxiosResponse } from 'axios';
+import { type AxiosResponse } from 'axios';
 import { partition } from 'lodash-es';
 
-import { BlastResults } from '../../../../jobs/blast/types/blastResults';
+import { type BlastResults } from '../../../../jobs/blast/types/blastResults';
 import toolsURLs, {
   asyncDownloadUrlObjectCreator,
 } from '../../../../jobs/config/urls';
-import { MappingError } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
-import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { type MappingError } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
+import { type FormParameters } from '../../../../jobs/types/jobsFormParameters';
 import { JobTypes } from '../../../../jobs/types/jobTypes';
 import { reUniParc } from '../../../../uniprotkb/utils/regexes';
-import { PaginatedResults } from '../../../hooks/usePagination';
-import { SearchResults } from '../../../types/results';
+import { type PaginatedResults } from '../../../hooks/usePagination';
+import { type SearchResults } from '../../../types/results';
 import fetchData from '../../../utils/fetchData';
 import * as logging from '../../../utils/logging';
-import { JobSharedWorkerMessage } from '../jobSharedWorker';
-import { FinishedJob, Job, NewJob, RunningJob } from '../types/job';
+import { type JobSharedWorkerMessage } from '../jobSharedWorker';
+import {
+  type FinishedJob,
+  type Job,
+  type NewJob,
+  type RunningJob,
+} from '../types/job';
 import { Status } from '../types/jobStatuses';
 import {
   checkForResponseError,
@@ -22,7 +27,7 @@ import {
   isJobAlreadyFinished,
   isJobIncomplete,
 } from '../utils';
-import JobStore from '../utils/storage';
+import type JobStore from '../utils/storage';
 import { updateJob } from './jobActions';
 
 const checkJobStatus = async (

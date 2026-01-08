@@ -1,7 +1,7 @@
 import { sleep } from 'timing-functions';
 
 import { AA_ZOOMED } from '../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
-import { ProcessedFeature } from '../components/views/FeaturesView';
+import { type ProcessedFeature } from '../components/views/FeaturesView';
 
 /**
  * Represents the visible range in the Nightingale view.

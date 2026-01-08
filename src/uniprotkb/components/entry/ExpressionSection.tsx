@@ -2,8 +2,8 @@ import { Card } from 'franklin-sites';
 import { memo } from 'react';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { UIModel } from '../../adapters/sectionConverter';
-import { FreeTextComment } from '../../types/commentTypes';
+import { type UIModel } from '../../adapters/sectionConverter';
+import { type FreeTextComment } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';

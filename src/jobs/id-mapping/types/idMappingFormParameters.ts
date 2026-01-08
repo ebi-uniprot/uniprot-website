@@ -1,5 +1,5 @@
-import { SelectedTaxon } from '../../types/jobsFormData';
-import { From, To } from './idMappingServerParameters';
+import { type SelectedTaxon } from '../../types/jobsFormData';
+import { type From, type To } from './idMappingServerParameters';
 
 export type FormParameters = {
   from: From;

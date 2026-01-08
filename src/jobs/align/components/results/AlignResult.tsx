@@ -8,7 +8,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../../shared/components/layouts/SingleColumnLayout';
 import useDataApi, {
-  UseDataAPIState,
+  type UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useMatchWithRedirect from '../../../../shared/hooks/useMatchWithRedirect';
@@ -20,8 +20,8 @@ import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
-import { AlignResults } from '../../types/alignResults';
-import { PublicServerParameters } from '../../types/alignServerParameters';
+import { type AlignResults } from '../../types/alignResults';
+import { type PublicServerParameters } from '../../types/alignServerParameters';
 import useSequenceInfo from '../../utils/useSequenceInfo';
 
 const jobType = JobTypes.ALIGN;

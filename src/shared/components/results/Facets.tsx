@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ExpandableList, formatLargeNumber } from 'franklin-sites';
-import { Children, FC, HTMLAttributes, ReactNode } from 'react';
+import { Children, type FC, type HTMLAttributes, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import styles from './styles/facets.module.scss';

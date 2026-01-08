@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import axios, { AxiosHeaders } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { MessagesDispatchContext } from '../../contexts/Messages';
 import useDataApi from '../useDataApi';

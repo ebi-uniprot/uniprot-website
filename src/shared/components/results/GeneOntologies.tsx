@@ -1,6 +1,6 @@
 import { ExpandableList } from 'franklin-sites';
 
-import { KeywordsAPIModel } from '../../../supporting-data/keywords/adapters/keywordsConverter';
+import { type KeywordsAPIModel } from '../../../supporting-data/keywords/adapters/keywordsConverter';
 import useDatabaseInfoMaps from '../../hooks/useDatabaseInfoMaps';
 import { getUrlFromDatabaseInfo } from '../../utils/xrefs';
 import ExternalLink from '../ExternalLink';

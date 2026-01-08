@@ -1,4 +1,4 @@
-import { FC, Fragment, ReactNode, useContext } from 'react';
+import { type FC, Fragment, type ReactNode, useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -12,9 +12,9 @@ import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
-  FreeTextComment,
-  FreeTextType,
-  TextWithEvidence,
+  type FreeTextComment,
+  type FreeTextType,
+  type TextWithEvidence,
 } from '../../types/commentTypes';
 import { TabLocation } from '../../types/entry';
 import {

@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { type RouteChildrenProps } from 'react-router-dom';
 
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
@@ -16,7 +16,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
-import { ARBAAPIModel } from '../../adapters/arbaConverter';
+import { type ARBAAPIModel } from '../../adapters/arbaConverter';
 
 const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
@@ -37,7 +37,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount
+    data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(source:${accession})`;

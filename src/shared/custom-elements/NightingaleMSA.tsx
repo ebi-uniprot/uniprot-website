@@ -1,4 +1,4 @@
-import { createComponent, EventName } from '@lit/react';
+import { createComponent, type EventName } from '@lit/react';
 import NightingaleMSA from '@nightingale-elements/nightingale-msa';
 import * as React from 'react';
 

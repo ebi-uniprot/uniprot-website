@@ -19,7 +19,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import { stringifyQuery } from '../../../shared/utils/url';
 import apiUrls from '../../config/apiUrls/apiUrls';
-import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import PieChart, { type StatisticsGraphItem } from '../graphs/PieChart';
 import AbstractSectionTable from './AbstractSectionTable';
 import AminoAcidBarPlot from './AminoAcidBarPlot';
 import AminoAcidCompositionTable from './AminoAcidCompositionTable';
@@ -40,7 +40,7 @@ import {
   getSequenceSizeLocation,
   getUniqueAuthorString,
   merge,
-  MergedStatisticsItem,
+  type MergedStatisticsItem,
   mergeToMap,
 } from './utils';
 

@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { type RouteChildrenProps } from 'react-router-dom';
 
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
@@ -18,7 +18,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-import { DatabaseAPIModel } from '../../adapters/databaseConverter';
+import { type DatabaseAPIModel } from '../../adapters/databaseConverter';
 import DatabaseColumnConfiguration, {
   DatabaseColumn,
 } from '../../config/DatabaseColumnConfiguration';
@@ -63,7 +63,7 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount
+    data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(database:${data.abbrev})`;

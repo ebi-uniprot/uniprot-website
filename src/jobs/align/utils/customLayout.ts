@@ -1,10 +1,9 @@
-import { HierarchyPointNode } from 'd3';
+import { type HierarchyPointNode } from 'd3';
 
-import { NewickTreeNode } from '../types/alignResults';
+import { type NewickTreeNode } from '../types/alignResults';
 import { polarToX, polarToY } from './trigonometry';
 
-export interface CustomHierarchyNode
-  extends HierarchyPointNode<NewickTreeNode> {
+export interface CustomHierarchyNode extends HierarchyPointNode<NewickTreeNode> {
   links(): {
     source: CustomHierarchyNode;
     target: CustomHierarchyNode;
