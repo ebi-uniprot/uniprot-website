@@ -42,6 +42,7 @@ export const augmentAPIDataWithProtnlmPredictions = (
       ...(data.uniProtKBCrossReferences || []),
       ...protnlmCrossReferences,
     ],
+    keywords: [...(data.keywords || []), ...(protnlmData.keywords || [])],
   };
 };
 
