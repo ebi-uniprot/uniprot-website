@@ -3,7 +3,7 @@ import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
 import helper from '../../../../shared/styles/helper.module.scss';
-import { SimilarProteinsUIModel } from '../../../adapters/similarProteinsConverter';
+import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 import XRefView from '../../protein-data-views/XRefView';
@@ -18,7 +18,7 @@ const SimilarProteinsSection = ({
   canonical,
   isoforms,
   xrefs,
-}: SimilarProteinsUIModel) => {
+}: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.SimilarProteins);
   return (
     <Card
