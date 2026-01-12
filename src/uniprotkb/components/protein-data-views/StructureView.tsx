@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Loader, Message } from 'franklin-sites';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { Namespace } from '../../../shared/types/namespaces';
+import { IsoformSequences } from '../../adapters/structureConverter';
 import { TabLocation } from '../../types/entry';
 import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';
@@ -11,10 +14,14 @@ import styles from './styles/structure-view.module.scss';
 const StructureView = ({
   primaryAccession,
   sequence,
+  isoforms,
+  checksum,
   viewerOnly = false,
 }: {
-  primaryAccession: string;
+  primaryAccession?: string;
+  checksum?: string;
   sequence?: string;
+  isoforms?: IsoformSequences[];
   viewerOnly?: boolean;
 }) => {
   const structureElement = useCustomElement(
@@ -26,12 +33,23 @@ const StructureView = ({
     'protvista-uniprot-structure'
   );
 
+  const structureRef = useRef<any>(null);
+
+  const setStructureRef = (el: any) => {
+    if (el) {
+      structureRef.current = el;
+      if (isoforms?.length) {
+        el.isoforms = isoforms;
+      }
+    }
+  };
+
   if (!structureElement.defined && !structureElement.errored) {
     return <Loader />;
   }
   return (
     <div className={styles.container}>
-      {!viewerOnly && (
+      {primaryAccession && !viewerOnly && (
         <>
           <Message level="info">
             View UniProt features on this structure in the{' '}
@@ -53,7 +71,9 @@ const StructureView = ({
         </>
       )}
       <protvista-uniprot-structure
+        ref={setStructureRef}
         accession={primaryAccession}
+        checksum={checksum}
         sequence={sequence}
       />
     </div>

@@ -40,7 +40,7 @@ const StructureSection = ({ data }: Props) =>
     >
       <StructureView
         primaryAccession={data.subEntry.id}
-        sequence={data.entry.sequence?.value}
+        checksum={data.entry.sequence?.md5}
         viewerOnly
       />
     </Card>

@@ -85,7 +85,7 @@ const SubEntry = () => {
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [runUniFire, setRunUniFire] = useState(false);
+  const [runUniFire, setRunUniFire] = useState(true);
 
   const { accession, subEntryId, subPage } = match?.params || {};
 
@@ -254,9 +254,10 @@ const SubEntry = () => {
               )
             ) &&
             !transformedData.entry.sequenceFeatures) ||
-          (section.id === SubEntrySection.Keywords &&
+          (section.id === SubEntrySection.KeywordsAndGO &&
             !transformedData.unifire?.predictions.some(
-              (p) => p.annotationType === 'keyword'
+              (p) =>
+                p.annotationType === 'keyword' || p.annotationType === 'xref.GO'
             )),
       }))}
       rootElement={`.${sidebarStyles.content}`}

@@ -9,6 +9,7 @@ const IntActBase = '//www.ebi.ac.uk/intact/';
 const externalUrls = {
   AlphaFoldPrediction: (id: string) =>
     `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
+  QuickGOTerm: (id: string) => `https://www.ebi.ac.uk/QuickGO/term/${id}`,
   QuickGOAnnotations: (id: string | number) =>
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
   NCBI: (id: string | number) =>
