@@ -106,7 +106,7 @@ exports[`TaxonomyColumnConfiguration component should render column "links": lin
     <li>
       <a
         class="external-link"
-        href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&amp;id=37299"
+        href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=37299"
         rel="noopener"
         target="_blank"
       >
