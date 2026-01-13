@@ -172,7 +172,7 @@ export const DemergedEntryMessage = ({
               search: stringifyQuery({ query: `sec_acc:${props.accession}` }),
             }}
           >
-            View these accessions in UniProtKB search results
+            View these entries in UniProtKB search results
           </Link>
         </div>
       ) : null}
