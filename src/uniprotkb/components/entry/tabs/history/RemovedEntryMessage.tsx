@@ -1,4 +1,5 @@
-import { Fragment, ReactNode } from 'react';
+import { Loader } from 'franklin-sites';
+import { ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
@@ -6,20 +7,25 @@ import {
   Location,
   LocationToPath,
 } from '../../../../../app/config/urls';
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import {
   EntryType,
   getEntryTypeFromString,
 } from '../../../../../shared/config/entryTypeIcon';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../../shared/types/namespaces';
-import listFormat from '../../../../../shared/utils/listFormat';
+import { SearchResults } from '../../../../../shared/types/results';
 import { stringifyQuery } from '../../../../../shared/utils/url';
 import { pickArticle } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
   DeletedReason,
   InactiveEntryReason,
+  UniProtkbAPIModel,
 } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
+import ActiveEntriesTable from './ActiveEntriesTable';
+import styles from './styles/removed-entry-message.module.scss';
 
 type RemovedEntryHeadingProps = {
   accession: string;
@@ -140,40 +146,39 @@ type DemergedEntryMessageProps = RemovedEntryMessageProps & {
 export const DemergedEntryMessage = ({
   demergedTo,
   ...props
-}: DemergedEntryMessageProps) => (
-  <RemovedEntryMessage {...props}>
-    {demergedTo.length ? (
-      <div>
-        This entry has now been <strong>demerged</strong>. Its accession has
-        been set as secondary accession in{' '}
-        {demergedTo.map((newEntry, index) => (
-          <Fragment key={newEntry}>
-            {listFormat(index, demergedTo)}
-            <Link
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                newEntry,
-                UniProtKBTabLocation.Entry
-              )}
-            >
-              {newEntry}
-            </Link>
-          </Fragment>
-        ))}
-        . [
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: stringifyQuery({ query: `sec_acc:${props.accession}` }),
-          }}
-        >
-          List of currently active entries
-        </Link>
-        ]
-      </div>
-    ) : null}
-  </RemovedEntryMessage>
-);
+}: DemergedEntryMessageProps) => {
+  const { loading, data, progress } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(demergedTo.length ? apiUrls.search.accessions(demergedTo) : undefined);
+
+  if (loading) {
+    return <Loader progress={progress} />;
+  }
+
+  return (
+    <RemovedEntryMessage {...props}>
+      {demergedTo.length ? (
+        <div>
+          This entry has now been <strong>demerged</strong>. Its accession has
+          been set as secondary accession in the following entries.
+        </div>
+      ) : null}
+      {data?.results.length ? (
+        <div className={styles['active-entries-table']}>
+          <ActiveEntriesTable entries={data.results} />
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: stringifyQuery({ query: `sec_acc:${props.accession}` }),
+            }}
+          >
+            View these accessions in UniProtKB search results
+          </Link>
+        </div>
+      ) : null}
+    </RemovedEntryMessage>
+  );
+};
 
 type MergedEntryMessageProps = RemovedEntryMessageProps & {
   mergedInto: string;
