@@ -167,6 +167,16 @@ export const RefProtMoveHomePage = () => (
   </Message>
 );
 
+export const RefProtContactPage = () => (
+  <Message
+    level="warning"
+    className={cn('uniprot-grid-cell--span-12', styles['homepage'])}
+  >
+    Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
+    transition. <HelpFtpContact />
+  </Message>
+);
+
 export const RefProtMoveHelpLandingPage = () => (
   <Message
     level="warning"
