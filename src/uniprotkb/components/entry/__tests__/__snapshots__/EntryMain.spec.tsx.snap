@@ -3166,7 +3166,7 @@ exports[`Entry view should render 1`] = `
               <li>
                 View the Phylogenomic databases for this entry within the 
                 <a
-                  href="/uniprotkb/P05067/entry#similar_proteins"
+                  href="/uniprotkb/P05067/entry#similar-proteins-xrefs"
                 >
                   Similar Proteins section
                 </a>
@@ -6149,7 +6149,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <li>
                 View the Phylogenomic databases for this entry within the 
                 <a
-                  href="/uniprotkb/P05067/entry#similar_proteins"
+                  href="/uniprotkb/P05067/entry#similar-proteins-xrefs"
                 >
                   Similar Proteins section
                 </a>

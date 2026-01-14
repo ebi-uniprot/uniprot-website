@@ -4,6 +4,7 @@ import { lazy, memo } from 'react';
 import LazyComponent from '../../../../shared/components/LazyComponent';
 import helper from '../../../../shared/styles/helper.module.scss';
 import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import { SIMILAR_PROTEINS_XREF_ID } from '../../../config/anchors';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 import XRefView from '../../protein-data-views/XRefView';
@@ -42,6 +43,7 @@ const SimilarProteinsSection = ({
         <AgrHomology xrefs={xrefs} />
       </LazyComponent>
       <XRefView xrefs={xrefs} primaryAccession={primaryAccession} />
+      <span id={SIMILAR_PROTEINS_XREF_ID}></span>
     </Card>
   );
 };
