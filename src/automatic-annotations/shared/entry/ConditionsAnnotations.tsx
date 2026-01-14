@@ -169,123 +169,83 @@ const conditionsToInfoData = (
     }
     // Taxonomy
     if (condition.type === 'taxon') {
-      const hasMultipleValues = (condition.conditionValues?.length || 0) > 1;
       return {
         title: 'taxon', // NOTE: don't pluralise, the values are "OR"-separated
-        content: (
-          <>
-            {condition.isNegative && hasMultipleValues && (
-              <>
-                <span className={cn(styles.statement, styles.negation)}>
-                  not
-                </span>{' '}
-                (
-              </>
-            )}
-            {condition.conditionValues?.map(({ cvId, value }, index, array) => {
-              let output: ReactNode = value;
-              if (cvId) {
-                output = (
-                  <TaxonomyView
-                    data={{ taxonId: +cvId, scientificName: value }}
-                  />
-                );
-              }
-              return (
-                <Fragment key={cvId || value}>
-                  {listFormat(index, array, 'or')}
-                  {condition.isNegative && !hasMultipleValues && (
-                    <>
-                      <span className={cn(styles.statement, styles.negation)}>
-                        not
-                      </span>{' '}
-                    </>
-                  )}
-                  {output}
-                </Fragment>
+        content: condition.conditionValues?.map(
+          ({ cvId, value }, index, array) => {
+            let output: ReactNode = value;
+            if (cvId) {
+              output = (
+                <TaxonomyView
+                  data={{ taxonId: +cvId, scientificName: value }}
+                />
               );
-            })}
-            {condition.isNegative && hasMultipleValues && ')'}
-          </>
+            }
+            return (
+              <Fragment key={cvId || value}>
+                {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
+                {condition.isNegative && (
+                  <>
+                    <span className={cn(styles.statement, styles.negation)}>
+                      not
+                    </span>{' '}
+                  </>
+                )}
+                {output}
+              </Fragment>
+            );
+          }
         ),
         key,
       };
     }
     // Gene location
     if (condition.type === 'gene location') {
-      const hasMultipleValues = (condition.conditionValues?.length || 0) > 1;
       return {
         title: 'gene location',
-        content: (
-          <>
-            {condition.isNegative && hasMultipleValues && (
-              <>
-                <span className={cn(styles.statement, styles.negation)}>
-                  not
-                </span>{' '}
-                (
-              </>
-            )}
-            {condition.conditionValues?.map(({ value }, index, array) => {
-              if (!value) {
-                return null;
-              }
-              return (
-                <Fragment key={value}>
-                  {listFormat(index, array, 'or')}
-                  {condition.isNegative && !hasMultipleValues && (
-                    <>
-                      <span className={cn(styles.statement, styles.negation)}>
-                        not
-                      </span>{' '}
-                    </>
-                  )}
-                  {value}
-                </Fragment>
-              );
-            })}
-            {condition.isNegative && hasMultipleValues && ')'}
-          </>
-        ),
+        content: condition.conditionValues?.map(({ value }, index, array) => {
+          if (!value) {
+            return null;
+          }
+          return (
+            <Fragment key={value}>
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
+              {condition.isNegative && (
+                <>
+                  <span className={cn(styles.statement, styles.negation)}>
+                    not
+                  </span>{' '}
+                </>
+              )}
+              {value}
+            </Fragment>
+          );
+        }),
         key,
       };
     }
     // Proteome property
     if (condition.type === 'proteome property') {
-      const hasMultipleValues = (condition.conditionValues?.length || 0) > 1;
       return {
         title: 'proteome property',
-        content: (
-          <>
-            {condition.isNegative && hasMultipleValues && (
-              <>
-                <span className={cn(styles.statement, styles.negation)}>
-                  not
-                </span>{' '}
-                (
-              </>
-            )}
-            {condition.conditionValues?.map(({ value }, index, array) => {
-              if (!value) {
-                return null;
-              }
-              return (
-                <Fragment key={value}>
-                  {listFormat(index, array, 'or')}
-                  {condition.isNegative && !hasMultipleValues && (
-                    <>
-                      <span className={cn(styles.statement, styles.negation)}>
-                        not
-                      </span>{' '}
-                    </>
-                  )}
-                  {value}
-                </Fragment>
-              );
-            })}
-            {condition.isNegative && hasMultipleValues && ')'}
-          </>
-        ),
+        content: condition.conditionValues?.map(({ value }, index, array) => {
+          if (!value) {
+            return null;
+          }
+          return (
+            <Fragment key={value}>
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
+              {condition.isNegative && (
+                <>
+                  <span className={cn(styles.statement, styles.negation)}>
+                    not
+                  </span>{' '}
+                </>
+              )}
+              {value}
+            </Fragment>
+          );
+        }),
         key,
       };
     }
@@ -309,66 +269,52 @@ const conditionsToInfoData = (
         }
       }
 
-      const hasMultipleValues = (condition.conditionValues?.length || 0) > 1;
       return {
         // NOTE: don't pluralise, the values are "OR"-separated
         title: `${signatureDB}${
           condition.type.endsWith('id') ? ' signature' : ' hits'
         }`,
-        content: (
-          <>
-            {condition.isNegative && hasMultipleValues && (
-              <>
-                <span className={cn(styles.statement, styles.negation)}>
-                  not
-                </span>{' '}
-                (
-              </>
-            )}
-            {condition.conditionValues?.map(({ value }, index, array) => {
-              if (!value) {
-                return null;
-              }
+        content: condition.conditionValues?.map(({ value }, index, array) => {
+          if (!value) {
+            return null;
+          }
 
-              let url: string | null = null;
-              if (signatureDB === 'SRHMM') {
-                // skip, not sure what to link to
-              } else if (signatureDB === 'SCOP Superfamily') {
-                url = getUrlFromDatabaseInfo(databaseInfoMaps, 'SUPFAM', {
-                  id: value,
-                });
-              } else if (signatureDB === 'PIR superfamily') {
-                url = getUrlFromDatabaseInfo(databaseInfoMaps, 'PIRSF', {
-                  id: value,
-                });
-              } else if (signatureDB === 'PROSITE pattern') {
-                url = getUrlFromDatabaseInfo(databaseInfoMaps, 'PROSITE', {
-                  id: value,
-                });
-              } else {
-                url = getUrlFromDatabaseInfo(databaseInfoMaps, signatureDB, {
-                  id: value,
-                });
-              }
+          let url: string | null = null;
+          if (signatureDB === 'SRHMM') {
+            // skip, not sure what to link to
+          } else if (signatureDB === 'SCOP Superfamily') {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'SUPFAM', {
+              id: value,
+            });
+          } else if (signatureDB === 'PIR superfamily') {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'PIRSF', {
+              id: value,
+            });
+          } else if (signatureDB === 'PROSITE pattern') {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, 'PROSITE', {
+              id: value,
+            });
+          } else {
+            url = getUrlFromDatabaseInfo(databaseInfoMaps, signatureDB, {
+              id: value,
+            });
+          }
 
-              return (
-                <Fragment key={value}>
-                  {listFormat(index, array, 'or')}
-                  {condition.isNegative && !hasMultipleValues && (
-                    <>
-                      <span className={cn(styles.statement, styles.negation)}>
-                        not
-                      </span>{' '}
-                    </>
-                  )}
-                  <ExternalLink url={url}>{value}</ExternalLink>
-                  {range}
-                </Fragment>
-              );
-            })}
-            {condition.isNegative && hasMultipleValues && ')'}
-          </>
-        ),
+          return (
+            <Fragment key={value}>
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
+              {condition.isNegative && (
+                <>
+                  <span className={cn(styles.statement, styles.negation)}>
+                    not
+                  </span>{' '}
+                </>
+              )}
+              <ExternalLink url={url}>{value}</ExternalLink>
+              {range}
+            </Fragment>
+          );
+        }),
         key,
       };
     }
