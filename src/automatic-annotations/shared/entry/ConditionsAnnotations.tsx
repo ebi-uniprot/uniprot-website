@@ -323,7 +323,7 @@ const conditionsToInfoData = (
   });
 };
 
-// Accross condition sets: OR
+// Across condition sets: OR
 // Across conditions within a condition set: AND
 const ConditionsComponent = ({
   conditionSets,
