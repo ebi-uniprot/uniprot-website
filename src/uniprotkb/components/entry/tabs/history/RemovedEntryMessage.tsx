@@ -165,7 +165,7 @@ export const DemergedEntryMessage = ({
       ) : null}
       {data?.results.length ? (
         <div className={styles['active-entries-table']}>
-          <ActiveEntriesTable entries={data.results} />
+          <ActiveEntriesTable entries={data.results} demergedTo={demergedTo} />
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
