@@ -16,7 +16,7 @@ import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { SearchResults } from '../../../../../shared/types/results';
 import { stringifyQuery } from '../../../../../shared/utils/url';
-import { pickArticle } from '../../../../../shared/utils/utils';
+import { pickArticle, pluralise } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
   DeletedReason,
@@ -24,7 +24,7 @@ import {
   UniProtkbAPIModel,
 } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
-import DemergedEntriesTable from './DemeregdEntriesTable';
+import DemergedEntriesTable from './DemergedEntriesTable';
 import styles from './styles/removed-entry-message.module.scss';
 
 type RemovedEntryHeadingProps = {
@@ -176,10 +176,11 @@ export const DemergedEntryMessage = ({
             }}
           >
             View{' '}
-            {data.results.length === 1
-              ? 'the active entry '
-              : 'these active entries '}{' '}
-            in UniProtKB search results
+            {demergedTo.length !== data.results.length
+              ? ' the active '
+              : 'these'}{' '}
+            {pluralise('entry', data.results.length, 'entries')} in UniProtKB
+            search results
           </Link>
         </div>
       ) : null}

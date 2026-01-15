@@ -55,6 +55,8 @@ const DemergedEntriesTable = ({
     [demergedTo, entries]
   );
 
+  const entriesData = useMemo(() => entries.slice(), [entries]);
+
   useEffect(() => {
     if (inactiveEntries.length > 0) {
       const promises = inactiveEntries.map((accession) => {
@@ -67,21 +69,21 @@ const DemergedEntriesTable = ({
       Promise.all(promises).then((responses) => {
         responses.forEach((response) => {
           if (
-            !entries.find(
+            !entriesData.find(
               (e) => e.primaryAccession === response.data.primaryAccession
             )
           ) {
-            entries.push(response.data);
+            entriesData.push(response.data);
           }
         });
       });
     }
-  }, [inactiveEntries, entries]);
+  }, [inactiveEntries, entriesData]);
 
   return (
     <div className={helper['overflow-y-container']}>
       <DataTable
-        data={entries}
+        data={entriesData}
         columns={columnConfig}
         getIdKey={(row) => row.primaryAccession}
         density="compact"
