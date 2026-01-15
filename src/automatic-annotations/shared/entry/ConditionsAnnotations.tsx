@@ -183,7 +183,7 @@ const conditionsToInfoData = (
             }
             return (
               <Fragment key={cvId || value}>
-                {listFormat(index, array, 'or')}
+                {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
                 {condition.isNegative && (
                   <>
                     <span className={cn(styles.statement, styles.negation)}>
@@ -209,7 +209,7 @@ const conditionsToInfoData = (
           }
           return (
             <Fragment key={value}>
-              {listFormat(index, array, 'or')}
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
               {condition.isNegative && (
                 <>
                   <span className={cn(styles.statement, styles.negation)}>
@@ -228,12 +228,13 @@ const conditionsToInfoData = (
     if (condition.type === 'proteome property') {
       return {
         title: 'proteome property',
-        content: condition.conditionValues?.map(({ value }) => {
+        content: condition.conditionValues?.map(({ value }, index, array) => {
           if (!value) {
             return null;
           }
           return (
             <Fragment key={value}>
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
               {condition.isNegative && (
                 <>
                   <span className={cn(styles.statement, styles.negation)}>
@@ -301,7 +302,7 @@ const conditionsToInfoData = (
 
           return (
             <Fragment key={value}>
-              {listFormat(index, array, 'or')}
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
               {condition.isNegative && (
                 <>
                   <span className={cn(styles.statement, styles.negation)}>
@@ -322,7 +323,7 @@ const conditionsToInfoData = (
   });
 };
 
-// Accross condition sets: OR
+// Across condition sets: OR
 // Across conditions within a condition set: AND
 const ConditionsComponent = ({
   conditionSets,
