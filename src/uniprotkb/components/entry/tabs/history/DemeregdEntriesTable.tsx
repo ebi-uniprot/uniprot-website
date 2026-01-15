@@ -40,7 +40,7 @@ const columnConfig = [
   ...similarProteinsColumnConfig,
 ];
 
-const ActiveEntriesTable = ({
+const DemergedEntriesTable = ({
   entries,
   demergedTo,
 }: {
@@ -90,4 +90,4 @@ const ActiveEntriesTable = ({
   );
 };
 
-export default ActiveEntriesTable;
+export default DemergedEntriesTable;

@@ -24,7 +24,7 @@ import {
   UniProtkbAPIModel,
 } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
-import ActiveEntriesTable from './ActiveEntriesTable';
+import DemergedEntriesTable from './DemeregdEntriesTable';
 import styles from './styles/removed-entry-message.module.scss';
 
 type RemovedEntryHeadingProps = {
@@ -165,7 +165,10 @@ export const DemergedEntryMessage = ({
       ) : null}
       {data?.results.length ? (
         <div className={styles['active-entries-table']}>
-          <ActiveEntriesTable entries={data.results} demergedTo={demergedTo} />
+          <DemergedEntriesTable
+            entries={data.results}
+            demergedTo={demergedTo}
+          />
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
