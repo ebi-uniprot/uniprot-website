@@ -3,7 +3,7 @@ import joinUrl from 'url-join';
 import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
 import { stringifyUrl } from '../../utils/url';
-import { Column } from '../columns';
+import { type Column } from '../columns';
 import { fileFormatToUrlParameter } from '../resultsDownload';
 import { apiPrefix } from './apiPrefix';
 import { searchPrefix } from './search';

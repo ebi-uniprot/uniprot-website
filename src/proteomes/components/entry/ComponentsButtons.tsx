@@ -8,8 +8,8 @@ import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import {
-  DownloadMethod,
-  DownloadPanelFormCloseReason,
+  type DownloadMethod,
+  type DownloadPanelFormCloseReason,
   sendGtagEventPanelOpen,
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
@@ -19,7 +19,7 @@ import {
   stringifyUrl,
 } from '../../../shared/utils/url';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import { type ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 const ComponentsDownloadComponent = lazy(
   () =>

@@ -1,5 +1,5 @@
 import AbstractSectionTable from './AbstractSectionTable';
-import { TableProps } from './StatisticsPage';
+import { type TableProps } from './StatisticsPage';
 import { mergeToMap } from './utils';
 
 const UniqueReferencesTable = ({

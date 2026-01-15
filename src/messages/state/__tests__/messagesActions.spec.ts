@@ -5,7 +5,7 @@ import {
   MessageFormat,
   MessageLevel,
   MessageTag,
-  MessageType,
+  type MessageType,
 } from '../../types/messagesTypes';
 import * as actions from '../messagesActions';
 

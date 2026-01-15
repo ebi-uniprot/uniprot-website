@@ -1,10 +1,10 @@
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { type FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import {
-  AlternativeProductsComment,
-  GenericComment,
-  Isoform,
+  type AlternativeProductsComment,
+  type GenericComment,
+  type Isoform,
 } from '../types/commentTypes';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 const finder = (
   comment: GenericComment

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Components view should render 1`] = `
 <DocumentFragment>
@@ -47,12 +47,12 @@ exports[`Components view should render 1`] = `
                   class="checkbox-cell"
                 >
                   <input
-                    id="29"
+                    id="28"
                     type="checkbox"
                   />
                   <label
                     aria-label="Selection control for all visible items"
-                    for="29"
+                    for="28"
                   />
                 </div>
               </th>

@@ -1,6 +1,6 @@
 import * as logging from '../../shared/utils/logging';
-import { AgrOrthologsResult } from '../types/agrOrthologs';
-import { AgrParalogsResult } from '../types/agrParalogs';
+import { type AgrOrthologsResult } from '../types/agrOrthologs';
+import { type AgrParalogsResult } from '../types/agrParalogs';
 
 export const getTaxonQuery = (curie: string): string | null => {
   const reTaxonId = /NCBITaxon:(?<taxonId>\d+)/i;

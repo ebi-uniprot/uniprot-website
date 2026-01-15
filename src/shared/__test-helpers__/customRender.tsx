@@ -2,15 +2,24 @@
  * This tries to follow what is detailed here:
  * https://testing-library.com/docs/react-testing-library/setup#custom-render
  */
-import { render, RenderOptions } from '@testing-library/react';
-import { createMemoryHistory, LocationState, MemoryHistory } from 'history';
-import { Component, Dispatch, ReactElement, ReactNode } from 'react';
+import { render, type RenderOptions } from '@testing-library/react';
+import {
+  createMemoryHistory,
+  type LocationState,
+  type MemoryHistory,
+} from 'history';
+import {
+  Component,
+  type Dispatch,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, Router } from 'react-router-dom';
-import { JsonValue, SetRequired } from 'type-fest';
+import { type JsonValue, type SetRequired } from 'type-fest';
 
-import { MessagesState } from '../../messages/state/messagesInitialState';
-import { MessagesAction } from '../../messages/state/messagesReducers';
+import { type MessagesState } from '../../messages/state/messagesInitialState';
+import { type MessagesAction } from '../../messages/state/messagesReducers';
 import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
 import {
@@ -21,8 +30,8 @@ import {
   DatabaseInfoMapsContext,
   UniProtDataVersionContext,
 } from '../contexts/UniProtData';
-import { JobAction } from '../workers/jobs/state/actionHandler';
-import { JobsState } from '../workers/jobs/state/jobsInitialState';
+import { type JobAction } from '../workers/jobs/state/actionHandler';
+import { type JobsState } from '../workers/jobs/state/jobsInitialState';
 
 type ExtraRenderOptions = {
   // For react-router

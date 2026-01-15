@@ -3,7 +3,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import { DatabaseInfoPoint } from '../../../types/databaseRefs';
+import { type DatabaseInfoPoint } from '../../../types/databaseRefs';
 import { PropertyKey } from '../../../types/modelTypes';
 import databaseInfo from '../../../utils/__tests__/__mocks__/databaseInfo';
 import XRefView, {

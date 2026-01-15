@@ -1,4 +1,4 @@
-import { FormParameters } from '../types/blastFormParameters';
+import { type FormParameters } from '../types/blastFormParameters';
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
 export const getAutoMatrixFor = (

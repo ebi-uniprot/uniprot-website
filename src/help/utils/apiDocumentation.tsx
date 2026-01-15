@@ -1,7 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { OpenAPIV3 } from 'openapi-types';
+import { type OpenAPIV3 } from 'openapi-types';
 
-import { InPageNavSection } from '../../shared/components/InPageNav';
+import { type InPageNavSection } from '../../shared/components/InPageNav';
 
 export const SCHEMAS_ID = 'schemas' as const;
 

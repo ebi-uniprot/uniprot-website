@@ -1,4 +1,4 @@
-import { OpenAPIV3 } from 'openapi-types';
+import { type OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
 // Retrieved: 2025-10-15

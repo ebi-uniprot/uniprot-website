@@ -1,4 +1,4 @@
-import { ProteomicsPtm } from '../types/proteomicsPtm';
+import { type ProteomicsPtm } from '../types/proteomicsPtm';
 
 // Source: https://www.ebi.ac.uk/proteins/api/proteomics/ptm/Q653S1
 // Retrieved: 2025-10-15

@@ -1,19 +1,19 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
-import { Fragment, ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { ReferenceComment } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { type ReferenceComment } from '../../../supporting-data/citations/adapters/citationsConverter';
 import {
-  TaxonomyAPIModel,
-  TaxonomyDatum,
+  type TaxonomyAPIModel,
+  type TaxonomyDatum,
 } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import externalUrls from '../../config/externalUrls';
 import useDataApi from '../../hooks/useDataApi';
-import { Lineage } from '../../types/apiModel';
+import { type Lineage } from '../../types/apiModel';
 import { Namespace } from '../../types/namespaces';
 import { pluralise } from '../../utils/utils';
 import ExternalLink from '../ExternalLink';

@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom';
 import useJobsState from '../../shared/hooks/useJobsState';
 import { dispatchJobs } from '../../shared/workers/jobs/getJobSharedWorker';
 import { updateJob } from '../../shared/workers/jobs/state/jobActions';
-import { FinishedJob } from '../../shared/workers/jobs/types/job';
+import { type FinishedJob } from '../../shared/workers/jobs/types/job';
 import { Status } from '../../shared/workers/jobs/types/jobStatuses';
-import { JobTypes } from '../types/jobTypes';
+import { type JobTypes } from '../types/jobTypes';
 
 export type LocationStateFromJobLink = { internalID: string };
 

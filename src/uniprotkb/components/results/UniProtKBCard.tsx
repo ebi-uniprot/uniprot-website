@@ -9,7 +9,7 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import getProteinHighlights from '../../adapters/proteinHighlights';
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../types/entry';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import { KeywordList } from '../protein-data-views/KeywordView';

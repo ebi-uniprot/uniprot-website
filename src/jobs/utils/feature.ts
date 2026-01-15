@@ -1,13 +1,13 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import urljoin from 'url-join';
 
-import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import { type ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import {
-  Ligand,
-  LigandPart,
+  type Ligand,
+  type LigandPart,
 } from '../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
-import FeatureType from '../../uniprotkb/types/featureType';
+import type FeatureType from '../../uniprotkb/types/featureType';
 
 export type Source = {
   id: string;

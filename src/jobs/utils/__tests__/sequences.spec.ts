@@ -1,9 +1,9 @@
-import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
-import { FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { type ProcessedFeature } from '../../../shared/components/views/FeaturesView';
+import { type FeatureDatum } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 // import featuresMock from '../__mocks__/features.json';
 // import sequenceChunkPairsMock from '../__mocks__/sequences.json';
 import { Align as alignment } from '../../components/__mocks__/msaMocks.json';
-import { MSAInput } from '../../types/alignment';
+import { type MSAInput } from '../../types/alignment';
 import {
   createGappedFeature,
   findSequenceFeature,

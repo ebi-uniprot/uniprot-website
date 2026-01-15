@@ -1,13 +1,13 @@
 import { ExpandableList } from 'franklin-sites';
 
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import { annotationCoveredRenderer } from '../../shared/column-renderers/AnnotationCovered';
 import { ruleIDRenderer } from '../../shared/column-renderers/RuleID';
 import { taxonomicScopeRenderer } from '../../shared/column-renderers/TaxonomicScope';
-import { ARBAAPIModel } from '../adapters/arbaConverter';
+import { type ARBAAPIModel } from '../adapters/arbaConverter';
 
 export enum ARBAColumn {
   ruleId = 'rule_id',

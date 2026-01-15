@@ -9,7 +9,7 @@ import {
   SpinnerIcon,
   TreeSelect,
 } from 'franklin-sites';
-import { FormEvent, useEffect, useMemo, useReducer, useRef } from 'react';
+import { type FormEvent, useEffect, useMemo, useReducer, useRef } from 'react';
 import { generatePath, Link, useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
@@ -37,12 +37,12 @@ import { pluralise } from '../../../shared/utils/utils';
 import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/jobActions';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import { SelectedTaxon } from '../../types/jobsFormData';
+import { type SelectedTaxon } from '../../types/jobsFormData';
 import { JobTypes } from '../../types/jobTypes';
 import { truncateTaxonLabel } from '../../utils';
 import defaultFormValues, {
   IDMappingFields,
-  IDMappingFormValues,
+  type IDMappingFormValues,
 } from '../config/idMappingFormData';
 import {
   resetFormState,
@@ -55,11 +55,11 @@ import {
   getIDMappingFormInitialState,
 } from '../state/idMappingFormReducer';
 import {
-  IDMappingFormConfig,
-  IDMappingGroupItem,
-  IDMappingRule,
+  type IDMappingFormConfig,
+  type IDMappingGroupItem,
+  type IDMappingRule,
 } from '../types/idMappingFormConfig';
-import { FormParameters } from '../types/idMappingFormParameters';
+import { type FormParameters } from '../types/idMappingFormParameters';
 import { getTreeData } from '../utils';
 
 const title = namespaceAndToolsLabels[JobTypes.ID_MAPPING];
@@ -126,8 +126,8 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
 
   const geneWithoutTaxonWarning = Boolean(
     parsedIDs.length &&
-      formValues['From Database'].selected === 'Gene_Name' &&
-      !formValues.Taxons.selected
+    formValues['From Database'].selected === 'Gene_Name' &&
+    !formValues.Taxons.selected
   );
 
   const submitIDMappingJob = (event: FormEvent | MouseEvent) => {

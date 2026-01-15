@@ -1,5 +1,8 @@
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
-import { MappingAPIModel, MappingFlat } from '../types/idMappingSearchResults';
+import {
+  type MappingAPIModel,
+  type MappingFlat,
+} from '../types/idMappingSearchResults';
 
 const idMappingConverter =
   (dbLink: string | null) =>

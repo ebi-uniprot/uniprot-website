@@ -2,9 +2,9 @@ import { SlidingPanel } from 'franklin-sites';
 import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Column } from '../../config/columns';
+import { type Column } from '../../config/columns';
 import ErrorBoundary from '../error-component/ErrorBoundary';
-import EntryDownload, { Dataset } from './EntryDownload';
+import EntryDownload, { type Dataset } from './EntryDownload';
 
 type EntryDownloadPanelProps = {
   handleToggle: () => void;

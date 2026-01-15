@@ -1,4 +1,4 @@
-import { UniRefAPIModel } from '../adapters/uniRefConverter';
+import { type UniRefAPIModel } from '../adapters/uniRefConverter';
 
 // Source: uniref/UniRef100_A0A0B7GQ86
 // Retrieved: 2025-10-15

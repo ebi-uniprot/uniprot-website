@@ -5,7 +5,7 @@ import {
   SortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
 import { Namespace } from '../../types/namespaces';
-import { DownloadUrlOptions } from '../../types/results';
+import { type DownloadUrlOptions } from '../../types/results';
 import { FileFormat } from '../../types/resultsDownload';
 import {
   createFacetsQueryString,

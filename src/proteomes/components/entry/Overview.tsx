@@ -6,7 +6,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import AccessionView from '../../../shared/components/results/AccessionView';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import { Namespace } from '../../../shared/types/namespaces';
-import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';

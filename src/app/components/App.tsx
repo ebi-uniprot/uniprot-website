@@ -7,13 +7,13 @@ import {
   setTag as sentrySetTag,
 } from '@sentry/react';
 import { Loader } from 'franklin-sites';
-import { FC, lazy, Suspense } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   generatePath,
   Redirect,
   Route,
-  RouteChildrenProps,
+  type RouteChildrenProps,
   Switch,
 } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -26,7 +26,10 @@ import { SingleColumnLayout } from '../../shared/components/layouts/SingleColumn
 import useReloadApp from '../../shared/hooks/useReloadApp';
 import useScrollToTop from '../../shared/hooks/useScrollToTop';
 import useSupportsJobs from '../../shared/hooks/useSupportsJobs';
-import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
+import {
+  Namespace,
+  type SearchableNamespace,
+} from '../../shared/types/namespaces';
 import history from '../../shared/utils/browserHistory';
 import { stringifyQuery, stringifyUrl } from '../../shared/utils/url';
 import description from '../config/description';

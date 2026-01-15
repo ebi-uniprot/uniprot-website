@@ -44,7 +44,7 @@ describe('ProteinProcessingSection', () => {
       { route: `/uniprotkb/P05067/entry` }
     );
     await screen.findByRole('heading', { name: 'PTM/Processing' });
-    await screen.findByRole('button', { name: 'Download' });
+    await screen.findByRole('button', { name: 'Download' }, { timeout: 5000 });
     const row = await screen.findAllByRole('row', { name: /PTMeXchange/ });
     // Only one phosphorylation position in the data
     expect(row).toHaveLength(1);

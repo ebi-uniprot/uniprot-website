@@ -1,6 +1,6 @@
-import { Location } from 'history';
-import { Component, ErrorInfo, ReactNode } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { type Location } from 'history';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { type RouteComponentProps, withRouter } from 'react-router-dom';
 
 import * as logging from '../../utils/logging';
 import ErrorComponent from './ErrorComponent';

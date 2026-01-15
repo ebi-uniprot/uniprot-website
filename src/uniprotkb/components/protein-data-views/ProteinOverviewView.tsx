@@ -6,7 +6,7 @@ import { getEntryPath } from '../../../app/config/urls';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { Namespace } from '../../../shared/types/namespaces';
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../types/entry';
 import EntrySection from '../../types/entrySection';
 import { ECNumbersView } from './ProteinNamesView';

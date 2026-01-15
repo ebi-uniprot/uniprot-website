@@ -1,4 +1,4 @@
-import { GoCamModelInfo } from '../../../../../types/goCamTypes';
+import { type GoCamModelInfo } from '../../../../../types/goCamTypes';
 
 // Source: https://api.geneontology.org/api/go-cam/gomodel:67369e7600002132
 // Retrieved: 2025-10-15

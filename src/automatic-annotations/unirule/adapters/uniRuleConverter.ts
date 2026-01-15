@@ -1,4 +1,4 @@
-import { AAModel } from '../../shared/model';
+import { type AAModel } from '../../shared/model';
 
 export type UniRuleAPIModel = AAModel & {
   uniRuleId: string;

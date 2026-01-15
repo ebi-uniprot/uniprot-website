@@ -1,6 +1,6 @@
 import { throttle } from 'lodash-es';
 import { useEffect, useRef } from 'react';
-import { Graph, Thing, WithContext } from 'schema-dts';
+import { type Graph, type Thing, type WithContext } from 'schema-dts';
 
 import * as logging from '../utils/logging';
 
@@ -20,7 +20,7 @@ const useStructuredData = <Schema extends Thing>(
   structuredData?: WithContext<Schema> | Graph,
   throttleTime = 250
 ) => {
-  const script = useRef<HTMLScriptElement>();
+  const script = useRef<HTMLScriptElement | null>(null);
 
   const inject = useRef(
     throttle((value?: WithContext<Schema> | Graph) => {

@@ -10,14 +10,14 @@ import { Namespace } from '../../../shared/types/namespaces';
 import fetchData from '../../../shared/utils/fetchData';
 import listFormat from '../../../shared/utils/listFormat';
 import { pluralise } from '../../../shared/utils/utils';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import SimilarProteinsTable, {
   columns,
 } from '../../../uniprotkb/components/entry/similar-proteins/SimilarProteinsTable';
 import {
-  UniRefEntryType,
+  type UniRefEntryType,
   uniRefEntryTypeToPercent,
-  UniRefLiteAPIModel,
+  type UniRefLiteAPIModel,
 } from '../../../uniref/adapters/uniRefConverter';
 
 type Props = {

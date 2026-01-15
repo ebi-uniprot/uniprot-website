@@ -1,12 +1,12 @@
-import { Xref } from '../../shared/types/apiModel';
+import { type Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
-import { CommentType } from '../types/commentTypes';
+import { type CommentType } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import { DiseaseAndDrugsFeatures } from '../types/featureType';
-import KeywordCategory from '../types/keywordCategory';
-import { DatabaseInfoMaps } from '../utils/database';
+import { type DiseaseAndDrugsFeatures } from '../types/featureType';
+import type KeywordCategory from '../types/keywordCategory';
+import { type DatabaseInfoMaps } from '../utils/database';
 import { convertSection } from './sectionConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 const keywordsCategories: KeywordCategory[] = ['Disease'];
 

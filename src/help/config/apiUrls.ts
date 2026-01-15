@@ -2,7 +2,7 @@ import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../shared/config/apiUrls/apiPrefix';
 import { stringifyUrl } from '../../shared/utils/url';
-import { ApiDocsDefinition } from '../types/apiDocumentation';
+import { type ApiDocsDefinition } from '../types/apiDocumentation';
 import { defaultFacets as helpDefaultFacets } from './HelpFacetConfiguration';
 
 const entry = (id?: string) => id && joinUrl(apiPrefix, 'help', id);

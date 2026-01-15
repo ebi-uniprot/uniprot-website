@@ -1,4 +1,9 @@
-import { UniRefMember, UniRefUIModel } from '../adapters/uniRefConverter';
+import { type JSX } from 'react';
+
+import {
+  type UniRefMember,
+  type UniRefUIModel,
+} from '../adapters/uniRefConverter';
 import MembersSection from '../components/entry/MembersSection';
 import SequenceSection from '../components/entry/SequenceSection';
 import EntrySection from '../types/entrySection';

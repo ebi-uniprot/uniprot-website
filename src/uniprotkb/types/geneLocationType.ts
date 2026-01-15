@@ -1,4 +1,4 @@
-import { Evidence } from './modelTypes';
+import { type Evidence } from './modelTypes';
 
 export type GeneLocation = {
   geneEncodingType: string;

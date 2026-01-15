@@ -3,7 +3,7 @@ import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
 import helper from '../../../../shared/styles/helper.module.scss';
-import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import { type UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 import AgrHomology from './AgrHomology';

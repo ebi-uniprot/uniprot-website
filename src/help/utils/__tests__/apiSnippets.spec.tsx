@@ -1,4 +1,4 @@
-import { RequestMap, snippetPlugins } from '../apiSnippets';
+import { type RequestMap, snippetPlugins } from '../apiSnippets';
 
 type MapInit = [
   'url' | 'method' | 'headers' | 'body',

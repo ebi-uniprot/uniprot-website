@@ -1,4 +1,4 @@
-import { Status } from '../../../shared/workers/jobs/types/jobStatuses';
+import { type Status } from '../../../shared/workers/jobs/types/jobStatuses';
 
 export type ServerStatus = {
   jobStatus: Status;

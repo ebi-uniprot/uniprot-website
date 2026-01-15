@@ -1,6 +1,11 @@
 import { groupBy } from 'lodash-es';
 
-import { ExonMap, FlatGenomicEntry, GenomicEntry, GroupedExon } from './types';
+import {
+  type ExonMap,
+  type FlatGenomicEntry,
+  type GenomicEntry,
+  type GroupedExon,
+} from './types';
 
 const sortIsoforms = (
   isoform1: { accession: string },

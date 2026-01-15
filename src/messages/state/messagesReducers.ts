@@ -1,8 +1,10 @@
-import { ActionType } from 'typesafe-actions';
+import { type ActionType } from 'typesafe-actions';
 
-import { MessageType } from '../types/messagesTypes';
+import { type MessageType } from '../types/messagesTypes';
 import * as messagesActions from './messagesActions';
-import messagesInitialState, { MessagesState } from './messagesInitialState';
+import messagesInitialState, {
+  type MessagesState,
+} from './messagesInitialState';
 
 export type MessagesAction = ActionType<typeof messagesActions>;
 

@@ -1,24 +1,24 @@
-import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
-import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
-import { HelpAPIModel } from '../../help/types/apiModel';
-import { MappingAPIModel } from '../../jobs/id-mapping/types/idMappingSearchResults';
-import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
-import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
-import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
-import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
-import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
-import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+import { type ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
+import { type UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { type HelpAPIModel } from '../../help/types/apiModel';
+import { type MappingAPIModel } from '../../jobs/id-mapping/types/idMappingSearchResults';
+import { type ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+import { type CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
+import { type DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
+import { type DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
+import { type KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
+import { type LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
 import {
-  Rank,
-  TaxonomyAPIModel,
+  type Rank,
+  type TaxonomyAPIModel,
 } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
-  UniParcAPIModel,
-  UniParcXRef,
+  type UniParcAPIModel,
+  type UniParcXRef,
 } from '../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { Evidence } from '../../uniprotkb/types/modelTypes';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { type Evidence } from '../../uniprotkb/types/modelTypes';
+import { type UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 
 export type APIModel =
   | UniProtkbAPIModel

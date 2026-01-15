@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SubcellularLocationComment } from '../../types/commentTypes';
+import { type SubcellularLocationComment } from '../../types/commentTypes';
 import { TextView } from './FreeTextView';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 

@@ -1,4 +1,4 @@
-import { AgrOrthologs } from '../../../../../types/agrOrthologs';
+import { type AgrOrthologs } from '../../../../../types/agrOrthologs';
 
 // Source: https://www.alliancegenome.org/api/gene/HGNC:620/orthologs?filter.stringency=all&limit=10000
 // Retrieved: 2025-07-07

@@ -1,4 +1,4 @@
-import { Statistics } from '../../../shared/types/apiModel';
+import { type Statistics } from '../../../shared/types/apiModel';
 
 type GO = {
   name: string;

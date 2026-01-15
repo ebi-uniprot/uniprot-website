@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`AgrOrthology should render 1`] = `
 <DocumentFragment>
@@ -51,7 +51,9 @@ exports[`AgrOrthology should render 1`] = `
             <th>
               Species
               <br />
-              <select>
+              <select
+                style="width: fit-content;"
+              >
                 <option
                   value="All"
                 >
@@ -97,7 +99,9 @@ exports[`AgrOrthology should render 1`] = `
             <th>
               Gene Symbol
               <br />
-              <select>
+              <select
+                style="width: fit-content;"
+              >
                 <option
                   value="All"
                 >
@@ -158,7 +162,9 @@ exports[`AgrOrthology should render 1`] = `
             <th>
               Best
               <br />
-              <select>
+              <select
+                style="width: fit-content;"
+              >
                 <option
                   value="All"
                 >
@@ -179,7 +185,9 @@ exports[`AgrOrthology should render 1`] = `
             <th>
               Best Reverse
               <br />
-              <select>
+              <select
+                style="width: fit-content;"
+              >
                 <option
                   value="All"
                 >

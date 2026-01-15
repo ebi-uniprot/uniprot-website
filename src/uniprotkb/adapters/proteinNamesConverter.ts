@@ -1,4 +1,4 @@
-import { ProteinNamesData } from './namesAndTaxonomyConverter';
+import { type ProteinNamesData } from './namesAndTaxonomyConverter';
 
 const convertProteinNames = (data: ProteinNamesData) => {
   let recommendedName;

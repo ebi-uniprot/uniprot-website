@@ -1,11 +1,11 @@
 import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/keywordsModelData';
 import citationsConverter, {
-  KeywordsAPIModel,
-  KeywordsUIModel,
+  type KeywordsAPIModel,
+  type KeywordsUIModel,
 } from '../../adapters/keywordsConverter';
 import KeywordsColumnConfiguration, {
-  KeywordsColumn,
+  type KeywordsColumn,
 } from '../KeywordsColumnConfiguration';
 
 jest.mock('../../../../shared/workers/jobs/utils/storage');

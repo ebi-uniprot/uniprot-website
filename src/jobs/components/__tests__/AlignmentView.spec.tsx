@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
-import { MSAInput } from '../../types/alignment';
+import { type MSAInput } from '../../types/alignment';
 import mockData from '../__mocks__/msaMocks.json';
 import AlignmentView, { Tool, View } from '../AlignmentView';
 

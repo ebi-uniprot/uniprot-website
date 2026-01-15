@@ -1,32 +1,32 @@
 import { groupBy } from 'lodash-es';
 
 import {
-  EntryType,
+  type EntryType,
   getEntryTypeFromString,
 } from '../../shared/config/entryTypeIcon';
-import { Xref } from '../../shared/types/apiModel';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type Xref } from '../../shared/types/apiModel';
+import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBColumn } from '../types/columnTypes';
 import {
-  AbsorptionComment,
-  CommentType,
-  KineticsComment,
-  pHDependenceComment,
-  RedoxPotentialComment,
-  TemperatureDependenceComment,
-  TextWithEvidence,
+  type AbsorptionComment,
+  type CommentType,
+  type KineticsComment,
+  type pHDependenceComment,
+  type RedoxPotentialComment,
+  type TemperatureDependenceComment,
+  type TextWithEvidence,
 } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import { FunctionFeatures } from '../types/featureType';
-import KeywordCategory from '../types/keywordCategory';
-import { Evidence, GoEvidenceType } from '../types/modelTypes';
-import { DatabaseInfoMaps } from '../utils/database';
-import { XrefsGoupedByDatabase } from '../utils/xrefUtils';
-import { GeneNamesData } from './namesAndTaxonomyConverter';
-import { convertSection, UIModel } from './sectionConverter';
+import { type FunctionFeatures } from '../types/featureType';
+import type KeywordCategory from '../types/keywordCategory';
+import { type Evidence, type GoEvidenceType } from '../types/modelTypes';
+import { type DatabaseInfoMaps } from '../utils/database';
+import { type XrefsGoupedByDatabase } from '../utils/xrefUtils';
+import { type GeneNamesData } from './namesAndTaxonomyConverter';
+import { convertSection, type UIModel } from './sectionConverter';
 import {
-  UniProtkbAPIModel,
-  UniProtKBSimplifiedTaxonomy,
+  type UniProtkbAPIModel,
+  type UniProtKBSimplifiedTaxonomy,
 } from './uniProtkbConverter';
 
 export type Absorption = {

@@ -1,6 +1,6 @@
 import { Card, InfoList, SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { type ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import {
@@ -11,7 +11,7 @@ import {
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import { stringifyQuery } from '../../../shared/utils/url';
 import helpURL from '../../config/apiUrls';
-import { HelpSearchResponse } from '../../types/apiModel';
+import { type HelpSearchResponse } from '../../types/apiModel';
 import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 import styles from './styles/help-quick-search.module.scss';
 

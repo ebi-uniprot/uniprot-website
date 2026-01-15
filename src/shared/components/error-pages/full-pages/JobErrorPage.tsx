@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import ErrorComponent from '../ErrorComponent';
 import ArtWork from '../svgs/job-failed.img.svg';

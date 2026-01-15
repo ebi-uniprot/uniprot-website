@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import { Button } from 'franklin-sites';
-import { FC } from 'react';
+import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { type Location, LocationToPath } from '../../../app/config/urls';
 import helper from '../../styles/helper.module.scss';
 import { roundNumber } from '../../utils/roundNumber';
 import { stringifyQuery } from '../../utils/url';

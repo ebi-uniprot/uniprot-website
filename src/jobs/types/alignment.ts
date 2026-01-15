@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 
-import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
-import { OnFeatureClick } from '../../shared/custom-elements/NightingaleMSA';
-import FeatureType from '../../uniprotkb/types/featureType';
-import { MsaColorScheme } from '../config/msaColorSchemes';
-import { MSAFeature } from '../utils/sequences';
+import { type ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import { type OnFeatureClick } from '../../shared/custom-elements/NightingaleMSA';
+import type FeatureType from '../../uniprotkb/types/featureType';
+import { type MsaColorScheme } from '../config/msaColorSchemes';
+import { type MSAFeature } from '../utils/sequences';
 
 export type MSAInput = {
   name?: string;

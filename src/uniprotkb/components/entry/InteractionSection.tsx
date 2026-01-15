@@ -1,7 +1,7 @@
 import { Card } from 'franklin-sites';
 import { lazy, memo, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SetRequired } from 'type-fest/source/set-required';
+import { type SetRequired } from 'type-fest/source/set-required';
 
 import {
   getEntryPath,
@@ -11,21 +11,21 @@ import {
 import ExternalLink from '../../../shared/components/ExternalLink';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import TableFromData, {
-  TableFromDataColumn,
+  type TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import externalUrls, {
   getIntActQueryUrl,
 } from '../../../shared/config/externalUrls';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import { Xref } from '../../../shared/types/apiModel';
+import { type Xref } from '../../../shared/types/apiModel';
 import { Namespace } from '../../../shared/types/namespaces';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
-import { UIModel } from '../../adapters/sectionConverter';
+import { type UIModel } from '../../adapters/sectionConverter';
 import {
-  FreeTextComment,
-  Interaction,
-  InteractionComment,
+  type FreeTextComment,
+  type Interaction,
+  type InteractionComment,
 } from '../../types/commentTypes';
 import { TabLocation } from '../../types/entry';
 import EntrySection from '../../types/entrySection';

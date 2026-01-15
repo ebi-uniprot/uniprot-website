@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
@@ -56,7 +56,7 @@ exports[`non-critical HomePage component should render 1`] = `
             title="UniProt Knowledgebase, SwissProt or reviewed protein database"
           >
             <test-file-stub
-              classname="core-data__reviewed-icon"
+              class="core-data__reviewed-icon"
               width="1.75em"
             />
             <div
@@ -942,7 +942,7 @@ exports[`non-critical HomePage component should render 1`] = `
         class="loader-container"
       >
         <test-file-stub
-          classname="loader"
+          class="loader"
           height="100"
           width="100"
         />

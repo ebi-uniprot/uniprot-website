@@ -12,7 +12,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import apiUrls from '../../config/apiUrls';
-import { HelpEntryResponse } from '../../types/apiModel';
+import { type HelpEntryResponse } from '../../types/apiModel';
 import styles from './styles/landing.module.scss';
 
 const getHelpEntryPath = getLocationEntryPathFor(Location.HelpEntry);

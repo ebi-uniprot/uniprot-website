@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { getLocationEntryPath, Location } from '../../../app/config/urls';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import NoResultsPage from '../../../shared/components/error-pages/full-pages/NoResultsPage';
-import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
-import { HelpSearchResponse } from '../../types/apiModel';
+import { type UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { type HelpSearchResponse } from '../../types/apiModel';
 import CleanHighlightMarkDown from '../results/CleanHighlightMarkDown';
 import styles from './styles/results.module.scss';
 

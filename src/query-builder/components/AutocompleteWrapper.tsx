@@ -1,5 +1,5 @@
 import { Autocomplete } from 'franklin-sites';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { type FC, useCallback, useEffect, useState } from 'react';
 
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import useSafeState from '../../shared/hooks/useSafeState';

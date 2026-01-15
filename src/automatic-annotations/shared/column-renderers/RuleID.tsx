@@ -1,7 +1,7 @@
 import AccessionView from '../../../shared/components/results/AccessionView';
-import { Namespace } from '../../../shared/types/namespaces';
+import { type Namespace } from '../../../shared/types/namespaces';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
-import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
+import { type ARBAAPIModel } from '../../arba/adapters/arbaConverter';
 
 export function ruleIDRenderer<Schema>(
   getter: (data: Schema) => ARBAAPIModel['uniRuleId'] | undefined,

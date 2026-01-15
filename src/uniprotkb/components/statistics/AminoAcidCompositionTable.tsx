@@ -1,4 +1,4 @@
-import { StatisticsCategory } from './StatisticsPage';
+import { type StatisticsCategory } from './StatisticsPage';
 import StatsTable from './StatsTable';
 import { setAminoAcidsTotalCount } from './utils';
 

@@ -1,5 +1,5 @@
 import { CitedIcon, EnvelopeIcon, HelpIcon } from 'franklin-sites';
-import { History } from 'history';
+import { type History } from 'history';
 import { Link, Router } from 'react-router-dom';
 
 import {

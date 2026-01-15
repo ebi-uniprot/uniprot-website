@@ -12,7 +12,7 @@ import renderColumnsInCardStyles from '../../../shared/components/results/styles
 import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import { pluralise } from '../../../shared/utils/utils';
-import { UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
+import { type UniParcLiteAPIModel } from '../../adapters/uniParcConverter';
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
@@ -51,7 +51,8 @@ const UniParcCard = ({ data }: { data: UniParcLiteAPIModel }) => {
         {taxonCount && (
           <span className={renderColumnsInCardStyles['result-card__info-bit']}>
             <strong>
-              {pluralise('Common taxonomy', taxonCount, 'Common taxonomies')}:{' '}
+              {pluralise('Common taxonomy', taxonCount, 'Common taxonomies')}
+              :{' '}
             </strong>
             {data.commonTaxons?.map((taxon, i) => (
               <Fragment key={taxon.commonTaxonId}>

@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { CitationsAPIModel } from '../adapters/citationsConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type CitationsAPIModel } from '../adapters/citationsConverter';
 
 // Source: citations/search?query=nature&size=2
 // Retrieved: 2025-10-15

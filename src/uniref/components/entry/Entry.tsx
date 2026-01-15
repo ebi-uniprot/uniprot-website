@@ -12,7 +12,7 @@ import {
   MessageFormat,
   MessageLevel,
   MessageTag,
-  MessageType,
+  type MessageType,
 } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
@@ -32,7 +32,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import uniRefConverter, {
-  UniRefLiteAPIModel,
+  type UniRefLiteAPIModel,
 } from '../../adapters/uniRefConverter';
 import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';

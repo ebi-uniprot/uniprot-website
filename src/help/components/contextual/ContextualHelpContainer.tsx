@@ -1,5 +1,5 @@
 import { SlidingPanel } from 'franklin-sites';
-import { createMemoryHistory, createPath, History } from 'history';
+import { createMemoryHistory, createPath, type History } from 'history';
 import { useEffect, useRef } from 'react';
 import {
   Route,
@@ -17,7 +17,7 @@ import {
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import helpURL from '../../config/apiUrls';
-import { HelpSearchResponse } from '../../types/apiModel';
+import { type HelpSearchResponse } from '../../types/apiModel';
 import CatchAll from './CatchAll';
 import HelpEntryPage from './Entry';
 import HelpLandingPage from './Landing';

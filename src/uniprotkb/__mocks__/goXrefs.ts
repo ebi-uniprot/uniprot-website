@@ -1,4 +1,4 @@
-import { GoXref } from '../adapters/subcellularLocationConverter';
+import { type GoXref } from '../adapters/subcellularLocationConverter';
 
 const mock: GoXref[] = [
   {

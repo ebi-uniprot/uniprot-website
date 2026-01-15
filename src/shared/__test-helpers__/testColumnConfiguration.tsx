@@ -1,6 +1,6 @@
 import { act, screen } from '@testing-library/react';
 
-import { ColumnConfiguration } from '../types/columnConfiguration';
+import { type ColumnConfiguration } from '../types/columnConfiguration';
 import customRender from './customRender';
 
 function testColumnConfiguration<

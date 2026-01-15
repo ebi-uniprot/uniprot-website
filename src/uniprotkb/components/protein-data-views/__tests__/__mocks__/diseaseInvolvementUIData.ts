@@ -1,5 +1,5 @@
-import { DiseaseComment } from '../../../../types/commentTypes';
-import { FeatureDatum } from '../../UniProtKBFeaturesView';
+import { type DiseaseComment } from '../../../../types/commentTypes';
+import { type FeatureDatum } from '../../UniProtKBFeaturesView';
 
 const mock: { comments: DiseaseComment[]; features: FeatureDatum[] } = {
   comments: [

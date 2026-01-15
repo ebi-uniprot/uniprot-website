@@ -1,4 +1,4 @@
-import { MutableRefObject, useCallback, useEffect, useState } from 'react';
+import { type MutableRefObject, useCallback, useEffect, useState } from 'react';
 
 type ContainerElement = HTMLElement | SVGElement | SVGSVGElement;
 

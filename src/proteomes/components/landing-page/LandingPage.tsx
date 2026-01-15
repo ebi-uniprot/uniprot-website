@@ -14,7 +14,7 @@ import ftpUrls from '../../../shared/config/ftpUrls';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { FacetsEnum } from '../../config/ProteomesFacetConfiguration';
 import StatisticsChart from './StatisticsChart';

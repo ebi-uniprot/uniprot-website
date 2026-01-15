@@ -1,18 +1,18 @@
 import { TreeSelect } from 'franklin-sites';
 import {
-  Dispatch,
-  FC,
+  type Dispatch,
+  type FC,
   memo,
-  SetStateAction,
+  type SetStateAction,
   useCallback,
   useEffect,
 } from 'react';
 
 import {
-  Clause,
-  Operator,
-  QueryBit,
-  SearchTermType,
+  type Clause,
+  type Operator,
+  type QueryBit,
+  type SearchTermType,
 } from '../types/searchTypes';
 import { booleanValues } from './EnumOrBooleanField';
 import Field from './Field';

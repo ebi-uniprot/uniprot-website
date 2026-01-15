@@ -4,7 +4,7 @@ import AccessionView from '../../../../shared/components/results/AccessionView';
 import { Namespace } from '../../../../shared/types/namespaces';
 import listFormat from '../../../../shared/utils/listFormat';
 import { pluralise } from '../../../../shared/utils/utils';
-import { Information } from '../../../shared/model';
+import { type Information } from '../../../shared/model';
 
 const TemplateEntries = ({
   entries,

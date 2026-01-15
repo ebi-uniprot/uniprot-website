@@ -5,9 +5,9 @@ import { useMemo, useState } from 'react';
 
 import { pluralise } from '../../../../shared/utils/utils';
 import arrayOfLineagesToTree, {
-  TaxNode,
+  type TaxNode,
 } from '../../adapters/arrayOfLineagesToTree';
-import { EnrichedData } from './BlastResult';
+import { type EnrichedData } from './BlastResult';
 
 type TaxItemProps = {
   taxNode: TaxNode;

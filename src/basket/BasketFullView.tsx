@@ -1,7 +1,11 @@
 import { Loader, PageIntro } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 
-import { basketNamespaces, Location, LocationToPath } from '../app/config/urls';
+import {
+  type basketNamespaces,
+  Location,
+  LocationToPath,
+} from '../app/config/urls';
 import { reIds } from '../jobs/utils/urls';
 import HTMLHead from '../shared/components/HTMLHead';
 import { SidebarLayout } from '../shared/components/layouts/SideBarLayout';
@@ -13,13 +17,13 @@ import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 import useItemSelect from '../shared/hooks/useItemSelect';
 import useNSQuery from '../shared/hooks/useNSQuery';
 import usePagination from '../shared/hooks/usePagination';
-import { APIModel } from '../shared/types/apiModel';
+import { type APIModel } from '../shared/types/apiModel';
 import {
   Namespace,
   namespaceAndToolsLabels,
   searchableNamespaceLabels,
 } from '../shared/types/namespaces';
-import { SearchResults } from '../shared/types/results';
+import { type SearchResults } from '../shared/types/results';
 import { updateResultsWithAccessionSubsets } from './BasketMiniView';
 import EmptyBasket from './EmptyBasket';
 

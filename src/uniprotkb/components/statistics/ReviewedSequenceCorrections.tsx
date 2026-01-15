@@ -1,6 +1,6 @@
 import { LongNumber } from 'franklin-sites';
 
-import { CategoryToStatistics } from './StatisticsPage';
+import { type CategoryToStatistics } from './StatisticsPage';
 import { getSequenceCorrections } from './utils';
 
 type Props = {

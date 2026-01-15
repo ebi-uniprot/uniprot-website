@@ -1,6 +1,6 @@
 // see parsing ideas here: https://stackoverflow.com/a/38311111 and rest of page
 
-import { NewickTree, NewickTreeNode } from '../types/alignResults';
+import { type NewickTree, type NewickTreeNode } from '../types/alignResults';
 
 const assignDistanceFromRoot = (node: NewickTreeNode, isRoot = false) => {
   if (

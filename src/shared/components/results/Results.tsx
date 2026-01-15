@@ -12,12 +12,12 @@ import useItemSelect from '../../hooks/useItemSelect';
 import useNS from '../../hooks/useNS';
 import useNSQuery from '../../hooks/useNSQuery';
 import usePagination from '../../hooks/usePagination';
-import { APIModel } from '../../types/apiModel';
+import { type APIModel } from '../../types/apiModel';
 import {
-  SearchableNamespace,
+  type SearchableNamespace,
   searchableNamespaceLabels,
 } from '../../types/namespaces';
-import { SearchResults, Suggestion } from '../../types/results';
+import { type SearchResults, type Suggestion } from '../../types/results';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import NoResultsPage from '../error-pages/full-pages/NoResultsPage';

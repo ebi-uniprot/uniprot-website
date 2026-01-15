@@ -1,10 +1,10 @@
 import { screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-import { FinishedJob } from '../../../../../shared/workers/jobs/types/job';
+import { type FinishedJob } from '../../../../../shared/workers/jobs/types/job';
 import { Status } from '../../../../../shared/workers/jobs/types/jobStatuses';
 import uniprotkbResults from '../../../../../uniprotkb/components/__mocks__/results';
 import { JobTypes } from '../../../../types/jobTypes';

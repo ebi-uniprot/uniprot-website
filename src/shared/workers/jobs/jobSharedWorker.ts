@@ -1,9 +1,9 @@
-import { GetJobMessageArgs } from '../../../messages/utils';
+import { type GetJobMessageArgs } from '../../../messages/utils';
 import * as logging from '../../utils/logging';
 import { getFinishedJobScheduler, getJobScheduler } from './jobPoller';
-import { getActionHandler, JobAction } from './state/actionHandler';
+import { getActionHandler, type JobAction } from './state/actionHandler';
 import getJobs from './state/getJobs';
-import { JobsState } from './state/jobsInitialState';
+import { type JobsState } from './state/jobsInitialState';
 import JobStore from './utils/storage';
 import { Stores } from './utils/stores';
 

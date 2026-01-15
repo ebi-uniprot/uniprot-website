@@ -7,7 +7,7 @@ import SequenceView, {
   SequenceCautionView,
 } from '../../../shared/components/entry/SequenceView';
 import { hasContent } from '../../../shared/utils/utils';
-import { SequenceUIModel } from '../../adapters/sequenceConverter';
+import { type SequenceUIModel } from '../../adapters/sequenceConverter';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';

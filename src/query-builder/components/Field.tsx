@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import { type FC } from 'react';
 
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+import { type QueryBit, type SearchTermType } from '../types/searchTypes';
 import AutocompleteField from './AutocompleteField';
 import EnumOrBooleanField from './EnumOrBooleanField';
 import ExperimentalEvidenceField from './ExperimentalEvidenceField';

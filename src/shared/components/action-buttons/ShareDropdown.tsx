@@ -1,6 +1,6 @@
 import { Button, Dropdown, ShareNodesIcon } from 'franklin-sites';
 import { createPath } from 'history';
-import { Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useColumnNames from '../../hooks/useColumnNames';
@@ -9,13 +9,13 @@ import useViewMode from '../../hooks/useViewMode';
 import { Namespace } from '../../types/namespaces';
 import { sendGtagEventUrlCopy } from '../../utils/gtagEvents';
 import { stringifyQuery } from '../../utils/url';
-import { ExtraContent } from '../download/downloadReducer';
+import { type ExtraContent } from '../download/downloadReducer';
 import CopyButton from './Copy';
 
 const isCopySupported = Boolean(
   'clipboard' in navigator &&
-    'writeText' in navigator.clipboard &&
-    navigator.clipboard.writeText
+  'writeText' in navigator.clipboard &&
+  navigator.clipboard.writeText
 );
 
 type CopyLinkWebsiteProps = {

@@ -1,6 +1,6 @@
-import { HTMLAttributes, lazy, Suspense } from 'react';
+import { type HTMLAttributes, lazy, Suspense } from 'react';
 
-import { CustomError } from '../../hooks/useDataApi';
+import { type CustomError } from '../../hooks/useDataApi';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import HTMLHead from '../HTMLHead';
 import NordVPNIssue from './NordVPNIssue';

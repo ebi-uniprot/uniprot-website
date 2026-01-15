@@ -5,7 +5,7 @@ import * as actions from '../idMappingFormActions';
 import {
   getIDMappingFormDataReducer,
   getIDMappingFormInitialState,
-  IDMappingFormAction,
+  type IDMappingFormAction,
 } from '../idMappingFormReducer';
 
 describe('idmappingFormReducer', () => {

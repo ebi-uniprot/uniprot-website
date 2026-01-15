@@ -1,4 +1,4 @@
-import { Job } from '../types/job';
+import { type Job } from '../types/job';
 
 export type JobsState = null | {
   [key: string]: Job;

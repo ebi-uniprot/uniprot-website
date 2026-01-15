@@ -1,4 +1,4 @@
-import { KeywordUIModel } from '../../../../utils/KeywordsUtil';
+import { type KeywordUIModel } from '../../../../utils/KeywordsUtil';
 
 const mock: KeywordUIModel[] = [
   {

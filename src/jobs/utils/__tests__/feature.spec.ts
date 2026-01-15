@@ -1,4 +1,4 @@
-import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
+import { type ProcessedFeature } from '../../../shared/components/views/FeaturesView';
 import testData from '../__mocks__/toolTipFeatureTestData.json';
 import { prepareFeatureForTooltip } from '../feature';
 

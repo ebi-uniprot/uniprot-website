@@ -1,6 +1,6 @@
 import {
   DndContext,
-  DragEndEvent,
+  type DragEndEvent,
   PointerSensor,
   useSensor,
   useSensors,
@@ -15,8 +15,8 @@ import {
 } from '@dnd-kit/sortable';
 import { useEffect, useRef } from 'react';
 
-import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
-import { Column } from '../../config/columns';
+import { type SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
+import { type Column } from '../../config/columns';
 import SortableItem from './SortableItem';
 import styles from './styles/column-select-drag-drop.module.scss';
 

@@ -1,6 +1,6 @@
 // Correponds to eg https://www.ebi.ac.uk/proteins/api/proteomics/ptm/Q653S1
 
-import { ConfidenceScore } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { type ConfidenceScore } from '../components/protein-data-views/UniProtKBFeaturesView';
 
 export type ProteomicsPtm = {
   accession: string;

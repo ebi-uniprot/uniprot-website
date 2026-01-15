@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { Button, Dropdown, Header } from 'franklin-sites';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link, useLocation, useRouteMatch } from 'react-router-dom';
-import { Organization, WithContext } from 'schema-dts';
+import { type Organization, type WithContext } from 'schema-dts';
 
 import description from '../../../app/config/description';
 import * as socialUrls from '../../../app/config/socialUrls';
@@ -12,7 +12,11 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useMatchMedia from '../../hooks/useMatchMedia';
 import useNS from '../../hooks/useNS';
 import useStructuredData from '../../hooks/useStructuredData';
-import { Namespace, Searchspace, toolResults } from '../../types/namespaces';
+import {
+  Namespace,
+  type Searchspace,
+  toolResults,
+} from '../../types/namespaces';
 import ReleaseInfo from './ReleaseInfo';
 import SecondaryItems from './SecondaryItems';
 import styles from './styles/uniprot-header.module.scss';

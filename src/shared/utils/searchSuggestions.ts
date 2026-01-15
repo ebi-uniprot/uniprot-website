@@ -1,4 +1,4 @@
-import { Clause } from '../../query-builder/types/searchTypes';
+import { type Clause } from '../../query-builder/types/searchTypes';
 import {
   parse,
   stringify,

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import { DataType, SearchTermType } from '../../types/searchTypes';
+import { type DataType, type SearchTermType } from '../../types/searchTypes';
 import Field from '../Field';
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 

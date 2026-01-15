@@ -1,6 +1,12 @@
 import { SearchInput } from 'franklin-sites';
 import { debounce } from 'lodash-es';
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  type ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

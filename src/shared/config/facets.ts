@@ -10,7 +10,7 @@ import { defaultFacets as taxonomyDefaultFacets } from '../../supporting-data/ta
 import { defaultFacets as uniParcDefaultFacets } from '../../uniparc/config/UniParcFacetConfiguration';
 import { defaultFacets as uniProtKBDefaultFacets } from '../../uniprotkb/config/UniProtKBFacetConfiguration';
 import { defaultFacets as uniRefDefaultFacets } from '../../uniref/config/UniRefFacetConfiguration';
-import { Facets } from '../types/facets';
+import { type Facets } from '../types/facets';
 import { Namespace } from '../types/namespaces';
 
 export const defaultFacets = new Map<Namespace, Facets[]>([

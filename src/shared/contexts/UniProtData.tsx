@@ -1,9 +1,9 @@
-import { createContext, ReactNode, useEffect, useMemo } from 'react';
+import { createContext, type ReactNode, useEffect, useMemo } from 'react';
 
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
-import { DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
+import { type DatabaseInfo } from '../../uniprotkb/types/databaseRefs';
 import {
-  DatabaseInfoMaps,
+  type DatabaseInfoMaps,
   getDatabaseInfoMaps,
   getDatabaseNameFromColumn,
   isDatabaseColumn,

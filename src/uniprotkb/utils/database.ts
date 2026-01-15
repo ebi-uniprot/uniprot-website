@@ -1,15 +1,15 @@
-import { Xref } from '../../shared/types/apiModel';
+import { type Xref } from '../../shared/types/apiModel';
 import {
-  EntrySectionToDatabaseNames,
+  type EntrySectionToDatabaseNames,
   getEntrySectionToDatabaseNames,
 } from '../config/database';
-import { UniProtKBColumn } from '../types/columnTypes';
+import { type UniProtKBColumn } from '../types/columnTypes';
 import {
-  DatabaseCategory,
-  DatabaseInfo,
-  DatabaseInfoPoint,
+  type DatabaseCategory,
+  type DatabaseInfo,
+  type DatabaseInfoPoint,
 } from '../types/databaseRefs';
-import EntrySection from '../types/entrySection';
+import type EntrySection from '../types/entrySection';
 
 export type DatabaseCategoryToNames = Map<DatabaseCategory, string[]>;
 export type DatabaseNameToCategory = Map<string, DatabaseCategory>;

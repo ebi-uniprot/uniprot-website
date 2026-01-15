@@ -1,7 +1,13 @@
-import { Consortium, Course, Event, Graph, WithContext } from 'schema-dts';
+import {
+  type Consortium,
+  type Course,
+  type Event,
+  type Graph,
+  type WithContext,
+} from 'schema-dts';
 
 import parseDate from '../../../shared/utils/parseDate';
-import { PayloadEBISearch } from './NeedHelp';
+import { type PayloadEBISearch } from './NeedHelp';
 
 export const isCourseOnsite = (
   location?: PayloadEBISearch['entries'][0]['fields']['location']

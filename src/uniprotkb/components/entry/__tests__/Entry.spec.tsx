@@ -1,7 +1,7 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';

@@ -1,4 +1,8 @@
-import axios, { AxiosPromise, AxiosRequestConfig, CancelToken } from 'axios';
+import axios, {
+  type AxiosPromise,
+  type AxiosRequestConfig,
+  type CancelToken,
+} from 'axios';
 
 import { sendGtagEventApiData } from './gtagEvents';
 import { keysToLowerCase } from './utils';

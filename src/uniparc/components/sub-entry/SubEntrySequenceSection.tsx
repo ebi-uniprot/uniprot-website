@@ -18,11 +18,11 @@ import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { hasContent } from '../../../shared/utils/utils';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import { type Evidence } from '../../../uniprotkb/types/modelTypes';
+import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
-import { DataDBModel } from '../entry/XRefsSection';
+import { type DataDBModel } from '../entry/XRefsSection';
 
 const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));

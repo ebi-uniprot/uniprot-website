@@ -1,4 +1,4 @@
-import { Feature } from '@nightingale-elements/nightingale-track';
+import { type Feature } from '@nightingale-elements/nightingale-track';
 
 type T = {
   length: number;

@@ -1,7 +1,7 @@
 import { Card, Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
-import { SetOptional } from 'type-fest';
+import { type RouteChildrenProps } from 'react-router-dom';
+import { type SetOptional } from 'type-fest';
 
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
@@ -16,7 +16,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-import { CitationsAPIModel } from '../../adapters/citationsConverter';
+import { type CitationsAPIModel } from '../../adapters/citationsConverter';
 import LiteratureCitation from '../LiteratureCitation';
 
 const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
@@ -38,9 +38,9 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount ||
-      data.statistics?.communityMappedProteinCount ||
-      data.statistics?.computationallyMappedProteinCount
+    data.statistics?.unreviewedProteinCount ||
+    data.statistics?.communityMappedProteinCount ||
+    data.statistics?.computationallyMappedProteinCount
   );
 
   const relatedQuery = `(lit_citation_id:${accession}) OR (computational_pubmed_id:${accession}) OR (community_pubmed_id:${accession})`;

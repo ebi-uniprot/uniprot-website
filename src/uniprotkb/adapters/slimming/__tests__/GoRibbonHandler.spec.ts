@@ -1,5 +1,5 @@
-import { TaxonomyDatum } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { GeneNamesData } from '../../namesAndTaxonomyConverter';
+import { type TaxonomyDatum } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type GeneNamesData } from '../../namesAndTaxonomyConverter';
 import { getCategories, getSubjects } from '../GORibbonHandler';
 import slimmedData from './__mocks__/slimmedData';
 import goSlimAGR from './__mocks__/slimSet';

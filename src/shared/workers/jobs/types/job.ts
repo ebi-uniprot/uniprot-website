@@ -1,7 +1,7 @@
-import { IDMappingNamespace } from '../../../../jobs/id-mapping/types/idMappingServerParameters';
-import { FormParameters } from '../../../../jobs/types/jobsFormParameters';
-import { JobTypes } from '../../../../jobs/types/jobTypes';
-import { Status } from './jobStatuses';
+import { type IDMappingNamespace } from '../../../../jobs/id-mapping/types/idMappingServerParameters';
+import { type FormParameters } from '../../../../jobs/types/jobsFormParameters';
+import { type JobTypes } from '../../../../jobs/types/jobTypes';
+import { type Status } from './jobStatuses';
 
 /* Job as defined inside the web application */
 interface BaseJob<T extends JobTypes> {

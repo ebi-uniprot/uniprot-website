@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import results from '../../../uniprotkb/components/__mocks__/results';
-import { APIModel } from '../../types/apiModel';
+import { type APIModel } from '../../types/apiModel';
 import { Namespace } from '../../types/namespaces';
 import { getIdKeyForData } from '../../utils/getIdKey';
 import useResultsToEntryRedirect from '../useResultsToEntryRedirect';

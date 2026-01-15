@@ -8,7 +8,7 @@ import {
   Message,
   SlidingPanel,
 } from 'franklin-sites';
-import { Fragment, ReactNode, Suspense, useMemo, useState } from 'react';
+import { Fragment, type ReactNode, Suspense, useMemo, useState } from 'react';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ import { getEntryPath } from '../../../../../app/config/urls';
 import EntryTypeIcon from '../../../../../shared/components/entry/EntryTypeIcon';
 import ErrorBoundary from '../../../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
-import { ColumnDescriptor } from '../../../../../shared/hooks/useColumns';
+import { type ColumnDescriptor } from '../../../../../shared/hooks/useColumns';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../../shared/hooks/useItemSelect';
 import { useMediumScreen } from '../../../../../shared/hooks/useMatchMedia';
@@ -27,14 +27,14 @@ import listFormat from '../../../../../shared/utils/listFormat';
 import * as logging from '../../../../../shared/utils/logging';
 import parseDate from '../../../../../shared/utils/parseDate';
 import { stringifyQuery } from '../../../../../shared/utils/url';
-import { InactiveEntryReason } from '../../../../adapters/uniProtkbConverter';
+import { type InactiveEntryReason } from '../../../../adapters/uniProtkbConverter';
 import apiUrls from '../../../../config/apiUrls/apiUrls';
 import { TabLocation } from '../../../../types/entry';
 import {
-  UniSaveAccession,
-  UniSaveEventType,
-  UniSaveStatus,
-  UniSaveVersion,
+  type UniSaveAccession,
+  type UniSaveEventType,
+  type UniSaveStatus,
+  type UniSaveVersion,
 } from '../../../../types/uniSave';
 import RemovedEntryMessage, {
   DemergedEntryMessage,

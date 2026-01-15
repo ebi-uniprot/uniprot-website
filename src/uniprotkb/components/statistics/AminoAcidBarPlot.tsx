@@ -2,7 +2,7 @@ import { axisBottom, axisLeft, scaleBand, scaleLinear, select } from 'd3';
 import { sum } from 'lodash-es';
 import { memo, useEffect, useRef } from 'react';
 
-import { StatisticsCategory } from './StatisticsPage';
+import { type StatisticsCategory } from './StatisticsPage';
 
 // Specify the chart’s dimensions.
 const width = 330;

@@ -6,12 +6,12 @@ import { useRouteMatch } from 'react-router-dom';
 import { allEntryPages } from '../../../app/config/urls';
 import { pluralise } from '../../../shared/utils/utils';
 import {
-  EvidenceData,
+  type EvidenceData,
   getEcoNumberFromString,
   getEvidenceCodeData,
   labels,
 } from '../../config/evidenceCodes';
-import { Evidence } from '../../types/modelTypes';
+import { type Evidence } from '../../types/modelTypes';
 import EvidenceLink from './EvidenceLink';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 

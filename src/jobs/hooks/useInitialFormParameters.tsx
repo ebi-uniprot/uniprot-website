@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import useGetFASTAFromAccesion from '../../shared/hooks/useGetFASTAFromAccession';
-import { SelectedTaxon } from '../types/jobsFormData';
+import { type SelectedTaxon } from '../types/jobsFormData';
 import { parseIdsFromSearchParams } from '../utils/urls';
 
 interface CustomLocationState<T> {

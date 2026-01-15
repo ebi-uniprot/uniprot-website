@@ -30,7 +30,9 @@ import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi, { UseDataAPIState } from '../../../shared/hooks/useDataApi';
+import useDataApi, {
+  type UseDataAPIState,
+} from '../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -38,16 +40,16 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
-import { UniSaveStatus } from '../../../uniprotkb/types/uniSave';
+import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import {
-  UniParcLiteAPIModel,
-  UniParcXRef,
+  type UniParcLiteAPIModel,
+  type UniParcXRef,
 } from '../../adapters/uniParcConverter';
 import uniParcSubEntryConverter, {
-  UniFireModel,
+  type UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
 import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';

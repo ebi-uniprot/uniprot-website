@@ -1,7 +1,7 @@
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type UniProtKBSimplifiedTaxonomy } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 export function organismRenderer<Schema>(
   getter: (

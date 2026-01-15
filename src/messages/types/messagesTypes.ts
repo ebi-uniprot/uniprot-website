@@ -1,4 +1,6 @@
-import { Location } from '../../app/config/urls';
+import { type JSX } from 'react';
+
+import { type Location } from '../../app/config/urls';
 
 export enum MessageLevel {
   SUCCESS = 'success',

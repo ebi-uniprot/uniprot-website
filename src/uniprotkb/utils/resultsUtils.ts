@@ -1,14 +1,14 @@
-import { Column } from '../../shared/config/columns';
-import { ViewMode } from '../../shared/hooks/useViewMode';
+import { type Column } from '../../shared/config/columns';
+import { type ViewMode } from '../../shared/hooks/useViewMode';
 import { Namespace } from '../../shared/types/namespaces';
 import { stringifyQuery } from '../../shared/utils/url';
-import { Interactant } from '../adapters/interactionConverter';
-import { GroupBy } from '../config/apiUrls/groupBy';
-import { SortableColumn } from '../types/columnTypes';
+import { type Interactant } from '../adapters/interactionConverter';
+import { type GroupBy } from '../config/apiUrls/groupBy';
+import { type SortableColumn } from '../types/columnTypes';
 import { InteractionType } from '../types/commentTypes';
 import {
-  ReceivedFieldData,
-  SelectedFacet,
+  type ReceivedFieldData,
+  type SelectedFacet,
   SortDirection,
 } from '../types/resultsTypes';
 
@@ -162,8 +162,8 @@ export const isInvalidSearchFieldQueryWithColon = (
 ) =>
   Boolean(
     namespace === Namespace.uniprotkb &&
-      query.includes(':') &&
-      errorMessages?.some((m) => m.endsWith(invalidSearchFieldMessage))
+    query.includes(':') &&
+    errorMessages?.some((m) => m.endsWith(invalidSearchFieldMessage))
   );
 
 // PTHR34313:SF2 --> PTHR34313\:SF2

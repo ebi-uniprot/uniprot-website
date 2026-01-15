@@ -1,73 +1,73 @@
 import ARBAColumnConfiguration, {
-  ARBAColumn,
+  type ARBAColumn,
   defaultColumns as defaultARBAColumns,
   primaryKeyColumns as primaryKeyColumnsARBA,
 } from '../../automatic-annotations/arba/config/ARBAColumnConfiguration';
 import UniRuleColumnConfiguration, {
   defaultColumns as defaultUniRuleColumns,
   primaryKeyColumns as primaryKeyColumnsUniRule,
-  UniRuleColumn,
+  type UniRuleColumn,
 } from '../../automatic-annotations/unirule/config/UniRuleColumnConfiguration';
 import {
   defaultColumns as defaultIdMappingColumns,
-  IDMappingColumn,
+  type IDMappingColumn,
   IdMappingColumnConfiguration,
   primaryKeyColumns as primaryKeyColumnsIdMapping,
 } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
 import ProteomesColumnConfiguration, {
   defaultColumns as defaultProteomesColumns,
   primaryKeyColumns as primaryKeyColumnsProteomes,
-  ProteomesColumn,
+  type ProteomesColumn,
 } from '../../proteomes/config/ProteomesColumnConfiguration';
 import CitationsColumnConfiguration, {
-  CitationsColumn,
+  type CitationsColumn,
   defaultColumns as defaultCitationsColumns,
   primaryKeyColumns as primaryKeyColumnsCitations,
 } from '../../supporting-data/citations/config/CitationsColumnConfiguration';
 import DatabaseColumnConfiguration, {
-  DatabaseColumn,
+  type DatabaseColumn,
   defaultColumns as defaultDatabaseColumns,
   primaryKeyColumns as primaryKeyColumnsDatabase,
 } from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import DiseasesColumnConfiguration, {
   defaultColumns as defaultDiseasesColumns,
-  DiseasesColumn,
+  type DiseasesColumn,
   primaryKeyColumns as primaryKeyColumnsDiseases,
 } from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
 import KeywordsColumnConfiguration, {
   defaultColumns as defaultKeywordsColumns,
-  KeywordsColumn,
+  type KeywordsColumn,
   primaryKeyColumns as primaryKeyColumnsKeywords,
 } from '../../supporting-data/keywords/config/KeywordsColumnConfiguration';
 import LocationsColumnConfiguration, {
   defaultColumns as defaultLocationsColumns,
-  LocationsColumn,
+  type LocationsColumn,
   primaryKeyColumns as primaryKeyColumnsLocations,
 } from '../../supporting-data/locations/config/LocationsColumnConfiguration';
 import TaxonomyColumnConfiguration, {
   defaultColumns as defaultTaxonomyColumns,
   primaryKeyColumns as primaryKeyColumnsTaxonomy,
-  TaxonomyColumn,
+  type TaxonomyColumn,
 } from '../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
 import UniParcColumnConfiguration, {
   defaultColumns as defaultUniParcColumns,
   primaryKeyColumns as primaryKeyColumnsUniParc,
-  UniParcColumn,
+  type UniParcColumn,
 } from '../../uniparc/config/UniParcColumnConfiguration';
 import {
   defaultColumns as defaultUniParcEntryColumns,
   primaryKeyColumns as primaryKeyColumnsUniParcEntry,
-  UniParcXRefsColumn,
+  type UniParcXRefsColumn,
 } from '../../uniparc/config/UniParcXRefsColumnConfiguration';
 import UniProtKBColumnConfiguration, {
   defaultColumns as defaultUniProtKBColumns,
   primaryKeyColumns as primaryKeyColumnsUniProtKB,
 } from '../../uniprotkb/config/UniProtKBColumnConfiguration';
-import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
+import { type UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import UniRefColumnConfiguration, {
   defaultColumns as defaultUniRefColumns,
   primaryKeyColumns as primaryKeyColumnsUniRef,
-  UniRefColumn,
+  type UniRefColumn,
 } from '../../uniref/config/UniRefColumnConfiguration';
 import { Namespace } from '../types/namespaces';
 

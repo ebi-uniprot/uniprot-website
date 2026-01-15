@@ -1,4 +1,4 @@
-import { DeletedReason } from '../adapters/uniProtkbConverter';
+import { type DeletedReason } from '../adapters/uniProtkbConverter';
 
 export type UniSaveVersion = {
   accession: string;

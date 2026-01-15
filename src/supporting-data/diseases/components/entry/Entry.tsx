@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, type RouteChildrenProps } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
@@ -20,7 +20,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
+import { type DiseasesAPIModel } from '../../adapters/diseasesConverter';
 import DiseasesColumnConfiguration, {
   DiseasesColumn,
 } from '../../config/DiseasesColumnConfiguration';
@@ -71,7 +71,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount
+    data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(cc_disease:${accession})`;

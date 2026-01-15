@@ -1,8 +1,8 @@
 import { Namespace } from '../../../shared/types/namespaces';
 import resultFields from '../../__mocks__/resultFields';
-import { Interactant } from '../../adapters/interactionConverter';
+import { type Interactant } from '../../adapters/interactionConverter';
 import { InteractionType } from '../../types/commentTypes';
-import { ReceivedFieldData } from '../../types/resultsTypes';
+import { type ReceivedFieldData } from '../../types/resultsTypes';
 import {
   escapeInvalidSearchFieldQueryWithColon,
   getSortableColumnToSortColumn,

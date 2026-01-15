@@ -4,8 +4,8 @@ import { Suspense } from 'react';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
 import { IsoformsContext } from '../../../shared/contexts/Isoforms';
-import { Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
-import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+import { type Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { type UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 type EntryMainProps = {

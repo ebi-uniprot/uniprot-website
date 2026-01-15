@@ -1,7 +1,7 @@
 import defaultFormValues, { AlignFields } from '../../config/AlignFormData';
 import * as actions from '../alignFormActions';
 import {
-  AlignFormAction,
+  type AlignFormAction,
   getAlignFormDataReducer,
   getAlignFormInitialState,
 } from '../alignFormReducer';

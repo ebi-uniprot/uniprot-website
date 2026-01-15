@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 <DocumentFragment>
@@ -212,7 +212,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 2`] = 
         class="loader-container"
       >
         <test-file-stub
-          classname="loader"
+          class="loader"
           height="100"
           width="100"
         />

@@ -1,4 +1,4 @@
-import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
+import { type IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: configure/idmapping/fields
 // Retrieved: 2025-10-15

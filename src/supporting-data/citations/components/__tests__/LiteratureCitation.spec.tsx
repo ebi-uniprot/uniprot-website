@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import { CitationsAPIModel } from '../../adapters/citationsConverter';
+import { type CitationsAPIModel } from '../../adapters/citationsConverter';
 import literatureCitationData from '../__mocks__/literatureCitationData';
 import LiteratureCitation, { getLocatorUrl } from '../LiteratureCitation';
 

@@ -9,18 +9,21 @@ import {
   LongNumber,
   Message,
 } from 'franklin-sites';
-import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { type InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { keyBy } from 'lodash-es';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useNSQuery from '../../../shared/hooks/useNSQuery';
-import { APIModel } from '../../../shared/types/apiModel';
+import { type APIModel } from '../../../shared/types/apiModel';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
-import { FacetObject, SearchResults } from '../../../shared/types/results';
-import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
-import { FormParameters } from '../types/asyncDownloadFormParameters';
+import {
+  type FacetObject,
+  type SearchResults,
+} from '../../../shared/types/results';
+import { type SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
+import { type FormParameters } from '../types/asyncDownloadFormParameters';
 import styles from './styles/async-download-confirmation.module.scss';
 
 export const getFacetString = (

@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { HTMLAttributes } from 'react';
+import { type HTMLAttributes } from 'react';
 
 import ExternalLink from '../ExternalLink';
 import ErrorComponent from './ErrorComponent';

@@ -11,12 +11,12 @@ import listFormat from '../../../../shared/utils/listFormat';
 import { stringifyQuery } from '../../../../shared/utils/url';
 import { pluralise } from '../../../../shared/utils/utils';
 import {
-  UniRefEntryType,
+  type UniRefEntryType,
   uniRefEntryTypeToPercent,
-  UniRefLiteAPIModel,
+  type UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
-import { IsoformsAndCluster } from './SimilarProteins';
+import { type UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
+import { type IsoformsAndCluster } from './SimilarProteins';
 import SimilarProteinsTable, { columns } from './SimilarProteinsTable';
 
 type Props = {

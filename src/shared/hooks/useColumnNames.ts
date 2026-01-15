@@ -1,12 +1,12 @@
 import { partition } from 'lodash-es';
-import { Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { IDMappingColumn } from '../../jobs/id-mapping/config/IdMappingColumnConfiguration';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
-import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
+import { type InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
 import {
-  Column,
+  type Column,
   ColumnConfigurations,
   nsToDefaultColumns,
 } from '../config/columns';

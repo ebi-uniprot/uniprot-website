@@ -2,7 +2,7 @@ import axios from 'axios';
 import cn from 'classnames';
 import { Chip, Loader } from 'franklin-sites';
 import pMap from 'p-map';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../shared/components/ExternalLink';
@@ -16,7 +16,7 @@ import {
 } from '../../../shared/utils/gtagEvents';
 import * as logging from '../../../shared/utils/logging';
 import { heuristic } from '../../../shared/workers/jobs/utils/heuristic';
-import { GoCamModelInfo, GoCamModels } from '../../types/goCamTypes';
+import { type GoCamModelInfo, type GoCamModels } from '../../types/goCamTypes';
 import GoCamViz from '../protein-data-views/GoCamViz';
 import styles from './styles/go-cam.module.scss';
 

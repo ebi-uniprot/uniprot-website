@@ -1,4 +1,4 @@
-import { DataDBModel } from '../../../entry/XRefsSection';
+import { type DataDBModel } from '../../../entry/XRefsSection';
 
 // Source: configure/uniparc/allDatabases
 // Retrieved: 2025-10-15

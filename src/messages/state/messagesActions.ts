@@ -1,10 +1,10 @@
-import { SetOptional } from 'type-fest';
+import { type SetOptional } from 'type-fest';
 import { action } from 'typesafe-actions';
 
 import {
   MessageFormat,
   MessageLevel,
-  MessageType,
+  type MessageType,
 } from '../types/messagesTypes';
 
 export const ADD_MESSAGE = 'ADD_MESSAGE';

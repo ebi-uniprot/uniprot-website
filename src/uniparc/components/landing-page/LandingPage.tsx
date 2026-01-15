@@ -20,7 +20,7 @@ import {
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { FacetsEnum } from '../../config/UniParcFacetConfiguration';
 import styles from './styles/landing-page.module.scss';

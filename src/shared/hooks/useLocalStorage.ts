@@ -1,14 +1,14 @@
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useState,
 } from 'react';
 import { frame } from 'timing-functions';
-import { JsonValue } from 'type-fest';
+import { type JsonValue } from 'type-fest';
 
-import { Namespace } from '../types/namespaces';
+import { type Namespace } from '../types/namespaces';
 import * as logging from '../utils/logging';
 
 export type UserPreferenceKey =

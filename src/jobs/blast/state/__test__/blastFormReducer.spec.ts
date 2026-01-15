@@ -1,7 +1,7 @@
 import defaultFormValues, { BlastFields } from '../../config/BlastFormData';
 import * as actions from '../blastFormActions';
 import {
-  BlastFormAction,
+  type BlastFormAction,
   getBlastFormDataReducer,
   getBlastFormInitialState,
 } from '../blastFormReducer';

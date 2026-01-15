@@ -1,11 +1,11 @@
 import {
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
   screen,
 } from '@testing-library/react';
 
-import { FieldProps } from '../Field';
+import { type FieldProps } from '../Field';
 import RangeField from '../RangeField';
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 

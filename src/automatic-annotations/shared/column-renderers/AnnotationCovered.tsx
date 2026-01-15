@@ -2,8 +2,8 @@ import { ExpandableList } from 'franklin-sites';
 
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import * as logging from '../../../shared/utils/logging';
-import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
-import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
+import { type ARBAAPIModel } from '../../arba/adapters/arbaConverter';
+import { type UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 
 const AnnotationCovered = ({
   mainRule,

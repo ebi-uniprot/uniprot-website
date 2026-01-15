@@ -1,5 +1,5 @@
 import { LongNumber } from 'franklin-sites';
-import { Link, LinkProps } from 'react-router-dom';
+import { Link, type LinkProps } from 'react-router-dom';
 
 type CountLinkOrNothingProps<T> = {
   condition?: boolean;
