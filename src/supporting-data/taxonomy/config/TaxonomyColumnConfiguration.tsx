@@ -84,7 +84,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
   render: ({ taxonId, links }) => {
     const allLinks = [
       // Exception, always add the NCBI one as it's not in the data
-      `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&amp;id=${taxonId}`,
+      `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=${taxonId}`,
       ...(links || []),
     ];
     return (

@@ -129,8 +129,10 @@ export const getStatusFromResponse = async (
   return [status, progress, idMappingResultsUrl];
 };
 
-const parseXML = (xml: string) =>
-  new window.DOMParser().parseFromString(xml, 'text/xml');
+const getErrorDescription = (xmlString: string, tag: string) => {
+  const match = xmlString.match(new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`));
+  return match ? match[1] : null;
+};
 
 export type ServerError = {
   response: AxiosResponse<string | { messages: string[] }>;
@@ -142,10 +144,8 @@ export const getServerErrorDescription = (error: ServerError | string) => {
     return null;
   }
   if (typeof data === 'string') {
-    const xml = parseXML(data);
-    const description = xml.getElementsByTagName('description');
-    const text = description[0]?.textContent;
-    return text && text.replace('->', '→');
+    const description = getErrorDescription(data, 'description');
+    return description && description.replace('->', '→');
   }
   return data.messages.join('; ');
 };

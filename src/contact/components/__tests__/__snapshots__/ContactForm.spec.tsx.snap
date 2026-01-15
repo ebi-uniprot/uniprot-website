@@ -23,6 +23,49 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       Our helpdesk team will receive and review your message
     </p>
     <hr />
+    <div
+      class="uniprot-grid-cell--span-12 homepage message message--warning"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Please read our 
+        <a
+          href="/help/refprot_only_changes"
+        >
+          help page
+        </a>
+        , view 
+        <a
+          class="external-link no-right-margin"
+          href="https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/"
+          rel="noopener"
+          target="_blank"
+        >
+          affected entries and proteomes
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        , or 
+        <a
+          href="/contact"
+        >
+          contact us
+        </a>
+         with any questions.
+      </div>
+    </div>
     <form
       aria-label="Contact form"
     >
@@ -296,6 +339,49 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       Our helpdesk team will receive and review your message
     </p>
     <hr />
+    <div
+      class="uniprot-grid-cell--span-12 homepage message message--warning"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Please read our 
+        <a
+          href="/help/refprot_only_changes"
+        >
+          help page
+        </a>
+        , view 
+        <a
+          class="external-link no-right-margin"
+          href="https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/"
+          rel="noopener"
+          target="_blank"
+        >
+          affected entries and proteomes
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        , or 
+        <a
+          href="/contact"
+        >
+          contact us
+        </a>
+         with any questions.
+      </div>
+    </div>
     <form
       aria-label="Contact form"
     >
@@ -569,6 +655,49 @@ exports[`ContactForm should render for generic contact form 1`] = `
       Our helpdesk team will receive and review your message
     </p>
     <hr />
+    <div
+      class="uniprot-grid-cell--span-12 homepage message message--warning"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        classname="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Please read our 
+        <a
+          href="/help/refprot_only_changes"
+        >
+          help page
+        </a>
+        , view 
+        <a
+          class="external-link no-right-margin"
+          href="https://ftp.ebi.ac.uk/pub/contrib/UniProt/proteomes/"
+          rel="noopener"
+          target="_blank"
+        >
+          affected entries and proteomes
+          <test-file-stub
+            data-testid="external-link-icon"
+            width="12.5"
+          />
+        </a>
+        , or 
+        <a
+          href="/contact"
+        >
+          contact us
+        </a>
+         with any questions.
+      </div>
+    </div>
     <form
       aria-label="Contact form"
     >
