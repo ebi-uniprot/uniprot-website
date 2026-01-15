@@ -31,7 +31,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
         class="message__side-border"
       />
       <test-file-stub
-        classname="message--icon-align-top"
+        class="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
@@ -347,7 +347,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
         class="message__side-border"
       />
       <test-file-stub
-        classname="message--icon-align-top"
+        class="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
@@ -663,7 +663,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
         class="message__side-border"
       />
       <test-file-stub
-        classname="message--icon-align-top"
+        class="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
