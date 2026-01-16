@@ -1,4 +1,4 @@
-import { Loader } from 'franklin-sites';
+import { Card, Loader } from 'franklin-sites';
 import { ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
@@ -156,7 +156,7 @@ export const DemergedEntryMessage = ({
   }
 
   return (
-    <RemovedEntryMessage {...props}>
+    <Card>
       {demergedTo.length ? (
         <div>
           This entry has now been <strong>demerged</strong>. Its accession has
@@ -182,9 +182,26 @@ export const DemergedEntryMessage = ({
             {pluralise('entry', data.results.length, 'entries')} in UniProtKB
             search results
           </Link>
+          <br />
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniParcResults],
+              search: stringifyQuery({
+                query: `dbid:${props.accession}`,
+                direct: true,
+              }),
+            }}
+          >
+            View the linked UniParc entry
+          </Link>
         </div>
       ) : null}
-    </RemovedEntryMessage>
+      {props.release && (
+        <div>
+          Since release: <strong>{props.release}</strong>
+        </div>
+      )}
+    </Card>
   );
 };
 
