@@ -285,10 +285,10 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       const reviewedGoIds = getGoIds(goLocationsByEvidenceType.reviewed);
       const unreviewedGoIds = getGoIds(goLocationsByEvidenceType.unreviewed);
 
-      const globalStyleId = `${instanceName.current}-go-legend`;
+      const legendStyleId = `${instanceName.current}-go-legend`;
 
-      const cleanupGlobalGoRows = upsertGlobalStyle(
-        globalStyleId,
+      const cleanupLegendStyle = upsertGlobalStyle(
+        legendStyleId,
         `
         /* AI */
         ${getGoLegendSelectors(aiGoIds)},
@@ -448,7 +448,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       };
       shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
       return () => {
-        cleanupGlobalGoRows?.();
+        cleanupLegendStyle?.();
         cleanupTooltips.forEach((cleanup) => cleanup?.());
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
