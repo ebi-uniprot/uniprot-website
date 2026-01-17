@@ -13,6 +13,8 @@ import {
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
 import { SubcellularLocationComment } from '../../types/commentTypes';
+import { Evidence, GoEvidenceType } from '../../types/modelTypes';
+import { AiEvidenceCode } from '../../types/protNLMAPIModel';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
 import SubcellularLocationView from './SubcellularLocationView';
 
@@ -32,9 +34,11 @@ export enum VizTab {
   GO = 'go',
 }
 
+type EvidenceType = 'reviewed' | 'unreviewed' | 'ai';
+
 export type SubCellularLocation = {
   id: string;
-  reviewed: boolean;
+  evidenceType: EvidenceType;
 };
 
 const isVirus = ([superkingdom]: Lineage | string[]) => {
@@ -55,6 +59,27 @@ const getNoAnnotationMessage = (name: string) => (
   <HeroContainer>{`No ${name} annotations available.`}</HeroContainer>
 );
 
+export const getUniProtEvidenceType = (evidences: Evidence[]) =>
+  evidences?.map((evidence) => {
+    if (evidence.evidenceCode === AiEvidenceCode) {
+      return 'AI';
+    }
+    const evidenceData = getEvidenceCodeData(
+      getEcoNumberFromString(evidence.evidenceCode)
+    );
+    return evidenceData?.manual ? 'reviewed' : 'unreviewed';
+  });
+
+export const getGoEvidenceType = (goEvidence: GoEvidenceType) => {
+  if (goEvidence === 'IEA:ProtNLM2') {
+    return 'ai';
+  }
+  const evidenceData = getEvidenceCodeData(
+    getEcoNumberFromGoEvidenceType(goEvidence)
+  );
+  return evidenceData?.manual ? 'reviewed' : 'unreviewed';
+};
+
 const SubcellularLocationWithVizView: FC<
   {
     primaryAccession?: string;
@@ -67,6 +92,7 @@ const SubcellularLocationWithVizView: FC<
   // P11926      only GO data
   // Q00733      only notes
   // A0A2K3DA85  no data
+  // A0A6P6D5T4  ProtNLM2 GO
 
   const isSmallScreen = useSmallScreen();
 
@@ -107,23 +133,17 @@ const SubcellularLocationWithVizView: FC<
     );
 
   const goLocations = (goXrefs || [])
-    .map(({ id, properties }) => {
+    .map(({ id, properties }): SubCellularLocation | null => {
       const goId = getGoId(id);
-      if (!goId) {
-        return;
-      }
-      const evidenceData = getEvidenceCodeData(
-        getEcoNumberFromGoEvidenceType(properties.GoEvidenceType)
-      );
-
-      return {
-        id: goId,
-        reviewed: evidenceData?.manual,
-      };
+      return !goId
+        ? null
+        : {
+            id: goId,
+            evidenceType: getGoEvidenceType(properties.GoEvidenceType),
+          };
     })
-    .filter(
-      (l: Partial<SubCellularLocation> | undefined): l is SubCellularLocation =>
-        Boolean(l)
+    .filter((l: SubCellularLocation | null): l is SubCellularLocation =>
+      Boolean(l)
     );
 
   const virus = isVirus(lineage);

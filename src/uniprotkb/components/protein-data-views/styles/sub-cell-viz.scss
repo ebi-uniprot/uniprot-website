@@ -24,8 +24,8 @@
     }
   }
 
-  &.ai-annotation.lookedAt,
-  &.ai-annotation:hover {
+  &ai.lookedAt,
+  &ai:hover {
     background-color: color-mix(
       in srgb,
       var(--fr--color-purple-mid) 20%,

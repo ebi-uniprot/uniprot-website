@@ -75,16 +75,25 @@ const getUniProtTextSelectors = (subcellularPresentSVG: Element): string[] => [
 ];
 
 const getGoTermSelectors = (locations: SubCellularLocation[] = []) =>
-  locations?.flatMap(({ id }) => [
+  locations.flatMap(({ id }) => [
     `svg .GO${+id} *:not(text)`,
     `svg .part_GO${+id} *:not(text)`,
   ]);
 
 const getUniProtTermSelectors = (locations: SubCellularLocation[] = []) =>
-  locations?.flatMap(({ id }) => [
+  locations.flatMap(({ id }) => [
     `svg #SL${id} *:not(text)`,
     `svg .mp_SL${id} *:not(text)`,
   ]);
+
+const getGoIds = (locations: SubCellularLocation[] = []) =>
+  locations.map(({ id }) => `GO${+id}`);
+
+const getGoLegendSelectors = (goIds: string[]) =>
+  goIds.map((id) => `li.${id}.inpicture.lookedAt`).join(',\n');
+
+const getGoLegendHoverSelectors = (goIds: string[]) =>
+  goIds.map((id) => `li.${id}.inpicture:hover`).join(',\n');
 
 const attachTooltips = (
   locationGroup: Element,
@@ -136,6 +145,22 @@ const attachTooltips = (
   );
 };
 
+const upsertGlobalStyle = (id: string, cssText: string) => {
+  let styleEl = document.getElementById(id) as HTMLStyleElement | null;
+
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = id;
+    document.head.appendChild(styleEl);
+  }
+
+  styleEl.textContent = cssText;
+
+  return () => {
+    styleEl?.remove();
+  };
+};
+
 type Props = RequireExactlyOne<
   {
     taxonId: number;
@@ -155,7 +180,6 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
       }-${instanceId}`
     );
-
     const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');
     const goLocationIds = goLocations?.map(({ id }) => id).join(',');
 
@@ -241,27 +265,53 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
 
       const uniProtLocationsByReviewedStatus = groupBy(
         uniProtLocations,
-        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
+        'evidenceType'
       );
-      const goLocationsByReviewedStatus = groupBy(
-        goLocations,
-        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
-      );
+      const goLocationsByEvidenceType = groupBy(goLocations, 'evidenceType');
 
       const unreviewed = [
         ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.unreviewed),
-        ...getGoTermSelectors(goLocationsByReviewedStatus.unreviewed),
+        ...getGoTermSelectors(goLocationsByEvidenceType.unreviewed),
       ];
 
       const reviewed = [
         ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed),
-        ...getGoTermSelectors(goLocationsByReviewedStatus.reviewed),
+        ...getGoTermSelectors(goLocationsByEvidenceType.reviewed),
       ];
 
-      const lookedAt = [...unreviewed, ...reviewed].map(
-        (sel) => `${sel} .lookedAt`
-      );
+      const ai = [...getGoTermSelectors(goLocationsByEvidenceType.ai)];
 
+      const aiGoIds = getGoIds(goLocationsByEvidenceType.ai);
+      const reviewedGoIds = getGoIds(goLocationsByEvidenceType.reviewed);
+      const unreviewedGoIds = getGoIds(goLocationsByEvidenceType.unreviewed);
+
+      const globalStyleId = `${instanceName.current}-go-legend`;
+
+      const cleanupGlobalGoRows = upsertGlobalStyle(
+        globalStyleId,
+        `
+        /* AI */
+        ${getGoLegendSelectors(aiGoIds)},
+        ${getGoLegendHoverSelectors(aiGoIds)} {
+          background-color: #6d28d9 !important; /* purple-ish */
+          color: white !important;
+        }
+
+        /* Reviewed */
+        ${getGoLegendSelectors(reviewedGoIds)},
+        ${getGoLegendHoverSelectors(reviewedGoIds)} {
+          background-color: #0ea5e9 !important; /* blue-ish */
+          color: white !important;
+        }
+
+        /* Unreviewed */
+        ${getGoLegendSelectors(unreviewedGoIds)},
+        ${getGoLegendHoverSelectors(unreviewedGoIds)} {
+          background-color: #22c55e !important; /* green-ish */
+          color: white !important;
+        }
+        `
+      );
       /**
        * This needs to happen after the element has been created and inserted into
        * the DOM in order to have the constructor being called when already in the
@@ -291,9 +341,9 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         #fakeContent {
           display: none;
         }
-        ${lookedAt.join(',')} {
+        ${ai.map((s) => `${s} .lookedAt`).join(',')} {
           stroke: black !important;
-          fill: var(--fr--color-sea-blue) !important;
+          fill: green !important; // TODO: finalize
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
@@ -321,6 +371,12 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
           fill-opacity: 1;
           fill: #E6DAB3;
         }
+        ${ai.join(',')} {
+          stroke: black;
+          fill-opacity: 1;
+          fill: red;
+        }
+
         `;
 
         const style = document.createElement('style');
@@ -392,6 +448,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       };
       shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
       return () => {
+        cleanupGlobalGoRows?.();
         cleanupTooltips.forEach((cleanup) => cleanup?.());
         shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
       };
