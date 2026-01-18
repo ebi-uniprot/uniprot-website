@@ -293,22 +293,19 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         /* AI */
         ${getGoLegendSelectors(aiGoIds)},
         ${getGoLegendHoverSelectors(aiGoIds)} {
-          background-color: #6d28d9 !important; /* purple-ish */
-          color: white !important;
+          background-color: color-mix(in srgb, var(--fr--color-purple-mid) 15%, white) !important;
         }
 
         /* Reviewed */
         ${getGoLegendSelectors(reviewedGoIds)},
         ${getGoLegendHoverSelectors(reviewedGoIds)} {
-          background-color: #0ea5e9 !important; /* blue-ish */
-          color: white !important;
+          background-color: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white) !important;
         }
 
         /* Unreviewed */
         ${getGoLegendSelectors(unreviewedGoIds)},
         ${getGoLegendHoverSelectors(unreviewedGoIds)} {
-          background-color: #22c55e !important; /* green-ish */
-          color: white !important;
+          background-color: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white) !important;
         }
         `
       );

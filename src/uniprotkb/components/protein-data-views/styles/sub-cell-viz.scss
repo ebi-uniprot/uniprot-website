@@ -13,23 +13,9 @@
   &.lookedAt,
   &:hover {
     background-color: var(--fr--color-sea-blue);
-    color: white;
 
     & article {
       color: black;
     }
-
-    & a.sub-cell-viz__location-id {
-      color: white;
-    }
-  }
-
-  &ai.lookedAt,
-  &ai:hover {
-    background-color: color-mix(
-      in srgb,
-      var(--fr--color-purple-mid) 20%,
-      white
-    );
   }
 }
