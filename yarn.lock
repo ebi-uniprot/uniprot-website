@@ -1109,6 +1109,11 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.7.6":
+  version "7.28.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.28.6.tgz#d267a43cb1836dc4d182cce93ae75ba954ef6d2b"
+  integrity sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==
+
 "@babel/template@^7.25.0", "@babel/template@^7.25.9", "@babel/template@^7.26.9", "@babel/template@^7.3.3":
   version "7.26.9"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.26.9.tgz#4577ad3ddf43d194528cff4e1fa6b232fa609bb2"
@@ -7259,19 +7264,23 @@ forwarded@0.2.0:
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.2.0.tgz#2269936428aad4c15c7ebe9779a84bf0b2a81811"
   integrity sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==
 
-foundation-sites@6.9.0:
-  version "6.9.0"
-  resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.9.0.tgz#ef4d51fa1c669cbdf61d080d8a328686ff85992a"
-  integrity sha512-bZpjL6lxuGViy1UU/NuMddyAAJP0YgJYKNh+8ZtDWhQRtiY1yQISxHmgF4V8EFx7DWHDTdZC1fwFysnMAYkdQg==
+foundation-sites@6.8.1:
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/foundation-sites/-/foundation-sites-6.8.1.tgz#9b17e9371c18916a375985571b33bdbe4c347555"
+  integrity sha512-9JAuLqVgzf7EIRUqVKeYN68dU/SGe0aNJPgnejdfJKSWnBFdQLF3Zvy9WEQ1gE/gnyvwG3Ia3LkkEd9774n0bQ==
 
-"franklin-sites@file:.yalc/franklin-sites":
-  version "0.0.261"
+franklin-sites@0.0.258:
+  version "0.0.258"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.258.tgz#025029526efac9a1d2a5439b98b670902717507d"
+  integrity sha512-Eiw7owRWYXtv8hq1ExSk3GcX3BVUTVZOuPcN1zG9wn6hiYdEOYwbX7ImV3CDnSFMJE0kJZHN87T+NwjGEdt0xg==
   dependencies:
     classnames "2.5.1"
     d3 "5.16.0"
-    foundation-sites "6.9.0"
-    lodash-es "4.17.22"
+    foundation-sites "6.8.1"
+    history "5.3.0"
+    lodash-es "4.17.21"
     timing-functions "2.0.1"
+    type-fest "4.26.1"
 
 fresh@0.5.2:
   version "0.5.2"
@@ -7771,6 +7780,13 @@ history@4.10.1, history@^4.9.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
     value-equal "^1.0.1"
+
+history@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
+  integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
 
 hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
@@ -9553,11 +9569,6 @@ lodash-es@4.17.21, lodash-es@^4.17.11:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
-
-lodash-es@4.17.22:
-  version "4.17.22"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.22.tgz#eb7d123ec2470d69b911abe34f85cb694849b346"
-  integrity sha512-XEawp1t0gxSi9x01glktRZ5HDy0HXqrM0x5pXQM98EaI0NxO6jVM7omDOxsuEo5UIASAnm2bRp1Jt/e0a2XU8Q==
 
 lodash.camelcase@^4.3.0:
   version "4.3.0"
