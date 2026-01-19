@@ -159,8 +159,8 @@ export const DemergedEntryMessage = ({
     <Card>
       {demergedTo.length ? (
         <div>
-          This entry has now been <strong>demerged</strong>. Its accession has
-          been set as secondary accession in the following UniProtKB entries.
+          This entry has been <strong>demerged</strong>. Its accession has been
+          set as a secondary accession in the following UniProtKB entries.
         </div>
       ) : null}
       {data?.results.length ? (
