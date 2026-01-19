@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../../app/config/urls';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
 import helper from '../../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../../shared/types/namespaces';
-import fetchData from '../../../../../shared/utils/fetchData';
+import { SearchResults } from '../../../../../shared/types/results';
 import { UniProtkbAPIModel } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../../../types/entry';
 import { columnConfig as similarProteinsColumnConfig } from '../../similar-proteins/SimilarProteinsTable';
@@ -57,28 +58,30 @@ const DemergedEntriesTable = ({
 
   const entriesData = useMemo(() => entries.slice(), [entries]);
 
+  const { data: inactiveEntriesData } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(
+    inactiveEntries.length > 0
+      ? apiUrls.search.search({
+          query: inactiveEntries.map((acc) => `(accession:${acc})`).join('OR'),
+          facets: null,
+        })
+      : null
+  );
+
   useEffect(() => {
-    if (inactiveEntries.length > 0) {
-      const promises = inactiveEntries.map((accession) => {
-        const url = apiUrls.entry.entry(
-          accession,
-          Namespace.uniprotkb
-        ) as string;
-        return fetchData<UniProtkbAPIModel>(url);
-      });
-      Promise.all(promises).then((responses) => {
-        responses.forEach((response) => {
-          if (
-            !entriesData.find(
-              (e) => e.primaryAccession === response.data.primaryAccession
-            )
-          ) {
-            entriesData.push(response.data);
-          }
-        });
+    if (inactiveEntriesData?.results) {
+      inactiveEntriesData.results.forEach((entry) => {
+        if (
+          !entriesData.find(
+            (e) => e.primaryAccession === entry.primaryAccession
+          )
+        ) {
+          entriesData.push(entry);
+        }
       });
     }
-  }, [inactiveEntries, entriesData]);
+  }, [inactiveEntriesData, entriesData]);
 
   return (
     <div className={helper['overflow-y-container']}>
