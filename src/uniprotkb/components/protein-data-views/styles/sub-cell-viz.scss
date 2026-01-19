@@ -12,10 +12,14 @@
 
   &.lookedAt,
   &:hover {
-    background-color: var(--fr--color-sea-blue);
+    background-color: color-mix(in srgb, var(--fr--color-sea-blue) 35%, white);
 
     & article {
       color: black;
+    }
+
+    & a.sub-cell-viz__location-id {
+      color: white;
     }
   }
 }

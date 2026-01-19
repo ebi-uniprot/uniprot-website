@@ -90,10 +90,10 @@ const getGoIds = (locations: SubCellularLocation[] = []) =>
   locations.map(({ id }) => `GO${+id}`);
 
 const getGoLegendSelectors = (goIds: string[]) =>
-  goIds.map((id) => `li.${id}.inpicture.lookedAt`).join(',\n');
+  goIds.map((id) => `li.${id}.inpicture`).join(',\n');
 
 const getGoLegendHoverSelectors = (goIds: string[]) =>
-  goIds.map((id) => `li.${id}.inpicture:hover`).join(',\n');
+  goIds.map((id) => `li.${id}.inpicture.lookedAt`).join(',\n');
 
 const attachTooltips = (
   locationGroup: Element,
@@ -280,32 +280,18 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       ];
 
       const ai = [...getGoTermSelectors(goLocationsByEvidenceType.ai)];
-
       const aiGoIds = getGoIds(goLocationsByEvidenceType.ai);
-      const reviewedGoIds = getGoIds(goLocationsByEvidenceType.reviewed);
-      const unreviewedGoIds = getGoIds(goLocationsByEvidenceType.unreviewed);
 
       const legendStyleId = `${instanceName.current}-go-legend`;
 
       const cleanupLegendStyle = upsertGlobalStyle(
         legendStyleId,
         `
-        /* AI */
-        ${getGoLegendSelectors(aiGoIds)},
-        ${getGoLegendHoverSelectors(aiGoIds)} {
+        ${getGoLegendSelectors(aiGoIds)} {
           background-color: color-mix(in srgb, var(--fr--color-purple-mid) 15%, white) !important;
         }
-
-        /* Reviewed */
-        ${getGoLegendSelectors(reviewedGoIds)},
-        ${getGoLegendHoverSelectors(reviewedGoIds)} {
-          background-color: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white) !important;
-        }
-
-        /* Unreviewed */
-        ${getGoLegendSelectors(unreviewedGoIds)},
-        ${getGoLegendHoverSelectors(unreviewedGoIds)} {
-          background-color: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white) !important;
+        ${getGoLegendHoverSelectors(aiGoIds)} {
+          background-color: color-mix(in srgb, var(--fr--color-purple-mid) 40%, white) !important;
         }
         `
       );
@@ -326,6 +312,8 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       const shadowRoot = instance?.shadowRoot;
       const cleanupTooltips: ReturnType<typeof attachTooltips>[] = [];
 
+      const uniprot = [...unreviewed, ...reviewed];
+
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
           document.querySelector('.tabs__header')?.clientHeight;
@@ -340,7 +328,12 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
         ${ai.map((s) => `${s} .lookedAt`).join(',')} {
           stroke: black !important;
-          fill: green !important; // TODO: finalize
+          fill: color-mix(in srgb, var(--fr--color-purple-mid) 15%, white) !important;
+          fill-opacity: 1 !important;
+        }
+        ${uniprot.map((sel) => `${sel} .lookedAt`).join(',')} {
+          stroke: black !important;
+          fill: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white); !important;
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
@@ -361,17 +354,17 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         ${unreviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: #87BBEB;
+          fill: color-mix(in srgb, var(--fr--color-unreviewed) 90%, blue);
         }
         ${reviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: #E6DAB3;
+          fill: color-mix(in srgb, var(--fr--color-reviewed) 90%, white);
         }
         ${ai.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: red;
+          fill: color-mix(in srgb, var(--fr--color-purple-mid) 90%, white);
         }
 
         `;
