@@ -149,7 +149,11 @@ export const DemergedEntryMessage = ({
 }: DemergedEntryMessageProps) => {
   const { loading, data, progress } = useDataApi<
     SearchResults<UniProtkbAPIModel>
-  >(demergedTo.length ? apiUrls.search.accessions(demergedTo) : undefined);
+  >(
+    demergedTo.length
+      ? apiUrls.search.accessions(demergedTo, { facets: null })
+      : undefined
+  );
 
   if (loading) {
     return <Loader progress={progress} />;
