@@ -1,20 +1,18 @@
 import { Message } from 'franklin-sites';
-import { Fragment, memo } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+import { getEntryPath } from '../../app/config/urls';
 import styles from '../../shared/components/results/styles/did-you-mean.module.scss';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../shared/hooks/useDataApi';
 import { Namespace } from '../../shared/types/namespaces';
 import { SearchResults } from '../../shared/types/results';
 import md5 from '../../shared/utils/md5';
-import { stringifyUrl } from '../../shared/utils/url';
-import { pluralise } from '../../shared/utils/utils';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
-import { TabLocation as UniProtKBTabLocation } from '../../uniprotkb/types/entry';
+import SuggestionEntriesTable from './SuggestionEntriesTable';
 
 type Props = {
   sequence?: string;
@@ -84,6 +82,11 @@ const ChecksumSuggester = memo(
           )
       ) || [];
 
+    const inactiveEntries =
+      uniProtKBAccessions
+        ?.filter((accession) => accession.includes('.'))
+        .map((accession) => accession.split('.')?.[0]) || [];
+
     const onlyUniParc =
       !activeCanonicalUniprotkb.length && !activeIsoformsUniprotkb.length;
 
@@ -93,85 +96,13 @@ const ChecksumSuggester = memo(
         which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
         <div>
           <ul className={styles['suggestions-list']}>
-            {activeCanonicalUniprotkb.length ? (
-              <li>
-                <div data-article-id="uniprotkb">UniProtKB</div>
-                {`${activeCanonicalUniprotkb.length} ${pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}: `}
-                {activeCanonicalUniprotkb
-                  ?.slice(0, N_IDS_SHOWN)
-                  .map((accession, i, array) => (
-                    <Fragment key={accession}>
-                      <Link
-                        to={getEntryPath(
-                          Namespace.uniprotkb,
-                          accession,
-                          UniProtKBTabLocation.Entry
-                        )}
-                      >
-                        {accession}
-                      </Link>
-                      {i < array.length - 1 && ', '}
-                    </Fragment>
-                  ))}
-                {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
-                  (activeCanonicalUniprotkb.length > 1 && ' –')}
-                {activeCanonicalUniprotkb.length > 1 && (
-                  <Link
-                    to={stringifyUrl(
-                      LocationToPath[Location.UniProtKBResults],
-                      {
-                        query: `(uniparc:${uniParcId})`,
-                      }
-                    )}
-                  >
-                    {' view all'}
-                  </Link>
-                )}
-              </li>
-            ) : null}
-            {activeIsoformsUniprotkb.length ? (
-              <li>
-                <div data-article-id="alternative_products">
-                  UniProtKB{' '}
-                  {pluralise('isoform', activeIsoformsUniprotkb.length)}
-                </div>
-                {`${activeIsoformsUniprotkb.length} ${pluralise('isoform', activeIsoformsUniprotkb.length)}: `}
-                {activeIsoformsUniprotkb
-                  ?.slice(0, N_IDS_SHOWN)
-                  .map((accession, i, array) => (
-                    <Fragment key={accession}>
-                      <Link
-                        to={getEntryPath(
-                          Namespace.uniprotkb,
-                          accession,
-                          UniProtKBTabLocation.Entry
-                        )}
-                      >
-                        {accession}
-                      </Link>
-                      {i < array.length - 1 && ', '}
-                    </Fragment>
-                  ))}
-                {(activeIsoformsUniprotkb.length > N_IDS_SHOWN && '…') ||
-                  (activeIsoformsUniprotkb.length > 1 && ' –')}
-                {activeIsoformsUniprotkb.length > 1 && (
-                  <Link
-                    to={stringifyUrl(
-                      getEntryPath(
-                        Namespace.uniparc,
-                        uniParcId,
-                        UniParcTabLocation.Entry
-                      ),
-                      {
-                        facets: 'dbTypes:UniProtKB/Swiss-Prot protein isoforms',
-                      }
-                    )}
-                  >
-                    {' view all'}
-                  </Link>
-                )}
-              </li>
-            ) : null}
+            <SuggestionEntriesTable
+              activeEntries={[
+                ...activeCanonicalUniprotkb,
+                ...activeIsoformsUniprotkb,
+              ]}
+              inactiveEntries={inactiveEntries}
+            />
             <li>
               <div data-article-id="uniparc">UniParc</div>
               {'1 entry: '}

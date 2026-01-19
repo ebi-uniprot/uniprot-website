@@ -12,7 +12,7 @@ import { UniProtkbAPIModel } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../../../types/entry';
 import { columnConfig as similarProteinsColumnConfig } from '../../similar-proteins/SimilarProteinsTable';
 
-const columnConfig = [
+export const columnConfig = [
   {
     label: 'Entry',
     name: 'entry',
