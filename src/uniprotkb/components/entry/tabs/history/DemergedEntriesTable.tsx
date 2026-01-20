@@ -22,7 +22,10 @@ export const columnConfig = [
           to={getEntryPath(
             Namespace.uniprotkb,
             row.primaryAccession,
-            TabLocation.Entry
+            row?.inactiveReason?.inactiveReasonType === 'MERGED' ||
+              row?.inactiveReason?.inactiveReasonType === 'DEMERGED'
+              ? TabLocation.History
+              : TabLocation.Entry
           )}
         >
           {row.primaryAccession}
