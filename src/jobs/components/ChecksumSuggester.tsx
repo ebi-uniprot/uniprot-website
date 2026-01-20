@@ -103,28 +103,22 @@ const ChecksumSuggester = memo(
         Are you looking for {onlyUniParc ? 'this entry ' : 'these entries '}
         which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
         <div>
-          <ul className={styles['suggestions-list']}>
-            <SuggestionEntriesTable
-              activeEntries={[
-                ...activeCanonicalUniprotkb,
-                ...activeIsoformsUniprotkb,
-              ]}
-              inactiveEntries={inactiveEntries}
-            />
-            <li>
-              <div data-article-id="uniparc">UniParc</div>
-              {'1 entry: '}
-              <Link
-                to={getEntryPath(
-                  Namespace.uniparc,
-                  uniParcId,
-                  UniParcTabLocation.Entry
-                )}
-              >
-                {uniParcId}
-              </Link>
-            </li>
-          </ul>
+          <SuggestionEntriesTable
+            activeEntries={[
+              ...activeCanonicalUniprotkb,
+              ...activeIsoformsUniprotkb,
+            ]}
+            inactiveEntries={inactiveEntries}
+          />
+          <Link
+            to={getEntryPath(
+              Namespace.uniparc,
+              uniParcId,
+              UniParcTabLocation.Entry
+            )}
+          >
+            View this entry in UniParc
+          </Link>
         </div>
       </>
     );

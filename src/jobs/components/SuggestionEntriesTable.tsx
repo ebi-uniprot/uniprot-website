@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { DataTable, Loader } from 'franklin-sites';
 
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
@@ -6,10 +7,17 @@ import helper from '../../shared/styles/helper.module.scss';
 import { SearchResults } from '../../shared/types/results';
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { columnConfig } from '../../uniprotkb/components/entry/tabs/history/DemergedEntriesTable';
+import styles from './styles/suggestion-entries-table.module.scss';
 
 type Props = {
   activeEntries: string[];
   inactiveEntries: string[];
+};
+
+const entryOrder: Record<string, number> = {
+  'UniProtKB reviewed (Swiss-Prot)': 0,
+  'UniProtKB unreviewed (TrEMBL)': 1,
+  Inactive: 2,
 };
 
 const SuggestionEntriesTable = ({ activeEntries, inactiveEntries }: Props) => {
@@ -46,14 +54,19 @@ const SuggestionEntriesTable = ({ activeEntries, inactiveEntries }: Props) => {
   const mergedData = [
     ...(activeEntriesData?.results || []),
     ...(inactiveEntriesData?.results || []),
-  ];
+  ].sort((a, b) => entryOrder[a.entryType] - entryOrder[b.entryType]);
 
   if (mergedData.length === 0) {
     return null;
   }
 
   return (
-    <div className={helper['overflow-y-container']}>
+    <div
+      className={classNames(
+        helper['overflow-y-container'],
+        styles['suggestion-list-table']
+      )}
+    >
       {activeEntriesData?.results.length ? (
         <DataTable
           data={mergedData}
