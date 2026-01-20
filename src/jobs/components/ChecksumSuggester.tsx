@@ -84,7 +84,15 @@ const ChecksumSuggester = memo(
 
     const inactiveEntries =
       uniProtKBAccessions
-        ?.filter((accession) => accession.includes('.'))
+        ?.filter(
+          (accession) =>
+            // is inactive
+            accession.includes('.') &&
+            // Latest version not already in the list of canonical accessions
+            !activeCanonicalUniprotkb.some(
+              (canonical) => accession.split('.')[0] === canonical
+            )
+        )
         .map((accession) => accession.split('.')?.[0]) || [];
 
     const onlyUniParc =
