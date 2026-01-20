@@ -45,7 +45,7 @@ const redirectMap = new Map<RedirectEntry[0], RedirectEntry[1]>([
   // tools
   [/^\/(tools-?)?dashboard(?<rest>\/.*)?$/i, `/tool-dashboard$<rest>`],
   [/^\/peptidesearch(?<rest>\/.*)?$/i, `/peptide-search$<rest>`],
-  [/^\/upload-?lists?(?<rest>\/.*)?$/i, `/id-mapping$<rest>`],
+  [/^\/(upload-?lists?|(id)?mapping)(?<rest>\/.*)?$/i, `/id-mapping$<rest>`],
   // help
   misspeltHelpTuple,
   // release notes

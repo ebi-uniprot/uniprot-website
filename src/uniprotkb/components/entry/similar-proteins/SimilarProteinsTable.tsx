@@ -24,7 +24,7 @@ export const columns = [
   UniProtKBColumn.length,
 ];
 
-const columnConfig = [
+export const columnConfig = [
   {
     label: '',
     name: 'reviewed',
