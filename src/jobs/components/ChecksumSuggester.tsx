@@ -9,6 +9,7 @@ import { Namespace } from '../../shared/types/namespaces';
 import { SearchResults } from '../../shared/types/results';
 import md5 from '../../shared/utils/md5';
 import { stringifyUrl } from '../../shared/utils/url';
+import { pluralise } from '../../shared/utils/utils';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
@@ -80,11 +81,6 @@ const ChecksumSuggester = memo(
           )
       ) || [];
 
-    const activeEntries = [
-      ...activeCanonicalUniprotkb,
-      ...activeIsoformsUniprotkb,
-    ];
-
     const inactiveEntries =
       uniProtKBAccessions
         ?.filter(
@@ -107,31 +103,69 @@ const ChecksumSuggester = memo(
         which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
         <div>
           <SuggestionEntriesTable
-            activeEntries={activeEntries}
+            activeEntries={[
+              ...activeCanonicalUniprotkb,
+              ...activeIsoformsUniprotkb,
+            ]}
             inactiveEntries={inactiveEntries}
           />
           <small>
-            {activeEntries.length ? (
-              <>
+            <ul className="no-bullet">
+              {activeCanonicalUniprotkb.length ? (
+                <li>
+                  <Link
+                    to={stringifyUrl(
+                      LocationToPath[Location.UniProtKBResults],
+                      {
+                        query: `(uniparc:${uniParcId})`,
+                      }
+                    )}
+                  >
+                    View the active{' '}
+                    {pluralise(
+                      'entry',
+                      activeCanonicalUniprotkb.length,
+                      'entries'
+                    )}{' '}
+                    in UniProtKB
+                  </Link>
+                </li>
+              ) : null}
+              {activeIsoformsUniprotkb.length &&
+              !activeIsoformsUniprotkb.some((isoform) =>
+                inactiveEntries.includes(isoform.split('-')[0])
+              ) ? (
+                <li>
+                  <Link
+                    to={stringifyUrl(
+                      getEntryPath(
+                        Namespace.uniparc,
+                        uniParcId,
+                        UniParcTabLocation.Entry
+                      ),
+                      {
+                        facets: 'dbTypes:UniProtKB/Swiss-Prot protein isoforms',
+                      }
+                    )}
+                  >
+                    View the{' '}
+                    {pluralise('isoform', activeIsoformsUniprotkb.length)} in
+                    UniProtKB
+                  </Link>
+                </li>
+              ) : null}
+              <li>
                 <Link
-                  to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
-                    query: `(uniparc:${uniParcId})`,
-                  })}
+                  to={getEntryPath(
+                    Namespace.uniparc,
+                    uniParcId,
+                    UniParcTabLocation.Entry
+                  )}
                 >
-                  View the active entries in UniProtKB
+                  View the matching entry in UniParc
                 </Link>
-                <br />
-              </>
-            ) : null}
-            <Link
-              to={getEntryPath(
-                Namespace.uniparc,
-                uniParcId,
-                UniParcTabLocation.Entry
-              )}
-            >
-              View the matching entry in UniParc
-            </Link>
+              </li>
+            </ul>
           </small>
         </div>
       </>
