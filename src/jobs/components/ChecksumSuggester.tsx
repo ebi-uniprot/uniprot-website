@@ -2,13 +2,13 @@ import { Message } from 'franklin-sites';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getEntryPath } from '../../app/config/urls';
-import styles from '../../shared/components/results/styles/did-you-mean.module.scss';
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../shared/hooks/useDataApi';
 import { Namespace } from '../../shared/types/namespaces';
 import { SearchResults } from '../../shared/types/results';
 import md5 from '../../shared/utils/md5';
+import { stringifyUrl } from '../../shared/utils/url';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
@@ -20,8 +20,6 @@ type Props = {
   sequenceDescription?: string;
   asMessage?: boolean;
 };
-
-const N_IDS_SHOWN = 5;
 
 const clean = (string: string): string => string.trim().toUpperCase();
 
@@ -82,6 +80,11 @@ const ChecksumSuggester = memo(
           )
       ) || [];
 
+    const activeEntries = [
+      ...activeCanonicalUniprotkb,
+      ...activeIsoformsUniprotkb,
+    ];
+
     const inactiveEntries =
       uniProtKBAccessions
         ?.filter(
@@ -104,21 +107,32 @@ const ChecksumSuggester = memo(
         which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
         <div>
           <SuggestionEntriesTable
-            activeEntries={[
-              ...activeCanonicalUniprotkb,
-              ...activeIsoformsUniprotkb,
-            ]}
+            activeEntries={activeEntries}
             inactiveEntries={inactiveEntries}
           />
-          <Link
-            to={getEntryPath(
-              Namespace.uniparc,
-              uniParcId,
-              UniParcTabLocation.Entry
-            )}
-          >
-            View this entry in UniParc
-          </Link>
+          <small>
+            {activeEntries.length ? (
+              <>
+                <Link
+                  to={stringifyUrl(LocationToPath[Location.UniProtKBResults], {
+                    query: `(uniparc:${uniParcId})`,
+                  })}
+                >
+                  View the active entries in UniProtKB
+                </Link>
+                <br />
+              </>
+            ) : null}
+            <Link
+              to={getEntryPath(
+                Namespace.uniparc,
+                uniParcId,
+                UniParcTabLocation.Entry
+              )}
+            >
+              View the matching entry in UniParc
+            </Link>
+          </small>
         </div>
       </>
     );
