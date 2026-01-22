@@ -141,8 +141,8 @@ const LatestNews = () => {
                   styles['latest-news__abstract--2-lines']
                 )}
               >
-                Complement-ary information on granzyme K | Removal of the
-                cross-references to neXtProt...
+                Complement-ary information on granzyme K | Continuing to
+                reorganizing the protein space in UniProtKB...
               </p>
             </article>
           </li>
