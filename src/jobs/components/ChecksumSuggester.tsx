@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
@@ -18,6 +18,8 @@ import SuggestionEntriesTable from './SuggestionEntriesTable';
 type Props = {
   sequence?: string;
   name?: string;
+  onMatch?: () => void;
+  onUserDismiss?: () => void;
   sequenceDescription?: string;
   asMessage?: boolean;
 };
@@ -28,6 +30,8 @@ const ChecksumSuggester = memo(
   ({
     sequence,
     name,
+    onMatch,
+    onUserDismiss,
     sequenceDescription = 'your sequence',
     asMessage = true,
   }: Props) => {
@@ -41,23 +45,9 @@ const ChecksumSuggester = memo(
     };
     const url = options && apiUrls.search.search(options);
     const { data } = useDataApi<SearchResults<UniParcAPIModel>>(url);
-    // Expect exactly one result otherwise don't show anything
-    if (data?.results?.length !== 1) {
-      return null;
-    }
-    const { uniProtKBAccessions, uniParcId } = data.results[0];
+    const didMatchRef = useRef(false);
 
-    // If the sequence header name includes any of the retrieved
-    // uniprotkb or uniparc ids then don't show anything to the user
-    // as it's assumed they know what they're doing
-    if (
-      name &&
-      [uniParcId, ...(uniProtKBAccessions || [])].some((id) =>
-        name.includes(id)
-      )
-    ) {
-      return null;
-    }
+    const { uniProtKBAccessions, uniParcId } = data?.results?.[0] || {};
 
     const activeCanonicalUniprotkb =
       uniProtKBAccessions?.filter(
@@ -95,7 +85,39 @@ const ChecksumSuggester = memo(
         .map((accession) => accession.split('.')?.[0]) || [];
 
     const onlyUniParc =
-      !activeCanonicalUniprotkb.length && !activeIsoformsUniprotkb.length;
+      !activeCanonicalUniprotkb.length &&
+      !activeIsoformsUniprotkb.length &&
+      inactiveEntries.length;
+
+    // Reset when context changes
+    useEffect(() => {
+      didMatchRef.current = false;
+    }, [checksum, uniParcId, onMatch]);
+
+    useEffect(() => {
+      if (!onlyUniParc && !didMatchRef.current && onMatch) {
+        onMatch();
+        didMatchRef.current = true;
+      }
+    }, [onlyUniParc, onMatch]);
+
+    // Expect exactly one result otherwise don't show anything
+    if (data?.results?.length !== 1) {
+      return null;
+    }
+
+    // If the sequence header name includes any of the retrieved
+    // uniprotkb or uniparc ids then don't show anything to the user
+    // as it's assumed they know what they're doing
+    if (
+      name &&
+      uniParcId &&
+      [uniParcId, ...(uniProtKBAccessions || [])].some((id) =>
+        name.includes(id)
+      )
+    ) {
+      return null;
+    }
 
     const content = (
       <>
@@ -140,7 +162,7 @@ const ChecksumSuggester = memo(
                     to={stringifyUrl(
                       getEntryPath(
                         Namespace.uniparc,
-                        uniParcId,
+                        uniParcId as string,
                         UniParcTabLocation.Entry
                       ),
                       {
@@ -158,7 +180,7 @@ const ChecksumSuggester = memo(
                 <Link
                   to={getEntryPath(
                     Namespace.uniparc,
-                    uniParcId,
+                    uniParcId as string,
                     UniParcTabLocation.Entry
                   )}
                 >
@@ -167,6 +189,21 @@ const ChecksumSuggester = memo(
               </li>
             </ul>
           </small>
+          {onMatch && !onlyUniParc && (
+            <div>
+              <input
+                type="checkbox"
+                id="on-match"
+                name="on-match"
+                onClick={onUserDismiss}
+                required
+              />
+              <label htmlFor="on-match">
+                None of the entries are of interest to me
+                <span aria-hidden="true">*</span>
+              </label>
+            </div>
+          )}
         </div>
       </>
     );

@@ -155,6 +155,11 @@ export const getBlastFormDataReducer =
           ...state,
           formValues: blastFormUpdateSelectedReducer(state.formValues, action),
         };
+      case blastFormActions.SET_SUBMIT_DISABLED:
+        return {
+          ...state,
+          submitDisabled: action.payload,
+        };
       case blastFormActions.UPDATE_SENDING:
         return {
           ...state,
