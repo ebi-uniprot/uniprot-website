@@ -8,6 +8,7 @@ import {
 
 export const UPDATE_SELECTED = 'UPDATE_SELECTED';
 export const UPDATE_PEPTIDE_SEQUENCES = 'UPDATE_PEPTIDE_SEQUENCES';
+export const SET_SUBMIT_DISABLED = 'SET_SUBMIT_DISABLED';
 export const UPDATE_SENDING = 'UPDATE_SENDING';
 export const RESET = 'RESET';
 
@@ -18,6 +19,9 @@ export const updateSelected = (
 
 export const updatePeptideSequences = (peps: string) =>
   action(UPDATE_PEPTIDE_SEQUENCES, peps);
+
+export const setSubmitDisabled = (submitDisabled: boolean) =>
+  action(SET_SUBMIT_DISABLED, submitDisabled);
 
 export const updateSending = () => action(UPDATE_SENDING);
 

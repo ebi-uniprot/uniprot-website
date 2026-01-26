@@ -85,7 +85,7 @@ const PeptideSearchSuggestion = ({
 }: {
   potentialPeptide: string;
 }) => (
-  <p>
+  <div>
     Are you searching for protein sequences containing the peptide{' '}
     <span>{truncate(potentialPeptide, truncateOptions)}?</span>
     <ul>
@@ -123,7 +123,7 @@ const PeptideSearchSuggestion = ({
         .
       </li>
     </ul>
-  </p>
+  </div>
 );
 
 const didYouMeanNamespaces: SearchableNamespace[] = [

@@ -1,9 +1,8 @@
 import { Message } from 'franklin-sites';
-import { Fragment, memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
-import styles from '../../shared/components/results/styles/did-you-mean.module.scss';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../shared/hooks/useDataApi';
 import { Namespace } from '../../shared/types/namespaces';
@@ -14,16 +13,16 @@ import { pluralise } from '../../shared/utils/utils';
 import { type UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
-import { TabLocation as UniProtKBTabLocation } from '../../uniprotkb/types/entry';
+import SuggestionEntriesTable from './SuggestionEntriesTable';
 
 type Props = {
   sequence?: string;
   name?: string;
+  onMatch?: () => void;
+  onUserDismiss?: () => void;
   sequenceDescription?: string;
   asMessage?: boolean;
 };
-
-const N_IDS_SHOWN = 5;
 
 const clean = (string: string): string => string.trim().toUpperCase();
 
@@ -31,6 +30,8 @@ const ChecksumSuggester = memo(
   ({
     sequence,
     name,
+    onMatch,
+    onUserDismiss,
     sequenceDescription = 'your sequence',
     asMessage = true,
   }: Props) => {
@@ -44,23 +45,9 @@ const ChecksumSuggester = memo(
     };
     const url = options && apiUrls.search.search(options);
     const { data } = useDataApi<SearchResults<UniParcAPIModel>>(url);
-    // Expect exactly one result otherwise don't show anything
-    if (data?.results?.length !== 1) {
-      return null;
-    }
-    const { uniProtKBAccessions, uniParcId } = data.results[0];
+    const didMatchRef = useRef(false);
 
-    // If the sequence header name includes any of the retrieved
-    // uniprotkb or uniparc ids then don't show anything to the user
-    // as it's assumed they know what they're doing
-    if (
-      name &&
-      [uniParcId, ...(uniProtKBAccessions || [])].some((id) =>
-        name.includes(id)
-      )
-    ) {
-      return null;
-    }
+    const { uniProtKBAccessions, uniParcId } = data?.results?.[0] || {};
 
     const activeCanonicalUniprotkb =
       uniProtKBAccessions?.filter(
@@ -84,38 +71,70 @@ const ChecksumSuggester = memo(
           )
       ) || [];
 
+    const inactiveEntries =
+      uniProtKBAccessions
+        ?.filter(
+          (accession) =>
+            // is inactive
+            accession.includes('.') &&
+            // Latest version not already in the list of canonical accessions
+            !activeCanonicalUniprotkb.some(
+              (canonical) => accession.split('.')[0] === canonical
+            )
+        )
+        .map((accession) => accession.split('.')?.[0]) || [];
+
     const onlyUniParc =
-      !activeCanonicalUniprotkb.length && !activeIsoformsUniprotkb.length;
+      !activeCanonicalUniprotkb.length &&
+      !activeIsoformsUniprotkb.length &&
+      inactiveEntries.length;
+
+    // Reset when context changes
+    useEffect(() => {
+      didMatchRef.current = false;
+    }, [checksum, uniParcId, onMatch]);
+
+    useEffect(() => {
+      if (!onlyUniParc && !didMatchRef.current && onMatch) {
+        onMatch();
+        didMatchRef.current = true;
+      }
+    }, [onlyUniParc, onMatch]);
+
+    // Expect exactly one result otherwise don't show anything
+    if (data?.results?.length !== 1) {
+      return null;
+    }
+
+    // If the sequence header name includes any of the retrieved
+    // uniprotkb or uniparc ids then don't show anything to the user
+    // as it's assumed they know what they're doing
+    if (
+      name &&
+      uniParcId &&
+      [uniParcId, ...(uniProtKBAccessions || [])].some((id) =>
+        name.includes(id)
+      )
+    ) {
+      return null;
+    }
 
     const content = (
       <>
         Are you looking for {onlyUniParc ? 'this entry ' : 'these entries '}
         which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
         <div>
-          <ul className={styles['suggestions-list']}>
-            {activeCanonicalUniprotkb.length ? (
-              <li>
-                <div data-article-id="uniprotkb">UniProtKB</div>
-                {`${activeCanonicalUniprotkb.length} ${pluralise('entry', activeCanonicalUniprotkb.length, 'entries')}: `}
-                {activeCanonicalUniprotkb
-                  ?.slice(0, N_IDS_SHOWN)
-                  .map((accession, i, array) => (
-                    <Fragment key={accession}>
-                      <Link
-                        to={getEntryPath(
-                          Namespace.uniprotkb,
-                          accession,
-                          UniProtKBTabLocation.Entry
-                        )}
-                      >
-                        {accession}
-                      </Link>
-                      {i < array.length - 1 && ', '}
-                    </Fragment>
-                  ))}
-                {(activeCanonicalUniprotkb.length > N_IDS_SHOWN && '…') ||
-                  (activeCanonicalUniprotkb.length > 1 && ' –')}
-                {activeCanonicalUniprotkb.length > 1 && (
+          <SuggestionEntriesTable
+            activeEntries={[
+              ...activeCanonicalUniprotkb,
+              ...activeIsoformsUniprotkb,
+            ]}
+            inactiveEntries={inactiveEntries}
+          />
+          <small>
+            <ul className="no-bullet">
+              {activeCanonicalUniprotkb.length ? (
+                <li>
                   <Link
                     to={stringifyUrl(
                       LocationToPath[Location.UniProtKBResults],
@@ -124,42 +143,26 @@ const ChecksumSuggester = memo(
                       }
                     )}
                   >
-                    {' view all'}
+                    View the active{' '}
+                    {pluralise(
+                      'entry',
+                      activeCanonicalUniprotkb.length,
+                      'entries'
+                    )}{' '}
+                    in UniProtKB
                   </Link>
-                )}
-              </li>
-            ) : null}
-            {activeIsoformsUniprotkb.length ? (
-              <li>
-                <div data-article-id="alternative_products">
-                  UniProtKB{' '}
-                  {pluralise('isoform', activeIsoformsUniprotkb.length)}
-                </div>
-                {`${activeIsoformsUniprotkb.length} ${pluralise('isoform', activeIsoformsUniprotkb.length)}: `}
-                {activeIsoformsUniprotkb
-                  ?.slice(0, N_IDS_SHOWN)
-                  .map((accession, i, array) => (
-                    <Fragment key={accession}>
-                      <Link
-                        to={getEntryPath(
-                          Namespace.uniprotkb,
-                          accession,
-                          UniProtKBTabLocation.Entry
-                        )}
-                      >
-                        {accession}
-                      </Link>
-                      {i < array.length - 1 && ', '}
-                    </Fragment>
-                  ))}
-                {(activeIsoformsUniprotkb.length > N_IDS_SHOWN && '…') ||
-                  (activeIsoformsUniprotkb.length > 1 && ' –')}
-                {activeIsoformsUniprotkb.length > 1 && (
+                </li>
+              ) : null}
+              {activeIsoformsUniprotkb.length &&
+              !activeIsoformsUniprotkb.some((isoform) =>
+                inactiveEntries.includes(isoform.split('-')[0])
+              ) ? (
+                <li>
                   <Link
                     to={stringifyUrl(
                       getEntryPath(
                         Namespace.uniparc,
-                        uniParcId,
+                        uniParcId as string,
                         UniParcTabLocation.Entry
                       ),
                       {
@@ -167,25 +170,40 @@ const ChecksumSuggester = memo(
                       }
                     )}
                   >
-                    {' view all'}
+                    View the{' '}
+                    {pluralise('isoform', activeIsoformsUniprotkb.length)} in
+                    UniProtKB
                   </Link>
-                )}
+                </li>
+              ) : null}
+              <li>
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniparc,
+                    uniParcId as string,
+                    UniParcTabLocation.Entry
+                  )}
+                >
+                  View the matching entry in UniParc
+                </Link>
               </li>
-            ) : null}
-            <li>
-              <div data-article-id="uniparc">UniParc</div>
-              {'1 entry: '}
-              <Link
-                to={getEntryPath(
-                  Namespace.uniparc,
-                  uniParcId,
-                  UniParcTabLocation.Entry
-                )}
-              >
-                {uniParcId}
-              </Link>
-            </li>
-          </ul>
+            </ul>
+          </small>
+          {onMatch && !onlyUniParc && (
+            <div>
+              <input
+                type="checkbox"
+                id="on-match"
+                name="on-match"
+                onClick={onUserDismiss}
+                required
+              />
+              <label htmlFor="on-match">
+                None of the entries are of interest to me
+                <span aria-hidden="true">*</span>
+              </label>
+            </div>
+          )}
         </div>
       </>
     );

@@ -32,14 +32,39 @@ describe('ChecksumSuggester', () => {
   it('should show message', async () => {
     customRender(<ChecksumSuggester sequence={sequence} />);
     expect(
-      await screen.findByRole('link', { name: 'view all' })
+      await screen.findByRole('link', {
+        name: 'View the active entries in UniProtKB',
+      })
     ).toHaveAttribute('href', '/uniprotkb?query=%28uniparc%3AUPI000002DB1C%29');
     expect(
-      await screen.findByRole('link', { name: 'P00000-0' })
-    ).toHaveAttribute('href', '/uniprotkb/P00000/entry#P00000-0');
-    expect(
-      await screen.findByRole('link', { name: 'UPI000002DB1C' })
+      await screen.findByRole('link', {
+        name: 'View the matching entry in UniParc',
+      })
     ).toHaveAttribute('href', '/uniparc/UPI000002DB1C/entry');
+  });
+  it('should call onMatch when matching entries are found and userDimiss after user acknowledgement', async () => {
+    const onMatch = jest.fn();
+    const onUserDismiss = jest.fn();
+
+    customRender(
+      <ChecksumSuggester
+        sequence={sequence}
+        onMatch={onMatch}
+        onUserDismiss={onUserDismiss}
+      />
+    );
+    await screen.findByRole('link', {
+      name: 'View the matching entry in UniParc',
+    });
+    await waitFor(() => {
+      expect(onMatch).toHaveBeenCalled();
+    });
+
+    const checkbox = await screen.findByRole('checkbox', {
+      name: 'None of the entries are of interest to me',
+    });
+    checkbox.click();
+    expect(onUserDismiss).toHaveBeenCalledTimes(1);
   });
   it('should not show message because sequence md5 does not match', async () => {
     customRender(<ChecksumSuggester sequence="FOO" />);

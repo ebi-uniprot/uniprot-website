@@ -47,6 +47,7 @@ import defaultFormValues, {
 } from '../config/PeptideSearchFormData';
 import {
   resetFormState,
+  setSubmitDisabled,
   updatePeptideSequences,
   updateSelected,
   updateSending,
@@ -289,7 +290,15 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
             />
           </section>
           {parsedSequences.length === 1 ? (
-            <ChecksumSuggester sequence={parsedSequences[0]} />
+            <ChecksumSuggester
+              sequence={parsedSequences[0]}
+              onMatch={() => {
+                dispatch(setSubmitDisabled(true));
+              }}
+              onUserDismiss={() => {
+                dispatch(setSubmitDisabled(false));
+              }}
+            />
           ) : null}
           <section className="tools-form-section">
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
