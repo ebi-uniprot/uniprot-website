@@ -15,12 +15,12 @@ exports[`Taxonomy Card tests should render 1`] = `
           class="checkbox-cell"
         >
           <input
-            data-id="37299"
+            data-id="1441288"
             id="1"
             type="checkbox"
           />
           <label
-            aria-label="37299"
+            aria-label="1441288"
             for="1"
             title="click to select, shift+click for multiple selection"
           />
@@ -29,11 +29,11 @@ exports[`Taxonomy Card tests should render 1`] = `
           class="small"
         >
           <a
-            href="/taxonomy/37299"
-            title="Primate calicivirus, taxon ID 37299"
+            href="/taxonomy/1441288"
+            title="primate metagenome, taxon ID 1441288"
             translate="no"
           >
-            Primate calicivirus
+            primate metagenome
           </a>
         </h2>
       </div>
@@ -50,101 +50,40 @@ exports[`Taxonomy Card tests should render 1`] = `
               Lineage: 
             </strong>
             <a
-              href="/taxonomy/10239"
-              title="Viruses, taxon ID 10239"
+              class="hidden-taxon"
+              href="/taxonomy/2787823"
+              title="unclassified entries, taxon ID 2787823"
               translate="no"
             >
-              Viruses
+              unclassified entries
             </a>
              &gt; 
             <a
-              href="/taxonomy/2559587"
-              title="Riboviria (RNA viruses and retroviruses), taxon ID 2559587"
+              href="/taxonomy/12908"
+              title="unclassified sequences, taxon ID 12908"
               translate="no"
             >
-              Riboviria (RNA viruses and retroviruses)
+              unclassified sequences
             </a>
              &gt; 
             <a
-              href="/taxonomy/2732396"
-              title="Orthornavirae, taxon ID 2732396"
+              href="/taxonomy/408169"
+              title="metagenomes, taxon ID 408169"
               translate="no"
             >
-              Orthornavirae
+              metagenomes
             </a>
              &gt; 
             <a
-              href="/taxonomy/2732408"
-              title="Pisuviricota, taxon ID 2732408"
+              href="/taxonomy/410656"
+              title="organismal metagenomes, taxon ID 410656"
               translate="no"
             >
-              Pisuviricota
-            </a>
-             &gt; 
-            <a
-              href="/taxonomy/2732506"
-              title="Pisoniviricetes, taxon ID 2732506"
-              translate="no"
-            >
-              Pisoniviricetes
-            </a>
-             &gt; 
-            <a
-              href="/taxonomy/464095"
-              title="Picornavirales, taxon ID 464095"
-              translate="no"
-            >
-              Picornavirales
-            </a>
-             &gt; 
-            <a
-              href="/taxonomy/11974"
-              title="Caliciviridae, taxon ID 11974"
-              translate="no"
-            >
-              Caliciviridae
-            </a>
-             &gt; 
-            <a
-              href="/taxonomy/95337"
-              title="Vesivirus, taxon ID 95337"
-              translate="no"
-            >
-              Vesivirus
-            </a>
-             &gt; 
-            <a
-              href="/taxonomy/3433198"
-              title="Vesivirus exanthema, taxon ID 3433198"
-              translate="no"
-            >
-              Vesivirus exanthema
-            </a>
-             &gt; 
-            <a
-              href="/taxonomy/35612"
-              title="Vesicular exanthema of swine virus (VESV), taxon ID 35612"
-              translate="no"
-            >
-              Vesicular exanthema of swine virus (VESV)
+              organismal metagenomes
             </a>
           </span>
         </div>
       </div>
-    </div>
-    <div
-      class="card__actions"
-    >
-      <a
-        href="/uniprotkb?query=%28taxonomy_id%3A37299%29"
-      >
-        3 UniProtKB entries
-      </a>
-      <a
-        href="/uniprotkb?query=%28taxonomy_id%3A37299%29+AND+%28reviewed%3Afalse%29"
-      >
-        3 unreviewed UniProtKB entries
-      </a>
     </div>
   </section>
 </DocumentFragment>

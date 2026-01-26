@@ -2,9 +2,54 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 // Source: taxonomy/search?size=2&query=primate
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const mock: SearchResults<TaxonomyAPIModel> = {
   results: [
+    {
+      scientificName: 'primate metagenome',
+      taxonId: 1441288,
+      mnemonic: '9ZZZZ',
+      parent: {
+        scientificName: 'organismal metagenomes',
+        taxonId: 410656,
+      },
+      rank: 'species',
+      hidden: true,
+      active: true,
+      otherNames: ['primate microbiota'],
+      lineage: [
+        {
+          scientificName: 'unclassified entries',
+          taxonId: 2787823,
+          rank: 'no rank',
+          hidden: true,
+        },
+        {
+          scientificName: 'unclassified sequences',
+          taxonId: 12908,
+          rank: 'no rank',
+          hidden: false,
+        },
+        {
+          scientificName: 'metagenomes',
+          taxonId: 408169,
+          rank: 'no rank',
+          hidden: false,
+        },
+        {
+          scientificName: 'organismal metagenomes',
+          taxonId: 410656,
+          rank: 'no rank',
+          hidden: false,
+        },
+      ],
+      statistics: {
+        reviewedProteinCount: 0,
+        unreviewedProteinCount: 0,
+        referenceProteomeCount: 0,
+        proteomeCount: 0,
+      },
+    },
     {
       scientificName: 'Primate calicivirus',
       taxonId: 37299,
@@ -12,7 +57,6 @@ const mock: SearchResults<TaxonomyAPIModel> = {
       parent: {
         scientificName: 'Vesicular exanthema of swine virus',
         commonName: 'VESV',
-        synonyms: [''],
         taxonId: 35612,
       },
       rank: 'no rank',
@@ -21,7 +65,6 @@ const mock: SearchResults<TaxonomyAPIModel> = {
       lineage: [
         {
           scientificName: 'Viruses',
-          synonyms: [''],
           taxonId: 10239,
           rank: 'no rank',
           hidden: false,
@@ -29,56 +72,48 @@ const mock: SearchResults<TaxonomyAPIModel> = {
         {
           scientificName: 'Riboviria',
           commonName: 'RNA viruses and retroviruses',
-          synonyms: [''],
           taxonId: 2559587,
           rank: 'realm',
           hidden: false,
         },
         {
           scientificName: 'Orthornavirae',
-          synonyms: [''],
           taxonId: 2732396,
           rank: 'kingdom',
           hidden: false,
         },
         {
           scientificName: 'Pisuviricota',
-          synonyms: [''],
           taxonId: 2732408,
           rank: 'phylum',
           hidden: false,
         },
         {
           scientificName: 'Pisoniviricetes',
-          synonyms: [''],
           taxonId: 2732506,
           rank: 'class',
           hidden: false,
         },
         {
           scientificName: 'Picornavirales',
-          synonyms: [''],
           taxonId: 464095,
           rank: 'order',
           hidden: false,
         },
         {
           scientificName: 'Caliciviridae',
-          synonyms: [''],
           taxonId: 11974,
           rank: 'family',
           hidden: false,
         },
         {
           scientificName: 'Vesivirus',
-          synonyms: [''],
           taxonId: 95337,
           rank: 'genus',
           hidden: false,
         },
         {
           scientificName: 'Vesivirus exanthema',
-          synonyms: [''],
           taxonId: 3433198,
           rank: 'species',
           hidden: false,
@@ -86,7 +121,6 @@ const mock: SearchResults<TaxonomyAPIModel> = {
         {
           scientificName: 'Vesicular exanthema of swine virus',
           commonName: 'VESV',
-          synonyms: [''],
           taxonId: 35612,
           rank: 'no rank',
           hidden: false,
@@ -95,84 +129,6 @@ const mock: SearchResults<TaxonomyAPIModel> = {
       statistics: {
         reviewedProteinCount: 0,
         unreviewedProteinCount: 3,
-        referenceProteomeCount: 0,
-        proteomeCount: 0,
-      },
-    },
-    {
-      scientificName: 'primate papillomaviruses',
-      taxonId: 333933,
-      mnemonic: '9PAPI',
-      parent: {
-        scientificName: 'unclassified Papillomaviridae',
-        synonyms: [''],
-        taxonId: 333774,
-      },
-      rank: 'clade',
-      hidden: false,
-      active: true,
-      lineage: [
-        {
-          scientificName: 'Viruses',
-          synonyms: [''],
-          taxonId: 10239,
-          rank: 'no rank',
-          hidden: false,
-        },
-        {
-          scientificName: 'Monodnaviria',
-          commonName: 'single-stranded DNA viruses',
-          synonyms: [''],
-          taxonId: 2731342,
-          rank: 'realm',
-          hidden: false,
-        },
-        {
-          scientificName: 'Shotokuvirae',
-          synonyms: [''],
-          taxonId: 2732092,
-          rank: 'kingdom',
-          hidden: false,
-        },
-        {
-          scientificName: 'Cossaviricota',
-          synonyms: [''],
-          taxonId: 2732415,
-          rank: 'phylum',
-          hidden: false,
-        },
-        {
-          scientificName: 'Papovaviricetes',
-          synonyms: [''],
-          taxonId: 2732421,
-          rank: 'class',
-          hidden: false,
-        },
-        {
-          scientificName: 'Zurhausenvirales',
-          synonyms: [''],
-          taxonId: 2732533,
-          rank: 'order',
-          hidden: false,
-        },
-        {
-          scientificName: 'Papillomaviridae',
-          synonyms: [''],
-          taxonId: 151340,
-          rank: 'family',
-          hidden: false,
-        },
-        {
-          scientificName: 'unclassified Papillomaviridae',
-          synonyms: [''],
-          taxonId: 333774,
-          rank: 'no rank',
-          hidden: true,
-        },
-      ],
-      statistics: {
-        reviewedProteinCount: 0,
-        unreviewedProteinCount: 59,
         referenceProteomeCount: 0,
         proteomeCount: 0,
       },

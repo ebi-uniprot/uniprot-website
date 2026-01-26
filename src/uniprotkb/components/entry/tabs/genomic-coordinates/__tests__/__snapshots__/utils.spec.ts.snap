@@ -3,1922 +3,6 @@
 exports[`groupCoordinates groups coordinates according to genes and isoforms 1`] = `
 {
   "FBgn0283521": {
-    "P42283-1": [
-      {
-        "accession": "P42283-1",
-        "gene": [
-          {
-            "type": "primary",
-            "value": "lola",
-          },
-          {
-            "type": "ORF",
-            "value": "CG12052",
-          },
-        ],
-        "gnCoordinate": {
-          "ensemblGeneId": "FBgn0283521",
-          "ensemblTranscriptId": "FBtr0089347",
-          "ensemblTranslationId": "FBpp0088381",
-          "feature": [
-            {
-              "description": "Disordered.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532781,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532443,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 228,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 340,
-                  "status": "certain",
-                },
-              },
-              "type": "region of interest",
-            },
-            {
-              "description": "BTB.",
-              "evidence": [
-                {
-                  "code": "ECO:0000255",
-                  "dbReference": {
-                    "id": "PRU00037",
-                    "type": "PROSITE-ProRule",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533656,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533395,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 32,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 97,
-                  "status": "certain",
-                },
-              },
-              "type": "domain",
-            },
-            {
-              "description": "Phosphothreonine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533205,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533203,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 161,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Disordered.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532066,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10484215,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 446,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 467,
-                  "status": "certain",
-                },
-              },
-              "type": "region of interest",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483503,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483501,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 705,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532781,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532710,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 228,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 251,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Basic and acidic residues.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532057,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10484230,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 449,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 462,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532340,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532338,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 375,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "11880341",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533367,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533365,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 107,
-                  "status": "certain",
-                },
-              },
-              "original": "A",
-              "type": "mutagenesis site",
-              "variation": [
-                "V",
-              ],
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533184,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533182,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 168,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483530,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483528,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 696,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "C2H2-type 2.",
-              "evidence": [
-                {
-                  "code": "ECO:0000255",
-                  "dbReference": {
-                    "id": "PRU00042",
-                    "type": "PROSITE-ProRule",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483155,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483087,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 821,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 843,
-                  "status": "certain",
-                },
-              },
-              "type": "zinc finger region",
-            },
-            {
-              "evidence": [
-                {
-                  "code": "ECO:0000305",
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483803,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483795,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 605,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 607,
-                  "status": "certain",
-                },
-              },
-              "original": "HTT",
-              "type": "sequence conflict",
-              "variation": [
-                "QLGVVK",
-              ],
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483368,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483366,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 750,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533202,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533161,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 162,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 175,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532331,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532329,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 378,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532349,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532347,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 372,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532478,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532443,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 329,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 340,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Disordered.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533343,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532863,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 115,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 200,
-                  "status": "certain",
-                },
-              },
-              "type": "region of interest",
-            },
-            {
-              "description": "Phosphothreonine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483500,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483498,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 706,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532676,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532584,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 263,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 293,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "C2H2-type 1; degenerate.",
-              "evidence": [
-                {
-                  "code": "ECO:0000255",
-                  "dbReference": {
-                    "id": "PRU00042",
-                    "type": "PROSITE-ProRule",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483245,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483177,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 791,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 813,
-                  "status": "certain",
-                },
-              },
-              "type": "zinc finger region",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10482996,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10482994,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 874,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533268,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533266,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 140,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483371,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483369,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 749,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533202,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533200,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 162,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-          ],
-          "genomicLocation": {
-            "assemblyName": "BDGP6.46",
-            "chromosome": "2R",
-            "end": 10482943,
-            "exon": [
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10533749,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10533576,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E2",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 1,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 58,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10533511,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10533118,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E3",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 59,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 190,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10532894,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10532181,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E4",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 190,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 428,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10532119,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10532039,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E5",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 428,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 455,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10484252,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10482943,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089347-E6",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 455,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 891,
-                    "status": "certain",
-                  },
-                },
-              },
-            ],
-            "nucleotideId": "AE013599.5",
-            "reverseStrand": true,
-            "start": 10533749,
-          },
-        },
-        "name": "LOLA1_DROME",
-        "protein": {
-          "recommendedName": {
-            "fullName": "Longitudinals lacking protein, isoform G",
-          },
-        },
-        "sequence": "MDDDQQFCLRWNNHQSTLISVFDTLLENETLVDCTLAAEGKFLKAHKVVLSACSPYFATLLQEQYDKHPIFILKDVKYQELRAMMDYMYRGEVNISQDQLAALLKAAESLQIKGLSDNRTGGGVAPKPESSGHHRGGKLSGAYTLEQTKRARLATGGAMDTSGDVSGSREGSSSPSRRRRKVRRRSMENDAHDNSNSSVLQAAASNQSILQQTGAGLAVSALVTTQLSSGPAAGTSSQASSTQQQQPLTSTNVTKKTESAKLTSSTAAPASGASASAAVQQAHLHQQQAQTTSDAINTENVQAQSQGGAQGVQGDDEDIDEGSAVGGPNSATGPNPASASASAVHAGVVVKQLASVVDKSSSNHKHKIKDNSVSSVGSEMVIEPKAEYDDDAHDENVEDLTLDEEDMTMEELDQTAGTSQGGEGSSQTYATWQHDRSQDELGLMAQDAQQRDPQDLSRKENTAPDVASTAEIQRSFQRSILNGKQRDEQKIQLPGSRRKRLSVTEVSDMLFEFYKTKSAKVPKAEQPHRQVSPTSGEILDPSTISAIAVYGTASETASKNLNADEVMRVQNATATRVVGAAAGAAASFHPRPKYTLKTAASSTEHTTAIPTSVLVANSAAALTPKPQAAVIAEALMRNGLHNFQQQLRAQEILRQQTPHRRIKEENDVEIAGGDITPTKILENLLRKQQERDLRHSECENEPGYSTEDDEEGRYHAFDDIHLMEQSGGKFGNNSGMGMFNANAHGGSASSILDAHQAFRNLEFTLSDYGGSSSNGSTTSPNGIGLDGEPVYECRHCGKKYRWKSTLRRHENVECGGKEPSHQCPYCPYKSKQRGNLGVHVRKHHTDLPQLPSKRRSKYSMNRENGMSGSMSDDSQGKLIIDFNGKGELETK",
-        "taxid": 7227,
-      },
-      {
-        "accession": "P42283-1",
-        "gene": [
-          {
-            "type": "primary",
-            "value": "lola",
-          },
-          {
-            "type": "ORF",
-            "value": "CG12052",
-          },
-        ],
-        "gnCoordinate": {
-          "ensemblGeneId": "FBgn0283521",
-          "ensemblTranscriptId": "FBtr0089357",
-          "ensemblTranslationId": "FBpp0088391",
-          "feature": [
-            {
-              "description": "Disordered.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532781,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532443,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 228,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 340,
-                  "status": "certain",
-                },
-              },
-              "type": "region of interest",
-            },
-            {
-              "description": "BTB.",
-              "evidence": [
-                {
-                  "code": "ECO:0000255",
-                  "dbReference": {
-                    "id": "PRU00037",
-                    "type": "PROSITE-ProRule",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533656,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533395,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 32,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 97,
-                  "status": "certain",
-                },
-              },
-              "type": "domain",
-            },
-            {
-              "description": "Phosphothreonine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533205,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533203,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 161,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Disordered.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532066,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10484215,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 446,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 467,
-                  "status": "certain",
-                },
-              },
-              "type": "region of interest",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483503,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483501,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 705,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532781,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532710,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 228,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 251,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Basic and acidic residues.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532057,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10484230,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 449,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 462,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532340,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532338,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 375,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "11880341",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533367,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533365,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 107,
-                  "status": "certain",
-                },
-              },
-              "original": "A",
-              "type": "mutagenesis site",
-              "variation": [
-                "V",
-              ],
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533184,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533182,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 168,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483530,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483528,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 696,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "C2H2-type 2.",
-              "evidence": [
-                {
-                  "code": "ECO:0000255",
-                  "dbReference": {
-                    "id": "PRU00042",
-                    "type": "PROSITE-ProRule",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483155,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483087,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 821,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 843,
-                  "status": "certain",
-                },
-              },
-              "type": "zinc finger region",
-            },
-            {
-              "evidence": [
-                {
-                  "code": "ECO:0000305",
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483803,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483795,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 605,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 607,
-                  "status": "certain",
-                },
-              },
-              "original": "HTT",
-              "type": "sequence conflict",
-              "variation": [
-                "QLGVVK",
-              ],
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483368,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483366,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 750,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533202,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533161,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 162,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 175,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532331,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532329,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 378,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532349,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532347,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 372,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532478,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532443,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 329,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 340,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "Disordered.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533343,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532863,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 115,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 200,
-                  "status": "certain",
-                },
-              },
-              "type": "region of interest",
-            },
-            {
-              "description": "Phosphothreonine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483500,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483498,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 706,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Low complexity.",
-              "evidence": [
-                {
-                  "code": "ECO:0000256",
-                  "dbReference": {
-                    "id": "MobiDB-lite",
-                    "type": "SAM",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10532676,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10532584,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 263,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 293,
-                  "status": "certain",
-                },
-              },
-              "type": "compositionally biased region",
-            },
-            {
-              "description": "C2H2-type 1; degenerate.",
-              "evidence": [
-                {
-                  "code": "ECO:0000255",
-                  "dbReference": {
-                    "id": "PRU00042",
-                    "type": "PROSITE-ProRule",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483245,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483177,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "begin": {
-                  "position": 791,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 813,
-                  "status": "certain",
-                },
-              },
-              "type": "zinc finger region",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10482996,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10482994,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 874,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533268,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533266,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 140,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10483371,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10483369,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 749,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-            {
-              "description": "Phosphoserine.",
-              "evidence": [
-                {
-                  "code": "ECO:0000269",
-                  "dbReference": {
-                    "id": "18327897",
-                    "type": "PubMed",
-                  },
-                },
-              ],
-              "genomeLocation": {
-                "begin": {
-                  "position": 10533202,
-                  "status": "certain",
-                },
-                "end": {
-                  "position": 10533200,
-                  "status": "certain",
-                },
-              },
-              "location": {
-                "position": {
-                  "position": 162,
-                  "status": "certain",
-                },
-              },
-              "type": "modified residue",
-            },
-          ],
-          "genomicLocation": {
-            "assemblyName": "BDGP6.46",
-            "chromosome": "2R",
-            "end": 10482943,
-            "exon": [
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10533749,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10533576,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E2",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 1,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 58,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10533511,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10533118,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E3",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 59,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 190,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10532894,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10532181,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E4",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 190,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 428,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10532119,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10532039,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089356-E5",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 428,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 455,
-                    "status": "certain",
-                  },
-                },
-              },
-              {
-                "genomeLocation": {
-                  "begin": {
-                    "position": 10484252,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 10482943,
-                    "status": "certain",
-                  },
-                },
-                "id": "FBtr0089357-E6",
-                "proteinLocation": {
-                  "begin": {
-                    "position": 455,
-                    "status": "certain",
-                  },
-                  "end": {
-                    "position": 891,
-                    "status": "certain",
-                  },
-                },
-              },
-            ],
-            "nucleotideId": "AE013599.5",
-            "reverseStrand": true,
-            "start": 10533749,
-          },
-        },
-        "name": "LOLA1_DROME",
-        "protein": {
-          "recommendedName": {
-            "fullName": "Longitudinals lacking protein, isoform G",
-          },
-        },
-        "sequence": "MDDDQQFCLRWNNHQSTLISVFDTLLENETLVDCTLAAEGKFLKAHKVVLSACSPYFATLLQEQYDKHPIFILKDVKYQELRAMMDYMYRGEVNISQDQLAALLKAAESLQIKGLSDNRTGGGVAPKPESSGHHRGGKLSGAYTLEQTKRARLATGGAMDTSGDVSGSREGSSSPSRRRRKVRRRSMENDAHDNSNSSVLQAAASNQSILQQTGAGLAVSALVTTQLSSGPAAGTSSQASSTQQQQPLTSTNVTKKTESAKLTSSTAAPASGASASAAVQQAHLHQQQAQTTSDAINTENVQAQSQGGAQGVQGDDEDIDEGSAVGGPNSATGPNPASASASAVHAGVVVKQLASVVDKSSSNHKHKIKDNSVSSVGSEMVIEPKAEYDDDAHDENVEDLTLDEEDMTMEELDQTAGTSQGGEGSSQTYATWQHDRSQDELGLMAQDAQQRDPQDLSRKENTAPDVASTAEIQRSFQRSILNGKQRDEQKIQLPGSRRKRLSVTEVSDMLFEFYKTKSAKVPKAEQPHRQVSPTSGEILDPSTISAIAVYGTASETASKNLNADEVMRVQNATATRVVGAAAGAAASFHPRPKYTLKTAASSTEHTTAIPTSVLVANSAAALTPKPQAAVIAEALMRNGLHNFQQQLRAQEILRQQTPHRRIKEENDVEIAGGDITPTKILENLLRKQQERDLRHSECENEPGYSTEDDEEGRYHAFDDIHLMEQSGGKFGNNSGMGMFNANAHGGSASSILDAHQAFRNLEFTLSDYGGSSSNGSTTSPNGIGLDGEPVYECRHCGKKYRWKSTLRRHENVECGGKEPSHQCPYCPYKSKQRGNLGVHVRKHHTDLPQLPSKRRSKYSMNRENGMSGSMSDDSQGKLIIDFNGKGELETK",
-        "taxid": 7227,
-      },
-    ],
     "P42284-1": [
       {
         "accession": "P42284-1",
@@ -1937,7 +21,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089362",
           "ensemblTranslationId": "FBpp0088396",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10532007,
             "exon": [
@@ -1952,7 +36,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -1975,7 +59,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -1998,7 +82,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -2441,7 +525,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10519092,
             "exon": [
@@ -2456,7 +540,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -2479,7 +563,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -2502,7 +586,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -2525,7 +609,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -2594,7 +678,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089346",
           "ensemblTranslationId": "FBpp0088380",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10502144,
             "exon": [
@@ -2609,7 +693,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -2632,7 +716,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -2655,7 +739,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -2678,7 +762,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -3522,7 +1606,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10505076,
             "exon": [
@@ -3537,7 +1621,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -3560,7 +1644,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -3583,7 +1667,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -3606,7 +1690,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -3629,7 +1713,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089345-E6",
+                "id": "FBtr0089343-E6",
                 "proteinLocation": {
                   "begin": {
                     "position": 455,
@@ -4425,7 +2509,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10505076,
             "exon": [
@@ -4440,7 +2524,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -4463,7 +2547,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -4486,7 +2570,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -4509,7 +2593,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -4532,7 +2616,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089345-E6",
+                "id": "FBtr0089343-E6",
                 "proteinLocation": {
                   "begin": {
                     "position": 455,
@@ -4664,7 +2748,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10523879,
             "exon": [
@@ -4679,7 +2763,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -4702,7 +2786,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -4725,7 +2809,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -4748,7 +2832,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -4817,7 +2901,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089342",
           "ensemblTranslationId": "FBpp0088376",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10520397,
             "exon": [
@@ -4832,7 +2916,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -4855,7 +2939,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -4878,7 +2962,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -4901,7 +2985,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -4968,7 +3052,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089349",
           "ensemblTranslationId": "FBpp0088383",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10520397,
             "exon": [
@@ -4983,7 +3067,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -5006,7 +3090,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -5029,7 +3113,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -5052,7 +3136,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -5121,7 +3205,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089352",
           "ensemblTranslationId": "FBpp0088386",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10525402,
             "exon": [
@@ -5136,7 +3220,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -5159,7 +3243,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -5182,7 +3266,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -5205,7 +3289,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -5881,7 +3965,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10508350,
             "exon": [
@@ -5896,7 +3980,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -5919,7 +4003,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -5942,7 +4026,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -5965,7 +4049,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -6662,7 +4746,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10508350,
             "exon": [
@@ -6677,7 +4761,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -6700,7 +4784,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -6723,7 +4807,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -6746,7 +4830,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -6838,7 +4922,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089348",
           "ensemblTranslationId": "FBpp0088382",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10515544,
             "exon": [
@@ -6853,7 +4937,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -6876,7 +4960,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -6899,7 +4983,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -6922,7 +5006,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -7014,7 +5098,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089353",
           "ensemblTranslationId": "FBpp0088387",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10517928,
             "exon": [
@@ -7029,7 +5113,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -7052,7 +5136,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -7075,7 +5159,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -7098,7 +5182,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -7167,7 +5251,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089351",
           "ensemblTranslationId": "FBpp0088385",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10510643,
             "exon": [
@@ -7182,7 +5266,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -7205,7 +5289,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -7228,7 +5312,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -7251,7 +5335,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -7274,7 +5358,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089351-E6",
+                "id": "FBtr0089359-E6",
                 "proteinLocation": {
                   "begin": {
                     "position": 455,
@@ -7318,7 +5402,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089359",
           "ensemblTranslationId": "FBpp0088393",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10510643,
             "exon": [
@@ -7333,7 +5417,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -7356,7 +5440,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -7379,7 +5463,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -7402,7 +5486,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -7425,7 +5509,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089351-E6",
+                "id": "FBtr0089359-E6",
                 "proteinLocation": {
                   "begin": {
                     "position": 455,
@@ -7471,7 +5555,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089361",
           "ensemblTranslationId": "FBpp0088395",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10491945,
             "exon": [
@@ -7486,7 +5570,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -7509,7 +5593,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -7532,7 +5616,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -7555,7 +5639,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -7624,7 +5708,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089364",
           "ensemblTranslationId": "FBpp0088950",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10490102,
             "exon": [
@@ -7639,7 +5723,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -7662,7 +5746,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -7685,7 +5769,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -7708,7 +5792,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -7807,7 +5891,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10487984,
             "exon": [
@@ -7822,7 +5906,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -7845,7 +5929,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -7868,7 +5952,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -7891,7 +5975,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -7990,7 +6074,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10488776,
             "exon": [
@@ -8005,7 +6089,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -8028,7 +6112,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -8051,7 +6135,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -8074,7 +6158,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -8951,7 +7035,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10500639,
             "exon": [
@@ -8966,7 +7050,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -8989,7 +7073,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -9012,7 +7096,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -9035,7 +7119,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -9127,7 +7211,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089360",
           "ensemblTranslationId": "FBpp0088394",
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10497182,
             "exon": [
@@ -9142,7 +7226,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -9165,7 +7249,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -9188,7 +7272,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -9211,7 +7295,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -9338,7 +7422,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10526683,
             "exon": [
@@ -9353,7 +7437,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -9376,7 +7460,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -9399,7 +7483,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -9422,7 +7506,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -9600,7 +7684,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.46",
+            "assemblyName": "BDGP6.54",
             "chromosome": "2R",
             "end": 10522338,
             "exon": [
@@ -9615,7 +7699,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E2",
+                "id": "FBtr0089366-E2",
                 "proteinLocation": {
                   "begin": {
                     "position": 1,
@@ -9638,7 +7722,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E3",
+                "id": "FBtr0089366-E3",
                 "proteinLocation": {
                   "begin": {
                     "position": 59,
@@ -9661,7 +7745,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E4",
+                "id": "FBtr0089366-E4",
                 "proteinLocation": {
                   "begin": {
                     "position": 190,
@@ -9684,7 +7768,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
                     "status": "certain",
                   },
                 },
-                "id": "FBtr0089356-E5",
+                "id": "FBtr0089366-E5",
                 "proteinLocation": {
                   "begin": {
                     "position": 428,
@@ -9744,45 +7828,22 @@ exports[`sortExons sorts exons according to their genomic coordinates 1`] = `
   {
     "genomeLocation": {
       "begin": {
-        "position": 10484252,
-        "status": "certain",
-      },
-      "end": {
-        "position": 10482943,
-        "status": "certain",
-      },
-    },
-    "id": "FBtr0089347-E6",
-    "proteinLocation": {
-      "begin": {
-        "position": 455,
-        "status": "certain",
-      },
-      "end": {
-        "position": 891,
-        "status": "certain",
-      },
-    },
-  },
-  {
-    "genomeLocation": {
-      "begin": {
         "position": 10532119,
         "status": "certain",
       },
       "end": {
-        "position": 10532039,
+        "position": 10532007,
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E5",
+    "id": "FBtr0089362-E5",
     "proteinLocation": {
       "begin": {
         "position": 428,
         "status": "certain",
       },
       "end": {
-        "position": 455,
+        "position": 465,
         "status": "certain",
       },
     },
@@ -9798,7 +7859,7 @@ exports[`sortExons sorts exons according to their genomic coordinates 1`] = `
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E4",
+    "id": "FBtr0089366-E4",
     "proteinLocation": {
       "begin": {
         "position": 190,
@@ -9821,7 +7882,7 @@ exports[`sortExons sorts exons according to their genomic coordinates 1`] = `
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E3",
+    "id": "FBtr0089366-E3",
     "proteinLocation": {
       "begin": {
         "position": 59,
@@ -9844,7 +7905,7 @@ exports[`sortExons sorts exons according to their genomic coordinates 1`] = `
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E2",
+    "id": "FBtr0089366-E2",
     "proteinLocation": {
       "begin": {
         "position": 1,
@@ -9872,7 +7933,7 @@ exports[`sortExons sorts exons according to their genomic coordinates, for rever
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E2",
+    "id": "FBtr0089366-E2",
     "proteinLocation": {
       "begin": {
         "position": 1,
@@ -9895,7 +7956,7 @@ exports[`sortExons sorts exons according to their genomic coordinates, for rever
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E3",
+    "id": "FBtr0089366-E3",
     "proteinLocation": {
       "begin": {
         "position": 59,
@@ -9918,7 +7979,7 @@ exports[`sortExons sorts exons according to their genomic coordinates, for rever
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E4",
+    "id": "FBtr0089366-E4",
     "proteinLocation": {
       "begin": {
         "position": 190,
@@ -9937,41 +7998,18 @@ exports[`sortExons sorts exons according to their genomic coordinates, for rever
         "status": "certain",
       },
       "end": {
-        "position": 10532039,
+        "position": 10532007,
         "status": "certain",
       },
     },
-    "id": "FBtr0089356-E5",
+    "id": "FBtr0089362-E5",
     "proteinLocation": {
       "begin": {
         "position": 428,
         "status": "certain",
       },
       "end": {
-        "position": 455,
-        "status": "certain",
-      },
-    },
-  },
-  {
-    "genomeLocation": {
-      "begin": {
-        "position": 10484252,
-        "status": "certain",
-      },
-      "end": {
-        "position": 10482943,
-        "status": "certain",
-      },
-    },
-    "id": "FBtr0089347-E6",
-    "proteinLocation": {
-      "begin": {
-        "position": 455,
-        "status": "certain",
-      },
-      "end": {
-        "position": 891,
+        "position": 465,
         "status": "certain",
       },
     },

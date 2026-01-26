@@ -6,7 +6,7 @@ import { type DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -1483,8 +1483,8 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'PharmGKB',
-    displayName: 'PharmGKB',
+    name: 'ClinPGx',
+    displayName: 'ClinPGx',
     category: 'ORG',
     uriLink: 'https://www.clinpgx.org/gene/%id',
     attributes: [
@@ -1943,7 +1943,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PRO',
     displayName: 'PRO',
     category: 'MISC',
-    uriLink: 'https://proconsortium.org/app/entry/%id',
+    uriLink: 'https://proconsortium.org/cgi-bin/entry_pro?id=%id',
     attributes: [
       {
         name: 'Description',
@@ -2136,7 +2136,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PIRSF',
     displayName: 'PIRSF',
     category: 'FMD',
-    uriLink: 'https://proteininformationresource.org/cgi-bin/ipcSF?id=%id',
+    uriLink: 'https://www.ebi.ac.uk/interpro/entry/pirsf/%id',
     attributes: [
       {
         name: 'EntryName',
@@ -2411,8 +2411,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'eMIND',
     displayName: 'eMIND',
     category: 'MISC',
-    uriLink:
-      'https://research.bioinformatics.udel.edu/itextmine/integrate/doc/emind/medline/%id',
+    uriLink: 'https://research.bioinformatics.udel.edu/emind/%id',
     attributes: [
       {
         name: 'Description',
@@ -2602,26 +2601,14 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'MedGen',
-    displayName: 'MedGen',
-    category: 'MISC',
-    uriLink: 'https://www.ncbi.nlm.nih.gov/medgen/%id',
+    name: 'CIViC',
+    displayName: 'CIViC',
+    category: 'ORG',
+    uriLink: 'https://civicdb.org/links/entrez_id/%id',
     attributes: [
       {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'MeSH',
-    displayName: 'MeSH',
-    category: 'MISC',
-    uriLink: 'https://meshb.nlm.nih.gov/record/ui?ui=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
+        name: 'Number of evidences',
+        xmlTag: 'evidences',
       },
     ],
   },

@@ -3,7 +3,7 @@ import { type AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -502,12 +502,8 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150': {
           ALL: {
-            nb_classes: 5,
-            nb_annotations: 13,
-          },
-          TAS: {
-            nb_classes: 1,
-            nb_annotations: 1,
+            nb_classes: 4,
+            nb_annotations: 12,
           },
           IEA: {
             nb_classes: 1,
@@ -550,35 +546,30 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0019081', 'GO:0098670', 'GO:0046598'],
-            nb_classes: 3,
-            nb_annotations: 5,
-          },
-          TAS: {
-            terms: ['GO:0019081'],
-            nb_classes: 1,
-            nb_annotations: 1,
+            terms: ['GO:0046598', 'GO:0098670'],
+            nb_classes: 2,
+            nb_annotations: 4,
           },
           IDA: {
-            terms: ['GO:0098670', 'GO:0046598'],
+            terms: ['GO:0046598', 'GO:0098670'],
             nb_classes: 2,
             nb_annotations: 4,
           },
         },
         'GO:0005575': {
           ALL: {
-            nb_classes: 5,
-            nb_annotations: 24,
+            nb_classes: 4,
+            nb_annotations: 17,
+          },
+          IDA: {
+            nb_classes: 1,
+            nb_annotations: 3,
           },
           IEA: {
             nb_classes: 3,
-            nb_annotations: 6,
+            nb_annotations: 3,
           },
           TAS: {
-            nb_classes: 2,
-            nb_annotations: 7,
-          },
-          IDA: {
             nb_classes: 2,
             nb_annotations: 7,
           },
@@ -594,11 +585,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005576': {
           ALL: {
             nb_classes: 2,
-            nb_annotations: 6,
+            nb_annotations: 5,
           },
           IEA: {
             nb_classes: 1,
-            nb_annotations: 2,
+            nb_annotations: 1,
           },
           TAS: {
             nb_classes: 1,
@@ -612,15 +603,15 @@ const goRibbonData: AGRRibbonData = {
         'GO:0005886': {
           ALL: {
             nb_classes: 1,
-            nb_annotations: 13,
-          },
-          IEA: {
-            nb_classes: 1,
-            nb_annotations: 2,
+            nb_annotations: 11,
           },
           IDA: {
             nb_classes: 1,
-            nb_annotations: 4,
+            nb_annotations: 3,
+          },
+          IEA: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
           TAS: {
             nb_classes: 1,
@@ -631,31 +622,21 @@ const goRibbonData: AGRRibbonData = {
             nb_annotations: 1,
           },
         },
-        'GO:0005634': {
-          ALL: {
-            nb_classes: 1,
-            nb_annotations: 3,
-          },
-          IDA: {
-            nb_classes: 1,
-            nb_annotations: 3,
-          },
-        },
         'GO:0005575-other': {
           ALL: {
             terms: ['GO:0016020'],
             nb_classes: 1,
-            nb_annotations: 2,
+            nb_annotations: 1,
           },
           IEA: {
             terms: ['GO:0016020'],
             nb_classes: 1,
-            nb_annotations: 2,
+            nb_annotations: 1,
           },
         },
       },
-      nb_classes: 15,
-      nb_annotations: 111,
+      nb_classes: 13,
+      nb_annotations: 103,
       label: 'TMPRSS2',
       taxon_id: 'NCBITaxon:9606',
       taxon_label: 'Homo sapiens',

@@ -30,7 +30,7 @@ const testCases: [Namespace, APIModel, string][] = [
   [Namespace.keywords, keywordsModelData[0], 'KW-0021'],
   [Namespace.locations, locationsModelData[0], 'SL-0037'],
   [Namespace.proteomes, proteomesEntryModelData, 'UP000005640'],
-  [Namespace.taxonomy, taxonomyModelData[0], '37299'],
+  [Namespace.taxonomy, taxonomyModelData[0], '1441288'],
   [Namespace.uniparc, uniparcModelData, 'UPI0000000001'],
   [
     Namespace.uniprotkb,
