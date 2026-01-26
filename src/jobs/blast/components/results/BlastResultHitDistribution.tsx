@@ -2,9 +2,9 @@ import '../styles/BlastResultHitDistribution.scss';
 
 import cn from 'classnames';
 import { Histogram, Loader } from 'franklin-sites';
-import { FC, useMemo, useRef, useState } from 'react';
+import { type FC, useMemo, useRef, useState } from 'react';
 
-import { BlastFacet, BlastHit } from '../../types/blastResults';
+import { BlastFacet, type BlastHit } from '../../types/blastResults';
 import { getBounds, getDataPoints } from '../../utils/blastFacetDataUtils';
 
 const nBinOptions = ['auto', 5, 10, 25, 50, 100] as const;

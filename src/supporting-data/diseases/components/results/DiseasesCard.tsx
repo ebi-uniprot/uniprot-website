@@ -8,7 +8,7 @@ import { mapToLinks } from '../../../../shared/components/MapTo';
 import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
+import { type DiseasesAPIModel } from '../../adapters/diseasesConverter';
 
 const getIdKey = getIdKeyForNamespace(Namespace.diseases);
 

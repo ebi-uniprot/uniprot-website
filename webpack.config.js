@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports, global-require, consistent-return */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const path = require('path');
 const fs = require('fs');
 
@@ -173,7 +173,15 @@ const getConfigFor = ({
                 sassOptions: {
                   // This should be the default, but putting it here avoids
                   // issues when importing from linked packages
-                  includePaths: ['node_modules'],
+                  loadPaths: ['node_modules'],
+                  // Suppress Sass @import deprecation warnings.
+                  // These are triggered by legacy SCSS in foundation-sites.
+                  // Remove this once all imported SCSS is migrated to @use/@forward.
+                  silenceDeprecations: [
+                    'import',
+                    'global-builtin',
+                    'if-function',
+                  ],
                 },
               },
             },
@@ -190,6 +198,21 @@ const getConfigFor = ({
           exclude: [/\.img\.svg$/],
           issuer: /\.(t|j)sx?$/,
           loader: '@svgr/webpack',
+          options: {
+            svgo: true,
+            svgoConfig: {
+              plugins: [
+                {
+                  name: 'preset-default',
+                  params: {
+                    overrides: {
+                      removeViewBox: false,
+                    },
+                  },
+                },
+              ],
+            },
+          },
         },
         // SVGs from nightingale and protvista packages
         {

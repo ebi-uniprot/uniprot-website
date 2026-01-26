@@ -1,11 +1,11 @@
 import { formatFASTA } from 'franklin-sites';
 
-import { APISequenceData } from '../../jobs/blast/types/apiSequenceData';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { type APISequenceData } from '../../jobs/blast/types/apiSequenceData';
+import { type UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import {
-  UniRefAPIModel,
-  UniRefLiteAPIModel,
+  type UniRefAPIModel,
+  type UniRefLiteAPIModel,
 } from '../../uniref/adapters/uniRefConverter';
 import {
   EntryType,

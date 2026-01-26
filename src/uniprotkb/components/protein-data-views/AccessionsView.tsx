@@ -1,7 +1,7 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
-import { FC, Fragment } from 'react';
+import { type FC, Fragment } from 'react';
 
-import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
+import { type NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
 const AccessionsView: FC<
   React.PropsWithChildren<{ data: NamesAndTaxonomyUIModel }>

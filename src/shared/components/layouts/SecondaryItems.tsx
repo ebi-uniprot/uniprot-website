@@ -21,7 +21,7 @@ import { generatePath, Link, useLocation } from 'react-router-dom';
 import { schedule } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import { type ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 import useBasket from '../../hooks/useBasket';
 import useJobState from '../../hooks/useJobsState';
 import useSafeState from '../../hooks/useSafeState';
@@ -29,7 +29,7 @@ import useSupportsJobs from '../../hooks/useSupportsJobs';
 import helper from '../../styles/helper.module.scss';
 import { Namespace } from '../../types/namespaces';
 import {
-  PanelCloseReason,
+  type PanelCloseReason,
   sendGtagEventPanelClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';

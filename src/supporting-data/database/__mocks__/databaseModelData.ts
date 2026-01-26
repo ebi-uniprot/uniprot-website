@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { DatabaseAPIModel } from '../adapters/databaseConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type DatabaseAPIModel } from '../adapters/databaseConverter';
 
 // Source: database/search?query=embl&size=2
 // Retrieved: 2025-10-15

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`KeywordsColumnConfiguration component should render column "category": category 1`] = `
 <DocumentFragment>
@@ -73,14 +73,14 @@ exports[`KeywordsColumnConfiguration component should render column "graph": gra
 <DocumentFragment>
   <div
     class="graph"
-    style="height: calc(5em * 3);"
+    style="height: calc(15em);"
   >
     <svg
       class="arrows"
     />
     <div
       class="container"
-      style="height: calc(5em * 3);"
+      style="height: calc(15em);"
     >
       <div
         class="keyword-node"

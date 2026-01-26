@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { type FC } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Router } from 'react-router-dom';
 

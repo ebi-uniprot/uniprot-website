@@ -1,4 +1,4 @@
-import { SlimSet } from '../../GORibbonHandler';
+import { type SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
 // Retrieved: 2025-10-15

@@ -10,14 +10,14 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
-import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import AlignmentView, { Tool, View } from '../../../components/AlignmentView';
-import { MSAInput } from '../../../types/alignment';
+import { type MSAInput } from '../../../types/alignment';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
-import { BlastHsp } from '../../types/blastResults';
+import { type BlastHsp } from '../../types/blastResults';
 
 export type HSPDetailPanelProps = {
   hsp: BlastHsp;

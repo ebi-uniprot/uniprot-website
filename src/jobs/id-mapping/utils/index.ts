@@ -1,8 +1,8 @@
 import { memoize } from 'lodash-es';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { RuleIdToRuleInfo } from '../components/IDMappingForm';
-import { IDMappingGroup } from '../types/idMappingFormConfig';
+import { type RuleIdToRuleInfo } from '../components/IDMappingForm';
+import { type IDMappingGroup } from '../types/idMappingFormConfig';
 
 // Memoize this as there could be lots of calls to this function as the user explores
 // the various from-to combinations. Also, the rule is an ideal key for the memoize's WeakMap.

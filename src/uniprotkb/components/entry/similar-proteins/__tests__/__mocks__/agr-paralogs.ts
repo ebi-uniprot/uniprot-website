@@ -1,4 +1,4 @@
-import { AgrParalogs } from '../../../../../types/agrParalogs';
+import { type AgrParalogs } from '../../../../../types/agrParalogs';
 
 // Source: https://www.alliancegenome.org/api/gene/HGNC:620/paralogs?filter.stringency=all&limit=10000
 // Retrieved: 2025-07-07

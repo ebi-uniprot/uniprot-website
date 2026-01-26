@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`ARBAColumnConfiguration component should render column "annotation_covered": annotation_covered 1`] = `
 <DocumentFragment>

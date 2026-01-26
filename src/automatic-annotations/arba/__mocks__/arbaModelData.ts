@@ -1,5 +1,5 @@
-import { SearchResults } from '../../../shared/types/results';
-import { ARBAAPIModel } from '../adapters/arbaConverter';
+import { type SearchResults } from '../../../shared/types/results';
+import { type ARBAAPIModel } from '../adapters/arbaConverter';
 
 // Source: arba/search?query=insulin&size=2
 // Retrieved: 2025-10-15

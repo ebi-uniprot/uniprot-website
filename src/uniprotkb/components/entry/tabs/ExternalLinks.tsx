@@ -2,12 +2,15 @@ import { Card, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 
 import ExternalLink from '../../../../shared/components/ExternalLink';
-import { UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
-import { WebResourceComment } from '../../../types/commentTypes';
-import { DatabaseCategory } from '../../../types/databaseRefs';
+import { type UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import { type WebResourceComment } from '../../../types/commentTypes';
+import { type DatabaseCategory } from '../../../types/databaseRefs';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
-import { XrefsGoupedByDatabase, XrefUIModel } from '../../../utils/xrefUtils';
+import {
+  type XrefsGoupedByDatabase,
+  type XrefUIModel,
+} from '../../../utils/xrefUtils';
 import XRefView from '../../protein-data-views/XRefView';
 
 type EntryExternalLinksProps = {

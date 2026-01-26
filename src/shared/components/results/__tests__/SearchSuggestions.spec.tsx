@@ -274,7 +274,12 @@ describe('SearchSuggestions', () => {
     );
 
     await screen.findByText('or expand search to', { exact: false });
-    expect(screen.getByRole('link', { name: 'UP000005640' })).toHaveAttribute(
+    await screen.findByText('or expand search to', { exact: false });
+
+    const proteomeLink = await screen.findByRole('link', {
+      name: 'UP000005640',
+    });
+    expect(proteomeLink).toHaveAttribute(
       'href',
       '/uniprotkb?query=organism_id%3A9606+AND+%28proteome%3AUP000005640%29'
     );

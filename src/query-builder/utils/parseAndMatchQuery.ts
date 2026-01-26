@@ -1,4 +1,4 @@
-import { Clause, SearchTermType } from '../types/searchTypes';
+import { type Clause, type SearchTermType } from '../types/searchTypes';
 import { getNextId } from './clause';
 import { parse } from './queryStringProcessor';
 

@@ -7,9 +7,9 @@ import {
   Message,
 } from 'franklin-sites';
 import {
-  Dispatch,
+  type Dispatch,
   Fragment,
-  SetStateAction,
+  type SetStateAction,
   useEffect,
   useMemo,
   useRef,
@@ -24,15 +24,15 @@ import {
 import UniProtKBGroupBy from '../../../uniprotkb/components/results/UniProtKBGroupBy';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import getCardRenderer from '../../config/resultsCardRenderers';
-import { Basket } from '../../hooks/useBasket';
-import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
+import { type Basket } from '../../hooks/useBasket';
+import useColumns, { type ColumnDescriptor } from '../../hooks/useColumns';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 import useNS from '../../hooks/useNS';
-import { PaginatedResults } from '../../hooks/usePagination';
+import { type PaginatedResults } from '../../hooks/usePagination';
 import useResultsToEntryRedirect from '../../hooks/useResultsToEntryRedirect';
 import useViewMode from '../../hooks/useViewMode';
-import { APIModel } from '../../types/apiModel';
-import { Namespace, SearchableNamespace } from '../../types/namespaces';
+import { type APIModel } from '../../types/apiModel';
+import { Namespace, type SearchableNamespace } from '../../types/namespaces';
 import { getIdKeyForData } from '../../utils/getIdKey';
 import styles from './styles/results-data.module.scss';
 

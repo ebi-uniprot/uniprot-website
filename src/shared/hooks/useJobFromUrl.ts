@@ -5,9 +5,9 @@ import {
   getJobResultsLocation,
   Location,
   LocationToPath,
-  ToolsResultsLocations,
+  type ToolsResultsLocations,
 } from '../../app/config/urls';
-import { Namespace, SearchableNamespace } from '../types/namespaces';
+import { Namespace, type SearchableNamespace } from '../types/namespaces';
 
 export type JobFromUrl = {
   jobId?: string;

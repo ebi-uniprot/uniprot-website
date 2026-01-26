@@ -1,4 +1,4 @@
-import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P0DTR4
 // Retrieved: 2025-10-15

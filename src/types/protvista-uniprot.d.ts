@@ -8,7 +8,7 @@ type ProtvistaUniprotElement = React.DetailedHTMLProps<
   isoforms?: object;
 };
 
-declare namespace JSX {
+declare namespace React.JSX {
   interface IntrinsicElements {
     'protvista-uniprot': ProtvistaUniprotElement;
     'protvista-uniprot-structure': ProtvistaUniprotElement;

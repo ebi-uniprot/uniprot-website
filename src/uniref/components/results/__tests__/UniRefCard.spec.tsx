@@ -2,7 +2,7 @@ import { fireEvent, screen, within } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import data from '../../../__mocks__/uniRefResultsData';
-import { UniRefLiteAPIModel } from '../../../adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../../adapters/uniRefConverter';
 import UniRefCard from '../UniRefCard';
 
 describe('UniRefCard tests', () => {

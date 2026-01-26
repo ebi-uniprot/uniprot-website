@@ -1,14 +1,14 @@
 import cn from 'classnames';
 import { CodeBlock, Loader } from 'franklin-sites';
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../shared/components/ExternalLink';
-import { UseDataAPIState } from '../../shared/hooks/useDataApi';
+import { type UseDataAPIState } from '../../shared/hooks/useDataApi';
 import toolsURLs from '../config/urls';
-import { FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
-import { SelectedTaxon } from '../types/jobsFormData';
-import { PublicServerParameters } from '../types/jobsServerParameters';
+import { type FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
+import { type SelectedTaxon } from '../types/jobsFormData';
+import { type PublicServerParameters } from '../types/jobsServerParameters';
 import { JobTypes } from '../types/jobTypes';
 import styles from './styles/extra-tabs.module.css';
 

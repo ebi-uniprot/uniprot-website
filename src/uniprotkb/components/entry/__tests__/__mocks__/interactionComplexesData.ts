@@ -1,4 +1,4 @@
-import { UIModel } from '../../../../adapters/sectionConverter';
+import { type UIModel } from '../../../../adapters/sectionConverter';
 import { DatabaseCategory } from '../../../../types/databaseRefs';
 
 const mock: UIModel = {

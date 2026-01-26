@@ -1,11 +1,11 @@
 import cn from 'classnames';
 import { ExpandableList } from 'franklin-sites';
-import { Fragment, HTMLAttributes } from 'react';
+import { Fragment, type HTMLAttributes } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-import { GoTerm } from '../../adapters/functionConverter';
+import { type GoTerm } from '../../adapters/functionConverter';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 type Props = { data: GoTerm[] } & HTMLAttributes<HTMLDivElement>;

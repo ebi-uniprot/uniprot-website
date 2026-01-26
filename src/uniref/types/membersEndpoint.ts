@@ -1,5 +1,5 @@
-import { SearchResults } from '../../shared/types/results';
-import { UniRefMember } from '../adapters/uniRefConverter';
+import { type SearchResults } from '../../shared/types/results';
+import { type UniRefMember } from '../adapters/uniRefConverter';
 
 export type UniRefMembersResults = SearchResults<UniRefMember>;
 

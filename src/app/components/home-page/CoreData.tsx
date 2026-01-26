@@ -9,7 +9,7 @@ import UniProtKBIllustration from '../../../images/uniprotkb_illustration.img.sv
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import { FacetsEnum } from '../../../uniprotkb/config/UniProtKBFacetConfiguration';
 import { Location, LocationToPath } from '../../config/urls';
 import styles from './styles/non-critical.module.scss';

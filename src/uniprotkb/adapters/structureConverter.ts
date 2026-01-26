@@ -1,14 +1,14 @@
 import { groupBy } from 'lodash-es';
 
-import { Xref } from '../../shared/types/apiModel';
+import { type Xref } from '../../shared/types/apiModel';
 import { UniProtKBColumn } from '../types/columnTypes';
-import { AlternativeProductsComment } from '../types/commentTypes';
+import { type AlternativeProductsComment } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import { StructureFeatures } from '../types/featureType';
-import { DatabaseInfoMaps } from '../utils/database';
+import { type StructureFeatures } from '../types/featureType';
+import { type DatabaseInfoMaps } from '../utils/database';
 import { constructIsoformSequence } from './extractIsoformsConverter';
-import { convertSection, UIModel } from './sectionConverter';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { convertSection, type UIModel } from './sectionConverter';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 type GroupedStructureInfo = { [key: string]: Xref[] };
 export type IsoformSequences = {

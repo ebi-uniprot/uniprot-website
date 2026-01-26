@@ -8,7 +8,7 @@ import {
   youtube,
 } from '../../../app/config/socialUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import { type ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 import BloggerLogo from '../../../images/blogger-logo.svg';
 import LinkedInLogo from '../../../images/linkedin-logo.svg';
 import XLogo from '../../../images/x-logo.svg';

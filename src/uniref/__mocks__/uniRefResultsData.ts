@@ -1,5 +1,5 @@
-import { FacetObject } from '../../shared/types/results';
-import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
+import { type FacetObject } from '../../shared/types/results';
+import { type UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 type Payload = {
   facets: FacetObject[];

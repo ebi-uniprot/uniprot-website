@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringifyQuery } from '../../../shared/utils/url';
-import { CategoryName, StatisticsCategory } from './StatisticsPage';
+import { type CategoryName, type StatisticsCategory } from './StatisticsPage';
 import styles from './styles/statistics-page.module.scss';
 
 const tableCollapsedRows = 10 as const;

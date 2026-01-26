@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { BlastResults } from '../../../../types/blastResults';
+import { type BlastResults } from '../../../../types/blastResults';
 
 const mock: BlastResults = {
   program: 'blastp',

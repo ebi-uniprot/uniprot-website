@@ -2,7 +2,7 @@ import './styles/AlignResultPIM.scss';
 
 import cn from 'classnames';
 import { Loader } from 'franklin-sites';
-import { FC, Fragment, useState } from 'react';
+import { type FC, Fragment, useState } from 'react';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -10,7 +10,7 @@ import toolsURLs from '../../../config/urls';
 import { JobTypes } from '../../../types/jobTypes';
 import pim from '../../adapters/pim';
 import getExponentialContrast from '../../utils/getExponentialContrast';
-import { SequenceInfo } from '../../utils/useSequenceInfo';
+import { type SequenceInfo } from '../../utils/useSequenceInfo';
 import AlignLabel from './AlignLabel';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);

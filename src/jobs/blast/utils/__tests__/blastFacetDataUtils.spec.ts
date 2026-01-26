@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { BlastHit, BlastResults } from '../../types/blastResults';
+import { type BlastHit, type BlastResults } from '../../types/blastResults';
 import {
   filterBlastDataForResults,
   getBounds,

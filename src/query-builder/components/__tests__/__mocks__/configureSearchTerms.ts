@@ -1,6 +1,6 @@
 import { keyBy } from 'lodash-es';
 
-import { SearchTermType } from '../../../types/searchTypes';
+import { type SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields

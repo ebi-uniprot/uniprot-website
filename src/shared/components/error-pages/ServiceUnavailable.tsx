@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { HTMLAttributes, useEffect } from 'react';
+import { type HTMLAttributes, useEffect } from 'react';
 
 import ErrorComponent from './ErrorComponent';
 import ArtWork from './svgs/503.img.svg';

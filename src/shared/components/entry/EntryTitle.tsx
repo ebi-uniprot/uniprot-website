@@ -1,8 +1,8 @@
 import './styles/entry-title.scss';
 
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
-import EntryTypeIcon, { EntryType } from './EntryTypeIcon';
+import EntryTypeIcon, { type EntryType } from './EntryTypeIcon';
 
 const EntryTitle: FC<
   React.PropsWithChildren<{

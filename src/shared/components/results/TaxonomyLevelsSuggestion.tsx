@@ -1,10 +1,10 @@
-import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
-import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import { type UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
 import { Namespace } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
+import { type SearchResults } from '../../types/results';
 import {
   modifyQueryWithSuggestions,
   taxonHierarchySearchTerms,

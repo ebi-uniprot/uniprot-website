@@ -2,7 +2,7 @@ import joinUrl from 'url-join';
 
 import { apiPrefix } from '../../../shared/config/apiUrls/apiPrefix';
 import { stringifyUrl } from '../../../shared/utils/url';
-import { SelectedFacet } from '../../types/resultsTypes';
+import { type SelectedFacet } from '../../types/resultsTypes';
 
 export const entryPublicationsPrefix = (accession: string) =>
   joinUrl(apiPrefix, 'uniprotkb', accession, 'publications');

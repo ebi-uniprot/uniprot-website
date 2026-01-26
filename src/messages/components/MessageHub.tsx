@@ -1,4 +1,4 @@
-import { MessageType } from '../types/messagesTypes';
+import { type MessageType } from '../types/messagesTypes';
 import MessageInHub from './MessageInHub';
 
 type MessageHubProps = {

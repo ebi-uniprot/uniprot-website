@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
 import wrappedMocks from '../__mocks__/wrappedRowMocks.json';
-import { WrappedRow, WrappedRowProps } from '../Wrapped';
+import { WrappedRow, type WrappedRowProps } from '../Wrapped';
 
 describe('WrappedRow', () => {
   const onMSAFeatureClick = jest.fn();

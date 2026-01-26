@@ -1,9 +1,9 @@
 import { Card } from 'franklin-sites';
 import { memo } from 'react';
 
-import { hasContent, Key } from '../../../shared/utils/utils';
-import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
-import { SubcellularLocationComment } from '../../types/commentTypes';
+import { hasContent, type Key } from '../../../shared/utils/utils';
+import { type SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
+import { type SubcellularLocationComment } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import KeywordView from '../protein-data-views/KeywordView';

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`AlignmentOverview BLAST should render 1`] = `
 <DocumentFragment>
@@ -34,6 +34,7 @@ exports[`AlignmentOverview BLAST should render 1`] = `
           
           <svg
             height="10"
+            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
             width="10"
           >
             <g
@@ -80,6 +81,7 @@ exports[`AlignmentOverview BLAST should render 1`] = `
           
           <svg
             height="10"
+            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
             width="10"
           >
             <g

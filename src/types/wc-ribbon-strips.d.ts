@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-declare namespace JSX {
+declare namespace React.JSX {
   interface IntrinsicElements {
     'wc-ribbon-strips': any;
   }

@@ -1,4 +1,4 @@
-import { GenomicEntry } from '../../types';
+import { type GenomicEntry } from '../../types';
 
 // Source: https://www.ebi.ac.uk/proteins/api/coordinates?accession=O00560
 // Retrieved: 2025-10-15

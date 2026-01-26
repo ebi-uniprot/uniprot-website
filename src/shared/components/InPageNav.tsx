@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { type HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { frame, schedule, sleep } from 'timing-functions';
 

@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import useJobsState from '../../../shared/hooks/useJobsState';
-import { Job } from '../../../shared/workers/jobs/types/job';
+import { type Job } from '../../../shared/workers/jobs/types/job';
 import useDashboardPollingEffect from '../hooks/useDashboardPollingEffect';
 import EmptyDashboard from './EmptyDashboard';
 import Row from './Row';

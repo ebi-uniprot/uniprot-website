@@ -1,6 +1,6 @@
 import { EntryType } from '../../shared/components/entry/EntryTypeIcon';
-import { Sequence } from '../../shared/types/sequence';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type Sequence } from '../../shared/types/sequence';
+import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export enum XRefsInternalDatabasesEnum {
   REVIEWED = 'UniProtKB/Swiss-Prot',
