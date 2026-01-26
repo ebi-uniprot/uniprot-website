@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const proteinSpotlightAbstract =
-  'As I crossed Geneva this morning and approached the office, I felt a growing sadness. I realised that, if I was walking in this direction in the first place, it was thanks to Amos Bairoch.';
+  'Survival is the essence of life. This may sound like an abysmal platitude but, in the living world, the act of survival implies an awful lot. To survive, many animals eat other animals, which they must first kill.';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -351,21 +351,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/286/"
+            url="https://www.proteinspotlight.org/back_issues/287/"
             noIcon
           >
-            A tribute
+            Give and take
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/286/"
+          url="https://www.proteinspotlight.org/back_issues/287/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt286.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt287.jpg"
             alt=""
             width="123"
             height="129"
