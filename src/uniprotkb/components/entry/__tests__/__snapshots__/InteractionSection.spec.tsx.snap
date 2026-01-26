@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`InteractionSection show the viewer tab if there are any xrefs from complex portal 1`] = `
 <DocumentFragment>
@@ -49,7 +49,7 @@ exports[`InteractionSection show the viewer tab if there are any xrefs from comp
             class="loader-container"
           >
             <test-file-stub
-              classname="loader"
+              class="loader"
               height="100"
               width="100"
             />

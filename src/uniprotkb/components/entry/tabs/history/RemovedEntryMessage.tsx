@@ -1,5 +1,5 @@
 import { Card, Loader } from 'franklin-sites';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
@@ -14,14 +14,14 @@ import {
 } from '../../../../../shared/config/entryTypeIcon';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../../shared/types/results';
+import { type SearchResults } from '../../../../../shared/types/results';
 import { stringifyQuery } from '../../../../../shared/utils/url';
 import { pickArticle, pluralise } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
-  DeletedReason,
-  InactiveEntryReason,
-  UniProtkbAPIModel,
+  type DeletedReason,
+  type InactiveEntryReason,
+  type UniProtkbAPIModel,
 } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
 import DemergedEntriesTable from './DemergedEntriesTable';

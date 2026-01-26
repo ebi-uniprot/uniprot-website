@@ -1,7 +1,7 @@
 import arbaModelData from '../../../automatic-annotations/arba/__mocks__/arbaModelData';
 import uniruleModelData from '../../../automatic-annotations/unirule/__mocks__/uniRuleModelData';
 import idMappingModelData from '../../../jobs/id-mapping/components/results/__mocks__/SimpleMapping';
-import { MappingAPIModel } from '../../../jobs/id-mapping/types/idMappingSearchResults';
+import { type MappingAPIModel } from '../../../jobs/id-mapping/types/idMappingSearchResults';
 import proteomesEntryModelData from '../../../proteomes/__mocks__/proteomesEntryModelData';
 import citationsModelData from '../../../supporting-data/citations/__mocks__/citationsModelData';
 import databaseModelData from '../../../supporting-data/database/__mocks__/databaseModelData';
@@ -12,8 +12,8 @@ import taxonomyModelData from '../../../supporting-data/taxonomy/__mocks__/taxon
 import uniparcModelData from '../../../uniparc/__mocks__/uniParcLightEntryModelData';
 import uniprotkbModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import unirefModelData from '../../../uniref/__mocks__/uniRefResultsData';
-import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
-import { APIModel } from '../../types/apiModel';
+import { type UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import { type APIModel } from '../../types/apiModel';
 import { Namespace } from '../../types/namespaces';
 import { getIdKeyForData, getIdKeyForNamespace } from '../getIdKey';
 

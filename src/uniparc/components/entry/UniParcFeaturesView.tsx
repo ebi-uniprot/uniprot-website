@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { v1 } from 'uuid';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
+import { type TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 import FeaturesView, {
-  ProcessedFeature,
+  type ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
@@ -12,7 +12,7 @@ import { stringToColour } from '../../../shared/utils/color';
 import { markBackground, markBorder } from '../../../shared/utils/nightingale';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
-import { SequenceFeature } from '../../adapters/uniParcConverter';
+import { type SequenceFeature } from '../../adapters/uniParcConverter';
 
 export type UniParcProcessedFeature = ProcessedFeature & {
   database: string;

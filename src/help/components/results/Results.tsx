@@ -6,8 +6,14 @@ import {
   SearchInput,
 } from 'franklin-sites';
 import { debounce } from 'lodash-es';
-import { ChangeEvent, ReactNode, useEffect, useMemo, useState } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import {
+  type ChangeEvent,
+  type ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { type RouteChildrenProps } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -18,7 +24,7 @@ import sharedApiUrls from '../../../shared/config/apiUrls/apiUrls';
 import usePagination from '../../../shared/hooks/usePagination';
 import { stringifyQuery } from '../../../shared/utils/url';
 import helpApiUrls from '../../config/apiUrls';
-import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';
+import { type HelpAPIModel, type HelpUIModel } from '../../types/apiModel';
 import HelpCard from './HelpCard';
 import HelpResultFacets from './HelpResultFacets';
 import styles from './styles/results.module.scss';

@@ -7,7 +7,7 @@ import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
+import { type UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 
 const getIdKey = getIdKeyForNamespace(Namespace.unirule);
 

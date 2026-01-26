@@ -6,7 +6,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
 import externalUrls from '../../../shared/config/externalUrls';
 import helper from '../../../shared/styles/helper.module.scss';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 import cleanText, {
   cleanTextDefaultOptions,
@@ -14,7 +14,7 @@ import cleanText, {
 } from '../../../shared/utils/cleanText';
 import parseDate from '../../../shared/utils/parseDate';
 import {
-  CitationsAPIModel,
+  type CitationsAPIModel,
   CitationXRefDB,
 } from '../adapters/citationsConverter';
 import { JournalInfo } from '../components/LiteratureCitation';

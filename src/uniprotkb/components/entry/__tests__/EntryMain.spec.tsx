@@ -1,4 +1,4 @@
-import { enableFetchMocks, FetchMock } from 'jest-fetch-mock';
+import { enableFetchMocks, type FetchMock } from 'jest-fetch-mock';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import interactionData from '../../../__mocks__/interaction.json';

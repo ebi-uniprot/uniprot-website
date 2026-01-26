@@ -1,5 +1,5 @@
 import { Button, Dropdown, ToolboxIcon } from 'franklin-sites';
-import { ComponentProps, ReactNode } from 'react';
+import { type ComponentProps, type ReactNode } from 'react';
 
 import useNS from '../../hooks/useNS';
 import { Namespace } from '../../types/namespaces';

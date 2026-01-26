@@ -6,8 +6,8 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { counter } from '../../../shared/utils/utils';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import HistoricalReleasesEntriesLinePlot, {
-  Bounds,
-  DateCount,
+  type Bounds,
+  type DateCount,
 } from './HistoricalReleasesEntriesLinePlot';
 import styles from './styles/statistics-page.module.scss';
 import UniProtKBStatsTabs from './UniProtKBStatsTabs';

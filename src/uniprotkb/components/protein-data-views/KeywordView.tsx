@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
-import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
+import { type Keyword, type KeywordUIModel } from '../../utils/KeywordsUtil';
 import styles from './styles/keyword-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 

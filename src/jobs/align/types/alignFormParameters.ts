@@ -1,4 +1,4 @@
-import { ServerParameters } from './alignServerParameters';
+import { type ServerParameters } from './alignServerParameters';
 
 export type FormParameters = {
   sequence: ServerParameters['sequence'];

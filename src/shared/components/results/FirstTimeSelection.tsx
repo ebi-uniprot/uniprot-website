@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 
 import CardsViewImg from '../../../images/cards-view.jpg';
 import TableViewImg from '../../../images/table-view.jpg';
-import { ViewMode } from '../../hooks/useViewMode';
+import { type ViewMode } from '../../hooks/useViewMode';
 import { sendGtagEventViewMode } from '../../utils/gtagEvents';
 import styles from './styles/first-time-selection.module.scss';
 

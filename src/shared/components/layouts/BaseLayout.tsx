@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

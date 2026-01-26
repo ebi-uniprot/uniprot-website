@@ -10,12 +10,12 @@ import Table from '../../../shared/components/table/Table';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
-import { DiseaseComment } from '../../types/commentTypes';
+import { type DiseaseComment } from '../../types/commentTypes';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
 import { RichText } from './FreeTextView';
 import styles from './styles/disease-involvement-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { FeatureDatum } from './UniProtKBFeaturesView';
+import { type FeatureDatum } from './UniProtKBFeaturesView';
 import { XRef } from './XRefView';
 
 const sortByLocation = (a: FeatureDatum, b: FeatureDatum) => {

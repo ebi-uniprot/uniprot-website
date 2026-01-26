@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snippetPlugins for "js_fetch" should generate the correct snippet for "GET, no params" 1`] = `
 "// Browser requirement: Firefox, Chrome, or Edge >= 89;

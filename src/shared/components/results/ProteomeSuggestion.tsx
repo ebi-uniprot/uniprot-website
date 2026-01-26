@@ -2,11 +2,11 @@ import { Button, Dropdown, ExternalLink } from 'franklin-sites';
 import { useEffect, useState } from 'react';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import { type ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
 import { Namespace } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
+import { type SearchResults } from '../../types/results';
 import { stringifyUrl } from '../../utils/url';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 import { SearchLink } from './SearchTextLink';

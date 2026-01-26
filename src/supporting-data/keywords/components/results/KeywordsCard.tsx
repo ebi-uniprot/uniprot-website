@@ -9,7 +9,7 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
+import { type KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import KeywordsColumnConfiguration, {
   KeywordsColumn,
 } from '../../config/KeywordsColumnConfiguration';

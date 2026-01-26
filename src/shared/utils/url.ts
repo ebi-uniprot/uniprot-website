@@ -1,16 +1,16 @@
 import { matchPath } from 'react-router-dom';
 
-import { Location, LocationToPath } from '../../app/config/urls';
+import { type Location, LocationToPath } from '../../app/config/urls';
 import { BlastFacet } from '../../jobs/blast/types/blastResults';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
+import { type SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
   getApiSortDirection,
-  SelectedFacet,
+  type SelectedFacet,
   SortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { Column } from '../config/columns';
+import { type Column } from '../config/columns';
 import { defaultFacets } from '../config/facets';
-import { Facets } from '../types/facets';
+import { type Facets } from '../types/facets';
 import { Namespace } from '../types/namespaces';
 import { fromCleanMapper } from './getIdKey';
 

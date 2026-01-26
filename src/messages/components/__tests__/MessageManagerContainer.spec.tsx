@@ -2,11 +2,11 @@ import { screen } from '@testing-library/react';
 
 import { Location } from '../../../app/config/urls';
 import customRender from '../../../shared/__test-helpers__/customRender';
-import { MessagesState } from '../../state/messagesInitialState';
+import { type MessagesState } from '../../state/messagesInitialState';
 import {
   MessageFormat,
   MessageLevel,
-  MessageType,
+  type MessageType,
 } from '../../types/messagesTypes';
 import MessageManagerContainer from '../MessageManagerContainer';
 

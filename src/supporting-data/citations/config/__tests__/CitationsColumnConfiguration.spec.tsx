@@ -1,11 +1,11 @@
 import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/citationsModelData';
 import citationsConverter, {
-  CitationsAPIModel,
-  CitationsUIModel,
+  type CitationsAPIModel,
+  type CitationsUIModel,
 } from '../../adapters/citationsConverter';
 import CitationsColumnConfiguration, {
-  CitationsColumn,
+  type CitationsColumn,
 } from '../CitationsColumnConfiguration';
 
 jest.mock('../../../../shared/workers/jobs/utils/storage');

@@ -1,8 +1,8 @@
 import { Button } from 'franklin-sites';
-import { ChangeEvent, memo, useState } from 'react';
+import { type ChangeEvent, memo, useState } from 'react';
 
 import { namespaceAndToolsLabels } from '../../shared/types/namespaces';
-import toolsURLs, { ResultFormat } from '../config/urls';
+import toolsURLs, { type ResultFormat } from '../config/urls';
 import { JobTypes } from '../types/jobTypes';
 
 type DownloadOptions<T extends JobTypes> = {

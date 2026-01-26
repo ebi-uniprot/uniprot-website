@@ -1,5 +1,8 @@
-import { CommentType, FreeTextType } from '../../uniprotkb/types/commentTypes';
-import FeatureType from '../../uniprotkb/types/featureType';
+import {
+  type CommentType,
+  type FreeTextType,
+} from '../../uniprotkb/types/commentTypes';
+import type FeatureType from '../../uniprotkb/types/featureType';
 import SubEntrySection from '../types/subEntrySection';
 
 type SectionObject = {

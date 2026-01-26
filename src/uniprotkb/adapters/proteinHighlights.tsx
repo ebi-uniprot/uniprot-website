@@ -1,5 +1,5 @@
-import { LocationDescriptorObject } from 'history';
-import { ReactElement } from 'react';
+import { type LocationDescriptorObject } from 'history';
+import { type ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../app/config/urls';
@@ -12,7 +12,7 @@ import { pluralise } from '../../shared/utils/utils';
 import { TabLocation } from '../types/entry';
 import EntrySection from '../types/entrySection';
 import { getEntrySectionNameAndId } from '../utils/entrySection';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 enum highlightSection {
   domains = 'domain',

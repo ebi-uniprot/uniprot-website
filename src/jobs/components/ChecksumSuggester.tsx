@@ -7,11 +7,11 @@ import styles from '../../shared/components/results/styles/did-you-mean.module.s
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../shared/hooks/useDataApi';
 import { Namespace } from '../../shared/types/namespaces';
-import { SearchResults } from '../../shared/types/results';
+import { type SearchResults } from '../../shared/types/results';
 import md5 from '../../shared/utils/md5';
 import { stringifyUrl } from '../../shared/utils/url';
 import { pluralise } from '../../shared/utils/utils';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { type UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 import { TabLocation as UniParcTabLocation } from '../../uniparc/types/entry';
 import { TabLocation as UniProtKBTabLocation } from '../../uniprotkb/types/entry';

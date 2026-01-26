@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`CitationsColumnConfiguration component should render column "authoring_group": authoring_group 1`] = `<DocumentFragment />`;
 

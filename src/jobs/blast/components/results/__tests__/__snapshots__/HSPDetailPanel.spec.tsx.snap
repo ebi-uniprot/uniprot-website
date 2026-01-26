@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HSPDetailPanel should change to wrapped and render when wrapped view is clicked 1`] = `
 <aside
@@ -283,6 +283,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           
                     <svg
                       height="15"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                       width="10"
                     >
                       <g
@@ -329,6 +330,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           
                     <svg
                       height="15"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                       width="10"
                     >
                       <g
@@ -386,6 +388,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           
                   <svg
                     height="15"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                     width="10"
                   >
                     <g

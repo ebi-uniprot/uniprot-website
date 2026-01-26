@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
@@ -56,7 +56,7 @@ exports[`non-critical HomePage component should render 1`] = `
             title="UniProt Knowledgebase, SwissProt or reviewed protein database"
           >
             <test-file-stub
-              classname="core-data__reviewed-icon"
+              class="core-data__reviewed-icon"
               width="1.75em"
             />
             <div
@@ -576,17 +576,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/286/"
+          href="https://www.proteinspotlight.org/back_issues/287/"
           rel="noopener"
           target="_blank"
         >
-          A tribute
+          Give and take
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/286/"
+        href="https://www.proteinspotlight.org/back_issues/287/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -595,14 +595,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt286.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt287.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          As  I  crossed  Geneva  this  morning  and  approached  the  office,  I  felt  a  growing  sadness.  I  realised  that,  if  I  was  walking  in  this  direction  in  the  first  place,  it  was  thanks  to  Amos  Bairoch.
+          Survival  is  the  essence  of  life.  This  may  sound  like  an  abysmal  platitude  but,  in  the  living  world,  the  act  of  survival  implies  an  awful  lot.  To  survive,  many  animals  eat  other  animals,  which  they  must  first  kill.
       </p>
     </article>
   </section>
@@ -906,7 +906,7 @@ exports[`non-critical HomePage component should render 1`] = `
         class="loader-container"
       >
         <test-file-stub
-          classname="loader"
+          class="loader"
           height="100"
           width="100"
         />

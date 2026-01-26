@@ -1,6 +1,6 @@
-import { Method } from 'axios';
+import { type Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
-import { FC } from 'react';
+import { type FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';

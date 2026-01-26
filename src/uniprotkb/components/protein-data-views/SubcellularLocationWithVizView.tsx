@@ -1,18 +1,18 @@
 import { HeroContainer, Tab, Tabs } from 'franklin-sites';
-import { FC, lazy, ReactElement, ReactNode } from 'react';
+import { type FC, lazy, type ReactElement, type ReactNode } from 'react';
 
 import LazyComponent from '../../../shared/components/LazyComponent';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import * as logging from '../../../shared/utils/logging';
-import { Lineage } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { GoXref } from '../../adapters/subcellularLocationConverter';
-import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
+import { type Lineage } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type GoXref } from '../../adapters/subcellularLocationConverter';
+import { type UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 import {
   getEcoNumberFromGoEvidenceType,
   getEcoNumberFromString,
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
-import { SubcellularLocationComment } from '../../types/commentTypes';
+import { type SubcellularLocationComment } from '../../types/commentTypes';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
 import SubcellularLocationView from './SubcellularLocationView';
 

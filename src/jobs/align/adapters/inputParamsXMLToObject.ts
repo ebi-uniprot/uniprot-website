@@ -1,4 +1,4 @@
-import { PublicServerParameters } from '../types/alignServerParameters';
+import { type PublicServerParameters } from '../types/alignServerParameters';
 
 // all the input parameters come from one endpoint, apart from the input
 // sequence which comes from an other one, so separate them in the input of this

@@ -1,6 +1,6 @@
-import { memo, ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 
-import { ColumRenderer } from '../../types/columnConfiguration';
+import { type ColumRenderer } from '../../types/columnConfiguration';
 import styles from './styles/render-columns-in-card.module.scss';
 
 /**

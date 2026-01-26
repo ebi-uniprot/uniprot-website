@@ -1,10 +1,10 @@
 import { CodeBlock, InfoList, Loader } from 'franklin-sites';
 
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
-import { UseDataAPIState } from '../../shared/hooks/useDataApi';
-import { FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
-import { SelectedTaxon } from '../types/jobsFormData';
-import { PublicServerParameters } from '../types/jobsServerParameters';
+import { type UseDataAPIState } from '../../shared/hooks/useDataApi';
+import { type FormParameters as PeptideSearchFormParameters } from '../peptide-search/types/peptideSearchFormParameters';
+import { type SelectedTaxon } from '../types/jobsFormData';
+import { type PublicServerParameters } from '../types/jobsServerParameters';
 import { JobTypes } from '../types/jobTypes';
 import { ResubmitButton } from './ResultButtons';
 import styles from './styles/extra-tabs.module.css';

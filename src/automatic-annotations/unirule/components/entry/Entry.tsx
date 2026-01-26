@@ -1,6 +1,6 @@
 import { Loader } from 'franklin-sites';
 import { useState } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { Redirect, type RouteChildrenProps } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
@@ -17,7 +17,7 @@ import {
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
 import ConditionsAnnotations from '../../../shared/entry/ConditionsAnnotations';
-import { UniRuleAPIModel } from '../../adapters/uniRuleConverter';
+import { type UniRuleAPIModel } from '../../adapters/uniRuleConverter';
 import Source from './Source';
 import TemplateEntries from './TemplateEntries';
 
@@ -45,7 +45,7 @@ const UniRuleEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount
+    data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(source:${

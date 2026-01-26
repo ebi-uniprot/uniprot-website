@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`CommunityAnnotationLink should render with >0 number of submissions 1`] = `
 <DocumentFragment>

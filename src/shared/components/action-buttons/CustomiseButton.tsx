@@ -1,14 +1,14 @@
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
-import { FormEvent, Suspense, useEffect, useState } from 'react';
+import { type FormEvent, Suspense, useEffect, useState } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
 import { allEntryPages } from '../../../app/config/urls';
 import { nsToDefaultColumns } from '../../config/columns';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { Namespace } from '../../types/namespaces';
+import { type Namespace } from '../../types/namespaces';
 import {
-  PanelFormCloseReason,
+  type PanelFormCloseReason,
   sendGtagEventPanelCustomiseColumnsClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
