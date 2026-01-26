@@ -142,7 +142,7 @@ const LatestNews = () => {
                 )}
               >
                 Complement-ary information on granzyme K | Continuing to
-                reorganizing the protein space in UniProtKB...
+                reorganize the protein space in UniProtKB...
               </p>
             </article>
           </li>
