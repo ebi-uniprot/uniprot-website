@@ -129,6 +129,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2026-01-28-release',
+                  })}
+                >
+                  UniProt release 2026_01
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                Complement-ary information on granzyme K | Continuing to
+                reorganize the protein space in UniProtKB...
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2025-10-15-release',
                   })}
                 >
@@ -187,73 +209,6 @@ const LatestNews = () => {
               >
                 Brain property: no trespassing | Cross-references to CD-CODE |
                 Cross-references to STRENDA-DB | Cross-references to YCharOS
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2025-02-05-release',
-                  })}
-                >
-                  UniProt release 2025_01
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                The &apos;dark&apos; side of male contraception | Changes to the
-                controlled vocabulary of human diseases | Changes to the...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-11-27-release',
-                  })}
-                >
-                  UniProt release 2024_06
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                What happens when ribosomes crash | Cross-references to FunFam |
-                Cross-references to AntiFam
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2024-10-02-release',
-                  })}
-                >
-                  UniProt release 2024_05
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Plasma membrane rupture during cell death: from a passive
-                hypothesis to an active process | Changes to the controlled
-                vocabulary of human diseases
               </p>
             </article>
           </li>

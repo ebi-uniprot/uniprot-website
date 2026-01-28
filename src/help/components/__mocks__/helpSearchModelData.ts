@@ -1,7 +1,7 @@
 import { type HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -119,7 +119,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2025-08-14',
+      lastModified: '2026-01-07',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -139,7 +139,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'conflict',
       title: 'Sequence conflict',
-      lastModified: '2022-04-28',
+      lastModified: '2025-11-26',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -175,7 +175,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2025-08-14',
+      lastModified: '2026-01-07',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
@@ -218,7 +218,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequences',
       title: 'Sequences',
-      lastModified: '2025-01-16',
+      lastModified: '2025-11-26',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -230,7 +230,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'human_proteome',
       title: "What is UniProt's human proteome?",
-      lastModified: '2022-12-23',
+      lastModified: '2025-11-26',
       type: 'help',
       categories: [
         'Proteomes',
@@ -248,18 +248,6 @@ const helpModelData: HelpSearchResponse = {
       },
     },
     {
-      id: 'structure_section',
-      title: 'Structure annotation in UniProt',
-      lastModified: '2025-09-16',
-      type: 'help',
-      categories: ['3D structure', 'manual'],
-      matches: {
-        content: [
-          ' based on the protein <span class="match-highlight">canonical</span> sequence, without any ligands or interacting partners. These structural',
-        ],
-      },
-    },
-    {
       id: 'sequence_length',
       title: 'Sequence length',
       lastModified: '2022-04-28',
@@ -268,6 +256,18 @@ const helpModelData: HelpSearchResponse = {
       matches: {
         content: [
           'This indicates the number of amino acids in the <span class="match-highlight">canonical</span> sequence displayed by default in the',
+        ],
+      },
+    },
+    {
+      id: 'structure_section',
+      title: 'Structure annotation in UniProt',
+      lastModified: '2025-10-24',
+      type: 'help',
+      categories: ['3D structure', 'manual'],
+      matches: {
+        content: [
+          ' (see the PDB cross-reference <span class="match-highlight">help</span> page). These structures may cover different ranges of the sequence,',
         ],
       },
     },
@@ -334,7 +334,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2025-08-14',
+      lastModified: '2025-10-17',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -359,7 +359,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'protein_diversity',
       title:
         'How are protein sequence variety and protein diversity represented in UniProtKB?',
-      lastModified: '2022-12-23',
+      lastModified: '2025-11-26',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -371,7 +371,7 @@ const helpModelData: HelpSearchResponse = {
       ],
       matches: {
         content: [
-          ' See also What is the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? How do we manually',
+          ' the <span class="match-highlight">canonical</span> sequence? Are all isoforms described in one entry? How do we manually annotate a',
         ],
       },
     },
@@ -379,7 +379,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2025-08-14',
+      lastModified: '2025-10-17',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -391,7 +391,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequence_origin',
       title: 'Where do the UniProtKB protein sequences come from?',
-      lastModified: '2025-08-22',
+      lastModified: '2025-11-26',
       type: 'help',
       categories: ['UniProtKB', 'Sequence', 'faq'],
       matches: {
@@ -446,7 +446,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2025-08-14',
+      lastModified: '2025-11-26',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {

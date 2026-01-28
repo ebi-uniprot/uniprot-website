@@ -1,7 +1,7 @@
 import { type ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -1240,9 +1240,20 @@ const mock = [
         id: 'organism-specific/cgd',
       },
       {
+        label: 'CIViC',
+        name: 'xref_civic',
+        isMultiValueCrossReference: true,
+        id: 'organism-specific/civic',
+      },
+      {
         label: 'CTD',
         name: 'xref_ctd',
         id: 'organism-specific/ctd',
+      },
+      {
+        label: 'ClinPGx',
+        name: 'xref_clinpgx',
+        id: 'organism-specific/clinpgx',
       },
       {
         label: 'ConoServer',
@@ -1346,11 +1357,6 @@ const mock = [
         name: 'xref_orphanet',
         isMultiValueCrossReference: true,
         id: 'organism-specific/orphanet',
-      },
-      {
-        label: 'PharmGKB',
-        name: 'xref_pharmgkb',
-        id: 'organism-specific/pharmgkb',
       },
       {
         label: 'PomBase',
@@ -1593,16 +1599,6 @@ const mock = [
         label: 'GenomeRNAi',
         name: 'xref_genomernai',
         id: 'other/genomernai',
-      },
-      {
-        label: 'MeSH',
-        name: 'xref_mesh',
-        id: 'other/mesh',
-      },
-      {
-        label: 'MedGen',
-        name: 'xref_medgen',
-        id: 'other/medgen',
       },
       {
         label: 'ORCID',

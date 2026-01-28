@@ -1,7 +1,7 @@
 import { type ProteinsAPIVariation } from '@nightingale-elements/nightingale-variation';
 
 // Source: https://www.ebi.ac.uk/proteins/api/variation/P0DPR0
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const data = {
   accession: 'P0DPR0',
   entryName: 'HA33C_CBCP',

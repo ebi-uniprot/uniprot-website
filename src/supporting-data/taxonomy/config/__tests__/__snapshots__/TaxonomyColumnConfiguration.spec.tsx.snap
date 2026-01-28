@@ -7,9 +7,9 @@ exports[`TaxonomyColumnConfiguration component should render column "hosts": hos
 exports[`TaxonomyColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/37299"
+    href="/taxonomy/1441288"
   >
-    37299
+    1441288
   </a>
 </DocumentFragment>
 `;
@@ -17,83 +17,36 @@ exports[`TaxonomyColumnConfiguration component should render column "id": id 1`]
 exports[`TaxonomyColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/10239"
-    title="Viruses, taxon ID 10239"
+    class="hidden-taxon"
+    href="/taxonomy/2787823"
+    title="unclassified entries, taxon ID 2787823"
     translate="no"
   >
-    Viruses
+    unclassified entries
   </a>
    &gt; 
   <a
-    href="/taxonomy/2559587"
-    title="Riboviria (RNA viruses and retroviruses), taxon ID 2559587"
+    href="/taxonomy/12908"
+    title="unclassified sequences, taxon ID 12908"
     translate="no"
   >
-    Riboviria (RNA viruses and retroviruses)
+    unclassified sequences
   </a>
    &gt; 
   <a
-    href="/taxonomy/2732396"
-    title="Orthornavirae, taxon ID 2732396"
+    href="/taxonomy/408169"
+    title="metagenomes, taxon ID 408169"
     translate="no"
   >
-    Orthornavirae
+    metagenomes
   </a>
    &gt; 
   <a
-    href="/taxonomy/2732408"
-    title="Pisuviricota, taxon ID 2732408"
+    href="/taxonomy/410656"
+    title="organismal metagenomes, taxon ID 410656"
     translate="no"
   >
-    Pisuviricota
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/2732506"
-    title="Pisoniviricetes, taxon ID 2732506"
-    translate="no"
-  >
-    Pisoniviricetes
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/464095"
-    title="Picornavirales, taxon ID 464095"
-    translate="no"
-  >
-    Picornavirales
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/11974"
-    title="Caliciviridae, taxon ID 11974"
-    translate="no"
-  >
-    Caliciviridae
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/95337"
-    title="Vesivirus, taxon ID 95337"
-    translate="no"
-  >
-    Vesivirus
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/3433198"
-    title="Vesivirus exanthema, taxon ID 3433198"
-    translate="no"
-  >
-    Vesivirus exanthema
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/35612"
-    title="Vesicular exanthema of swine virus (VESV), taxon ID 35612"
-    translate="no"
-  >
-    Vesicular exanthema of swine virus (VESV)
+    organismal metagenomes
   </a>
 </DocumentFragment>
 `;
@@ -106,7 +59,7 @@ exports[`TaxonomyColumnConfiguration component should render column "links": lin
     <li>
       <a
         class="external-link"
-        href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=37299"
+        href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=1441288"
         rel="noopener"
         target="_blank"
       >
@@ -123,25 +76,35 @@ exports[`TaxonomyColumnConfiguration component should render column "links": lin
 
 exports[`TaxonomyColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
 <DocumentFragment>
-  VESV
+  9ZZZZ
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "other_names": other_names 1`] = `<DocumentFragment />`;
+exports[`TaxonomyColumnConfiguration component should render column "other_names": other_names 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      primate microbiota
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`TaxonomyColumnConfiguration component should render column "parent": parent 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/35612"
+    href="/taxonomy/410656"
   >
-    VESV
+    organismal metagenomes
   </a>
 </DocumentFragment>
 `;
 
 exports[`TaxonomyColumnConfiguration component should render column "rank": rank 1`] = `
 <DocumentFragment>
-  no rank
+  species
 </DocumentFragment>
 `;
 
@@ -149,32 +112,11 @@ exports[`TaxonomyColumnConfiguration component should render column "reviewed": 
 
 exports[`TaxonomyColumnConfiguration component should render column "scientific_name": scientific_name 1`] = `
 <DocumentFragment>
-  Primate calicivirus
+  primate metagenome
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "statistics": statistics 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      <a
-        href="/uniprotkb?query=%28taxonomy_id%3A37299%29"
-      >
-        3 UniProtKB entries
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb?query=%28taxonomy_id%3A37299%29+AND+%28reviewed%3Afalse%29"
-      >
-        3 unreviewed UniProtKB entries
-      </a>
-    </li>
-  </ul>
-</DocumentFragment>
-`;
+exports[`TaxonomyColumnConfiguration component should render column "statistics": statistics 1`] = `<DocumentFragment />`;
 
 exports[`TaxonomyColumnConfiguration component should render column "strains": strains 1`] = `<DocumentFragment />`;
 

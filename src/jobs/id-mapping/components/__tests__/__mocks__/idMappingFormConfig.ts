@@ -1,7 +1,7 @@
 import { type IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: configure/idmapping/fields
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -78,6 +78,14 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 7,
           uriLink: null,
+        },
+        {
+          displayName: 'Proteome ID',
+          name: 'Proteome_ID',
+          from: true,
+          to: false,
+          ruleId: 2,
+          uriLink: 'https://www.uniprot.org/proteomes/%id',
         },
       ],
     },
@@ -491,6 +499,14 @@ const data: IDMappingFormConfig = {
           uriLink: 'http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%id',
         },
         {
+          displayName: 'ClinPGx',
+          name: 'ClinPGx',
+          from: true,
+          to: true,
+          ruleId: 7,
+          uriLink: 'https://www.clinpgx.org/gene/%id',
+        },
+        {
           displayName: 'ConoServer',
           name: 'ConoServer',
           from: true,
@@ -622,14 +638,6 @@ const data: IDMappingFormConfig = {
           ruleId: 7,
           uriLink:
             'https://www.orpha.net/consor/cgi-bin/OC_Exp.php?Lng=GB&Expert=%id',
-        },
-        {
-          displayName: 'PharmGKB',
-          name: 'PharmGKB',
-          from: true,
-          to: true,
-          ruleId: 7,
-          uriLink: 'https://www.clinpgx.org/gene/%id',
         },
         {
           displayName: 'PomBase',
@@ -949,7 +957,7 @@ const data: IDMappingFormConfig = {
         'neXtProt',
         'OpenTargets',
         'Orphanet',
-        'PharmGKB',
+        'ClinPGx',
         'PomBase',
         'PseudoCAP',
         'RGD',
@@ -984,6 +992,7 @@ const data: IDMappingFormConfig = {
         'UniRef100',
         'Gene_Name',
         'CRC64',
+        'Proteome_ID',
         'EMBL-GenBank-DDBJ',
         'EMBL-GenBank-DDBJ_CDS',
         'GI_number',

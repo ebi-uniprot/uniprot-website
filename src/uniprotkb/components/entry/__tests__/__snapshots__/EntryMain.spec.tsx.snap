@@ -7302,11 +7302,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                     </a>
                     <a
                       class="external-link"
-                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_WKPS01000046.1"
+                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_BAABXT010000001.1"
                       rel="noopener"
                       target="_blank"
                     >
-                      NZ_WKPS01000046.1
+                      NZ_BAABXT010000001.1
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
