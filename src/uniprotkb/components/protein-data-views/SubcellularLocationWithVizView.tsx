@@ -59,18 +59,38 @@ const getNoAnnotationMessage = (name: string) => (
   <HeroContainer>{`No ${name} annotations available.`}</HeroContainer>
 );
 
-export const getUniProtEvidenceType = (evidences: Evidence[]) =>
-  evidences?.map((evidence) => {
-    if (evidence.evidenceCode === AiEvidenceCode) {
-      return 'AI';
-    }
-    const evidenceData = getEvidenceCodeData(
-      getEcoNumberFromString(evidence.evidenceCode)
-    );
-    return evidenceData?.manual ? 'reviewed' : 'unreviewed';
-  });
+const isAiEvidence = (e: Evidence) => e.evidenceCode === AiEvidenceCode;
 
-export const getGoEvidenceType = (goEvidence: GoEvidenceType) => {
+const isReviewedEvidence = (e: Evidence) => {
+  const ecoNumber = getEcoNumberFromString(e.evidenceCode);
+  const ecoData = ecoNumber ? getEvidenceCodeData(ecoNumber) : undefined;
+  return Boolean(ecoData?.manual);
+};
+
+const isUnreviewedEvidence = (e: Evidence) =>
+  !isAiEvidence(e) && !isReviewedEvidence(e);
+
+// Evidence type precedence:
+// (1) reviewed
+// (2) unreviewed
+// (3) ai
+export const getUniProtEvidenceType = (
+  evidences: Evidence[] | undefined = []
+): EvidenceType | null => {
+  if (evidences.some(isReviewedEvidence)) {
+    return 'reviewed';
+  }
+  if (evidences.some(isUnreviewedEvidence)) {
+    return 'unreviewed';
+  }
+  if (evidences.some(isAiEvidence)) {
+    return 'ai';
+  }
+  logging.error('Unknown Evidence Type');
+  return null;
+};
+
+export const getGoEvidenceType = (goEvidence: GoEvidenceType): EvidenceType => {
   if (goEvidence === 'IEA:ProtNLM2') {
     return 'ai';
   }
@@ -113,23 +133,26 @@ const SubcellularLocationWithVizView: FC<
 
   const uniProtLocations = (comments || [])
     .flatMap(({ subcellularLocations }) =>
-      subcellularLocations?.map(({ location }) =>
-        location.id
-          ? {
-              id: getSubcellularLocationId(location.id),
-              reviewed: location.evidences?.some((evidence) => {
-                const evidenceData = getEvidenceCodeData(
-                  getEcoNumberFromString(evidence.evidenceCode)
-                );
-                return Boolean(evidenceData?.manual);
-              }),
-            }
-          : undefined
-      )
+      (subcellularLocations || []).map(({ location }) => {
+        if (!location.id || location.evidences) {
+          return null;
+        }
+        const id = getSubcellularLocationId(location.id);
+        if (!id || !location.evidences) {
+          return null;
+        }
+        const evidenceType = getUniProtEvidenceType(location.evidences);
+        if (!evidenceType) {
+          return null;
+        }
+        return {
+          id,
+          evidenceType,
+        };
+      })
     )
-    .filter(
-      (l: Partial<SubCellularLocation> | undefined): l is SubCellularLocation =>
-        Boolean(l)
+    .filter((l: SubCellularLocation | null): l is SubCellularLocation =>
+      Boolean(l)
     );
 
   const goLocations = (goXrefs || [])
