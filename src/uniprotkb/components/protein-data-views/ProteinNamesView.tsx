@@ -296,7 +296,7 @@ const ProteinNamesView = ({
   // think it's from UniProt.
   if (protnlmProteinNames?.recommendedName && !noEvidence) {
     infoData.push({
-      title: 'AI recommended name',
+      title: 'AI predicted name',
       content: (
         <span className="ai-annotation">
           <NameWithEvidence
