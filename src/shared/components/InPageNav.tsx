@@ -17,11 +17,13 @@ export type InPageNavSection = {
 type Props = {
   sections: InPageNavSection[];
   rootElement?: string | HTMLElement;
+  hasProtnlm?: boolean | 'loading';
 };
 
 const InPageNav = ({
   sections,
   rootElement,
+  hasProtnlm,
   ...props
 }: Props & HTMLAttributes<HTMLUListElement>) => {
   const history = useHistory();
@@ -203,19 +205,21 @@ const InPageNav = ({
           </li>
         ))}
       </ul>
-      <section>
-        <ToggleSwitch
-          header="AI Annotations"
-          statusOff="Click to enable"
-          statusLoading="Loading AI predictions..."
-          statusOn="Showing AI predictions"
-          icon={<AiAnnotationsIcon />}
-          checked={false}
-          onChange={(state) => {
-            console.log(state);
-          }}
-        />
-      </section>
+      {hasProtnlm === true && (
+        <section>
+          <ToggleSwitch
+            header="AI Annotations"
+            statusOff="Click to enable"
+            statusLoading="Loading AI predictions..."
+            statusOn="Showing AI predictions"
+            icon={<AiAnnotationsIcon />}
+            checked={false}
+            onChange={() => {
+              // TODO: Implement toggle functionality to show/hide AI annotations
+            }}
+          />
+        </section>
+      )}
     </>
   );
 };
