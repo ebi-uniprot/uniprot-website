@@ -187,6 +187,7 @@ const Entry = () => {
   const [isLikelyHuman, setIsLikelyHuman] = useState(
     Boolean(window.botChallenge)
   );
+  const [loadProtNLM, setLoadProtNLM] = useState(false);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -246,7 +247,8 @@ const Entry = () => {
     isLikelyHuman &&
       match?.params.accession &&
       data &&
-      data.entryType === 'UniProtKB unreviewed (TrEMBL)'
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      loadProtNLM
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null
   );
@@ -614,10 +616,8 @@ const Entry = () => {
             statusLoading="Loading AI predictions..."
             statusOn="Showing AI predictions"
             icon={<AiAnnotationsIcon />}
-            checked={false}
-            onChange={(state) => {
-              console.log(state);
-            }}
+            checked={loadProtNLM}
+            onChange={setLoadProtNLM}
           />
         ) : null
       }
