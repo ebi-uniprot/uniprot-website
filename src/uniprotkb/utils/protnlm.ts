@@ -1,4 +1,5 @@
 import type { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
+import { Evidence } from '../types/modelTypes';
 
 type AnyRecord = Record<string, unknown>;
 
@@ -43,3 +44,6 @@ export const includeOnlyItemsWithEvidences = (
   const pruned = pruneNode(entry);
   return pruned ? (pruned as Partial<UniProtkbAPIModel>) : null;
 };
+
+export const hasProtNLM2Evidence = (evidences?: Evidence[]) =>
+  !!evidences?.some((evidence) => evidence.id === 'ProtNLM2');

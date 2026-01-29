@@ -1,10 +1,11 @@
+import cn from 'classnames';
 import { ExpandableList, InfoList } from 'franklin-sites';
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
+import { hasProtNLM2Evidence } from '../../utils/protnlm';
 import styles from './styles/keyword-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
@@ -33,12 +34,17 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
       return null;
     }
     return (
-      // eslint-disable-next-line react/no-array-index-key
-      <Fragment key={index}>
+      <span
+        // eslint-disable-next-line react/no-array-index-key
+        key={index}
+        className={cn('text-block', {
+          'ai-annotation-keyword': hasProtNLM2Evidence(evidences),
+        })}
+      >
         {' '}
         <KeywordItem id={id} value={idOnly ? id : name} />
         {!inline && <UniProtKBEvidenceTag evidences={evidences} />}
-      </Fragment>
+      </span>
     );
   });
 

@@ -16,3 +16,7 @@
 .ai-annotation:not(.decorated-list-item .ai-annotation) {
   @include ai-background;
 }
+
+.ai-annotation-keyword {
+  @include ai-background;
+}

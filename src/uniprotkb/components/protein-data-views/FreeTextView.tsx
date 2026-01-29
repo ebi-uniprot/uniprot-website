@@ -18,6 +18,7 @@ import {
   TextWithEvidence,
 } from '../../types/commentTypes';
 import { TabLocation } from '../../types/entry';
+import { hasProtNLM2Evidence } from '../../utils/protnlm';
 import {
   getTextProcessingParts,
   reAC,
@@ -171,10 +172,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
 };
 
 const isProtNLM2 = (comments: TextWithEvidence[]) =>
-  comments.some(
-    (comment) =>
-      !!comment.evidences?.some((evidence) => evidence.id === 'ProtNLM2')
-  );
+  comments.some((comment) => hasProtNLM2Evidence(comment.evidences));
 
 type TextViewProps = {
   comments: TextWithEvidence[];
