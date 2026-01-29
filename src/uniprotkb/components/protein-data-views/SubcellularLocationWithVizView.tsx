@@ -134,11 +134,11 @@ const SubcellularLocationWithVizView: FC<
   const uniProtLocations = (comments || [])
     .flatMap(({ subcellularLocations }) =>
       (subcellularLocations || []).map(({ location }) => {
-        if (!location.id || location.evidences) {
+        if (!location.id || !location.evidences) {
           return null;
         }
         const id = getSubcellularLocationId(location.id);
-        if (!id || !location.evidences) {
+        if (!id) {
           return null;
         }
         const evidenceType = getUniProtEvidenceType(location.evidences);
