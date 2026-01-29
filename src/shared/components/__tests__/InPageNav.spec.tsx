@@ -45,6 +45,32 @@ describe('InPageNav component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('should render with AI Annotations toggle when hasProtnlm is true', () => {
+    const { getByText } = customRender(
+      <InPageNav sections={sections} hasProtnlm />
+    );
+    expect(getByText('AI Annotations')).toBeInTheDocument();
+  });
+
+  it('should not render AI Annotations toggle when hasProtnlm is false', () => {
+    const { queryByText } = customRender(
+      <InPageNav sections={sections} hasProtnlm={false} />
+    );
+    expect(queryByText('AI Annotations')).not.toBeInTheDocument();
+  });
+
+  it('should not render AI Annotations toggle when hasProtnlm is loading', () => {
+    const { queryByText } = customRender(
+      <InPageNav sections={sections} hasProtnlm="loading" />
+    );
+    expect(queryByText('AI Annotations')).not.toBeInTheDocument();
+  });
+
+  it('should not render AI Annotations toggle when hasProtnlm is not provided', () => {
+    const { queryByText } = customRender(<InPageNav sections={sections} />);
+    expect(queryByText('AI Annotations')).not.toBeInTheDocument();
+  });
+
   it('should scroll the default target element into view', async () => {
     customRender(
       <div>
