@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { AiAnnotationsIcon, ToggleSwitch } from 'franklin-sites';
 import { type HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { frame, schedule, sleep } from 'timing-functions';
@@ -202,7 +203,19 @@ const InPageNav = ({
           </li>
         ))}
       </ul>
-      <section>AI annotations</section>
+      <section>
+        <ToggleSwitch
+          header="AI Annotations"
+          statusOff="Click to enable"
+          statusLoading="Loading AI predictions..."
+          statusOn="Showing AI predictions"
+          icon={<AiAnnotationsIcon />}
+          checked={false}
+          onChange={(state) => {
+            console.log(state);
+          }}
+        />
+      </section>
     </>
   );
 };
