@@ -5,24 +5,24 @@ import { getFeatureTooltip } from 'protvista-uniprot';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { showTooltipAtCoordinates } from '../../shared/utils/tooltip';
-import FeatureType from '../../uniprotkb/types/featureType';
+import type FeatureType from '../../uniprotkb/types/featureType';
 import {
   colorSchemeTree,
   MsaColorScheme,
   msaColorSchemeToString,
 } from '../config/msaColorSchemes';
 import {
-  ConservationOptions,
-  MSAInput,
-  OnMSAFeatureClick,
-  UpdateTooltip,
+  type ConservationOptions,
+  type MSAInput,
+  type OnMSAFeatureClick,
+  type UpdateTooltip,
 } from '../types/alignment';
 import { prepareFeatureForTooltip } from '../utils/feature';
 import {
   findSequenceFeature,
   getFullAlignmentLength,
   getMSAFeature,
-  MSAFeature,
+  type MSAFeature,
 } from '../utils/sequences';
 import Overview from './Overview';
 import Wrapped from './Wrapped';

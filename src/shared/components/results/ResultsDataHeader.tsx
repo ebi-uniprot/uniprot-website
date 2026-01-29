@@ -1,5 +1,5 @@
 import { PageIntro } from 'franklin-sites';
-import { FC, memo, ReactNode } from 'react';
+import { type FC, memo, type ReactNode } from 'react';
 
 import { toolsResultsLocationToLabel } from '../../../app/config/urls';
 import useJobFromUrl from '../../hooks/useJobFromUrl';

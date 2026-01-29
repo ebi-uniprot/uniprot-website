@@ -1,7 +1,7 @@
 import { Loader, Message, sequenceProcessor } from 'franklin-sites';
 import { orderBy, truncate } from 'lodash-es';
-import { ReactNode, useEffect, useMemo, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { type ReactNode, useEffect, useMemo, useRef } from 'react';
+import { generatePath, Link, useLocation } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
 import {
@@ -15,13 +15,13 @@ import apiUrls from '../../config/apiUrls/apiUrls';
 import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../config/limits';
 import useNS from '../../hooks/useNS';
 import useSafeState from '../../hooks/useSafeState';
-import { APIModel } from '../../types/apiModel';
+import { type APIModel } from '../../types/apiModel';
 import {
   Namespace,
-  SearchableNamespace,
+  type SearchableNamespace,
   searchableNamespaceLabels,
 } from '../../types/namespaces';
-import { Suggestion } from '../../types/results';
+import { type Suggestion } from '../../types/results';
 import fetchData from '../../utils/fetchData';
 import { translatedWebsite } from '../../utils/translatedWebsite';
 import { stringifyQuery, stringifyUrl } from '../../utils/url';
@@ -87,15 +87,42 @@ const PeptideSearchSuggestion = ({
 }) => (
   <p>
     Are you searching for protein sequences containing the peptide{' '}
-    <Link
-      to={{
-        pathname: LocationToPath[Location.PeptideSearch],
-        search: `peps=${potentialPeptide}`,
-      }}
-      translate="no"
-    >
-      {truncate(potentialPeptide, truncateOptions)}?
-    </Link>
+    <span>{truncate(potentialPeptide, truncateOptions)}?</span>
+    <ul>
+      <li>
+        Our basic search tool allows to find protein entries by{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'text-search',
+          })}
+        >
+          name, organism, identifier, etc
+        </Link>
+        , but not by sequence.
+      </li>
+      <li>
+        For sequence-based queries, please use{' '}
+        <Link
+          to={{
+            pathname: LocationToPath[Location.Blast],
+            search: `sequence=${potentialPeptide}`,
+          }}
+          translate="no"
+        >
+          BLAST
+        </Link>{' '}
+        or{' '}
+        <Link
+          to={{
+            pathname: LocationToPath[Location.PeptideSearch],
+            search: `peps=${potentialPeptide}`,
+          }}
+        >
+          Peptide Search
+        </Link>
+        .
+      </li>
+    </ul>
   </p>
 );
 

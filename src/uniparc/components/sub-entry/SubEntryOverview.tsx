@@ -1,57 +1,49 @@
-import { InfoList, Loader } from 'franklin-sites';
+import { InfoList } from 'franklin-sites';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-import ExternalLink from '../../../shared/components/ExternalLink';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import { Namespace } from '../../../shared/types/namespaces';
-import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
-import { UniParcXRef } from '../../adapters/uniParcConverter';
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import EntrySection from '../../types/subEntrySection';
-import { DataDBModel } from '../entry/XRefsSection';
-import SubEntryInactive from './SubEntryInactive';
 
-type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
+// type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
 
-const ExternalXrefLink = ({ xref, dataDB }: ExternalXrefLinkProps) => {
-  let { id } = xref;
-  if (!id || !xref.database) {
-    return null;
-  }
-  const template = dataDB.find(
-    ({ displayName }) => displayName === xref.database
-  )?.uriLink;
-  if (!template) {
-    return null;
-  }
-  // NOTE: exception for FusionGDB we need to remove the underscore number
-  if (xref.database === 'FusionGDB') {
-    id = id.replace(/_\d+$/, '');
-  }
-  return (
-    <ExternalLink url={template.replace('%id', id)}>
-      {xref.id}
-      {xref.chain && ` (chain ${xref.chain})`}
-    </ExternalLink>
-  );
-};
+// const ExternalXrefLink = ({ xref, dataDB }: ExternalXrefLinkProps) => {
+//   let { id } = xref;
+//   if (!id || !xref.database) {
+//     return null;
+//   }
+//   const template = dataDB.find(
+//     ({ displayName }) => displayName === xref.database
+//   )?.uriLink;
+//   if (!template) {
+//     return null;
+//   }
+//   // NOTE: exception for FusionGDB we need to remove the underscore number
+//   if (xref.database === 'FusionGDB') {
+//     id = id.replace(/_\d+$/, '');
+//   }
+//   return (
+//     <ExternalLink url={template.replace('%id', id)}>
+//       {xref.id}
+//       {xref.chain && ` (chain ${xref.chain})`}
+//     </ExternalLink>
+//   );
+// };
 
 type Props = {
   data: UniParcSubEntryUIModel;
 };
 
 const SubEntryOverview = ({ data }: Props) => {
-  const dataDB = useDataApi<DataDBModel>(
-    apiUrls.configure.allDatabases(Namespace.uniparc)
-  );
+  // Refactor later to avoid multiple calls for dataDB
+  // const dataDB = useDataApi<DataDBModel>(
+  //   apiUrls.configure.allDatabases(Namespace.uniparc)
+  // );
 
-  if (dataDB.loading || !dataDB.data) {
-    return <Loader />;
-  }
+  // if (dataDB.loading || !dataDB.data) {
+  //   return <Loader />;
+  // }
 
   const infoData = [
     {
@@ -66,38 +58,17 @@ const SubEntryOverview = ({ data }: Props) => {
         <strong>{data.subEntry.geneName}</strong>
       ),
     },
-    {
-      title: 'Database',
-      content: !data.subEntry.isUniprotkbEntry && data.subEntry.database,
-    },
-    {
-      title: 'Identifier',
-      content: !data.subEntry.isUniprotkbEntry && (
-        <ExternalXrefLink xref={data.subEntry} dataDB={dataDB.data} />
-      ),
-    },
-    {
-      title: 'Status',
-      content: !data.subEntry.active && <SubEntryInactive data={data} />,
-    },
-    {
-      title: <span data-article-id="accession">UniProtKB accession</span>,
-      content: data.subEntry.id && data.subEntry.isUniprotkbEntry && (
-        <Link
-          to={{
-            pathname: getEntryPath(
-              Namespace.uniprotkb,
-              data.subEntry.id,
-              data.subEntry.active
-                ? UniprotkbTabLocation.Entry
-                : UniprotkbTabLocation.History
-            ),
-          }}
-        >
-          {data.subEntry.id} {data.subEntry.active ? '' : ' (History)'}
-        </Link>
-      ),
-    },
+    // TODO: Re-add when we show non-UniProtKB entries in UniParc
+    // {
+    //   title: 'Database',
+    //   content: !data.subEntry.isUniprotkbEntry && data.subEntry.database,
+    // },
+    // {
+    //   title: 'Identifier',
+    //   content: !data.subEntry.isUniprotkbEntry && (
+    //     <ExternalXrefLink xref={data.subEntry} dataDB={dataDB.data} />
+    //   ),
+    // },
     {
       title: 'Sequence source',
       content: data.subEntry.source?.database,

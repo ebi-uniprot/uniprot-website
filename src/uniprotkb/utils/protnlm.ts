@@ -1,5 +1,5 @@
 import type { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
-import { Evidence } from '../types/modelTypes';
+import { type Evidence } from '../types/modelTypes';
 
 type AnyRecord = Record<string, unknown>;
 

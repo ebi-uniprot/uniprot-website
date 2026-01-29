@@ -3,7 +3,11 @@
  * library's configuration
  */
 import deepFreeze from 'deep-freeze';
-import sanitizeHtml, { Attributes, defaults, IOptions } from 'sanitize-html';
+import sanitizeHtml, {
+  type Attributes,
+  defaults,
+  type IOptions,
+} from 'sanitize-html';
 
 import styles from './styles/clean-text.module.scss';
 
@@ -65,6 +69,8 @@ export const cleanTextDefaultOptions = deepFreeze<IOptions>({
     ...defaults.allowedAttributes,
     img: ['src', 'alt'],
     '*': ['id', 'style'],
+    td: ['colspan', 'rowspan'],
+    th: ['colspan', 'rowspan'],
   },
   transformTags: getTransformTags(),
 }) as IOptions;

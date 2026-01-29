@@ -16,7 +16,7 @@ import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
 import { searchableNamespaceLabels } from '../../../shared/types/namespaces';
 import HelpQuickSearch from './HelpQuickSearch';
 import IllustratedListTile, {
-  IllustratedListTileProps,
+  type IllustratedListTileProps,
 } from './IllustratedListTile';
 import landing from './styles/help-landing-page.module.scss';
 import Cog from './svgs/cog.img.svg';

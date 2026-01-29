@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { v1 } from 'uuid';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
+import { type TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 import FeaturesView, {
-  ProcessedFeature,
+  type ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
@@ -12,7 +12,7 @@ import { stringToColour } from '../../../shared/utils/color';
 import { markBackground, markBorder } from '../../../shared/utils/nightingale';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import { sortByLocation } from '../../../uniprotkb/utils';
-import { SequenceFeature } from '../../adapters/uniParcConverter';
+import { type SequenceFeature } from '../../adapters/uniParcConverter';
 
 export type UniParcProcessedFeature = ProcessedFeature & {
   database: string;
@@ -55,8 +55,8 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
   const columns: TableFromDataColumn<UniParcProcessedFeature>[] = useMemo(
     () => [
       {
-        label: 'InterPro Group',
-        id: 'interpro-group',
+        label: 'InterPro Name',
+        id: 'interpro-name',
         render: (feature) =>
           feature.interproGroupId ? (
             <ExternalLink
@@ -65,7 +65,7 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
               {feature.interproGroupName}
             </ExternalLink>
           ) : (
-            'N/A'
+            <em>Not integrated into an InterPro entry</em>
           ),
       },
       {
@@ -88,9 +88,25 @@ const UniParcFeaturesView = ({ data, sequence }: UniParcFeaturesViewProps) => {
             databaseInfoMaps?.databaseToDatabaseInfo[database];
           // Additional prefix 'G3DSA:' in UniParc will be removed in https://www.ebi.ac.uk/panda/jira/browse/TRM-32164.
           // Adjust the below logic accordingly
-          let revisedDatabaseId;
-          if (database === 'FunFam' || database === 'Gene3D') {
+          let revisedDatabaseId = databaseId;
+          if (databaseId && (database === 'FunFam' || database === 'Gene3D')) {
             revisedDatabaseId = databaseId.replace('G3DSA:', '');
+          }
+
+          if (revisedDatabaseId) {
+            if (databaseInfo?.uriLink) {
+              return (
+                <ExternalLink
+                  url={processUrlTemplate(databaseInfo.uriLink, {
+                    id: revisedDatabaseId,
+                  })}
+                >
+                  {revisedDatabaseId}
+                </ExternalLink>
+              );
+            } else {
+              return revisedDatabaseId;
+            }
           }
 
           return (

@@ -8,7 +8,7 @@ import apiUrls from '../../config/apiUrls/apiUrls';
 import { useMediumScreen } from '../../hooks/useMatchMedia';
 import helper from '../../styles/helper.module.scss';
 import { Namespace } from '../../types/namespaces';
-import { Sequence as SequenceType } from '../../types/sequence';
+import { type Sequence as SequenceType } from '../../types/sequence';
 import { sendGtagEventCopyFastaClick } from '../../utils/gtagEvents';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 

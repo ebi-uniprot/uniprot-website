@@ -1,9 +1,9 @@
 import { BinIcon, Button } from 'franklin-sites';
 import {
-  Dispatch,
-  MutableRefObject,
-  ReactNode,
-  SetStateAction,
+  type Dispatch,
+  type MutableRefObject,
+  type ReactNode,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -11,40 +11,40 @@ import {
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
-import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
-import { MappingAPIModel } from '../../jobs/id-mapping/types/idMappingSearchResults';
-import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
-import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
-import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
-import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
-import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
-import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
-import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { type ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
+import { type UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { type MappingAPIModel } from '../../jobs/id-mapping/types/idMappingSearchResults';
+import { type ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+import { type CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
+import { type DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
+import { type DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
+import { type KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
+import { type LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+import { type TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import uniProtKbConverter, {
-  UniProtkbAPIModel,
+  type UniProtkbAPIModel,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
+import { type SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
-  ReceivedFieldData,
+  type ReceivedFieldData,
   SortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { DatabaseInfoMaps } from '../../uniprotkb/utils/database';
+import { type DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 import {
   getLocationObjForParams,
   getParamsFromURL,
   getSortableColumnToSortColumn,
 } from '../../uniprotkb/utils/resultsUtils';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import apiUrls from '../config/apiUrls/apiUrls';
-import { Column, ColumnConfigurations } from '../config/columns';
-import { APIModel } from '../types/apiModel';
+import { type Column, ColumnConfigurations } from '../config/columns';
+import { type APIModel } from '../types/apiModel';
 import { Namespace, searchableNamespaces } from '../types/namespaces';
 import { getIdKeyForData } from '../utils/getIdKey';
 import * as logging from '../utils/logging';
 import { showTooltip } from '../utils/tooltip';
-import { Basket } from './useBasket';
+import { type Basket } from './useBasket';
 import useColumnNames from './useColumnNames';
 import useDataApi from './useDataApi';
 import useDatabaseInfoMaps from './useDatabaseInfoMaps';

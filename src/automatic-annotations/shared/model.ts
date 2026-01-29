@@ -1,7 +1,7 @@
-import { Statistics } from '../../shared/types/apiModel';
+import { type Statistics } from '../../shared/types/apiModel';
 import {
-  Ligand,
-  LigandPart,
+  type Ligand,
+  type LigandPart,
 } from '../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 
 export type Information = {

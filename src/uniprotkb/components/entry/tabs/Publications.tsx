@@ -1,9 +1,9 @@
 import { Card, DataListWithLoader, InfoList, Loader } from 'franklin-sites';
-import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { type InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { capitalize, groupBy } from 'lodash-es';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Except, SetRequired, Simplify } from 'type-fest';
+import { type Except, type SetRequired, type Simplify } from 'type-fest';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
@@ -13,7 +13,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import { type SearchResults } from '../../../../shared/types/results';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
 import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
 import {
@@ -22,9 +22,9 @@ import {
 } from '../../../../shared/utils/utils';
 import { processUrlTemplate } from '../../../../shared/utils/xrefs';
 import {
-  CitationsAPIModel,
-  Reference,
-  Source,
+  type CitationsAPIModel,
+  type Reference,
+  type Source,
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
 import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';

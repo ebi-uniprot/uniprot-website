@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
@@ -56,7 +56,7 @@ exports[`non-critical HomePage component should render 1`] = `
             title="UniProt Knowledgebase, SwissProt or reviewed protein database"
           >
             <test-file-stub
-              classname="core-data__reviewed-icon"
+              class="core-data__reviewed-icon"
               width="1.75em"
             />
             <div
@@ -403,6 +403,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2026-01-28-release"
+              >
+                UniProt release 2026_01
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Complement-ary information on granzyme K | Continuing to reorganize the protein space in UniProtKB...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2025-10-15-release"
               >
                 UniProt release 2025_04
@@ -451,65 +469,47 @@ exports[`non-critical HomePage component should render 1`] = `
             </p>
           </article>
         </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2025-02-05-release"
-              >
-                UniProt release 2025_01
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              The 'dark' side of male contraception | Changes to the controlled vocabulary of human diseases | Changes to the...
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2024-11-27-release"
-              >
-                UniProt release 2024_06
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              What happens when ribosomes crash | Cross-references to FunFam | Cross-references to AntiFam
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2024-10-02-release"
-              >
-                UniProt release 2024_05
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Plasma membrane rupture during cell death: from a passive hypothesis to an active process | Changes to the controlled vocabulary of human diseases
-            </p>
-          </article>
-        </li>
       </ul>
     </div>
     <div
       class="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-4 uniprot-grid-cell--medium-offset-5 latest-news__blogspot"
     >
+      <article>
+        <a
+          aria-hidden="true"
+          class="external-link"
+          href="https://insideuniprot.blogspot.com/2025/11/germ-warfare-arsenal-of-antimicrobial.html"
+          rel="noopener"
+          tabindex="-1"
+          target="_blank"
+        >
+          <img
+            alt=""
+            height="96"
+            loading="lazy"
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPhueF7GaqM1eZpOU9xGZBkx6Sw_uwFI66eigkahrFVm74QmISsgDrKs6CWL4uEjfgQoxZirkOHhU8RsUXNzzra6WWiKrNTOuWiVqD_PaHBLsIIQmTiGO86yyKn-aKMWuZCnnbfMije4X7fBfMP5rPuxz70WUUwM0fbPOgWmzKgr9F96i4yo0i9cgheDoD/s1280/AMR_blog1.png"
+            style="background: white;"
+            width="184.305"
+          />
+        </a>
+        <h3
+          class="tiny"
+        >
+          <a
+            class="external-link"
+            href="https://insideuniprot.blogspot.com/2025/11/germ-warfare-arsenal-of-antimicrobial.html"
+            rel="noopener"
+            target="_blank"
+          >
+            Germ Warfare: Arsenal of Antimicrobial Resistance Proteins in UniProt
+          </a>
+        </h3>
+        <p
+          class="latest-news__abstract latest-news__abstract--4-lines"
+        >
+          Antimicrobial resistance contributes to almost 5 million deaths annually, worldwide. To mark World AMR Awareness Week...
+        </p>
+      </article>
       <article>
         <a
           aria-hidden="true"
@@ -538,42 +538,6 @@ exports[`non-critical HomePage component should render 1`] = `
             target="_blank"
           >
             Using UniProtKB to navigate large and complex structures
-          </a>
-        </h3>
-        <p
-          class="latest-news__abstract latest-news__abstract--4-lines"
-        >
-          With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?
-        </p>
-      </article>
-      <article>
-        <a
-          aria-hidden="true"
-          class="external-link"
-          href="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
-          rel="noopener"
-          tabindex="-1"
-          target="_blank"
-        >
-          <img
-            alt=""
-            height="96"
-            loading="lazy"
-            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3OR6x6_Tx_GoAIRCHoalCg6IlBgwwrI1YlxoCtzS4J6EO_8aO5ALgMaOErbSlqPL3IXmBvCLtmPMouQB-RkK5aAHbAeM1sWF5V-k8E-6ufjNbPF2u16_s9qI8cGYKHEt8-2PWy_fZgZWdbaDcBvnQByXvf2wmVsIqY1FRyf8F8xB1CW5Jlzv1Xdvjq1g/w418-h260/scales.png"
-            style="background: white;"
-            width="184.305"
-          />
-        </a>
-        <h3
-          class="tiny"
-        >
-          <a
-            class="external-link"
-            href="https://insideuniprot.blogspot.com/2025/06/uniprot-ultimate-colleague-on-your.html"
-            rel="noopener"
-            target="_blank"
-          >
-            UniProt - the ultimate colleague on your biological research team!
           </a>
         </h3>
         <p
@@ -612,17 +576,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/284/"
+          href="https://www.proteinspotlight.org/back_issues/287/"
           rel="noopener"
           target="_blank"
         >
-          Why dung?
+          Give and take
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/284/"
+        href="https://www.proteinspotlight.org/back_issues/287/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -631,14 +595,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt284.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt287.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Who  hasn't  gone  out  for  some  fresh  air  and  been  incommoded  by  the  pungent  smell  of  manure?  Why  have  farmers  been  flinging  dung  on  their  ploughed  fields  for  thousands  of  years?  The  answer  is  nitrogen.
+          Survival  is  the  essence  of  life.  This  may  sound  like  an  abysmal  platitude  but,  in  the  living  world,  the  act  of  survival  implies  an  awful  lot.  To  survive,  many  animals  eat  other  animals,  which  they  must  first  kill.
       </p>
     </article>
   </section>
@@ -942,7 +906,7 @@ exports[`non-critical HomePage component should render 1`] = `
         class="loader-container"
       >
         <test-file-stub
-          classname="loader"
+          class="loader"
           height="100"
           width="100"
         />
@@ -963,7 +927,7 @@ exports[`non-critical HomePage component should render 1`] = `
     >
       <a
         aria-hidden="true"
-        href="https://ftp.uniprot.org/pub/databases/uniprot/"
+        href="https://ftp.ebi.ac.uk/pub/databases/uniprot/"
         tabindex="-1"
       />
       <div

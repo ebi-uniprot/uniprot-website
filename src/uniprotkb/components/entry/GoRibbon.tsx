@@ -1,32 +1,31 @@
+import '@geneontology/web-components/go-annotation-ribbon-strips';
+
 import { Loader } from 'franklin-sites';
-import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
-import LazyComponent from '../../../shared/components/LazyComponent';
 import TableFromData, {
-  TableFromDataColumn,
+  type TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import useSafeState from '../../../shared/hooks/useSafeState';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
-  GoTerm,
-  GOTermID,
-  GroupedGoTerms,
+  type GoTerm,
+  type GOTermID,
+  type GroupedGoTerms,
 } from '../../adapters/functionConverter';
-import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
+import { type GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import {
-  AGRRibbonGroup,
-  AGRRibbonSubject,
+  type AGRRibbonGroup,
+  type AGRRibbonSubject,
   getCategories,
   getSubjects,
   useGOData,
 } from '../../adapters/slimming/GORibbonHandler';
-import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
+import { type UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/go-ribbon.module.scss';
@@ -66,7 +65,6 @@ const getRowId = (data: GoTerm) => data.id;
 
 type CellClick = {
   detail: {
-    selected?: [boolean];
     group: AGRRibbonGroup;
     subjects: AGRRibbonSubject[];
   };
@@ -95,21 +93,11 @@ const GoRibbon = ({
   const isSmallScreen = useSmallScreen();
   const columns = useColumns();
 
-  const nodeRef = useRef<HTMLElement>();
+  const nodeRef = useRef<HTMLElement | null>(null);
 
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, onSlimSetSelect, slimSets } =
     useGOData(goTerms, organismData?.taxonId);
-
-  const [elementLoaded, setElementLoaded] = useSafeState(false);
-
-  useEffect(() => {
-    if ('customElements' in window) {
-      customElements.whenDefined('wc-ribbon-strips').then(() => {
-        setElementLoaded(true);
-      });
-    }
-  }, [setElementLoaded]);
 
   const [activeGoTerms, setActiveGoTerms] = useState<Set<GOTermID> | null>(
     null
@@ -139,22 +127,25 @@ const GoRibbon = ({
   );
 
   useEffect(() => {
-    if (!elementLoaded || !nodeRef.current || !data) {
+    if (!nodeRef.current || !data) {
       return;
     }
 
     const node = nodeRef.current;
     const clickHandler = async ({ detail }: CellClick | GroupClick) => {
-      // TODO: the groupClick event detail does not provide the attribute "selected". Possibly create a PR against ribbon-strips to provide this.
-      const isSelected = 'selected' in detail ? detail.selected?.[0] : true;
-      const clickedID = detail.group.id;
-      const groupID: GOTermID | 'all' | 'all-other' =
-        detail.group.type === 'Other' ? `${clickedID}-other` : clickedID;
-      setActiveGoTerms(
-        !isSelected || clickedID === 'all'
-          ? null
-          : new Set(data?.subjects?.[0].groups?.[groupID]?.ALL?.terms)
-      );
+      const isSelected = detail.group ? true : false;
+      if (isSelected) {
+        const clickedID = detail.group.id;
+        const groupID: GOTermID | 'all' | 'all-other' =
+          detail.group.type === 'Other' ? `${clickedID}-other` : clickedID;
+        setActiveGoTerms(
+          clickedID === 'all'
+            ? null
+            : new Set(data?.subjects?.[0].groups?.[groupID]?.ALL?.terms)
+        );
+      } else {
+        setActiveGoTerms(null);
+      }
     };
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -170,7 +161,7 @@ const GoRibbon = ({
       // @ts-ignore
       node.removeEventListener('cellClick', clickHandler);
     };
-  }, [elementLoaded, data]);
+  }, [isSmallScreen, data]);
 
   const ungroupedGoTerms = Array.from(goTerms?.values() || []).flat();
 
@@ -195,16 +186,12 @@ const GoRibbon = ({
     ribbon = (
       <>
         <div className={styles.container}>
-          <wc-ribbon-strips
+          <go-annotation-ribbon-strips
             ref={nodeRef}
-            update-on-subject-change="false"
-            // color by nb_classes: 0, nb_annotations: 1
-            color-by="0"
-            // bold for 'all ...' cells
-            category-all-style="1"
-            subject-position="0"
+            color-by="classes"
+            subject-position="none"
             show-other-group
-            add-cell-all
+            show-all-annotations-group
             // Not-dynamic just highlight all on initial load
             selected="all"
             group-clickable="false"
@@ -220,18 +207,7 @@ const GoRibbon = ({
       <div className={styles.preamble}>
         Gene Ontology (GO) annotations organized by slimming set.
       </div>
-
-      {!isSmallScreen && (
-        <LazyComponent fallback={null}>
-          <Helmet>
-            <script
-              type="module"
-              src="https://unpkg.com/@geneontology/wc-ribbon-strips@0.0.37/dist/wc-ribbon-strips/wc-ribbon-strips.esm.js"
-            />
-          </Helmet>
-        </LazyComponent>
-      )}
-      {elementLoaded && slimSets && (
+      {!isSmallScreen && slimSets && (
         <label className={styles['set-selector']}>
           <div>Slimming set:</div>
           <select
@@ -246,7 +222,7 @@ const GoRibbon = ({
           </select>
         </label>
       )}
-      {elementLoaded && ribbon}
+      {!isSmallScreen && ribbon}
       {!!filteredGoTerms.length && (
         <TableFromData
           columns={columns}

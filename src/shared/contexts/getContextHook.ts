@@ -1,4 +1,4 @@
-import { Context, useContext } from 'react';
+import { type Context, useContext } from 'react';
 
 import * as logging from '../utils/logging';
 

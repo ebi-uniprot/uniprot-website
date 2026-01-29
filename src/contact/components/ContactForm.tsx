@@ -7,7 +7,7 @@ import {
   SuccessIcon,
 } from 'franklin-sites';
 import { createPath } from 'history';
-import { ChangeEvent, ReactNode, useId, useMemo } from 'react';
+import { type ChangeEvent, type ReactNode, useId, useMemo } from 'react';
 import {
   generatePath,
   Link,
@@ -18,10 +18,11 @@ import {
 import { Location, LocationToPath } from '../../app/config/urls';
 import ExternalLink from '../../shared/components/ExternalLink';
 import HTMLHead from '../../shared/components/HTMLHead';
+import { RefProtContactPage } from '../../shared/components/RefProtMoveMessages';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
 import {
-  ContactLocationState,
-  Suggestion,
+  type ContactLocationState,
+  type Suggestion,
   useFormLogic,
 } from '../adapters/contactFormAdapter';
 import ContactLink from './ContactLink';
@@ -222,6 +223,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
         <h2 className="medium">{description}</h2>
         <p>Our helpdesk team will receive and review your message</p>
         <hr />
+        <RefProtContactPage />
         <form aria-label="Contact form" onSubmit={handleSubmit}>
           {/* Name */}
           <label className={styles.label} htmlFor={`name-${formId}`}>

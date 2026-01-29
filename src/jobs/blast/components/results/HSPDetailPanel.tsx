@@ -10,14 +10,14 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
-import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import AlignmentView, { Tool, View } from '../../../components/AlignmentView';
-import { MSAInput } from '../../../types/alignment';
+import { type MSAInput } from '../../../types/alignment';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
-import { BlastHsp } from '../../types/blastResults';
+import { type BlastHsp } from '../../types/blastResults';
 
 export type HSPDetailPanelProps = {
   hsp: BlastHsp;
@@ -81,7 +81,6 @@ const HSPDetailPanel = ({
   namespace,
 }: HSPDetailPanelProps) => {
   const { pathname } = useLocation();
-  const { hsp_align_len } = hsp;
   let url = apiUrls.entry.entry(hitAccession, namespace);
   if (namespace === Namespace.uniref) {
     url += '/light';
@@ -126,8 +125,11 @@ const HSPDetailPanel = ({
   } else {
     content = (
       <div className="hsp-detail-panel__body">
+        Match between &ldquo;query&rdquo; sequence positions{' '}
+        {hsp.hsp_query_from} to {hsp.hsp_query_to} and &ldquo;hit&rdquo;
+        sequence positions {hsp.hsp_hit_from} to {hsp.hsp_hit_to}.
         <AlignmentView
-          alignmentLength={hsp_align_len}
+          alignmentLength={hsp.hsp_align_len}
           alignment={alignment}
           defaultView={View.overview}
           tool={Tool.blast}

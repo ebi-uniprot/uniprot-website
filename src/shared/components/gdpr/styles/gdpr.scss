@@ -8,7 +8,7 @@ $black: #000;
   padding: 1rem 2rem;
   position: fixed;
   bottom: 0;
-  background-color: lighten($black, 0.2);
+  background-color: color-mix(in srgb, $black 98%, white);
   color: #fff;
   z-index: $z-index-high + 3;
 

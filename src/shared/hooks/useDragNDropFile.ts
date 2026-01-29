@@ -1,6 +1,6 @@
 import { debounce } from 'lodash-es';
 import {
-  ReactElement,
+  type ReactElement,
   useCallback,
   useEffect,
   useMemo,

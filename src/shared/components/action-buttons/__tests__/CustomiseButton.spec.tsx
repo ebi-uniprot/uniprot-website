@@ -6,6 +6,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { SearchResultsLocations } from '../../../../app/config/urls';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
@@ -33,8 +34,9 @@ describe('CustomiseButton', () => {
         [storageKey]: selectedColumns,
       },
     });
-    fireEvent.click(screen.getByRole('button'));
-    await waitFor(() => screen.getByRole('button', { name: /UniProt Data/ }));
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button'));
+    await screen.findByRole('button', { name: /UniProt Data/i });
   });
 
   afterEach(() => {

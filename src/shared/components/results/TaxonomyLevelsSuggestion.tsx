@@ -1,8 +1,10 @@
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import { type UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
 import { Namespace } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
+import { type SearchResults } from '../../types/results';
 import {
   modifyQueryWithSuggestions,
   taxonHierarchySearchTerms,
@@ -10,14 +12,16 @@ import {
 import { stringifyUrl } from '../../utils/url';
 import OrganismSuggestion from './OrganismSuggestion';
 import ProteomeSuggestion from './ProteomeSuggestion';
-import { SearchTextLink } from './SearchTextLink';
+import { SearchLink } from './SearchTextLink';
 
 const TaxonomyLevelsSuggestion = ({
   query,
   total,
+  namespace,
 }: {
   query: string;
   total: number;
+  namespace: Namespace;
 }) => {
   const { modifiedQuery, searchValue } = modifyQueryWithSuggestions(
     query,
@@ -25,8 +29,10 @@ const TaxonomyLevelsSuggestion = ({
     taxonHierarchySearchTerms
   );
 
-  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
+  const { headers } = useDataApi<
+    SearchResults<UniProtkbAPIModel | UniParcAPIModel | ProteomesAPIModel>
+  >(
+    stringifyUrl(apiUrls.search.searchPrefix(namespace), {
       query: `${modifiedQuery}`,
       size: 0,
     })
@@ -45,22 +51,28 @@ const TaxonomyLevelsSuggestion = ({
             {hasTaxonSuggestion ? (
               <>
                 {' '}
-                or expand search to &quot;<b>{searchValue}</b>&quot; to{' '}
-                <SearchTextLink
-                  query={modifiedQuery}
-                  text="include lower taxonomic ranks"
-                />
+                or expand search to taxon ID &quot;<b>{searchValue}</b>&quot; to{' '}
+                <SearchLink query={modifiedQuery} namespace={namespace}>
+                  include lower taxonomic ranks
+                </SearchLink>
               </>
             ) : (
               ''
             )}
-            <ProteomeSuggestion query={query} organismID={searchValue} />
+            {namespace !== Namespace.proteomes && (
+              <ProteomeSuggestion
+                organismID={searchValue}
+                query={query}
+                namespace={namespace}
+              />
+            )}
           </>
         ) : (
           <OrganismSuggestion
             query={modifiedQuery}
             taxonID={searchValue}
             total={total}
+            namespace={namespace}
           />
         )}
       </small>

@@ -9,6 +9,7 @@ import {
 import { partialRight } from 'lodash-es';
 import { lazy, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import joinUrl from 'url-join';
 
 import {
   changePathnameOnly,
@@ -34,18 +35,19 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import { type SearchResults } from '../../../../shared/types/results';
+import { stringifyUrl } from '../../../../shared/utils/url';
 import {
-  TaxonomyAPIModel,
-  TaxonomyDatum,
+  type TaxonomyAPIModel,
+  type TaxonomyDatum,
 } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
-import { FormParameters } from '../../types/peptideSearchFormParameters';
-import { PeptideSearchResults } from '../../types/peptideSearchResults';
+import { type FormParameters } from '../../types/peptideSearchFormParameters';
+import { type PeptideSearchResults } from '../../types/peptideSearchResults';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -65,7 +67,7 @@ const InputParameters = lazy(
       /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
     )
 );
-// input-parameters
+// api-request
 const APIRequest = lazy(
   () =>
     import(
@@ -91,13 +93,87 @@ enum ServerJobParameters {
   swissProtOnly = 'swissProtOnly',
 }
 
+type ParsedParams = {
+  peps: string;
+  lEQi: 'on' | 'off';
+  spOnly: 'on' | 'off';
+  taxonIds: string;
+};
+
+const initialParsed: ParsedParams = {
+  peps: '',
+  lEQi: 'off',
+  spOnly: 'off',
+  taxonIds: '',
+};
+
+const parseJobParameters = (jobParameters?: string): ParsedParams => {
+  if (!jobParameters) {
+    return initialParsed;
+  }
+
+  let peps = '';
+  let lEQi: ParsedParams['lEQi'] = 'off';
+  let spOnly: ParsedParams['spOnly'] = 'off';
+  let taxonIds = '';
+
+  jobParameters.split(/\n/).forEach((line) => {
+    const [key, value] = line.split(':');
+    switch (key) {
+      case ServerJobParameters.QueryPetides:
+        peps = value;
+        break;
+      case ServerJobParameters.TaxonIds:
+        if (value) {
+          taxonIds = value;
+        }
+        break;
+      case ServerJobParameters.lEqi:
+        lEQi = value === 'Y' ? 'on' : 'off';
+        break;
+      case ServerJobParameters.swissProtOnly:
+        spOnly = value === 'Y' ? 'on' : 'off';
+        break;
+      default:
+    }
+  });
+
+  return { peps, lEQi, spOnly, taxonIds };
+};
+
+const getJobInputParameters = (
+  parsed: ParsedParams,
+  taxonomyLoading: boolean,
+  taxonomyData?: SearchResults<TaxonomyAPIModel>
+): FormParameters => {
+  const jobInputParameters: FormParameters = {
+    peps: parsed.peps,
+    lEQi: parsed.lEQi,
+    spOnly: parsed.spOnly,
+  };
+
+  if (!taxonomyLoading && taxonomyData?.results?.length) {
+    jobInputParameters.taxIds = taxonomyData.results.map(
+      (t: TaxonomyDatum) => ({
+        id: String(t.taxonId),
+        label: `${t.scientificName} [${t.taxonId}]`,
+      })
+    );
+  }
+
+  return jobInputParameters;
+};
+
+const parseAccessions = (csv?: string): string[] | undefined =>
+  csv?.split(',').filter(Boolean);
+
 const PeptideSearchResult = () => {
   const match = useMatchWithRedirect<Params>(
     Location.PeptideSearchResult,
     TabLocation
   );
-
   const jobID = match?.params.id || '';
+
   const {
     data: jobResultData,
     loading: jobResultLoading,
@@ -109,74 +185,53 @@ const PeptideSearchResult = () => {
 
   const { data: jobParameters } = useDataApi<PeptideSearchResults>(
     urls.detailsUrl?.(jobID),
-    {
-      headers: { Accept: 'text/plain' },
-    }
+    { headers: { Accept: 'text/plain' } }
   );
 
-  const jobInputParameters: FormParameters = {
-    peps: '',
-    lEQi: 'off',
-    spOnly: 'off',
-  };
-  let taxonIds = '';
-  jobParameters?.split(/\n/)?.forEach((keyValuePair) => {
-    const [key, value] = keyValuePair.split(':');
-    switch (key) {
-      case ServerJobParameters.QueryPetides:
-        jobInputParameters.peps = value;
-        break;
-      case ServerJobParameters.TaxonIds:
-        if (value) {
-          taxonIds = value;
-        }
-        break;
-      case ServerJobParameters.lEqi:
-        jobInputParameters.lEQi = value === 'Y' ? 'on' : 'off';
-        break;
-      case ServerJobParameters.swissProtOnly:
-        jobInputParameters.spOnly = value === 'Y' ? 'on' : 'off';
-        break;
-      default:
-    }
-  });
+  const parsedParams = useMemo(
+    () => parseJobParameters(jobParameters),
+    [jobParameters]
+  );
 
   const { data: taxonomyData, loading: taxonomyLoading } = useDataApi<
     SearchResults<TaxonomyAPIModel>
   >(
-    taxonIds
-      ? `${apiPrefix}/${Namespace.taxonomy}/taxonIds/${taxonIds}?fields=scientific_name`
-      : undefined
+    parsedParams.taxonIds
+      ? stringifyUrl(
+          joinUrl(
+            apiPrefix,
+            Namespace.taxonomy,
+            'taxonIds',
+            parsedParams.taxonIds
+          ),
+          { fields: 'scientific_name' }
+        )
+      : null
   );
 
-  if (!taxonomyLoading && taxonomyData) {
-    jobInputParameters.taxIds = taxonomyData?.results?.map(
-      (taxon: TaxonomyDatum) => ({
-        id: taxon.taxonId.toString(),
-        label: `${taxon.scientificName} [${taxon.taxonId}]`,
-      })
-    );
-  }
+  const jobInputParameters = useMemo(
+    () => getJobInputParameters(parsedParams, taxonomyLoading, taxonomyData),
+    [parsedParams, taxonomyLoading, taxonomyData]
+  );
 
   const accessions = useMemo(
-    () => jobResultData?.split(',').filter(Boolean),
+    () => parseAccessions(jobResultData),
     [jobResultData]
   );
 
-  const excessAccessions =
-    accessions && accessions?.length > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
+  const hasExcessAccessions =
+    Array.isArray(accessions) &&
+    accessions.length > MAX_PEPTIDE_FACETS_OR_DOWNLOAD;
 
-  // Query for facets
   const initialApiFacetUrl = useNSQuery({
     size: 0,
     withFacets: true,
     withColumns: false,
-    accessions: excessAccessions ? [] : accessions,
+    accessions: hasExcessAccessions ? [] : accessions,
   });
+
   const facetApiObject =
     useDataApiWithStale<SearchResults<UniProtkbAPIModel>>(initialApiFacetUrl);
-  const { loading: facetInititialLoading, isStale: facetHasStaleData } =
-    facetApiObject;
 
   const converter = useMemo(() => {
     const pepSeq = jobInputParameters.peps;
@@ -185,20 +240,7 @@ const PeptideSearchResult = () => {
 
   const resultsDataObject = usePaginatedAccessions(accessions, converter);
 
-  const {
-    initialLoading: resultsDataInitialLoading,
-    total: resultsDataTotal,
-    progress: resultsDataProgress,
-  } = resultsDataObject;
-
-  useMarkJobAsSeen(resultsDataObject?.allResults.length, match?.params.id);
-
-  // Don't use the response with facets for this, there's a bug returning 0 for
-  // results when combining facets and isoforms
-  let total: undefined | number;
-  if (resultsDataTotal !== undefined) {
-    total = +resultsDataTotal;
-  }
+  useMarkJobAsSeen(resultsDataObject?.allResults?.length, jobID);
 
   if (jobResultError || !match) {
     return (
@@ -207,48 +249,37 @@ const PeptideSearchResult = () => {
   }
 
   if (
-    (!jobResultLoading &&
-      !resultsDataInitialLoading &&
-      !facetInititialLoading &&
-      !total &&
-      !excessAccessions) ||
-    (!jobResultLoading && accessions?.length === 0) ||
-    total === 0
+    jobResultLoading ||
+    accessions === undefined ||
+    resultsDataObject.initialLoading ||
+    (facetApiObject.loading && !facetApiObject.isStale)
   ) {
+    return <Loader progress={resultsDataObject.progress} />;
+  }
+
+  if (!hasExcessAccessions && accessions.length === 0) {
     return <NoResultsPage />;
   }
 
-  if (
-    jobResultLoading ||
-    (facetInititialLoading && resultsDataInitialLoading && !facetHasStaleData)
-  ) {
-    return <Loader progress={resultsDataProgress} />;
-  }
+  const total = resultsDataObject?.allResults?.length;
 
-  let sidebar: JSX.Element;
-  // Deciding what should be displayed on the sidebar
-  switch (match.params.subPage) {
-    case TabLocation.InputParameters:
-    case TabLocation.APIRequest:
-      sidebar = <div className={sidebarStyles['empty-sidebar']} />;
-      break;
+  const basePath = joinUrl('/peptide-search', jobID);
 
-    default:
-      sidebar = (
-        <ErrorBoundary>
-          <ResultsFacets
-            dataApiObject={facetApiObject}
-            namespaceOverride={Namespace.uniprotkb}
-          />
-        </ErrorBoundary>
-      );
-      break;
-  }
+  const showSidebarEmpty =
+    hasExcessAccessions ||
+    match?.params.subPage === TabLocation.InputParameters ||
+    match?.params.subPage === TabLocation.APIRequest;
 
-  if (excessAccessions) {
-    sidebar = <div className={sidebarStyles['empty-sidebar']} />;
-  }
-  const basePath = `/peptide-search/${match.params.id}/`;
+  const sidebar = showSidebarEmpty ? (
+    <div className={sidebarStyles['empty-sidebar']} />
+  ) : (
+    <ErrorBoundary>
+      <ResultsFacets
+        dataApiObject={facetApiObject}
+        namespaceOverride={Namespace.uniprotkb}
+      />
+    </ErrorBoundary>
+  );
 
   return (
     <SidebarLayout sidebar={sidebar}>
@@ -259,8 +290,6 @@ const PeptideSearchResult = () => {
         heading={namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH]}
         headingPostscript={
           total && (
-            /* Not sure why fragments and keys are needed, but otherwise gets
-            the React key warnings messages and children are rendered as array */
             <small key="postscript">
               found in {namespaceAndToolsLabels[Namespace.uniprotkb]}
             </small>
@@ -270,18 +299,20 @@ const PeptideSearchResult = () => {
       />
       <Tabs
         active={match.params.subPage}
-        className={jobResultLoading ? helper.stale : undefined}
+        className={facetApiObject.isStale ? helper.stale : undefined}
       >
         <Tab
           id={TabLocation.Overview}
           title={
-            <Link to={changePathnameOnly(basePath + TabLocation.Overview)}>
+            <Link
+              to={changePathnameOnly(joinUrl(basePath, TabLocation.Overview))}
+            >
               Overview
             </Link>
           }
         >
           <Suspense fallback={<Loader />}>
-            {excessAccessions && (
+            {hasExcessAccessions && (
               <Message level="warning">
                 <small>
                   To filter peptide search results of more than{' '}
@@ -304,7 +335,6 @@ const PeptideSearchResult = () => {
                 </small>
               </Message>
             )}
-
             <PeptideSearchResultTable
               total={total}
               resultsDataObject={resultsDataObject}
@@ -317,7 +347,9 @@ const PeptideSearchResult = () => {
           id={TabLocation.InputParameters}
           title={
             <Link
-              to={changePathnameOnly(basePath + TabLocation.InputParameters)}
+              to={changePathnameOnly(
+                joinUrl(basePath, TabLocation.InputParameters)
+              )}
             >
               Input Parameters
             </Link>
@@ -335,7 +367,9 @@ const PeptideSearchResult = () => {
         <Tab
           id={TabLocation.APIRequest}
           title={
-            <Link to={changePathnameOnly(basePath + TabLocation.APIRequest)}>
+            <Link
+              to={changePathnameOnly(joinUrl(basePath, TabLocation.APIRequest))}
+            >
               API Request
             </Link>
           }

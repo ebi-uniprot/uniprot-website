@@ -1,4 +1,4 @@
-import { UniParcLiteAPIModel } from '../adapters/uniParcConverter';
+import { type UniParcLiteAPIModel } from '../adapters/uniParcConverter';
 
 // Manually update it. As some fields like molWeight, md5 are not available as return fields
 // uniparc/UPI0000000001/light?fields=gene,organism,protein,proteome,common_taxons,checksum,length,sequence,accession,cdd,Gene3D,HAMAP,PANTHER,pfam,PIRSF,PRINTS,PROSITE,SFLD,SMART,SUPFAM,NCBIfam

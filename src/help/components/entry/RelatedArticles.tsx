@@ -3,7 +3,7 @@ import { DataListWithLoader } from 'franklin-sites';
 import usePagination from '../../../shared/hooks/usePagination';
 import { pluralise } from '../../../shared/utils/utils';
 import helpURL from '../../config/apiUrls';
-import { HelpAPIModel, HelpUIModel } from '../../types/apiModel';
+import { type HelpAPIModel, type HelpUIModel } from '../../types/apiModel';
 import HelpCard from '../results/HelpCard';
 
 const getIdKey = (article: HelpUIModel) => article.id;

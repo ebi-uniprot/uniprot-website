@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Computationally mapped isoforms should render correctly 1`] = `
 <DocumentFragment>
@@ -58,12 +58,12 @@ exports[`Computationally mapped isoforms should render correctly 1`] = `
                 class="checkbox-cell"
               >
                 <input
-                  id="7"
+                  id="6"
                   type="checkbox"
                 />
                 <label
                   aria-label="Selection control for all visible items"
-                  for="7"
+                  for="6"
                 />
               </div>
             </th>

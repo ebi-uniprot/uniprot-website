@@ -1,4 +1,4 @@
-import { ProteomesUIModel } from './proteomesConverter';
+import { type ProteomesUIModel } from './proteomesConverter';
 
 export default (data: ProteomesUIModel) => {
   let organismName: string | number | undefined;

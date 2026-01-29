@@ -7,7 +7,7 @@ import {
   createFacetsQueryString,
   createSelectedQueryString,
   getLocationForPathname,
-  QueryStringArg,
+  type QueryStringArg,
   splitUrl,
   stringifyQuery,
   stringifyUrl,

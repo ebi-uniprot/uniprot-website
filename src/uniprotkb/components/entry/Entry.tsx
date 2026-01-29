@@ -1,10 +1,11 @@
+/* eslint-disable reactHooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
 import './styles/protnlm.scss';
 
 import cn from 'classnames';
 import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 import joinUrl from 'url-join';
 
@@ -15,7 +16,10 @@ import {
 } from '../../../app/config/urls';
 import BasketStatus from '../../../basket/BasketStatus';
 import ContactLink from '../../../contact/components/ContactLink';
-import { addMessage } from '../../../messages/state/messagesActions';
+import {
+  addMessage,
+  deleteMessage,
+} from '../../../messages/state/messagesActions';
 import {
   MessageFormat,
   MessageLevel,
@@ -27,7 +31,10 @@ import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdo
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../../shared/components/entry/EntryTypeIcon';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -38,7 +45,7 @@ import {
   checkMoveUrl,
   getProteomes,
   RefProtMoveUniProtKBEntryMessage,
-  UniProtKBCheckMoveResponse,
+  type UniProtKBCheckMoveResponse,
 } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -58,14 +65,15 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import lazy from '../../../shared/utils/lazy';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
 import {
-  CitationsAPIModel,
-  Reference,
+  type CitationsAPIModel,
+  type Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { TabLocation as UniParcTabLocation } from '../../../uniparc/types/entry';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import {
@@ -73,8 +81,8 @@ import {
   augmentUIDataWithProtnlmPredictions,
 } from '../../adapters/protnlmConverter';
 import uniProtKbConverter, {
-  UniProtkbAPIModel,
-  UniProtkbUIModel,
+  type UniProtkbAPIModel,
+  type UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
 import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
@@ -83,7 +91,8 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
-import { UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
+import { type UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
+import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
@@ -176,6 +185,14 @@ const Entry = () => {
         ? apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
         : null
     );
+
+  const { data: uniSaveData } = useDataApi<UniSaveAccession>(
+    match?.params.accession &&
+      getEntryTypeFromString(data?.entryType) === EntryType.INACTIVE &&
+      data?.inactiveReason
+      ? uniprotkbApiUrls.unisave.entry(match?.params.accession)
+      : null
+  );
 
   const variantsHeadPayload = useDataApi(
     isLikelyHuman && match?.params.accession
@@ -339,6 +356,8 @@ const Entry = () => {
         !match?.params.accession.includes('_') &&
         !match?.params.accession.includes('.')
       ) {
+        // Note: Delete Message is called in unmount logic of component it is redirected to.
+        // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
         dispatch(
           addMessage({
             id: 'accession-merge',
@@ -376,7 +395,6 @@ const Entry = () => {
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
   }, [dispatch, redirectedTo]);
 
   useEffect(() => {
@@ -395,30 +413,85 @@ const Entry = () => {
 
   let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
-      transformedData.inactiveReason
+    transformedData.inactiveReason
   );
 
-  // Redirect to history when obsolete and not merged into a single new one
+  // Redirect to history when demerged and to UniParc when deleted
   useEffect(() => {
     if (
       isObsolete &&
+      !redirectedTo &&
       match?.params.accession &&
-      match?.params.subPage !== TabLocation.History
+      match?.params.subPage !== TabLocation.History &&
+      uniSaveData?.results?.length
     ) {
-      frame().then(() => {
-        history.replace(
-          getEntryPath(
-            Namespace.uniprotkb,
-            match?.params.accession,
-            TabLocation.History
-          )
+      if (
+        transformedData?.inactiveReason?.inactiveReasonType === 'DEMERGED' ||
+        (transformedData?.inactiveReason?.inactiveReasonType === 'DELETED' &&
+          // Sometimes there is no reason provided for Swiss-Prot deletions probably old ones
+          ((uniSaveData?.results?.[0]?.database &&
+            getEntryTypeFromString(uniSaveData.results[0].database) ===
+              EntryType.REVIEWED) ||
+            transformedData?.inactiveReason?.deletedReason ===
+              'Deleted from Swiss-Prot'))
+      ) {
+        frame().then(() => {
+          history.replace(
+            getEntryPath(
+              Namespace.uniprotkb,
+              match?.params.accession,
+              TabLocation.History
+            )
+          );
+        });
+      } else {
+        // Note: Delete Message is called in unmount logic of component it is redirected to.
+        // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
+        dispatch(
+          addMessage({
+            id: 'deleted-entry',
+            content: (
+              <>
+                You’ve been redirected to UniParc because{' '}
+                {match?.params.accession} is no longer available in UniProtKB.
+              </>
+            ),
+            format: MessageFormat.IN_PAGE,
+            level: MessageLevel.INFO,
+            tag: MessageTag.REDIRECT,
+          })
         );
-      });
+
+        const uniparcId = transformedData?.extraAttributes?.uniParcId;
+        if (uniparcId) {
+          frame().then(() => {
+            history.replace({
+              pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
+                accession: uniparcId,
+                subPage: UniParcTabLocation.Entry,
+                subEntryId: match?.params.accession,
+              }),
+            });
+          });
+        } else {
+          frame().then(() => {
+            history.replace({
+              pathname: generatePath(LocationToPath[Location.UniParcResults]),
+              search: stringifyQuery({
+                query: `dbid:${match?.params.accession}`,
+              }),
+            });
+          });
+        }
+      }
     }
     // (I hope) I know what I'm doing here, I want to stick with whatever value
     // match?.params.subPage had when the component was mounted.
-    // eslint-disable-next-line reactHooks/exhaustive-deps
-  }, [isObsolete]);
+  }, [uniSaveData]);
+
+  useEffect(() => {
+    return () => dispatch(deleteMessage('accession-merge'));
+  }, []);
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);

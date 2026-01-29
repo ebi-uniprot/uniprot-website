@@ -1,8 +1,8 @@
 import axios, {
-  AxiosError,
-  AxiosProgressEvent,
-  AxiosRequestConfig,
-  AxiosResponse,
+  type AxiosError,
+  type AxiosProgressEvent,
+  type AxiosRequestConfig,
+  type AxiosResponse,
   isCancel,
 } from 'axios';
 import { useEffect, useReducer, useRef } from 'react';
@@ -17,7 +17,7 @@ import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { Namespace } from '../types/namespaces';
 import fetchData from '../utils/fetchData';
 import * as logging from '../utils/logging';
-import { UserPreferenceKey } from './useLocalStorage';
+import { type UserPreferenceKey } from './useLocalStorage';
 import useMessagesDispatch from './useMessagesDispatch';
 
 export type CustomError = AxiosError<undefined | { messages?: string[] }>;

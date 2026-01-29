@@ -5,9 +5,9 @@ import { getEntryPathFor } from '../../../app/config/urls';
 import { TaxonomyLineage } from '../../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
+import { type TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
@@ -84,7 +84,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
   render: ({ taxonId, links }) => {
     const allLinks = [
       // Exception, always add the NCBI one as it's not in the data
-      `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&amp;id=${taxonId}`,
+      `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=${taxonId}`,
       ...(links || []),
     ];
     return (

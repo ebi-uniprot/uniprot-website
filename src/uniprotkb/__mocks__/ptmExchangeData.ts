@@ -1,7 +1,7 @@
-import { ProteomicsPtm } from '../types/proteomicsPtm';
+import { type ProteomicsPtm } from '../types/proteomicsPtm';
 
 // Source: https://www.ebi.ac.uk/proteins/api/proteomics/ptm/Q653S1
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 // TODO: replace this with a human entry when it is released
 const data: ProteomicsPtm = {
   accession: 'Q653S1',
@@ -51,6 +51,7 @@ const data: ProteomicsPtm = {
                   'mzspec:PXD004939:Rice_phos_ABA_12h_20per_F1_R3:scan:08788:AAESDVNVSS[Phospho]PR/2',
                 'Final site probability': '0.8635',
                 'PSM Count (0.05 gFLR)': '9',
+                url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD004939',
                 Proforma: 'AAESDVNVSS[Phospho]PR',
               },
             },
@@ -66,6 +67,7 @@ const data: ProteomicsPtm = {
                   'mzspec:PXD004705:Rice_phos_BR_12h_20per_F1_R3:scan:08038:AAESDVNVSS[Phospho]PR/2',
                 'Final site probability': '0.9609',
                 'PSM Count (0.05 gFLR)': '11',
+                url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD004705',
                 Proforma: 'AAESDVNVSS[Phospho]PR',
               },
             },
@@ -81,6 +83,7 @@ const data: ProteomicsPtm = {
                   'mzspec:PXD002756:Orbi00853XM-Yej-Rice-Anthor-T-1:scan:10162:AAESDVNVSS[Phospho]PR/2',
                 'Final site probability': '0.802210443499118',
                 'PSM Count (0.05 gFLR)': '2',
+                url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD002756',
                 Proforma: 'AAESDVNVSS[Phospho]PR',
               },
             },
@@ -96,6 +99,7 @@ const data: ProteomicsPtm = {
                   'mzspec:PXD002222:Rice_leaf_0h_phospho_test2:scan:05381:AAESDVNVSS[Phospho]PR/2',
                 'Final site probability': '0.8804908973614423',
                 'PSM Count (0.05 gFLR)': '2',
+                url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD002222',
                 Proforma: 'AAESDVNVSS[Phospho]PR',
               },
             },
@@ -143,6 +147,7 @@ const data: ProteomicsPtm = {
                   'mzspec:PXD019291:S9588TPST_Fr4:scan:12375:[TMT6plex]AAESDVNVSS[Phospho]PR/3',
                 'Final site probability': '0.7701361874966861',
                 'PSM Count (0.05 gFLR)': '1',
+                url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD019291',
                 Proforma: '[TMT6plex]AAESDVNVSS[Phospho]PR',
               },
             },

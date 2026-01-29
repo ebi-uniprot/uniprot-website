@@ -1,7 +1,7 @@
 import '../styles/overview.scss';
 
 import { Card, DataTable, LongNumber } from 'franklin-sites';
-import { Fragment, ReactNode, useMemo } from 'react';
+import { Fragment, type ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -9,12 +9,12 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
-import { Xref } from '../../../shared/types/apiModel';
+import { type Xref } from '../../../shared/types/apiModel';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
-  Component,
-  ProteomesAPIModel,
+  type Component,
+  type ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
 import ComponentsButtons from './ComponentsButtons';
 

@@ -9,7 +9,7 @@ import RenderColumnsInCard from '../../../shared/components/results/RenderColumn
 import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import { type ProteomesAPIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';

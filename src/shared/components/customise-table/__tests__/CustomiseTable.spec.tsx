@@ -3,7 +3,7 @@ import '../../../../uniprotkb/components/__mocks__/mockApi';
 import {
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
   screen,
   waitFor,
 } from '@testing-library/react';

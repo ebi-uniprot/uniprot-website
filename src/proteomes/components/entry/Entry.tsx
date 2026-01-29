@@ -11,7 +11,7 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
 import {
   checkMoveUrl,
-  ProteomesCheckMoveResponse,
+  type ProteomesCheckMoveResponse,
   RefProtMoveProteomesEntryMessage,
 } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
@@ -22,7 +22,7 @@ import {
 } from '../../../shared/types/namespaces';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import proteomesConverter, {
-  ProteomesAPIModel,
+  type ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
 import EntryMain from './EntryMain';
 import Overview from './Overview';
@@ -45,7 +45,9 @@ const Entry = () => {
   );
 
   const refprotmoveData = useDataApi<ProteomesCheckMoveResponse>(
-    accession ? joinUrl(checkMoveUrl, 'proteomes', accession) : null
+    accession && mainData.data?.proteomeType === 'Other proteome'
+      ? joinUrl(checkMoveUrl, 'proteomes', accession)
+      : null
   );
 
   if (mainData.loading || panProteomeData.loading || refprotmoveData.loading) {

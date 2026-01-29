@@ -1,8 +1,12 @@
 import { Card, InfoList } from 'franklin-sites';
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getEntryPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
 import TaxonomyView, {
   TaxonomyId,
   TaxonomyLineage,
@@ -10,11 +14,51 @@ import TaxonomyView, {
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import { stringifyQuery } from '../../../shared/utils/url';
+import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import {
+  type ModifiedPrediction,
+  type UniParcSubEntryUIModel,
+} from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryProteomes } from '../../utils/subEntry';
+
+const NameContent = ({
+  predictions,
+  queryParam,
+}: {
+  predictions: ModifiedPrediction[] | string;
+  queryParam: string;
+}) => {
+  const renderedPredictions: Partial<ModifiedPrediction>[] =
+    typeof predictions === 'string'
+      ? [{ annotationValue: predictions }]
+      : predictions;
+
+  return renderedPredictions.map((prediction, index) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <div key={index}>
+      {prediction.annotationValue}
+      {' ('}
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: stringifyQuery({
+            query: `(${queryParam}:"${prediction.annotationValue}")`,
+          }),
+        }}
+      >
+        Search in UniProtKB
+      </Link>
+      )
+      {prediction.evidence && (
+        <UniProtKBEvidenceTag evidences={prediction.evidence} />
+      )}
+    </div>
+  ));
+};
 
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
@@ -37,6 +81,53 @@ const SubEntryNamesAndTaxonomySection = ({
   }
 
   const { proteinName, geneName, organism, properties } = data.subEntry;
+  const { predictions } = data.unifire || { predictions: [] };
+
+  const recommendedFullNamePrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.recommendedName.fullName'
+    ) || [];
+
+  const recommendedShortNamePrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.recommendedName.shortName'
+    ) || [];
+
+  const recommendedECPrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.recommendedName.ecNumber'
+    ) || [];
+
+  const alternativeNamePrediction = [
+    'protein.alternativeName.fullName',
+    'protein.alternativeName.shortName',
+  ]
+    .map(
+      (type) =>
+        (predictions as ModifiedPrediction[])?.filter(
+          (prediction) => prediction.annotationType === type
+        ) || []
+    )
+    .flat();
+
+  const alternativeECPrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) =>
+        prediction.annotationType === 'protein.alternativeName.ecNumber'
+    ) || [];
+
+  const geneNamePrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) => prediction.annotationType === 'gene.name.primary'
+    ) || [];
+
+  const geneNameSynonymsPrediction =
+    (predictions as ModifiedPrediction[])?.filter(
+      (prediction) => prediction.annotationType === 'gene.name.synonym'
+    ) || [];
 
   const proteomeComponentObject = getSubEntryProteomes(properties);
 
@@ -52,9 +143,77 @@ const SubEntryNamesAndTaxonomySection = ({
     )
   );
 
-  const proteinNameInfoData = [{ title: 'Name', content: proteinName }];
+  const proteinNameInfoData = [
+    {
+      title: 'Name',
+      content: proteinName.length ? (
+        <NameContent predictions={proteinName} queryParam="protein_name" />
+      ) : null,
+    },
+    {
+      title: 'Recommended name',
+      content: recommendedFullNamePrediction.length ? (
+        <NameContent
+          predictions={recommendedFullNamePrediction}
+          queryParam="protein_name"
+        />
+      ) : null,
+    },
+    {
+      title: 'Short names',
+      content: recommendedShortNamePrediction.length ? (
+        <NameContent
+          predictions={recommendedShortNamePrediction}
+          queryParam="protein_name"
+        />
+      ) : null,
+    },
+    {
+      title: 'EC number',
+      content: recommendedECPrediction.length ? (
+        <NameContent predictions={recommendedECPrediction} queryParam="ec" />
+      ) : null,
+    },
+    {
+      title: 'Alternative names',
+      content: alternativeNamePrediction.length ? (
+        <NameContent
+          predictions={alternativeNamePrediction}
+          queryParam="protein_name"
+        />
+      ) : null,
+    },
+    {
+      title: 'Alternative EC number',
+      content: alternativeECPrediction.length ? (
+        <NameContent predictions={alternativeECPrediction} queryParam="ec" />
+      ) : null,
+    },
+  ];
 
-  const geneNameInfoData = [{ title: 'Name', content: geneName }];
+  const geneNameInfoData = [
+    {
+      title: 'Name',
+      content:
+        geneName || geneNamePrediction.length ? (
+          <>
+            {geneName && (
+              <NameContent predictions={geneName} queryParam="gene" />
+            )}
+            <NameContent predictions={geneNamePrediction} queryParam="gene" />
+          </>
+        ) : null,
+    },
+    {
+      title: 'Synonyms',
+      content: geneNameSynonymsPrediction.length ? (
+        <NameContent
+          predictions={geneNameSynonymsPrediction}
+          queryParam="gene"
+        />
+      ) : null,
+    },
+  ];
 
   const organismInfoData = [
     {

@@ -1,11 +1,11 @@
-import { AxiosResponse } from 'axios';
-import { MutableRefObject } from 'react';
+import { type AxiosResponse } from 'axios';
+import { type MutableRefObject } from 'react';
 
-import { ServerStatus } from '../../../../jobs/async-download/types/asyncDownloadServerStatus';
+import { type ServerStatus } from '../../../../jobs/async-download/types/asyncDownloadServerStatus';
 import { JobTypes } from '../../../../jobs/types/jobTypes';
 import * as logging from '../../../utils/logging';
-import { JobsState } from '../state/jobsInitialState';
-import { Job } from '../types/job';
+import { type JobsState } from '../state/jobsInitialState';
+import { type Job } from '../types/job';
 import { Status } from '../types/jobStatuses';
 
 const validServerID: Record<JobTypes, RegExp> = {
@@ -129,8 +129,10 @@ export const getStatusFromResponse = async (
   return [status, progress, idMappingResultsUrl];
 };
 
-const parseXML = (xml: string) =>
-  new window.DOMParser().parseFromString(xml, 'text/xml');
+const getErrorDescription = (xmlString: string, tag: string) => {
+  const match = xmlString.match(new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`));
+  return match ? match[1] : null;
+};
 
 export type ServerError = {
   response: AxiosResponse<string | { messages: string[] }>;
@@ -142,10 +144,8 @@ export const getServerErrorDescription = (error: ServerError | string) => {
     return null;
   }
   if (typeof data === 'string') {
-    const xml = parseXML(data);
-    const description = xml.getElementsByTagName('description');
-    const text = description[0]?.textContent;
-    return text && text.replace('->', '→');
+    const description = getErrorDescription(data, 'description');
+    return description && description.replace('->', '→');
   }
   return data.messages.join('; ');
 };

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Help entry tests should render the Entry component 1`] = `
 <DocumentFragment>
@@ -14,14 +14,14 @@ exports[`Help entry tests should render the Entry component 1`] = `
           class="message__side-border"
         />
         <test-file-stub
-          classname="message--icon-align-top"
+          class="message--icon-align-top"
           height="1.125em"
           width="1.125em"
         />
         <div
           class="message__title"
         >
-          Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Read our 
+          Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Please read our 
           <a
             href="/help/refprot_only_changes"
           >

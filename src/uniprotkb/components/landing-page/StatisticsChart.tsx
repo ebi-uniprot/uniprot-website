@@ -4,10 +4,10 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 import apiUrls from '../../config/apiUrls/apiUrls';
-import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import PieChart, { type StatisticsGraphItem } from '../graphs/PieChart';
 import {
-  StatisticsItem,
-  StatisticsPayload,
+  type StatisticsItem,
+  type StatisticsPayload,
 } from '../statistics/StatisticsPage';
 import { nameToQueryKingdoms } from '../statistics/taxonomyQueries';
 

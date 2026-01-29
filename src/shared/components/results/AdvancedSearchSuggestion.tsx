@@ -3,13 +3,13 @@ import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { SearchTermType } from '../../../query-builder/types/searchTypes';
+import { type SearchTermType } from '../../../query-builder/types/searchTypes';
 import { flatten } from '../../../query-builder/utils/parseAndMatchQuery';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
 import helper from '../../styles/helper.module.scss';
 import { Namespace } from '../../types/namespaces';
-import { MatchedField } from '../../types/results';
+import { type MatchedField } from '../../types/results';
 import listFormat from '../../utils/listFormat';
 import { stringifyUrl } from '../../utils/url';
 

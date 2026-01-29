@@ -1,11 +1,11 @@
 import { LocationPinIcon } from 'franklin-sites';
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-import { GoXref } from '../../adapters/subcellularLocationConverter';
+import { type GoXref } from '../../adapters/subcellularLocationConverter';
 import GOTermEvidenceTag from './GOTermEvidenceTag';
 import styles from './styles/subcellular-location-go-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';

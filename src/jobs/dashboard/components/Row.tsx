@@ -14,13 +14,13 @@ import {
   SpinnerIcon,
   WarningTriangleIcon,
 } from 'franklin-sites';
-import { LocationDescriptor } from 'history';
+import { type LocationDescriptor } from 'history';
 import {
-  ChangeEvent,
-  KeyboardEvent,
+  type ChangeEvent,
+  type KeyboardEvent,
   memo,
-  MouseEvent,
-  ReactNode,
+  type MouseEvent,
+  type ReactNode,
   useCallback,
   useLayoutEffect,
   useMemo,
@@ -34,7 +34,7 @@ import {
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
-import { ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
+import { type ContactLocationState } from '../../../contact/adapters/contactFormAdapter';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
@@ -47,17 +47,17 @@ import {
   updateJob,
 } from '../../../shared/workers/jobs/state/jobActions';
 import {
-  FailedJob,
-  FinishedJob,
-  Job,
+  type FailedJob,
+  type FinishedJob,
+  type Job,
 } from '../../../shared/workers/jobs/types/job';
 import { Status } from '../../../shared/workers/jobs/types/jobStatuses';
 import { databaseValueToName } from '../../blast/config/BlastFormData';
 import { asyncDownloadUrlObjectCreator } from '../../config/urls';
-import { LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
-import { IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
-import { SelectedTaxon } from '../../types/jobsFormData';
-import { FormParameters } from '../../types/jobsFormParameters';
+import { type LocationStateFromJobLink } from '../../hooks/useMarkJobAsSeen';
+import { type IDMappingFormConfig } from '../../id-mapping/types/idMappingFormConfig';
+import { type SelectedTaxon } from '../../types/jobsFormData';
+import { type FormParameters } from '../../types/jobsFormParameters';
 import { JobTypes } from '../../types/jobTypes';
 
 const stopPropagation = (

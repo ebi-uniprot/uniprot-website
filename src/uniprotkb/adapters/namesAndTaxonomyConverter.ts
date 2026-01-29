@@ -1,14 +1,14 @@
-import { Xref } from '../../shared/types/apiModel';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type Xref } from '../../shared/types/apiModel';
+import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import EntrySection from '../types/entrySection';
-import { GeneLocation } from '../types/geneLocationType';
-import { ValueWithEvidence } from '../types/modelTypes';
-import { DatabaseInfoMaps } from '../utils/database';
-import { convertSection, UIModel } from './sectionConverter';
-import { Flag } from './sequenceConverter';
+import { type GeneLocation } from '../types/geneLocationType';
+import { type ValueWithEvidence } from '../types/modelTypes';
+import { type DatabaseInfoMaps } from '../utils/database';
+import { convertSection, type UIModel } from './sectionConverter';
+import { type Flag } from './sequenceConverter';
 import {
-  UniProtkbAPIModel,
-  UniProtKBSimplifiedTaxonomy,
+  type UniProtkbAPIModel,
+  type UniProtKBSimplifiedTaxonomy,
 } from './uniProtkbConverter';
 
 export type ProteinNames = {

@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import { LocationDescriptor } from 'history';
-import { ReactElement } from 'react';
+import { type LocationDescriptor } from 'history';
+import { type ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { RequireExactlyOne } from 'type-fest';
+import { type RequireExactlyOne } from 'type-fest';
 
 import styles from './styles/illustrated-list-tile.module.scss';
 

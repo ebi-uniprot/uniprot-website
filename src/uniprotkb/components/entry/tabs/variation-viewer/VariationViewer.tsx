@@ -1,6 +1,6 @@
-import NightingaleManager from '@nightingale-elements/nightingale-manager';
+import type NightingaleManager from '@nightingale-elements/nightingale-manager';
 import {
-  ProteinsAPIVariation,
+  type ProteinsAPIVariation,
   transformData,
 } from '@nightingale-elements/nightingale-variation';
 import cn from 'classnames';
@@ -9,7 +9,7 @@ import { filterConfig } from 'protvista-uniprot';
 import {
   Fragment,
   lazy,
-  ReactNode,
+  type ReactNode,
   Suspense,
   useEffect,
   useId,
@@ -18,7 +18,7 @@ import {
   useState,
 } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { PartialDeep, SetRequired } from 'type-fest';
+import { type PartialDeep, type SetRequired } from 'type-fest';
 
 import { getEntryPath } from '../../../../../app/config/urls';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
@@ -27,7 +27,7 @@ import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDown
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import TableFromData, {
-  TableFromDataColumn,
+  type TableFromDataColumn,
 } from '../../../../../shared/components/table/TableFromData';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
@@ -39,12 +39,12 @@ import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNig
 import helper from '../../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import {
-  NightingaleViewRange,
+  type NightingaleViewRange,
   withinRange,
 } from '../../../../../shared/utils/nightingale';
 import { TabLocation } from '../../../../types/entry';
-import { Evidence } from '../../../../types/modelTypes';
-import { TransformedVariant } from '../../../../types/variation';
+import { type Evidence } from '../../../../types/modelTypes';
+import { type TransformedVariant } from '../../../../types/variation';
 import { sortByLocation } from '../../../../utils';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import tabsStyles from '../styles/tabs-styles.module.scss';
@@ -508,14 +508,16 @@ const VariationViewer = ({
   if (!shouldRender) {
     return (
       <div className="wider-tab-content hotjar-margin">
-        {title && <h3>{title}</h3>}
-        {displayDownloadPanel && (
-          <EntryDownloadPanel
-            handleToggle={handleToggleDownload}
-            dataset={Dataset.variation}
-          />
-        )}
-        <EntryDownloadButton handleToggle={handleToggleDownload} />
+        {title && <h3 data-article-id="variant_viewer">{title}</h3>}
+        <div>
+          {displayDownloadPanel && (
+            <EntryDownloadPanel
+              handleToggle={handleToggleDownload}
+              dataset={Dataset.variation}
+            />
+          )}
+          <EntryDownloadButton handleToggle={handleToggleDownload} />
+        </div>
         <div className={tabsStyles['too-many']}>
           <Message>
             Due to the large number (<LongNumber>{importedVariants}</LongNumber>
@@ -561,7 +563,7 @@ const VariationViewer = ({
   ) {
     return (
       <section className="wider-tab-content hotjar-margin">
-        {title && <h3>{title}</h3>}
+        {title && <h3 data-article-id="variant_viewer">{title}</h3>}
         <div className={tabsStyles['no-data']}>
           No variation information available for {primaryAccession}
         </div>
@@ -572,7 +574,7 @@ const VariationViewer = ({
   if (isSmallScreen) {
     return (
       <section>
-        {title && <h2>{title}</h2>}
+        {title && <h2 data-article-id="variant_viewer">{title}</h2>}
         <TableFromData
           columns={getColumns(primaryAccession)}
           data={filteredVariants}
@@ -584,13 +586,15 @@ const VariationViewer = ({
 
   return (
     <section className="wider-tab-content hotjar-margin">
-      {title && <h2>{title}</h2>}
-      {displayDownloadPanel && (
-        <EntryDownloadPanel
-          handleToggle={handleToggleDownload}
-          dataset={Dataset.variation}
-        />
-      )}
+      {title && <h2 data-article-id="variant_viewer">{title}</h2>}
+      <div>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel
+            handleToggle={handleToggleDownload}
+            dataset={Dataset.variation}
+          />
+        )}
+      </div>
       <EntryDownloadButton handleToggle={handleToggleDownload} />
       <NightingaleManagerComponent
         reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"

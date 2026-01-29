@@ -1,8 +1,10 @@
+import { type FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import {
-  AlternativeProductsComment,
-  GenericComment,
+  type AlternativeProductsComment,
+  type GenericComment,
+  type Isoform,
 } from '../types/commentTypes';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 const finder = (
   comment: GenericComment
@@ -27,6 +29,49 @@ export const extractIsoformNames = (data?: UniProtkbAPIModel) => {
   }
   const alternativeProducts = data.comments?.find(finder);
   return alternativeProducts?.isoforms.flatMap((isoform) => isoform.name.value);
+};
+
+export const constructIsoformSequence = (
+  isoform: Isoform,
+  variantSequences: FeatureDatum[],
+  canonicalSequence: string
+) => {
+  const isoformSequence: string[] = [];
+  let tailIndex = 0;
+  if (isoform.sequenceIds && variantSequences.length !== 0) {
+    isoform.sequenceIds.forEach((sequenceId) => {
+      const variantSeq = variantSequences.find(
+        (varSeq) => varSeq.featureId === sequenceId
+      );
+      if (variantSeq) {
+        isoformSequence.push(
+          canonicalSequence.slice(
+            tailIndex,
+            variantSeq.location.start.value - 1
+          )
+        );
+        if (
+          variantSeq.alternativeSequence?.originalSequence &&
+          variantSeq.alternativeSequence?.alternativeSequences?.length
+        ) {
+          variantSeq.alternativeSequence?.alternativeSequences.forEach(
+            (altSeq) => isoformSequence.push(altSeq)
+          );
+        }
+        tailIndex = variantSeq.location.end.value;
+      }
+    });
+    if (tailIndex < canonicalSequence.length) {
+      isoformSequence.push(
+        canonicalSequence.slice(tailIndex, canonicalSequence.length)
+      );
+    }
+  }
+
+  return {
+    isoformId: isoform.isoformIds[0],
+    sequence: isoformSequence.join(''),
+  };
 };
 
 export default extractIsoforms;

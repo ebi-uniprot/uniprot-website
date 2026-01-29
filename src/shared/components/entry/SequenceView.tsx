@@ -1,5 +1,5 @@
 import { InfoList, LongNumber, Sequence } from 'franklin-sites';
-import { Fragment, ReactNode, useState } from 'react';
+import { Fragment, type JSX, type ReactNode, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import {
@@ -8,19 +8,19 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import {
-  IsoformNotes,
-  SequenceUIModel,
+  type IsoformNotes,
+  type SequenceUIModel,
 } from '../../../uniprotkb/adapters/sequenceConverter';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import {
-  AlternativeProductsComment,
-  Isoform,
-  MassSpectrometryComment,
-  RNAEditingComment,
-  SequenceCautionComment,
-  TextWithEvidence,
+  type AlternativeProductsComment,
+  type Isoform,
+  type MassSpectrometryComment,
+  type RNAEditingComment,
+  type SequenceCautionComment,
+  type TextWithEvidence,
 } from '../../../uniprotkb/types/commentTypes';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
@@ -148,7 +148,7 @@ const SeeAlso = ({ isoform }: { isoform: string }) => (
     <Link
       to={{
         pathname: LocationToPath[Location.UniParcResults],
-        search: `query=(isoform:${isoform})&direct`,
+        search: `query=(dbid:${isoform})&direct`,
       }}
     >
       UniParc

@@ -1,8 +1,8 @@
-import { History } from 'history';
+import { type History } from 'history';
 import { useEffect } from 'react';
 
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
-import { APIModel } from '../types/apiModel';
+import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { type APIModel } from '../types/apiModel';
 
 const useResultsToEntryRedirect = (
   history: History<unknown>,

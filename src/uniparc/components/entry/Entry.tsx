@@ -29,17 +29,19 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import uniParcConverter, {
-  UniParcLiteAPIModel,
-  UniParcXRef,
+  type UniParcLiteAPIModel,
+  type UniParcXRef,
 } from '../../adapters/uniParcConverter';
 import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
 import { TabLocation } from '../../types/entry';
+import EntrySection from '../../types/entrySection';
 import EntryMain from './EntryMain';
 import useXref from './hooks/useXref';
 import Overview from './Overview';
 import UniParcFeaturesView from './UniParcFeaturesView';
+import UniParcStructureView from './UniParcStructureView';
 
 const Entry = () => {
   const match = useMatchWithRedirect<{
@@ -101,6 +103,7 @@ const Entry = () => {
   let sidebar;
 
   switch (match.params.subPage) {
+    case TabLocation.StructureViewer:
     case TabLocation.FeatureViewer:
       sidebar = null;
       break;
@@ -168,6 +171,29 @@ const Entry = () => {
             <AddToBasketButton selectedEntries={match.params.accession} />
           </div>
           <EntryMain transformedData={transformedData} />
+        </Tab>
+        <Tab
+          title={
+            <Link
+              to={getEntryPath(
+                Namespace.uniparc,
+                match.params.accession,
+                TabLocation.StructureViewer
+              )}
+            >
+              Structure viewer
+            </Link>
+          }
+          id={TabLocation.StructureViewer}
+        >
+          <HTMLHead
+            title={[
+              transformedData.uniParcId,
+              'Structure viewer',
+              searchableNamespaceLabels[Namespace.uniparc],
+            ]}
+          />
+          <UniParcStructureView data={transformedData[EntrySection.Sequence]} />
         </Tab>
         <Tab
           title={

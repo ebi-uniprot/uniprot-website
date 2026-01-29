@@ -1,6 +1,9 @@
 import EntrySection from '../types/entrySection';
-import { UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
-import { UniProtkbAPIModel, UniProtkbUIModel } from './uniProtkbConverter';
+import { type UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
+import {
+  type UniProtkbAPIModel,
+  type UniProtkbUIModel,
+} from './uniProtkbConverter';
 
 export const augmentAPIDataWithProtnlmPredictions = (
   protnlmData: UniProtKBProtNLMAPIModel,

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`UniProtKBColumnConfiguration component should render column "absorption": absorption 1`] = `
 <DocumentFragment>
@@ -155,7 +155,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
         >
           sequence in 
           <a
-            href="/uniparc?query=(isoform:isoID1)&direct"
+            href="/uniparc?query=(dbid:isoID1)&direct"
           >
             UniParc
           </a>
@@ -529,6 +529,29 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "cc_sc_epred": cc_sc_epred 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    The sequence 
+    <a
+      class="external-link"
+      href="https://www.ebi.ac.uk/ena/data/view/sequence"
+      rel="noopener"
+      target="_blank"
+    >
+      sequence
+      <test-file-stub
+        data-testid="external-link-icon"
+        width="12.5"
+      />
+    </a>
+     differs from that shown. Reason: Erroneous gene model prediction Text note
+  </section>
+</DocumentFragment>
+`;
+
 exports[`UniProtKBColumnConfiguration component should render column "cc_sequence_caution": cc_sequence_caution 1`] = `
 <DocumentFragment>
   <section
@@ -566,7 +589,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
       id="id1term"
     >
       <test-file-stub
-        classname="sub-cell-viz__in-view-pin"
+        class="sub-cell-viz__in-view-pin"
         height="1em"
       />
       <strong>
@@ -1189,26 +1212,17 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec-ex
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "error_gmodel_pred": error_gmodel_pred 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "encoded_in": encoded_in 1`] = `
 <DocumentFragment>
-  <section
-    class="text-block"
+  <ul
+    class="expandable-list no-bullet"
   >
-    The sequence 
-    <a
-      class="external-link"
-      href="https://www.ebi.ac.uk/ena/data/view/sequence"
-      rel="noopener"
-      target="_blank"
-    >
-      sequence
-      <test-file-stub
-        data-testid="external-link-icon"
-        width="12.5"
-      />
-    </a>
-     differs from that shown. Reason: Erroneous gene model prediction Text note
-  </section>
+    <li>
+      <span>
+        Cyanelle geneLocation value
+      </span>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
@@ -1930,20 +1944,6 @@ exports[`UniProtKBColumnConfiguration component should render column "mass": mas
 
 exports[`UniProtKBColumnConfiguration component should render column "match": match 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "organelle": organelle 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      <span>
-        Cyanelle geneLocation value
-      </span>
-    </li>
-  </ul>
-</DocumentFragment>
-`;
-
 exports[`UniProtKBColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
   <a
@@ -2230,7 +2230,11 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_chemb
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_chitars": xref_chitars 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_civic": xref_civic 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_cleanex": xref_cleanex 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_clinpgx": xref_clinpgx 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_collectf": xref_collectf 1`] = `<DocumentFragment />`;
 
@@ -2470,8 +2474,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_moonp
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ncbifam": xref_ncbifam 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_nextprot": xref_nextprot 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_niagads": xref_niagads 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ogp": xref_ogp 1`] = `<DocumentFragment />`;
@@ -2509,8 +2511,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_perox
 exports[`UniProtKBColumnConfiguration component should render column "xref_pfam": xref_pfam 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pgenn": xref_pgenn 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_pharmgkb": xref_pharmgkb 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_pharos": xref_pharos 1`] = `<DocumentFragment />`;
 
@@ -2591,8 +2591,6 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_tair"
 exports[`UniProtKBColumnConfiguration component should render column "xref_tcdb": xref_tcdb 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_topdownproteomics": xref_topdownproteomics 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_treefam": xref_treefam 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_tuberculist": xref_tuberculist 1`] = `<DocumentFragment />`;
 

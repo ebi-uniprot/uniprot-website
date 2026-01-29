@@ -1,4 +1,4 @@
-import { SequenceUIModel } from '../../../../../uniprotkb/adapters/sequenceConverter';
+import { type SequenceUIModel } from '../../../../../uniprotkb/adapters/sequenceConverter';
 
 const mock: SequenceUIModel = {
   sequence: {

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HelpQuickSearch tests should render with input 1`] = `
 <DocumentFragment>
@@ -390,39 +390,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                 >
                   <a
                     aria-hidden="true"
-                    href="/help/structure_section"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    <a
-                      href="/help/structure_section"
-                    >
-                      Structure annotation in UniProt
-                    </a>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                       based on the protein 
-                      <span
-                        class="match-highlight"
-                      >
-                        canonical
-                      </span>
-                       sequence, without any ligands or interacting partners. These structural
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
                     href="/help/sequence_length"
                     tabindex="-1"
                   />
@@ -446,6 +413,39 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                         canonical
                       </span>
                        sequence displayed by default in the
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    href="/help/structure_section"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/structure_section"
+                    >
+                      Structure annotation in UniProt
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       (see the PDB cross-reference 
+                      <span
+                        class="match-highlight"
+                      >
+                        help
+                      </span>
+                       page). These structures may cover different ranges of the sequence,
                     </span>
                   </div>
                 </div>
@@ -703,13 +703,13 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                     class="decorated-list-item__content"
                   >
                     <span>
-                       See also What is the 
+                       the 
                       <span
                         class="match-highlight"
                       >
                         canonical
                       </span>
-                       sequence? Are all isoforms described in one entry? How do we manually
+                       sequence? Are all isoforms described in one entry? How do we manually annotate a
                     </span>
                   </div>
                 </div>

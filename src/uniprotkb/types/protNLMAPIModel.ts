@@ -1,4 +1,4 @@
-import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 export interface UniProtKBProtNLMAPIModel extends UniProtkbAPIModel {
   annotationScore: 0;

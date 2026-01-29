@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HomePage component should render 1`] = `
 <DocumentFragment>
@@ -105,7 +105,7 @@ exports[`HomePage component should render 1`] = `
           <a
             href="/help/about"
           >
-            © 2002 – 2025 UniProt consortium
+            © 2002 – 2026 UniProt consortium
           </a>
         </p>
         <p>
@@ -311,7 +311,7 @@ exports[`HomePage component should render 1`] = `
             <li>
               <a
                 class="external-link"
-                href="https://www.ebi.ac.uk/training/online/courses/uniprot-exploring-protein-sequence-and-functional-info/"
+                href="https://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/complete/docs/userman.htm"
                 rel="noopener"
                 target="_blank"
               >

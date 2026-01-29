@@ -1,13 +1,13 @@
-import { ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { v1 } from 'uuid';
 
 import FeaturesView, {
-  FeatureColumnConfiguration,
-  LocationModifier,
-  ProcessedFeature,
+  type FeatureColumnConfiguration,
+  type LocationModifier,
+  type ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import { Xref } from '../../../shared/types/apiModel';
+import { type Xref } from '../../../shared/types/apiModel';
 import listFormat from '../../../shared/utils/listFormat';
 import {
   getRowId,
@@ -18,11 +18,11 @@ import {
   columnConfiguration,
   UniProtKBFeatureExtraContent,
 } from '../../config/UniProtKBFeatureColumnConfiguration';
-import FeatureType from '../../types/featureType';
-import { Evidence } from '../../types/modelTypes';
+import type FeatureType from '../../types/featureType';
+import { type Evidence } from '../../types/modelTypes';
 import LigandDescriptionView, {
-  Ligand,
-  LigandPart,
+  type Ligand,
+  type LigandPart,
 } from './LigandDescriptionView';
 
 type FeatureLocation = {

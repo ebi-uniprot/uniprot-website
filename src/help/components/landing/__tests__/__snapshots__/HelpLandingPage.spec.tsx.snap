@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HelpLandingPage should render 1`] = `
 <DocumentFragment>
@@ -13,14 +13,14 @@ exports[`HelpLandingPage should render 1`] = `
         class="message__side-border"
       />
       <test-file-stub
-        classname="message--icon-align-top"
+        class="message--icon-align-top"
         height="1.125em"
         width="1.125em"
       />
       <div
         class="message__title"
       >
-        Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Read our 
+        Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant transition. Please read our 
         <a
           href="/help/refprot_only_changes"
         >
@@ -342,7 +342,7 @@ exports[`HelpLandingPage should render 1`] = `
             class="illustrated-list-tile__image"
           >
             <div
-              style="opacity: 0.8;"
+              style="opacity: 0.8; color: var(--fr--color-help-green);"
             >
               <test-file-stub />
             </div>
@@ -491,7 +491,7 @@ exports[`HelpLandingPage should render 1`] = `
         >
           <lite-youtube
             playlabel="How to search UniProtKB"
-            style="background-image: url(https://i.ytimg.com/vi/yp1O1gDK8oA/hqdefault.jpg);"
+            style="background-image: url("https://i.ytimg.com/vi/yp1O1gDK8oA/hqdefault.jpg");"
             videoid="yp1O1gDK8oA"
           >
             <button

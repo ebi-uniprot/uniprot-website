@@ -33,6 +33,14 @@ jest.mock('@nightingale-elements/nightingale-navigation', () => jest.fn());
 
 jest.mock('swagger-ui-react', () => null);
 
+jest.mock(
+  '@geneontology/web-components/loader',
+  () => ({
+    defineCustomElements: jest.fn(),
+  }),
+  { virtual: true }
+);
+
 global.beforeEach(() => {
   resetUuidV1();
 });

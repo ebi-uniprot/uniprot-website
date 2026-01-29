@@ -8,7 +8,7 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
 import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
-import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 import UniRefColumnConfiguration, {
   UniRefColumn,
 } from '../../config/UniRefColumnConfiguration';

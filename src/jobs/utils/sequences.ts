@@ -1,12 +1,12 @@
 import {
-  Feature,
+  type Feature,
   getColorByType,
 } from '@nightingale-elements/nightingale-track';
 import { v1 } from 'uuid';
 
-import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
-import { FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-import { MSAInput } from '../types/alignment';
+import { type ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import { type FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { type MSAInput } from '../types/alignment';
 
 export const findSequenceSegments = (seq: string) => {
   const ranges: number[][] = [];

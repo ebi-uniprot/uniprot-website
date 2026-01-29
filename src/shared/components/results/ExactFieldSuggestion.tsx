@@ -1,14 +1,14 @@
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
 import { Namespace } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
+import { type SearchResults } from '../../types/results';
 import {
   exactMatchSearchTerms,
   modifyQueryWithSuggestions,
 } from '../../utils/searchSuggestions';
 import { stringifyUrl } from '../../utils/url';
-import { SearchTextLink } from './SearchTextLink';
+import { SearchLink } from './SearchTextLink';
 
 const ExactFieldSuggestion = ({
   query,
@@ -39,7 +39,7 @@ const ExactFieldSuggestion = ({
       <small>
         {' '}
         or show only exact matches for{' '}
-        <SearchTextLink query={modifiedQuery} text={searchValue} />
+        <SearchLink query={modifiedQuery}>{searchValue}</SearchLink>
       </small>
     );
   }

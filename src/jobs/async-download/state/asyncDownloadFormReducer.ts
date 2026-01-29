@@ -1,10 +1,10 @@
-import { ActionType } from 'typesafe-actions';
+import { type ActionType } from 'typesafe-actions';
 
-import { DownloadUrlOptions } from '../../../shared/types/results';
+import { type DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import {
   AsyncDownloadFields,
-  AsyncDownloadFormValues,
+  type AsyncDownloadFormValues,
 } from '../config/asyncDownloadFormData';
 import * as asyncDownloadFormActions from './asyncDownloadFormActions';
 

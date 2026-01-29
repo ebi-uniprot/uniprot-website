@@ -1,18 +1,19 @@
 import { ExpandableList, InfoList } from 'franklin-sites';
-import { Fragment } from 'react';
+import { type ComponentProps, Fragment, type JSX } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { pluralise } from '../../../shared/utils/utils';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
-  ProteinDescription,
-  ProteinNames,
-  ProteinNamesData,
+  type ProteinDescription,
+  type ProteinNames,
+  type ProteinNamesData,
 } from '../../adapters/namesAndTaxonomyConverter';
-import { ValueWithEvidence } from '../../types/modelTypes';
+import { type ValueWithEvidence } from '../../types/modelTypes';
 import { stringToID } from '../../utils';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
@@ -177,8 +178,10 @@ const ProteinNamesViewFlat = ({
 
 const ProteinDescriptionView = ({
   proteinDescription,
+  withLink = true,
 }: {
   proteinDescription?: ProteinDescription;
+  withLink?: boolean;
 }) => {
   if (!proteinDescription) {
     return null;
@@ -187,7 +190,7 @@ const ProteinDescriptionView = ({
     <>
       <ProteinNamesViewFlat
         names={proteinDescription.recommendedName}
-        withLink
+        withLink={withLink}
       />
       {proteinDescription.recommendedName?.ecNumbers?.length && (
         <small>
@@ -285,7 +288,7 @@ const ProteinNamesView = ({
   if (!proteinNames) {
     return null;
   }
-  let infoData: { title: string; content: JSX.Element }[] = [];
+  let infoData: ComponentProps<typeof InfoList>['infoData'] = [];
   if (proteinNames.recommendedName) {
     infoData = getInfoListForNames(proteinNames.recommendedName, noEvidence);
   }
@@ -333,12 +336,24 @@ const ProteinNamesView = ({
   }
   if (proteinNames.contains) {
     infoData.push({
-      title: `Cleaved into ${proteinNames.contains.length} chains`,
+      title: (
+        <>
+          Cleaved into{' '}
+          <Link to="#ptm_processing">
+            {proteinNames.contains.length}{' '}
+            {pluralise('chain', proteinNames.contains.length)}
+          </Link>
+        </>
+      ),
       content: (
         <ExpandableList descriptionString="chains">
           {proteinNames.contains.map((contains, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <ProteinDescriptionView key={index} proteinDescription={contains} />
+            <ProteinDescriptionView
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              proteinDescription={contains}
+              withLink={false}
+            />
           ))}
         </ExpandableList>
       ),

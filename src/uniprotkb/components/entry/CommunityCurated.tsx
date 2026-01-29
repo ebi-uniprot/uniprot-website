@@ -12,12 +12,12 @@ import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { processUrlTemplate } from '../../../shared/utils/xrefs';
 import {
-  Citation,
-  CommunityAnnotation,
-  Reference,
+  type Citation,
+  type CommunityAnnotation,
+  type Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import EntrySection from '../../types/entrySection';
-import { DatabaseInfoMaps } from '../../utils/database';
+import { type DatabaseInfoMaps } from '../../utils/database';
 import styles from './styles/community-curated.module.scss';
 
 const annotationGetter = (section: EntrySection) => {

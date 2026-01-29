@@ -7,11 +7,11 @@ import {
   SequenceSubmission,
   SpinnerIcon,
 } from 'franklin-sites';
-import { SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor'; // TODO: find a way to export this transparently from franklin
+import { type SequenceObject } from 'franklin-sites/dist/types/sequence-utils/sequence-processor'; // TODO: find a way to export this transparently from franklin
 import {
-  FC,
-  FormEvent,
-  MouseEvent,
+  type FC,
+  type FormEvent,
+  type MouseEvent,
   useCallback,
   useEffect,
   useReducer,
@@ -42,8 +42,8 @@ import SequenceSearchLoader from '../../components/SequenceSearchLoader';
 import { JobTypes } from '../../types/jobTypes';
 import defaultFormValues, {
   AlignFields,
-  AlignFormValue,
-  AlignFormValues,
+  type AlignFormValue,
+  type AlignFormValues,
 } from '../config/AlignFormData';
 import {
   resetFormState,
@@ -55,8 +55,8 @@ import {
   getAlignFormDataReducer,
   getAlignFormInitialState,
 } from '../state/alignFormReducer';
-import { FormParameters } from '../types/alignFormParameters';
-import { ServerParameters } from '../types/alignServerParameters';
+import { type FormParameters } from '../types/alignFormParameters';
+import { type ServerParameters } from '../types/alignServerParameters';
 
 const title = namespaceAndToolsLabels[JobTypes.ALIGN];
 

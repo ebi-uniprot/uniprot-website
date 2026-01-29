@@ -1,7 +1,7 @@
-import { UniRefAPIModel } from '../adapters/uniRefConverter';
+import { type UniRefAPIModel } from '../adapters/uniRefConverter';
 
 // Source: uniref/UniRef100_A0A0B7GQ86
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const mock: UniRefAPIModel = {
   id: 'UniRef100_A0A0B7GQ86',
   name: 'Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...',

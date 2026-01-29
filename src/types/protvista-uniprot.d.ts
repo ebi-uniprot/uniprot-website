@@ -3,9 +3,12 @@ type ProtvistaUniprotElement = React.DetailedHTMLProps<
   HTMLElement
 > & {
   accession?: string;
+  checksum?: string;
+  sequence?: string;
+  isoforms?: object;
 };
 
-declare namespace JSX {
+declare namespace React.JSX {
   interface IntrinsicElements {
     'protvista-uniprot': ProtvistaUniprotElement;
     'protvista-uniprot-structure': ProtvistaUniprotElement;

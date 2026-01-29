@@ -1,17 +1,17 @@
-import { Xref } from '../../shared/types/apiModel';
+import { type Xref } from '../../shared/types/apiModel';
 import { hasContent } from '../../shared/utils/utils';
 import { UniProtKBColumn } from '../types/columnTypes';
-import { CommentType } from '../types/commentTypes';
+import { type CommentType } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import { SubcellularLocationFeatures } from '../types/featureType';
-import KeywordCategory from '../types/keywordCategory';
-import { Evidence, GoEvidenceType } from '../types/modelTypes';
-import { DatabaseInfoMaps } from '../utils/database';
+import { type SubcellularLocationFeatures } from '../types/featureType';
+import type KeywordCategory from '../types/keywordCategory';
+import { type Evidence, type GoEvidenceType } from '../types/modelTypes';
+import { type DatabaseInfoMaps } from '../utils/database';
 import { getXrefsForSection } from '../utils/xrefUtils';
-import { convertSection, UIModel } from './sectionConverter';
+import { convertSection, type UIModel } from './sectionConverter';
 import {
-  UniProtkbAPIModel,
-  UniProtKBSimplifiedTaxonomy,
+  type UniProtkbAPIModel,
+  type UniProtKBSimplifiedTaxonomy,
 } from './uniProtkbConverter';
 
 const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Entry view should render 1`] = `
 <DocumentFragment>
@@ -162,7 +162,7 @@ exports[`Entry view should render 1`] = `
             </div>
             <rhea-visualizer
               rheaid="12345"
-              showids="true"
+              showids=""
               usehost="https://api.rhea-db.org"
             />
           </div>
@@ -1032,7 +1032,12 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Cleaved into 1 chains
+                Cleaved into 
+                <a
+                  href="/uniprotkb/P05067/entry#ptm_processing"
+                >
+                  1 chain
+                </a>
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1041,12 +1046,7 @@ exports[`Entry view should render 1`] = `
                   class="expandable-list no-bullet"
                 >
                   <li>
-                    <a
-                      href="/uniprotkb/P05067/entry#containsrec_full_Name"
-                    >
-                      containsrec full Name
-                    </a>
-                     
+                    containsrec full Name 
                     <button
                       aria-controls="22"
                       aria-expanded="false"
@@ -1092,39 +1092,7 @@ exports[`Entry view should render 1`] = `
                       data-testid="evidence-tag-content"
                       id="23"
                     />
-                    )  (EC:1.2.3.4 (
-                    <a
-                      href="/uniprotkb?query=ec:1.2.3.4"
-                    >
-                      UniProtKB
-                    </a>
-                     | 
-                    <a
-                      class="external-link"
-                      href="https://enzyme.expasy.org/EC/1.2.3.4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      ENZYME
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                     | 
-                    <a
-                      class="external-link"
-                      href="https://www.rhea-db.org/rhea?query=ec:1.2.3.4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Rhea
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                    )
+                    )  (EC:1.2.3.4
                     <button
                       aria-controls="24"
                       aria-expanded="false"
@@ -2166,9 +2134,9 @@ exports[`Entry view should render 1`] = `
           </li>
         </ul>
         <h3
-          data-article-id="encoded_on"
+          data-article-id="encoded_in"
         >
-          Encoded on
+          Encoded in
         </h3>
         <div>
           <ul
@@ -2475,7 +2443,7 @@ exports[`Entry view should render 1`] = `
                   id="id1term"
                 >
                   <test-file-stub
-                    classname="sub-cell-viz__in-view-pin"
+                    class="sub-cell-viz__in-view-pin"
                     height="1em"
                   />
                   <strong>
@@ -2839,7 +2807,7 @@ exports[`Entry view should render 1`] = `
           class="loader-container"
         >
           <test-file-stub
-            classname="loader"
+            class="loader"
             height="100"
             width="100"
           />
@@ -2860,7 +2828,9 @@ exports[`Entry view should render 1`] = `
               <th>
                 Entry 1
                 <br />
-                <select>
+                <select
+                  style="width: fit-content;"
+                >
                   <option
                     value="All"
                   >
@@ -3006,7 +2976,7 @@ exports[`Entry view should render 1`] = `
           class="loader-container"
         >
           <test-file-stub
-            classname="loader"
+            class="loader"
             height="100"
             width="100"
           />
@@ -3393,7 +3363,7 @@ exports[`Entry view should render 1`] = `
               >
                 sequence in 
                 <a
-                  href="/uniparc?query=(isoform:isoID1)&direct"
+                  href="/uniparc?query=(dbid:isoID1)&direct"
                 >
                   UniParc
                 </a>
@@ -3817,7 +3787,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
             <rhea-visualizer
               rheaid="14869"
-              showids="true"
+              showids=""
               usehost="https://api.rhea-db.org"
             />
           </div>
@@ -4611,7 +4581,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="loader-container"
             >
               <test-file-stub
-                classname="loader"
+                class="loader"
                 height="100"
                 width="100"
               />
@@ -5453,7 +5423,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="message__side-border"
             />
             <test-file-stub
-              classname="message--icon-align-top"
+              class="message--icon-align-top"
               height="1.125em"
               width="1.125em"
             />
@@ -5699,7 +5669,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               <th>
                 Type
                 <br />
-                <select>
+                <select
+                  style="width: fit-content;"
+                >
                   <option
                     value="All"
                   >
@@ -6142,7 +6114,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="message__side-border"
           />
           <test-file-stub
-            classname="message--icon-align-top"
+            class="message--icon-align-top"
             height="1.125em"
             width="1.125em"
           />
@@ -6718,7 +6690,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 sequence in 
                 <a
-                  href="/uniparc?query=(isoform:P0DTR4)&direct"
+                  href="/uniparc?query=(dbid:P0DTR4)&direct"
                 >
                   UniParc
                 </a>
@@ -7330,11 +7302,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                     </a>
                     <a
                       class="external-link"
-                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_WKPS01000046.1"
+                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_BAABXT010000001.1"
                       rel="noopener"
                       target="_blank"
                     >
-                      NZ_WKPS01000046.1
+                      NZ_BAABXT010000001.1
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"

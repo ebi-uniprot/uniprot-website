@@ -1,4 +1,5 @@
-import { Fragment, ReactNode } from 'react';
+import { Card, Loader } from 'franklin-sites';
+import { type ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
@@ -6,41 +7,66 @@ import {
   Location,
   LocationToPath,
 } from '../../../../../app/config/urls';
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../../../../shared/config/entryTypeIcon';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../../shared/types/namespaces';
-import listFormat from '../../../../../shared/utils/listFormat';
+import { type SearchResults } from '../../../../../shared/types/results';
 import { stringifyQuery } from '../../../../../shared/utils/url';
+import { pickArticle, pluralise } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
-  DeletedReason,
-  InactiveEntryReason,
+  type DeletedReason,
+  type InactiveEntryReason,
+  type UniProtkbAPIModel,
 } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
+import DemergedEntriesTable from './DemergedEntriesTable';
+import styles from './styles/removed-entry-message.module.scss';
 
 type RemovedEntryHeadingProps = {
   accession: string;
   uniparc?: string;
   merged?: boolean;
+  sourceDatabase?: string;
 };
 
 const RemovedEntryHeading = ({
   accession,
   uniparc,
   merged,
+  sourceDatabase,
 }: RemovedEntryHeadingProps) => {
-  const uniParcLink =
+  let uniParcLink;
+  if (
+    uniparc &&
+    getEntryTypeFromString(sourceDatabase) === EntryType.REVIEWED
+  ) {
+    uniParcLink = {
+      pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+        accession: uniparc,
+      }),
+    };
+  } else if (uniparc && !merged) {
     // In case of merging, we'll get the data of the new entry, so the
     // UniParc of the new entry, so don't pass that to not get wrong link
-    uniparc && !merged
-      ? {
-          pathname: generatePath(LocationToPath[Location.UniParcEntry], {
-            accession: uniparc,
-            subPage: UniParcTabLocation.Entry,
-          }),
-        }
-      : {
-          pathname: LocationToPath[Location.UniParcResults],
-          search: stringifyQuery({ query: accession, direct: true }),
-        };
+    uniParcLink = {
+      pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
+        accession: uniparc,
+        subPage: UniParcTabLocation.Entry,
+        subEntryId: accession,
+      }),
+    };
+  } else {
+    uniParcLink = {
+      pathname: LocationToPath[Location.UniParcResults],
+      search: stringifyQuery({ query: `dbid:${accession}`, direct: true }),
+    };
+  }
+
   return (
     <h4 data-article-id="deleted_accessions">
       This entry{!merged && ' is no longer annotated in UniProtKB and'} can be
@@ -68,6 +94,7 @@ type RemovedEntryMessageProps = RemovedEntryHeadingProps & {
   release?: string;
   children?: ReactNode;
   merged?: boolean;
+  sourceDatabase?: string;
 };
 
 const RemovedEntryMessage = ({
@@ -76,26 +103,30 @@ const RemovedEntryMessage = ({
   uniparc,
   release,
   merged,
+  sourceDatabase,
   children,
 }: RemovedEntryMessageProps) => {
   let helpArticleLink = 'deleted_accessions';
   if (reason?.deletedReason) {
     helpArticleLink += `#${reasonToFragment[reason.deletedReason]}`;
   }
-
   return (
     <>
       <RemovedEntryHeading
         accession={accession}
         uniparc={uniparc}
         merged={merged}
+        sourceDatabase={sourceDatabase}
       />
       {children ||
         (reason?.deletedReason && (
           <div>
             Reason:{' '}
             <strong data-article-id={helpArticleLink}>
-              {reason.deletedReason}
+              {reason.deletedReason.includes('proteome') &&
+              !reason.deletedReason.includes('reference')
+                ? `Belongs to ${pickArticle(reason.deletedReason)} ${reason.deletedReason.toLocaleLowerCase()}`
+                : reason.deletedReason}
             </strong>
           </div>
         ))}
@@ -115,40 +146,68 @@ type DemergedEntryMessageProps = RemovedEntryMessageProps & {
 export const DemergedEntryMessage = ({
   demergedTo,
   ...props
-}: DemergedEntryMessageProps) => (
-  <RemovedEntryMessage {...props}>
-    {demergedTo.length ? (
-      <div>
-        This entry has now been <strong>demerged</strong>. Its accession has
-        been set as secondary accession in{' '}
-        {demergedTo.map((newEntry, index) => (
-          <Fragment key={newEntry}>
-            {listFormat(index, demergedTo)}
-            <Link
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                newEntry,
-                UniProtKBTabLocation.Entry
-              )}
-            >
-              {newEntry}
-            </Link>
-          </Fragment>
-        ))}
-        . [
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: stringifyQuery({ query: `sec_acc:${props.accession}` }),
-          }}
-        >
-          List of currently active entries
-        </Link>
-        ]
-      </div>
-    ) : null}
-  </RemovedEntryMessage>
-);
+}: DemergedEntryMessageProps) => {
+  const { loading, data, progress } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(
+    demergedTo.length
+      ? apiUrls.search.accessions(demergedTo, { facets: null })
+      : undefined
+  );
+
+  if (loading) {
+    return <Loader progress={progress} />;
+  }
+
+  return (
+    <Card>
+      {demergedTo.length ? (
+        <div>
+          This entry has been <strong>demerged</strong>. Its accession has been
+          set as a secondary accession in the following UniProtKB entries.
+        </div>
+      ) : null}
+      {data?.results.length ? (
+        <div className={styles['active-entries-table']}>
+          <DemergedEntriesTable
+            entries={data.results}
+            demergedTo={demergedTo}
+          />
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: stringifyQuery({ query: `sec_acc:${props.accession}` }),
+            }}
+          >
+            View{' '}
+            {demergedTo.length !== data.results.length
+              ? ' the active '
+              : 'these'}{' '}
+            {pluralise('entry', data.results.length, 'entries')} in UniProtKB
+            search results
+          </Link>
+          <br />
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniParcResults],
+              search: stringifyQuery({
+                query: `dbid:${props.accession}`,
+                direct: true,
+              }),
+            }}
+          >
+            View the linked UniParc entry
+          </Link>
+        </div>
+      ) : null}
+      {props.release && (
+        <div>
+          Since release: <strong>{props.release}</strong>
+        </div>
+      )}
+    </Card>
+  );
+};
 
 type MergedEntryMessageProps = RemovedEntryMessageProps & {
   mergedInto: string;

@@ -1,4 +1,4 @@
-import { History } from 'history';
+import { type History } from 'history';
 import { useEffect } from 'react';
 
 import { needsReload } from '../../service-worker/reload-flag';

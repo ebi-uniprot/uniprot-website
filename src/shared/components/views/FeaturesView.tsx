@@ -1,8 +1,8 @@
-import { Feature } from '@nightingale-elements/nightingale-track';
+import { type Feature } from '@nightingale-elements/nightingale-track';
 import {
   Fragment,
   lazy,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useId,
   useMemo,
@@ -12,17 +12,20 @@ import { frame } from 'timing-functions';
 
 import FeatureTypeHelpMappings from '../../../help/config/featureTypeHelpMappings';
 import {
-  Ligand,
-  LigandPart,
+  type Ligand,
+  type LigandPart,
 } from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
-import { ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
-import FeatureType from '../../../uniprotkb/types/featureType';
-import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import { type ConfidenceScore } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import type FeatureType from '../../../uniprotkb/types/featureType';
+import { type Evidence } from '../../../uniprotkb/types/modelTypes';
 import useAnimateRange from '../../hooks/useAnimateRange';
 import useFeatureViewScrollSync from '../../hooks/useFeatureViewScrollSync';
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 import useNightingaleFeatureTableScroll from '../../hooks/useNightingaleFeatureTableScroll';
-import { getTargetRange, NightingaleViewRange } from '../../utils/nightingale';
+import {
+  getTargetRange,
+  type NightingaleViewRange,
+} from '../../utils/nightingale';
 import LazyComponent from '../LazyComponent';
 import { MIN_ROWS_TO_EXPAND } from '../table/constants';
 import TableFromData from '../table/TableFromData';

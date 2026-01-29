@@ -6,7 +6,7 @@ import {
   // InformationIcon,
 } from 'franklin-sites';
 import { isEqual, pullAll /* , omit */ } from 'lodash-es';
-import { Fragment, ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
@@ -24,22 +24,22 @@ import CatalyticActivityView from '../../../uniprotkb/components/protein-data-vi
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import LigandDescriptionView from '../../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 import {
-  CatalyticActivityComment,
-  CofactorComment,
+  type CatalyticActivityComment,
+  type CofactorComment,
 } from '../../../uniprotkb/types/commentTypes';
-import { DatabaseInfoMaps } from '../../../uniprotkb/utils/database';
-import { ARBAAPIModel } from '../../arba/adapters/arbaConverter';
-import { UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
+import { type DatabaseInfoMaps } from '../../../uniprotkb/utils/database';
+import { type ARBAAPIModel } from '../../arba/adapters/arbaConverter';
+import { type UniRuleAPIModel } from '../../unirule/adapters/uniRuleConverter';
 import {
-  Annotation,
-  CaseRule,
-  Condition,
-  ConditionSet,
-  PositionFeatureSet,
-  Range,
-  Rule,
-  RuleException,
-  SAMFeatureSet,
+  type Annotation,
+  type CaseRule,
+  type Condition,
+  type ConditionSet,
+  type PositionFeatureSet,
+  type Range,
+  type Rule,
+  type RuleException,
+  type SAMFeatureSet,
 } from '../model';
 import styles from './styles/conditions-annotations.module.scss';
 
@@ -183,7 +183,7 @@ const conditionsToInfoData = (
             }
             return (
               <Fragment key={cvId || value}>
-                {listFormat(index, array, 'or')}
+                {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
                 {condition.isNegative && (
                   <>
                     <span className={cn(styles.statement, styles.negation)}>
@@ -209,7 +209,7 @@ const conditionsToInfoData = (
           }
           return (
             <Fragment key={value}>
-              {listFormat(index, array, 'or')}
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
               {condition.isNegative && (
                 <>
                   <span className={cn(styles.statement, styles.negation)}>
@@ -228,12 +228,13 @@ const conditionsToInfoData = (
     if (condition.type === 'proteome property') {
       return {
         title: 'proteome property',
-        content: condition.conditionValues?.map(({ value }) => {
+        content: condition.conditionValues?.map(({ value }, index, array) => {
           if (!value) {
             return null;
           }
           return (
             <Fragment key={value}>
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
               {condition.isNegative && (
                 <>
                   <span className={cn(styles.statement, styles.negation)}>
@@ -301,7 +302,7 @@ const conditionsToInfoData = (
 
           return (
             <Fragment key={value}>
-              {listFormat(index, array, 'or')}
+              {listFormat(index, array, condition.isNegative ? 'and' : 'or')}
               {condition.isNegative && (
                 <>
                   <span className={cn(styles.statement, styles.negation)}>
@@ -322,7 +323,7 @@ const conditionsToInfoData = (
   });
 };
 
-// Accross condition sets: OR
+// Across condition sets: OR
 // Across conditions within a condition set: AND
 const ConditionsComponent = ({
   conditionSets,
@@ -787,8 +788,8 @@ const ConditionsAnnotations = ({
 }) => {
   const hasExtra = Boolean(
     data.otherRules?.length ||
-      data.positionFeatureSets?.length ||
-      data.samFeatureSets?.length
+    data.positionFeatureSets?.length ||
+    data.samFeatureSets?.length
   );
   return (
     <div

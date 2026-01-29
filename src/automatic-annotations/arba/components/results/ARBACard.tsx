@@ -7,7 +7,7 @@ import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 import { mapToLinks } from '../../../../shared/components/MapTo';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { ARBAAPIModel } from '../../adapters/arbaConverter';
+import { type ARBAAPIModel } from '../../adapters/arbaConverter';
 
 const getIdKey = getIdKeyForNamespace(Namespace.arba);
 

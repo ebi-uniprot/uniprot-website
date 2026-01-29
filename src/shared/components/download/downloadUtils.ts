@@ -1,9 +1,12 @@
-import { Location as HistoryLocation } from 'history';
+import { type Location as HistoryLocation } from 'history';
 
 import { Location } from '../../../app/config/urls';
 import { fileFormatsUnenrichedResultsDownload } from '../../../jobs/id-mapping/config/download';
-import { JobTypes } from '../../../jobs/types/jobTypes';
-import { FieldData, FieldDatum } from '../../../uniprotkb/types/resultsTypes';
+import { type JobTypes } from '../../../jobs/types/jobTypes';
+import {
+  type FieldData,
+  type FieldDatum,
+} from '../../../uniprotkb/types/resultsTypes';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../config/apiUrls/apiUrls';
@@ -20,12 +23,12 @@ import {
   fileFormatsWithColumns,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
-import { JobFromUrl } from '../../hooks/useJobFromUrl';
+import { type JobFromUrl } from '../../hooks/useJobFromUrl';
 import { Namespace } from '../../types/namespaces';
-import { DownloadUrlOptions } from '../../types/results';
+import { type DownloadUrlOptions } from '../../types/results';
 import { FileFormat } from '../../types/resultsDownload';
-import { DownloadProps } from './Download';
-import { DownloadState } from './downloadReducer';
+import { type DownloadProps } from './Download';
+import { type DownloadState } from './downloadReducer';
 
 const ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES = new Set([
   Namespace.uniparc,
@@ -154,12 +157,11 @@ export const isAsyncDownloadIdMapping = (
 ) =>
   Boolean(
     job.jobResultsLocation === Location.IDMappingResult &&
-      props.namespace === Namespace.idmapping &&
-      getDownloadCount(state, props) >
-        DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
-      job.jobResultsNamespace &&
-      ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(job.jobResultsNamespace) &&
-      ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(state.selectedFileFormat)
+    props.namespace === Namespace.idmapping &&
+    getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT_ID_MAPPING_ENRICHED &&
+    job.jobResultsNamespace &&
+    ID_MAPPING_ASYNC_DOWNLOAD_NAMESPACES.has(job.jobResultsNamespace) &&
+    ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS.has(state.selectedFileFormat)
   );
 
 export const hasColumns = (

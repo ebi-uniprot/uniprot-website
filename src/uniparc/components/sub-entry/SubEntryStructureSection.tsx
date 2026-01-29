@@ -1,7 +1,7 @@
 import { Card } from 'franklin-sites';
 import { lazy } from 'react';
 
-import { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 
@@ -13,7 +13,7 @@ const StructureView = lazy(
 );
 
 type Props = {
-  data: UniParcSubEntryUIModel['subEntry'];
+  data: UniParcSubEntryUIModel;
 };
 
 /*
@@ -24,11 +24,11 @@ soon and also for external IDs as eventually it should be based on the sequence.
 issue is that we can't query the 3D Beacons API like this yet, so I guess it'll do for now
 */
 export const hasStructure = (data: UniParcSubEntryUIModel['subEntry']) =>
-  data.isUniprotkbEntry && data.active && data.id;
+  data.isUniprotkbEntry && data.id;
 
 const StructureSection = ({ data }: Props) =>
   // TODO: don't need this duplicate check - how to fix in TS?
-  !data.id || !hasStructure(data) ? null : (
+  !data.subEntry.id || !hasStructure(data.subEntry) ? null : (
     <Card
       header={
         <h2 data-article-id="structure_section">
@@ -38,7 +38,11 @@ const StructureSection = ({ data }: Props) =>
       id={SubEntrySection.Structure}
       data-entry-section
     >
-      <StructureView primaryAccession={data.id} />
+      <StructureView
+        primaryAccession={data.subEntry.id}
+        checksum={data.entry.sequence?.md5}
+        viewerOnly
+      />
     </Card>
   );
 

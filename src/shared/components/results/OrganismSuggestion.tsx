@@ -1,22 +1,28 @@
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import { type UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
-import { Namespace } from '../../types/namespaces';
-import { SearchResults } from '../../types/results';
+import { type Namespace } from '../../types/namespaces';
+import { type SearchResults } from '../../types/results';
 import { stringifyUrl } from '../../utils/url';
-import { SearchTextLink } from './SearchTextLink';
+import { SearchLink } from './SearchTextLink';
 
 const OrganismSuggestion = ({
   query,
   taxonID,
   total,
+  namespace,
 }: {
   query: string;
   taxonID: string;
   total: number;
+  namespace: Namespace;
 }) => {
-  const { headers } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    stringifyUrl(apiUrls.search.searchPrefix(Namespace.uniprotkb), {
+  const { headers } = useDataApi<
+    SearchResults<UniProtkbAPIModel | UniParcAPIModel | ProteomesAPIModel>
+  >(
+    stringifyUrl(apiUrls.search.searchPrefix(namespace), {
       query: `organism_id:${taxonID}`,
       size: 0,
     })
@@ -30,8 +36,11 @@ const OrganismSuggestion = ({
     return (
       <>
         {' '}
-        or restrict search to &quot;<b>{taxonID}</b>&quot; to{' '}
-        <SearchTextLink query={query} text="exclude lower taxonomic ranks" />
+        or restrict search to organism with taxon ID &quot;<b>{taxonID}</b>
+        &quot; to{' '}
+        <SearchLink query={query} namespace={namespace}>
+          exclude lower taxonomic ranks
+        </SearchLink>
       </>
     );
   }

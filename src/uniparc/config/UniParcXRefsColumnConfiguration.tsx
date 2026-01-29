@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../app/config/urls';
@@ -8,8 +8,8 @@ import EntryTypeIcon, {
 } from '../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../shared/components/ExternalLink';
-import { ColumnDescriptor } from '../../shared/hooks/useColumns';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { type ColumnDescriptor } from '../../shared/hooks/useColumns';
+import { type ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import * as logging from '../../shared/utils/logging';
 import parseDate from '../../shared/utils/parseDate';
@@ -17,10 +17,11 @@ import EvidenceLink from '../../uniprotkb/components/protein-data-views/Evidence
 import { TabLocation } from '../../uniprotkb/types/entry';
 import {
   databaseToEntryType,
-  UniParcXRef,
+  type UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
 import Timeline from '../components/entry/Timeline';
+import { getSubEntryPath } from '../utils/subEntry';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy
@@ -47,6 +48,7 @@ export const defaultColumns = [
   UniParcXRefsColumn.accession,
   UniParcXRefsColumn.version,
   UniParcXRefsColumn.organism,
+  UniParcXRefsColumn.proteome,
   UniParcXRefsColumn.firstSeen,
   UniParcXRefsColumn.lastSeen,
   UniParcXRefsColumn.active,
@@ -94,7 +96,7 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
 });
 
 const getAccessionColumn =
-  (templateMap: Map<string, string> = new Map()) =>
+  (uniparcAccession: string, templateMap: Map<string, string> = new Map()) =>
   (xref: UniParcXRef) => {
     if (!xref.id) {
       return null;
@@ -107,20 +109,46 @@ const getAccessionColumn =
     ) {
       if (xref.database.includes('isoforms') && !xref.active) {
         cell = xref.id;
+      } else if (
+        xref.database === XRefsInternalDatabasesEnum.REVIEWED &&
+        !xref.active
+      ) {
+        // Link to history page for inactive entries that were reviewed
+        cell = (
+          <Link
+            to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
+          >
+            {xref.id}
+          </Link>
+        );
       } else {
         // internal link
         cell = (
           <>
-            <Link
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                xref.id,
-                xref.active ? TabLocation.Entry : TabLocation.History
-              )}
-            >
-              {xref.id}
-            </Link>
-            {xref.active && <BasketStatus id={xref.id} />}
+            {xref.active ? (
+              <>
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    xref.id,
+                    TabLocation.Entry
+                  )}
+                >
+                  {xref.id}
+                </Link>
+                {xref.active && <BasketStatus id={xref.id} />}
+              </>
+            ) : (
+              <Link
+                to={getSubEntryPath(
+                  uniparcAccession,
+                  xref.id,
+                  TabLocation.Entry
+                )}
+              >
+                {xref.id}
+              </Link>
+            )}
           </>
         );
       }
@@ -150,7 +178,7 @@ const getAccessionColumn =
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
   label: 'Identifier',
-  render: getAccessionColumn(),
+  render: getAccessionColumn(''),
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.gene, {
@@ -297,6 +325,7 @@ export default UniParcXRefsColumnConfiguration;
 export const getUniParcXRefsColumns = (
   columns: UniParcXRefsColumn[],
   templateMap: Map<string, string>,
+  uniparcAccession: string,
   firstSeen?: string,
   lastSeen?: string
 ): ColumnDescriptor<UniParcXRef>[] =>
@@ -318,7 +347,8 @@ export const getUniParcXRefsColumns = (
       return {
         name,
         label: descriptor?.label,
-        render: getAccessionColumn(templateMap),
+        uniparcAccession,
+        render: getAccessionColumn(uniparcAccession, templateMap),
       };
     }
     // In case of timeline column, replace with the current template map

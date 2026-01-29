@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`ProteomesCard tests should render the card component 1`] = `
 <DocumentFragment>
@@ -83,8 +83,14 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <a
               href="/uniprotkb?query=proteome:UP000005640"
             >
-              83,569
+              83,526
             </a>
+             entries in 
+            <span
+              data-article-id="uniprotkb"
+            >
+              UniProtKB
+            </span>
           </span>
           <span
             class="result-card__info-bit"
@@ -108,7 +114,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
               </span>
               : 
             </strong>
-            Outlier (high value)
+            Unknown
           </span>
         </div>
         <div

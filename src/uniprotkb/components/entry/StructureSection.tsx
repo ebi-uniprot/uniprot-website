@@ -5,13 +5,14 @@ import { lazy, memo, useState } from 'react';
 import LazyComponent from '../../../shared/components/LazyComponent';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
-import { UIModel } from '../../adapters/sectionConverter';
+import { type UIModel } from '../../adapters/sectionConverter';
+import { type IsoformSequences } from '../../adapters/structureConverter';
 import { DatabaseCategory } from '../../types/databaseRefs';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import {
   partitionStructureDatabases,
-  XrefUIModel,
+  type XrefUIModel,
 } from '../../utils/xrefUtils';
 import XRefView from '../protein-data-views/XRefView';
 
@@ -23,7 +24,9 @@ const StructureView = lazy(
 );
 
 type Props = {
-  data: UIModel;
+  data: UIModel & {
+    isoforms?: IsoformSequences[];
+  };
   primaryAccession: string;
   crc64?: string;
 };
@@ -94,7 +97,10 @@ const StructureSection = ({ data, primaryAccession, crc64 }: Props) => {
     >
       {displayStructure ? (
         <LazyComponent rootMargin="800px 0px">
-          <StructureView primaryAccession={primaryAccession} />
+          <StructureView
+            primaryAccession={primaryAccession}
+            isoforms={data.isoforms}
+          />
         </LazyComponent>
       ) : (
         <>

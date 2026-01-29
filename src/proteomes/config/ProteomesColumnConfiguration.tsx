@@ -8,12 +8,13 @@ import { organismRenderer } from '../../automatic-annotations/shared/column-rend
 import { organismIDRenderer } from '../../automatic-annotations/shared/column-renderers/OrganismID';
 import ExternalLink from '../../shared/components/ExternalLink';
 import AccessionView from '../../shared/components/results/AccessionView';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
+import { pluralise } from '../../shared/utils/utils';
 import {
-  ProteomesAPIModel,
-  ProteomesUIModel,
+  type ProteomesAPIModel,
+  type ProteomesUIModel,
 } from '../adapters/proteomesConverter';
 import BuscoLegend from '../components/BuscoLegend';
 import BuscoView from '../components/BuscoView';
@@ -168,19 +169,28 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
       proteomeType === 'Excluded' || proteomeType === 'Redundant proteome';
 
     return (
-      <Link
-        to={{
-          pathname:
-            LocationToPath[
-              shouldPointToUniParc
-                ? Location.UniParcResults
-                : Location.UniProtKBResults
-            ],
-          search: `query=proteome:${id}`,
-        }}
-      >
-        <LongNumber>{proteinCount}</LongNumber>
-      </Link>
+      <>
+        <Link
+          to={{
+            pathname:
+              LocationToPath[
+                shouldPointToUniParc
+                  ? Location.UniParcResults
+                  : Location.UniProtKBResults
+              ],
+            search: `query=proteome:${id}`,
+          }}
+        >
+          <LongNumber>{proteinCount}</LongNumber>
+        </Link>{' '}
+        {shouldPointToUniParc
+          ? pluralise('sequence', proteinCount)
+          : pluralise('entry', proteinCount, 'entries')}{' '}
+        in{' '}
+        <span data-article-id={shouldPointToUniParc ? 'uniparc' : 'uniprotkb'}>
+          {shouldPointToUniParc ? 'UniParc' : 'UniProtKB'}
+        </span>
+      </>
     );
   },
 });

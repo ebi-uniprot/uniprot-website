@@ -1,5 +1,5 @@
 import { Button, CopyIcon } from 'franklin-sites';
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import {
   copyFailureMessage,
@@ -10,8 +10,8 @@ import helper from '../../styles/helper.module.scss';
 
 const isCopySupported = Boolean(
   'clipboard' in navigator &&
-    'writeText' in navigator.clipboard &&
-    navigator.clipboard.writeText
+  'writeText' in navigator.clipboard &&
+  navigator.clipboard.writeText
 );
 
 type CopyButtonProps = {

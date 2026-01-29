@@ -1,12 +1,12 @@
 import { JobTypes } from '../../../../../jobs/types/jobTypes';
-import { Job } from '../../types/job';
+import { type Job } from '../../types/job';
 import { Status } from '../../types/jobStatuses';
 import {
   getServerErrorDescription,
   isJobAlreadyFinished,
   isJobIncomplete,
   isValidServerID,
-  ServerError,
+  type ServerError,
 } from '..';
 
 describe('isValidServerID', () => {

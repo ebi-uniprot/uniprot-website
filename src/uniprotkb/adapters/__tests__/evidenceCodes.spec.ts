@@ -6,7 +6,7 @@ import {
   getEcoNumberFromString,
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
-import { GoEvidenceType } from '../../types/modelTypes';
+import { type GoEvidenceType } from '../../types/modelTypes';
 
 beforeAll(() => {
   // eslint-disable-next-line no-console

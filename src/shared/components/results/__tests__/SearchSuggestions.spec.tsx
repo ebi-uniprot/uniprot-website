@@ -89,15 +89,31 @@ mock.onGet(/\/uniprotkb\/search\?organism_id%3A2/).reply(200, {
 });
 
 mock
-  .onGet(/\/proteomes\/search\?fields=upid&query=organism_id%3A9606/)
+  .onGet(
+    /\/proteomes\/search\?fields=upid%2Corganism&query=organism_id%3A9606&size=7/
+  )
   .reply(200, {
     results: [
       {
         id: 'UP000005640',
+        taxonomy: {
+          scientificName: 'Homo sapiens',
+          commonName: 'Human',
+          taxonId: 9606,
+          mnemonic: 'HUMAN',
+        },
         proteomeType: 'Reference and representative proteome',
       },
     ],
   });
+
+mock.onGet(/\/uniparc\/search\?query=%28taxonomy_id%3A9606%29&size=0/).reply(
+  200,
+  {
+    results: [],
+  },
+  { 'x-total-results': 3128760 }
+);
 
 describe('SearchSuggestions', () => {
   describe('No render', () => {
@@ -155,7 +171,7 @@ describe('SearchSuggestions', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should not render suggestions if there is only one suggestion that has same numb er of hits as the original search', async () => {
+  it('should not render suggestions if there is only one suggestion that has same number of hits as the original search', async () => {
     const { container } = customRender(
       <SearchSuggestions
         query="bsu06210"
@@ -258,10 +274,30 @@ describe('SearchSuggestions', () => {
     );
 
     await screen.findByText('or expand search to', { exact: false });
-    expect(screen.getByRole('link', { name: 'UP000005640' })).toHaveAttribute(
+    await screen.findByText('or expand search to', { exact: false });
+
+    const proteomeLink = await screen.findByRole('link', {
+      name: 'UP000005640',
+    });
+    expect(proteomeLink).toHaveAttribute(
       'href',
       '/uniprotkb?query=organism_id%3A9606+AND+%28proteome%3AUP000005640%29'
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should render taxon suggestions given an organism id for UniParc', async () => {
+    customRender(
+      <SearchSuggestions
+        query="organism_id:9606"
+        namespace={Namespace.uniparc}
+        total={3128683}
+      />
+    );
+
+    await screen.findByText('or expand search to', { exact: false });
+    expect(
+      screen.getByRole('link', { name: 'include lower taxonomic ranks' })
+    ).toHaveAttribute('href', '/uniparc?query=%28taxonomy_id%3A9606%29');
   });
 });

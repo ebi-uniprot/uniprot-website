@@ -5,7 +5,7 @@ import MockAdapter from 'axios-mock-adapter';
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 import { IDMappingDetailsContext } from '../../../../../shared/contexts/IDMappingDetails';
 import { stringifyQuery } from '../../../../../shared/utils/url';
-import { MappingDetails } from '../../../types/idMappingSearchResults';
+import { type MappingDetails } from '../../../types/idMappingSearchResults';
 import idMappingFields from '../../__tests__/__mocks__/idMappingFormConfig';
 import SimpleMappingData from '../__mocks__/SimpleMapping';
 import SimpleMappingDetails from '../__mocks__/SimpleMappingDetails';
