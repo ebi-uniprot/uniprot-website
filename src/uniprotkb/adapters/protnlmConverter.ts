@@ -19,20 +19,19 @@ export const augmentAPIDataWithProtnlmPredictions = (
       (comment) => comment.commentType === 'SUBCELLULAR LOCATION'
     ) || [];
 
-  // TODO: currently the ":-" GoEvidenceType breaks getEcoNumberFromGoEvidenceType
-  // Whenever this is fixed remove the transformation that is happening here.
-  const protnlmCrossReferences = (
-    protnlmData.uniProtKBCrossReferences || []
-  ).map((xref) => ({
-    ...xref,
-    properties: xref.properties.map((property) =>
-      property.key === 'GoEvidenceType' && property.value === ':-'
-        ? { key: 'GoEvidenceType', value: 'IEA:ProtNLM2' }
-        : property
-    ),
-  }));
-
-  // TODO: what to do about PFAM?
+  const protnlmCrossReferences = (protnlmData.uniProtKBCrossReferences || [])
+    // Remove Pfam eg A0A444Y2I6
+    .filter((xref) => xref.database !== 'Pfam')
+    // TODO: currently the ":-" GoEvidenceType breaks getEcoNumberFromGoEvidenceType
+    // Whenever this is fixed remove the transformation that is happening here.
+    .map((xref) => ({
+      ...xref,
+      properties: xref.properties.map((property) =>
+        property.key === 'GoEvidenceType' && property.value === ':-'
+          ? { key: 'GoEvidenceType', value: 'IEA:ProtNLM2' }
+          : property
+      ),
+    }));
 
   return {
     ...data,
