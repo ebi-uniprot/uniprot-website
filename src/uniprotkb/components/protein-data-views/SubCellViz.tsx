@@ -328,7 +328,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
         ${ai.map((s) => `${s} .lookedAt`).join(',')} {
           stroke: black !important;
-          fill: color-mix(in srgb, var(--fr--color-purple-mid) 15%, white) !important;
+          fill: color-mix(in srgb, var(--fr--color-purple-mid) 90%, white) !important;
           fill-opacity: 1 !important;
         }
         ${uniprot.map((sel) => `${sel} .lookedAt`).join(',')} {
@@ -364,7 +364,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         ${ai.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: color-mix(in srgb, var(--fr--color-purple-mid) 90%, white);
+          fill: color-mix(in srgb, var(--fr--color-purple-mid) 15%, white);
         }
 
         `;
