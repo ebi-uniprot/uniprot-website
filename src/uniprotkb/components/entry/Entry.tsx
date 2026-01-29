@@ -584,7 +584,7 @@ const Entry = () => {
   if (protnlmHeadPayload.loading) {
     hasProtnlm = 'loading';
   } else {
-    hasProtnlm = coordinatesHeadPayload.status === 200;
+    hasProtnlm = protnlmHeadPayload.status === 200;
   }
 
   // TODO: use hasProtnlm to conditionally show the toggle-switch in the sidebar
