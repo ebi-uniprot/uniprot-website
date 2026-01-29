@@ -337,6 +337,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         ${uniprot.map((sel) => `${sel} .lookedAt`).join(',')} {
           stroke: black !important;
           fill: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white); !important;
+          fill: var(--fr--color-sea-blue) !important;
           fill-opacity: 1 !important;
         }
         #swissbiopic > svg {
@@ -357,12 +358,12 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         ${unreviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: color-mix(in srgb, var(--fr--color-unreviewed) 90%, blue);
+          fill: var(--fr--color-unreviewed);
         }
         ${reviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: color-mix(in srgb, var(--fr--color-reviewed) 90%, white);
+          fill: color-mix(in srgb, var(--fr--color-reviewed) 30%, white);
         }
         ${ai.join(',')} {
           stroke: black;
