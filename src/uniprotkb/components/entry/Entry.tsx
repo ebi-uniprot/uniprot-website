@@ -3,7 +3,16 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import './styles/protnlm.scss';
 
 import cn from 'classnames';
-import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import {
+  AiAnnotationsIcon,
+  Button,
+  Chip,
+  Loader,
+  LongNumber,
+  Tab,
+  Tabs,
+  ToggleSwitch,
+} from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
@@ -178,6 +187,7 @@ const Entry = () => {
   const [isLikelyHuman, setIsLikelyHuman] = useState(
     Boolean(window.botChallenge)
   );
+  const [loadProtNLM, setLoadProtNLM] = useState(false);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -237,7 +247,8 @@ const Entry = () => {
     isLikelyHuman &&
       match?.params.accession &&
       data &&
-      data.entryType === 'UniProtKB unreviewed (TrEMBL)'
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      loadProtNLM
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null
   );
@@ -580,15 +591,8 @@ const Entry = () => {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
 
-  let hasProtnlm: boolean | 'loading' = false;
-  if (protnlmHeadPayload.loading) {
-    hasProtnlm = 'loading';
-  } else {
-    hasProtnlm = coordinatesHeadPayload.status === 200;
-  }
-
-  // TODO: use hasProtnlm to conditionally show the toggle-switch in the sidebar
-  console.log(hasProtnlm);
+  const hasProtnlm: boolean =
+    !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
 
   const isAFDBOutOfSync =
     new Date(
@@ -601,7 +605,23 @@ const Entry = () => {
   }
 
   const entrySidebar = (
-    <InPageNav sections={sections} rootElement={`.${sidebarStyles.content}`} />
+    <InPageNav
+      sections={sections}
+      rootElement={`.${sidebarStyles.content}`}
+      footer={
+        hasProtnlm ? (
+          <ToggleSwitch
+            header="AI Annotations"
+            statusOff="Click to enable"
+            statusLoading="Loading AI predictions..."
+            statusOn="Showing AI predictions"
+            icon={<AiAnnotationsIcon />}
+            checked={loadProtNLM}
+            onChange={setLoadProtNLM}
+          />
+        ) : null
+      }
+    />
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;

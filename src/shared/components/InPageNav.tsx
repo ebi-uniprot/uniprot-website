@@ -16,11 +16,13 @@ export type InPageNavSection = {
 type Props = {
   sections: InPageNavSection[];
   rootElement?: string | HTMLElement;
+  footer?: React.ReactNode;
 };
 
 const InPageNav = ({
   sections,
   rootElement,
+  footer,
   ...props
 }: Props & HTMLAttributes<HTMLUListElement>) => {
   const history = useHistory();
@@ -202,7 +204,7 @@ const InPageNav = ({
           </li>
         ))}
       </ul>
-      <section>AI annotations</section>
+      <section>{footer}</section>
     </>
   );
 };
