@@ -1,6 +1,7 @@
 import uniParcModelData from '../../../uniparc/__mocks__/uniParcLightEntryModelData';
 import { type UniParcLiteAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import uniProtKBEntryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
 describe('entryToFASTAWithHeaders', () => {
@@ -57,7 +58,7 @@ describe('entryToFASTAWithHeaders', () => {
       expect(
         entryToFASTAWithHeaders({
           ...uniProtKBEntryModelData,
-          entryType: 'blabla',
+          entryType: 'blabla' as unknown as UniProtkbAPIModel['entryType'],
         })
       ).toMatchSnapshot();
     });
