@@ -242,7 +242,6 @@ const Entry = () => {
     { method: 'HEAD' }
   );
 
-  // TODO: load this conditionally based on the HEAD request
   const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
     isLikelyHuman &&
       match?.params.accession &&
@@ -615,6 +614,7 @@ const Entry = () => {
             statusOff="Click to enable"
             statusLoading="Loading AI predictions..."
             statusOn="Showing AI predictions"
+            isLoading={protnlmPayload.loading}
             icon={<AiAnnotationsIcon />}
             checked={loadProtNLM}
             onChange={setLoadProtNLM}
