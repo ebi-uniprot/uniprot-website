@@ -19,7 +19,7 @@ import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import helper from '../../../shared/styles/helper.module.scss';
 import {
   Namespace,
-  SearchableNamespace,
+  type SearchableNamespace,
 } from '../../../shared/types/namespaces';
 import { Location, LocationToPath } from '../../config/urls';
 

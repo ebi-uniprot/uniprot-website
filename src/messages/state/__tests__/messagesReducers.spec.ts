@@ -4,10 +4,10 @@
 import {
   MessageFormat,
   MessageLevel,
-  MessageType,
+  type MessageType,
 } from '../../types/messagesTypes';
 import { addMessage, deleteMessage } from '../messagesActions';
-import { MessagesState } from '../messagesInitialState';
+import { type MessagesState } from '../messagesInitialState';
 import messagesReducers from '../messagesReducers';
 
 const dateNow = 1542736574043;

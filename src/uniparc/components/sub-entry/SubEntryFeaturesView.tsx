@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 import { v1 } from 'uuid';
 
-import { TableFromDataColumn } from '../../../shared/components/table/TableFromData';
+import { type TableFromDataColumn } from '../../../shared/components/table/TableFromData';
 import FeaturesView, {
-  ProcessedFeature,
+  type ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { markBackground, markBorder } from '../../../shared/utils/nightingale';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import FeatureType from '../../../uniprotkb/types/featureType';
+import type FeatureType from '../../../uniprotkb/types/featureType';
 import { sortByLocation } from '../../../uniprotkb/utils';
-import { ModifiedPrediction } from '../../adapters/uniParcSubEntryConverter';
+import { type ModifiedPrediction } from '../../adapters/uniParcSubEntryConverter';
 import annotationTypeToSection from '../../config/UniFireAnnotationTypeToSection';
 
 // Convert data

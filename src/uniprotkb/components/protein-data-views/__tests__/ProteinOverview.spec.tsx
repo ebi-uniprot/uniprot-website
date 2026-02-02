@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import { ProteinNames } from '../../../adapters/namesAndTaxonomyConverter';
+import { type ProteinNames } from '../../../adapters/namesAndTaxonomyConverter';
 import swissprotData from '../../__mocks__/swissprotEntry';
 import ProteinOverview from '../ProteinOverviewView';
 

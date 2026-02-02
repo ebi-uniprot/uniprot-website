@@ -1,25 +1,26 @@
-import { PeptideSearchMatch } from '../../jobs/peptide-search/components/PeptideSearchMatches';
+import { type PeptideSearchMatch } from '../../jobs/peptide-search/components/PeptideSearchMatches';
 import {
-  EntryType,
+  type EntryType,
   getEntryTypeFromString,
 } from '../../shared/components/entry/EntryTypeIcon';
-import { SequenceData } from '../../shared/components/entry/SequenceView';
-import { Lineage, Xref } from '../../shared/types/apiModel';
+import { type SequenceData } from '../../shared/components/entry/SequenceView';
+import { type Lineage, type Xref } from '../../shared/types/apiModel';
 import {
-  Citation,
-  Reference,
+  type Citation,
+  type Reference,
 } from '../../supporting-data/citations/adapters/citationsConverter';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
-import Comment, { CommentType } from '../types/commentTypes';
+import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import type Comment from '../types/commentTypes';
+import { type CommentType } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import FeatureType from '../types/featureType';
-import { GeneLocation } from '../types/geneLocationType';
-import { InternalSectionType } from '../types/internalSectionType';
-import { Property } from '../types/modelTypes';
+import type FeatureType from '../types/featureType';
+import { type GeneLocation } from '../types/geneLocationType';
+import { type InternalSectionType } from '../types/internalSectionType';
+import { type Property } from '../types/modelTypes';
 import { transfromProperties } from '../utils';
-import { DatabaseInfoMaps } from '../utils/database';
-import { Keyword } from '../utils/KeywordsUtil';
+import { type DatabaseInfoMaps } from '../utils/database';
+import { type Keyword } from '../utils/KeywordsUtil';
 import convertDiseaseAndDrugs from './diseaseAndDrugs';
 import convertExpression from './expressionConverter';
 import convertExternalLinks from './externalLinksConverter';
@@ -28,19 +29,19 @@ import convertFunction from './functionConverter';
 import convertInteraction from './interactionConverter';
 import {
   convertNamesAndTaxonomy,
-  GeneNamesData,
-  NamesAndTaxonomyUIModel,
-  ProteinNamesData,
+  type GeneNamesData,
+  type NamesAndTaxonomyUIModel,
+  type ProteinNamesData,
 } from './namesAndTaxonomyConverter';
 import convertProteinProcessing from './proteinProcessingConverter';
-import { UIModel } from './sectionConverter';
+import { type UIModel } from './sectionConverter';
 import {
   convertSequence,
-  EntryAudit,
-  SequenceUIModel,
+  type EntryAudit,
+  type SequenceUIModel,
 } from './sequenceConverter';
 import convertSimilarProteins, {
-  SimilarProteinsUIModel,
+  type SimilarProteinsUIModel,
 } from './similarProteinsConverter';
 import convertStructure from './structureConverter';
 import convertSubcellularLocation from './subcellularLocationConverter';

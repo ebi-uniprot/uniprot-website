@@ -2,7 +2,7 @@ import { Loader } from 'franklin-sites';
 import { memo, Suspense } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-import { UniRefUIModel } from '../../adapters/uniRefConverter';
+import { type UniRefUIModel } from '../../adapters/uniRefConverter';
 import UniRefEntryConfig from '../../config/UniRefEntryConfig';
 
 type EntryMainProps = {

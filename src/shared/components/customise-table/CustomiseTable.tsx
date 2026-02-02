@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { Button } from 'franklin-sites';
-import { FormEvent, MouseEvent } from 'react';
+import { type FormEvent, type MouseEvent } from 'react';
 
-import { Column } from '../../config/columns';
+import { type Column } from '../../config/columns';
 import sticky from '../../styles/sticky.module.scss';
-import { Namespace } from '../../types/namespaces';
+import { type Namespace } from '../../types/namespaces';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 type CustomiseTableProps = {

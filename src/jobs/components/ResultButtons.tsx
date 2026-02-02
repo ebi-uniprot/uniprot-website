@@ -4,7 +4,7 @@ import {
   ReSubmitIcon,
   SlidingPanel,
 } from 'franklin-sites';
-import { ReactNode, Suspense, useState } from 'react';
+import { type ReactNode, Suspense, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
@@ -19,9 +19,9 @@ import { Namespace } from '../../shared/types/namespaces';
 import fetchData from '../../shared/utils/fetchData';
 import lazy from '../../shared/utils/lazy';
 import { pluralise } from '../../shared/utils/utils';
-import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { serverParametersToFormParameters } from '../adapters/parameters';
-import { PublicServerParameters } from '../types/jobsServerParameters';
+import { type PublicServerParameters } from '../types/jobsServerParameters';
 import { JobTypes } from '../types/jobTypes';
 
 type ResubmitButtonProps<T extends JobTypes> = {

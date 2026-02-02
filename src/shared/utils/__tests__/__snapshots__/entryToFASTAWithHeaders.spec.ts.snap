@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`entryToFASTAWithHeaders UniProtKB entry should handle reviewed entries 1`] = `
 ">sp|P21802|uniprotkb rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5

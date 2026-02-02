@@ -1,31 +1,31 @@
 import '@geneontology/web-components/go-annotation-ribbon-strips';
 
 import { Loader } from 'franklin-sites';
-import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 import ExternalLink from '../../../shared/components/ExternalLink';
 import TableFromData, {
-  TableFromDataColumn,
+  type TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
-import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
-  GoTerm,
-  GOTermID,
-  GroupedGoTerms,
+  type GoTerm,
+  type GOTermID,
+  type GroupedGoTerms,
 } from '../../adapters/functionConverter';
-import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
+import { type GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
 import {
-  AGRRibbonGroup,
-  AGRRibbonSubject,
+  type AGRRibbonGroup,
+  type AGRRibbonSubject,
   getCategories,
   getSubjects,
   useGOData,
 } from '../../adapters/slimming/GORibbonHandler';
-import { UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
+import { type UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/go-ribbon.module.scss';
@@ -93,7 +93,7 @@ const GoRibbon = ({
   const isSmallScreen = useSmallScreen();
   const columns = useColumns();
 
-  const nodeRef = useRef<HTMLElement>();
+  const nodeRef = useRef<HTMLElement | null>(null);
 
   // NOTE: loading is also available, do we want to do anything with it?
   const { loading, slimmedData, selectedSlimSet, onSlimSetSelect, slimSets } =

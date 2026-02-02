@@ -1,4 +1,4 @@
-import { FacetObject } from '../../Facets';
+import { type FacetObject } from '../../Facets';
 
 export const statusFacet: FacetObject = {
   label: 'Status',

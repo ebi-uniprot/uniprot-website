@@ -3,7 +3,7 @@ import { Card } from 'franklin-sites';
 import CardCheckboxCell from '../../../../shared/components/CardCheckboxCell';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { CitationsAPIModel } from '../../adapters/citationsConverter';
+import { type CitationsAPIModel } from '../../adapters/citationsConverter';
 import LiteratureCitation from '../LiteratureCitation';
 import styles from './styles/citations-card.module.scss';
 

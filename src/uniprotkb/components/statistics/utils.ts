@@ -1,13 +1,13 @@
 import { formatLargeNumber } from 'franklin-sites';
 import { sumBy } from 'lodash-es';
-import { RequireAtLeastOne } from 'type-fest';
+import { type RequireAtLeastOne } from 'type-fest';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { stringifyQuery } from '../../../shared/utils/url';
 import {
-  CategoryToStatistics,
-  StatisticsCategory,
-  StatisticsItem,
+  type CategoryToStatistics,
+  type StatisticsCategory,
+  type StatisticsItem,
 } from './StatisticsPage';
 
 export const getSequenceSizeLocation = (

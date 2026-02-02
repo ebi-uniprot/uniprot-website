@@ -9,7 +9,7 @@ import {
   WarningTriangleIcon,
 } from 'franklin-sites';
 import { sumBy } from 'lodash-es';
-import { ReactNode, useCallback, useState } from 'react';
+import { type ReactNode, useCallback, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import {
@@ -32,7 +32,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { getSearchParams, stringifyQuery } from '../../../shared/utils/url';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
-import { GroupBy } from '../../config/apiUrls/groupBy';
+import { type GroupBy } from '../../config/apiUrls/groupBy';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import styles from './styles/group-by.module.scss';
 import {

@@ -15,11 +15,15 @@ import { PEPTIDE_SEARCH_SEQ_MINIMUM_LENGTH } from '../../../../../shared/config/
 import helper from '../../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import { processUrlTemplate } from '../../../../../shared/utils/xrefs';
-import { DatabaseInfoPoint } from '../../../../types/databaseRefs';
+import { type DatabaseInfoPoint } from '../../../../types/databaseRefs';
 import { TabLocation } from '../../../../types/entry';
 import { getEnsemblLink } from './GenomicLoc';
 import styles from './styles/coordinates-table.module.scss';
-import { FlatGenomicEntry, GenomicCoordinate, GroupedExon } from './types';
+import {
+  type FlatGenomicEntry,
+  type GenomicCoordinate,
+  type GroupedExon,
+} from './types';
 import { groupByGenomicCoordinates } from './utils';
 
 const getEntryPathForUniprotKB = getEntryPathFor(Namespace.uniprotkb);

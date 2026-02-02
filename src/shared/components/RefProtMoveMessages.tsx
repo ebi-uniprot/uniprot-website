@@ -1,15 +1,15 @@
 import cn from 'classnames';
 import { Message } from 'franklin-sites';
-import { FC } from 'react';
+import { type FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 import ContactLink from '../../contact/components/ContactLink';
-import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
-  UniProtkbAPIModel,
-  UniProtKBSimplifiedTaxonomy,
+  type UniProtkbAPIModel,
+  type UniProtKBSimplifiedTaxonomy,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { Namespace } from '../types/namespaces';
@@ -158,6 +158,16 @@ const ProteomesMessage: FC<{ id?: string; taxonomy?: TaxonomyDatum }> = () => (
 );
 
 export const RefProtMoveHomePage = () => (
+  <Message
+    level="warning"
+    className={cn('uniprot-grid-cell--span-12', styles['homepage'])}
+  >
+    Our Proteomes and UniProtKB/TrEMBL resources are undergoing a significant
+    transition. <HelpFtpContact />
+  </Message>
+);
+
+export const RefProtContactPage = () => (
   <Message
     level="warning"
     className={cn('uniprot-grid-cell--span-12', styles['homepage'])}

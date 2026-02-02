@@ -1,11 +1,11 @@
-import { AxiosError } from 'axios';
+import { type AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 
-import { APIModel } from '../types/apiModel';
+import { type APIModel } from '../types/apiModel';
 import {
-  SearchResults,
-  SearchResultsWarning,
-  Suggestion,
+  type SearchResults,
+  type SearchResultsWarning,
+  type Suggestion,
 } from '../types/results';
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 import useDataApi from './useDataApi';

@@ -1,8 +1,8 @@
 /* Results as given by the server */
-import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
-import { ServerParameters } from './idMappingServerParameters';
+import { type UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import { type ServerParameters } from './idMappingServerParameters';
 
 export type MappingAPIModel = MappingWarningsErrors & {
   from: string;

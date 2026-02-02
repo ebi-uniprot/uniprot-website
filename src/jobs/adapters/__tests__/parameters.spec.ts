@@ -1,5 +1,5 @@
-import { FormParameters } from '../../types/jobsFormParameters';
-import { PublicServerParameters } from '../../types/jobsServerParameters';
+import { type FormParameters } from '../../types/jobsFormParameters';
+import { type PublicServerParameters } from '../../types/jobsServerParameters';
 import { JobTypes } from '../../types/jobTypes';
 import {
   formParametersToServerParameters,

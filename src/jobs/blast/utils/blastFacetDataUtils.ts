@@ -1,11 +1,11 @@
 import deepFreeze from 'deep-freeze';
 
-import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
+import { type SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 import {
   BlastFacet,
-  BlastHit,
-  BlastHsp,
-  BlastResults,
+  type BlastHit,
+  type BlastHsp,
+  type BlastResults,
 } from '../types/blastResults';
 
 export const localFacets: BlastFacet[] = Object.values(BlastFacet);

@@ -12,9 +12,15 @@ import {
   TremblIcon,
 } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
-import { createElement, FC, Fragment, HTMLAttributes, useState } from 'react';
+import {
+  createElement,
+  type FC,
+  Fragment,
+  type HTMLAttributes,
+  useState,
+} from 'react';
 import { Link } from 'react-router-dom';
-import { SetOptional } from 'type-fest';
+import { type SetOptional } from 'type-fest';
 
 import {
   getEntryPath,
@@ -32,8 +38,8 @@ import cleanText, {
 import parseDate from '../../../shared/utils/parseDate';
 import { stringifyQuery } from '../../../shared/utils/url';
 import {
-  CitationsAPIModel,
-  CitationType,
+  type CitationsAPIModel,
+  type CitationType,
   formatCitationData,
 } from '../adapters/citationsConverter';
 

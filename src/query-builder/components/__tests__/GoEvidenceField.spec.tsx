@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import GoEvidenceField, { GoEvidenceFieldProps } from '../GoEvidenceField';
+import GoEvidenceField, { type GoEvidenceFieldProps } from '../GoEvidenceField';
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 
 const props: GoEvidenceFieldProps = {

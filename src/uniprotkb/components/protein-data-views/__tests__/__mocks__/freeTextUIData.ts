@@ -1,4 +1,4 @@
-import { FreeTextComment } from '../../../../types/commentTypes';
+import { type FreeTextComment } from '../../../../types/commentTypes';
 
 const mock: FreeTextComment[] = [
   {

@@ -1,7 +1,7 @@
 import { ExpandableList, InfoList, Message } from 'franklin-sites';
-import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { type InfoListItem } from 'franklin-sites/dist/types/components/info-list';
 import { groupBy, isEqual, partition, sortBy, uniqWith } from 'lodash-es';
-import { ComponentProps, Fragment, ReactNode } from 'react';
+import { type ComponentProps, Fragment, type JSX, type ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
@@ -11,7 +11,7 @@ import {
 } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import { Xref } from '../../../shared/types/apiModel';
+import { type Xref } from '../../../shared/types/apiModel';
 import { Namespace } from '../../../shared/types/namespaces';
 import { pluralise } from '../../../shared/utils/utils';
 import {
@@ -23,13 +23,16 @@ import {
   databaseCategoryToString,
   viewProteinLinkDatabases,
 } from '../../config/database';
-import { DatabaseCategory, DatabaseInfoPoint } from '../../types/databaseRefs';
+import {
+  DatabaseCategory,
+  type DatabaseInfoPoint,
+} from '../../types/databaseRefs';
 import { PropertyKey } from '../../types/modelTypes';
-import { DatabaseToDatabaseInfo } from '../../utils/database';
+import { type DatabaseToDatabaseInfo } from '../../utils/database';
 import {
   partitionStructureDatabases,
-  XrefsGoupedByDatabase,
-  XrefUIModel,
+  type XrefsGoupedByDatabase,
+  type XrefUIModel,
 } from '../../utils/xrefUtils';
 import { AFDBOutOfSync } from './AFDBOutOfSync';
 import EMBLView from './EMBLView';

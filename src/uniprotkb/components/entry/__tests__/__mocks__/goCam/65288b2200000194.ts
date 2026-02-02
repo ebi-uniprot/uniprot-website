@@ -1,7 +1,7 @@
-import { GoCamModelInfo } from '../../../../../types/goCamTypes';
+import { type GoCamModelInfo } from '../../../../../types/goCamTypes';
 
 // Source: https://api.geneontology.org/api/go-cam/gomodel:65288b2200000194
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const model: GoCamModelInfo = {
   id: 'gomodel:65288b2200000194',
   individuals: [
@@ -278,12 +278,12 @@ const model: GoCamModelInfo = {
           value: 'PMID:23202584',
         },
         {
-          key: 'providedBy',
-          value: 'https://www.uniprot.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
         },
         {
           key: 'date',
@@ -652,11 +652,6 @@ const model: GoCamModelInfo = {
           id: 'CHEBI:24431',
           label: 'chemical entity',
         },
-        {
-          type: 'class',
-          id: 'CHEBI:36080',
-          label: 'protein',
-        },
       ],
       annotations: [
         {
@@ -839,12 +834,12 @@ const model: GoCamModelInfo = {
           value: '2023-10-23',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7299-6685',
-        },
-        {
           key: 'source',
           value: 'PMID:21177865',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
         },
       ],
     },
@@ -934,9 +929,8 @@ const model: GoCamModelInfo = {
       type: [
         {
           type: 'class',
-          id: 'ECO:0000318',
-          label:
-            'biological aspect of ancestor evidence used in manual assertion',
+          id: 'ECO:0000314',
+          label: 'direct assay evidence used in manual assertion',
         },
       ],
       'root-type': [
@@ -949,7 +943,7 @@ const model: GoCamModelInfo = {
       annotations: [
         {
           key: 'date',
-          value: '2023-10-23',
+          value: '2025-08-21',
         },
         {
           key: 'contributor',
@@ -970,9 +964,8 @@ const model: GoCamModelInfo = {
       type: [
         {
           type: 'class',
-          id: 'ECO:0000318',
-          label:
-            'biological aspect of ancestor evidence used in manual assertion',
+          id: 'ECO:0000314',
+          label: 'direct assay evidence used in manual assertion',
         },
       ],
       'root-type': [
@@ -984,6 +977,10 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
+          key: 'date',
+          value: '2025-08-21',
+        },
+        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
         },
@@ -994,10 +991,6 @@ const model: GoCamModelInfo = {
         {
           key: 'providedBy',
           value: 'https://www.uniprot.org',
-        },
-        {
-          key: 'date',
-          value: '2023-10-23',
         },
       ],
     },
@@ -1054,12 +1047,12 @@ const model: GoCamModelInfo = {
           value: 'https://www.uniprot.org',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7299-6685',
-        },
-        {
           key: 'source',
           value: 'PMID:21177865',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
         },
         {
           key: 'date',
@@ -1089,12 +1082,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0001-7299-6685',
         },
         {
-          key: 'date',
-          value: '2023-10-23',
-        },
-        {
           key: 'providedBy',
           value: 'https://www.uniprot.org',
+        },
+        {
+          key: 'date',
+          value: '2023-10-23',
         },
       ],
     },
@@ -1419,12 +1412,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0001-7299-6685',
         },
         {
-          key: 'date',
-          value: '2023-10-23',
-        },
-        {
           key: 'providedBy',
           value: 'https://www.uniprot.org',
+        },
+        {
+          key: 'date',
+          value: '2023-10-23',
         },
         {
           key: 'source',
@@ -1750,12 +1743,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'date',
-          value: '2023-10-23',
-        },
-        {
           key: 'providedBy',
           value: 'https://www.uniprot.org',
+        },
+        {
+          key: 'date',
+          value: '2023-10-23',
         },
         {
           key: 'source',
@@ -1945,14 +1938,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:65288b2200000194/65288b2200000361',
-      property: 'RO:0002233',
-      'property-label': 'RO:0002233',
-      object: 'gomodel:65288b2200000194/65288b2200000458',
+      subject: 'gomodel:65288b2200000194/65288b2200000488',
+      property: 'RO:0002333',
+      'property-label': 'RO:0002333',
+      object: 'gomodel:65288b2200000194/65288b2200000489',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:65288b2200000194/65288b2200000459',
+          value: 'gomodel:65288b2200000194/65288b2200000492',
           'value-type': 'IRI',
         },
         {
@@ -1970,14 +1963,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:65288b2200000194/65288b2200000488',
-      property: 'RO:0002333',
-      'property-label': 'RO:0002333',
-      object: 'gomodel:65288b2200000194/65288b2200000489',
+      subject: 'gomodel:65288b2200000194/65288b2200000361',
+      property: 'RO:0002233',
+      'property-label': 'RO:0002233',
+      object: 'gomodel:65288b2200000194/65288b2200000458',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:65288b2200000194/65288b2200000492',
+          value: 'gomodel:65288b2200000194/65288b2200000459',
           'value-type': 'IRI',
         },
         {
@@ -2265,11 +2258,16 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:65288b2200000194/65288b2200000358',
+      subject: 'gomodel:65288b2200000194/65288b2200000361',
       property: 'RO:0002629',
       'property-label': 'RO:0002629',
       object: 'gomodel:65288b2200000194/65288b2200000306',
       annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:65288b2200000194/65288b2200000373',
+          'value-type': 'IRI',
+        },
         {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
@@ -2285,16 +2283,11 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:65288b2200000194/65288b2200000361',
+      subject: 'gomodel:65288b2200000194/65288b2200000358',
       property: 'RO:0002629',
       'property-label': 'RO:0002629',
       object: 'gomodel:65288b2200000194/65288b2200000306',
       annotations: [
-        {
-          key: 'evidence',
-          value: 'gomodel:65288b2200000194/65288b2200000373',
-          'value-type': 'IRI',
-        },
         {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
@@ -2496,7 +2489,7 @@ const model: GoCamModelInfo = {
     },
     {
       key: 'date',
-      value: '2023-12-05',
+      value: '2025-08-21',
     },
     {
       key: 'title',

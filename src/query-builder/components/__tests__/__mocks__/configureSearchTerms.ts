@@ -1,10 +1,10 @@
 import { keyBy } from 'lodash-es';
 
-import { SearchTermType } from '../../../types/searchTypes';
+import { type SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',
@@ -1464,6 +1464,15 @@ const configureSearchTerms: SearchTermType[] = [
         example: '[10000 TO 11000]',
       },
       {
+        id: 'checksum',
+        label: 'Checksum (CRC64/MD5)',
+        itemType: 'single',
+        term: 'checksum',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'B8824CE1ECAEEEAE',
+      },
+      {
         id: 'length_range',
         label: 'Sequence length',
         itemType: 'single',
@@ -2319,6 +2328,15 @@ const configureSearchTerms: SearchTermType[] = [
     label: 'Cross-references',
     itemType: 'group',
     items: [
+      {
+        id: 'xref_source',
+        label: 'Source',
+        itemType: 'single',
+        term: 'source',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'google',
+      },
       {
         id: 'xref_group_any',
         label: 'Any',
@@ -3398,13 +3416,13 @@ const configureSearchTerms: SearchTermType[] = [
             valuePrefix: 'orphanet-',
           },
           {
-            id: 'xref_pharmgkb',
-            label: 'PharmGKB',
+            id: 'xref_clinpgx',
+            label: 'ClinPGx',
             itemType: 'single',
             term: 'xref',
             dataType: 'string',
             fieldType: 'general',
-            valuePrefix: 'pharmgkb-',
+            valuePrefix: 'clinpgx-',
           },
           {
             id: 'xref_pombase',
@@ -3504,6 +3522,15 @@ const configureSearchTerms: SearchTermType[] = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'japonicusdb-',
+          },
+          {
+            id: 'xref_civic',
+            label: 'CIViC',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'civic-',
           },
         ],
       },
@@ -3795,24 +3822,6 @@ const configureSearchTerms: SearchTermType[] = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'cd-code-',
-          },
-          {
-            id: 'xref_medgen',
-            label: 'MedGen',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'medgen-',
-          },
-          {
-            id: 'xref_mesh',
-            label: 'MeSH',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'mesh-',
           },
         ],
       },

@@ -1,7 +1,7 @@
 import '../../styles/ToolsForm.scss';
 
 import { Chip, LongNumber, Message, SpinnerIcon } from 'franklin-sites';
-import { FormEvent, useCallback, useEffect, useReducer } from 'react';
+import { type FormEvent, useCallback, useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
@@ -13,7 +13,7 @@ import useScrollIntoViewRef from '../../../shared/hooks/useScrollIntoView';
 import useSupportsJobs from '../../../shared/hooks/useSupportsJobs';
 import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
-import { DownloadUrlOptions } from '../../../shared/types/results';
+import { type DownloadUrlOptions } from '../../../shared/types/results';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
@@ -21,7 +21,7 @@ import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/jobActions';
 import { Status } from '../../../shared/workers/jobs/types/jobStatuses';
 import { getJobName } from '../../id-mapping/state/idMappingFormReducer';
-import { PublicServerParameters } from '../../types/jobsServerParameters';
+import { type PublicServerParameters } from '../../types/jobsServerParameters';
 import { JobTypes } from '../../types/jobTypes';
 import initialFormValues, {
   AsyncDownloadFields,
@@ -38,7 +38,7 @@ import {
   isExcel,
   isUncompressed,
 } from '../state/asyncDownloadFormReducer';
-import { FormParameters } from '../types/asyncDownloadFormParameters';
+import { type FormParameters } from '../types/asyncDownloadFormParameters';
 import AsyncDownloadConfirmation from './AsyncDownloadConfirmation';
 
 const getJobParameters = (

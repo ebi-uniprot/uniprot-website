@@ -1,4 +1,9 @@
-import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useMemo,
+} from 'react';
 
 import { Namespace } from '../types/namespaces';
 import useLocalStorage from './useLocalStorage';

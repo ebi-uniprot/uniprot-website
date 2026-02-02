@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { getSearchTerm } from '../../../components/__tests__/__mocks__/configureSearchTerms';
-import { Clause } from '../../../types/searchTypes';
+import { type Clause } from '../../../types/searchTypes';
 import { getAllTerm } from '../../clause';
 
 const testData = [

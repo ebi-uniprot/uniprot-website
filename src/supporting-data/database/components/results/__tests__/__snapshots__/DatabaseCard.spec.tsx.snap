@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`DatabaseCard tests should render the card component 1`] = `
 <DocumentFragment>
@@ -67,17 +67,17 @@ exports[`DatabaseCard tests should render the card component 1`] = `
       <a
         href="/uniprotkb?query=%28database%3AEMBL%29"
       >
-        182,944,117 UniProtKB entries
+        186,064,283 UniProtKB entries
       </a>
       <a
         href="/uniprotkb?query=%28database%3AEMBL%29+AND+%28reviewed%3Atrue%29"
       >
-        560,693 reviewed UniProtKB entries
+        561,609 reviewed UniProtKB entries
       </a>
       <a
         href="/uniprotkb?query=%28database%3AEMBL%29+AND+%28reviewed%3Afalse%29"
       >
-        182,383,424 unreviewed UniProtKB entries
+        185,502,674 unreviewed UniProtKB entries
       </a>
     </div>
   </section>

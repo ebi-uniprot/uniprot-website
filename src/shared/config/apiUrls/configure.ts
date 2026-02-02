@@ -1,6 +1,6 @@
 import joinUrl from 'url-join';
 
-import { Namespace } from '../../types/namespaces';
+import { type Namespace } from '../../types/namespaces';
 import { apiPrefix } from './apiPrefix';
 
 // All result fields except supporting data reference fields

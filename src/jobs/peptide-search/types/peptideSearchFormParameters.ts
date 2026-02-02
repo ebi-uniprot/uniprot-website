@@ -1,5 +1,9 @@
-import { SelectedTaxon } from '../../types/jobsFormData';
-import { lEQi, peps, spOnly } from './peptideSearchServerParameters';
+import { type SelectedTaxon } from '../../types/jobsFormData';
+import {
+  type lEQi,
+  type peps,
+  type spOnly,
+} from './peptideSearchServerParameters';
 
 export type FormParameters = {
   peps: peps;

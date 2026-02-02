@@ -3,7 +3,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-import { AgrOrthologsResult } from '../../../../types/agrOrthologs';
+import { type AgrOrthologsResult } from '../../../../types/agrOrthologs';
 import AgrOrthology, {
   columns,
   getRowId,

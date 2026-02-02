@@ -3,9 +3,9 @@ import '../../styles/ToolsForm.scss';
 import cn from 'classnames';
 import { Chip, Message, PageIntro, SpinnerIcon } from 'franklin-sites';
 import {
-  FC,
-  FormEvent,
-  MouseEvent,
+  type FC,
+  type FormEvent,
+  type MouseEvent,
   useEffect,
   useReducer,
   useRef,
@@ -37,13 +37,13 @@ import { dispatchJobs } from '../../../shared/workers/jobs/getJobSharedWorker';
 import { createJob } from '../../../shared/workers/jobs/state/jobActions';
 import ChecksumSuggester from '../../components/ChecksumSuggester';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
-import { SelectedTaxon } from '../../types/jobsFormData';
+import { type SelectedTaxon } from '../../types/jobsFormData';
 import { JobTypes } from '../../types/jobTypes';
 import { truncateTaxonLabel } from '../../utils';
 import defaultFormValues, {
   PeptideSearchFields,
-  PeptideSearchFormValue,
-  PeptideSearchFormValues,
+  type PeptideSearchFormValue,
+  type PeptideSearchFormValues,
 } from '../config/PeptideSearchFormData';
 import {
   resetFormState,
@@ -55,8 +55,12 @@ import {
   getPeptideSearchFormDataReducer,
   getPeptideSearchFormInitialState,
 } from '../state/peptideSearchFormReducer';
-import { FormParameters } from '../types/peptideSearchFormParameters';
-import { lEQi, peps, spOnly } from '../types/peptideSearchServerParameters';
+import { type FormParameters } from '../types/peptideSearchFormParameters';
+import {
+  type lEQi,
+  type peps,
+  type spOnly,
+} from '../types/peptideSearchServerParameters';
 
 const title = namespaceAndToolsLabels[JobTypes.PEPTIDE_SEARCH];
 
@@ -157,11 +161,11 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
 
   const peptideWithoutTaxonWarning = Boolean(
     formValues[PeptideSearchFields.peps].selected &&
-      !(
-        formValues[PeptideSearchFields.taxIds].selected as
-          | undefined
-          | SelectedTaxon[]
-      )?.length
+    !(
+      formValues[PeptideSearchFields.taxIds].selected as
+        | undefined
+        | SelectedTaxon[]
+    )?.length
   );
 
   // form event handlers

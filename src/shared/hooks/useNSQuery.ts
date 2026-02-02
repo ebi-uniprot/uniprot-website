@@ -3,11 +3,11 @@ import { useLocation } from 'react-router-dom';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../config/apiUrls/apiUrls';
-import { Column } from '../config/columns';
+import { type Column } from '../config/columns';
 import { Namespace } from '../types/namespaces';
 import useColumnNames from './useColumnNames';
 import useNS from './useNS';
-import useViewMode, { ViewMode } from './useViewMode';
+import useViewMode, { type ViewMode } from './useViewMode';
 
 type Arg = {
   size?: number;

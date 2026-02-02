@@ -3,16 +3,16 @@ import './styles/search-container.scss';
 import { Button, MainSearch, SlidingPanel } from 'franklin-sites';
 import {
   Fragment,
-  HTMLAttributes,
+  type HTMLAttributes,
   Suspense,
-  SyntheticEvent,
+  type SyntheticEvent,
   useCallback,
   useEffect,
   useMemo,
   useState,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { SearchAction, WebSite, WithContext } from 'schema-dts';
+import { type SearchAction, type WebSite, type WithContext } from 'schema-dts';
 
 import {
   Location,
@@ -33,14 +33,14 @@ import useMessagesDispatch from '../../hooks/useMessagesDispatch';
 import useStructuredData from '../../hooks/useStructuredData';
 import {
   Namespace,
-  SearchableNamespace,
+  type SearchableNamespace,
   searchableNamespaceLabels,
-  Searchspace,
+  type Searchspace,
   searchspaceLabels,
   toolResults,
 } from '../../types/namespaces';
 import {
-  PanelFormCloseReason,
+  type PanelFormCloseReason,
   sendGtagEventPanelAdvancedSearchClose,
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';

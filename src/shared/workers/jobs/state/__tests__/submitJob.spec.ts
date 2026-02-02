@@ -1,11 +1,11 @@
-import { Dispatch, MutableRefObject } from 'react';
+import { type Dispatch, type MutableRefObject } from 'react';
 
-import { JobSharedWorkerMessage } from '../../jobSharedWorker';
+import { type JobSharedWorkerMessage } from '../../jobSharedWorker';
 import { Status } from '../../types/jobStatuses';
-import JobStore from '../../utils/storage';
-import { JobAction } from '../actionHandler';
+import type JobStore from '../../utils/storage';
+import { type JobAction } from '../actionHandler';
 import { updateJob } from '../jobActions';
-import { JobsState } from '../jobsInitialState';
+import { type JobsState } from '../jobsInitialState';
 import submitJob from '../submitJob';
 import createdJob from './__mocks__/created';
 

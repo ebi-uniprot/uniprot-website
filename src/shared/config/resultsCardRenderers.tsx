@@ -1,30 +1,30 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
+import { type ARBAAPIModel } from '../../automatic-annotations/arba/adapters/arbaConverter';
 import ARBACard from '../../automatic-annotations/arba/components/results/ARBACard';
-import { UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
+import { type UniRuleAPIModel } from '../../automatic-annotations/unirule/adapters/uniRuleConverter';
 import UniRuleCard from '../../automatic-annotations/unirule/components/results/UniRuleCard';
-import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
+import { type ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
 import ProteomesCard from '../../proteomes/components/results/ProteomesCard';
-import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
+import { type CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
 import CitationsCard from '../../supporting-data/citations/components/results/CitationsCard';
-import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
+import { type DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
 import DatabaseCard from '../../supporting-data/database/components/results/DatabaseCard';
-import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
+import { type DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
 import DiseasesCard from '../../supporting-data/diseases/components/results/DiseasesCard';
-import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
+import { type KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
 import KeywordsCard from '../../supporting-data/keywords/components/results/KeywordsCard';
-import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
+import { type LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
 import LocationsCard from '../../supporting-data/locations/components/results/LocationsCard';
-import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import TaxonomyCard from '../../supporting-data/taxonomy/components/results/TaxonomyCard';
-import { UniParcLiteAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import { type UniParcLiteAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import UniParcCard from '../../uniparc/components/results/UniParcCard';
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import UniProtKBCard from '../../uniprotkb/components/results/UniProtKBCard';
-import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
+import { type UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import UniRefCard from '../../uniref/components/results/UniRefCard';
-import { APIModel } from '../types/apiModel';
+import { type APIModel } from '../types/apiModel';
 import { Namespace } from '../types/namespaces';
 
 const cardRenderer = (

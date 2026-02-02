@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`XrefSection component should render the xref table properly and match snapshot 1`] = `
 <DocumentFragment>
@@ -135,9 +135,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-06-18T00:00:00.000Z"
+                    datetime="2026-01-28T00:00:00.000Z"
                   >
-                    2025-06-18
+                    2026-01-28
                   </time>
                 </td>
                 <td>
@@ -258,9 +258,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-10-08T00:00:00.000Z"
+                    datetime="2026-01-28T00:00:00.000Z"
                   >
-                    2025-10-08
+                    2026-01-28
                   </time>
                 </td>
                 <td>
@@ -314,9 +314,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-10-08T00:00:00.000Z"
+                    datetime="2026-01-28T00:00:00.000Z"
                   >
-                    2025-10-08
+                    2026-01-28
                   </time>
                 </td>
                 <td>
@@ -354,10 +354,10 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <a
                     href="/taxonomy/10245"
-                    title="Orthopoxvirus vaccinia, taxon ID 10245"
+                    title="Vaccinia virus (VACV), taxon ID 10245"
                     translate="no"
                   >
-                    Orthopoxvirus vaccinia
+                    Vaccinia virus (VACV)
                   </a>
                 </td>
                 <td />
@@ -370,9 +370,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-10-08T00:00:00.000Z"
+                    datetime="2026-01-28T00:00:00.000Z"
                   >
-                    2025-10-08
+                    2026-01-28
                   </time>
                 </td>
                 <td>
@@ -426,9 +426,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-10-08T00:00:00.000Z"
+                    datetime="2026-01-28T00:00:00.000Z"
                   >
-                    2025-10-08
+                    2026-01-28
                   </time>
                 </td>
                 <td>
@@ -482,9 +482,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-10-08T00:00:00.000Z"
+                    datetime="2026-01-28T00:00:00.000Z"
                   >
-                    2025-10-08
+                    2026-01-28
                   </time>
                 </td>
                 <td>
@@ -538,9 +538,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-10-08T00:00:00.000Z"
+                    datetime="2026-01-28T00:00:00.000Z"
                   >
-                    2025-10-08
+                    2026-01-28
                   </time>
                 </td>
                 <td>
@@ -693,10 +693,10 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <a
                     href="/taxonomy/10245"
-                    title="Orthopoxvirus vaccinia, taxon ID 10245"
+                    title="Vaccinia virus (VACV), taxon ID 10245"
                     translate="no"
                   >
-                    Orthopoxvirus vaccinia
+                    Vaccinia virus (VACV)
                   </a>
                 </td>
                 <td />
@@ -709,9 +709,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-07-07T00:00:00.000Z"
+                    datetime="2025-09-02T00:00:00.000Z"
                   >
-                    2025-07-07
+                    2025-09-02
                   </time>
                 </td>
                 <td>
@@ -755,9 +755,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-07-07T00:00:00.000Z"
+                    datetime="2025-09-02T00:00:00.000Z"
                   >
-                    2025-07-07
+                    2025-09-02
                   </time>
                 </td>
                 <td>
@@ -1125,7 +1125,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     >
                       UP000111173
                     </a>
-                     (Genome)
+                     (Segment)
                   </span>
                 </td>
                 <td>
@@ -1137,9 +1137,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-06-13T00:00:00.000Z"
+                    datetime="2025-09-22T00:00:00.000Z"
                   >
-                    2025-06-13
+                    2025-09-22
                   </time>
                 </td>
                 <td>
@@ -1180,7 +1180,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     >
                       UP000113999
                     </a>
-                     (Genome)
+                     (Segment)
                   </span>
                 </td>
                 <td>
@@ -1222,10 +1222,10 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <a
                     href="/taxonomy/10245"
-                    title="Orthopoxvirus vaccinia, taxon ID 10245"
+                    title="Vaccinia virus (VACV), taxon ID 10245"
                     translate="no"
                   >
-                    Orthopoxvirus vaccinia
+                    Vaccinia virus (VACV)
                   </a>
                 </td>
                 <td>
@@ -1277,10 +1277,10 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <a
                     href="/taxonomy/10245"
-                    title="Orthopoxvirus vaccinia, taxon ID 10245"
+                    title="Vaccinia virus (VACV), taxon ID 10245"
                     translate="no"
                   >
-                    Orthopoxvirus vaccinia
+                    Vaccinia virus (VACV)
                   </a>
                 </td>
                 <td>
@@ -1332,10 +1332,10 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <a
                     href="/taxonomy/10245"
-                    title="Orthopoxvirus vaccinia, taxon ID 10245"
+                    title="Vaccinia virus (VACV), taxon ID 10245"
                     translate="no"
                   >
-                    Orthopoxvirus vaccinia
+                    Vaccinia virus (VACV)
                   </a>
                 </td>
                 <td>
@@ -1345,7 +1345,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     >
                       UP000181110
                     </a>
-                     (Genome)
+                     (Segment)
                   </span>
                 </td>
                 <td>
@@ -1387,10 +1387,10 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <a
                     href="/taxonomy/10245"
-                    title="Orthopoxvirus vaccinia, taxon ID 10245"
+                    title="Vaccinia virus (VACV), taxon ID 10245"
                     translate="no"
                   >
-                    Orthopoxvirus vaccinia
+                    Vaccinia virus (VACV)
                   </a>
                 </td>
                 <td>
@@ -1400,7 +1400,7 @@ exports[`XrefSection component should render the xref table properly and match s
                     >
                       UP000153808
                     </a>
-                     (Genome)
+                     (Segment)
                   </span>
                 </td>
                 <td>
@@ -1442,10 +1442,10 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <a
                     href="/taxonomy/10245"
-                    title="Orthopoxvirus vaccinia, taxon ID 10245"
+                    title="Vaccinia virus (VACV), taxon ID 10245"
                     translate="no"
                   >
-                    Orthopoxvirus vaccinia
+                    Vaccinia virus (VACV)
                   </a>
                 </td>
                 <td>

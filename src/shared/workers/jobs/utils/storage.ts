@@ -1,6 +1,6 @@
-import { IDBPDatabase, openDB } from 'idb';
+import { type IDBPDatabase, openDB } from 'idb';
 
-import { Stores } from './stores';
+import { type Stores } from './stores';
 
 export const DB_NAME = 'UniProt-Jobs';
 

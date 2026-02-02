@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`UniParcXRefsColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
@@ -55,9 +55,9 @@ exports[`UniParcXRefsColumnConfiguration component should render column "gene": 
 exports[`UniParcXRefsColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2025-06-18T00:00:00.000Z"
+    datetime="2026-01-28T00:00:00.000Z"
   >
-    2025-06-18
+    2026-01-28
   </time>
 </DocumentFragment>
 `;

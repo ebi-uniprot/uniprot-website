@@ -3,9 +3,9 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { hasContent } from '../../../shared/utils/utils';
-import { UIModel } from '../../adapters/sectionConverter';
+import { type UIModel } from '../../adapters/sectionConverter';
 import { SIMILAR_PROTEINS_XREF_ID } from '../../config/anchors';
-import { FreeTextComment } from '../../types/commentTypes';
+import { type FreeTextComment } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';

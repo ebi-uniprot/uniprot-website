@@ -1,4 +1,4 @@
-import { PIM } from '../types/alignResults';
+import { type PIM } from '../types/alignResults';
 import extractAccession from '../utils/extractAccession';
 
 const whitespaces = /\s+/;

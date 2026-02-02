@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { FieldProps } from '../Field';
+import { type FieldProps } from '../Field';
 import TextField from '../TextField';
 import { getSearchTerm } from './__mocks__/configureSearchTerms';
 

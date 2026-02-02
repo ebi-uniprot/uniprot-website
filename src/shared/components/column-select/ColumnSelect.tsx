@@ -1,16 +1,16 @@
-import { DragEndEvent } from '@dnd-kit/core';
+import { type DragEndEvent } from '@dnd-kit/core';
 import { AccordionSearch, Loader } from 'franklin-sites';
 import { difference } from 'lodash-es';
-import { FC, useCallback, useMemo } from 'react';
+import { type FC, useCallback, useMemo } from 'react';
 
 import {
-  ReceivedFieldData,
-  SelectedColumn,
+  type ReceivedFieldData,
+  type SelectedColumn,
 } from '../../../uniprotkb/types/resultsTypes';
 import apiUrls from '../../config/apiUrls/apiUrls';
-import { Column, nsToPrimaryKeyColumns } from '../../config/columns';
+import { type Column, nsToPrimaryKeyColumns } from '../../config/columns';
 import useDataApi from '../../hooks/useDataApi';
-import { Namespace } from '../../types/namespaces';
+import { type Namespace } from '../../types/namespaces';
 import { moveItemInArray, removeItemFromArray } from '../../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import styles from './styles/column-select.module.scss';

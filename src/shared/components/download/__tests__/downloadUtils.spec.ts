@@ -1,15 +1,15 @@
-import { Location as HistoryLocation } from 'history';
+import { type Location as HistoryLocation } from 'history';
 
 import { Location } from '../../../../app/config/urls';
 import { IDMappingColumn } from '../../../../jobs/id-mapping/config/IdMappingColumnConfiguration';
-import { MappingDetails } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
+import { type MappingDetails } from '../../../../jobs/id-mapping/types/idMappingSearchResults';
 import { JobTypes } from '../../../../jobs/types/jobTypes';
 import { fileFormatsResultsDownload as uniProtKBFileFormatsResultsDownload } from '../../../../uniprotkb/config/download';
 import { defaultColumns } from '../../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import { JobFromUrl } from '../../../hooks/useJobFromUrl';
+import { type JobFromUrl } from '../../../hooks/useJobFromUrl';
 import { Namespace } from '../../../types/namespaces';
 import { FileFormat } from '../../../types/resultsDownload';
-import { DownloadProps } from '../Download';
+import { type DownloadProps } from '../Download';
 import { getDownloadInitialState } from '../downloadReducer';
 import {
   getColumnsNamespace,

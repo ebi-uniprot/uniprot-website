@@ -1,9 +1,9 @@
 import 'swagger-ui-react/swagger-ui.css';
 
 import { Card, Chip, Loader, Message } from 'franklin-sites';
-import { Location as HistoryLocation } from 'history';
+import { type Location as HistoryLocation } from 'history';
 import type { OpenAPIV3 } from 'openapi-types';
-import { ReactNode, useCallback, useEffect, useMemo } from 'react';
+import { type ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import SwaggerUI from 'swagger-ui-react';
 import { frame } from 'timing-functions';
@@ -18,7 +18,7 @@ import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout'
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { stringifyQuery } from '../../../shared/utils/url';
 import apiUrls from '../../config/apiUrls';
-import { ApiDocsDefinition } from '../../types/apiDocumentation';
+import { type ApiDocsDefinition } from '../../types/apiDocumentation';
 import {
   getIdToOperation,
   getLayoutAction,

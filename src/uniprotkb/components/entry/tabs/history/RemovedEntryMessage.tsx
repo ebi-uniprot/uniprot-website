@@ -1,4 +1,5 @@
-import { Fragment, ReactNode } from 'react';
+import { Card, Loader } from 'franklin-sites';
+import { type ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
@@ -6,20 +7,25 @@ import {
   Location,
   LocationToPath,
 } from '../../../../../app/config/urls';
+import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import {
   EntryType,
   getEntryTypeFromString,
 } from '../../../../../shared/config/entryTypeIcon';
+import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../../shared/types/namespaces';
-import listFormat from '../../../../../shared/utils/listFormat';
+import { type SearchResults } from '../../../../../shared/types/results';
 import { stringifyQuery } from '../../../../../shared/utils/url';
-import { pickArticle } from '../../../../../shared/utils/utils';
+import { pickArticle, pluralise } from '../../../../../shared/utils/utils';
 import { TabLocation as UniParcTabLocation } from '../../../../../uniparc/types/entry';
 import {
-  DeletedReason,
-  InactiveEntryReason,
+  type DeletedReason,
+  type InactiveEntryReason,
+  type UniProtkbAPIModel,
 } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation as UniProtKBTabLocation } from '../../../../types/entry';
+import DemergedEntriesTable from './DemergedEntriesTable';
+import styles from './styles/removed-entry-message.module.scss';
 
 type RemovedEntryHeadingProps = {
   accession: string;
@@ -140,40 +146,68 @@ type DemergedEntryMessageProps = RemovedEntryMessageProps & {
 export const DemergedEntryMessage = ({
   demergedTo,
   ...props
-}: DemergedEntryMessageProps) => (
-  <RemovedEntryMessage {...props}>
-    {demergedTo.length ? (
-      <div>
-        This entry has now been <strong>demerged</strong>. Its accession has
-        been set as secondary accession in{' '}
-        {demergedTo.map((newEntry, index) => (
-          <Fragment key={newEntry}>
-            {listFormat(index, demergedTo)}
-            <Link
-              to={getEntryPath(
-                Namespace.uniprotkb,
-                newEntry,
-                UniProtKBTabLocation.Entry
-              )}
-            >
-              {newEntry}
-            </Link>
-          </Fragment>
-        ))}
-        . [
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: stringifyQuery({ query: `sec_acc:${props.accession}` }),
-          }}
-        >
-          List of currently active entries
-        </Link>
-        ]
-      </div>
-    ) : null}
-  </RemovedEntryMessage>
-);
+}: DemergedEntryMessageProps) => {
+  const { loading, data, progress } = useDataApi<
+    SearchResults<UniProtkbAPIModel>
+  >(
+    demergedTo.length
+      ? apiUrls.search.accessions(demergedTo, { facets: null })
+      : undefined
+  );
+
+  if (loading) {
+    return <Loader progress={progress} />;
+  }
+
+  return (
+    <Card>
+      {demergedTo.length ? (
+        <div>
+          This entry has been <strong>demerged</strong>. Its accession has been
+          set as a secondary accession in the following UniProtKB entries.
+        </div>
+      ) : null}
+      {data?.results.length ? (
+        <div className={styles['active-entries-table']}>
+          <DemergedEntriesTable
+            entries={data.results}
+            demergedTo={demergedTo}
+          />
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: stringifyQuery({ query: `sec_acc:${props.accession}` }),
+            }}
+          >
+            View{' '}
+            {demergedTo.length !== data.results.length
+              ? ' the active '
+              : 'these'}{' '}
+            {pluralise('entry', data.results.length, 'entries')} in UniProtKB
+            search results
+          </Link>
+          <br />
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniParcResults],
+              search: stringifyQuery({
+                query: `dbid:${props.accession}`,
+                direct: true,
+              }),
+            }}
+          >
+            View the linked UniParc entry
+          </Link>
+        </div>
+      ) : null}
+      {props.release && (
+        <div>
+          Since release: <strong>{props.release}</strong>
+        </div>
+      )}
+    </Card>
+  );
+};
 
 type MergedEntryMessageProps = RemovedEntryMessageProps & {
   mergedInto: string;
