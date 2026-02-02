@@ -50,16 +50,12 @@ type Key =
   | 'model_score'
   | 'phmmer_accession'
   | 'phmmer_score'
-  | 'exact_match_sanitized_to_all_2023_04'
-  | 'exact_match_sanitized_to_all_2025_01'
+  | 'string_match_text'
+  | 'string_match_location'
+  | 'string_match_type'
   | 'tmalign_accession'
   | 'tmalign_score_chain_1'
   | 'tmalign_score_chain_2'
-  | 'substring_match_sanitized_to_all_2023_04'
-  | 'substring_match_sanitized_to_all_2025_01'
-  | 'hydrated_substring_match_sanitized_to_all_2023_04'
-  | 'hydrated_substring_match_sanitized_to_all_2025_01'
-  | 'hydrated_substring_match_sanitized_interpro96'
   | 'GoTerm'
   | 'GoEvidenceType'
   | 'EntryName'
@@ -83,11 +79,21 @@ type CountByCommentType = {
 };
 
 type Keyword = {
-  category: 'Unknown';
-  evidences: Evidence[];
-  id: 'ProtNLM2';
+  category: Category;
+  evidences?: Evidence[];
+  id: string;
   name: string;
 };
+
+type Category =
+  | 'Domain'
+  | 'Ligand'
+  | 'Molecular function'
+  | 'Cellular component'
+  | 'Biological process'
+  | 'PTM'
+  | 'Technical term'
+  | 'Coding sequence diversity';
 
 type ProteinDescription = {
   recommendedName?: Name;
@@ -106,13 +112,13 @@ type Reference = {
 
 type Citation = {
   citationType: 'unpublished observations';
-  id: 'ProtNLM2';
+  id: 'CI-FC84BSHK1H4IL';
 };
 
 type UniProtKBCrossReference = {
   database: Database;
-  evidences: Evidence[];
-  id: 'ProtNLM2';
+  evidences?: Evidence[];
+  id: string;
   properties: Property[];
 };
 

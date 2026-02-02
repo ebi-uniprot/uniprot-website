@@ -28,7 +28,7 @@ export type CitationType =
 export type Citation = {
   // Either a pubmed ID, or a CI-<hash> internal hash if pubmed unavailable, or
   // IND<...> also available in the data
-  id: `${number}` | `CI-${string}` | `IND${string}` | `ProtNLM2`;
+  id: `${number}` | `CI-${string}` | `IND${string}`;
   citationType?: CitationType;
   authors?: string[];
   citationCrossReferences?: CitationXRef[];
