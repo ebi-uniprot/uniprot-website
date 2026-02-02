@@ -18,6 +18,7 @@ type Props = {
   sequence?: string;
   primaryAccession: string;
   uniParcID?: string;
+  hasPhylogenomicXrefs?: boolean;
 };
 
 const FamilyAndDomainsSection = ({
@@ -25,6 +26,7 @@ const FamilyAndDomainsSection = ({
   sequence,
   primaryAccession,
   uniParcID,
+  hasPhylogenomicXrefs,
 }: Props) => {
   if (!hasContent(data)) {
     return null;
@@ -63,19 +65,23 @@ const FamilyAndDomainsSection = ({
         xrefs={data.xrefData}
         primaryAccession={primaryAccession}
         uniParcID={uniParcID}
-        message={{
-          level: 'info',
-          key: 'phylogenomic-databases',
-          content: (
-            <>
-              View the Phylogenomic databases for this entry within the{' '}
-              <Link to={`#${SIMILAR_PROTEINS_XREF_ID}`}>
-                Similar Proteins section
-              </Link>
-              .
-            </>
-          ),
-        }}
+        message={
+          hasPhylogenomicXrefs
+            ? {
+                level: 'info',
+                key: 'phylogenomic-databases',
+                content: (
+                  <>
+                    View the Phylogenomic databases for this entry within the{' '}
+                    <Link to={`#${SIMILAR_PROTEINS_XREF_ID}`}>
+                      Similar Proteins section
+                    </Link>
+                    .
+                  </>
+                ),
+              }
+            : undefined
+        }
       />
     </Card>
   );

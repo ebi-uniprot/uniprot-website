@@ -20,7 +20,8 @@ const UniProtKBEntryConfig: {
   sectionContent: (
     entryData: UniProtkbUIModel,
     communityReferences: Reference[],
-    importedVariants: number | 'loading'
+    importedVariants: number | 'loading',
+    hasPhylogenomicXrefs?: boolean
   ) => JSX.Element;
 }[] = [
   {
@@ -116,13 +117,14 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.FamilyAndDomains,
-    sectionContent: (data) => (
+    sectionContent: (data, _, __, hasPhylogenomicXrefs) => (
       <FamilyAndDomainsSection
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence?.value}
         uniParcID={data.extraAttributes?.uniParcId}
         key={EntrySection.Expression}
+        hasPhylogenomicXrefs={hasPhylogenomicXrefs}
       />
     ),
   },

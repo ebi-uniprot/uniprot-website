@@ -250,6 +250,7 @@ const Entry = () => {
       const numberOfIsoforms =
         transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
           .length;
+
       return UniProtKBEntryConfig.map((section) => {
         const nameAndId = getEntrySectionNameAndId(
           section.id,
@@ -301,6 +302,13 @@ const Entry = () => {
   );
 
   const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
+
+  const hasPhylogenomicXrefs = Boolean(
+    // Don't count AGR which is has ORG category
+    transformedData?.[EntrySection.SimilarProteins]?.xrefs?.filter(
+      (xref) => xref.category !== 'ORG'
+    ).length
+  );
 
   // Redirect to new entry when obsolete and merged into one
   useEffect(() => {
@@ -699,6 +707,7 @@ const Entry = () => {
                   importedVariants={importedVariants}
                   communityReferences={communityReferences}
                   isoforms={listOfIsoformNames}
+                  hasPhylogenomicXrefs={hasPhylogenomicXrefs}
                 />
               </>
             )}
