@@ -155,11 +155,6 @@ export const getPeptideSearchFormDataReducer =
             action
           ),
         };
-      case peptideSearchFormActions.SET_SUBMIT_DISABLED:
-        return {
-          ...state,
-          submitDisabled: action.payload,
-        };
       case peptideSearchFormActions.UPDATE_SENDING:
         return {
           ...state,
