@@ -95,7 +95,9 @@ const ChecksumSuggester = memo(
         .map((accession) => accession.split('.')?.[0]) || [];
 
     const onlyUniParc =
-      !activeCanonicalUniprotkb.length && !activeIsoformsUniprotkb.length;
+      !activeCanonicalUniprotkb.length &&
+      !activeIsoformsUniprotkb.length &&
+      !inactiveEntries.length;
 
     const content = (
       <>
