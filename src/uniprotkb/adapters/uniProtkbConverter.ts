@@ -21,7 +21,6 @@ import { type Property } from '../types/modelTypes';
 import { transfromProperties } from '../utils';
 import { type DatabaseInfoMaps } from '../utils/database';
 import { type Keyword } from '../utils/KeywordsUtil';
-import { type XrefUIModel } from '../utils/xrefUtils';
 import convertDiseaseAndDrugs from './diseaseAndDrugs';
 import convertExpression from './expressionConverter';
 import convertExternalLinks from './externalLinksConverter';
@@ -41,7 +40,9 @@ import {
   type EntryAudit,
   type SequenceUIModel,
 } from './sequenceConverter';
-import convertSimilarProteins from './similarProteinsConverter';
+import convertSimilarProteins, {
+  type SimilarProteinsUIModel,
+} from './similarProteinsConverter';
 import convertStructure from './structureConverter';
 import convertSubcellularLocation from './subcellularLocationConverter';
 
@@ -117,11 +118,7 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
-  [EntrySection.SimilarProteins]: {
-    canonical: string;
-    isoforms: string[];
-    xrefs: XrefUIModel[];
-  };
+  [EntrySection.SimilarProteins]: SimilarProteinsUIModel;
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping

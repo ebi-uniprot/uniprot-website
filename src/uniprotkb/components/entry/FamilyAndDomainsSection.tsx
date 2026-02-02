@@ -1,8 +1,10 @@
 import { Card } from 'franklin-sites';
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { type UIModel } from '../../adapters/sectionConverter';
+import { SIMILAR_PROTEINS_XREF_ID } from '../../config/anchors';
 import { type FreeTextComment } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -16,6 +18,7 @@ type Props = {
   sequence?: string;
   primaryAccession: string;
   uniParcID?: string;
+  hasPhylogenomicXrefs?: boolean;
 };
 
 const FamilyAndDomainsSection = ({
@@ -23,6 +26,7 @@ const FamilyAndDomainsSection = ({
   sequence,
   primaryAccession,
   uniParcID,
+  hasPhylogenomicXrefs,
 }: Props) => {
   if (!hasContent(data)) {
     return null;
@@ -61,6 +65,23 @@ const FamilyAndDomainsSection = ({
         xrefs={data.xrefData}
         primaryAccession={primaryAccession}
         uniParcID={uniParcID}
+        message={
+          hasPhylogenomicXrefs
+            ? {
+                level: 'info',
+                key: 'phylogenomic-databases',
+                content: (
+                  <>
+                    View the Phylogenomic databases for this entry within the{' '}
+                    <Link to={`#${SIMILAR_PROTEINS_XREF_ID}`}>
+                      Similar Proteins section
+                    </Link>
+                    .
+                  </>
+                ),
+              }
+            : undefined
+        }
       />
     </Card>
   );

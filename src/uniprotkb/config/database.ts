@@ -95,7 +95,7 @@ export const getEntrySectionToDatabaseNames = (
   entrySectionToDatabaseNames.set(
     EntrySection.FamilyAndDomains,
     databaseSelector({
-      categories: [DatabaseCategory.PHYLOGENOMIC, DatabaseCategory.DOMAIN],
+      categories: [DatabaseCategory.DOMAIN],
       include: [
         'MobiDB', // Implicit
         'GPCRDB', // Implicit
@@ -175,7 +175,14 @@ export const getEntrySectionToDatabaseNames = (
   entrySectionToDatabaseNames.set(EntrySection.SubCellularLocation, [
     'CD-CODE',
   ]);
-  entrySectionToDatabaseNames.set(EntrySection.SimilarProteins, ['AGR']);
+
+  entrySectionToDatabaseNames.set(
+    EntrySection.SimilarProteins,
+    databaseSelector({
+      categories: [DatabaseCategory.PHYLOGENOMIC],
+      include: ['AGR'],
+    })
+  );
 
   // This is used to catch those that aren't listed in the page sections
   entrySectionToDatabaseNames.set(

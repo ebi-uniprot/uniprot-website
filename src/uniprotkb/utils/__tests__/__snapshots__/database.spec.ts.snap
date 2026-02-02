@@ -3029,7 +3029,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "3DS",
     ],
     "family_and_domains": [
-      "PLG",
       "FMD",
       "PFAM",
     ],
@@ -3056,6 +3055,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GMA",
     ],
     "similar_proteins": [
+      "PLG",
       "ORG",
     ],
     "structure": [
@@ -3169,15 +3169,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PDBsum",
     ],
     "family_and_domains": [
-      "eggNOG",
-      "GeneTree",
-      "HOGENOM",
-      "InParanoid",
-      "OMA",
-      "OrthoDB",
-      "PhylomeDB",
-      "TreeFam",
-      "PAN-GO",
       "AntiFam",
       "CDD",
       "FunFam",
@@ -3317,6 +3308,15 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "WBParaSite",
     ],
     "similar_proteins": [
+      "eggNOG",
+      "GeneTree",
+      "HOGENOM",
+      "InParanoid",
+      "OMA",
+      "OrthoDB",
+      "PhylomeDB",
+      "TreeFam",
+      "PAN-GO",
       "AGR",
     ],
     "structure": [

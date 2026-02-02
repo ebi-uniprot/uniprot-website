@@ -6121,13 +6121,17 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="message__title"
           >
-            View all family and domain features for this entry's canonical sequence in the 
-            <a
-              href="/uniparc/UPI000246C4A6/feature-viewer"
-            >
-              UniParc Feature Viewer
-            </a>
-            .
+            <ul>
+              <li>
+                View all family and domain features for this entry's canonical sequence in the 
+                <a
+                  href="/uniparc/UPI000246C4A6/feature-viewer"
+                >
+                  UniParc Feature Viewer
+                </a>
+                .
+              </li>
+            </ul>
           </div>
         </div>
         <ul
