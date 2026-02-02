@@ -63,7 +63,6 @@ import defaultFormValues, {
 } from '../config/BlastFormData';
 import {
   resetFormState,
-  setSubmitDisabled,
   updateParsedSequences,
   updateSelected,
   updateSending,
@@ -431,12 +430,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
               <ChecksumSuggester
                 sequence={parsedSequences[0].sequence}
                 name={parsedSequences[0].name}
-                onMatch={() => {
-                  dispatch(setSubmitDisabled(true));
-                }}
-                onUserDismiss={() => {
-                  dispatch(setSubmitDisabled(false));
-                }}
               />
             )}
           </section>
