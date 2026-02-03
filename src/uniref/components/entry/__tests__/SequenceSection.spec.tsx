@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import sequenceUIData from '../../../../shared/components/entry/__tests__/__mocks__/sequenceUIData';
-import { Sequence as SequenceType } from '../../../../shared/types/sequence';
+import { type Sequence as SequenceType } from '../../../../shared/types/sequence';
 import SequenceSection from '../SequenceSection';
 
 describe('SequenceSection component', () => {

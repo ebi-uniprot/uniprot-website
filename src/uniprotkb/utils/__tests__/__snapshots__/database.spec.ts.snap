@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`getDatabaseInfoMaps should match snapshot 1`] = `
 {
@@ -109,8 +109,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ORCID",
       "PubTator",
       "CD-CODE",
-      "MedGen",
-      "MeSH",
     ],
     "ORG": [
       "ArachnoServer",
@@ -140,7 +138,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "neXtProt",
       "OpenTargets",
       "Orphanet",
-      "PharmGKB",
+      "ClinPGx",
       "PomBase",
       "PseudoCAP",
       "RGD",
@@ -155,6 +153,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "Rouge",
       "IC4R",
       "JaponicusDB",
+      "CIViC",
     ],
     "OTG": [
       "GO",
@@ -265,6 +264,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "CD-CODE": "MISC",
     "CDD": "FMD",
     "CGD": "ORG",
+    "CIViC": "ORG",
     "CORUM": "PPI",
     "CPTAC": "PROTEOMIC",
     "CPTC": "PAM",
@@ -274,6 +274,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "ChiTaRS": "MISC",
     "CleanEx": "GEP",
     "ClinGen": "GVD",
+    "ClinPGx": "ORG",
     "CollecTF": "GEP",
     "ComplexPortal": "PPI",
     "ConoServer": "ORG",
@@ -344,8 +345,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "MaizeGDB": "ORG",
     "MalaCards": "ORG",
     "MassIVE": "PROTEOMIC",
-    "MeSH": "MISC",
-    "MedGen": "MISC",
     "MetOSite": "PTM",
     "MobiDB": "FMD",
     "ModBase": "3DS",
@@ -380,7 +379,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "PeptideAtlas": "PROTEOMIC",
     "PeroxiBase": "PFAM",
     "Pfam": "FMD",
-    "PharmGKB": "ORG",
     "Pharos": "MISC",
     "PhosphoSitePlus": "PTM",
     "PhylomeDB": "PLG",
@@ -742,6 +740,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "CGD",
       "uriLink": "http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%id",
     },
+    "CIViC": {
+      "attributes": [
+        {
+          "name": "Number of evidences",
+          "xmlTag": "evidences",
+        },
+      ],
+      "category": "ORG",
+      "displayName": "CIViC",
+      "name": "CIViC",
+      "uriLink": "https://civicdb.org/links/entrez_id/%id",
+    },
     "CORUM": {
       "attributes": [
         {
@@ -851,6 +861,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "linkedReason": "DR:HGNC",
       "name": "ClinGen",
       "uriLink": "https://search.clinicalgenome.org/kb/genes/%id",
+    },
+    "ClinPGx": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "ORG",
+      "displayName": "ClinPGx",
+      "name": "ClinPGx",
+      "uriLink": "https://www.clinpgx.org/gene/%id",
     },
     "CollecTF": {
       "attributes": [
@@ -1806,30 +1828,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "MassIVE",
       "uriLink": "https://massive.ucsd.edu/ProteoSAFe/protein_explorer.jsp?libraries=2&protein_name=%id",
     },
-    "MeSH": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "MISC",
-      "displayName": "MeSH",
-      "name": "MeSH",
-      "uriLink": "https://meshb.nlm.nih.gov/record/ui?ui=%id",
-    },
-    "MedGen": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "MISC",
-      "displayName": "MedGen",
-      "name": "MedGen",
-      "uriLink": "https://www.ncbi.nlm.nih.gov/medgen/%id",
-    },
     "MetOSite": {
       "attributes": [
         {
@@ -2156,7 +2154,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "FMD",
       "displayName": "PIRSF",
       "name": "PIRSF",
-      "uriLink": "https://proteininformationresource.org/cgi-bin/ipcSF?id=%id",
+      "uriLink": "https://www.ebi.ac.uk/interpro/entry/pirsf/%id",
     },
     "PRIDE": {
       "attributes": [
@@ -2192,7 +2190,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "MISC",
       "displayName": "PRO",
       "name": "PRO",
-      "uriLink": "https://proconsortium.org/app/entry/%id",
+      "uriLink": "https://proconsortium.org/cgi-bin/entry_pro?id=%id",
     },
     "PROSITE": {
       "attributes": [
@@ -2273,18 +2271,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "Pfam",
       "name": "Pfam",
       "uriLink": "https://www.ebi.ac.uk/interpro/entry/pfam/%id",
-    },
-    "PharmGKB": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "ORG",
-      "displayName": "PharmGKB",
-      "name": "PharmGKB",
-      "uriLink": "https://www.clinpgx.org/gene/%id",
     },
     "Pharos": {
       "attributes": [
@@ -2960,7 +2946,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "MISC",
       "displayName": "eMIND",
       "name": "eMIND",
-      "uriLink": "https://research.bioinformatics.udel.edu/itextmine/integrate/doc/emind/medline/%id",
+      "uriLink": "https://research.bioinformatics.udel.edu/emind/%id",
     },
     "eggNOG": {
       "attributes": [
@@ -3043,7 +3029,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "3DS",
     ],
     "family_and_domains": [
-      "PLG",
       "FMD",
       "PFAM",
     ],
@@ -3070,6 +3055,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GMA",
     ],
     "similar_proteins": [
+      "PLG",
       "ORG",
     ],
     "structure": [
@@ -3124,8 +3110,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "ORCID",
       "PubTator",
       "CD-CODE",
-      "MedGen",
-      "MeSH",
       "DNASU",
       "ABCD",
       "Antibodypedia",
@@ -3158,7 +3142,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "neXtProt",
       "OpenTargets",
       "Orphanet",
-      "PharmGKB",
+      "ClinPGx",
       "PomBase",
       "PseudoCAP",
       "RGD",
@@ -3173,6 +3157,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "Rouge",
       "IC4R",
       "JaponicusDB",
+      "CIViC",
       "HUGE",
       "Rouge",
       "GenAtlas",
@@ -3184,15 +3169,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PDBsum",
     ],
     "family_and_domains": [
-      "eggNOG",
-      "GeneTree",
-      "HOGENOM",
-      "InParanoid",
-      "OMA",
-      "OrthoDB",
-      "PhylomeDB",
-      "TreeFam",
-      "PAN-GO",
       "AntiFam",
       "CDD",
       "FunFam",
@@ -3332,6 +3308,15 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "WBParaSite",
     ],
     "similar_proteins": [
+      "eggNOG",
+      "GeneTree",
+      "HOGENOM",
+      "InParanoid",
+      "OMA",
+      "OrthoDB",
+      "PhylomeDB",
+      "TreeFam",
+      "PAN-GO",
       "AGR",
     ],
     "structure": [

@@ -6,13 +6,13 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import { mapToLinks } from '../../../shared/components/MapTo';
 import AccessionView from '../../../shared/components/results/AccessionView';
 import externalUrls from '../../../shared/config/externalUrls';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 import {
   getLocationObjForParams,
   getParamsFromURL,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { DatabaseAPIModel } from '../adapters/databaseConverter';
+import { type DatabaseAPIModel } from '../adapters/databaseConverter';
 
 export enum DatabaseColumn {
   abbrev = 'abbrev',

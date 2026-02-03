@@ -1,9 +1,9 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Chip } from 'franklin-sites';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { Column } from '../../config/columns';
+import { type Column } from '../../config/columns';
 import styles from './styles/sortable-item.module.scss';
 
 type Props = {

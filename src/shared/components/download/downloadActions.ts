@@ -1,8 +1,11 @@
 import { action } from 'typesafe-actions';
 
-import { FieldData } from '../../../uniprotkb/types/resultsTypes';
-import { FileFormat } from '../../types/resultsDownload';
-import { DownloadSelectOptions, ExtraContent } from './downloadReducer';
+import { type FieldData } from '../../../uniprotkb/types/resultsTypes';
+import { type FileFormat } from '../../types/resultsDownload';
+import {
+  type DownloadSelectOptions,
+  type ExtraContent,
+} from './downloadReducer';
 
 export const UPDATE_SELECTED_COLUMNS = 'UPDATE_SELECTED_COLUMNS' as const;
 export const UPDATE_SELECTED_FILE_FORMAT =

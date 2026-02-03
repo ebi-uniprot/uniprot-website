@@ -1,7 +1,7 @@
 import { Card } from 'franklin-sites';
 import { lazy } from 'react';
 
-import { Sequence } from '../../../shared/types/sequence';
+import { type Sequence } from '../../../shared/types/sequence';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 

@@ -1,5 +1,5 @@
 import { Message, ReSubmitIcon } from 'franklin-sites';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import styles from './styles/downtime-warning.module.scss';
 

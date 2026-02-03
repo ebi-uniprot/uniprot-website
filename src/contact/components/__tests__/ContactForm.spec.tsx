@@ -4,7 +4,7 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import customRender from '../../../shared/__test-helpers__/customRender';
 import {
   useFormLogic,
-  UseFormLogicReturnType,
+  type UseFormLogicReturnType,
 } from '../../adapters/contactFormAdapter';
 import ContactForm from '../ContactForm';
 

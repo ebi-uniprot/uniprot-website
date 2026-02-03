@@ -1,11 +1,11 @@
 import testColumnConfiguration from '../../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/diseasesModelData';
 import diseasesConverter, {
-  DiseasesAPIModel,
-  DiseasesUIModel,
+  type DiseasesAPIModel,
+  type DiseasesUIModel,
 } from '../../adapters/diseasesConverter';
 import DiseasesColumnConfiguration, {
-  DiseasesColumn,
+  type DiseasesColumn,
 } from '../DiseasesColumnConfiguration';
 
 jest.mock('../../../../shared/workers/jobs/utils/storage');

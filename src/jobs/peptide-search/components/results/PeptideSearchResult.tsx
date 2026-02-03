@@ -35,19 +35,19 @@ import {
   Namespace,
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import { type SearchResults } from '../../../../shared/types/results';
 import { stringifyUrl } from '../../../../shared/utils/url';
 import {
-  TaxonomyAPIModel,
-  TaxonomyDatum,
+  type TaxonomyAPIModel,
+  type TaxonomyDatum,
 } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import peptideSearchConverter from '../../adapters/peptideSearchConverter';
-import { FormParameters } from '../../types/peptideSearchFormParameters';
-import { PeptideSearchResults } from '../../types/peptideSearchResults';
+import { type FormParameters } from '../../types/peptideSearchFormParameters';
+import { type PeptideSearchResults } from '../../types/peptideSearchResults';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);

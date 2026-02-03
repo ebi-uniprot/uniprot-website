@@ -29,10 +29,10 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import uniParcConverter, {
-  UniParcLiteAPIModel,
-  UniParcXRef,
+  type UniParcLiteAPIModel,
+  type UniParcXRef,
 } from '../../adapters/uniParcConverter';
 import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
 import { TabLocation } from '../../types/entry';

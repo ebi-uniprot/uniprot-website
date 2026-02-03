@@ -44,7 +44,7 @@ import {
   checkMoveUrl,
   getProteomes,
   RefProtMoveUniProtKBEntryMessage,
-  UniProtKBCheckMoveResponse,
+  type UniProtKBCheckMoveResponse,
 } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -64,20 +64,20 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import lazy from '../../../shared/utils/lazy';
 import { stringifyQuery } from '../../../shared/utils/url';
 import { hasContent } from '../../../shared/utils/utils';
 import {
-  CitationsAPIModel,
-  Reference,
+  type CitationsAPIModel,
+  type Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { TabLocation as UniParcTabLocation } from '../../../uniparc/types/entry';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import uniProtKbConverter, {
-  UniProtkbAPIModel,
-  UniProtkbUIModel,
+  type UniProtkbAPIModel,
+  type UniProtkbUIModel,
 } from '../../adapters/uniProtkbConverter';
 import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
@@ -86,7 +86,7 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
-import { UniSaveAccession } from '../../types/uniSave';
+import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
@@ -250,6 +250,7 @@ const Entry = () => {
       const numberOfIsoforms =
         transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
           .length;
+
       return UniProtKBEntryConfig.map((section) => {
         const nameAndId = getEntrySectionNameAndId(
           section.id,
@@ -301,6 +302,13 @@ const Entry = () => {
   );
 
   const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
+
+  const hasPhylogenomicXrefs = Boolean(
+    // Don't count AGR which is has ORG category
+    transformedData?.[EntrySection.SimilarProteins]?.xrefs?.filter(
+      (xref) => xref.category !== 'ORG'
+    ).length
+  );
 
   // Redirect to new entry when obsolete and merged into one
   useEffect(() => {
@@ -373,7 +381,7 @@ const Entry = () => {
 
   let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
-      transformedData.inactiveReason
+    transformedData.inactiveReason
   );
 
   // Redirect to history when demerged and to UniParc when deleted
@@ -699,6 +707,7 @@ const Entry = () => {
                   importedVariants={importedVariants}
                   communityReferences={communityReferences}
                   isoforms={listOfIsoformNames}
+                  hasPhylogenomicXrefs={hasPhylogenomicXrefs}
                 />
               </>
             )}

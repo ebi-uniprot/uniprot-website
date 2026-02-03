@@ -1,13 +1,13 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { SortableColumn } from '../../uniprotkb/types/columnTypes';
+import { type SortableColumn } from '../../uniprotkb/types/columnTypes';
 import {
-  SelectedFacet,
-  SortDirection,
+  type SelectedFacet,
+  type SortDirection,
 } from '../../uniprotkb/types/resultsTypes';
-import { Column } from '../config/columns';
-import { Namespace } from './namespaces';
-import { FileFormat } from './resultsDownload';
+import { type Column } from '../config/columns';
+import { type Namespace } from './namespaces';
+import { type FileFormat } from './resultsDownload';
 
 export type FacetValue<Label extends ReactNode = string> = {
   // if from API, a simple string and always there,

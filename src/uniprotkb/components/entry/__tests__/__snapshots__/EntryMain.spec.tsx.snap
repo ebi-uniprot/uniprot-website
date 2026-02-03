@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Entry view should render 1`] = `
 <DocumentFragment>
@@ -162,7 +162,7 @@ exports[`Entry view should render 1`] = `
             </div>
             <rhea-visualizer
               rheaid="12345"
-              showids="true"
+              showids=""
               usehost="https://api.rhea-db.org"
             />
           </div>
@@ -2443,7 +2443,7 @@ exports[`Entry view should render 1`] = `
                   id="id1term"
                 >
                   <test-file-stub
-                    classname="sub-cell-viz__in-view-pin"
+                    class="sub-cell-viz__in-view-pin"
                     height="1em"
                   />
                   <strong>
@@ -2807,7 +2807,7 @@ exports[`Entry view should render 1`] = `
           class="loader-container"
         >
           <test-file-stub
-            classname="loader"
+            class="loader"
             height="100"
             width="100"
           />
@@ -2828,7 +2828,9 @@ exports[`Entry view should render 1`] = `
               <th>
                 Entry 1
                 <br />
-                <select>
+                <select
+                  style="width: fit-content;"
+                >
                   <option
                     value="All"
                   >
@@ -2974,7 +2976,7 @@ exports[`Entry view should render 1`] = `
           class="loader-container"
         >
           <test-file-stub
-            classname="loader"
+            class="loader"
             height="100"
             width="100"
           />
@@ -3785,7 +3787,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             </div>
             <rhea-visualizer
               rheaid="14869"
-              showids="true"
+              showids=""
               usehost="https://api.rhea-db.org"
             />
           </div>
@@ -4579,7 +4581,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="loader-container"
             >
               <test-file-stub
-                classname="loader"
+                class="loader"
                 height="100"
                 width="100"
               />
@@ -5421,7 +5423,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="message__side-border"
             />
             <test-file-stub
-              classname="message--icon-align-top"
+              class="message--icon-align-top"
               height="1.125em"
               width="1.125em"
             />
@@ -5667,7 +5669,9 @@ exports[`Entry view should render for non-human entry 1`] = `
               <th>
                 Type
                 <br />
-                <select>
+                <select
+                  style="width: fit-content;"
+                >
                   <option
                     value="All"
                   >
@@ -6110,20 +6114,24 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="message__side-border"
           />
           <test-file-stub
-            classname="message--icon-align-top"
+            class="message--icon-align-top"
             height="1.125em"
             width="1.125em"
           />
           <div
             class="message__title"
           >
-            View all family and domain features for this entry's canonical sequence in the 
-            <a
-              href="/uniparc/UPI000246C4A6/feature-viewer"
-            >
-              UniParc Feature Viewer
-            </a>
-            .
+            <ul>
+              <li>
+                View all family and domain features for this entry's canonical sequence in the 
+                <a
+                  href="/uniparc/UPI000246C4A6/feature-viewer"
+                >
+                  UniParc Feature Viewer
+                </a>
+                .
+              </li>
+            </ul>
           </div>
         </div>
         <ul
@@ -7298,11 +7306,11 @@ exports[`Entry view should render for non-human entry 1`] = `
                     </a>
                     <a
                       class="external-link"
-                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_WKPS01000046.1"
+                      href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_BAABXT010000001.1"
                       rel="noopener"
                       target="_blank"
                     >
-                      NZ_WKPS01000046.1
+                      NZ_BAABXT010000001.1
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"

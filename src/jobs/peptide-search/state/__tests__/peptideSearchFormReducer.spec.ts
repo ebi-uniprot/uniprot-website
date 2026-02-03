@@ -5,7 +5,7 @@ import * as actions from '../peptideSearchFormActions';
 import {
   getPeptideSearchFormDataReducer,
   getPeptideSearchFormInitialState,
-  PeptideSearchFormAction,
+  type PeptideSearchFormAction,
 } from '../peptideSearchFormReducer';
 
 describe('peptidesearchFormReducer', () => {

@@ -1,11 +1,11 @@
-import { Evidence } from '../../uniprotkb/types/modelTypes';
-import { UniSaveStatus } from '../../uniprotkb/types/uniSave';
+import { type Evidence } from '../../uniprotkb/types/modelTypes';
+import { type UniSaveStatus } from '../../uniprotkb/types/uniSave';
 import { isSourceDatabase } from '../utils/subEntry';
 import uniParcConverter, {
   databaseToEntryType,
-  UniParcLiteAPIModel,
-  UniParcUIModel,
-  UniParcXRef,
+  type UniParcLiteAPIModel,
+  type UniParcUIModel,
+  type UniParcXRef,
 } from './uniParcConverter';
 
 export type UniParcSubEntryUIModel = {

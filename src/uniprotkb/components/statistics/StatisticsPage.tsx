@@ -19,7 +19,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useUniProtDataVersion from '../../../shared/hooks/useUniProtDataVersion';
 import { stringifyQuery } from '../../../shared/utils/url';
 import apiUrls from '../../config/apiUrls/apiUrls';
-import PieChart, { StatisticsGraphItem } from '../graphs/PieChart';
+import PieChart, { type StatisticsGraphItem } from '../graphs/PieChart';
 import AbstractSectionTable from './AbstractSectionTable';
 import AminoAcidBarPlot from './AminoAcidBarPlot';
 import AminoAcidCompositionTable from './AminoAcidCompositionTable';
@@ -40,7 +40,7 @@ import {
   getSequenceSizeLocation,
   getUniqueAuthorString,
   merge,
-  MergedStatisticsItem,
+  type MergedStatisticsItem,
   mergeToMap,
 } from './utils';
 
@@ -94,7 +94,6 @@ const IntroductionEntriesTable = ({
   uniprotkbData,
   reviewedData,
   unreviewedData,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   releaseDate,
 }: TableProps & {
   releaseDate: Date;
@@ -157,11 +156,9 @@ const IntroductionEntriesTable = ({
               </>
             ),
             data: map.get('NEW_ENTRY')!,
-            // TODO: revert this change with 2026_01
-            // query: `(date_created:[${
-            //   releaseDate.toISOString().split('T')[0]
-            // } TO *])`,
-            query: `(date_created:[2025-10-08 TO *])`,
+            query: `(date_created:[${
+              releaseDate.toISOString().split('T')[0]
+            } TO *])`,
           },
           {
             header: (

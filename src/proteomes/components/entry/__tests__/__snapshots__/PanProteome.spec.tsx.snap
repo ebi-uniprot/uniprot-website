@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`PanProteome should render a link to FASTA, when is a panproteome 1`] = `
 <DocumentFragment>

@@ -1,15 +1,20 @@
-import { createContext, Dispatch, ReactNode, useReducer } from 'react';
+import {
+  createContext,
+  type Dispatch,
+  type ReactNode,
+  useReducer,
+} from 'react';
 
 import { addMessage } from '../../messages/state/messagesActions';
 import messagesInitialState, {
-  MessagesState,
+  type MessagesState,
 } from '../../messages/state/messagesInitialState';
 import messagesReducers, {
-  MessagesAction,
+  type MessagesAction,
 } from '../../messages/state/messagesReducers';
 import getJobMessage from '../../messages/utils/';
 import { jobsSharedWorker } from '../workers/jobs/getJobSharedWorker';
-import { JobSharedWorkerMessageEvent } from '../workers/jobs/jobSharedWorker';
+import { type JobSharedWorkerMessageEvent } from '../workers/jobs/jobSharedWorker';
 
 export const MessagesDispatchContext = createContext<Dispatch<MessagesAction>>(
   () => {

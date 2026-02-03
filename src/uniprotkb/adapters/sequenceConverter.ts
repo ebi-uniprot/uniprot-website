@@ -1,30 +1,31 @@
 import { groupBy } from 'lodash-es';
 
-import { SequenceData } from '../../shared/components/entry/SequenceView';
-import { Xref } from '../../shared/types/apiModel';
-import { FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
+import { type SequenceData } from '../../shared/components/entry/SequenceView';
+import { type Xref } from '../../shared/types/apiModel';
+import { type FeatureDatum } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { UniProtKBColumn } from '../types/columnTypes';
 import {
-  AlternativeProductsComment,
-  FreeTextComment,
-  MassSpectrometryComment,
-  RNAEditingComment,
-  SequenceCautionComment,
+  type AlternativeProductsComment,
+  type FreeTextComment,
+  type MassSpectrometryComment,
+  type RNAEditingComment,
+  type SequenceCautionComment,
 } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import FeatureType, { SequenceFeatures } from '../types/featureType';
-import KeywordCategory from '../types/keywordCategory';
-import { DatabaseInfoMaps } from '../utils/database';
+import type FeatureType from '../types/featureType';
+import { type SequenceFeatures } from '../types/featureType';
+import type KeywordCategory from '../types/keywordCategory';
+import { type DatabaseInfoMaps } from '../utils/database';
 import {
   getKeywordsForCategories,
-  KeywordUIModel,
+  type KeywordUIModel,
 } from '../utils/KeywordsUtil';
 import {
   getJoinedXrefs,
   getXrefsForSection,
-  XrefUIModel,
+  type XrefUIModel,
 } from '../utils/xrefUtils';
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { type UniProtkbAPIModel } from './uniProtkbConverter';
 
 export type Flag =
   | 'Precursor'

@@ -1,7 +1,7 @@
-import { SlimSet } from '../../GORibbonHandler';
+import { type SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2025-10-15
+// Retrieved: 2026-01-26
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -1286,25 +1286,25 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'phospholipase activity',
+          name: 'glycerophospholipase activity',
           id: 'GO:0004620',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'phosphatidylcholine lysophospholipase activity',
+          name: 'phosphatidylcholine lysophospholipase A1 activity',
           id: 'GO:0004622',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'phospholipase A2 activity',
+          name: 'A2-type glycerophospholipase activity',
           id: 'GO:0004623',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'phospholipase D activity',
+          name: 'D-type glycerophospholipase activity',
           id: 'GO:0004630',
           aspect: 'molecular_function',
         },
@@ -1550,7 +1550,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'phospholipase A1 activity',
+          name: 'glycerophospholipid phospholipase A1 activity',
           id: 'GO:0008970',
           aspect: 'molecular_function',
         },
@@ -1894,12 +1894,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'monoacylglycerol lipase activity',
           id: 'GO:0047372',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'calcium-independent phospholipase A2 activity',
-          id: 'GO:0047499',
           aspect: 'molecular_function',
         },
         {
@@ -7031,7 +7025,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'laminin complex',
+          name: 'laminin trimer',
           id: 'GO:0043256',
           aspect: 'cellular_component',
         },
@@ -7465,12 +7459,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'demethylase activity',
           id: 'GO:0032451',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'amide binding',
-          id: 'GO:0033218',
           aspect: 'molecular_function',
         },
         {
@@ -8375,12 +8363,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'amide transport',
-          id: 'GO:0042886',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'xenobiotic transport',
           id: 'GO:0042908',
           aspect: 'biological_process',
@@ -8431,12 +8413,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'muscle adaptation',
           id: 'GO:0043500',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'amide metabolic process',
-          id: 'GO:0043603',
           aspect: 'biological_process',
         },
         {
@@ -10958,20 +10934,8 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'ryanodine-sensitive calcium-release channel activity involved in regulation of postsynaptic cytosolic calcium levels',
-          id: 'GO:0098697',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
           name: 'structural constituent of presynaptic actin cytoskeleton',
           id: 'GO:0098699',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'G protein-coupled neurotransmitter receptor activity involved in regulation of postsynaptic cytosolic calcium ion concentration',
-          id: 'GO:0098872',
           aspect: 'molecular_function',
         },
         {
@@ -11002,12 +10966,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'structural constituent of postsynaptic actin cytoskeleton',
           id: 'GO:0098973',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'G-protein gated potassium channel activity involved in regulation of postsynaptic membrane potential',
-          id: 'GO:0099102',
           aspect: 'molecular_function',
         },
         {
@@ -11048,24 +11006,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'monoatomic ion antiporter activity involved in regulation of presynaptic membrane potential',
-          id: 'GO:0099520',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'ATPase coupled ion transmembrane transporter activity involved in regulation of presynaptic membrane potential',
-          id: 'GO:0099521',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'neurotransmitter receptor activity involved in regulation of postsynaptic membrane potential',
-          id: 'GO:0099529',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
           name: 'G protein-coupled receptor activity involved in regulation of postsynaptic membrane potential',
           id: 'GO:0099530',
           aspect: 'molecular_function',
@@ -11084,36 +11024,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'G protein-coupled neurotransmitter receptor activity involved in regulation of postsynaptic membrane potential',
-          id: 'GO:0099579',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'monoatomic ion antiporter activity involved in regulation of postsynaptic membrane potential',
-          id: 'GO:0099580',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'ATPase coupled ion transmembrane transporter activity involved in regulation of postsynaptic membrane potential',
-          id: 'GO:0099581',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'neurotransmitter receptor activity involved in regulation of presynaptic cytosolic calcium ion concentration',
-          id: 'GO:0099582',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'neurotransmitter receptor activity involved in regulation of postsynaptic cytosolic calcium ion concentration',
-          id: 'GO:0099583',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
           name: 'voltage-gated calcium channel activity involved in regulation of presynaptic cytosolic calcium levels',
           id: 'GO:0099626',
           aspect: 'molecular_function',
@@ -11126,26 +11036,8 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'intracellular cAMP-activated cation channel activity involved in regulation of presynaptic membrane potential',
-          id: 'GO:0140232',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'intracellular cAMP-activated cation channel activity involved in regulation of postsynaptic membrane potential',
-          id: 'GO:0140233',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
           name: 'structural constituent of synapse-associated extracellular matrix',
           id: 'GO:0150043',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'G protein-coupled neurotransmitter receptor activity involved in regulation of presynaptic membrane potential',
-          id: 'GO:0150047',
           aspect: 'molecular_function',
         },
         {
@@ -11162,32 +11054,8 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'calcium-induced calcium release activity involved in regulation of presynaptic cytosolic calcium ion concentration',
-          id: 'GO:1905054',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'calcium:monoatomic cation antiporter activity involved in regulation of presynaptic cytosolic calcium ion concentration',
-          id: 'GO:1905055',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
           name: 'P-type calcium transporter activity involved in regulation of presynaptic cytosolic calcium ion concentration',
           id: 'GO:1905056',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'voltage-gated calcium channel activity involved in regulation of postsynaptic cytosolic calcium levels',
-          id: 'GO:1905057',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'calcium-induced calcium release activity involved in regulation of postsynaptic cytosolic calcium ion concentration',
-          id: 'GO:1905058',
           aspect: 'molecular_function',
         },
         {
@@ -12002,12 +11870,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'presynaptic process involved in chemical synaptic transmission',
-          id: 'GO:0099531',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'synaptic vesicle endosomal processing',
           id: 'GO:0099532',
           aspect: 'biological_process',
@@ -12502,12 +12364,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'regulation of presynapse assembly',
           id: 'GO:1905606',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'calcium import into the mitochondrion involved in negative regulation of presynaptic cytosolic calcium concentration',
-          id: 'GO:1905743',
           aspect: 'biological_process',
         },
         {
@@ -13594,12 +13450,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'meiotic cell cycle',
           id: 'GO:0051321',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'proteolysis involved in protein catabolic process',
-          id: 'GO:0051603',
           aspect: 'biological_process',
         },
         {

@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { lazy, ReactNode, Suspense } from 'react';
+import { lazy, type ReactNode, Suspense } from 'react';
 
 import { useSmallScreen } from '../../hooks/useMatchMedia';
 import ErrorBoundary from '../error-component/ErrorBoundary';

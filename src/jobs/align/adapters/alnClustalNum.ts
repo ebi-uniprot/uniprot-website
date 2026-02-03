@@ -6,7 +6,7 @@ http://web.mit.edu/meme_v4.11.4/share/doc/clustalw-format.html
 
 import { isEmpty } from 'lodash-es';
 
-import { AlnClustalNum } from '../types/alignResults';
+import { type AlnClustalNum } from '../types/alignResults';
 
 const HEADER = /^CLUSTAL.*/;
 const SEQ_LINE =

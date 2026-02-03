@@ -1,4 +1,4 @@
-import { GoCamModelInfo } from '../../../types/goCamTypes';
+import { type GoCamModelInfo } from '../../../types/goCamTypes';
 import { getGoCamStructures, isUniprotCurated } from '../GoCam';
 import gomodel5e72450500001269 from './__mocks__/goCam/5e72450500001269';
 import gomodel654d809000001587 from './__mocks__/goCam/654d809000001587';

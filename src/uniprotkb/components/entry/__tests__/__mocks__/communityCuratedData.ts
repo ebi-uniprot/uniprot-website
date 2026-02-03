@@ -1,4 +1,4 @@
-import { Reference } from '../../../../../supporting-data/citations/adapters/citationsConverter';
+import { type Reference } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 
 // This is from https://rest.uniprot.org/uniprotkb/P0DTC2/publications?facetFilter=(types:"0") but then
 // modified to be a bit more interesting ie missing/different submission dates

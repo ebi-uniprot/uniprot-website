@@ -7,8 +7,8 @@ import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import helper from '../../../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../../shared/types/results';
-import { UniProtkbAPIModel } from '../../../../adapters/uniProtkbConverter';
+import { type SearchResults } from '../../../../../shared/types/results';
+import { type UniProtkbAPIModel } from '../../../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../../../types/entry';
 import { columnConfig as similarProteinsColumnConfig } from '../../similar-proteins/SimilarProteinsTable';
 

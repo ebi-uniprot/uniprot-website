@@ -1,4 +1,4 @@
-import { GeneNamesData } from '../../../../adapters/namesAndTaxonomyConverter';
+import { type GeneNamesData } from '../../../../adapters/namesAndTaxonomyConverter';
 
 const mock: GeneNamesData = [
   {

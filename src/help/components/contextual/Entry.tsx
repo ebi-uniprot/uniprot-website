@@ -1,4 +1,4 @@
-import { RouteChildrenProps } from 'react-router-dom';
+import { type RouteChildrenProps } from 'react-router-dom';
 
 import HelpEntry from '../entry/Entry';
 

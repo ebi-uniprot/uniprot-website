@@ -3,7 +3,7 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
 import Table from '../../../shared/components/table/Table';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import { Xref } from '../../../shared/types/apiModel';
+import { type Xref } from '../../../shared/types/apiModel';
 import {
   getDatabaseInfoAttribute,
   processUrlTemplate,

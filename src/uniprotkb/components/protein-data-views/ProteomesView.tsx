@@ -2,7 +2,7 @@ import { ExpandableList, InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
-import { Xref } from '../../../shared/types/apiModel';
+import { type Xref } from '../../../shared/types/apiModel';
 import { Namespace } from '../../../shared/types/namespaces';
 
 type Props = {

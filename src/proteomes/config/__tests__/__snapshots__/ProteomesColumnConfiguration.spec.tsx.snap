@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`ProteomesColumnConfiguration component should render column "busco": busco 1`] = `
 <DocumentFragment>
@@ -152,7 +152,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
 
 exports[`ProteomesColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>
-  Outlier (high value)
+  Unknown
 </DocumentFragment>
 `;
 
@@ -398,7 +398,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    83,569
+    83,526
   </a>
    entries in 
   <span

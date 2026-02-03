@@ -1,7 +1,7 @@
 import { ExpandableList, InfoList, Message } from 'franklin-sites';
-import { InfoListItem } from 'franklin-sites/dist/types/components/info-list';
-import { isEqual, partition, sortBy, uniqWith } from 'lodash-es';
-import { Fragment, ReactNode } from 'react';
+import { type InfoListItem } from 'franklin-sites/dist/types/components/info-list';
+import { groupBy, isEqual, partition, sortBy, uniqWith } from 'lodash-es';
+import { type ComponentProps, Fragment, type JSX, type ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import {
@@ -11,7 +11,7 @@ import {
 } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
-import { Xref } from '../../../shared/types/apiModel';
+import { type Xref } from '../../../shared/types/apiModel';
 import { Namespace } from '../../../shared/types/namespaces';
 import { pluralise } from '../../../shared/utils/utils';
 import {
@@ -23,13 +23,16 @@ import {
   databaseCategoryToString,
   viewProteinLinkDatabases,
 } from '../../config/database';
-import { DatabaseCategory, DatabaseInfoPoint } from '../../types/databaseRefs';
+import {
+  DatabaseCategory,
+  type DatabaseInfoPoint,
+} from '../../types/databaseRefs';
 import { PropertyKey } from '../../types/modelTypes';
-import { DatabaseToDatabaseInfo } from '../../utils/database';
+import { type DatabaseToDatabaseInfo } from '../../utils/database';
 import {
   partitionStructureDatabases,
-  XrefsGoupedByDatabase,
-  XrefUIModel,
+  type XrefsGoupedByDatabase,
+  type XrefUIModel,
 } from '../../utils/xrefUtils';
 import { AFDBOutOfSync } from './AFDBOutOfSync';
 import EMBLView from './EMBLView';
@@ -361,11 +364,19 @@ const StructureXRefsGroupedByCategory = ({
   );
 };
 
+type MessageLevel = ComponentProps<typeof Message>['level'];
+type MessageParams = {
+  level: MessageLevel;
+  content: ReactNode;
+  key: string;
+};
+
 type XRefViewProps = {
   xrefs: XrefUIModel[];
   primaryAccession: string;
   crc64?: string;
   uniParcID?: string;
+  message?: MessageParams;
 };
 
 const XRefView = ({
@@ -373,62 +384,82 @@ const XRefView = ({
   primaryAccession,
   crc64,
   uniParcID,
-}: XRefViewProps) => (
-  <>
-    {xrefs?.map(({ databases, category }, index): JSX.Element => {
-      const xrefsNode =
-        category === DatabaseCategory.STRUCTURE ? (
-          <StructureXRefsGroupedByCategory
-            databases={databases}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-          />
-        ) : (
-          <XRefsGroupedByCategory
-            databases={databases}
-            primaryAccession={primaryAccession}
-            crc64={crc64}
-          />
-        );
-      let title;
-      if (category && databaseCategoryToString[category]) {
-        title = databaseCategoryToString[category];
-      }
+  message,
+}: XRefViewProps) => {
+  const messages: MessageParams[] = message ? [message] : [];
+  return (
+    <>
+      {xrefs?.map(({ databases, category }, index): JSX.Element => {
+        const xrefsNode =
+          category === DatabaseCategory.STRUCTURE ? (
+            <StructureXRefsGroupedByCategory
+              databases={databases}
+              primaryAccession={primaryAccession}
+              crc64={crc64}
+            />
+          ) : (
+            <XRefsGroupedByCategory
+              databases={databases}
+              primaryAccession={primaryAccession}
+              crc64={crc64}
+            />
+          );
+        let title;
+        if (category && databaseCategoryToString[category]) {
+          title = databaseCategoryToString[category];
+        }
 
-      let linkToUniParcFeatures: null | ReactNode = null;
-      if (
-        category === DatabaseCategory.DOMAIN &&
-        uniParcID &&
-        databases.some((db) => db.database === 'InterPro')
-      ) {
-        linkToUniParcFeatures = (
-          <Message level="info">
-            View all family and domain features for this entry&apos;s canonical
-            sequence in the{' '}
-            <Link
-              to={getEntryPath(
-                Namespace.uniparc,
-                uniParcID,
-                TabLocation.FeatureViewer
-              )}
-            >
-              UniParc Feature Viewer
-            </Link>
-            .
-          </Message>
-        );
-      }
+        if (
+          category === DatabaseCategory.DOMAIN &&
+          uniParcID &&
+          databases.some((db) => db.database === 'InterPro')
+        ) {
+          messages.push({
+            level: 'info',
+            key: 'domain-uniparc-interpro',
+            content: (
+              <>
+                View all family and domain features for this entry&apos;s
+                canonical sequence in the{' '}
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniparc,
+                    uniParcID,
+                    TabLocation.FeatureViewer
+                  )}
+                >
+                  UniParc Feature Viewer
+                </Link>
+                .
+              </>
+            ),
+          });
+        }
 
-      return (
-        // eslint-disable-next-line react/no-array-index-key
-        <Fragment key={index}>
-          <h3>{title}</h3>
-          {linkToUniParcFeatures}
-          {xrefsNode}
-        </Fragment>
-      );
-    })}
-  </>
-);
+        const messagesGroupedByLevel = groupBy(
+          messages,
+          (message) => message.level
+        );
+
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            <h3>{title}</h3>
+            {Object.entries(messagesGroupedByLevel).map(([level, messages]) => (
+              <Message key={level} level={level as MessageLevel}>
+                <ul>
+                  {messages.map((message) => (
+                    <li key={message.key}>{message.content}</li>
+                  ))}
+                </ul>
+              </Message>
+            ))}
+            {xrefsNode}
+          </Fragment>
+        );
+      })}
+    </>
+  );
+};
 
 export default XRefView;

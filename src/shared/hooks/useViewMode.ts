@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
-import { Namespace } from '../types/namespaces';
+import { type InvalidParamValue } from '../../uniprotkb/utils/resultsUtils';
+import { type Namespace } from '../types/namespaces';
 import { sendGtagEventViewMode } from '../utils/gtagEvents';
 import { stringifyQuery } from '../utils/url';
 import useColumnNames from './useColumnNames';

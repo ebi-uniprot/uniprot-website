@@ -11,9 +11,9 @@ import {
   SpinnerIcon,
 } from 'franklin-sites';
 import {
-  FC,
-  FormEvent,
-  MouseEvent,
+  type FC,
+  type FormEvent,
+  type MouseEvent,
   useEffect,
   useMemo,
   useReducer,
@@ -49,15 +49,15 @@ import { createJob } from '../../../shared/workers/jobs/state/jobActions';
 import ChecksumSuggester from '../../components/ChecksumSuggester';
 import InitialFormParametersProvider from '../../components/InitialFormParametersProvider';
 import SequenceSearchLoader, {
-  SequenceSearchLoaderInterface,
+  type SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
-import { SelectedTaxon } from '../../types/jobsFormData';
+import { type SelectedTaxon } from '../../types/jobsFormData';
 import { JobTypes } from '../../types/jobTypes';
 import { truncateTaxonLabel } from '../../utils';
 import defaultFormValues, {
   BlastFields,
-  BlastFormValue,
-  BlastFormValues,
+  type BlastFormValue,
+  type BlastFormValues,
   databaseValueToName,
   excludeTaxonForDB,
 } from '../config/BlastFormData';
@@ -71,17 +71,17 @@ import {
   getBlastFormDataReducer,
   getBlastFormInitialState,
 } from '../state/blastFormReducer';
-import { FormParameters } from '../types/blastFormParameters';
+import { type FormParameters } from '../types/blastFormParameters';
 import {
-  Database,
-  Exp,
-  Filter,
-  GapAlign,
-  HSPs,
-  Matrix,
-  Scores,
-  Sequence,
-  SType,
+  type Database,
+  type Exp,
+  type Filter,
+  type GapAlign,
+  type HSPs,
+  type Matrix,
+  type Scores,
+  type Sequence,
+  type SType,
 } from '../types/blastServerParameters';
 import { getAutoMatrixFor } from '../utils';
 

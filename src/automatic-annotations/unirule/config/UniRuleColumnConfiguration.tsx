@@ -2,14 +2,14 @@ import { ExpandableList } from 'franklin-sites';
 
 import { mapToLinks } from '../../../shared/components/MapTo';
 import AccessionView from '../../../shared/components/results/AccessionView';
-import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
+import { type ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 import getLabelAndTooltip from '../../../shared/utils/getLabelAndTooltip';
 import CSVView from '../../../uniprotkb/components/protein-data-views/CSVView';
 import { annotationCoveredRenderer } from '../../shared/column-renderers/AnnotationCovered';
 import { ruleIDRenderer } from '../../shared/column-renderers/RuleID';
 import { taxonomicScopeRenderer } from '../../shared/column-renderers/TaxonomicScope';
-import { UniRuleAPIModel } from '../adapters/uniRuleConverter';
+import { type UniRuleAPIModel } from '../adapters/uniRuleConverter';
 
 export enum UniRuleColumn {
   ruleId = 'rule_id',

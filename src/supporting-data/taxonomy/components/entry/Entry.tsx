@@ -1,7 +1,7 @@
 import { Card, InfoList, Loader } from 'franklin-sites';
 import { pick } from 'lodash-es';
 import { useEffect, useState } from 'react';
-import { RouteChildrenProps, useHistory } from 'react-router-dom';
+import { type RouteChildrenProps, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
 import { getEntryPath } from '../../../../app/config/urls';
@@ -21,15 +21,15 @@ import RelatedResults from '../../../../shared/components/results/RelatedResults
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useMessagesDispatch from '../../../../shared/hooks/useMessagesDispatch';
-import { Statistics } from '../../../../shared/types/apiModel';
+import { type Statistics } from '../../../../shared/types/apiModel';
 import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../../shared/types/namespaces';
-import { SearchResults } from '../../../../shared/types/results';
+import { type SearchResults } from '../../../../shared/types/results';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 import generatePageTitle from '../../adapters/generatePageTitle';
-import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
+import { type TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
@@ -173,7 +173,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   const hasRelated = Boolean(
     data.statistics?.reviewedProteinCount ||
-      data.statistics?.unreviewedProteinCount
+    data.statistics?.unreviewedProteinCount
   );
 
   const relatedQuery = `(taxonomy_id:${accession})`;

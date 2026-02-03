@@ -4,11 +4,11 @@ import { groupBy } from 'lodash-es';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { SearchResults } from '../../../shared/types/results';
+import { type SearchResults } from '../../../shared/types/results';
 import {
-  UniRefEntryType,
+  type UniRefEntryType,
   uniRefEntryTypeToPercent,
-  UniRefLiteAPIModel,
+  type UniRefLiteAPIModel,
 } from '../../../uniref/adapters/uniRefConverter';
 import SubEntrySimilarProteinsTabContent from './SubEntrySimilarProteinsTabContent';
 

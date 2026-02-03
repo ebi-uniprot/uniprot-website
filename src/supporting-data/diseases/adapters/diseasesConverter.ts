@@ -1,5 +1,5 @@
-import { Statistics } from '../../../shared/types/apiModel';
-import { KeywordNameID } from '../../keywords/adapters/keywordsConverter';
+import { type Statistics } from '../../../shared/types/apiModel';
+import { type KeywordNameID } from '../../keywords/adapters/keywordsConverter';
 
 type XRef = {
   databaseType: string;

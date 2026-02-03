@@ -10,14 +10,14 @@ import {
   pluralise,
 } from '../../../shared/utils/utils';
 import {
-  Reference,
-  ReferenceComment,
+  type Reference,
+  type ReferenceComment,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
-import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
-import { UniProtKBReference } from '../../adapters/uniProtkbConverter';
+import { type NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
+import { type UniProtKBReference } from '../../adapters/uniProtkbConverter';
 import { ecoCode } from '../../config/evidenceCodes';
 import EntrySection from '../../types/entrySection';
-import { Evidence } from '../../types/modelTypes';
+import { type Evidence } from '../../types/modelTypes';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import AccessionsView from '../protein-data-views/AccessionsView';
 import GeneNamesView from '../protein-data-views/GeneNamesView';

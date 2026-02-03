@@ -1,25 +1,25 @@
 import { BinIcon, Button, FullViewIcon, Tab, Tabs } from 'franklin-sites';
-import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
+import { type Dispatch, type SetStateAction, useEffect, useMemo } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../app/config/urls';
 import { reIds } from '../jobs/utils/urls';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 import ResultsData from '../shared/components/results/ResultsData';
-import useBasket, { Basket } from '../shared/hooks/useBasket';
+import useBasket, { type Basket } from '../shared/hooks/useBasket';
 import {
-  ColumnDescriptor,
+  type ColumnDescriptor,
   getColumnsToDisplay,
 } from '../shared/hooks/useColumns';
 import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
 import useItemSelect from '../shared/hooks/useItemSelect';
 import useNSQuery from '../shared/hooks/useNSQuery';
 import usePagination from '../shared/hooks/usePagination';
-import { APIModel } from '../shared/types/apiModel';
+import { type APIModel } from '../shared/types/apiModel';
 import { Namespace } from '../shared/types/namespaces';
 import { getIdKeyForData } from '../shared/utils/getIdKey';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
-import { UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
 import EmptyBasket from './EmptyBasket';

@@ -7,7 +7,7 @@ import { mapToLinks } from '../../../../shared/components/MapTo';
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../../shared/utils/getIdKey';
-import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
+import { type TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';

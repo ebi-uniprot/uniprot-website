@@ -1,6 +1,6 @@
 import joinUrl from 'url-join';
 
-import { FileFormat } from '../../types/resultsDownload';
+import { type FileFormat } from '../../types/resultsDownload';
 import { stringifyUrl } from '../../utils/url';
 import { fileFormatToUrlParameter } from '../resultsDownload';
 

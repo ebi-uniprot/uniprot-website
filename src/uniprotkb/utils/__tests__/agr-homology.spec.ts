@@ -1,8 +1,8 @@
 // agr-homology-utils.test.ts
 
 import * as logging from '../../../shared/utils/logging';
-import { AgrOrthologsResult } from '../../types/agrOrthologs';
-import { AgrParalogsResult } from '../../types/agrParalogs';
+import { type AgrOrthologsResult } from '../../types/agrOrthologs';
+import { type AgrParalogsResult } from '../../types/agrParalogs';
 import {
   getTaxonQuery,
   getXrefAndTaxonQuery,
