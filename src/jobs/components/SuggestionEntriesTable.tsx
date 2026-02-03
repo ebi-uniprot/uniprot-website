@@ -4,8 +4,8 @@ import { DataTable, Loader } from 'franklin-sites';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../shared/hooks/useDataApi';
 import helper from '../../shared/styles/helper.module.scss';
-import { SearchResults } from '../../shared/types/results';
-import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { type SearchResults } from '../../shared/types/results';
+import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { columnConfig } from '../../uniprotkb/components/entry/tabs/history/DemergedEntriesTable';
 import styles from './styles/suggestion-entries-table.module.scss';
 
