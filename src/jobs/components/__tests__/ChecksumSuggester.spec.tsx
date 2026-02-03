@@ -38,7 +38,7 @@ describe('ChecksumSuggester', () => {
     ).toHaveAttribute('href', '/uniprotkb?query=%28uniparc%3AUPI000002DB1C%29');
     expect(
       await screen.findByRole('link', {
-        name: 'View the matching entry in UniParc',
+        name: 'View the matching sequence in UniParc',
       })
     ).toHaveAttribute('href', '/uniparc/UPI000002DB1C/entry');
   });
