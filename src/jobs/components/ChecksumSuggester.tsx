@@ -99,10 +99,30 @@ const ChecksumSuggester = memo(
       !activeIsoformsUniprotkb.length &&
       !inactiveEntries.length;
 
-    const content = (
+    const uniprotkbCount =
+      activeCanonicalUniprotkb.length +
+      activeIsoformsUniprotkb.length +
+      inactiveEntries.length;
+
+    const uniParcLink = (
+      <Link
+        to={getEntryPath(
+          Namespace.uniparc,
+          uniParcId,
+          UniParcTabLocation.Entry
+        )}
+      >
+        View the matching sequence in UniParc
+      </Link>
+    );
+    const content = onlyUniParc ? (
+      uniParcLink
+    ) : (
       <>
-        Are you looking for {onlyUniParc ? 'this entry ' : 'these entries '}
-        which exactly {onlyUniParc ? 'matches' : 'match'} {sequenceDescription}?
+        Are you looking for{' '}
+        {uniprotkbCount === 1 ? 'this entry ' : 'these entries '}
+        which exactly {uniprotkbCount === 1 ? 'matches' : 'match'}{' '}
+        {sequenceDescription}?
         <div>
           <SuggestionEntriesTable
             activeEntries={[
@@ -156,17 +176,7 @@ const ChecksumSuggester = memo(
                   </Link>
                 </li>
               ) : null}
-              <li>
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniparc,
-                    uniParcId,
-                    UniParcTabLocation.Entry
-                  )}
-                >
-                  View the matching entry in UniParc
-                </Link>
-              </li>
+              <li>{uniParcLink}</li>
             </ul>
           </small>
         </div>
