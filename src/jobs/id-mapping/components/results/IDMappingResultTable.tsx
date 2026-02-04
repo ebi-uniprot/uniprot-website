@@ -83,6 +83,7 @@ const IDMappingResultTable = ({
       <ResultsButtons
         total={resultsDataObject.total || 0}
         loadedTotal={resultsDataObject.allResults.length}
+        obsoleteCount={resultsDataObject.obsoleteCount}
         selectedEntries={selectedEntries}
         namespaceOverride={namespaceOverride}
         disableCardToggle
