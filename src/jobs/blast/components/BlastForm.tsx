@@ -39,7 +39,6 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
-import sticky from '../../../shared/styles/sticky.module.scss';
 import { namespaceAndToolsLabels } from '../../../shared/types/namespaces';
 import { FileFormat } from '../../../shared/types/resultsDownload';
 import { sendGtagEventJobSubmit } from '../../../shared/utils/gtagEvents';
@@ -590,7 +589,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
             </section>
           </details>
           <section
-            className={cn('tools-form-section', sticky['sticky-bottom-right'])}
+            className={cn('tools-form-section', 'tools-form-section--right')}
           >
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
