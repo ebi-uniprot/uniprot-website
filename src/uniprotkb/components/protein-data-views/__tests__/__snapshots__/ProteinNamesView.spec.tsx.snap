@@ -30,7 +30,7 @@ exports[`ProteinNames should render protein_name 1`] = `
         <div
           class="decorated-list-item__title tiny"
         >
-          Short names
+          Short name
         </div>
         <div
           class="decorated-list-item__content"

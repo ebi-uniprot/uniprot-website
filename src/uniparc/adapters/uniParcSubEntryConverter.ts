@@ -32,7 +32,7 @@ export type UniFireModel = {
   predictions: Prediction[] | ModifiedPrediction[];
 };
 
-export type ModifiedPrediction = Prediction & {
+export type ModifiedPrediction = Omit<Prediction, 'evidence'> & {
   evidence: Evidence[];
 };
 
