@@ -67,7 +67,7 @@ const SuggestionEntriesTable = ({ activeEntries, inactiveEntries }: Props) => {
         styles['suggestion-list-table']
       )}
     >
-      {activeEntriesData?.results.length ? (
+      {mergedData.length ? (
         <DataTable
           data={mergedData}
           columns={columnConfig}
