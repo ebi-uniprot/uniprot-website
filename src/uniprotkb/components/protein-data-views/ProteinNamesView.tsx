@@ -276,12 +276,14 @@ type ProteinNamesViewProps = {
   proteinNames?: ProteinNamesData;
   noEvidence?: boolean;
   noTitles?: boolean;
+  protnlmProteinNames?: ProteinNamesData;
 };
 
 const ProteinNamesView = ({
   proteinNames,
   noEvidence = false,
   noTitles = false,
+  protnlmProteinNames,
 }: ProteinNamesViewProps) => {
   if (!proteinNames) {
     return null;
@@ -289,6 +291,20 @@ const ProteinNamesView = ({
   let infoData: ComponentProps<typeof InfoList>['infoData'] = [];
   if (proteinNames.recommendedName) {
     infoData = getInfoListForNames(proteinNames.recommendedName, noEvidence);
+  }
+  // If noEvidence, don't show this ProtNLM annotatation otherwise users will
+  // think it's from UniProt.
+  if (protnlmProteinNames?.recommendedName && !noEvidence) {
+    infoData.push({
+      title: 'AI predicted name',
+      content: (
+        <span className="ai-annotation">
+          <NameWithEvidence
+            data={protnlmProteinNames.recommendedName.fullName}
+          />
+        </span>
+      ),
+    });
   }
   if (proteinNames.alternativeNames) {
     infoData.push({
@@ -356,6 +372,24 @@ const ProteinNamesView = ({
             />
           ))}
         </ExpandableList>
+      ),
+    });
+  }
+  if (protnlmProteinNames?.submissionNames && !noEvidence) {
+    infoData.push({
+      title: 'AI submitted names',
+      content: (
+        <span className="ai-annotation">
+          <ExpandableList descriptionString="submitted names">
+            {protnlmProteinNames.submissionNames.map((submission, index) => (
+              <ProteinNamesViewFlat
+                key={index} // eslint-disable-line react/no-array-index-key
+                names={submission}
+                noEvidence={noEvidence}
+              />
+            ))}
+          </ExpandableList>
+        </span>
       ),
     });
   }

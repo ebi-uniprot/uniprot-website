@@ -16,11 +16,13 @@ export type InPageNavSection = {
 type Props = {
   sections: InPageNavSection[];
   rootElement?: string | HTMLElement;
+  footer?: React.ReactNode;
 };
 
 const InPageNav = ({
   sections,
   rootElement,
+  footer,
   ...props
 }: Props & HTMLAttributes<HTMLUListElement>) => {
   const history = useHistory();
@@ -188,19 +190,22 @@ const InPageNav = ({
   }, [active]);
 
   return (
-    <ul className={styles['in-page-nav']} {...props}>
-      <div ref={marker} className={styles.marker} />
-      {sections.map(({ id, label, disabled }) => (
-        <li key={id} className={cn({ [styles.disabled]: disabled })}>
-          <Link
-            to={`#${id}`}
-            className={cn({ [styles.active]: active === id })}
-          >
-            {label}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className={styles['in-page-nav']} {...props}>
+        <div ref={marker} className={styles.marker} />
+        {sections.map(({ id, label, disabled }) => (
+          <li key={id} className={cn({ [styles.disabled]: disabled })}>
+            <Link
+              to={`#${id}`}
+              className={cn({ [styles.active]: active === id })}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <section>{footer}</section>
+    </>
   );
 };
 

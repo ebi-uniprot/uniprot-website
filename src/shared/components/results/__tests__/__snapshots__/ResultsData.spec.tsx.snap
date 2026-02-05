@@ -103,42 +103,66 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                   translate="yes"
                 >
-                   
-                  <a
-                    href="/keywords/KW-0406"
+                  <span
+                    class="text-block"
                   >
-                    #Ion transport
-                  </a>
-                   
-                  <a
-                    href="/keywords/KW-0739"
+                     
+                    <a
+                      href="/keywords/KW-0406"
+                    >
+                      #Ion transport
+                    </a>
+                  </span>
+                  <span
+                    class="text-block"
                   >
-                    #Sodium transport
-                  </a>
-                   
-                  <a
-                    href="/keywords/KW-0762"
+                     
+                    <a
+                      href="/keywords/KW-0739"
+                    >
+                      #Sodium transport
+                    </a>
+                  </span>
+                  <span
+                    class="text-block"
                   >
-                    #Sugar transport
-                  </a>
-                   
-                  <a
-                    href="/keywords/KW-0769"
+                     
+                    <a
+                      href="/keywords/KW-0762"
+                    >
+                      #Sugar transport
+                    </a>
+                  </span>
+                  <span
+                    class="text-block"
                   >
-                    #Symport
-                  </a>
-                   
-                  <a
-                    href="/keywords/KW-0813"
+                     
+                    <a
+                      href="/keywords/KW-0769"
+                    >
+                      #Symport
+                    </a>
+                  </span>
+                  <span
+                    class="text-block"
                   >
-                    #Transport
-                  </a>
-                   
-                  <a
-                    href="/keywords/KW-0225"
+                     
+                    <a
+                      href="/keywords/KW-0813"
+                    >
+                      #Transport
+                    </a>
+                  </span>
+                  <span
+                    class="text-block"
                   >
-                    #Disease variant
-                  </a>
+                     
+                    <a
+                      href="/keywords/KW-0225"
+                    >
+                      #Disease variant
+                    </a>
+                  </span>
                 </div>
               </small>
             </div>
@@ -281,12 +305,16 @@ exports[`ResultsData component should render the card view with the correct numb
                   class="keyword-view--inline"
                   translate="yes"
                 >
-                   
-                  <a
-                    href="/keywords/KW-0378"
+                  <span
+                    class="text-block"
                   >
-                    #Hydrolase
-                  </a>
+                     
+                    <a
+                      href="/keywords/KW-0378"
+                    >
+                      #Hydrolase
+                    </a>
+                  </span>
                 </div>
               </small>
             </div>

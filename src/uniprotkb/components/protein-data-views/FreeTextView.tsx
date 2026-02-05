@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { type FC, Fragment, type ReactNode, useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ import {
   type TextWithEvidence,
 } from '../../types/commentTypes';
 import { TabLocation } from '../../types/entry';
+import { hasProtNLM2Evidence } from '../../utils/protnlm';
 import {
   getTextProcessingParts,
   reAC,
@@ -169,6 +171,9 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
   );
 };
 
+const isProtNLM2 = (comments: TextWithEvidence[]) =>
+  comments.some((comment) => hasProtNLM2Evidence(comment.evidences));
+
 type TextViewProps = {
   comments: TextWithEvidence[];
   type?: FreeTextType;
@@ -176,7 +181,7 @@ type TextViewProps = {
 };
 
 export const TextView = ({ comments, type, children }: TextViewProps) => (
-  <div className="text-block">
+  <div className={cn('text-block', { 'ai-annotation': isProtNLM2(comments) })}>
     {children}
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key

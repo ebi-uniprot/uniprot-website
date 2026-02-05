@@ -2405,7 +2405,7 @@ exports[`Entry view should render 1`] = `
             role="tablist"
           >
             <div
-              aria-controls="69"
+              aria-controls="68"
               class="tabs__header__item tabs__header__item--bordered tabs__header__item--active"
               data-target="0"
               data-testid="tab-title"
@@ -2415,7 +2415,7 @@ exports[`Entry view should render 1`] = `
               UniProt Annotation
             </div>
             <div
-              aria-controls="69"
+              aria-controls="68"
               class="tabs__header__item tabs__header__item--bordered"
               data-target="1"
               data-testid="tab-title"
@@ -2427,7 +2427,7 @@ exports[`Entry view should render 1`] = `
           </div>
           <div
             data-testid="tab-content"
-            id="69"
+            id="68"
             role="tabpanel"
           >
             <div
@@ -2456,6 +2456,29 @@ exports[`Entry view should render 1`] = `
                   </strong>
                    
                   <button
+                    aria-controls="69"
+                    aria-expanded="false"
+                    class="svg-colour-unreviewed evidence-tag"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                    >
+                      automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="69"
+                  />
+                  ; topology value 
+                  <button
                     aria-controls="70"
                     aria-expanded="false"
                     class="svg-colour-unreviewed evidence-tag"
@@ -2477,7 +2500,11 @@ exports[`Entry view should render 1`] = `
                     data-testid="evidence-tag-content"
                     id="70"
                   />
-                  ; topology value 
+                </div>
+                <div
+                  class="text-block"
+                >
+                  Note: value.
                   <button
                     aria-controls="71"
                     aria-expanded="false"
@@ -2499,33 +2526,6 @@ exports[`Entry view should render 1`] = `
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
                     id="71"
-                  />
-                </div>
-                <div
-                  class="text-block"
-                >
-                  Note: value.
-                  <button
-                    aria-controls="72"
-                    aria-expanded="false"
-                    class="svg-colour-unreviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      automatic annotation
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="72"
                   />
                 </div>
               </section>
@@ -3112,34 +3112,38 @@ exports[`Entry view should render 1`] = `
                   translate="yes"
                 >
                   <li>
-                     
-                    <a
-                      href="/keywords/KW-11111"
+                    <span
+                      class="text-block"
                     >
-                      #keyword value
-                    </a>
-                    <button
-                      aria-controls="62"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
+                       
+                      <a
+                        href="/keywords/KW-11111"
                       >
-                        PROSITE-ProRule annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="62"
-                    />
+                        #keyword value
+                      </a>
+                      <button
+                        aria-controls="62"
+                        aria-expanded="false"
+                        class="svg-colour-reviewed evidence-tag"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                        >
+                          PROSITE-ProRule annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="62"
+                      />
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -4613,20 +4617,28 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                     
-                    <a
-                      href="/keywords/KW-0326"
+                    <span
+                      class="text-block"
                     >
-                      #Glycosidase
-                    </a>
+                       
+                      <a
+                        href="/keywords/KW-0326"
+                      >
+                        #Glycosidase
+                      </a>
+                    </span>
                   </li>
                   <li>
-                     
-                    <a
-                      href="/keywords/KW-0378"
+                    <span
+                      class="text-block"
                     >
-                      #Hydrolase
-                    </a>
+                       
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                        #Hydrolase
+                      </a>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -4649,12 +4661,16 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                     
-                    <a
-                      href="/keywords/KW-0479"
+                    <span
+                      class="text-block"
                     >
-                      #Metal-binding
-                    </a>
+                       
+                      <a
+                        href="/keywords/KW-0479"
+                      >
+                        #Metal-binding
+                      </a>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -6091,12 +6107,16 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                     
-                    <a
-                      href="/keywords/KW-0732"
+                    <span
+                      class="text-block"
                     >
-                      #Signal
-                    </a>
+                       
+                      <a
+                        href="/keywords/KW-0732"
+                      >
+                        #Signal
+                      </a>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -7253,12 +7273,16 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                     
-                    <a
-                      href="/keywords/KW-0002"
+                    <span
+                      class="text-block"
                     >
-                      #3D-structure
-                    </a>
+                       
+                      <a
+                        href="/keywords/KW-0002"
+                      >
+                        #3D-structure
+                      </a>
+                    </span>
                   </li>
                 </ul>
               </div>
