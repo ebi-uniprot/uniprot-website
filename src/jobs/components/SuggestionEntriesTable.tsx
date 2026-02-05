@@ -67,14 +67,12 @@ const SuggestionEntriesTable = ({ activeEntries, inactiveEntries }: Props) => {
         styles['suggestion-list-table']
       )}
     >
-      {mergedData.length ? (
-        <DataTable
-          data={mergedData}
-          columns={columnConfig}
-          getIdKey={(row) => row.primaryAccession}
-          density="compact"
-        />
-      ) : null}
+      <DataTable
+        data={mergedData}
+        columns={columnConfig}
+        getIdKey={(row) => row.primaryAccession}
+        density="compact"
+      />
     </div>
   );
 };
