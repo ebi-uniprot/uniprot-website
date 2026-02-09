@@ -282,7 +282,8 @@ const Download = (props: DownloadProps<JobTypes>) => {
       extraContentNode = (
         <Message level="warning">
           The selected format ({state.selectedFileFormat}) supports only active
-          entries and will exclude inactive ones from the download.
+          entries and will exclude inactive ones from the download. To download
+          all entries, please choose JSON, TSV, Excel or List.
         </Message>
       );
       break;
