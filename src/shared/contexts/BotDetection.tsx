@@ -1,0 +1,121 @@
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+
+const pointerEvents = [
+  'mousemove',
+  'mouseenter',
+  'pointermove',
+  'pointerdown',
+  'pointerover',
+] as const;
+
+export type BotDetectionStatus = 'undetermined' | 'human'; // | 'supected-bot', or other statuses...
+
+export const BotDetectionContext =
+  createContext<BotDetectionStatus>('undetermined');
+
+const areSuspiciousCoordinates = (x?: number, y?: number) => {
+  // either x or y is zero
+  if (!x || !y) {
+    return true;
+  }
+  const xDecimals = `${x}`.split('.')[1] || '';
+  const yDecimals = `${y}`.split('.')[1] || '';
+
+  // either x or y is set to a suspiciously round-ish number
+  // 5.1 is suspicious, but 5.173694 is more natural
+  return xDecimals.length < 2 || yDecimals.length < 2;
+};
+
+const getMeanAndVariationCoefficient = (array: number[]) => {
+  const mean = array.reduce((a, b) => a + b, 0) / array.length;
+  const standardDeviation =
+    Math.sqrt(
+      array.map((item) => Math.pow(item - mean, 2)).reduce((a, b) => a + b, 0)
+    ) / array.length;
+  const variationCoefficient = standardDeviation / mean;
+  return [mean, variationCoefficient];
+};
+
+const focusEvents: number[] = [];
+
+export const BotDetectionProvider = ({ children }: { children: ReactNode }) => {
+  const [status, setStatus] = useState<BotDetectionStatus>(
+    (sessionStorage.getItem('bot-detection') as BotDetectionStatus) ||
+      'undetermined'
+  );
+
+  const pointerHandler = useCallback<EventListener>((event: Event) => {
+    const { x, y } = event as MouseEvent | PointerEvent;
+    // Could implement more complex checks here
+    if (!areSuspiciousCoordinates(x, y)) {
+      sessionStorage.setItem('bot-detection', 'human');
+      setStatus('human');
+    }
+  }, []);
+
+  const focusHandler = useCallback<EventListener>((event: Event) => {
+    const { timeStamp } = event;
+    focusEvents.push(timeStamp);
+    if (focusEvents.length <= 2) {
+      return;
+    }
+    const focusEventDiffs = focusEvents
+      // Skip the first one, it might be autofocus on page
+      .slice(1)
+      .map((focusEvent, index) => focusEvent - focusEvents[index - 1])
+      // Remove first diff, as it will be NaN
+      .splice(1);
+    const [mean, variationCoefficient] =
+      getMeanAndVariationCoefficient(focusEventDiffs);
+    if (mean > 200 && variationCoefficient > 0.1) {
+      sessionStorage.setItem('bot-detection', 'human');
+      setStatus('human');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (status === 'human') {
+      for (const event of pointerEvents) {
+        document.documentElement.removeEventListener(event, pointerHandler);
+      }
+      document.documentElement.removeEventListener('focus', focusHandler, {
+        capture: true,
+      });
+    } else {
+      for (const event of pointerEvents) {
+        document.documentElement.addEventListener(event, pointerHandler, {
+          // perf optimisation: we "promise" to not use event.preventDefault,
+          // so the browser allows it to become non-blocking
+          passive: true,
+        });
+      }
+      document.documentElement.addEventListener(
+        'focus',
+        focusHandler,
+        // Focus events require capture to be able to be seen from the document
+        { capture: true, passive: true }
+      );
+    }
+
+    return () => {
+      for (const event of pointerEvents) {
+        document.documentElement.removeEventListener(event, pointerHandler);
+      }
+      document.documentElement.removeEventListener('focus', focusHandler, {
+        capture: true,
+      });
+    };
+  }, [status, pointerHandler, focusHandler]);
+
+  return (
+    <BotDetectionContext.Provider value={status}>
+      {children}
+    </BotDetectionContext.Provider>
+  );
+};

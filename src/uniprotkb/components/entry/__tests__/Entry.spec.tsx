@@ -73,7 +73,6 @@ let rendered: ReturnType<typeof customRender>;
 describe('Entry', () => {
   describe('basic', () => {
     beforeEach(async () => {
-      window.botChallenge = true;
       await act(async () => {
         rendered = customRender(<Entry />, {
           route: `/uniprotkb/${primaryAccession}`,
