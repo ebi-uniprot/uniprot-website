@@ -12,7 +12,7 @@ when some behavioural criteria is met) exist. This could be expanded.
 ## Detection
 
 A user is `undetermined` until the events tracked below determine otherwise.
-Tracking is disabled and disconnected as soon as the `human` type as been
+Tracking is disabled and disconnected as soon as the `human` type has been
 determined. A flag is set in `SessionStorage` to avoid running that logic at all
 once determined and within the same session.
 
