@@ -44,7 +44,7 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
     expect(carbohydrateKeyword?.name).toEqual('Carbohydrate metabolism');
   });
 
-  it('should filter out Pfam cross references from ProtNLM data', () => {
+  it('should only retain UniProtKB Pfam xrefs and not include ProtNLM data', () => {
     const initialPfamCount = uniprotkbData.uniProtKBCrossReferences?.filter(
       (xref) => xref.database === 'Pfam'
     ).length;
@@ -54,14 +54,74 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
     expect(resultPfamCount).toBe(initialPfamCount);
   });
 
-  it('should transform GO evidence types correctly', () => {
-    const goRef = result.uniProtKBCrossReferences?.find(
-      (xref) => xref.id === 'GO:0008146'
+  it('should merge duplicate GO ids by appending ProtNLM GoEvidenceType to existing UniProt GO xref', () => {
+    const goId = 'GO:0008146';
+
+    const baseData = {
+      ...uniprotkbData,
+      uniProtKBCrossReferences: [
+        {
+          database: 'GO',
+          id: goId,
+          properties: [{ key: 'GoEvidenceType', value: 'EXP' }],
+          evidences: [{ evidenceCode: 'ECO:0000269' }],
+        },
+      ],
+    };
+
+    const protnlm = {
+      ...protnlmData,
+      uniProtKBCrossReferences: [
+        {
+          database: 'GO',
+          id: goId,
+          properties: [{ key: 'GoEvidenceType', value: ':-' }], // will be fixed to IEA:ProtNLM2
+          evidences: [{ evidenceCode: 'ECO:0000501' }],
+        },
+      ],
+    };
+
+    const result = augmentAPIDataWithProtnlmPredictions(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      protnlm as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      baseData as any
     );
-    const evidenceProp = goRef?.properties?.find(
-      (p) => p.key === 'GoEvidenceType'
+
+    const goXrefs = (result.uniProtKBCrossReferences || []).filter(
+      (x) => x.database === 'GO' && x.id === goId
     );
-    expect(evidenceProp?.value).toEqual('IEA:ProtNLM2');
+
+    // No duplicate GO xref objects
+    expect(goXrefs).toHaveLength(1);
+
+    // Properties were merged (original kept + ProtNLM added)
+    const props = goXrefs[0].properties || [];
+    expect(props).toEqual(
+      expect.arrayContaining([
+        { key: 'GoEvidenceType', value: 'EXP' },
+        expect.objectContaining({
+          key: 'GoEvidenceType',
+          value: 'IEA:ProtNLM2',
+        }),
+      ])
+    );
+
+    // Evidences were merged
+    expect(goXrefs[0].evidences).toEqual(
+      expect.arrayContaining([
+        { evidenceCode: 'ECO:0000269' },
+        { evidenceCode: 'ECO:0000501' },
+      ])
+    );
+  });
+
+  it('should not duplicate GO xrefs when ProtNLM term already exists in UniProt', () => {
+    const goId = 'GO:0008146';
+    const occurrences = (result.uniProtKBCrossReferences || []).filter(
+      (xref) => xref.database === 'GO' && xref.id === goId
+    ).length;
+    expect(occurrences).toBe(1);
   });
 
   it('should handle empty input data gracefully', () => {
@@ -73,14 +133,19 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
     );
     expect(emptyResult.comments).toEqual(uniprotkbData.comments || []);
     expect(emptyResult.keywords).toEqual(uniprotkbData.keywords);
+    expect(emptyResult.uniProtKBCrossReferences).toEqual(
+      uniprotkbData.uniProtKBCrossReferences
+    );
   });
 });
 
 describe('augmentUIDataWithProtnlmPredictions', () => {
   let transformedUniProtKB: UniProtkbUIModel;
+
   beforeAll(() => {
     transformedUniProtKB = uniProtKbConverter(uniprotkbData, databaseInfoMaps);
   });
+
   it('should add protnlmProteinNamesData when evidence exists', () => {
     const result = augmentUIDataWithProtnlmPredictions(
       protnlmData,
