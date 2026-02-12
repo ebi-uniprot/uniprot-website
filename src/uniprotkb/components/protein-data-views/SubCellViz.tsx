@@ -216,8 +216,10 @@ const getUniProtTermSelectors = (locations: SubCellularLocation[] = []) =>
 const getGoIds = (locations: SubCellularLocation[] = []) =>
   locations.map(({ id }) => `GO${+id}`);
 
+// Don't include inpicture as some annotations won't be in the viz
+// Look at G3QEA9 > ProtNLM2 > GO70721 / ISGF3 complex
 const getGoLegendSelectors = (goIds: string[]) =>
-  goIds.map((id) => `li.${id}.inpicture`).join(',\n');
+  goIds.map((id) => `li.${id}`).join(',\n');
 
 const getGoLegendHoverSelectors = (goIds: string[]) =>
   goIds.map((id) => `li.${id}.inpicture.lookedAt`).join(',\n');
