@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -30,6 +30,7 @@ import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import { BotDetectionContext } from '../../../shared/contexts/BotDetection';
 import useDataApi, {
   type UseDataAPIState,
 } from '../../../shared/hooks/useDataApi';
@@ -87,7 +88,14 @@ const SubEntry = () => {
     subEntryId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [runUniFire, setRunUniFire] = useState(true);
+  const [runUniFire, setRunUniFire] = useState(
+    // Only do an automatic request to UniFire if the user is likely human
+    // In case of this page being a first load and not a navigation, it might
+    // only detect that the user is human _after_ this logic has run (if the
+    // page loaded really fast), so the button might still be presented to the
+    // user, but that's fine
+    use(BotDetectionContext) === 'human'
+  );
 
   const { accession, subEntryId, subPage } = match?.params || {};
 
