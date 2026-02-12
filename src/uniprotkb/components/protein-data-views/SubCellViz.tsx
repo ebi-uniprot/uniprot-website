@@ -462,6 +462,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
           width: 100%;
           position: sticky;
           top: ${pictureTop};
+          grid-area: picture;
         }
 
         #swissbiopic > h1 {
