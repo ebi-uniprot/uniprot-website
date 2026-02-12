@@ -1,6 +1,6 @@
 import { Loader, Tab, Tabs } from 'franklin-sites';
-import { zip } from 'lodash-es';
-import { useEffect, useState } from 'react';
+import { isEqual, zip } from 'lodash-es';
+import { memo, useEffect, useState } from 'react';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -126,4 +126,9 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
   );
 };
 
-export default SimilarProteins;
+export default memo(SimilarProteins, (prevProps, nextProps) => {
+  return (
+    prevProps.canonical === nextProps.canonical &&
+    isEqual(prevProps.isoforms, nextProps.isoforms)
+  );
+});

@@ -41,7 +41,7 @@ export const getAndPrepareSubcellGoXrefs = (
     uniProtKBCrossReferences?.filter(
       (xref) =>
         xref.database === 'GO' &&
-        xref.properties?.GoTerm.startsWith('C:') &&
+        xref.properties?.GoTerm?.startsWith('C:') &&
         xref.id
     ) as GoXref[]
   )?.map((xref) => ({

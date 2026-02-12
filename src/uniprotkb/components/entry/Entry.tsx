@@ -1,8 +1,18 @@
 /* eslint-disable reactHooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
+import './styles/protnlm.scss';
 
 import cn from 'classnames';
-import { Button, Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import {
+  AiAnnotationsIcon,
+  Button,
+  Chip,
+  Loader,
+  LongNumber,
+  Tab,
+  Tabs,
+  ToggleSwitch,
+} from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
@@ -75,6 +85,10 @@ import {
 import { TabLocation as UniParcTabLocation } from '../../../uniparc/types/entry';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import {
+  augmentAPIDataWithProtnlmPredictions,
+  augmentUIDataWithProtnlmPredictions,
+} from '../../adapters/protnlmConverter';
 import uniProtKbConverter, {
   type UniProtkbAPIModel,
   type UniProtkbUIModel,
@@ -86,6 +100,7 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
+import { type UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
 import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -172,6 +187,7 @@ const Entry = () => {
   const [isLikelyHuman, setIsLikelyHuman] = useState(
     Boolean(window.botChallenge)
   );
+  const [loadProtNLM, setLoadProtNLM] = useState(false);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -216,6 +232,26 @@ const Entry = () => {
       : null
   );
 
+  const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    isLikelyHuman &&
+      match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)'
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null,
+    { method: 'HEAD' }
+  );
+
+  const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    isLikelyHuman &&
+      match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      loadProtNLM
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null
+  );
+
   const refprotmoveData = useDataApi<UniProtKBCheckMoveResponse>(
     isLikelyHuman && match?.params.accession
       ? joinUrl(checkMoveUrl, 'uniprotkb', match?.params.accession)
@@ -239,9 +275,23 @@ const Entry = () => {
     if (!data || !databaseInfoMaps) {
       return [];
     }
-    const transformedData = uniProtKbConverter(data, databaseInfoMaps);
+
+    // Augment UniProtKB data with ProtNLM data. Some augmentations
+    // happen before transformations, and some after. Transform data
+    // as soon as possible, ie even if the protnlm predictions are
+    // still loading.
+    const transformedData = protnlmPayload.data
+      ? augmentUIDataWithProtnlmPredictions(
+          protnlmPayload.data,
+          uniProtKbConverter(
+            augmentAPIDataWithProtnlmPredictions(protnlmPayload.data, data),
+            databaseInfoMaps
+          )
+        )
+      : uniProtKbConverter(data, databaseInfoMaps);
+
     return [transformedData, generatePageTitle(transformedData)];
-  }, [data, databaseInfoMaps]);
+  }, [data, databaseInfoMaps, protnlmPayload.data]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -548,6 +598,9 @@ const Entry = () => {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
 
+  const hasProtnlm: boolean =
+    !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
+
   const isAFDBOutOfSync =
     new Date(
       transformedData?.sequences.entryAudit?.lastSequenceUpdateDate ||
@@ -559,7 +612,24 @@ const Entry = () => {
   }
 
   const entrySidebar = (
-    <InPageNav sections={sections} rootElement={`.${sidebarStyles.content}`} />
+    <InPageNav
+      sections={sections}
+      rootElement={`.${sidebarStyles.content}`}
+      footer={
+        hasProtnlm ? (
+          <ToggleSwitch
+            header="AI Annotations"
+            statusOff="Click to enable"
+            statusLoading="Loading AI predictions..."
+            statusOn="Showing AI predictions"
+            isLoading={protnlmPayload.loading}
+            icon={<AiAnnotationsIcon />}
+            checked={loadProtNLM}
+            onChange={setLoadProtNLM}
+          />
+        ) : null
+      }
+    />
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;

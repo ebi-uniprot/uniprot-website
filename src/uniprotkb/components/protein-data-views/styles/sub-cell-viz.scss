@@ -12,8 +12,7 @@
 
   &.lookedAt,
   &:hover {
-    background-color: var(--fr--color-sea-blue);
-    color: white;
+    background-color: color-mix(in srgb, var(--fr--color-sea-blue) 35%, white);
 
     & article {
       color: black;

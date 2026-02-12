@@ -1,0 +1,14 @@
+:root {
+  --ai-color: color-mix(in srgb, var(--fr--color-purple-mid) 6%, white);
+}
+.decorated-list-item:has(.ai-annotation),
+.ai-annotation:not(.decorated-list-item .ai-annotation),
+.ai-annotation-keyword {
+  background-color: var(--ai-color);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+tr:has(.ai-annotation-row) {
+  background-color: var(--ai-color) !important;
+}
