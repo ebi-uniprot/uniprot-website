@@ -14,6 +14,9 @@ const pointerEvents = [
   'pointerover',
 ] as const;
 
+// NOTE: consider tracking scroll-related events, see:
+// https://github.com/ebi-uniprot/uniprot-website/pull/924#issuecomment-3890303014
+
 export type BotDetectionStatus = 'undetermined' | 'human'; // | 'supected-bot', or other statuses...
 
 export const BotDetectionContext =
