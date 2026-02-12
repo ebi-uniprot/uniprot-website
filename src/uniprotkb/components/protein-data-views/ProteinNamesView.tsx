@@ -276,7 +276,7 @@ type ProteinNamesViewProps = {
   proteinNames?: ProteinNamesData;
   noEvidence?: boolean;
   noTitles?: boolean;
-  protnlmProteinNames?: ProteinNamesData;
+  protnlmProteinNames?: ProteinNames[];
 };
 
 const ProteinNamesView = ({
@@ -294,14 +294,20 @@ const ProteinNamesView = ({
   }
   // If noEvidence, don't show this ProtNLM annotatation otherwise users will
   // think it's from UniProt.
-  if (protnlmProteinNames?.recommendedName && !noEvidence) {
+  if (protnlmProteinNames?.length && !noEvidence) {
     infoData.push({
-      title: 'AI predicted name',
+      title: pluralise('AI predicted name', protnlmProteinNames.length),
       content: (
         <span className="ai-annotation">
-          <NameWithEvidence
-            data={protnlmProteinNames.recommendedName.fullName}
-          />
+          <ExpandableList descriptionString="submitted names">
+            {protnlmProteinNames.map((names, index) => (
+              <ProteinNamesViewFlat
+                key={index} // eslint-disable-line react/no-array-index-key
+                names={names}
+                noEvidence={false}
+              />
+            ))}
+          </ExpandableList>
         </span>
       ),
     });
@@ -372,24 +378,6 @@ const ProteinNamesView = ({
             />
           ))}
         </ExpandableList>
-      ),
-    });
-  }
-  if (protnlmProteinNames?.submissionNames && !noEvidence) {
-    infoData.push({
-      title: 'AI submitted names',
-      content: (
-        <span className="ai-annotation">
-          <ExpandableList descriptionString="submitted names">
-            {protnlmProteinNames.submissionNames.map((submission, index) => (
-              <ProteinNamesViewFlat
-                key={index} // eslint-disable-line react/no-array-index-key
-                names={submission}
-                noEvidence={noEvidence}
-              />
-            ))}
-          </ExpandableList>
-        </span>
       ),
     });
   }

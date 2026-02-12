@@ -2,6 +2,7 @@ import { partition } from 'lodash-es';
 
 import EntrySection from '../types/entrySection';
 import { type UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
+import { type ProteinNames } from './namesAndTaxonomyConverter';
 import {
   type UniProtkbAPIModel,
   type UniProtkbUIModel,
@@ -108,13 +109,19 @@ export const augmentUIDataWithProtnlmPredictions = (
   const uniprotkbNamesAndTaxonomy = { ...data[EntrySection.NamesAndTaxonomy] };
   // Only proteinDescription.recommendedName.fullName at the moment.
   // If there is no evidence, assume it is filler and not actual predicted annotation.
+  const aiRecommendedNames: ProteinNames[] = [];
   if (
-    protnlmData.proteinDescription?.recommendedName?.fullName?.evidences
-      ?.length ||
-    protnlmData.proteinDescription?.submissionNames?.length
+    protnlmData.proteinDescription?.recommendedName?.fullName?.evidences?.length
   ) {
-    uniprotkbNamesAndTaxonomy.protnlmProteinNamesData =
-      protnlmData.proteinDescription;
+    aiRecommendedNames.push(protnlmData.proteinDescription.recommendedName);
+  }
+  for (const name of protnlmData.proteinDescription?.submissionNames || []) {
+    if (name.fullName?.evidences?.length) {
+      aiRecommendedNames.push(name);
+    }
+  }
+  if (aiRecommendedNames.length) {
+    uniprotkbNamesAndTaxonomy.protnlmProteinNamesData = aiRecommendedNames;
   }
   return {
     ...data,

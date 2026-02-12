@@ -154,9 +154,9 @@ describe('augmentUIDataWithProtnlmPredictions', () => {
 
     const namesSection = result[EntrySection.NamesAndTaxonomy];
     expect(namesSection).toHaveProperty('protnlmProteinNamesData');
-    expect(
-      namesSection.protnlmProteinNamesData?.recommendedName?.fullName?.value
-    ).toEqual('Carbohydrate sulfotransferase');
+    expect(namesSection.protnlmProteinNamesData?.[0].fullName.value).toEqual(
+      'Carbohydrate sulfotransferase'
+    );
   });
 
   it('should NOT add protnlmProteinNamesData when evidence is missing', () => {
