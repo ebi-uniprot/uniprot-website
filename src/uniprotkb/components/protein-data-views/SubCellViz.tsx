@@ -2,8 +2,17 @@ import '@swissprot/swissbiopics-visualizer';
 import './styles/sub-cell-viz.scss';
 
 import { groupBy } from 'lodash-es';
-import { type FC, memo, useEffect, useMemo, useRef } from 'react';
+import {
+  type FC,
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { type RequireExactlyOne } from 'type-fest';
+import { v1 } from 'uuid';
 
 import { addTooltip } from '../../../shared/utils/tooltip';
 import {
@@ -38,7 +47,6 @@ const reMpPart = /(mp|part)_(?<id>\w+)/;
 // Typing inspired from
 // https://github.com/ionic-team/stencil/blob/master/test/end-to-end/src/components.d.ts
 // this approach might be useful when we have to type more custom elements
-
 type SwissBioPicsEl = HTMLElement & {
   shadowRoot: ShadowRoot | null;
 
@@ -90,8 +98,8 @@ const patchSwissBioPics = (() => {
       }
 
       proto[fnName] = function patched(this, ...args: unknown[]) {
-        // Need this try-catch otherwise SwissBioPics will show
-        // "Failed to fetch..." when new ProtNLM2 data is loaded.
+        // Keep this try/catch: otherwise library errors bubble into React,
+        // which can trigger ErrorBoundary + HMR remount loops.
         try {
           if (!this.isConnected) {
             return;
@@ -101,7 +109,7 @@ const patchSwissBioPics = (() => {
           }
           return orig.apply(this, args);
         } catch {
-          // Just swallow library errors.
+          // Swallow library errors (they can happen due to async callbacks after unmount).
           return;
         }
       };
@@ -115,15 +123,15 @@ const patchSwissBioPics = (() => {
         return;
       }
 
-      for (const styleSheet of Array.from(shadowRoot?.styleSheets || [])) {
-        const { cssRules } = styleSheet as CSSStyleSheet;
+      for (const styleSheet of Array.from(shadowRoot.styleSheets || [])) {
+        const { cssRules } = styleSheet;
         for (let i = 0; i < cssRules.length; i += 1) {
           const rule = cssRules[i];
           if (
             rule instanceof CSSStyleRule &&
             rule.selectorText === selectorText
           ) {
-            (styleSheet as CSSStyleSheet).deleteRule(i);
+            styleSheet.deleteRule(i);
             return;
           }
         }
@@ -253,6 +261,7 @@ const attachTooltips = (
   let description = locationGroup.querySelector(
     '.subcell_description'
   )?.textContent;
+
   if (partOfShown) {
     // This location is a child of another location
     const parentLocationText =
@@ -261,15 +270,18 @@ const attachTooltips = (
       description = `A part of the shown ${parentLocationText}. ${description}`;
     }
   }
+
   const locationTextSelector = [
     ...getGoTermClassNames(locationGroup),
     ...getUniProtTextSelectors(locationGroup),
   ].join(',');
+
   const locationTextQueryResult =
     instance?.querySelectorAll(locationTextSelector);
   if (!locationTextQueryResult) {
     return null;
   }
+
   const locationTextElements = Array.from(locationTextQueryResult);
 
   const tooltipTarget = triggerTargetSvgs[0];
@@ -330,13 +342,47 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       return `${tab}|${taxonId}|${uniProtLocationIds ?? ''}|${goLocationIds ?? ''}`;
     }, [taxonId, uniProtLocations?.length, uniProtLocationIds, goLocationIds]);
 
-    // Unique content id per mount (the component moves/removes this node by id)
-    const contentId = useMemo(
-      () => `swissbiopics-content-${instanceKey.replaceAll('|', '-')}`,
-      [instanceKey]
-    );
+    /**
+     * contentid points to an element that SwissBioPics moves around the DOM.
+     * If React owns that element, React may later try to remove it from its original parent
+     * and crash with removeChild (because the library already moved it).
+     *
+     * So we create that node imperatively (not as JSX) and clean it up ourselves.
+     */
+    const contentIdRef = useRef(`swissbiopics-content-${v1()}`);
+    const contentId = contentIdRef.current;
+
+    const contentHostRef = useRef<HTMLDivElement | null>(null);
+    const [contentReady, setContentReady] = useState(false);
+
+    useLayoutEffect(() => {
+      const host = contentHostRef.current;
+      if (!host) {
+        return;
+      }
+
+      document.getElementById(contentId)?.remove();
+
+      const placeholder = document.createElement('div');
+      placeholder.id = contentId;
+      host.appendChild(placeholder);
+
+      setContentReady(true);
+
+      return () => {
+        // Remove from wherever the library moved it to.
+        document.getElementById(contentId)?.remove();
+        setContentReady(false);
+      };
+      // contentId is stable (ref), so this runs once per mount.
+      // eslint-disable-next-line reactHooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
+      if (!contentReady) {
+        return;
+      }
+
       const instance = elRef.current;
       const shadowRoot = instance?.shadowRoot as ShadowRoot | undefined;
       if (!shadowRoot) {
@@ -406,7 +452,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
 
         ${uniprotLookedAtSelectors} {
           stroke: black !important;
-          fill: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white); !important;
+          fill: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white) !important;
           fill-opacity: 1 !important;
         }
 
@@ -451,15 +497,15 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         const style = document.createElement('style');
         // inject more styles
         style.innerText = css;
-        shadowRoot?.appendChild(style);
+        shadowRoot.appendChild(style);
 
         // add a slot to inject content
         const slot = document.createElement('slot');
-        shadowRoot?.querySelector('.terms')?.appendChild(slot);
+        shadowRoot.querySelector('.terms')?.appendChild(slot);
 
         // This finds all subcellular location SVGs that will require a tooltip
         const subcellularPresentSVGs =
-          shadowRoot?.querySelectorAll(
+          shadowRoot.querySelectorAll(
             'svg .subcell_present, svg [class*="mp_"], svg [class*="part_"]'
           ) || [];
 
@@ -479,7 +525,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
 
             locationText.classList.add('inpicture');
 
-            const locationSVG = shadowRoot?.querySelector<SVGElement>(
+            const locationSVG = shadowRoot.querySelector<SVGElement>(
               `#${subcellularPresentSVG.id}`
             );
 
@@ -536,14 +582,14 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
       };
 
-      shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
+      shadowRoot.addEventListener('svgloaded', onSvgLoaded);
 
       return () => {
         cleanupLegendStyle?.();
         cleanupTooltips.forEach((cleanup) => cleanup?.());
-        shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
+        shadowRoot.removeEventListener('svgloaded', onSvgLoaded);
       };
-    }, [instanceKey, uniProtLocations, goLocations]);
+    }, [contentReady, instanceKey, uniProtLocations, goLocations]);
 
     const locationIds = {
       sls: uniProtLocationIds,
@@ -555,17 +601,22 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         {/** if this is not somewhere in the document, it doesn't add one of its 2
          * custom style tags... */}
         <template id="sibSwissBioPicsStyle" />
-        <div id={contentId} />
-        {/* Use the canonical element. Force remount with key. */}
-        <sib-swissbiopics-sl
-          ref={elRef}
-          key={instanceKey}
-          taxid={taxonId}
-          contentid={contentId}
-          {...locationIds}
-        >
-          {children}
-        </sib-swissbiopics-sl>
+
+        {/* Host element that we own; we imperatively create #contentId inside it. */}
+        <div ref={contentHostRef} />
+
+        {/* Only mount the custom element once the content placeholder exists. */}
+        {contentReady ? (
+          <sib-swissbiopics-sl
+            ref={elRef}
+            key={instanceKey}
+            taxid={taxonId}
+            contentid={contentId}
+            {...locationIds}
+          >
+            {children}
+          </sib-swissbiopics-sl>
+        ) : null}
       </>
     );
   }
