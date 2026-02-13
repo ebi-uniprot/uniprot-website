@@ -36,7 +36,7 @@ const areSuspiciousCoordinates = (x?: number, y?: number) => {
   }
 
   // either x or y is set to a suspiciously round number
-  // 50 is suspicious, but 51 is more natural
+  // consistent use of 100px is suspicious, but 102 and 103 look more natural
   return !(x % 10) || !(y % 10);
 };
 
