@@ -6,6 +6,7 @@ import {
   LongNumber,
 } from 'franklin-sites';
 import { partition } from 'lodash-es';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -15,13 +16,16 @@ import {
 } from '../../../../app/config/urls';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
 import ResultsData from '../../../../shared/components/results/ResultsData';
+import { fileFormatToUrlParameter } from '../../../../shared/config/resultsDownload';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import { type PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { FileFormat } from '../../../../shared/types/resultsDownload';
 import generateAndDownloadTSV from '../../../../shared/utils/generateAndDownloadTSV';
 import * as logging from '../../../../shared/utils/logging';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
-import { stringifyQuery } from '../../../../shared/utils/url';
+import { stringifyQuery, stringifyUrl } from '../../../../shared/utils/url';
 import { pluralise } from '../../../../shared/utils/utils';
 import { TabLocation } from '../../../../uniparc/types/entry';
 import { reUniParc } from '../../../../uniprotkb/utils/regexes';
@@ -40,6 +44,7 @@ url_length = prefix + n * upid + (n-1) * encoded_or
 For n = 78, above gives 1980 as url_length which is < 2000.
 */
 const UNIPARC_DIRECT_LINK_LIMIT = 78;
+const ID_MAPPING_FILTER_LIMIT = 25000;
 
 type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
@@ -74,6 +79,34 @@ const IDMappingResultTable = ({
     ...new Set(suggestedUniParcIds?.map(({ to }) => to)),
   ];
 
+  // Download inactive accessions from ID mapping results if present
+  const resultsStreamDownloadUrl =
+    detailsData?.redirectURL &&
+    stringifyUrl(
+      detailsData.redirectURL.replace('/results/', '/results/stream/'),
+      {
+        query: stringifyQuery({
+          active: false,
+        }),
+        format: fileFormatToUrlParameter[FileFormat.list],
+        compressed: false,
+      }
+    );
+  const { data: inactiveEntriesList } = useDataApi<FileFormat.list>(
+    resultsDataObject.obsoleteCount &&
+      resultsDataObject.total &&
+      resultsDataObject.total <= ID_MAPPING_FILTER_LIMIT
+      ? resultsStreamDownloadUrl
+      : undefined
+  );
+
+  const inactiveEntries = useMemo(() => {
+    if (!inactiveEntriesList) {
+      return [];
+    }
+    return inactiveEntriesList.split('\n').filter(Boolean);
+  }, [inactiveEntriesList]);
+
   if (suggestedOtherIds?.length) {
     logging.warn('Non-UniParc IDs have been suggested for an ID Mapping job.');
   }
@@ -83,6 +116,7 @@ const IDMappingResultTable = ({
       <ResultsButtons
         total={resultsDataObject.total || 0}
         loadedTotal={resultsDataObject.allResults.length}
+        obsoleteCount={resultsDataObject.obsoleteCount}
         selectedEntries={selectedEntries}
         namespaceOverride={namespaceOverride}
         disableCardToggle
@@ -246,6 +280,25 @@ const IDMappingResultTable = ({
               </Link>{' '}
               {pluralise('entry', obsoleteLength, 'entries')}{' '}
               {pluralise('is', mappedLength, 'are')} found
+              {/* Option to resubmit an ID mapping job from UPKB to UniParc if the total results is within 25K limit */}
+              {inactiveEntries && (
+                <>
+                  {` `}(
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.IDMapping],
+                      search: stringifyQuery({
+                        ids: inactiveEntries,
+                        from: 'UniProtKB_AC-ID',
+                        to: 'UniParc',
+                      }),
+                    }}
+                  >
+                    Map {obsoleteLength} obsolete UniProtKB entries to UniParc
+                  </Link>
+                  )
+                </>
+              )}
             </div>
           )}
         </HeroContainer>

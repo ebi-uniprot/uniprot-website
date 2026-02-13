@@ -39,6 +39,12 @@ const ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS = new Set([
   FileFormat.tsv,
   FileFormat.json,
 ]);
+const ID_MAPPING_OBSOLETE_FILE_FORMATS = new Set([
+  FileFormat.tsv,
+  FileFormat.json,
+  FileFormat.excel,
+  FileFormat.list,
+]);
 
 const reSubsequence = /\[\d{1,5}-\d{1,5}\]/;
 const reSubsequenceFrom = new RegExp(
@@ -405,6 +411,9 @@ export const getIsTooLargeForEmbeddings = (
   getIsEmbeddings(state) &&
   getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
 
+const getIsObsoleteInclusive = (state: DownloadState) =>
+  ID_MAPPING_OBSOLETE_FILE_FORMATS.has(state.selectedFileFormat);
+
 export const getExtraContent = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
@@ -433,6 +442,9 @@ export const getExtraContent = (
   }
   if (state.extraContent === 'preview') {
     return 'preview';
+  }
+  if (state.extraContent === 'obsolete' && !getIsObsoleteInclusive(state)) {
+    return 'obsolete';
   }
   return null;
 };

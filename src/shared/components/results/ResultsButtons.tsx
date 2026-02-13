@@ -73,6 +73,7 @@ type ResultsButtonsProps<T extends JobTypes> = {
   subsetsMap?: Map<string, string>;
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
+  obsoleteCount?: number;
 };
 
 const ResultsButtons: FC<
@@ -92,10 +93,13 @@ const ResultsButtons: FC<
   subsetsMap,
   jobType,
   inputParamsData,
+  obsoleteCount,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const [downloadPanelExtraContent, setDownloadPanelExtraContent] =
-    useState<ExtraContent>(null);
+    useState<ExtraContent>(
+      obsoleteCount && obsoleteCount > 0 ? 'obsolete' : null
+    );
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const {
     viewMode,
@@ -213,6 +217,7 @@ const ResultsButtons: FC<
                 inputParamsData={inputParamsData}
                 jobType={jobType}
                 extraContent={downloadPanelExtraContent}
+                obsoleteCount={obsoleteCount}
               />
             </ErrorBoundary>
           </SlidingPanel>
