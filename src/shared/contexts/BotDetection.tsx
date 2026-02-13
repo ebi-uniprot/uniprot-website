@@ -23,16 +23,21 @@ export const BotDetectionContext =
   createContext<BotDetectionStatus>('undetermined');
 
 const areSuspiciousCoordinates = (x?: number, y?: number) => {
-  // either x or y is zero
-  if (!x || !y) {
+  // either x or y is zero, or really low value
+  if (!x || !y || x < 10 || y < 10) {
     return true;
   }
-  const xDecimals = `${x}`.split('.')[1] || '';
-  const yDecimals = `${y}`.split('.')[1] || '';
 
-  // either x or y is set to a suspiciously round-ish number
-  // 5.1 is suspicious, but 5.173694 is more natural
-  return xDecimals.length < 2 || yDecimals.length < 2;
+  // either x or y is a binary round number (e.g. 16, 32, etc)
+  // e.g. 16 is 10000, 15 is 01111, so 16 & 15 is 00000
+  // eslint-disable-next-line no-bitwise
+  if ((x & (x - 1)) === 0 || (y & (y - 1)) === 0) {
+    return true;
+  }
+
+  // either x or y is set to a suspiciously round number
+  // 50 is suspicious, but 51 is more natural
+  return !(x % 10) || !(y % 10);
 };
 
 const getMeanAndVariationCoefficient = (array: number[]) => {
