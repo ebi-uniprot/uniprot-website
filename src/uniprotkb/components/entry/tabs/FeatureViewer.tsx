@@ -1,5 +1,5 @@
 import { Loader, Message } from 'franklin-sites';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { use, useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
@@ -8,6 +8,7 @@ import EntryDownloadButton from '../../../../shared/components/entry/EntryDownlo
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { VARIANT_COUNT_LIMIT } from '../../../../shared/config/limits';
+import { BotDetectionContext } from '../../../../shared/contexts/BotDetection';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -123,6 +124,14 @@ const FeatureViewer = ({
 
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllFeatures = searchParams.get('loadFeatures');
+
+  if (use(BotDetectionContext) !== 'human') {
+    return (
+      <Message level="info">
+        Please interact with the page to view the Feature Viewer
+      </Message>
+    );
+  }
 
   if (loading) {
     return <Loader />;
