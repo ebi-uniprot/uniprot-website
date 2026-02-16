@@ -27,6 +27,7 @@ import styles from './styles/sub-entry-context.module.css';
 const iconSize = '1.125em';
 
 interface SubEntryContextProps {
+  uniparcId: string;
   subEntry: UniParcSubEntryUIModel['subEntry'];
   data?: UniSaveStatus;
   showUniFireOption: boolean;
@@ -50,6 +51,7 @@ const getDeletedReasonText = (reason?: DeletedReason) => {
 };
 
 const SubEntryContext = ({
+  uniparcId,
   subEntry,
   data,
   showUniFireOption,
@@ -58,10 +60,23 @@ const SubEntryContext = ({
   runUniFire,
   setRunUniFire,
 }: SubEntryContextProps) => {
-  const { id: subEntryId, isUniprotkbEntry } = subEntry;
+  const { id: subEntryId, isUniprotkbEntry, active } = subEntry;
 
   if (!subEntryId) {
     return null;
+  }
+
+  // Redirect to UniParc entry if is an inactive external xref
+  if (!isUniprotkbEntry && !active) {
+    return (
+      <Redirect
+        to={{
+          pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+            accession: uniparcId,
+          }),
+        }}
+      />
+    );
   }
 
   const events = data?.events?.filter((event) => event.eventType === 'deleted');
