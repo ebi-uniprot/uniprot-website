@@ -68,55 +68,49 @@ const SubEntryContext = ({
 
   let contextInfo;
 
-  const uniFireButton = showUniFireOption ? (
-    <>
-      <span>
-        However, annotations may be generated on demand using automatic
-        annotation rules.
-      </span>
-      <div className={styles['predictions-status']}>
-        {!runUniFire && (
-          <Button
-            variant="primary"
-            onClick={() => setRunUniFire(true)}
-            className={styles['run-unifire-button']}
-            disabled={runUniFire}
-          >
-            Generate annotations
-          </Button>
-        )}
-        {runUniFire && uniFireLoading && (
-          <Button
-            variant="primary"
-            className={styles['run-unifire-button']}
-            disabled={true}
-          >
-            Generating annotations
-          </Button>
-        )}
-        {runUniFire && !uniFireLoading && !uniFireData?.accession && (
-          <>
-            <InformationIcon
-              className={cn(styles.icon, styles.info)}
-              width={iconSize}
-              height={iconSize}
-            />
-            No predictions generated
-          </>
-        )}
-        {runUniFire && !uniFireLoading && uniFireData?.accession && (
-          <>
-            <SuccessIcon
-              className={cn(styles.icon, styles.success)}
-              width={iconSize}
-              height={iconSize}
-            />
-            Predictions generated
-          </>
-        )}
-      </div>
-    </>
-  ) : null;
+  const uniFireButton = (
+    <div className={styles['predictions-status']}>
+      {!runUniFire && (
+        <Button
+          variant="primary"
+          onClick={() => setRunUniFire(true)}
+          className={styles['run-unifire-button']}
+          disabled={runUniFire}
+        >
+          Generate annotations
+        </Button>
+      )}
+      {runUniFire && uniFireLoading && (
+        <Button
+          variant="primary"
+          className={styles['run-unifire-button']}
+          disabled={true}
+        >
+          Generating annotations
+        </Button>
+      )}
+      {runUniFire && !uniFireLoading && !uniFireData?.accession && (
+        <>
+          <InformationIcon
+            className={cn(styles.icon, styles.info)}
+            width={iconSize}
+            height={iconSize}
+          />
+          No predictions generated
+        </>
+      )}
+      {runUniFire && !uniFireLoading && uniFireData?.accession && (
+        <>
+          <SuccessIcon
+            className={cn(styles.icon, styles.success)}
+            width={iconSize}
+            height={iconSize}
+          />
+          Predictions generated
+        </>
+      )}
+    </div>
+  );
 
   if (isUniprotkbEntry) {
     if (!events || events.length === 0) {
@@ -142,7 +136,16 @@ const SubEntryContext = ({
               <strong data-article-id="deleted_accessions">
                 {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
               </strong>
-              . {uniFireButton}
+              .{' '}
+              {showUniFireOption ? (
+                <>
+                  <span>
+                    However, annotations may be generated on demand using
+                    automatic annotation rules.
+                  </span>
+                  {uniFireButton}
+                </>
+              ) : null}
             </div>
           ),
         },
@@ -186,8 +189,16 @@ const SubEntryContext = ({
             title: 'Status',
             content: (
               <div>
-                This is an active entry from <i>{subEntry.database}</i>.{' '}
-                {uniFireButton}
+                This is an active {subEntry.database} entry.{' '}
+                {showUniFireOption ? (
+                  <>
+                    <span>
+                      Annotations can be generated on demand using automatic
+                      annotation rules.
+                    </span>
+                    {uniFireButton}
+                  </>
+                ) : null}
               </div>
             ),
           },
