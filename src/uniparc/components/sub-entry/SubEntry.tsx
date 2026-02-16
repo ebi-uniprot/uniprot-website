@@ -312,6 +312,7 @@ const SubEntry = () => {
           .
         </Message>
         <SubEntryContext
+          uniparcId={accession}
           subEntry={transformedData.subEntry}
           data={unisaveData?.data}
           showUniFireOption={!!canLoadUniFire}
