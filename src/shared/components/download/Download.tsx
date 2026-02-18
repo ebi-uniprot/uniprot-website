@@ -95,6 +95,7 @@ export type DownloadProps<T extends JobTypes> = {
   jobType?: T;
   inputParamsData?: PublicServerParameters[T];
   extraContent?: ExtraContent;
+  obsoleteCount?: number;
 };
 
 export const proteomeFastaOption = (
@@ -275,6 +276,15 @@ const Download = (props: DownloadProps<JobTypes>) => {
           previewUrl={previewUrl}
           previewFileFormat={previewOptions?.fileFormat}
         />
+      );
+      break;
+    case 'obsolete':
+      extraContentNode = (
+        <Message level="warning">
+          The selected format ({state.selectedFileFormat}) supports only active
+          entries and will exclude inactive ones from the download. To download
+          all entries, please choose JSON, TSV, Excel or List.
+        </Message>
       );
       break;
     default:
