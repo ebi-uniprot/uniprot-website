@@ -16,10 +16,10 @@ import unirefP05067isoform4 from './__mocks__/unirefP05067-4';
 const axiosMock = new MockAdapter(axios);
 axiosMock
   // find clusters for canonical
-  .onGet(/query=%28uniprotkb%3DP05067%29/)
+  .onGet(/query=uniprotkb%3AP05067$/)
   .reply(200, unirefP05067)
   // find clusters for isoform 4
-  .onGet(/query=%28uniprotkb%3DP05067-4%29/)
+  .onGet(/query=uniprotkb%3AP05067-4$/)
   .reply(200, unirefP05067isoform4)
   // find members of cluster (always same response for testing)
   .onGet(/\/uniprotkb\/search/)

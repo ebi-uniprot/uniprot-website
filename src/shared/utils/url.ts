@@ -119,11 +119,15 @@ export const getSearchParams = ({
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }
+
   return {
     size,
-    query: `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]
-      .filter(Boolean)
-      .join(' AND ')}`,
+    query: selectedFacets.length
+      ? // If there are facets, wrap user query in parentheses and join with AND
+        `${[`(${query})`, createFacetsQueryString(selectedFacets)]
+          .filter(Boolean)
+          .join(' AND ')}`
+      : query,
     fields: columns?.join(',') || undefined,
     facets: facetField?.join(','),
     sort:

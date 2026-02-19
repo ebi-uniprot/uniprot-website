@@ -15,9 +15,9 @@ let rendered: ReturnType<typeof customRender>;
 const mock = new MockAdapter(axios);
 
 mock
-  .onGet(/\/uniprotkb\/groups\/taxonomy\?query=%28\*%29/)
+  .onGet(/\/uniprotkb\/groups\/taxonomy\?query=\*/)
   .reply(200, taxonomyRoot)
-  .onGet(/\/uniprotkb\/groups\/taxonomy\?parent=131567&query=%28\*%29/)
+  .onGet(/\/uniprotkb\/groups\/taxonomy\?parent=131567&query=\*/)
   .reply(200, taxonomyCellularOrgranisms)
   .onGet(/\/uniprotkb\/groups\/ec/)
   .reply(200, ecNonRoot);

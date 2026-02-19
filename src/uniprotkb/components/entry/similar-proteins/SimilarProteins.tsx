@@ -68,12 +68,9 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
       }>(
         apiUrls.search.search({
           namespace: Namespace.uniref,
-          query: stringifyQuery({
-            uniprotkb:
-              accession === canonical
-                ? accession.replace(/-\d+$/, '')
-                : accession,
-          }),
+          query: `uniprotkb:${
+            accession === canonical ? accession.replace(/-\d+$/, '') : accession
+          }`,
           columns: [UniRefColumn.id, UniRefColumn.identity],
           facets: null,
         }),
