@@ -576,17 +576,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/287/"
+          href="https://www.proteinspotlight.org/back_issues/288/"
           rel="noopener"
           target="_blank"
         >
-          Give and take
+          On the notion of tall
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/287/"
+        href="https://www.proteinspotlight.org/back_issues/288/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -595,14 +595,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt287.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt288.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Survival  is  the  essence  of  life.  This  may  sound  like  an  abysmal  platitude  but,  in  the  living  world,  the  act  of  survival  implies  an  awful  lot.  To  survive,  many  animals  eat  other  animals,  which  they  must  first  kill.
+          Take  a  child.  Show  it  two  toy  animals  that  differ  in  height  and  ask  which  is  the  mum  and  which  is  the  dad.  The  youngster  will  probably  point  to  the  tallest  and  say...
       </p>
     </article>
   </section>
