@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import fetchData from '../../../../shared/utils/fetchData';
-import { stringifyQuery } from '../../../../shared/utils/url';
 import {
   type UniRefEntryType,
   uniRefEntryTypeToPercent,
