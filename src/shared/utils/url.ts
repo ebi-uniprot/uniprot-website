@@ -124,7 +124,7 @@ export const getSearchParams = ({
     size,
     query: selectedFacets.length
       ? // If there are facets, wrap user query in parentheses and join with AND
-        `${[`(${query})`, createFacetsQueryString(selectedFacets)]
+        `${[query && `(${query})`, createFacetsQueryString(selectedFacets)]
           .filter(Boolean)
           .join(' AND ')}`
       : query,
