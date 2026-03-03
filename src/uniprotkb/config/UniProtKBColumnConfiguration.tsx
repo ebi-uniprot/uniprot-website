@@ -183,6 +183,16 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
           <em data-article-id="deleted_accessions">
             ({data.inactiveReason.inactiveReasonType.toLowerCase()})
           </em>
+          <br />
+          {data.extraAttributes?.uniParcId && (
+            <>
+              <AccessionView
+                id={data.extraAttributes.uniParcId}
+                namespace={Namespace.uniparc}
+              />{' '}
+              (UniParc)
+            </>
+          )}
         </>
       )}
     </>
