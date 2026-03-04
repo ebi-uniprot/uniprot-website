@@ -70,9 +70,7 @@ const IDMappingResultTable = ({
   const obsoleteLength = resultsDataObject.obsoleteCount || 0;
   const mappedLength = inputLength - failedLength - suggestedLength;
   const activeLength = mappedLength - obsoleteLength;
-  const isFilterable =
-    resultsDataObject.total &&
-    resultsDataObject.total <= ID_MAPPING_FILTER_LIMIT;
+  const isFilterable = inputLength <= ID_MAPPING_FILTER_LIMIT;
   const [suggestedUniParcIds, suggestedOtherIds] = partition(
     resultsDataObject.suggestedIds,
     ({ to }) => reUniParc.test(to)
