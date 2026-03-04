@@ -108,7 +108,6 @@ export const getCountForCustomisableSet = (
 ) => {
   let totalCount = props.totalNumberResults;
   let selectedCount = state.nSelectedEntries;
-  console.log(props.accessionSubSequenceMap);
   if (props.accessionSubSequenceMap) {
     // Basket view
     if (state.selectedFileFormat !== FileFormat.fastaCanonical) {
@@ -130,7 +129,7 @@ export const getCountForCustomisableSet = (
   };
 };
 
-const extractAccessionForEmbeddings = (accessions?: string[]) => {
+const extractAccessionsForEmbeddings = (accessions?: string[]) => {
   const accessionsForEmbeddings = new Set<string>();
 
   accessions?.forEach((acc) => {
@@ -156,7 +155,7 @@ export const getDownloadCount = (
 
     // Ignore subsequences and isoforms for embeddings
     if (state.selectedFileFormat === FileFormat.embeddings) {
-      const accessionsForEmbeddings = extractAccessionForEmbeddings(
+      const accessionsForEmbeddings = extractAccessionsForEmbeddings(
         state.downloadSelect === 'all'
           ? props.accessions
           : props.selectedEntries
@@ -334,7 +333,7 @@ export const getDownloadOptions = (
   }
 
   if (getIsEmbeddings(state)) {
-    const accessions = extractAccessionForEmbeddings(
+    const accessions = extractAccessionsForEmbeddings(
       selected.length ? selected : props.accessions || []
     );
 

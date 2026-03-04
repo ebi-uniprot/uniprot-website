@@ -22,6 +22,7 @@ import {
   type FacetObject,
   type SearchResults,
 } from '../../../shared/types/results';
+import { pluralise } from '../../../shared/utils/utils';
 import { type SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 import { type FormParameters } from '../types/asyncDownloadFormParameters';
 import styles from './styles/async-download-confirmation.module.scss';
@@ -142,9 +143,9 @@ const AsyncDownloadConfirmation = ({
         isoformSubSequenceRegex.test(acc)
       ) ? (
         <Message className={styles['warning-message']} level="warning">
-          Only {count} canonical sequences will be included in the download, as
-          some of the accessions you have entered are either isoforms or
-          sub-sequences.
+          Only {count} canonical {pluralise('sequence', count)} will be included
+          in the download, as some of the accessions you have entered are either
+          isoforms or sub-sequences.
         </Message>
       ) : null}
       <InfoList
