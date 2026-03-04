@@ -70,6 +70,9 @@ const IDMappingResultTable = ({
   const obsoleteLength = resultsDataObject.obsoleteCount || 0;
   const mappedLength = inputLength - failedLength - suggestedLength;
   const activeLength = mappedLength - obsoleteLength;
+  const isFilterable =
+    resultsDataObject.total &&
+    resultsDataObject.total <= ID_MAPPING_FILTER_LIMIT;
   const [suggestedUniParcIds, suggestedOtherIds] = partition(
     resultsDataObject.suggestedIds,
     ({ to }) => reUniParc.test(to)
@@ -93,9 +96,7 @@ const IDMappingResultTable = ({
       }
     );
   const { data: inactiveEntriesList } = useDataApi<FileFormat.list>(
-    resultsDataObject.obsoleteCount &&
-      resultsDataObject.total &&
-      resultsDataObject.total <= ID_MAPPING_FILTER_LIMIT
+    resultsDataObject.obsoleteCount && isFilterable
       ? resultsStreamDownloadUrl
       : undefined
   );
@@ -270,18 +271,22 @@ const IDMappingResultTable = ({
               <strong>
                 <LongNumber>{obsoleteLength}</LongNumber>
               </strong>{' '}
-              <Link
-                to={(location) => ({
-                  ...location,
-                  search: stringifyQuery({ query: 'active:false' }),
-                })}
-              >
-                obsolete
-              </Link>{' '}
+              {isFilterable ? (
+                <Link
+                  to={(location) => ({
+                    ...location,
+                    search: stringifyQuery({ query: 'active:false' }),
+                  })}
+                >
+                  obsolete
+                </Link>
+              ) : (
+                'obsolete'
+              )}{' '}
               {pluralise('entry', obsoleteLength, 'entries')}{' '}
               {pluralise('is', mappedLength, 'are')} found
               {/* Option to resubmit an ID mapping job from UPKB to UniParc if the total results is within 25K limit */}
-              {inactiveEntries && (
+              {isFilterable && inactiveEntries && (
                 <>
                   {` `}(
                   <Link
