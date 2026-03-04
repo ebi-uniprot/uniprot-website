@@ -805,7 +805,7 @@ describe('Download Utils', () => {
   test('embeddings download with async download from basket', () => {
     const props: DownloadProps<JobTypes> = {
       selectedEntries: [],
-      accessions: ['P05067[96-110]', 'P05067', 'A0JP26[1-581]'],
+      accessions: ['P05067[96-110]', 'P05067', 'A0JP26-2'],
       totalNumberResults: 3,
       namespace: Namespace.uniprotkb,
       notCustomisable: false,
@@ -813,7 +813,7 @@ describe('Download Utils', () => {
       accessionSubSequenceMap: new Map([
         ['P05067[96-110]', 'P05067'],
         ['P05067', 'P05067'],
-        ['A0JP26[1-581]', 'A0JP26'],
+        ['A0JP26-2', 'A0JP26-2'],
       ]),
       onClose: jest.fn(),
     };
@@ -841,7 +841,7 @@ describe('Download Utils', () => {
     expect(getPreviewFileFormat(state)).toEqual(undefined);
     expect(getDownloadCount(state, props)).toEqual(2);
     expect(getDownloadOptions(state, props, location, job)).toEqual({
-      accessions: ['P05067', 'A0JP26'],
+      accessions: ['P05067', 'A0JP26-2'],
       base: undefined,
       compressed: true,
       fileFormat: FileFormat.embeddings,

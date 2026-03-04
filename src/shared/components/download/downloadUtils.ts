@@ -108,6 +108,7 @@ export const getCountForCustomisableSet = (
 ) => {
   let totalCount = props.totalNumberResults;
   let selectedCount = state.nSelectedEntries;
+  console.log(props.accessionSubSequenceMap);
   if (props.accessionSubSequenceMap) {
     // Basket view
     if (state.selectedFileFormat !== FileFormat.fastaCanonical) {
