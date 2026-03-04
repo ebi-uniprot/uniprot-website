@@ -285,25 +285,26 @@ const IDMappingResultTable = ({
               )}{' '}
               {pluralise('entry', obsoleteLength, 'entries')}{' '}
               {pluralise('is', mappedLength, 'are')} found
-              {/* Option to resubmit an ID mapping job from UPKB to UniParc if the total results is within 25K limit */}
-              {isFilterable && inactiveEntries && (
-                <>
-                  {` `}(
-                  <Link
-                    to={{
-                      pathname: LocationToPath[Location.IDMapping],
-                      search: stringifyQuery({
-                        ids: inactiveEntries,
-                        from: 'UniProtKB_AC-ID',
-                        to: 'UniParc',
-                      }),
-                    }}
-                  >
-                    Map {obsoleteLength} obsolete UniProtKB entries to UniParc
-                  </Link>
-                  )
-                </>
-              )}
+              {/* Map inactive UniProtKB to UniParc if total results < 25k; all IDs from UniProtKB to UniParc if total > 25k */}
+              {` `}(
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.IDMapping],
+                  search: stringifyQuery({
+                    ids:
+                      isFilterable && inactiveEntries
+                        ? inactiveEntries
+                        : inputIDs,
+                    from: 'UniProtKB_AC-ID',
+                    to: 'UniParc',
+                  }),
+                }}
+              >
+                {isFilterable && inactiveEntries
+                  ? `Map ${obsoleteLength} obsolete UniProtKB entries to UniParc`
+                  : `Map all ${inputLength} ${pluralise('ID', inputLength)} to UniParc`}
+              </Link>
+              )
             </div>
           )}
         </HeroContainer>
