@@ -37,29 +37,25 @@ export const AiEvidenceCode = 'ECO:0008006';
 type Evidence = {
   evidenceCode: typeof AiEvidenceCode;
   id: 'ProtNLM2';
-  properties: Property[];
+  properties: EvidenceProperty[];
   source: 'Google';
 };
 
-type Property = {
-  key: Key;
+type EvidenceProperty = {
+  key: EvidenceKey;
   value: null | string;
 };
 
-type Key =
+type EvidenceKey =
   | 'model_score'
   | 'phmmer_accession'
   | 'phmmer_score'
   | 'string_match_text'
   | 'string_match_location'
-  | 'string_match_type'
+  | 'string_match_type' // possible values should be: substring/hydrated substring/exact
   | 'tmalign_accession'
   | 'tmalign_score_chain_1'
-  | 'tmalign_score_chain_2'
-  | 'GoTerm'
-  | 'GoEvidenceType'
-  | 'EntryName'
-  | 'MatchStatus';
+  | 'tmalign_score_chain_2';
 
 type EntryAudit = {
   entryVersion: 1;
@@ -115,11 +111,22 @@ type Citation = {
   id: 'CI-FC84BSHK1H4IL';
 };
 
+type UniProtKBCrossReferenceProperty = {
+  key: UniProtKBCrossReferencePropertyKey;
+  value: null | string;
+};
+
+type UniProtKBCrossReferencePropertyKey =
+  | 'GoTerm'
+  | 'GoEvidenceType'
+  | 'EntryName'
+  | 'MatchStatus';
+
 type UniProtKBCrossReference = {
   database: Database;
   evidences?: Evidence[];
   id: string;
-  properties: Property[];
+  properties: UniProtKBCrossReferenceProperty[];
 };
 
 type Database = 'GO' | 'Pfam';
