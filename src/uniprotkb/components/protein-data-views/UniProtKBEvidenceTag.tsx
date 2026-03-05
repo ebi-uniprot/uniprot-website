@@ -13,6 +13,7 @@ import {
 } from '../../config/evidenceCodes';
 import { type Evidence } from '../../types/modelTypes';
 import EvidenceLink from './EvidenceLink';
+import ProtNLM2EvidenceLink from './ProtNLM2EvidenceLink';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 
 export enum EvidenceTagSourceTypes {
@@ -66,9 +67,13 @@ const UniProtEvidenceTagContent = ({
             descriptionString={`${key} sources`}
             key={key}
           >
-            {mappedEvidences.map(({ id, url }: Evidence, index) => (
+            {mappedEvidences.map(({ id, url, properties }: Evidence, index) => (
               <span key={id || index}>
-                <EvidenceLink source={key} value={id} url={url} />
+                {id == 'ProtNLM2' ? (
+                  <ProtNLM2EvidenceLink id={id} properties={properties} />
+                ) : (
+                  <EvidenceLink source={key} value={id} url={url} />
+                )}
               </span>
             ))}
           </ExpandableList>
@@ -77,6 +82,12 @@ const UniProtEvidenceTagContent = ({
     </div>
   );
 };
+
+// const isProtNLM2 =(
+//   evidences,
+// ) => {
+
+// }
 
 const UniProtKBEvidenceTag = ({
   evidences,
