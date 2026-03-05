@@ -33,10 +33,11 @@ type FullName = {
 };
 
 export const AiEvidenceCode = 'ECO:0008006';
+export const ProtNLM2Id = 'ProtNLM2';
 
 type Evidence = {
   evidenceCode: typeof AiEvidenceCode;
-  id: 'ProtNLM2';
+  id: typeof ProtNLM2Id;
   properties: EvidenceProperty[];
   source: 'Google';
 };

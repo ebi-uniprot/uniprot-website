@@ -12,6 +12,7 @@ import {
   labels,
 } from '../../config/evidenceCodes';
 import { type Evidence } from '../../types/modelTypes';
+import { ProtNLM2Id } from '../../types/protNLMAPIModel';
 import EvidenceLink from './EvidenceLink';
 import ProtNLM2EvidenceLink from './ProtNLM2EvidenceLink';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
@@ -69,7 +70,7 @@ const UniProtEvidenceTagContent = ({
           >
             {mappedEvidences.map(({ id, url, properties }: Evidence, index) => (
               <span key={id || index}>
-                {id == 'ProtNLM2' ? (
+                {id == ProtNLM2Id ? (
                   <ProtNLM2EvidenceLink id={id} properties={properties} />
                 ) : (
                   <EvidenceLink source={key} value={id} url={url} />
