@@ -42,7 +42,7 @@ type Evidence = {
   source: 'Google';
 };
 
-type EvidenceProperty = {
+export type EvidenceProperty = {
   key: EvidenceKey;
   value: null | string;
 };
