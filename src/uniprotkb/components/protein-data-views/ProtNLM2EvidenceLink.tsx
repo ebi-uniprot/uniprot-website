@@ -29,11 +29,13 @@ import {
 //   'tmalign_accession',
 //   'tmalign_score_chain_1',
 //   'tmalign_score_chain_2',
-//   link to foldmason: for tmalign structure: https://search.foldseek.com/foldmason?accessions=A0A182IS97,A0A0C9R1G8&sources=AlphaFoldDB
 //
 
 const foldSeekUrl = 'https://search.foldseek.com/foldmason';
 const interProUrl = 'https://www.ebi.ac.uk/interpro/entry/InterPro/';
+const goUrl = 'https://amigo.geneontology.org/amigo/term/';
+const ecUrl = 'https://enzyme.expasy.org/EC/';
+const pfamUrl = 'https://www.ebi.ac.uk/interpro/entry/pfam/';
 
 type Props = {
   id: typeof ProtNLM2Id;
@@ -54,16 +56,31 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
   const stringMatchType = propertiesMap.get('string_match_type');
 
   if (stringMatchText && stringMatchLoc && stringMatchType) {
-    // create lookup table for printing correct things
     const matchTypeLabel: Record<string, string> = {
       hydrated: 'Hyrdated substring match',
       substring: 'Substring match',
       exact: 'Exact match',
     };
     const typeValue = stringMatchType ?? '';
+
+    const locToUrl: Record<string, string> = {
+      InterPro: interProUrl,
+      GO: goUrl,
+      EC: ecUrl,
+      Pfam: pfamUrl,
+    };
+    const externalUrl = locToUrl[stringMatchLoc];
+
     return (
       <>
-        {`${matchTypeLabel[typeValue] ?? typeValue} with ${stringMatchLoc}: ${stringMatchText}`}
+        {`${matchTypeLabel[typeValue] ?? typeValue} with ${stringMatchLoc}: `}
+        {externalUrl && typeValue === 'hydrated' ? (
+          <ExternalLink url={`${externalUrl}${stringMatchText}`}>
+            {stringMatchText}
+          </ExternalLink>
+        ) : (
+          stringMatchText
+        )}
       </>
     );
   }
@@ -87,7 +104,7 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
             }),
           }}
         >
-          Align sequence
+          Align sequences
         </Link>
       </>
     );
@@ -111,7 +128,7 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
         {` (tmalign score for ${accession}:
         ${tmalignScore1} | tmalign score for
         ${tmalignAccession}: ${tmalignScore2}) — `}
-        <ExternalLink url={foldSeekAlign}>Align structure</ExternalLink>
+        <ExternalLink url={foldSeekAlign}>Align structures</ExternalLink>
       </>
     );
   }
