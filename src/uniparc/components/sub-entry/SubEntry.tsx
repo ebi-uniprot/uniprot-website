@@ -79,6 +79,11 @@ const getErrorStatus = (
   return undefined;
 };
 
+const reUniProtKBAccessionWithBounds = new RegExp(
+  `(?<!\\w)(?:${reUniProtKBAccession.source})(?!\\w)`,
+  'i'
+);
+
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
   const dispatch = useMessagesDispatch();
@@ -91,7 +96,7 @@ const SubEntry = () => {
   const [runUniFire, setRunUniFire] = useState(true);
 
   const { accession, subEntryId, subPage } = match?.params || {};
-  const isUniProtKB = reUniProtKBAccession.test(subEntryId || '');
+  const isUniProtKB = reUniProtKBAccessionWithBounds.test(subEntryId || '');
 
   const baseURL = `${apiUrls.entry.entry(
     subEntryId && accession,
