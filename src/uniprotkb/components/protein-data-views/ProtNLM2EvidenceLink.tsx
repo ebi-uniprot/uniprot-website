@@ -105,13 +105,12 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
         <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
           {phmmerAccession}
         </Link>
-
         <ul>
           <li>
             phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
           </li>
         </ul>
-        <small>Higher values indicate stronger sequence similarity.</small>
+        Higher values indicate stronger sequence similarity.
         <br />
         <br />
         <Link
@@ -159,10 +158,8 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
             <strong>{Number(tmalignScore2).toFixed(2)}</strong>
           </li>
         </ul>
-        <small>
-          TM-score ranges from 0 to 1, where 1 indicates a perfect match. Scores
-          above <strong>0.5</strong> generally suggest the same fold.
-        </small>
+        TM-score ranges from 0 to 1, where 1 indicates a perfect match. Scores
+        above 0.5 generally suggest the same fold.
         <br />
         <br />
         <ExternalLink url={foldSeekAlign}>
