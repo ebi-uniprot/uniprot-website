@@ -140,16 +140,7 @@ const LandingPage = () => {
             (UniProtKB/Swiss-Prot) and unreviewed (UniProtKB/TrEMBL) entries.
             The proportion of reviewed entries varies between proteomes, and is
             greater for the proteomes of intensively curated model organisms.
-            Some proteomes, such as those of{' '}
-            <Link
-              to={{
-                pathname: LocationToPath[Location.UniProtKBResults],
-                search: stringifyQuery({ query: 'proteome:UP000002311' }),
-              }}
-            >
-              Saccharomyces cerevisiae 288C
-            </Link>{' '}
-            and{' '}
+            Some proteomes, such as{' '}
             <Link
               to={{
                 pathname: LocationToPath[Location.UniProtKBResults],
@@ -157,8 +148,8 @@ const LandingPage = () => {
               }}
             >
               Escherichia coli strain K12
-            </Link>{' '}
-            consist entirely of reviewed entries. Curation is a continuing
+            </Link>
+            , consist entirely of reviewed entries. Curation is a continuing
             process, and proteomes are updated in a regular manner as new
             information becomes available: pseudogenes and other dubious
             uncharacterized ORFs may be removed, other newly identified and
