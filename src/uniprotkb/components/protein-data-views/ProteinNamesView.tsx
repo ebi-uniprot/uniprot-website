@@ -251,7 +251,7 @@ const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
   }
   if (name.shortNames) {
     infoData.push({
-      title: 'Short names',
+      title: `Short ${pluralise('name', name.shortNames.length)}`,
       content: (
         <>
           {name.shortNames.map((shortName, i) => (
@@ -292,7 +292,7 @@ const ProteinNamesView = ({
   }
   if (proteinNames.alternativeNames) {
     infoData.push({
-      title: 'Alternative names',
+      title: `Alternative ${pluralise('name', proteinNames.alternativeNames.length)}`,
       content: (
         <ExpandableList descriptionString="alternative names">
           {proteinNames.alternativeNames.map((alternativeName, index) => (
@@ -345,7 +345,7 @@ const ProteinNamesView = ({
   }
   if (proteinNames.submissionNames) {
     infoData.push({
-      title: 'Submitted names',
+      title: `Submitted ${pluralise('name', proteinNames.submissionNames.length)}`,
       content: (
         <ExpandableList descriptionString="submitted names">
           {proteinNames.submissionNames.map((submission, index) => (

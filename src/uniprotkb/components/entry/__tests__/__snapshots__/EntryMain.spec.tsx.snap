@@ -846,7 +846,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Short names
+                Short name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -884,7 +884,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Alternative names
+                Alternative name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1265,7 +1265,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Submitted names
+                Submitted name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1622,7 +1622,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Short names
+                Short name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1660,7 +1660,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Alternative names
+                Alternative name
               </div>
               <div
                 class="decorated-list-item__content"

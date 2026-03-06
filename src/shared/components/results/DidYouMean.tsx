@@ -27,10 +27,6 @@ import { translatedWebsite } from '../../utils/translatedWebsite';
 import { stringifyQuery, stringifyUrl } from '../../utils/url';
 import styles from './styles/did-you-mean.module.scss';
 
-// example input: '( abc )' -> capturing group: 'abc'
-// not matching '( id:abc )' or '( abc OR def )'
-const reCleanUp = /^\( ([^: ]+) \)$/;
-
 // Matches any generic ID that might exist within UniParc
 // eg: P05067.1, P05066.1-1, xref-id.1
 const reIdWithVersion = /(?<id>\S+)\.\d+/;
@@ -58,24 +54,21 @@ const QuerySuggestionListItem = ({
       {searchableNamespaceLabels[namespace]}
     </span>
     <ul className={styles['suggestions-list']}>
-      {suggestions.map(({ query }) => {
-        const cleanedQuery = query.replace(reCleanUp, '$1');
-        return (
-          <li key={query}>
-            <Link
-              to={{
-                pathname: searchLocations[namespace],
-                search: stringifyQuery({ query: cleanedQuery }),
-              }}
-              key={query}
-              className={styles['query-suggestion-link']}
-              translate="no"
-            >
-              {cleanedQuery}
-            </Link>
-          </li>
-        );
-      })}
+      {suggestions.map(({ query }) => (
+        <li key={query}>
+          <Link
+            to={{
+              pathname: searchLocations[namespace],
+              search: stringifyQuery({ query }),
+            }}
+            key={query}
+            className={styles['query-suggestion-link']}
+            translate="no"
+          >
+            {query}
+          </Link>
+        </li>
+      ))}
     </ul>
   </div>
 );
@@ -85,7 +78,7 @@ const PeptideSearchSuggestion = ({
 }: {
   potentialPeptide: string;
 }) => (
-  <p>
+  <div>
     Are you searching for protein sequences containing the peptide{' '}
     <span>{truncate(potentialPeptide, truncateOptions)}?</span>
     <ul>
@@ -123,7 +116,7 @@ const PeptideSearchSuggestion = ({
         .
       </li>
     </ul>
-  </p>
+  </div>
 );
 
 const didYouMeanNamespaces: SearchableNamespace[] = [
@@ -207,7 +200,7 @@ const DidYouMean = ({
     const id = match?.groups?.id;
     if (id) {
       const idAlreadySuggested = suggestionsSortedByHits.some(
-        (s) => s.query.replace(reCleanUp, '$1') === id
+        (s) => s.query === id
       );
       if (!idAlreadySuggested) {
         suggestionsSortedByHits.unshift({ query: id, hits: 1 });

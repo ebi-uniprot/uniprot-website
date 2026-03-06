@@ -5,7 +5,7 @@ import axios, {
   type AxiosResponse,
   isCancel,
 } from 'axios';
-import { useEffect, useReducer, useRef } from 'react';
+import { use, useEffect, useReducer, useRef } from 'react';
 import joinUrl from 'url-join';
 
 import { addMessage } from '../../messages/state/messagesActions';
@@ -14,6 +14,7 @@ import {
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { apiPrefix } from '../config/apiUrls/apiPrefix';
+import { BotDetectionContext } from '../contexts/BotDetection';
 import { Namespace } from '../types/namespaces';
 import fetchData from '../utils/fetchData';
 import * as logging from '../utils/logging';
@@ -122,6 +123,8 @@ const createReducer =
     }
   };
 
+const botProtectedPatterns = [/www.ebi.ac.uk\/proteins\/api/];
+
 function useDataApi<T>(
   url?: string | null,
   options?: AxiosRequestConfig
@@ -136,6 +139,19 @@ function useDataApi<T>(
     }
   }, [options]);
 
+  // Logic to block loading some URLs until we know a human loaded the page
+  // Cannot be within the useEffect below, otherwise causes a reload and flash
+  // for resources that were not blocked by the robot detection logic
+  let urlToLoad = url;
+  const botDetectionStatus = use(BotDetectionContext);
+  if (url && botDetectionStatus === 'undetermined') {
+    for (const pattern of botProtectedPatterns) {
+      if (pattern.test(url)) {
+        urlToLoad = null;
+      }
+    }
+  }
+
   useEffect(() => {
     // need this variable to ensure state updates don't occur when cancelled/unmounted
     // https://github.com/facebook/react/issues/14369#issuecomment-468267798
@@ -143,12 +159,12 @@ function useDataApi<T>(
 
     // we don't require a URL, we just don't need data anymore
     // assume succes with no data
-    if (!url) {
+    if (!urlToLoad) {
       dispatch({ type: ActionType.SUCCESS });
       return;
     }
 
-    dispatch({ type: ActionType.INIT, url });
+    dispatch({ type: ActionType.INIT, url: urlToLoad });
 
     // variables to handle cancellation
     // eslint-disable-next-line import/no-named-as-default-member
@@ -157,7 +173,7 @@ function useDataApi<T>(
     // to keep track of the last time we dispatched a progress action
     let lastProgressDate: number;
     // actual request
-    fetchData<T>(url, source.token, {
+    fetchData<T>(urlToLoad, source.token, {
       ...optionsRef.current,
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
         optionsRef.current?.onDownloadProgress?.(progressEvent);
@@ -185,7 +201,7 @@ function useDataApi<T>(
         dispatch({
           type: ActionType.SUCCESS,
           response,
-          originalURL: url,
+          originalURL: urlToLoad,
           progress: 1,
         });
       },
@@ -193,7 +209,9 @@ function useDataApi<T>(
       (error: CustomError) => {
         // Ignore 404 because it might mean "valid request but no data"
         if (error.response?.status && error.response.status !== 404) {
-          logging.error(error, { tags: { origin: 'useDataApi', url } });
+          logging.error(error, {
+            tags: { origin: 'useDataApi', url: urlToLoad },
+          });
         }
         if (isCancel(error) || didCancel) {
           return;
@@ -208,7 +226,7 @@ function useDataApi<T>(
       source.cancel();
       didCancel = true;
     };
-  }, [url, optionsRef]);
+  }, [urlToLoad, optionsRef]);
 
   useEffect(() => {
     // TODO: when refactoring, accept a onError callback to do this from outside

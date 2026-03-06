@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Router } from 'react-router-dom';
 
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
+import { BotDetectionProvider } from '../../shared/contexts/BotDetection';
 import { IDMappingDetailsProvider } from '../../shared/contexts/IDMappingDetails';
 import { MessagesProvider } from '../../shared/contexts/Messages';
 import { UniProtDataProvider } from '../../shared/contexts/UniProtData';
@@ -13,12 +14,14 @@ const GlobalContext: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
     {/* If anything bad happen at the top level, try to display something */}
     <ErrorBoundary>
       <HelmetProvider>
-        <MessagesProvider>
-          {/* Order is important, tools needs to be within messages */}
-          <UniProtDataProvider>
-            <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
-          </UniProtDataProvider>
-        </MessagesProvider>
+        <BotDetectionProvider>
+          <MessagesProvider>
+            {/* Order is important, tools needs to be within messages */}
+            <UniProtDataProvider>
+              <IDMappingDetailsProvider>{children}</IDMappingDetailsProvider>
+            </UniProtDataProvider>
+          </MessagesProvider>
+        </BotDetectionProvider>
       </HelmetProvider>
     </ErrorBoundary>
   </Router>

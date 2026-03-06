@@ -69,10 +69,12 @@ const SubEntryOverview = ({ data }: Props) => {
     //     <ExternalXrefLink xref={data.subEntry} dataDB={dataDB.data} />
     //   ),
     // },
-    {
-      title: 'Sequence source',
-      content: data.subEntry.source?.database,
-    },
+    // Below is the source of the ID, not of the sequence, so in the case of
+    // UPKB it'll be the accession, not the actual sequence source
+    // {
+    //   title: 'Sequence source',
+    //   content: data.subEntry.source?.database,
+    // },
     {
       title: <span data-article-id="organism-name">Organism</span>,
       content: (data.subEntry.organism?.scientificName ||

@@ -5310,15 +5310,15 @@ core-js-pure@^3.43.0:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.47.0.tgz#1104df8a3b6eb9189fcc559b5a65b90f66e7e887"
   integrity sha512-BcxeDbzUrRnXGYIVAGFtcGQVNpFcUhVjr6W7F8XktvQW2iJP9e66GP6xdKotCRFlrxBvNIBrhwKteRXqMV86Nw==
 
-core-js@3.42.0:
-  version "3.42.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.42.0.tgz#edbe91f78ac8cfb6df8d997e74d368a68082fe37"
-  integrity sha512-Sz4PP4ZA+Rq4II21qkNqOEDTDrCvcANId3xpIgB34NDkWc3UduWj2dqEtN9yZIq8Dk3HyPI33x9sqqU5C8sr0g==
-
 core-js@3.47.0, core-js@^3.15.2:
   version "3.47.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.47.0.tgz#436ef07650e191afeb84c24481b298bd60eb4a17"
   integrity sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==
+
+core-js@3.48.0:
+  version "3.48.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.48.0.tgz#1f813220a47bbf0e667e3885c36cd6f0593bf14d"
+  integrity sha512-zpEHTy1fjTMZCKLHUZoVeylt9XrzaIN2rbPXEt0k+q7JE5CkCZdo6bNq55bn24a69CH7ErAVLKijxJja4fw+UQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -9378,7 +9378,7 @@ lit-element@^3.3.0:
     "@lit/reactive-element" "^1.3.0"
     lit-html "^2.8.0"
 
-lit-element@^4.0.4:
+lit-element@^4.0.4, lit-element@^4.2.0:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-4.2.2.tgz#f74fcbfbea945eae5614ece22a674fa52ca3365b"
   integrity sha512-aFKhNToWxoyhkNDmWZwEva2SlQia+jfG0fjIWV//YeTaWrVnOxD89dPKfigCUspXFmjzOEUQpOkejH5Ly6sG0w==
@@ -9414,6 +9414,15 @@ lit@3.1.3:
     "@lit/reactive-element" "^2.0.4"
     lit-element "^4.0.4"
     lit-html "^3.1.2"
+
+lit@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/lit/-/lit-3.3.2.tgz#d9230ebbf237bfd3d2091bc0b56c576a470ac4d7"
+  integrity sha512-NF9zbsP79l4ao2SNrH3NkfmFgN/hBYSQo90saIVI1o5GpjAdCPVstVzO1MrLOakHoEhYkrtRjPK6Ob521aoYWQ==
+  dependencies:
+    "@lit/reactive-element" "^2.1.0"
+    lit-element "^4.2.0"
+    lit-html "^3.3.0"
 
 lit@^2.1.1:
   version "2.8.0"
@@ -9504,15 +9513,15 @@ lodash-es@4.17.15:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
   integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
 
-lodash-es@4.17.21:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
-  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
-
 lodash-es@4.17.22, lodash-es@^4.17.11:
   version "4.17.22"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.22.tgz#eb7d123ec2470d69b911abe34f85cb694849b346"
   integrity sha512-XEawp1t0gxSi9x01glktRZ5HDy0HXqrM0x5pXQM98EaI0NxO6jVM7omDOxsuEo5UIASAnm2bRp1Jt/e0a2XU8Q==
+
+lodash-es@4.17.23:
+  version "4.17.23"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.23.tgz#58c4360fd1b5d33afc6c0bbd3d1149349b1138e0"
+  integrity sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==
 
 lodash.camelcase@^4.3.0:
   version "4.3.0"
@@ -11252,10 +11261,10 @@ protvista-tooltip@^3.8.22:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
-protvista-uniprot@4.6.6:
-  version "4.6.6"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.6.6.tgz#4a7a1d2f6ce0d442bdcb9fc4eeecd32873751a0f"
-  integrity sha512-RLUU87YkSP/xK5hY9ma98rzVLDrOzTJ7RNf1gqbIS31M4F+tfdM81GLGJVeGMqvS1Idg7ZrboDURzCgFRYIhvg==
+protvista-uniprot@4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.7.0.tgz#e4e00bc123b8d7d4f387167fe90ff86647ddec30"
+  integrity sha512-Hzc95isERbfN+U6GUkDXow9nzbJpAwoGEa5BsY4wmnaLZzfaF2YoShoP3R9QYj3HAdOb8Dix5PUUkeUFVDVWJw==
   dependencies:
     "@nightingale-elements/nightingale-colored-sequence" "5.6.0"
     "@nightingale-elements/nightingale-filter" "5.6.0"
@@ -11269,9 +11278,9 @@ protvista-uniprot@4.6.6:
     "@nightingale-elements/nightingale-track-canvas" "5.6.0"
     "@nightingale-elements/nightingale-variation" "5.6.0"
     color-hash "2.0.2"
-    core-js "3.42.0"
-    lit "3.1.3"
-    lodash-es "4.17.21"
+    core-js "3.48.0"
+    lit "3.3.2"
+    lodash-es "4.17.23"
     protvista-datatable "3.8.22"
     timing-functions "2.0.1"
     url-join "5.0.0"

@@ -22,9 +22,12 @@ import {
   type FacetObject,
   type SearchResults,
 } from '../../../shared/types/results';
+import { pluralise } from '../../../shared/utils/utils';
 import { type SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 import { type FormParameters } from '../types/asyncDownloadFormParameters';
 import styles from './styles/async-download-confirmation.module.scss';
+
+const isoformSubSequenceRegex = /[[\]-]/;
 
 export const getFacetString = (
   facetData: FacetObject<string>[],
@@ -134,6 +137,15 @@ const AsyncDownloadConfirmation = ({
             Advanced Search
           </Link>{' '}
           feature to refine and narrow down your results.
+        </Message>
+      ) : null}
+      {jobParameters.accessions?.some((acc) =>
+        isoformSubSequenceRegex.test(acc)
+      ) ? (
+        <Message className={styles['warning-message']} level="warning">
+          Only {count} canonical {pluralise('sequence', count)} will be included
+          in the download, as some of the accessions you have entered are either
+          isoforms or sub-sequences.
         </Message>
       ) : null}
       <InfoList

@@ -33,7 +33,7 @@ const externalUrls = {
   GeneOntologyModelInfo: (id: string) =>
     `https://api.geneontology.org/api/go-cam/gomodel:${id}`,
   GeneOntologyUniprotCuratedModels:
-    'https://geneontology.cloud/browse/g:UniProt',
+    'https://go-cam-browser.geneontology.org/?filter=contributor:UniProt',
   NoctuaAlliancePathwayPreview: (id: string) =>
     `http://noctua.geneontology.org/workbench/noctua-alliance-pathway-preview/?model_id=${id}`,
   // rule

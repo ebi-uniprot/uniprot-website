@@ -12,6 +12,5 @@ interface HJ {
 declare global {
   interface Window {
     hj?: HJ;
-    botChallenge?: boolean;
   }
 }

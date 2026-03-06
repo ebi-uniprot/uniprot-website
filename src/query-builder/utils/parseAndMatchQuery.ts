@@ -105,8 +105,6 @@ const parseAndMatchQuery = (
       }
       // else, didn't find any match
     } else if (clause.searchTerm.term === 'database') {
-      // TODO: this is a temporary solution until 'database' is added
-      // see https://www.ebi.ac.uk/panda/jira/browse/TRM-25963
       const matchingXref = flattened.find(
         ({ valuePrefix }) => valuePrefix === `${clause.queryBits.database}-`
       );

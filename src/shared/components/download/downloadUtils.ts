@@ -27,6 +27,7 @@ import { type JobFromUrl } from '../../hooks/useJobFromUrl';
 import { Namespace } from '../../types/namespaces';
 import { type DownloadUrlOptions } from '../../types/results';
 import { FileFormat } from '../../types/resultsDownload';
+import { createSelectedQueryString } from '../../utils/url';
 import { type DownloadProps } from './Download';
 import { type DownloadState } from './downloadReducer';
 
@@ -136,6 +137,17 @@ export const getCountForCustomisableSet = (
 
 const getIsObsoleteInclusive = (state: DownloadState) =>
   ID_MAPPING_OBSOLETE_FILE_FORMATS.has(state.selectedFileFormat);
+const extractAccessionsForEmbeddings = (accessions?: string[]) => {
+  const accessionsForEmbeddings = new Set<string>();
+
+  accessions?.forEach((acc) => {
+    const match = acc.match(reUniProtKBAccession);
+    if (match) {
+      accessionsForEmbeddings.add(match[0]);
+    }
+  });
+  return Array.from(accessionsForEmbeddings);
+};
 
 export const getDownloadCount = (
   state: DownloadState,
@@ -148,6 +160,17 @@ export const getDownloadCount = (
         ? props.accessions?.length || 0
         : props.selectedEntries?.length || 0;
     }
+
+    // Ignore subsequences and isoforms for embeddings
+    if (state.selectedFileFormat === FileFormat.embeddings) {
+      const accessionsForEmbeddings = extractAccessionsForEmbeddings(
+        state.downloadSelect === 'all'
+          ? props.accessions
+          : props.selectedEntries
+      );
+      return accessionsForEmbeddings.length;
+    }
+
     return getAccessionFromSubSequenceMap(
       state.downloadSelect === 'all' ? props.accessions : props.selectedEntries,
       props.accessionSubSequenceMap
@@ -244,6 +267,9 @@ export const filterFullXrefColumns = (
     .map((column) => fullToStandardColumnName(column))
     .filter((column) => isXrefWithFullOption(fieldData, column));
 
+export const getIsEmbeddings = (state: DownloadState) =>
+  state.selectedFileFormat === FileFormat.embeddings;
+
 export const getDownloadOptions = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
@@ -320,6 +346,16 @@ export const getDownloadOptions = (
   if (isUniParcProteomeSearch(state, props, query)) {
     downloadOptions.uniparcProteomeFastaHeader = state.proteomeFastaHeader;
   }
+
+  if (getIsEmbeddings(state)) {
+    const accessions = extractAccessionsForEmbeddings(
+      selected.length ? selected : props.accessions || []
+    );
+
+    downloadOptions.query =
+      createSelectedQueryString(accessions, selectedIdField) || query;
+  }
+
   return downloadOptions;
 };
 
@@ -410,9 +446,6 @@ export const getColumnsNamespace = (
   props: DownloadProps<JobTypes>,
   job: JobFromUrl
 ) => job?.jobResultsNamespace || props.namespace;
-
-export const getIsEmbeddings = (state: DownloadState) =>
-  state.selectedFileFormat === FileFormat.embeddings;
 
 export const getIsTooLargeForEmbeddings = (
   state: DownloadState,

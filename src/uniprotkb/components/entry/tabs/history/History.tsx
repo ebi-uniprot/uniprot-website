@@ -484,7 +484,7 @@ const EntryHistoryList = ({
   );
 };
 
-const title = <h2>Entry history</h2>;
+const title = <h2 data-article-id="entry_history">Entry history</h2>;
 
 const EntryHistory = ({
   accession,

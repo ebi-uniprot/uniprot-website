@@ -73,8 +73,8 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
           class="count"
         >
           <a
-            href="/uniprotkb?query=(shadab)"
-            title="UniProtKB search results for query:(shadab)"
+            href="/uniprotkb?query=shadab"
+            title="UniProtKB search results for query:shadab"
           >
             123
           </a>
@@ -97,8 +97,8 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
           class="count"
         >
           <a
-            href="/uniprotkb?query=(shadab) AND (ec:3.-.-.-)"
-            title="UniProtKB search results with Enzyme Classification: Hydrolases (ID:3.-.-.-) and query:(shadab)"
+            href="/uniprotkb?query=shadab AND (ec:3.-.-.-)"
+            title="UniProtKB search results with Enzyme Classification: Hydrolases (ID:3.-.-.-) and query:shadab"
           >
             37
           </a>
@@ -150,8 +150,8 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
           class="count"
         >
           <a
-            href="/uniprotkb?query=(shadab) AND (ec:3.2.-.-)"
-            title="UniProtKB search results with Enzyme Classification: Glycosylases (ID:3.2.-.-) and query:(shadab)"
+            href="/uniprotkb?query=shadab AND (ec:3.2.-.-)"
+            title="UniProtKB search results with Enzyme Classification: Glycosylases (ID:3.2.-.-) and query:shadab"
           >
             37
           </a>
@@ -203,8 +203,8 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
                   class="count"
                 >
                   <a
-                    href="/uniprotkb?query=(shadab) AND (ec:3.2.1.18)"
-                    title="UniProtKB search results with Enzyme Classification: exo-alpha-sialidase (ID:3.2.1.18) and query:(shadab)"
+                    href="/uniprotkb?query=shadab AND (ec:3.2.1.18)"
+                    title="UniProtKB search results with Enzyme Classification: exo-alpha-sialidase (ID:3.2.1.18) and query:shadab"
                   >
                     37
                   </a>
@@ -221,7 +221,7 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
                   </a>
                 </span>
                 <span
-                  title="Number of UniProtKB search results with Enzyme Classification: exo-alpha-sialidase (ID:3.2.1.18) and query (shadab) is 37 which is 100.00% of all sibling results."
+                  title="Number of UniProtKB search results with Enzyme Classification: exo-alpha-sialidase (ID:3.2.1.18) and query shadab is 37 which is 100.00% of all sibling results."
                 >
                   <span
                     class="bar"
@@ -316,8 +316,8 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           class="count"
         >
           <a
-            href="/uniprotkb?query=(*)"
-            title="UniProtKB search results for query:(*)"
+            href="/uniprotkb?query=*"
+            title="UniProtKB search results for query:*"
           >
             123
           </a>
@@ -355,8 +355,8 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           class="count"
         >
           <a
-            href="/uniprotkb?query=(*) AND (taxonomy_id:131567)"
-            title="UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query:(*)"
+            href="/uniprotkb?query=* AND (taxonomy_id:131567)"
+            title="UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query:*"
           >
             192,427,537
           </a>
@@ -373,7 +373,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query (*) is 192,427,537 which is 96.42% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: cellular organisms (ID:131567) and query * is 192,427,537 which is 96.42% of all sibling results."
         >
           <span
             class="bar"
@@ -405,8 +405,8 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           class="count"
         >
           <a
-            href="/uniprotkb?query=(*) AND (taxonomy_id:2787854)"
-            title="UniProtKB search results with Taxonomy: other entries (ID:2787854) and query:(*)"
+            href="/uniprotkb?query=* AND (taxonomy_id:2787854)"
+            title="UniProtKB search results with Taxonomy: other entries (ID:2787854) and query:*"
           >
             1,162
           </a>
@@ -423,7 +423,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: other entries (ID:2787854) and query (*) is 1,162 which is 0.00% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: other entries (ID:2787854) and query * is 1,162 which is 0.00% of all sibling results."
         >
           <span
             class="bar"
@@ -455,8 +455,8 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           class="count"
         >
           <a
-            href="/uniprotkb?query=(*) AND (taxonomy_id:2787823)"
-            title="UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query:(*)"
+            href="/uniprotkb?query=* AND (taxonomy_id:2787823)"
+            title="UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query:*"
           >
             2,426,709
           </a>
@@ -473,7 +473,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query (*) is 2,426,709 which is 1.22% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: unclassified entries (ID:2787823) and query * is 2,426,709 which is 1.22% of all sibling results."
         >
           <span
             class="bar"
@@ -505,8 +505,8 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           class="count"
         >
           <a
-            href="/uniprotkb?query=(*) AND (taxonomy_id:10239)"
-            title="UniProtKB search results with Taxonomy: Viruses (ID:10239) and query:(*)"
+            href="/uniprotkb?query=* AND (taxonomy_id:10239)"
+            title="UniProtKB search results with Taxonomy: Viruses (ID:10239) and query:*"
           >
             4,724,478
           </a>
@@ -523,7 +523,7 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           </a>
         </span>
         <span
-          title="Number of UniProtKB search results with Taxonomy: Viruses (ID:10239) and query (*) is 4,724,478 which is 2.37% of all sibling results."
+          title="Number of UniProtKB search results with Taxonomy: Viruses (ID:10239) and query * is 4,724,478 which is 2.37% of all sibling results."
         >
           <span
             class="bar"
