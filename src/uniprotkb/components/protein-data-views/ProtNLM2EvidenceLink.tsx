@@ -109,9 +109,8 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
           <li>
             phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
           </li>
+          <small>Higher values indicate stronger sequence similarity.</small>
         </ul>
-        Higher values indicate stronger sequence similarity.
-        <br />
         <br />
         <Link
           to={{
@@ -157,11 +156,11 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
             {`TM-score for ${tmalignAccession}: `}
             <strong>{Number(tmalignScore2).toFixed(2)}</strong>
           </li>
+          <small>
+            TM-score ranges from 0 to 1, where 1 indicates a perfect match.
+            Scores above 0.5 generally suggest the same fold.
+          </small>
         </ul>
-        TM-score ranges from 0 to 1, where 1 indicates a perfect match. Scores
-        above 0.5 generally suggest the same fold.
-        <br />
-        <br />
         <ExternalLink url={foldSeekAlign}>
           Align {accession} and {tmalignAccession} with FoldMason
         </ExternalLink>
