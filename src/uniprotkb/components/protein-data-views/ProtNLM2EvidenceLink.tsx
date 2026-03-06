@@ -51,6 +51,7 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
   }
   const propertiesMap = new Map(properties.map((p) => [p.key, p.value]));
 
+  const modelScore = propertiesMap.get('model_score');
   const stringMatchText = propertiesMap.get('string_match_text');
   const stringMatchLoc = propertiesMap.get('string_match_location');
   const stringMatchType = propertiesMap.get('string_match_type');
@@ -73,6 +74,8 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
 
     return (
       <>
+        <em>{`ProtNLM2 model score: ${modelScore} `}</em>
+        <br />
         {`${matchTypeLabel[typeValue] ?? typeValue} with ${stringMatchLoc}: `}
         {externalUrl && typeValue === 'hydrated' ? (
           <ExternalLink url={`${externalUrl}${stringMatchText}`}>
@@ -91,6 +94,8 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
   if (phmmerAccession && phmmerScore) {
     return (
       <>
+        <em>{`ProtNLM2 model score: ${modelScore} `}</em>
+        <br />
         {'Sequence similarity with: '}
         <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
           {phmmerAccession}
@@ -121,6 +126,8 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
     });
     return (
       <>
+        <em>{`ProtNLM2 model score: ${modelScore} `}</em>
+        <br />
         {'Structure similarity with: '}
         <Link to={getEntryPath(Namespace.uniprotkb, tmalignAccession)}>
           {tmalignAccession}
