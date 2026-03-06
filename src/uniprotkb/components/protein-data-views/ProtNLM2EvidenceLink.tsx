@@ -33,7 +33,7 @@ import {
 
 const foldSeekUrl = 'https://search.foldseek.com/foldmason';
 const interProUrl = 'https://www.ebi.ac.uk/interpro/entry/InterPro/';
-const goUrl = 'https://amigo.geneontology.org/amigo/term/';
+const goUrl = 'https://www.ebi.ac.uk/QuickGO/term/';
 const ecUrl = 'https://enzyme.expasy.org/EC/';
 const pfamUrl = 'https://www.ebi.ac.uk/interpro/entry/pfam/';
 
@@ -50,7 +50,7 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
     return 'oops';
   }
   const propertiesMap = new Map(properties.map((p) => [p.key, p.value]));
-
+  console.log(properties);
   const modelScore = propertiesMap.get('model_score');
   const stringMatchText = propertiesMap.get('string_match_text');
   const stringMatchLoc = propertiesMap.get('string_match_location');
@@ -58,9 +58,10 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
 
   if (stringMatchText && stringMatchLoc && stringMatchType) {
     const matchTypeLabel: Record<string, string> = {
-      hydrated: 'Hyrdated substring match',
-      substring: 'Substring match',
+      hydrated: 'Hydrated partial match',
+      substring: 'Partial match',
       exact: 'Exact match',
+      exact_sanitized: 'Partial match',
     };
     const typeValue = stringMatchType ?? '';
 
@@ -74,7 +75,9 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
 
     return (
       <>
-        <em>{`ProtNLM2 model score: ${modelScore} `}</em>
+        {`ProtNLM2 model score: `}
+        <strong>{Number(modelScore).toFixed(2)}</strong>
+        <br />
         <br />
         {`${matchTypeLabel[typeValue] ?? typeValue} with ${stringMatchLoc}: `}
         {externalUrl && typeValue === 'hydrated' ? (
@@ -94,13 +97,23 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
   if (phmmerAccession && phmmerScore) {
     return (
       <>
-        <em>{`ProtNLM2 model score: ${modelScore} `}</em>
+        {`ProtNLM2 model score: `}
+        <strong>{Number(modelScore).toFixed(2)}</strong>
+        <br />
         <br />
         {'Sequence similarity with: '}
         <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
           {phmmerAccession}
         </Link>
-        {` (phmmer score: ${phmmerScore}) — `}
+
+        <ul>
+          <li>
+            phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
+          </li>
+        </ul>
+        <small>Higher values indicate stronger sequence similarity.</small>
+        <br />
+        <br />
         <Link
           to={{
             pathname: LocationToPath[Location.Align],
@@ -108,8 +121,10 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
               ids: [accession, phmmerAccession].join(','),
             }),
           }}
+          target="_blank"
+          rel="noopener"
         >
-          Align sequences
+          Align {accession} and {phmmerAccession} with Clustal Omega
         </Link>
       </>
     );
@@ -126,16 +141,33 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
     });
     return (
       <>
-        <em>{`ProtNLM2 model score: ${modelScore} `}</em>
+        {`ProtNLM2 model score: `}
+        <strong>{Number(modelScore).toFixed(2)}</strong>
+        <br />
         <br />
         {'Structure similarity with: '}
         <Link to={getEntryPath(Namespace.uniprotkb, tmalignAccession)}>
           {tmalignAccession}
         </Link>
-        {` (tmalign score for ${accession}:
-        ${tmalignScore1} | tmalign score for
-        ${tmalignAccession}: ${tmalignScore2}) — `}
-        <ExternalLink url={foldSeekAlign}>Align structures</ExternalLink>
+        <ul>
+          <li>
+            {`TM-score for ${accession} (current entry): `}
+            <strong>{Number(tmalignScore1).toFixed(2)}</strong>
+          </li>
+          <li>
+            {`TM-score for ${tmalignAccession}: `}
+            <strong>{Number(tmalignScore2).toFixed(2)}</strong>
+          </li>
+        </ul>
+        <small>
+          TM-score ranges from 0 to 1, where 1 indicates a perfect match. Scores
+          above <strong>0.5</strong> generally suggest the same fold.
+        </small>
+        <br />
+        <br />
+        <ExternalLink url={foldSeekAlign}>
+          Align {accession} and {tmalignAccession} with FoldMason
+        </ExternalLink>
       </>
     );
   }
