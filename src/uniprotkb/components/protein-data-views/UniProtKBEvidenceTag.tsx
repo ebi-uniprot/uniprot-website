@@ -28,6 +28,7 @@ export type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
   evidences?: Evidence[];
   useGOEvidenceContent?: boolean;
+  accession?: string;
 };
 
 const UniProtEvidenceTagContent = ({
@@ -35,6 +36,7 @@ const UniProtEvidenceTagContent = ({
   evidenceData,
   evidences,
   useGOEvidenceContent,
+  accession,
 }: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
@@ -70,8 +72,12 @@ const UniProtEvidenceTagContent = ({
           >
             {mappedEvidences.map(({ id, url, properties }: Evidence, index) => (
               <span key={id || index}>
-                {id == ProtNLM2Id ? (
-                  <ProtNLM2EvidenceLink id={id} properties={properties} />
+                {id == ProtNLM2Id && accession ? (
+                  <ProtNLM2EvidenceLink
+                    id={id}
+                    properties={properties}
+                    accession={accession}
+                  />
                 ) : (
                   <EvidenceLink source={key} value={id} url={url} />
                 )}
@@ -97,7 +103,7 @@ const UniProtKBEvidenceTag = ({
   evidences?: Evidence[];
   goTermEvidence?: boolean;
 }) => {
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = useRouteMatch<{ accession: string }>(allEntryPages);
   if (!entryPageMatch || !evidences?.length) {
     return null;
   }
@@ -134,6 +140,7 @@ const UniProtKBEvidenceTag = ({
               evidenceData={evidenceData}
               evidences={references}
               useGOEvidenceContent={goTermEvidence}
+              accession={entryPageMatch.params.accession}
             />
           </EvidenceTag>
         );
