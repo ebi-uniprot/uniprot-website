@@ -134,6 +134,9 @@ export const getCountForCustomisableSet = (
   };
 };
 
+const getIsObsoleteInclusive = (state: DownloadState) =>
+  ID_MAPPING_OBSOLETE_FILE_FORMATS.has(state.selectedFileFormat);
+
 export const getDownloadCount = (
   state: DownloadState,
   props: DownloadProps<JobTypes>
@@ -151,9 +154,16 @@ export const getDownloadCount = (
     ).length;
   }
 
-  return state.downloadSelect === 'all'
-    ? props.totalNumberResults
-    : state.nSelectedEntries || 0;
+  const downloadCount =
+    state.downloadSelect === 'all'
+      ? props.totalNumberResults
+      : state.nSelectedEntries || 0;
+
+  if (props.obsoleteCount && !getIsObsoleteInclusive(state)) {
+    return downloadCount - props.obsoleteCount;
+  }
+
+  return downloadCount;
 };
 
 export const isAsyncDownloadIdMapping = (
@@ -410,9 +420,6 @@ export const getIsTooLargeForEmbeddings = (
 ) =>
   getIsEmbeddings(state) &&
   getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT_EMBEDDINGS;
-
-const getIsObsoleteInclusive = (state: DownloadState) =>
-  ID_MAPPING_OBSOLETE_FILE_FORMATS.has(state.selectedFileFormat);
 
 export const getExtraContent = (
   state: DownloadState,

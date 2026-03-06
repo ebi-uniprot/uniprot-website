@@ -136,6 +136,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
     jobType,
     inputParamsData,
     notCustomisable,
+    obsoleteCount,
   } = props;
   const job = useJobFromUrl();
   const columnsNamespace = getColumnsNamespace(props, job);
@@ -282,8 +283,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
       extraContentNode = (
         <Message level="warning">
           The selected format ({state.selectedFileFormat}) supports only active
-          entries and will exclude inactive ones from the download. To download
-          all entries, please choose JSON, TSV, Excel or List.
+          entries and will exclude inactive ones ({obsoleteCount}) from the
+          download. To download all entries, please choose JSON, TSV, Excel or
+          List.
         </Message>
       );
       break;
@@ -468,7 +470,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
         <Button
           variant="tertiary"
           onClick={() => dispatch(updateExtraContent('preview'))}
-          disabled={redirectToIDMapping || state.disableForm}
+          disabled={
+            redirectToIDMapping || state.disableForm || downloadCount === 0
+          }
         >
           Preview {getPreviewCount(state, props, location, job)}
         </Button>
@@ -485,7 +489,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
             isAsyncDownload || ftpFilenamesAndUrls ? undefined : downloadUrl
           }
           className={cn('button', 'primary', {
-            [helper.disabled]: state.disableForm,
+            [helper.disabled]: state.disableForm || downloadCount === 0,
           })}
           title={
             isAsyncDownload
