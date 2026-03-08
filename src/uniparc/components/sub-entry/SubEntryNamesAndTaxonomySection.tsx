@@ -68,7 +68,8 @@ const SubEntryNamesAndTaxonomySection = ({
     return null;
   }
 
-  const { proteinName, geneName, organism, properties } = data.subEntry;
+  const { proteinName, geneName, organism, properties, proteomeId, component } =
+    data.subEntry;
   const { predictions } = data.unifire || { predictions: [] };
 
   const recommendedFullNamePrediction =
@@ -118,6 +119,10 @@ const SubEntryNamesAndTaxonomySection = ({
     ) || [];
 
   const proteomeComponentObject = getSubEntryProteomes(properties);
+
+  if (proteomeId && component) {
+    proteomeComponentObject[proteomeId] = component;
+  }
 
   const proteomeContent = Object.entries(proteomeComponentObject).map(
     ([proteomeId, component]) => (
