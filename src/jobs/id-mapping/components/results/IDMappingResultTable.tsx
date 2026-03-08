@@ -6,6 +6,7 @@ import {
   LongNumber,
 } from 'franklin-sites';
 import { partition } from 'lodash-es';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -15,13 +16,16 @@ import {
 } from '../../../../app/config/urls';
 import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
 import ResultsData from '../../../../shared/components/results/ResultsData';
+import { fileFormatToUrlParameter } from '../../../../shared/config/resultsDownload';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import { type PaginatedResults } from '../../../../shared/hooks/usePagination';
 import { Namespace } from '../../../../shared/types/namespaces';
+import { FileFormat } from '../../../../shared/types/resultsDownload';
 import generateAndDownloadTSV from '../../../../shared/utils/generateAndDownloadTSV';
 import * as logging from '../../../../shared/utils/logging';
 import splitAndTidyText from '../../../../shared/utils/splitAndTidyText';
-import { stringifyQuery } from '../../../../shared/utils/url';
+import { stringifyQuery, stringifyUrl } from '../../../../shared/utils/url';
 import { pluralise } from '../../../../shared/utils/utils';
 import { TabLocation } from '../../../../uniparc/types/entry';
 import { reUniParc } from '../../../../uniprotkb/utils/regexes';
@@ -40,6 +44,7 @@ url_length = prefix + n * upid + (n-1) * encoded_or
 For n = 78, above gives 1980 as url_length which is < 2000.
 */
 const UNIPARC_DIRECT_LINK_LIMIT = 78;
+const ID_MAPPING_FILTER_LIMIT = 25000;
 
 type IDMappingResultTableProps = {
   namespaceOverride: Namespace;
@@ -65,6 +70,7 @@ const IDMappingResultTable = ({
   const obsoleteLength = resultsDataObject.obsoleteCount || 0;
   const mappedLength = inputLength - failedLength - suggestedLength;
   const activeLength = mappedLength - obsoleteLength;
+  const isFilterable = inputLength <= ID_MAPPING_FILTER_LIMIT;
   const [suggestedUniParcIds, suggestedOtherIds] = partition(
     resultsDataObject.suggestedIds,
     ({ to }) => reUniParc.test(to)
@@ -73,6 +79,32 @@ const IDMappingResultTable = ({
   const uniqueSuggestedUniParcIds = [
     ...new Set(suggestedUniParcIds?.map(({ to }) => to)),
   ];
+
+  // Download inactive accessions from ID mapping results if present
+  const resultsStreamDownloadUrl =
+    detailsData?.redirectURL &&
+    stringifyUrl(
+      detailsData.redirectURL.replace('/results/', '/results/stream/'),
+      {
+        query: stringifyQuery({
+          active: false,
+        }),
+        format: fileFormatToUrlParameter[FileFormat.list],
+        compressed: false,
+      }
+    );
+  const { data: inactiveEntriesList } = useDataApi<FileFormat.list>(
+    resultsDataObject.obsoleteCount && isFilterable
+      ? resultsStreamDownloadUrl
+      : undefined
+  );
+
+  const inactiveEntries = useMemo(() => {
+    if (!inactiveEntriesList) {
+      return [];
+    }
+    return inactiveEntriesList.split('\n').filter(Boolean);
+  }, [inactiveEntriesList]);
 
   if (suggestedOtherIds?.length) {
     logging.warn('Non-UniParc IDs have been suggested for an ID Mapping job.');
@@ -83,6 +115,7 @@ const IDMappingResultTable = ({
       <ResultsButtons
         total={resultsDataObject.total || 0}
         loadedTotal={resultsDataObject.allResults.length}
+        obsoleteCount={resultsDataObject.obsoleteCount}
         selectedEntries={selectedEntries}
         namespaceOverride={namespaceOverride}
         disableCardToggle
@@ -236,16 +269,40 @@ const IDMappingResultTable = ({
               <strong>
                 <LongNumber>{obsoleteLength}</LongNumber>
               </strong>{' '}
-              <Link
-                to={(location) => ({
-                  ...location,
-                  search: stringifyQuery({ query: 'active:false' }),
-                })}
-              >
-                obsolete
-              </Link>{' '}
+              {isFilterable ? (
+                <Link
+                  to={(location) => ({
+                    ...location,
+                    search: stringifyQuery({ query: 'active:false' }),
+                  })}
+                >
+                  obsolete
+                </Link>
+              ) : (
+                'obsolete'
+              )}{' '}
               {pluralise('entry', obsoleteLength, 'entries')}{' '}
               {pluralise('is', mappedLength, 'are')} found
+              {/* Map inactive UniProtKB to UniParc if total results < 25k; all IDs from UniProtKB to UniParc if total > 25k */}
+              {` `}(
+              <Link
+                to={{
+                  pathname: LocationToPath[Location.IDMapping],
+                  search: stringifyQuery({
+                    ids:
+                      isFilterable && inactiveEntries
+                        ? inactiveEntries
+                        : inputIDs,
+                    from: 'UniProtKB_AC-ID',
+                    to: 'UniParc',
+                  }),
+                }}
+              >
+                {isFilterable && inactiveEntries
+                  ? `Map ${obsoleteLength} obsolete UniProtKB entries to UniParc`
+                  : `Map all ${inputLength} ${pluralise('ID', inputLength)} to UniParc`}
+              </Link>
+              )
             </div>
           )}
         </HeroContainer>

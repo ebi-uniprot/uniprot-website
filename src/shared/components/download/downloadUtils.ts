@@ -40,6 +40,12 @@ const ID_MAPPING_ASYNC_DOWNLOAD_FILE_FORMATS = new Set([
   FileFormat.tsv,
   FileFormat.json,
 ]);
+const ID_MAPPING_OBSOLETE_FILE_FORMATS = new Set([
+  FileFormat.tsv,
+  FileFormat.json,
+  FileFormat.excel,
+  FileFormat.list,
+]);
 
 const reSubsequence = /\[\d{1,5}-\d{1,5}\]/;
 const reSubsequenceFrom = new RegExp(
@@ -129,6 +135,8 @@ export const getCountForCustomisableSet = (
   };
 };
 
+const getIsObsoleteInclusive = (state: DownloadState) =>
+  ID_MAPPING_OBSOLETE_FILE_FORMATS.has(state.selectedFileFormat);
 const extractAccessionsForEmbeddings = (accessions?: string[]) => {
   const accessionsForEmbeddings = new Set<string>();
 
@@ -169,9 +177,16 @@ export const getDownloadCount = (
     ).length;
   }
 
-  return state.downloadSelect === 'all'
-    ? props.totalNumberResults
-    : state.nSelectedEntries || 0;
+  const downloadCount =
+    state.downloadSelect === 'all'
+      ? props.totalNumberResults
+      : state.nSelectedEntries || 0;
+
+  if (props.obsoleteCount && !getIsObsoleteInclusive(state)) {
+    return downloadCount - props.obsoleteCount;
+  }
+
+  return downloadCount;
 };
 
 export const isAsyncDownloadIdMapping = (
@@ -467,6 +482,9 @@ export const getExtraContent = (
   }
   if (state.extraContent === 'preview') {
     return 'preview';
+  }
+  if (state.extraContent === 'obsolete' && !getIsObsoleteInclusive(state)) {
+    return 'obsolete';
   }
   return null;
 };
