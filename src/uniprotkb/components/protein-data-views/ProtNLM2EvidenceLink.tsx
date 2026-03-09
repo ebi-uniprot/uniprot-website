@@ -34,6 +34,20 @@ const goUrl = 'https://www.ebi.ac.uk/QuickGO/term/';
 const ecUrl = 'https://enzyme.expasy.org/EC/';
 const pfamUrl = 'https://www.ebi.ac.uk/interpro/entry/pfam/';
 
+const matchTypeLabel = new Map([
+  ['hydrated', 'Hydrated partial match'],
+  ['substring', 'Partial match'],
+  ['exact', 'Exact match'],
+  ['exact_sanitized', 'Partial match'],
+]);
+
+const locToUrl = new Map([
+  ['InterPro', interProUrl],
+  ['GO', goUrl],
+  ['EC', ecUrl],
+  ['Pfam', pfamUrl],
+]);
+
 type Props = {
   properties: EvidenceProperty[];
   accession: string;
@@ -52,23 +66,8 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
   const stringMatchType = propertiesMap.get('string_match_type');
 
   if (stringMatchText && stringMatchLoc && stringMatchType) {
-    const matchTypeLabel: Record<string, string> = {
-      hydrated: 'Hydrated partial match',
-      substring: 'Partial match',
-      exact: 'Exact match',
-      // can't do camel case here because this is how the data is coming in
-      // eslint-disable-next-line camelcase
-      exact_sanitized: 'Partial match',
-    };
     const typeValue = stringMatchType ?? '';
-
-    const locToUrl: Record<string, string> = {
-      InterPro: interProUrl,
-      GO: goUrl,
-      EC: ecUrl,
-      Pfam: pfamUrl,
-    };
-    const externalUrl = locToUrl[stringMatchLoc];
+    const externalUrl = locToUrl.get(stringMatchLoc);
 
     return (
       <>
@@ -76,7 +75,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
         <strong>{Number(modelScore).toFixed(2)}</strong>
         <br />
         <br />
-        {`${matchTypeLabel[typeValue] ?? typeValue} with ${stringMatchLoc}: `}
+        {`${matchTypeLabel.get(typeValue) ?? typeValue} with ${stringMatchLoc}: `}
         {externalUrl && typeValue === 'hydrated' ? (
           <ExternalLink url={`${externalUrl}${stringMatchText}`}>
             {stringMatchText}
@@ -108,7 +107,6 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
           </li>
           <small>Higher values indicate stronger sequence similarity</small>
         </ul>
-        <br />
         <Link
           to={{
             pathname: LocationToPath[Location.Align],
