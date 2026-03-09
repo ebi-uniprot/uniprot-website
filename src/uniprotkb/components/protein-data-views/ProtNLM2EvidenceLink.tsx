@@ -101,7 +101,7 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
         <strong>{Number(modelScore).toFixed(2)}</strong>
         <br />
         <br />
-        {'Sequence similarity with: '}
+        {'Sequence similarity with '}
         <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
           {phmmerAccession}
         </Link>
@@ -143,7 +143,7 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
         <strong>{Number(modelScore).toFixed(2)}</strong>
         <br />
         <br />
-        {'Structure similarity with: '}
+        {'Structure similarity with '}
         <Link to={getEntryPath(Namespace.uniprotkb, tmalignAccession)}>
           {tmalignAccession}
         </Link>
