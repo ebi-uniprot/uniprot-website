@@ -12,7 +12,7 @@ import {
   labels,
 } from '../../config/evidenceCodes';
 import { type Evidence } from '../../types/modelTypes';
-import { ProtNLM2Id } from '../../types/protNLMAPIModel';
+import { type EvidenceProperty, ProtNLM2Id } from '../../types/protNLMAPIModel';
 import EvidenceLink from './EvidenceLink';
 import ProtNLM2EvidenceLink from './ProtNLM2EvidenceLink';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
@@ -74,8 +74,7 @@ const UniProtEvidenceTagContent = ({
               <span key={id || index}>
                 {id == ProtNLM2Id && accession ? (
                   <ProtNLM2EvidenceLink
-                    id={id}
-                    properties={properties}
+                    properties={properties as EvidenceProperty[]}
                     accession={accession}
                   />
                 ) : (

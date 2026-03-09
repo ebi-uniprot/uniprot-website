@@ -9,10 +9,7 @@ import {
 import { Namespace } from '../../../shared/types/namespaces';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
-import {
-  type EvidenceProperty,
-  type ProtNLM2Id,
-} from '../../types/protNLMAPIModel';
+import { type EvidenceProperty } from '../../types/protNLMAPIModel';
 
 //
 // possisble fields for ProtNLM2 predictions
@@ -38,7 +35,6 @@ const ecUrl = 'https://enzyme.expasy.org/EC/';
 const pfamUrl = 'https://www.ebi.ac.uk/interpro/entry/pfam/';
 
 type Props = {
-  id: typeof ProtNLM2Id;
   properties: EvidenceProperty[];
   accession: string;
 };
