@@ -72,7 +72,17 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     return (
       <>
         {`ProtNLM2 model score: `}
-        <strong>{Number(modelScore).toFixed(2)}</strong>
+        <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
+        <a
+          href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="ProtNLM2 model score documentation"
+        >
+          <sup>
+            <code>i</code>
+          </sup>
+        </a>
         <br />
         <br />
         {`${matchTypeLabel.get(typeValue) ?? typeValue} with ${stringMatchLoc}: `}
@@ -94,7 +104,17 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     return (
       <>
         {`ProtNLM2 model score: `}
-        <strong>{Number(modelScore).toFixed(2)}</strong>
+        <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
+        <a
+          href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="ProtNLM2 model score documentation"
+        >
+          <sup>
+            <code>i</code>
+          </sup>
+        </a>
         <br />
         <br />
         {'Sequence similarity with '}
@@ -115,7 +135,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
             }),
           }}
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           Align {accession} and {phmmerAccession} with Clustal Omega
         </Link>
@@ -135,7 +155,17 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     return (
       <>
         {`ProtNLM2 model score: `}
-        <strong>{Number(modelScore).toFixed(2)}</strong>
+        <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
+        <a
+          href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="ProtNLM2 model score documentation"
+        >
+          <sup>
+            <code>i</code>
+          </sup>
+        </a>
         <br />
         <br />
         {'Structure similarity with '}
