@@ -160,15 +160,24 @@ const getAccessionColumn =
         if (xref.database === 'FusionGDB') {
           id = id.replace(/_\d+$/, '');
         }
-        cell = (
-          <ExternalLink
-            url={template.replace('%id', id)}
-            rel={xref.active ? undefined : 'nofollow'}
-          >
-            {xref.id}
-            {xref.chain && ` (chain ${xref.chain})`}
-          </ExternalLink>
-        );
+
+        if (xref.active) {
+          cell = (
+            <Link
+              to={getSubEntryPath(uniparcAccession, xref.id, TabLocation.Entry)}
+            >
+              {xref.id}
+              {xref.chain && ` (chain ${xref.chain})`}
+            </Link>
+          );
+        } else {
+          cell = (
+            <ExternalLink url={template.replace('%id', id)} rel="nofollow">
+              {xref.id}
+              {xref.chain && ` (chain ${xref.chain})`}
+            </ExternalLink>
+          );
+        }
       }
     }
     return (

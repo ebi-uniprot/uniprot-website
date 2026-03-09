@@ -45,6 +45,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
+import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import {
   type UniParcLiteAPIModel,
   type UniParcXRef,
@@ -79,6 +80,11 @@ const getErrorStatus = (
   return undefined;
 };
 
+const reUniProtKBAccessionWithBounds = new RegExp(
+  `(?<!\\w)(?:${reUniProtKBAccession.source})(?!\\w)`,
+  'i'
+);
+
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
   const dispatch = useMessagesDispatch();
@@ -98,6 +104,7 @@ const SubEntry = () => {
   );
 
   const { accession, subEntryId, subPage } = match?.params || {};
+  const isUniProtKB = reUniProtKBAccessionWithBounds.test(subEntryId || '');
 
   const baseURL = `${apiUrls.entry.entry(
     subEntryId && accession,
@@ -110,7 +117,7 @@ const SubEntry = () => {
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
   const unisaveData = useDataApi<UniSaveStatus>(
-    uniprotkbUrls.unisave.status(subEntryId as string)
+    isUniProtKB ? uniprotkbUrls.unisave.status(subEntryId as string) : undefined
   );
 
   const subEntrytaxId = subEntryData.data?.results[0]?.organism?.taxonId;
@@ -182,7 +189,6 @@ const SubEntry = () => {
     subEntryData.error ||
     !subEntryData.data ||
     unisaveData.error ||
-    !unisaveData.data ||
     !match ||
     !accession ||
     !subEntryId
@@ -319,8 +325,9 @@ const SubEntry = () => {
           .
         </Message>
         <SubEntryContext
-          subEntryId={subEntryId}
-          data={unisaveData.data}
+          uniparcId={accession}
+          subEntry={transformedData.subEntry}
+          data={unisaveData?.data}
           showUniFireOption={!!canLoadUniFire}
           uniFireData={uniFireData.data}
           uniFireLoading={uniFireData.loading}
