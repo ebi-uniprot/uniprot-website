@@ -150,7 +150,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
           </li>
           <li>
             {`TM-score for ${tmalignAccession}: `}
-            <strong>{Number(tmalignScore2).toFixed(2)}</strong>
+            {Number(tmalignScore2).toFixed(2)}
           </li>
           <small>
             Scale: 0 (no match) to 1 (perfect match). &gt;0.5 = same fold
