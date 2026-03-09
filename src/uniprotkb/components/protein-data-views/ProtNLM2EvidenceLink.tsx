@@ -42,7 +42,7 @@ type Props = {
   properties: EvidenceProperty[];
   accession: string;
 };
-const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
+const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
   if (properties.some((p) => p.value === null || p.value.trim() === '')) {
     logging.error(
       `ProtNLM2 evidence with no value: ${JSON.stringify(properties)}`
@@ -50,7 +50,6 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
     return 'oops';
   }
   const propertiesMap = new Map(properties.map((p) => [p.key, p.value]));
-  console.log(properties);
   const modelScore = propertiesMap.get('model_score');
   const stringMatchText = propertiesMap.get('string_match_text');
   const stringMatchLoc = propertiesMap.get('string_match_location');
@@ -61,6 +60,8 @@ const ProtNLM2EvidenceLink = ({ id, properties, accession }: Props) => {
       hydrated: 'Hydrated partial match',
       substring: 'Partial match',
       exact: 'Exact match',
+      // can't do camel case here because this is how the data is coming in
+      // eslint-disable-next-line camelcase
       exact_sanitized: 'Partial match',
     };
     const typeValue = stringMatchType ?? '';
