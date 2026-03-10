@@ -84,6 +84,8 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
           </sup>
         </a>
         <br />
+        <small>0–1 scale. Higher = stronger prediction confidence.</small>
+        <br />
         <br />
         {`${matchTypeLabel.get(typeValue) ?? typeValue} with ${stringMatchLoc}: `}
         {externalUrl && typeValue === 'hydrated' ? (
@@ -116,16 +118,18 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
           </sup>
         </a>
         <br />
+        <small>0–1 scale. Higher = stronger prediction confidence.</small>
+        <br />
         <br />
         {'Sequence similarity with '}
         <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
           {phmmerAccession}
         </Link>
-        <ul>
+        <ul style={{ paddingBottom: 5 }}>
           <li>
             phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
           </li>
-          <small>Higher values indicate stronger sequence similarity</small>
+          <small>Unbounded scale. Higher = stronger sequence similarity.</small>
         </ul>
         <Link
           to={{
@@ -167,13 +171,15 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
           </sup>
         </a>
         <br />
+        <small>0–1 scale. Higher = stronger prediction confidence.</small>
+        <br />
         <br />
         {'Structure similarity with '}
         <Link to={getEntryPath(Namespace.uniprotkb, tmalignAccession)}>
           {tmalignAccession}
         </Link>
         <br />
-        <ul>
+        <ul style={{ paddingBottom: 5 }}>
           <li>
             {`TM-score for ${accession} (current entry): `}
             <strong>{Number(tmalignScore1).toFixed(2)}</strong>
@@ -183,7 +189,8 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
             {Number(tmalignScore2).toFixed(2)}
           </li>
           <small>
-            Scale: 0 (no match) to 1 (perfect match). &gt;0.5 = same fold
+            0–1 scale. Higher = stronger structural similarity. &gt;0.5 suggests
+            same fold.
           </small>
         </ul>
         <ExternalLink url={foldSeekAlign}>
