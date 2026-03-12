@@ -33,6 +33,7 @@ const interProUrl = 'https://www.ebi.ac.uk/interpro/entry/InterPro/';
 const goUrl = 'https://www.ebi.ac.uk/QuickGO/term/';
 const ecUrl = 'https://enzyme.expasy.org/EC/';
 const pfamUrl = 'https://www.ebi.ac.uk/interpro/entry/pfam/';
+const pthrUrl = 'https://www.pantherdb.org/panther/family.do?clsAccession=';
 
 const matchTypeLabel = new Map([
   ['hydrated', 'Hydrated partial match'],
@@ -46,6 +47,7 @@ const locToUrl = new Map([
   ['GO', goUrl],
   ['EC', ecUrl],
   ['Pfam', pfamUrl],
+  ['PANTHER', pthrUrl],
 ]);
 
 type Props = {
@@ -88,7 +90,8 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
         <br />
         <br />
         {`${matchTypeLabel.get(typeValue) ?? typeValue} with ${stringMatchLoc}: `}
-        {externalUrl && typeValue === 'hydrated' ? (
+        {externalUrl &&
+        (typeValue === 'hydrated' || typeValue === 'substring') ? (
           <ExternalLink url={`${externalUrl}${stringMatchText}`}>
             {stringMatchText}
           </ExternalLink>
