@@ -289,23 +289,34 @@ const IDMappingResultTable = ({
               {pluralise('is', mappedLength, 'are')} found
               {/* Map inactive UniProtKB to UniParc if total results < 25k; all IDs from UniProtKB to UniParc if total > 25k */}
               {` `}(
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.IDMapping],
-                  search: stringifyQuery({
-                    ids:
-                      isFilterable && inactiveEntries
-                        ? inactiveEntries
-                        : inputIDs,
-                    from: 'UniProtKB_AC-ID',
-                    to: 'UniParc',
-                  }),
-                }}
-              >
-                {isFilterable && inactiveEntries
-                  ? `Map ${obsoleteLength} obsolete UniProtKB entries to UniParc`
-                  : `Map all ${inputLength} ${pluralise('ID', inputLength)} to UniParc`}
-              </Link>
+              {isFilterable && inactiveEntries ? (
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.IDMapping],
+                    search: stringifyQuery({
+                      ids: inactiveEntries,
+                      from: 'UniProtKB_AC-ID',
+                      to: 'UniParc',
+                    }),
+                  }}
+                >
+                  Map {obsoleteLength} obsolete UniProtKB entries to UniParc
+                </Link>
+              ) : (
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.IDMapping],
+                    search: stringifyQuery({
+                      ids: inputIDs,
+                      from: 'UniProtKB_AC-ID',
+                      to: 'UniParc',
+                    }),
+                  }}
+                >
+                  Map all {inputLength} {pluralise('ID', inputLength)} to
+                  UniParc
+                </Link>
+              )}
               )
             </div>
           )}
