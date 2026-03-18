@@ -90,12 +90,18 @@ const SubEntry = () => {
   const match = useRouteMatch<{
     accession: string;
     subPage: string;
-    subEntryId: string;
+    xrefId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const [runUniFire, setRunUniFire] = useState(true);
 
-  const { accession, subEntryId, subPage } = match?.params || {};
+  const { accession, xrefId, subPage } = match?.params || {};
+  let subEntryId = xrefId;
+
+  let sourceDatabase: string | undefined;
+  if (xrefId?.includes(':')) {
+    [sourceDatabase, subEntryId] = xrefId.split(':');
+  }
   const isUniProtKB = reUniProtKBAccessionWithBounds.test(subEntryId || '');
 
   const baseURL = `${apiUrls.entry.entry(
@@ -112,12 +118,19 @@ const SubEntry = () => {
     isUniProtKB ? uniprotkbUrls.unisave.status(subEntryId as string) : undefined
   );
 
-  const subEntrytaxId = subEntryData.data?.results[0]?.organism?.taxonId;
-  const canLoadUniFire =
-    subEntrytaxId &&
-    accession &&
-    subEntryData.data?.results?.length &&
-    subEntryData.data.results[0].organism?.taxonId;
+  let subEntryDataPerDatabase =
+    subEntryData.data?.results.length === 1
+      ? subEntryData.data.results[0]
+      : undefined;
+
+  if (sourceDatabase) {
+    subEntryDataPerDatabase = subEntryData.data?.results?.filter(
+      (xref) => xref.database === sourceDatabase
+    )[0];
+  }
+  const subEntrytaxId = subEntryDataPerDatabase?.organism?.taxonId;
+  const canLoadUniFire = subEntrytaxId && accession && subEntryDataPerDatabase;
+
   const uniFireData = useDataApi<UniFireModel>(
     canLoadUniFire && runUniFire
       ? apiUrls.unifire.unifire(accession, `${subEntrytaxId}`)
@@ -196,7 +209,7 @@ const SubEntry = () => {
 
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryData.data?.results[0],
+    subEntryDataPerDatabase as UniParcXRef,
     unisaveData.data,
     // If no data, it would be an empty string
     uniFireData.data || undefined
@@ -303,7 +316,7 @@ const SubEntry = () => {
                 >
                   {accession}
                 </Link>
-                {`  · ${subEntryId}`}
+                {`  · ${sourceDatabase ? `${sourceDatabase}:` : ``}${subEntryId}`}
               </>
             }
           />
