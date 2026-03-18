@@ -22,7 +22,7 @@ describe('tools adapter tests', () => {
         );
 
         expect(Array.from(formData.entries())).toEqual([
-          ['email', 'uuw_dev@uniprot.org'],
+          ['email', 'wp-angular-web@ebi.ac.uk'],
           ['outfmt', 'clustal_num'],
           ['addformats', 'true'],
           ['guidetreeout', 'true'],
@@ -84,7 +84,7 @@ describe('tools adapter tests', () => {
         );
 
         expect(Array.from(formData.entries())).toEqual([
-          ['email', 'uuw_dev@uniprot.org'],
+          ['email', 'wp-angular-web@ebi.ac.uk'],
           ['program', 'blastp'],
           ['matrix', 'PAM30'],
           ['alignments', '250'],
