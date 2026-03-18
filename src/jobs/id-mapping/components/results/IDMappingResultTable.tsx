@@ -7,10 +7,11 @@ import {
 } from 'franklin-sites';
 import { partition } from 'lodash-es';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import {
   getEntryPath,
+  jobTypeToPath,
   Location,
   LocationToPath,
 } from '../../../../app/config/urls';
@@ -63,6 +64,8 @@ const IDMappingResultTable = ({
 }: IDMappingResultTableProps) => {
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
+  const history = useHistory();
+
   const inputIDs = splitAndTidyText(detailsData?.ids);
   const inputLength = inputIDs?.length || 0;
   const failedLength = resultsDataObject.failedIds?.length || 0;
@@ -290,32 +293,38 @@ const IDMappingResultTable = ({
               {/* Map inactive UniProtKB to UniParc if total results < 25k; all IDs from UniProtKB to UniParc if total > 25k */}
               {` `}(
               {isFilterable && inactiveEntries ? (
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.IDMapping],
-                    search: stringifyQuery({
-                      ids: inactiveEntries,
-                      from: 'UniProtKB_AC-ID',
-                      to: 'UniParc',
-                    }),
+                <Button
+                  variant="tertiary"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    history.push(jobTypeToPath(JobTypes.ID_MAPPING), {
+                      parameters: {
+                        ids: inactiveEntries,
+                        from: 'UniProtKB_AC-ID',
+                        to: 'UniParc',
+                      },
+                    });
                   }}
                 >
-                  Map {obsoleteLength} obsolete UniProtKB entries to UniParc
-                </Link>
+                  map the {obsoleteLength} obsolete UniProtKB entries to UniParc
+                </Button>
               ) : (
-                <Link
-                  to={{
-                    pathname: LocationToPath[Location.IDMapping],
-                    search: stringifyQuery({
-                      ids: inputIDs,
-                      from: 'UniProtKB_AC-ID',
-                      to: 'UniParc',
-                    }),
+                <Button
+                  variant="tertiary"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    history.push(jobTypeToPath(JobTypes.ID_MAPPING), {
+                      parameters: {
+                        ids: inputIDs,
+                        from: 'UniProtKB_AC-ID',
+                        to: 'UniParc',
+                      },
+                    });
                   }}
                 >
-                  Map all {inputLength} {pluralise('ID', inputLength)} to
+                  map all {inputLength} {pluralise('ID', inputLength)} to
                   UniParc
-                </Link>
+                </Button>
               )}
               )
             </div>
