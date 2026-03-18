@@ -149,6 +149,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
     { props, job, selectedColumns: columnNames },
     getDownloadInitialState
   );
+
   const { data } = useDataApi<ReceivedFieldData>(
     apiUrls.configure.resultsFields(namespace)
   );
