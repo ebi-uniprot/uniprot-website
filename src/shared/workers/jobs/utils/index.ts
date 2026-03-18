@@ -9,8 +9,8 @@ import { type Job } from '../types/job';
 import { Status } from '../types/jobStatuses';
 
 const validServerID: Record<JobTypes, RegExp> = {
-  [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
-  [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
+  [JobTypes.ALIGN]: /^clustalo-\w\d{8}(-\w+){4}$/,
+  [JobTypes.BLAST]: /^ncbiblast-\w\d{8}(-\w+){4}$/,
   [JobTypes.ASYNC_DOWNLOAD]: /^\w+$/,
   [JobTypes.ID_MAPPING]: /^\w+$/,
   [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/i,
