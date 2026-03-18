@@ -255,14 +255,18 @@ const IDMappingResultTable = ({
                   <strong>
                     <LongNumber>{activeLength}</LongNumber>
                   </strong>{' '}
-                  <Link
-                    to={(location) => ({
-                      ...location,
-                      search: stringifyQuery({ query: 'active:true' }),
-                    })}
-                  >
-                    active
-                  </Link>{' '}
+                  {isFilterable ? (
+                    <Link
+                      to={(location) => ({
+                        ...location,
+                        search: stringifyQuery({ query: 'active:true' }),
+                      })}
+                    >
+                      active
+                    </Link>
+                  ) : (
+                    'active'
+                  )}{' '}
                   {pluralise('entry', activeLength, 'entries')} and{' '}
                 </>
               ) : null}
