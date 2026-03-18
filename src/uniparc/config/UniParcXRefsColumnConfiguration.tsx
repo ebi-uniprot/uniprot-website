@@ -164,7 +164,11 @@ const getAccessionColumn =
         if (xref.active) {
           cell = (
             <Link
-              to={getSubEntryPath(uniparcAccession, xref.id, TabLocation.Entry)}
+              to={getSubEntryPath(
+                uniparcAccession,
+                `${xref.database}:${xref.id}`,
+                TabLocation.Entry
+              )}
             >
               {xref.id}
               {xref.chain && ` (chain ${xref.chain})`}
