@@ -62,10 +62,6 @@ const SubEntryOverview = ({ data }: Props) => {
       ),
     },
     {
-      title: 'Database',
-      content: !data.subEntry.isUniprotkbEntry && data.subEntry.database,
-    },
-    {
       title: 'Identifier',
       content: !data.subEntry.isUniprotkbEntry && (
         <ExternalXrefLink xref={data.subEntry} dataDB={dataDB.data} />
