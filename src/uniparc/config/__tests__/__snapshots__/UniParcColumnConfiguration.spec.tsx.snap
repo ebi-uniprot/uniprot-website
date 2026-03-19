@@ -209,9 +209,9 @@ exports[`UniParcColumnConfiguration component should render column "common_taxon
   >
     <li>
       <a
-        href="/taxonomy/10242"
+        href="/taxonomy/32630"
       >
-        10242
+        32630
       </a>
     </li>
     <li>
@@ -223,9 +223,9 @@ exports[`UniParcColumnConfiguration component should render column "common_taxon
     </li>
     <li>
       <a
-        href="/taxonomy/32630"
+        href="/taxonomy/10242"
       >
-        32630
+        10242
       </a>
     </li>
   </ul>

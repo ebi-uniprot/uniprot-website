@@ -30,13 +30,15 @@ export const CommonTaxons = ({
   commonTaxons: CommonTaxon[];
 }) => (
   <ul className="no-bullet">
-    {commonTaxons.sort(commonTaxonFilter).map((taxon) => (
-      <li key={taxon.commonTaxonId}>
-        <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
-          {taxon.commonTaxon}
-        </Link>{' '}
-        ({taxon.topLevel})
-      </li>
-    ))}
+    {Array.from(commonTaxons)
+      .sort(commonTaxonFilter)
+      .map((taxon) => (
+        <li key={taxon.commonTaxonId}>
+          <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
+            {taxon.commonTaxon}
+          </Link>{' '}
+          ({taxon.topLevel})
+        </li>
+      ))}
   </ul>
 );
