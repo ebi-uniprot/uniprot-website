@@ -1135,4 +1135,57 @@ describe('Download Utils', () => {
       isUniParcProteomeSearch(state, props, downloadOptions.query)
     ).toEqual(true);
   });
+  test('idmapping uniprot download with inactive entries', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 5,
+      namespace: Namespace.uniprotkb,
+      base: 'https://rest.uniprot.org/idmapping/results/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      notCustomisable: true,
+      inBasketMini: false,
+      inputParamsData: {
+        from: 'UniProtKB_AC-ID',
+        to: 'UniProtKB',
+        ids: 'P05067,A0A008APQ8,A0A008APQ9,A0A008APR0,A0A008APR1',
+        redirectURL:
+          'https://rest.uniprot.org/idmapping/results/6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      } as MappingDetails,
+      jobType: JobTypes.ID_MAPPING,
+      extraContent: 'obsolete',
+      obsoleteCount: 4,
+      onClose: jest.fn(),
+    };
+
+    const job: JobFromUrl = {
+      jobId: '6117188d7702e2e345c6d03cda7b95b1dc9f5fdf',
+      jobResultsLocation: Location.IDMappingResult,
+      jobResultsNamespace: Namespace.uniprotkb,
+    };
+    const selectedColumns = [IDMappingColumn.from, IDMappingColumn.to];
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns,
+    });
+
+    expect(state).toEqual({
+      selectedColumns,
+      fileFormatOptions: normalFileFormatOptions.filter(
+        (format) => format !== FileFormat.embeddings
+      ),
+      selectedFileFormat: FileFormat.fastaCanonical,
+      downloadSelect: 'all',
+      compressed: true,
+      disableForm: false,
+      extraContent: 'obsolete',
+      nSelectedEntries: 0,
+      fullXref: false,
+      proteomeFastaHeader: true,
+    });
+    expect(getPreviewFileFormat(state)).toEqual(FileFormat.fastaCanonical);
+    expect(getDownloadCount(state, props)).toEqual(1);
+    // Manually set state
+    state.selectedFileFormat = FileFormat.json;
+    expect(getDownloadCount(state, props)).toEqual(5);
+  });
 });
