@@ -7,6 +7,7 @@ import {
   SuccessIcon,
 } from 'franklin-sites';
 import { createPath } from 'history';
+import { inflate } from 'pako';
 import { type ChangeEvent, type ReactNode, useId, useMemo } from 'react';
 import {
   generatePath,
@@ -19,6 +20,7 @@ import { Location, LocationToPath } from '../../app/config/urls';
 import ExternalLink from '../../shared/components/ExternalLink';
 import HTMLHead from '../../shared/components/HTMLHead';
 import { RefProtContactPage } from '../../shared/components/RefProtMoveMessages';
+import * as logging from '../../shared/utils/logging';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
 import {
   type ContactLocationState,
@@ -150,6 +152,9 @@ const ContactForm = () => {
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const { state: locationState, search } = useLocation<ContactLocationState>();
 
+  const genericUrlSearchParams = new URLSearchParams(search);
+  const rawHistory = genericUrlSearchParams.get('history');
+
   let referrerValue = '';
   if (locationState?.referrer) {
     referrerValue =
@@ -170,6 +175,8 @@ const ContactForm = () => {
     } else {
       subjectDefault = `UniProtKB entry update request`;
     }
+  } else if (genericUrlSearchParams.get('subject')) {
+    subjectDefault = genericUrlSearchParams.get('subject') || subjectDefault;
   }
 
   const context = useMemo(() => {
@@ -181,8 +188,24 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
     if (websiteTranslation) {
       context += `\nWebsite translated to: ${websiteTranslation}`;
     }
+
+    if (rawHistory) {
+      try {
+        const binary = Uint8Array.from(atob(rawHistory), (c) =>
+          c.charCodeAt(0)
+        );
+        const decoded = new TextDecoder().decode(inflate(binary));
+        if (decoded) {
+          context += `\nPrevious context:\n${decoded}`;
+        }
+      } catch {
+        logging.error(
+          'Failed to decode interaction history passed from third-party'
+        );
+      }
+    }
     return context;
-  }, [locationState?.formValues?.context, referrerValue]);
+  }, [rawHistory, locationState?.formValues?.context, referrerValue]);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
@@ -308,7 +331,10 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
                 handleTextareaChange(event);
                 handleChange(event);
               }}
-              defaultValue={locationState?.formValues?.message}
+              defaultValue={
+                genericUrlSearchParams.get('message') ??
+                locationState?.formValues?.message
+              }
               data-hj-allow
             />
             {validity}
