@@ -148,7 +148,9 @@ const SubEntry = () => {
   );
 
   let subEntryDataPerDatabase =
-    subEntryData.data?.results.length === 1
+    // If it is a UniProtKB entry, we want to get the xref data from the first database
+    // e.g. in case of TrEMBL that are merged into SP, there will be two entries (SP and TrEMBL), and we want to redirect to the active SP page
+    subEntryData?.data?.results.length && isUniProtKB
       ? subEntryData.data.results[0]
       : undefined;
 
