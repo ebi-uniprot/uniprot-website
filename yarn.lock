@@ -10824,7 +10824,7 @@ package-json-from-dist@^1.0.0, package-json-from-dist@^1.0.1:
   resolved "https://registry.yarnpkg.com/package-json-from-dist/-/package-json-from-dist-1.0.1.tgz#4f1471a010827a86f94cfd9b0727e36d267de505"
   integrity sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==
 
-pako@^2.1.0:
+pako@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/pako/-/pako-2.1.0.tgz#266cc37f98c7d883545d11335c00fbd4062c9a86"
   integrity sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==
@@ -11266,10 +11266,10 @@ protvista-tooltip@^3.8.22:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
-protvista-uniprot@4.7.1:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.7.1.tgz#7f07bceed567be5b1c32a0b483ba6788f7a4161c"
-  integrity sha512-O0hjaAa15Hb5wRW6Os0hFTISB4Bpv08Fyk9YWVHZUaSXkEVPL3mM20N9d4GMRQ0OCXZ4b5qPHrGBDEbPbjLK+g==
+protvista-uniprot@4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.7.2.tgz#0fbe01f32faaea722f18205b105eaad8ca2d52ed"
+  integrity sha512-w6n5eiyzXTIIQbf4N9mgLaopMXdgNxtB6oPTkvBApuxz673Tyz0lPwgztGxk3GlNxwPo45iOGg9x88D6pUTzvw==
   dependencies:
     "@nightingale-elements/nightingale-colored-sequence" "5.6.0"
     "@nightingale-elements/nightingale-filter" "5.6.0"

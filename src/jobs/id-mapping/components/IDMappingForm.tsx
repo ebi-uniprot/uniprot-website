@@ -260,7 +260,7 @@ const IDMappingForm = ({ initialFormValues, formConfigData }: Props) => {
         <fieldset>
           <section className="tools-form-section__item tools-form-section__item--full-width">
             <legend>
-              Enter one of more IDs (<LongNumber>{ID_MAPPING_LIMIT}</LongNumber>{' '}
+              Enter one or more IDs (<LongNumber>{ID_MAPPING_LIMIT}</LongNumber>{' '}
               max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
