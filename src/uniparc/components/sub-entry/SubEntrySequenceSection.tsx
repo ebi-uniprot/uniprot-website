@@ -34,8 +34,14 @@ const SubEntrySequenceSection = ({
 }) => {
   const history = useHistory();
 
+  const sourceDatabases = data?.subEntry.properties?.filter(
+    (property) => property.key === 'sources'
+  );
+
   const dataDB = useDataApi<DataDBModel>(
-    apiUrls.configure.allDatabases(Namespace.uniparc)
+    sourceDatabases?.length
+      ? apiUrls.configure.allDatabases(Namespace.uniparc)
+      : undefined
   );
   const templateMap = useMemo(() => getTemplateMap(dataDB.data), [dataDB.data]);
 
@@ -66,10 +72,6 @@ const SubEntrySequenceSection = ({
       content: data.subEntry.source?.database, // TODO: add external link
     },
   ];
-
-  const sourceDatabases = data.subEntry.properties?.filter(
-    (property) => property.key === 'sources'
-  );
 
   const flagPredictions =
     data.unifire?.predictions.filter(

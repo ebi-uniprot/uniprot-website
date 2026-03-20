@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Loader, Message, Tab, Tabs } from 'franklin-sites';
+import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { use, useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
@@ -60,6 +60,7 @@ import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
+import { type DataDBModel } from '../entry/XRefsSection';
 import SubEntryContext from './SubEntryContext';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
@@ -84,6 +85,31 @@ const reUniProtKBAccessionWithBounds = new RegExp(
   `(?<!\\w)(?:${reUniProtKBAccession.source})(?!\\w)`,
   'i'
 );
+
+type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
+
+const ExternalXrefLink = ({ xref, dataDB }: ExternalXrefLinkProps) => {
+  let { id } = xref;
+  if (!id || !xref.database) {
+    return null;
+  }
+  const template = dataDB.find(
+    ({ displayName }) => displayName === xref.database
+  )?.uriLink;
+  if (!template) {
+    return null;
+  }
+  // NOTE: exception for FusionGDB we need to remove the underscore number
+  if (xref.database === 'FusionGDB') {
+    id = id.replace(/_\d+$/, '');
+  }
+  return (
+    <ExternalLink url={template.replace('%id', id)}>
+      {`${xref.database}:${xref.id}`}
+      {xref.chain && ` (chain ${xref.chain})`}
+    </ExternalLink>
+  );
+};
 
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
@@ -124,6 +150,9 @@ const SubEntry = () => {
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
   const unisaveData = useDataApi<UniSaveStatus>(
     isUniProtKB ? uniprotkbUrls.unisave.status(subEntryId as string) : undefined
+  );
+  const dataDB = useDataApi<DataDBModel>(
+    !isUniProtKB ? apiUrls.configure.allDatabases(Namespace.uniparc) : undefined
   );
 
   let subEntryDataPerDatabase =
@@ -186,7 +215,12 @@ const SubEntry = () => {
     // eslint-disable-next-line reactHooks/exhaustive-deps
   }, []);
 
-  if (uniparcData.loading || subEntryData.loading || unisaveData.loading) {
+  if (
+    dataDB.loading ||
+    uniparcData.loading ||
+    subEntryData.loading ||
+    unisaveData.loading
+  ) {
     return (
       <Loader
         progress={
@@ -324,7 +358,15 @@ const SubEntry = () => {
                 >
                   {accession}
                 </Link>
-                {`  · ${sourceDatabase ? `${sourceDatabase}:` : ``}${subEntryId}`}
+                {`  · `}
+                {!isUniProtKB && dataDB.data ? (
+                  <ExternalXrefLink
+                    xref={transformedData.subEntry}
+                    dataDB={dataDB.data}
+                  />
+                ) : (
+                  subEntryId
+                )}
               </>
             }
           />
