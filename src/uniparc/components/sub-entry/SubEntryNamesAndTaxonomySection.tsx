@@ -64,7 +64,7 @@ const SubEntryNamesAndTaxonomySection = ({
       : null
   );
 
-  if (!data?.subEntry?.proteinName) {
+  if (!data?.subEntry) {
     return null;
   }
 
@@ -139,7 +139,7 @@ const SubEntryNamesAndTaxonomySection = ({
   const proteinNameInfoData = [
     {
       title: 'Name',
-      content: proteinName.length ? (
+      content: proteinName?.length ? (
         <NameContent predictions={proteinName} />
       ) : null,
     },
