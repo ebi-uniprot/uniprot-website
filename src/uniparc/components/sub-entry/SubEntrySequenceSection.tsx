@@ -50,7 +50,7 @@ const SubEntrySequenceSection = ({
     return null;
   }
 
-  if (dataDB.loading || !dataDB.data) {
+  if (dataDB.loading) {
     return <Loader />;
   }
 
