@@ -66,6 +66,7 @@ const getArrowX = (element: HTMLSpanElement) => {
 const statusesToNotify = new Set([
   Status.FINISHED,
   Status.FAILURE,
+  Status.ERROR,
   Status.ERRORED,
 ]);
 

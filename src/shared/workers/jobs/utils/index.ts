@@ -151,7 +151,12 @@ export const getServerErrorDescription = (error: ServerError | string) => {
 };
 
 export const checkForResponseError = (response: Response, status: Status) => {
-  if (!response.ok && status !== Status.FAILURE && status !== Status.ERRORED) {
+  if (
+    !response.ok &&
+    status !== Status.FAILURE &&
+    status !== Status.ERROR &&
+    status !== Status.ERRORED
+  ) {
     throw new Error(`${response.status}: ${response.statusText}`);
   }
 };
@@ -183,6 +188,7 @@ const incompleteStatuses = new Set([
   Status.NOT_FOUND,
   Status.RUNNING,
   Status.FAILURE,
+  Status.ERROR,
   Status.ERRORED,
 ]);
 

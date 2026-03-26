@@ -9,8 +9,7 @@ import {
 } from '../types/jobsServerParameters';
 import { JobTypes } from '../types/jobTypes';
 
-// const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
-const DEFAULT_EMAIL = 'wp-angular-web@ebi.ac.uk';
+const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
 const LOW_PRIORITY_EMAIL = 'uuw_dev_low_priority_no_reply@uniprot.org';
 
 type ObjectForFormData = Record<string, string | number | boolean | undefined>;
