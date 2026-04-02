@@ -1,5 +1,5 @@
 import { Card } from 'franklin-sites';
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
 import helper from '../../../../shared/styles/helper.module.scss';
@@ -16,10 +16,19 @@ const HomologsSection = ({
   xrefs,
 }: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.Homologs);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.location.hash === `#${id}` && ref.current) {
+      ref.current.scrollIntoView();
+    }
+  }, [id]);
+
   return (
     <Card
       header={<h2 data-article-id="homologs_section">{name}</h2>}
       id={id}
+      ref={ref}
       data-entry-section
     >
       <h3
