@@ -4,7 +4,10 @@ import MockAdapter from 'axios-mock-adapter';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 import { type AgrParalogsResult } from '../../../../types/agrParalogs';
-import AgrParalogy, { columns, getRowId } from '../AgrParalogy';
+import AgrParalogy, {
+  columns,
+  getRowId,
+} from '../../similar-proteins/AgrParalogy';
 import mockData from './__mocks__/agr-paralogs';
 
 const mock = new MockAdapter(axios);

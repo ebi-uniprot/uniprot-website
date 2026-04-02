@@ -119,6 +119,7 @@ export type UniProtkbUIModel = {
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
   [EntrySection.SimilarProteins]: SimilarProteinsUIModel;
+  [EntrySection.Homologs]: SimilarProteinsUIModel;
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping
@@ -178,6 +179,12 @@ const uniProtKbConverter = (
 
   const uniProtKBCrossReferences = convertXrefProperties(
     dataCopy.uniProtKBCrossReferences
+  );
+
+  const similarProteinsData = convertSimilarProteins(
+    dataCopy,
+    databaseInfoMaps,
+    uniProtKBCrossReferences
   );
 
   return {
@@ -250,11 +257,9 @@ const uniProtKbConverter = (
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.SimilarProteins]: convertSimilarProteins(
-      dataCopy,
-      databaseInfoMaps,
-      uniProtKBCrossReferences
-    ),
+    [EntrySection.SimilarProteins]: similarProteinsData,
+    // Homologs shares the same underlying data as SimilarProteins
+    [EntrySection.Homologs]: similarProteinsData,
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
     from: dataCopy.from,

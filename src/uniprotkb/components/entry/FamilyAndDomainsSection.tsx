@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { type UIModel } from '../../adapters/sectionConverter';
-import { SIMILAR_PROTEINS_XREF_ID } from '../../config/anchors';
 import { type FreeTextComment } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -12,6 +11,7 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
+import { HOMOLOGS_XREF_ID } from './homologs/HomologsSection';
 
 type Props = {
   data: UIModel;
@@ -73,10 +73,7 @@ const FamilyAndDomainsSection = ({
                 content: (
                   <>
                     View the Phylogenomic databases for this entry within the{' '}
-                    <Link to={`#${SIMILAR_PROTEINS_XREF_ID}`}>
-                      Similar Proteins section
-                    </Link>
-                    .
+                    <Link to={`#${HOMOLOGS_XREF_ID}`}>Homologs section</Link>.
                   </>
                 ),
               }
