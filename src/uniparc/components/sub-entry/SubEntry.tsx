@@ -396,7 +396,11 @@ const SubEntry = () => {
         <Tab
           title={
             <Link
-              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
+              to={getSubEntryPath(
+                accession,
+                xrefId as string,
+                TabLocation.Entry
+              )}
             >
               Entry
             </Link>
@@ -423,7 +427,7 @@ const SubEntry = () => {
               <Link
                 to={getSubEntryPath(
                   accession,
-                  subEntryId,
+                  xrefId as string,
                   TabLocation.FeatureViewer
                 )}
               >
@@ -435,7 +439,11 @@ const SubEntry = () => {
         >
           {smallScreen ? (
             <Redirect
-              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
+              to={getSubEntryPath(
+                accession,
+                xrefId as string,
+                TabLocation.Entry
+              )}
             />
           ) : (
             <>
