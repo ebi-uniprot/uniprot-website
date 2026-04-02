@@ -432,7 +432,7 @@ const Entry = () => {
               pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
                 accession: uniparcId,
                 subPage: UniParcTabLocation.Entry,
-                subEntryId: match?.params.accession,
+                xrefId: match?.params.accession,
               }),
             });
           });

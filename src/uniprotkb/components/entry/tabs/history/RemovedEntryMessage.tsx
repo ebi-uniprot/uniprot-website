@@ -57,7 +57,7 @@ const RemovedEntryHeading = ({
       pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
         accession: uniparc,
         subPage: UniParcTabLocation.Entry,
-        subEntryId: accession,
+        xrefId: accession,
       }),
     };
   } else {
