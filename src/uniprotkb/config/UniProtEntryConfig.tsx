@@ -8,6 +8,7 @@ import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';
 import ExpressionSection from '../components/entry/ExpressionSection';
 import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';
 import FunctionSection from '../components/entry/FunctionSection';
+import HomologsSection from '../components/entry/homologs/HomologsSection';
 import InteractionSection from '../components/entry/InteractionSection';
 import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
 import ProteinProcessingSection from '../components/entry/ProteinProcessingSection';
@@ -147,6 +148,16 @@ const UniProtKBEntryConfig: {
         {...data[EntrySection.SimilarProteins]}
         primaryAccession={data.primaryAccession}
         key={EntrySection.SimilarProteins}
+      />
+    ),
+  },
+  {
+    id: EntrySection.Homologs,
+    sectionContent: (data) => (
+      <HomologsSection
+        {...data[EntrySection.SimilarProteins]}
+        primaryAccession={data.primaryAccession}
+        key={EntrySection.Homologs}
       />
     ),
   },
