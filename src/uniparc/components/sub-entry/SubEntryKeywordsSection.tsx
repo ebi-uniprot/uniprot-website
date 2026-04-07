@@ -52,17 +52,22 @@ const SubEntryKeywordsSection = ({ data }: Props) => {
         {goPredictions.length ? (
           <>
             <h3>Gene Ontology</h3>
-            {goPredictions.map((prediction, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <div key={index} style={{ margin: '0.5em 0' }}>
-                <ExternalLink
-                  url={externalUrls.QuickGOTerm(prediction.annotationValue)}
-                >
-                  {prediction.annotationValue}
-                </ExternalLink>{' '}
-                <UniProtKBEvidenceTag evidences={prediction.evidence} />
-              </div>
-            ))}
+            {goPredictions.map(
+              (prediction, index) =>
+                prediction.annotationValue && (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div key={index} style={{ margin: '0.5em 0' }}>
+                    <ExternalLink
+                      url={externalUrls.QuickGOTerm(
+                        prediction.annotationValue ?? ''
+                      )}
+                    >
+                      {prediction.annotationValue}
+                    </ExternalLink>{' '}
+                    <UniProtKBEvidenceTag evidences={prediction.evidence} />
+                  </div>
+                )
+            )}
           </>
         ) : null}
       </Card>

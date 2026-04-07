@@ -61,7 +61,7 @@ const UniFireInferredSection = ({ data, annotationTypes, section }: Props) => {
                         {
                           texts: [
                             {
-                              value: prediction.annotationValue,
+                              value: prediction.annotationValue ?? '',
                               evidences: prediction.evidence,
                             },
                           ],
