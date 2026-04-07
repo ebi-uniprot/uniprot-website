@@ -3,7 +3,7 @@ import { memo, useEffect, useRef } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
 import helper from '../../../../shared/styles/helper.module.scss';
-import { type UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import { type HomologsUIModel } from '../../../adapters/homologsConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 import XRefView from '../../protein-data-views/XRefView';
@@ -11,10 +11,7 @@ import AgrHomology from '../similar-proteins/AgrHomology';
 
 export const HOMOLOGS_XREF_ID = 'homologs-xrefs';
 
-const HomologsSection = ({
-  primaryAccession,
-  xrefs,
-}: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
+const HomologsSection = ({ primaryAccession, xrefs }: HomologsUIModel) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.Homologs);
   const ref = useRef<HTMLDivElement>(null);
 

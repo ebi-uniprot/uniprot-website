@@ -300,8 +300,8 @@ const Entry = () => {
   const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
 
   const hasPhylogenomicXrefs = Boolean(
-    // Don't count AGR which is has ORG category
-    transformedData?.[EntrySection.SimilarProteins]?.xrefs?.filter(
+    // Don't count AGR which has ORG category
+    transformedData?.[EntrySection.Homologs]?.xrefs?.filter(
       (xref) => xref.category !== 'ORG'
     ).length
   );

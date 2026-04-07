@@ -146,7 +146,6 @@ const UniProtKBEntryConfig: {
     sectionContent: (data) => (
       <SimilarProteinsSection
         {...data[EntrySection.SimilarProteins]}
-        primaryAccession={data.primaryAccession}
         key={EntrySection.SimilarProteins}
       />
     ),
@@ -155,8 +154,7 @@ const UniProtKBEntryConfig: {
     id: EntrySection.Homologs,
     sectionContent: (data) => (
       <HomologsSection
-        {...data[EntrySection.SimilarProteins]}
-        primaryAccession={data.primaryAccession}
+        {...data[EntrySection.Homologs]}
         key={EntrySection.Homologs}
       />
     ),

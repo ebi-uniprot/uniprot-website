@@ -177,7 +177,7 @@ export const getEntrySectionToDatabaseNames = (
   ]);
 
   entrySectionToDatabaseNames.set(
-    EntrySection.SimilarProteins,
+    EntrySection.Homologs,
     databaseSelector({
       categories: [DatabaseCategory.PHYLOGENOMIC],
       include: ['AGR'],

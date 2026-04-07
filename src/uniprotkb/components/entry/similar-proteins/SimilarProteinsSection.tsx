@@ -2,7 +2,7 @@ import { Card } from 'franklin-sites';
 import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
-import { type UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import { type SimilarProteinsUIModel } from '../../../adapters/similarProteinsConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 
@@ -13,7 +13,7 @@ const SimilarProteins = lazy(
 const SimilarProteinsSection = ({
   canonical,
   isoforms,
-}: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
+}: SimilarProteinsUIModel) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.SimilarProteins);
   return (
     <Card
