@@ -3037,6 +3037,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "PFAM",
       "CHEMISTRY",
     ],
+    "homologs": [
+      "PLG",
+      "ORG",
+    ],
     "interaction": [
       "PPI",
       "CHEMISTRY",
@@ -3053,10 +3057,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "sequences": [
       "SEQ",
       "GMA",
-    ],
-    "similar_proteins": [
-      "PLG",
-      "ORG",
     ],
     "structure": [
       "3DS",
@@ -3217,6 +3217,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CARD",
       "SwissLipids",
     ],
+    "homologs": [
+      "eggNOG",
+      "GeneTree",
+      "HOGENOM",
+      "InParanoid",
+      "OMA",
+      "OrthoDB",
+      "PhylomeDB",
+      "TreeFam",
+      "PAN-GO",
+      "AGR",
+    ],
     "interaction": [
       "BioGRID",
       "ComplexPortal",
@@ -3306,18 +3318,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "UCSC",
       "VectorBase",
       "WBParaSite",
-    ],
-    "similar_proteins": [
-      "eggNOG",
-      "GeneTree",
-      "HOGENOM",
-      "InParanoid",
-      "OMA",
-      "OrthoDB",
-      "PhylomeDB",
-      "TreeFam",
-      "PAN-GO",
-      "AGR",
     ],
     "structure": [
       "PDB",
