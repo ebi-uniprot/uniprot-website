@@ -22,7 +22,7 @@ export type UniParcSubEntryUIModel = {
 export type Prediction = {
   evidence: string[];
   annotationType: string;
-  annotationValue: string;
+  annotationValue?: string;
   start?: number;
   end?: number;
 };
