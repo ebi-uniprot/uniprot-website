@@ -104,6 +104,30 @@ describe('uniFireToPrecomputedConverter', () => {
     it('should produce features as a flat array', () => {
       expect(Array.isArray(result.features)).toBe(true);
     });
+
+    it('should skip features without start/end positions', () => {
+      const dataWithMissingPositions = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['UR000976770'],
+            annotationType: 'feature.DISULFID',
+            // no start or end
+          },
+          {
+            evidence: ['UR000976770'],
+            annotationType: 'feature.DISULFID',
+            start: 10,
+            end: 20,
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(
+        dataWithMissingPositions
+      );
+      expect(testResult.features).toHaveLength(1);
+      expect(testResult.features?.[0].location.start.value).toBe(10);
+    });
   });
 
   describe('keyword predictions → keywords[]', () => {
@@ -139,11 +163,25 @@ describe('uniFireToPrecomputedConverter', () => {
     });
 
     it('should use only the first prediction when duplicates exist', () => {
-      // The mock only has one protein.recommendedName.fullName, so verify
-      // the value matches the first (and only) one
-      expect(result.proteinDescription?.recommendedName?.fullName.value).toBe(
-        'Amyloid-beta precursor protein'
-      );
+      const dataWithDuplicates = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'protein.recommendedName.fullName',
+            annotationValue: 'First name',
+          },
+          {
+            evidence: ['ARBA00099999'],
+            annotationType: 'protein.recommendedName.fullName',
+            annotationValue: 'Second name (should be ignored)',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(dataWithDuplicates);
+      expect(
+        testResult.proteinDescription?.recommendedName?.fullName.value
+      ).toBe('First name');
     });
   });
 
@@ -205,6 +243,21 @@ describe('uniFireToPrecomputedConverter', () => {
       expect(countByFeatureType?.['Disulfide bond']).toBe(5);
       expect(countByFeatureType?.Region).toBe(2);
     });
+
+    it('should not include extraAttributes when there are no comments or features', () => {
+      const dataWithOnlyKeywords = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00023087'],
+            annotationType: 'keyword',
+            annotationValue: 'Amyloid',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(dataWithOnlyKeywords);
+      expect(testResult.extraAttributes).toBeUndefined();
+    });
   });
 
   describe('unknown annotation types', () => {
@@ -247,10 +300,13 @@ describe('uniFireToPrecomputedConverter', () => {
   });
 
   describe('input validation', () => {
-    it('should throw on invalid input', () => {
+    it('should throw and log error on invalid input', () => {
       expect(() =>
         uniFireToPrecomputedConverter({ accession: 123 } as never)
       ).toThrow('Invalid UniFireModel input');
+      expect(mockError).toHaveBeenCalledWith(
+        expect.stringContaining('Invalid UniFireModel input')
+      );
     });
 
     it('should throw when predictions is not an array', () => {
@@ -281,6 +337,21 @@ describe('uniFireToPrecomputedConverter', () => {
         isValidUniFireModel({
           accession: 'test',
           predictions: [{ bad: 'data' }],
+        })
+      ).toBe(false);
+    });
+
+    it('should return false when evidence contains non-string items', () => {
+      expect(
+        isValidUniFireModel({
+          accession: 'test',
+          predictions: [
+            {
+              annotationType: 'keyword',
+              annotationValue: 'Test',
+              evidence: [null, 42],
+            },
+          ],
         })
       ).toBe(false);
     });
