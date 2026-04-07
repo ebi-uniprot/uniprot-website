@@ -40,7 +40,10 @@ function isValidUniFireModel(data: unknown): data is UniFireModel {
       typeof (p as Record<string, unknown>).annotationType === 'string' &&
       ((p as Record<string, unknown>).annotationValue === undefined ||
         typeof (p as Record<string, unknown>).annotationValue === 'string') &&
-      Array.isArray((p as Record<string, unknown>).evidence)
+      Array.isArray((p as Record<string, unknown>).evidence) &&
+      ((p as Record<string, unknown>).evidence as unknown[]).every(
+        (e: unknown) => typeof e === 'string'
+      )
   );
 }
 
@@ -82,10 +85,12 @@ const uniFireToPrecomputedConverter = (
 
       // keyword predictions → keywords[]
       if (annotationType === 'keyword') {
-        keywords.push({
-          name: annotationValue,
-          evidences,
-        });
+        if (typeof annotationValue === 'string') {
+          keywords.push({
+            name: annotationValue,
+            evidences,
+          });
+        }
         continue;
       }
 
@@ -145,17 +150,21 @@ const uniFireToPrecomputedConverter = (
       }
 
       // feature.* predictions → features[]
-      if (sectionConfig.featureType) {
+      if (
+        sectionConfig.featureType &&
+        prediction.start != null &&
+        prediction.end != null
+      ) {
         const feature: FeatureDatum = {
           type: sectionConfig.featureType,
           description: annotationValue || '',
           location: {
             start: {
-              value: prediction.start ?? 0,
+              value: prediction.start,
               modifier: 'EXACT' as const,
             },
             end: {
-              value: prediction.end ?? 0,
+              value: prediction.end,
               modifier: 'EXACT' as const,
             },
           },
@@ -202,21 +211,26 @@ const uniFireToPrecomputedConverter = (
   return {
     entryType: 'AA',
     uniProtkbId: null,
-    primaryAccession: data.accession.replace(':', '-'),
+    primaryAccession: data.accession.replaceAll(':', '-'),
     annotationScore: 0 as AnnotationScoreValue,
     ...(comments.length > 0 ? { comments } : undefined),
     ...(features.length > 0 ? { features } : undefined),
     ...(keywords.length > 0 ? { keywords } : undefined),
     ...(proteinDescription ? { proteinDescription } : undefined),
     ...(xrefs.length > 0 ? { uniProtKBCrossReferences: xrefs } : undefined),
-    extraAttributes: {
-      ...(Object.keys(countByCommentType).length > 0
-        ? { countByCommentType }
-        : undefined),
-      ...(Object.keys(countByFeatureType).length > 0
-        ? { countByFeatureType }
-        : undefined),
-    },
+    ...(Object.keys(countByCommentType).length > 0 ||
+    Object.keys(countByFeatureType).length > 0
+      ? {
+          extraAttributes: {
+            ...(Object.keys(countByCommentType).length > 0
+              ? { countByCommentType }
+              : undefined),
+            ...(Object.keys(countByFeatureType).length > 0
+              ? { countByFeatureType }
+              : undefined),
+          },
+        }
+      : undefined),
   };
 };
 
