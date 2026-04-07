@@ -19,7 +19,7 @@ const convertHomologs = (
       ? getXrefsForSection(
           databaseInfoMaps,
           uniProtKBCrossReferences,
-          EntrySection.SimilarProteins
+          EntrySection.Homologs
         )
       : [],
   };
