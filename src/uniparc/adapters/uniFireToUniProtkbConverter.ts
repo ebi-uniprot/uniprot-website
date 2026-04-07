@@ -1,6 +1,12 @@
 import * as logging from '../../shared/utils/logging';
-import { type NamesAndTaxonomyUIModel } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
-import { type UIModel } from '../../uniprotkb/adapters/sectionConverter';
+import {
+  type ProteinNames,
+  type ProteinNamesData,
+} from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
+import {
+  type AnnotationScoreValue,
+  type UniProtKBXref,
+} from '../../uniprotkb/adapters/uniProtkbConverter';
 import { type FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 import type Comment from '../../uniprotkb/types/commentTypes';
 import {
@@ -8,37 +14,16 @@ import {
   type FreeTextComment,
   type FreeTextType,
 } from '../../uniprotkb/types/commentTypes';
-import EntrySection from '../../uniprotkb/types/entrySection';
+import type FeatureType from '../../uniprotkb/types/featureType';
 import { type Evidence } from '../../uniprotkb/types/modelTypes';
 import { type Keyword } from '../../uniprotkb/utils/KeywordsUtil';
 import annotationTypeToSection from '../config/UniFireAnnotationTypeToSection';
 import type { UniParcPrecomputedModel } from '../types/precomputed';
-import SubEntrySection from '../types/subEntrySection';
-import { type Prediction, type UniFireModel } from './uniParcSubEntryConverter';
-
-// Re-export constructPredictionEvidences for use
-const constructPredictionEvidences = (
-  evidences: string[] | undefined
-): Evidence[] =>
-  evidences?.map((e) => ({
-    evidenceCode: 'ECO:0000256' as const,
-    source: e.startsWith('ARBA') ? 'ARBA' : 'UniRule',
-    id: e,
-  })) || [];
-
-// Map SubEntrySection values to EntrySection values
-const subEntrySectionToEntrySection: Partial<
-  Record<SubEntrySection, EntrySection>
-> = {
-  [SubEntrySection.Function]: EntrySection.Function,
-  [SubEntrySection.NamesAndTaxonomy]: EntrySection.NamesAndTaxonomy,
-  [SubEntrySection.SubcellularLocation]: EntrySection.SubCellularLocation,
-  [SubEntrySection.Expression]: EntrySection.Expression,
-  [SubEntrySection.ProteinProcessing]: EntrySection.ProteinProcessing,
-  [SubEntrySection.Interaction]: EntrySection.Interaction,
-  [SubEntrySection.FamilyAndDomains]: EntrySection.FamilyAndDomains,
-  [SubEntrySection.Sequence]: EntrySection.Sequence,
-};
+import {
+  constructPredictionEvidences,
+  type Prediction,
+  type UniFireModel,
+} from './uniParcSubEntryConverter';
 
 function isValidUniFireModel(data: unknown): data is UniFireModel {
   if (!data || typeof data !== 'object') {
@@ -59,63 +44,85 @@ function isValidUniFireModel(data: unknown): data is UniFireModel {
   );
 }
 
-function createEmptyUIModel(): UIModel {
-  return {
-    commentsData: new Map<CommentType, Comment[] | undefined>(),
-    keywordData: [],
-    featuresData: [],
-    xrefData: [],
-  };
-}
-
 /**
- * Transforms UniFire prediction data into Partial<UniProtkbUIModel>.
+ * Transforms UniFire prediction data into UniParcPrecomputedModel.
  *
- * Converts predictions from the UniFire endpoint into the same UI model
- * structure used by UniProtKB entry pages, so the UniParc sub-entry page
- * can render data from either source.
+ * Converts the flat prediction format from the UniFire endpoint into the
+ * same API model shape returned by the precomputed endpoint, so the
+ * UniParc sub-entry page can use a single downstream pipeline for both
+ * data sources.
+ *
+ * UniFire-derived instances are currently thinner than precomputed ones
+ * (no keyword ids/categories, flat-text subcellular locations, generic
+ * evidence sources).
  */
-const uniFireToUniProtkbConverter = (
+const uniFireToPrecomputedConverter = (
   data: UniFireModel
 ): UniParcPrecomputedModel => {
   if (!isValidUniFireModel(data)) {
-    const error = `Invalid UniFireModel input for accession: ${(data as Record<string, unknown>)?.accession ?? 'unknown'}`;
-    logging.error(error);
-    throw new Error(error);
+    const accession = (data as Record<string, unknown>)?.accession ?? 'unknown';
+    const message = `Invalid UniFireModel input for accession: ${accession}`;
+    logging.error(message);
+    throw new Error(message);
   }
 
-  // Accumulate section data by EntrySection
-  const sectionComments = new Map<EntrySection, Map<CommentType, Comment[]>>();
-  const sectionFeatures = new Map<EntrySection, FeatureDatum[]>();
+  const comments: Comment[] = [];
+  const features: FeatureDatum[] = [];
   const keywords: Keyword[] = [];
-  let recommendedFullName: { value: string; evidences: Evidence[] } | undefined;
+  const xrefs: UniProtKBXref[] = [];
+  let recommendedName: ProteinNames | undefined;
+  const alternativeNames: ProteinNames[] = [];
 
   for (const prediction of data.predictions as Prediction[]) {
     try {
       const { annotationType, annotationValue, evidence } = prediction;
+      const evidences = constructPredictionEvidences(
+        evidence as string[]
+      ) as Evidence[];
 
-      // Handle keyword predictions
+      // keyword predictions → keywords[]
       if (annotationType === 'keyword') {
         keywords.push({
           name: annotationValue,
-          evidences: constructPredictionEvidences(evidence),
+          evidences,
         });
         continue;
       }
 
-      // Handle protein.recommendedName.fullName predictions
+      // protein.recommendedName.fullName → proteinDescription.recommendedName
+      // Use first encountered only (known UniFire duplicate issue)
       if (annotationType === 'protein.recommendedName.fullName') {
-        // Use first encountered only
-        if (!recommendedFullName && typeof annotationValue === 'string') {
-          recommendedFullName = {
-            value: annotationValue,
-            evidences: constructPredictionEvidences(evidence),
+        if (!recommendedName && typeof annotationValue === 'string') {
+          recommendedName = {
+            fullName: { value: annotationValue, evidences },
           };
         }
         continue;
       }
 
-      // Look up in annotation type config
+      // protein.alternativeName.fullName → proteinDescription.alternativeNames[]
+      if (annotationType === 'protein.alternativeName.fullName') {
+        if (typeof annotationValue === 'string') {
+          alternativeNames.push({
+            fullName: { value: annotationValue, evidences },
+          });
+        }
+        continue;
+      }
+
+      // xref.GO → uniProtKBCrossReferences[]
+      if (annotationType === 'xref.GO') {
+        if (typeof annotationValue === 'string') {
+          xrefs.push({
+            database: 'GO',
+            id: annotationValue,
+            evidences,
+          });
+        }
+        continue;
+      }
+
+      // Look up in annotation type config for comment.* and feature.*
       const sectionConfig = annotationTypeToSection[annotationType];
       if (!sectionConfig) {
         logging.warn('Unknown UniFire annotation type encountered', {
@@ -127,41 +134,21 @@ const uniFireToUniProtkbConverter = (
         continue;
       }
 
-      const entrySection = subEntrySectionToEntrySection[sectionConfig.section];
-      if (!entrySection) {
-        continue;
-      }
-
-      const evidences = constructPredictionEvidences(evidence);
-
-      // Handle comment.* predictions
+      // comment.* predictions → comments[]
       if (sectionConfig.freeTextType && typeof annotationValue === 'string') {
-        const commentType = sectionConfig.freeTextType as FreeTextType;
         const comment: FreeTextComment = {
-          commentType,
-          texts: [
-            {
-              value: annotationValue,
-              evidences,
-            },
-          ],
+          commentType: sectionConfig.freeTextType as FreeTextType,
+          texts: [{ value: annotationValue, evidences }],
         };
-
-        if (!sectionComments.has(entrySection)) {
-          sectionComments.set(entrySection, new Map());
-        }
-        const commentsMap = sectionComments.get(entrySection);
-        const existing = commentsMap?.get(commentType) || [];
-        existing.push(comment);
-        commentsMap?.set(commentType, existing);
+        comments.push(comment);
         continue;
       }
 
-      // Handle feature.* predictions
+      // feature.* predictions → features[]
       if (sectionConfig.featureType) {
         const feature: FeatureDatum = {
           type: sectionConfig.featureType,
-          description: annotationValue,
+          description: annotationValue || '',
           location: {
             start: {
               value: prediction.start ?? 0,
@@ -174,16 +161,12 @@ const uniFireToUniProtkbConverter = (
           },
           evidences,
         };
-
-        if (!sectionFeatures.has(entrySection)) {
-          sectionFeatures.set(entrySection, []);
-        }
-        sectionFeatures?.get(entrySection)?.push(feature);
+        features.push(feature);
       }
-    } catch (error) {
-      // Partial failure: skip this prediction but keep going
+    } catch (err) {
+      // Partial failure: skip this prediction, keep going
       logging.warn(
-        `Failed to transform UniFire prediction: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to transform UniFire prediction: ${err instanceof Error ? err.message : String(err)}`,
         {
           extra: {
             annotationType: prediction.annotationType,
@@ -194,75 +177,48 @@ const uniFireToUniProtkbConverter = (
     }
   }
 
-  // Build the result object
-  const result: Partial<UniParcPrecomputedModel> = {};
-
-  // Populate sections that have data
-  const populatedSections = new Set<EntrySection>();
-  Array.from(sectionComments.keys()).forEach((section) => {
-    populatedSections.add(section);
-  });
-  Array.from(sectionFeatures.keys()).forEach((section) => {
-    populatedSections.add(section);
-  });
-
-  Array.from(populatedSections).forEach((section) => {
-    const model = createEmptyUIModel();
-
-    const commentsMap = sectionComments.get(section);
-    if (commentsMap) {
-      Array.from(commentsMap.entries()).forEach(([commentType, comments]) => {
-        model.commentsData.set(commentType, comments);
-      });
-    }
-
-    const features = sectionFeatures.get(section);
-    if (features) {
-      model.featuresData = features;
-    }
-
-    // Type assertion needed because UIModel and section-specific models
-    // vary (e.g. NamesAndTaxonomyUIModel extends UIModel)
-    (result as Record<string, UIModel>)[section] = model;
-  });
-
-  // Populate NamesAndTaxonomy if we have a recommended name
-  if (recommendedFullName) {
-    const existingNamesSection = result[EntrySection.NamesAndTaxonomy] as
-      | Partial<NamesAndTaxonomyUIModel>
-      | undefined;
-
-    const namesModel: Partial<NamesAndTaxonomyUIModel> = {
-      ...createEmptyUIModel(),
-      ...existingNamesSection,
-      proteinNamesData: {
-        recommendedName: {
-          fullName: recommendedFullName,
-        },
-      },
+  // Build proteinDescription if we have any name data
+  let proteinDescription: ProteinNamesData | undefined;
+  if (recommendedName || alternativeNames.length > 0) {
+    proteinDescription = {
+      ...(recommendedName ? { recommendedName } : undefined),
+      ...(alternativeNames.length > 0 ? { alternativeNames } : undefined),
     };
-
-    (result as Record<string, unknown>)[EntrySection.NamesAndTaxonomy] =
-      namesModel;
   }
 
-  // Populate keywords (stored in a flat list since UniFire has no categories)
-  if (keywords.length > 0) {
-    // Keywords go into a special KeywordsAndGO section for SubEntry.
-    // Since UniProtkbUIModel doesn't have this section, we attach keyword
-    // data to the Function section as a pragmatic fallback, or store them
-    // on the nearest section that already exists. However, per spec, we
-    // store them in an uncategorized KeywordUIModel group.
-    // Downstream components handle the SubEntrySection.KeywordsAndGO mapping.
-    //
-    // We expose keywords on a synthetic property so the sub-entry page
-    // can pick them up. Since the return type is Partial<UniProtkbUIModel>,
-    // we use a type assertion for the additional property.
-    (result as Record<string, unknown>).keywords = keywords;
+  // Compute extraAttributes counts
+  const countByCommentType: Partial<Record<CommentType, number>> = {};
+  for (const comment of comments) {
+    const ct = comment.commentType as CommentType;
+    countByCommentType[ct] = (countByCommentType[ct] ?? 0) + 1;
   }
 
-  return result;
+  const countByFeatureType: Partial<Record<FeatureType, number>> = {};
+  for (const feature of features) {
+    const ft = feature.type as FeatureType;
+    countByFeatureType[ft] = (countByFeatureType[ft] ?? 0) + 1;
+  }
+
+  return {
+    entryType: 'AA',
+    uniProtkbId: null,
+    primaryAccession: data.accession.replace(':', '-'),
+    annotationScore: 0 as AnnotationScoreValue,
+    ...(comments.length > 0 ? { comments } : undefined),
+    ...(features.length > 0 ? { features } : undefined),
+    ...(keywords.length > 0 ? { keywords } : undefined),
+    ...(proteinDescription ? { proteinDescription } : undefined),
+    ...(xrefs.length > 0 ? { uniProtKBCrossReferences: xrefs } : undefined),
+    extraAttributes: {
+      ...(Object.keys(countByCommentType).length > 0
+        ? { countByCommentType }
+        : undefined),
+      ...(Object.keys(countByFeatureType).length > 0
+        ? { countByFeatureType }
+        : undefined),
+    },
+  };
 };
 
-export { constructPredictionEvidences, isValidUniFireModel };
-export default uniFireToUniProtkbConverter;
+export { isValidUniFireModel };
+export default uniFireToPrecomputedConverter;

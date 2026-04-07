@@ -36,7 +36,7 @@ export type ModifiedPrediction = Omit<Prediction, 'evidence'> & {
   evidence: Evidence[];
 };
 
-const constructPredictionEvidences = (
+export const constructPredictionEvidences = (
   evidences: string[] | undefined
 ): Evidence[] => {
   return (
