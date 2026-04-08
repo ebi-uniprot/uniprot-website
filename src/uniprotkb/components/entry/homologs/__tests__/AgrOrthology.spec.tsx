@@ -9,7 +9,7 @@ import AgrOrthology, {
   getRowId,
   isBest,
   resultsCompare,
-} from '../../similar-proteins/AgrOrthology';
+} from '../AgrOrthology';
 import mockData from './__mocks__/agr-orthologs';
 
 const mock = new MockAdapter(axios);

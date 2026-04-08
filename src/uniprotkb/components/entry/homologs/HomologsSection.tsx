@@ -7,7 +7,7 @@ import { type HomologsUIModel } from '../../../adapters/homologsConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
 import XRefView from '../../protein-data-views/XRefView';
-import AgrHomology from '../similar-proteins/AgrHomology';
+import AgrHomology from './AgrHomology';
 
 export const HOMOLOGS_XREF_ID = 'homologs-xrefs';
 
