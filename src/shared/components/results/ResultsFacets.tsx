@@ -62,8 +62,8 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
     switch (facet.name) {
       case 'reviewed':
       case 'proteome_type':
-      case 'types':
-      case 'proteome':
+      case 'types': // Types is Publication's source
+      case 'proteome': // Not icon but change letter casing until returned otherwise by the backend (better if there is proteometype returned)
         return {
           ...facet,
           values: facet.values?.map((facetValue) => ({
