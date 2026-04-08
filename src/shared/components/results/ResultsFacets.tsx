@@ -58,12 +58,13 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const { facets } = data;
 
   // Add relevant icons
-  const facetsWithIcons = facets.map((facet) =>
-    facet.name === 'reviewed' ||
-    facet.name === 'proteome_type' ||
-    facet.name === 'types' || // Types is Publication's source
-    facet.name === 'proteome' // Not icon but change letter casing until returned otherwise by the backend (better if there is proteometype returned)
-      ? {
+  const decoratedFacets = facets.map((facet) => {
+    switch (facet.name) {
+      case 'reviewed':
+      case 'proteome_type':
+      case 'types':
+      case 'proteome':
+        return {
           ...facet,
           values: facet.values?.map((facetValue) => ({
             ...facetValue,
@@ -76,17 +77,24 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
                 ? getDecoratedFacetLabel(facetValue)
                 : null,
           })),
-        }
-      : facet
-  );
+        };
+      case 'existence':
+        return {
+          ...facet,
+          values: facet.values?.filter((value) => value.value !== '0'),
+        };
+      default:
+        return facet;
+    }
+  });
 
-  const splitIndex = facetsWithIcons.findIndex(
+  const splitIndex = decoratedFacets.findIndex(
     (facet) => facet.name === 'model_organism' || facet.name === 'superkingdom'
   );
   const before =
-    splitIndex === -1 ? [] : facetsWithIcons.slice(0, splitIndex + 1);
+    splitIndex === -1 ? [] : decoratedFacets.slice(0, splitIndex + 1);
   const after =
-    splitIndex === -1 ? facetsWithIcons : facetsWithIcons.slice(splitIndex + 1);
+    splitIndex === -1 ? decoratedFacets : decoratedFacets.slice(splitIndex + 1);
 
   const facetClickHandler: (
     event: React.MouseEvent<HTMLElement>
