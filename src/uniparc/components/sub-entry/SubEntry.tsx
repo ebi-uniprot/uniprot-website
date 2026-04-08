@@ -58,6 +58,7 @@ import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
+import { getXrefId } from '../../utils/uniparcXref';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import { type DataDBModel } from '../entry/XRefsSection';
 import SubEntryContext from './SubEntryContext';
@@ -98,10 +99,7 @@ const ExternalXrefLink = ({ xref, dataDB }: ExternalXrefLinkProps) => {
   if (!template) {
     return null;
   }
-  // NOTE: exception for FusionGDB we need to remove the underscore number
-  if (xref.database === 'FusionGDB') {
-    id = id.replace(/_\d+$/, '');
-  }
+  id = getXrefId(id, xref.database);
   return (
     <ExternalLink url={template.replace('%id', id)}>
       {`${xref.database}:${xref.id}`}
@@ -143,28 +141,28 @@ const SubEntry = () => {
   const unisaveData = useDataApi<UniSaveStatus>(
     isUniProtKB ? uniprotkbUrls.unisave.status(subEntryId as string) : undefined
   );
-  const dataDB = useDataApi<DataDBModel>(
+  const dbData = useDataApi<DataDBModel>(
     !isUniProtKB ? apiUrls.configure.allDatabases(Namespace.uniparc) : undefined
   );
 
-  let subEntryDataPerDatabase =
+  const subEntryDataPerDatabase =
     // If it is a UniProtKB entry, we want to get the xref data from the first database
     // e.g. in case of TrEMBL that are merged into SP, there will be two entries (SP and TrEMBL), and we want to redirect to the active SP page
-    subEntryData?.data?.results.length && isUniProtKB
-      ? subEntryData.data.results[0]
-      : undefined;
+    (subEntryData?.data?.results.length &&
+      isUniProtKB &&
+      subEntryData.data.results[0]) ||
+    (sourceDatabase &&
+      subEntryData.data?.results?.find(
+        (xref) => xref.database === sourceDatabase
+      )) ||
+    undefined;
 
-  if (sourceDatabase) {
-    subEntryDataPerDatabase = subEntryData.data?.results?.filter(
-      (xref) => xref.database === sourceDatabase
-    )[0];
-  }
-  const subEntrytaxId = subEntryDataPerDatabase?.organism?.taxonId;
-  const canLoadUniFire = subEntrytaxId && accession && subEntryDataPerDatabase;
+  const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
+  const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
 
   const uniFireData = useDataApi<UniFireModel>(
     canLoadUniFire && runUniFire
-      ? apiUrls.unifire.unifire(accession, `${subEntrytaxId}`)
+      ? apiUrls.unifire.unifire(accession, `${subEntryTaxId}`)
       : null
   );
 
@@ -210,7 +208,7 @@ const SubEntry = () => {
   }, []);
 
   if (
-    dataDB.loading ||
+    dbData.loading ||
     uniparcData.loading ||
     subEntryData.loading ||
     unisaveData.loading
@@ -353,10 +351,10 @@ const SubEntry = () => {
                   {accession}
                 </Link>
                 {`  · `}
-                {!isUniProtKB && dataDB.data ? (
+                {!isUniProtKB && dbData.data ? (
                   <ExternalXrefLink
                     xref={transformedData.subEntry}
-                    dataDB={dataDB.data}
+                    dataDB={dbData.data}
                   />
                 ) : (
                   subEntryId

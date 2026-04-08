@@ -22,6 +22,7 @@ import { type Evidence } from '../../../uniprotkb/types/modelTypes';
 import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
+import { getXrefId } from '../../utils/uniparcXref';
 import { type DataDBModel } from '../entry/XRefsSection';
 
 const getTemplateMap = (dataDB?: DataDBModel) =>
@@ -127,10 +128,7 @@ const SubEntrySequenceSection = ({
 
             const template = sourceDB && templateMap.get(sourceDB);
             let id = sourceID;
-            // NOTE: exception for FusionGDB we need to remove the underscore number
-            if (sourceDB === 'FusionGDB') {
-              id = id.replace(/_\d+$/, '');
-            }
+            id = getXrefId(id, sourceDB);
             const content = template ? (
               <ExternalLink url={template.replace('%id', id)}>
                 {sourceID}
