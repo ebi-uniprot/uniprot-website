@@ -1,10 +1,7 @@
 import { InfoList } from 'franklin-sites';
-import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 
-import { getEntryPath } from '../../../app/config/urls';
-import { Namespace } from '../../../shared/types/namespaces';
 import { type UniParcUIModel } from '../../adapters/uniParcConverter';
+import { CommonTaxons } from '../common-taxons';
 
 type Props = {
   data: UniParcUIModel;
@@ -15,16 +12,7 @@ const Overview = ({ data }: Props) => {
     {
       title: 'Common Taxonomies',
       content: data.commonTaxons && (
-        <div>
-          {data.commonTaxons.map((taxon, index, commonTaxons) => (
-            <Fragment key={taxon.commonTaxon}>
-              <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
-                {taxon.commonTaxon}
-              </Link>
-              {index !== commonTaxons.length - 1 ? '; ' : null}
-            </Fragment>
-          ))}
-        </div>
+        <CommonTaxons commonTaxons={data.commonTaxons} />
       ),
     },
     {

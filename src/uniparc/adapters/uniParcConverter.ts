@@ -57,7 +57,7 @@ export type SequenceFeature = {
   locations: SequenceFeatureLocation[];
 };
 
-type CommonTaxon = {
+export type CommonTaxon = {
   topLevel: string;
   commonTaxon: string;
   commonTaxonId: number;

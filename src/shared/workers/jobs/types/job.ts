@@ -28,7 +28,7 @@ export interface CreatedJob extends BaseJob<JobTypes> {
 }
 
 export interface FailedJob extends BaseJob<JobTypes> {
-  status: Status.FAILURE | Status.ERRORED;
+  status: Status.FAILURE | Status.ERROR | Status.ERRORED;
   remoteID?: string; // depending on if it failed before or after submission
   timeSubmitted?: number; // depending on if it failed before or after submission
   errorDescription?: string; // the server's error response

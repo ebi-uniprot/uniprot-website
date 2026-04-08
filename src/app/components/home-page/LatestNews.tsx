@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const proteinSpotlightAbstract =
-  'Survival is the essence of life. This may sound like an abysmal platitude but, in the living world, the act of survival implies an awful lot. To survive, many animals eat other animals, which they must first kill.';
+  "Two's company, three's a crowd. It could be a grasshopper's motto. Grasshoppers are solitary inoffensive creatures, that go about their business hopping from here to there nibbling away...";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -306,21 +306,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/287/"
+            url="https://www.proteinspotlight.org/back_issues/289/"
             noIcon
           >
-            Give and take
+            Bands, swarms and plagues
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/287/"
+          url="https://www.proteinspotlight.org/back_issues/289/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt287.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt289.jpg"
             alt=""
             width="123"
             height="129"

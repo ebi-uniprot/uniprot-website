@@ -323,7 +323,9 @@ const Publications = ({ accession }: PublicationsProps) => {
 
   return (
     <section>
-      <h2>Publications for {accession}</h2>
+      <h2 data-article-id="publications_section">
+        {pluralise('Publication', total)} for {accession}
+      </h2>
       <DataListWithLoader
         getIdKey={getIdKey}
         data={resultsWithReferences}

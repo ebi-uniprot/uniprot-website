@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import fetchData from '../../../../shared/utils/fetchData';
-import { stringifyQuery } from '../../../../shared/utils/url';
 import {
   type UniRefEntryType,
   uniRefEntryTypeToPercent,
@@ -68,12 +67,9 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
       }>(
         apiUrls.search.search({
           namespace: Namespace.uniref,
-          query: stringifyQuery({
-            uniprotkb:
-              accession === canonical
-                ? accession.replace(/-\d+$/, '')
-                : accession,
-          }),
+          query: `uniprotkb:${
+            accession === canonical ? accession.replace(/-\d+$/, '') : accession
+          }`,
           columns: [UniRefColumn.id, UniRefColumn.identity],
           facets: null,
         }),
