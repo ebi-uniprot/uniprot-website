@@ -248,60 +248,59 @@ export const RefProtMoveProteomesEntryMessage: FC<{
   >
     <strong>
       {moveStatus === 'becoming-non-reference'
-        ? `Proteome ${id} is going to lose its reference proteome status in release ${release} (${releaseDate}). Its existing unreviewed (TrEMBL) entries will be removed, except those with experimental or biologically important data.`
-        : `Proteome ${id} is not a reference proteome in release ${release} (${releaseDate}). Its existing unreviewed (TrEMBL) entries will be removed, except those with experimental or biologically important data.`}
+        ? `Proteome ${id} is going to lose its reference proteome status in release ${release} (${releaseDate}). Any unreviewed (TrEMBL) entries will be removed, except those with experimental or biologically important data.`
+        : `Proteome ${id} is not a reference proteome in release ${release} (${releaseDate}). Any unreviewed (TrEMBL) entries will be removed, except those with experimental or biologically important data.`}
     </strong>
-    <br />
-    Its reviewed (Swiss-Prot) entries will be retained.
-    <br />
-    <br />
-    All proteomes will remain accessible in the Proteomes database. Entries
-    removed from UniProtKB/TrEMBL will remain accessible in the UniParc sequence
-    archive.
-    <br />
-    Please read our{' '}
-    <Link
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'refprot_only_changes',
-      })}
-    >
-      help page
-    </Link>
-    , view{' '}
-    <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
-      affected entries and proteomes
-    </ExternalLink>
-    , or{' '}
-    <ContactLink
-      to={
-        id && taxonomy
-          ? {
-              pathname: LocationToPath[Location.ContactGeneric],
-              state: {
-                formValues: {
-                  context: [
-                    'Message from RefProt change banner',
-                    `Proteome ID: ${id}`,
-                    `Organism: ${taxonomy.scientificName}`,
-                    `Taxon ID: ${taxonomy.taxonId}`,
-                    `Mnemonic: ${taxonomy.mnemonic}`,
-                  ].join('\n'),
-                },
-              },
-            }
-          : {
-              pathname: LocationToPath[Location.ContactGeneric],
-              state: {
-                formValues: {
-                  context: 'Message from RefProt change banner',
-                },
-              },
-            }
-      }
-    >
-      contact us
-    </ContactLink>{' '}
-    with any questions.
+    <div className={styles['entry-body']}>
+      <p>Its reviewed (Swiss-Prot) entries will be retained.</p>
+      <p>All proteomes will remain accessible in the Proteomes database.</p>
+      <p>
+        Entries removed from UniProtKB/TrEMBL will remain accessible in the
+        UniParc sequence archive. Please read our{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'refprot_only_changes',
+          })}
+        >
+          help page
+        </Link>
+        , view{' '}
+        <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
+          affected entries and proteomes
+        </ExternalLink>
+        , or{' '}
+        <ContactLink
+          to={
+            id && taxonomy
+              ? {
+                  pathname: LocationToPath[Location.ContactGeneric],
+                  state: {
+                    formValues: {
+                      context: [
+                        'Message from RefProt change banner',
+                        `Proteome ID: ${id}`,
+                        `Organism: ${taxonomy.scientificName}`,
+                        `Taxon ID: ${taxonomy.taxonId}`,
+                        `Mnemonic: ${taxonomy.mnemonic}`,
+                      ].join('\n'),
+                    },
+                  },
+                }
+              : {
+                  pathname: LocationToPath[Location.ContactGeneric],
+                  state: {
+                    formValues: {
+                      context: 'Message from RefProt change banner',
+                    },
+                  },
+                }
+          }
+        >
+          contact us
+        </ContactLink>{' '}
+        with any questions.
+      </p>
+    </div>
   </Message>
 );
 
@@ -325,8 +324,7 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
       <li>Selected entries with experimental or biologically important data</li>
     </ul>
     Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
-    sequence archive.
-    <br />
+    sequence archive.{' '}
     <HelpFtpContact accession={accession} organism={organism} upids={upids} />
   </Message>
 );
