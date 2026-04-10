@@ -45,9 +45,7 @@ const Entry = () => {
   );
 
   const refprotmoveData = useDataApi<ProteomesCheckMoveResponse>(
-    accession && mainData.data?.proteomeType === 'Other proteome'
-      ? joinUrl(checkMoveUrl, 'proteomes', accession)
-      : null
+    accession ? joinUrl(checkMoveUrl, 'proteomes', accession) : null
   );
 
   if (mainData.loading || panProteomeData.loading || refprotmoveData.loading) {
@@ -69,7 +67,9 @@ const Entry = () => {
     panProteomeData.data
   );
 
-  const becomingNonRP = refprotmoveData.data?.status === 'became-non-reference';
+  const moveStatus = refprotmoveData.data?.status;
+  const showMoveMessage =
+    moveStatus === 'becoming-non-reference' || moveStatus === 'other';
 
   return (
     <SingleColumnLayout className="entry-page">
@@ -79,10 +79,11 @@ const Entry = () => {
           searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
-      {becomingNonRP && (
+      {showMoveMessage && moveStatus && (
         <RefProtMoveProteomesEntryMessage
           id={transformedData.id}
           taxonomy={transformedData.taxonomy}
+          moveStatus={moveStatus}
         />
       )}
       <h1>
