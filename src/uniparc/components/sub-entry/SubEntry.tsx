@@ -132,7 +132,9 @@ const SubEntry = () => {
 
   let sourceDatabase: string | undefined;
   if (xrefId?.includes(':')) {
-    [sourceDatabase, subEntryId] = xrefId.split(':');
+    const colonIndex = xrefId.indexOf(':');
+    sourceDatabase = xrefId.slice(0, colonIndex);
+    subEntryId = xrefId.slice(colonIndex + 1);
   }
   const isUniProtKB = reUniProtKBAccessionWithBounds.test(subEntryId || '');
 
