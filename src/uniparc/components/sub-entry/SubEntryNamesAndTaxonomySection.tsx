@@ -220,16 +220,33 @@ const SubEntryNamesAndTaxonomySection = ({
     },
   ];
 
+  const hasProteinNameContent = proteinNameInfoData.some(
+    (item) => item.content
+  );
+  const hasGeneNameContent = geneNameInfoData.some((item) => item.content);
+
+  if (
+    !hasProteinNameContent &&
+    (!geneName || !hasGeneNameContent) &&
+    !organism &&
+    proteomeContent.length === 0
+  ) {
+    return null;
+  }
+
   return (
     <Card
       header={<h2>{entrySectionToLabel[SubEntrySection.NamesAndTaxonomy]}</h2>}
       id={SubEntrySection.NamesAndTaxonomy}
       data-entry-section
     >
-      <h3 data-article-id="protein_names">Protein Name</h3>
-      <InfoList infoData={proteinNameInfoData} />
-
-      {geneName && (
+      {hasProteinNameContent && (
+        <>
+          <h3 data-article-id="protein_names">Protein Name</h3>
+          <InfoList infoData={proteinNameInfoData} />
+        </>
+      )}
+      {(geneName || hasGeneNameContent) && (
         <>
           <h3 data-article-id="gene_name">Gene Name</h3>
           <InfoList infoData={geneNameInfoData} />
