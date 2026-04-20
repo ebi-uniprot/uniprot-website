@@ -5,6 +5,7 @@ import {
   getEntryTypeFromString,
 } from '../../shared/config/entryTypeIcon';
 import { type Xref } from '../../shared/types/apiModel';
+import * as logging from '../../shared/utils/logging';
 import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { UniProtKBColumn } from '../types/columnTypes';
 import {
@@ -77,6 +78,20 @@ export type GOAspectName =
 type GOAspectShort = 'C' | 'F' | 'P';
 
 export type GOTermID = `GO:${number}${string}`;
+
+/**
+ * Narrow a raw string to a `GOTermID` after verifying the `GO:` prefix.
+ * Falls back to casting (with a dev-time warning) if the prefix is absent —
+ * we keep this permissive because callers today rely on upstream xref filters
+ * to guarantee the prefix, and we don't want to silently drop legitimate data
+ * if the API ever returns an unexpected shape.
+ */
+export const asGoTermId = (id: string): GOTermID => {
+  if (!id.startsWith('GO:')) {
+    logging.warn(`Expected GO ID to start with "GO:", got "${id}"`);
+  }
+  return id as GOTermID;
+};
 
 export type GoTerm = {
   id: GOTermID;
