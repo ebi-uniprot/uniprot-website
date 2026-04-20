@@ -16,7 +16,7 @@ const Overview = ({ data }: Props) => {
       ),
     },
     {
-      title: 'Sequence length',
+      title: 'Amino acids',
       content: data.sequence && <span>{data.sequence.length}</span>,
     },
     {
