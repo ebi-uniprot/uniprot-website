@@ -1224,6 +1224,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
   ),
   render(data) {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
+    // Biological Process and Molecular Function terms live in the Function
+    // section; Cellular Component terms live in the Subcellular Location
+    // section. This column shows all three aspects, so merge both sources.
     const allTerms = [
       ...(goTerms ? Array.from(goTerms.values()).flat() : []),
       ...getCellularComponentGoTerms(data),
@@ -1235,6 +1238,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
 const GoId = ({ data }: { data: UniProtkbUIModel }) => {
   const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
   const databaseInfoMaps = useDatabaseInfoMaps();
+  // Biological Process and Molecular Function terms live in the Function
+  // section; Cellular Component terms live in the Subcellular Location
+  // section. This column shows all three aspects, so merge both sources.
   const allTerms = [
     ...(goTerms ? Array.from(goTerms.values()).flat() : []),
     ...getCellularComponentGoTerms(data),
