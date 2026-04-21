@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'How many members do you have on your team and have you ever considered UniProt as one of them?';
 
 const proteinSpotlightAbstract =
-  "Two's company, three's a crowd. It could be a grasshopper's motto. Grasshoppers are solitary inoffensive creatures, that go about their business hopping from here to there nibbling away...";
+  "You've arrived at the supermarket, and your trolley token is missing. It's not where you usually keep it - on your keyring, or in your bag. Flustered, you search for ...";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -306,21 +306,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/289/"
+            url="https://www.proteinspotlight.org/back_issues/290/"
             noIcon
           >
-            Bands, swarms and plagues
+            Support
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/289/"
+          url="https://www.proteinspotlight.org/back_issues/290/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt289.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt290.jpg"
             alt=""
             width="123"
             height="129"
