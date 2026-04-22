@@ -71,7 +71,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
     >
       <label
         class="label"
-        for="name-1"
+        for="name-2"
       >
         Name:
       </label>
@@ -80,7 +80,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="name-1"
+          id="name-2"
           maxlength="100"
           name="name"
           placeholder=" "
@@ -105,7 +105,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       </span>
       <label
         class="label"
-        for="email-1"
+        for="email-2"
       >
         E-mail:
       </label>
@@ -114,7 +114,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="email-1"
+          id="email-2"
           maxlength="100"
           minlength="4"
           name="email"
@@ -141,7 +141,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       </span>
       <label
         class="label"
-        for="subject-1"
+        for="subject-2"
       >
         Subject:
       </label>
@@ -150,7 +150,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="subject-1"
+          id="subject-2"
           maxlength="100"
           minlength="1"
           name="subject"
@@ -177,7 +177,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       </span>
       <label
         class="label label-wide"
-        for="message-1"
+        for="message-2"
       >
         Message:
         <br />
@@ -190,7 +190,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="message-1"
+          id="message-2"
           minlength="1"
           name="message"
           placeholder="My detailed message to the UniProt team"
@@ -215,7 +215,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       </span>
       <label
         class="label label-wide"
-        for="prefilled-1"
+        for="context-2"
       >
         Additional information:
         <br />
@@ -228,7 +228,7 @@ exports[`ContactForm should be disabled when submitting 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="context-1"
+          id="context-2"
           name="context"
           readonly=""
         >
@@ -262,6 +262,7 @@ Website version: #git_commit_id
       <input
         aria-hidden="true"
         name="requiredForRobots"
+        style="opacity: 0; position: absolute; z-index: -1;"
         tabindex="-1"
         type="text"
       />
@@ -387,7 +388,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
     >
       <label
         class="label"
-        for="name-1"
+        for="name-2"
       >
         Name:
       </label>
@@ -396,7 +397,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="name-1"
+          id="name-2"
           maxlength="100"
           name="name"
           placeholder=" "
@@ -421,7 +422,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       </span>
       <label
         class="label"
-        for="email-1"
+        for="email-2"
       >
         E-mail:
       </label>
@@ -430,7 +431,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="email-1"
+          id="email-2"
           maxlength="100"
           minlength="4"
           name="email"
@@ -457,7 +458,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       </span>
       <label
         class="label"
-        for="subject-1"
+        for="subject-2"
       >
         Subject:
       </label>
@@ -466,7 +467,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="subject-1"
+          id="subject-2"
           maxlength="100"
           minlength="1"
           name="subject"
@@ -494,7 +495,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       </span>
       <label
         class="label label-wide"
-        for="message-1"
+        for="message-2"
       >
         Message:
         <br />
@@ -507,7 +508,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="message-1"
+          id="message-2"
           minlength="1"
           name="message"
           placeholder="My detailed message to the UniProt team"
@@ -532,7 +533,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       </span>
       <label
         class="label label-wide"
-        for="prefilled-1"
+        for="context-2"
       >
         Additional information:
         <br />
@@ -545,7 +546,7 @@ exports[`ContactForm should render for feedback contact form 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="context-1"
+          id="context-2"
           name="context"
           readonly=""
         >
@@ -579,6 +580,7 @@ Website version: #git_commit_id
       <input
         aria-hidden="true"
         name="requiredForRobots"
+        style="opacity: 0; position: absolute; z-index: -1;"
         tabindex="-1"
         type="text"
       />
@@ -703,7 +705,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
     >
       <label
         class="label"
-        for="name-1"
+        for="name-2"
       >
         Name:
       </label>
@@ -712,7 +714,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="name-1"
+          id="name-2"
           maxlength="100"
           name="name"
           placeholder=" "
@@ -737,7 +739,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       </span>
       <label
         class="label"
-        for="email-1"
+        for="email-2"
       >
         E-mail:
       </label>
@@ -746,7 +748,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="email-1"
+          id="email-2"
           maxlength="100"
           minlength="4"
           name="email"
@@ -773,7 +775,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       </span>
       <label
         class="label"
-        for="subject-1"
+        for="subject-2"
       >
         Subject:
       </label>
@@ -782,7 +784,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <input
           data-hj-allow="true"
-          id="subject-1"
+          id="subject-2"
           maxlength="100"
           minlength="1"
           name="subject"
@@ -809,7 +811,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       </span>
       <label
         class="label label-wide"
-        for="message-1"
+        for="message-2"
       >
         Message:
         <br />
@@ -822,7 +824,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="message-1"
+          id="message-2"
           minlength="1"
           name="message"
           placeholder="My detailed message to the UniProt team"
@@ -847,7 +849,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       </span>
       <label
         class="label label-wide"
-        for="prefilled-1"
+        for="context-2"
       >
         Additional information:
         <br />
@@ -860,7 +862,7 @@ exports[`ContactForm should render for generic contact form 1`] = `
       >
         <textarea
           data-hj-allow="true"
-          id="context-1"
+          id="context-2"
           name="context"
           readonly=""
         >
@@ -894,6 +896,7 @@ Website version: #git_commit_id
       <input
         aria-hidden="true"
         name="requiredForRobots"
+        style="opacity: 0; position: absolute; z-index: -1;"
         tabindex="-1"
         type="text"
       />

@@ -7,7 +7,13 @@ import {
   SuccessIcon,
 } from 'franklin-sites';
 import { createPath } from 'history';
-import { type ChangeEvent, type ReactNode, useId, useMemo } from 'react';
+import {
+  type ChangeEvent,
+  type ReactNode,
+  useEffect,
+  useId,
+  useState,
+} from 'react';
 import {
   generatePath,
   Link,
@@ -19,6 +25,7 @@ import { Location, LocationToPath } from '../../app/config/urls';
 import ExternalLink from '../../shared/components/ExternalLink';
 import HTMLHead from '../../shared/components/HTMLHead';
 import { RefProtContactPage } from '../../shared/components/RefProtMoveMessages';
+import * as logging from '../../shared/utils/logging';
 import { translatedWebsite } from '../../shared/utils/translatedWebsite';
 import {
   type ContactLocationState,
@@ -28,7 +35,10 @@ import {
 import ContactLink from './ContactLink';
 import styles from './styles/contact-form.module.scss';
 
-// ARIA hide all of these, are the state is available in the form already
+// Declare global variable for TypeScript if not already declared elsewhere
+declare const GIT_COMMIT_HASH: string | undefined;
+
+// ARIA hide all of these, as the state is available in the form already
 const validity = (
   <>
     <span aria-hidden="true" className={cn(styles.validity, styles.required)}>
@@ -150,6 +160,12 @@ const ContactForm = () => {
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
   const { state: locationState, search } = useLocation<ContactLocationState>();
 
+  const genericUrlSearchParams = new URLSearchParams(search);
+  const rawHistory = genericUrlSearchParams.get('history');
+
+  const [context, setContext] = useState<string>('');
+  const [isDecoding, setIsDecoding] = useState<boolean>(!!rawHistory);
+
   let referrerValue = '';
   if (locationState?.referrer) {
     referrerValue =
@@ -170,19 +186,71 @@ const ContactForm = () => {
     } else {
       subjectDefault = `UniProtKB entry update request`;
     }
+  } else if (genericUrlSearchParams.get('subject')) {
+    subjectDefault = genericUrlSearchParams.get('subject') || subjectDefault;
   }
 
-  const context = useMemo(() => {
-    const websiteTranslation = translatedWebsite();
-    let context = `${locationState?.formValues?.context || ''}
-Referred from: ${globalThis.location.origin}${referrerValue}
-User browser: ${navigator.userAgent}
-Website version: ${GIT_COMMIT_HASH}`.trim();
-    if (websiteTranslation) {
-      context += `\nWebsite translated to: ${websiteTranslation}`;
-    }
-    return context;
-  }, [locationState?.formValues?.context, referrerValue]);
+  useEffect(() => {
+    let isMounted = true;
+
+    const buildContext = async () => {
+      const websiteTranslation = translatedWebsite();
+
+      // SSR-safe environment checks
+      const origin =
+        typeof window !== 'undefined' ? window.location.origin : '';
+      const userAgent =
+        typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown';
+      const commitHash =
+        typeof GIT_COMMIT_HASH !== 'undefined' ? GIT_COMMIT_HASH : 'unknown';
+
+      let baseContext = `${locationState?.formValues?.context || ''}
+Referred from: ${origin}${referrerValue}
+User browser: ${userAgent}
+Website version: ${commitHash}`.trim();
+
+      if (websiteTranslation) {
+        baseContext += `\nWebsite translated to: ${websiteTranslation}`;
+      }
+
+      if (rawHistory) {
+        try {
+          // 1. Decode Base64 to binary string, then to Uint8Array
+          const binaryString = atob(rawHistory);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i += 1) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+
+          // 2. Use Native DecompressionStream
+          const stream = new Blob([bytes])
+            .stream()
+            .pipeThrough(new DecompressionStream('deflate'));
+          const response = new Response(stream);
+          const decoded = await response.text();
+
+          if (decoded) {
+            baseContext += `\nPrevious context:\n${decoded}`;
+          }
+        } catch {
+          logging.error(
+            'Failed to decode interaction history passed from third-party'
+          );
+        }
+      }
+
+      if (isMounted) {
+        setContext(baseContext);
+        setIsDecoding(false);
+      }
+    };
+
+    buildContext();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [rawHistory, locationState?.formValues?.context, referrerValue]);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setCustomValidity(
@@ -308,7 +376,10 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
                 handleTextareaChange(event);
                 handleChange(event);
               }}
-              defaultValue={locationState?.formValues?.message}
+              defaultValue={
+                genericUrlSearchParams.get('message') ??
+                locationState?.formValues?.message
+              }
               data-hj-allow
             />
             {validity}
@@ -324,7 +395,7 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
           )}
           <label
             className={cn(styles.label, styles['label-wide'])}
-            htmlFor={`prefilled-${formId}`}
+            htmlFor={`context-${formId}`}
           >
             Additional information:
             <br />
@@ -365,15 +436,16 @@ Website version: ${GIT_COMMIT_HASH}`.trim();
               *
             </span>
           </label>
-          {/* 🍯 */}
+          {/* 🍯 Honeypot - Made completely invisible to sighted users */}
           <input
             type="text"
             name="requiredForRobots"
             // Make sure it's NOT reachable, on purpose
             tabIndex={-1}
             aria-hidden="true"
+            style={{ opacity: 0, position: 'absolute', zIndex: -1 }}
           />
-          <Button type="submit" disabled={sending}>{`Send${
+          <Button type="submit" disabled={sending || isDecoding}>{`Send${
             sending ? 'ing' : ''
           } message`}</Button>
           <aside>
