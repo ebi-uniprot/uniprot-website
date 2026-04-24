@@ -19,16 +19,16 @@ const SubEntryOverview = ({ data }: Props) => {
       ),
     },
     {
-      title: <span data-article-id="gene_name">Gene</span>,
-      content: data.subEntry.geneName && (
-        <strong>{data.subEntry.geneName}</strong>
-      ),
-    },
-    {
       title: <span data-article-id="organism-name">Organism</span>,
       content: (data.subEntry.organism?.scientificName ||
         data.subEntry.organism?.taxonId) && (
         <TaxonomyView data={data.subEntry.organism} />
+      ),
+    },
+    {
+      title: <span data-article-id="gene_name">Gene</span>,
+      content: data.subEntry.geneName && (
+        <strong>{data.subEntry.geneName ?? ''}</strong>
       ),
     },
     {
