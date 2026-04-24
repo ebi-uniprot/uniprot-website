@@ -14,21 +14,28 @@ const SubEntryOverview = ({ data }: Props) => {
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
-      content: data.subEntry.proteinName && (
+      content: data.subEntry.proteinName ? (
         <strong>{data.subEntry.proteinName}</strong>
+      ) : (
+        <i>Unassigned</i>
       ),
     },
     {
       title: <span data-article-id="organism-name">Organism</span>,
-      content: (data.subEntry.organism?.scientificName ||
-        data.subEntry.organism?.taxonId) && (
-        <TaxonomyView data={data.subEntry.organism} />
-      ),
+      content:
+        data.subEntry.organism?.scientificName ||
+        data.subEntry.organism?.taxonId ? (
+          <TaxonomyView data={data.subEntry.organism} />
+        ) : (
+          <i>Unassigned</i>
+        ),
     },
     {
       title: <span data-article-id="gene_name">Gene</span>,
-      content: data.subEntry.geneName && (
-        <strong>{data.subEntry.geneName ?? ''}</strong>
+      content: data.subEntry.geneName ? (
+        <strong>{data.subEntry.geneName}</strong>
+      ) : (
+        <i>Unassigned</i>
       ),
     },
     {
