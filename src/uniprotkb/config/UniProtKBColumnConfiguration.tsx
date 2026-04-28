@@ -45,11 +45,19 @@ import {
 import { diseaseAndDrugsFeaturesToColumns } from '../adapters/diseaseAndDrugs';
 import { familyAndDomainsFeaturesToColumns } from '../adapters/familyAndDomainsConverter';
 import {
+  asGoTermId,
   functionFeaturesToColumns,
   type FunctionUIModel,
   type GOAspectLabel,
   type GoTerm,
 } from '../adapters/functionConverter';
+
+// Cellular Component GO terms are not carried on the Function section model
+// (see getAspectGroupedGoTermsWithoutCellComp in functionConverter.ts) — they
+// live on the Subcellular Location section as GoXref[]. Tighten this so any
+// future caller that tries to route CC through getGOColumnForAspect fails at
+// compile time instead of silently rendering nothing.
+type NonCellCompAspectLabel = Exclude<GOAspectLabel, 'Cellular Component'>;
 import { type Interactant } from '../adapters/interactionConverter';
 import { type ProteinDescription } from '../adapters/namesAndTaxonomyConverter';
 import { proteinProcessingFeaturesToColumns } from '../adapters/proteinProcessingConverter';
@@ -61,7 +69,11 @@ import {
   structureFeaturesToColumns,
   type StructureUIModel,
 } from '../adapters/structureConverter';
-import { subcellularLocationFeaturesToColumns } from '../adapters/subcellularLocationConverter';
+import {
+  type GoXref,
+  subcellularLocationFeaturesToColumns,
+  type SubcellularLocationUIModel,
+} from '../adapters/subcellularLocationConverter';
 import { type UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import {
   AbsorptionView,
@@ -149,7 +161,7 @@ const getFeatureColumn = (
   },
 });
 
-const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
+const getGOColumnForAspect = (aspect: NonCellCompAspectLabel) => ({
   ...getLabelAndTooltip(
     `Gene Ontology - ${aspect}`,
     'Gene Ontology (GO) terms associated with the entry',
@@ -163,6 +175,26 @@ const getGOColumnForAspect = (aspect: GOAspectLabel) => ({
     );
   },
 });
+
+// Cellular Component GO terms are not shown in the Function section (they're
+// intentionally filtered out there — see getAspectGroupedGoTermsWithoutCellComp
+// in functionConverter.ts) and instead live on the Subcellular Location
+// section as GoXref[]. Adapt them to the GoTerm shape expected by GOTermsView.
+const goXrefToGoTerm = (xref: GoXref): GoTerm => ({
+  id: asGoTermId(xref.id),
+  database: 'GO',
+  aspect: 'Cellular Component',
+  termDescription: xref.properties.GoTerm,
+  evidences: xref.evidences,
+  properties: xref.properties,
+});
+
+const getCellularComponentGoTerms = (data: UniProtkbUIModel): GoTerm[] => {
+  const { goXrefs } = data[
+    EntrySection.SubCellularLocation
+  ] as SubcellularLocationUIModel;
+  return goXrefs?.map(goXrefToGoTerm) ?? [];
+};
 
 const UniProtKBColumnConfiguration: ColumnConfiguration<
   UniProtKBColumn,
@@ -1166,10 +1198,19 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goP,
   getGOColumnForAspect('Biological Process')
 );
-UniProtKBColumnConfiguration.set(
-  UniProtKBColumn.goC,
-  getGOColumnForAspect('Cellular Component')
-);
+UniProtKBColumnConfiguration.set(UniProtKBColumn.goC, {
+  ...getLabelAndTooltip(
+    'Gene Ontology - Cellular Component',
+    'Gene Ontology (GO) terms associated with the entry',
+    'gene_ontology'
+  ),
+  render: (data) => {
+    const cellularComponentTerms = getCellularComponentGoTerms(data);
+    return cellularComponentTerms.length ? (
+      <GOTermsView data={cellularComponentTerms} translate="yes" />
+    ) : null;
+  },
+});
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goF,
   getGOColumnForAspect('Molecular Function')
@@ -1183,34 +1224,44 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
   ),
   render(data) {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-    return (
-      goTerms && <GOTermsView data={Array.from(goTerms.values()).flat()} />
-    );
+    // Biological Process and Molecular Function terms live in the Function
+    // section; Cellular Component terms live in the Subcellular Location
+    // section. This column shows all three aspects, so merge both sources.
+    const allTerms = [
+      ...(goTerms ? Array.from(goTerms.values()).flat() : []),
+      ...getCellularComponentGoTerms(data),
+    ];
+    return allTerms.length ? <GOTermsView data={allTerms} /> : null;
   },
 });
 
 const GoId = ({ data }: { data: UniProtkbUIModel }) => {
   const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
   const databaseInfoMaps = useDatabaseInfoMaps();
-  if (!goTerms) {
+  // Biological Process and Molecular Function terms live in the Function
+  // section; Cellular Component terms live in the Subcellular Location
+  // section. This column shows all three aspects, so merge both sources.
+  const allTerms = [
+    ...(goTerms ? Array.from(goTerms.values()).flat() : []),
+    ...getCellularComponentGoTerms(data),
+  ];
+  if (!allTerms.length) {
     return null;
   }
   return (
     <section className="text-block">
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-        {Array.from(goTerms.values())
-          .flat()
-          .map(
-            ({ id }: GoTerm) =>
-              id && (
-                <ExternalLink
-                  key={id}
-                  url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
-                >
-                  {id}
-                </ExternalLink>
-              )
-          )}
+        {allTerms.map(
+          ({ id }: GoTerm) =>
+            id && (
+              <ExternalLink
+                key={id}
+                url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', { id })}
+              >
+                {id}
+              </ExternalLink>
+            )
+        )}
       </ExpandableList>
     </section>
   );
