@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Loader, Message, Tab, Tabs } from 'franklin-sites';
+import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import { use, useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
@@ -45,6 +45,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
+import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import {
   type UniParcLiteAPIModel,
   type UniParcXRef,
@@ -58,7 +59,9 @@ import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
+import { getXrefId } from '../../utils/uniparcXref';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
+import { type DataDBModel } from '../entry/XRefsSection';
 import SubEntryContext from './SubEntryContext';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
@@ -79,13 +82,40 @@ const getErrorStatus = (
   return undefined;
 };
 
+const reUniProtKBAccessionWithBounds = new RegExp(
+  `(?<!\\w)(?:${reUniProtKBAccession.source})(?!\\w)`,
+  'i'
+);
+
+type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
+
+const ExternalXrefLink = ({ xref, dataDB }: ExternalXrefLinkProps) => {
+  let { id } = xref;
+  if (!id || !xref.database) {
+    return null;
+  }
+  const template = dataDB.find(
+    ({ displayName }) => displayName === xref.database
+  )?.uriLink;
+  if (!template) {
+    return null;
+  }
+  id = getXrefId(id, xref.database);
+  return (
+    <ExternalLink url={template.replace('%id', id)}>
+      {`${xref.database}:${xref.id}`}
+      {xref.chain && ` (chain ${xref.chain})`}
+    </ExternalLink>
+  );
+};
+
 const SubEntry = () => {
   const smallScreen = useSmallScreen();
   const dispatch = useMessagesDispatch();
   const match = useRouteMatch<{
     accession: string;
     subPage: string;
-    subEntryId: string;
+    xrefId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const [runUniFire, setRunUniFire] = useState(
@@ -97,7 +127,16 @@ const SubEntry = () => {
     use(BotDetectionContext) === 'human'
   );
 
-  const { accession, subEntryId, subPage } = match?.params || {};
+  const { accession, xrefId, subPage } = match?.params || {};
+  let subEntryId = xrefId;
+
+  let sourceDatabase: string | undefined;
+  if (xrefId?.includes(':')) {
+    const colonIndex = xrefId.indexOf(':');
+    sourceDatabase = xrefId.slice(0, colonIndex);
+    subEntryId = xrefId.slice(colonIndex + 1);
+  }
+  const isUniProtKB = reUniProtKBAccessionWithBounds.test(subEntryId || '');
 
   const baseURL = `${apiUrls.entry.entry(
     subEntryId && accession,
@@ -110,18 +149,30 @@ const SubEntry = () => {
   const uniparcData = useDataApi<UniParcLiteAPIModel>(baseURL);
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
   const unisaveData = useDataApi<UniSaveStatus>(
-    uniprotkbUrls.unisave.status(subEntryId as string)
+    isUniProtKB ? uniprotkbUrls.unisave.status(subEntryId as string) : undefined
+  );
+  const dbData = useDataApi<DataDBModel>(
+    !isUniProtKB ? apiUrls.configure.allDatabases(Namespace.uniparc) : undefined
   );
 
-  const subEntrytaxId = subEntryData.data?.results[0]?.organism?.taxonId;
-  const canLoadUniFire =
-    subEntrytaxId &&
-    accession &&
-    subEntryData.data?.results?.length &&
-    subEntryData.data.results[0].organism?.taxonId;
+  const subEntryDataPerDatabase =
+    // If it is a UniProtKB entry, we want to get the xref data from the first database
+    // e.g. in case of TrEMBL that are merged into SP, there will be two entries (SP and TrEMBL), and we want to redirect to the active SP page
+    (subEntryData?.data?.results.length &&
+      isUniProtKB &&
+      subEntryData.data.results[0]) ||
+    (sourceDatabase &&
+      subEntryData.data?.results?.find(
+        (xref) => xref.database === sourceDatabase
+      )) ||
+    undefined;
+
+  const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
+  const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
+
   const uniFireData = useDataApi<UniFireModel>(
     canLoadUniFire && runUniFire
-      ? apiUrls.unifire.unifire(accession, `${subEntrytaxId}`)
+      ? apiUrls.unifire.unifire(accession, `${subEntryTaxId}`)
       : null
   );
 
@@ -166,7 +217,12 @@ const SubEntry = () => {
     // eslint-disable-next-line reactHooks/exhaustive-deps
   }, []);
 
-  if (uniparcData.loading || subEntryData.loading || unisaveData.loading) {
+  if (
+    dbData.loading ||
+    uniparcData.loading ||
+    subEntryData.loading ||
+    unisaveData.loading
+  ) {
     return (
       <Loader
         progress={
@@ -182,7 +238,6 @@ const SubEntry = () => {
     subEntryData.error ||
     !subEntryData.data ||
     unisaveData.error ||
-    !unisaveData.data ||
     !match ||
     !accession ||
     !subEntryId
@@ -198,7 +253,7 @@ const SubEntry = () => {
 
   const transformedData = uniParcSubEntryConverter(
     uniparcData.data,
-    subEntryData.data?.results[0],
+    subEntryDataPerDatabase as UniParcXRef,
     unisaveData.data,
     // If no data, it would be an empty string
     uniFireData.data || undefined
@@ -305,7 +360,15 @@ const SubEntry = () => {
                 >
                   {accession}
                 </Link>
-                {`  · ${subEntryId}`}
+                {`  · `}
+                {!isUniProtKB && dbData.data ? (
+                  <ExternalXrefLink
+                    xref={transformedData.subEntry}
+                    dataDB={dbData.data}
+                  />
+                ) : (
+                  subEntryId
+                )}
               </>
             }
           />
@@ -319,8 +382,9 @@ const SubEntry = () => {
           .
         </Message>
         <SubEntryContext
-          subEntryId={subEntryId}
-          data={unisaveData.data}
+          uniparcId={accession}
+          subEntry={transformedData.subEntry}
+          data={unisaveData?.data}
           showUniFireOption={!!canLoadUniFire}
           uniFireData={uniFireData.data}
           uniFireLoading={uniFireData.loading}
@@ -332,7 +396,11 @@ const SubEntry = () => {
         <Tab
           title={
             <Link
-              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
+              to={getSubEntryPath(
+                accession,
+                xrefId as string,
+                TabLocation.Entry
+              )}
             >
               Entry
             </Link>
@@ -359,7 +427,7 @@ const SubEntry = () => {
               <Link
                 to={getSubEntryPath(
                   accession,
-                  subEntryId,
+                  xrefId as string,
                   TabLocation.FeatureViewer
                 )}
               >
@@ -371,7 +439,11 @@ const SubEntry = () => {
         >
           {smallScreen ? (
             <Redirect
-              to={getSubEntryPath(accession, subEntryId, TabLocation.Entry)}
+              to={getSubEntryPath(
+                accession,
+                xrefId as string,
+                TabLocation.Entry
+              )}
             />
           ) : (
             <>

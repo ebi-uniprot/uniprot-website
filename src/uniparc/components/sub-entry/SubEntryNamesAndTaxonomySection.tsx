@@ -64,11 +64,12 @@ const SubEntryNamesAndTaxonomySection = ({
       : null
   );
 
-  if (!data?.subEntry?.proteinName) {
+  if (!data?.subEntry) {
     return null;
   }
 
-  const { proteinName, geneName, organism, properties } = data.subEntry;
+  const { proteinName, geneName, organism, properties, proteomeId, component } =
+    data.subEntry;
   const { predictions } = data.unifire || { predictions: [] };
 
   const recommendedFullNamePrediction =
@@ -119,6 +120,10 @@ const SubEntryNamesAndTaxonomySection = ({
 
   const proteomeComponentObject = getSubEntryProteomes(properties);
 
+  if (proteomeId && component) {
+    proteomeComponentObject[proteomeId] = component;
+  }
+
   const proteomeContent = Object.entries(proteomeComponentObject).map(
     ([proteomeId, component]) => (
       <Fragment key={proteomeId}>
@@ -134,7 +139,7 @@ const SubEntryNamesAndTaxonomySection = ({
   const proteinNameInfoData = [
     {
       title: 'Name',
-      content: proteinName.length ? (
+      content: proteinName?.length ? (
         <NameContent predictions={proteinName} />
       ) : null,
     },
@@ -215,16 +220,33 @@ const SubEntryNamesAndTaxonomySection = ({
     },
   ];
 
+  const hasProteinNameContent = proteinNameInfoData.some(
+    (item) => item.content
+  );
+  const hasGeneNameContent = geneNameInfoData.some((item) => item.content);
+
+  if (
+    !hasProteinNameContent &&
+    (!geneName || !hasGeneNameContent) &&
+    !organism &&
+    proteomeContent.length === 0
+  ) {
+    return null;
+  }
+
   return (
     <Card
       header={<h2>{entrySectionToLabel[SubEntrySection.NamesAndTaxonomy]}</h2>}
       id={SubEntrySection.NamesAndTaxonomy}
       data-entry-section
     >
-      <h3 data-article-id="protein_names">Protein Name</h3>
-      <InfoList infoData={proteinNameInfoData} />
-
-      {geneName && (
+      {hasProteinNameContent && (
+        <>
+          <h3 data-article-id="protein_names">Protein Name</h3>
+          <InfoList infoData={proteinNameInfoData} />
+        </>
+      )}
+      {(geneName || hasGeneNameContent) && (
         <>
           <h3 data-article-id="gene_name">Gene Name</h3>
           <InfoList infoData={geneNameInfoData} />

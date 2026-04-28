@@ -22,6 +22,7 @@ import {
 } from '../adapters/uniParcConverter';
 import Timeline from '../components/entry/Timeline';
 import { getSubEntryPath } from '../utils/subEntry';
+import { getXrefId } from '../utils/uniparcXref';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy
@@ -156,19 +157,29 @@ const getAccessionColumn =
       const template = xref.database && templateMap.get(xref.database);
       if (template) {
         let { id } = xref;
-        // NOTE: exception for FusionGDB we need to remove the underscore number
-        if (xref.database === 'FusionGDB') {
-          id = id.replace(/_\d+$/, '');
+        id = getXrefId(id, xref.database as string);
+
+        if (xref.active) {
+          cell = (
+            <Link
+              to={getSubEntryPath(
+                uniparcAccession,
+                `${xref.database}:${xref.id}`,
+                TabLocation.Entry
+              )}
+            >
+              {xref.id}
+              {xref.chain && ` (chain ${xref.chain})`}
+            </Link>
+          );
+        } else {
+          cell = (
+            <ExternalLink url={template.replace('%id', id)} rel="nofollow">
+              {xref.id}
+              {xref.chain && ` (chain ${xref.chain})`}
+            </ExternalLink>
+          );
         }
-        cell = (
-          <ExternalLink
-            url={template.replace('%id', id)}
-            rel={xref.active ? undefined : 'nofollow'}
-          >
-            {xref.id}
-            {xref.chain && ` (chain ${xref.chain})`}
-          </ExternalLink>
-        );
       }
     }
     return (
