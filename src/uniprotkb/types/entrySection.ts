@@ -12,6 +12,7 @@ enum EntrySection {
   SubCellularLocation = 'subcellular_location',
   ExternalLinks = 'external_links',
   SimilarProteins = 'similar_proteins',
+  Homologs = 'homologs',
 }
 
 export type EntrySectionWithFeatures =

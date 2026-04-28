@@ -85,5 +85,11 @@ export const getEntrySectionNameAndId = (
         id: EntrySection.SimilarProteins,
       };
     }
+    case EntrySection.Homologs: {
+      return {
+        name: 'Homologs',
+        id: EntrySection.Homologs,
+      };
+    }
   }
 };
