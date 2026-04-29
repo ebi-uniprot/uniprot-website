@@ -233,9 +233,15 @@ Website version: ${commitHash}`.trim();
             baseContext += `\nPrevious context:\n${decoded}`;
           }
         } catch {
-          logging.error(
-            'Failed to decode interaction history passed from third-party'
-          );
+          // Fall back to using rawHistory as plain text (e.g. from third-party
+          // integrations that pass uncompressed history)
+          if (rawHistory.trim()) {
+            baseContext += `\nPrevious context:\n${rawHistory}`;
+          } else {
+            logging.error(
+              'Failed to decode interaction history passed from third-party'
+            );
+          }
         }
       }
 
