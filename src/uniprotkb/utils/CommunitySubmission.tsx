@@ -1,0 +1,20 @@
+// Shared rendering for community submissions whose contributor has asked
+// not to share their details. UniProt still knows who the submitter is —
+// they have just opted out of having their identity displayed publicly.
+
+// The literal source ID returned by the API for community submissions where
+// the contributor has opted not to share their identity.
+const ANONYMOUS_SOURCE_ID = 'Anonymous';
+
+const WITHHELD_BY_REQUEST_LABEL = 'Withheld by request';
+const WITHHELD_BY_REQUEST_TOOLTIP =
+  'UniProt knows who submitted this entry, but the contributor has requested that their details not be shared publicly.';
+
+export const isWithheldSubmitter = (sourceId?: string) =>
+  sourceId === ANONYMOUS_SOURCE_ID;
+
+const WithheldByRequest = () => (
+  <span title={WITHHELD_BY_REQUEST_TOOLTIP}>{WITHHELD_BY_REQUEST_LABEL}</span>
+);
+
+export default WithheldByRequest;

@@ -109,7 +109,13 @@ exports[`PublicationSource Community annotations renders ORCID links 2`] = `
   >
     <test-file-stub />
   </span>
-  ORCID: Anonymous (
+  ORCID: 
+  <span
+    title="UniProt knows who submitted this entry, but the contributor has requested that their details not be shared publicly."
+  >
+    Withheld by request
+  </span>
+   (
   <a
     class="external-link"
     href="//community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
