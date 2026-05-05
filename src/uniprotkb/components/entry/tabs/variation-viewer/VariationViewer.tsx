@@ -4,7 +4,7 @@ import {
   transformData,
 } from '@nightingale-elements/nightingale-variation';
 import cn from 'classnames';
-import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
+import { EllipsisReveal, Loader } from 'franklin-sites';
 import { filterConfig } from 'protvista-uniprot';
 import {
   Fragment,
@@ -17,10 +17,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { type PartialDeep, type SetRequired } from 'type-fest';
 
-import { getEntryPath } from '../../../../../app/config/urls';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
@@ -31,18 +29,15 @@ import TableFromData, {
 } from '../../../../../shared/components/table/TableFromData';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
-import { VARIANT_COUNT_LIMIT } from '../../../../../shared/config/limits';
 import NightingaleManagerComponent from '../../../../../shared/custom-elements/NightingaleManager';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
 import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNightingaleFeatureTableScroll';
 import helper from '../../../../../shared/styles/helper.module.scss';
-import { Namespace } from '../../../../../shared/types/namespaces';
 import {
   type NightingaleViewRange,
   withinRange,
 } from '../../../../../shared/utils/nightingale';
-import { TabLocation } from '../../../../types/entry';
 import { type Evidence } from '../../../../types/modelTypes';
 import { type TransformedVariant } from '../../../../types/variation';
 import { sortByLocation } from '../../../../utils';
@@ -426,19 +421,13 @@ const VariationViewer = ({
   const tableId = useId();
   const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
 
-  const searchParams = new URLSearchParams(useLocation().search);
-  const loadAllVariants = searchParams.get('loadVariants');
-
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const shouldRender =
-    (importedVariants !== 'loading' &&
-      importedVariants <= VARIANT_COUNT_LIMIT) ||
-    loadAllVariants;
 
   const { loading, data, progress, error, status } =
     useDataApi<ProteinsAPIVariation>(
-      shouldRender ? apiUrls.proteinsApi.variation(primaryAccession) : undefined
+      importedVariants !== 'loading'
+        ? apiUrls.proteinsApi.variation(primaryAccession)
+        : undefined
     );
 
   const [filters, setFilters] = useState<string[]>([]);
@@ -505,46 +494,6 @@ const VariationViewer = ({
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
-  if (!shouldRender) {
-    return (
-      <div className="wider-tab-content hotjar-margin">
-        {title && <h3 data-article-id="variant_viewer">{title}</h3>}
-        <div>
-          {displayDownloadPanel && (
-            <EntryDownloadPanel
-              handleToggle={handleToggleDownload}
-              dataset={Dataset.variation}
-            />
-          )}
-          <EntryDownloadButton handleToggle={handleToggleDownload} />
-        </div>
-        <div className={tabsStyles['too-many']}>
-          <Message>
-            Due to the large number (<LongNumber>{importedVariants}</LongNumber>
-            ) of variations for this entry, the variant viewer will not be
-            loaded automatically for performance reasons.
-          </Message>
-          <Link
-            className="button primary"
-            to={{
-              pathname: getEntryPath(
-                Namespace.uniprotkb,
-                primaryAccession,
-                TabLocation.VariantViewer
-              ),
-              search: new URLSearchParams({
-                loadVariants: 'true',
-              }).toString(),
-            }}
-            target="variants"
-          >
-            Click to load the <LongNumber>{importedVariants}</LongNumber>{' '}
-            variations
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   if (error && status !== 404) {
     return (
