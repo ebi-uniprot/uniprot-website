@@ -2,7 +2,7 @@ import type NightingaleManager from '@nightingale-elements/nightingale-manager';
 import {
   type ProteinsAPIVariation,
   transformData,
-} from '@nightingale-elements/nightingale-variation';
+} from '@nightingale-elements/nightingale-variation-canvas';
 import cn from 'classnames';
 import { EllipsisReveal, Loader } from 'franklin-sites';
 import { filterConfig } from 'protvista-uniprot';
