@@ -65,6 +65,19 @@ tr:has(.ai-annotation-row) {
       }
     }
 
+    & .toggle__header {
+      // Phantom decoy keeps the toggle's intrinsic width pegged to
+      // "AI Annotations" so swapping the live label to "Loading..."
+      // during the loading state doesn't reflow the toggle.
+      &::before {
+        content: 'AI Annotations';
+        display: block;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+      }
+    }
+
     & .toggle__header__chip {
       display: none;
     }
@@ -75,6 +88,18 @@ tr:has(.ai-annotation-row) {
 
     & .toggle__switch {
       margin-left: 0.5rem;
+    }
+
+    &.toggle--loading {
+      // franklin-sites flips every tinted var to its on (purple) value while
+      // loading; we want only the border purple. Reset the rest to off so
+      // text/background/icon/switch stay neutral. The opacity shimmer stays
+      // because it lives on .toggle--loading itself.
+      --toggle-status-color: var(--toggle-status-color-off);
+      --toggle-header-color: var(--toggle-header-color-off);
+      --toggle-background-color: var(--toggle-background-color-off);
+      --toggle-switch-color: var(--toggle-switch-color-off);
+      --toggle-icon-color: var(--toggle-icon-color-off);
     }
   }
 }

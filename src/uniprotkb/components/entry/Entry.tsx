@@ -678,7 +678,9 @@ const Entry = () => {
             </h1>
             {hasProtnlm && (
               <ToggleSwitch
-                header="AI Annotations"
+                header={
+                  protnlmPayload.loading ? 'Loading...' : 'AI Annotations'
+                }
                 statusOff="Click to enable"
                 statusLoading="Loading AI predictions..."
                 statusOn="Showing AI predictions"
