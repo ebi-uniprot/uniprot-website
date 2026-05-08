@@ -1,14 +1,100 @@
 :root {
-  --ai-color: color-mix(in srgb, var(--fr--color-purple-mid) 6%, white);
+  --ai-color: color-mix(in srgb, var(--fr--color-purple-mid) 3%, white);
+  --ai-border: color-mix(in srgb, var(--fr--color-purple-mid) 25%, transparent);
 }
 .decorated-list-item:has(.ai-annotation),
 .ai-annotation:not(.decorated-list-item .ai-annotation),
 .ai-annotation-keyword {
   background-color: var(--ai-color);
+  border: 1px solid var(--ai-border);
+  border-radius: 0.25rem;
   padding: 0.5rem;
   margin-top: 0.5rem;
 }
 
 tr:has(.ai-annotation-row) {
   background-color: var(--ai-color) !important;
+  // Table rows can't take a continuous border; left accent stripe instead.
+  box-shadow: inset 0.2rem 0 0 0 var(--ai-border) !important;
+}
+
+.ai-annotation-marker {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  // gap from the value text on the left, breathing room before tags on the right
+  margin: 0 0.2rem 0 0.3rem;
+  color: var(--fr--color-purple-mid);
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.entry-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  // tight row-gap so wrapping on narrow screens doesn't leave a huge gap;
+  // moderate column-gap so the toggle still sits comfortably next to the title.
+  row-gap: 0.25rem;
+  column-gap: 1.5rem;
+  container-type: inline-size;
+
+  & > h1 {
+    margin: 0;
+  }
+
+  &__toggle {
+    min-width: 0;
+    width: auto;
+    flex: 0 1 auto;
+    border-radius: 0.7rem;
+    padding: 0.6rem 1rem;
+    margin: 5px 0;
+
+    & .toggle__icon {
+      // Match the icon to the header text color (grey when off, purple when on).
+      color: var(--toggle-header-color);
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+
+      & svg {
+        fill: currentColor;
+        stroke: currentColor;
+      }
+    }
+
+    & .toggle__header__chip {
+      display: none;
+    }
+
+    & .toggle__status {
+      display: none;
+    }
+
+    & .toggle__switch {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.entry-tab-ai-icon {
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+}
+
+.tabs__header__item.entry-tab--ai.tabs__header__item--active,
+.tabs__header__item.entry-tab--ai:hover,
+.tabs__header__item.entry-tab--ai:focus {
+  background-color: var(--ai-color);
+  box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-purple-mid);
+}
+
+@supports (selector(:has(a))) {
+  .tabs__header__item.entry-tab--ai:has(> a) > a {
+    color: var(--fr--color-purple-mid);
+  }
 }

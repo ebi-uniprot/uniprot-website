@@ -604,24 +604,7 @@ const Entry = () => {
   }
 
   const entrySidebar = (
-    <InPageNav
-      sections={sections}
-      rootElement={`.${sidebarStyles.content}`}
-      footer={
-        hasProtnlm ? (
-          <ToggleSwitch
-            header="AI Annotations"
-            statusOff="Click to enable"
-            statusLoading="Loading AI predictions..."
-            statusOn="Showing AI predictions"
-            isLoading={protnlmPayload.loading}
-            icon={<AiAnnotationsIcon />}
-            checked={loadProtNLM}
-            onChange={setLoadProtNLM}
-          />
-        ) : null
-      }
-    />
+    <InPageNav sections={sections} rootElement={`.${sidebarStyles.content}`} />
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
@@ -684,14 +667,28 @@ const Entry = () => {
               organism={data.organism}
             />
           ) : null}
-          <h1>
-            <EntryTitle
-              mainTitle={data.primaryAccession}
-              optionalTitle={data.uniProtkbId}
-              entryType={data.entryType}
+          <div className="entry-title-row">
+            <h1>
+              <EntryTitle
+                mainTitle={data.primaryAccession}
+                optionalTitle={data.uniProtkbId}
+                entryType={data.entryType}
+              />
+              <BasketStatus id={data.primaryAccession} className="small" />
+            </h1>
+            {/* TODO: re-gate on `hasProtnlm` once the protnlm2 backend is back: hasProtnlm && ( ... )}*/}
+            <ToggleSwitch
+              header="AI Annotations"
+              statusOff="Click to enable"
+              statusLoading="Loading AI predictions..."
+              statusOn="Showing AI predictions"
+              isLoading={protnlmPayload.loading}
+              icon={<AiAnnotationsIcon />}
+              checked={loadProtNLM}
+              onChange={setLoadProtNLM}
+              className="entry-title-row__toggle"
             />
-            <BasketStatus id={data.primaryAccession} className="small" />
-          </h1>
+          </div>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       )}
@@ -699,6 +696,7 @@ const Entry = () => {
         <Tabs active={match.params.subPage}>
           <Tab
             disabled={isObsolete}
+            className={loadProtNLM ? 'entry-tab--ai' : undefined}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -710,6 +708,12 @@ const Entry = () => {
                 )}
               >
                 Entry
+                {loadProtNLM && (
+                  <AiAnnotationsIcon
+                    className="entry-tab-ai-icon"
+                    aria-hidden="true"
+                  />
+                )}
               </Link>
             }
             id={TabLocation.Entry}

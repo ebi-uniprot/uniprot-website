@@ -1,4 +1,4 @@
-import { EvidenceTag, ExpandableList } from 'franklin-sites';
+import { AiAnnotationsIcon, EvidenceTag, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 import { memo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
@@ -107,8 +107,15 @@ const UniProtKBEvidenceTag = ({
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
+  const hasProtNLM2 = evidences.some((evidence) => evidence.id === ProtNLM2Id);
   return (
     <>
+      {hasProtNLM2 && (
+        <AiAnnotationsIcon
+          className="ai-annotation-marker"
+          aria-label="AI-predicted annotation"
+        />
+      )}
       {Object.entries(evidenceObj).map(([evidenceCode, references]) => {
         const evidenceData = getEvidenceCodeData(
           getEcoNumberFromString(evidenceCode)
