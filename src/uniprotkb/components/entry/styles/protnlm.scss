@@ -15,7 +15,8 @@
 tr:has(.ai-annotation-row) {
   background-color: var(--ai-color) !important;
   // Table rows can't take a continuous border; left accent stripe instead.
-  box-shadow: inset 0.2rem 0 0 0 var(--ai-border) !important;
+  box-shadow: inset 0.2rem 0 0 0
+    color-mix(in srgb, var(--fr--color-purple-mid) 60%, transparent) !important;
 }
 
 .ai-annotation-marker {

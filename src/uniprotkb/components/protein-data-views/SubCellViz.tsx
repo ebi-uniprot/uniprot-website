@@ -415,7 +415,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         legendStyleId,
         `
         ${getGoLegendSelectors(aiGoIds)} {
-          background-color: color-mix(in srgb, var(--fr--color-purple-mid) 15%, white) !important;
+          background-color: var(--ai-color) !important;
         }
         ${getGoLegendHoverSelectors(aiGoIds)} {
           background-color: color-mix(in srgb, var(--fr--color-purple-mid) 40%, white) !important;
