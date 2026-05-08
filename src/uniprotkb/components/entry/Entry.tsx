@@ -676,18 +676,19 @@ const Entry = () => {
               />
               <BasketStatus id={data.primaryAccession} className="small" />
             </h1>
-            {/* TODO: re-gate on `hasProtnlm` once the protnlm2 backend is back: hasProtnlm && ( ... )}*/}
-            <ToggleSwitch
-              header="AI Annotations"
-              statusOff="Click to enable"
-              statusLoading="Loading AI predictions..."
-              statusOn="Showing AI predictions"
-              isLoading={protnlmPayload.loading}
-              icon={<AiAnnotationsIcon />}
-              checked={loadProtNLM}
-              onChange={setLoadProtNLM}
-              className="entry-title-row__toggle"
-            />
+            {hasProtnlm && (
+              <ToggleSwitch
+                header="AI Annotations"
+                statusOff="Click to enable"
+                statusLoading="Loading AI predictions..."
+                statusOn="Showing AI predictions"
+                isLoading={protnlmPayload.loading}
+                icon={<AiAnnotationsIcon />}
+                checked={loadProtNLM}
+                onChange={setLoadProtNLM}
+                className="entry-title-row__toggle"
+              />
+            )}
           </div>
           <ProteinOverview data={data} />
         </ErrorBoundary>
