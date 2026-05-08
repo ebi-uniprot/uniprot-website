@@ -407,7 +407,10 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         ...getGoTermSelectors(goLocationsByEvidenceType.reviewed),
       ];
 
-      const ai = [...getGoTermSelectors(goLocationsByEvidenceType.ai)];
+      const ai = [
+        ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.ai),
+        ...getGoTermSelectors(goLocationsByEvidenceType.ai),
+      ];
       const aiGoIds = getGoIds(goLocationsByEvidenceType.ai);
 
       const legendStyleId = `swissbiopics-legend-${instanceKey}`;
@@ -446,15 +449,18 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
           display: none;
         }
 
-        ${aiLookedAtSelectors} {
-          stroke: black !important;
-          fill: color-mix(in srgb, var(--fr--color-purple-mid) 90%, white) !important;
-          fill-opacity: 1 !important;
-        }
-
         ${uniprotLookedAtSelectors} {
           stroke: black !important;
           fill: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white) !important;
+          fill-opacity: 1 !important;
+        }
+
+        /* AI rule declared after uniprot so that when a single swissbiopics
+           shape carries classes for both an AI and a non-AI GO term, the AI
+           colour wins the !important tie. */
+        ${aiLookedAtSelectors} {
+          stroke: black !important;
+          fill: color-mix(in srgb, var(--fr--color-purple-mid) 90%, white) !important;
           fill-opacity: 1 !important;
         }
 

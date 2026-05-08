@@ -1,5 +1,6 @@
 import { partition } from 'lodash-es';
 
+import { type SubcellularLocationComment } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
 import { type UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
 import { type ProteinNames } from './namesAndTaxonomyConverter';
@@ -8,6 +9,51 @@ import {
   type UniProtkbUIModel,
   type UniProtKBXref,
 } from './uniProtkbConverter';
+
+// SubcellularLocationView keys the swissbiopics hover-sync off `location.id`
+// (e.g. "SL-0086"). The ProtNLM2 endpoint omits id and returns only `value`,
+// so we recover the id by matching the location name against any same-page
+// UniProt subcellular comment that already carries one.
+const normalizeLocationName = (name: string) =>
+  name.trim().replace(/\.+$/, '').toLowerCase();
+
+const buildLocationNameToIdMap = (
+  comments: UniProtkbAPIModel['comments']
+): Map<string, string> => {
+  const map = new Map<string, string>();
+  for (const comment of comments || []) {
+    if (comment.commentType !== 'SUBCELLULAR LOCATION') {
+      continue;
+    }
+    const subcellComment = comment as SubcellularLocationComment;
+    for (const entry of subcellComment.subcellularLocations || []) {
+      const { value, id } = entry.location;
+      if (id && value) {
+        map.set(normalizeLocationName(value), id);
+      }
+    }
+  }
+  return map;
+};
+
+const resolveProtnlmSubcellularIds = (
+  protnlmComments: SubcellularLocationComment[],
+  nameToId: Map<string, string>
+): SubcellularLocationComment[] =>
+  protnlmComments.map((comment) => ({
+    ...comment,
+    subcellularLocations: comment.subcellularLocations?.map((entry) => {
+      if (entry.location.id) {
+        return entry;
+      }
+      const matchedId = nameToId.get(
+        normalizeLocationName(entry.location.value)
+      );
+      return matchedId
+        ? { ...entry, location: { ...entry.location, id: matchedId } }
+        : entry;
+    }),
+  }));
 
 export const augmentAPIDataWithProtnlmPredictions = (
   protnlmData: UniProtKBProtNLMAPIModel,
@@ -18,10 +64,12 @@ export const augmentAPIDataWithProtnlmPredictions = (
       (comment) => comment.commentType === 'FUNCTION'
     ) || [];
 
-  const protnlmSubcellularLocationComments =
-    protnlmData.comments?.filter(
+  const protnlmSubcellularLocationComments = resolveProtnlmSubcellularIds(
+    (protnlmData.comments?.filter(
       (comment) => comment.commentType === 'SUBCELLULAR LOCATION'
-    ) || [];
+    ) || []) as unknown as SubcellularLocationComment[],
+    buildLocationNameToIdMap(data.comments)
+  );
 
   const addProtNlmGoEvidence = (
     properties: UniProtKBXref['properties'] = []

@@ -19,6 +19,15 @@ tr:has(.ai-annotation-row) {
     color-mix(in srgb, var(--fr--color-purple-mid) 60%, transparent) !important;
 }
 
+// Swissbiopics hover-sync paints `.inpicture.lookedAt` sea-blue by default
+// (sub-cell-viz.scss). For AI rows we want the purple family — regardless of
+// whether the AI class lives on the hovered element itself (GO tab <li>) or
+// on an ancestor section (UniProt tab <div>).
+.ai-annotation.inpicture.lookedAt,
+.ai-annotation .inpicture.lookedAt {
+  background-color: color-mix(in srgb, var(--fr--color-purple-mid) 40%, white);
+}
+
 .ai-annotation-marker {
   display: inline-block;
   vertical-align: middle;
