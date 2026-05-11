@@ -1,9 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Loader, Message } from 'franklin-sites';
-import { useRef } from 'react';
+import { DownloadIcon, Loader, Message } from 'franklin-sites';
+import {
+  type ProcessedStructureData,
+  type ProtvistaUniprotStructure,
+} from 'protvista-uniprot';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
+import ExternalLink from '../../../shared/components/ExternalLink';
+import TableFromData, {
+  type TableFromDataColumn,
+} from '../../../shared/components/table/TableFromData';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type IsoformSequences } from '../../adapters/structureConverter';
@@ -33,20 +40,204 @@ const StructureView = ({
     'protvista-uniprot-structure'
   );
 
-  const structureRef = useRef<any>(null);
+  const [structureEl, setStructureElState] =
+    useState<ProtvistaUniprotStructure | null>(null);
+  const [structures, setStructures] = useState<ProcessedStructureData[]>([]);
+  const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
-  const setStructureRef = (el: any) => {
-    if (el) {
-      structureRef.current = el;
-      if (isoforms?.length) {
-        el.isoforms = isoforms;
-      }
+  const setStructureEl = useCallback((el: HTMLElement | null) => {
+    setStructureElState(el as ProtvistaUniprotStructure | null);
+  }, []);
+
+  useEffect(() => {
+    if (structureEl && isoforms?.length) {
+      structureEl.isoforms =
+        isoforms as unknown as ProtvistaUniprotStructure['isoforms'];
     }
-  };
+  }, [structureEl, isoforms]);
+
+  useEffect(() => {
+    if (!structureEl) {
+      return;
+    }
+    const handler = (e: Event) => {
+      const { detail } = e as CustomEvent<
+        ReadonlyArray<ProcessedStructureData>
+      >;
+      setStructures([...detail]);
+      setSelectedId(structureEl.selectedId);
+      setLoading(false);
+    };
+    structureEl.addEventListener('structures-loaded', handler);
+    return () => structureEl.removeEventListener('structures-loaded', handler);
+  }, [structureEl]);
+
+  const handleRowClick = useCallback(
+    (row: ProcessedStructureData) => {
+      setSelectedId(row.id);
+      if (structureEl) {
+        structureEl.selectedId = row.id;
+      }
+    },
+    [structureEl]
+  );
+
+  const columns = useMemo((): TableFromDataColumn<ProcessedStructureData>[] => {
+    const cols: TableFromDataColumn<ProcessedStructureData>[] = [
+      {
+        id: 'source',
+        label: 'Source',
+        render: (row) => <strong>{row.source}</strong>,
+        filter: (row, value) => row.source === value,
+        getOption: (row) => row.source,
+      },
+      {
+        id: 'id',
+        label: 'Identifier',
+        render: (row) => row.id,
+      },
+    ];
+
+    if (isoforms?.length) {
+      cols.push({
+        id: 'isoform',
+        label: 'Isoform',
+        render: (row) => {
+          if (!row.isoformId) {
+            return null;
+          }
+          return (
+            <Link
+              to={getEntryPath(
+                Namespace.uniprotkb,
+                row.isoformId,
+                TabLocation.Entry
+              )}
+            >
+              {row.isoformId}
+              {row.isoformIsCanonical && ' (Canonical)'}
+            </Link>
+          );
+        },
+      });
+    }
+
+    cols.push(
+      {
+        id: 'method',
+        label: 'Method',
+        render: (row) => row.method ?? null,
+        filter: (row, value) => row.method === value,
+      },
+      {
+        id: 'resolution',
+        label: 'Resolution',
+        render: (row) => row.resolution?.replace(/ A\b/g, ' Å') ?? null,
+      },
+      {
+        id: 'chain',
+        label: 'Chain',
+        render: (row) => row.chain ?? null,
+      },
+      {
+        id: 'positions',
+        label: 'Positions',
+        render: (row) => row.positions ?? null,
+      },
+      {
+        id: 'links',
+        label: 'Links',
+        render: (row) => {
+          if (row.source === 'PDB') {
+            return (
+              <>
+                <ExternalLink
+                  url={`https://www.ebi.ac.uk/pdbe-srv/view/entry/${row.id}`}
+                >
+                  PDBe
+                </ExternalLink>
+                {' · '}
+                <ExternalLink url={`https://www.rcsb.org/structure/${row.id}`}>
+                  RCSB-PDB
+                </ExternalLink>
+                {' · '}
+                <ExternalLink url={`https://pdbj.org/mine/summary/${row.id}`}>
+                  PDBj
+                </ExternalLink>
+                {' · '}
+                <ExternalLink url={`https://www.ebi.ac.uk/pdbsum/${row.id}`}>
+                  PDBsum
+                </ExternalLink>
+              </>
+            );
+          }
+          if (row.source === 'AlphaFold DB' && primaryAccession) {
+            return (
+              <ExternalLink
+                url={`https://alphafold.ebi.ac.uk/entry/${primaryAccession}`}
+              >
+                AlphaFold DB
+              </ExternalLink>
+            );
+          }
+          if (row.sourceDBLink) {
+            return (
+              <ExternalLink url={row.sourceDBLink}>{row.source}</ExternalLink>
+            );
+          }
+          return null;
+        },
+      },
+      {
+        id: 'download',
+        label: 'Download',
+        render: (row) => {
+          const links: React.ReactNode[] = [];
+          if (row.downloadUrl) {
+            links.push(
+              <a
+                key="source"
+                href={row.downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source <DownloadIcon width="1em" />
+              </a>
+            );
+          }
+          if (
+            primaryAccession &&
+            (row.source === 'PDB' || row.source === 'AlphaFold DB')
+          ) {
+            const accession = row.source === 'PDB' ? row.id : primaryAccession;
+            const source = row.source === 'PDB' ? 'PDB' : 'AlphaFoldDB';
+            links.push(
+              <ExternalLink
+                key="foldseek"
+                url={`https://search.foldseek.com/search?accession=${accession}&source=${source}`}
+              >
+                Foldseek
+              </ExternalLink>
+            );
+          }
+          return links.length
+            ? links.reduce<React.ReactNode[]>(
+                (acc, link, i) => (i ? [...acc, ' · ', link] : [link]),
+                []
+              )
+            : null;
+        },
+      }
+    );
+
+    return cols;
+  }, [isoforms, primaryAccession]);
 
   if (!structureElement.defined && !structureElement.errored) {
     return <Loader />;
   }
+
   return (
     <div className={styles.container}>
       {primaryAccession && !viewerOnly && (
@@ -71,11 +262,24 @@ const StructureView = ({
         </>
       )}
       <protvista-uniprot-structure
-        ref={setStructureRef}
+        ref={setStructureEl}
         accession={primaryAccession}
         checksum={checksum}
         sequence={sequence}
+        no-table
       />
+      {!viewerOnly &&
+        (loading ? (
+          <Loader />
+        ) : (
+          <TableFromData
+            data={structures}
+            columns={columns}
+            getRowId={(row) => row.id}
+            onRowClick={handleRowClick}
+            markBackground={(row) => row.id === selectedId}
+          />
+        ))}
     </div>
   );
 };

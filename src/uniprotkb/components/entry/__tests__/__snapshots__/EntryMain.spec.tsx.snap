@@ -5476,7 +5476,17 @@ exports[`Entry view should render for non-human entry 1`] = `
           </div>
           <protvista-uniprot-structure
             accession="P0DTR4"
+            no-table=""
           />
+          <div
+            class="loader-container"
+          >
+            <test-file-stub
+              class="loader"
+              height="100"
+              width="100"
+            />
+          </div>
         </div>
         <h3>
           3D structure databases

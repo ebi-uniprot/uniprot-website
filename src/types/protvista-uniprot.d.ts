@@ -6,6 +6,7 @@ type ProtvistaUniprotElement = React.DetailedHTMLProps<
   checksum?: string;
   sequence?: string;
   isoforms?: object;
+  'no-table'?: boolean;
 };
 
 declare namespace React.JSX {
