@@ -12,6 +12,7 @@ import TableFromData, {
   type TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type IsoformSequences } from '../../adapters/structureConverter';
 import { TabLocation } from '../../types/entry';
@@ -151,7 +152,7 @@ const StructureView = ({
         render: (row) => {
           if (row.source === 'PDB') {
             return (
-              <>
+              <span className={helper['no-wrap']}>
                 <ExternalLink
                   url={`https://www.ebi.ac.uk/pdbe-srv/view/entry/${row.id}`}
                 >
@@ -169,7 +170,7 @@ const StructureView = ({
                 <ExternalLink url={`https://www.ebi.ac.uk/pdbsum/${row.id}`}>
                   PDBsum
                 </ExternalLink>
-              </>
+              </span>
             );
           }
           if (row.source === 'AlphaFold DB' && primaryAccession) {
@@ -221,12 +222,14 @@ const StructureView = ({
               </ExternalLink>
             );
           }
-          return links.length
-            ? links.reduce<React.ReactNode[]>(
+          return links.length ? (
+            <span className={helper['no-wrap']}>
+              {links.reduce<React.ReactNode[]>(
                 (acc, link, i) => (i ? [...acc, ' · ', link] : [link]),
                 []
-              )
-            : null;
+              )}
+            </span>
+          ) : null;
         },
       }
     );
