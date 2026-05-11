@@ -94,6 +94,20 @@ jest.mock('react', () => ({
 
 global.ResizeObserver = ResizeObserver;
 
+// requestIdleCallback isn't implemented in jsdom; fire synchronously in tests
+// so deferred-mount effects run as if idle time were already available.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).requestIdleCallback = (
+  cb: (deadline: { didTimeout: boolean; timeRemaining: () => number }) => void
+) => {
+  cb({ didTimeout: false, timeRemaining: () => 50 });
+  return 0;
+};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).cancelIdleCallback = () => {
+  // Mock implementation
+};
+
 /* "Fail on console error" util */
 // Uncomment to have jest stop when a console error is shown in order to fix it
 // Recommended to use with Jest's "--bail" option

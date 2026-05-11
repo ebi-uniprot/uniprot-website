@@ -147,3 +147,24 @@
 .message--no-data {
   margin: 0.5rem;
 }
+
+.virtualize-container {
+  max-height: var(--table-virtualize-max-height, 600px);
+}
+
+.frozen {
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 120ms;
+  will-change: opacity;
+}
+
+.virtual-spacer > tr > td {
+  padding: 0;
+  border: 0;
+}
+
+.virtual-row {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 36px;
+}
