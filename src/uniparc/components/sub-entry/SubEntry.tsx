@@ -1,5 +1,13 @@
 import cn from 'classnames';
-import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import {
+  Button,
+  Dropdown,
+  ExternalLink,
+  Loader,
+  Message,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import { use, useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
@@ -415,7 +423,23 @@ const SubEntry = () => {
             />
           )}
           <div className="button-group">
-            <BlastButton selectedEntries={[accession]} />
+            <Dropdown
+              // eslint-disable-next-line react/no-unstable-nested-components
+              visibleElement={(onClick: () => unknown) => (
+                <Button variant="tertiary" onClick={onClick}>
+                  BLAST
+                </Button>
+              )}
+            >
+              <ul className="no-bullet">
+                <li>
+                  <BlastButton
+                    selectedEntries={[accession]}
+                    textSuffix="this sequence"
+                  />
+                </li>
+              </ul>
+            </Dropdown>
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={accession} />
           </div>
