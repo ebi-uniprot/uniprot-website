@@ -67,6 +67,7 @@ import {
 } from '../../../shared/hooks/useMatchMedia';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import useSessionStorage from '../../../shared/hooks/useSessionStorage';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -187,7 +188,10 @@ const Entry = () => {
   const [isLikelyHuman, setIsLikelyHuman] = useState(
     Boolean(window.botChallenge)
   );
-  const [loadProtNLM, setLoadProtNLM] = useState(false);
+  const [loadProtNLM, setLoadProtNLM] = useSessionStorage<boolean>(
+    'ai-annotations',
+    false
+  );
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -420,10 +424,6 @@ const Entry = () => {
       });
     }
   }, [history, match?.params.accession]);
-
-  useEffect(() => {
-    setLoadProtNLM(false);
-  }, [match?.params.accession]);
 
   let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
@@ -703,7 +703,7 @@ const Entry = () => {
         <Tabs active={match.params.subPage}>
           <Tab
             disabled={isObsolete}
-            className={loadProtNLM ? 'entry-tab--ai' : undefined}
+            className={loadProtNLM && hasProtnlm ? 'entry-tab--ai' : undefined}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -715,7 +715,7 @@ const Entry = () => {
                 )}
               >
                 Entry
-                {loadProtNLM && (
+                {loadProtNLM && hasProtnlm && (
                   <AiAnnotationsIcon
                     className="entry-tab-ai-icon"
                     aria-hidden="true"
