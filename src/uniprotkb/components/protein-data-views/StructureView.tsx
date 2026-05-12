@@ -19,6 +19,8 @@ import { TabLocation } from '../../types/entry';
 import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';
 
+type StructureRow = ProcessedStructureData & { _rowKey: string };
+
 const StructureView = ({
   primaryAccession,
   sequence,
@@ -43,7 +45,7 @@ const StructureView = ({
 
   const [structureEl, setStructureElState] =
     useState<ProtvistaUniprotStructure | null>(null);
-  const [structures, setStructures] = useState<ProcessedStructureData[]>([]);
+  const [structures, setStructures] = useState<StructureRow[]>([]);
   const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
@@ -66,7 +68,7 @@ const StructureView = ({
       const { detail } = e as CustomEvent<
         ReadonlyArray<ProcessedStructureData>
       >;
-      setStructures([...detail]);
+      setStructures(detail.map((s, i) => ({ ...s, _rowKey: String(i) })));
       setSelectedId(structureEl.selectedId);
       setLoading(false);
     };
@@ -90,8 +92,7 @@ const StructureView = ({
         id: 'source',
         label: 'Source',
         render: (row) => <strong>{row.source}</strong>,
-        filter: (row, value) => row.source === value,
-        getOption: (row) => row.source,
+        getValue: (row) => row.source,
       },
       {
         id: 'id',
@@ -129,7 +130,7 @@ const StructureView = ({
         id: 'method',
         label: 'Method',
         render: (row) => row.method ?? null,
-        filter: (row, value) => row.method === value,
+        getValue: (row) => row.method,
       },
       {
         id: 'resolution',
@@ -278,7 +279,7 @@ const StructureView = ({
           <TableFromData
             data={structures}
             columns={columns}
-            getRowId={(row) => row.id}
+            getRowId={(row) => row._rowKey}
             onRowClick={handleRowClick}
             markBackground={(row) => row.id === selectedId}
           />
