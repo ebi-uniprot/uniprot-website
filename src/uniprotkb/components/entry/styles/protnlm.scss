@@ -2,18 +2,27 @@
   --ai-color: color-mix(in srgb, var(--fr--color-purple-mid) 3%, white);
   --ai-border: color-mix(in srgb, var(--fr--color-purple-mid) 25%, transparent);
 }
-.decorated-list-item:has(.ai-annotation),
-.ai-annotation:not(.decorated-list-item .ai-annotation),
+// Frame the AI annotation element itself (not its surrounding row), so the
+// "AI predicted name" InfoList row matches the other AI annotation surfaces
+// — only the annotation content is outlined, not the row's title slot.
+// box-shadow draws the frame outside the box without claiming layout space.
+// Inner padding gives the text breathing room from the frame; the matching
+// negative inline margin cancels it out so text inside still aligns with
+// non-AI siblings — only the colored frame sticks out.
+.ai-annotation,
 .ai-annotation-keyword {
   background-color: var(--ai-color);
-  // box-shadow draws the frame outside the box without claiming layout space.
-  // Inner padding gives the text breathing room from the frame; the matching
-  // negative inline margin cancels it out so text inside still aligns with
-  // non-AI siblings — only the colored frame sticks out.
   box-shadow: 0 0 0 1px var(--ai-border);
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
   margin-inline: -0.5rem;
+}
+
+// The .ai-annotation element can be a <span> wrapping a block <ul>
+// (ProteinNamesView's ExpandableList), so force block display to make the
+// frame visually contain its block children.
+.ai-annotation {
+  display: block;
 }
 
 tr:has(.ai-annotation-row) {
