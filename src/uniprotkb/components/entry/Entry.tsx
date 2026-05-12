@@ -421,6 +421,10 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
+  useEffect(() => {
+    setLoadProtNLM(false);
+  }, [match?.params.accession]);
+
   let isObsolete = Boolean(
     transformedData?.entryType === EntryType.INACTIVE &&
     transformedData.inactiveReason

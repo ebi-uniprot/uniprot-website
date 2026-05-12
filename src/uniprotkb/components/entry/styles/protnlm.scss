@@ -6,10 +6,14 @@
 .ai-annotation:not(.decorated-list-item .ai-annotation),
 .ai-annotation-keyword {
   background-color: var(--ai-color);
-  border: 1px solid var(--ai-border);
+  // box-shadow draws the frame outside the box without claiming layout space.
+  // Inner padding gives the text breathing room from the frame; the matching
+  // negative inline margin cancels it out so text inside still aligns with
+  // non-AI siblings — only the colored frame sticks out.
+  box-shadow: 0 0 0 1px var(--ai-border);
   border-radius: 0.25rem;
-  padding: 0.5rem;
-  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  margin-inline: -0.5rem;
 }
 
 tr:has(.ai-annotation-row) {
