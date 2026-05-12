@@ -168,7 +168,7 @@ describe('StructureView', () => {
   it('shows the Isoform column when isoforms prop is provided', () => {
     const isoforms = [{ isoformId: 'P12345-2', sequence: 'MKVL' }];
     customRender(
-      <StructureView primaryAccession="P12345" isoforms={[isoforms]} />,
+      <StructureView primaryAccession="P12345" isoforms={isoforms} />,
       { route: '/uniprotkb/P12345/entry' }
     );
     fireStructuresLoaded([
@@ -187,6 +187,27 @@ describe('StructureView', () => {
     fireStructuresLoaded([pdbStructure]);
     expect(
       screen.queryByRole('columnheader', { name: 'Isoform' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('shows an empty-state message when structures-loaded fires with []', () => {
+    customRender(<StructureView primaryAccession="P12345" />, {
+      route: '/uniprotkb/P12345/entry',
+    });
+    fireStructuresLoaded([]);
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(
+      screen.getByText(/No structure information available for P12345/i)
+    ).toBeInTheDocument();
+  });
+
+  it('does not show the empty-state message in viewerOnly mode', () => {
+    customRender(<StructureView primaryAccession="P12345" viewerOnly />, {
+      route: '/uniprotkb/P12345/entry',
+    });
+    fireStructuresLoaded([]);
+    expect(
+      screen.queryByText(/No structure information available/i)
     ).not.toBeInTheDocument();
   });
 });

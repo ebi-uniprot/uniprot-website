@@ -19,7 +19,7 @@ import { TabLocation } from '../../types/entry';
 import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';
 
-type StructureRow = ProcessedStructureData & { _rowKey: string };
+type StructureRow = ProcessedStructureData & { rowKey: string };
 
 const StructureView = ({
   primaryAccession,
@@ -31,7 +31,7 @@ const StructureView = ({
   primaryAccession?: string;
   checksum?: string;
   sequence?: string;
-  isoforms?: IsoformSequences[];
+  isoforms?: IsoformSequences;
   viewerOnly?: boolean;
 }) => {
   const structureElement = useCustomElement(
@@ -43,20 +43,15 @@ const StructureView = ({
     'protvista-uniprot-structure'
   );
 
-  const [structureEl, setStructureElState] =
+  const [structureEl, setStructureEl] =
     useState<ProtvistaUniprotStructure | null>(null);
   const [structures, setStructures] = useState<StructureRow[]>([]);
   const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
-  const setStructureEl = useCallback((el: HTMLElement | null) => {
-    setStructureElState(el as ProtvistaUniprotStructure | null);
-  }, []);
-
   useEffect(() => {
     if (structureEl && isoforms?.length) {
-      structureEl.isoforms =
-        isoforms as unknown as ProtvistaUniprotStructure['isoforms'];
+      structureEl.isoforms = isoforms;
     }
   }, [structureEl, isoforms]);
 
@@ -64,13 +59,22 @@ const StructureView = ({
     if (!structureEl) {
       return;
     }
+    const apply = (data: ReadonlyArray<ProcessedStructureData>) => {
+      setStructures(
+        data.map((row, i) => ({ ...row, rowKey: `${row.id}:${i}` }))
+      );
+      setSelectedId(structureEl.selectedId);
+      setLoading(false);
+    };
+    // Catch up in case the event fired before this listener was attached.
+    if (structureEl.data?.length) {
+      apply(structureEl.data);
+    }
     const handler = (e: Event) => {
       const { detail } = e as CustomEvent<
         ReadonlyArray<ProcessedStructureData>
       >;
-      setStructures(detail.map((s, i) => ({ ...s, _rowKey: String(i) })));
-      setSelectedId(structureEl.selectedId);
-      setLoading(false);
+      apply(detail);
     };
     structureEl.addEventListener('structures-loaded', handler);
     return () => structureEl.removeEventListener('structures-loaded', handler);
@@ -272,18 +276,22 @@ const StructureView = ({
         sequence={sequence}
         no-table
       />
-      {!viewerOnly &&
-        (loading ? (
-          <Loader />
-        ) : (
-          <TableFromData
-            data={structures}
-            columns={columns}
-            getRowId={(row) => row._rowKey}
-            onRowClick={handleRowClick}
-            markBackground={(row) => row.id === selectedId}
-          />
-        ))}
+      {!viewerOnly && loading && <Loader />}
+      {!viewerOnly && !loading && structures.length === 0 && (
+        <Message level="info">
+          No structure information available
+          {primaryAccession ? ` for ${primaryAccession}` : ''}.
+        </Message>
+      )}
+      {!viewerOnly && !loading && structures.length > 0 && (
+        <TableFromData
+          data={structures}
+          columns={columns}
+          getRowId={(row) => row.rowKey}
+          onRowClick={handleRowClick}
+          markBackground={(row) => row.id === selectedId}
+        />
+      )}
     </div>
   );
 };
