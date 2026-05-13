@@ -17,6 +17,7 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
+import { type SelectedTaxon } from '../../../jobs/types/jobsFormData';
 import {
   addMessage,
   deleteMessage,
@@ -51,6 +52,7 @@ import {
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
+import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
@@ -177,6 +179,38 @@ const SubEntry = () => {
 
   const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
   const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
+
+  const lineageData = useDataApi<TaxonomyAPIModel>(
+    subEntryDataPerDatabase?.organism
+      ? apiUrls.entry.entry(`${subEntryTaxId}`, Namespace.taxonomy)
+      : null
+  );
+
+  /*
+  If the current taxon has a rank of “species”, it should be used as taxonId.
+  Or use the lineage information to go back to either the first parent with the
+  rank of “species”, or the first non-hidden parent if no “species” parent exist
+  */
+  let speciesTaxon: { taxonId: number; scientificName?: string } | undefined;
+  if (lineageData.data?.rank === 'species') {
+    speciesTaxon = lineageData.data;
+  } else if (lineageData.data?.lineage) {
+    const reverseLineage = [...lineageData.data.lineage].reverse();
+    speciesTaxon =
+      reverseLineage.find((item) => item.rank === 'species') ??
+      reverseLineage.find((item) => !item.hidden);
+  }
+
+  const speciesTaxons: SelectedTaxon[] | undefined = speciesTaxon
+    ? [
+        {
+          id: String(speciesTaxon.taxonId),
+          label: speciesTaxon.scientificName
+            ? `${speciesTaxon.scientificName} [${speciesTaxon.taxonId}]`
+            : String(speciesTaxon.taxonId),
+        },
+      ]
+    : undefined;
 
   const uniFireData = useDataApi<UniFireModel>(
     canLoadUniFire && runUniFire
@@ -438,12 +472,24 @@ const SubEntry = () => {
                     textSuffix="this sequence"
                   />
                 </li>
+                {speciesTaxons && (
+                  <li>
+                    <BlastButton
+                      selectedEntries={[accession]}
+                      textSuffix="against this species"
+                      taxons={speciesTaxons}
+                    />
+                  </li>
+                )}
               </ul>
             </Dropdown>
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={accession} />
           </div>
-          <SubEntryMain transformedData={transformedData} />
+          <SubEntryMain
+            transformedData={transformedData}
+            lineageData={lineageData.data}
+          />
         </Tab>
         <Tab
           title={

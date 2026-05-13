@@ -58,6 +58,12 @@ function useInitialFormParameters<
     if (parameters.ids && typeof parameters.ids === 'string') {
       parameters.ids = parameters.ids.split(/(?:\s+|,)/);
     }
+    if (parameters.taxIDs && typeof parameters.taxIDs === 'string') {
+      parameters.taxIDs = parameters.taxIDs.split(',').map((entry) => {
+        const [id, ...labelParts] = entry.split('|');
+        return { id, label: labelParts.join('|') || id };
+      });
+    }
     return parameters;
   }, [historyLocationSearch]);
 

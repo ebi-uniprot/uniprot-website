@@ -1,5 +1,6 @@
 import { type JSX } from 'react';
 
+import { type TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
@@ -12,12 +13,19 @@ import EntrySection from '../types/subEntrySection';
 import { groupTypesBySection } from './UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
+export type SectionExtras = {
+  lineageData?: TaxonomyAPIModel;
+};
+
 const uniParcSubEntryConfig: Record<
   EntrySection,
   {
     id: EntrySection;
     label: string;
-    sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
+    sectionContent: (
+      entryData: UniParcSubEntryUIModel,
+      extras?: SectionExtras
+    ) => JSX.Element;
   }
 > = {
   [EntrySection.Function]: {
@@ -35,9 +43,10 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.NamesAndTaxonomy]: {
     id: EntrySection.NamesAndTaxonomy,
     label: entrySectionToLabel[EntrySection.NamesAndTaxonomy],
-    sectionContent: (data) => (
+    sectionContent: (data, extras) => (
       <SubEntryNamesAndTaxonomySection
         data={data}
+        lineageData={extras?.lineageData}
         key={EntrySection.NamesAndTaxonomy}
       />
     ),

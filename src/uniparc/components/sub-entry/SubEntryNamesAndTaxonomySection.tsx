@@ -7,8 +7,6 @@ import TaxonomyView, {
   TaxonomyId,
   TaxonomyLineage,
 } from '../../../shared/components/entry/TaxonomyView';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
@@ -50,20 +48,13 @@ const NameContent = ({
 
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
+  lineageData?: TaxonomyAPIModel;
 };
 
 const SubEntryNamesAndTaxonomySection = ({
   data,
+  lineageData,
 }: SubEntryNamesAndTaxonomySectionProps) => {
-  const { data: lineageData } = useDataApi<TaxonomyAPIModel>(
-    data?.subEntry?.organism
-      ? apiUrls.entry.entry(
-          `${data.subEntry.organism.taxonId}`,
-          Namespace.taxonomy
-        )
-      : null
-  );
-
   if (!data?.subEntry) {
     return null;
   }
