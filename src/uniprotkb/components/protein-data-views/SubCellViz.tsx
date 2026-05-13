@@ -438,6 +438,13 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       const cleanupTooltips: Array<ReturnType<typeof attachTooltips>> = [];
       const uniprot = [...unreviewed, ...reviewed];
 
+      // One AbortController for every listener registered in this effect run
+      // (svgloaded + the per-location mouseenter/mouseleave handlers attached
+      // inside onSvgLoaded). On teardown, `controller.abort()` removes them all
+      // in one call — no per-handler bookkeeping needed.
+      const controller = new AbortController();
+      const { signal } = controller;
+
       // `svgloaded` can fire more than once for the same shadow root (eg on
       // library reload / HMR). Track the nodes we inject so we can swap them
       // out on each fire and remove them on effect teardown — otherwise
@@ -565,27 +572,35 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
                 ? locationSVG
                 : subcellularPresentSVG) || subcellularPresentSVG;
 
-            locationText.addEventListener('mouseenter', () => {
-              instance?.highLight(locationText, locationSVG, shapesSelector);
+            locationText.addEventListener(
+              'mouseenter',
+              () => {
+                instance?.highLight(locationText, locationSVG, shapesSelector);
 
-              // Ensure legend/text nodes get .lookedAt so our global legend CSS works.
-              for (const el of getHighlights(instance, highlightSource)) {
-                el.classList.add('lookedAt');
-              }
-            });
+                // Ensure legend/text nodes get .lookedAt so our global legend CSS works.
+                for (const el of getHighlights(instance, highlightSource)) {
+                  el.classList.add('lookedAt');
+                }
+              },
+              { signal }
+            );
 
-            locationText.addEventListener('mouseleave', () => {
-              // Remove lookedAt first so the legend hover state drops immediately
-              for (const el of getHighlights(instance, highlightSource)) {
-                el.classList.remove('lookedAt');
-              }
+            locationText.addEventListener(
+              'mouseleave',
+              () => {
+                // Remove lookedAt first so the legend hover state drops immediately
+                for (const el of getHighlights(instance, highlightSource)) {
+                  el.classList.remove('lookedAt');
+                }
 
-              instance?.removeHiglight(
-                locationText,
-                locationSVG,
-                shapesSelector
-              );
-            });
+                instance?.removeHiglight(
+                  locationText,
+                  locationSVG,
+                  shapesSelector
+                );
+              },
+              { signal }
+            );
 
             let triggerTargetSvgs: NodeListOf<SVGElement> | undefined =
               subcellularPresentSVG.querySelectorAll(scopedShapesSelector);
@@ -610,16 +625,23 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
       };
 
-      shadowRoot.addEventListener('svgloaded', onSvgLoaded);
+      shadowRoot.addEventListener('svgloaded', onSvgLoaded, { signal });
 
       return () => {
         cleanupLegendStyle?.();
         cleanupTooltips.forEach((cleanup) => cleanup?.());
-        shadowRoot.removeEventListener('svgloaded', onSvgLoaded);
+        controller.abort();
         injectedStyle?.remove();
         injectedSlot?.remove();
       };
-    }, [contentReady, instanceKey, uniProtLocations, goLocations]);
+      // `instanceKey` encodes taxonId + the joined location id strings, so it
+      // changes whenever the underlying uniProtLocations/goLocations content
+      // changes — and stays stable when the parent re-renders with fresh-but-
+      // equivalent arrays from `.flatMap().filter()`. Listing the arrays here
+      // would re-run the effect on every parent render and re-attach listeners
+      // for nothing.
+      // eslint-disable-next-line reactHooks/exhaustive-deps
+    }, [contentReady, instanceKey]);
 
     const locationIds = {
       sls: uniProtLocationIds,
