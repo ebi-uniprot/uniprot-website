@@ -26,10 +26,12 @@
 }
 
 tr:has(.ai-annotation-row) {
-  background-color: var(--ai-color) !important;
+  background-color: var(
+    --ai-color
+  ) !important; // Override the table's typical alternating striping
   // Table rows can't take a continuous border; left accent stripe instead.
   box-shadow: inset 0.2rem 0 0 0
-    color-mix(in srgb, var(--fr--color-purple-mid) 60%, transparent) !important;
+    color-mix(in srgb, var(--fr--color-purple-mid) 60%, transparent) !important; // Override the table's typical alternating striping
 }
 
 // Swissbiopics hover-sync paints `.inpicture.lookedAt` sea-blue by default
