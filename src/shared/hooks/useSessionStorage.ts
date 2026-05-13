@@ -2,7 +2,6 @@ import {
   type Dispatch,
   type SetStateAction,
   useCallback,
-  useEffect,
   useState,
 } from 'react';
 import { type JsonValue } from 'type-fest';
@@ -46,15 +45,15 @@ function useSessionStorage<T extends JsonValue>(
   key: SessionPreferenceKey,
   defaultValue: T
 ): [state: T, setState: Dispatch<SetStateAction<T>>] {
-  const defaultValueStr = JSON.stringify(defaultValue);
-
+  // useState's lazy initialiser runs once on mount, so the stored value (or
+  // the default, written through on first read) wins for the lifetime of this
+  // hook instance. We deliberately do NOT re-sync state when `key` or
+  // `defaultValue` change after mount: doing so would overwrite a user-set
+  // value whenever a parent re-renders with a fresh `defaultValue` reference.
+  // To switch keys, remount the consumer via React's `key` prop.
   const [state, setState] = useState<T>(() =>
-    initialiser<T>(key, defaultValueStr)
+    initialiser<T>(key, JSON.stringify(defaultValue))
   );
-
-  useEffect(() => {
-    setState(initialiser<T>(key, defaultValueStr));
-  }, [key, defaultValueStr]);
 
   const setStateAndPersist = useCallback<Dispatch<SetStateAction<T>>>(
     (valueOrSetter) => {
