@@ -102,12 +102,6 @@ exports[`BlastForm test Renders the form 1`] = `
             Target database
             <select>
               <option
-                data-testid="Target database-uniprotkb_refprotswissprot"
-                value="uniprotkb_refprotswissprot"
-              >
-                UniProtKB reference proteomes + Swiss-Prot
-              </option>
-              <option
                 data-testid="Target database-uniprotkb"
                 value="uniprotkb"
               >
@@ -124,12 +118,6 @@ exports[`BlastForm test Renders the form 1`] = `
                 value="afdb"
               >
                 UniProtKB with 3D structure predictions (AlphaFold)
-              </option>
-              <option
-                data-testid="Target database-uniprotkb_reference_proteomes"
-                value="uniprotkb_reference_proteomes"
-              >
-                UniProtKB reference proteomes
               </option>
               <option
                 data-testid="Target database-uniprotkb_swissprot"
