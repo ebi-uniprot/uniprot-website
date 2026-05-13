@@ -717,7 +717,7 @@ const Entry = () => {
                 Entry
                 {loadProtNLM && hasProtnlm && (
                   <AiAnnotationsIcon
-                    className="entry-tab-ai-icon"
+                    className="ai-annotation-entry-tab-icon"
                     aria-hidden="true"
                   />
                 )}
