@@ -54,6 +54,33 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
     expect(resultPfamCount).toBe(initialPfamCount);
   });
 
+  it('drops a ProtNLM-side Pfam xref entirely (filter is active, not just no-op)', () => {
+    const protnlmPfamId = 'PF12345';
+    const protnlm = {
+      ...protnlmData,
+      uniProtKBCrossReferences: [
+        ...(protnlmData.uniProtKBCrossReferences || []),
+        {
+          database: 'Pfam',
+          id: protnlmPfamId,
+          properties: [{ key: 'EntryName', value: 'TestDomain' }],
+          evidences: [{ evidenceCode: 'ECO:0008006' }],
+        },
+      ],
+    };
+
+    const merged = augmentAPIDataWithProtnlmPredictions(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      protnlm as any,
+      uniprotkbData
+    );
+
+    const found = merged.uniProtKBCrossReferences?.some(
+      (xref) => xref.id === protnlmPfamId
+    );
+    expect(found).toBe(false);
+  });
+
   it('should merge duplicate GO ids by appending ProtNLM GoEvidenceType to existing UniProt GO xref', () => {
     const goId = 'GO:0008146';
 
@@ -124,6 +151,50 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
     expect(occurrences).toBe(1);
   });
 
+  it('leaves the location id unset when the name has no match in same-page UniProt comments', () => {
+    const protnlm = {
+      ...protnlmData,
+      comments: [
+        {
+          commentType: 'SUBCELLULAR LOCATION',
+          subcellularLocations: [
+            {
+              location: {
+                value: 'Imaginary compartment of doom',
+                evidences: [
+                  {
+                    evidenceCode: 'ECO:0008006',
+                    source: 'Google',
+                    id: 'ProtNLM2',
+                    properties: [{ key: 'model_score', value: '0.42' }],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    const merged = augmentAPIDataWithProtnlmPredictions(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      protnlm as any,
+      uniprotkbData
+    );
+
+    const protnlmComment = merged.comments?.find(
+      (c) =>
+        c.commentType === 'SUBCELLULAR LOCATION' &&
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (c as any).subcellularLocations?.[0]?.location?.value ===
+          'Imaginary compartment of doom'
+    );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const recovered = (protnlmComment as any)?.subcellularLocations?.[0]
+      ?.location?.id;
+    expect(recovered).toBeUndefined();
+  });
+
   it('should handle empty input data gracefully', () => {
     const emptyProtnlm = {};
     const emptyResult = augmentAPIDataWithProtnlmPredictions(
@@ -157,6 +228,47 @@ describe('augmentUIDataWithProtnlmPredictions', () => {
     expect(namesSection.protnlmProteinNamesData?.[0].fullName.value).toEqual(
       'Carbohydrate sulfotransferase'
     );
+  });
+
+  it('appends submissionNames with evidence after the recommendedName', () => {
+    const protnlmWithSubmissions = {
+      ...protnlmData,
+      proteinDescription: {
+        recommendedName: protnlmData.proteinDescription.recommendedName,
+        submissionNames: [
+          {
+            fullName: {
+              value: 'Submitted name with evidence',
+              evidences: [
+                {
+                  evidenceCode: 'ECO:0008006',
+                  source: 'Google',
+                  id: 'ProtNLM2',
+                  properties: [{ key: 'model_score', value: '0.5' }],
+                },
+              ],
+            },
+          },
+          {
+            // No evidence — should be filtered out.
+            fullName: {
+              value: 'Submitted name without evidence',
+            },
+          },
+        ],
+      },
+    };
+
+    const result = augmentUIDataWithProtnlmPredictions(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      protnlmWithSubmissions as any,
+      transformedUniProtKB
+    );
+
+    const names = result[EntrySection.NamesAndTaxonomy].protnlmProteinNamesData;
+    expect(names).toHaveLength(2);
+    expect(names?.[0].fullName.value).toBe('Carbohydrate sulfotransferase'); // recommended first
+    expect(names?.[1].fullName.value).toBe('Submitted name with evidence');
   });
 
   it('should NOT add protnlmProteinNamesData when evidence is missing', () => {

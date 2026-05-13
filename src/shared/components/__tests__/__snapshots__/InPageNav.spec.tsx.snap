@@ -39,6 +39,5 @@ exports[`InPageNav component should render 1`] = `
       </a>
     </li>
   </ul>
-  <section />
 </DocumentFragment>
 `;
