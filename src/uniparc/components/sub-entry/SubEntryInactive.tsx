@@ -7,7 +7,7 @@ import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConve
 const SubEntryInactive = ({ data }: { data: UniParcSubEntryUIModel }) => {
   const { unisave } = data;
 
-  let events = unisave.events;
+  let events = unisave?.events;
   if (events?.length && events.length > 1 && events[0].eventType === 'merged') {
     const demergedEntries = events.map((event) => event.targetAccession);
     events = [{ ...events[0], targetAccession: demergedEntries.join(', ') }];

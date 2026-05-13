@@ -181,6 +181,7 @@ const NiceStatus = ({ job, jobLink, jobUrl }: NiceStatusProps) => {
       }
       return <SpinningNotify>Running</SpinningNotify>;
     case Status.FAILURE:
+    case Status.ERROR:
     case Status.ERRORED:
       return (
         <>

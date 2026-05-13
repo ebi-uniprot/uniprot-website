@@ -5,7 +5,6 @@ import './styles/protnlm.scss';
 import cn from 'classnames';
 import {
   AiAnnotationsIcon,
-  Button,
   Chip,
   Loader,
   LongNumber,
@@ -185,9 +184,6 @@ const Entry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
-  const [isLikelyHuman, setIsLikelyHuman] = useState(
-    Boolean(window.botChallenge)
-  );
   const [loadProtNLM, setLoadProtNLM] = useSessionStorage<boolean>(
     'ai-annotations',
     false
@@ -195,9 +191,7 @@ const Entry = () => {
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
-      isLikelyHuman
-        ? apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
-        : null
+      apiUrls.entry.entry(match?.params.accession, Namespace.uniprotkb)
     );
 
   const { data: uniSaveData } = useDataApi<UniSaveAccession>(
@@ -209,21 +203,21 @@ const Entry = () => {
   );
 
   const variantsHeadPayload = useDataApi(
-    isLikelyHuman && match?.params.accession
+    match?.params.accession
       ? apiUrls.proteinsApi.variation(match?.params.accession)
       : null,
     { method: 'HEAD' }
   );
 
   const coordinatesHeadPayload = useDataApi(
-    isLikelyHuman && match?.params.accession
+    match?.params.accession
       ? apiUrls.proteinsApi.coordinates(match?.params.accession)
       : null,
     { method: 'HEAD' }
   );
 
   const communityCuratedPayload = useDataApi<SearchResults<CitationsAPIModel>>(
-    isLikelyHuman && match?.params.accession
+    match?.params.accession
       ? uniprotkbApiUrls.publications.entryPublications({
           accession: match.params.accession,
           selectedFacets: [
@@ -237,8 +231,7 @@ const Entry = () => {
   );
 
   const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
-    isLikelyHuman &&
-      match?.params.accession &&
+    match?.params.accession &&
       data &&
       data.entryType === 'UniProtKB unreviewed (TrEMBL)'
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
@@ -247,8 +240,7 @@ const Entry = () => {
   );
 
   const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
-    isLikelyHuman &&
-      match?.params.accession &&
+    match?.params.accession &&
       data &&
       data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
       loadProtNLM
@@ -257,7 +249,7 @@ const Entry = () => {
   );
 
   const refprotmoveData = useDataApi<UniProtKBCheckMoveResponse>(
-    isLikelyHuman && match?.params.accession
+    match?.params.accession
       ? joinUrl(checkMoveUrl, 'uniprotkb', match?.params.accession)
       : null
   );
@@ -304,6 +296,7 @@ const Entry = () => {
       const numberOfIsoforms =
         transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
           .length;
+
       return UniProtKBEntryConfig.map((section) => {
         const nameAndId = getEntrySectionNameAndId(
           section.id,
@@ -316,6 +309,7 @@ const Entry = () => {
             disabled = !hasExternalLinks(transformedData);
             break;
           case EntrySection.SimilarProteins:
+          case EntrySection.Homologs:
             disabled = false;
             break;
           case EntrySection.SubCellularLocation:
@@ -355,6 +349,13 @@ const Entry = () => {
   );
 
   const listOfIsoformNames = useMemo(() => extractIsoformNames(data), [data]);
+
+  const hasPhylogenomicXrefs = Boolean(
+    // Don't count AGR which has ORG category
+    transformedData?.[EntrySection.Homologs]?.xrefs?.filter(
+      (xref) => xref.category !== 'ORG'
+    ).length
+  );
 
   // Redirect to new entry when obsolete and merged into one
   useEffect(() => {
@@ -483,7 +484,7 @@ const Entry = () => {
               pathname: generatePath(LocationToPath[Location.UniParcSubEntry], {
                 accession: uniparcId,
                 subPage: UniParcTabLocation.Entry,
-                subEntryId: match?.params.accession,
+                xrefId: match?.params.accession,
               }),
             });
           });
@@ -509,55 +510,6 @@ const Entry = () => {
 
   const structuredData = useMemo(() => dataToSchema(data), [data]);
   useStructuredData(structuredData);
-
-  useEffect(() => {
-    if (isLikelyHuman) {
-      return;
-    }
-    const handler = () => {
-      window.botChallenge = true;
-      sessionStorage.setItem('botChallenge', 'true');
-      setIsLikelyHuman(true);
-    };
-    document.documentElement.addEventListener('mousemove', handler);
-    document.documentElement.addEventListener('mouseenter', handler);
-    document.documentElement.addEventListener('pointermove', handler, {
-      once: true,
-    });
-    document.documentElement.addEventListener('pointerdown', handler, {
-      once: true,
-    });
-    document.documentElement.addEventListener('pointerover', handler, {
-      once: true,
-    });
-    return () => {
-      document.documentElement.removeEventListener('mousemove', handler);
-      document.documentElement.removeEventListener('mouseenter', handler);
-      document.documentElement.removeEventListener('pointermove', handler);
-      document.documentElement.removeEventListener('pointerdown', handler);
-      document.documentElement.removeEventListener('pointerover', handler);
-    };
-  }, [isLikelyHuman]);
-
-  if (!isLikelyHuman) {
-    // bot challenge
-    return (
-      <>
-        {/* 🍯 */}
-        <Button onClick={() => {}} style={{ transform: 'translateX(-200%)' }}>
-          Click me
-        </Button>
-        <div style={{ padding: '3em 0', width: '100%', display: 'flex' }}>
-          <div style={{ marginInline: 'auto' }}>
-            Please click this button to confirm that you are a real user <br />
-            <Button onClick={() => setIsLikelyHuman(true)}>
-              Click to load the page
-            </Button>
-          </div>
-        </div>
-      </>
-    );
-  }
 
   if (
     loading ||
@@ -780,6 +732,7 @@ const Entry = () => {
                   importedVariants={importedVariants}
                   communityReferences={communityReferences}
                   isoforms={listOfIsoformNames}
+                  hasPhylogenomicXrefs={hasPhylogenomicXrefs}
                 />
               </>
             )}

@@ -5,6 +5,7 @@
 export enum Status {
   NEW = 'NEW', // Specific to async-download: indicates created and queued. Id mapping does use this but we don't see it because it's never queued.
   CREATED = 'CREATED', // not from the server, for internal use
+  ERROR = 'ERROR', // according to www-prod, for problems with the tool
   ERRORED = 'ERRORED', // according to www-prod, for problems with the tool
   FAILURE = 'FAILURE', // according to www-prod, when something else in the pipeline failed (LSF issues, etc.)
   QUEUED = 'QUEUED', // according to www-prod, when in a queue and not being processed yet

@@ -846,7 +846,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Short names
+                Short name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -884,7 +884,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Alternative names
+                Alternative name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1265,7 +1265,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Submitted names
+                Submitted name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1622,7 +1622,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Short names
+                Short name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -1660,7 +1660,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="decorated-list-item__title tiny"
               >
-                Alternative names
+                Alternative name
               </div>
               <div
                 class="decorated-list-item__content"
@@ -3617,6 +3617,41 @@ exports[`Entry view should render 1`] = `
     </div>
   </section>
   {{ SimilarProteinsSection }}
+  <section
+    class="card"
+    data-entry-section="true"
+    id="homologs"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2
+          data-article-id="homologs_section"
+        >
+          Homologs
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <h3
+          class="padding-top-med"
+          data-article-id="homologs_section#orthology-and-paralogy"
+        >
+          Orthologs & paralogs
+        </h3>
+        <p>
+          No Orthology or Paralogy data is available from the Alliance of Genome Resources.
+        </p>
+        <span
+          id="homologs-xrefs"
+        />
+      </div>
+    </div>
+  </section>
   <section
     class="hero-container hero-container--side-padding"
   >
@@ -6141,13 +6176,17 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="message__title"
           >
-            View all family and domain features for this entry's canonical sequence in the 
-            <a
-              href="/uniparc/UPI000246C4A6/feature-viewer"
-            >
-              UniParc Feature Viewer
-            </a>
-            .
+            <ul>
+              <li>
+                View all family and domain features for this entry's canonical sequence in the 
+                <a
+                  href="/uniparc/UPI000246C4A6/feature-viewer"
+                >
+                  UniParc Feature Viewer
+                </a>
+                .
+              </li>
+            </ul>
           </div>
         </div>
         <ul
@@ -7346,6 +7385,41 @@ exports[`Entry view should render for non-human entry 1`] = `
     </div>
   </section>
   {{ SimilarProteinsSection }}
+  <section
+    class="card"
+    data-entry-section="true"
+    id="homologs"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2
+          data-article-id="homologs_section"
+        >
+          Homologs
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <h3
+          class="padding-top-med"
+          data-article-id="homologs_section#orthology-and-paralogy"
+        >
+          Orthologs & paralogs
+        </h3>
+        <p>
+          No Orthology or Paralogy data is available from the Alliance of Genome Resources.
+        </p>
+        <span
+          id="homologs-xrefs"
+        />
+      </div>
+    </div>
+  </section>
   <section
     class="hero-container hero-container--side-padding"
   >

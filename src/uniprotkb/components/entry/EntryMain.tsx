@@ -13,6 +13,7 @@ type EntryMainProps = {
   importedVariants: number | 'loading';
   communityReferences: Reference[];
   isoforms?: string[];
+  hasPhylogenomicXrefs?: boolean;
 };
 
 const EntryMain = ({
@@ -20,6 +21,7 @@ const EntryMain = ({
   importedVariants,
   communityReferences,
   isoforms,
+  hasPhylogenomicXrefs,
 }: EntryMainProps) => (
   <IsoformsContext.Provider value={isoforms}>
     {UniProtKBEntryConfig.map(({ id, sectionContent }) => (
@@ -28,7 +30,8 @@ const EntryMain = ({
           {sectionContent(
             transformedData,
             communityReferences,
-            importedVariants
+            importedVariants,
+            hasPhylogenomicXrefs
           )}
         </ErrorBoundary>
       </Suspense>

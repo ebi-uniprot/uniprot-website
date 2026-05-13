@@ -15,7 +15,13 @@ import {
 
 export type DownloadAction = ActionType<typeof downloadActions>;
 
-export type ExtraContent = null | 'url' | 'generate' | 'preview' | 'ftp';
+export type ExtraContent =
+  | null
+  | 'url'
+  | 'generate'
+  | 'preview'
+  | 'ftp'
+  | 'obsolete';
 
 export type DownloadSelectOptions = 'all' | 'selected';
 

@@ -21,12 +21,12 @@ import { type Property } from '../types/modelTypes';
 import { transfromProperties } from '../utils';
 import { type DatabaseInfoMaps } from '../utils/database';
 import { type Keyword } from '../utils/KeywordsUtil';
-import { type XrefUIModel } from '../utils/xrefUtils';
 import convertDiseaseAndDrugs from './diseaseAndDrugs';
 import convertExpression from './expressionConverter';
 import convertExternalLinks from './externalLinksConverter';
 import convertFamilyAndDomains from './familyAndDomainsConverter';
 import convertFunction from './functionConverter';
+import convertHomologs, { type HomologsUIModel } from './homologsConverter';
 import convertInteraction from './interactionConverter';
 import {
   convertNamesAndTaxonomy,
@@ -41,7 +41,9 @@ import {
   type EntryAudit,
   type SequenceUIModel,
 } from './sequenceConverter';
-import convertSimilarProteins from './similarProteinsConverter';
+import convertSimilarProteins, {
+  type SimilarProteinsUIModel,
+} from './similarProteinsConverter';
 import convertStructure from './structureConverter';
 import convertSubcellularLocation from './subcellularLocationConverter';
 
@@ -119,11 +121,8 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
-  [EntrySection.SimilarProteins]: {
-    canonical: string;
-    isoforms: string[];
-    xrefs: XrefUIModel[];
-  };
+  [EntrySection.SimilarProteins]: SimilarProteinsUIModel;
+  [EntrySection.Homologs]: HomologsUIModel;
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
   from?: string; // ID Mapping
@@ -183,6 +182,14 @@ const uniProtKbConverter = (
 
   const uniProtKBCrossReferences = convertXrefProperties(
     dataCopy.uniProtKBCrossReferences
+  );
+
+  const similarProteinsData = convertSimilarProteins(dataCopy);
+
+  const homologsData = convertHomologs(
+    dataCopy,
+    databaseInfoMaps,
+    uniProtKBCrossReferences
   );
 
   return {
@@ -255,11 +262,8 @@ const uniProtKbConverter = (
       databaseInfoMaps,
       uniProtKBCrossReferences
     ),
-    [EntrySection.SimilarProteins]: convertSimilarProteins(
-      dataCopy,
-      databaseInfoMaps,
-      uniProtKBCrossReferences
-    ),
+    [EntrySection.SimilarProteins]: similarProteinsData,
+    [EntrySection.Homologs]: homologsData,
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
     from: dataCopy.from,

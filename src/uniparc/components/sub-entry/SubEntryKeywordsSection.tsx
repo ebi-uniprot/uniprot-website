@@ -26,7 +26,7 @@ const SubEntryKeywordsSection = ({ data }: Props) => {
   if (keywordPredictions.length || goPredictions.length) {
     return (
       <Card
-        header={<h2>Keywords/GO</h2>}
+        header={<h2>Keywords & Gene Ontology</h2>}
         id="keywords_and_go"
         data-entry-section
       >

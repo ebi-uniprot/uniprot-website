@@ -9,8 +9,8 @@ import { type Job } from '../types/job';
 import { Status } from '../types/jobStatuses';
 
 const validServerID: Record<JobTypes, RegExp> = {
-  [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
-  [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
+  [JobTypes.ALIGN]: /^clustalo-\w\d{8}(-\w+){4}$/,
+  [JobTypes.BLAST]: /^ncbiblast-\w\d{8}(-\w+){4}$/,
   [JobTypes.ASYNC_DOWNLOAD]: /^\w+$/,
   [JobTypes.ID_MAPPING]: /^\w+$/,
   [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/i,
@@ -151,7 +151,12 @@ export const getServerErrorDescription = (error: ServerError | string) => {
 };
 
 export const checkForResponseError = (response: Response, status: Status) => {
-  if (!response.ok && status !== Status.FAILURE && status !== Status.ERRORED) {
+  if (
+    !response.ok &&
+    status !== Status.FAILURE &&
+    status !== Status.ERROR &&
+    status !== Status.ERRORED
+  ) {
     throw new Error(`${response.status}: ${response.statusText}`);
   }
 };
@@ -183,6 +188,7 @@ const incompleteStatuses = new Set([
   Status.NOT_FOUND,
   Status.RUNNING,
   Status.FAILURE,
+  Status.ERROR,
   Status.ERRORED,
 ]);
 

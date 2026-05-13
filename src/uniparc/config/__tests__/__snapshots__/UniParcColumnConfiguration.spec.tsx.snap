@@ -235,15 +235,15 @@ exports[`UniParcColumnConfiguration component should render column "common_taxon
 exports[`UniParcColumnConfiguration component should render column "common_taxons": common_taxons 1`] = `
 <DocumentFragment>
   <ul
-    class="expandable-list no-bullet"
+    class="no-bullet"
   >
     <li>
       <a
-        href="/taxonomy/32630"
+        href="/taxonomy/10242"
       >
-        synthetic construct
+        Orthopoxvirus
       </a>
-       (other entries)
+       (Viruses)
     </li>
     <li>
       <a
@@ -255,11 +255,11 @@ exports[`UniParcColumnConfiguration component should render column "common_taxon
     </li>
     <li>
       <a
-        href="/taxonomy/10242"
+        href="/taxonomy/32630"
       >
-        Orthopoxvirus
+        synthetic construct
       </a>
-       (Viruses)
+       (other entries)
     </li>
   </ul>
 </DocumentFragment>

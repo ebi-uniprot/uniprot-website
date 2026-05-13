@@ -50,7 +50,6 @@ const renderEntry = async (configure: () => void = () => {}) => {
 
 describe('Entry — ProtNLM toggle gating', () => {
   beforeEach(() => {
-    window.botChallenge = true;
     window.sessionStorage.clear();
   });
 

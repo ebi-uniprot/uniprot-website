@@ -43,24 +43,6 @@ const UniProtKBGenericPreamble = () => (
   </div>
 );
 
-const UniProtKBRemovePreamble: FC<{ accession: string }> = ({ accession }) => (
-  <>
-    <strong>
-      Entry {accession} is scheduled for removal from UniProtKB/TrEMBL as it is
-      not part of a reference proteome.
-    </strong>
-    <br />
-    From release {release} ({releaseDate}), UniProtKB/TrEMBL will include only:
-    <ul className={cn(styles['retained'])}>
-      <li>Entries from reference proteomes</li>
-      <li>
-        Selected unreviewed (TrEMBL) entries with experimental or biologically
-        important data
-      </li>
-    </ul>
-  </>
-);
-
 const HelpFtpContact: FC<{
   accession?: string;
   organism?: UniProtKBSimplifiedTaxonomy;
@@ -248,81 +230,77 @@ const getCrossRefsFor = (dbName: string) => (entry: UniProtkbAPIModel) =>
 export const getProteomes = getCrossRefsFor('Proteomes');
 
 export type ProteomesCheckMoveResponse = {
-  status: 'became-non-reference' | 'no-change' | 'unknown';
+  status: 'becoming-non-reference' | 'other' | 'reference';
 };
 
 export type UniProtKBCheckMoveResponse = {
-  status: 'remove' | 'stay' | 'unknown';
+  status: 'remove' | 'stay';
 };
 
-// Only show in the case that the proteome is non-reference.
 export const RefProtMoveProteomesEntryMessage: FC<{
   id: string;
   taxonomy: TaxonomyDatum;
-}> = ({ id, taxonomy }) => (
+  moveStatus: ProteomesCheckMoveResponse['status'];
+}> = ({ id, taxonomy, moveStatus }) => (
   <Message
     level="failure"
     className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
   >
     <strong>
-      Proteome {id} is currently not a reference proteome. If it is not selected
-      as a reference proteome by release {release} ({releaseDate}), its
-      associated:
+      {moveStatus === 'becoming-non-reference'
+        ? `Proteome ${id} is going to lose its reference proteome status in release ${release} (${releaseDate}). Any unreviewed (TrEMBL) entries will be removed, except those with experimental or biologically important data.`
+        : `Proteome ${id} is not a reference proteome in release ${release} (${releaseDate}). Any unreviewed (TrEMBL) entries will be removed, except those with experimental or biologically important data.`}
     </strong>
-    <ul>
-      <li>
-        Unreviewed (TrEMBL) entries will be removed (except selected entries
-        with experimental or biologically important data)
-      </li>
-      <li>Reviewed (Swiss-Prot) entries will be retained</li>
-    </ul>
-    All proteomes will remain accessible in the Proteomes database. Entries
-    removed from unreviewed UniProtKB/TrEMBL will remain accessible in the
-    UniParc sequence archive.
-    <br />
-    Please read our{' '}
-    <Link
-      to={generatePath(LocationToPath[Location.HelpEntry], {
-        accession: 'refprot_only_changes',
-      })}
-    >
-      help page
-    </Link>
-    , view{' '}
-    <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
-      affected entries and proteomes
-    </ExternalLink>
-    , or{' '}
-    <ContactLink
-      to={
-        id && taxonomy
-          ? {
-              pathname: LocationToPath[Location.ContactGeneric],
-              state: {
-                formValues: {
-                  context: [
-                    'Message from RefProt change banner',
-                    `Proteome ID: ${id}`,
-                    `Organism: ${taxonomy.scientificName}`,
-                    `Taxon ID: ${taxonomy.taxonId}`,
-                    `Mnemonic: ${taxonomy.mnemonic}`,
-                  ].join('\n'),
-                },
-              },
-            }
-          : {
-              pathname: LocationToPath[Location.ContactGeneric],
-              state: {
-                formValues: {
-                  context: 'Message from RefProt change banner',
-                },
-              },
-            }
-      }
-    >
-      contact us
-    </ContactLink>{' '}
-    with any questions.
+    <div className={styles['entry-body']}>
+      <p>Its reviewed (Swiss-Prot) entries will be retained.</p>
+      <p>All proteomes will remain accessible in the Proteomes database.</p>
+      <p>
+        Entries removed from UniProtKB/TrEMBL will remain accessible in the
+        UniParc sequence archive. Please read our{' '}
+        <Link
+          to={generatePath(LocationToPath[Location.HelpEntry], {
+            accession: 'refprot_only_changes',
+          })}
+        >
+          help page
+        </Link>
+        , view{' '}
+        <ExternalLink url={ftpProteomes} className={styles['no-right-margin']}>
+          affected entries and proteomes
+        </ExternalLink>
+        , or{' '}
+        <ContactLink
+          to={
+            id && taxonomy
+              ? {
+                  pathname: LocationToPath[Location.ContactGeneric],
+                  state: {
+                    formValues: {
+                      context: [
+                        'Message from RefProt change banner',
+                        `Proteome ID: ${id}`,
+                        `Organism: ${taxonomy.scientificName}`,
+                        `Taxon ID: ${taxonomy.taxonId}`,
+                        `Mnemonic: ${taxonomy.mnemonic}`,
+                      ].join('\n'),
+                    },
+                  },
+                }
+              : {
+                  pathname: LocationToPath[Location.ContactGeneric],
+                  state: {
+                    formValues: {
+                      context: 'Message from RefProt change banner',
+                    },
+                  },
+                }
+          }
+        >
+          contact us
+        </ContactLink>{' '}
+        with any questions.
+      </p>
+    </div>
   </Message>
 );
 
@@ -335,11 +313,18 @@ export const RefProtMoveUniProtKBEntryMessage: FC<{
     level="failure"
     className={cn('uniprot-grid-cell--span-12', styles['entry-message'])}
   >
-    <UniProtKBRemovePreamble accession={accession} />
-    <UniProtKBGenericMain
-      accession={accession}
-      organism={organism}
-      upids={upids}
-    />
+    <strong>
+      Entry {accession} is scheduled for removal from UniProtKB/TrEMBL as it is
+      not part of a reference proteome.
+    </strong>
+    <br />
+    From release {release} ({releaseDate}), UniProtKB/TrEMBL will include only:
+    <ul className={cn(styles['retained'])}>
+      <li>Entries from reference proteomes</li>
+      <li>Selected entries with experimental or biologically important data</li>
+    </ul>
+    Entries removed from UniProtKB/TrEMBL will remain accessible in the UniParc
+    sequence archive.{' '}
+    <HelpFtpContact accession={accession} organism={organism} upids={upids} />
   </Message>
 );

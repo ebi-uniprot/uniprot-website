@@ -22,6 +22,7 @@ import { type MessagesState } from '../../messages/state/messagesInitialState';
 import { type MessagesAction } from '../../messages/state/messagesReducers';
 import databaseInfo from '../../uniprotkb/utils/__tests__/__mocks__/databaseInfo';
 import { getDatabaseInfoMaps } from '../../uniprotkb/utils/database';
+import { BotDetectionContext } from '../contexts/BotDetection';
 import {
   MessagesDispatchContext,
   MessagesStateContext,
@@ -82,19 +83,23 @@ class Wrapper extends Component<WrapperProps> {
     return (
       <HelmetProvider>
         <Router history={history}>
-          <MessagesDispatchContext.Provider value={messagesDispatch}>
-            <MessagesStateContext.Provider value={messagesState}>
-              <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
-                <UniProtDataVersionContext.Provider value={uniProtDataVersion}>
-                  {path ? (
-                    <Route path={path} render={() => children} />
-                  ) : (
-                    children
-                  )}
-                </UniProtDataVersionContext.Provider>
-              </DatabaseInfoMapsContext.Provider>
-            </MessagesStateContext.Provider>
-          </MessagesDispatchContext.Provider>
+          <BotDetectionContext.Provider value="human">
+            <MessagesDispatchContext.Provider value={messagesDispatch}>
+              <MessagesStateContext.Provider value={messagesState}>
+                <DatabaseInfoMapsContext.Provider value={dbInfoMaps}>
+                  <UniProtDataVersionContext.Provider
+                    value={uniProtDataVersion}
+                  >
+                    {path ? (
+                      <Route path={path} render={() => children} />
+                    ) : (
+                      children
+                    )}
+                  </UniProtDataVersionContext.Provider>
+                </DatabaseInfoMapsContext.Provider>
+              </MessagesStateContext.Provider>
+            </MessagesDispatchContext.Provider>
+          </BotDetectionContext.Provider>
         </Router>
       </HelmetProvider>
     );

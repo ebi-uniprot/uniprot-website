@@ -15,7 +15,7 @@ export type UniParcSubEntryUIModel = {
     source?: Partial<UniParcXRef> | null;
     isUniprotkbEntry: boolean;
   };
-  unisave: UniSaveStatus;
+  unisave?: UniSaveStatus;
   unifire?: UniFireModel;
 };
 
@@ -32,7 +32,7 @@ export type UniFireModel = {
   predictions: Prediction[] | ModifiedPrediction[];
 };
 
-export type ModifiedPrediction = Prediction & {
+export type ModifiedPrediction = Omit<Prediction, 'evidence'> & {
   evidence: Evidence[];
 };
 
@@ -56,7 +56,7 @@ const constructPredictionEvidences = (
 const uniParcSubEntryConverter = (
   entryData: UniParcLiteAPIModel,
   subEntryData: UniParcXRef,
-  unisaveData: UniSaveStatus,
+  unisaveData?: UniSaveStatus,
   uniFireData?: UniFireModel
 ): UniParcSubEntryUIModel | null => {
   const transformedEntryData = uniParcConverter(entryData);

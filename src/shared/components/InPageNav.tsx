@@ -7,6 +7,17 @@ import styles from './styles/in-page-nav.module.scss';
 
 const GRANULARITY = 11;
 
+// Time in ms to keep re-scrolling after initial anchor navigation,
+// long enough for lazy-loaded content above to settle.
+const SCROLL_SETTLE_MS = 3_000;
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const getScrollBehavior = (): ScrollBehavior =>
+  prefersReducedMotion() ? 'auto' : 'smooth';
+
 export type InPageNavSection = {
   id: string;
   label: string;
@@ -16,6 +27,74 @@ export type InPageNavSection = {
 type Props = {
   sections: InPageNavSection[];
   rootElement?: string | HTMLElement;
+};
+
+/**
+ * Scrolls to the target element identified by `id`, focuses it for
+ * accessibility, then watches for layout shifts caused by lazy-loaded
+ * content. Re-scrolls smoothly (respecting prefers-reduced-motion)
+ * whenever the scroll container resizes, and stops if the user manually
+ * scrolls or after a settling period.
+ *
+ * Returns a cleanup function.
+ */
+const scrollToAndObserve = (
+  id: string,
+  rootElement?: string | HTMLElement
+): (() => void) => {
+  const element = document.getElementById(id);
+  if (!element) {
+    return () => {};
+  }
+
+  // Ensure the element is focusable, then scroll and focus
+  if (!element.getAttribute('tabindex')) {
+    element.setAttribute('tabindex', '-1');
+  }
+  element.scrollIntoView();
+  element.focus({ preventScroll: true });
+
+  // Watch for layout shifts caused by lazy-loaded content
+  const scrollContainer =
+    typeof rootElement === 'string'
+      ? document.querySelector(rootElement)
+      : rootElement;
+
+  if (!scrollContainer) {
+    return () => {};
+  }
+
+  let userHasScrolled = false;
+
+  const onUserScroll = () => {
+    userHasScrolled = true;
+  };
+
+  // Listen for user-initiated scroll to avoid fighting with the user
+  scrollContainer.addEventListener('wheel', onUserScroll, { passive: true });
+  scrollContainer.addEventListener('touchmove', onUserScroll, {
+    passive: true,
+  });
+
+  const observer = new ResizeObserver(() => {
+    if (!userHasScrolled) {
+      element.scrollIntoView({ behavior: getScrollBehavior() });
+    }
+  });
+  observer.observe(scrollContainer);
+
+  const timeout = setTimeout(() => {
+    observer.disconnect();
+    scrollContainer.removeEventListener('wheel', onUserScroll);
+    scrollContainer.removeEventListener('touchmove', onUserScroll);
+  }, SCROLL_SETTLE_MS);
+
+  return () => {
+    observer.disconnect();
+    clearTimeout(timeout);
+    scrollContainer.removeEventListener('wheel', onUserScroll);
+    scrollContainer.removeEventListener('touchmove', onUserScroll);
+  };
 };
 
 const InPageNav = ({
@@ -101,11 +180,16 @@ const InPageNav = ({
 
   // listen for changes in location hash to move corresponding element into view
   useEffect(() => {
+    let cleanup: (() => void) | undefined;
+
     const unlisten = history.listen((location) =>
       frame().then(() => {
+        // Clean up any previous scroll observer before starting a new one
+        cleanup?.();
+
         const id = location.hash.replace('#', '');
         if (id) {
-          document.getElementById(id)?.scrollIntoView();
+          cleanup = scrollToAndObserve(id, rootElement);
         } else if (rootElement) {
           const element =
             typeof rootElement === 'string'
@@ -115,25 +199,33 @@ const InPageNav = ({
         }
       })
     );
-    return unlisten;
+    return () => {
+      cleanup?.();
+      unlisten();
+    };
   }, [history, rootElement]);
 
-  // move element into view on mount
+  // move element into view on mount, and re-scroll if lazy-loaded content
+  // above the target causes it to shift out of view
   useEffect(() => {
+    const id = history.location.hash.replace('#', '');
+    if (!id) {
+      return;
+    }
+
+    let cleanup: (() => void) | undefined;
+
     // sleep, to give the rest of the page a chance to start loading
     // schedule, to trigger only when the page has finished doing work
     // hopefully by then all the components are loaded and in their right space
     sleep(500)
       .then(() => schedule(1000))
       .then(() => {
-        const id = history.location.hash.replace('#', '');
-        if (!id) {
-          // no id to navigate to
-          return;
-        }
-        document.getElementById(id)?.scrollIntoView();
+        cleanup = scrollToAndObserve(id, rootElement);
       });
-  }, [history]); // history won't change, unlike location
+
+    return () => cleanup?.();
+  }, [history, rootElement]); // history won't change, unlike location
 
   // move active marker
   useEffect(() => {

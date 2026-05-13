@@ -8,6 +8,7 @@ import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';
 import ExpressionSection from '../components/entry/ExpressionSection';
 import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';
 import FunctionSection from '../components/entry/FunctionSection';
+import HomologsSection from '../components/entry/homologs/HomologsSection';
 import InteractionSection from '../components/entry/InteractionSection';
 import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
 import ProteinProcessingSection from '../components/entry/ProteinProcessingSection';
@@ -22,7 +23,8 @@ const UniProtKBEntryConfig: {
   sectionContent: (
     entryData: UniProtkbUIModel,
     communityReferences: Reference[],
-    importedVariants: number | 'loading'
+    importedVariants: number | 'loading',
+    hasPhylogenomicXrefs?: boolean
   ) => JSX.Element;
 }[] = [
   {
@@ -118,13 +120,14 @@ const UniProtKBEntryConfig: {
   },
   {
     id: EntrySection.FamilyAndDomains,
-    sectionContent: (data) => (
+    sectionContent: (data, _, __, hasPhylogenomicXrefs) => (
       <FamilyAndDomainsSection
         data={data[EntrySection.FamilyAndDomains]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence?.value}
         uniParcID={data.extraAttributes?.uniParcId}
         key={EntrySection.Expression}
+        hasPhylogenomicXrefs={hasPhylogenomicXrefs}
       />
     ),
   },
@@ -144,6 +147,15 @@ const UniProtKBEntryConfig: {
       <SimilarProteinsSection
         {...data[EntrySection.SimilarProteins]}
         key={EntrySection.SimilarProteins}
+      />
+    ),
+  },
+  {
+    id: EntrySection.Homologs,
+    sectionContent: (data) => (
+      <HomologsSection
+        {...data[EntrySection.Homologs]}
+        key={EntrySection.Homologs}
       />
     ),
   },

@@ -12,7 +12,7 @@ import { type UniProtkbAPIModel } from '../../../../adapters/uniProtkbConverter'
 import { TabLocation } from '../../../../types/entry';
 import { columnConfig as similarProteinsColumnConfig } from '../../similar-proteins/SimilarProteinsTable';
 
-const columnConfig = [
+export const columnConfig = [
   {
     label: 'Entry',
     name: 'entry',
@@ -22,7 +22,10 @@ const columnConfig = [
           to={getEntryPath(
             Namespace.uniprotkb,
             row.primaryAccession,
-            TabLocation.Entry
+            row?.inactiveReason?.inactiveReasonType === 'MERGED' ||
+              row?.inactiveReason?.inactiveReasonType === 'DEMERGED'
+              ? TabLocation.History
+              : TabLocation.Entry
           )}
         >
           {row.primaryAccession}

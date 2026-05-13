@@ -4,12 +4,12 @@ import { Location, LocationToPath } from '../../app/config/urls';
 
 export const getSubEntryPath = (
   accession: string,
-  subEntryId: string,
+  xrefId: string,
   subPage: string
 ) =>
   generatePath(LocationToPath[Location.UniParcSubEntry], {
     accession,
-    subEntryId,
+    xrefId,
     subPage,
   });
 

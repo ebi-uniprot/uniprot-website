@@ -2,11 +2,7 @@ import { Card, InfoList } from 'franklin-sites';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import {
-  getEntryPath,
-  Location,
-  LocationToPath,
-} from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
 import TaxonomyView, {
   TaxonomyId,
   TaxonomyLineage,
@@ -14,9 +10,9 @@ import TaxonomyView, {
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
-import { stringifyQuery } from '../../../shared/utils/url';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import { type Evidence } from '../../../uniprotkb/types/modelTypes';
 import {
   type ModifiedPrediction,
   type UniParcSubEntryUIModel,
@@ -25,34 +21,26 @@ import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryProteomes } from '../../utils/subEntry';
 
+const genericEvidences: Evidence[] = [
+  {
+    evidenceCode: 'ECO:0000313',
+  },
+];
+
 const NameContent = ({
   predictions,
-  queryParam,
 }: {
   predictions: ModifiedPrediction[] | string;
-  queryParam: string;
 }) => {
   const renderedPredictions: Partial<ModifiedPrediction>[] =
     typeof predictions === 'string'
-      ? [{ annotationValue: predictions }]
+      ? [{ annotationValue: predictions, evidence: genericEvidences }]
       : predictions;
 
   return renderedPredictions.map((prediction, index) => (
     // eslint-disable-next-line react/no-array-index-key
     <div key={index}>
       {prediction.annotationValue}
-      {' ('}
-      <Link
-        to={{
-          pathname: LocationToPath[Location.UniProtKBResults],
-          search: stringifyQuery({
-            query: `(${queryParam}:"${prediction.annotationValue}")`,
-          }),
-        }}
-      >
-        Search in UniProtKB
-      </Link>
-      )
       {prediction.evidence && (
         <UniProtKBEvidenceTag evidences={prediction.evidence} />
       )}
@@ -76,11 +64,12 @@ const SubEntryNamesAndTaxonomySection = ({
       : null
   );
 
-  if (!data?.subEntry?.proteinName) {
+  if (!data?.subEntry) {
     return null;
   }
 
-  const { proteinName, geneName, organism, properties } = data.subEntry;
+  const { proteinName, geneName, organism, properties, proteomeId, component } =
+    data.subEntry;
   const { predictions } = data.unifire || { predictions: [] };
 
   const recommendedFullNamePrediction =
@@ -131,6 +120,10 @@ const SubEntryNamesAndTaxonomySection = ({
 
   const proteomeComponentObject = getSubEntryProteomes(properties);
 
+  if (proteomeId && component) {
+    proteomeComponentObject[proteomeId] = component;
+  }
+
   const proteomeContent = Object.entries(proteomeComponentObject).map(
     ([proteomeId, component]) => (
       <Fragment key={proteomeId}>
@@ -146,47 +139,38 @@ const SubEntryNamesAndTaxonomySection = ({
   const proteinNameInfoData = [
     {
       title: 'Name',
-      content: proteinName.length ? (
-        <NameContent predictions={proteinName} queryParam="protein_name" />
+      content: proteinName?.length ? (
+        <NameContent predictions={proteinName} />
       ) : null,
     },
     {
       title: 'Recommended name',
       content: recommendedFullNamePrediction.length ? (
-        <NameContent
-          predictions={recommendedFullNamePrediction}
-          queryParam="protein_name"
-        />
+        <NameContent predictions={recommendedFullNamePrediction} />
       ) : null,
     },
     {
       title: 'Short names',
       content: recommendedShortNamePrediction.length ? (
-        <NameContent
-          predictions={recommendedShortNamePrediction}
-          queryParam="protein_name"
-        />
+        <NameContent predictions={recommendedShortNamePrediction} />
       ) : null,
     },
     {
       title: 'EC number',
       content: recommendedECPrediction.length ? (
-        <NameContent predictions={recommendedECPrediction} queryParam="ec" />
+        <NameContent predictions={recommendedECPrediction} />
       ) : null,
     },
     {
       title: 'Alternative names',
       content: alternativeNamePrediction.length ? (
-        <NameContent
-          predictions={alternativeNamePrediction}
-          queryParam="protein_name"
-        />
+        <NameContent predictions={alternativeNamePrediction} />
       ) : null,
     },
     {
       title: 'Alternative EC number',
       content: alternativeECPrediction.length ? (
-        <NameContent predictions={alternativeECPrediction} queryParam="ec" />
+        <NameContent predictions={alternativeECPrediction} />
       ) : null,
     },
   ];
@@ -197,20 +181,15 @@ const SubEntryNamesAndTaxonomySection = ({
       content:
         geneName || geneNamePrediction.length ? (
           <>
-            {geneName && (
-              <NameContent predictions={geneName} queryParam="gene" />
-            )}
-            <NameContent predictions={geneNamePrediction} queryParam="gene" />
+            {geneName && <NameContent predictions={geneName} />}
+            <NameContent predictions={geneNamePrediction} />
           </>
         ) : null,
     },
     {
       title: 'Synonyms',
       content: geneNameSynonymsPrediction.length ? (
-        <NameContent
-          predictions={geneNameSynonymsPrediction}
-          queryParam="gene"
-        />
+        <NameContent predictions={geneNameSynonymsPrediction} />
       ) : null,
     },
   ];
@@ -241,16 +220,33 @@ const SubEntryNamesAndTaxonomySection = ({
     },
   ];
 
+  const hasProteinNameContent = proteinNameInfoData.some(
+    (item) => item.content
+  );
+  const hasGeneNameContent = geneNameInfoData.some((item) => item.content);
+
+  if (
+    !hasProteinNameContent &&
+    (!geneName || !hasGeneNameContent) &&
+    !organism &&
+    proteomeContent.length === 0
+  ) {
+    return null;
+  }
+
   return (
     <Card
       header={<h2>{entrySectionToLabel[SubEntrySection.NamesAndTaxonomy]}</h2>}
       id={SubEntrySection.NamesAndTaxonomy}
       data-entry-section
     >
-      <h3 data-article-id="protein_names">Protein Name</h3>
-      <InfoList infoData={proteinNameInfoData} />
-
-      {geneName && (
+      {hasProteinNameContent && (
+        <>
+          <h3 data-article-id="protein_names">Protein Name</h3>
+          <InfoList infoData={proteinNameInfoData} />
+        </>
+      )}
+      {(geneName || hasGeneNameContent) && (
         <>
           <h3 data-article-id="gene_name">Gene Name</h3>
           <InfoList infoData={geneNameInfoData} />

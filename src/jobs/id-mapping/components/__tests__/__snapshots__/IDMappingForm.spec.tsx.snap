@@ -23,7 +23,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
         class="tools-form-section__item tools-form-section__item--full-width"
       >
         <legend>
-          Enter one of more IDs (100,000 max). You may also
+          Enter one or more IDs (100,000 max). You may also
           <label
             class="tools-form-section__file-input"
           >
@@ -43,7 +43,7 @@ exports[`IDMappingForm test Renders the form 1`] = `
           . Alternatively, the 
           <a
             class="external-link"
-            href="https://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/idmapping/"
+            href="https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/"
             rel="noopener"
             target="_blank"
           >

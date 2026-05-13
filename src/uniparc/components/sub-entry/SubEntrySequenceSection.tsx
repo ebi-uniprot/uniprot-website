@@ -22,6 +22,7 @@ import { type Evidence } from '../../../uniprotkb/types/modelTypes';
 import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import EntrySection from '../../types/subEntrySection';
+import { getXrefId } from '../../utils/uniparcXref';
 import { type DataDBModel } from '../entry/XRefsSection';
 
 const getTemplateMap = (dataDB?: DataDBModel) =>
@@ -34,8 +35,14 @@ const SubEntrySequenceSection = ({
 }) => {
   const history = useHistory();
 
+  const sourceDatabases = data?.subEntry.properties?.filter(
+    (property) => property.key === 'sources'
+  );
+
   const dataDB = useDataApi<DataDBModel>(
-    apiUrls.configure.allDatabases(Namespace.uniparc)
+    sourceDatabases?.length
+      ? apiUrls.configure.allDatabases(Namespace.uniparc)
+      : undefined
   );
   const templateMap = useMemo(() => getTemplateMap(dataDB.data), [dataDB.data]);
 
@@ -44,7 +51,7 @@ const SubEntrySequenceSection = ({
     return null;
   }
 
-  if (dataDB.loading || !dataDB.data) {
+  if (dataDB.loading) {
     return <Loader />;
   }
 
@@ -66,10 +73,6 @@ const SubEntrySequenceSection = ({
       content: data.subEntry.source?.database, // TODO: add external link
     },
   ];
-
-  const sourceDatabases = data.subEntry.properties?.filter(
-    (property) => property.key === 'sources'
-  );
 
   const flagPredictions =
     data.unifire?.predictions.filter(
@@ -125,10 +128,7 @@ const SubEntrySequenceSection = ({
 
             const template = sourceDB && templateMap.get(sourceDB);
             let id = sourceID;
-            // NOTE: exception for FusionGDB we need to remove the underscore number
-            if (sourceDB === 'FusionGDB') {
-              id = id.replace(/_\d+$/, '');
-            }
+            id = getXrefId(id, sourceDB);
             const content = template ? (
               <ExternalLink url={template.replace('%id', id)}>
                 {sourceID}

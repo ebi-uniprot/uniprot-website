@@ -19,6 +19,7 @@ import {
   type SequenceFeature,
   type UniParcLiteAPIModel,
 } from '../adapters/uniParcConverter';
+import { CommonTaxons } from '../components/common-taxons';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -227,21 +228,8 @@ UniParcColumnConfiguration.set(UniParcColumn.commonTaxons, {
     'Common taxonomy identifier(s) shared by the sequence as well as their corresponding top-level taxonomy within the taxonomy tree. It could be lower-level organisms or higher-level taxons if the sequence is present in multiple organisms',
     'taxonomic_identifier'
   ),
-  render: ({ commonTaxons }) => (
-    <ExpandableList
-      descriptionString="common taxonomies"
-      displayNumberOfHiddenItems
-    >
-      {commonTaxons?.map((taxon) => (
-        <Fragment key={`${taxon.commonTaxon}-${taxon.commonTaxonId}`}>
-          <Link to={getEntryPath(Namespace.taxonomy, taxon.commonTaxonId)}>
-            {taxon.commonTaxon}
-          </Link>{' '}
-          ({taxon.topLevel})
-        </Fragment>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ commonTaxons }) =>
+    commonTaxons && <CommonTaxons commonTaxons={commonTaxons} />,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.commonTaxonID, {

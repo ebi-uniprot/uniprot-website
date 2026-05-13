@@ -2,11 +2,9 @@ import { Card } from 'franklin-sites';
 import { lazy, memo } from 'react';
 
 import LazyComponent from '../../../../shared/components/LazyComponent';
-import helper from '../../../../shared/styles/helper.module.scss';
-import { type UniProtkbUIModel } from '../../../adapters/uniProtkbConverter';
+import { type SimilarProteinsUIModel } from '../../../adapters/similarProteinsConverter';
 import EntrySection from '../../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../../utils/entrySection';
-import AgrHomology from './AgrHomology';
 
 const SimilarProteins = lazy(
   () => import(/* webpackChunkName: "similar-proteins" */ './SimilarProteins')
@@ -15,8 +13,7 @@ const SimilarProteins = lazy(
 const SimilarProteinsSection = ({
   canonical,
   isoforms,
-  xrefs,
-}: UniProtkbUIModel[EntrySection.SimilarProteins]) => {
+}: SimilarProteinsUIModel) => {
   const { name, id } = getEntrySectionNameAndId(EntrySection.SimilarProteins);
   return (
     <Card
@@ -29,15 +26,6 @@ const SimilarProteinsSection = ({
       </h3>
       <LazyComponent>
         <SimilarProteins canonical={canonical} isoforms={isoforms} />
-      </LazyComponent>
-      <h3
-        data-article-id="similar_proteins_section#orthology-and-paralogy"
-        className={helper['padding-top-med']}
-      >
-        Orthologs & paralogs
-      </h3>
-      <LazyComponent>
-        <AgrHomology xrefs={xrefs} />
       </LazyComponent>
     </Card>
   );
