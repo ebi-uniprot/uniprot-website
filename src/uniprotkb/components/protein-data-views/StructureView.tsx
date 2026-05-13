@@ -274,7 +274,7 @@ const StructureView = ({
         accession={primaryAccession}
         checksum={checksum}
         sequence={sequence}
-        no-table
+        noTable
       />
       {!viewerOnly && loading && <Loader />}
       {!viewerOnly && !loading && structures.length === 0 && (

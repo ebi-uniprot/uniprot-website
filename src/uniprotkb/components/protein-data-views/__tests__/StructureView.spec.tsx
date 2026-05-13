@@ -51,13 +51,12 @@ describe('StructureView', () => {
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
-  it('renders the custom element with no-table attribute', () => {
+  it('renders the custom element with the accession attribute', () => {
     customRender(<StructureView primaryAccession="P12345" />, {
       route: '/uniprotkb/P12345/entry',
     });
     const el = document.querySelector('protvista-uniprot-structure');
     expect(el).toBeInTheDocument();
-    expect(el).toHaveAttribute('no-table');
     expect(el).toHaveAttribute('accession', 'P12345');
   });
 

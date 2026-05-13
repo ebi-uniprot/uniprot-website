@@ -5476,7 +5476,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           </div>
           <protvista-uniprot-structure
             accession="P0DTR4"
-            no-table=""
+            notable=""
           />
           <div
             class="loader-container"

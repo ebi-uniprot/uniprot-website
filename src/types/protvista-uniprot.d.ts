@@ -14,11 +14,8 @@ declare global {
   > &
     Pick<
       ProtvistaUniprotStructure,
-      'accession' | 'checksum' | 'sequence' | 'isoforms'
-    > & {
-      // Kebab-case JSX attribute name; the class field is `noTable`.
-      'no-table'?: boolean;
-    };
+      'accession' | 'checksum' | 'sequence' | 'isoforms' | 'noTable'
+    >;
 
   namespace React.JSX {
     interface IntrinsicElements {
