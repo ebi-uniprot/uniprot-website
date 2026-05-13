@@ -63,7 +63,13 @@ const StructureView = ({
       setStructures(
         data.map((row, i) => ({ ...row, rowKey: `${row.id}:${i}` }))
       );
-      setSelectedId(structureEl.selectedId);
+      const current = structureEl.selectedId;
+      const next =
+        current && data.some((r) => r.id === current) ? current : data[0]?.id;
+      if (next && next !== current) {
+        structureEl.selectedId = next;
+      }
+      setSelectedId(next);
       setLoading(false);
     };
     // Catch up in case the event fired before this listener was attached.

@@ -1,12 +1,12 @@
-import type ProtvistaUniprot from 'protvista-uniprot';
 import type { ProtvistaUniprotStructure } from 'protvista-uniprot';
 
 declare global {
   type ProtvistaUniprotElement = React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
     HTMLElement
-  > &
-    Pick<ProtvistaUniprot, 'accession' | 'sequence'>;
+  > & {
+    accession?: string;
+  };
 
   type ProtvistaUniprotStructureElement = React.DetailedHTMLProps<
     React.HTMLAttributes<ProtvistaUniprotStructure>,
