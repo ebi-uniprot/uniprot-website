@@ -98,7 +98,10 @@ const patchSwissBioPics = (() => {
         return;
       }
 
-      proto[fnName] = function patched(this, ...args: unknown[]) {
+      proto[fnName] = function patched(
+        this: SwissBioPicsEl,
+        ...args: unknown[]
+      ) {
         // Keep this try/catch: otherwise library errors bubble into React,
         // which can trigger ErrorBoundary + HMR remount loops.
         try {
@@ -160,7 +163,10 @@ const patchSwissBioPics = (() => {
     // Special-case highLight so we can remove the library's `.lookedAt` shadow CSS.
     const originalHighLight = proto.highLight;
     if (typeof originalHighLight === 'function') {
-      proto.highLight = function patchedHighLight(this, ...args: unknown[]) {
+      proto.highLight = function patchedHighLight(
+        this: SwissBioPicsEl,
+        ...args: unknown[]
+      ) {
         try {
           if (!this.isConnected) {
             return;
