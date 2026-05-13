@@ -77,6 +77,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     const typeValue = stringMatchType ?? '';
     const externalUrl = locToUrl.get(stringMatchLoc);
 
+    // TODO: update href from google docs to actual help document
     return (
       <>
         {`ProtNLM2 model score: `}
@@ -133,13 +134,12 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
         {'Sequence similarity with '}
         <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
           {phmmerAccession}
-        </Link>
-        <ul style={{ paddingBottom: 5 }}>
-          <li>
-            phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
-          </li>
-          <small>Unbounded scale. Higher = stronger sequence similarity.</small>
-        </ul>
+        </Link>{' '}
+        with phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
+        <br />
+        <small>Unbounded scale. Higher = stronger sequence similarity.</small>
+        <br />
+        <br />
         <Link
           to={{
             pathname: LocationToPath[Location.Align],

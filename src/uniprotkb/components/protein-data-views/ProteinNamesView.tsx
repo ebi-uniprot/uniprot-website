@@ -299,7 +299,7 @@ const ProteinNamesView = ({
       title: pluralise('AI predicted name', protnlmProteinNames.length),
       content: (
         <span className="ai-annotation">
-          <ExpandableList descriptionString="submitted names">
+          <ExpandableList descriptionString="AI predicted names">
             {protnlmProteinNames.map((names, index) => (
               <ProteinNamesViewFlat
                 key={index} // eslint-disable-line react/no-array-index-key

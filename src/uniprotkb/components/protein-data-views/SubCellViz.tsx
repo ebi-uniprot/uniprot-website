@@ -526,9 +526,12 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
         `;
 
-        // Drop any nodes from a previous fire before re-appending.
+        // Drop any nodes / tooltips from a previous fire before re-attaching.
         injectedStyle?.remove();
         injectedSlot?.remove();
+        while (cleanupTooltips.length) {
+          cleanupTooltips.pop()?.();
+        }
 
         injectedStyle = document.createElement('style');
         injectedStyle.innerText = css;

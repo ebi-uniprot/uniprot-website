@@ -23,13 +23,13 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
 
   it('should merge comments correctly', () => {
     expect(result.comments).toHaveLength(1);
-    // TODO: update with ID once available
     expect(result.comments?.[0]).toEqual({
       commentType: 'SUBCELLULAR LOCATION',
       subcellularLocations: [
         {
           location: expect.objectContaining({
             value: 'Golgi apparatus membrane',
+            id: 'SL-0134',
           }),
         },
       ],
