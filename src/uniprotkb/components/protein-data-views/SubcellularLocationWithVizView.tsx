@@ -14,7 +14,7 @@ import {
 } from '../../config/evidenceCodes';
 import { type SubcellularLocationComment } from '../../types/commentTypes';
 import { type Evidence, type GoEvidenceType } from '../../types/modelTypes';
-import { AiEvidenceCode } from '../../types/protNLMAPIModel';
+import { aiEvidenceCode, protNLM2Evidence } from '../../types/protNLMAPIModel';
 import SubcellularLocationGOView from './SubcellularLocationGOView';
 import SubcellularLocationView from './SubcellularLocationView';
 
@@ -59,7 +59,7 @@ const getNoAnnotationMessage = (name: string) => (
   <HeroContainer>{`No ${name} annotations available.`}</HeroContainer>
 );
 
-const isAiEvidence = (e: Evidence) => e.evidenceCode === AiEvidenceCode;
+const isAiEvidence = (e: Evidence) => e.evidenceCode === aiEvidenceCode;
 
 const isReviewedEvidence = (e: Evidence) => {
   const ecoNumber = getEcoNumberFromString(e.evidenceCode);
@@ -91,7 +91,7 @@ export const getUniProtEvidenceType = (
 };
 
 export const getGoEvidenceType = (goEvidence: GoEvidenceType): EvidenceType => {
-  if (goEvidence === 'IEA:ProtNLM2') {
+  if (goEvidence === protNLM2Evidence) {
     return 'ai';
   }
   const evidenceData = getEvidenceCodeData(

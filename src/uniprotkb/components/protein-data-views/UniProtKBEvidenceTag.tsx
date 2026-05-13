@@ -12,7 +12,7 @@ import {
   labels,
 } from '../../config/evidenceCodes';
 import { type Evidence } from '../../types/modelTypes';
-import { type EvidenceProperty, ProtNLM2Id } from '../../types/protNLMAPIModel';
+import { type EvidenceProperty, protNLM2Id } from '../../types/protNLMAPIModel';
 import EvidenceLink from './EvidenceLink';
 import ProtNLM2EvidenceLink from './ProtNLM2EvidenceLink';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
@@ -72,7 +72,7 @@ const UniProtEvidenceTagContent = ({
           >
             {mappedEvidences.map(({ id, url, properties }: Evidence, index) => (
               <span key={id || index}>
-                {id == ProtNLM2Id && accession ? (
+                {id === protNLM2Id && accession ? (
                   <ProtNLM2EvidenceLink
                     properties={properties as EvidenceProperty[]}
                     accession={accession}
@@ -89,12 +89,6 @@ const UniProtEvidenceTagContent = ({
   );
 };
 
-// const isProtNLM2 =(
-//   evidences,
-// ) => {
-
-// }
-
 const UniProtKBEvidenceTag = ({
   evidences,
   goTermEvidence,
@@ -107,7 +101,7 @@ const UniProtKBEvidenceTag = ({
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
-  const hasProtNLM2 = evidences.some((evidence) => evidence.id === ProtNLM2Id);
+  const hasProtNLM2 = evidences.some((evidence) => evidence.id === protNLM2Id);
   return (
     <>
       {hasProtNLM2 && (

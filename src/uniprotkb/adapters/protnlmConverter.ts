@@ -2,7 +2,11 @@ import { partition } from 'lodash-es';
 
 import { type SubcellularLocationComment } from '../types/commentTypes';
 import EntrySection from '../types/entrySection';
-import { type UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
+import {
+  protNLM2Evidence,
+  type ProtNlmSubcellularLocationComment,
+  type UniProtKBProtNLMAPIModel,
+} from '../types/protNLMAPIModel';
 import { type ProteinNames } from './namesAndTaxonomyConverter';
 import {
   type UniProtkbAPIModel,
@@ -65,9 +69,10 @@ export const augmentAPIDataWithProtnlmPredictions = (
     ) || [];
 
   const protnlmSubcellularLocationComments = resolveProtnlmSubcellularIds(
-    (protnlmData.comments?.filter(
-      (comment) => comment.commentType === 'SUBCELLULAR LOCATION'
-    ) || []) as unknown as SubcellularLocationComment[],
+    protnlmData.comments?.filter(
+      (comment): comment is ProtNlmSubcellularLocationComment =>
+        comment.commentType === 'SUBCELLULAR LOCATION'
+    ) || [],
     buildLocationNameToIdMap(data.comments)
   );
 
@@ -75,10 +80,10 @@ export const augmentAPIDataWithProtnlmPredictions = (
     properties: UniProtKBXref['properties'] = []
   ) =>
     properties.some(
-      (p) => p.key === 'GoEvidenceType' && p.value === 'IEA:ProtNLM2'
+      (p) => p.key === 'GoEvidenceType' && p.value === protNLM2Evidence
     )
       ? properties
-      : [...properties, { key: 'GoEvidenceType', value: 'IEA:ProtNLM2' }];
+      : [...properties, { key: 'GoEvidenceType', value: protNLM2Evidence }];
 
   const mergeGoXref = (
     uniprotXref: UniProtKBXref,
@@ -92,10 +97,9 @@ export const augmentAPIDataWithProtnlmPredictions = (
     ],
   });
 
-  const protnlmFixedXrefs: UniProtKBXref[] =
-    (protnlmData.uniProtKBCrossReferences || []) as UniProtKBXref[];
-
-  const protnlmCrossReferences: UniProtKBXref[] = protnlmFixedXrefs
+  const protnlmCrossReferences: UniProtKBXref[] = (
+    protnlmData.uniProtKBCrossReferences || []
+  )
     // Remove Pfam eg A0A444Y2I6
     .filter((xref) => xref.database !== 'Pfam')
     // TODO: currently the ":-" GoEvidenceType breaks getEcoNumberFromGoEvidence Type
@@ -104,7 +108,7 @@ export const augmentAPIDataWithProtnlmPredictions = (
       ...xref,
       properties: xref.properties?.map((property) =>
         property.key === 'GoEvidenceType' && property.value === ':-'
-          ? { key: 'GoEvidenceType', value: 'IEA:ProtNLM2' }
+          ? { key: 'GoEvidenceType', value: protNLM2Evidence }
           : property
       ),
     }));

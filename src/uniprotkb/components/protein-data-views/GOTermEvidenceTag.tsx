@@ -6,7 +6,7 @@ import {
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
 import { type GoEvidenceType } from '../../types/modelTypes';
-import { ProtNLM2Id } from '../../types/protNLMAPIModel';
+import { protNLM2Id } from '../../types/protNLMAPIModel';
 
 const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
   if (!evidence) {
@@ -14,7 +14,7 @@ const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
   }
   // ProtNLM2 contribution is already surfaced by the row stripe and the
   // AI marker on the sibling UniProtKBEvidenceTag — skip the duplicate chip.
-  if (evidence === `IEA:${ProtNLM2Id}`) {
+  if (evidence === `IEA:${protNLM2Id}`) {
     return null;
   }
   const evidenceCode = getEcoNumberFromGoEvidenceType(evidence);

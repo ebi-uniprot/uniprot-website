@@ -50,6 +50,12 @@ const locToUrl = new Map([
   ['PANTHER', pthrUrl],
 ]);
 
+const SomethingWentWrong = () => (
+  <>
+    <b>Something went wrong:</b> AI evidence malformed
+  </>
+);
+
 type Props = {
   properties: EvidenceProperty[];
   accession: string;
@@ -59,7 +65,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     logging.error(
       `ProtNLM2 evidence with no value: ${JSON.stringify(properties)}`
     );
-    return 'oops';
+    return <SomethingWentWrong />;
   }
   const propertiesMap = new Map(properties.map((p) => [p.key, p.value]));
   const modelScore = propertiesMap.get('model_score');
@@ -202,6 +208,11 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
       </>
     );
   }
+
+  logging.error(
+    `ProtNLM2 evidence fell through all conditions: ${JSON.stringify(properties)}`
+  );
+  return <SomethingWentWrong />;
 };
 
 export default ProtNLM2EvidenceLink;

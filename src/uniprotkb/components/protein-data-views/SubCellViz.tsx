@@ -14,6 +14,7 @@ import {
 import { type RequireExactlyOne } from 'type-fest';
 import { v1 } from 'uuid';
 
+import * as logging from '../../../shared/utils/logging';
 import { addTooltip } from '../../../shared/utils/tooltip';
 import {
   type SubCellularLocation,
@@ -108,8 +109,13 @@ const patchSwissBioPics = (() => {
             return;
           }
           return orig.apply(this, args);
-        } catch {
-          // Swallow library errors (they can happen due to async callbacks after unmount).
+        } catch (err) {
+          // Swallow in prod (async library callbacks may fire after unmount
+          // and find wrapper/terms null). Surface in dev via logging.debug so
+          // a developer hunting a real bug can filter the console to see it.
+          logging.debug(err as Error, {
+            tags: { source: 'swissbiopics-patched', fn: fnName },
+          });
           return;
         }
       };
@@ -174,7 +180,10 @@ const patchSwissBioPics = (() => {
           }
 
           return originalHighLight.apply(this, args);
-        } catch {
+        } catch (err) {
+          logging.debug(err as Error, {
+            tags: { source: 'swissbiopics-patched', fn: 'highLight' },
+          });
           return;
         }
       };
@@ -429,6 +438,13 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       const cleanupTooltips: Array<ReturnType<typeof attachTooltips>> = [];
       const uniprot = [...unreviewed, ...reviewed];
 
+      // `svgloaded` can fire more than once for the same shadow root (eg on
+      // library reload / HMR). Track the nodes we inject so we can swap them
+      // out on each fire and remove them on effect teardown — otherwise
+      // duplicate <style> rules stack and the slot is duplicated.
+      let injectedStyle: HTMLStyleElement | null = null;
+      let injectedSlot: HTMLSlotElement | null = null;
+
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
           document.querySelector('.tabs__header')?.clientHeight;
@@ -503,14 +519,17 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
         `;
 
-        const style = document.createElement('style');
-        // inject more styles
-        style.innerText = css;
-        shadowRoot.appendChild(style);
+        // Drop any nodes from a previous fire before re-appending.
+        injectedStyle?.remove();
+        injectedSlot?.remove();
+
+        injectedStyle = document.createElement('style');
+        injectedStyle.innerText = css;
+        shadowRoot.appendChild(injectedStyle);
 
         // add a slot to inject content
-        const slot = document.createElement('slot');
-        shadowRoot.querySelector('.terms')?.appendChild(slot);
+        injectedSlot = document.createElement('slot');
+        shadowRoot.querySelector('.terms')?.appendChild(injectedSlot);
 
         // This finds all subcellular location SVGs that will require a tooltip
         const subcellularPresentSVGs =
@@ -597,6 +616,8 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         cleanupLegendStyle?.();
         cleanupTooltips.forEach((cleanup) => cleanup?.());
         shadowRoot.removeEventListener('svgloaded', onSvgLoaded);
+        injectedStyle?.remove();
+        injectedSlot?.remove();
       };
     }, [contentReady, instanceKey, uniProtLocations, goLocations]);
 
