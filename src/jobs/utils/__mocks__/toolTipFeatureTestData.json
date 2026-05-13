@@ -20,7 +20,7 @@
     "tooltipFeature": {
       "ftId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "type": "Domain",
-      "begin": 28,
+      "start": 28,
       "end": 189,
       "description": "E1",
       "evidences": [
@@ -49,7 +49,7 @@
     "tooltipFeature": {
       "ftId": "72f1d160-225f-11eb-b210-87bf075e497c",
       "type": "Domain",
-      "begin": 75,
+      "start": 75,
       "end": 226,
       "description": "Photolyase/cryptochrome alpha/beta"
     }
@@ -68,7 +68,7 @@
     },
     "tooltipFeature": {
       "type": "Chain",
-      "begin": 18,
+      "start": 18,
       "end": 286,
       "description": "N-APP",
       "ftId": "PRO_0000381966"
@@ -87,7 +87,7 @@
     },
     "tooltipFeature": {
       "type": "Chain",
-      "begin": 18,
+      "start": 18,
       "end": 286,
       "ftId": "PRO_0000381966"
     }
@@ -111,7 +111,7 @@
     "tooltipFeature": {
       "ftId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "type": "Domain",
-      "begin": 28,
+      "start": 28,
       "end": 189,
       "description": "E1",
       "evidences": [
@@ -142,7 +142,7 @@
     "tooltipFeature": {
       "ftId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "type": "Domain",
-      "begin": 28,
+      "start": 28,
       "end": 189,
       "description": "E1",
       "evidences": [
@@ -177,7 +177,7 @@
     "tooltipFeature": {
       "ftId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
       "type": "Domain",
-      "begin": 28,
+      "start": 28,
       "end": 189,
       "description": "E1",
       "evidences": [

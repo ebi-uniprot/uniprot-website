@@ -11,7 +11,7 @@ export const prepareFeatureForTooltip = (
 ): TooltipFeature => {
   const tooltipFeature: TooltipFeature = {
     type: feature.type,
-    begin: feature.start,
+    start: feature.start,
     end: feature.end,
   };
 
