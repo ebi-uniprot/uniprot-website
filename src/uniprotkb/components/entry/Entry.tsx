@@ -671,7 +671,7 @@ const Entry = () => {
               organism={data.organism}
             />
           ) : null}
-          <div className="entry-title-row">
+          <div className="ai-annotation-entry-title-row">
             <h1>
               <EntryTitle
                 mainTitle={data.primaryAccession}
@@ -692,7 +692,7 @@ const Entry = () => {
                 icon={<AiAnnotationsIcon />}
                 checked={loadProtNLM}
                 onChange={setLoadProtNLM}
-                className="entry-title-row__toggle"
+                className="ai-annotation-entry-title-row__toggle"
               />
             )}
           </div>

@@ -4,7 +4,7 @@ exports[`Entry basic should render main 1`] = `
 <DocumentFragment>
   {{ SideBarLayout start }}
   <div
-    class="entry-title-row"
+    class="ai-annotation-entry-title-row"
   >
     <h1>
       <span
