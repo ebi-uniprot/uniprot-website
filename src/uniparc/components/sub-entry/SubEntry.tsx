@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { use, useEffect, useState } from 'react';
+import { use, useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -23,6 +23,8 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import stickyHeaderStyles from '../../../shared/components/entry/styles/entry-sticky-header.module.scss';
+import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -118,6 +120,7 @@ const SubEntry = () => {
     xrefId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [isStuck, setIsStuck] = useState(false);
   const [runUniFire, setRunUniFire] = useState(
     // Only do an automatic request to UniFire if the user is likely human
     // In case of this page being a first load and not a navigation, it might
@@ -126,6 +129,25 @@ const SubEntry = () => {
     // user, but that's fine
     use(BotDetectionContext) === 'human'
   );
+
+  // Ref callback so we observe the header the moment it attaches and stop
+  // observing when it detaches.
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const setFullHeaderRef = useCallback((node: HTMLElement | null) => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsStuck(false);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsStuck(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(node);
+    observerRef.current = observer;
+  }, []);
+  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   const { accession, xrefId, subPage } = match?.params || {};
   let subEntryId = xrefId;
@@ -329,11 +351,53 @@ const SubEntry = () => {
     />
   );
 
+  const entryTitle = (
+    <EntryTitle
+      mainTitle="UniParc"
+      optionalTitle={
+        <>
+          <Link
+            to={getEntryPath(Namespace.uniparc, accession, TabLocation.Entry)}
+          >
+            {accession}
+          </Link>
+          {`  · `}
+          {!isUniProtKB && dbData.data ? (
+            <ExternalXrefLink
+              xref={transformedData.subEntry}
+              dataDB={dbData.data}
+            />
+          ) : (
+            subEntryId
+          )}
+        </>
+      }
+    />
+  );
+
+  // Tools row, lifted out of the Entry tab so it sits on every tab and so the
+  // compact sticky header can render the same buttons on the right.
+  const toolsRow = (
+    <div className="button-group">
+      <BlastButton selectedEntries={[accession]} />
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
+      <AddToBasketButton selectedEntries={accession} />
+    </div>
+  );
+
   return (
     <SidebarLayout
       sidebar={sidebar}
       noOverflow
-      className={cn('entry-page', sticky['sticky-tabs-container'])}
+      className={cn(
+        'entry-page',
+        sticky['sticky-tabs-container'],
+        stickyHeaderStyles.container,
+        {
+          [stickyHeaderStyles.stuck]: isStuck,
+          [stickyHeaderStyles['no-sidebar']]: !sidebar,
+        }
+      )}
     >
       <ErrorBoundary>
         <HTMLHead
@@ -346,34 +410,16 @@ const SubEntry = () => {
           {/* Keep until 2026_02 is released */}
           <meta name="robots" content="noindex" />
         </HTMLHead>
-        <h1>
-          <EntryTitle
-            mainTitle="UniParc"
-            optionalTitle={
-              <>
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniparc,
-                    accession,
-                    TabLocation.Entry
-                  )}
-                >
-                  {accession}
-                </Link>
-                {`  · `}
-                {!isUniProtKB && dbData.data ? (
-                  <ExternalXrefLink
-                    xref={transformedData.subEntry}
-                    dataDB={dbData.data}
-                  />
-                ) : (
-                  subEntryId
-                )}
-              </>
-            }
-          />
-        </h1>
-        <SubEntryOverview data={transformedData} />
+        <div
+          ref={setFullHeaderRef}
+          className={stickyHeaderStyles['full-header']}
+        >
+          <div className={stickyHeaderStyles['title-row']}>
+            <h1>{entryTitle}</h1>
+            {toolsRow}
+          </div>
+          <SubEntryOverview data={transformedData} />
+        </div>
         <Message level="info">
           These pages are in beta version, please{' '}
           <ContactLink>
@@ -392,10 +438,25 @@ const SubEntry = () => {
           setRunUniFire={setRunUniFire}
         />
       </ErrorBoundary>
+      {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+      {displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          nResults={uniparcData.data?.crossReferenceCount}
+        />
+      )}
+      {isStuck && (
+        <div className={stickyHeaderStyles['compact-bar']}>
+          <span className={stickyHeaderStyles['compact-title']}>
+            {entryTitle}
+          </span>
+          <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
+        </div>
+      )}
       <Tabs active={subPage}>
         <Tab
           title={
-            <Link
+            <EntryTabLink
               to={getSubEntryPath(
                 accession,
                 xrefId as string,
@@ -403,28 +464,16 @@ const SubEntry = () => {
               )}
             >
               Entry
-            </Link>
+            </EntryTabLink>
           }
           id={TabLocation.Entry}
         >
-          {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
-          {displayDownloadPanel && (
-            <EntryDownloadPanel
-              handleToggle={handleToggleDownload}
-              nResults={uniparcData.data?.crossReferenceCount}
-            />
-          )}
-          <div className="button-group">
-            <BlastButton selectedEntries={[accession]} />
-            <EntryDownloadButton handleToggle={handleToggleDownload} />
-            <AddToBasketButton selectedEntries={accession} />
-          </div>
           <SubEntryMain transformedData={transformedData} />
         </Tab>
         <Tab
           title={
             smallScreen ? null : (
-              <Link
+              <EntryTabLink
                 to={getSubEntryPath(
                   accession,
                   xrefId as string,
@@ -432,7 +481,7 @@ const SubEntry = () => {
                 )}
               >
                 Feature viewer
-              </Link>
+              </EntryTabLink>
             )
           }
           id={TabLocation.FeatureViewer}

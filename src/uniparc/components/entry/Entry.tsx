@@ -2,7 +2,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import joinUrl from 'url-join';
 
@@ -13,6 +13,7 @@ import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdo
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import stickyHeaderStyles from '../../../shared/components/entry/styles/entry-sticky-header.module.scss';
 import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -50,7 +51,27 @@ const Entry = () => {
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [isStuck, setIsStuck] = useState(false);
   const smallScreen = useSmallScreen();
+
+  // Ref callback so we observe the header the moment it attaches and stop
+  // observing when it detaches.
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const setFullHeaderRef = useCallback((node: HTMLElement | null) => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsStuck(false);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsStuck(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(node);
+    observerRef.current = observer;
+  }, []);
+  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
@@ -117,11 +138,29 @@ const Entry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
+  // Tools row, lifted out of the Entry tab so it sits on every tab and so the
+  // compact sticky header can render the same buttons on the right.
+  const toolsRow = (
+    <div className="button-group">
+      <ToolsDropdown selectedEntries={[match.params.accession]} blast mapID />
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
+      <AddToBasketButton selectedEntries={match.params.accession} />
+    </div>
+  );
+
   return (
     <SidebarLayout
       sidebar={sidebar}
       noOverflow
-      className={cn('entry-page', sticky['sticky-tabs-container'])}
+      className={cn(
+        'entry-page',
+        sticky['sticky-tabs-container'],
+        stickyHeaderStyles.container,
+        {
+          [stickyHeaderStyles.stuck]: isStuck,
+          [stickyHeaderStyles['no-sidebar']]: !sidebar,
+        }
+      )}
     >
       <HTMLHead
         title={[
@@ -130,15 +169,42 @@ const Entry = () => {
         ]}
       />
       <ErrorBoundary>
-        <h1>
-          <EntryTitle
-            mainTitle="UniParc"
-            optionalTitle={transformedData.uniParcId}
-          />
-          <BasketStatus id={transformedData.uniParcId} className="small" />
-        </h1>
-        <Overview data={transformedData} />
+        <div
+          ref={setFullHeaderRef}
+          className={stickyHeaderStyles['full-header']}
+        >
+          <div className={stickyHeaderStyles['title-row']}>
+            <h1>
+              <EntryTitle
+                mainTitle="UniParc"
+                optionalTitle={transformedData.uniParcId}
+              />
+              <BasketStatus id={transformedData.uniParcId} className="small" />
+            </h1>
+            {toolsRow}
+          </div>
+          <Overview data={transformedData} />
+        </div>
       </ErrorBoundary>
+      {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+      {displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          nResults={transformedData.crossReferenceCount}
+          columns={columns}
+        />
+      )}
+      {isStuck && (
+        <div className={stickyHeaderStyles['compact-bar']}>
+          <span className={stickyHeaderStyles['compact-title']}>
+            <EntryTitle
+              mainTitle="UniParc"
+              optionalTitle={transformedData.uniParcId}
+            />
+          </span>
+          <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
+        </div>
+      )}
       <Tabs active={match.params.subPage}>
         <Tab
           title={
@@ -154,23 +220,6 @@ const Entry = () => {
           }
           id={TabLocation.Entry}
         >
-          {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
-          {displayDownloadPanel && (
-            <EntryDownloadPanel
-              handleToggle={handleToggleDownload}
-              nResults={transformedData.crossReferenceCount}
-              columns={columns}
-            />
-          )}
-          <div className="button-group">
-            <ToolsDropdown
-              selectedEntries={[match.params.accession]}
-              blast
-              mapID
-            />
-            <EntryDownloadButton handleToggle={handleToggleDownload} />
-            <AddToBasketButton selectedEntries={match.params.accession} />
-          </div>
           <EntryMain transformedData={transformedData} />
         </Tab>
         <Tab

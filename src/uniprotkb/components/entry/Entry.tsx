@@ -41,6 +41,7 @@ import {
   EntryType,
   getEntryTypeFromString,
 } from '../../../shared/components/entry/EntryTypeIcon';
+import stickyHeaderStyles from '../../../shared/components/entry/styles/entry-sticky-header.module.scss';
 import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -102,7 +103,6 @@ import CommunityAnnotationLink from './CommunityAnnotationLink';
 import dataToSchema from './entry.structured';
 import EntryMain from './EntryMain';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
-import stickyHeaderStyles from './styles/entry-sticky-header.module.scss';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 
 const legacyToNewSubPages = {
