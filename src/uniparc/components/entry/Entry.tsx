@@ -2,7 +2,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import joinUrl from 'url-join';
 
@@ -26,6 +26,7 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import useStickyHeader from '../../../shared/hooks/useStickyHeader';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
@@ -51,27 +52,8 @@ const Entry = () => {
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [isStuck, setIsStuck] = useState(false);
+  const [isStuck, setFullHeaderRef] = useStickyHeader();
   const smallScreen = useSmallScreen();
-
-  // Ref callback so we observe the header the moment it attaches and stop
-  // observing when it detaches.
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const setFullHeaderRef = useCallback((node: HTMLElement | null) => {
-    observerRef.current?.disconnect();
-    observerRef.current = null;
-    if (!node || typeof IntersectionObserver === 'undefined') {
-      setIsStuck(false);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsStuck(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(node);
-    observerRef.current = observer;
-  }, []);
-  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,

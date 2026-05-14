@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { use, useCallback, useEffect, useRef, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -38,6 +38,7 @@ import useDataApi, {
 } from '../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import useStickyHeader from '../../../shared/hooks/useStickyHeader';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
@@ -120,7 +121,7 @@ const SubEntry = () => {
     xrefId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [isStuck, setIsStuck] = useState(false);
+  const [isStuck, setFullHeaderRef] = useStickyHeader();
   const [runUniFire, setRunUniFire] = useState(
     // Only do an automatic request to UniFire if the user is likely human
     // In case of this page being a first load and not a navigation, it might
@@ -129,25 +130,6 @@ const SubEntry = () => {
     // user, but that's fine
     use(BotDetectionContext) === 'human'
   );
-
-  // Ref callback so we observe the header the moment it attaches and stop
-  // observing when it detaches.
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const setFullHeaderRef = useCallback((node: HTMLElement | null) => {
-    observerRef.current?.disconnect();
-    observerRef.current = null;
-    if (!node || typeof IntersectionObserver === 'undefined') {
-      setIsStuck(false);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsStuck(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(node);
-    observerRef.current = observer;
-  }, []);
-  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   const { accession, xrefId, subPage } = match?.params || {};
   let subEntryId = xrefId;

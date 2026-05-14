@@ -3,14 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
 import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
-import {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 import joinUrl from 'url-join';
@@ -66,6 +59,7 @@ import {
 } from '../../../shared/hooks/useMatchMedia';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import useStickyHeader from '../../../shared/hooks/useStickyHeader';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -176,30 +170,9 @@ const Entry = () => {
     legacyToNewSubPages
   );
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [isStuck, setIsStuck] = useState(false);
+  const [isStuck, setFullHeaderRef] = useStickyHeader();
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
-
-  // Ref callback so we observe the header the moment it attaches and stop
-  // observing when it detaches. Avoids the initial-mount race where
-  // useRef.current is null when the <header> is conditionally rendered
-  // (obsolete-entry branch, or before data loads).
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const setFullHeaderRef = useCallback((node: HTMLElement | null) => {
-    observerRef.current?.disconnect();
-    observerRef.current = null;
-    if (!node || typeof IntersectionObserver === 'undefined') {
-      setIsStuck(false);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsStuck(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(node);
-    observerRef.current = observer;
-  }, []);
-  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
