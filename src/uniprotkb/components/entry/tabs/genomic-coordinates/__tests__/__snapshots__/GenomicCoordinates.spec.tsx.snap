@@ -3,7 +3,7 @@
 exports[`GenomicCoordinates component renders on data 1`] = `
 <DocumentFragment>
   <section
-    class="wider-tab-content hotjar-margin"
+    class="wider-tab-content"
   >
     <section
       class="card"
@@ -721,7 +721,7 @@ exports[`GenomicCoordinates component renders on data 1`] = `
 exports[`GenomicCoordinates component renders on error 1`] = `
 <DocumentFragment>
   <div
-    class="wider-tab-content hotjar-margin"
+    class="wider-tab-content"
   >
     <div
       class="container"
@@ -766,7 +766,7 @@ exports[`GenomicCoordinates component renders on error 1`] = `
 exports[`GenomicCoordinates component renders on loading 1`] = `
 <DocumentFragment>
   <div
-    class="wider-tab-content hotjar-margin"
+    class="wider-tab-content"
   >
     <div
       class="loader-container"
@@ -784,7 +784,7 @@ exports[`GenomicCoordinates component renders on loading 1`] = `
 exports[`GenomicCoordinates component renders on no data 1`] = `
 <DocumentFragment>
   <section
-    class="wider-tab-content hotjar-margin"
+    class="wider-tab-content"
   >
     <div
       class="no-data"

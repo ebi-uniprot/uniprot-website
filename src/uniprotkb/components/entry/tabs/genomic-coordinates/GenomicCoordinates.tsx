@@ -40,7 +40,7 @@ const GenomicCoordinates = ({
 
   if (loading) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
@@ -49,7 +49,7 @@ const GenomicCoordinates = ({
 
   if (error && status !== 404) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         <ErrorHandler status={status} error={error} />
       </div>
     );
@@ -57,7 +57,7 @@ const GenomicCoordinates = ({
 
   if (status === 404 || !data || !data?.length) {
     return (
-      <section className="wider-tab-content hotjar-margin">
+      <section className="wider-tab-content">
         {title && <h3>{title}</h3>}
         <div className={tabsStyles['no-data']}>
           No genomic coordinate information available for {primaryAccession}
@@ -69,7 +69,7 @@ const GenomicCoordinates = ({
   const groupedByGene = groupByGene(data);
 
   return (
-    <section className="wider-tab-content hotjar-margin">
+    <section className="wider-tab-content">
       {title && <h2>{title}</h2>}
       {Object.entries(groupedByGene).map(([gene, data], index) => (
         <GeneEntry

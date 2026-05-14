@@ -135,7 +135,7 @@ const FeatureViewer = ({
 
   if (status !== 200) {
     return (
-      <section className="wider-tab-content hotjar-margin">
+      <section className="wider-tab-content">
         <h3 data-article-id="feature_viewer">Feature viewer</h3>
         <div className={tabsStyles['no-data']}>
           No feature information available for {accession}
@@ -150,10 +150,7 @@ const FeatureViewer = ({
     loadAllFeatures;
 
   return (
-    <section
-      className="wider-tab-content hotjar-margin"
-      ref={containerRefCallback}
-    >
+    <section className="wider-tab-content" ref={containerRefCallback}>
       <h3 data-article-id="feature_viewer">Feature viewer</h3>
       {shouldRender && (
         <div className={tabsStyles['zoom-tool-row']}>

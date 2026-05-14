@@ -491,7 +491,7 @@ const VariationViewer = ({
 
   if (loading || importedVariants === 'loading') {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
@@ -500,7 +500,7 @@ const VariationViewer = ({
 
   if (!shouldRender) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         {title && <h3 data-article-id="variant_viewer">{title}</h3>}
         <div className={tabsStyles['too-many']}>
           <Message>
@@ -532,7 +532,7 @@ const VariationViewer = ({
 
   if (error && status !== 404) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         <ErrorHandler status={status} error={error} />
       </div>
     );
@@ -546,7 +546,7 @@ const VariationViewer = ({
     !filteredVariants
   ) {
     return (
-      <section className="wider-tab-content hotjar-margin">
+      <section className="wider-tab-content">
         {title && <h3 data-article-id="variant_viewer">{title}</h3>}
         <div className={tabsStyles['no-data']}>
           No variation information available for {primaryAccession}
@@ -569,7 +569,7 @@ const VariationViewer = ({
   }
 
   return (
-    <section className="wider-tab-content hotjar-margin">
+    <section className="wider-tab-content">
       {title && <h2 data-article-id="variant_viewer">{title}</h2>}
       <NightingaleManagerComponent
         reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
