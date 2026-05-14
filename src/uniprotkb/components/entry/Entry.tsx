@@ -27,6 +27,7 @@ import {
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
+import { Dataset } from '../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -103,6 +104,16 @@ const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
   'features-viewer': TabLocation.FeatureViewer,
   'variants-viewer': TabLocation.VariantViewer,
+};
+
+// Tabs that download something other than the entry data itself. The main
+// download button in the tools bar uses this to download the data relevant
+// to the active tab. Tabs not listed here fall back to the default entry
+// download (Dataset.uniprotData).
+const tabToDownloadDataset: Partial<Record<TabLocation, Dataset>> = {
+  [TabLocation.VariantViewer]: Dataset.variation,
+  [TabLocation.FeatureViewer]: Dataset.features,
+  [TabLocation.GenomicCoordinates]: Dataset.coordinates,
 };
 
 const VariationViewerTab = lazy(
@@ -652,6 +663,11 @@ const Entry = () => {
           handleToggle={handleToggleDownload}
           isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
           sequence={data.sequence.value}
+          dataset={
+            match.params.subPage
+              ? tabToDownloadDataset[match.params.subPage]
+              : undefined
+          }
         />
       )}
       {isStuck && !isObsolete && data && (
@@ -900,17 +916,6 @@ const Entry = () => {
           >
             <Suspense fallback={<Loader />}>
               <ErrorBoundary>
-                <div className="button-group">
-                  <CommunityAnnotationLink accession={accession} />
-                  <a
-                    href={externalUrls.CommunityCuratedAdd(accession)}
-                    className="button tertiary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Add a publication
-                  </a>
-                </div>
                 <HTMLHead
                   title={[
                     pageTitle,
