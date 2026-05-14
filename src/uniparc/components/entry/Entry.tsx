@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
 import { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import joinUrl from 'url-join';
 
 import { getEntryPath, Location } from '../../../app/config/urls';
@@ -13,6 +13,7 @@ import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdo
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -141,7 +142,7 @@ const Entry = () => {
       <Tabs active={match.params.subPage}>
         <Tab
           title={
-            <Link
+            <EntryTabLink
               to={getEntryPath(
                 Namespace.uniparc,
                 match.params.accession,
@@ -149,7 +150,7 @@ const Entry = () => {
               )}
             >
               Entry
-            </Link>
+            </EntryTabLink>
           }
           id={TabLocation.Entry}
         >
@@ -174,7 +175,7 @@ const Entry = () => {
         </Tab>
         <Tab
           title={
-            <Link
+            <EntryTabLink
               to={getEntryPath(
                 Namespace.uniparc,
                 match.params.accession,
@@ -182,7 +183,7 @@ const Entry = () => {
               )}
             >
               Structure viewer
-            </Link>
+            </EntryTabLink>
           }
           id={TabLocation.StructureViewer}
         >
@@ -198,7 +199,7 @@ const Entry = () => {
         <Tab
           title={
             smallScreen ? null : (
-              <Link
+              <EntryTabLink
                 to={getEntryPath(
                   Namespace.uniparc,
                   match.params.accession,
@@ -206,7 +207,7 @@ const Entry = () => {
                 )}
               >
                 Feature viewer
-              </Link>
+              </EntryTabLink>
             )
           }
           id={TabLocation.FeatureViewer}

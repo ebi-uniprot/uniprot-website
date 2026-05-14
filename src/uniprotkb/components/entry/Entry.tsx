@@ -41,6 +41,7 @@ import {
   EntryType,
   getEntryTypeFromString,
 } from '../../../shared/components/entry/EntryTypeIcon';
+import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -697,7 +698,7 @@ const Entry = () => {
           <Tab
             disabled={isObsolete}
             title={
-              <Link
+              <EntryTabLink
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
@@ -707,7 +708,7 @@ const Entry = () => {
                 )}
               >
                 Entry
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.Entry}
           >
@@ -724,7 +725,7 @@ const Entry = () => {
           <Tab
             disabled={importedVariants === 'loading' || !importedVariants}
             title={
-              <Link
+              <EntryTabLink
                 className={cn({
                   [helper.disabled]:
                     importedVariants === 'loading' || !importedVariants,
@@ -755,7 +756,7 @@ const Entry = () => {
                       </Chip>
                     </>
                   )}
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.VariantViewer}
             onPointerOver={VariationViewerTab.preload}
@@ -784,7 +785,7 @@ const Entry = () => {
             disabled={isObsolete}
             title={
               smallScreen ? null : (
-                <Link
+                <EntryTabLink
                   className={isObsolete ? helper.disabled : undefined}
                   tabIndex={isObsolete ? -1 : undefined}
                   to={getEntryPath(
@@ -794,7 +795,7 @@ const Entry = () => {
                   )}
                 >
                   Feature viewer
-                </Link>
+                </EntryTabLink>
               )
             }
             id={TabLocation.FeatureViewer}
@@ -837,7 +838,7 @@ const Entry = () => {
               hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
             }
             title={
-              <Link
+              <EntryTabLink
                 className={cn({
                   [helper.disabled]:
                     hasGenomicCoordinates === 'loading' ||
@@ -858,7 +859,7 @@ const Entry = () => {
                 )}
               >
                 Genomic coordinates
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.GenomicCoordinates}
             onPointerOver={GenomicCoordinatesTab.preload}
@@ -908,7 +909,7 @@ const Entry = () => {
           <Tab
             disabled={isObsolete}
             title={
-              <Link
+              <EntryTabLink
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
@@ -918,7 +919,7 @@ const Entry = () => {
                 )}
               >
                 Publications
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.Publications}
             onPointerOver={PublicationsTab.preload}
@@ -951,7 +952,7 @@ const Entry = () => {
           <Tab
             disabled={isObsolete}
             title={
-              <Link
+              <EntryTabLink
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
@@ -961,7 +962,7 @@ const Entry = () => {
                 )}
               >
                 External links
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.ExternalLinks}
             onPointerOver={ExternalLinksTab.preload}
@@ -985,7 +986,7 @@ const Entry = () => {
               match.params.subPage === TabLocation.History ? (
                 'History'
               ) : (
-                <Link
+                <EntryTabLink
                   to={getEntryPath(
                     Namespace.uniprotkb,
                     accession,
@@ -993,7 +994,7 @@ const Entry = () => {
                   )}
                 >
                   History
-                </Link>
+                </EntryTabLink>
               )
             }
             id={TabLocation.History}
