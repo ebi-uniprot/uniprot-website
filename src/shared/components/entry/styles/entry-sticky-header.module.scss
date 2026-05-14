@@ -38,33 +38,6 @@
   display: block;
 }
 
-// Title (large h1) on the left; tools right-aligned via auto margin and
-// pinned to the bottom of the title's line so the buttons sit on the same
-// "row" as the title text. Auto-margin (instead of justify-content) keeps
-// the tools right-aligned even when the row wraps onto a second line —
-// also leaves room for an AI toggle to slot in next to the title later.
-// ProteinOverview (chips/meta) renders below in normal flow.
-.title-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 1rem;
-  flex-wrap: wrap;
-
-  & > h1 {
-    margin: 0;
-    flex: 0 1 auto;
-    min-width: 0;
-  }
-
-  & > :last-child {
-    // Foundation's .button-group sets flex-grow: 1, which fills the row and
-    // anchors the buttons at the left. Pin to content width so margin-auto
-    // can push the whole group to the right edge.
-    flex-grow: 0;
-    margin-inline-start: auto;
-  }
-}
-
 // When the full header has scrolled offscreen, reserve room for the compact bar
 // and bump the existing sticky tabs__header below it so they stack instead of
 // overlapping at the same `top: 0`.

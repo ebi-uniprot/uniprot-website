@@ -155,17 +155,15 @@ const Entry = () => {
           ref={setFullHeaderRef}
           className={stickyHeaderStyles['full-header']}
         >
-          <div className={stickyHeaderStyles['title-row']}>
-            <h1>
-              <EntryTitle
-                mainTitle="UniParc"
-                optionalTitle={transformedData.uniParcId}
-              />
-              <BasketStatus id={transformedData.uniParcId} className="small" />
-            </h1>
-            {toolsRow}
-          </div>
+          <h1>
+            <EntryTitle
+              mainTitle="UniParc"
+              optionalTitle={transformedData.uniParcId}
+            />
+            <BasketStatus id={transformedData.uniParcId} className="small" />
+          </h1>
           <Overview data={transformedData} />
+          {toolsRow}
         </div>
       </ErrorBoundary>
       {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}

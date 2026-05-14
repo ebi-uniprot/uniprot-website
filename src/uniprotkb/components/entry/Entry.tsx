@@ -643,18 +643,16 @@ const Entry = () => {
             ref={setFullHeaderRef}
             className={stickyHeaderStyles['full-header']}
           >
-            <div className={stickyHeaderStyles['title-row']}>
-              <h1>
-                <EntryTitle
-                  mainTitle={data.primaryAccession}
-                  optionalTitle={data.uniProtkbId}
-                  entryType={data.entryType}
-                />
-                <BasketStatus id={data.primaryAccession} className="small" />
-              </h1>
-              {toolsRow}
-            </div>
+            <h1>
+              <EntryTitle
+                mainTitle={data.primaryAccession}
+                optionalTitle={data.uniProtkbId}
+                entryType={data.entryType}
+              />
+              <BasketStatus id={data.primaryAccession} className="small" />
+            </h1>
             <ProteinOverview data={data} />
+            {toolsRow}
           </div>
         </ErrorBoundary>
       )}

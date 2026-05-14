@@ -6,72 +6,20 @@ exports[`Entry basic should render main 1`] = `
   <div
     class="full-header"
   >
-    <div
-      class="title-row"
-    >
-      <h1>
-        <span
-          class="entry-title"
-          translate="no"
-        >
-          <span
-            class="entry-title__status icon--reviewed"
-            title="This marks a reviewed UniProtKB entry"
-          >
-            <test-file-stub />
-          </span>
-          P21802 · uniprotkb
-        </span>
-      </h1>
-      <div
-        class="button-group"
+    <h1>
+      <span
+        class="entry-title"
+        translate="no"
       >
-        <div
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="dropdown"
-        >
-          <button
-            class="button tertiary"
-            type="button"
-          >
-            <test-file-stub
-              width="1.4ch"
-            />
-            Tools
-          </button>
-        </div>
-        <button
-          class="button tertiary"
-          type="button"
+        <span
+          class="entry-title__status icon--reviewed"
+          title="This marks a reviewed UniProtKB entry"
         >
           <test-file-stub />
-          Download
-        </button>
-        <button
-          class="button tertiary no-small"
-          title="Add 1 entry to the basket"
-          type="button"
-        >
-          <test-file-stub />
-          Add
-        </button>
-        <a
-          class="button tertiary"
-          href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Add a publication
-        </a>
-        <a
-          class="button tertiary"
-          href="/update?entry=P21802&entryType=Reviewed+%28Swiss-Prot%29"
-        >
-          Entry feedback
-        </a>
-      </div>
-    </div>
+        </span>
+        P21802 · uniprotkb
+      </span>
+    </h1>
     <ul
       class="info-list info-list--columns"
     >
@@ -261,6 +209,54 @@ exports[`Entry basic should render main 1`] = `
         </div>
       </li>
     </ul>
+    <div
+      class="button-group"
+    >
+      <div
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="dropdown"
+      >
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          <test-file-stub
+            width="1.4ch"
+          />
+          Tools
+        </button>
+      </div>
+      <button
+        class="button tertiary"
+        type="button"
+      >
+        <test-file-stub />
+        Download
+      </button>
+      <button
+        class="button tertiary no-small"
+        title="Add 1 entry to the basket"
+        type="button"
+      >
+        <test-file-stub />
+        Add
+      </button>
+      <a
+        class="button tertiary"
+        href="https://community.uniprot.org/bbsub/bbsub.html?accession=P21802"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Add a publication
+      </a>
+      <a
+        class="button tertiary"
+        href="/update?entry=P21802&entryType=Reviewed+%28Swiss-Prot%29"
+      >
+        Entry feedback
+      </a>
+    </div>
   </div>
   <div
     class="tabs"

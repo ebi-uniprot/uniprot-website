@@ -396,11 +396,9 @@ const SubEntry = () => {
           ref={setFullHeaderRef}
           className={stickyHeaderStyles['full-header']}
         >
-          <div className={stickyHeaderStyles['title-row']}>
-            <h1>{entryTitle}</h1>
-            {toolsRow}
-          </div>
+          <h1>{entryTitle}</h1>
           <SubEntryOverview data={transformedData} />
+          {toolsRow}
         </div>
         <Message level="info">
           These pages are in beta version, please{' '}
