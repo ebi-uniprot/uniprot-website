@@ -5,8 +5,7 @@
     z-index: 5000;
     position: sticky;
     top: 0;
-    background: rgba($colour-sky-white, 0.75);
-    backdrop-filter: blur(2px);
+    background: $colour-sky-white;
   }
 
   // Not tabs inside tabs...

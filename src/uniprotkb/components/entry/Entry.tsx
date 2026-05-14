@@ -3,7 +3,14 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
 import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 import joinUrl from 'url-join';
@@ -94,6 +101,7 @@ import CommunityAnnotationLink from './CommunityAnnotationLink';
 import dataToSchema from './entry.structured';
 import EntryMain from './EntryMain';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
+import stickyHeaderStyles from './styles/entry-sticky-header.module.scss';
 import { subcellularLocationSectionHasContent } from './SubcellularLocationSection';
 
 const legacyToNewSubPages = {
@@ -167,8 +175,30 @@ const Entry = () => {
     legacyToNewSubPages
   );
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [isStuck, setIsStuck] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
+
+  // Ref callback so we observe the header the moment it attaches and stop
+  // observing when it detaches. Avoids the initial-mount race where
+  // useRef.current is null when the <header> is conditionally rendered
+  // (obsolete-entry branch, or before data loads).
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const setFullHeaderRef = useCallback((node: HTMLElement | null) => {
+    observerRef.current?.disconnect();
+    observerRef.current = null;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsStuck(false);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsStuck(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(node);
+    observerRef.current = observer;
+  }, []);
+  useEffect(() => () => observerRef.current?.disconnect(), []);
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -528,11 +558,66 @@ const Entry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
+  // Tools row, lifted out of the Entry tab so it sits on every tab and so the
+  // compact sticky header can render the same buttons on the right.
+  const toolsRow =
+    !isObsolete && data?.sequence ? (
+      <div className="button-group">
+        <ToolsDropdown
+          selectedEntries={[accession]}
+          blast
+          align={
+            listOfIsoformAccessions.length > 1 && (
+              <AlignButton
+                selectedEntries={listOfIsoformAccessions}
+                textSuffix="isoforms"
+              />
+            )
+          }
+          mapID
+        />
+        <EntryDownloadButton handleToggle={handleToggleDownload} />
+        <AddToBasketButton selectedEntries={accession} />
+        <CommunityAnnotationLink accession={accession} />
+        <a
+          href={externalUrls.CommunityCuratedAdd(accession)}
+          className="button tertiary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Add a publication
+        </a>
+        <ContactLink
+          to={{
+            pathname: LocationToPath[Location.ContactUpdate],
+            search: stringifyQuery({
+              entry: accession,
+              entryType:
+                transformedData?.entryType === EntryType.REVIEWED
+                  ? 'Reviewed (Swiss-Prot)'
+                  : 'Unreviewed (TrEMBL)',
+            }),
+          }}
+          className="button tertiary"
+        >
+          Entry feedback
+        </ContactLink>
+      </div>
+    ) : null;
+
   return (
     <SidebarLayout
       sidebar={sidebar}
       noOverflow
-      className={cn('entry-page', sticky['sticky-tabs-container'])}
+      className={cn(
+        'entry-page',
+        sticky['sticky-tabs-container'],
+        stickyHeaderStyles.container,
+        {
+          [stickyHeaderStyles.stuck]: isStuck,
+          [stickyHeaderStyles['no-sidebar']]: !sidebar,
+        }
+      )}
     >
       <HTMLHead>
         {typeof window !== 'undefined' && (
@@ -569,16 +654,43 @@ const Entry = () => {
               organism={data.organism}
             />
           ) : null}
-          <h1>
+          <div
+            ref={setFullHeaderRef}
+            className={stickyHeaderStyles['full-header']}
+          >
+            <div className={stickyHeaderStyles['title-row']}>
+              <h1>
+                <EntryTitle
+                  mainTitle={data.primaryAccession}
+                  optionalTitle={data.uniProtkbId}
+                  entryType={data.entryType}
+                />
+                <BasketStatus id={data.primaryAccession} className="small" />
+              </h1>
+              {toolsRow}
+            </div>
+            <ProteinOverview data={data} />
+          </div>
+        </ErrorBoundary>
+      )}
+      {!isObsolete && data?.sequence && displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+          sequence={data.sequence.value}
+        />
+      )}
+      {isStuck && !isObsolete && data && (
+        <div className={stickyHeaderStyles['compact-bar']}>
+          <span className={stickyHeaderStyles['compact-title']}>
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
-            <BasketStatus id={data.primaryAccession} className="small" />
-          </h1>
-          <ProteinOverview data={data} />
-        </ErrorBoundary>
+          </span>
+          <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
+        </div>
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
         <Tabs active={match.params.subPage}>
@@ -600,63 +712,13 @@ const Entry = () => {
             id={TabLocation.Entry}
           >
             {!isObsolete && data.sequence && (
-              <>
-                {displayDownloadPanel && (
-                  <EntryDownloadPanel
-                    handleToggle={handleToggleDownload}
-                    isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
-                    sequence={data.sequence.value}
-                  />
-                )}
-                <div className="button-group">
-                  <ToolsDropdown
-                    selectedEntries={[accession]}
-                    blast
-                    align={
-                      listOfIsoformAccessions.length > 1 && (
-                        <AlignButton
-                          selectedEntries={listOfIsoformAccessions}
-                          textSuffix="isoforms"
-                        />
-                      )
-                    }
-                    mapID
-                  />
-                  <EntryDownloadButton handleToggle={handleToggleDownload} />
-                  <AddToBasketButton selectedEntries={accession} />
-                  <CommunityAnnotationLink accession={accession} />
-                  <a
-                    href={externalUrls.CommunityCuratedAdd(accession)}
-                    className="button tertiary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Add a publication
-                  </a>
-                  <ContactLink
-                    to={{
-                      pathname: LocationToPath[Location.ContactUpdate],
-                      search: stringifyQuery({
-                        entry: accession,
-                        entryType:
-                          transformedData?.entryType === EntryType.REVIEWED
-                            ? 'Reviewed (Swiss-Prot)'
-                            : 'Unreviewed (TrEMBL)',
-                      }),
-                    }}
-                    className="button tertiary"
-                  >
-                    Entry feedback
-                  </ContactLink>
-                </div>
-                <EntryMain
-                  transformedData={transformedData}
-                  importedVariants={importedVariants}
-                  communityReferences={communityReferences}
-                  isoforms={listOfIsoformNames}
-                  hasPhylogenomicXrefs={hasPhylogenomicXrefs}
-                />
-              </>
+              <EntryMain
+                transformedData={transformedData}
+                importedVariants={importedVariants}
+                communityReferences={communityReferences}
+                isoforms={listOfIsoformNames}
+                hasPhylogenomicXrefs={hasPhylogenomicXrefs}
+              />
             )}
           </Tab>
           <Tab
