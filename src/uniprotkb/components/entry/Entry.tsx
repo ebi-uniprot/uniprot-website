@@ -60,13 +60,13 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import {
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
-import useSessionStorage from '../../../shared/hooks/useSessionStorage';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -184,7 +184,7 @@ const Entry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
-  const [loadProtNLM, setLoadProtNLM] = useSessionStorage<boolean>(
+  const [loadProtNLM, setLoadProtNLM] = useLocalStorage<boolean>(
     'ai-annotations',
     false
   );

@@ -5,6 +5,7 @@ import { type ReactNode } from 'react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import { localStorageCache } from '../../../../shared/hooks/useLocalStorage';
 import { Namespace } from '../../../../shared/types/namespaces';
 import entryData from '../../../__mocks__/uniProtKBEntryModelData';
 import uniprotkbApiUrls from '../../../config/apiUrls/apiUrls';
@@ -50,7 +51,8 @@ const renderEntry = async (configure: () => void = () => {}) => {
 
 describe('Entry — ProtNLM toggle gating', () => {
   beforeEach(() => {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
+    localStorageCache.clear();
   });
 
   it('shows the AI Annotations toggle when the protnlm HEAD returns 200', async () => {
@@ -72,7 +74,7 @@ describe('Entry — ProtNLM toggle gating', () => {
     expect(screen.queryByRole('switch')).not.toBeInTheDocument();
   });
 
-  it('persists the toggle state to sessionStorage when clicked', async () => {
+  it('persists the toggle state to localStorage when clicked', async () => {
     await renderEntry(() => {
       mock.onHead(protnlmUrl).reply(200);
       mock.onGet(protnlmUrl).reply(200, {});
@@ -81,12 +83,12 @@ describe('Entry — ProtNLM toggle gating', () => {
     const toggle = await screen.findByRole('switch');
 
     expect(toggle).toHaveAttribute('aria-checked', 'false');
-    expect(window.sessionStorage.getItem('ai-annotations')).toBe('false');
+    expect(window.localStorage.getItem('ai-annotations')).toBe('false');
 
     fireEvent.click(toggle);
 
     await waitFor(() =>
-      expect(window.sessionStorage.getItem('ai-annotations')).toBe('true')
+      expect(window.localStorage.getItem('ai-annotations')).toBe('true')
     );
   });
 });
