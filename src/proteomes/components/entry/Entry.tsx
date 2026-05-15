@@ -20,6 +20,7 @@ import {
   Namespace,
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
+import { type SearchResults } from '../../../shared/types/results';
 import generatePageTitle from '../../adapters/generatePageTitle';
 import proteomesConverter, {
   type ProteomesAPIModel,
@@ -44,11 +45,30 @@ const Entry = () => {
       : null
   );
 
+  const relatedProteomes = mainData.data?.relatedProteomes;
+  const similarProteomesData = useDataApi<SearchResults<ProteomesAPIModel>>(
+    relatedProteomes?.length
+      ? apiUrls.search.search({
+          namespace: Namespace.proteomes,
+          query: relatedProteomes
+            .map(({ proteomeId }) => `upid:${proteomeId}`)
+            .join(' OR '),
+          size: relatedProteomes.length,
+          facets: null,
+        })
+      : null
+  );
+
   const refprotmoveData = useDataApi<ProteomesCheckMoveResponse>(
     accession ? joinUrl(checkMoveUrl, 'proteomes', accession) : null
   );
 
-  if (mainData.loading || panProteomeData.loading || refprotmoveData.loading) {
+  if (
+    mainData.loading ||
+    panProteomeData.loading ||
+    similarProteomesData.loading ||
+    refprotmoveData.loading
+  ) {
     return <Loader progress={mainData.progress || panProteomeData.progress} />;
   }
 
@@ -64,7 +84,8 @@ const Entry = () => {
 
   const transformedData = proteomesConverter(
     mainData.data,
-    panProteomeData.data
+    panProteomeData.data,
+    similarProteomesData.data?.results
   );
 
   const moveStatus = refprotmoveData.data?.status;
