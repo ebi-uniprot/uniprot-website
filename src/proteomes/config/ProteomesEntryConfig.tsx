@@ -4,6 +4,7 @@ import { type ProteomesUIModel } from '../adapters/proteomesConverter';
 import Components from '../components/entry/Components';
 import Description from '../components/entry/Description';
 import Publications from '../components/entry/Publications';
+import SimilarProteomes from '../components/entry/SimilarProteomes';
 import EntrySection from '../types/entrySection';
 
 const ProteomesEntryConfig: {
@@ -14,6 +15,16 @@ const ProteomesEntryConfig: {
     id: EntrySection.Description,
     sectionContent: (data) =>
       data.description ? <Description>{data.description}</Description> : null,
+  },
+  {
+    id: EntrySection.SimilarProteomes,
+    sectionContent: ({ relatedProteomes, proteomeType, exclusionReasons }) => (
+      <SimilarProteomes
+        relatedProteomes={relatedProteomes}
+        proteomeType={proteomeType}
+        exclusionReasons={exclusionReasons}
+      />
+    ),
   },
   {
     id: EntrySection.Components,
