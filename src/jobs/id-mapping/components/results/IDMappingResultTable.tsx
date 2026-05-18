@@ -113,6 +113,11 @@ const IDMappingResultTable = ({
     logging.warn('Non-UniParc IDs have been suggested for an ID Mapping job.');
   }
 
+  const fromNamespace = useMemo(
+    () => rawDBToNamespace(detailsData?.from),
+    [detailsData?.from]
+  );
+
   return (
     <>
       <ResultsButtons
@@ -331,9 +336,7 @@ const IDMappingResultTable = ({
           )}
         </HeroContainer>
       )}
-      <IDMappingFromContext.Provider
-        value={rawDBToNamespace(detailsData?.from)}
-      >
+      <IDMappingFromContext.Provider value={fromNamespace}>
         <ResultsData
           resultsDataObject={resultsDataObject}
           setSelectedItemFromEvent={

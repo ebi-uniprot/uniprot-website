@@ -252,7 +252,7 @@ const Entry = () => {
           taxId,
           numberOfIsoforms
         );
-        let disabled = true;
+        let disabled: boolean;
         switch (nameAndId.id) {
           case EntrySection.ExternalLinks:
             disabled = !hasExternalLinks(transformedData);
@@ -488,7 +488,7 @@ const Entry = () => {
     }
   }
 
-  let hasGenomicCoordinates: boolean | 'loading' = false;
+  let hasGenomicCoordinates: boolean | 'loading';
   if (coordinatesHeadPayload.loading) {
     hasGenomicCoordinates = 'loading';
   } else {

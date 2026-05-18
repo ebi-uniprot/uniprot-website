@@ -3,7 +3,10 @@
     // Target latest version of ECMAScript.
     "target": "esnext",
     // Search under node_modules for non-relative imports.
+    // TODO: migrate to "bundler" — currently blocked by franklin-sites,
+    // protvista-uniprot and other deps whose `exports` map omits types.
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     // Process & infer types from .js files.
     "allowJs": true,
     // Don't emit; allow Babel to transform files.
