@@ -113,10 +113,10 @@ const IDMappingResultTable = ({
     logging.warn('Non-UniParc IDs have been suggested for an ID Mapping job.');
   }
 
-  const fromNamespace = useMemo(
-    () => rawDBToNamespace(detailsData?.from),
-    [detailsData?.from]
-  );
+  // Returns a Namespace enum (string primitive), so React's Object.is
+  // comparison keeps the context value stable without useMemo.
+  // eslint-disable-next-line @eslint-react/no-unstable-context-value
+  const fromNamespace = rawDBToNamespace(detailsData?.from);
 
   return (
     <>

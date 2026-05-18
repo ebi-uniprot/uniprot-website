@@ -133,6 +133,7 @@ const ResultButtons = ({
 
   let align: ReactNode | ReactNode[] = (
     <AlignButton
+      key="selected"
       selectedEntries={selectedEntries}
       textSuffix={jobType === JobTypes.BLAST ? 'selected results' : undefined}
     />
@@ -140,8 +141,8 @@ const ResultButtons = ({
   if (jobType === JobTypes.BLAST) {
     align = [
       align,
-
       <AlignButton
+        key="with-query"
         selectedEntries={selectedEntries}
         textSuffix={`selected ${pluralise(
           'result',

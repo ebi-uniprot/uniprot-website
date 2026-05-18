@@ -121,8 +121,9 @@ const alnClustalNum = (string?: string): AlnClustalNum | null => {
     }
   } catch (error) {
     throw new SyntaxError(
-      (error instanceof Error ? error : null)?.message ||
-        'Error while parsing the input in aln-clustal_num format',
+      error instanceof Error
+        ? error.message
+        : 'Error while parsing the input in aln-clustal_num format',
       { cause: error }
     );
   }

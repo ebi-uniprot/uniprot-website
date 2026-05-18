@@ -195,7 +195,6 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
     render: (entry) => (
       <>
         {entry.entryVersion}&nbsp;
-        {}
         <a
           href={apiUrls.unisave.entry(entry.accession, {
             entryVersions: entry.entryVersion,
@@ -220,7 +219,6 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
     render: (entry) => (
       <>
         {entry.sequenceVersion}&nbsp;
-        {}
         <a
           href={apiUrls.unisave.entry(entry.accession, {
             entryVersions: entry.entryVersion,

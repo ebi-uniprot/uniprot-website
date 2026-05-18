@@ -1,3 +1,6 @@
+/* The JSX values below are stored in a Map and looked up by identity key,
+   not iterated, so @eslint-react/no-missing-key flags them incorrectly. */
+/* eslint-disable @eslint-react/no-missing-key */
 import { Loader, LongNumber } from 'franklin-sites';
 import { fromPairs } from 'lodash-es';
 import { type ReactNode } from 'react';
