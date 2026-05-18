@@ -15,6 +15,7 @@ export default [
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   jsxA11y.flatConfigs.recommended,
+  eslintReact.configs['recommended-typescript'],
   eslintConfigPrettier,
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
@@ -26,9 +27,8 @@ export default [
     },
     plugins: {
       typescriptEslint,
-      '@eslint-react': eslintReact,
-      reactHooks,
       jsxA11y,
+      'react-hooks': reactHooks,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
@@ -90,17 +90,34 @@ export default [
       'no-restricted-syntax': 'off',
       'no-shadow': 'off',
       'no-use-before-define': 'off',
-      'reactHooks/exhaustive-deps': 'warn',
-      'reactHooks/rules-of-hooks': 'error',
-      '@eslint-react/no-array-index-key': 'error',
-      '@eslint-react/no-missing-key': 'error',
-      '@eslint-react/no-nested-component-definitions': 'error',
-      '@eslint-react/no-unstable-context-value': 'error',
+      // Use Meta's canonical hooks rules. Turn off @eslint-react's overlapping
+      // reimplementations to avoid double-reporting. We keep the other hook-
+      // adjacent rules from @eslint-react's preset (set-state-in-effect,
+      // purity, etc.) since they cover ground Meta's plugin doesn't here.
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      '@eslint-react/rules-of-hooks': 'off',
+      '@eslint-react/exhaustive-deps': 'off',
+      // Project-specific overrides on top of @eslint-react's `recommended-typescript`
+      // preset.
+      '@eslint-react/no-array-index-key': 'error', // preset: warn
+      '@eslint-react/no-unstable-context-value': 'error', // not in preset
+      '@eslint-react/dom-no-unsafe-target-blank': 'error', // not in preset
       '@eslint-react/jsx-no-useless-fragment': [
         'error',
         { allowExpressions: true },
-      ],
-      '@eslint-react/dom-no-unsafe-target-blank': 'error',
+      ], // not in preset
+      // Style/naming and React 19 migration hints. Disabled to keep CI signal
+      // focused on correctness rules. Re-enable individually when doing a
+      // targeted cleanup pass.
+      '@eslint-react/naming-convention-ref-name': 'off',
+      '@eslint-react/no-context-provider': 'off',
+      '@eslint-react/no-use-context': 'off',
+      '@eslint-react/no-forward-ref': 'off',
+      '@eslint-react/use-state': 'off',
+      '@eslint-react/no-unnecessary-use-prefix': 'off',
+      '@eslint-react/no-children-map': 'off',
+      '@eslint-react/no-children-count': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
     },

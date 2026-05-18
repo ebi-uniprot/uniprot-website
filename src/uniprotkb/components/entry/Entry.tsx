@@ -1,4 +1,4 @@
-/* eslint-disable reactHooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
