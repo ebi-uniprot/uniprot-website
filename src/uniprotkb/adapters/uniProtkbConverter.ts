@@ -136,6 +136,7 @@ export type InactiveReasonType =
 
 type Sources = 'EMBL' | 'TAIR' | 'SGD' | 'ENSEMBL' | 'PDB' | 'RefSeq';
 
+// TODO: Review deleted reasons for release 2026_02
 export type DeletedReason =
   // A0A010P2C8
   // A0A044QJK7

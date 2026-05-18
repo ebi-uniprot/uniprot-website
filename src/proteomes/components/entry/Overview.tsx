@@ -3,9 +3,7 @@ import { InfoList, LongNumber } from 'franklin-sites';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import AccessionView from '../../../shared/components/results/AccessionView';
 import ftpUrls from '../../../shared/config/ftpUrls';
-import { Namespace } from '../../../shared/types/namespaces';
 import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
@@ -52,18 +50,6 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
               {' '}
               ({data.exclusionReasons.join(', ')})
             </span>
-          ) : null}
-          {data.proteomeType === 'Redundant proteome' && data.redundantTo ? (
-            <div>
-              This proteome is{' '}
-              <span data-article-id="proteome_redundancy">redundant</span>{' '}
-              to&nbsp;
-              <AccessionView
-                id={data.redundantTo}
-                namespace={Namespace.proteomes}
-              />
-              .
-            </div>
           ) : null}
         </>
       ),

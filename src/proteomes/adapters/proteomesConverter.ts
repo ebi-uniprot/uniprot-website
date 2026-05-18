@@ -58,17 +58,21 @@ export type GenomeAssembly = {
   level: string; // Genome representation
 };
 
-export type RedundantProteome = {
-  id: string;
+export type RelatedProteome = {
+  proteomeId: string;
   similarity: number;
+  taxonomy: {
+    taxonId: number;
+  };
+};
+
+export type PanproteomeTaxon = {
+  taxonId: number;
 };
 
 export type ProteomeType =
-  | 'Reference and representative proteome'
   | 'Reference proteome'
-  | 'Representative proteome'
-  | 'Redundant proteome'
-  | 'Other proteome'
+  | 'Non Reference proteome'
   | 'Excluded';
 
 export type ProteomesAPIModel = {
@@ -88,24 +92,15 @@ export type ProteomesAPIModel = {
   taxonLineage: Lineage[];
   strain?: string;
   isolate?: string;
-  panproteome?: string;
+  panproteomeTaxon?: PanproteomeTaxon;
   description: string;
-  redundantProteomes?: RedundantProteome[];
-  redundantTo?: string;
+  relatedProteomes?: RelatedProteome[];
   proteinCount: number; // use this in the results table - calculated sum of the components proteinCount: components.reduce((total, { proteinCount }) => proteinCount + total, 0)
   proteomeStatistics: Statistics;
 };
 
-export type ProteomesUIModel = Omit<ProteomesAPIModel, 'panproteome'> & {
-  panproteome: ProteomesAPIModel['panproteome'] | ProteomesAPIModel;
-};
+export type ProteomesUIModel = ProteomesAPIModel;
 
-const proteomesConverter = (
-  data: ProteomesAPIModel,
-  panProteomeData?: ProteomesAPIModel
-): ProteomesUIModel => ({
-  ...data,
-  panproteome: panProteomeData || data.panproteome,
-});
+const proteomesConverter = (data: ProteomesAPIModel): ProteomesUIModel => data;
 
 export default proteomesConverter;
