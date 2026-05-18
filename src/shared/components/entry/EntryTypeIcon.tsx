@@ -42,11 +42,11 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   if (entryTypeString.match(/ORCID$|community/gi)) {
     return EntryType.COMMUNITY_CURATED;
   }
-  if (entryTypeString.match(/^Reference\sproteome$/i)) {
-    return EntryType.REFERENCE_PROTEOME;
-  }
-  if (entryTypeString.match(/^Non\sReference\sproteome$/i)) {
+  if (entryTypeString.match(/Non\sReference\sproteome/i)) {
     return EntryType.NON_REFERENCE_PROTEOME;
+  }
+  if (entryTypeString.match(/Reference\sproteome/i)) {
+    return EntryType.REFERENCE_PROTEOME;
   }
   if (entryTypeString.match(/Excluded/gi)) {
     return EntryType.EXCLUDED_PROTEOME;

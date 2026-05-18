@@ -3,6 +3,10 @@ import { memo } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  ProteomeFacetValue,
+  proteomeFacetValueToLabel,
+} from '../../../proteomes/config/ProteomesFacetConfiguration';
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
 import { type UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import useNS from '../../hooks/useNS';
@@ -66,17 +70,48 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
       case 'proteome': // Not icon but change letter casing until returned otherwise by the backend (better if there is proteometype returned)
         return {
           ...facet,
-          values: facet.values?.map((facetValue) => ({
-            ...facetValue,
-            value:
-              facet.name === 'proteome'
-                ? facetValue.value.toUpperCase()
-                : facetValue.value,
-            label:
-              facet.name !== 'proteome'
-                ? getDecoratedFacetLabel(facetValue)
-                : null,
-          })),
+          // Sort proteome_type facet values in a specific order
+          values: facet.values
+            ?.slice()
+            .sort((a, b) => {
+              if (facet.name !== 'proteome_type') {
+                return 0;
+              }
+              const order = [
+                ProteomeFacetValue.REFERENCE,
+                ProteomeFacetValue.NON_REFERENCE,
+                ProteomeFacetValue.EXCLUDED,
+              ];
+              return (
+                order.indexOf(a.value as ProteomeFacetValue) -
+                order.indexOf(b.value as ProteomeFacetValue)
+              );
+            })
+            .map((facetValue) => {
+              let label;
+              if (facet.name === 'proteome_type') {
+                const enrichedFacetValue = {
+                  ...facetValue,
+                  label:
+                    proteomeFacetValueToLabel[
+                      facetValue.value as ProteomeFacetValue
+                    ],
+                };
+                label = getDecoratedFacetLabel(enrichedFacetValue);
+              } else if (facet.name === 'proteome') {
+                label = null;
+              } else {
+                label = getDecoratedFacetLabel(facetValue);
+              }
+              return {
+                ...facetValue,
+                value:
+                  facet.name === 'proteome'
+                    ? facetValue.value.toUpperCase()
+                    : facetValue.value,
+                label,
+              };
+            }),
         };
       case 'existence':
         return {
