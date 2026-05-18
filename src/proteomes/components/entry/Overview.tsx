@@ -51,6 +51,9 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
               ({data.exclusionReasons.join(', ')})
             </span>
           ) : null}
+          {/* {proteomeType === 'Non Reference proteome' ? (
+              Add link to similar proteomes section in the page
+          ) : null} */}
         </>
       ),
     },
