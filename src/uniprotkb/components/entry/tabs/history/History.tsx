@@ -195,7 +195,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
     render: (entry) => (
       <>
         {entry.entryVersion}&nbsp;
-        {/* eslint-disable-next-line react/jsx-no-target-blank */}
+        {}
         <a
           href={apiUrls.unisave.entry(entry.accession, {
             entryVersions: entry.entryVersion,
@@ -220,7 +220,7 @@ const columns: ColumnDescriptor<UniSaveVersionWithEvents>[] = [
     render: (entry) => (
       <>
         {entry.sequenceVersion}&nbsp;
-        {/* eslint-disable-next-line react/jsx-no-target-blank */}
+        {}
         <a
           href={apiUrls.unisave.entry(entry.accession, {
             entryVersions: entry.entryVersion,

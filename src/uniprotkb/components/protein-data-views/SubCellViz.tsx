@@ -400,7 +400,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       };
     }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, react/no-unstable-nested-components
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @eslint-react/no-nested-component-definitions
     const Instance = (props: any) => <instanceName.current {...props} />;
 
     const locationIds = {

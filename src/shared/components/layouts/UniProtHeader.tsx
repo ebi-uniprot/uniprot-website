@@ -51,7 +51,7 @@ const toolsLinks = (
 
 const sparqlLink = (
   <li>
-    {/* eslint-disable-next-line react/jsx-no-target-blank */}
+    {}
     <a
       href="https://sparql.uniprot.org/"
       target="_blank"

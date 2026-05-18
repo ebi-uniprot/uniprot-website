@@ -118,7 +118,7 @@ const Authors: FC<React.PropsWithChildren<AuthorProps>> = ({
   return (
     <div className="publication__authors">
       {authoringGroup?.map((group, index) => (
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         <Fragment key={index}>
           {index !== 0 && ', '}
           <Link to={getLinkToAuthor(group)}>{group}</Link>
@@ -126,7 +126,7 @@ const Authors: FC<React.PropsWithChildren<AuthorProps>> = ({
       ))}
       <br />
       {displayedAuthors.map((author, index) => (
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         <Fragment key={index}>
           {index !== 0 && ', '}
           <Link to={getLinkToAuthor(author)}>{author}</Link>
@@ -135,7 +135,7 @@ const Authors: FC<React.PropsWithChildren<AuthorProps>> = ({
       {hiddenAuthors.length > 0 && (
         <EllipsisReveal>
           {hiddenAuthors.map((author, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <Fragment key={index}>
               ,<Link to={getLinkToAuthor(author)}>{author}</Link>
             </Fragment>

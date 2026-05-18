@@ -1524,7 +1524,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     return (
       <>
         {similarityTexts?.map((similarityText, index) => (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <SimilarityView key={index} justLinks>
             {similarityText}
           </SimilarityView>

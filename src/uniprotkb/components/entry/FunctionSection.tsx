@@ -178,7 +178,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
         </div>
       )}
       {cofactors.map((cofactorComment, index) => (
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         <section className="text-block" key={index}>
           {cofactorComment.molecule && (
             <h4 className="tiny">

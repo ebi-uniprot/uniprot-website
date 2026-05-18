@@ -140,7 +140,7 @@ const ResultButtons = ({
   if (jobType === JobTypes.BLAST) {
     align = [
       align,
-      // eslint-disable-next-line react/jsx-key
+
       <AlignButton
         selectedEntries={selectedEntries}
         textSuffix={`selected ${pluralise(

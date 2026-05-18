@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import { Loader, LongNumber } from 'franklin-sites';
 import { fromPairs } from 'lodash-es';
 import { type ReactNode } from 'react';
