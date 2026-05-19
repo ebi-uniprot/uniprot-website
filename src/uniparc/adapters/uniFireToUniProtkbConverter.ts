@@ -233,9 +233,44 @@ const uniFireToPrecomputedConverter = (
     };
   }
 
-  // Compute extraAttributes counts
-  const countByCommentType: Partial<Record<CommentType, number>> = {};
+  // Consolidate FreeTextComments by commentType: every prediction of the
+  // same free-text type produced a separate single-text comment during the
+  // loop; collapse them into one comment with a flat `texts[]` array, in
+  // declaration order. Non-free-text comments
+  // (e.g. anything with structured shapes) are passed through unchanged —
+  // this code path only ever produces FreeTextComment objects today, but
+  // the guard keeps the consolidation safe if that ever changes.
+  const consolidatedComments: Comment[] = [];
+  const freeTextByType = new Map<string, FreeTextComment>();
   for (const comment of comments) {
+    const isFreeText =
+      (comment as FreeTextComment).texts !== undefined &&
+      Array.isArray((comment as FreeTextComment).texts);
+    if (!isFreeText) {
+      consolidatedComments.push(comment);
+      continue;
+    }
+    const freeText = comment as FreeTextComment;
+    const key = freeText.commentType;
+    const existing = freeTextByType.get(key);
+    if (existing) {
+      existing.texts = [...(existing.texts ?? []), ...(freeText.texts ?? [])];
+    } else {
+      // Clone so later concatenation does not mutate the original comment
+      // object pushed during the loop.
+      const cloned: FreeTextComment = {
+        ...freeText,
+        texts: [...(freeText.texts ?? [])],
+      };
+      freeTextByType.set(key, cloned);
+      consolidatedComments.push(cloned);
+    }
+  }
+
+  // Compute extraAttributes counts from the consolidated comments so the
+  // count reflects what the renderer will see (one entry per commentType).
+  const countByCommentType: Partial<Record<CommentType, number>> = {};
+  for (const comment of consolidatedComments) {
     const ct = comment.commentType as CommentType;
     countByCommentType[ct] = (countByCommentType[ct] ?? 0) + 1;
   }
@@ -251,7 +286,9 @@ const uniFireToPrecomputedConverter = (
     uniProtkbId: null,
     primaryAccession: data.accession.replaceAll(':', '-'),
     annotationScore: 0 as AnnotationScoreValue,
-    ...(comments.length > 0 ? { comments } : undefined),
+    ...(consolidatedComments.length > 0
+      ? { comments: consolidatedComments }
+      : undefined),
     ...(features.length > 0 ? { features } : undefined),
     ...(keywords.length > 0 ? { keywords } : undefined),
     ...(proteinDescription ? { proteinDescription } : undefined),

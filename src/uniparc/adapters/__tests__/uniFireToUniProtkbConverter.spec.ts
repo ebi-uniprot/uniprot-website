@@ -64,14 +64,23 @@ describe('uniFireToPrecomputedConverter', () => {
       );
     });
 
-    it('should transform all subcellular location predictions as free-text comments', () => {
+    it('should consolidate all subcellular location predictions into a single free-text comment', () => {
+      // UniFire-derived SUBCELLULAR LOCATION emerges from the converter as a
+      // FreeTextComment (texts[]) even though the union type would normally
+      // narrow to the structured SubcellularLocationComment for that
+      // commentType. See renderer-spec.md §2.2.
       const subCellComments = (result.comments ?? []).filter(
         (c) => c.commentType === 'SUBCELLULAR LOCATION'
-      );
+      ) as unknown as FreeTextComment[];
       const subcellularPredictions = unifireModelData.predictions.filter(
         (p) => p.annotationType === 'comment.subcellular_location'
       );
-      expect(subCellComments).toHaveLength(subcellularPredictions.length);
+      // Step 4 consolidation: many UniFire predictions → one comment with
+      // a `texts[]` of length N.
+      expect(subCellComments).toHaveLength(1);
+      expect(subCellComments[0].texts).toHaveLength(
+        subcellularPredictions.length
+      );
     });
 
     it('should produce comments as a flat array', () => {
@@ -362,11 +371,13 @@ describe('uniFireToPrecomputedConverter', () => {
   });
 
   describe('extraAttributes', () => {
-    it('should compute countByCommentType', () => {
+    it('should compute countByCommentType from consolidated comments', () => {
       const { countByCommentType } = result.extraAttributes ?? {};
+      // After Step 4 consolidation each commentType yields one comment
+      // object, regardless of how many predictions sourced it.
       expect(countByCommentType?.FUNCTION).toBe(1);
       expect(countByCommentType?.SIMILARITY).toBe(1);
-      expect(countByCommentType?.['SUBCELLULAR LOCATION']).toBe(26);
+      expect(countByCommentType?.['SUBCELLULAR LOCATION']).toBe(1);
     });
 
     it('should compute countByFeatureType', () => {
@@ -485,6 +496,188 @@ describe('uniFireToPrecomputedConverter', () => {
           ],
         })
       ).toBe(false);
+    });
+  });
+
+  describe('free-text comment consolidation', () => {
+    it('should merge multiple SUBCELLULAR LOCATION predictions into one comment, preserving order', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00000001'],
+            annotationType: 'comment.subcellular_location',
+            annotationValue: 'Cell membrane',
+          },
+          {
+            evidence: ['ARBA00000002'],
+            annotationType: 'comment.subcellular_location',
+            annotationValue: 'Cytoplasm',
+          },
+          {
+            evidence: ['UR000000003'],
+            annotationType: 'comment.subcellular_location',
+            annotationValue: 'Nucleus',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(data);
+      const sl = (testResult.comments ?? []).filter(
+        (c) => c.commentType === 'SUBCELLULAR LOCATION'
+      ) as unknown as FreeTextComment[];
+      expect(sl).toHaveLength(1);
+      expect(sl[0].texts?.map((t) => t.value)).toEqual([
+        'Cell membrane',
+        'Cytoplasm',
+        'Nucleus',
+      ]);
+    });
+
+    it('should preserve evidences on each consolidated text entry', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00000001'],
+            annotationType: 'comment.subcellular_location',
+            annotationValue: 'Cell membrane',
+          },
+          {
+            evidence: ['UR000000003', 'ARBA00000999'],
+            annotationType: 'comment.subcellular_location',
+            annotationValue: 'Nucleus',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(data);
+      const sl = (testResult.comments ?? []).filter(
+        (c) => c.commentType === 'SUBCELLULAR LOCATION'
+      ) as unknown as FreeTextComment[];
+      expect(sl[0].texts?.[0].evidences).toEqual([
+        { evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00000001' },
+      ]);
+      expect(sl[0].texts?.[1].evidences).toEqual([
+        { evidenceCode: 'ECO:0000256', source: 'UniRule', id: 'UR000000003' },
+        { evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00000999' },
+      ]);
+    });
+
+    it('should consolidate independently per commentType', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00000001'],
+            annotationType: 'comment.function',
+            annotationValue: 'Function A',
+          },
+          {
+            evidence: ['ARBA00000002'],
+            annotationType: 'comment.function',
+            annotationValue: 'Function B',
+          },
+          {
+            evidence: ['ARBA00000003'],
+            annotationType: 'comment.similarity',
+            annotationValue: 'Belongs to family X',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(data);
+      const fn = (testResult.comments ?? []).filter(
+        (c) => c.commentType === 'FUNCTION'
+      ) as FreeTextComment[];
+      const sim = (testResult.comments ?? []).filter(
+        (c) => c.commentType === 'SIMILARITY'
+      ) as FreeTextComment[];
+      expect(fn).toHaveLength(1);
+      expect(fn[0].texts?.map((t) => t.value)).toEqual([
+        'Function A',
+        'Function B',
+      ]);
+      expect(sim).toHaveLength(1);
+      expect(sim[0].texts?.map((t) => t.value)).toEqual([
+        'Belongs to family X',
+      ]);
+      expect(testResult.extraAttributes?.countByCommentType?.FUNCTION).toBe(1);
+      expect(testResult.extraAttributes?.countByCommentType?.SIMILARITY).toBe(
+        1
+      );
+    });
+
+    it('should leave a single-prediction commentType as a one-element texts array', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00000001'],
+            annotationType: 'comment.function',
+            annotationValue: 'Single function',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(data);
+      const fn = (testResult.comments ?? []).filter(
+        (c) => c.commentType === 'FUNCTION'
+      ) as FreeTextComment[];
+      expect(fn).toHaveLength(1);
+      expect(fn[0].texts).toHaveLength(1);
+      expect(fn[0].texts?.[0].value).toBe('Single function');
+    });
+  });
+
+  describe('evidence source-prefix table', () => {
+    // Exercises constructPredictionEvidences indirectly through the converter.
+    // Each evidence ID's leading characters select the human-readable source
+    // label. Unknown prefixes default to 'UniRule' and emit logging.warn.
+    const buildSingleKeyword = (evidenceId: string) => ({
+      accession: 'UPI000000TEST:9606',
+      predictions: [
+        {
+          evidence: [evidenceId],
+          annotationType: 'keyword',
+          annotationValue: 'Test',
+        },
+      ],
+    });
+
+    const sourceOf = (evidenceId: string): string | undefined => {
+      mockWarn.mockClear();
+      const out = uniFireToPrecomputedConverter(buildSingleKeyword(evidenceId));
+      return out.keywords?.[0].evidences?.[0].source;
+    };
+
+    it('should map ARBA* ids to source "ARBA"', () => {
+      expect(sourceOf('ARBA00012345')).toBe('ARBA');
+      expect(mockWarn).not.toHaveBeenCalled();
+    });
+
+    it('should map UR* ids to source "UniRule"', () => {
+      expect(sourceOf('UR000976770')).toBe('UniRule');
+      expect(mockWarn).not.toHaveBeenCalled();
+    });
+
+    it('should map RU* ids to source "RuleBase"', () => {
+      expect(sourceOf('RU000123')).toBe('RuleBase');
+      expect(mockWarn).not.toHaveBeenCalled();
+    });
+
+    it('should map PIRNR* ids to source "PIRNR"', () => {
+      expect(sourceOf('PIRNR003726')).toBe('PIRNR');
+      expect(mockWarn).not.toHaveBeenCalled();
+    });
+
+    it('should map PRU* ids to source "PROSITE-ProRule"', () => {
+      expect(sourceOf('PRU01217')).toBe('PROSITE-ProRule');
+      expect(mockWarn).not.toHaveBeenCalled();
+    });
+
+    it('should default unknown prefixes to "UniRule" and emit logging.warn', () => {
+      expect(sourceOf('ZZZ99999')).toBe('UniRule');
+      expect(mockWarn).toHaveBeenCalledWith(
+        expect.stringContaining('Unknown UniFire evidence ID prefix'),
+        expect.objectContaining({ extra: { id: 'ZZZ99999' } })
+      );
     });
   });
 
