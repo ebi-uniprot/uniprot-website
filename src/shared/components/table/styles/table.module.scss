@@ -150,6 +150,7 @@
 
 .virtualize-container {
   max-height: var(--table-virtualize-max-height, 600px);
+  overflow-y: auto;
 }
 
 .frozen {
@@ -162,9 +163,4 @@
 .virtual-spacer > tr > td {
   padding: 0;
   border: 0;
-}
-
-.virtual-row {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 36px;
 }

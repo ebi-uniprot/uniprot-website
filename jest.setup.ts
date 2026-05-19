@@ -104,9 +104,7 @@ global.ResizeObserver = ResizeObserver;
   return 0;
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).cancelIdleCallback = () => {
-  // Mock implementation
-};
+(global as any).cancelIdleCallback = () => {};
 
 /* "Fail on console error" util */
 // Uncomment to have jest stop when a console error is shown in order to fix it

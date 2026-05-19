@@ -5,7 +5,6 @@ import {
   type HTMLAttributes,
   type ReactNode,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -166,11 +165,9 @@ function TableFromData<T>({
 
   // Forward the virtualizer instance to the parent via ref. Used by the
   // scroll-to-row hook to jump to rows that aren't currently mounted.
-  useEffect(() => {
-    if (virtualizerRef) {
-      virtualizerRef.current = shouldVirtualize ? virtualizer : null;
-    }
-  }, [virtualizerRef, virtualizer, shouldVirtualize]);
+  if (virtualizerRef) {
+    virtualizerRef.current = shouldVirtualize ? virtualizer : null;
+  }
 
   if (shouldVirtualize) {
     const virtualItems = virtualizer.getVirtualItems();
@@ -178,8 +175,7 @@ function TableFromData<T>({
     const topPadding = virtualItems[0]?.start ?? 0;
     const bottomPadding =
       totalSize - (virtualItems[virtualItems.length - 1]?.end ?? 0);
-    // +1 for the leading toggle column rendered by Table.Head/Table.Row.
-    const spacerColSpan = columns.length + 1;
+    const spacerColSpan = columns.length + (rowExtraContent ? 1 : 0);
 
     // One <tbody> per logical row (multiple tbodies in a single <table> is
     // valid HTML). Required because Table.Row outputs both a main <tr> and an

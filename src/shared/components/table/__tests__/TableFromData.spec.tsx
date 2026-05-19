@@ -42,7 +42,9 @@ describe('TableFromData', () => {
     );
     // Below the 200 threshold, virtualization is not engaged.
     // The bounded scroll container (.virtualize-container) should NOT be present.
-    expect(document.querySelector('.virtualize-container')).toBeNull();
+    expect(
+      document.querySelector('[class*="virtualize-container"]')
+    ).toBeNull();
     expect(screen.getByText('name-0')).toBeInTheDocument();
   });
 
