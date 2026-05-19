@@ -17,16 +17,6 @@ const ProteomesEntryConfig: {
       data.description ? <Description>{data.description}</Description> : null,
   },
   {
-    id: EntrySection.SimilarProteomes,
-    sectionContent: ({ relatedProteomes, proteomeType, exclusionReasons }) => (
-      <SimilarProteomes
-        relatedProteomes={relatedProteomes}
-        proteomeType={proteomeType}
-        exclusionReasons={exclusionReasons}
-      />
-    ),
-  },
-  {
     id: EntrySection.Components,
     sectionContent: ({
       components,
@@ -49,6 +39,16 @@ const ProteomesEntryConfig: {
   {
     id: EntrySection.Publications,
     sectionContent: ({ citations }) => <Publications citations={citations} />,
+  },
+  {
+    id: EntrySection.SimilarProteomes,
+    sectionContent: ({ relatedProteomes, proteomeType, exclusionReasons }) => (
+      <SimilarProteomes
+        relatedProteomes={relatedProteomes}
+        proteomeType={proteomeType}
+        exclusionReasons={exclusionReasons}
+      />
+    ),
   },
 ];
 

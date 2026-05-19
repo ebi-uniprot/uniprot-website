@@ -142,7 +142,9 @@ const SimilarProteomes = ({
     <Card
       header={
         <h2>
-          <span data-article-id={HELP_ARTICLE_ID}>Proteome similarity</span>{' '}
+          <span data-article-id={HELP_ARTICLE_ID}>
+            Similar reference proteomes
+          </span>{' '}
           <Chip compact>New</Chip>
         </h2>
       }
