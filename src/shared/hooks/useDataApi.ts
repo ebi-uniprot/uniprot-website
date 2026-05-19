@@ -123,7 +123,7 @@ const createReducer =
     }
   };
 
-const botProtectedPatterns = [/www.ebi.ac.uk\/proteins\/api/];
+const botProtectedPatterns = [/www\.ebi\.ac\.uk\/proteins\/api/];
 
 function useDataApi<T>(
   url?: string | null,

@@ -38,7 +38,7 @@ import { type HelpEntryResponse } from '../../types/apiModel';
 import RelatedArticles from './RelatedArticles';
 import styles from './styles/entry.module.scss';
 
-const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
+const internalRE = /^(https?:)?\/\/www\.uniprot\.org\//i;
 const sameAppURL =
   typeof window !== 'undefined'
     ? new RegExp(window.location.origin + BASE_URL, 'i')
