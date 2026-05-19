@@ -185,6 +185,137 @@ describe('uniFireToPrecomputedConverter', () => {
     });
   });
 
+  describe('protein.recommendedName.ecNumber → proteinDescription.recommendedName.ecNumbers', () => {
+    it('should attach a single ecNumber as a ValueWithEvidence under recommendedName.ecNumbers', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'protein.recommendedName.fullName',
+            annotationValue: 'A protein',
+          },
+          {
+            evidence: ['ARBA00011923'],
+            annotationType: 'protein.recommendedName.ecNumber',
+            annotationValue: '2.1.1.57',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(data);
+      const ecs =
+        testResult.proteinDescription?.recommendedName?.ecNumbers ?? [];
+      expect(ecs).toHaveLength(1);
+      expect(ecs[0].value).toBe('2.1.1.57');
+      expect(ecs[0].evidences).toEqual([
+        { evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00011923' },
+      ]);
+    });
+
+    it('should accumulate multiple ecNumber predictions in declaration order', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'protein.recommendedName.fullName',
+            annotationValue: 'A multi-EC protein',
+          },
+          {
+            evidence: ['ARBA00011923'],
+            annotationType: 'protein.recommendedName.ecNumber',
+            annotationValue: '2.1.1.57',
+          },
+          {
+            evidence: ['ARBA00099999'],
+            annotationType: 'protein.recommendedName.ecNumber',
+            annotationValue: '3.4.5.6',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(data);
+      const ecs =
+        testResult.proteinDescription?.recommendedName?.ecNumbers ?? [];
+      expect(ecs).toHaveLength(2);
+      expect(ecs.map((e) => e.value)).toEqual(['2.1.1.57', '3.4.5.6']);
+    });
+
+    it('should round-trip mixed ARBA*/UR* evidence through constructPredictionEvidences', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'protein.recommendedName.fullName',
+            annotationValue: 'Cap-specific mRNA methyltransferase',
+          },
+          {
+            evidence: ['ARBA00011923', 'UR000001535'],
+            annotationType: 'protein.recommendedName.ecNumber',
+            annotationValue: '2.1.1.57',
+          },
+        ],
+      };
+      const testResult = uniFireToPrecomputedConverter(data);
+      const ec = testResult.proteinDescription?.recommendedName?.ecNumbers?.[0];
+      expect(ec?.evidences).toEqual([
+        { evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00011923' },
+        { evidenceCode: 'ECO:0000256', source: 'UniRule', id: 'UR000001535' },
+      ]);
+    });
+
+    it('should not warn for protein.recommendedName.ecNumber when paired with a fullName', () => {
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'protein.recommendedName.fullName',
+            annotationValue: 'A protein',
+          },
+          {
+            evidence: ['ARBA00011923', 'UR000001535'],
+            annotationType: 'protein.recommendedName.ecNumber',
+            annotationValue: '2.1.1.57',
+          },
+        ],
+      };
+      mockWarn.mockClear();
+      uniFireToPrecomputedConverter(data);
+      expect(mockWarn).not.toHaveBeenCalled();
+    });
+
+    it('should drop ecNumbers and warn when no recommendedName.fullName is present', () => {
+      // Option (b) from the audit: corpus shows zero entries with ecNumber but
+      // no fullName, so we drop the ecNumbers and log a warning rather than
+      // emit a synthetic empty fullName.
+      const data = {
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00011923'],
+            annotationType: 'protein.recommendedName.ecNumber',
+            annotationValue: '2.1.1.57',
+          },
+        ],
+      };
+      mockWarn.mockClear();
+      const testResult = uniFireToPrecomputedConverter(data);
+      expect(testResult.proteinDescription).toBeUndefined();
+      expect(mockWarn).toHaveBeenCalledWith(
+        expect.stringContaining(
+          'Dropping protein.recommendedName.ecNumber predictions'
+        ),
+        expect.objectContaining({
+          extra: expect.objectContaining({
+            accession: 'UPI000000TEST:9606',
+            droppedEcNumbers: 1,
+          }),
+        })
+      );
+    });
+  });
+
   describe('protein.alternativeName.fullName → proteinDescription.alternativeNames', () => {
     it('should collect all alternative names', () => {
       const altNames = result.proteinDescription?.alternativeNames;
