@@ -15,7 +15,10 @@ import {
   type FreeTextType,
 } from '../../uniprotkb/types/commentTypes';
 import type FeatureType from '../../uniprotkb/types/featureType';
-import { type Evidence } from '../../uniprotkb/types/modelTypes';
+import {
+  type Evidence,
+  type ValueWithEvidence,
+} from '../../uniprotkb/types/modelTypes';
 import { type Keyword } from '../../uniprotkb/utils/KeywordsUtil';
 import annotationTypeToSection from '../config/UniFireAnnotationTypeToSection';
 import type { UniParcPrecomputedModel } from '../types/precomputed';
@@ -75,6 +78,7 @@ const uniFireToPrecomputedConverter = (
   const xrefs: UniProtKBXref[] = [];
   let recommendedName: ProteinNames | undefined;
   const alternativeNames: ProteinNames[] = [];
+  const ecNumbers: ValueWithEvidence[] = [];
 
   for (const prediction of data.predictions as Prediction[]) {
     try {
@@ -111,6 +115,15 @@ const uniFireToPrecomputedConverter = (
           alternativeNames.push({
             fullName: { value: annotationValue, evidences },
           });
+        }
+        continue;
+      }
+
+      // protein.recommendedName.ecNumber → recommendedName.ecNumbers[]
+      // Merged into recommendedName during proteinDescription assembly below.
+      if (annotationType === 'protein.recommendedName.ecNumber') {
+        if (typeof annotationValue === 'string') {
+          ecNumbers.push({ value: annotationValue, evidences });
         }
         continue;
       }
@@ -186,11 +199,36 @@ const uniFireToPrecomputedConverter = (
     }
   }
 
+  // Merge accumulated ecNumbers into recommendedName. The ProteinNames type
+  // requires a non-optional fullName, so ecNumbers can only be attached when
+  // a recommendedName.fullName was also predicted. In the current empirical
+  // corpus (289 UniFire files) every entry carrying ecNumber predictions
+  // also carries a recommendedName.fullName, so the drop-and-warn fallback
+  // below is defensive.
+  let recommendedNameWithEc: ProteinNames | undefined = recommendedName;
+  if (ecNumbers.length > 0) {
+    if (recommendedNameWithEc) {
+      recommendedNameWithEc = { ...recommendedNameWithEc, ecNumbers };
+    } else {
+      logging.warn(
+        'Dropping protein.recommendedName.ecNumber predictions: no recommendedName.fullName found in same entry',
+        {
+          extra: {
+            accession: data.accession,
+            droppedEcNumbers: ecNumbers.length,
+          },
+        }
+      );
+    }
+  }
+
   // Build proteinDescription if we have any name data
   let proteinDescription: ProteinNamesData | undefined;
-  if (recommendedName || alternativeNames.length > 0) {
+  if (recommendedNameWithEc || alternativeNames.length > 0) {
     proteinDescription = {
-      ...(recommendedName ? { recommendedName } : undefined),
+      ...(recommendedNameWithEc
+        ? { recommendedName: recommendedNameWithEc }
+        : undefined),
       ...(alternativeNames.length > 0 ? { alternativeNames } : undefined),
     };
   }
