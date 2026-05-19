@@ -102,8 +102,7 @@ const columns: TableFromDataColumn<Interaction>[] = [
     id: 'type',
     label: 'Type',
     render: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'), // NOTE: Add 'SELF'
-    filter: (data, input) =>
-      (data.organismDiffer ? 'XENO' : 'BINARY') === input,
+    getValue: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'),
   },
   {
     id: 'entry-1',
@@ -125,9 +124,7 @@ const columns: TableFromDataColumn<Interaction>[] = [
           {data.interactantOne.geneName} {data.interactantOne.chainId}
         </>
       ),
-    getOption: (data) => data.interactantOne.uniProtKBAccession || 'Other',
-    filter: (data, input) =>
-      (data.interactantOne.uniProtKBAccession || 'Other') === input,
+    getValue: (data) => data.interactantOne.uniProtKBAccession || 'Other',
   },
   {
     id: 'entry-2',

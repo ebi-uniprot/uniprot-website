@@ -121,8 +121,8 @@ const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
 };
 
 const getHighlightedCoordinates = (feature?: TransformedVariant) =>
-  feature?.begin && feature?.end
-    ? `${feature.begin}:${feature.end}`
+  feature?.start && feature?.end
+    ? `${feature.start}:${feature.end}`
     : undefined;
 
 const getRowId = (data: TransformedVariant) => data.accession;

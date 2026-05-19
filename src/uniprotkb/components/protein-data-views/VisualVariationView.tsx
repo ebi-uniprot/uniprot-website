@@ -22,7 +22,7 @@ const VisualVariationView = ({ sequence, variants }: VariationViewProps) => {
   const setNightingaleVariation = useCallback(
     (node: NightingaleVariation) => {
       if (node && sequence && variants) {
-        node.colorConfig = colorConfig;
+        node.colorConfig = colorConfig as typeof node.colorConfig;
 
         node.data = { sequence, variants };
       }
