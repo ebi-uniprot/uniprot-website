@@ -27,6 +27,10 @@ import {
   MessageLevel,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
+import {
+  type ProteomesAPIModel,
+  type RelatedProteome,
+} from '../../../proteomes/adapters/proteomesConverter';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -69,7 +73,7 @@ import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
-import { getSubEntryPath } from '../../utils/subEntry';
+import { getSubEntryPath, getSubEntryProteomes } from '../../utils/subEntry';
 import { getXrefId } from '../../utils/uniparcXref';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import { type DataDBModel } from '../entry/XRefsSection';
@@ -181,10 +185,38 @@ const SubEntry = () => {
   const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
   const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
 
+  const proteomeComponentObject: Record<string, string> = {
+    ...getSubEntryProteomes(subEntryDataPerDatabase?.properties),
+    ...Object.fromEntries(
+      subEntryDataPerDatabase?.proteomes?.map(({ id, component }) => [
+        id,
+        component,
+      ]) ?? []
+    ),
+    ...(subEntryDataPerDatabase?.proteomeId &&
+    subEntryDataPerDatabase?.component
+      ? {
+          [subEntryDataPerDatabase.proteomeId]:
+            subEntryDataPerDatabase.component,
+        }
+      : undefined),
+  };
+
+  const proteomeIds = Object.keys(proteomeComponentObject);
+
   const lineageData = useDataApi<TaxonomyAPIModel>(
     subEntryDataPerDatabase?.organism
       ? apiUrls.entry.entry(`${subEntryTaxId}`, Namespace.taxonomy)
       : null
+  );
+
+  const proteomesSearchData = useDataApi<SearchResults<ProteomesAPIModel>>(
+    apiUrls.search.search({
+      namespace: Namespace.proteomes,
+      query: proteomeIds.map((proteomeId) => `upid:${proteomeId}`).join(' OR '),
+      size: proteomeIds.length,
+      facets: null,
+    })
   );
 
   /*
@@ -212,6 +244,23 @@ const SubEntry = () => {
         },
       ]
     : undefined;
+
+  const relatedProteomeTaxons: SelectedTaxon[] | undefined = (() => {
+    const allRelated =
+      proteomesSearchData.data?.results?.flatMap(
+        (proteome) => proteome.relatedProteomes ?? []
+      ) ?? [];
+    const uniqueTaxonIds = [
+      ...new Set(allRelated.map((r: RelatedProteome) => r.taxonomy.taxonId)),
+    ];
+    if (!uniqueTaxonIds.length) {
+      return undefined;
+    }
+    return uniqueTaxonIds.map((taxonId) => ({
+      id: String(taxonId),
+      label: String(taxonId),
+    }));
+  })();
 
   const uniFireData = useDataApi<UniFireModel>(
     canLoadUniFire && runUniFire
@@ -482,6 +531,15 @@ const SubEntry = () => {
                     />
                   </li>
                 )}
+                {relatedProteomeTaxons && (
+                  <li>
+                    <BlastButton
+                      selectedEntries={[accession]}
+                      textSuffix={`against related proteome ${pluralise(' taxon', relatedProteomeTaxons.length)}`}
+                      taxons={relatedProteomeTaxons}
+                    />
+                  </li>
+                )}
               </ul>
             </Dropdown>
             <EntryDownloadButton handleToggle={handleToggleDownload} />
@@ -490,6 +548,7 @@ const SubEntry = () => {
           <SubEntryMain
             transformedData={transformedData}
             lineageData={lineageData.data}
+            proteomeComponentObject={proteomeComponentObject}
           />
         </Tab>
         <Tab

@@ -9,14 +9,22 @@ import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 type EntryMainProps = {
   transformedData: UniParcSubEntryUIModel;
   lineageData?: TaxonomyAPIModel;
+  proteomeComponentObject?: Record<string, string>;
 };
 
-const SubEntryMain = ({ transformedData, lineageData }: EntryMainProps) => (
+const SubEntryMain = ({
+  transformedData,
+  lineageData,
+  proteomeComponentObject,
+}: EntryMainProps) => (
   <>
     {Object.values(UniParcSubEntryConfig).map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
         <ErrorBoundary>
-          {sectionContent(transformedData, { lineageData })}
+          {sectionContent(transformedData, {
+            lineageData,
+            proteomeComponentObject,
+          })}
         </ErrorBoundary>
       </Suspense>
     ))}

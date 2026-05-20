@@ -15,6 +15,7 @@ import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
 export type SectionExtras = {
   lineageData?: TaxonomyAPIModel;
+  proteomeComponentObject?: Record<string, string>;
 };
 
 const uniParcSubEntryConfig: Record<
@@ -47,6 +48,7 @@ const uniParcSubEntryConfig: Record<
       <SubEntryNamesAndTaxonomySection
         data={data}
         lineageData={extras?.lineageData}
+        proteomeComponentObject={extras?.proteomeComponentObject}
         key={EntrySection.NamesAndTaxonomy}
       />
     ),
