@@ -28,10 +28,8 @@ const ftpUrls = {
     ),
   panProteomes: (taxonId?: number) =>
     joinUrl(
-      // ftpUniProt,
-      // TODO: 2026_02 this is a temporary URL for the pan proteomes preview, to be replaced with the final URL when available
-      'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/',
-      `${taxonId ? `/pp${taxonId}/pp${taxonId}.fa.gz` : ''}`
+      ftpUniProt,
+      `current_release/knowledgebase/pan_proteomes/${taxonId ? `pp${taxonId}/pp${taxonId}.fa.gz` : ''}`
     ),
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
