@@ -5960,8 +5960,34 @@ exports[`EntryMain view should render 1`] = `
         <p
           data-article-id="proteome_similarity"
         >
-          No similar proteome is available for this proteome. This is typically because the proteome is the only one for its species, or because no other reference proteome is similar enough to be listed here.
+          No similar proteome is available for this proteome. A proteome may not have a similar proteome for one of the following reasons:
         </p>
+        <ul>
+          <li>
+            The proteome has been 
+            <span
+              data-article-id="proteome_exclusion_reasons"
+            >
+              excluded
+            </span>
+            ;
+          </li>
+          <li>
+            Novel proteomes from surveillance projects are not currently considered for promotion to a reference proteome, and therefore the species might not have reference proteomes;
+          </li>
+          <li>
+            Novel proteomes from metagenome assemblies are not currently considered for promotion to a reference proteome, and therefore the species might not have reference proteomes;
+          </li>
+          <li>
+            Novel proteomes from organisms with the status ‘Candidatus’ are not currently considered for promotion to a reference proteome;
+          </li>
+          <li>
+            The proteome belongs to a taxonomically undefined species;
+          </li>
+          <li>
+            The proteome is the only one for that species (N.B. being the only one automatically makes it a reference proteome).
+          </li>
+        </ul>
       </div>
     </div>
   </section>
