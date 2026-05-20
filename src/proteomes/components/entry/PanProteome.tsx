@@ -1,3 +1,5 @@
+import { logger } from '@sentry/react';
+
 import ftpUrls from '../../../shared/config/ftpUrls';
 import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 
@@ -19,6 +21,10 @@ export const PanProteome = ({ proteome }: { proteome: ProteomesUIModel }) => {
         <a href={ftpUrls.panProteomes(panProteomeSpecies.taxonId)}>FASTA</a>)
       </>
     );
+  } else {
+    logger.error(
+      `Pan proteome taxon ID ${proteome.panproteomeTaxon.taxonId} not found in taxon lineage for proteome ${proteome.id}`
+    );
+    return null;
   }
-  return null;
 };
