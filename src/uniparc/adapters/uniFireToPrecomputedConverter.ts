@@ -15,20 +15,27 @@ import {
   type FreeTextType,
 } from '../../uniprotkb/types/commentTypes';
 import type FeatureType from '../../uniprotkb/types/featureType';
-import {
-  type Evidence,
-  type ValueWithEvidence,
-} from '../../uniprotkb/types/modelTypes';
+import { type ValueWithEvidence } from '../../uniprotkb/types/modelTypes';
 import { type Keyword } from '../../uniprotkb/utils/KeywordsUtil';
 import annotationTypeToSection from '../config/UniFireAnnotationTypeToSection';
 import type { UniParcPrecomputedModel } from '../types/precomputed';
 import {
   constructPredictionEvidences,
   type Prediction,
-  type UniFireModel,
 } from './uniParcSubEntryConverter';
 
-function isValidUniFireModel(data: unknown): data is UniFireModel {
+/**
+ * The shape this converter accepts: the `Prediction[]` arm of
+ * `UniFireModel.predictions`. It handles flat string evidence only (not the
+ * `ModifiedPrediction`/`Evidence[]` arm), so `isValidUniFireModel` narrows to
+ * exactly what it verifies rather than to the broader `UniFireModel` union.
+ */
+export type ValidUniFireModel = {
+  accession: string;
+  predictions: Prediction[];
+};
+
+function isValidUniFireModel(data: unknown): data is ValidUniFireModel {
   if (!data || typeof data !== 'object') {
     return false;
   }
@@ -45,8 +52,10 @@ function isValidUniFireModel(data: unknown): data is UniFireModel {
       typeof pred.annotationType === 'string' &&
       (pred.annotationValue === undefined ||
         typeof pred.annotationValue === 'string') &&
+      (pred.start === undefined || typeof pred.start === 'number') &&
+      (pred.end === undefined || typeof pred.end === 'number') &&
       Array.isArray(pred.evidence) &&
-      (pred.evidence as unknown[]).every((e) => typeof e === 'string')
+      pred.evidence.every((e: unknown) => typeof e === 'string')
     );
   });
 }
@@ -64,7 +73,7 @@ function isValidUniFireModel(data: unknown): data is UniFireModel {
  * evidence sources).
  */
 const uniFireToPrecomputedConverter = (
-  data: UniFireModel
+  data: unknown
 ): UniParcPrecomputedModel => {
   if (!isValidUniFireModel(data)) {
     const accession = (data as Record<string, unknown>)?.accession ?? 'unknown';
@@ -81,12 +90,10 @@ const uniFireToPrecomputedConverter = (
   const alternativeNames: ProteinNames[] = [];
   const ecNumbers: ValueWithEvidence[] = [];
 
-  for (const prediction of data.predictions as Prediction[]) {
+  for (const prediction of data.predictions) {
     try {
       const { annotationType, annotationValue, evidence } = prediction;
-      const evidences = constructPredictionEvidences(
-        evidence as string[]
-      ) as Evidence[];
+      const evidences = constructPredictionEvidences(evidence);
 
       // keyword predictions → keywords[]
       if (annotationType === 'keyword') {
