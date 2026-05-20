@@ -36,18 +36,19 @@ function isValidUniFireModel(data: unknown): data is UniFireModel {
   if (typeof obj.accession !== 'string' || !Array.isArray(obj.predictions)) {
     return false;
   }
-  return obj.predictions.every(
-    (p: unknown) =>
-      p &&
-      typeof p === 'object' &&
-      typeof (p as Record<string, unknown>).annotationType === 'string' &&
-      ((p as Record<string, unknown>).annotationValue === undefined ||
-        typeof (p as Record<string, unknown>).annotationValue === 'string') &&
-      Array.isArray((p as Record<string, unknown>).evidence) &&
-      ((p as Record<string, unknown>).evidence as unknown[]).every(
-        (e: unknown) => typeof e === 'string'
-      )
-  );
+  return obj.predictions.every((p: unknown) => {
+    if (!p || typeof p !== 'object') {
+      return false;
+    }
+    const pred = p as Record<string, unknown>;
+    return (
+      typeof pred.annotationType === 'string' &&
+      (pred.annotationValue === undefined ||
+        typeof pred.annotationValue === 'string') &&
+      Array.isArray(pred.evidence) &&
+      (pred.evidence as unknown[]).every((e) => typeof e === 'string')
+    );
+  });
 }
 
 /**

@@ -3,15 +3,31 @@ import { type FreeTextComment } from '../../../uniprotkb/types/commentTypes';
 import unifireModelData from '../../__mocks__/unifireModelData';
 import uniFireToPrecomputedConverter, {
   isValidUniFireModel,
-} from '../uniFireToUniProtkbConverter';
+} from '../uniFireToPrecomputedConverter';
+import * as uniParcSubEntryConverter from '../uniParcSubEntryConverter';
 
 jest.mock('../../../shared/utils/logging', () => ({
   warn: jest.fn(),
   error: jest.fn(),
 }));
 
+// Wrap constructPredictionEvidences in a jest.fn that delegates to the real
+// implementation, so a single test can force it to throw and exercise the
+// converter's per-prediction try/catch.
+jest.mock('../uniParcSubEntryConverter', () => {
+  const actual = jest.requireActual('../uniParcSubEntryConverter');
+  return {
+    ...actual,
+    constructPredictionEvidences: jest.fn(actual.constructPredictionEvidences),
+  };
+});
+
 const mockWarn = logging.warn as jest.MockedFunction<typeof logging.warn>;
 const mockError = logging.error as jest.MockedFunction<typeof logging.error>;
+const mockConstructPredictionEvidences =
+  uniParcSubEntryConverter.constructPredictionEvidences as jest.MockedFunction<
+    typeof uniParcSubEntryConverter.constructPredictionEvidences
+  >;
 
 describe('uniFireToPrecomputedConverter', () => {
   let result: ReturnType<typeof uniFireToPrecomputedConverter>;
@@ -19,6 +35,7 @@ describe('uniFireToPrecomputedConverter', () => {
   beforeEach(() => {
     mockWarn.mockClear();
     mockError.mockClear();
+    mockConstructPredictionEvidences.mockClear();
     result = uniFireToPrecomputedConverter(unifireModelData);
   });
 
@@ -682,29 +699,43 @@ describe('uniFireToPrecomputedConverter', () => {
   });
 
   describe('partial failure handling', () => {
-    it('should skip failed predictions and keep successfully transformed ones', () => {
-      // Create data where one prediction will cause an issue
-      // by having a prediction with valid structure but that triggers
-      // an error in processing
-      const dataWithMix = {
+    it('should skip a prediction whose transformation throws and keep the rest', () => {
+      // Validation already rejects malformed input, so the in-loop try/catch
+      // is only reachable when a dependency throws unexpectedly. Force the
+      // first constructPredictionEvidences call to throw to simulate that.
+      mockConstructPredictionEvidences.mockImplementationOnce(() => {
+        throw new Error('boom');
+      });
+      const data = {
         accession: 'UPI000000TEST:9606',
         predictions: [
           {
-            evidence: ['ARBA00002651'],
-            annotationType: 'comment.function',
-            annotationValue: 'Valid function',
-          },
-          {
             evidence: ['ARBA00000001'],
             annotationType: 'keyword',
-            annotationValue: 'ValidKeyword',
+            annotationValue: 'WillFail',
+          },
+          {
+            evidence: ['ARBA00000002'],
+            annotationType: 'keyword',
+            annotationValue: 'WillSucceed',
           },
         ],
       };
 
-      const testResult = uniFireToPrecomputedConverter(dataWithMix);
-      expect(testResult.comments).toHaveLength(1);
+      const testResult = uniFireToPrecomputedConverter(data);
+
+      // The throwing prediction is skipped; the next one still transforms.
       expect(testResult.keywords).toHaveLength(1);
+      expect(testResult.keywords?.[0].name).toBe('WillSucceed');
+      expect(mockWarn).toHaveBeenCalledWith(
+        expect.stringContaining('Failed to transform UniFire prediction'),
+        expect.objectContaining({
+          extra: expect.objectContaining({
+            annotationType: 'keyword',
+            accession: 'UPI000000TEST:9606',
+          }),
+        })
+      );
     });
   });
 });

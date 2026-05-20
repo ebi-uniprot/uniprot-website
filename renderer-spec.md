@@ -9,7 +9,7 @@
 A `UniParcPrecomputedModel` may arrive at the renderer from one of two pipelines:
 
 1. **Precomputed** endpoint — used for RefSeq entries. Returns the model directly.
-2. **UniFire** endpoint — used for all other (non-RefSeq) entries. Returns `UniFireModel`, which `uniFireToPrecomputedConverter` (`src/uniparc/adapters/uniFireToUniProtkbConverter.ts`) transforms into the same `UniParcPrecomputedModel` type.
+2. **UniFire** endpoint — used for all other (non-RefSeq) entries. Returns `UniFireModel`, which `uniFireToPrecomputedConverter` (`src/uniparc/adapters/uniFireToPrecomputedConverter.ts`) transforms into the same `UniParcPrecomputedModel` type.
 
 Although the two paths converge on one type, the **content shapes are not identical**. UniFire-derived instances are permanently thinner than precomputed ones, and the asymmetry is two-directional for some fields (see §6). The renderer therefore cannot assume either source is a strict subset of the other; every field documented below must be handled in both flavours.
 
