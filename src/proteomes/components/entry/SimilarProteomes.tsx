@@ -38,7 +38,7 @@ const columns: Array<{
     ),
   },
   {
-    label: 'Similarity score',
+    label: 'Similarity percentage',
     name: 'similarity',
     render: ({ similarity }) => `${(similarity * 100).toFixed(1)}%`,
   },
