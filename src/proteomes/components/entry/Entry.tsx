@@ -38,34 +38,21 @@ const Entry = () => {
     apiUrls.entry.entry(accession, Namespace.proteomes)
   );
 
-  const panProteomeData = useDataApi<ProteomesAPIModel>(
-    mainData.data?.panproteome && mainData.data.panproteome !== mainData.data.id
-      ? apiUrls.entry.entry(mainData.data.panproteome, Namespace.proteomes)
-      : null
-  );
-
   const refprotmoveData = useDataApi<ProteomesCheckMoveResponse>(
     accession ? joinUrl(checkMoveUrl, 'proteomes', accession) : null
   );
 
-  if (mainData.loading || panProteomeData.loading || refprotmoveData.loading) {
-    return <Loader progress={mainData.progress || panProteomeData.progress} />;
+  if (mainData.loading || refprotmoveData.loading) {
+    return <Loader progress={mainData.progress} />;
   }
 
-  if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
+  if (mainData.error || !accession || !mainData.data) {
     return (
-      <ErrorHandler
-        status={mainData.status || panProteomeData.status}
-        error={mainData.error}
-        fullPage
-      />
+      <ErrorHandler status={mainData.status} error={mainData.error} fullPage />
     );
   }
 
-  const transformedData = proteomesConverter(
-    mainData.data,
-    panProteomeData.data
-  );
+  const transformedData = proteomesConverter(mainData.data);
 
   const moveStatus = refprotmoveData.data?.status;
   const showMoveMessage =

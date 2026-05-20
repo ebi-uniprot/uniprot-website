@@ -14,7 +14,7 @@ export type GenomeAnnotation = {
 
 export type Component = {
   name: string;
-  description: string;
+  description?: string;
   genomeAnnotation: GenomeAnnotation;
   proteomeCrossReferences?: Xref[];
   proteinCount: number;
