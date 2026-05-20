@@ -63,6 +63,14 @@ export type RedundantProteome = {
   similarity: number;
 };
 
+export type RelatedProteome = {
+  proteomeId: string;
+  similarity: number;
+  taxonomy: {
+    taxonId: number;
+  };
+};
+
 export type ProteomeType =
   | 'Reference and representative proteome'
   | 'Reference proteome'
@@ -92,6 +100,7 @@ export type ProteomesAPIModel = {
   description: string;
   redundantProteomes?: RedundantProteome[];
   redundantTo?: string;
+  relatedProteomes?: RelatedProteome[];
   proteinCount: number; // use this in the results table - calculated sum of the components proteinCount: components.reduce((total, { proteinCount }) => proteinCount + total, 0)
   proteomeStatistics: Statistics;
 };

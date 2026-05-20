@@ -22,6 +22,11 @@ type Property = {
   value: string;
 };
 
+type Proteome = {
+  id: string;
+  component: string;
+};
+
 // made completely partial as it depends a lot on the fields requested to API
 export type UniParcXRef = Partial<{
   active: boolean;
@@ -36,6 +41,7 @@ export type UniParcXRef = Partial<{
   proteinName: string;
   proteomeId: string;
   component: string;
+  proteomes: Proteome[];
   chain: string;
   version: number; // might not always be there (e.g., for PRF xrefs)
   versionI: number; // internal UniProt versioning, always present
@@ -61,11 +67,6 @@ export type CommonTaxon = {
   topLevel: string;
   commonTaxon: string;
   commonTaxonId: number;
-};
-
-type Proteome = {
-  id: string;
-  component: string;
 };
 
 export type UniParcLiteAPIModel = {
