@@ -5960,7 +5960,7 @@ exports[`EntryMain view should render 1`] = `
         <p
           data-article-id="proteome_similarity"
         >
-          No similarity score is available for this proteome. This is typically because the proteome is the only one for its species, or because no other reference proteome is similar enough to be listed here.
+          No similar proteome is available for this proteome. This is typically because the proteome is the only one for its species, or because no other reference proteome is similar enough to be listed here.
         </p>
       </div>
     </div>
