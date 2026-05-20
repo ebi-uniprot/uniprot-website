@@ -64,7 +64,7 @@ export type RelatedProteome = {
   taxonomy: Pick<TaxonomyDatum, 'taxonId'>;
 };
 
-export type ResolvedRelatedProteome = RelatedProteome & {
+export type EnrichedRelatedProteome = RelatedProteome & {
   scientificName?: string;
   proteomeType?: ProteomeType;
 };
@@ -73,7 +73,7 @@ export type ProteomeType =
   | 'Reference and representative proteome'
   | 'Reference proteome'
   | 'Representative proteome'
-  | 'Non Reference proteome'
+  | 'Non-reference proteome'
   | 'Redundant proteome'
   | 'Other proteome'
   | 'Excluded';
@@ -108,7 +108,7 @@ export type ProteomesUIModel = Omit<
   'panproteome' | 'relatedProteomes'
 > & {
   panproteome: ProteomesAPIModel['panproteome'] | ProteomesAPIModel;
-  relatedProteomes?: ResolvedRelatedProteome[];
+  relatedProteomes?: EnrichedRelatedProteome[];
 };
 
 const proteomesConverter = (

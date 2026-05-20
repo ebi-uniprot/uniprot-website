@@ -5,19 +5,19 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import AccessionView from '../../../shared/components/results/AccessionView';
 import { Namespace } from '../../../shared/types/namespaces';
 import {
+  type EnrichedRelatedProteome,
   type ProteomeType,
-  type ResolvedRelatedProteome,
 } from '../../adapters/proteomesConverter';
 import styles from '../styles/similar-proteomes.module.scss';
 
 const HELP_ARTICLE_ID = 'proteome_similarity';
 
-const getIdKey = ({ proteomeId }: ResolvedRelatedProteome) => proteomeId;
+const getIdKey = ({ proteomeId }: EnrichedRelatedProteome) => proteomeId;
 
 const columns: Array<{
   label: ReactNode;
   name: string;
-  render: (rp: ResolvedRelatedProteome) => ReactNode;
+  render: (rp: EnrichedRelatedProteome) => ReactNode;
 }> = [
   {
     label: 'Proteome',
@@ -99,7 +99,7 @@ const GenericPlaceholder = () => (
 );
 
 type Props = {
-  relatedProteomes?: ResolvedRelatedProteome[];
+  relatedProteomes?: EnrichedRelatedProteome[];
   proteomeType: ProteomeType;
   exclusionReasons?: string[];
 };
@@ -128,11 +128,7 @@ const SimilarProteomes = ({
     );
   } else if (proteomeType === 'Excluded') {
     body = <ExcludedPlaceholder exclusionReasons={exclusionReasons} />;
-  } else if (
-    proteomeType === 'Reference proteome'
-    proteomeType === 'Reference and representative proteome' ||
-    proteomeType === 'Representative proteome'
-  ) {
+  } else if (proteomeType === 'Reference proteome') {
     body = <ReferencePlaceholder />;
   } else {
     body = <GenericPlaceholder />;

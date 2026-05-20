@@ -1,10 +1,10 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import { type ResolvedRelatedProteome } from '../../../adapters/proteomesConverter';
+import { type EnrichedRelatedProteome } from '../../../adapters/proteomesConverter';
 import SimilarProteomes from '../SimilarProteomes';
 
-const sample: ResolvedRelatedProteome[] = [
+const sample: EnrichedRelatedProteome[] = [
   {
     proteomeId: 'UP000000001',
     similarity: 0.72,
@@ -33,7 +33,7 @@ describe('SimilarProteomes', () => {
   });
 
   it('renders the generic placeholder for a Non Reference proteome with no data', () => {
-    customRender(<SimilarProteomes proteomeType="Non Reference proteome" />);
+    customRender(<SimilarProteomes proteomeType="Non-reference proteome" />);
     expect(
       screen.getByText(/No similar proteome is available for this proteome/)
     ).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe('SimilarProteomes', () => {
   it('renders the generic placeholder when relatedProteomes is empty', () => {
     customRender(
       <SimilarProteomes
-        proteomeType="Non Reference proteome"
+        proteomeType="Non-reference proteome"
         relatedProteomes={[]}
       />
     );
@@ -71,7 +71,7 @@ describe('SimilarProteomes', () => {
   it('renders a row per related proteome, sorted by similarity desc', () => {
     customRender(
       <SimilarProteomes
-        proteomeType="Non Reference proteome"
+        proteomeType="Non-reference proteome"
         relatedProteomes={sample}
       />
     );
@@ -86,7 +86,7 @@ describe('SimilarProteomes', () => {
   it('falls back to the taxon ID when scientificName is missing', () => {
     customRender(
       <SimilarProteomes
-        proteomeType="Non Reference proteome"
+        proteomeType="Non-reference proteome"
         relatedProteomes={[
           {
             proteomeId: 'UP000000003',
