@@ -195,7 +195,7 @@ const checkJobStatus = async (
         return;
       }
 
-      const fileSizeBytes = +response.headers['content-length'] || 0;
+      const fileSizeBytes = +(response.headers['content-length'] || 0);
 
       actionHandler({
         jobAction: updateJob(job.internalID, {

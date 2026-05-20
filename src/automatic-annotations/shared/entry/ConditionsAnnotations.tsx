@@ -75,7 +75,7 @@ const positionalFeatureSetToInfoDatumCondition = (
     <ul className="no-bullet">
       {negative && 'not'}
       {positionFeatureSet.positionalFeatures?.map((pf, index) => (
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         <li key={index}>
           {position(pf.position)}: {pf.pattern}
         </li>
@@ -341,7 +341,7 @@ const ConditionsComponent = ({
           return null;
         }
         return (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <li key={index}>
             {index !== 0 && (
               <div className={cn(styles.statement, styles.or)}>or</div>
@@ -411,7 +411,7 @@ const GroupedAnnotation = (
       <ul className="no-bullet">
         <EllipsisReveal.Provider>
           {typedAnnotations.map((annotation, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <li key={index}>
               <CSVView
                 data={annotation.proteinDescription}
@@ -431,7 +431,7 @@ const GroupedAnnotation = (
       <ul className="no-bullet">
         <EllipsisReveal.Provider>
           {typedAnnotations.map((annotation, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <li key={index}>
               <CSVView data={annotation.gene} contextKey="gene name" />
             </li>
@@ -465,7 +465,7 @@ const GroupedAnnotation = (
     return (
       <ul className="no-bullet">
         {typedAnnotations.map((annotation, index) => (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <li key={index}>
             <CatalyticActivityView
               comments={[annotation.comment as CatalyticActivityComment]}
@@ -480,7 +480,7 @@ const GroupedAnnotation = (
     return (
       <ul className="no-bullet">
         {typedAnnotations.map((annotation, index) => (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <li key={index}>
             <CofactorView cofactors={[annotation.comment as CofactorComment]} />
           </li>
@@ -495,7 +495,7 @@ const GroupedAnnotation = (
         {typedAnnotations.map(
           (annotation, index) =>
             annotation.comment && (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <li key={index}>
                 {annotation.comment.texts?.map((text) => text.value).join('. ')}
               </li>
@@ -549,7 +549,7 @@ function annotationsToInfoData(
         content: (
           <ul className="no-bullet">
             {featureSet.positionalFeatures?.map((pf, index) => (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <div key={index}>
                 <li>
                   {position(pf.position)}: {pf.type}
@@ -806,7 +806,7 @@ const ConditionsAnnotations = ({
           <div className={styles.statement}>additionally</div>
           {data.otherRules?.map((otherRule, index) => (
             <RuleComponent
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               key={index}
               rule={otherRule}
               positionalFeatureSets={data.positionFeatureSets}
@@ -814,14 +814,14 @@ const ConditionsAnnotations = ({
           ))}
           {data.positionFeatureSets?.map((positionalFeatureSet, index) => (
             <PositionalFeatureComponent
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               key={index}
               positionalFeatureSet={positionalFeatureSet}
             />
           ))}
           {data.samFeatureSets?.map((samFeatureSet, index) => (
             <SAMFeatureComponent
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               key={index}
               samFeatureSet={samFeatureSet}
             />

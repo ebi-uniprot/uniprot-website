@@ -69,7 +69,6 @@ const ProteomeSuggestion = ({
         {' '}
         or restrict search to{' '}
         <Dropdown
-          // eslint-disable-next-line react/no-unstable-nested-components
           visibleElement={(onClick: () => unknown) => (
             <Button
               variant="tertiary"

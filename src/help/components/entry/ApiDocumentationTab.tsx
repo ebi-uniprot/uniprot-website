@@ -60,6 +60,9 @@ const OperationTag = ({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   const history = useHistory();
+  // swagger-ui returns its layout components via `getComponent`; lifting it out
+  // of render is not possible.
+  // eslint-disable-next-line @eslint-react/static-components
   const BaseLayout = getComponent('BaseLayout', true);
   const [tagIds, sections, idToOperation] = useMemo(() => {
     const spec = getSpec().get('json');
@@ -106,6 +109,7 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
       <HTMLHead title="UniProt website API documentation" />
       <Card className={styles.content}>
         <ErrorBoundary>
+          {/* eslint-disable-next-line @eslint-react/static-components */}
           <BaseLayout />
         </ErrorBoundary>
       </Card>
