@@ -69,7 +69,7 @@ const Entry = () => {
     similarProteomesData.loading ||
     refprotmoveData.loading
   ) {
-    return <Loader progress={mainData.progress || panProteomeData.progress} />;
+    return <Loader progress={mainData.progress || similarProteomesData.progress || panProteomeData.progress} />;
   }
 
   if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
