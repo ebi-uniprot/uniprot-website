@@ -50,7 +50,7 @@ const ExcludedPlaceholder = ({
   exclusionReasons?: string[];
 }) => (
   <p>
-    No similarity score is available because this proteome has been{' '}
+    No similar proteomes are available because this proteome has been{' '}
     <span data-article-id="proteome_exclusion_reasons">excluded</span>
     {exclusionReasons?.length ? <> ({exclusionReasons.join(', ')})</> : null}.
   </p>
@@ -58,7 +58,7 @@ const ExcludedPlaceholder = ({
 
 const ReferencePlaceholder = () => (
   <p data-article-id={HELP_ARTICLE_ID}>
-    No similarity score is available for this proteome. This is typically
+    No similar proteome is available for this proteome. This is typically
     because the proteome is the only one for its species, or because no other
     reference proteome is similar enough to be listed here.
   </p>
@@ -67,8 +67,8 @@ const ReferencePlaceholder = () => (
 const GenericPlaceholder = () => (
   <>
     <p data-article-id={HELP_ARTICLE_ID}>
-      No similarity score is available for this proteome. A proteome may not
-      have a similarity score for one of the following reasons:
+      No similar proteome is available for this proteome. A proteome may not
+      have a similar proteome for one of the following reasons:
     </p>
     <ul>
       <li>

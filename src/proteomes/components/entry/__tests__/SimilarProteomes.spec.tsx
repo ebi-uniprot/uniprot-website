@@ -35,7 +35,7 @@ describe('SimilarProteomes', () => {
   it('renders the generic placeholder for a Non Reference proteome with no data', () => {
     customRender(<SimilarProteomes proteomeType="Non Reference proteome" />);
     expect(
-      screen.getByText(/No similarity score is available for this proteome/)
+      screen.getByText(/No similar proteome is available for this proteome/)
     ).toBeInTheDocument();
     expect(
       screen.getByText(/taxonomically undefined species/)
@@ -50,7 +50,7 @@ describe('SimilarProteomes', () => {
       />
     );
     expect(
-      screen.getByText(/No similarity score is available for this proteome/)
+      screen.getByText(/No similar proteome is available for this proteome/)
     ).toBeInTheDocument();
   });
 
