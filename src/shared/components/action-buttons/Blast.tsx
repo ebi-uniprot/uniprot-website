@@ -34,6 +34,10 @@ const BlastButton = ({
     }
   }
 
+  if (taxons && taxons.length > 0) {
+    title = `Run a BLAST job against ${taxons.map((t) => t.label).join(', ')}`;
+  }
+
   return (
     <ToolsButton
       selectedEntries={cleanedSelectedEntries}

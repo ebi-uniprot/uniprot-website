@@ -52,6 +52,7 @@ import {
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
+import { pluralise } from '../../../shared/utils/utils';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
@@ -469,14 +470,14 @@ const SubEntry = () => {
                 <li>
                   <BlastButton
                     selectedEntries={[accession]}
-                    textSuffix="this sequence"
+                    textSuffix="against the sequence"
                   />
                 </li>
                 {speciesTaxons && (
                   <li>
                     <BlastButton
                       selectedEntries={[accession]}
-                      textSuffix="against this species"
+                      textSuffix={`against the ${pluralise('taxon', speciesTaxons.length)}`}
                       taxons={speciesTaxons}
                     />
                   </li>
