@@ -129,7 +129,7 @@ const SimilarProteomes = ({
   } else if (proteomeType === 'Excluded') {
     body = <ExcludedPlaceholder exclusionReasons={exclusionReasons} />;
   } else if (
-    proteomeType === 'Reference proteome' ||
+    proteomeType === 'Reference proteome'
     proteomeType === 'Reference and representative proteome' ||
     proteomeType === 'Representative proteome'
   ) {
