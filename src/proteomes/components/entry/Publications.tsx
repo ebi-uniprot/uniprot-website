@@ -1,14 +1,20 @@
-import { DataList } from 'franklin-sites';
+import { Card, DataList } from 'franklin-sites';
 import { useMemo } from 'react';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { getIdKeyForNamespace } from '../../../shared/utils/getIdKey';
 import { type CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
-import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
+import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 import { type ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import styles from '../styles/publications.module.scss';
 
 const dataRenderer = (citation: CitationsAPIModel) => (
-  <CitationsCard data={citation} headingLevel="h3" notSelectable />
+  <LiteratureCitation
+    data={citation}
+    headingLevel="h3"
+    linkToEntry
+    className={styles['inline-publication']}
+  />
 );
 
 const getIdKey = getIdKeyForNamespace(Namespace.citations);
@@ -30,10 +36,9 @@ const Publications = ({
   }
 
   return (
-    <section>
-      <h2>Publications</h2>
+    <Card header={<h2>Publications</h2>}>
       <DataList getIdKey={getIdKey} data={data} dataRenderer={dataRenderer} />
-    </section>
+    </Card>
   );
 };
 

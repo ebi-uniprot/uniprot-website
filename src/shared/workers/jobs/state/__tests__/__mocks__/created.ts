@@ -13,7 +13,7 @@ const created: CreatedJob = {
     stype: 'protein',
     sequence: 'MLPGLALLLL',
     program: 'blastp',
-    database: 'uniprotkb_refprotswissprot',
+    database: 'uniprotkb',
     taxIDs: [],
     negativeTaxIDs: [],
     threshold: '1e-2',

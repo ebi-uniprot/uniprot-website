@@ -61,13 +61,16 @@ export type GenomeAssembly = {
 export type RelatedProteome = {
   proteomeId: string;
   similarity: number;
-  taxonomy: {
-    taxonId: number;
-  };
+  taxonomy: Pick<TaxonomyDatum, 'taxonId'>;
 };
 
 export type PanproteomeTaxon = {
   taxonId: number;
+};
+
+export type EnrichedRelatedProteome = RelatedProteome & {
+  scientificName?: string;
+  proteomeType?: ProteomeType;
 };
 
 export type ProteomeType =
@@ -99,8 +102,26 @@ export type ProteomesAPIModel = {
   proteomeStatistics: Statistics;
 };
 
-export type ProteomesUIModel = ProteomesAPIModel;
+export type ProteomesUIModel = ProteomesAPIModel & {
+  relatedProteomes?: EnrichedRelatedProteome[];
+};
 
-const proteomesConverter = (data: ProteomesAPIModel): ProteomesUIModel => data;
+const proteomesConverter = (
+  data: ProteomesAPIModel,
+  similarProteomesData?: ProteomesAPIModel[]
+): ProteomesUIModel => {
+  const dataById = new Map(similarProteomesData?.map((p) => [p.id, p]));
+  return {
+    ...data,
+    relatedProteomes: data.relatedProteomes?.map((rp) => {
+      const resolved = dataById.get(rp.proteomeId);
+      return {
+        ...rp,
+        scientificName: resolved?.taxonomy?.scientificName,
+        proteomeType: resolved?.proteomeType,
+      };
+    }),
+  };
+};
 
 export default proteomesConverter;
