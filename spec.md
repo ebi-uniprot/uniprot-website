@@ -383,11 +383,18 @@ section, rewrite its `sectionContent` to render the UniProtKB component fed
 - Annotation sections: Function, SubcellularLocation, Expression,
   ProteinProcessing, Interaction, FamilyAndDomains, NamesAndTaxonomy — see §5 for
   the component + props of each.
-- **SubcellularLocation (4b)** additionally needs `organism` supplemented into
-  the `UniProtkbAPIModel` before conversion (deferred from Phase 3) —
-  `SubcellularLocationWithVizView` early-returns without `organism.lineage`.
-  Source it from the UniParc entry; check the shape maps to
-  `UniProtkbAPIModel.organism` (`UniProtKBSimplifiedTaxonomy`).
+- **Function (4a)** ✅ done — `<FunctionSection>`.
+- **SubcellularLocation (4b)** ✅ done — `<SubcellularLocationSection>`.
+  `SubEntry.tsx` supplements `organism` from the UniParc cross-reference
+  (`subEntryDataPerDatabase.organism`, a `TaxonomyDatum`), flattening its
+  `Lineage` objects to the `string[]` lineage that `UniProtkbAPIModel.organism`
+  (`UniProtKBSimplifiedTaxonomy`) requires. `SubcellularLocationWithVizView`
+  returns `null` (dropping the SL comments) on a *falsy* `lineage` — but an
+  empty `[]` is truthy, so when the xref carries no lineage the SL content
+  still renders; only the SwissBioPics virus-detection is then degraded.
+  **Open:** confirm whether the UniParc xref API populates `organism.lineage`
+  (a real `rest.uniprot.org` xref response would settle it; if it never does,
+  consider fetching the taxonomy lineage by `taxonId`).
 - Entry-driven sections (Structure, Sequence, SimilarProteins) — no change.
 - Example: `<FunctionSection data={annotations[EntrySection.Function] as FunctionUIModel}
   primaryAccession={entry.primaryAccession} sequence={entry.sequence?.value}

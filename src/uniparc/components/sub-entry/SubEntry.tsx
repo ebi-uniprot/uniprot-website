@@ -192,8 +192,24 @@ const SubEntry = () => {
       return undefined;
     }
     try {
+      const apiModel = uniFireToUniProtkbConverter(uniFireData.data);
+      // Phase 4b: supplement organism from the UniParc cross-reference — the
+      // SubcellularLocation viz renders nothing without `organism.lineage`. The
+      // xref carries a TaxonomyDatum with rich Lineage objects; flatten it to
+      // the string[] lineage that UniProtkbAPIModel.organism expects.
+      const xrefOrganism = subEntryDataPerDatabase?.organism;
       return uniProtKbConverter(
-        uniFireToUniProtkbConverter(uniFireData.data),
+        xrefOrganism
+          ? {
+              ...apiModel,
+              organism: {
+                ...xrefOrganism,
+                lineage: (xrefOrganism.lineage ?? [])
+                  .map((node) => node.scientificName)
+                  .filter((name): name is string => Boolean(name)),
+              },
+            }
+          : apiModel,
         databaseInfoMaps
       );
     } catch {
@@ -201,7 +217,7 @@ const SubEntry = () => {
       // degrade to no annotations rather than crashing the page.
       return undefined;
     }
-  }, [uniFireData.data, databaseInfoMaps]);
+  }, [uniFireData.data, databaseInfoMaps, subEntryDataPerDatabase]);
 
   useEffect(() => {
     if (uniFireData.status === 200 && uniFireData.data) {

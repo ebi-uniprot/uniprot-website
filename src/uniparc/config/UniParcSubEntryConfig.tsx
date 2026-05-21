@@ -1,8 +1,10 @@
 import { type JSX } from 'react';
 
 import { type FunctionUIModel } from '../../uniprotkb/adapters/functionConverter';
+import { type SubcellularLocationUIModel } from '../../uniprotkb/adapters/subcellularLocationConverter';
 import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import FunctionSection from '../../uniprotkb/components/entry/FunctionSection';
+import SubcellularLocationSection from '../../uniprotkb/components/entry/SubcellularLocationSection';
 import UniProtKBEntrySection from '../../uniprotkb/types/entrySection';
 import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
@@ -54,14 +56,20 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.SubcellularLocation]: {
     id: EntrySection.SubcellularLocation,
     label: entrySectionToLabel[EntrySection.SubcellularLocation],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.SubcellularLocation)}
-        section={EntrySection.SubcellularLocation}
-        key={EntrySection.SubcellularLocation}
-      />
-    ),
+    // Phase 4 — migrated to the UniProtKB SubcellularLocationSection. Needs
+    // `organism` (with a lineage) supplemented onto the model upstream — the
+    // viz renders nothing without it; see SubEntry.tsx.
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <SubcellularLocationSection
+          data={
+            annotations[
+              UniProtKBEntrySection.SubCellularLocation
+            ] as SubcellularLocationUIModel
+          }
+          sequence={data.entry.sequence?.value}
+        />
+      ) : null,
   },
   [EntrySection.Expression]: {
     id: EntrySection.Expression,
