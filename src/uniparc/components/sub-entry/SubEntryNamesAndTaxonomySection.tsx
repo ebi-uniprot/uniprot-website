@@ -35,7 +35,7 @@ const NameContent = ({
       : predictions;
 
   return renderedPredictions.map((prediction, index) => (
-    // eslint-disable-next-line react/no-array-index-key
+    // eslint-disable-next-line @eslint-react/no-array-index-key
     <div key={index}>
       {prediction.annotationValue}
       {prediction.evidence && (

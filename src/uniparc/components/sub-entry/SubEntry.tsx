@@ -299,7 +299,7 @@ const SubEntry = () => {
   useEffect(() => {
     // Delete the message when user navigates away from the sub-entry page
     return () => dispatch(deleteMessage('deleted-entry'));
-    // eslint-disable-next-line reactHooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (

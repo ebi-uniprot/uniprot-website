@@ -94,7 +94,7 @@ const SubEntrySequenceSection = ({
               content: (
                 <div>
                   {flagPredictions.map((p, index) => (
-                    // eslint-disable-next-line react/no-array-index-key
+                    // eslint-disable-next-line @eslint-react/no-array-index-key
                     <Fragment key={index}>
                       {p.annotationValue}
                       <UniProtKBEvidenceTag

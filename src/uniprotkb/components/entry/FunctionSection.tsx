@@ -129,7 +129,7 @@ const BioPhysicoChemicalPropertiesView = ({
       )}
       {data.pHDependence &&
         Object.entries(data.pHDependence).map(([isoform, value]) => (
-          <>
+          <Fragment key={isoform}>
             <h3 data-article-id="biophysicochemical_properties#3-ph-dependence">
               pH Dependence
             </h3>
@@ -137,7 +137,7 @@ const BioPhysicoChemicalPropertiesView = ({
               <a href={`#${isoform.replaceAll(' ', '_')}`}>{isoform}</a>
             </h4>
             <TextView comments={value} />
-          </>
+          </Fragment>
         ))}
       {data.redoxPotential && (
         <>
@@ -178,7 +178,7 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
         </div>
       )}
       {cofactors.map((cofactorComment, index) => (
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         <section className="text-block" key={index}>
           {cofactorComment.molecule && (
             <h4 className="tiny">

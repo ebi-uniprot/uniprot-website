@@ -133,7 +133,7 @@ const NamesAndTaxonomySection = ({
             'domains'
           )}:`}</h4>
           {domains.map((domain, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <ProteinNamesView key={index} proteinNames={domain} />
           ))}
         </>

@@ -252,8 +252,6 @@ export type Database =
   | 'uniprotkb_nematoda'
   | 'uniprotkb_pdb'
   | 'afdb'
-  | 'uniprotkb_reference_proteomes'
-  | 'uniprotkb_refprotswissprot'
   | 'uniprotkb_rodents'
   | 'uniprotkb_swissprot'
   | 'uniprotkb_swissprotsv'

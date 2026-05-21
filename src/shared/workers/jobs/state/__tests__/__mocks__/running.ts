@@ -17,7 +17,7 @@ const running: RunningJob = {
     program: 'blastp',
     stype: 'protein',
     sequence: 'MLPGLALLLL',
-    database: 'uniprotkb_refprotswissprot',
+    database: 'uniprotkb',
     taxIDs: [],
     negativeTaxIDs: [],
     threshold: '1.0',
