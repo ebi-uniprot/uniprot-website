@@ -428,6 +428,12 @@ went), and the temporary `migration-comparison.spec.tsx` harness.
 Fetch → `UniParcPrecomputedModel` → thin lift to `UniProtkbAPIModel` (placeholders,
 same as the UniFire converter) → same pipeline. Optionally tighten
 `UniParcPrecomputedModel` (`Omit`→`Pick`). No new rendering work.
+- **Lift ✅ done (2026-05-21)** — `precomputedToUniProtkbConverter` fills the
+  `uniProtkbId` and `proteinExistence` placeholders; tested incl. precomputed →
+  lift → `uniProtKbConverter` (same pipeline as the UniFire branch).
+- **Pending — fetch wiring.** Needs (a) the precomputed endpoint URL — not in
+  the codebase (only the UniFire URL is, `uniprotkb/unifire/run`) — and (b) a
+  precomputed-vs-UniFire selection decision in `SubEntry.tsx`.
 
 ---
 
