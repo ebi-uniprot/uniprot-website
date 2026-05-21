@@ -4,7 +4,7 @@
 > UniParcPrecomputedModel" spec — the convergence type changed from
 > `UniParcPrecomputedModel` to `UniProtkbAPIModel` ("Approach B", §2).
 >
-> **Status:** in progress — Phases 1–4 complete (2026-05-20); all 7 annotation sections migrated; Phases 5–6 not
+> **Status:** in progress — Phases 1–5 complete (2026-05-20); UniFire rendering migrated to UniProtKB components; Phase 6 not
 > started. Phases 1–2 ("the transformation branch") are intended to merge as a
 > standalone PR *before* any component work (Phase 3+).
 >
@@ -404,16 +404,25 @@ section component fed `annotations[EntrySection.X]` (was `UniFireInferredSection
   0 dropped / 0 misplaced across 3426 values / 289 corpus entries; full suite
   green (237 suites, 1491 tests).
 
-### Phase 5 — Remove the UniFire-specific rendering layer
-- Delete `UniFireInferredSection.tsx`; delete the display half of
-  `UniFireAnnotationTypeToSection` (`groupTypesBySection`, `section`/`subSectionLabel`);
-  keep/relocate the adapter half.
-- **Keep `SubEntryKeywordsSection` (the `KeywordsAndGO` config entry) as-is** —
-  it is the one annotation section **not** migrated to a UniProtKB component.
-  UniFire keywords have no `category`, so `uniProtKbConverter` cannot section
-  them (verified: 0 of 33 placed); the bespoke catch-all stays. Do **not** delete
-  it. Verify it doesn't depend on the deleted display-half of
-  `UniFireAnnotationTypeToSection`.
+### Phase 5 — Remove the UniFire-specific rendering layer ✅ DONE (2026-05-20)
+Deleted (all verified orphaned first): `UniFireInferredSection.tsx`,
+`SubEntryFamilyAndDomainsSection.tsx`, `SubEntryNamesAndTaxonomySection.tsx`,
+`SubEntryFeaturesView.tsx` (a helper, orphaned once its only two consumers
+went), and the temporary `migration-comparison.spec.tsx` harness.
+- **`UniFireAnnotationTypeToSection.ts` kept whole** — the spec originally
+  planned to drop its "display half", but `groupTypesBySection` is still used by
+  `SubEntry.tsx`'s in-page-nav logic (deciding which sections have UniFire
+  content), and `annotationTypeToSection` by `uniFireToUniProtkbConverter`. Both
+  exports live; nothing to delete. (Possible later cleanup: drive the nav
+  "has content" check off `annotations[section]` instead of raw predictions.)
+- **`SubEntryMain` kept as `{ transformedData, annotations? }`** — *not* slimmed
+  to `{ entry, annotations }`: `KeywordsAndGO` still needs `transformedData.unifire`
+  and the entry-driven sections need `entry`/`subEntry`.
+- **`SubEntryKeywordsSection` (`KeywordsAndGO`) kept** — the one annotation
+  section not migrated (UniFire keywords have no `category`; see Q4).
+- **Verified:** `tsc` + ESLint clean; `src/uniparc` suite 99/99 (7 suites).
+- `transformer-gap/downloads/` no longer feeds anything in `src/` — safe to
+  drop from the repo whenever convenient.
 
 ### Phase 6 — Precomputed endpoint branch (after Phases 3–5)
 Fetch → `UniParcPrecomputedModel` → thin lift to `UniProtkbAPIModel` (placeholders,
