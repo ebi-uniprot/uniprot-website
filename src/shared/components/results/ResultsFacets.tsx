@@ -40,6 +40,12 @@ type Props = {
   namespaceOverride?: Namespace;
 };
 
+const proteomeTypeOrder = [
+  ProteomeFacetValue.REFERENCE,
+  ProteomeFacetValue.NON_REFERENCE,
+  ProteomeFacetValue.EXCLUDED,
+];
+
 const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const namespace = useNS(namespaceOverride);
   const uniprotKBResultsRoute = useRouteMatch(
@@ -65,53 +71,42 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const decoratedFacets = facets.map((facet) => {
     switch (facet.name) {
       case 'reviewed':
-      case 'proteome_type':
       case 'types': // Types is Publication's source
-      case 'proteome': // Not icon but change letter casing until returned otherwise by the backend (better if there is proteometype returned)
         return {
           ...facet,
-          // Sort proteome_type facet values in a specific order
+          values: facet.values?.map((facetValue) => ({
+            ...facetValue,
+            label: getDecoratedFacetLabel(facetValue),
+          })),
+        };
+      case 'proteome_type':
+        return {
+          ...facet,
           values: facet.values
-            ?.slice()
-            .sort((a, b) => {
-              if (facet.name !== 'proteome_type') {
-                return 0;
-              }
-              const order = [
-                ProteomeFacetValue.REFERENCE,
-                ProteomeFacetValue.NON_REFERENCE,
-                ProteomeFacetValue.EXCLUDED,
-              ];
-              return (
-                order.indexOf(a.value as ProteomeFacetValue) -
-                order.indexOf(b.value as ProteomeFacetValue)
-              );
-            })
-            .map((facetValue) => {
-              let label;
-              if (facet.name === 'proteome_type') {
-                const enrichedFacetValue = {
-                  ...facetValue,
-                  label:
-                    proteomeFacetValueToLabel[
-                      facetValue.value as ProteomeFacetValue
-                    ],
-                };
-                label = getDecoratedFacetLabel(enrichedFacetValue);
-              } else if (facet.name === 'proteome') {
-                label = null;
-              } else {
-                label = getDecoratedFacetLabel(facetValue);
-              }
-              return {
+            ?.map((facetValue) => ({
+              ...facetValue,
+              label: getDecoratedFacetLabel({
                 ...facetValue,
-                value:
-                  facet.name === 'proteome'
-                    ? facetValue.value.toUpperCase()
-                    : facetValue.value,
-                label,
-              };
-            }),
+                label:
+                  proteomeFacetValueToLabel[
+                    facetValue.value as ProteomeFacetValue
+                  ],
+              }),
+            }))
+            .sort(
+              (a, b) =>
+                proteomeTypeOrder.indexOf(a.value as ProteomeFacetValue) -
+                proteomeTypeOrder.indexOf(b.value as ProteomeFacetValue)
+            ),
+        };
+      case 'proteome': // uppercase value until backend returns it consistently
+        return {
+          ...facet,
+          values: facet.values?.map((facetValue) => ({
+            ...facetValue,
+            value: facetValue.value.toUpperCase(),
+            label: null,
+          })),
         };
       case 'existence':
         return {

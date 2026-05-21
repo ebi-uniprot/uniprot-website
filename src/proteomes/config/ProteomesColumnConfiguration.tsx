@@ -159,7 +159,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
   ...getLabelAndTooltip(
     'Protein count',
-    'Number of protein entries associated with this proteome: UniProtKB entries for reference proteomes or UniParc entries for non reference proteomes'
+    'Number of protein entries associated with this proteome: UniProtKB entries for reference proteomes or UniParc entries for non reference and excluded proteomes'
   ),
   render: ({ id, proteinCount, proteomeType }) => {
     if (!proteinCount) {
