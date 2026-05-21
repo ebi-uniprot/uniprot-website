@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { use, useEffect, useState } from 'react';
+import { use, useEffect, useMemo, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -34,6 +34,7 @@ import { BotDetectionContext } from '../../../shared/contexts/BotDetection';
 import useDataApi, {
   type UseDataAPIState,
 } from '../../../shared/hooks/useDataApi';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -43,9 +44,13 @@ import {
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
+import uniProtKbConverter, {
+  type UniProtkbUIModel,
+} from '../../../uniprotkb/adapters/uniProtkbConverter';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
+import uniFireToUniProtkbConverter from '../../adapters/uniFireToUniProtkbConverter';
 import {
   type UniParcLiteAPIModel,
   type UniParcXRef,
@@ -175,6 +180,28 @@ const SubEntry = () => {
       ? apiUrls.unifire.unifire(accession, `${subEntryTaxId}`)
       : null
   );
+
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  // Convert UniFire predictions into a UniProtkbUIModel so the sub-entry
+  // sections can render through the UniProtKB section components (spec.md
+  // Phase 3/4). Computed before uniParcSubEntryConverter() runs below: that
+  // converter mutates uniFireData.data.predictions into the ModifiedPrediction
+  // shape, which uniFireToUniProtkbConverter's input validation would reject.
+  const annotations: UniProtkbUIModel | undefined = useMemo(() => {
+    if (!uniFireData.data || !databaseInfoMaps) {
+      return undefined;
+    }
+    try {
+      return uniProtKbConverter(
+        uniFireToUniProtkbConverter(uniFireData.data),
+        databaseInfoMaps
+      );
+    } catch {
+      // uniFireToUniProtkbConverter logs and throws on malformed input;
+      // degrade to no annotations rather than crashing the page.
+      return undefined;
+    }
+  }, [uniFireData.data, databaseInfoMaps]);
 
   useEffect(() => {
     if (uniFireData.status === 200 && uniFireData.data) {
@@ -419,7 +446,10 @@ const SubEntry = () => {
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={accession} />
           </div>
-          <SubEntryMain transformedData={transformedData} />
+          <SubEntryMain
+            transformedData={transformedData}
+            annotations={annotations}
+          />
         </Tab>
         <Tab
           title={

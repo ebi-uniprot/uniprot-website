@@ -1,5 +1,6 @@
 import { type JSX } from 'react';
 
+import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
@@ -17,7 +18,10 @@ const uniParcSubEntryConfig: Record<
   {
     id: EntrySection;
     label: string;
-    sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
+    sectionContent: (
+      entryData: UniParcSubEntryUIModel,
+      annotations?: UniProtkbUIModel
+    ) => JSX.Element;
   }
 > = {
   [EntrySection.Function]: {

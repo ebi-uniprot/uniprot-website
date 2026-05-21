@@ -4,7 +4,7 @@
 > UniParcPrecomputedModel" spec — the convergence type changed from
 > `UniParcPrecomputedModel` to `UniProtkbAPIModel` ("Approach B", §2).
 >
-> **Status:** in progress — Phases 1 & 2 complete (2026-05-20); all 7 section components verified reusable; Phases 3–6 not
+> **Status:** in progress — Phases 1–3 complete (2026-05-20); all 7 section components verified reusable; Phases 4–6 not
 > started. Phases 1–2 ("the transformation branch") are intended to merge as a
 > standalone PR *before* any component work (Phase 3+).
 >
@@ -350,28 +350,30 @@ Phase 3.
   reads the UniParc entry — page-assembly work); `UniParcPrecomputedModel →
   UniProtkbAPIModel` lift and `Omit`→`Pick` tightening → Phase 6.
 
-### Phase 3 — Page assembly: run `uniProtKbConverter`, reshape `SubEntryMain`
-- In `SubEntry.tsx` / `SubEntryContext.tsx`: run UniFire data through
-  `uniFireToUniProtkbConverter` → **supplement `organism` (and `sequence`) from
-  the UniParc entry** → `uniProtKbConverter` → `annotations: UniProtkbUIModel`.
-- Change `SubEntryMain`'s prop to a composite:
-  ```ts
-  type EntryMainProps = {
-    entry: Partial<UniParcUIModel>;   // Sequence, Structure, SimilarProteins
-    annotations: UniProtkbUIModel;    // annotation sections
-  };
-  ```
-- Update `UniParcSubEntryConfig`'s `sectionContent` signature.
-- `databaseInfoMaps` (2nd arg to `uniProtKbConverter`) — obtain it via the
-  `useDatabaseInfoMaps()` hook (`src/shared/hooks/useDatabaseInfoMaps`, a
-  consumer of `DatabaseInfoMapsContext`). **Already reachable** — `src/uniparc/`
-  uses it today (`UniParcColumnConfiguration`, `UniParcFeaturesView` in the entry
-  component tree), so the context provider is in scope; no wiring needed. It
-  returns `undefined` until the database-info data loads — guard the conversion
-  (skip / show a loader) exactly as `Entry.tsx` does
-  (`if (!data || !databaseInfoMaps) …`).
-- **Acceptance:** page builds and renders unchanged (sections still on
-  `UniFireInferredSection` — migration is Phase 4).
+### Phase 3 — Page assembly ✅ DONE (2026-05-20)
+- `SubEntry.tsx` computes `annotations: UniProtkbUIModel | undefined` in a
+  `useMemo`: `uniFireToUniProtkbConverter(uniFireData.data)` → `uniProtKbConverter`,
+  with `databaseInfoMaps` from `useDatabaseInfoMaps()`. The `useMemo` runs
+  **before** `uniParcSubEntryConverter()` — that converter *mutates*
+  `uniFireData.data.predictions` into the `ModifiedPrediction` shape, which
+  `uniFireToUniProtkbConverter`'s validation would then reject. The conversion is
+  wrapped in try/catch (degrade to no annotations rather than crash the page).
+- `SubEntryMain` now takes `annotations?` **alongside** the existing
+  `transformedData` — additive, NOT the full `{ entry, annotations }` composite.
+  `UniFireInferredSection` still needs the `UniParcSubEntryUIModel`, so the old
+  prop stays until Phase 5; the slim-down to `{ entry, annotations }` happens
+  there. `UniParcSubEntryConfig`'s `sectionContent` is now
+  `(entryData: UniParcSubEntryUIModel, annotations?: UniProtkbUIModel) => JSX.Element`
+  — existing per-section arrows are unchanged (they ignore the 2nd arg).
+- `databaseInfoMaps` — via `useDatabaseInfoMaps()` (a `DatabaseInfoMapsContext`
+  consumer), already in scope for UniParc pages; guarded for `undefined`.
+- **Deferred to Phase 4b:** organism/sequence supplementation. It is only
+  consumed by the SubcellularLocation viz (`SubcellularLocationWithVizView`
+  early-returns on `!lineage`), which is not rendered until Phase 4 — so it is
+  done when that section migrates.
+- **Verified:** eslint + `tsc` clean; `src/uniparc` suite 102/102 with 52
+  snapshots **unchanged** — page renders identically (no section consumes
+  `annotations` yet; Phase 4 migrates them).
 
 ### Phase 4 — Migrate sections one at a time
 `UniParcSubEntryConfig` dispatches per-section, so old and new coexist. All seven
@@ -381,6 +383,11 @@ section, rewrite its `sectionContent` to render the UniProtKB component fed
 - Annotation sections: Function, SubcellularLocation, Expression,
   ProteinProcessing, Interaction, FamilyAndDomains, NamesAndTaxonomy — see §5 for
   the component + props of each.
+- **SubcellularLocation (4b)** additionally needs `organism` supplemented into
+  the `UniProtkbAPIModel` before conversion (deferred from Phase 3) —
+  `SubcellularLocationWithVizView` early-returns without `organism.lineage`.
+  Source it from the UniParc entry; check the shape maps to
+  `UniProtkbAPIModel.organism` (`UniProtKBSimplifiedTaxonomy`).
 - Entry-driven sections (Structure, Sequence, SimilarProteins) — no change.
 - Example: `<FunctionSection data={annotations[EntrySection.Function] as FunctionUIModel}
   primaryAccession={entry.primaryAccession} sequence={entry.sequence?.value}
