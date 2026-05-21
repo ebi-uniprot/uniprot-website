@@ -5,6 +5,7 @@ import {
 } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import {
   type AnnotationScoreValue,
+  type UniProtkbAPIModel,
   type UniProtKBXref,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { type FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
@@ -21,14 +22,23 @@ import {
 } from '../../uniprotkb/types/modelTypes';
 import { type Keyword } from '../../uniprotkb/utils/KeywordsUtil';
 import annotationTypeToSection from '../config/UniFireAnnotationTypeToSection';
-import type { UniParcPrecomputedModel } from '../types/precomputed';
 import {
   constructPredictionEvidences,
   type Prediction,
-  type UniFireModel,
 } from './uniParcSubEntryConverter';
 
-function isValidUniFireModel(data: unknown): data is UniFireModel {
+/**
+ * The shape this converter accepts: the `Prediction[]` arm of
+ * `UniFireModel.predictions`. It handles flat string evidence only (not the
+ * `ModifiedPrediction`/`Evidence[]` arm), so `isValidUniFireModel` narrows to
+ * exactly what it verifies rather than to the broader `UniFireModel` union.
+ */
+export type ValidUniFireModel = {
+  accession: string;
+  predictions: Prediction[];
+};
+
+function isValidUniFireModel(data: unknown): data is ValidUniFireModel {
   if (!data || typeof data !== 'object') {
     return false;
   }
@@ -45,27 +55,59 @@ function isValidUniFireModel(data: unknown): data is UniFireModel {
       typeof pred.annotationType === 'string' &&
       (pred.annotationValue === undefined ||
         typeof pred.annotationValue === 'string') &&
+      (pred.start === undefined || typeof pred.start === 'number') &&
+      (pred.end === undefined || typeof pred.end === 'number') &&
       Array.isArray(pred.evidence) &&
-      (pred.evidence as unknown[]).every((e) => typeof e === 'string')
+      pred.evidence.every((e: unknown) => typeof e === 'string')
     );
   });
 }
 
 /**
- * Transforms UniFire prediction data into UniParcPrecomputedModel.
- *
- * Converts the flat prediction format from the UniFire endpoint into the
- * same API model shape returned by the precomputed endpoint, so the
- * UniParc sub-entry page can use a single downstream pipeline for both
- * data sources.
- *
- * UniFire-derived instances are currently thinner than precomputed ones
- * (no keyword ids/categories, flat-text subcellular locations, generic
- * evidence sources).
+ * Builds the comment shape appropriate for a UniFire `comment.*` prediction.
+ * The three structured comment types must emit their structured shape: a
+ * FreeTextComment for any of them is silently dropped by the UniProtKB
+ * section renderers, which read the structured fields. UniFire supplies only
+ * a flat text value, which maps to the single required text field of each
+ * structured shape (`location.value` / `cofactors[].name` / `reaction.name`).
  */
-const uniFireToPrecomputedConverter = (
-  data: UniFireModel
-): UniParcPrecomputedModel => {
+function buildComment(
+  commentType: FreeTextType | CommentType,
+  value: string,
+  evidences: Evidence[]
+): Comment {
+  switch (commentType) {
+    case 'SUBCELLULAR LOCATION':
+      return {
+        commentType,
+        subcellularLocations: [{ location: { value, evidences } }],
+      };
+    case 'COFACTOR':
+      return { commentType, cofactors: [{ name: value, evidences }] };
+    case 'CATALYTIC ACTIVITY':
+      return { commentType, reaction: { name: value, evidences } };
+    default:
+      return {
+        commentType: commentType as FreeTextType,
+        texts: [{ value, evidences }],
+      };
+  }
+}
+
+/**
+ * Transforms UniFire prediction data into a UniProtkbAPIModel.
+ *
+ * Converts the flat UniFire prediction format into the UniProtKB API model
+ * shape so the UniParc sub-entry page can run UniFire data through the
+ * standard `uniProtKbConverter` pipeline and reuse the UniProtKB section
+ * components.
+ *
+ * UniFire-derived instances are thinner than real UniProtKB entries:
+ * `uniProtkbId` and `proteinExistence` are empty-string placeholders, and
+ * organism/sequence are not set here — they are supplemented from the
+ * UniParc entry at page-assembly time.
+ */
+const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
   if (!isValidUniFireModel(data)) {
     const accession = (data as Record<string, unknown>)?.accession ?? 'unknown';
     const message = `Invalid UniFireModel input for accession: ${accession}`;
@@ -81,12 +123,10 @@ const uniFireToPrecomputedConverter = (
   const alternativeNames: ProteinNames[] = [];
   const ecNumbers: ValueWithEvidence[] = [];
 
-  for (const prediction of data.predictions as Prediction[]) {
+  for (const prediction of data.predictions) {
     try {
       const { annotationType, annotationValue, evidence } = prediction;
-      const evidences = constructPredictionEvidences(
-        evidence as string[]
-      ) as Evidence[];
+      const evidences = constructPredictionEvidences(evidence);
 
       // keyword predictions → keywords[]
       if (annotationType === 'keyword') {
@@ -155,11 +195,9 @@ const uniFireToPrecomputedConverter = (
 
       // comment.* predictions → comments[]
       if (sectionConfig.freeTextType && typeof annotationValue === 'string') {
-        const comment: FreeTextComment = {
-          commentType: sectionConfig.freeTextType as FreeTextType,
-          texts: [{ value: annotationValue, evidences }],
-        };
-        comments.push(comment);
+        comments.push(
+          buildComment(sectionConfig.freeTextType, annotationValue, evidences)
+        );
         continue;
       }
 
@@ -202,10 +240,7 @@ const uniFireToPrecomputedConverter = (
 
   // Merge accumulated ecNumbers into recommendedName. The ProteinNames type
   // requires a non-optional fullName, so ecNumbers can only be attached when
-  // a recommendedName.fullName was also predicted. In the current empirical
-  // corpus (289 UniFire files) every entry carrying ecNumber predictions
-  // also carries a recommendedName.fullName, so the drop-and-warn fallback
-  // below is defensive.
+  // a recommendedName.fullName was also predicted.
   let recommendedNameWithEc: ProteinNames | undefined = recommendedName;
   if (ecNumbers.length > 0) {
     if (recommendedNameWithEc) {
@@ -237,10 +272,9 @@ const uniFireToPrecomputedConverter = (
   // Consolidate FreeTextComments by commentType: every prediction of the
   // same free-text type produced a separate single-text comment during the
   // loop; collapse them into one comment with a flat `texts[]` array, in
-  // declaration order. Non-free-text comments
-  // (e.g. anything with structured shapes) are passed through unchanged —
-  // this code path only ever produces FreeTextComment objects today, but
-  // the guard keeps the consolidation safe if that ever changes.
+  // declaration order. Structured comments (SUBCELLULAR LOCATION, COFACTOR,
+  // CATALYTIC ACTIVITY) have no `texts` and pass through unchanged — one
+  // comment object per prediction.
   const consolidatedComments: Comment[] = [];
   const freeTextByType = new Map<string, FreeTextComment>();
   for (const comment of comments) {
@@ -284,7 +318,8 @@ const uniFireToPrecomputedConverter = (
 
   return {
     entryType: 'AA',
-    uniProtkbId: null,
+    uniProtkbId: '',
+    proteinExistence: '',
     primaryAccession: data.accession.replaceAll(':', '-'),
     annotationScore: 0 as AnnotationScoreValue,
     ...(consolidatedComments.length > 0
@@ -311,4 +346,4 @@ const uniFireToPrecomputedConverter = (
 };
 
 export { isValidUniFireModel };
-export default uniFireToPrecomputedConverter;
+export default uniFireToUniProtkbConverter;

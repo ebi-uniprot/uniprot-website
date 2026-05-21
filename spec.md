@@ -1,247 +1,466 @@
-# Spec: Transform UniFireModel to UniParcPrecomputedModel
+# Spec & Plan: UniParc sub-entry rendering via the UniProtKB pipeline
 
-## Purpose
+> **Single source of truth.** Supersedes the original "Transform UniFireModel to
+> UniParcPrecomputedModel" spec — the convergence type changed from
+> `UniParcPrecomputedModel` to `UniProtkbAPIModel` ("Approach B", §2).
+>
+> **Status:** in progress — Phases 1 & 2 complete (2026-05-20); all 7 section components verified reusable; Phases 3–6 not
+> started. Phases 1–2 ("the transformation branch") are intended to merge as a
+> standalone PR *before* any component work (Phase 3+).
+>
+> Self-contained: assumes no prior context. Verify file paths / line numbers
+> against the codebase before editing — line numbers drift.
 
-UniParc sequence annotation pages (SAPs) are essentially UniProtKB entry pages. They are populated by one of two data sources:
+---
 
-1. **Precomputed endpoint** — returns `UniParcPrecomputedModel` directly. Available for RefSeq source entries only.
-2. **UniFire endpoint** — returns `UniFireModel`, which needs transformation. Used on demand for all non-RefSeq entries (permanent path, not a temporary fallback).
+## 1. Goal
 
-When a user visits a SAP, the page first checks whether precomputed data exists. If so, it uses that. If not, it fetches from UniFire on demand.
+UniParc sequence annotation pages (SAPs) are essentially UniProtKB entry pages.
+They are populated by one of two data sources:
 
-Both sources feed into a shared downstream pipeline:
+1. **Precomputed endpoint** — returns `UniParcPrecomputedModel` directly.
+   Available for RefSeq-source entries only.
+2. **UniFire endpoint** — returns `UniFireModel` (flat `annotationType` /
+   `annotationValue` predictions), transformed on demand. The **permanent** path
+   for all non-RefSeq entries — not a temporary fallback.
 
-```
-Precomputed endpoint  →  UniParcPrecomputedModel  ──→  uniProtKbConverter  ──→  render SAP
-UniFire endpoint      →  UniParcPrecomputedModel  ──↗
-```
+When a user visits a SAP the page checks for precomputed data; if absent it
+fetches UniFire on demand. Both sources must render through **one pipeline**,
+**reusing the existing UniProtKB section components** rather than a parallel
+UniParc-specific rendering stack.
 
-This task creates the `UniFireModel → UniParcPrecomputedModel` transformation so that both data sources converge at the same type. From that point forward, a single pipeline (reusing or adapting `uniProtKbConverter` and UniProtKB's section components) handles rendering. This minimises code duplication and aligns SAPs with the mature UniProtKB entry page architecture.
-
-UniFire-derived `UniParcPrecomputedModel` instances will be thinner than precomputed ones (e.g. keywords without `id`/`category`, subcellular locations as free text, unresolved evidence sources). This is the permanent reality for non-RefSeq entries, not a temporary compromise, so the downstream rendering must handle it gracefully by design.
-
-The `UniParcPrecomputedModel` type (from `src/uniparc/types/precomputed.ts`) is:
-
-```ts
-type UniParcPrecomputedModel = Omit<
-  UniProtkbAPIModel,
-  'uniProtkbId' | 'entryType' | 'proteinExistence'
-> & {
-  entryType: 'AA';
-  uniProtkbId: null;
-};
-```
-
-This is an API-model shape — flat `comments[]`, `features[]`, `keywords[]` arrays, not section-keyed UIModel objects.
+UniFire-derived data is permanently thinner than precomputed (keywords without
+`id`/`category`, generic evidence sources). Downstream rendering must handle
+this gracefully by design.
 
 ### Example endpoints
+- UniFire: `https://rest.uniprot.org/uniprotkb/unifire/run?id=UPI000012C942&taxId=2725997`
+- Precomputed: `https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/precomputed/UPI0000000001/10245`
 
-- UniFire: https://rest.uniprot.org/uniprotkb/unifire/run?id=UPI000012C942&taxId=2725997
-- Precomputed: https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/precomputed/UPI0000000001/10245
+---
 
-## File Location
+## 2. Approach ("Approach B") & why
 
-`src/uniparc/adapters/`, alongside the existing `uniParcSubEntryConverter.ts`.
+```
+UniFire predictions ─► uniFireToUniProtkbConverter ──┐
+                                                     ├─► UniProtkbAPIModel ─► uniProtKbConverter ─► UniProtkbUIModel ─► UniProtKB section components
+precomputed endpoint ─► UniParcPrecomputedModel ─────┘   (+ organism/sequence
+                        (lift — Phase 6)                  from the UniParc entry)
+```
 
-## Return Type
+Both sources converge at **`UniProtkbAPIModel`** — the input type of
+`uniProtKbConverter`, the only producer of the `UniProtkbUIModel` that UniProtKB
+section components consume. Reusing `uniProtKbConverter` means **no new
+section-distribution logic and no parallel rendering stack.**
 
-`UniParcPrecomputedModel` — UniFire-derived instances are permanently thinner than precomputed ones (no keyword ids/categories, flat-text subcellular locations, generic evidence sources). This is by design for non-RefSeq entries.
+**Why not converge on `UniParcPrecomputedModel`** (the original spec): that type
+cannot feed `uniProtKbConverter` — it has `uniProtkbId: null` and no
+`proteinExistence`. Converging there would force either a brand-new
+`UniParcPrecomputedModel → UniProtkbUIModel` converter (reimplementing
+section-ization) or modifying core UniProtKB code. `UniParcPrecomputedModel` is
+kept only as the precomputed endpoint's **wire type**, lifted to
+`UniProtkbAPIModel` in Phase 6.
 
-## Dependencies
+**Why not converge on `UniProtkbUIModel` directly:** it is the section-keyed
+*post-conversion* structure; hand-building it means reimplementing
+`uniProtKbConverter` and coupling to an internal (unstable) type.
 
-- **Reuse** `constructPredictionEvidences` from `src/uniparc/adapters/uniParcSubEntryConverter.ts` to convert string evidence arrays into `Evidence[]` objects.
-- **No `databaseInfoMaps`** needed — UniFire data does not populate cross-references.
+**Spike evidence (performed during planning):**
+- `uniProtKbConverter` converts lifted data from both sources with no structural failure.
+- **All 7 annotation-driven UniProtKB section components** render from
+  UniFire-converted data with **zero component changes** — verified by spike (§5).
+- A flattened free-text `SUBCELLULAR LOCATION` comment passes `uniProtKbConverter`
+  without error but renders **empty** — hence the structured-comment rule (§3).
+- One latent bug found in `subcellularLocationConverter.ts` (Phase 1).
 
-## Fixed Fields
+---
 
-Every output from this converter has these fixed values:
+## 3. The UniFire → `UniProtkbAPIModel` transformation
+
+Implemented by `uniFireToUniProtkbConverter` in
+`src/uniparc/adapters/uniFireToUniProtkbConverter.ts` (✅ Phase 2). It reuses
+`constructPredictionEvidences` from `uniParcSubEntryConverter.ts` to convert
+string evidence ids into `Evidence[]`. No `databaseInfoMaps` needed.
+
+### Fixed fields
 
 ```ts
 {
   entryType: 'AA',
-  uniProtkbId: null,
+  uniProtkbId: '',        // placeholder — UniParc data has no UniProtKB ID
+  proteinExistence: '',   // placeholder — UniFire has no PE level
   annotationScore: 0,
-  primaryAccession: '...',  // derived from UniFireModel.accession, colon → hyphen
+  primaryAccession: '...' // UniFireModel.accession, colon → hyphen
 }
 ```
 
-The `primaryAccession` is derived from `UniFireModel.accession` (e.g. `'UPI000002A2F6:9606'` becomes `'UPI000002A2F6-9606'`).
-
-## Annotation Type → Output Field Mappings
-
-The known annotation types are defined in `src/uniparc/config/UniFireAnnotationTypeToSection.ts`. Each prediction maps to a flat array on the output object.
+`uniProtkbId`/`proteinExistence` are empty-string **placeholders**: `UniProtkbAPIModel`
+requires them as `string`, but UniParc data has neither. Empty string is the
+honest "not applicable" and renders as nothing if it ever leaks. `entryType: 'AA'`
+is the honest discriminator for "automatic-annotation entry, not a real UniProtKB
+entry". **`UniProtkbAPIModel` itself is never modified** — adapt at the boundary,
+do not weaken the destination type. `primaryAccession`: e.g. `'UPI000002A2F6:9606'`
+→ `'UPI000002A2F6-9606'`.
 
 ### `comment.*` predictions → `comments[]`
 
-Each `comment.*` prediction becomes a `FreeTextComment` appended to the flat `comments` array:
+`commentType` comes from `annotationTypeToSection[type].freeTextType`. **Two cases:**
+
+**Structured comment types** — `SUBCELLULAR LOCATION`, `COFACTOR`,
+`CATALYTIC ACTIVITY` — emit their **structured shape**, one comment per
+prediction (not consolidated). A `FreeTextComment` for these would be silently
+dropped by the UniProtKB renderers, which read the structured fields. UniFire's
+flat `annotationValue` maps to the single required text field of each:
+
+```ts
+'SUBCELLULAR LOCATION' → { commentType, subcellularLocations: [{ location: { value, evidences } }] }
+'COFACTOR'             → { commentType, cofactors: [{ name: value, evidences }] }
+'CATALYTIC ACTIVITY'   → { commentType, reaction: { name: value, evidences } }
+```
+
+**All other comment types** — `FUNCTION`, `CAUTION`, `SIMILARITY`,
+`ACTIVITY REGULATION`, `PATHWAY`, `MISCELLANEOUS`, … — emit `FreeTextComment`,
+and are **consolidated by `commentType`** (multiple predictions of one type
+collapse into a single comment with a flat `texts[]`, in declaration order):
 
 ```
-Input:
-  { evidence: ["ARBA00002651"], annotationType: "comment.function",
-    annotationValue: "The gamma-CTF peptides..." }
-
-Output (in comments[]):
-  { commentType: 'FUNCTION',
-    texts: [{ value: 'The gamma-CTF peptides...',
-              evidences: [{ evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00002651' }] }] }
+Input:  { evidence: ["ARBA00002651"], annotationType: "comment.function",
+          annotationValue: "The gamma-CTF peptides..." }
+Output: { commentType: 'FUNCTION',
+          texts: [{ value: 'The gamma-CTF peptides...',
+                    evidences: [{ evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00002651' }] }] }
 ```
-
-The `commentType` comes from `annotationTypeToSection[type].freeTextType`.
-
-**Note on subcellular locations:** The precomputed endpoint returns structured `SubcellularLocationComment` objects with SL-* identifiers and topology. UniFire only provides flat text (e.g. `"Cell membrane; Single-pass type I membrane protein"`), so the converter produces `FreeTextComment` for these. The downstream `UniParcPrecomputedModel → UniProtkbUIModel` converter will need to handle both comment shapes.
 
 ### `feature.*` predictions → `features[]`
 
-Each `feature.*` prediction becomes a `FeatureDatum` appended to the flat `features` array:
+`type` comes from `annotationTypeToSection[type].featureType`. Requires both
+`start` and `end`; a feature prediction missing either is silently skipped.
 
 ```
-Input:
-  { evidence: ["UR000976770"], annotationType: "feature.DISULFID", start: 73, end: 117 }
-
-Output (in features[]):
-  { type: 'Disulfide bond',
-    description: '',
-    location: { start: { value: 73, modifier: 'EXACT' },
-                end: { value: 117, modifier: 'EXACT' } },
-    evidences: [{ evidenceCode: 'ECO:0000256', source: 'UniRule', id: 'UR000976770' }] }
+Input:  { evidence: ["UR000976770"], annotationType: "feature.DISULFID", start: 73, end: 117 }
+Output: { type: 'Disulfide bond', description: '',
+          location: { start: { value: 73, modifier: 'EXACT' },
+                      end:   { value: 117, modifier: 'EXACT' } },
+          evidences: [{ evidenceCode: 'ECO:0000256', source: 'UniRule', id: 'UR000976770' }] }
 ```
-
-The `type` comes from `annotationTypeToSection[type].featureType`.
 
 ### `keyword` predictions → `keywords[]`
 
-Each `keyword` prediction becomes a `Keyword` appended to the flat `keywords` array:
-
 ```
-Input:
-  { evidence: ["ARBA00023087"], annotationType: "keyword", annotationValue: "Amyloid" }
-
-Output (in keywords[]):
-  { name: 'Amyloid',
-    evidences: [{ evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00023087' }] }
+Input:  { evidence: ["ARBA00023087"], annotationType: "keyword", annotationValue: "Amyloid" }
+Output: { name: 'Amyloid', evidences: [...] }
 ```
 
-UniFire does not provide keyword `id` or `category`, so these fields will be absent. The precomputed endpoint provides full keyword data. The downstream converter and rendering components will need to handle both cases.
+UniFire provides no keyword `id` or `category` — those fields are absent
+(permanently, by design — see §differences).
 
 ### `protein.recommendedName.fullName` → `proteinDescription.recommendedName`
 
-```
-Input:
-  { evidence: ["ARBA00021782"], annotationType: "protein.recommendedName.fullName",
-    annotationValue: "Amyloid-beta precursor protein" }
+First prediction wins (known UniFire duplicate issue — reported upstream).
 
-Output (in proteinDescription):
-  { recommendedName: {
-      fullName: { value: 'Amyloid-beta precursor protein',
-                  evidences: [{ evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00021782' }] } } }
-```
+### `protein.alternativeName.fullName` → `proteinDescription.alternativeNames[]`
 
-**Duplicate handling:** If multiple predictions share this annotation type, use the first one.
+Each prediction appended in order.
 
-### `protein.alternativeName.fullName` → `proteinDescription.alternativeNames`
+### `protein.recommendedName.ecNumber` → `recommendedName.ecNumbers[]`
 
-Each prediction becomes an entry in `proteinDescription.alternativeNames[]`:
-
-```
-Input:
-  { evidence: ["ARBA00032275"], annotationType: "protein.alternativeName.fullName",
-    annotationValue: "ABPP" }
-
-Output (in proteinDescription.alternativeNames[]):
-  { fullName: { value: 'ABPP',
-                evidences: [{ evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00032275' }] } }
-```
+Accumulated and merged into `recommendedName`. `ProteinNames` requires a
+non-optional `fullName`, so ecNumbers can only attach when a
+`recommendedName.fullName` was also predicted; otherwise they are dropped with a
+`logging.warn` (empirically, no corpus entry has ecNumbers without a fullName).
 
 ### `xref.GO` predictions → `uniProtKBCrossReferences[]`
 
-Each `xref.GO` prediction becomes a cross-reference:
-
 ```
-Input:
-  { evidence: ["UR000976770", "UR000976774"], annotationType: "xref.GO",
-    annotationValue: "GO:0008201" }
-
-Output (in uniProtKBCrossReferences[]):
-  { database: 'GO', id: 'GO:0008201',
-    evidences: [{ evidenceCode: 'ECO:0000256', source: 'UniRule', id: 'UR000976770' },
-                { evidenceCode: 'ECO:0000256', source: 'UniRule', id: 'UR000976774' }] }
+Input:  { evidence: ["UR000976770","UR000976774"], annotationType: "xref.GO", annotationValue: "GO:0008201" }
+Output: { database: 'GO', id: 'GO:0008201', evidences: [...] }
 ```
+
+(No `properties` — see the §6 Phase 1 latent-bug note; the consuming GO-xref code
+must be null-safe.)
 
 ### `extraAttributes`
 
-Compute `countByCommentType` and `countByFeatureType` from the transformed data:
+`countByCommentType` and `countByFeatureType` computed from the transformed
+output. Free-text types count 1 per `commentType` (consolidated); structured
+types count one per prediction.
 
-```ts
-extraAttributes: {
-  countByCommentType: { FUNCTION: 1, 'SUBCELLULAR LOCATION': 11, SIMILARITY: 1 },
-  countByFeatureType: { 'Disulfide bond': 5 }
-}
-```
+### Edge cases & error handling
 
-## Differences Between UniFire-derived and Precomputed Data
-
-These differences are permanent — UniFire is the long-term path for non-RefSeq entries. The downstream converter (`UniParcPrecomputedModel → UniProtkbUIModel`) and rendering components must handle both flavours gracefully as a design requirement.
-
-| Field | Precomputed (RefSeq only) | UniFire-derived (all other entries) |
-| :--- | :--- | :--- |
-| `keywords[].id` | Present (e.g. `'KW-0034'`) | Absent |
-| `keywords[].category` | Present (e.g. `'Cellular component'`) | Absent |
-| Subcellular location comments | Structured `SubcellularLocationComment` with SL-* ids and topology | `FreeTextComment` with flat text |
-| Evidence sources | Resolved (e.g. `PROSITE-ProRule`, `PRU01217`) | Generic (`UniRule`, `UR*` ids) |
-| Additional comments (e.g. CAUTION) | May include extra annotations from precomputation | Only what UniFire returns |
-
-## Non-Goals
-
-- Do not update components or the downstream `UniParcPrecomputedModel → UniProtkbUIModel` converter
-- Do not delete code — only add a new function
-
-## Edge Cases & Error Handling
-
-| Scenario | Expected Behaviour |
+| Scenario | Behaviour |
 | :--- | :--- |
-| Input does not conform to `UniFireModel` | Validate input shape. Raise an error with the accession. |
-| Unknown `annotationType` encountered | Skip the prediction, return everything else. Log via `logging.warn` (captured by Sentry). |
-| Transformer fails on a single prediction | Skip it, keep going. Do not throw away successfully transformed predictions. |
-| Duplicate `protein.recommendedName.fullName` | Use the first one. Known UniFire issue — will be reported upstream. |
+| Input not a valid `UniFireModel` | `isValidUniFireModel` guard fails → `logging.error` + throw with accession |
+| Unknown `annotationType` | Skip prediction, keep the rest, `logging.warn` |
+| A single prediction's transform throws | Skip it (per-prediction try/catch), keep successfully transformed predictions, `logging.warn` |
+| Duplicate `protein.recommendedName.fullName` | Use the first |
 
-Logging pattern (from `src/shared/utils/logging`):
+Logging: `import * as logging from '../../shared/utils/logging'` →
+`logging.warn(msg, { extra: { annotationType, accession } })`.
 
+### UniFire-derived vs precomputed data (permanent differences)
+
+| Field | Precomputed (RefSeq) | UniFire-derived (all others) |
+| :--- | :--- | :--- |
+| `keywords[].id` / `.category` | Present | Absent |
+| Subcellular location | Structured `SubcellularLocationComment` with SL-* ids + topology | Structured, but `location.value` only (no SL-* id, no topology) |
+| Evidence sources | Resolved (e.g. `PROSITE-ProRule`) | Generic (`UniRule`, `UR*` ids) |
+
+Both sources now emit the **same comment shapes** — Phase 2 normalises UniFire's
+structured comments — so downstream consumers never branch on provenance.
+
+---
+
+## 4. Key types & entry points
+
+### `UniProtkbAPIModel` — `src/uniprotkb/adapters/uniProtkbConverter.ts` (~line 68)
+UniProtKB API response shape. **Do not modify.** Required: `primaryAccession`,
+`uniProtkbId: string`, `proteinExistence: string`, `entryType: string`,
+`annotationScore: AnnotationScoreValue` (`0|1|2|3|4|5`). Optional: `proteinDescription?`,
+`organism?`, `comments?: Comment[]`, `keywords?`, `features?`,
+`uniProtKBCrossReferences?`, `sequence?`, `extraAttributes?`, etc.
+
+### `uniProtKbConverter` — same file (~line 175)
+`(data: UniProtkbAPIModel, databaseInfoMaps: DatabaseInfoMaps) => UniProtkbUIModel`.
+`UniProtkbUIModel` is section-keyed (`[EntrySection.Function]: UIModel`, …);
+the per-section type is declared `UIModel` but the converter produces specific
+subtypes — section components need a cast (`as FunctionUIModel`).
+
+### `UniParcPrecomputedModel` — `src/uniparc/types/precomputed.ts`
 ```ts
-import * as logging from '../../../shared/utils/logging';
+Omit<UniProtkbAPIModel, 'uniProtkbId' | 'entryType' | 'proteinExistence'>
+  & { entryType: 'AA'; uniProtkbId: null }
+```
+The precomputed endpoint's **wire type** only — not a convergence target.
 
-logging.warn('Unknown UniFire annotation type encountered', {
-  extra: { annotationType: prediction.annotationType, accession: data.accession },
-});
+### UniFire types — `src/uniparc/adapters/uniParcSubEntryConverter.ts` (~line 23)
+```ts
+type Prediction = { evidence: string[]; annotationType: string;
+                    annotationValue?: string; start?: number; end?: number };
+type UniFireModel = { accession: string; predictions: Prediction[] | ModifiedPrediction[] };
+```
+`constructPredictionEvidences(evidences: string[] | undefined): Evidence[]` — same file.
+
+### `uniFireToUniProtkbConverter` — `src/uniparc/adapters/uniFireToUniProtkbConverter.ts` (✅ Phase 2)
+`(data: unknown) => UniProtkbAPIModel`. Exports `isValidUniFireModel` (runtime
+guard) and `ValidUniFireModel`. Pure — no entry/`databaseInfoMaps` argument
+(organism/sequence supplementation happens at page assembly, Phase 3).
+
+### Structured comment types — `src/uniprotkb/types/commentTypes.ts`
+`SubcellularLocationComment` (`subcellularLocations: [{ location, topology?, orientation? }]`),
+`CofactorComment` (`cofactors: [{ name, evidences?, cofactorCrossReference? }]`),
+`CatalyticActivityComment` (`reaction: { name, reactionCrossReferences?, ecNumber?, evidences? }`).
+
+### `UniFireAnnotationTypeToSection` — `src/uniparc/config/UniFireAnnotationTypeToSection.ts`
+Default export `annotationTypeToSection: Record<string, SectionObject>`
+(`{ section; freeTextType?; subSectionLabel?; featureType? }`); named export
+`groupTypesBySection`. The `freeTextType`/`featureType` fields are **adapter**
+data (used by the converter); `section`/`subSectionLabel` + `groupTypesBySection`
+are **display** data — the display half dies in Phase 5.
+
+---
+
+## 5. Rendering layer — current state
+
+### `SubEntryMain.tsx` — `src/uniparc/components/sub-entry/SubEntryMain.tsx`
+Generic dispatcher (22 lines): maps `Object.values(UniParcSubEntryConfig)`
+calling `sectionContent(transformedData)`, each wrapped in `Suspense` +
+`ErrorBoundary`. Not UniFire-coupled — only its prop type changes (Phase 3).
+
+### `UniParcSubEntryConfig.tsx` — `src/uniparc/config/UniParcSubEntryConfig.tsx`
+`Record<EntrySection, { id; label; sectionContent: (data) => JSX.Element }>`.
+11 sections:
+
+| Section | Current component | Source | Migrate? |
+|---|---|---|---|
+| Function | `UniFireInferredSection` | annotations | ✅ → `FunctionSection` |
+| SubcellularLocation | `UniFireInferredSection` | annotations | ✅ → `SubcellularLocationSection` |
+| Expression / ProteinProcessing / Interaction | `UniFireInferredSection` | annotations | ✅ → UniProtKB component — verified ✅ |
+| FamilyAndDomains | `SubEntryFamilyAndDomains` | annotations | ✅ → UniProtKB component — verified ✅ |
+| NamesAndTaxonomy | `SubEntryNamesAndTaxonomySection` | mixed | ✅ → `NamesAndTaxonomySection` |
+| Structure / Sequence / SimilarProteins | bespoke | `data.entry` | ✗ entry-driven — no change |
+| KeywordsAndGO | `SubEntryKeywordsSection` | raw `unifire` | ✅ likely removable (Phase 5) |
+
+### `UniFireInferredSection.tsx`
+UniFire-tailored: reads raw `data.unifire?.predictions`, filters by
+`annotationType`. **Deleted in Phase 5.**
+
+### UniProtKB section components (reuse targets) — all verified ✅
+
+All seven annotation-driven section components are **pure props components** (no
+context argument, no `Entry.tsx` entanglement) and render UniFire-converted data
+with no modification — verified by spike: each mounted on a `UniProtkbUIModel`
+converted from UniFire data and confirmed to render its **actual content**, not
+just "not throw". Five were exercised with the UniFire mock; Expression and
+Interaction were confirmed with synthetic `comment.induction` / `comment.subunit`
+predictions, since the mock has neither. Each lives in
+`src/uniprotkb/components/entry/`.
+
+| Section | Component | Props |
+|---|---|---|
+| Function | `FunctionSection` | `data: FunctionUIModel`, `primaryAccession`, `sequence?`, `communityReferences: Reference[]` |
+| SubcellularLocation | `SubcellularLocationSection` | `data: SubcellularLocationUIModel`, `sequence?` |
+| Expression | `ExpressionSection` | `data: UIModel`, `primaryAccession` |
+| ProteinProcessing | `ProteinProcessingSection` | `data: UIModel`, `primaryAccession`, `sequence?` |
+| Interaction | `InteractionSection` | `data: UIModel`, `primaryAccession` |
+| FamilyAndDomains | `FamilyAndDomainsSection` | `data: UIModel`, `primaryAccession`, `sequence?`, `uniParcID?`, `hasPhylogenomicXrefs?` |
+| NamesAndTaxonomy | `NamesAndTaxonomySection` | `data: NamesAndTaxonomyUIModel`, `primaryAccession`, `communityReferences: Reference[]`, `references?` |
+
+Notes:
+- `data` is `annotations[EntrySection.X]`, cast to the section subtype where the
+  prop is narrower than the declared `UIModel`.
+- `SubcellularLocationSection`'s viz early-returns on `!lineage` — `organism`
+  must be supplied (Phase 3).
+- Each section also fires its **own** `useDataApi` fetch for supplementary data
+  (ProteinProcessing → `proteomicsPtm`; Function → GO ribbon / `CommunityCurated`;
+  etc.), keyed off `primaryAccession`. They degrade gracefully when the fetch
+  misses (the converted prop data still renders) — see Open Q1.
+
+---
+
+## 6. Phased plan
+
+```
+Phase 1 (independent) ───────────────────────────────────┐
+Phase 2 ──► Phase 3 ──► Phase 4 (per-section) ──► Phase 5
+Phase 6 (after Phases 3–5) ───────────────────────────────┘
 ```
 
-## Acceptance Criteria
+Phases 1 & 2 = "the transformation branch" — merge as a standalone PR before
+Phase 3.
 
-- [ ] New transformation function in `src/uniparc/adapters/` that accepts `UniFireModel` and returns `UniParcPrecomputedModel`
-- [ ] Fixed fields set: `entryType: 'AA'`, `uniProtkbId: null`, `annotationScore: 0`, `primaryAccession` derived from accession
-- [ ] `comment.*` predictions → `FreeTextComment` objects in flat `comments[]` array
-- [ ] `feature.*` predictions → `FeatureDatum` objects in flat `features[]` array
-- [ ] `keyword` predictions → `Keyword` objects in flat `keywords[]` (name + evidences only)
-- [ ] `protein.recommendedName.fullName` → `proteinDescription.recommendedName`
-- [ ] `protein.alternativeName.fullName` → `proteinDescription.alternativeNames[]`
-- [ ] `xref.GO` → `uniProtKBCrossReferences[]`
-- [ ] `extraAttributes` computed with `countByCommentType` and `countByFeatureType`
-- [ ] Unknown annotation types skipped with `logging.warn`
-- [ ] Input validation checks conformance to `UniFireModel`
-- [ ] Partial failures do not discard successfully transformed data
-- [ ] Reuses `constructPredictionEvidences` from `uniParcSubEntryConverter.ts`
+### Phase 1 — Null-safety fix in `subcellularLocationConverter` ✅ DONE (2026-05-20)
+- `src/uniprotkb/adapters/subcellularLocationConverter.ts` (`getAndPrepareSubcellGoXrefs`):
+  `xref.properties?.GoTerm.startsWith('C:')` → `xref.properties?.GoTerm?.startsWith('C:')`.
+  A GO xref with a `properties` object lacking `GoTerm` previously crashed the
+  whole conversion.
+- Regression test added to `subcellularLocationConverter.spec.ts` (verified
+  fail-before / pass-after).
 
-## Tests
+### Phase 2 — Retarget the UniFire converter ✅ DONE (2026-05-20)
+- Renamed `uniFireToPrecomputedConverter.ts` → `uniFireToUniProtkbConverter.ts`
+  (+ spec). Output type `UniParcPrecomputedModel` → `UniProtkbAPIModel`.
+- Empty-string `uniProtkbId`/`proteinExistence` placeholders; `entryType: 'AA'`.
+- Structured comments for the 3 structured types (§3); free-text + consolidation
+  unchanged for the rest.
+- `UniFireAnnotationTypeToSection` was **not** modified — a `switch` in the
+  converter's `buildComment` helper detects structured types.
+- Tests: `uniFireToUniProtkbConverter.spec.ts` updated + COFACTOR / CATALYTIC /
+  structured-SL coverage added.
+- **Deferred (deliberate):** organism/sequence supplementation → Phase 3 (it
+  reads the UniParc entry — page-assembly work); `UniParcPrecomputedModel →
+  UniProtkbAPIModel` lift and `Omit`→`Pick` tightening → Phase 6.
 
-- [ ] Tests in `__tests__/` directory alongside the adapter
-- [ ] Test output has correct fixed fields (`entryType`, `uniProtkbId`, `annotationScore`, `primaryAccession`)
-- [ ] Test `comment.*` transformation (function, subcellular location, similarity)
-- [ ] Test `feature.*` transformation (disulfide bond, region)
-- [ ] Test `keyword` transformation (name + evidences, no id/category)
-- [ ] Test `protein.recommendedName.fullName` transformation (first one used)
-- [ ] Test `protein.alternativeName.fullName` transformation (all collected)
-- [ ] Test `xref.GO` transformation
-- [ ] Test `extraAttributes` counts are computed correctly
-- [ ] Test unknown annotation type triggers `logging.warn` and is skipped
-- [ ] Test partial failure still returns successfully transformed predictions
-- [ ] Test input validation
-- [ ] Use `unifireModelData` mock as input
+### Phase 3 — Page assembly: run `uniProtKbConverter`, reshape `SubEntryMain`
+- In `SubEntry.tsx` / `SubEntryContext.tsx`: run UniFire data through
+  `uniFireToUniProtkbConverter` → **supplement `organism` (and `sequence`) from
+  the UniParc entry** → `uniProtKbConverter` → `annotations: UniProtkbUIModel`.
+- Change `SubEntryMain`'s prop to a composite:
+  ```ts
+  type EntryMainProps = {
+    entry: Partial<UniParcUIModel>;   // Sequence, Structure, SimilarProteins
+    annotations: UniProtkbUIModel;    // annotation sections
+  };
+  ```
+- Update `UniParcSubEntryConfig`'s `sectionContent` signature.
+- `databaseInfoMaps` (2nd arg to `uniProtKbConverter`) — obtain it via the
+  `useDatabaseInfoMaps()` hook (`src/shared/hooks/useDatabaseInfoMaps`, a
+  consumer of `DatabaseInfoMapsContext`). **Already reachable** — `src/uniparc/`
+  uses it today (`UniParcColumnConfiguration`, `UniParcFeaturesView` in the entry
+  component tree), so the context provider is in scope; no wiring needed. It
+  returns `undefined` until the database-info data loads — guard the conversion
+  (skip / show a loader) exactly as `Entry.tsx` does
+  (`if (!data || !databaseInfoMaps) …`).
+- **Acceptance:** page builds and renders unchanged (sections still on
+  `UniFireInferredSection` — migration is Phase 4).
+
+### Phase 4 — Migrate sections one at a time
+`UniParcSubEntryConfig` dispatches per-section, so old and new coexist. All seven
+target components are **verified reusable** (§5) — Phase 4 is mechanical: per
+section, rewrite its `sectionContent` to render the UniProtKB component fed
+`annotations[EntrySection.X]`, then verify.
+- Annotation sections: Function, SubcellularLocation, Expression,
+  ProteinProcessing, Interaction, FamilyAndDomains, NamesAndTaxonomy — see §5 for
+  the component + props of each.
+- Entry-driven sections (Structure, Sequence, SimilarProteins) — no change.
+- Example: `<FunctionSection data={annotations[EntrySection.Function] as FunctionUIModel}
+  primaryAccession={entry.primaryAccession} sequence={entry.sequence?.value}
+  communityReferences={[]} />`.
+- **Verify each with a render test:** `customRender` the section and `jest.mock`
+  `useDataApi` to return `{ loading: false, data: undefined }` — otherwise the
+  section sits on its own supplementary fetch's `<Loader/>` and renders nothing.
+  Assert the converted content actually appears, not merely that it "did not
+  throw" (the all-sections spike initially missed empty Expression/Interaction
+  because the UniFire mock lacked induction/subunit predictions).
+
+### Phase 5 — Remove the UniFire-specific rendering layer
+- Delete `UniFireInferredSection.tsx`; delete the display half of
+  `UniFireAnnotationTypeToSection` (`groupTypesBySection`, `section`/`subSectionLabel`);
+  keep/relocate the adapter half.
+- **Keep a keywords section — do NOT remove `KeywordsAndGO` expecting keywords to
+  distribute into sections.** They do not for UniFire: `uniProtKbConverter`
+  distributes keywords *by `category`*, UniFire keywords have none, so they are
+  orphaned (verified by spike: 0 of 33 placed into any section). Either keep a
+  flat keyword section rendering `annotations.keywords` directly, or resolve
+  keyword→category in the converter — see Open Q4.
+
+### Phase 6 — Precomputed endpoint branch (after Phases 3–5)
+Fetch → `UniParcPrecomputedModel` → thin lift to `UniProtkbAPIModel` (placeholders,
+same as the UniFire converter) → same pipeline. Optionally tighten
+`UniParcPrecomputedModel` (`Omit`→`Pick`). No new rendering work.
+
+---
+
+## 7. Open questions
+
+1. **Supplementary fetches.** Every reused section component fires its own
+   `useDataApi` request keyed off the accession — `proteomicsPtm`
+   (ProteinProcessing), GO ribbon / GO-CAM / `CommunityCurated` (Function), etc.
+   For a UniParc accession these mostly miss; the components degrade gracefully
+   (the converted data still renders), but decide whether to suppress the
+   requests/widgets. (Phase 3/4)
+2. `FunctionSection` emits its own `<HTMLHead><meta name="description">` —
+   reconcile with the sub-entry page's own meta description.
+3. ~~Does the precomputed endpoint exist yet?~~ **RESOLVED:** it exists
+   (`…/uniprotkb/precomputed/{upi}/{taxId}` — see §1). Phase 6 is no longer
+   backend-gated — only sequenced after Phases 3–5.
+4. **UniFire keyword placement.** UniFire keywords have no `category`;
+   `uniProtKbConverter` distributes keywords *by category*, so they land in no
+   section (verified: 0 of 33). To render them under Approach B, either keep a
+   flat keyword section fed `annotations.keywords`, or resolve keyword→category
+   in the converter (the UniProtKB keyword vocabulary has that mapping).
+   Precomputed keywords carry categories and distribute normally. (Phase 4/5)
+
+## 8. Out of scope
+
+- Modifying `UniProtkbAPIModel` itself (placeholders are the boundary adaptation).
+- The UniProtKB entry page. New backend endpoints.
+
+## 9. Risks
+
+- ~~Not all section components standalone-reusable~~ — **RESOLVED:** all seven
+  annotation-driven section components verified reusable with zero changes (§5).
+- **Placeholder leakage** — low (section components consume per-section
+  `UIModel`s, not top-level `uniProtkbId`/`proteinExistence`); verify any new
+  `SubEntryMain`-level wrapper.
+
+## 10. Commands & conventions
+
+- `yarn test` — lint + types + unit. Individual: `yarn test:lint`,
+  `yarn test:types`, `yarn test:unit`. One jest file:
+  `node_modules/.bin/jest <path> --coverage=false`.
+- If `yarn` fails with a lockfile error (seen in the dev sandbox), run the
+  tools directly: `node_modules/.bin/eslint src`, `node_modules/.bin/tsc`,
+  `node_modules/.bin/jest --coverage`.
+- Functional components + TypeScript; Airbnb ESLint; no `console.log`; no
+  non-null assertions; inline `type` imports; CSS Modules.
+- Tests in `__tests__/` as `*.spec.ts(x)`; mock data in `__mocks__/`; wrap
+  components with `customRender` from `src/shared/__test-helpers__/customRender`.
+
+## 11. Fixtures
+
+- `databaseInfoMaps` mock — `src/uniprotkb/utils/__tests__/__mocks__/databaseInfoMaps.ts`.
+- UniProtKB entry mock (P21802) — `src/uniprotkb/__mocks__/uniProtKBEntryModelData.ts`.
+- Precomputed mock — `src/uniparc/__mocks__/uniparcPrecomputedModelData.ts`.
+- UniFire mock — `src/uniparc/__mocks__/unifireModelData.ts`.
+- `uniProtKbConverter` output contains `Map`s — JSON-serialising needs a
+  replacer (`value instanceof Map ? Object.fromEntries(value) : value`).
