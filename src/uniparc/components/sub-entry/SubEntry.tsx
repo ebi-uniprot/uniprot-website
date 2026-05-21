@@ -193,13 +193,6 @@ const SubEntry = () => {
         component,
       ]) ?? []
     ),
-    ...(subEntryDataPerDatabase?.proteomeId &&
-    subEntryDataPerDatabase?.component
-      ? {
-          [subEntryDataPerDatabase.proteomeId]:
-            subEntryDataPerDatabase.component,
-        }
-      : undefined),
   };
 
   const proteomeIds = Object.keys(proteomeComponentObject);

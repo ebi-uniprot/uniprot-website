@@ -39,8 +39,6 @@ export type UniParcXRef = Partial<{
   organism: TaxonomyDatum;
   properties: Property[];
   proteinName: string;
-  proteomeId: string;
-  component: string;
   proteomes: Proteome[];
   chain: string;
   version: number; // might not always be there (e.g., for PRF xrefs)
