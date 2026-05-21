@@ -99,6 +99,7 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
                 proteomeTypeOrder.indexOf(b.value as ProteomeFacetValue)
             ),
         };
+      // TODO: Needs review of the use case. Delete if not needed
       case 'proteome': // uppercase value until backend returns it consistently
         return {
           ...facet,
