@@ -501,7 +501,6 @@ const SubEntry = () => {
           )}
           <div className="button-group">
             <Dropdown
-              // eslint-disable-next-line react/no-unstable-nested-components
               visibleElement={(onClick: () => unknown) => (
                 <Button variant="tertiary" onClick={onClick}>
                   BLAST
