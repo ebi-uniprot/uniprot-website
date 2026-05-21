@@ -73,7 +73,7 @@ export type ProteomeType =
   | 'Reference and representative proteome'
   | 'Reference proteome'
   | 'Representative proteome'
-  | 'Non-reference proteome'
+  | 'Non Reference proteome'
   | 'Redundant proteome'
   | 'Other proteome'
   | 'Excluded';
