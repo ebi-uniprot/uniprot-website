@@ -1,6 +1,9 @@
 import { type JSX } from 'react';
 
+import { type FunctionUIModel } from '../../uniprotkb/adapters/functionConverter';
 import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import FunctionSection from '../../uniprotkb/components/entry/FunctionSection';
+import UniProtKBEntrySection from '../../uniprotkb/types/entrySection';
 import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
@@ -21,20 +24,22 @@ const uniParcSubEntryConfig: Record<
     sectionContent: (
       entryData: UniParcSubEntryUIModel,
       annotations?: UniProtkbUIModel
-    ) => JSX.Element;
+    ) => JSX.Element | null;
   }
 > = {
   [EntrySection.Function]: {
     id: EntrySection.Function,
     label: entrySectionToLabel[EntrySection.Function],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Function)}
-        section={EntrySection.Function}
-        key={EntrySection.Function}
-      />
-    ),
+    // Phase 4 — migrated to the UniProtKB FunctionSection (spec.md §6).
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <FunctionSection
+          data={annotations[UniProtKBEntrySection.Function] as FunctionUIModel}
+          primaryAccession={annotations.primaryAccession}
+          sequence={data.entry.sequence?.value}
+          communityReferences={[]}
+        />
+      ) : null,
   },
   [EntrySection.NamesAndTaxonomy]: {
     id: EntrySection.NamesAndTaxonomy,

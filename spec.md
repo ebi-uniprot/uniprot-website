@@ -403,12 +403,12 @@ section, rewrite its `sectionContent` to render the UniProtKB component fed
 - Delete `UniFireInferredSection.tsx`; delete the display half of
   `UniFireAnnotationTypeToSection` (`groupTypesBySection`, `section`/`subSectionLabel`);
   keep/relocate the adapter half.
-- **Keep a keywords section — do NOT remove `KeywordsAndGO` expecting keywords to
-  distribute into sections.** They do not for UniFire: `uniProtKbConverter`
-  distributes keywords *by `category`*, UniFire keywords have none, so they are
-  orphaned (verified by spike: 0 of 33 placed into any section). Either keep a
-  flat keyword section rendering `annotations.keywords` directly, or resolve
-  keyword→category in the converter — see Open Q4.
+- **Keep `SubEntryKeywordsSection` (the `KeywordsAndGO` config entry) as-is** —
+  it is the one annotation section **not** migrated to a UniProtKB component.
+  UniFire keywords have no `category`, so `uniProtKbConverter` cannot section
+  them (verified: 0 of 33 placed); the bespoke catch-all stays. Do **not** delete
+  it. Verify it doesn't depend on the deleted display-half of
+  `UniFireAnnotationTypeToSection`.
 
 ### Phase 6 — Precomputed endpoint branch (after Phases 3–5)
 Fetch → `UniParcPrecomputedModel` → thin lift to `UniProtkbAPIModel` (placeholders,
@@ -430,12 +430,12 @@ same as the UniFire converter) → same pipeline. Optionally tighten
 3. ~~Does the precomputed endpoint exist yet?~~ **RESOLVED:** it exists
    (`…/uniprotkb/precomputed/{upi}/{taxId}` — see §1). Phase 6 is no longer
    backend-gated — only sequenced after Phases 3–5.
-4. **UniFire keyword placement.** UniFire keywords have no `category`;
-   `uniProtKbConverter` distributes keywords *by category*, so they land in no
-   section (verified: 0 of 33). To render them under Approach B, either keep a
-   flat keyword section fed `annotations.keywords`, or resolve keyword→category
-   in the converter (the UniProtKB keyword vocabulary has that mapping).
-   Precomputed keywords carry categories and distribute normally. (Phase 4/5)
+4. ~~UniFire keyword placement.~~ **RESOLVED:** UniFire keywords have no
+   `category`, so `uniProtKbConverter` cannot section them — the bespoke
+   `SubEntryKeywordsSection` (catch-all) is **kept** rather than migrated
+   (Phase 5). Resolving keyword→category in the converter remains a possible
+   future enhancement but is not needed for parity. The migration-comparison
+   harness confirms 0 keyword drops with the section kept.
 
 ## 8. Out of scope
 
