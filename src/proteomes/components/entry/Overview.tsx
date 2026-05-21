@@ -52,12 +52,11 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
               ({data.exclusionReasons.join(', ')})
             </span>
           ) : null}
-          {proteomeType === 'Non Reference proteome' &&
-          data.relatedProteomes?.length ? (
+          {data.relatedProteomes?.length ? (
             <>
               {' ('}
               <a href={`#${EntrySection.SimilarProteomes}`}>
-                view similar proteomes
+                view similar reference proteomes
               </a>
               )
             </>
