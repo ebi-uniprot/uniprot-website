@@ -26,7 +26,9 @@ export const getSubEntryProteomes = (
     properties.forEach((property) => {
       if (property.key === 'sources') {
         const [, , proteomeId, ...component] = property.value.split(':');
-        if (!proteomeComponentObject[proteomeId]) {
+        // Guard against a `sources` value with no proteome segment — an empty
+        // proteomeId becomes an unkeyed entry and crashes getEntryPath().
+        if (proteomeId && !proteomeComponentObject[proteomeId]) {
           proteomeComponentObject[proteomeId] = component.join(':');
         }
       }

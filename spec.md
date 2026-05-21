@@ -378,15 +378,28 @@ Phase 3.
   `annotations` yet; Phase 4 migrates them).
 
 ### Phase 4 — Migrate sections one at a time ✅ DONE (2026-05-20)
-All seven annotation sections in `UniParcSubEntryConfig` now render the UniProtKB
+**Five** annotation sections in `UniParcSubEntryConfig` now render the UniProtKB
 section component fed `annotations[EntrySection.X]` (was `UniFireInferredSection`
 / the bespoke `SubEntry*Section`s). Each `sectionContent` is
 `(data, annotations) => annotations ? <XSection … /> : null`.
 - **Function** → `<FunctionSection>` · **SubcellularLocation** →
   `<SubcellularLocationSection>` · **Expression** → `<ExpressionSection>` ·
   **ProteinProcessing** → `<ProteinProcessingSection>` · **Interaction** →
-  `<InteractionSection>` · **FamilyAndDomains** → `<FamilyAndDomainsSection>` ·
-  **NamesAndTaxonomy** → `<NamesAndTaxonomySection>`.
+  `<InteractionSection>`.
+- **NamesAndTaxonomy and FamilyAndDomains are NOT migrated** — kept as bespoke
+  components (`SubEntryNamesAndTaxonomySection`, `SubEntryFamilyAndDomainsSection`)
+  reworked on 2026-05-21 into **source-agnostic hybrids**. Each renders two
+  parts: an *entry-intrinsic* part from `data` (NamesAndTaxonomy → the
+  cross-reference's imported protein/gene/organism; FamilyAndDomains → the
+  entry's InterPro `sequenceFeatures`) — present on every entry — **plus** the
+  annotation-derived part read from the converted `annotations` (predicted
+  names; DOMAIN/SIMILARITY comments + family/domain features). Reading from
+  `annotations` (not raw `data.unifire`) means both the UniFire and precomputed
+  branches are covered — the corpus shows `SIMILARITY` comments and predicted
+  protein names in ~90–95% of entries on *both* sources. They join
+  KeywordsAndGO / Structure / Sequence / SimilarProteins as non-migrated
+  sections. (The original `SubEntry` nav logic was the tell — only these two
+  had *entry-driven* `disabled` checks.)
 - **SubcellularLocation** also needed `organism` supplemented — `SubEntry.tsx`
   takes it from the UniParc cross-reference (`subEntryDataPerDatabase.organism`,
   a `TaxonomyDatum`), flattening its `Lineage` objects to the `string[]` lineage
@@ -447,20 +460,22 @@ source-agnostically.
   of already-computed data); UniFire (which *runs* the pipeline) is the
   **fallback**, gated `runUniFire && precomputedResolved && !hasPrecomputed`.
   `annotations` is built from whichever resolved — precomputed first.
-- **In-page-nav** `disabled` is driven off the resolved `annotations` via
-  `annotationSectionHasContent` — source-agnostic (precomputed or UniFire,
-  whichever populated the page), mirroring `Entry.tsx` (`hasContent`, and
-  `subcellularLocationSectionHasContent` for SL). The now-orphaned
-  `groupTypesBySection` and the dead `subSectionLabel` field were removed from
-  `UniFireAnnotationTypeToSection` — its display half is fully gone now
-  (completes Phase 5), leaving only the adapter map the converter uses.
+- **In-page-nav** `disabled` for the 5 migrated sections is driven off the
+  resolved `annotations` via `annotationSectionHasContent` — source-agnostic
+  (precomputed or UniFire), mirroring `Entry.tsx` (`hasContent`, and
+  `subcellularLocationSectionHasContent` for SL). NamesAndTaxonomy and
+  FamilyAndDomains keep their original entry-driven nav checks.
+  `UniFireAnnotationTypeToSection` is now **just the adapter map** the converter
+  uses — `groupTypesBySection` and `subSectionLabel` are gone. The reworked
+  bespoke hybrids consume the converted `annotations` (UIModels), not the raw
+  UniFire prediction shape, so they no longer need that display config.
 - **Audit follow-ups done (2026-05-21):** `showUniFireOption` is now gated on
   `precomputedResolved && !hasPrecomputed`, so the UniFire "Generate
   annotations" control/status is hidden for precomputed entries — it had been
   showing a misleading "No predictions generated". `UniParcPrecomputedModel`
   tightened `Omit`→`Pick` (the 7 fields the endpoint actually returns, per the
   250-file corpus). Redundant `key` props dropped from `UniParcSubEntryConfig`.
-- **Visual check (`yarn start:dev`)** — in progress; surfaced and fixed three
+- **Visual check (`yarn start:dev`)** — in progress; surfaced and fixed four
   things the automated checks could not: (a) UniFire URL host (pinned to
   `rest.uniprot.org`); (b) `SubcellularLocationWithVizView.isVirus` crashed on
   an empty `lineage` — `withOrganism` produces `lineage: []` when the xref has
@@ -469,7 +484,22 @@ source-agnostically.
   UniFire object's `.predictions`, so it is now passed a shallow clone — keeping
   `uniFireData.data` raw for the `annotations` useMemo (the mutation otherwise
   made the memo log spurious "Invalid UniFireModel" errors on a strict-mode
-  re-run).
+  re-run); (d) the migrated sections fire supplementary accession-keyed fetches
+  (`ProteinProcessingSection` → proteomics PTM, `GoCam` → GO-CAM,
+  `InteractionViewer` → the IntAct `<interaction-viewer>`) that 400/404 on the
+  fabricated `UPI…-taxId` accession. Each fetching component now self-guards on
+  the new `isUniProtKBAccession()` helper (`regexes.ts`) — the check lives with
+  the component that fetches, not its parent. The spikes/harness mocked
+  `useDataApi`, so these fetches were never exercised in testing; (e) a
+  no-prediction entry rendered no Names & Taxonomy at all — see Phase 4:
+  NamesAndTaxonomy was wrongly migrated as an annotation section and has been
+  reverted to the bespoke entry-driven `SubEntryNamesAndTaxonomySection`;
+  (f) `getSubEntryProteomes` crashed on a `sources` xref property with no
+  proteome segment (empty `proteomeId` → `getEntryPath` throws) — now guarded
+  (a pre-existing bug re-exposed by the (e) revert); (g) FamilyAndDomains
+  vanished on no-prediction entries — same class as (e): it is a hybrid (entry
+  InterPro `sequenceFeatures` + predictions) and has likewise been reverted to
+  the bespoke `SubEntryFamilyAndDomainsSection` (see Phase 4).
 - **Verified:** `tsc` + ESLint clean; `src/uniparc` suite 102/102.
 
 ---
@@ -501,8 +531,12 @@ source-agnostically.
 
 ## 9. Risks
 
-- ~~Not all section components standalone-reusable~~ — **RESOLVED:** all seven
-  annotation-driven section components verified reusable with zero changes (§5).
+- **Section components were not as "pure" / reusable as the spikes suggested.**
+  The spikes/harness mocked `useDataApi`, masking two things the visual check
+  later caught: (1) several section components fire supplementary accession-keyed
+  fetches (now gated — Phase 6 / visual-check note); (2) NamesAndTaxonomy is
+  entry-driven, not annotation-driven, and was reverted to bespoke (Phase 4).
+  Six sections do reuse cleanly; treat "reusable" claims as render-only.
 - **Placeholder leakage** — low (section components consume per-section
   `UIModel`s, not top-level `uniProtkbId`/`proteinExistence`); verify any new
   `SubEntryMain`-level wrapper.

@@ -45,6 +45,7 @@ import {
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
 import { hasContent } from '../../../shared/utils/utils';
+import { type UIModel } from '../../../uniprotkb/adapters/sectionConverter';
 import uniProtKbConverter, {
   type UniProtkbAPIModel,
   type UniProtkbUIModel,
@@ -265,7 +266,16 @@ const SubEntry = () => {
     if (section === UniProtKBEntrySection.SubCellularLocation) {
       return subcellularLocationSectionHasContent(annotations[section]);
     }
-    return hasContent(annotations[section]);
+    // `hasContent` on the whole UIModel is fooled by metadata fields some
+    // converters set (e.g. functionConverter's `entryType`) — check only the
+    // renderable content fields.
+    const sectionData = annotations[section] as Partial<UIModel>;
+    return hasContent({
+      commentsData: sectionData.commentsData,
+      featuresData: sectionData.featuresData,
+      keywordData: sectionData.keywordData,
+      xrefData: sectionData.xrefData,
+    });
   };
 
   useEffect(() => {
@@ -367,6 +377,19 @@ const SubEntry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
+  // Nav `disabled` for the two hybrid sections must mirror their components'
+  // render conditions — entry-intrinsic data OR annotation content.
+  const familyAndDomainsHasContent =
+    Boolean(
+      transformedData.entry.sequenceFeatures?.length &&
+      transformedData.entry.sequence?.value
+    ) || annotationSectionHasContent(UniProtKBEntrySection.FamilyAndDomains);
+  const namesAndTaxonomyHasContent = Boolean(
+    transformedData.subEntry.proteinName ||
+    transformedData.subEntry.geneName ||
+    transformedData.subEntry.organism
+  );
+
   const sidebar = subPage === TabLocation.Entry && (
     <InPageNav
       sections={Object.values(uniParcSubEntryConfig).map((section) => ({
@@ -375,7 +398,7 @@ const SubEntry = () => {
           (section.id === SubEntrySection.Structure &&
             !hasStructure(transformedData.subEntry)) ||
           (section.id === SubEntrySection.NamesAndTaxonomy &&
-            !transformedData.subEntry.proteinName) ||
+            !namesAndTaxonomyHasContent) ||
           // Annotation sections — enabled when the resolved `annotations`
           // (precomputed or UniFire) has content for that section.
           (section.id === SubEntrySection.Function &&
@@ -393,9 +416,7 @@ const SubEntry = () => {
           (section.id === SubEntrySection.Interaction &&
             !annotationSectionHasContent(UniProtKBEntrySection.Interaction)) ||
           (section.id === SubEntrySection.FamilyAndDomains &&
-            !annotationSectionHasContent(
-              UniProtKBEntrySection.FamilyAndDomains
-            )) ||
+            !familyAndDomainsHasContent) ||
           (section.id === SubEntrySection.KeywordsAndGO &&
             !transformedData.unifire?.predictions.some(
               (p) =>

@@ -17,6 +17,7 @@ import {
 import * as logging from '../../../shared/utils/logging';
 import { heuristic } from '../../../shared/workers/jobs/utils/heuristic';
 import { type GoCamModelInfo, type GoCamModels } from '../../types/goCamTypes';
+import { isUniProtKBAccession } from '../../utils/regexes';
 import GoCamViz from '../protein-data-views/GoCamViz';
 import styles from './styles/go-cam.module.scss';
 
@@ -69,7 +70,10 @@ type Props = {
 const GoCam = ({ primaryAccession }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
-    externalUrls.GeneOntologyModels(primaryAccession)
+    // Skip for a non-UniProtKB accession (e.g. a UniParc sub-entry).
+    isUniProtKBAccession(primaryAccession)
+      ? externalUrls.GeneOntologyModels(primaryAccession)
+      : null
   );
   const [goCamIdToNode, setGoCamIdToNode] = useSafeState<Map<
     string,

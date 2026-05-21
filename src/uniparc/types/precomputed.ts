@@ -2,11 +2,11 @@ import type { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConver
 
 // The precomputed endpoint returns only this subset of UniProtkbAPIModel
 // fields — empirically, the union of top-level keys across the downloaded
-// corpus (`transformer-gap/downloads/precomputed/`). `entryType` and
-// `uniProtkbId` are returned too but with precomputed-specific values.
+// corpus (`transformer-gap/downloads/precomputed/`). `entryType`,
+// `uniProtkbId` and `annotationScore` are returned too but with
+// precomputed-specific values.
 export type UniParcPrecomputedModel = Pick<
   UniProtkbAPIModel,
-  | 'annotationScore'
   | 'comments'
   | 'extraAttributes'
   | 'features'
@@ -16,4 +16,8 @@ export type UniParcPrecomputedModel = Pick<
 > & {
   entryType: 'AA';
   uniProtkbId: null;
+  // Always 0.0 for precomputed entries (verified across all 250 corpus files) —
+  // the annotation score is meaningful only for curated UniProtKB entries.
+  // Do NOT render it on UniParc sub-entry pages.
+  annotationScore: 0;
 };

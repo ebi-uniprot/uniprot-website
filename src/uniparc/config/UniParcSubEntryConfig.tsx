@@ -1,23 +1,39 @@
 import { type JSX } from 'react';
 
+import { hasContent } from '../../shared/utils/utils';
 import { type FunctionUIModel } from '../../uniprotkb/adapters/functionConverter';
+import { type UIModel } from '../../uniprotkb/adapters/sectionConverter';
 import { type SubcellularLocationUIModel } from '../../uniprotkb/adapters/subcellularLocationConverter';
 import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import ExpressionSection from '../../uniprotkb/components/entry/ExpressionSection';
-import FamilyAndDomainsSection from '../../uniprotkb/components/entry/FamilyAndDomainsSection';
 import FunctionSection from '../../uniprotkb/components/entry/FunctionSection';
 import InteractionSection from '../../uniprotkb/components/entry/InteractionSection';
-import NamesAndTaxonomySection from '../../uniprotkb/components/entry/NamesAndTaxonomySection';
 import ProteinProcessingSection from '../../uniprotkb/components/entry/ProteinProcessingSection';
 import SubcellularLocationSection from '../../uniprotkb/components/entry/SubcellularLocationSection';
 import UniProtKBEntrySection from '../../uniprotkb/types/entrySection';
 import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
+import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
+import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNamesAndTaxonomySection';
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
 import EntrySection from '../types/subEntrySection';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
+
+// `hasContent` on a whole section UIModel is fooled by metadata fields some
+// converters add (e.g. functionConverter's `entryType`); check only the
+// renderable UIModel content fields.
+const hasAnnotationContent = (section?: UIModel): boolean =>
+  Boolean(
+    section &&
+    hasContent({
+      commentsData: section.commentsData,
+      featuresData: section.featuresData,
+      keywordData: section.keywordData,
+      xrefData: section.xrefData,
+    })
+  );
 
 const uniParcSubEntryConfig: Record<
   EntrySection,
@@ -34,8 +50,12 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection.Function,
     label: entrySectionToLabel[EntrySection.Function],
     // Phase 4 — migrated to the UniProtKB FunctionSection (spec.md §6).
+    // Gated on real content — FunctionSection's own `hasContent` guard is fooled
+    // by the `entryType` metadata functionConverter sets, so without this it
+    // renders an empty Card for an entry with no function annotations.
     sectionContent: (data, annotations) =>
-      annotations ? (
+      annotations &&
+      hasAnnotationContent(annotations[UniProtKBEntrySection.Function]) ? (
         <FunctionSection
           data={annotations[UniProtKBEntrySection.Function] as FunctionUIModel}
           primaryAccession={annotations.primaryAccession}
@@ -47,15 +67,12 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.NamesAndTaxonomy]: {
     id: EntrySection.NamesAndTaxonomy,
     label: entrySectionToLabel[EntrySection.NamesAndTaxonomy],
-    // Phase 4 — migrated to the UniProtKB NamesAndTaxonomySection.
-    sectionContent: (data, annotations) =>
-      annotations ? (
-        <NamesAndTaxonomySection
-          data={annotations[UniProtKBEntrySection.NamesAndTaxonomy]}
-          primaryAccession={annotations.primaryAccession}
-          communityReferences={[]}
-        />
-      ) : null,
+    // Hybrid, kept bespoke: imported protein/gene/organism from the UniParc
+    // cross-reference plus predicted names from `annotations` (source-agnostic,
+    // UniFire or precomputed).
+    sectionContent: (data, annotations) => (
+      <SubEntryNamesAndTaxonomySection data={data} annotations={annotations} />
+    ),
   },
   [EntrySection.SubcellularLocation]: {
     id: EntrySection.SubcellularLocation,
@@ -120,15 +137,12 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
     label: entrySectionToLabel[EntrySection.FamilyAndDomains],
-    // Phase 4 — migrated to the UniProtKB FamilyAndDomainsSection.
-    sectionContent: (data, annotations) =>
-      annotations ? (
-        <FamilyAndDomainsSection
-          data={annotations[UniProtKBEntrySection.FamilyAndDomains]}
-          primaryAccession={annotations.primaryAccession}
-          sequence={data.entry.sequence?.value}
-        />
-      ) : null,
+    // Entry-driven hybrid, kept bespoke: the entry's InterPro `sequenceFeatures`
+    // plus the family/domain annotations from `annotations` (source-agnostic —
+    // UniFire or precomputed).
+    sectionContent: (data, annotations) => (
+      <SubEntryFamilyAndDomains data={data} annotations={annotations} />
+    ),
   },
   [EntrySection.Sequence]: {
     id: EntrySection.Sequence,

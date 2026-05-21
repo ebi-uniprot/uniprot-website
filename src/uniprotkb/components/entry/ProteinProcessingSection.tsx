@@ -10,6 +10,7 @@ import { type FreeTextComment } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { type ProteomicsPtm } from '../../types/proteomicsPtm';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import { isUniProtKBAccession } from '../../utils/regexes';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
@@ -28,7 +29,11 @@ const ProteinProcessingSection = ({
 }: Props) => {
   const { loading: proteomicsPtmLoading, data: proteomicsPtmData } =
     useDataApi<ProteomicsPtm>(
-      apiUrls.proteinsApi.proteomicsPtm(primaryAccession)
+      // Skip the supplementary fetch for a non-UniProtKB accession (e.g. a
+      // UniParc sub-entry) — the Proteins API would 400 on it.
+      isUniProtKBAccession(primaryAccession)
+        ? apiUrls.proteinsApi.proteomicsPtm(primaryAccession)
+        : null
     );
 
   if (proteomicsPtmLoading) {
