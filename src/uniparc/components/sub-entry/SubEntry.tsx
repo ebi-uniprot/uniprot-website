@@ -347,8 +347,10 @@ const SubEntry = () => {
     uniparcData.data,
     subEntryDataPerDatabase as UniParcXRef,
     unisaveData.data,
-    // If no data, it would be an empty string
-    uniFireData.data || undefined
+    // uniParcSubEntryConverter reassigns `.predictions` on the UniFire object;
+    // pass a shallow clone so the `annotations` useMemo above keeps seeing the
+    // raw `uniFireData.data` (which is '' when there is no data).
+    uniFireData.data ? { ...uniFireData.data } : undefined
   );
 
   if (!transformedData) {
@@ -460,7 +462,9 @@ const SubEntry = () => {
           uniparcId={accession}
           subEntry={transformedData.subEntry}
           data={unisaveData?.data}
-          showUniFireOption={!!canLoadUniFire}
+          showUniFireOption={
+            !!canLoadUniFire && precomputedResolved && !hasPrecomputed
+          }
           uniFireData={uniFireData.data}
           uniFireLoading={uniFireData.loading}
           runUniFire={runUniFire}

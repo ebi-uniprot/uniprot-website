@@ -38,6 +38,10 @@ export type SubCellularLocation = {
 };
 
 const isVirus = ([superkingdom]: Lineage | string[]) => {
+  if (superkingdom === undefined) {
+    // Empty lineage — can't classify; treat as non-virus rather than crash.
+    return false;
+  }
   if (typeof superkingdom === 'string') {
     return superkingdom === Superkingdom.Viruses;
   }

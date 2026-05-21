@@ -115,9 +115,7 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Structure]: {
     id: EntrySection.Structure,
     label: entrySectionToLabel[EntrySection.Structure],
-    sectionContent: (data) => (
-      <SubEntryStructureSection data={data} key={EntrySection.Structure} />
-    ),
+    sectionContent: (data) => <SubEntryStructureSection data={data} />,
   },
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
@@ -135,30 +133,20 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Sequence]: {
     id: EntrySection.Sequence,
     label: entrySectionToLabel[EntrySection.Sequence],
-    sectionContent: (data) => (
-      <SubEntrySequenceSection data={data} key={EntrySection.Sequence} />
-    ),
+    sectionContent: (data) => <SubEntrySequenceSection data={data} />,
   },
   [EntrySection.SimilarProteins]: {
     id: EntrySection.SimilarProteins,
     label: entrySectionToLabel[EntrySection.SimilarProteins],
     sectionContent: (data) => (
-      <SubEntrySimilarProteinsSection
-        uniparcId={data.entry.uniParcId}
-        key={EntrySection.SimilarProteins}
-      />
+      <SubEntrySimilarProteinsSection uniparcId={data.entry.uniParcId} />
     ),
   },
   // Dedicated section for Keywords and GO as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
   [EntrySection.KeywordsAndGO]: {
     id: EntrySection.KeywordsAndGO,
     label: entrySectionToLabel[EntrySection.KeywordsAndGO],
-    sectionContent: ({ unifire }) => (
-      <SubEntryKeywordsSection
-        data={unifire}
-        key={EntrySection.KeywordsAndGO}
-      />
-    ),
+    sectionContent: ({ unifire }) => <SubEntryKeywordsSection data={unifire} />,
   },
 };
 

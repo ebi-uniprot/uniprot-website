@@ -437,7 +437,12 @@ source-agnostically.
   `uniProtKbConverter`s cleanly.
 - **URL** — `apiUrls.precomputed.precomputed(upi, taxId)` →
   `{apiPrefix}/uniprotkb/precomputed/<upi>/<taxId>` (path params; **HTTP 404 =
-  no precomputed data**).
+  no precomputed data**). Precomputed follows the environment-dependent
+  `apiPrefix` (so it points at wwwdev under `start:dev`). **Temporary:** during
+  the dev rollout UniFire's `run` service is only on `rest.uniprot.org`, so
+  `unifire.ts` pins that host rather than `apiPrefix` (otherwise `start:dev`
+  would 404 it against wwwdev). Once everything converges on `rest.uniprot.org`,
+  drop the pin and build it from `apiPrefix` like the rest.
 - **Selection (`SubEntry.tsx`)** — precomputed is **preferred** (a cheap fetch
   of already-computed data); UniFire (which *runs* the pipeline) is the
   **fallback**, gated `runUniFire && precomputedResolved && !hasPrecomputed`.
@@ -449,9 +454,22 @@ source-agnostically.
   `groupTypesBySection` and the dead `subSectionLabel` field were removed from
   `UniFireAnnotationTypeToSection` — its display half is fully gone now
   (completes Phase 5), leaving only the adapter map the converter uses.
-- **Known follow-ups (not blocking):** the UniFire toggle / "predictions
-  loaded" messaging in `SubEntryContext` is unchanged — only meaningful on the
-  UniFire fallback path. `UniParcPrecomputedModel` `Omit`→`Pick` untouched.
+- **Audit follow-ups done (2026-05-21):** `showUniFireOption` is now gated on
+  `precomputedResolved && !hasPrecomputed`, so the UniFire "Generate
+  annotations" control/status is hidden for precomputed entries — it had been
+  showing a misleading "No predictions generated". `UniParcPrecomputedModel`
+  tightened `Omit`→`Pick` (the 7 fields the endpoint actually returns, per the
+  250-file corpus). Redundant `key` props dropped from `UniParcSubEntryConfig`.
+- **Visual check (`yarn start:dev`)** — in progress; surfaced and fixed three
+  things the automated checks could not: (a) UniFire URL host (pinned to
+  `rest.uniprot.org`); (b) `SubcellularLocationWithVizView.isVirus` crashed on
+  an empty `lineage` — `withOrganism` produces `lineage: []` when the xref has
+  no lineage, so `isVirus` now treats an empty lineage as non-virus rather than
+  reading `undefined.scientificName`; (c) `uniParcSubEntryConverter` mutates the
+  UniFire object's `.predictions`, so it is now passed a shallow clone — keeping
+  `uniFireData.data` raw for the `annotations` useMemo (the mutation otherwise
+  made the memo log spurious "Invalid UniFireModel" errors on a strict-mode
+  re-run).
 - **Verified:** `tsc` + ESLint clean; `src/uniparc` suite 102/102.
 
 ---
