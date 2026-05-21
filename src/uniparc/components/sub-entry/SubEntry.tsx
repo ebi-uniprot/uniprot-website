@@ -515,21 +515,21 @@ const SubEntry = () => {
                     textSuffix="against the sequence"
                   />
                 </li>
-                {speciesTaxons && (
-                  <li>
-                    <BlastButton
-                      selectedEntries={[accession]}
-                      textSuffix={`against the ${pluralise('taxon', speciesTaxons.length)}`}
-                      taxons={speciesTaxons}
-                    />
-                  </li>
-                )}
                 {relatedProteomeTaxons && (
                   <li>
                     <BlastButton
                       selectedEntries={[accession]}
                       textSuffix={`against related proteome ${pluralise(' taxon', relatedProteomeTaxons.length)}`}
                       taxons={relatedProteomeTaxons}
+                    />
+                  </li>
+                )}
+                {speciesTaxons && (
+                  <li>
+                    <BlastButton
+                      selectedEntries={[accession]}
+                      textSuffix={`against the ${pluralise('taxon', speciesTaxons.length)}`}
+                      taxons={speciesTaxons}
                     />
                   </li>
                 )}
