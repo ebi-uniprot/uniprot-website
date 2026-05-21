@@ -400,7 +400,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       };
     }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, react/no-unstable-nested-components
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @eslint-react/no-nested-component-definitions, @eslint-react/static-components
     const Instance = (props: any) => <instanceName.current {...props} />;
 
     const locationIds = {
@@ -415,6 +415,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         <template id="sibSwissBioPicsStyle" />
         {/** insists on wanting to get stuff from the outside, give empty div */}
         <div id="fakeContent" />
+        {/* eslint-disable-next-line @eslint-react/static-components */}
         <Instance taxid={taxonId} contentid="fakeContent" {...locationIds}>
           {children}
         </Instance>
