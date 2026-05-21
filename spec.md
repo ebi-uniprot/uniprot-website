@@ -4,7 +4,7 @@
 > UniParcPrecomputedModel" spec — the convergence type changed from
 > `UniParcPrecomputedModel` to `UniProtkbAPIModel` ("Approach B", §2).
 >
-> **Status:** in progress — Phases 1–3 complete (2026-05-20); all 7 section components verified reusable; Phases 4–6 not
+> **Status:** in progress — Phases 1–4 complete (2026-05-20); all 7 annotation sections migrated; Phases 5–6 not
 > started. Phases 1–2 ("the transformation branch") are intended to merge as a
 > standalone PR *before* any component work (Phase 3+).
 >
@@ -375,36 +375,34 @@ Phase 3.
   snapshots **unchanged** — page renders identically (no section consumes
   `annotations` yet; Phase 4 migrates them).
 
-### Phase 4 — Migrate sections one at a time
-`UniParcSubEntryConfig` dispatches per-section, so old and new coexist. All seven
-target components are **verified reusable** (§5) — Phase 4 is mechanical: per
-section, rewrite its `sectionContent` to render the UniProtKB component fed
-`annotations[EntrySection.X]`, then verify.
-- Annotation sections: Function, SubcellularLocation, Expression,
-  ProteinProcessing, Interaction, FamilyAndDomains, NamesAndTaxonomy — see §5 for
-  the component + props of each.
-- **Function (4a)** ✅ done — `<FunctionSection>`.
-- **SubcellularLocation (4b)** ✅ done — `<SubcellularLocationSection>`.
-  `SubEntry.tsx` supplements `organism` from the UniParc cross-reference
-  (`subEntryDataPerDatabase.organism`, a `TaxonomyDatum`), flattening its
-  `Lineage` objects to the `string[]` lineage that `UniProtkbAPIModel.organism`
-  (`UniProtKBSimplifiedTaxonomy`) requires. `SubcellularLocationWithVizView`
-  returns `null` (dropping the SL comments) on a *falsy* `lineage` — but an
-  empty `[]` is truthy, so when the xref carries no lineage the SL content
-  still renders; only the SwissBioPics virus-detection is then degraded.
-  **Open:** confirm whether the UniParc xref API populates `organism.lineage`
-  (a real `rest.uniprot.org` xref response would settle it; if it never does,
-  consider fetching the taxonomy lineage by `taxonId`).
-- Entry-driven sections (Structure, Sequence, SimilarProteins) — no change.
-- Example: `<FunctionSection data={annotations[EntrySection.Function] as FunctionUIModel}
-  primaryAccession={entry.primaryAccession} sequence={entry.sequence?.value}
-  communityReferences={[]} />`.
-- **Verify each with a render test:** `customRender` the section and `jest.mock`
-  `useDataApi` to return `{ loading: false, data: undefined }` — otherwise the
-  section sits on its own supplementary fetch's `<Loader/>` and renders nothing.
-  Assert the converted content actually appears, not merely that it "did not
-  throw" (the all-sections spike initially missed empty Expression/Interaction
-  because the UniFire mock lacked induction/subunit predictions).
+### Phase 4 — Migrate sections one at a time ✅ DONE (2026-05-20)
+All seven annotation sections in `UniParcSubEntryConfig` now render the UniProtKB
+section component fed `annotations[EntrySection.X]` (was `UniFireInferredSection`
+/ the bespoke `SubEntry*Section`s). Each `sectionContent` is
+`(data, annotations) => annotations ? <XSection … /> : null`.
+- **Function** → `<FunctionSection>` · **SubcellularLocation** →
+  `<SubcellularLocationSection>` · **Expression** → `<ExpressionSection>` ·
+  **ProteinProcessing** → `<ProteinProcessingSection>` · **Interaction** →
+  `<InteractionSection>` · **FamilyAndDomains** → `<FamilyAndDomainsSection>` ·
+  **NamesAndTaxonomy** → `<NamesAndTaxonomySection>`.
+- **SubcellularLocation** also needed `organism` supplemented — `SubEntry.tsx`
+  takes it from the UniParc cross-reference (`subEntryDataPerDatabase.organism`,
+  a `TaxonomyDatum`), flattening its `Lineage` objects to the `string[]` lineage
+  `UniProtkbAPIModel.organism` (`UniProtKBSimplifiedTaxonomy`) requires.
+  `SubcellularLocationWithVizView` returns `null` (dropping the SL comments) on
+  a *falsy* `lineage` — but an empty `[]` is truthy, so when the xref carries no
+  lineage the SL content still renders; only SwissBioPics virus-detection is
+  degraded. **Known limitation:** `TaxonomyDatum.lineage` is optional and a
+  UniParc xref carries a lightweight organism ref, so the supplemented lineage
+  is usually `[]` — content always renders; fetch the taxonomy lineage by
+  `taxonId` if the SwissBioPics correctness ever matters.
+- Entry-driven sections (Structure, Sequence, SimilarProteins) — unchanged.
+  `KeywordsAndGO` stays bespoke (`SubEntryKeywordsSection`, see Phase 5 / Q4).
+- The bespoke `UniFireInferredSection`, `SubEntryFamilyAndDomainsSection` and
+  `SubEntryNamesAndTaxonomySection` are now orphaned — Phase 5 deletes them.
+- **Verified:** `tsc` + ESLint clean; the migration-comparison harness reports
+  0 dropped / 0 misplaced across 3426 values / 289 corpus entries; full suite
+  green (237 suites, 1491 tests).
 
 ### Phase 5 — Remove the UniFire-specific rendering layer
 - Delete `UniFireInferredSection.tsx`; delete the display half of

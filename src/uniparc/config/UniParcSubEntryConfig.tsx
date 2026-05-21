@@ -3,19 +3,20 @@ import { type JSX } from 'react';
 import { type FunctionUIModel } from '../../uniprotkb/adapters/functionConverter';
 import { type SubcellularLocationUIModel } from '../../uniprotkb/adapters/subcellularLocationConverter';
 import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import ExpressionSection from '../../uniprotkb/components/entry/ExpressionSection';
+import FamilyAndDomainsSection from '../../uniprotkb/components/entry/FamilyAndDomainsSection';
 import FunctionSection from '../../uniprotkb/components/entry/FunctionSection';
+import InteractionSection from '../../uniprotkb/components/entry/InteractionSection';
+import NamesAndTaxonomySection from '../../uniprotkb/components/entry/NamesAndTaxonomySection';
+import ProteinProcessingSection from '../../uniprotkb/components/entry/ProteinProcessingSection';
 import SubcellularLocationSection from '../../uniprotkb/components/entry/SubcellularLocationSection';
 import UniProtKBEntrySection from '../../uniprotkb/types/entrySection';
 import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
-import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
-import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNamesAndTaxonomySection';
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
-import UniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
 import EntrySection from '../types/subEntrySection';
-import { groupTypesBySection } from './UniFireAnnotationTypeToSection';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
 const uniParcSubEntryConfig: Record<
@@ -46,12 +47,15 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.NamesAndTaxonomy]: {
     id: EntrySection.NamesAndTaxonomy,
     label: entrySectionToLabel[EntrySection.NamesAndTaxonomy],
-    sectionContent: (data) => (
-      <SubEntryNamesAndTaxonomySection
-        data={data}
-        key={EntrySection.NamesAndTaxonomy}
-      />
-    ),
+    // Phase 4 — migrated to the UniProtKB NamesAndTaxonomySection.
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <NamesAndTaxonomySection
+          data={annotations[UniProtKBEntrySection.NamesAndTaxonomy]}
+          primaryAccession={annotations.primaryAccession}
+          communityReferences={[]}
+        />
+      ) : null,
   },
   [EntrySection.SubcellularLocation]: {
     id: EntrySection.SubcellularLocation,
@@ -74,38 +78,39 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Expression]: {
     id: EntrySection.Expression,
     label: entrySectionToLabel[EntrySection.Expression],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Expression)}
-        section={EntrySection.Expression}
-        key={EntrySection.Expression}
-      />
-    ),
+    // Phase 4 — migrated to the UniProtKB ExpressionSection.
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <ExpressionSection
+          data={annotations[UniProtKBEntrySection.Expression]}
+          primaryAccession={annotations.primaryAccession}
+        />
+      ) : null,
   },
   [EntrySection.ProteinProcessing]: {
     id: EntrySection.ProteinProcessing,
     label: entrySectionToLabel[EntrySection.ProteinProcessing],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.ProteinProcessing)}
-        section={EntrySection.ProteinProcessing}
-        key={EntrySection.ProteinProcessing}
-      />
-    ),
+    // Phase 4 — migrated to the UniProtKB ProteinProcessingSection.
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <ProteinProcessingSection
+          data={annotations[UniProtKBEntrySection.ProteinProcessing]}
+          primaryAccession={annotations.primaryAccession}
+          sequence={data.entry.sequence?.value}
+        />
+      ) : null,
   },
   [EntrySection.Interaction]: {
     id: EntrySection.Interaction,
     label: entrySectionToLabel[EntrySection.Interaction],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Interaction)}
-        section={EntrySection.Interaction}
-        key={EntrySection.Interaction}
-      />
-    ),
+    // Phase 4 — migrated to the UniProtKB InteractionSection.
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <InteractionSection
+          data={annotations[UniProtKBEntrySection.Interaction]}
+          primaryAccession={annotations.primaryAccession}
+        />
+      ) : null,
   },
   [EntrySection.Structure]: {
     id: EntrySection.Structure,
@@ -117,12 +122,15 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
     label: entrySectionToLabel[EntrySection.FamilyAndDomains],
-    sectionContent: (data) => (
-      <SubEntryFamilyAndDomains
-        data={data}
-        key={EntrySection.FamilyAndDomains}
-      />
-    ),
+    // Phase 4 — migrated to the UniProtKB FamilyAndDomainsSection.
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <FamilyAndDomainsSection
+          data={annotations[UniProtKBEntrySection.FamilyAndDomains]}
+          primaryAccession={annotations.primaryAccession}
+          sequence={data.entry.sequence?.value}
+        />
+      ) : null,
   },
   [EntrySection.Sequence]: {
     id: EntrySection.Sequence,
