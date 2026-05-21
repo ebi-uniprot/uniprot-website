@@ -8,6 +8,7 @@ import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
+import EntrySection from '../../types/entrySection';
 import BuscoLegend from '../BuscoLegend';
 import BuscoView from '../BuscoView';
 import { PanProteome } from './PanProteome';
@@ -51,10 +52,14 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
               ({data.exclusionReasons.join(', ')})
             </span>
           ) : null}
-          {proteomeType === 'Non Reference proteome' ? (
+          {proteomeType === 'Non Reference proteome' &&
+          data.relatedProteomes?.length ? (
             <>
               {' ('}
-              <a href="#similar_proteomes">view similar proteomes</a>)
+              <a href={`#${EntrySection.SimilarProteomes}`}>
+                view similar proteomes
+              </a>
+              )
             </>
           ) : null}
         </>
