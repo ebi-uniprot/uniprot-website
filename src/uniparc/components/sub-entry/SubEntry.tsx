@@ -44,12 +44,17 @@ import {
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
+import { hasContent } from '../../../shared/utils/utils';
 import uniProtKbConverter, {
+  type UniProtkbAPIModel,
   type UniProtkbUIModel,
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { subcellularLocationSectionHasContent } from '../../../uniprotkb/components/entry/SubcellularLocationSection';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
+import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
+import precomputedToUniProtkbConverter from '../../adapters/precomputedToUniProtkbConverter';
 import uniFireToUniProtkbConverter from '../../adapters/uniFireToUniProtkbConverter';
 import {
   type UniParcLiteAPIModel,
@@ -59,9 +64,9 @@ import uniParcSubEntryConverter, {
   type UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
-import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
+import { type UniParcPrecomputedModel } from '../../types/precomputed';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryPath } from '../../utils/subEntry';
 import { getXrefId } from '../../utils/uniparcXref';
@@ -175,49 +180,93 @@ const SubEntry = () => {
   const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
   const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
 
+  // Precomputed annotations are preferred — they already exist, so this is a
+  // cheap fetch. UniFire (which *runs* the annotation pipeline) is the fallback,
+  // used only when there is no precomputed data for this entry (HTTP 404).
+  const precomputedData = useDataApi<UniParcPrecomputedModel>(
+    canLoadUniFire
+      ? apiUrls.precomputed.precomputed(accession, `${subEntryTaxId}`)
+      : null
+  );
+  const hasPrecomputed =
+    precomputedData.status === 200 && Boolean(precomputedData.data);
+  const precomputedResolved = !precomputedData.loading;
+
   const uniFireData = useDataApi<UniFireModel>(
-    canLoadUniFire && runUniFire
+    canLoadUniFire && runUniFire && precomputedResolved && !hasPrecomputed
       ? apiUrls.unifire.unifire(accession, `${subEntryTaxId}`)
       : null
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
-  // Convert UniFire predictions into a UniProtkbUIModel so the sub-entry
-  // sections can render through the UniProtKB section components (spec.md
-  // Phase 3/4). Computed before uniParcSubEntryConverter() runs below: that
-  // converter mutates uniFireData.data.predictions into the ModifiedPrediction
-  // shape, which uniFireToUniProtkbConverter's input validation would reject.
+  // Build the annotations UIModel the sub-entry sections render (spec.md Phase
+  // 3/4/6). Precomputed is preferred; UniFire is the fallback. Computed before
+  // uniParcSubEntryConverter() runs below — that converter mutates
+  // uniFireData.data.predictions into the ModifiedPrediction shape, which
+  // uniFireToUniProtkbConverter's input validation would then reject.
   const annotations: UniProtkbUIModel | undefined = useMemo(() => {
-    if (!uniFireData.data || !databaseInfoMaps) {
+    if (!databaseInfoMaps) {
       return undefined;
     }
-    try {
-      const apiModel = uniFireToUniProtkbConverter(uniFireData.data);
-      // Phase 4b: supplement organism from the UniParc cross-reference — the
-      // SubcellularLocation viz renders nothing without `organism.lineage`. The
-      // xref carries a TaxonomyDatum with rich Lineage objects; flatten it to
-      // the string[] lineage that UniProtkbAPIModel.organism expects.
+    // Supplement organism from the UniParc cross-reference — the
+    // SubcellularLocation viz renders nothing without `organism.lineage`. The
+    // xref carries a TaxonomyDatum with rich Lineage objects; flatten it to the
+    // string[] lineage that UniProtkbAPIModel.organism expects.
+    const withOrganism = (apiModel: UniProtkbAPIModel): UniProtkbAPIModel => {
       const xrefOrganism = subEntryDataPerDatabase?.organism;
-      return uniProtKbConverter(
-        xrefOrganism
-          ? {
-              ...apiModel,
-              organism: {
-                ...xrefOrganism,
-                lineage: (xrefOrganism.lineage ?? [])
-                  .map((node) => node.scientificName)
-                  .filter((name): name is string => Boolean(name)),
-              },
-            }
-          : apiModel,
-        databaseInfoMaps
-      );
+      return xrefOrganism
+        ? {
+            ...apiModel,
+            organism: {
+              ...xrefOrganism,
+              lineage: (xrefOrganism.lineage ?? [])
+                .map((node) => node.scientificName)
+                .filter((name): name is string => Boolean(name)),
+            },
+          }
+        : apiModel;
+    };
+    try {
+      if (hasPrecomputed && precomputedData.data) {
+        return uniProtKbConverter(
+          withOrganism(precomputedToUniProtkbConverter(precomputedData.data)),
+          databaseInfoMaps
+        );
+      }
+      if (uniFireData.data) {
+        return uniProtKbConverter(
+          withOrganism(uniFireToUniProtkbConverter(uniFireData.data)),
+          databaseInfoMaps
+        );
+      }
+      return undefined;
     } catch {
-      // uniFireToUniProtkbConverter logs and throws on malformed input;
-      // degrade to no annotations rather than crashing the page.
+      // The converters log and throw on malformed input; degrade to no
+      // annotations rather than crashing the page.
       return undefined;
     }
-  }, [uniFireData.data, databaseInfoMaps, subEntryDataPerDatabase]);
+  }, [
+    databaseInfoMaps,
+    subEntryDataPerDatabase,
+    hasPrecomputed,
+    precomputedData.data,
+    uniFireData.data,
+  ]);
+
+  // A migrated annotation section's in-page-nav item is enabled when the
+  // resolved `annotations` (precomputed or UniFire, whichever populated the
+  // page) has content for it — mirrors how Entry.tsx drives its nav.
+  const annotationSectionHasContent = (
+    section: UniProtKBEntrySection
+  ): boolean => {
+    if (!annotations) {
+      return false;
+    }
+    if (section === UniProtKBEntrySection.SubCellularLocation) {
+      return subcellularLocationSectionHasContent(annotations[section]);
+    }
+    return hasContent(annotations[section]);
+  };
 
   useEffect(() => {
     if (uniFireData.status === 200 && uniFireData.data) {
@@ -325,43 +374,26 @@ const SubEntry = () => {
             !hasStructure(transformedData.subEntry)) ||
           (section.id === SubEntrySection.NamesAndTaxonomy &&
             !transformedData.subEntry.proteinName) ||
+          // Annotation sections — enabled when the resolved `annotations`
+          // (precomputed or UniFire) has content for that section.
           (section.id === SubEntrySection.Function &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Function).includes(
-                p.annotationType
-              )
-            )) ||
+            !annotationSectionHasContent(UniProtKBEntrySection.Function)) ||
           (section.id === SubEntrySection.SubcellularLocation &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.SubcellularLocation).includes(
-                p.annotationType
-              )
+            !annotationSectionHasContent(
+              UniProtKBEntrySection.SubCellularLocation
             )) ||
           (section.id === SubEntrySection.Expression &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Expression).includes(
-                p.annotationType
-              )
-            )) ||
+            !annotationSectionHasContent(UniProtKBEntrySection.Expression)) ||
           (section.id === SubEntrySection.ProteinProcessing &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.ProteinProcessing).includes(
-                p.annotationType
-              )
+            !annotationSectionHasContent(
+              UniProtKBEntrySection.ProteinProcessing
             )) ||
           (section.id === SubEntrySection.Interaction &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Interaction).includes(
-                p.annotationType
-              )
-            )) ||
+            !annotationSectionHasContent(UniProtKBEntrySection.Interaction)) ||
           (section.id === SubEntrySection.FamilyAndDomains &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.FamilyAndDomains).includes(
-                p.annotationType
-              )
-            ) &&
-            !transformedData.entry.sequenceFeatures) ||
+            !annotationSectionHasContent(
+              UniProtKBEntrySection.FamilyAndDomains
+            )) ||
           (section.id === SubEntrySection.KeywordsAndGO &&
             !transformedData.unifire?.predictions.some(
               (p) =>

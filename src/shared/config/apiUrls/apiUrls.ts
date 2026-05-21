@@ -1,5 +1,6 @@
 import * as configure from './configure';
 import * as entry from './entry';
+import * as precomputed from './precomputed';
 import * as proteinsApi from './proteinsApi';
 import * as releaseNotes from './releaseNotes';
 import * as results from './results';
@@ -10,6 +11,7 @@ import * as unifire from './unifire';
 export default {
   configure,
   entry,
+  precomputed,
   proteinsApi,
   releaseNotes,
   results,

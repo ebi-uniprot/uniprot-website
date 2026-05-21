@@ -4,9 +4,11 @@
 > UniParcPrecomputedModel" spec — the convergence type changed from
 > `UniParcPrecomputedModel` to `UniProtkbAPIModel` ("Approach B", §2).
 >
-> **Status:** in progress — Phases 1–5 complete (2026-05-20); UniFire rendering migrated to UniProtKB components; Phase 6 not
-> started. Phases 1–2 ("the transformation branch") are intended to merge as a
-> standalone PR *before* any component work (Phase 3+).
+> **Status:** Phases 1–6 complete (2026-05-21) — UniParc sub-entry annotations
+> render through the UniProtKB pipeline for **both** the UniFire and precomputed
+> sources. Phases 1–2 ("the transformation branch") are intended to merge as a
+> standalone PR *before* any component work (Phase 3+); see §6 for the
+> recommended PR slicing.
 >
 > Self-contained: assumes no prior context. Verify file paths / line numbers
 > against the codebase before editing — line numbers drift.
@@ -424,16 +426,33 @@ went), and the temporary `migration-comparison.spec.tsx` harness.
 - `transformer-gap/downloads/` no longer feeds anything in `src/` — safe to
   drop from the repo whenever convenient.
 
-### Phase 6 — Precomputed endpoint branch (after Phases 3–5)
-Fetch → `UniParcPrecomputedModel` → thin lift to `UniProtkbAPIModel` (placeholders,
-same as the UniFire converter) → same pipeline. Optionally tighten
-`UniParcPrecomputedModel` (`Omit`→`Pick`). No new rendering work.
-- **Lift ✅ done (2026-05-21)** — `precomputedToUniProtkbConverter` fills the
-  `uniProtkbId` and `proteinExistence` placeholders; tested incl. precomputed →
-  lift → `uniProtKbConverter` (same pipeline as the UniFire branch).
-- **Pending — fetch wiring.** Needs (a) the precomputed endpoint URL — not in
-  the codebase (only the UniFire URL is, `uniprotkb/unifire/run`) — and (b) a
-  precomputed-vs-UniFire selection decision in `SubEntry.tsx`.
+### Phase 6 — Precomputed endpoint branch ✅ DONE (2026-05-21)
+Fetch → `UniParcPrecomputedModel` → thin lift to `UniProtkbAPIModel` → same
+pipeline. No new rendering work — the Phase-4 sections consume `annotations`
+source-agnostically.
+- **Lift** — `precomputedToUniProtkbConverter` fills the `uniProtkbId` and
+  `proteinExistence` placeholders (a `UniParcPrecomputedModel` already *is* a
+  `UniProtkbAPIModel` otherwise). Validated against all 250 real precomputed
+  responses in `transformer-gap/downloads/precomputed/` — every one lifts +
+  `uniProtKbConverter`s cleanly.
+- **URL** — `apiUrls.precomputed.precomputed(upi, taxId)` →
+  `{apiPrefix}/uniprotkb/precomputed/<upi>/<taxId>` (path params; **HTTP 404 =
+  no precomputed data**).
+- **Selection (`SubEntry.tsx`)** — precomputed is **preferred** (a cheap fetch
+  of already-computed data); UniFire (which *runs* the pipeline) is the
+  **fallback**, gated `runUniFire && precomputedResolved && !hasPrecomputed`.
+  `annotations` is built from whichever resolved — precomputed first.
+- **In-page-nav** `disabled` is driven off the resolved `annotations` via
+  `annotationSectionHasContent` — source-agnostic (precomputed or UniFire,
+  whichever populated the page), mirroring `Entry.tsx` (`hasContent`, and
+  `subcellularLocationSectionHasContent` for SL). The now-orphaned
+  `groupTypesBySection` and the dead `subSectionLabel` field were removed from
+  `UniFireAnnotationTypeToSection` — its display half is fully gone now
+  (completes Phase 5), leaving only the adapter map the converter uses.
+- **Known follow-ups (not blocking):** the UniFire toggle / "predictions
+  loaded" messaging in `SubEntryContext` is unchanged — only meaningful on the
+  UniFire fallback path. `UniParcPrecomputedModel` `Omit`→`Pick` untouched.
+- **Verified:** `tsc` + ESLint clean; `src/uniparc` suite 102/102.
 
 ---
 
