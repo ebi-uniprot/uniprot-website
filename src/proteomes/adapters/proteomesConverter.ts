@@ -58,15 +58,22 @@ export type GenomeAssembly = {
   level: string; // Genome representation
 };
 
-export type RedundantProteome = {
-  id: string;
+export type RelatedProteome = {
+  proteomeId: string;
   similarity: number;
+  taxonomy: Pick<TaxonomyDatum, 'taxonId'>;
+};
+
+export type EnrichedRelatedProteome = RelatedProteome & {
+  scientificName?: string;
+  proteomeType?: ProteomeType;
 };
 
 export type ProteomeType =
   | 'Reference and representative proteome'
   | 'Reference proteome'
   | 'Representative proteome'
+  | 'Non Reference proteome'
   | 'Redundant proteome'
   | 'Other proteome'
   | 'Excluded';
@@ -90,22 +97,38 @@ export type ProteomesAPIModel = {
   isolate?: string;
   panproteome?: string;
   description: string;
-  redundantProteomes?: RedundantProteome[];
+  relatedProteomes?: RelatedProteome[];
   redundantTo?: string;
   proteinCount: number; // use this in the results table - calculated sum of the components proteinCount: components.reduce((total, { proteinCount }) => proteinCount + total, 0)
   proteomeStatistics: Statistics;
 };
 
-export type ProteomesUIModel = Omit<ProteomesAPIModel, 'panproteome'> & {
+export type ProteomesUIModel = Omit<
+  ProteomesAPIModel,
+  'panproteome' | 'relatedProteomes'
+> & {
   panproteome: ProteomesAPIModel['panproteome'] | ProteomesAPIModel;
+  relatedProteomes?: EnrichedRelatedProteome[];
 };
 
 const proteomesConverter = (
   data: ProteomesAPIModel,
-  panProteomeData?: ProteomesAPIModel
-): ProteomesUIModel => ({
-  ...data,
-  panproteome: panProteomeData || data.panproteome,
-});
+  panProteomeData?: ProteomesAPIModel,
+  similarProteomesData?: ProteomesAPIModel[]
+): ProteomesUIModel => {
+  const dataById = new Map(similarProteomesData?.map((p) => [p.id, p]));
+  return {
+    ...data,
+    panproteome: panProteomeData || data.panproteome,
+    relatedProteomes: data.relatedProteomes?.map((rp) => {
+      const resolved = dataById.get(rp.proteomeId);
+      return {
+        ...rp,
+        scientificName: resolved?.taxonomy?.scientificName,
+        proteomeType: resolved?.proteomeType,
+      };
+    }),
+  };
+};
 
 export default proteomesConverter;
