@@ -44,19 +44,16 @@ import {
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
-import { hasContent } from '../../../shared/utils/utils';
 import { type UIModel } from '../../../uniprotkb/adapters/sectionConverter';
-import uniProtKbConverter, {
-  type UniProtkbAPIModel,
-  type UniProtkbUIModel,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { subcellularLocationSectionHasContent } from '../../../uniprotkb/components/entry/SubcellularLocationSection';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
-import precomputedToUniProtkbConverter from '../../adapters/precomputedToUniProtkbConverter';
-import uniFireToUniProtkbConverter from '../../adapters/uniFireToUniProtkbConverter';
+import buildSubEntryAnnotations, {
+  shouldRequestUniFire,
+} from '../../adapters/subEntryAnnotations';
 import {
   type UniParcLiteAPIModel,
   type UniParcXRef,
@@ -69,16 +66,14 @@ import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import { type UniParcPrecomputedModel } from '../../types/precomputed';
 import SubEntrySection from '../../types/subEntrySection';
-import { getSubEntryPath } from '../../utils/subEntry';
+import { getSubEntryPath, hasAnnotationContent } from '../../utils/subEntry';
 import { getXrefId } from '../../utils/uniparcXref';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import { type DataDBModel } from '../entry/XRefsSection';
 import SubEntryContext from './SubEntryContext';
-import {
-  getFallbackKeywords,
-  keywordsAndGOSectionHasContent,
-} from './SubEntryKeywordsSection';
+import { keywordsAndGOSectionHasContent } from './SubEntryKeywordsSection';
 import SubEntryMain from './SubEntryMain';
+import { namesAndTaxonomySectionHasContent } from './SubEntryNamesAndTaxonomySection';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
 
@@ -201,90 +196,33 @@ const SubEntry = () => {
   const precomputedResolved = !precomputedData.loading;
 
   const uniFireData = useDataApi<UniFireModel>(
-    canLoadUniFire && runUniFire && precomputedResolved && !hasPrecomputed
+    canLoadUniFire &&
+      shouldRequestUniFire({ runUniFire, precomputedResolved, hasPrecomputed })
       ? apiUrls.unifire.unifire(accession, `${subEntryTaxId}`)
       : null
   );
 
   const databaseInfoMaps = useDatabaseInfoMaps();
   // Build the annotations UIModel the sub-entry sections render. Precomputed is
-  // preferred; UniFire is the fallback.
-  const annotations: UniProtkbUIModel | undefined = useMemo(() => {
-    if (!databaseInfoMaps) {
-      return undefined;
-    }
-    // Supplement organism from the UniParc cross-reference — the
-    // SubcellularLocation viz renders nothing without `organism.lineage`. The
-    // xref carries a TaxonomyDatum with rich Lineage objects; flatten it to the
-    // string[] lineage that UniProtkbAPIModel.organism expects.
-    const withOrganism = (apiModel: UniProtkbAPIModel): UniProtkbAPIModel => {
-      const xrefOrganism = subEntryDataPerDatabase?.organism;
-      return xrefOrganism
-        ? {
-            ...apiModel,
-            organism: {
-              ...xrefOrganism,
-              lineage: (xrefOrganism.lineage ?? [])
-                .map((node) => node.scientificName)
-                .filter((name): name is string => Boolean(name)),
-            },
-          }
-        : apiModel;
-    };
-    try {
-      if (hasPrecomputed && precomputedData.data) {
-        const converted = uniProtKbConverter(
-          withOrganism(precomputedToUniProtkbConverter(precomputedData.data)),
-          databaseInfoMaps
-        );
-        // Keywords whose category has no dedicated sub-entry section fall back
-        // to the generic Keywords & GO section (SubEntryKeywordsSection) — they
-        // are still shown, but warn so a dedicated section can be considered if
-        // a category ever turns up here.
-        const fallbackKeywords = getFallbackKeywords(converted);
-        if (fallbackKeywords.length) {
-          logging.warn(
-            `Precomputed keywords shown in the generic Keywords section — no dedicated sub-entry section for: ${fallbackKeywords
-              .map((keyword) => keyword.category)
-              .join(', ')}`,
-            { extra: { accession } }
-          );
-        }
-        return converted;
-      }
-      if (uniFireData.data) {
-        return uniProtKbConverter(
-          withOrganism(uniFireToUniProtkbConverter(uniFireData.data)),
-          databaseInfoMaps
-        );
-      }
-      return undefined;
-    } catch (error) {
-      // Degrade to no annotations rather than crashing the page — but never
-      // silently. `uniProtKbConverter` runs inside this try too and, unlike the
-      // `*ToUniProtkbConverter` functions, does not log on throw, so without
-      // this an exception here would vanish with zero telemetry.
-      logging.error(
-        `Failed to build UniParc sub-entry annotations: ${
-          error instanceof Error ? error.message : String(error)
-        }`,
-        {
-          extra: {
-            accession,
-            source: hasPrecomputed ? 'precomputed' : 'unifire',
-          },
-        }
-      );
-      return undefined;
-    }
-  }, [
-    accession,
-    databaseInfoMaps,
-    subEntryDataPerDatabase,
-    hasPrecomputed,
-    precomputedData.data,
-    uniFireData.data,
-  ]);
+  // preferred; UniFire is the fallback — see `buildSubEntryAnnotations`.
+  const annotations: UniProtkbUIModel | undefined = useMemo(
+    () =>
+      buildSubEntryAnnotations({
+        databaseInfoMaps,
+        precomputed: hasPrecomputed ? precomputedData.data : undefined,
+        uniFire: uniFireData.data || undefined,
+        xrefOrganism: subEntryDataPerDatabase?.organism,
+        accession,
+      }),
+    [
+      accession,
+      databaseInfoMaps,
+      subEntryDataPerDatabase,
+      hasPrecomputed,
+      precomputedData.data,
+      uniFireData.data,
+    ]
+  );
 
   // A migrated annotation section's in-page-nav item is enabled when the
   // resolved `annotations` (precomputed or UniFire, whichever populated the
@@ -298,16 +236,7 @@ const SubEntry = () => {
     if (section === UniProtKBEntrySection.SubCellularLocation) {
       return subcellularLocationSectionHasContent(annotations[section]);
     }
-    // `hasContent` on the whole UIModel is fooled by metadata fields some
-    // converters set (e.g. functionConverter's `entryType`) — check only the
-    // renderable content fields.
-    const sectionData = annotations[section] as Partial<UIModel>;
-    return hasContent({
-      commentsData: sectionData.commentsData,
-      featuresData: sectionData.featuresData,
-      keywordData: sectionData.keywordData,
-      xrefData: sectionData.xrefData,
-    });
+    return hasAnnotationContent(annotations[section] as Partial<UIModel>);
   };
 
   useEffect(() => {
@@ -416,10 +345,9 @@ const SubEntry = () => {
       transformedData.entry.sequenceFeatures?.length &&
       transformedData.entry.sequence?.value
     ) || annotationSectionHasContent(UniProtKBEntrySection.FamilyAndDomains);
-  const namesAndTaxonomyHasContent = Boolean(
-    transformedData.subEntry.proteinName ||
-    transformedData.subEntry.geneName ||
-    transformedData.subEntry.organism
+  const namesAndTaxonomyHasContent = namesAndTaxonomySectionHasContent(
+    transformedData,
+    annotations
   );
 
   const sidebar = subPage === TabLocation.Entry && (

@@ -47,6 +47,41 @@ const NameContent = ({
   ));
 };
 
+/**
+ * Whether the Names & Taxonomy section has anything to show — imported
+ * protein/gene/organism/proteome data from the UniParc cross-reference, or
+ * predicted names from the converted `annotations` (source-agnostic, so it
+ * covers both the UniFire and precomputed branches). Shared by the section's
+ * own render guard and the in-page-nav gating in `SubEntry`, so the nav and the
+ * rendered card never disagree.
+ */
+export const namesAndTaxonomySectionHasContent = (
+  data?: UniParcSubEntryUIModel,
+  annotations?: UniProtkbUIModel
+): boolean => {
+  const subEntry = data?.subEntry;
+  if (!subEntry) {
+    return false;
+  }
+  const { proteinName, geneName, organism, properties, proteomeId, component } =
+    subEntry;
+  const namesAndTaxonomy =
+    annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
+  const proteinNames = namesAndTaxonomy?.proteinNamesData;
+  const geneNames = namesAndTaxonomy?.geneNamesData;
+  const proteomes = getSubEntryProteomes(properties);
+  return Boolean(
+    proteinName?.length ||
+    geneName ||
+    organism ||
+    proteinNames?.recommendedName ||
+    proteinNames?.alternativeNames?.length ||
+    geneNames?.length ||
+    Object.keys(proteomes).length ||
+    (proteomeId && component)
+  );
+};
+
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
   annotations?: UniProtkbUIModel;
@@ -205,12 +240,7 @@ const SubEntryNamesAndTaxonomySection = ({
   );
   const hasGeneNameContent = geneNameInfoData.some((item) => item.content);
 
-  if (
-    !hasProteinNameContent &&
-    (!geneName || !hasGeneNameContent) &&
-    !organism &&
-    proteomeContent.length === 0
-  ) {
+  if (!namesAndTaxonomySectionHasContent(data, annotations)) {
     return null;
   }
 

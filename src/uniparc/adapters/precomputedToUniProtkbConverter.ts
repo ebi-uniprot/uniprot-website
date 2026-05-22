@@ -2,13 +2,27 @@ import * as logging from '../../shared/utils/logging';
 import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { type UniParcPrecomputedModel } from '../types/precomputed';
 
+// Every array-typed collection `uniProtKbConverter` iterates. A non-array in
+// any of these would throw deep inside the converter rather than at this
+// boundary, so the guard rejects it up front. Kept in sync with the array
+// fields of `UniParcPrecomputedModel` the converter consumes.
+const ARRAY_COLLECTIONS = [
+  'comments',
+  'features',
+  'genes',
+  'keywords',
+  'references',
+  'uniProtKBCrossReferences',
+] as const;
+
 /**
  * Runtime guard for a precomputed-endpoint response. Light by design — a
  * precomputed payload already *is* a `UniProtkbAPIModel` shape — so it checks
  * only what would break `uniProtKbConverter` downstream: a string
- * `primaryAccession`, and array-typed annotation collections when present.
- * Mirrors the validation the UniFire branch does via `isValidUniFireModel`,
- * keeping both inputs to the shared pipeline guarded at the boundary.
+ * `primaryAccession`, and the array-typed collections (when present) that the
+ * converter iterates. Mirrors the validation the UniFire branch does via
+ * `isValidUniFireModel`, keeping both inputs to the shared pipeline guarded at
+ * the boundary.
  */
 function isValidPrecomputedModel(
   data: unknown
@@ -20,7 +34,7 @@ function isValidPrecomputedModel(
   if (typeof obj.primaryAccession !== 'string') {
     return false;
   }
-  return (['comments', 'features', 'keywords'] as const).every(
+  return ARRAY_COLLECTIONS.every(
     (key) => obj[key] === undefined || Array.isArray(obj[key])
   );
 }

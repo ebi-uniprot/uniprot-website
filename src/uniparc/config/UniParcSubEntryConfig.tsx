@@ -1,8 +1,6 @@
 import { type JSX } from 'react';
 
-import { hasContent } from '../../shared/utils/utils';
 import { type FunctionUIModel } from '../../uniprotkb/adapters/functionConverter';
-import { type UIModel } from '../../uniprotkb/adapters/sectionConverter';
 import { type SubcellularLocationUIModel } from '../../uniprotkb/adapters/subcellularLocationConverter';
 import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import ExpressionSection from '../../uniprotkb/components/entry/ExpressionSection';
@@ -19,21 +17,8 @@ import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSec
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
 import EntrySection from '../types/subEntrySection';
+import { hasAnnotationContent } from '../utils/subEntry';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
-
-// `hasContent` on a whole section UIModel is fooled by metadata fields some
-// converters add (e.g. functionConverter's `entryType`); check only the
-// renderable UIModel content fields.
-const hasAnnotationContent = (section?: UIModel): boolean =>
-  Boolean(
-    section &&
-    hasContent({
-      commentsData: section.commentsData,
-      featuresData: section.featuresData,
-      keywordData: section.keywordData,
-      xrefData: section.xrefData,
-    })
-  );
 
 const uniParcSubEntryConfig: Record<
   EntrySection,

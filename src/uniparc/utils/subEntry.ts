@@ -1,6 +1,8 @@
 import { generatePath } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../app/config/urls';
+import { hasContent } from '../../shared/utils/utils';
+import { type UIModel } from '../../uniprotkb/adapters/sectionConverter';
 
 export const getSubEntryPath = (
   accession: string,
@@ -30,6 +32,26 @@ export const isSourceDatabase = (database?: string) =>
  */
 export const toSubEntryAccession = (uniFireAccession: string): string =>
   uniFireAccession.replaceAll(':', '-');
+
+/**
+ * Whether a converted annotation section has anything renderable.
+ *
+ * `hasContent` on a whole section `UIModel` is fooled by metadata fields some
+ * converters add (e.g. functionConverter's `entryType`), so it is restricted to
+ * the renderable content fields. Shared by `UniParcSubEntryConfig`, the
+ * in-page-nav gating in `SubEntry`, and the hybrid section components so the
+ * nav and the rendered cards never disagree.
+ */
+export const hasAnnotationContent = (section?: Partial<UIModel>): boolean =>
+  Boolean(
+    section &&
+    hasContent({
+      commentsData: section.commentsData,
+      featuresData: section.featuresData,
+      keywordData: section.keywordData,
+      xrefData: section.xrefData,
+    })
+  );
 
 export const getSubEntryProteomes = (
   properties: { key: string; value: string }[] | undefined

@@ -81,4 +81,28 @@ describe('isValidPrecomputedModel', () => {
       })
     ).toBe(false);
   });
+
+  // The type now covers every UniProtkbAPIModel field, not a hand-picked
+  // subset, so the guard must reject a non-array in any collection the
+  // converter iterates — e.g. a `uniProtKBCrossReferences` the endpoint could
+  // add later — not just `comments` / `features` / `keywords`.
+  it('rejects a non-array uniProtKBCrossReferences', () => {
+    expect(
+      isValidPrecomputedModel({
+        primaryAccession: 'UPI0000000001',
+        uniProtKBCrossReferences: {},
+      })
+    ).toBe(false);
+  });
+
+  it('accepts a model with empty array collections', () => {
+    expect(
+      isValidPrecomputedModel({
+        primaryAccession: 'UPI0000000001',
+        genes: [],
+        references: [],
+        uniProtKBCrossReferences: [],
+      })
+    ).toBe(true);
+  });
 });

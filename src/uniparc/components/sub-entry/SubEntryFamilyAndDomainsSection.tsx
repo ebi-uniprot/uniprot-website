@@ -1,7 +1,6 @@
 import { Card } from 'franklin-sites';
 import { memo } from 'react';
 
-import { hasContent } from '../../../shared/utils/utils';
 import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 import KeywordView from '../../../uniprotkb/components/protein-data-views/KeywordView';
@@ -11,6 +10,7 @@ import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
+import { hasAnnotationContent } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 
 type Props = {
@@ -28,9 +28,7 @@ const SubEntryFamilyAndDomains = ({ data, annotations }: Props) => {
     annotations?.[UniProtKBEntrySection.FamilyAndDomains];
 
   const hasInterPro = Boolean(sequenceFeatures?.length && sequence?.value);
-  const hasAnnotations = Boolean(
-    familyAndDomains && hasContent(familyAndDomains)
-  );
+  const hasAnnotations = hasAnnotationContent(familyAndDomains);
   if (!hasInterPro && !hasAnnotations) {
     return null;
   }
@@ -51,6 +49,9 @@ const SubEntryFamilyAndDomains = ({ data, annotations }: Props) => {
             primaryAccession={annotations?.primaryAccession ?? ''}
             features={familyAndDomains.featuresData}
             sequence={sequence?.value}
+            // A UniParc sub-entry accession is synthetic — suppress the
+            // accession-keyed full-view link and per-feature tools.
+            enableExternalData={false}
           />
           <FreeTextView
             comments={

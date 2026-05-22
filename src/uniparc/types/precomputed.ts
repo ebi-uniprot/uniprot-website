@@ -1,23 +1,29 @@
 import type { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 
-// The precomputed endpoint returns only this subset of UniProtkbAPIModel
-// fields — empirically, the union of top-level keys across the downloaded
-// corpus (`transformer-gap/downloads/precomputed/`). `entryType`,
-// `uniProtkbId` and `annotationScore` are returned too but with
-// precomputed-specific values.
-export type UniParcPrecomputedModel = Pick<
+/**
+ * The precomputed-endpoint response for a UniParc sub-entry.
+ *
+ * It *is* a `UniProtkbAPIModel` — the precomputed pipeline emits the standard
+ * UniProtKB API shape — with three fields pinned to entry-independent values
+ * and `proteinExistence` absent. It is deliberately modelled as
+ * `Omit<UniProtkbAPIModel, …>` rather than a hand-picked subset of keys:
+ * `precomputedToUniProtkbConverter` spreads the whole object through to
+ * `uniProtKbConverter`, so every API field must stay typed — otherwise a field
+ * the endpoint starts returning later would pass through silently untyped.
+ *
+ * (Empirically today's corpus only populates `comments`, `extraAttributes`,
+ * `features`, `keywords`, `primaryAccession` and `proteinDescription` — but
+ * that is an observation about the current data, not a contract, so it is not
+ * encoded in the type.)
+ */
+export type UniParcPrecomputedModel = Omit<
   UniProtkbAPIModel,
-  | 'comments'
-  | 'extraAttributes'
-  | 'features'
-  | 'keywords'
-  | 'primaryAccession'
-  | 'proteinDescription'
+  'annotationScore' | 'entryType' | 'proteinExistence' | 'uniProtkbId'
 > & {
   entryType: 'AA';
   uniProtkbId: null;
-  // Always 0.0 for precomputed entries (verified across all 250 corpus files) —
-  // the annotation score is meaningful only for curated UniProtKB entries.
+  // Always 0.0 for precomputed entries (verified across the corpus) — the
+  // annotation score is meaningful only for curated UniProtKB entries.
   // Do NOT render it on UniParc sub-entry pages.
   annotationScore: 0;
 };
