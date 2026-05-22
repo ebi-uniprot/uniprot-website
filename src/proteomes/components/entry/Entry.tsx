@@ -39,12 +39,6 @@ const Entry = () => {
     apiUrls.entry.entry(accession, Namespace.proteomes)
   );
 
-  const panProteomeData = useDataApi<ProteomesAPIModel>(
-    mainData.data?.panproteome && mainData.data.panproteome !== mainData.data.id
-      ? apiUrls.entry.entry(mainData.data.panproteome, Namespace.proteomes)
-      : null
-  );
-
   const relatedProteomes = mainData.data?.relatedProteomes;
   const similarProteomesData = useDataApi<SearchResults<ProteomesAPIModel>>(
     relatedProteomes?.length
@@ -65,26 +59,22 @@ const Entry = () => {
 
   if (
     mainData.loading ||
-    panProteomeData.loading ||
     similarProteomesData.loading ||
     refprotmoveData.loading
   ) {
-    return <Loader progress={mainData.progress || similarProteomesData.progress || panProteomeData.progress} />;
+    return (
+      <Loader progress={mainData.progress || similarProteomesData.progress} />
+    );
   }
 
-  if (mainData.error || panProteomeData.error || !accession || !mainData.data) {
+  if (mainData.error || !accession || !mainData.data) {
     return (
-      <ErrorHandler
-        status={mainData.status || panProteomeData.status}
-        error={mainData.error}
-        fullPage
-      />
+      <ErrorHandler status={mainData.status} error={mainData.error} fullPage />
     );
   }
 
   const transformedData = proteomesConverter(
     mainData.data,
-    panProteomeData.data,
     similarProteomesData.data?.results
   );
 
