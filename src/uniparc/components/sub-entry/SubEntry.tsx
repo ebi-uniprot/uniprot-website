@@ -74,6 +74,10 @@ import { getXrefId } from '../../utils/uniparcXref';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import { type DataDBModel } from '../entry/XRefsSection';
 import SubEntryContext from './SubEntryContext';
+import {
+  getFallbackKeywords,
+  keywordsAndGOSectionHasContent,
+} from './SubEntryKeywordsSection';
 import SubEntryMain from './SubEntryMain';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
@@ -226,10 +230,24 @@ const SubEntry = () => {
     };
     try {
       if (hasPrecomputed && precomputedData.data) {
-        return uniProtKbConverter(
+        const converted = uniProtKbConverter(
           withOrganism(precomputedToUniProtkbConverter(precomputedData.data)),
           databaseInfoMaps
         );
+        // Keywords whose category has no dedicated sub-entry section fall back
+        // to the generic Keywords & GO section (SubEntryKeywordsSection) — they
+        // are still shown, but warn so a dedicated section can be considered if
+        // a category ever turns up here.
+        const fallbackKeywords = getFallbackKeywords(converted);
+        if (fallbackKeywords.length) {
+          logging.warn(
+            `Precomputed keywords shown in the generic Keywords section — no dedicated sub-entry section for: ${fallbackKeywords
+              .map((keyword) => keyword.category)
+              .join(', ')}`,
+            { extra: { accession } }
+          );
+        }
+        return converted;
       }
       if (uniFireData.data) {
         return uniProtKbConverter(
@@ -428,10 +446,10 @@ const SubEntry = () => {
             !annotationSectionHasContent(UniProtKBEntrySection.Interaction)) ||
           (section.id === SubEntrySection.FamilyAndDomains &&
             !familyAndDomainsHasContent) ||
-          (section.id === SubEntrySection.UniFireKeywordsAndGO &&
-            !transformedData.unifire?.predictions.some(
-              (p) =>
-                p.annotationType === 'keyword' || p.annotationType === 'xref.GO'
+          (section.id === SubEntrySection.KeywordsAndGO &&
+            !keywordsAndGOSectionHasContent(
+              transformedData.unifire,
+              annotations
             )),
       }))}
       rootElement={`.${sidebarStyles.content}`}

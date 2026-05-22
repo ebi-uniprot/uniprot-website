@@ -164,18 +164,21 @@ const uniParcSubEntryConfig: Record<
       <SubEntrySimilarProteinsSection uniparcId={data.entry.uniParcId} />
     ),
   },
-  // Keywords & GO — a UniFire-only catch-all, by design.
-  // UniFire `keyword` / `xref.GO` predictions carry no category or id, so
-  // `uniProtKbConverter` cannot distribute them into the sectioned components;
-  // they are rendered here straight from the raw `unifire` predictions.
-  // Precomputed keywords are fully categorised (and have ids), so they flow
-  // into their proper sections instead, and precomputed responses carry no GO
-  // xrefs — so this section renders nothing for the precomputed branch
-  // (verified against the 250-file corpus).
-  [EntrySection.UniFireKeywordsAndGO]: {
-    id: EntrySection.UniFireKeywordsAndGO,
-    label: entrySectionToLabel[EntrySection.UniFireKeywordsAndGO],
-    sectionContent: ({ unifire }) => <SubEntryKeywordsSection data={unifire} />,
+  // Catch-all "Keywords & Gene Ontology" section. UniFire `keyword` / `xref.GO`
+  // predictions are uncategorised, so `uniProtKbConverter` cannot section them —
+  // they render here from the raw `unifire` predictions. Precomputed keywords
+  // are categorised and mostly flow into their proper sections; the few whose
+  // category has no dedicated sub-entry section (Disease, Coding sequence
+  // diversity, Technical term) fall back here so they are not dropped.
+  [EntrySection.KeywordsAndGO]: {
+    id: EntrySection.KeywordsAndGO,
+    label: entrySectionToLabel[EntrySection.KeywordsAndGO],
+    sectionContent: (data, annotations) => (
+      <SubEntryKeywordsSection
+        unifire={data.unifire}
+        annotations={annotations}
+      />
+    ),
   },
 };
 
