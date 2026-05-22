@@ -23,6 +23,7 @@ import {
 } from '../../uniprotkb/types/modelTypes';
 import { type Keyword } from '../../uniprotkb/utils/KeywordsUtil';
 import annotationTypeToSection from '../config/UniFireAnnotationTypeToSection';
+import { toSubEntryAccession } from '../utils/subEntry';
 import {
   constructPredictionEvidences,
   type Prediction,
@@ -419,7 +420,7 @@ const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
     entryType: 'AA',
     uniProtkbId: '',
     proteinExistence: '',
-    primaryAccession: data.accession.replaceAll(':', '-'),
+    primaryAccession: toSubEntryAccession(data.accession),
     annotationScore: 0 as AnnotationScoreValue,
     ...(consolidatedComments.length > 0
       ? { comments: consolidatedComments }

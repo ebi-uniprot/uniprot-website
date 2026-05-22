@@ -655,6 +655,48 @@ priority; check off as done.
   UniProtKB component knows UniParc exists any more. `tsc` + ESLint clean; the
   UniProtKB entry page (`EntryMain.spec`) and `src/uniparc` suites pass with
   snapshots unchanged.
+- **Gating-audit follow-up (2026-05-22).** Swept the remaining
+  `primaryAccession` consumers in the reused sections so the audit is genuinely
+  complete:
+  - `GoRibbon` (Function section) builds a QuickGO `ExternalLink` from
+    `primaryAccession` — a dead-end link for a non-UniProtKB entry. It now takes
+    `enableExternalData` (forwarded by `FunctionSection`) and hides that link
+    when `false`. No accession-keyed *fetch* in `GoRibbon`.
+  - `CommunityCurated` (Function section) was checked and is **not** a fetch —
+    its `CommunityCuratedGetByAccession` calls are `<ExternalLink>` URLs, and the
+    component renders `null` whenever `communityReferences` is empty, which it
+    always is on the sub-entry (`UniParcSubEntryConfig` passes `[]`). No change.
+  - Net: the three accession-keyed *fetches* (proteomics PTM, GO-CAM, IntAct)
+    **and** the QuickGO link are now caller-gated. A full per-link sweep of
+    `XRefView` / `FeaturesView` was *not* done — they render passed-in data
+    rather than dereferencing the accession — and stays part of the larger
+    root-cause work below.
+- **Naming follow-up (2026-05-22).** The synthetic accession is now produced by
+  a named helper, `toSubEntryAccession()` in `uniparc/utils/subEntry.ts`,
+  replacing the inline `data.accession.replaceAll(':', '-')`. Its doc comment
+  records that `UPI-taxId` is the precomputed endpoint's **own** identifier
+  format (verified: all 250 corpus files use it) — so it is a legitimate
+  sub-entry identifier, not a rogue fabrication — and that it is still **not** a
+  UniProtKB accession.
+- **Regression guards (2026-05-22).** Three tests lock in the gating so a future
+  edit that drops `enableExternalData` fails CI: `ProteinProcessingSection`
+  (asserts no `/proteomics/ptm/` request), `GoCam` (asserts no
+  `api.geneontology.org` request), `InteractionSection` (asserts no
+  `<interaction-viewer>` rendered) — each with `enableExternalData={false}`.
+  `GoCam.spec.ts` was renamed `.tsx` to host a component render test.
+- **Root cause — accepted, no further change planned.** `primaryAccession` is an
+  *overloaded* field: it carries a real sub-entry identifier (`UPI-taxId`, the
+  precomputed endpoint's own format) whose name/type implies "dereferenceable
+  UniProtKB accession". After the gating + the `toSubEntryAccession` naming +
+  the regression guards, this is **contained, not active**: every consumer is
+  explicitly gated, the value is named and documented, and `uniProtkbId` (the
+  field that *would* lie) correctly holds `''`. Retyping the field — a
+  provenance-aware type, or a `SubEntryAnnotations` model distinct from
+  `UniProtkbUIModel` — was considered and **declined**: both re-cross lines
+  Approach B drew (modifying core UniProtKB code / reimplementing
+  `uniProtKbConverter`'s section-ization, §2) at a cost out of all proportion to
+  a now-latent concern. Revisit only if a real driver appears (e.g. the UI must
+  distinguish sources at runtime). Treated as a known limitation, like §12.8.
 
 ### 12.2 — `annotations` `useMemo` catch swallows errors silently — **HIGH** — ✅ DONE (2026-05-21)
 

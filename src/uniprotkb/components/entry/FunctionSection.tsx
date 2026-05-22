@@ -399,6 +399,7 @@ const FunctionSection = ({
                     goTerms={data.goTerms}
                     geneNamesData={data.geneNamesData}
                     organismData={data.organismData}
+                    enableExternalData={enableExternalData}
                   />
                 </Suspense>
               </Tab>
