@@ -17,7 +17,6 @@ import {
 import * as logging from '../../../shared/utils/logging';
 import { heuristic } from '../../../shared/workers/jobs/utils/heuristic';
 import { type GoCamModelInfo, type GoCamModels } from '../../types/goCamTypes';
-import { isUniProtKBAccession } from '../../utils/regexes';
 import GoCamViz from '../protein-data-views/GoCamViz';
 import styles from './styles/go-cam.module.scss';
 
@@ -65,13 +64,16 @@ export const getUniprotNode = (
 
 type Props = {
   primaryAccession: string;
+  // The GO-CAM lookup is keyed by a real UniProtKB accession. Callers rendering
+  // this for a non-UniProtKB entry (e.g. a UniParc sub-entry) pass `false` to
+  // skip the fetch. Defaults to `true` for the UniProtKB entry page.
+  enableExternalData?: boolean;
 };
 
-const GoCam = ({ primaryAccession }: Props) => {
+const GoCam = ({ primaryAccession, enableExternalData = true }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
-    // Skip for a non-UniProtKB accession (e.g. a UniParc sub-entry).
-    isUniProtKBAccession(primaryAccession)
+    enableExternalData
       ? externalUrls.GeneOntologyModels(primaryAccession)
       : null
   );

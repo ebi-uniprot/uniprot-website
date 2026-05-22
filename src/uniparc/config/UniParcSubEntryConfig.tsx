@@ -61,6 +61,9 @@ const uniParcSubEntryConfig: Record<
           primaryAccession={annotations.primaryAccession}
           sequence={data.entry.sequence?.value}
           communityReferences={[]}
+          // UniParc sub-entry: the accession is synthetic, so skip the
+          // accession-keyed external fetches (spec.md §12.1).
+          enableExternalData={false}
         />
       ) : null,
   },
@@ -114,6 +117,9 @@ const uniParcSubEntryConfig: Record<
           data={annotations[UniProtKBEntrySection.ProteinProcessing]}
           primaryAccession={annotations.primaryAccession}
           sequence={data.entry.sequence?.value}
+          // UniParc sub-entry: synthetic accession — skip the proteomics-PTM
+          // fetch (spec.md §12.1).
+          enableExternalData={false}
         />
       ) : null,
   },
@@ -126,6 +132,9 @@ const uniParcSubEntryConfig: Record<
         <InteractionSection
           data={annotations[UniProtKBEntrySection.Interaction]}
           primaryAccession={annotations.primaryAccession}
+          // UniParc sub-entry: synthetic accession — skip the IntAct viewer
+          // fetch (spec.md §12.1).
+          enableExternalData={false}
         />
       ) : null,
   },

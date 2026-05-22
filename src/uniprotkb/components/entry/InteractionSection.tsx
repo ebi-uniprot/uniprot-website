@@ -175,6 +175,10 @@ const columns: TableFromDataColumn<Interaction>[] = [
 type Props = {
   data: UIModel;
   primaryAccession: string;
+  // The IntAct viewer fetches by accession. Callers rendering this for a
+  // non-UniProtKB entry (e.g. a UniParc sub-entry) pass `false` to skip it.
+  // Defaults to `true` for the UniProtKB entry page.
+  enableExternalData?: boolean;
 };
 
 const InteractionViewer = lazy(
@@ -191,7 +195,11 @@ const ComplexViewer = lazy(
     )
 );
 
-const InteractionSection = ({ data, primaryAccession }: Props) => {
+const InteractionSection = ({
+  data,
+  primaryAccession,
+  enableExternalData = true,
+}: Props) => {
   const isSmallScreen = useSmallScreen();
   const tableData = useMemo(
     () =>
@@ -255,10 +263,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {tableData.length ? (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          <LazyComponent render={isSmallScreen ? false : undefined}>
-            {/* InteractionViewer self-guards against a non-UniProtKB accession */}
-            <InteractionViewer accession={primaryAccession} />
-          </LazyComponent>
+          {enableExternalData && (
+            <LazyComponent render={isSmallScreen ? false : undefined}>
+              <InteractionViewer accession={primaryAccession} />
+            </LazyComponent>
+          )}
           <TableFromData
             columns={columns}
             data={tableData}

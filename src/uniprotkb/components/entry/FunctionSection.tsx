@@ -243,6 +243,9 @@ type Props = {
   sequence?: string;
   primaryAccession: string;
   communityReferences: Reference[];
+  // Forwarded to GoCam: `false` skips the accession-keyed GO-CAM lookup for a
+  // non-UniProtKB entry (e.g. a UniParc sub-entry). Defaults to `true`.
+  enableExternalData?: boolean;
 };
 
 const FunctionSection = ({
@@ -250,6 +253,7 @@ const FunctionSection = ({
   sequence,
   primaryAccession,
   communityReferences,
+  enableExternalData = true,
 }: Props) => {
   const isSmallScreen = useSmallScreen();
   const functionRelatedReferences = communityReferences.filter(
@@ -416,7 +420,10 @@ const FunctionSection = ({
               >
                 {showGoCamTab ? (
                   <Suspense fallback={<Loader />}>
-                    <GoCam primaryAccession={primaryAccession} />
+                    <GoCam
+                      primaryAccession={primaryAccession}
+                      enableExternalData={enableExternalData}
+                    />
                   </Suspense>
                 ) : null}
               </Tab>

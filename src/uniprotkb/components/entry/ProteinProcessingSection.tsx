@@ -10,7 +10,6 @@ import { type FreeTextComment } from '../../types/commentTypes';
 import EntrySection from '../../types/entrySection';
 import { type ProteomicsPtm } from '../../types/proteomicsPtm';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
-import { isUniProtKBAccession } from '../../utils/regexes';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
@@ -20,18 +19,21 @@ type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence?: string;
+  // The proteomics-PTM lookup is keyed by a real UniProtKB accession. Callers
+  // rendering this for a non-UniProtKB entry (e.g. a UniParc sub-entry) pass
+  // `false` to skip the fetch. Defaults to `true` for the UniProtKB entry page.
+  enableExternalData?: boolean;
 };
 
 const ProteinProcessingSection = ({
   data,
   sequence,
   primaryAccession,
+  enableExternalData = true,
 }: Props) => {
   const { loading: proteomicsPtmLoading, data: proteomicsPtmData } =
     useDataApi<ProteomicsPtm>(
-      // Skip the supplementary fetch for a non-UniProtKB accession (e.g. a
-      // UniParc sub-entry) — the Proteins API would 400 on it.
-      isUniProtKBAccession(primaryAccession)
+      enableExternalData
         ? apiUrls.proteinsApi.proteomicsPtm(primaryAccession)
         : null
     );

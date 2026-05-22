@@ -7,14 +7,6 @@ export const reUniProtKBAccessionWithIsoform = new RegExp(
   `(?:${reUniProtKBAccession.source})(?:-[0-9]+)?`,
   'i'
 );
-const reEntireUniProtKBAccession = new RegExp(
-  `^(?:${reUniProtKBAccession.source})$`,
-  'i'
-);
-// True only when the *whole* string is a UniProtKB accession — distinguishes a
-// real accession from a UniParc-derived id like `UPI…-<taxId>`.
-export const isUniProtKBAccession = (accession: string) =>
-  reEntireUniProtKBAccession.test(accession);
 export const reUniRefAccession = /UniRef(?:50|90|100)_[\w|-]+/i;
 export const reUniParc = /UPI[\w]{10}/i;
 
