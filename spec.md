@@ -624,9 +624,9 @@ priority; check off as done.
   UniProtKB entry page (`EntryMain.spec`) and `src/uniparc` suites pass with
   snapshots unchanged.
 
-### 12.2 — `annotations` `useMemo` catch swallows errors silently — **HIGH**
+### 12.2 — `annotations` `useMemo` catch swallows errors silently — **HIGH** — ✅ DONE (2026-05-21)
 
-- [ ] **Problem.** `SubEntry.tsx:244` — `} catch { return undefined; }` has no
+- [x] **Problem.** `SubEntry.tsx:244` — `} catch { return undefined; }` has no
   logging. The comment claims *"the converters log and throw"*, but
   `uniProtKbConverter` is **also** inside that `try` and is not one of the
   converters that log. If it throws, annotations vanish with zero telemetry.
@@ -636,6 +636,13 @@ priority; check off as done.
   — acceptable, but this one has no signal at all.)
 - **Resolution.** Add a `logging.error` (with the accession in `extra`) inside
   that catch before returning `undefined`.
+- **Done (2026-05-21).** The catch now binds the error and calls
+  `logging.error` with the message and `extra: { accession, source }` (`source`
+  = `precomputed` | `unifire`) before degrading to `undefined`; the misleading
+  "the converters log and throw" comment is replaced with an accurate one.
+  `accession` was added to the `useMemo` dependency array (exhaustive-deps).
+  `tsc` + ESLint clean; `src/uniparc` suite passes (102 tests, snapshots
+  unchanged).
 
 ### 12.3 — Asymmetric input validation: precomputed is unguarded — **MEDIUM**
 

@@ -241,12 +241,26 @@ const SubEntry = () => {
         );
       }
       return undefined;
-    } catch {
-      // The converters log and throw on malformed input; degrade to no
-      // annotations rather than crashing the page.
+    } catch (error) {
+      // Degrade to no annotations rather than crashing the page — but never
+      // silently. `uniProtKbConverter` runs inside this try too and, unlike the
+      // `*ToUniProtkbConverter` functions, does not log on throw, so without
+      // this an exception here would vanish with zero telemetry.
+      logging.error(
+        `Failed to build UniParc sub-entry annotations: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+        {
+          extra: {
+            accession,
+            source: hasPrecomputed ? 'precomputed' : 'unifire',
+          },
+        }
+      );
       return undefined;
     }
   }, [
+    accession,
     databaseInfoMaps,
     subEntryDataPerDatabase,
     hasPrecomputed,
