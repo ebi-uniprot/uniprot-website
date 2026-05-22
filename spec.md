@@ -644,9 +644,9 @@ priority; check off as done.
   `tsc` + ESLint clean; `src/uniparc` suite passes (102 tests, snapshots
   unchanged).
 
-### 12.3 — Asymmetric input validation: precomputed is unguarded — **MEDIUM**
+### 12.3 — Asymmetric input validation: precomputed is unguarded — **MEDIUM** — ✅ DONE (2026-05-21)
 
-- [ ] **Problem.** `uniFireToUniProtkbConverter` runtime-validates input via
+- [x] **Problem.** `uniFireToUniProtkbConverter` runtime-validates input via
   `isValidUniFireModel` (hand-rolled type guard — the project's deliberate
   choice). `precomputedToUniProtkbConverter.ts` just spreads `...data` with no
   guard. The "validated against 250 corpus responses" in §6 is design-time, not
@@ -655,6 +655,16 @@ priority; check off as done.
 - **Resolution.** Give `precomputedToUniProtkbConverter` a light runtime guard
   for parity with the UniFire branch (same hand-rolled style — no schema
   library), or document explicitly why precomputed input is trusted.
+- **Done (2026-05-21).** Added `isValidPrecomputedModel(data): data is
+  UniParcPrecomputedModel` — a hand-rolled guard mirroring `isValidUniFireModel`.
+  Light by design (a precomputed payload already *is* a `UniProtkbAPIModel`
+  shape): it checks a string `primaryAccession` and that `comments` / `features`
+  / `keywords` are arrays when present — the fields that would break
+  `uniProtKbConverter`. `precomputedToUniProtkbConverter` now takes `unknown`
+  and, on invalid input, `logging.error`s and throws (same contract as the
+  UniFire converter; the `SubEntry.tsx` try/catch — see §12.2 — degrades to no
+  annotations). Guard exported; 6 new tests cover throw-and-log and the guard's
+  accept/reject cases. `tsc` + ESLint clean; `src/uniparc` suite 108/108.
 
 ### 12.4 — `KeywordsAndGO` is not source-agnostic — **MEDIUM**
 
