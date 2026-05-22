@@ -58,10 +58,21 @@ precomputed endpoint ─► UniParcPrecomputedModel ─────┘   (+ orga
                         (lift — Phase 6)                  from the UniParc entry)
 ```
 
-Both sources converge at **`UniProtkbAPIModel`** — the input type of
-`uniProtKbConverter`, the only producer of the `UniProtkbUIModel` that UniProtKB
-section components consume. Reusing `uniProtKbConverter` means **no new
-section-distribution logic and no parallel rendering stack.**
+Both **annotation** sources converge at **`UniProtkbAPIModel`** — the input
+type of `uniProtKbConverter`, the only producer of the `UniProtkbUIModel` that
+UniProtKB section components consume. Reusing `uniProtKbConverter` means **no
+new section-distribution logic and no parallel rendering stack** for the
+annotation-derived content.
+
+**Scope — "one pipeline" means the five pure-annotation sections, not the whole
+page.** The convergence covers Function, SubcellularLocation, Expression,
+ProteinProcessing and Interaction. The other six sections are deliberately
+*not* on it: two **bespoke hybrids** (NamesAndTaxonomy, FamilyAndDomains —
+entry-intrinsic data *plus* annotations) and four **bespoke entry-driven**
+sections (Structure, Sequence, SimilarProteins, UniFireKeywordsAndGO).
+Entry-intrinsic data cannot meaningfully run through an *annotation* converter,
+so the pipeline deliberately covers only the part of the page that is purely
+annotations. See §5 for the full per-section breakdown.
 
 **Why not converge on `UniParcPrecomputedModel`** (the original spec): that type
 cannot feed `uniProtKbConverter` — it has `uniProtkbId: null` and no
@@ -281,6 +292,9 @@ gone.
 
 ## 5. Rendering layer — current state (post-migration)
 
+Of the 11 sections, only **5** render through the converged `uniProtKbConverter`
+pipeline (§2); the other 6 are bespoke. The three kinds are tabulated below.
+
 ### `SubEntryMain.tsx` — `src/uniparc/components/sub-entry/SubEntryMain.tsx`
 Generic dispatcher: maps `Object.values(UniParcSubEntryConfig)` calling
 `sectionContent(transformedData, annotations)`, each wrapped in `Suspense` +
@@ -292,7 +306,7 @@ Generic dispatcher: maps `Object.values(UniParcSubEntryConfig)` calling
 |---|---|
 | **Migrated** → UniProtKB component, fed `annotations[X]` | Function, SubcellularLocation, Expression, ProteinProcessing, Interaction |
 | **Bespoke hybrid** — entry-intrinsic data + `annotations` | NamesAndTaxonomy, FamilyAndDomains |
-| **Bespoke entry-driven** — from `transformedData` | Structure, Sequence, SimilarProteins, KeywordsAndGO |
+| **Bespoke entry-driven** — from `transformedData` | Structure, Sequence, SimilarProteins, UniFireKeywordsAndGO |
 
 `sectionContent: (entryData: UniParcSubEntryUIModel, annotations?:
 UniProtkbUIModel) => JSX.Element | null`. A migrated section's body is
@@ -745,9 +759,9 @@ priority; check off as done.
   (regression guard). `tsc` + ESLint clean; `src/uniparc` suite 110/110,
   snapshots unchanged.
 
-### 12.6 — "One pipeline" framing vs. the three-kinds-of-section reality — **LOW (doc/process)**
+### 12.6 — "One pipeline" framing vs. the three-kinds-of-section reality — **LOW (doc/process)** — ✅ DONE (2026-05-21)
 
-- [ ] **Problem.** The spec headline is "one pipeline", but the end state is
+- [x] **Problem.** The spec headline is "one pipeline", but the end state is
   three kinds of section (5 migrated, 2 hybrid, 4 entry-driven) and 2 of 11
   sections were migrated then reverted (§6 Phase 4 / visual-check notes e, g).
   The convergence correctly applies only to pure-annotation sections — but the
@@ -758,6 +772,13 @@ priority; check off as done.
   scope of the convergence is stated precisely ("one pipeline for the five
   pure-annotation sections", not the whole page), so the next reader is not
   misled. Captured as a lesson in §9 Risks already; this is about the framing.
+- **Done (2026-05-21).** §2 gained a **"Scope"** paragraph stating explicitly
+  that "one pipeline" means the five pure-annotation sections only (Function,
+  SubcellularLocation, Expression, ProteinProcessing, Interaction), and that
+  the other six — two bespoke hybrids and four bespoke entry-driven sections —
+  are deliberately not on it because entry-intrinsic data cannot run through an
+  annotation converter. §5 gained a one-line intro making the 5-of-11 split
+  explicit before the three-kinds table. No code change.
 
 ### 12.7 — Converter completeness: dead Names & Taxonomy rows — **MEDIUM**
 
