@@ -187,12 +187,30 @@ First prediction wins (known UniFire duplicate issue — reported upstream).
 
 Each prediction appended in order.
 
-### `protein.recommendedName.ecNumber` → `recommendedName.ecNumbers[]`
+### `protein.recommendedName.ecNumber` / `.shortName` → `recommendedName.ecNumbers[]` / `.shortNames[]`
 
 Accumulated and merged into `recommendedName`. `ProteinNames` requires a
-non-optional `fullName`, so ecNumbers can only attach when a
-`recommendedName.fullName` was also predicted; otherwise they are dropped with a
-`logging.warn` (empirically, no corpus entry has ecNumbers without a fullName).
+non-optional `fullName`, so ecNumbers/shortNames can only attach when a
+`recommendedName.fullName` was also predicted; otherwise they are dropped
+together with one `logging.warn` (empirically, no corpus entry has either
+without a fullName).
+
+### `protein.alternativeName.shortName` / `.ecNumber` → an `alternativeNames[]` entry
+
+Accumulated and attached to `alternativeNames[0]` (`.shortNames` / `.ecNumbers`).
+The Names & Taxonomy section flattens these across every alternative name, so
+the host entry does not matter; dropped with a `logging.warn` if no
+`protein.alternativeName.fullName` was predicted (same `ProteinNames.fullName`
+constraint).
+
+### `gene.name.primary` / `.synonym` → `genes[]`
+
+One `genes[]` entry per `gene.name.primary` (`{ geneName }`); `gene.name.synonym`
+predictions are collected into `synonyms`. `GeneNamesData` allows an optional
+`geneName`, so synonyms with no predicted primary name still emit a
+synonym-only entry rather than being dropped. (Added by spec.md §12.7 — these
+five name types occur in **0** of the 289 corpus entries but the pre-refactor
+page rendered them, so the converter handles them for parity.)
 
 ### `xref.GO` predictions → `uniProtKBCrossReferences[]`
 
@@ -780,7 +798,7 @@ priority; check off as done.
   annotation converter. §5 gained a one-line intro making the 5-of-11 split
   explicit before the three-kinds table. No code change.
 
-### 12.7 — Converter completeness: dead Names & Taxonomy rows — **MEDIUM**
+### 12.7 — Converter completeness: dead Names & Taxonomy rows — **MEDIUM** — ✅ DONE (2026-05-22)
 
 Found by a data-loss audit (2026-05-21) comparing the pre-refactor branch
 (`branch.diff`) against the shipped code, cross-checked against the corpus
@@ -790,7 +808,7 @@ Found by a data-loss audit (2026-05-21) comparing the pre-refactor branch
 actually occurs is handled and rendered, and the precomputed branch is purely
 additive. But there is a latent gap.
 
-- [ ] **Problem.** The pre-refactor `SubEntryNamesAndTaxonomySection` read **8**
+- [x] **Problem.** The pre-refactor `SubEntryNamesAndTaxonomySection` read **8**
   protein/gene name types straight from the raw UniFire predictions. The
   reworked section (`SubEntryNamesAndTaxonomySection.tsx:81–99`) reads them from
   the converted `annotations` instead — but `uniFireToUniProtkbConverter`
@@ -830,6 +848,22 @@ additive. But there is a latent gap.
 
   Option 1 is preferred — it restores parity with the pre-refactor behaviour and
   is a few lines per type.
+- **Done (2026-05-22) — chose option 1.** `uniFireToUniProtkbConverter` now
+  handles all 8 name types. Five new branches: `protein.recommendedName.shortName`
+  → `recommendedName.shortNames`; `protein.alternativeName.shortName` /
+  `.ecNumber` → `alternativeNames[0].shortNames` / `.ecNumbers` (flattened by the
+  renderer, so the host entry does not matter); `gene.name.primary` →
+  `genes[].geneName` (one entry each); `gene.name.synonym` → `genes[].synonyms`
+  (a synonym-only entry when no primary name — `GeneNamesData.geneName` is
+  optional). short-name / EC-number predictions with no matching `fullName` are
+  dropped with a `logging.warn`, mirroring the existing `ecNumber` rule (the
+  `ProteinNames.fullName` constraint). `genes` was **not** added to the
+  `UniParcPrecomputedModel` `Pick` — the 250-file precomputed corpus carries no
+  `genes`. The four formerly-dead Names & Taxonomy rows are now live whenever
+  UniFire supplies the data. 8 new converter tests cover each mapping plus both
+  drop-and-warn paths; `tsc` + ESLint clean; `uniFireToUniProtkbConverter` spec
+  58/58, `src/uniparc` suite 117/117 with snapshots unchanged (no corpus entry
+  exercises these types, so existing output is untouched). §3 updated.
 
 ### 12.8 — Related side-findings (low / pre-existing)
 

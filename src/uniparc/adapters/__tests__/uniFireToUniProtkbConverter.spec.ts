@@ -371,7 +371,7 @@ describe('uniFireToUniProtkbConverter', () => {
       expect(testResult.proteinDescription).toBeUndefined();
       expect(mockWarn).toHaveBeenCalledWith(
         expect.stringContaining(
-          'Dropping protein.recommendedName.ecNumber predictions'
+          'Dropping protein.recommendedName.ecNumber / .shortName predictions'
         ),
         expect.objectContaining({
           extra: expect.objectContaining({
@@ -380,6 +380,166 @@ describe('uniFireToUniProtkbConverter', () => {
           }),
         })
       );
+    });
+  });
+
+  describe('protein short names & alternativeName EC numbers (spec.md §12.7)', () => {
+    it('should attach protein.recommendedName.shortName to recommendedName.shortNames', () => {
+      const testResult = uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'protein.recommendedName.fullName',
+            annotationValue: 'Cellular tumor antigen p53',
+          },
+          {
+            evidence: ['ARBA00021784'],
+            annotationType: 'protein.recommendedName.shortName',
+            annotationValue: 'p53',
+          },
+        ],
+      });
+      const shortNames =
+        testResult.proteinDescription?.recommendedName?.shortNames ?? [];
+      expect(shortNames.map((s) => s.value)).toEqual(['p53']);
+      expect(shortNames[0].evidences).toEqual([
+        { evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00021784' },
+      ]);
+    });
+
+    it('should attach alternativeName short names and EC numbers to an alternative name', () => {
+      const testResult = uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'protein.alternativeName.fullName',
+            annotationValue: 'Antigen NY-CO-13',
+          },
+          {
+            evidence: ['ARBA00021784'],
+            annotationType: 'protein.alternativeName.shortName',
+            annotationValue: 'NYCO13',
+          },
+          {
+            evidence: ['ARBA00011923'],
+            annotationType: 'protein.alternativeName.ecNumber',
+            annotationValue: '2.1.1.57',
+          },
+        ],
+      });
+      const alt = testResult.proteinDescription?.alternativeNames?.[0];
+      expect(alt?.fullName.value).toBe('Antigen NY-CO-13');
+      expect(alt?.shortNames?.map((s) => s.value)).toEqual(['NYCO13']);
+      expect(alt?.ecNumbers?.map((e) => e.value)).toEqual(['2.1.1.57']);
+    });
+
+    it('should drop recommendedName short names and warn when no recommendedName.fullName is present', () => {
+      mockWarn.mockClear();
+      const testResult = uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021784'],
+            annotationType: 'protein.recommendedName.shortName',
+            annotationValue: 'p53',
+          },
+        ],
+      });
+      expect(testResult.proteinDescription).toBeUndefined();
+      expect(mockWarn).toHaveBeenCalledWith(
+        expect.stringContaining('no recommendedName.fullName'),
+        expect.objectContaining({
+          extra: expect.objectContaining({ droppedShortNames: 1 }),
+        })
+      );
+    });
+
+    it('should drop alternativeName short names / EC numbers and warn when no alternativeName.fullName is present', () => {
+      mockWarn.mockClear();
+      const testResult = uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021784'],
+            annotationType: 'protein.alternativeName.shortName',
+            annotationValue: 'NYCO13',
+          },
+          {
+            evidence: ['ARBA00011923'],
+            annotationType: 'protein.alternativeName.ecNumber',
+            annotationValue: '2.1.1.57',
+          },
+        ],
+      });
+      expect(testResult.proteinDescription).toBeUndefined();
+      expect(mockWarn).toHaveBeenCalledWith(
+        expect.stringContaining('no alternativeName.fullName'),
+        expect.objectContaining({
+          extra: expect.objectContaining({
+            droppedShortNames: 1,
+            droppedEcNumbers: 1,
+          }),
+        })
+      );
+    });
+  });
+
+  describe('gene.name.* → genes[] (spec.md §12.7)', () => {
+    it('should map gene.name.primary predictions to genes[].geneName', () => {
+      const testResult = uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'gene.name.primary',
+            annotationValue: 'TP53',
+          },
+        ],
+      });
+      expect(testResult.genes?.[0].geneName?.value).toBe('TP53');
+      expect(testResult.genes?.[0].geneName?.evidences).toEqual([
+        { evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'ARBA00021782' },
+      ]);
+    });
+
+    it('should attach gene.name.synonym predictions to genes[].synonyms', () => {
+      const testResult = uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021782'],
+            annotationType: 'gene.name.primary',
+            annotationValue: 'TP53',
+          },
+          {
+            evidence: ['ARBA00021783'],
+            annotationType: 'gene.name.synonym',
+            annotationValue: 'P53',
+          },
+        ],
+      });
+      expect(testResult.genes?.[0].geneName?.value).toBe('TP53');
+      expect(testResult.genes?.[0].synonyms?.map((s) => s.value)).toEqual([
+        'P53',
+      ]);
+    });
+
+    it('should emit a synonym-only gene entry when no primary name is predicted', () => {
+      const testResult = uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['ARBA00021783'],
+            annotationType: 'gene.name.synonym',
+            annotationValue: 'P53',
+          },
+        ],
+      });
+      expect(testResult.genes).toHaveLength(1);
+      expect(testResult.genes?.[0].geneName).toBeUndefined();
+      expect(testResult.genes?.[0].synonyms?.[0].value).toBe('P53');
     });
   });
 

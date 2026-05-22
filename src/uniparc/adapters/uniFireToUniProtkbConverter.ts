@@ -1,5 +1,6 @@
 import * as logging from '../../shared/utils/logging';
 import {
+  type GeneNamesData,
   type ProteinNames,
   type ProteinNamesData,
 } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
@@ -122,6 +123,11 @@ const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
   let recommendedName: ProteinNames | undefined;
   const alternativeNames: ProteinNames[] = [];
   const ecNumbers: ValueWithEvidence[] = [];
+  const recommendedShortNames: ValueWithEvidence[] = [];
+  const alternativeShortNames: ValueWithEvidence[] = [];
+  const alternativeEcNumbers: ValueWithEvidence[] = [];
+  const geneNames: ValueWithEvidence[] = [];
+  const geneSynonyms: ValueWithEvidence[] = [];
 
   for (const prediction of data.predictions) {
     try {
@@ -165,6 +171,46 @@ const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
       if (annotationType === 'protein.recommendedName.ecNumber') {
         if (typeof annotationValue === 'string') {
           ecNumbers.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // protein.recommendedName.shortName → recommendedName.shortNames[]
+      if (annotationType === 'protein.recommendedName.shortName') {
+        if (typeof annotationValue === 'string') {
+          recommendedShortNames.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // protein.alternativeName.shortName → an alternativeName's shortNames[]
+      if (annotationType === 'protein.alternativeName.shortName') {
+        if (typeof annotationValue === 'string') {
+          alternativeShortNames.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // protein.alternativeName.ecNumber → an alternativeName's ecNumbers[]
+      if (annotationType === 'protein.alternativeName.ecNumber') {
+        if (typeof annotationValue === 'string') {
+          alternativeEcNumbers.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // gene.name.primary → genes[].geneName
+      if (annotationType === 'gene.name.primary') {
+        if (typeof annotationValue === 'string') {
+          geneNames.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // gene.name.synonym → genes[].synonyms[]
+      if (annotationType === 'gene.name.synonym') {
+        if (typeof annotationValue === 'string') {
+          geneSynonyms.push({ value: annotationValue, evidences });
         }
         continue;
       }
@@ -238,32 +284,85 @@ const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
     }
   }
 
-  // Merge accumulated ecNumbers into recommendedName. The ProteinNames type
-  // requires a non-optional fullName, so ecNumbers can only be attached when
-  // a recommendedName.fullName was also predicted.
-  let recommendedNameWithEc: ProteinNames | undefined = recommendedName;
-  if (ecNumbers.length > 0) {
-    if (recommendedNameWithEc) {
-      recommendedNameWithEc = { ...recommendedNameWithEc, ecNumbers };
+  // Merge accumulated ecNumbers / shortNames into recommendedName. The
+  // ProteinNames type requires a non-optional fullName, so these can only be
+  // attached when a recommendedName.fullName was also predicted.
+  let finalRecommendedName: ProteinNames | undefined = recommendedName;
+  if (finalRecommendedName) {
+    if (ecNumbers.length > 0) {
+      finalRecommendedName = { ...finalRecommendedName, ecNumbers };
+    }
+    if (recommendedShortNames.length > 0) {
+      finalRecommendedName = {
+        ...finalRecommendedName,
+        shortNames: recommendedShortNames,
+      };
+    }
+  } else if (ecNumbers.length > 0 || recommendedShortNames.length > 0) {
+    logging.warn(
+      'Dropping protein.recommendedName.ecNumber / .shortName predictions: no recommendedName.fullName found in same entry',
+      {
+        extra: {
+          accession: data.accession,
+          droppedEcNumbers: ecNumbers.length,
+          droppedShortNames: recommendedShortNames.length,
+        },
+      }
+    );
+  }
+
+  // Attach accumulated alternative short names / EC numbers to the first
+  // alternative name. The Names & Taxonomy section flattens these across all
+  // alternative names, so the exact host does not matter; ProteinNames requires
+  // a fullName, so they are dropped if no alternativeName.fullName was predicted.
+  if (alternativeNames.length > 0) {
+    if (alternativeShortNames.length > 0) {
+      alternativeNames[0] = {
+        ...alternativeNames[0],
+        shortNames: alternativeShortNames,
+      };
+    }
+    if (alternativeEcNumbers.length > 0) {
+      alternativeNames[0] = {
+        ...alternativeNames[0],
+        ecNumbers: alternativeEcNumbers,
+      };
+    }
+  } else if (
+    alternativeShortNames.length > 0 ||
+    alternativeEcNumbers.length > 0
+  ) {
+    logging.warn(
+      'Dropping protein.alternativeName.shortName / .ecNumber predictions: no alternativeName.fullName found in same entry',
+      {
+        extra: {
+          accession: data.accession,
+          droppedShortNames: alternativeShortNames.length,
+          droppedEcNumbers: alternativeEcNumbers.length,
+        },
+      }
+    );
+  }
+
+  // Build genes[] — one entry per gene.name.primary, plus gene.name.synonym
+  // predictions. The Names & Taxonomy section flattens synonyms across all
+  // genes, so the host gene does not matter; GeneNamesData allows a
+  // synonym-only entry (geneName is optional) when no primary name was predicted.
+  const genes: GeneNamesData = geneNames.map((geneName) => ({ geneName }));
+  if (geneSynonyms.length > 0) {
+    if (genes.length > 0) {
+      genes[0] = { ...genes[0], synonyms: geneSynonyms };
     } else {
-      logging.warn(
-        'Dropping protein.recommendedName.ecNumber predictions: no recommendedName.fullName found in same entry',
-        {
-          extra: {
-            accession: data.accession,
-            droppedEcNumbers: ecNumbers.length,
-          },
-        }
-      );
+      genes.push({ synonyms: geneSynonyms });
     }
   }
 
   // Build proteinDescription if we have any name data
   let proteinDescription: ProteinNamesData | undefined;
-  if (recommendedNameWithEc || alternativeNames.length > 0) {
+  if (finalRecommendedName || alternativeNames.length > 0) {
     proteinDescription = {
-      ...(recommendedNameWithEc
-        ? { recommendedName: recommendedNameWithEc }
+      ...(finalRecommendedName
+        ? { recommendedName: finalRecommendedName }
         : undefined),
       ...(alternativeNames.length > 0 ? { alternativeNames } : undefined),
     };
@@ -328,6 +427,7 @@ const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
     ...(features.length > 0 ? { features } : undefined),
     ...(keywords.length > 0 ? { keywords } : undefined),
     ...(proteinDescription ? { proteinDescription } : undefined),
+    ...(genes.length > 0 ? { genes } : undefined),
     ...(xrefs.length > 0 ? { uniProtKBCrossReferences: xrefs } : undefined),
     ...(Object.keys(countByCommentType).length > 0 ||
     Object.keys(countByFeatureType).length > 0
