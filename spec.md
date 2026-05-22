@@ -722,9 +722,9 @@ priority; check off as done.
   (the sub-entry has no Diseases & Variants section at all). None of the three
   appear in the 250-file corpus. Tracked in §12.8.
 
-### 12.5 — `uniParcSubEntryConverter` mutates its input — **MEDIUM**
+### 12.5 — `uniParcSubEntryConverter` mutates its input — **MEDIUM** — ✅ DONE (2026-05-21)
 
-- [ ] **Problem.** `uniParcSubEntryConverter` reassigns
+- [x] **Problem.** `uniParcSubEntryConverter` reassigns
   `uniFireData.data.predictions`, so `SubEntry.tsx:363` passes a shallow clone
   (`{ ...uniFireData.data }`) and relies on `useMemo` ordering to keep the raw
   object intact for the `annotations` memo. A shallow clone protects only the
@@ -734,6 +734,16 @@ priority; check off as done.
 - **Resolution.** Make `uniParcSubEntryConverter` pure (do not mutate the
   passed-in UniFire object — build a new `predictions` array). Then drop the
   shallow-clone workaround and its explanatory comment in `SubEntry.tsx`.
+- **Done (2026-05-21).** `uniParcSubEntryConverter` is now pure — instead of
+  reassigning `uniFireData.predictions`, it builds a new `UniFireModel`
+  (`{ ...uniFireData, predictions: modifiedPredictions }`) and returns that.
+  `SubEntry.tsx` passes the raw `uniFireData.data || undefined` straight
+  through — the shallow-clone workaround and its comment are gone, and the
+  `annotations` `useMemo`'s "computed before … that converter mutates …" note
+  was removed (the ordering dependency no longer exists). New spec
+  `uniParcSubEntryConverter.spec.ts` asserts the UniFire input is not mutated
+  (regression guard). `tsc` + ESLint clean; `src/uniparc` suite 110/110,
+  snapshots unchanged.
 
 ### 12.6 — "One pipeline" framing vs. the three-kinds-of-section reality — **LOW (doc/process)**
 

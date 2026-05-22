@@ -201,10 +201,7 @@ const SubEntry = () => {
 
   const databaseInfoMaps = useDatabaseInfoMaps();
   // Build the annotations UIModel the sub-entry sections render (spec.md Phase
-  // 3/4/6). Precomputed is preferred; UniFire is the fallback. Computed before
-  // uniParcSubEntryConverter() runs below — that converter mutates
-  // uniFireData.data.predictions into the ModifiedPrediction shape, which
-  // uniFireToUniProtkbConverter's input validation would then reject.
+  // 3/4/6). Precomputed is preferred; UniFire is the fallback.
   const annotations: UniProtkbUIModel | undefined = useMemo(() => {
     if (!databaseInfoMaps) {
       return undefined;
@@ -371,10 +368,10 @@ const SubEntry = () => {
     uniparcData.data,
     subEntryDataPerDatabase as UniParcXRef,
     unisaveData.data,
-    // uniParcSubEntryConverter reassigns `.predictions` on the UniFire object;
-    // pass a shallow clone so the `annotations` useMemo above keeps seeing the
-    // raw `uniFireData.data` (which is '' when there is no data).
-    uniFireData.data ? { ...uniFireData.data } : undefined
+    // `uniParcSubEntryConverter` is pure (spec.md §12.5), so the raw UniFire
+    // object can be passed straight through. `|| undefined` because
+    // `uniFireData.data` is '' when there is no UniFire response.
+    uniFireData.data || undefined
   );
 
   if (!transformedData) {
