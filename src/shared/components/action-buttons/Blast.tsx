@@ -35,7 +35,10 @@ const BlastButton = ({
   }
 
   if (taxons && taxons.length > 0) {
-    title = `Run a BLAST job against ${taxons.map((t) => t.label).join(', ')}`;
+    title =
+      taxons.length >= 3
+        ? `Run a BLAST job against ${taxons.length} taxonomies`
+        : `Run a BLAST job against ${taxons.map((t) => t.label).join(', ')}`;
   }
 
   return (
