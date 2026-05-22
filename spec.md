@@ -666,9 +666,9 @@ priority; check off as done.
   annotations). Guard exported; 6 new tests cover throw-and-log and the guard's
   accept/reject cases. `tsc` + ESLint clean; `src/uniparc` suite 108/108.
 
-### 12.4 — `KeywordsAndGO` is not source-agnostic — **MEDIUM**
+### 12.4 — `KeywordsAndGO` is not source-agnostic — **MEDIUM** — ✅ DONE (2026-05-21)
 
-- [ ] **Problem.** `UniParcSubEntryConfig.tsx:163` —
+- [x] **Problem.** `UniParcSubEntryConfig.tsx:163` —
   `sectionContent: ({ unifire }) => <SubEntryKeywordsSection data={unifire} />`,
   and the nav `disabled` check at `SubEntry.tsx:421` reads
   `transformedData.unifire?.predictions`. For a **precomputed** entry there is
@@ -682,6 +682,45 @@ priority; check off as done.
   maps to a section the sub-entry page does not render (e.g. Disease); or
   (b) make the section source-agnostic by reading uncategorised keywords/GO
   from the resolved `annotations`.
+- **Done (2026-05-21) — chose (a).** The section is a UniFire-only catch-all
+  **by design** — the `SubEntrySection` enum member was renamed
+  `KeywordsAndGO` → `UniFireKeywordsAndGO` to make that explicit at every use
+  site (the enum *value* / DOM anchor stays `keywords_and_go` — provenance
+  belongs in the identifier, not the URL fragment), and the rationale is
+  documented in `subEntrySection.ts` and `UniParcSubEntryConfig.tsx`. Verified
+  against the 250-file precomputed corpus (`transformer-gap/downloads/precomputed/`):
+  - **0** precomputed keywords lack a `category`; **0** lack an `id` (1749
+    keyword entries across all 250 files). Unlike UniFire keywords, every
+    precomputed keyword can therefore be sectioned by `uniProtKbConverter` —
+    there is no "orphaned keyword" case to catch.
+  - The 7 categories that occur — PTM (714), Cellular component (633),
+    Molecular function (221), Biological process (74), Domain (59),
+    Developmental stage (33), Ligand (15) — all map to a section the sub-entry
+    renders from `annotations`, and each of those components renders
+    `keywordData`:
+
+    | Category | Section converter | Sub-entry component (renders `keywordData`) |
+    | :--- | :--- | :--- |
+    | Molecular function / Biological process / Ligand | `functionConverter` | `FunctionSection` ✅ |
+    | Cellular component | `subcellularLocationConverter` | `SubcellularLocationSection` ✅ |
+    | Developmental stage | `expressionConverter` | `ExpressionSection` ✅ |
+    | PTM | `proteinProcessingConverter` | `ProteinProcessingSection` ✅ |
+    | Domain | `familyAndDomainsConverter` | `SubEntryFamilyAndDomains` ✅ |
+
+  - **0** precomputed files carry `uniProtKBCrossReferences` — there are no
+    precomputed GO xrefs at all.
+
+  So no precomputed keyword or GO xref is dropped: precomputed never
+  legitimately needs `UniFireKeywordsAndGO`, and it correctly renders nothing /
+  disables its nav item for that branch.
+- **Residual latent risk (documented, not fixed).** Three keyword categories
+  *would* be dropped if a precomputed response ever carried them, because they
+  map to sections the sub-entry does not render from `annotations`:
+  `Coding sequence diversity` and `Technical term` → `sequenceConverter`
+  (the sub-entry's Sequence section is the bespoke `SubEntrySequenceSection`,
+  which does not read `annotations`); `Disease` → `diseaseAndDrugs`
+  (the sub-entry has no Diseases & Variants section at all). None of the three
+  appear in the 250-file corpus. Tracked in §12.8.
 
 ### 12.5 — `uniParcSubEntryConverter` mutates its input — **MEDIUM**
 

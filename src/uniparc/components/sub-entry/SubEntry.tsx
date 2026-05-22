@@ -431,7 +431,7 @@ const SubEntry = () => {
             !annotationSectionHasContent(UniProtKBEntrySection.Interaction)) ||
           (section.id === SubEntrySection.FamilyAndDomains &&
             !familyAndDomainsHasContent) ||
-          (section.id === SubEntrySection.KeywordsAndGO &&
+          (section.id === SubEntrySection.UniFireKeywordsAndGO &&
             !transformedData.unifire?.predictions.some(
               (p) =>
                 p.annotationType === 'keyword' || p.annotationType === 'xref.GO'

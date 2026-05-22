@@ -165,10 +165,17 @@ const uniParcSubEntryConfig: Record<
       <SubEntrySimilarProteinsSection uniparcId={data.entry.uniParcId} />
     ),
   },
-  // Dedicated section for Keywords and GO as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
-  [EntrySection.KeywordsAndGO]: {
-    id: EntrySection.KeywordsAndGO,
-    label: entrySectionToLabel[EntrySection.KeywordsAndGO],
+  // Keywords & GO — a UniFire-only catch-all, by design (spec.md §12.4).
+  // UniFire `keyword` / `xref.GO` predictions carry no category or id, so
+  // `uniProtKbConverter` cannot distribute them into the sectioned components;
+  // they are rendered here straight from the raw `unifire` predictions.
+  // Precomputed keywords are fully categorised (and have ids), so they flow
+  // into their proper sections instead, and precomputed responses carry no GO
+  // xrefs — so this section renders nothing for the precomputed branch
+  // (verified against the 250-file corpus).
+  [EntrySection.UniFireKeywordsAndGO]: {
+    id: EntrySection.UniFireKeywordsAndGO,
+    label: entrySectionToLabel[EntrySection.UniFireKeywordsAndGO],
     sectionContent: ({ unifire }) => <SubEntryKeywordsSection data={unifire} />,
   },
 };

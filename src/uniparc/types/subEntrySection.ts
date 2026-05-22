@@ -9,7 +9,11 @@ enum SubEntrySection {
   FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',
   SimilarProteins = 'similar_proteins',
-  KeywordsAndGO = 'keywords_and_go',
+  // UniFire-only catch-all section (spec.md §12.4): UniFire `keyword` / `xref.GO`
+  // predictions are uncategorised so cannot be distributed into the sectioned
+  // components. The value stays 'keywords_and_go' — it is the DOM id and
+  // in-page-nav anchor, and provenance belongs in the identifier, not the URL.
+  UniFireKeywordsAndGO = 'keywords_and_go',
 }
 
 export type EntrySectionNameAndId = {

@@ -11,5 +11,5 @@ export const entrySectionToLabel = {
   [SubEntrySection.FamilyAndDomains]: 'Family & Domains',
   [SubEntrySection.Sequence]: 'Sequence',
   [SubEntrySection.SimilarProteins]: 'Similar Proteins',
-  [SubEntrySection.KeywordsAndGO]: 'Keywords & Gene Ontology',
+  [SubEntrySection.UniFireKeywordsAndGO]: 'Keywords & Gene Ontology',
 };
