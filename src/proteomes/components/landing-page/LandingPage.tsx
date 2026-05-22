@@ -8,7 +8,6 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import SpeciesIllustration from '../../../images/species_illustration.img.svg';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
-import { RefProtMoveResultsMessage } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
@@ -166,7 +165,6 @@ const LandingPage = () => {
             </Link>
           </p>
         </div>
-        <RefProtMoveResultsMessage namespace={Namespace.proteomes} />
         {/* Statistics */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
           <h2>Statistics</h2>
