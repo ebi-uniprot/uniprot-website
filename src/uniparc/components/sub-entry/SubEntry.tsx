@@ -190,7 +190,10 @@ const SubEntry = () => {
   // used only when there is no precomputed data for this entry (HTTP 404).
   const precomputedData = useDataApi<UniParcPrecomputedModel>(
     canLoadUniFire
-      ? apiUrls.precomputed.precomputed(accession, `${subEntryTaxId}`)
+      ? apiUrls.precomputed.precomputedUniParcAnnotation(
+          accession,
+          `${subEntryTaxId}`
+        )
       : null
   );
   const hasPrecomputed =
