@@ -125,7 +125,7 @@ const annotationTypeToSection: Record<string, SectionObject> = {
     section: SubEntrySection.FamilyAndDomains,
     featureType: 'Domain',
   },
-  'feature.feature.CHAIN': {
+  'feature.CHAIN': {
     section: SubEntrySection.ProteinProcessing,
     featureType: 'Chain',
   },

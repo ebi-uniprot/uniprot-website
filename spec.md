@@ -10,13 +10,13 @@
 > standalone PR *before* any component work (Phase 3+); see §6 for the
 > recommended PR slicing.
 >
-> **Post-completion review (2026-05-21):** a best-practices review plus a
-> data-loss audit found eight follow-ups (§12.1–12.8) where the abstraction
-> leaked, a workaround stands in for a fix, or the converter is incomplete. The
-> audit confirmed **no data is lost for any entry in the corpus** (289 UniFire +
-> 250 precomputed files); the items do **not** block the feature (the stated
-> objective is met) but should be resolved before this is considered done. See
-> **§12**.
+> **Post-completion review (2026-05-21 → 2026-05-22):** a best-practices review
+> plus a data-loss audit found eight follow-ups (§12.1–12.8) where the
+> abstraction leaked, a workaround stood in for a fix, or the converter was
+> incomplete. The audit confirmed **no data is lost for any entry in the
+> corpus** (289 UniFire + 250 precomputed files). **All eight are now resolved**
+> — see §12 for the per-item done-notes; the one accepted known limitation is
+> the latent precomputed keyword-category risk (§12.8).
 >
 > Self-contained: assumes no prior context. Verify file paths / line numbers
 > against the codebase before editing — line numbers drift.
@@ -865,17 +865,27 @@ additive. But there is a latent gap.
   58/58, `src/uniparc` suite 117/117 with snapshots unchanged (no corpus entry
   exercises these types, so existing output is untouched). §3 updated.
 
-### 12.8 — Related side-findings (low / pre-existing)
+### 12.8 — Related side-findings (low / pre-existing) — ✅ DONE (2026-05-22)
 
-- [ ] **`feature.feature.CHAIN` key.** `UniFireAnnotationTypeToSection.ts` has a
+- [x] **`feature.feature.CHAIN` key.** `UniFireAnnotationTypeToSection.ts` had a
   key with a doubled `feature.` prefix — a real `feature.CHAIN` prediction would
   never match it and would be dropped as an unknown type. No `CHAIN` feature in
   the corpus, and the pre-refactor `groupTypesBySection` had the same key (so
   **not a regression**), but fix the typo while in the file.
-- [ ] **Precomputed keyword categories — latent only.** Every keyword category
+  - **Done (2026-05-22).** Key corrected to `feature.CHAIN` — a UniFire
+    `feature.CHAIN` prediction now maps to `{ ProteinProcessing, 'Chain' }`.
+    `tsc` + ESLint clean; `src/uniparc` suite 117/117, snapshots unchanged.
+- [x] **Precomputed keyword categories — latent only.** Every keyword category
   in the 250-file precomputed corpus (Biological process, Cellular component,
   Developmental stage, Domain, Ligand, Molecular function, PTM) maps to a
   section the sub-entry renders from `annotations`, so no loss is observed. But
   a precomputed keyword in a category that maps elsewhere (e.g. `Disease` →
   Diseases & Variants, which the sub-entry does not render) would be silently
   dropped. Related to §12.4 — verify if the precomputed corpus ever widens.
+  - **Accepted (2026-05-22) — documentation only, no code change.** This is a
+    latent risk, not an observed defect: it cannot occur for any of the 250
+    corpus entries. It is recorded here and in §12.4's residual-risk note. If
+    the precomputed endpoint is ever found to emit a `Disease` /
+    `Coding sequence diversity` / `Technical term` keyword, revisit — the fix
+    would be to surface those in `UniFireKeywordsAndGO` (or a precomputed
+    equivalent). No action taken now; deliberately left as a known limitation.
