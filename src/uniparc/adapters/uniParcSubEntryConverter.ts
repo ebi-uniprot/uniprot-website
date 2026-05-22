@@ -1,3 +1,4 @@
+import * as logging from '../../shared/utils/logging';
 import { type Evidence } from '../../uniprotkb/types/modelTypes';
 import { type UniSaveStatus } from '../../uniprotkb/types/uniSave';
 import { isSourceDatabase } from '../utils/subEntry';
@@ -22,7 +23,7 @@ export type UniParcSubEntryUIModel = {
 export type Prediction = {
   evidence: string[];
   annotationType: string;
-  annotationValue: string;
+  annotationValue?: string;
   start?: number;
   end?: number;
 };
@@ -36,7 +37,30 @@ export type ModifiedPrediction = Omit<Prediction, 'evidence'> & {
   evidence: Evidence[];
 };
 
-const constructPredictionEvidences = (
+// Sources observed in both UniFIRE and precomputed data for UniParc entries
+const SOURCE_BY_PREFIX: ReadonlyArray<readonly [string, string]> = [
+  ['ARBA', 'ARBA'],
+  ['UR', 'UniRule'],
+  ['RU', 'RuleBase'],
+  ['PIRNR', 'PIRNR'],
+  ['PRU', 'PROSITE-ProRule'],
+] as const;
+
+const DEFAULT_EVIDENCE_SOURCE = 'UniRule';
+
+const sourceForEvidenceId = (id: string): string => {
+  const match = SOURCE_BY_PREFIX.find(([prefix]) => id.startsWith(prefix));
+  if (match) {
+    return match[1];
+  }
+  logging.warn(
+    `Unknown UniFire evidence ID prefix; defaulting source to ${DEFAULT_EVIDENCE_SOURCE}`,
+    { extra: { id } }
+  );
+  return DEFAULT_EVIDENCE_SOURCE;
+};
+
+export const constructPredictionEvidences = (
   evidences: string[] | undefined
 ): Evidence[] => {
   return (
@@ -44,7 +68,7 @@ const constructPredictionEvidences = (
       if (typeof e === 'string') {
         return {
           evidenceCode: 'ECO:0000256',
-          source: e.startsWith('ARBA') ? 'ARBA' : 'UniRule',
+          source: sourceForEvidenceId(e),
           id: e,
         };
       }
