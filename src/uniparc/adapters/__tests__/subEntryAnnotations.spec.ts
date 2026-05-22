@@ -10,6 +10,7 @@ import precomputedModelData from '../../__mocks__/uniparcPrecomputedModelData';
 import { type UniParcPrecomputedModel } from '../../types/precomputed';
 import buildSubEntryAnnotations, {
   shouldRequestUniFire,
+  uniFireToDownloadModel,
   withOrganism,
 } from '../subEntryAnnotations';
 
@@ -134,22 +135,21 @@ describe('buildSubEntryAnnotations', () => {
     expect(buildSubEntryAnnotations({ databaseInfoMaps })).toBeUndefined();
   });
 
-  it('prefers precomputed over UniFire when both are present', () => {
-    // Both mocks share the same UPI, so mark the precomputed input to prove the
-    // result came from it and not the UniFire fallback.
+  // The caller only ever passes one source — `shouldRequestUniFire` stops the
+  // UniFire fetch firing when precomputed data exists — so the two reachable
+  // cases are precomputed-only and UniFire-only.
+  it('builds annotations from the precomputed source', () => {
     const result = buildSubEntryAnnotations({
       databaseInfoMaps,
-      precomputed: {
-        ...precomputedModelData,
-        primaryAccession: 'UPI-PRECOMPUTED',
-      },
-      uniFire: unifireModelData,
+      precomputed: precomputedModelData,
       accession: 'UPI000002A2F6',
     });
-    expect(result?.primaryAccession).toBe('UPI-PRECOMPUTED');
+    expect(result?.primaryAccession).toBe(
+      precomputedModelData.primaryAccession
+    );
   });
 
-  it('falls back to UniFire when there is no precomputed data', () => {
+  it('builds annotations from UniFire when there is no precomputed data', () => {
     const result = buildSubEntryAnnotations({
       databaseInfoMaps,
       uniFire: unifireModelData,
@@ -209,5 +209,22 @@ describe('buildSubEntryAnnotations', () => {
       expect.stringContaining('no dedicated sub-entry section'),
       expect.anything()
     );
+  });
+});
+
+describe('uniFireToDownloadModel', () => {
+  it('drops the render-pipeline placeholders so the download is clean', () => {
+    const model = uniFireToDownloadModel(unifireModelData);
+    // `proteinExistence` / `uniProtkbId: ''` are only scaffolding for the
+    // render pipeline — the download must mirror the precomputed shape.
+    expect(Object.keys(model)).not.toContain('proteinExistence');
+    expect(model.uniProtkbId).toBeNull();
+  });
+
+  it('keeps the transformed annotation payload', () => {
+    const model = uniFireToDownloadModel(unifireModelData);
+    expect(model.entryType).toBe('AA');
+    expect(model.primaryAccession).toBe('UPI000002A2F6-9606');
+    expect(Array.isArray(model.comments)).toBe(true);
   });
 });

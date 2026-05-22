@@ -69,7 +69,7 @@ type BuildSubEntryAnnotationsParams = {
  * Build the annotations `UniProtkbUIModel` the UniParc sub-entry sections
  * render, from whichever source populated the page.
  *
- * Precomputed is preferred (it already exists); UniFire is the fallback. The
+ * Precomputed is preferred (if it exists); UniFire is the fallback. The
  * chosen source is converted to a `UniProtkbAPIModel`, supplemented with the
  * organism (`withOrganism`), then run through `uniProtKbConverter` — the same
  * pipeline the UniProtKB entry page uses.
@@ -134,6 +134,23 @@ const buildSubEntryAnnotations = ({
     );
     return undefined;
   }
+};
+
+/**
+ * The UniFire annotations as a download payload.
+ *
+ * `uniFireToUniProtkbConverter` fills `uniProtkbId` / `proteinExistence` with
+ * empty-string placeholders so the model satisfies `UniProtkbAPIModel` for the
+ * render pipeline. Those are meaningless internal scaffolding in a downloaded
+ * file, so strip them — yielding a clean `UniParcPrecomputedModel`, the same
+ * shape the precomputed endpoint returns, so both sources download
+ * consistently.
+ */
+export const uniFireToDownloadModel = (
+  uniFire: UniFireModel
+): UniParcPrecomputedModel => {
+  const { proteinExistence, ...rest } = uniFireToUniProtkbConverter(uniFire);
+  return { ...rest, uniProtkbId: null } as UniParcPrecomputedModel;
 };
 
 export default buildSubEntryAnnotations;

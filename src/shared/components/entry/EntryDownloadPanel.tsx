@@ -4,7 +4,10 @@ import { useLocation } from 'react-router-dom';
 
 import { type Column } from '../../config/columns';
 import ErrorBoundary from '../error-component/ErrorBoundary';
-import EntryDownload, { type Dataset } from './EntryDownload';
+import EntryDownload, {
+  type Dataset,
+  type SubEntryAnnotationDownload,
+} from './EntryDownload';
 
 type EntryDownloadPanelProps = {
   handleToggle: () => void;
@@ -14,6 +17,7 @@ type EntryDownloadPanelProps = {
   dataset?: Dataset;
   featureTypes?: string[];
   sequence?: string;
+  subEntryAnnotationDownload?: SubEntryAnnotationDownload;
 };
 const EntryDownloadPanel = ({
   handleToggle,
@@ -23,6 +27,7 @@ const EntryDownloadPanel = ({
   dataset,
   featureTypes,
   sequence,
+  subEntryAnnotationDownload,
 }: EntryDownloadPanelProps) => {
   const { pathname } = useLocation();
   return (
@@ -42,6 +47,7 @@ const EntryDownloadPanel = ({
             dataset={dataset}
             featureTypes={featureTypes}
             sequence={sequence}
+            subEntryAnnotationDownload={subEntryAnnotationDownload}
           />
         </ErrorBoundary>
       </SlidingPanel>
