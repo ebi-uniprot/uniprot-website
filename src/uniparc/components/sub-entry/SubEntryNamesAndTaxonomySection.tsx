@@ -7,8 +7,6 @@ import TaxonomyView, {
   TaxonomyId,
   TaxonomyLineage,
 } from '../../../shared/components/entry/TaxonomyView';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
@@ -19,7 +17,6 @@ import {
 } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
-import { getSubEntryProteomes } from '../../utils/subEntry';
 
 const genericEvidences: Evidence[] = [
   {
@@ -50,26 +47,20 @@ const NameContent = ({
 
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
+  lineageData?: TaxonomyAPIModel;
+  proteomeComponentObject?: Record<string, string>;
 };
 
 const SubEntryNamesAndTaxonomySection = ({
   data,
+  lineageData,
+  proteomeComponentObject = {},
 }: SubEntryNamesAndTaxonomySectionProps) => {
-  const { data: lineageData } = useDataApi<TaxonomyAPIModel>(
-    data?.subEntry?.organism
-      ? apiUrls.entry.entry(
-          `${data.subEntry.organism.taxonId}`,
-          Namespace.taxonomy
-        )
-      : null
-  );
-
   if (!data?.subEntry) {
     return null;
   }
 
-  const { proteinName, geneName, organism, properties, proteomeId, component } =
-    data.subEntry;
+  const { proteinName, geneName, organism } = data.subEntry;
   const { predictions } = data.unifire || { predictions: [] };
 
   const recommendedFullNamePrediction =
@@ -117,12 +108,6 @@ const SubEntryNamesAndTaxonomySection = ({
     (predictions as ModifiedPrediction[])?.filter(
       (prediction) => prediction.annotationType === 'gene.name.synonym'
     ) || [];
-
-  const proteomeComponentObject = getSubEntryProteomes(properties);
-
-  if (proteomeId && component) {
-    proteomeComponentObject[proteomeId] = component;
-  }
 
   const proteomeContent = Object.entries(proteomeComponentObject).map(
     ([proteomeId, component]) => (

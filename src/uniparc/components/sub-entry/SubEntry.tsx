@@ -1,5 +1,13 @@
 import cn from 'classnames';
-import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import {
+  Button,
+  Dropdown,
+  ExternalLink,
+  Loader,
+  Message,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import { use, useEffect, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
@@ -9,6 +17,7 @@ import {
   LocationToPath,
 } from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
+import { type SelectedTaxon } from '../../../jobs/types/jobsFormData';
 import {
   addMessage,
   deleteMessage,
@@ -18,6 +27,10 @@ import {
   MessageLevel,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
+import {
+  type ProteomesAPIModel,
+  type RelatedProteome,
+} from '../../../proteomes/adapters/proteomesConverter';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -43,6 +56,8 @@ import {
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
+import { pluralise } from '../../../shared/utils/utils';
+import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
@@ -58,7 +73,7 @@ import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
 import SubEntrySection from '../../types/subEntrySection';
-import { getSubEntryPath } from '../../utils/subEntry';
+import { getSubEntryPath, getSubEntryProteomes } from '../../utils/subEntry';
 import { getXrefId } from '../../utils/uniparcXref';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import { type DataDBModel } from '../entry/XRefsSection';
@@ -169,6 +184,76 @@ const SubEntry = () => {
 
   const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
   const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
+
+  const proteomeComponentObject: Record<string, string> = {
+    ...getSubEntryProteomes(subEntryDataPerDatabase?.properties),
+    ...Object.fromEntries(
+      subEntryDataPerDatabase?.proteomes?.map(({ id, component }) => [
+        id,
+        component,
+      ]) ?? []
+    ),
+  };
+
+  const proteomeIds = Object.keys(proteomeComponentObject);
+
+  const lineageData = useDataApi<TaxonomyAPIModel>(
+    subEntryDataPerDatabase?.organism
+      ? apiUrls.entry.entry(`${subEntryTaxId}`, Namespace.taxonomy)
+      : null
+  );
+
+  const proteomesSearchData = useDataApi<SearchResults<ProteomesAPIModel>>(
+    apiUrls.search.search({
+      namespace: Namespace.proteomes,
+      query: proteomeIds.map((proteomeId) => `upid:${proteomeId}`).join(' OR '),
+      size: proteomeIds.length,
+      facets: null,
+    })
+  );
+
+  /*
+  If the current taxon has a rank of “species”, it should be used as taxonId.
+  Or use the lineage information to go back to either the first parent with the
+  rank of “species”, or the first non-hidden parent if no “species” parent exist
+  */
+  let speciesTaxon: { taxonId: number; scientificName?: string } | undefined;
+  if (lineageData.data?.rank === 'species') {
+    speciesTaxon = lineageData.data;
+  } else if (lineageData.data?.lineage) {
+    const reverseLineage = [...lineageData.data.lineage].reverse();
+    speciesTaxon =
+      reverseLineage.find((item) => item.rank === 'species') ??
+      reverseLineage.find((item) => !item.hidden);
+  }
+
+  const speciesTaxons: SelectedTaxon[] | undefined = speciesTaxon
+    ? [
+        {
+          id: String(speciesTaxon.taxonId),
+          label: speciesTaxon.scientificName
+            ? `${speciesTaxon.scientificName} [${speciesTaxon.taxonId}]`
+            : String(speciesTaxon.taxonId),
+        },
+      ]
+    : undefined;
+
+  const relatedProteomeTaxons: SelectedTaxon[] | undefined = (() => {
+    const allRelated =
+      proteomesSearchData.data?.results?.flatMap(
+        (proteome) => proteome.relatedProteomes ?? []
+      ) ?? [];
+    const uniqueTaxonIds = [
+      ...new Set(allRelated.map((r: RelatedProteome) => r.taxonomy.taxonId)),
+    ];
+    if (!uniqueTaxonIds.length) {
+      return undefined;
+    }
+    return uniqueTaxonIds.map((taxonId) => ({
+      id: String(taxonId),
+      label: String(taxonId),
+    }));
+  })();
 
   const uniFireData = useDataApi<UniFireModel>(
     canLoadUniFire && runUniFire
@@ -415,11 +500,48 @@ const SubEntry = () => {
             />
           )}
           <div className="button-group">
-            <BlastButton selectedEntries={[accession]} />
+            <Dropdown
+              visibleElement={(onClick: () => unknown) => (
+                <Button variant="tertiary" onClick={onClick}>
+                  BLAST
+                </Button>
+              )}
+            >
+              <ul className="no-bullet">
+                <li>
+                  <BlastButton
+                    selectedEntries={[accession]}
+                    textSuffix="against the sequence"
+                  />
+                </li>
+                {relatedProteomeTaxons && (
+                  <li>
+                    <BlastButton
+                      selectedEntries={[accession]}
+                      textSuffix={`against related proteome ${pluralise(' taxon', relatedProteomeTaxons.length)}`}
+                      taxons={relatedProteomeTaxons}
+                    />
+                  </li>
+                )}
+                {speciesTaxons && (
+                  <li>
+                    <BlastButton
+                      selectedEntries={[accession]}
+                      textSuffix={`against the ${pluralise('taxon', speciesTaxons.length)}`}
+                      taxons={speciesTaxons}
+                    />
+                  </li>
+                )}
+              </ul>
+            </Dropdown>
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={accession} />
           </div>
-          <SubEntryMain transformedData={transformedData} />
+          <SubEntryMain
+            transformedData={transformedData}
+            lineageData={lineageData.data}
+            proteomeComponentObject={proteomeComponentObject}
+          />
         </Tab>
         <Tab
           title={
