@@ -14,7 +14,7 @@
 > plus a data-loss audit found eight follow-ups (§12.1–12.8) where the
 > abstraction leaked, a workaround stood in for a fix, or the converter was
 > incomplete. The audit confirmed **no data is lost for any entry in the
-> corpus** (289 UniFire + 250 precomputed files). **All eight are now resolved**
+> corpus** (985 UniFire + 947 precomputed files). **All eight are now resolved**
 > — see §12 for the per-item done-notes; the one accepted known limitation is
 > the latent precomputed keyword-category risk (§12.8).
 >
@@ -209,7 +209,7 @@ One `genes[]` entry per `gene.name.primary` (`{ geneName }`); `gene.name.synonym
 predictions are collected into `synonyms`. `GeneNamesData` allows an optional
 `geneName`, so synonyms with no predicted primary name still emit a
 synonym-only entry rather than being dropped. (Added by spec.md §12.7 — these
-five name types occur in **0** of the 289 corpus entries but the pre-refactor
+five name types occur in **0** of the 985 corpus entries but the pre-refactor
 page rendered them, so the converter handles them for parity.)
 
 ### `xref.GO` predictions → `uniProtKBCrossReferences[]`
@@ -613,12 +613,18 @@ source-agnostically.
 
 ## 12. Review follow-ups (post-completion, 2026-05-21)
 
-A best-practices review of the shipped implementation found six items where the
-abstraction leaked or a workaround substitutes for a root-cause fix. The feature
-meets the §1 objective (always-UniParc data + precomputed-else-UniFire), so none
-of these block it — but they are the difference between "works" and "won't
-quietly rot". Resolve them before treating the work as complete. Ordered by
-priority; check off as done.
+A best-practices review of the shipped implementation found eight items where
+the abstraction leaked or a workaround substitutes for a root-cause fix. The
+feature meets the §1 objective (always-UniParc data + precomputed-else-UniFire),
+so none of these block it — but they are the difference between "works" and
+"won't quietly rot". All eight are now resolved (see the per-item done-notes).
+
+The corpus figures throughout §12 were re-validated on 2026-05-22 against the
+full **985 UniFire + 947 precomputed** download set via
+`transformer-gap/corpusValidation.ts` — a re-runnable Jest check that converts
+every downloaded entry through the real pipeline (`uniFireToUniProtkbConverter`
+/ `precomputedToUniProtkbConverter` → `uniProtKbConverter`). Every entry
+converts with zero failures.
 
 ### 12.1 — Fabricated accession leaks provenance into shared components — **HIGH** — ✅ DONE (2026-05-21)
 
@@ -675,7 +681,7 @@ priority; check off as done.
   a named helper, `toSubEntryAccession()` in `uniparc/utils/subEntry.ts`,
   replacing the inline `data.accession.replaceAll(':', '-')`. Its doc comment
   records that `UPI-taxId` is the precomputed endpoint's **own** identifier
-  format (verified: all 250 corpus files use it) — so it is a legitimate
+  format (verified: all 947 corpus files use it) — so it is a legitimate
   sub-entry identifier, not a rogue fabrication — and that it is still **not** a
   UniProtKB accession.
 - **Regression guards (2026-05-22).** Three tests lock in the gating so a future
@@ -762,14 +768,14 @@ priority; check off as done.
   site (the enum *value* / DOM anchor stays `keywords_and_go` — provenance
   belongs in the identifier, not the URL fragment), and the rationale is
   documented in `subEntrySection.ts` and `UniParcSubEntryConfig.tsx`. Verified
-  against the 250-file precomputed corpus (`transformer-gap/downloads/precomputed/`):
-  - **0** precomputed keywords lack a `category`; **0** lack an `id` (1749
-    keyword entries across all 250 files). Unlike UniFire keywords, every
+  against the 947-file precomputed corpus (`transformer-gap/downloads/precomputed/`):
+  - **0** precomputed keywords lack a `category`; **0** lack an `id` (6604
+    keyword entries across all 947 files). Unlike UniFire keywords, every
     precomputed keyword can therefore be sectioned by `uniProtKbConverter` —
     there is no "orphaned keyword" case to catch.
-  - The 7 categories that occur — PTM (714), Cellular component (633),
-    Molecular function (221), Biological process (74), Domain (59),
-    Developmental stage (33), Ligand (15) — all map to a section the sub-entry
+  - The 7 categories that occur — PTM (2787), Cellular component (2233),
+    Molecular function (916), Ligand (339), Biological process (236),
+    Domain (60), Developmental stage (33) — all map to a section the sub-entry
     renders from `annotations`, and each of those components renders
     `keywordData`:
 
@@ -794,7 +800,7 @@ priority; check off as done.
   (the sub-entry's Sequence section is the bespoke `SubEntrySequenceSection`,
   which does not read `annotations`); `Disease` → `diseaseAndDrugs`
   (the sub-entry has no Diseases & Variants section at all). None of the three
-  appear in the 250-file corpus. Tracked in §12.8.
+  appear in the 947-file corpus. Tracked in §12.8.
 
 ### 12.5 — `uniParcSubEntryConverter` mutates its input — **MEDIUM** — ✅ DONE (2026-05-21)
 
@@ -844,7 +850,7 @@ priority; check off as done.
 
 Found by a data-loss audit (2026-05-21) comparing the pre-refactor branch
 (`branch.diff`) against the shipped code, cross-checked against the corpus
-(289 UniFire files + 250 precomputed files in `transformer-gap/downloads/`).
+(985 UniFire files + 947 precomputed files in `transformer-gap/downloads/`).
 
 **No data is lost for any entry in the corpus** — every annotation type that
 actually occurs is handled and rendered, and the precomputed branch is purely
@@ -871,7 +877,7 @@ additive. But there is a latent gap.
   empty for the UniFire branch. The page advertises affordances it can never
   fill.
 
-  Not a *visible* loss today: none of the 5 dropped types appear in the 289-file
+  Not a *visible* loss today: none of the 5 dropped types appear in the 985-file
   UniFire corpus, so the Phase-4 harness's "0 dropped" was correct for the data
   it saw. (The harness also predates the 2026-05-21 NamesAndTaxonomy rework and
   was then deleted — this path was never under test.) It is a silent-loss trap:
@@ -882,7 +888,7 @@ additive. But there is a latent gap.
      → `genes[]` (`geneName` / `synonyms`); `protein.*.shortName` → the relevant
      `shortNames`; `protein.alternativeName.ecNumber` → the alternative name's
      `ecNumbers`. Then add `genes` to the `UniParcPrecomputedModel` `Pick` only
-     if a precomputed response is ever found to carry it (the 250-file corpus
+     if a precomputed response is ever found to carry it (the 947-file corpus
      has none). Add converter test coverage for each.
   2. **Or**, if UniFire is confirmed never to emit them for UniParc sub-entries,
      delete the four dead rows from `SubEntryNamesAndTaxonomySection` so the page
@@ -900,7 +906,7 @@ additive. But there is a latent gap.
   optional). short-name / EC-number predictions with no matching `fullName` are
   dropped with a `logging.warn`, mirroring the existing `ecNumber` rule (the
   `ProteinNames.fullName` constraint). `genes` was **not** added to the
-  `UniParcPrecomputedModel` `Pick` — the 250-file precomputed corpus carries no
+  `UniParcPrecomputedModel` `Pick` — the 947-file precomputed corpus carries no
   `genes`. The four formerly-dead Names & Taxonomy rows are now live whenever
   UniFire supplies the data. 8 new converter tests cover each mapping plus both
   drop-and-warn paths; `tsc` + ESLint clean; `uniFireToUniProtkbConverter` spec
@@ -918,14 +924,14 @@ additive. But there is a latent gap.
     `feature.CHAIN` prediction now maps to `{ ProteinProcessing, 'Chain' }`.
     `tsc` + ESLint clean; `src/uniparc` suite 117/117, snapshots unchanged.
 - [x] **Precomputed keyword categories — latent only.** Every keyword category
-  in the 250-file precomputed corpus (Biological process, Cellular component,
+  in the 947-file precomputed corpus (Biological process, Cellular component,
   Developmental stage, Domain, Ligand, Molecular function, PTM) maps to a
   section the sub-entry renders from `annotations`, so no loss is observed. But
   a precomputed keyword in a category that maps elsewhere (e.g. `Disease` →
   Diseases & Variants, which the sub-entry does not render) would be silently
   dropped. Related to §12.4 — verify if the precomputed corpus ever widens.
   - **Accepted (2026-05-22) — documentation only, no code change.** This is a
-    latent risk, not an observed defect: it cannot occur for any of the 250
+    latent risk, not an observed defect: it cannot occur for any of the 947
     corpus entries. It is recorded here and in §12.4's residual-risk note. If
     the precomputed endpoint is ever found to emit a `Disease` /
     `Coding sequence diversity` / `Technical term` keyword, revisit — the fix

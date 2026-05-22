@@ -63,6 +63,9 @@ const uniParcSubEntryConfig: Record<
           // UniParc sub-entry: the accession is synthetic, so skip the
           // accession-keyed external fetches.
           enableExternalData={false}
+          // The sub-entry page owns its own document <head>; this reused
+          // section must not inject a page meta description.
+          emitMetaDescription={false}
         />
       ) : null,
   },

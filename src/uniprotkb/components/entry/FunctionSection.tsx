@@ -246,6 +246,10 @@ type Props = {
   // Forwarded to GoCam: `false` skips the accession-keyed GO-CAM lookup for a
   // non-UniProtKB entry (e.g. a UniParc sub-entry). Defaults to `true`.
   enableExternalData?: boolean;
+  // `false` suppresses the `<meta name="description">` this section writes to
+  // the document head. A reused section must not claim the page description —
+  // only the standalone UniProtKB entry page should. Defaults to `true`.
+  emitMetaDescription?: boolean;
 };
 
 const FunctionSection = ({
@@ -254,6 +258,7 @@ const FunctionSection = ({
   primaryAccession,
   communityReferences,
   enableExternalData = true,
+  emitMetaDescription = true,
 }: Props) => {
   const isSmallScreen = useSmallScreen();
   const functionRelatedReferences = communityReferences.filter(
@@ -313,7 +318,7 @@ const FunctionSection = ({
       id={EntrySection.Function}
       data-entry-section
     >
-      {firstFunction && (
+      {emitMetaDescription && firstFunction && (
         <HTMLHead>
           <meta name="description" content={firstFunction} />
         </HTMLHead>
