@@ -75,9 +75,9 @@ describe('ProteinProcessingSection', () => {
     ).not.toBeInTheDocument();
   });
 
-  // Regression guard for spec.md §12.1: a UniParc sub-entry passes
-  // enableExternalData={false} because its accession is not a real UniProtKB
-  // accession — the PTMeXchange request must not fire.
+  // Regression guard: a UniParc sub-entry passes enableExternalData={false}
+  // because its accession is not a real UniProtKB accession — the PTMeXchange
+  // request must not fire.
   it('does not request PTMeXchange data when enableExternalData is false', async () => {
     axiosMock.resetHistory();
     const transformedData = uniProtKbConverter(mockHumanData, databaseInfoMaps);

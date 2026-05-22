@@ -28,9 +28,9 @@ describe('InteractionSection', () => {
     expect(screen.queryByText('Complex viewer')).toBeNull();
   });
 
-  // Regression guard for spec.md §12.1: a UniParc sub-entry passes
-  // enableExternalData={false} — the IntAct `<interaction-viewer>` (which
-  // fetches by accession) must not be rendered.
+  // Regression guard: a UniParc sub-entry passes enableExternalData={false} —
+  // the IntAct `<interaction-viewer>` (which fetches by accession) must not be
+  // rendered.
   it('does not render the IntAct viewer when enableExternalData is false', async () => {
     const transformed = uniProtKbConverter(mockHumanData, databaseInfoMaps);
     const { container } = customRender(

@@ -26,7 +26,7 @@ export const isSourceDatabase = (database?: string) =>
  *
  * NOTE: a sub-entry accession is NOT a UniProtKB accession. Code consuming the
  * converted `UniProtkbAPIModel` must not treat it as dereferenceable — see the
- * `enableExternalData` prop on the reused section components (spec.md §12.1).
+ * `enableExternalData` prop on the reused section components.
  */
 export const toSubEntryAccession = (uniFireAccession: string): string =>
   uniFireAccession.replaceAll(':', '-');

@@ -90,9 +90,9 @@ describe('isUniprotCurated', () => {
 });
 
 describe('GoCam component', () => {
-  // Regression guard for spec.md §12.1: a UniParc sub-entry passes
-  // enableExternalData={false} because its accession is not a real UniProtKB
-  // accession — the GO-CAM models lookup must not fire.
+  // Regression guard: a UniParc sub-entry passes enableExternalData={false}
+  // because its accession is not a real UniProtKB accession — the GO-CAM models
+  // lookup must not fire.
   it('does not request GO-CAM models when enableExternalData is false', async () => {
     const axiosMock = new MockAdapter(axios);
     customRender(

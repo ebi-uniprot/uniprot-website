@@ -8,9 +8,9 @@ import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
 type EntryMainProps = {
   transformedData: UniParcSubEntryUIModel;
-  // UniFire annotations converted to a UniProtkbUIModel (spec.md Phase 3).
-  // Sections migrate to consume this in Phase 4; undefined when there is no
-  // UniFire data or databaseInfoMaps has not loaded.
+  // The resolved annotations (precomputed or UniFire) converted to a
+  // UniProtkbUIModel for the migrated section components. `undefined` when
+  // there is no annotation data or `databaseInfoMaps` has not loaded yet.
   annotations?: UniProtkbUIModel;
 };
 

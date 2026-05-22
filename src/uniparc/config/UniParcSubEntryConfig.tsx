@@ -49,7 +49,6 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Function]: {
     id: EntrySection.Function,
     label: entrySectionToLabel[EntrySection.Function],
-    // Phase 4 — migrated to the UniProtKB FunctionSection (spec.md §6).
     // Gated on real content — FunctionSection's own `hasContent` guard is fooled
     // by the `entryType` metadata functionConverter sets, so without this it
     // renders an empty Card for an entry with no function annotations.
@@ -62,7 +61,7 @@ const uniParcSubEntryConfig: Record<
           sequence={data.entry.sequence?.value}
           communityReferences={[]}
           // UniParc sub-entry: the accession is synthetic, so skip the
-          // accession-keyed external fetches (spec.md §12.1).
+          // accession-keyed external fetches.
           enableExternalData={false}
         />
       ) : null,
@@ -80,9 +79,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.SubcellularLocation]: {
     id: EntrySection.SubcellularLocation,
     label: entrySectionToLabel[EntrySection.SubcellularLocation],
-    // Phase 4 — migrated to the UniProtKB SubcellularLocationSection. Needs
-    // `organism` (with a lineage) supplemented onto the model upstream — the
-    // viz renders nothing without it; see SubEntry.tsx.
+    // The SubcellularLocation viz needs `organism` (with a lineage)
+    // supplemented onto the model upstream — it renders nothing without it;
+    // see SubEntry.tsx.
     sectionContent: (data, annotations) =>
       annotations ? (
         <SubcellularLocationSection
@@ -98,7 +97,6 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Expression]: {
     id: EntrySection.Expression,
     label: entrySectionToLabel[EntrySection.Expression],
-    // Phase 4 — migrated to the UniProtKB ExpressionSection.
     sectionContent: (data, annotations) =>
       annotations ? (
         <ExpressionSection
@@ -110,7 +108,6 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.ProteinProcessing]: {
     id: EntrySection.ProteinProcessing,
     label: entrySectionToLabel[EntrySection.ProteinProcessing],
-    // Phase 4 — migrated to the UniProtKB ProteinProcessingSection.
     sectionContent: (data, annotations) =>
       annotations ? (
         <ProteinProcessingSection
@@ -118,7 +115,7 @@ const uniParcSubEntryConfig: Record<
           primaryAccession={annotations.primaryAccession}
           sequence={data.entry.sequence?.value}
           // UniParc sub-entry: synthetic accession — skip the proteomics-PTM
-          // fetch (spec.md §12.1).
+          // fetch.
           enableExternalData={false}
         />
       ) : null,
@@ -126,14 +123,13 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Interaction]: {
     id: EntrySection.Interaction,
     label: entrySectionToLabel[EntrySection.Interaction],
-    // Phase 4 — migrated to the UniProtKB InteractionSection.
     sectionContent: (data, annotations) =>
       annotations ? (
         <InteractionSection
           data={annotations[UniProtKBEntrySection.Interaction]}
           primaryAccession={annotations.primaryAccession}
           // UniParc sub-entry: synthetic accession — skip the IntAct viewer
-          // fetch (spec.md §12.1).
+          // fetch.
           enableExternalData={false}
         />
       ) : null,
@@ -165,7 +161,7 @@ const uniParcSubEntryConfig: Record<
       <SubEntrySimilarProteinsSection uniparcId={data.entry.uniParcId} />
     ),
   },
-  // Keywords & GO — a UniFire-only catch-all, by design (spec.md §12.4).
+  // Keywords & GO — a UniFire-only catch-all, by design.
   // UniFire `keyword` / `xref.GO` predictions carry no category or id, so
   // `uniProtKbConverter` cannot distribute them into the sectioned components;
   // they are rendered here straight from the raw `unifire` predictions.

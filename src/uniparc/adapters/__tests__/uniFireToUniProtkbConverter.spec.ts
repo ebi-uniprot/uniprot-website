@@ -353,9 +353,8 @@ describe('uniFireToUniProtkbConverter', () => {
     });
 
     it('should drop ecNumbers and warn when no recommendedName.fullName is present', () => {
-      // Option (b) from the audit: corpus shows zero entries with ecNumber but
-      // no fullName, so we drop the ecNumbers and log a warning rather than
-      // emit a synthetic empty fullName.
+      // No corpus entry has an ecNumber without a fullName, so dropping them
+      // with a warning is preferred over emitting a synthetic empty fullName.
       const data = {
         accession: 'UPI000000TEST:9606',
         predictions: [
@@ -383,7 +382,7 @@ describe('uniFireToUniProtkbConverter', () => {
     });
   });
 
-  describe('protein short names & alternativeName EC numbers (spec.md §12.7)', () => {
+  describe('protein short names & alternativeName EC numbers', () => {
     it('should attach protein.recommendedName.shortName to recommendedName.shortNames', () => {
       const testResult = uniFireToUniProtkbConverter({
         accession: 'UPI000000TEST:9606',
@@ -486,7 +485,7 @@ describe('uniFireToUniProtkbConverter', () => {
     });
   });
 
-  describe('gene.name.* → genes[] (spec.md §12.7)', () => {
+  describe('gene.name.* → genes[]', () => {
     it('should map gene.name.primary predictions to genes[].geneName', () => {
       const testResult = uniFireToUniProtkbConverter({
         accession: 'UPI000000TEST:9606',

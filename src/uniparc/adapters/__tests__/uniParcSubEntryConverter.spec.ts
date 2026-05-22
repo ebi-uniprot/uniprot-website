@@ -24,7 +24,7 @@ describe('uniParcSubEntryConverter', () => {
     );
 
     // The input is untouched — the converter builds a new UniFireModel rather
-    // than reassigning `.predictions` on the caller's object (spec.md §12.5).
+    // than reassigning `.predictions` on the caller's object.
     expect(uniFireInput).toEqual(before);
     expect(typeof uniFireInput.predictions[0].evidence[0]).toBe('string');
   });

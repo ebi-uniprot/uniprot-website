@@ -98,7 +98,7 @@ const uniParcSubEntryConverter = (
 
   // Build a new UniFireModel rather than mutating the caller's object: the raw
   // `uniFireData` is also fed to `uniFireToUniProtkbConverter`, whose validation
-  // expects the unmodified `Prediction[]` shape (spec.md §12.5).
+  // expects the unmodified `Prediction[]` shape.
   let convertedUniFire = uniFireData;
   if (uniFireData?.predictions) {
     const modifiedPredictions = uniFireData.predictions.map((prediction) => ({
