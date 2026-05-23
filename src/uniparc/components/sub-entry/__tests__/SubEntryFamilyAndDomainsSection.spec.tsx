@@ -6,8 +6,8 @@ import uniProtKbConverter, {
 } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import UniProtKBEntrySection from '../../../../uniprotkb/types/entrySection';
 import databaseInfoMaps from '../../../../uniprotkb/utils/__tests__/__mocks__/databaseInfoMaps';
-import precomputedMock from '../../../__mocks__/uniparcPrecomputedModelData';
 import uniParcLightEntryData from '../../../__mocks__/uniParcLightEntryModelData';
+import precomputedMock from '../../../__mocks__/uniparcPrecomputedModelData';
 import precomputedToUniProtkbConverter from '../../../adapters/precomputedToUniProtkbConverter';
 import { type UniParcSubEntryUIModel } from '../../../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomainsSection from '../SubEntryFamilyAndDomainsSection';
@@ -71,7 +71,11 @@ describe('SubEntryFamilyAndDomainsSection', () => {
         annotations={annotations}
       />
     );
-    expect(screen.getByText(/Belongs to the APP family/i)).toBeInTheDocument();
+    // The SIMILARITY comment renders "Belongs to the <a>APP family</a>" —
+    // text is split across nodes, so assert on the link rather than the whole sentence.
+    expect(
+      screen.getByRole('link', { name: /APP family/i })
+    ).toBeInTheDocument();
   });
 
   it('renders when only annotations are present (no InterPro features)', () => {

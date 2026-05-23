@@ -31,7 +31,7 @@ export const isSourceDatabase = (database?: string) =>
  * `enableExternalData` prop on the reused section components.
  */
 export const toSubEntryAccession = (uniFireAccession: string): string =>
-  uniFireAccession.replaceAll(':', '-');
+  uniFireAccession.replace(':', '-');
 
 /**
  * Whether a converted annotation section has anything renderable.

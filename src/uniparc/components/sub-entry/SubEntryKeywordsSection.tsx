@@ -6,31 +6,13 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import KeywordView from '../../../uniprotkb/components/protein-data-views/KeywordView';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
-import { type KeywordUIModel } from '../../../uniprotkb/utils/KeywordsUtil';
+import { getFallbackKeywords } from '../../adapters/subEntryAnnotations';
 import {
   type ModifiedPrediction,
   type UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 
-/**
- * Precomputed keywords whose category `uniProtKbConverter` sections into a page
- * the UniParc sub-entry does not render on its own — `Disease` (there is no
- * Diseases & Variants section) and `Coding sequence diversity` / `Technical
- * term` (the Sequence section is bespoke and entry-driven, so it ignores
- * annotation keywords). Collected here so they fall back into the Keywords & GO
- * section rather than being dropped.
- */
-export const getFallbackKeywords = (
-  annotations?: UniProtkbUIModel
-): KeywordUIModel[] =>
-  annotations
-    ? [
-        ...(annotations[UniProtKBEntrySection.DiseaseVariants]?.keywordData ??
-          []),
-        ...(annotations[UniProtKBEntrySection.Sequence]?.keywordData ?? []),
-      ]
-    : [];
+export { getFallbackKeywords };
 
 const getPredictions = (
   unifire: UniFireModel | undefined,

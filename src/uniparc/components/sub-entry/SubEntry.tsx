@@ -280,6 +280,9 @@ const SubEntry = () => {
 
   const hasPrecomputed =
     precomputedData.status === 200 && Boolean(precomputedData.data);
+  // "Settled" means the request has completed (or never fired because
+  // `canLoadUniFire` was falsy — useDataApi resolves null URLs immediately with
+  // loading:false). In both cases UniFire may proceed once this is true.
   const precomputedResolved = !precomputedData.loading;
 
   const uniFireData = useDataApi<UniFireModel>(
@@ -307,6 +310,7 @@ const SubEntry = () => {
       subEntryDataPerDatabase,
       hasPrecomputed,
       precomputedData.data,
+      precomputedData.status,
       uniFireData.data,
     ]
   );

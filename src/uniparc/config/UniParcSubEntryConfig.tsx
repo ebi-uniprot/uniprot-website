@@ -92,6 +92,9 @@ const uniParcSubEntryConfig: Record<
             ] as SubcellularLocationUIModel
           }
           sequence={data.entry.sequence?.value}
+          // UniParc sub-entry: synthetic accession — suppress the
+          // accession-keyed feature viewer tools.
+          enableExternalData={false}
         />
       ) : null,
   },

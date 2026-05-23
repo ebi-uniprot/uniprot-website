@@ -208,6 +208,62 @@ describe('buildSubEntryAnnotations', () => {
     );
   });
 
+  it('supplements the converted model with the xref organism and succeeds', () => {
+    // The subcellular location viz requires organism.lineage as a string[].
+    // This integration test verifies that xrefOrganism is correctly wired
+    // through buildSubEntryAnnotations (precomputed path) without throwing.
+    // The withOrganism unit tests above verify the lineage-flattening logic.
+    const xrefOrganism: TaxonomyDatum = {
+      taxonId: 9606,
+      scientificName: 'Homo sapiens',
+      lineage: [
+        {
+          taxonId: 2759,
+          scientificName: 'Eukaryota',
+          rank: 'no rank',
+          hidden: false,
+        },
+        {
+          taxonId: 33208,
+          scientificName: 'Metazoa',
+          rank: 'kingdom',
+          hidden: false,
+        },
+      ] as Lineage,
+    };
+    const result = buildSubEntryAnnotations({
+      databaseInfoMaps,
+      precomputed: precomputedModelData,
+      xrefOrganism,
+      accession: 'UPI000002A2F6',
+    });
+    expect(result).toBeDefined();
+    expect(result?.primaryAccession).toBeTruthy();
+  });
+
+  it('supplements the UniFire-converted model with the xref organism and succeeds', () => {
+    const xrefOrganism: TaxonomyDatum = {
+      taxonId: 9606,
+      scientificName: 'Homo sapiens',
+      lineage: [
+        {
+          taxonId: 2759,
+          scientificName: 'Eukaryota',
+          rank: 'no rank',
+          hidden: false,
+        },
+      ] as Lineage,
+    };
+    const result = buildSubEntryAnnotations({
+      databaseInfoMaps,
+      uniFire: unifireModelData,
+      xrefOrganism,
+      accession: 'UPI000002A2F6',
+    });
+    expect(result).toBeDefined();
+    expect(result?.primaryAccession).toBeTruthy();
+  });
+
   it('does not emit the fallback-keyword warning for the UniFire branch', () => {
     buildSubEntryAnnotations({
       databaseInfoMaps,
