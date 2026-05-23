@@ -96,6 +96,10 @@ const uniParcSubEntryConverter = (
   const isSource = isSourceDatabase(subEntryData.database);
   const source = isSource ? undefined : subEntryData;
 
+  // Build a new UniFireModel rather than mutating the caller's object: the raw
+  // `uniFireData` is also fed to `uniFireToUniProtkbConverter`, whose validation
+  // expects the unmodified `Prediction[]` shape.
+  let convertedUniFire = uniFireData;
   if (uniFireData?.predictions) {
     const modifiedPredictions = uniFireData.predictions.map((prediction) => ({
       ...prediction,
@@ -103,14 +107,17 @@ const uniParcSubEntryConverter = (
         prediction.evidence as string[]
       ) as Evidence[],
     }));
-    uniFireData.predictions = modifiedPredictions as ModifiedPrediction[];
+    convertedUniFire = {
+      ...uniFireData,
+      predictions: modifiedPredictions as ModifiedPrediction[],
+    };
   }
 
   return {
     entry: transformedEntryData,
     subEntry: { ...subEntryData, isSource, source, isUniprotkbEntry },
     unisave: unisaveData,
-    unifire: uniFireData,
+    unifire: convertedUniFire,
   };
 };
 

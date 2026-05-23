@@ -64,12 +64,18 @@ export const getUniprotNode = (
 
 type Props = {
   primaryAccession: string;
+  // The GO-CAM lookup is keyed by a real UniProtKB accession. Callers rendering
+  // this for a non-UniProtKB entry (e.g. a UniParc sub-entry) pass `false` to
+  // skip the fetch. Defaults to `true` for the UniProtKB entry page.
+  enableExternalData?: boolean;
 };
 
-const GoCam = ({ primaryAccession }: Props) => {
+const GoCam = ({ primaryAccession, enableExternalData = true }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
-    externalUrls.GeneOntologyModels(primaryAccession)
+    enableExternalData
+      ? externalUrls.GeneOntologyModels(primaryAccession)
+      : null
   );
   const [goCamIdToNode, setGoCamIdToNode] = useSafeState<Map<
     string,

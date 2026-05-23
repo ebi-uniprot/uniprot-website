@@ -66,6 +66,11 @@ type UniProtKBFeaturesViewProps = {
   features: FeatureDatum[];
   inResultsTable?: boolean;
   showSourceColumn?: boolean;
+  // `false` suppresses affordances keyed by a real UniProtKB accession — the
+  // "full feature viewer" link and the per-feature BLAST/basket tools column.
+  // Callers rendering this for a non-UniProtKB entry (e.g. a UniParc sub-entry,
+  // whose accession is synthetic) pass `false`. Defaults to `true`.
+  enableExternalData?: boolean;
 };
 
 export const processFeaturesData = (
@@ -139,6 +144,7 @@ const UniProtKBFeaturesView = ({
   features,
   inResultsTable,
   showSourceColumn = false,
+  enableExternalData = true,
 }: UniProtKBFeaturesViewProps) => {
   const processedData = useMemo(
     () => processFeaturesData(features, primaryAccession, sequence),
@@ -156,11 +162,13 @@ const UniProtKBFeaturesView = ({
           return showSourceColumn;
         }
         if (column.id === 'tools') {
-          return !smallScreen;
+          // The tools are keyed by a real UniProtKB accession (BLAST a region,
+          // add to basket) — drop the column for a non-UniProtKB entry.
+          return !smallScreen && enableExternalData;
         }
         return true;
       }),
-    [showSourceColumn, smallScreen]
+    [showSourceColumn, smallScreen, enableExternalData]
   );
 
   if (processedData.length === 0) {
@@ -184,6 +192,9 @@ const UniProtKBFeaturesView = ({
         inResultsTable ? undefined : UniProtKBFeatureExtraContent
       }
       inResultsTable={inResultsTable}
+      // The full-view link points at /uniprotkb/<route accession>/feature-viewer
+      // — a dead link for a non-UniProtKB entry, so suppress it there.
+      noLinkToFullView={!enableExternalData}
     />
   );
 };

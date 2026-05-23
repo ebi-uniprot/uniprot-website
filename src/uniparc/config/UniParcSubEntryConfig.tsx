@@ -1,5 +1,14 @@
 import { type JSX } from 'react';
 
+import { type FunctionUIModel } from '../../uniprotkb/adapters/functionConverter';
+import { type SubcellularLocationUIModel } from '../../uniprotkb/adapters/subcellularLocationConverter';
+import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
+import ExpressionSection from '../../uniprotkb/components/entry/ExpressionSection';
+import FunctionSection from '../../uniprotkb/components/entry/FunctionSection';
+import InteractionSection from '../../uniprotkb/components/entry/InteractionSection';
+import ProteinProcessingSection from '../../uniprotkb/components/entry/ProteinProcessingSection';
+import SubcellularLocationSection from '../../uniprotkb/components/entry/SubcellularLocationSection';
+import UniProtKBEntrySection from '../../uniprotkb/types/entrySection';
 import { type UniParcSubEntryUIModel } from '../adapters/uniParcSubEntryConverter';
 import SubEntryFamilyAndDomains from '../components/sub-entry/SubEntryFamilyAndDomainsSection';
 import SubEntryKeywordsSection from '../components/sub-entry/SubEntryKeywordsSection';
@@ -7,9 +16,8 @@ import SubEntryNamesAndTaxonomySection from '../components/sub-entry/SubEntryNam
 import SubEntrySequenceSection from '../components/sub-entry/SubEntrySequenceSection';
 import SubEntrySimilarProteinsSection from '../components/sub-entry/SubEntrySimilarProteinsSection';
 import SubEntryStructureSection from '../components/sub-entry/SubEntryStructureSection';
-import UniFireInferredSection from '../components/sub-entry/UniFireInferredSection';
 import EntrySection from '../types/subEntrySection';
-import { groupTypesBySection } from './UniFireAnnotationTypeToSection';
+import { hasAnnotationContent } from '../utils/subEntry';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
 const uniParcSubEntryConfig: Record<
@@ -17,121 +25,143 @@ const uniParcSubEntryConfig: Record<
   {
     id: EntrySection;
     label: string;
-    sectionContent: (entryData: UniParcSubEntryUIModel) => JSX.Element;
+    sectionContent: (
+      entryData: UniParcSubEntryUIModel,
+      annotations?: UniProtkbUIModel
+    ) => JSX.Element | null;
   }
 > = {
   [EntrySection.Function]: {
     id: EntrySection.Function,
     label: entrySectionToLabel[EntrySection.Function],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Function)}
-        section={EntrySection.Function}
-        key={EntrySection.Function}
-      />
-    ),
+    // Gated on real content — FunctionSection's own `hasContent` guard is fooled
+    // by the `entryType` metadata functionConverter sets, so without this it
+    // renders an empty Card for an entry with no function annotations.
+    sectionContent: (data, annotations) =>
+      annotations &&
+      hasAnnotationContent(annotations[UniProtKBEntrySection.Function]) ? (
+        <FunctionSection
+          data={annotations[UniProtKBEntrySection.Function] as FunctionUIModel}
+          primaryAccession={annotations.primaryAccession}
+          sequence={data.entry.sequence?.value}
+          communityReferences={[]}
+          // UniParc sub-entry: the accession is synthetic, so skip the
+          // accession-keyed external fetches.
+          enableExternalData={false}
+          // The sub-entry page owns its own document <head>; this reused
+          // section must not inject a page meta description.
+          emitMetaDescription={false}
+        />
+      ) : null,
   },
   [EntrySection.NamesAndTaxonomy]: {
     id: EntrySection.NamesAndTaxonomy,
     label: entrySectionToLabel[EntrySection.NamesAndTaxonomy],
-    sectionContent: (data) => (
-      <SubEntryNamesAndTaxonomySection
-        data={data}
-        key={EntrySection.NamesAndTaxonomy}
-      />
+    // Hybrid, kept bespoke: imported protein/gene/organism from the UniParc
+    // cross-reference plus predicted names from `annotations` (source-agnostic,
+    // UniFire or precomputed).
+    sectionContent: (data, annotations) => (
+      <SubEntryNamesAndTaxonomySection data={data} annotations={annotations} />
     ),
   },
   [EntrySection.SubcellularLocation]: {
     id: EntrySection.SubcellularLocation,
     label: entrySectionToLabel[EntrySection.SubcellularLocation],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.SubcellularLocation)}
-        section={EntrySection.SubcellularLocation}
-        key={EntrySection.SubcellularLocation}
-      />
-    ),
+    // The SubcellularLocation viz needs `organism` (with a lineage)
+    // supplemented onto the model upstream — it renders nothing without it;
+    // see SubEntry.tsx.
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <SubcellularLocationSection
+          data={
+            annotations[
+              UniProtKBEntrySection.SubCellularLocation
+            ] as SubcellularLocationUIModel
+          }
+          sequence={data.entry.sequence?.value}
+        />
+      ) : null,
   },
   [EntrySection.Expression]: {
     id: EntrySection.Expression,
     label: entrySectionToLabel[EntrySection.Expression],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Expression)}
-        section={EntrySection.Expression}
-        key={EntrySection.Expression}
-      />
-    ),
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <ExpressionSection
+          data={annotations[UniProtKBEntrySection.Expression]}
+          primaryAccession={annotations.primaryAccession}
+        />
+      ) : null,
   },
   [EntrySection.ProteinProcessing]: {
     id: EntrySection.ProteinProcessing,
     label: entrySectionToLabel[EntrySection.ProteinProcessing],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.ProteinProcessing)}
-        section={EntrySection.ProteinProcessing}
-        key={EntrySection.ProteinProcessing}
-      />
-    ),
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <ProteinProcessingSection
+          data={annotations[UniProtKBEntrySection.ProteinProcessing]}
+          primaryAccession={annotations.primaryAccession}
+          sequence={data.entry.sequence?.value}
+          // UniParc sub-entry: synthetic accession — skip the proteomics-PTM
+          // fetch.
+          enableExternalData={false}
+        />
+      ) : null,
   },
   [EntrySection.Interaction]: {
     id: EntrySection.Interaction,
     label: entrySectionToLabel[EntrySection.Interaction],
-    sectionContent: (data) => (
-      <UniFireInferredSection
-        data={data}
-        annotationTypes={groupTypesBySection(EntrySection.Interaction)}
-        section={EntrySection.Interaction}
-        key={EntrySection.Interaction}
-      />
-    ),
+    sectionContent: (data, annotations) =>
+      annotations ? (
+        <InteractionSection
+          data={annotations[UniProtKBEntrySection.Interaction]}
+          primaryAccession={annotations.primaryAccession}
+          // UniParc sub-entry: synthetic accession — skip the IntAct viewer
+          // fetch.
+          enableExternalData={false}
+        />
+      ) : null,
   },
   [EntrySection.Structure]: {
     id: EntrySection.Structure,
     label: entrySectionToLabel[EntrySection.Structure],
-    sectionContent: (data) => (
-      <SubEntryStructureSection data={data} key={EntrySection.Structure} />
-    ),
+    sectionContent: (data) => <SubEntryStructureSection data={data} />,
   },
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
     label: entrySectionToLabel[EntrySection.FamilyAndDomains],
-    sectionContent: (data) => (
-      <SubEntryFamilyAndDomains
-        data={data}
-        key={EntrySection.FamilyAndDomains}
-      />
+    // Entry-driven hybrid, kept bespoke: the entry's InterPro `sequenceFeatures`
+    // plus the family/domain annotations from `annotations` (source-agnostic —
+    // UniFire or precomputed).
+    sectionContent: (data, annotations) => (
+      <SubEntryFamilyAndDomains data={data} annotations={annotations} />
     ),
   },
   [EntrySection.Sequence]: {
     id: EntrySection.Sequence,
     label: entrySectionToLabel[EntrySection.Sequence],
-    sectionContent: (data) => (
-      <SubEntrySequenceSection data={data} key={EntrySection.Sequence} />
-    ),
+    sectionContent: (data) => <SubEntrySequenceSection data={data} />,
   },
   [EntrySection.SimilarProteins]: {
     id: EntrySection.SimilarProteins,
     label: entrySectionToLabel[EntrySection.SimilarProteins],
     sectionContent: (data) => (
-      <SubEntrySimilarProteinsSection
-        uniparcId={data.entry.uniParcId}
-        key={EntrySection.SimilarProteins}
-      />
+      <SubEntrySimilarProteinsSection uniparcId={data.entry.uniParcId} />
     ),
   },
-  // Dedicated section for Keywords and GO as we don't know which section they correspond to yet. Ideally we need to have keyword ids to link and the section they belong to.
+  // Catch-all "Keywords & Gene Ontology" section. UniFire `keyword` / `xref.GO`
+  // predictions are uncategorised, so `uniProtKbConverter` cannot section them —
+  // they render here from the raw `unifire` predictions. Precomputed keywords
+  // are categorised and mostly flow into their proper sections; the few whose
+  // category has no dedicated sub-entry section (Disease, Coding sequence
+  // diversity, Technical term) fall back here so they are not dropped.
   [EntrySection.KeywordsAndGO]: {
     id: EntrySection.KeywordsAndGO,
     label: entrySectionToLabel[EntrySection.KeywordsAndGO],
-    sectionContent: ({ unifire }) => (
+    sectionContent: (data, annotations) => (
       <SubEntryKeywordsSection
-        data={unifire}
-        key={EntrySection.KeywordsAndGO}
+        unifire={data.unifire}
+        annotations={annotations}
       />
     ),
   },

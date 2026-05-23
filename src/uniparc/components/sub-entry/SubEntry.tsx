@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { ExternalLink, Loader, Message, Tab, Tabs } from 'franklin-sites';
-import { use, useEffect, useState } from 'react';
+import { use, useEffect, useMemo, useState } from 'react';
 import { Link, Redirect, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -34,6 +34,7 @@ import { BotDetectionContext } from '../../../shared/contexts/BotDetection';
 import useDataApi, {
   type UseDataAPIState,
 } from '../../../shared/hooks/useDataApi';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -43,9 +44,16 @@ import {
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
 import * as logging from '../../../shared/utils/logging';
+import { type UIModel } from '../../../uniprotkb/adapters/sectionConverter';
+import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { subcellularLocationSectionHasContent } from '../../../uniprotkb/components/entry/SubcellularLocationSection';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
+import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
+import buildSubEntryAnnotations, {
+  shouldRequestUniFire,
+} from '../../adapters/subEntryAnnotations';
 import {
   type UniParcLiteAPIModel,
   type UniParcXRef,
@@ -54,16 +62,18 @@ import uniParcSubEntryConverter, {
   type UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 import uniparcApiUrls from '../../config/apiUrls';
-import { groupTypesBySection } from '../../config/UniFireAnnotationTypeToSection';
 import uniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 import { TabLocation } from '../../types/entry';
+import { type UniParcPrecomputedModel } from '../../types/precomputed';
 import SubEntrySection from '../../types/subEntrySection';
-import { getSubEntryPath } from '../../utils/subEntry';
+import { getSubEntryPath, hasAnnotationContent } from '../../utils/subEntry';
 import { getXrefId } from '../../utils/uniparcXref';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 import { type DataDBModel } from '../entry/XRefsSection';
 import SubEntryContext from './SubEntryContext';
+import { keywordsAndGOSectionHasContent } from './SubEntryKeywordsSection';
 import SubEntryMain from './SubEntryMain';
+import { namesAndTaxonomySectionHasContent } from './SubEntryNamesAndTaxonomySection';
 import SubEntryOverview from './SubEntryOverview';
 import { hasStructure } from './SubEntryStructureSection';
 
@@ -170,11 +180,61 @@ const SubEntry = () => {
   const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
   const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
 
-  const uniFireData = useDataApi<UniFireModel>(
-    canLoadUniFire && runUniFire
-      ? apiUrls.unifire.unifire(accession, `${subEntryTaxId}`)
+  // Precomputed annotations are preferred — they already exist, so this is a
+  // cheap fetch. UniFire (which *runs* the annotation pipeline) is the fallback,
+  // used only when there is no precomputed data for this entry (HTTP 404).
+  const precomputedData = useDataApi<UniParcPrecomputedModel>(
+    canLoadUniFire
+      ? uniparcApiUrls.precomputedAnnotation(accession, `${subEntryTaxId}`)
       : null
   );
+  const hasPrecomputed =
+    precomputedData.status === 200 && Boolean(precomputedData.data);
+  const precomputedResolved = !precomputedData.loading;
+
+  const uniFireData = useDataApi<UniFireModel>(
+    canLoadUniFire &&
+      shouldRequestUniFire({ runUniFire, precomputedResolved, hasPrecomputed })
+      ? uniparcApiUrls.unifire(accession, `${subEntryTaxId}`)
+      : null
+  );
+
+  const databaseInfoMaps = useDatabaseInfoMaps();
+  // Build the annotations UIModel the sub-entry sections render. Precomputed is
+  // preferred; UniFire is the fallback — see `buildSubEntryAnnotations`.
+  const annotations: UniProtkbUIModel | undefined = useMemo(
+    () =>
+      buildSubEntryAnnotations({
+        databaseInfoMaps,
+        precomputed: hasPrecomputed ? precomputedData.data : undefined,
+        uniFire: uniFireData.data || undefined,
+        xrefOrganism: subEntryDataPerDatabase?.organism,
+        accession,
+      }),
+    [
+      accession,
+      databaseInfoMaps,
+      subEntryDataPerDatabase,
+      hasPrecomputed,
+      precomputedData.data,
+      uniFireData.data,
+    ]
+  );
+
+  // A migrated annotation section's in-page-nav item is enabled when the
+  // resolved `annotations` (precomputed or UniFire, whichever populated the
+  // page) has content for it — mirrors how Entry.tsx drives its nav.
+  const annotationSectionHasContent = (
+    section: UniProtKBEntrySection
+  ): boolean => {
+    if (!annotations) {
+      return false;
+    }
+    if (section === UniProtKBEntrySection.SubCellularLocation) {
+      return subcellularLocationSectionHasContent(annotations[section]);
+    }
+    return hasAnnotationContent(annotations[section] as Partial<UIModel>);
+  };
 
   useEffect(() => {
     if (uniFireData.status === 200 && uniFireData.data) {
@@ -255,7 +315,9 @@ const SubEntry = () => {
     uniparcData.data,
     subEntryDataPerDatabase as UniParcXRef,
     unisaveData.data,
-    // If no data, it would be an empty string
+    // `uniParcSubEntryConverter` is pure, so the raw UniFire object can be
+    // passed straight through. `|| undefined` because `uniFireData.data` is ''
+    // when there is no UniFire response.
     uniFireData.data || undefined
   );
 
@@ -273,6 +335,18 @@ const SubEntry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
+  // Nav `disabled` for the two hybrid sections must mirror their components'
+  // render conditions — entry-intrinsic data OR annotation content.
+  const familyAndDomainsHasContent =
+    Boolean(
+      transformedData.entry.sequenceFeatures?.length &&
+      transformedData.entry.sequence?.value
+    ) || annotationSectionHasContent(UniProtKBEntrySection.FamilyAndDomains);
+  const namesAndTaxonomyHasContent = namesAndTaxonomySectionHasContent(
+    transformedData,
+    annotations
+  );
+
   const sidebar = subPage === TabLocation.Entry && (
     <InPageNav
       sections={Object.values(uniParcSubEntryConfig).map((section) => ({
@@ -281,48 +355,29 @@ const SubEntry = () => {
           (section.id === SubEntrySection.Structure &&
             !hasStructure(transformedData.subEntry)) ||
           (section.id === SubEntrySection.NamesAndTaxonomy &&
-            !transformedData.subEntry.proteinName) ||
+            !namesAndTaxonomyHasContent) ||
+          // Annotation sections — enabled when the resolved `annotations`
+          // (precomputed or UniFire) has content for that section.
           (section.id === SubEntrySection.Function &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Function).includes(
-                p.annotationType
-              )
-            )) ||
+            !annotationSectionHasContent(UniProtKBEntrySection.Function)) ||
           (section.id === SubEntrySection.SubcellularLocation &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.SubcellularLocation).includes(
-                p.annotationType
-              )
+            !annotationSectionHasContent(
+              UniProtKBEntrySection.SubCellularLocation
             )) ||
           (section.id === SubEntrySection.Expression &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Expression).includes(
-                p.annotationType
-              )
-            )) ||
+            !annotationSectionHasContent(UniProtKBEntrySection.Expression)) ||
           (section.id === SubEntrySection.ProteinProcessing &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.ProteinProcessing).includes(
-                p.annotationType
-              )
+            !annotationSectionHasContent(
+              UniProtKBEntrySection.ProteinProcessing
             )) ||
           (section.id === SubEntrySection.Interaction &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.Interaction).includes(
-                p.annotationType
-              )
-            )) ||
+            !annotationSectionHasContent(UniProtKBEntrySection.Interaction)) ||
           (section.id === SubEntrySection.FamilyAndDomains &&
-            !transformedData.unifire?.predictions.some((p) =>
-              groupTypesBySection(SubEntrySection.FamilyAndDomains).includes(
-                p.annotationType
-              )
-            ) &&
-            !transformedData.entry.sequenceFeatures) ||
+            !familyAndDomainsHasContent) ||
           (section.id === SubEntrySection.KeywordsAndGO &&
-            !transformedData.unifire?.predictions.some(
-              (p) =>
-                p.annotationType === 'keyword' || p.annotationType === 'xref.GO'
+            !keywordsAndGOSectionHasContent(
+              transformedData.unifire,
+              annotations
             )),
       }))}
       rootElement={`.${sidebarStyles.content}`}
@@ -385,7 +440,9 @@ const SubEntry = () => {
           uniparcId={accession}
           subEntry={transformedData.subEntry}
           data={unisaveData?.data}
-          showUniFireOption={!!canLoadUniFire}
+          showUniFireOption={
+            !!canLoadUniFire && precomputedResolved && !hasPrecomputed
+          }
           uniFireData={uniFireData.data}
           uniFireLoading={uniFireData.loading}
           runUniFire={runUniFire}
@@ -419,7 +476,10 @@ const SubEntry = () => {
             <EntryDownloadButton handleToggle={handleToggleDownload} />
             <AddToBasketButton selectedEntries={accession} />
           </div>
-          <SubEntryMain transformedData={transformedData} />
+          <SubEntryMain
+            transformedData={transformedData}
+            annotations={annotations}
+          />
         </Tab>
         <Tab
           title={

@@ -1,5 +1,10 @@
+import { screen } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
 import { type GoCamModelInfo } from '../../../types/goCamTypes';
-import { getGoCamStructures, isUniprotCurated } from '../GoCam';
+import GoCam, { getGoCamStructures, isUniprotCurated } from '../GoCam';
 import gomodel5e72450500001269 from './__mocks__/goCam/5e72450500001269';
 import gomodel654d809000001587 from './__mocks__/goCam/654d809000001587';
 import gomodel6446bfcb00001774 from './__mocks__/goCam/6446bfcb00001774';
@@ -81,5 +86,24 @@ describe('isUniprotCurated', () => {
       '654d809000001587',
       '67369e7600002132',
     ]);
+  });
+});
+
+describe('GoCam component', () => {
+  // Regression guard: a UniParc sub-entry passes enableExternalData={false}
+  // because its accession is not a real UniProtKB accession — the GO-CAM models
+  // lookup must not fire.
+  it('does not request GO-CAM models when enableExternalData is false', async () => {
+    const axiosMock = new MockAdapter(axios);
+    customRender(
+      <GoCam primaryAccession="P05067" enableExternalData={false} />
+    );
+    await screen.findByText(/GO-CAM models have not been found/i);
+    expect(
+      axiosMock.history.get.some((request) =>
+        request.url?.includes('api.geneontology.org')
+      )
+    ).toBe(false);
+    axiosMock.restore();
   });
 });

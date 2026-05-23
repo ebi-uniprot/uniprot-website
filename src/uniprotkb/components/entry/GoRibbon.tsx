@@ -82,6 +82,10 @@ type GoRibbonProps = {
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
   organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
+  // `false` hides the QuickGO link — QuickGO is keyed by a real UniProtKB
+  // accession, so that link is a dead end for a non-UniProtKB entry (e.g. a
+  // UniParc sub-entry). Defaults to `true` for the UniProtKB entry page.
+  enableExternalData?: boolean;
 };
 
 const GoRibbon = ({
@@ -89,6 +93,7 @@ const GoRibbon = ({
   goTerms,
   geneNamesData,
   organismData,
+  enableExternalData = true,
 }: GoRibbonProps) => {
   const isSmallScreen = useSmallScreen();
   const columns = useColumns();
@@ -230,11 +235,13 @@ const GoRibbon = ({
           getRowId={getRowId}
         />
       )}
-      <div className={styles['quickgo-link']}>
-        <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
-          Access the complete set of GO annotations on QuickGO
-        </ExternalLink>
-      </div>
+      {enableExternalData && (
+        <div className={styles['quickgo-link']}>
+          <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
+            Access the complete set of GO annotations on QuickGO
+          </ExternalLink>
+        </div>
+      )}
     </div>
   );
 };

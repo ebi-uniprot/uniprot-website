@@ -1,10 +1,12 @@
 import * as logging from '../../shared/utils/logging';
 import {
+  type GeneNamesData,
   type ProteinNames,
   type ProteinNamesData,
 } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import {
   type AnnotationScoreValue,
+  type UniProtkbAPIModel,
   type UniProtKBXref,
 } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { type FeatureDatum } from '../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
@@ -15,10 +17,13 @@ import {
   type FreeTextType,
 } from '../../uniprotkb/types/commentTypes';
 import type FeatureType from '../../uniprotkb/types/featureType';
-import { type ValueWithEvidence } from '../../uniprotkb/types/modelTypes';
+import {
+  type Evidence,
+  type ValueWithEvidence,
+} from '../../uniprotkb/types/modelTypes';
 import { type Keyword } from '../../uniprotkb/utils/KeywordsUtil';
 import annotationTypeToSection from '../config/UniFireAnnotationTypeToSection';
-import type { UniParcPrecomputedModel } from '../types/precomputed';
+import { toSubEntryAccession } from '../utils/subEntry';
 import {
   constructPredictionEvidences,
   type Prediction,
@@ -61,20 +66,50 @@ function isValidUniFireModel(data: unknown): data is ValidUniFireModel {
 }
 
 /**
- * Transforms UniFire prediction data into UniParcPrecomputedModel.
- *
- * Converts the flat prediction format from the UniFire endpoint into the
- * same API model shape returned by the precomputed endpoint, so the
- * UniParc sub-entry page can use a single downstream pipeline for both
- * data sources.
- *
- * UniFire-derived instances are currently thinner than precomputed ones
- * (no keyword ids/categories, flat-text subcellular locations, generic
- * evidence sources).
+ * Builds the comment shape appropriate for a UniFire `comment.*` prediction.
+ * The three structured comment types must emit their structured shape: a
+ * FreeTextComment for any of them is silently dropped by the UniProtKB
+ * section renderers, which read the structured fields. UniFire supplies only
+ * a flat text value, which maps to the single required text field of each
+ * structured shape (`location.value` / `cofactors[].name` / `reaction.name`).
  */
-const uniFireToPrecomputedConverter = (
-  data: unknown
-): UniParcPrecomputedModel => {
+function buildComment(
+  commentType: FreeTextType | CommentType,
+  value: string,
+  evidences: Evidence[]
+): Comment {
+  switch (commentType) {
+    case 'SUBCELLULAR LOCATION':
+      return {
+        commentType,
+        subcellularLocations: [{ location: { value, evidences } }],
+      };
+    case 'COFACTOR':
+      return { commentType, cofactors: [{ name: value, evidences }] };
+    case 'CATALYTIC ACTIVITY':
+      return { commentType, reaction: { name: value, evidences } };
+    default:
+      return {
+        commentType: commentType as FreeTextType,
+        texts: [{ value, evidences }],
+      };
+  }
+}
+
+/**
+ * Transforms UniFire prediction data into a UniProtkbAPIModel.
+ *
+ * Converts the flat UniFire prediction format into the UniProtKB API model
+ * shape so the UniParc sub-entry page can run UniFire data through the
+ * standard `uniProtKbConverter` pipeline and reuse the UniProtKB section
+ * components.
+ *
+ * UniFire-derived instances are thinner than real UniProtKB entries:
+ * `uniProtkbId` and `proteinExistence` are empty-string placeholders, and
+ * organism/sequence are not set here — they are supplemented from the
+ * UniParc entry at page-assembly time.
+ */
+const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
   if (!isValidUniFireModel(data)) {
     const accession = (data as Record<string, unknown>)?.accession ?? 'unknown';
     const message = `Invalid UniFireModel input for accession: ${accession}`;
@@ -89,6 +124,11 @@ const uniFireToPrecomputedConverter = (
   let recommendedName: ProteinNames | undefined;
   const alternativeNames: ProteinNames[] = [];
   const ecNumbers: ValueWithEvidence[] = [];
+  const recommendedShortNames: ValueWithEvidence[] = [];
+  const alternativeShortNames: ValueWithEvidence[] = [];
+  const alternativeEcNumbers: ValueWithEvidence[] = [];
+  const geneNames: ValueWithEvidence[] = [];
+  const geneSynonyms: ValueWithEvidence[] = [];
 
   for (const prediction of data.predictions) {
     try {
@@ -136,6 +176,46 @@ const uniFireToPrecomputedConverter = (
         continue;
       }
 
+      // protein.recommendedName.shortName → recommendedName.shortNames[]
+      if (annotationType === 'protein.recommendedName.shortName') {
+        if (typeof annotationValue === 'string') {
+          recommendedShortNames.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // protein.alternativeName.shortName → an alternativeName's shortNames[]
+      if (annotationType === 'protein.alternativeName.shortName') {
+        if (typeof annotationValue === 'string') {
+          alternativeShortNames.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // protein.alternativeName.ecNumber → an alternativeName's ecNumbers[]
+      if (annotationType === 'protein.alternativeName.ecNumber') {
+        if (typeof annotationValue === 'string') {
+          alternativeEcNumbers.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // gene.name.primary → genes[].geneName
+      if (annotationType === 'gene.name.primary') {
+        if (typeof annotationValue === 'string') {
+          geneNames.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
+      // gene.name.synonym → genes[].synonyms[]
+      if (annotationType === 'gene.name.synonym') {
+        if (typeof annotationValue === 'string') {
+          geneSynonyms.push({ value: annotationValue, evidences });
+        }
+        continue;
+      }
+
       // xref.GO → uniProtKBCrossReferences[]
       if (annotationType === 'xref.GO') {
         if (typeof annotationValue === 'string') {
@@ -162,11 +242,9 @@ const uniFireToPrecomputedConverter = (
 
       // comment.* predictions → comments[]
       if (sectionConfig.freeTextType && typeof annotationValue === 'string') {
-        const comment: FreeTextComment = {
-          commentType: sectionConfig.freeTextType as FreeTextType,
-          texts: [{ value: annotationValue, evidences }],
-        };
-        comments.push(comment);
+        comments.push(
+          buildComment(sectionConfig.freeTextType, annotationValue, evidences)
+        );
         continue;
       }
 
@@ -207,35 +285,85 @@ const uniFireToPrecomputedConverter = (
     }
   }
 
-  // Merge accumulated ecNumbers into recommendedName. The ProteinNames type
-  // requires a non-optional fullName, so ecNumbers can only be attached when
-  // a recommendedName.fullName was also predicted. In the current empirical
-  // corpus (289 UniFire files) every entry carrying ecNumber predictions
-  // also carries a recommendedName.fullName, so the drop-and-warn fallback
-  // below is defensive.
-  let recommendedNameWithEc: ProteinNames | undefined = recommendedName;
-  if (ecNumbers.length > 0) {
-    if (recommendedNameWithEc) {
-      recommendedNameWithEc = { ...recommendedNameWithEc, ecNumbers };
+  // Merge accumulated ecNumbers / shortNames into recommendedName. The
+  // ProteinNames type requires a non-optional fullName, so these can only be
+  // attached when a recommendedName.fullName was also predicted.
+  let finalRecommendedName: ProteinNames | undefined = recommendedName;
+  if (finalRecommendedName) {
+    if (ecNumbers.length > 0) {
+      finalRecommendedName = { ...finalRecommendedName, ecNumbers };
+    }
+    if (recommendedShortNames.length > 0) {
+      finalRecommendedName = {
+        ...finalRecommendedName,
+        shortNames: recommendedShortNames,
+      };
+    }
+  } else if (ecNumbers.length > 0 || recommendedShortNames.length > 0) {
+    logging.warn(
+      'Dropping protein.recommendedName.ecNumber / .shortName predictions: no recommendedName.fullName found in same entry',
+      {
+        extra: {
+          accession: data.accession,
+          droppedEcNumbers: ecNumbers.length,
+          droppedShortNames: recommendedShortNames.length,
+        },
+      }
+    );
+  }
+
+  // Attach accumulated alternative short names / EC numbers to the first
+  // alternative name. The Names & Taxonomy section flattens these across all
+  // alternative names, so the exact host does not matter; ProteinNames requires
+  // a fullName, so they are dropped if no alternativeName.fullName was predicted.
+  if (alternativeNames.length > 0) {
+    if (alternativeShortNames.length > 0) {
+      alternativeNames[0] = {
+        ...alternativeNames[0],
+        shortNames: alternativeShortNames,
+      };
+    }
+    if (alternativeEcNumbers.length > 0) {
+      alternativeNames[0] = {
+        ...alternativeNames[0],
+        ecNumbers: alternativeEcNumbers,
+      };
+    }
+  } else if (
+    alternativeShortNames.length > 0 ||
+    alternativeEcNumbers.length > 0
+  ) {
+    logging.warn(
+      'Dropping protein.alternativeName.shortName / .ecNumber predictions: no alternativeName.fullName found in same entry',
+      {
+        extra: {
+          accession: data.accession,
+          droppedShortNames: alternativeShortNames.length,
+          droppedEcNumbers: alternativeEcNumbers.length,
+        },
+      }
+    );
+  }
+
+  // Build genes[] — one entry per gene.name.primary, plus gene.name.synonym
+  // predictions. The Names & Taxonomy section flattens synonyms across all
+  // genes, so the host gene does not matter; GeneNamesData allows a
+  // synonym-only entry (geneName is optional) when no primary name was predicted.
+  const genes: GeneNamesData = geneNames.map((geneName) => ({ geneName }));
+  if (geneSynonyms.length > 0) {
+    if (genes.length > 0) {
+      genes[0] = { ...genes[0], synonyms: geneSynonyms };
     } else {
-      logging.warn(
-        'Dropping protein.recommendedName.ecNumber predictions: no recommendedName.fullName found in same entry',
-        {
-          extra: {
-            accession: data.accession,
-            droppedEcNumbers: ecNumbers.length,
-          },
-        }
-      );
+      genes.push({ synonyms: geneSynonyms });
     }
   }
 
   // Build proteinDescription if we have any name data
   let proteinDescription: ProteinNamesData | undefined;
-  if (recommendedNameWithEc || alternativeNames.length > 0) {
+  if (finalRecommendedName || alternativeNames.length > 0) {
     proteinDescription = {
-      ...(recommendedNameWithEc
-        ? { recommendedName: recommendedNameWithEc }
+      ...(finalRecommendedName
+        ? { recommendedName: finalRecommendedName }
         : undefined),
       ...(alternativeNames.length > 0 ? { alternativeNames } : undefined),
     };
@@ -244,10 +372,9 @@ const uniFireToPrecomputedConverter = (
   // Consolidate FreeTextComments by commentType: every prediction of the
   // same free-text type produced a separate single-text comment during the
   // loop; collapse them into one comment with a flat `texts[]` array, in
-  // declaration order. Non-free-text comments
-  // (e.g. anything with structured shapes) are passed through unchanged —
-  // this code path only ever produces FreeTextComment objects today, but
-  // the guard keeps the consolidation safe if that ever changes.
+  // declaration order. Structured comments (SUBCELLULAR LOCATION, COFACTOR,
+  // CATALYTIC ACTIVITY) have no `texts` and pass through unchanged — one
+  // comment object per prediction.
   const consolidatedComments: Comment[] = [];
   const freeTextByType = new Map<string, FreeTextComment>();
   for (const comment of comments) {
@@ -291,8 +418,9 @@ const uniFireToPrecomputedConverter = (
 
   return {
     entryType: 'AA',
-    uniProtkbId: null,
-    primaryAccession: data.accession.replaceAll(':', '-'),
+    uniProtkbId: '',
+    proteinExistence: '',
+    primaryAccession: toSubEntryAccession(data.accession),
     annotationScore: 0 as AnnotationScoreValue,
     ...(consolidatedComments.length > 0
       ? { comments: consolidatedComments }
@@ -300,6 +428,7 @@ const uniFireToPrecomputedConverter = (
     ...(features.length > 0 ? { features } : undefined),
     ...(keywords.length > 0 ? { keywords } : undefined),
     ...(proteinDescription ? { proteinDescription } : undefined),
+    ...(genes.length > 0 ? { genes } : undefined),
     ...(xrefs.length > 0 ? { uniProtKBCrossReferences: xrefs } : undefined),
     ...(Object.keys(countByCommentType).length > 0 ||
     Object.keys(countByFeatureType).length > 0
@@ -318,4 +447,4 @@ const uniFireToPrecomputedConverter = (
 };
 
 export { isValidUniFireModel };
-export default uniFireToPrecomputedConverter;
+export default uniFireToUniProtkbConverter;

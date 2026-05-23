@@ -11,12 +11,11 @@ import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type Evidence } from '../../../uniprotkb/types/modelTypes';
-import {
-  type ModifiedPrediction,
-  type UniParcSubEntryUIModel,
-} from '../../adapters/uniParcSubEntryConverter';
+import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryProteomes } from '../../utils/subEntry';
@@ -27,33 +26,70 @@ const genericEvidences: Evidence[] = [
   },
 ];
 
+type NameValue = { value: string; evidences?: Evidence[] };
+
 const NameContent = ({
   predictions,
 }: {
-  predictions: ModifiedPrediction[] | string;
+  predictions: NameValue[] | string;
 }) => {
-  const renderedPredictions: Partial<ModifiedPrediction>[] =
+  const renderedNames: NameValue[] =
     typeof predictions === 'string'
-      ? [{ annotationValue: predictions, evidence: genericEvidences }]
+      ? [{ value: predictions, evidences: genericEvidences }]
       : predictions;
 
-  return renderedPredictions.map((prediction, index) => (
+  return renderedNames.map((name, index) => (
     // eslint-disable-next-line react/no-array-index-key
     <div key={index}>
-      {prediction.annotationValue}
-      {prediction.evidence && (
-        <UniProtKBEvidenceTag evidences={prediction.evidence} />
-      )}
+      {name.value}
+      {name.evidences && <UniProtKBEvidenceTag evidences={name.evidences} />}
     </div>
   ));
 };
 
+/**
+ * Whether the Names & Taxonomy section has anything to show — imported
+ * protein/gene/organism/proteome data from the UniParc cross-reference, or
+ * predicted names from the converted `annotations` (source-agnostic, so it
+ * covers both the UniFire and precomputed branches). Shared by the section's
+ * own render guard and the in-page-nav gating in `SubEntry`, so the nav and the
+ * rendered card never disagree.
+ */
+export const namesAndTaxonomySectionHasContent = (
+  data?: UniParcSubEntryUIModel,
+  annotations?: UniProtkbUIModel
+): boolean => {
+  const subEntry = data?.subEntry;
+  if (!subEntry) {
+    return false;
+  }
+  const { proteinName, geneName, organism, properties, proteomeId, component } =
+    subEntry;
+  const namesAndTaxonomy =
+    annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
+  const proteinNames = namesAndTaxonomy?.proteinNamesData;
+  const geneNames = namesAndTaxonomy?.geneNamesData;
+  const proteomes = getSubEntryProteomes(properties);
+  return Boolean(
+    proteinName?.length ||
+    geneName ||
+    organism ||
+    proteinNames?.recommendedName ||
+    proteinNames?.alternativeNames?.length ||
+    geneNames?.length ||
+    Object.keys(proteomes).length ||
+    (proteomeId && component)
+  );
+};
+
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
+  annotations?: UniProtkbUIModel;
 };
 
 const SubEntryNamesAndTaxonomySection = ({
   data,
+  annotations,
 }: SubEntryNamesAndTaxonomySectionProps) => {
   const { data: lineageData } = useDataApi<TaxonomyAPIModel>(
     data?.subEntry?.organism
@@ -70,53 +106,32 @@ const SubEntryNamesAndTaxonomySection = ({
 
   const { proteinName, geneName, organism, properties, proteomeId, component } =
     data.subEntry;
-  const { predictions } = data.unifire || { predictions: [] };
+  // Predicted names come from the converted `annotations` — source-agnostic, so
+  // they show for both the UniFire and precomputed branches.
+  const namesAndTaxonomy =
+    annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
+  const proteinNames = namesAndTaxonomy?.proteinNamesData;
+  const geneNames = namesAndTaxonomy?.geneNamesData;
 
-  const recommendedFullNamePrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.fullName'
-    ) || [];
-
+  const recommendedFullNamePrediction = proteinNames?.recommendedName?.fullName
+    ? [proteinNames.recommendedName.fullName]
+    : [];
   const recommendedShortNamePrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.shortName'
-    ) || [];
-
+    proteinNames?.recommendedName?.shortNames ?? [];
   const recommendedECPrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.ecNumber'
-    ) || [];
-
-  const alternativeNamePrediction = [
-    'protein.alternativeName.fullName',
-    'protein.alternativeName.shortName',
-  ]
-    .map(
-      (type) =>
-        (predictions as ModifiedPrediction[])?.filter(
-          (prediction) => prediction.annotationType === type
-        ) || []
-    )
-    .flat();
-
-  const alternativeECPrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.alternativeName.ecNumber'
-    ) || [];
-
-  const geneNamePrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) => prediction.annotationType === 'gene.name.primary'
-    ) || [];
-
-  const geneNameSynonymsPrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) => prediction.annotationType === 'gene.name.synonym'
-    ) || [];
+    proteinNames?.recommendedName?.ecNumbers ?? [];
+  const alternativeNamePrediction = (
+    proteinNames?.alternativeNames ?? []
+  ).flatMap((alt) => [alt.fullName, ...(alt.shortNames ?? [])]);
+  const alternativeECPrediction = (
+    proteinNames?.alternativeNames ?? []
+  ).flatMap((alt) => alt.ecNumbers ?? []);
+  const geneNamePrediction = (geneNames ?? []).flatMap((gene) =>
+    gene.geneName ? [gene.geneName] : []
+  );
+  const geneNameSynonymsPrediction = (geneNames ?? []).flatMap(
+    (gene) => gene.synonyms ?? []
+  );
 
   const proteomeComponentObject = getSubEntryProteomes(properties);
 
@@ -225,12 +240,7 @@ const SubEntryNamesAndTaxonomySection = ({
   );
   const hasGeneNameContent = geneNameInfoData.some((item) => item.content);
 
-  if (
-    !hasProteinNameContent &&
-    (!geneName || !hasGeneNameContent) &&
-    !organism &&
-    proteomeContent.length === 0
-  ) {
+  if (!namesAndTaxonomySectionHasContent(data, annotations)) {
     return null;
   }
 
