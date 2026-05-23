@@ -2,12 +2,10 @@ import { SlidingPanel } from 'franklin-sites';
 import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { type SubEntryAnnotationDownload } from '../../../uniparc/adapters/subEntryAnnotations';
 import { type Column } from '../../config/columns';
 import ErrorBoundary from '../error-component/ErrorBoundary';
-import EntryDownload, {
-  type Dataset,
-  type SubEntryAnnotationDownload,
-} from './EntryDownload';
+import EntryDownload, { type Dataset } from './EntryDownload';
 
 type EntryDownloadPanelProps = {
   handleToggle: () => void;

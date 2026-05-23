@@ -20,7 +20,6 @@ import {
 } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
-import { type SubEntryAnnotationDownload } from '../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -53,8 +52,9 @@ import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import buildSubEntryAnnotations, {
+  buildSubEntryAnnotationDownload,
   shouldRequestUniFire,
-  uniFireToDownloadModel,
+  type SubEntryAnnotationDownload,
 } from '../../adapters/subEntryAnnotations';
 import {
   type UniParcLiteAPIModel,
@@ -224,34 +224,18 @@ const SubEntry = () => {
   );
 
   // The sub-entry's annotations, offered as a JSON download in the Download
-  // panel. Precomputed has a real endpoint (download via URL); UniFire has
-  // none, so its transformed model is serialised on the fly. The two are
-  // mutually exclusive — see `shouldRequestUniFire`.
+  // panel — see `buildSubEntryAnnotationDownload`.
   const subEntryAnnotationDownload: SubEntryAnnotationDownload | undefined =
-    useMemo(() => {
-      if (hasPrecomputed && accession && subEntryTaxId) {
-        return {
-          source: 'precomputed',
-          apiURL: uniparcApiUrls.precomputedAnnotation(
-            accession,
-            `${subEntryTaxId}`
-          ),
-        };
-      }
-      if (uniFireData.data) {
-        try {
-          return {
-            source: 'unifire',
-            model: uniFireToDownloadModel(uniFireData.data),
-            filename: `${accession}-${subEntryTaxId}-annotations.json`,
-          };
-        } catch {
-          // uniFireToUniProtkbConverter logs its own error; offer no download.
-          return undefined;
-        }
-      }
-      return undefined;
-    }, [hasPrecomputed, accession, subEntryTaxId, uniFireData.data]);
+    useMemo(
+      () =>
+        buildSubEntryAnnotationDownload({
+          hasPrecomputed,
+          uniFire: uniFireData.data || undefined,
+          accession,
+          taxId: subEntryTaxId,
+        }),
+      [hasPrecomputed, uniFireData.data, accession, subEntryTaxId]
+    );
 
   // A migrated annotation section's in-page-nav item is enabled when the
   // resolved `annotations` (precomputed or UniFire, whichever populated the

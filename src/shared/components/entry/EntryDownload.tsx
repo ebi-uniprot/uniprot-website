@@ -14,9 +14,9 @@ import { fileFormatEntryDownload as diseasesFFED } from '../../../supporting-dat
 import { fileFormatEntryDownload as keywordsFFED } from '../../../supporting-data/keywords/config/download';
 import { fileFormatEntryDownload as locationsFFED } from '../../../supporting-data/locations/config/download';
 import { fileFormatEntryDownload as taxonomyFFED } from '../../../supporting-data/taxonomy/config/download';
+import { type SubEntryAnnotationDownload } from '../../../uniparc/adapters/subEntryAnnotations';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
-import { type UniParcPrecomputedModel } from '../../../uniparc/types/precomputed';
 import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { fileFormatEntryDownload as uniProtKBFFED } from '../../../uniprotkb/config/download';
 import { type ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
@@ -100,16 +100,6 @@ export enum Dataset {
   alphaMissenseAnnotations = 'AlphaMissense Annotations',
   subEntryAnnotation = 'Sub-entry annotation',
 }
-
-/**
- * A UniParc sub-entry's downloadable annotations. Precomputed has a real API
- * endpoint, so it downloads via URL. UniFire annotations are transformed in the
- * browser and have no URL, so they are serialised to JSON on the fly. The two
- * are mutually exclusive — a sub-entry has one source or the other.
- */
-export type SubEntryAnnotationDownload =
-  | { source: 'precomputed'; apiURL: string }
-  | { source: 'unifire'; model: UniParcPrecomputedModel; filename: string };
 
 const uniprotKBEntryDatasets = {
   UniProtKB: [Dataset.uniprotData, Dataset.features, Dataset.selectedFeatures],
@@ -577,6 +567,19 @@ const EntryDownload = ({
     }
   }, [fileFormats]);
 
+  // `selectedDataset` is React state, so it can outlive the annotation prop
+  // that seeded its initial value. If the prop goes away, reset it so the
+  // dialog never holds `subEntryAnnotation` with no matching option (which
+  // would otherwise leave the Download control with an empty URL).
+  useEffect(() => {
+    if (
+      !subEntryAnnotationDownload &&
+      selectedDataset === Dataset.subEntryAnnotation
+    ) {
+      setSelectedDataset(dataset || Dataset.uniprotData);
+    }
+  }, [subEntryAnnotationDownload, selectedDataset, dataset]);
+
   let additionalInformation: JSX.Element | null = null;
   let extraContentNode: JSX.Element | null = null;
 
@@ -860,8 +863,12 @@ const EntryDownload = ({
           styles['action-buttons']
         )}
       >
-        {/* The on-the-fly UniFire annotation has no API URL, so URL/Preview
-            do not apply to it. */}
+        {/* "Generate URL for API" is hidden only for the on-the-fly UniFire
+            annotation, which has no API URL (the precomputed annotation keeps
+            it). "Preview" is intentionally hidden for the annotation dataset
+            entirely — precomputed included: Download, plus the API URL for
+            precomputed, is sufficient, so previewing the JSON is a deliberate
+            omission, not a gap. */}
         {!isGeneratedAnnotation && (
           <Button variant="tertiary" onClick={() => setExtraContent('url')}>
             Generate URL for API

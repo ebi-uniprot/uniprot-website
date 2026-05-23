@@ -9,6 +9,7 @@ import unifireModelData from '../../__mocks__/unifireModelData';
 import precomputedModelData from '../../__mocks__/uniparcPrecomputedModelData';
 import { type UniParcPrecomputedModel } from '../../types/precomputed';
 import buildSubEntryAnnotations, {
+  buildSubEntryAnnotationDownload,
   shouldRequestUniFire,
   uniFireToDownloadModel,
   withOrganism,
@@ -226,5 +227,70 @@ describe('uniFireToDownloadModel', () => {
     expect(model.entryType).toBe('AA');
     expect(model.primaryAccession).toBe('UPI000002A2F6-9606');
     expect(Array.isArray(model.comments)).toBe(true);
+  });
+});
+
+describe('buildSubEntryAnnotationDownload', () => {
+  it('offers the precomputed annotation as an API URL download', () => {
+    const result = buildSubEntryAnnotationDownload({
+      hasPrecomputed: true,
+      accession: 'UPI000002A2F6',
+      taxId: 9606,
+    });
+    expect(result?.source).toBe('precomputed');
+    if (result?.source === 'precomputed') {
+      expect(result.apiURL).toContain('precomputed');
+      expect(result.apiURL).toContain('UPI000002A2F6');
+    }
+  });
+
+  it('offers the UniFire annotation as an on-the-fly JSON download', () => {
+    const result = buildSubEntryAnnotationDownload({
+      hasPrecomputed: false,
+      uniFire: unifireModelData,
+      accession: 'UPI000002A2F6',
+      taxId: 9606,
+    });
+    expect(result?.source).toBe('unifire');
+    if (result?.source === 'unifire') {
+      expect(result.filename).toBe('UPI000002A2F6-9606-annotations.json');
+      // The download model is the cleaned UniParcPrecomputedModel shape.
+      expect(result.model.uniProtkbId).toBeNull();
+    }
+  });
+
+  it('returns undefined when neither source is available', () => {
+    expect(
+      buildSubEntryAnnotationDownload({
+        hasPrecomputed: false,
+        accession: 'UPI000002A2F6',
+        taxId: 9606,
+      })
+    ).toBeUndefined();
+  });
+
+  // Regression: the filename / API URL need the accession + taxId — without
+  // them the descriptor must be withheld, not built with `undefined` segments.
+  it('returns undefined when the accession or taxId is missing', () => {
+    expect(
+      buildSubEntryAnnotationDownload({ hasPrecomputed: true, taxId: 9606 })
+    ).toBeUndefined();
+    expect(
+      buildSubEntryAnnotationDownload({
+        hasPrecomputed: true,
+        accession: 'UPI000002A2F6',
+      })
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when the UniFire transform fails', () => {
+    const result = buildSubEntryAnnotationDownload({
+      hasPrecomputed: false,
+      // No `predictions` array — uniFireToUniProtkbConverter throws.
+      uniFire: { accession: 'UPI000002A2F6:9606' } as never,
+      accession: 'UPI000002A2F6',
+      taxId: 9606,
+    });
+    expect(result).toBeUndefined();
   });
 });
