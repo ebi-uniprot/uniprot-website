@@ -104,10 +104,11 @@ const buildSubEntryAnnotations = ({
       // dedicated section can be considered if a category ever turns up here.
       const fallbackKeywords = getFallbackKeywords(converted);
       if (fallbackKeywords.length) {
+        const categories = [
+          ...new Set(fallbackKeywords.map((keyword) => keyword.category)),
+        ].join(', ');
         logging.warn(
-          `Precomputed keywords shown in the generic Keywords section — no dedicated sub-entry section for: ${fallbackKeywords
-            .map((keyword) => keyword.category)
-            .join(', ')}`,
+          `Precomputed keywords shown in the generic Keywords section — no dedicated sub-entry section for: ${categories}`,
           { extra: { accession } }
         );
       }

@@ -121,10 +121,19 @@ describe('buildSubEntryAnnotations', () => {
     mockError.mockClear();
   });
 
-  it('returns undefined while databaseInfoMaps has not loaded', () => {
+  it('returns undefined while databaseInfoMaps has not loaded (undefined)', () => {
     expect(
       buildSubEntryAnnotations({
         databaseInfoMaps: undefined,
+        precomputed: precomputedModelData,
+      })
+    ).toBeUndefined();
+  });
+
+  it('returns undefined while databaseInfoMaps has not loaded (null)', () => {
+    expect(
+      buildSubEntryAnnotations({
+        databaseInfoMaps: null,
         precomputed: precomputedModelData,
       })
     ).toBeUndefined();

@@ -195,6 +195,29 @@ describe('uniFireToUniProtkbConverter', () => {
       expect(testResult.features).toHaveLength(1);
       expect(testResult.features?.[0].location.start.value).toBe(10);
     });
+
+    it('should warn when a feature is skipped for missing positions', () => {
+      mockWarn.mockClear();
+      uniFireToUniProtkbConverter({
+        accession: 'UPI000000TEST:9606',
+        predictions: [
+          {
+            evidence: ['UR000976770'],
+            annotationType: 'feature.DISULFID',
+            // no start or end — should trigger a warning
+          },
+        ],
+      });
+      expect(mockWarn).toHaveBeenCalledWith(
+        expect.stringContaining('missing start/end positions'),
+        expect.objectContaining({
+          extra: expect.objectContaining({
+            annotationType: 'feature.DISULFID',
+            accession: 'UPI000000TEST:9606',
+          }),
+        })
+      );
+    });
   });
 
   describe('keyword predictions → keywords[]', () => {

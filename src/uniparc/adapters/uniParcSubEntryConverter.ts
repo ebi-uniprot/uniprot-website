@@ -37,13 +37,15 @@ export type ModifiedPrediction = Omit<Prediction, 'evidence'> & {
   evidence: Evidence[];
 };
 
-// Sources observed in both UniFIRE and precomputed data for UniParc entries
+// Sources observed in both UniFIRE and precomputed data for UniParc entries.
+// Sorted longest-prefix-first so that more-specific prefixes (e.g. 'PIRNR')
+// cannot be shadowed by a shorter one (e.g. 'PI') during startsWith matching.
 const SOURCE_BY_PREFIX: ReadonlyArray<readonly [string, string]> = [
-  ['ARBA', 'ARBA'],
-  ['UR', 'UniRule'],
-  ['RU', 'RuleBase'],
-  ['PIRNR', 'PIRNR'],
-  ['PRU', 'PROSITE-ProRule'],
+  ['PIRNR', 'PIRNR'], // 5 chars
+  ['ARBA', 'ARBA'], // 4 chars
+  ['PRU', 'PROSITE-ProRule'], // 3 chars
+  ['UR', 'UniRule'], // 2 chars
+  ['RU', 'RuleBase'], // 2 chars
 ] as const;
 
 const DEFAULT_EVIDENCE_SOURCE = 'UniRule';

@@ -76,20 +76,28 @@ const SubEntryKeywordsSection = ({ unifire, annotations }: Props) => {
       {keywordPredictions.length ? (
         <>
           <h3>Keywords</h3>
-          {keywordPredictions.map((prediction, index) => (
-            // eslint-disable-next-line @eslint-react/no-array-index-key
-            <div key={index} style={{ margin: '0.5em 0' }}>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.KeywordsResults],
-                  search: `query=(name:${prediction.annotationValue})&direct`,
-                }}
-              >
-                {prediction.annotationValue}
-              </Link>
-              <UniProtKBEvidenceTag evidences={prediction.evidence} />
-            </div>
-          ))}
+          {keywordPredictions
+            .filter(
+              (
+                prediction
+              ): prediction is ModifiedPrediction & {
+                annotationValue: string;
+              } => Boolean(prediction.annotationValue)
+            )
+            .map((prediction, index) => (
+              // eslint-disable-next-line @eslint-react/no-array-index-key
+              <div key={index} style={{ margin: '0.5em 0' }}>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.KeywordsResults],
+                    search: `query=(name:${prediction.annotationValue})&direct`,
+                  }}
+                >
+                  {prediction.annotationValue}
+                </Link>
+                <UniProtKBEvidenceTag evidences={prediction.evidence} />
+              </div>
+            ))}
         </>
       ) : null}
       {/* Precomputed keywords whose category has no dedicated sub-entry
