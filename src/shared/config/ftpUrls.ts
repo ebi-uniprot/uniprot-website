@@ -26,10 +26,10 @@ const ftpUrls = {
           : ''
       }`
     ),
-  panProteomes: (id?: string) =>
+  panProteomes: (taxonId?: number) =>
     joinUrl(
       ftpUniProt,
-      `/current_release/knowledgebase/pan_proteomes/${id ? `${id}.fasta.gz` : ''}`
+      `current_release/knowledgebase/pan_proteomes/${taxonId ? `pp${taxonId}/pp${taxonId}.fa.gz` : ''}`
     ),
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),

@@ -77,7 +77,7 @@ const SubEntryKeywordsSection = ({ unifire, annotations }: Props) => {
         <>
           <h3>Keywords</h3>
           {keywordPredictions.map((prediction, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <div key={index} style={{ margin: '0.5em 0' }}>
               <Link
                 to={{
@@ -108,7 +108,7 @@ const SubEntryKeywordsSection = ({ unifire, annotations }: Props) => {
               } => Boolean(prediction.annotationValue)
             )
             .map((prediction, index) => (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <div key={index} style={{ margin: '0.5em 0' }}>
                 <ExternalLink
                   url={externalUrls.QuickGOTerm(prediction.annotationValue)}

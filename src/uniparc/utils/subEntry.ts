@@ -55,8 +55,8 @@ export const hasAnnotationContent = (section?: Partial<UIModel>): boolean =>
 
 export const getSubEntryProteomes = (
   properties: { key: string; value: string }[] | undefined
-): { [key: string]: string } => {
-  const proteomeComponentObject: { [key: string]: string } = {};
+): Record<string, string> => {
+  const proteomeComponentObject: Record<string, string> = {};
   if (properties) {
     properties.forEach((property) => {
       if (property.key === 'sources') {

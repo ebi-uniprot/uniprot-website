@@ -17,11 +17,13 @@ const UNFILTERED_OPTION = 'All' as const;
 type TableHeaderFromDataProps<T> = {
   column: TableFromDataColumn<T>;
   options?: Set<string>;
+  selectedValue: string;
   onFilterChange: (columnId: string, filterValue: string) => void;
 };
 function TableHeaderFromData<T>({
   column,
   options,
+  selectedValue,
   onFilterChange,
 }: TableHeaderFromDataProps<T>) {
   return (
@@ -32,6 +34,7 @@ function TableHeaderFromData<T>({
           <br />
           <select
             style={{ width: 'fit-content' }}
+            value={selectedValue}
             onChange={(e) => onFilterChange(column.id, e.target.value)}
           >
             {[UNFILTERED_OPTION, ...options].map((option) => (
@@ -46,16 +49,31 @@ function TableHeaderFromData<T>({
   );
 }
 
+function getCellString<T>(
+  column: TableFromDataColumn<T>,
+  datum: T
+): string | undefined {
+  if (!column.getValue) {
+    return undefined;
+  }
+  const v = column.getValue(datum);
+  if (v === null || v === undefined) {
+    return undefined;
+  }
+  return String(v);
+}
+
 function filterDatum<T>(
   datum: T,
   columns: TableFromDataColumn<T>[],
   filterValues: ColumnsToSelectedFilter
-) {
+): boolean {
   return columns.every((column) => {
     const filterValue = filterValues[column.id];
-    return typeof filterValue !== 'undefined' && column.filter
-      ? column.filter(datum, filterValue)
-      : true;
+    if (filterValue === undefined || !column.getValue) {
+      return true;
+    }
+    return getCellString(column, datum) === filterValue;
   });
 }
 
@@ -63,11 +81,8 @@ export type TableFromDataColumn<T> = {
   id: string;
   label: ReactNode;
   render: (datum: T) => ReactNode;
-  filter?: (datum: T, filterValue: string) => boolean;
-  getOption?: (datum: T) => string | number;
+  getValue?: (datum: T) => string | number | null | undefined;
 };
-
-const OPTION_TYPES = new Set(['string', 'number']);
 
 type Props<T> = HTMLAttributes<HTMLTableElement> & {
   data: T[];
@@ -103,14 +118,13 @@ function TableFromData<T>({
   const columnIdToFilterOptions = useMemo(() => {
     const columnIdToFilterOptions: Record<string, Set<string>> = {};
     for (const column of columns) {
-      if (column.filter) {
+      if (column.getValue) {
         columnIdToFilterOptions[column.id] = new Set(
           data
-            .map((datum) => {
-              const r = (column.getOption || column.render)(datum);
-              return OPTION_TYPES.has(typeof r) ? r : null;
+            .flatMap((datum) => {
+              const v = getCellString(column, datum);
+              return v === undefined ? [] : [v];
             })
-            .filter((datum): datum is string => datum !== null)
             .sort(collator.compare)
         );
       }
@@ -147,6 +161,9 @@ function TableFromData<T>({
             column={column}
             key={column.id}
             options={columnIdToFilterOptions[column.id]}
+            selectedValue={
+              columnsToSelectedOption[column.id] ?? UNFILTERED_OPTION
+            }
             onFilterChange={handleFilterChange}
           />
         ))}

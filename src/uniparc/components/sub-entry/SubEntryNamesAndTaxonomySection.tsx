@@ -7,8 +7,6 @@ import TaxonomyView, {
   TaxonomyId,
   TaxonomyLineage,
 } from '../../../shared/components/entry/TaxonomyView';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
@@ -39,7 +37,7 @@ const NameContent = ({
       : predictions;
 
   return renderedNames.map((name, index) => (
-    // eslint-disable-next-line react/no-array-index-key
+    // eslint-disable-next-line @eslint-react/no-array-index-key
     <div key={index}>
       {name.value}
       {name.evidences && <UniProtKBEvidenceTag evidences={name.evidences} />}
@@ -63,8 +61,13 @@ export const namesAndTaxonomySectionHasContent = (
   if (!subEntry) {
     return false;
   }
-  const { proteinName, geneName, organism, properties, proteomeId, component } =
-    subEntry;
+  const {
+    proteinName,
+    geneName,
+    organism,
+    properties,
+    proteomes: proteomesArr,
+  } = subEntry;
   const namesAndTaxonomy =
     annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
   const proteinNames = namesAndTaxonomy?.proteinNamesData;
@@ -78,36 +81,28 @@ export const namesAndTaxonomySectionHasContent = (
     proteinNames?.alternativeNames?.length ||
     geneNames?.length ||
     Object.keys(proteomes).length ||
-    (proteomeId && component)
+    proteomesArr?.length
   );
 };
 
 type SubEntryNamesAndTaxonomySectionProps = {
   data?: UniParcSubEntryUIModel;
   annotations?: UniProtkbUIModel;
+  lineageData?: TaxonomyAPIModel;
+  proteomeComponentObject?: Record<string, string>;
 };
 
 const SubEntryNamesAndTaxonomySection = ({
   data,
   annotations,
+  lineageData,
+  proteomeComponentObject = {},
 }: SubEntryNamesAndTaxonomySectionProps) => {
-  const { data: lineageData } = useDataApi<TaxonomyAPIModel>(
-    data?.subEntry?.organism
-      ? apiUrls.entry.entry(
-          `${data.subEntry.organism.taxonId}`,
-          Namespace.taxonomy
-        )
-      : null
-  );
-
   if (!data?.subEntry) {
     return null;
   }
 
-  const { proteinName, geneName, organism, properties, proteomeId, component } =
-    data.subEntry;
-  // Predicted names come from the converted `annotations` — source-agnostic, so
-  // they show for both the UniFire and precomputed branches.
+  const { proteinName, geneName, organism } = data.subEntry;
   const namesAndTaxonomy =
     annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
   const proteinNames = namesAndTaxonomy?.proteinNamesData;
@@ -132,12 +127,6 @@ const SubEntryNamesAndTaxonomySection = ({
   const geneNameSynonymsPrediction = (geneNames ?? []).flatMap(
     (gene) => gene.synonyms ?? []
   );
-
-  const proteomeComponentObject = getSubEntryProteomes(properties);
-
-  if (proteomeId && component) {
-    proteomeComponentObject[proteomeId] = component;
-  }
 
   const proteomeContent = Object.entries(proteomeComponentObject).map(
     ([proteomeId, component]) => (

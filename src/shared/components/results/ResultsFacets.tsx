@@ -3,6 +3,10 @@ import { memo } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  ProteomeFacetValue,
+  proteomeFacetValueToLabel,
+} from '../../../proteomes/config/ProteomesFacetConfiguration';
 import UniProtKBGroupByFacet from '../../../uniprotkb/components/results/UniProtKBGroupByFacet';
 import { type UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import useNS from '../../hooks/useNS';
@@ -36,6 +40,12 @@ type Props = {
   namespaceOverride?: Namespace;
 };
 
+const proteomeTypeOrder = [
+  ProteomeFacetValue.REFERENCE,
+  ProteomeFacetValue.NON_REFERENCE,
+  ProteomeFacetValue.EXCLUDED,
+];
+
 const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const namespace = useNS(namespaceOverride);
   const uniprotKBResultsRoute = useRouteMatch(
@@ -61,21 +71,42 @@ const ResultsFacets = memo<Props>(({ dataApiObject, namespaceOverride }) => {
   const decoratedFacets = facets.map((facet) => {
     switch (facet.name) {
       case 'reviewed':
-      case 'proteome_type':
       case 'types': // Types is Publication's source
-      case 'proteome': // Not icon but change letter casing until returned otherwise by the backend (better if there is proteometype returned)
         return {
           ...facet,
           values: facet.values?.map((facetValue) => ({
             ...facetValue,
-            value:
-              facet.name === 'proteome'
-                ? facetValue.value.toUpperCase()
-                : facetValue.value,
-            label:
-              facet.name !== 'proteome'
-                ? getDecoratedFacetLabel(facetValue)
-                : null,
+            label: getDecoratedFacetLabel(facetValue),
+          })),
+        };
+      case 'proteome_type':
+        return {
+          ...facet,
+          values: facet.values
+            ?.map((facetValue) => ({
+              ...facetValue,
+              label: getDecoratedFacetLabel({
+                ...facetValue,
+                label:
+                  proteomeFacetValueToLabel[
+                    facetValue.value as ProteomeFacetValue
+                  ],
+              }),
+            }))
+            .sort(
+              (a, b) =>
+                proteomeTypeOrder.indexOf(a.value as ProteomeFacetValue) -
+                proteomeTypeOrder.indexOf(b.value as ProteomeFacetValue)
+            ),
+        };
+      // TODO: Needs review of the use case. Delete if not needed
+      case 'proteome': // uppercase value until backend returns it consistently
+        return {
+          ...facet,
+          values: facet.values?.map((facetValue) => ({
+            ...facetValue,
+            value: facetValue.value.toUpperCase(),
+            label: null,
           })),
         };
       case 'existence':
