@@ -6,10 +6,23 @@ import {
   offset,
   shift,
 } from '@floating-ui/dom';
+import sanitizeHtml, { defaults, type IOptions } from 'sanitize-html';
 
 import styles from './styles/tooltip.module.scss';
 
 type StaticSide = 'bottom' | 'left' | 'top' | 'right';
+
+const tooltipSanitizeOptions: IOptions = {
+  allowedTags: [...defaults.allowedTags, 'img'],
+  allowedAttributes: {
+    ...defaults.allowedAttributes,
+    '*': ['id', 'class', 'style', 'data-article-id'],
+    img: ['src', 'alt'],
+    td: ['colspan', 'rowspan'],
+    th: ['colspan', 'rowspan'],
+  },
+  allowedSchemes: ['http', 'https', 'mailto', 'ftp'],
+};
 
 const getTooltip = (content: string) => {
   const tooltip = document.createElement('div');
@@ -17,7 +30,7 @@ const getTooltip = (content: string) => {
   tooltip.className = styles.tooltip;
   const tooltipContent = document.createElement('div');
   tooltipContent.className = styles['tooltip-content'];
-  tooltipContent.innerHTML = content;
+  tooltipContent.innerHTML = sanitizeHtml(content, tooltipSanitizeOptions);
   tooltip.appendChild(tooltipContent);
   const arrowElement = document.createElement('div');
   arrowElement.className = styles.arrow;
