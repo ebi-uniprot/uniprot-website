@@ -79,10 +79,10 @@ const LandingPage = () => {
 
   if (data?.facets?.[0].values?.length) {
     refProtCount = data?.facets?.[0].values.find(
-      (value) => value.value === '1'
+      (value) => value.value === 'REFERENCE'
     )?.count;
     nonRefProtCount = data?.facets?.[0].values
-      .filter((value) => value.value !== '1')
+      .filter((value) => value.value !== 'REFERENCE')
       ?.reduce((sum, value) => sum + value.count, 0);
   }
 
@@ -199,7 +199,7 @@ const LandingPage = () => {
                       to={{
                         pathname: LocationToPath[Location.ProteomesResults],
                         search: stringifyQuery({
-                          query: 'proteome_type:1',
+                          query: 'proteome_type:REFERENCE',
                         }),
                       }}
                     >
@@ -236,7 +236,7 @@ const LandingPage = () => {
                         pathname: LocationToPath[Location.ProteomesResults],
                         search: stringifyQuery({
                           query:
-                            'proteome_type:2 OR proteome_type:3 OR proteome_type:4',
+                            'proteome_type:NON_REFERENCE OR proteome_type:EXCLUDED',
                         }),
                       }}
                     >

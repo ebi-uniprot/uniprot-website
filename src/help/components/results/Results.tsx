@@ -122,7 +122,7 @@ const Results = ({
     </div>
   );
 
-  let main: ReactNode = null;
+  let main: ReactNode;
 
   if (initialLoading) {
     main = <Loader progress={progress} />;

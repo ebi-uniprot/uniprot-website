@@ -3,8 +3,13 @@ import { screen } from '@testing-library/react';
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import uniProtKbConverter from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import databaseInfoMaps from '../../../../uniprotkb/utils/__tests__/__mocks__/databaseInfoMaps';
+import unifireModelData from '../../../__mocks__/unifireModelData';
 import precomputedMock from '../../../__mocks__/uniparcPrecomputedModelData';
 import precomputedToUniProtkbConverter from '../../../adapters/precomputedToUniProtkbConverter';
+import {
+  type ModifiedPrediction,
+  type UniFireModel,
+} from '../../../adapters/uniParcSubEntryConverter';
 import SubEntryKeywordsSection, {
   keywordsAndGOSectionHasContent,
 } from '../SubEntryKeywordsSection';
@@ -41,6 +46,44 @@ describe('SubEntryKeywordsSection', () => {
     expect(
       screen.queryByRole('heading', { name: 'Keywords & Gene Ontology' })
     ).toBeNull();
+  });
+});
+
+describe('SubEntryKeywordsSection — UniFire keyword rendering', () => {
+  // The raw unifireModelData predictions have string evidence arrays;
+  // SubEntryKeywordsSection receives them after uniParcSubEntryConverter
+  // transforms them to ModifiedPrediction (Evidence[] evidence). Build
+  // a minimal already-converted model to test the keyword render path.
+  const unifireWithKeywords: UniFireModel = {
+    accession: unifireModelData.accession,
+    predictions: unifireModelData.predictions
+      .filter((p) => p.annotationType === 'keyword')
+      .map(
+        (p): ModifiedPrediction => ({
+          ...p,
+          evidence: [
+            {
+              evidenceCode: 'ECO:0000256',
+              source: 'ARBA',
+              id: String(p.evidence[0]),
+            },
+          ],
+        })
+      ),
+  };
+
+  it('renders keyword predictions from UniFire', () => {
+    customRender(<SubEntryKeywordsSection unifire={unifireWithKeywords} />);
+    expect(
+      screen.getByRole('heading', { name: 'Keywords & Gene Ontology' })
+    ).toBeInTheDocument();
+    expect(screen.getByText('Amyloid')).toBeInTheDocument();
+  });
+
+  it('keywordsAndGOSectionHasContent is true when UniFire has keyword predictions', () => {
+    expect(keywordsAndGOSectionHasContent(unifireWithKeywords, undefined)).toBe(
+      true
+    );
   });
 });
 

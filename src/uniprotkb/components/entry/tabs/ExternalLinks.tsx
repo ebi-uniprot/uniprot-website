@@ -86,7 +86,7 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
             <ExpandableList descriptionString="alternative names">
               {webResourceComments.map((comment, index) => (
                 <WebResourceLink
-                  key={index} // eslint-disable-line react/no-array-index-key
+                  key={index} // eslint-disable-line @eslint-react/no-array-index-key
                   comment={comment as WebResourceComment}
                 />
               ))}

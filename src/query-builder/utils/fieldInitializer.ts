@@ -34,6 +34,14 @@ const initializer = (
     return '*';
   }
 
+  if (
+    (field.term === 'proteome' || field.term === 'proteomecomponent') &&
+    initialValue?.proteomecomponent
+  ) {
+    const [proteomeId, component] = initialValue.proteomecomponent.split(':');
+    return (field.term === 'proteome' ? proteomeId : component) || '';
+  }
+
   // Deal with autocomplete fields as they have two terms with different behavior:
   //   1. autoCompleteQueryTerm: for ID searches eg organism_id
   //   2. term: for text searches eg organism_name

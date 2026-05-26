@@ -33,7 +33,7 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
       return null;
     }
     return (
-      // eslint-disable-next-line react/no-array-index-key
+      // eslint-disable-next-line @eslint-react/no-array-index-key
       <Fragment key={index}>
         {' '}
         <KeywordItem id={id} value={idOnly ? id : name} />

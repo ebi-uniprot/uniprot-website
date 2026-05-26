@@ -143,7 +143,7 @@ export const PublicationReference = ({
           referencePositions &&
           addBlastLinksToFreeText(referencePositions, accession).map(
             (item, i) => (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <Fragment key={i}>
                 {i > 0 && ', '}
                 {item}
@@ -159,7 +159,7 @@ export const PublicationReference = ({
           content: (
             <>
               {comments.map((comment, i) => (
-                // eslint-disable-next-line react/no-array-index-key
+                // eslint-disable-next-line @eslint-react/no-array-index-key
                 <Fragment key={i}>
                   {i > 0 && ', '}
                   {type === 'STRAIN' ? (

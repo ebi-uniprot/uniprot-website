@@ -108,7 +108,7 @@ export const ECNumbersView = ({
     <>
       {orientation === 'horizontal' ? (
         content.map((ecInfo, index) => (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <Fragment key={index}>
             {index > 0 && ', '}
             {ecInfo}
@@ -147,7 +147,7 @@ const ProteinNamesViewFlat = ({
           {' ('}
           {names.shortNames.map(
             (shortName, index): JSX.Element => (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <Fragment key={index}>
                 {index > 0 && '; '}
                 {noEvidence ? (
@@ -255,7 +255,7 @@ const getInfoListForNames = (name: ProteinNames, noEvidence: boolean) => {
       content: (
         <>
           {name.shortNames.map((shortName, i) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <Fragment key={i}>
               {i > 0 && '; '}
               {noEvidence ? (
@@ -297,7 +297,7 @@ const ProteinNamesView = ({
         <ExpandableList descriptionString="alternative names">
           {proteinNames.alternativeNames.map((alternativeName, index) => (
             <Fragment
-              key={index} // eslint-disable-line react/no-array-index-key
+              key={index} // eslint-disable-line @eslint-react/no-array-index-key
             >
               <ProteinNamesViewFlat
                 names={alternativeName}
@@ -333,7 +333,7 @@ const ProteinNamesView = ({
         <ExpandableList descriptionString="chains">
           {proteinNames.contains.map((contains, index) => (
             <ProteinDescriptionView
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               key={index}
               proteinDescription={contains}
               withLink={false}
@@ -350,7 +350,7 @@ const ProteinNamesView = ({
         <ExpandableList descriptionString="submitted names">
           {proteinNames.submissionNames.map((submission, index) => (
             <ProteinNamesViewFlat
-              key={index} // eslint-disable-line react/no-array-index-key
+              key={index} // eslint-disable-line @eslint-react/no-array-index-key
               names={submission}
               noEvidence={noEvidence}
             />
@@ -387,7 +387,7 @@ const ProteinNamesView = ({
         <ExpandableList descriptionString="CD antigen names">
           {proteinNames.cdAntigenNames.map((cdAntigenName, index) => (
             <Fragment
-              key={index} // eslint-disable-line react/no-array-index-key
+              key={index} // eslint-disable-line @eslint-react/no-array-index-key
             >
               {noEvidence ? (
                 cdAntigenName.value
@@ -408,7 +408,7 @@ const ProteinNamesView = ({
         <ExpandableList descriptionString="INN names">
           {proteinNames.innNames.map((innName, index) => (
             <Fragment
-              key={index} // eslint-disable-line react/no-array-index-key
+              key={index} // eslint-disable-line @eslint-react/no-array-index-key
             >
               {noEvidence ? innName.value : <NameWithEvidence data={innName} />}
             </Fragment>

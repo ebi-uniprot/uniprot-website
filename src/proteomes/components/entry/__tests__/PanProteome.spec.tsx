@@ -8,40 +8,34 @@ import proteomesConverter, {
 import { PanProteome } from '../PanProteome';
 
 describe('PanProteome', () => {
-  it('should not render if no panproteome', () => {
+  it('should not render if no panproteomeTaxon', () => {
     const { container } = customRender(
       <PanProteome proteome={proteomesConverter(data)} />
     );
     expect(container).toBeEmptyDOMElement();
   });
 
-  it('should render a link to FASTA, when is a panproteome', () => {
+  it('should render species name and FASTA link when panproteomeTaxon matches taxonLineage', () => {
+    const uiData = proteomesConverter(data);
+    // taxonId 131567 ('cellular organisms') is present in the mock taxonLineage
+    const customisedData: ProteomesUIModel = {
+      ...uiData,
+      panproteomeTaxon: { taxonId: 131567 },
+    };
+    customRender(<PanProteome proteome={customisedData} />);
+    expect(screen.getByText(/cellular organisms/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
+  });
+
+  it('should not render when panproteomeTaxon taxonId is not found in taxonLineage', () => {
     const uiData = proteomesConverter(data);
     const customisedData: ProteomesUIModel = {
       ...uiData,
-      panproteome: uiData.id,
+      panproteomeTaxon: { taxonId: 99999 },
     };
-    const { asFragment } = customRender(
+    const { container } = customRender(
       <PanProteome proteome={customisedData} />
     );
-    expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
-    expect(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      screen.getByText(customisedData.taxonomy.scientificName!, {
-        exact: false,
-      })
-    ).toBeInTheDocument();
-  });
-
-  it('should render a link to entry and a link to FASTA, when is part of a panproteome', () => {
-    // reuse the same mock as proteome and related panproteome (with a different id)
-    const uiData = proteomesConverter(data, { ...data, id: 'UP1' });
-    const { asFragment } = customRender(<PanProteome proteome={uiData} />);
-    expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: uiData.taxonomy.scientificName })
-    ).toBeInTheDocument();
+    expect(container).toBeEmptyDOMElement();
   });
 });

@@ -6,31 +6,13 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import KeywordView from '../../../uniprotkb/components/protein-data-views/KeywordView';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
-import { type KeywordUIModel } from '../../../uniprotkb/utils/KeywordsUtil';
+import { getFallbackKeywords } from '../../adapters/subEntryAnnotations';
 import {
   type ModifiedPrediction,
   type UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 
-/**
- * Precomputed keywords whose category `uniProtKbConverter` sections into a page
- * the UniParc sub-entry does not render on its own — `Disease` (there is no
- * Diseases & Variants section) and `Coding sequence diversity` / `Technical
- * term` (the Sequence section is bespoke and entry-driven, so it ignores
- * annotation keywords). Collected here so they fall back into the Keywords & GO
- * section rather than being dropped.
- */
-export const getFallbackKeywords = (
-  annotations?: UniProtkbUIModel
-): KeywordUIModel[] =>
-  annotations
-    ? [
-        ...(annotations[UniProtKBEntrySection.DiseaseVariants]?.keywordData ??
-          []),
-        ...(annotations[UniProtKBEntrySection.Sequence]?.keywordData ?? []),
-      ]
-    : [];
+export { getFallbackKeywords };
 
 const getPredictions = (
   unifire: UniFireModel | undefined,
@@ -76,20 +58,28 @@ const SubEntryKeywordsSection = ({ unifire, annotations }: Props) => {
       {keywordPredictions.length ? (
         <>
           <h3>Keywords</h3>
-          {keywordPredictions.map((prediction, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <div key={index} style={{ margin: '0.5em 0' }}>
-              <Link
-                to={{
-                  pathname: LocationToPath[Location.KeywordsResults],
-                  search: `query=(name:${prediction.annotationValue})&direct`,
-                }}
-              >
-                {prediction.annotationValue}
-              </Link>
-              <UniProtKBEvidenceTag evidences={prediction.evidence} />
-            </div>
-          ))}
+          {keywordPredictions
+            .filter(
+              (
+                prediction
+              ): prediction is ModifiedPrediction & {
+                annotationValue: string;
+              } => Boolean(prediction.annotationValue)
+            )
+            .map((prediction, index) => (
+              // eslint-disable-next-line @eslint-react/no-array-index-key
+              <div key={index} style={{ margin: '0.5em 0' }}>
+                <Link
+                  to={{
+                    pathname: LocationToPath[Location.KeywordsResults],
+                    search: `query=(name:${prediction.annotationValue})&direct`,
+                  }}
+                >
+                  {prediction.annotationValue}
+                </Link>
+                <UniProtKBEvidenceTag evidences={prediction.evidence} />
+              </div>
+            ))}
         </>
       ) : null}
       {/* Precomputed keywords whose category has no dedicated sub-entry
@@ -108,7 +98,7 @@ const SubEntryKeywordsSection = ({ unifire, annotations }: Props) => {
               } => Boolean(prediction.annotationValue)
             )
             .map((prediction, index) => (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <div key={index} style={{ margin: '0.5em 0' }}>
                 <ExternalLink
                   url={externalUrls.QuickGOTerm(prediction.annotationValue)}

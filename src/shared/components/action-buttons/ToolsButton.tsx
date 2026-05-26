@@ -4,6 +4,7 @@ import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { type Location, LocationToPath } from '../../../app/config/urls';
+import { type SelectedTaxon } from '../../../jobs/types/jobsFormData';
 import helper from '../../styles/helper.module.scss';
 import { roundNumber } from '../../utils/roundNumber';
 import { stringifyQuery } from '../../utils/url';
@@ -17,6 +18,7 @@ type ToolsButtonProps = {
   disabled?: boolean;
   title: string;
   location: Location;
+  taxons?: SelectedTaxon[];
 };
 
 const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
@@ -28,6 +30,7 @@ const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
   disabled,
   title,
   location,
+  taxons,
   children,
 }) => {
   const content = (
@@ -65,6 +68,9 @@ const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
           from,
           to,
           peps,
+          taxIDs: taxons?.length
+            ? taxons.map(({ id, label }) => `${id}|${label}`).join(',')
+            : undefined,
         }),
       }}
     >

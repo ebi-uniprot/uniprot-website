@@ -54,6 +54,7 @@ const precomputedAnnotation = (uniparcId: string, taxId: string) =>
 // rather than follow `apiPrefix`. Once everything is served from
 // rest.uniprot.org, delete UNIFIRE_HOST and build this from `apiPrefix` like
 // every other API URL.
+// TODO: remove once UniFire is available on wwwdev / the environments converge.
 const UNIFIRE_HOST = 'https://rest.uniprot.org';
 
 const unifire = (uniparcId: string, taxId: string) =>

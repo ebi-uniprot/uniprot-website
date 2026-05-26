@@ -1,5 +1,6 @@
 import { type JSX } from 'react';
 
+import { type TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type FunctionUIModel } from '../../uniprotkb/adapters/functionConverter';
 import { type SubcellularLocationUIModel } from '../../uniprotkb/adapters/subcellularLocationConverter';
 import { type UniProtkbUIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
@@ -20,6 +21,11 @@ import EntrySection from '../types/subEntrySection';
 import { hasAnnotationContent } from '../utils/subEntry';
 import { entrySectionToLabel } from './UniParcSubEntrySectionLabels';
 
+export type SectionExtras = {
+  lineageData?: TaxonomyAPIModel;
+  proteomeComponentObject?: Record<string, string>;
+};
+
 const uniParcSubEntryConfig: Record<
   EntrySection,
   {
@@ -27,7 +33,8 @@ const uniParcSubEntryConfig: Record<
     label: string;
     sectionContent: (
       entryData: UniParcSubEntryUIModel,
-      annotations?: UniProtkbUIModel
+      annotations?: UniProtkbUIModel,
+      extras?: SectionExtras
     ) => JSX.Element | null;
   }
 > = {
@@ -60,8 +67,14 @@ const uniParcSubEntryConfig: Record<
     // Hybrid, kept bespoke: imported protein/gene/organism from the UniParc
     // cross-reference plus predicted names from `annotations` (source-agnostic,
     // UniFire or precomputed).
-    sectionContent: (data, annotations) => (
-      <SubEntryNamesAndTaxonomySection data={data} annotations={annotations} />
+    sectionContent: (data, annotations, extras) => (
+      <SubEntryNamesAndTaxonomySection
+        data={data}
+        annotations={annotations}
+        lineageData={extras?.lineageData}
+        proteomeComponentObject={extras?.proteomeComponentObject}
+        key={EntrySection.NamesAndTaxonomy}
+      />
     ),
   },
   [EntrySection.SubcellularLocation]: {
@@ -79,6 +92,9 @@ const uniParcSubEntryConfig: Record<
             ] as SubcellularLocationUIModel
           }
           sequence={data.entry.sequence?.value}
+          // UniParc sub-entry: synthetic accession — suppress the
+          // accession-keyed feature viewer tools.
+          enableExternalData={false}
         />
       ) : null,
   },

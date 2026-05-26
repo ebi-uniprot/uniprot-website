@@ -31,7 +31,7 @@ export const isSourceDatabase = (database?: string) =>
  * `enableExternalData` prop on the reused section components.
  */
 export const toSubEntryAccession = (uniFireAccession: string): string =>
-  uniFireAccession.replaceAll(':', '-');
+  uniFireAccession.replace(':', '-');
 
 /**
  * Whether a converted annotation section has anything renderable.
@@ -55,8 +55,8 @@ export const hasAnnotationContent = (section?: Partial<UIModel>): boolean =>
 
 export const getSubEntryProteomes = (
   properties: { key: string; value: string }[] | undefined
-): { [key: string]: string } => {
-  const proteomeComponentObject: { [key: string]: string } = {};
+): Record<string, string> => {
+  const proteomeComponentObject: Record<string, string> = {};
   if (properties) {
     properties.forEach((property) => {
       if (property.key === 'sources') {

@@ -80,6 +80,10 @@ function buildComment(
 ): Comment {
   switch (commentType) {
     case 'SUBCELLULAR LOCATION':
+      // UniFire supplies only a flat text value; topology (e.g. "Single-pass
+      // type I membrane protein") is not predicted, so the converted model
+      // never carries a `topology` field. This is a known quality difference
+      // from the precomputed branch, where the API may include topology.
       return {
         commentType,
         subcellularLocations: [{ location: { value, evidences } }],
@@ -249,27 +253,35 @@ const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
       }
 
       // feature.* predictions → features[]
-      if (
-        sectionConfig.featureType &&
-        prediction.start != null &&
-        prediction.end != null
-      ) {
-        const feature: FeatureDatum = {
-          type: sectionConfig.featureType,
-          description: annotationValue || '',
-          location: {
-            start: {
-              value: prediction.start,
-              modifier: 'EXACT' as const,
+      if (sectionConfig.featureType) {
+        if (prediction.start != null && prediction.end != null) {
+          const feature: FeatureDatum = {
+            type: sectionConfig.featureType,
+            description: annotationValue || '',
+            location: {
+              start: {
+                value: prediction.start,
+                modifier: 'EXACT' as const,
+              },
+              end: {
+                value: prediction.end,
+                modifier: 'EXACT' as const,
+              },
             },
-            end: {
-              value: prediction.end,
-              modifier: 'EXACT' as const,
-            },
-          },
-          evidences,
-        };
-        features.push(feature);
+            evidences,
+          };
+          features.push(feature);
+        } else {
+          logging.warn(
+            'Skipping UniFire feature prediction with missing start/end positions',
+            {
+              extra: {
+                annotationType,
+                accession: data.accession,
+              },
+            }
+          );
+        }
       }
     } catch (err) {
       // Partial failure: skip this prediction, keep going
@@ -316,6 +328,10 @@ const uniFireToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
   // alternative name. The Names & Taxonomy section flattens these across all
   // alternative names, so the exact host does not matter; ProteinNames requires
   // a fullName, so they are dropped if no alternativeName.fullName was predicted.
+  // Known structural mismatch: the precomputed branch associates each short name /
+  // EC number with its correct alternative name; the UniFire branch cannot (UniFire
+  // emits a flat prediction stream). If the renderer ever distinguishes per-
+  // alternative-name sub-fields, revisit this accumulation strategy.
   if (alternativeNames.length > 0) {
     if (alternativeShortNames.length > 0) {
       alternativeNames[0] = {

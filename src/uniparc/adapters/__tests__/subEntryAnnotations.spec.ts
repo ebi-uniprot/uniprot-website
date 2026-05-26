@@ -10,6 +10,7 @@ import precomputedModelData from '../../__mocks__/uniparcPrecomputedModelData';
 import { type UniParcPrecomputedModel } from '../../types/precomputed';
 import buildSubEntryAnnotations, {
   buildSubEntryAnnotationDownload,
+  getUnrenderedNameFields,
   shouldRequestUniFire,
   uniFireToDownloadModel,
   withOrganism,
@@ -123,10 +124,19 @@ describe('buildSubEntryAnnotations', () => {
     mockError.mockClear();
   });
 
-  it('returns undefined while databaseInfoMaps has not loaded', () => {
+  it('returns undefined while databaseInfoMaps has not loaded (undefined)', () => {
     expect(
       buildSubEntryAnnotations({
         databaseInfoMaps: undefined,
+        precomputed: precomputedModelData,
+      })
+    ).toBeUndefined();
+  });
+
+  it('returns undefined while databaseInfoMaps has not loaded (null)', () => {
+    expect(
+      buildSubEntryAnnotations({
+        databaseInfoMaps: null,
         precomputed: precomputedModelData,
       })
     ).toBeUndefined();
@@ -200,6 +210,62 @@ describe('buildSubEntryAnnotations', () => {
     );
   });
 
+  it('supplements the converted model with the xref organism and succeeds', () => {
+    // The subcellular location viz requires organism.lineage as a string[].
+    // This integration test verifies that xrefOrganism is correctly wired
+    // through buildSubEntryAnnotations (precomputed path) without throwing.
+    // The withOrganism unit tests above verify the lineage-flattening logic.
+    const xrefOrganism: TaxonomyDatum = {
+      taxonId: 9606,
+      scientificName: 'Homo sapiens',
+      lineage: [
+        {
+          taxonId: 2759,
+          scientificName: 'Eukaryota',
+          rank: 'no rank',
+          hidden: false,
+        },
+        {
+          taxonId: 33208,
+          scientificName: 'Metazoa',
+          rank: 'kingdom',
+          hidden: false,
+        },
+      ] as Lineage,
+    };
+    const result = buildSubEntryAnnotations({
+      databaseInfoMaps,
+      precomputed: precomputedModelData,
+      xrefOrganism,
+      accession: 'UPI000002A2F6',
+    });
+    expect(result).toBeDefined();
+    expect(result?.primaryAccession).toBeTruthy();
+  });
+
+  it('supplements the UniFire-converted model with the xref organism and succeeds', () => {
+    const xrefOrganism: TaxonomyDatum = {
+      taxonId: 9606,
+      scientificName: 'Homo sapiens',
+      lineage: [
+        {
+          taxonId: 2759,
+          scientificName: 'Eukaryota',
+          rank: 'no rank',
+          hidden: false,
+        },
+      ] as Lineage,
+    };
+    const result = buildSubEntryAnnotations({
+      databaseInfoMaps,
+      uniFire: unifireModelData,
+      xrefOrganism,
+      accession: 'UPI000002A2F6',
+    });
+    expect(result).toBeDefined();
+    expect(result?.primaryAccession).toBeTruthy();
+  });
+
   it('does not emit the fallback-keyword warning for the UniFire branch', () => {
     buildSubEntryAnnotations({
       databaseInfoMaps,
@@ -210,6 +276,72 @@ describe('buildSubEntryAnnotations', () => {
       expect.stringContaining('no dedicated sub-entry section'),
       expect.anything()
     );
+  });
+
+  it('warns when precomputed populates a name field the sub-entry does not render', () => {
+    // No corpus entry populates `submissionNames` today, but the type permits
+    // it — the warning is the only thing standing between "rendered" and
+    // "silently dropped" if that ever changes upstream.
+    buildSubEntryAnnotations({
+      databaseInfoMaps,
+      precomputed: {
+        ...precomputedModelData,
+        proteinDescription: {
+          ...precomputedModelData.proteinDescription,
+          submissionNames: [
+            {
+              fullName: {
+                value: 'Submitted name',
+                evidences: [
+                  { evidenceCode: 'ECO:0000256', source: 'ARBA', id: 'TEST' },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      accession: 'UPI000002A2F6',
+    });
+    expect(mockWarn).toHaveBeenCalledWith(
+      expect.stringContaining(
+        'Names & Taxonomy fields not rendered by the sub-entry'
+      ),
+      expect.objectContaining({ extra: { accession: 'UPI000002A2F6' } })
+    );
+  });
+
+  it('does not emit the unrendered-name-fields warning for the UniFire branch', () => {
+    // The UniFire converter cannot produce these fields, so the warning is
+    // precomputed-only — the UniFire branch must stay quiet to avoid noise.
+    buildSubEntryAnnotations({
+      databaseInfoMaps,
+      uniFire: unifireModelData,
+      accession: 'UPI000002A2F6',
+    });
+    expect(mockWarn).not.toHaveBeenCalledWith(
+      expect.stringContaining(
+        'Names & Taxonomy fields not rendered by the sub-entry'
+      ),
+      expect.anything()
+    );
+  });
+});
+
+describe('getUnrenderedNameFields', () => {
+  it('returns an empty list when annotations are undefined', () => {
+    expect(getUnrenderedNameFields(undefined)).toEqual([]);
+  });
+
+  it('returns an empty list for the mock corpus (no unrendered fields populated)', () => {
+    // Empirically the precomputed corpus does not populate any of the
+    // unrendered fields — this assertion locks that in so a future mock change
+    // would be visible in this test.
+    const annotations = buildSubEntryAnnotations({
+      databaseInfoMaps,
+      precomputed: precomputedModelData,
+      accession: 'UPI000002A2F6',
+    });
+    expect(getUnrenderedNameFields(annotations)).toEqual([]);
   });
 });
 

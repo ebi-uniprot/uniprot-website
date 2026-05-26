@@ -90,7 +90,7 @@ const ProteinOverview = ({ data, inCard }: Props) => {
         ]
           .filter(Boolean)
           .map((node, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <Fragment key={index}>
               {index ? ' · ' : null}
               {node}
