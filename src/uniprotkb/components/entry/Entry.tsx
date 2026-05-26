@@ -6,7 +6,6 @@ import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
-import joinUrl from 'url-join';
 
 import {
   getEntryPath,
@@ -40,12 +39,6 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import {
-  checkMoveUrl,
-  getProteomes,
-  RefProtMoveUniProtKBEntryMessage,
-  type UniProtKBCheckMoveResponse,
-} from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
@@ -210,15 +203,6 @@ const Entry = () => {
         })
       : null
   );
-
-  const refprotmoveData = useDataApi<UniProtKBCheckMoveResponse>(
-    match?.params.accession
-      ? joinUrl(checkMoveUrl, 'uniprotkb', match?.params.accession)
-      : null
-  );
-  const upids = useMemo(() => data && getProteomes(data), [data]);
-
-  const willBeRemoved = refprotmoveData.data?.status === 'remove';
 
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
@@ -464,8 +448,7 @@ const Entry = () => {
     loading ||
     !data ||
     // if we're gonna redirect, show loading in the meantime
-    (redirectedTo && match?.params.subPage !== TabLocation.History) ||
-    refprotmoveData.loading
+    (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
     if (error) {
       return <ErrorHandler status={status} error={error} fullPage />;
@@ -562,13 +545,6 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          {willBeRemoved ? (
-            <RefProtMoveUniProtKBEntryMessage
-              accession={data.primaryAccession}
-              upids={upids}
-              organism={data.organism}
-            />
-          ) : null}
           <h1>
             <EntryTitle
               mainTitle={data.primaryAccession}

@@ -2,18 +2,12 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 import { Loader } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
-import joinUrl from 'url-join';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import {
-  checkMoveUrl,
-  type ProteomesCheckMoveResponse,
-  RefProtMoveProteomesEntryMessage,
-} from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import {
@@ -53,15 +47,7 @@ const Entry = () => {
       : null
   );
 
-  const refprotmoveData = useDataApi<ProteomesCheckMoveResponse>(
-    accession ? joinUrl(checkMoveUrl, 'proteomes', accession) : null
-  );
-
-  if (
-    mainData.loading ||
-    similarProteomesData.loading ||
-    refprotmoveData.loading
-  ) {
+  if (mainData.loading || similarProteomesData.loading) {
     return (
       <Loader progress={mainData.progress || similarProteomesData.progress} />
     );
@@ -78,10 +64,6 @@ const Entry = () => {
     similarProteomesData.data?.results
   );
 
-  const moveStatus = refprotmoveData.data?.status;
-  const showMoveMessage =
-    moveStatus === 'becoming-non-reference' || moveStatus === 'other';
-
   return (
     <SingleColumnLayout className="entry-page">
       <HTMLHead
@@ -90,13 +72,6 @@ const Entry = () => {
           searchableNamespaceLabels[Namespace.proteomes],
         ]}
       />
-      {showMoveMessage && moveStatus && (
-        <RefProtMoveProteomesEntryMessage
-          id={transformedData.id}
-          taxonomy={transformedData.taxonomy}
-          moveStatus={moveStatus}
-        />
-      )}
       <h1>
         {searchableNamespaceLabels[Namespace.proteomes]}
         {' · '}

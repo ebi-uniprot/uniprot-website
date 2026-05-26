@@ -14,7 +14,6 @@ import { generatePath, Link } from 'react-router-dom';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import HTMLHead from '../../../shared/components/HTMLHead';
-import { RefProtMoveHomePage } from '../../../shared/components/RefProtMoveMessages';
 import { useReducedMotion } from '../../../shared/hooks/useMatchMedia';
 import helper from '../../../shared/styles/helper.module.scss';
 import {
@@ -178,9 +177,6 @@ const HomePage = () => (
       <ErrorBoundary>
         <HomePageHeader />
       </ErrorBoundary>
-      <div className="uniprot-grid uniprot-grid--centered">
-        <RefProtMoveHomePage />
-      </div>
       <ErrorBoundary>
         <Suspense fallback={<Loader />}>
           <HomePageNonCritical />
