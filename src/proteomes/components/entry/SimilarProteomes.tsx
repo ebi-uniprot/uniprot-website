@@ -38,7 +38,7 @@ const columns: Array<{
     ),
   },
   {
-    label: 'Similarity percentage',
+    label: 'Proteome similarity',
     name: 'similarity',
     render: ({ similarity }) => `${(similarity * 100).toFixed(1)}%`,
   },
@@ -139,7 +139,7 @@ const SimilarProteomes = ({
       header={
         <h2>
           <span data-article-id={HELP_ARTICLE_ID}>
-            Similar reference proteomes
+            Similarity to reference proteomes
           </span>{' '}
           <Chip compact>New</Chip>
         </h2>
