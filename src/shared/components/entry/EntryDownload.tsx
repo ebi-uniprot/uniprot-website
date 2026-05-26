@@ -615,8 +615,14 @@ const EntryDownload = ({
         alphaFoldUrls
       );
 
-  const previewFileFormat =
-    selectedFormat === FileFormat.excel ? FileFormat.tsv : selectedFormat;
+  // The annotation preview is always JSON; for everything else it follows the
+  // selected format (Excel previews as TSV — the preview endpoint can't return
+  // a binary xlsx, and TSV is the closest tabular equivalent).
+  const previewFileFormat = isAnnotation
+    ? FileFormat.json
+    : selectedFormat === FileFormat.excel
+      ? FileFormat.tsv
+      : selectedFormat;
 
   const previewUrl = isAnnotation
     ? annotationApiURL
@@ -631,6 +637,13 @@ const EntryDownload = ({
           : Array.from(uniprotFeaturesMap.values()),
         alphaFoldUrls
       );
+
+  // The on-the-fly UniFire annotation has no URL — pass the model to
+  // `DownloadPreview` directly and let it skip the fetch.
+  const previewData =
+    isGeneratedAnnotation && subEntryAnnotationDownload?.source === 'unifire'
+      ? subEntryAnnotationDownload.model
+      : undefined;
 
   if (!isAnnotation && nResults && nResults > maxPaginationDownload) {
     if (
@@ -700,11 +713,12 @@ const EntryDownload = ({
     );
   }
 
-  if (extraContent === 'preview' && !isAnnotation) {
+  if (extraContent === 'preview') {
     extraContentNode = (
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
+        previewData={previewData}
         acceptHeaderOverride={
           selectedDataset === Dataset.interProRepresentativeDomains
             ? '*/*'
@@ -865,20 +879,16 @@ const EntryDownload = ({
       >
         {/* "Generate URL for API" is hidden only for the on-the-fly UniFire
             annotation, which has no API URL (the precomputed annotation keeps
-            it). "Preview" is intentionally hidden for the annotation dataset
-            entirely — precomputed included: Download, plus the API URL for
-            precomputed, is sufficient, so previewing the JSON is a deliberate
-            omission, not a gap. */}
+            it). Preview is available for both annotation sources: precomputed
+            previews the API response, UniFire previews the in-memory model. */}
         {!isGeneratedAnnotation && (
           <Button variant="tertiary" onClick={() => setExtraContent('url')}>
             Generate URL for API
           </Button>
         )}
-        {!isAnnotation && (
-          <Button variant="tertiary" onClick={() => setExtraContent('preview')}>
-            Preview
-          </Button>
-        )}
+        <Button variant="tertiary" onClick={() => setExtraContent('preview')}>
+          Preview
+        </Button>
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>

@@ -8,6 +8,10 @@ import EntryDownload, { Dataset } from '../EntryDownload';
 
 jest.mock('../../../utils/generateAndDownloadJSON');
 
+// jsdom doesn't implement scrollIntoView; `DownloadPreview` triggers it via
+// `useScrollIntoViewRef` on mount when the Preview button is clicked.
+Element.prototype.scrollIntoView = jest.fn();
+
 const mockGenerateAndDownloadJSON =
   generateAndDownloadJSON as jest.MockedFunction<
     typeof generateAndDownloadJSON
@@ -146,5 +150,28 @@ describe('EntryDownload', () => {
       'UPI0000000001-9606-annotations.json'
     );
     expect(onCloseMock).toHaveBeenCalledWith('download', 'sync');
+  });
+
+  it('previews the UniFire sub-entry annotation from the in-memory model', () => {
+    const model = {
+      primaryAccession: 'UPI0000000001-9606',
+      entryType: 'AA',
+    } as UniParcPrecomputedModel;
+    customRender(
+      <EntryDownload
+        onClose={onCloseMock}
+        subEntryAnnotationDownload={{
+          source: 'unifire',
+          model,
+          filename: 'UPI0000000001-9606-annotations.json',
+        }}
+      />,
+      { route: '/uniparc/UPI0000000001/entry' }
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Preview' }));
+    // Preview must come from the in-memory model — there is no URL to fetch.
+    expect(screen.getByTestId('download-preview').textContent).toBe(
+      JSON.stringify(model, null, 2)
+    );
   });
 });
