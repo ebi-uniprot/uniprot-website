@@ -5958,7 +5958,7 @@ exports[`EntryMain view should render 1`] = `
             <span
               data-article-id="proteome_similarity"
             >
-              Similar reference proteomes
+              Similarity to reference proteomes
             </span>
              
             <button
