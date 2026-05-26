@@ -1,5 +1,9 @@
 import * as logging from '../../shared/utils/logging';
 import { type TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  type GeneNamesData,
+  type ProteinNamesData,
+} from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import uniProtKbConverter, {
   type UniProtkbAPIModel,
   type UniProtkbUIModel,
@@ -30,6 +34,64 @@ export const getFallbackKeywords = (
         ...(annotations[UniProtKBEntrySection.Sequence]?.keywordData ?? []),
       ]
     : [];
+
+/**
+ * Names & Taxonomy fields the precomputed converter can populate but the
+ * sub-entry's Names & Taxonomy section does not render today (it renders only
+ * `recommendedName`/`alternativeNames` and each entry's `geneName`/`synonyms`).
+ *
+ * Empirically the precomputed corpus does not populate any of these — but
+ * `UniParcPrecomputedModel` is typed as `UniProtkbAPIModel`, so the type
+ * permits them. Flag them when they appear so a future payload that does
+ * populate them surfaces immediately rather than being silently dropped.
+ *
+ * Keep in sync with `SubEntryNamesAndTaxonomySection` — if a field is added
+ * to the renderer, remove it from these lists.
+ */
+const UNRENDERED_PROTEIN_NAME_FIELDS = [
+  'submissionNames',
+  'allergenName',
+  'biotechName',
+  'cdAntigenNames',
+  'innNames',
+  'includes',
+  'contains',
+] as const satisfies ReadonlyArray<keyof ProteinNamesData>;
+
+const UNRENDERED_GENE_NAME_FIELDS = [
+  'orfNames',
+  'orderedLocusNames',
+] as const satisfies ReadonlyArray<keyof GeneNamesData[number]>;
+
+export const getUnrenderedNameFields = (
+  annotations?: UniProtkbUIModel
+): string[] => {
+  const namesAndTaxonomy =
+    annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
+  if (!namesAndTaxonomy) {
+    return [];
+  }
+  const dropped: string[] = [];
+  const proteinNames = namesAndTaxonomy.proteinNamesData;
+  if (proteinNames) {
+    for (const field of UNRENDERED_PROTEIN_NAME_FIELDS) {
+      const value = proteinNames[field];
+      const present = Array.isArray(value) ? value.length > 0 : Boolean(value);
+      if (present) {
+        dropped.push(`proteinNamesData.${field}`);
+      }
+    }
+  }
+  const geneNames = namesAndTaxonomy.geneNamesData;
+  if (geneNames) {
+    for (const field of UNRENDERED_GENE_NAME_FIELDS) {
+      if (geneNames.some((gene) => (gene[field]?.length ?? 0) > 0)) {
+        dropped.push(`geneNamesData[].${field}`);
+      }
+    }
+  }
+  return dropped;
+};
 
 /**
  * Whether to fire the on-demand UniFire request.
@@ -129,6 +191,16 @@ const buildSubEntryAnnotations = ({
         ].join(', ');
         logging.warn(
           `Precomputed keywords shown in the generic Keywords section — no dedicated sub-entry section for: ${categories}`,
+          { extra: { accession } }
+        );
+      }
+      // Name-data fields the precomputed converter can populate but the
+      // sub-entry's Names section does not render — warn so they are not
+      // silently dropped if the upstream payload ever starts populating them.
+      const unrenderedNameFields = getUnrenderedNameFields(converted);
+      if (unrenderedNameFields.length) {
+        logging.warn(
+          `Precomputed Names & Taxonomy fields not rendered by the sub-entry: ${unrenderedNameFields.join(', ')}`,
           { extra: { accession } }
         );
       }

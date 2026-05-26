@@ -105,6 +105,17 @@ const SubEntryNamesAndTaxonomySection = ({
   const { proteinName, geneName, organism } = data.subEntry;
   const namesAndTaxonomy =
     annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
+  // Deliberately renders only:
+  //   - proteinNamesData.recommendedName (fullName / shortNames / ecNumbers)
+  //   - proteinNamesData.alternativeNames (same sub-fields)
+  //   - geneNamesData[].geneName / synonyms
+  // The `ProteinNamesData` / `GeneNamesData` types also permit
+  // submissionNames, allergenName, biotechName, cdAntigenNames, innNames,
+  // includes, contains, orfNames, and orderedLocusNames — empirically the
+  // precomputed corpus does not populate any of these, but if a future payload
+  // does, `getUnrenderedNameFields` in subEntryAnnotations.ts emits a warning
+  // so the gap surfaces before quietly dropping data. Keep that helper in sync
+  // with the fields rendered here.
   const proteinNames = namesAndTaxonomy?.proteinNamesData;
   const geneNames = namesAndTaxonomy?.geneNamesData;
 

@@ -307,10 +307,9 @@ const SubEntry = () => {
     [
       accession,
       databaseInfoMaps,
-      subEntryDataPerDatabase,
+      subEntryDataPerDatabase?.organism,
       hasPrecomputed,
       precomputedData.data,
-      precomputedData.status,
       uniFireData.data,
     ]
   );
