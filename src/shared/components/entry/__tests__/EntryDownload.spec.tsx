@@ -89,6 +89,35 @@ describe('EntryDownload', () => {
     expect(downloadLink.href).toEqual(apiURL);
   });
 
+  it('flips back to a UniParc cross-reference URL when the format is switched away from the annotation', () => {
+    customRender(
+      <EntryDownload
+        onClose={onCloseMock}
+        subEntryAnnotationDownload={{
+          source: 'precomputed',
+          apiURL:
+            'https://example.org/uniprotkb/precomputed/UPI0000000001/9606',
+        }}
+      />,
+      { route: '/uniparc/UPI0000000001/entry' }
+    );
+    // Default selection is the annotation — Download is a link to the API URL.
+    expect(screen.getByTitle<HTMLAnchorElement>('Download file').href).toEqual(
+      'https://example.org/uniprotkb/precomputed/UPI0000000001/9606'
+    );
+
+    // Switching to a UniParc format must reset the dataset to `uniprotData`
+    // and rebuild the URL via `getEntryDownloadUrl`.
+    fireEvent.change(screen.getByTestId('file-format-select'), {
+      target: { value: FileFormat.tsv },
+    });
+    expect(screen.getByTitle<HTMLAnchorElement>('Download file').href).toEqual(
+      expect.stringContaining(
+        '/uniparc/UPI0000000001/databases/stream?format=tsv'
+      )
+    );
+  });
+
   it('generates the UniFire sub-entry annotation JSON on the fly', () => {
     const model = {
       primaryAccession: 'UPI0000000001-9606',
