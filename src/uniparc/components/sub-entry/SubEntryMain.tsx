@@ -8,7 +8,9 @@ import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConve
 import UniParcSubEntryConfig from '../../config/UniParcSubEntryConfig';
 
 type EntryMainProps = {
-  transformedData: UniParcSubEntryUIModel;
+  // Entry-intrinsic UniParc data (entry, xref, unisave, raw unifire). Distinct
+  // from `annotations` below, which carries the *predicted* annotation data.
+  uniparcData: UniParcSubEntryUIModel;
   // The resolved annotations (precomputed or UniFire) converted to a
   // UniProtkbUIModel for the migrated section components. `undefined` when
   // there is no annotation data or `databaseInfoMaps` has not loaded yet.
@@ -18,7 +20,7 @@ type EntryMainProps = {
 };
 
 const SubEntryMain = ({
-  transformedData,
+  uniparcData,
   annotations,
   lineageData,
   proteomeComponentObject,
@@ -27,7 +29,7 @@ const SubEntryMain = ({
     {Object.values(UniParcSubEntryConfig).map(({ id, sectionContent }) => (
       <Suspense fallback={<Loader />} key={id}>
         <ErrorBoundary>
-          {sectionContent(transformedData, annotations, {
+          {sectionContent(uniparcData, annotations, {
             lineageData,
             proteomeComponentObject,
           })}

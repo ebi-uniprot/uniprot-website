@@ -13,22 +13,22 @@ const StructureView = lazy(
 );
 
 type Props = {
-  data: UniParcSubEntryUIModel;
+  uniparcData: UniParcSubEntryUIModel;
 };
 
 /*
 Comment from Aurel's PR:
 Not sure if this logic is valid always. Some UniProtKB entries don't have structures,
 and we'll still want to show the structures for the UniProtKB entries that will be removed
-soon and also for external IDs as eventually it should be based on the sequence. The 
+soon and also for external IDs as eventually it should be based on the sequence. The
 issue is that we can't query the 3D Beacons API like this yet, so I guess it'll do for now
 */
-export const hasStructure = (data: UniParcSubEntryUIModel['subEntry']) =>
-  data.isUniprotkbEntry && data.id;
+export const hasStructure = (subEntry: UniParcSubEntryUIModel['subEntry']) =>
+  subEntry.isUniprotkbEntry && subEntry.id;
 
-const StructureSection = ({ data }: Props) =>
+const StructureSection = ({ uniparcData }: Props) =>
   // TODO: don't need this duplicate check - how to fix in TS?
-  !data.subEntry.id || !hasStructure(data.subEntry) ? null : (
+  !uniparcData.subEntry.id || !hasStructure(uniparcData.subEntry) ? null : (
     <Card
       header={
         <h2 data-article-id="structure_section">
@@ -39,8 +39,8 @@ const StructureSection = ({ data }: Props) =>
       data-entry-section
     >
       <StructureView
-        primaryAccession={data.subEntry.id}
-        checksum={data.entry.sequence?.md5}
+        primaryAccession={uniparcData.subEntry.id}
+        checksum={uniparcData.entry.sequence?.md5}
         viewerOnly
       />
     </Card>

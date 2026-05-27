@@ -32,7 +32,7 @@ const uniParcSubEntryConfig: Record<
     id: EntrySection;
     label: string;
     sectionContent: (
-      entryData: UniParcSubEntryUIModel,
+      uniparcData: UniParcSubEntryUIModel,
       annotations?: UniProtkbUIModel,
       extras?: SectionExtras
     ) => JSX.Element | null;
@@ -44,13 +44,13 @@ const uniParcSubEntryConfig: Record<
     // Gated on real content — FunctionSection's own `hasContent` guard is fooled
     // by the `entryType` metadata functionConverter sets, so without this it
     // renders an empty Card for an entry with no function annotations.
-    sectionContent: (data, annotations) =>
+    sectionContent: (uniparcData, annotations) =>
       annotations &&
       hasAnnotationContent(annotations[UniProtKBEntrySection.Function]) ? (
         <FunctionSection
           data={annotations[UniProtKBEntrySection.Function] as FunctionUIModel}
           primaryAccession={annotations.primaryAccession}
-          sequence={data.entry.sequence?.value}
+          sequence={uniparcData.entry.sequence?.value}
           communityReferences={[]}
           // A UniParc sub-entry accession isn't a real UniProtKB one — skip
           // the GO-CAM / QuickGO accession-keyed lookups it would otherwise do.
@@ -67,9 +67,9 @@ const uniParcSubEntryConfig: Record<
     // Hybrid, kept bespoke: imported protein/gene/organism from the UniParc
     // cross-reference plus predicted names from `annotations` (source-agnostic,
     // UniFire or precomputed).
-    sectionContent: (data, annotations, extras) => (
+    sectionContent: (uniparcData, annotations, extras) => (
       <SubEntryNamesAndTaxonomySection
-        data={data}
+        uniparcData={uniparcData}
         annotations={annotations}
         lineageData={extras?.lineageData}
         proteomeComponentObject={extras?.proteomeComponentObject}
@@ -83,7 +83,7 @@ const uniParcSubEntryConfig: Record<
     // The viz needs `organism.lineage` to pick the right body diagram, but
     // neither UniFire nor precomputed supplies it — `buildSubEntryAnnotations`
     // splices it in from the UniParc xref via `withOrganism`.
-    sectionContent: (data, annotations) =>
+    sectionContent: (uniparcData, annotations) =>
       annotations ? (
         <SubcellularLocationSection
           data={
@@ -91,7 +91,7 @@ const uniParcSubEntryConfig: Record<
               UniProtKBEntrySection.SubCellularLocation
             ] as SubcellularLocationUIModel
           }
-          sequence={data.entry.sequence?.value}
+          sequence={uniparcData.entry.sequence?.value}
           // A UniParc sub-entry accession isn't a real UniProtKB one —
           // suppress the accession-keyed feature viewer tools.
           isUniProtKBAccession={false}
@@ -101,7 +101,7 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Expression]: {
     id: EntrySection.Expression,
     label: entrySectionToLabel[EntrySection.Expression],
-    sectionContent: (data, annotations) =>
+    sectionContent: (_uniparcData, annotations) =>
       annotations ? (
         <ExpressionSection
           data={annotations[UniProtKBEntrySection.Expression]}
@@ -112,12 +112,12 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.ProteinProcessing]: {
     id: EntrySection.ProteinProcessing,
     label: entrySectionToLabel[EntrySection.ProteinProcessing],
-    sectionContent: (data, annotations) =>
+    sectionContent: (uniparcData, annotations) =>
       annotations ? (
         <ProteinProcessingSection
           data={annotations[UniProtKBEntrySection.ProteinProcessing]}
           primaryAccession={annotations.primaryAccession}
-          sequence={data.entry.sequence?.value}
+          sequence={uniparcData.entry.sequence?.value}
           // A UniParc sub-entry accession isn't a real UniProtKB one — skip
           // the proteomics-PTM fetch.
           isUniProtKBAccession={false}
@@ -127,7 +127,7 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Interaction]: {
     id: EntrySection.Interaction,
     label: entrySectionToLabel[EntrySection.Interaction],
-    sectionContent: (data, annotations) =>
+    sectionContent: (_uniparcData, annotations) =>
       annotations ? (
         <InteractionSection
           data={annotations[UniProtKBEntrySection.Interaction]}
@@ -141,7 +141,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.Structure]: {
     id: EntrySection.Structure,
     label: entrySectionToLabel[EntrySection.Structure],
-    sectionContent: (data) => <SubEntryStructureSection data={data} />,
+    sectionContent: (uniparcData) => (
+      <SubEntryStructureSection uniparcData={uniparcData} />
+    ),
   },
   [EntrySection.FamilyAndDomains]: {
     id: EntrySection.FamilyAndDomains,
@@ -149,20 +151,25 @@ const uniParcSubEntryConfig: Record<
     // Entry-driven hybrid, kept bespoke: the entry's InterPro `sequenceFeatures`
     // plus the family/domain annotations from `annotations` (source-agnostic —
     // UniFire or precomputed).
-    sectionContent: (data, annotations) => (
-      <SubEntryFamilyAndDomains data={data} annotations={annotations} />
+    sectionContent: (uniparcData, annotations) => (
+      <SubEntryFamilyAndDomains
+        uniparcData={uniparcData}
+        annotations={annotations}
+      />
     ),
   },
   [EntrySection.Sequence]: {
     id: EntrySection.Sequence,
     label: entrySectionToLabel[EntrySection.Sequence],
-    sectionContent: (data) => <SubEntrySequenceSection data={data} />,
+    sectionContent: (uniparcData) => (
+      <SubEntrySequenceSection uniparcData={uniparcData} />
+    ),
   },
   [EntrySection.SimilarProteins]: {
     id: EntrySection.SimilarProteins,
     label: entrySectionToLabel[EntrySection.SimilarProteins],
-    sectionContent: (data) => (
-      <SubEntrySimilarProteinsSection uniparcId={data.entry.uniParcId} />
+    sectionContent: (uniparcData) => (
+      <SubEntrySimilarProteinsSection uniparcId={uniparcData.entry.uniParcId} />
     ),
   },
   // Catch-all "Keywords & Gene Ontology" section. UniFire `keyword` / `xref.GO`
@@ -174,9 +181,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.KeywordsAndGO]: {
     id: EntrySection.KeywordsAndGO,
     label: entrySectionToLabel[EntrySection.KeywordsAndGO],
-    sectionContent: (data, annotations) => (
+    sectionContent: (uniparcData, annotations) => (
       <SubEntryKeywordsSection
-        unifire={data.unifire}
+        unifire={uniparcData.unifire}
         annotations={annotations}
       />
     ),

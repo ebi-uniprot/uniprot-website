@@ -523,7 +523,7 @@ const SubEntry = () => {
             }
           />
         </h1>
-        <SubEntryOverview data={transformedData} />
+        <SubEntryOverview uniparcData={transformedData} />
         <Message level="info">
           These pages are in beta version, please{' '}
           <ContactLink>
@@ -605,7 +605,7 @@ const SubEntry = () => {
             <AddToBasketButton selectedEntries={accession} />
           </div>
           <SubEntryMain
-            transformedData={transformedData}
+            uniparcData={transformedData}
             annotations={annotations}
             lineageData={lineageData.data}
             proteomeComponentObject={proteomeComponentObject}

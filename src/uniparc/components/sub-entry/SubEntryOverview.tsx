@@ -7,15 +7,15 @@ import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConve
 import EntrySection from '../../types/subEntrySection';
 
 type Props = {
-  data: UniParcSubEntryUIModel;
+  uniparcData: UniParcSubEntryUIModel;
 };
 
-const SubEntryOverview = ({ data }: Props) => {
+const SubEntryOverview = ({ uniparcData }: Props) => {
   const infoData = [
     {
       title: <span data-article-id="protein_names">Protein</span>,
-      content: data.subEntry.proteinName ? (
-        <strong>{data.subEntry.proteinName}</strong>
+      content: uniparcData.subEntry.proteinName ? (
+        <strong>{uniparcData.subEntry.proteinName}</strong>
       ) : (
         <i>Unassigned</i>
       ),
@@ -23,26 +23,26 @@ const SubEntryOverview = ({ data }: Props) => {
     {
       title: <span data-article-id="organism-name">Organism</span>,
       content:
-        data.subEntry.organism?.scientificName ||
-        data.subEntry.organism?.taxonId ? (
-          <TaxonomyView data={data.subEntry.organism} />
+        uniparcData.subEntry.organism?.scientificName ||
+        uniparcData.subEntry.organism?.taxonId ? (
+          <TaxonomyView data={uniparcData.subEntry.organism} />
         ) : (
           <i>Unassigned</i>
         ),
     },
     {
       title: <span data-article-id="gene_name">Gene</span>,
-      content: data.subEntry.geneName ? (
-        <strong>{data.subEntry.geneName}</strong>
+      content: uniparcData.subEntry.geneName ? (
+        <strong>{uniparcData.subEntry.geneName}</strong>
       ) : (
         <i>Unassigned</i>
       ),
     },
     {
       title: 'Amino acids',
-      content: data.entry.sequence && (
+      content: uniparcData.entry.sequence && (
         <>
-          {`${data.entry.sequence?.length} `}
+          {`${uniparcData.entry.sequence?.length} `}
           <Link to={`#${EntrySection.Sequence}`}>(go to sequence)</Link>
         </>
       ),

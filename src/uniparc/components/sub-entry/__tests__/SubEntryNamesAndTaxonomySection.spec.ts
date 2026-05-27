@@ -12,7 +12,7 @@ const annotationsWithNamesAndTaxonomy = (
     [UniProtKBEntrySection.NamesAndTaxonomy]: namesAndTaxonomy,
   }) as unknown as UniProtkbUIModel;
 
-const dataWith = (subEntry: object): UniParcSubEntryUIModel =>
+const uniparcDataWith = (subEntry: object): UniParcSubEntryUIModel =>
   ({ subEntry }) as unknown as UniParcSubEntryUIModel;
 
 describe('namesAndTaxonomySectionHasContent', () => {
@@ -21,19 +21,21 @@ describe('namesAndTaxonomySectionHasContent', () => {
   });
 
   it('is false when neither the cross-reference nor annotations carry names', () => {
-    expect(namesAndTaxonomySectionHasContent(dataWith({}))).toBe(false);
+    expect(namesAndTaxonomySectionHasContent(uniparcDataWith({}))).toBe(false);
   });
 
   it('is true for an imported protein name from the cross-reference', () => {
     expect(
-      namesAndTaxonomySectionHasContent(dataWith({ proteinName: 'Amyloid' }))
+      namesAndTaxonomySectionHasContent(
+        uniparcDataWith({ proteinName: 'Amyloid' })
+      )
     ).toBe(true);
   });
 
   it('is true for an imported organism from the cross-reference', () => {
     expect(
       namesAndTaxonomySectionHasContent(
-        dataWith({ organism: { taxonId: 9606 } })
+        uniparcDataWith({ organism: { taxonId: 9606 } })
       )
     ).toBe(true);
   });
@@ -44,7 +46,7 @@ describe('namesAndTaxonomySectionHasContent', () => {
   it('is true for a predicted protein name when no name is imported', () => {
     expect(
       namesAndTaxonomySectionHasContent(
-        dataWith({}),
+        uniparcDataWith({}),
         annotationsWithNamesAndTaxonomy({
           proteinNamesData: {
             recommendedName: { fullName: { value: 'Predicted protein' } },
@@ -57,7 +59,7 @@ describe('namesAndTaxonomySectionHasContent', () => {
   it('is true for a predicted gene name when no name is imported', () => {
     expect(
       namesAndTaxonomySectionHasContent(
-        dataWith({}),
+        uniparcDataWith({}),
         annotationsWithNamesAndTaxonomy({
           geneNamesData: [{ geneName: { value: 'TP53' } }],
         })

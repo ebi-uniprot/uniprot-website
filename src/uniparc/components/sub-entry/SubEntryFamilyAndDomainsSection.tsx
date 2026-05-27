@@ -14,16 +14,18 @@ import { hasAnnotationContent } from '../../utils/subEntry';
 import UniParcFeaturesView from '../entry/UniParcFeaturesView';
 
 type Props = {
-  data?: UniParcSubEntryUIModel;
+  uniparcData?: UniParcSubEntryUIModel;
   annotations?: UniProtkbUIModel;
 };
 
-// Hybrid section: the entry's intrinsic InterPro `sequenceFeatures` (always
-// present) plus the family/domain annotations (DOMAIN / SIMILARITY comments and
-// features) taken from the converted `annotations` — source-agnostic, so it
-// works for both the UniFire and precomputed branches.
-const SubEntryFamilyAndDomains = ({ data, annotations }: Props) => {
-  const { sequenceFeatures, sequence } = data?.entry || {};
+// Hybrid section: combines two sources by how the information reaches the page.
+//   - `uniparcData` carries entry-intrinsic data — the InterPro `sequenceFeatures`
+//     that live on the UniParc entry itself (always present when InterPro ran).
+//   - `annotations` carries the predicted DOMAIN / SIMILARITY comments + family
+//     features + keywords — converted from UniFire or precomputed predictions.
+// Source-agnostic for `annotations`, so it works for both branches.
+const SubEntryFamilyAndDomains = ({ uniparcData, annotations }: Props) => {
+  const { sequenceFeatures, sequence } = uniparcData?.entry || {};
   const familyAndDomains =
     annotations?.[UniProtKBEntrySection.FamilyAndDomains];
 

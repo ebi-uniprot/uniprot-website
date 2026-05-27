@@ -19,8 +19,8 @@ const annotationsWithFamilyAndDomains = (): UniProtkbUIModel =>
   );
 
 // A minimal UniParcSubEntryUIModel with sequenceFeatures — mirrors how
-// SubEntry.tsx assembles the data prop from the main UniParc entry.
-const dataWithSequenceFeatures = (): UniParcSubEntryUIModel =>
+// SubEntry.tsx assembles the uniparcData prop from the main UniParc entry.
+const uniparcDataWithSequenceFeatures = (): UniParcSubEntryUIModel =>
   ({
     entry: {
       sequenceFeatures: uniParcLightEntryData.sequenceFeatures,
@@ -29,7 +29,7 @@ const dataWithSequenceFeatures = (): UniParcSubEntryUIModel =>
     subEntry: {},
   }) as unknown as UniParcSubEntryUIModel;
 
-const dataWithoutSequenceFeatures = (): UniParcSubEntryUIModel =>
+const uniparcDataWithoutSequenceFeatures = (): UniParcSubEntryUIModel =>
   ({
     entry: { sequenceFeatures: [], sequence: { value: 'ACGT' } },
     subEntry: {},
@@ -39,7 +39,7 @@ describe('SubEntryFamilyAndDomainsSection', () => {
   it('renders nothing when there are neither InterPro features nor annotations', () => {
     customRender(
       <SubEntryFamilyAndDomainsSection
-        data={dataWithoutSequenceFeatures()}
+        uniparcData={uniparcDataWithoutSequenceFeatures()}
         annotations={undefined}
       />
     );
@@ -50,7 +50,9 @@ describe('SubEntryFamilyAndDomainsSection', () => {
 
   it('renders the section heading when sequence features are present', () => {
     customRender(
-      <SubEntryFamilyAndDomainsSection data={dataWithSequenceFeatures()} />
+      <SubEntryFamilyAndDomainsSection
+        uniparcData={uniparcDataWithSequenceFeatures()}
+      />
     );
     expect(
       screen.getByRole('heading', { name: /Family & Domains/i })
@@ -67,7 +69,7 @@ describe('SubEntryFamilyAndDomainsSection', () => {
 
     customRender(
       <SubEntryFamilyAndDomainsSection
-        data={dataWithoutSequenceFeatures()}
+        uniparcData={uniparcDataWithoutSequenceFeatures()}
         annotations={annotations}
       />
     );
@@ -81,7 +83,7 @@ describe('SubEntryFamilyAndDomainsSection', () => {
   it('renders when only annotations are present (no InterPro features)', () => {
     customRender(
       <SubEntryFamilyAndDomainsSection
-        data={dataWithoutSequenceFeatures()}
+        uniparcData={uniparcDataWithoutSequenceFeatures()}
         annotations={annotationsWithFamilyAndDomains()}
       />
     );
@@ -90,7 +92,7 @@ describe('SubEntryFamilyAndDomainsSection', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders nothing when data is undefined', () => {
+  it('renders nothing when uniparcData is undefined', () => {
     customRender(<SubEntryFamilyAndDomainsSection />);
     expect(
       screen.queryByRole('heading', { name: /Family & Domains/i })

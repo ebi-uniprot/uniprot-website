@@ -54,10 +54,10 @@ const NameContent = ({
  * rendered card never disagree.
  */
 export const namesAndTaxonomySectionHasContent = (
-  data?: UniParcSubEntryUIModel,
+  uniparcData?: UniParcSubEntryUIModel,
   annotations?: UniProtkbUIModel
 ): boolean => {
-  const subEntry = data?.subEntry;
+  const subEntry = uniparcData?.subEntry;
   if (!subEntry) {
     return false;
   }
@@ -86,23 +86,23 @@ export const namesAndTaxonomySectionHasContent = (
 };
 
 type SubEntryNamesAndTaxonomySectionProps = {
-  data?: UniParcSubEntryUIModel;
+  uniparcData?: UniParcSubEntryUIModel;
   annotations?: UniProtkbUIModel;
   lineageData?: TaxonomyAPIModel;
   proteomeComponentObject?: Record<string, string>;
 };
 
 const SubEntryNamesAndTaxonomySection = ({
-  data,
+  uniparcData,
   annotations,
   lineageData,
   proteomeComponentObject = {},
 }: SubEntryNamesAndTaxonomySectionProps) => {
-  if (!data?.subEntry) {
+  if (!uniparcData?.subEntry) {
     return null;
   }
 
-  const { proteinName, geneName, organism } = data.subEntry;
+  const { proteinName, geneName, organism } = uniparcData.subEntry;
   const namesAndTaxonomy =
     annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
   // Deliberately renders only:
@@ -240,7 +240,7 @@ const SubEntryNamesAndTaxonomySection = ({
   );
   const hasGeneNameContent = geneNameInfoData.some((item) => item.content);
 
-  if (!namesAndTaxonomySectionHasContent(data, annotations)) {
+  if (!namesAndTaxonomySectionHasContent(uniparcData, annotations)) {
     return null;
   }
 
