@@ -80,9 +80,9 @@ const uniParcSubEntryConfig: Record<
   [EntrySection.SubcellularLocation]: {
     id: EntrySection.SubcellularLocation,
     label: entrySectionToLabel[EntrySection.SubcellularLocation],
-    // The SubcellularLocation viz needs `organism` (with a lineage)
-    // supplemented onto the model upstream — it renders nothing without it;
-    // see SubEntry.tsx.
+    // The viz needs `organism.lineage` to pick the right body diagram, but
+    // neither UniFire nor precomputed supplies it — `buildSubEntryAnnotations`
+    // splices it in from the UniParc xref via `withOrganism`.
     sectionContent: (data, annotations) =>
       annotations ? (
         <SubcellularLocationSection

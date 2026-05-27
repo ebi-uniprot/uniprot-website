@@ -1,3 +1,5 @@
+import '../../../shared/components/entry/styles/entry-page.scss';
+
 import cn from 'classnames';
 import {
   Button,
