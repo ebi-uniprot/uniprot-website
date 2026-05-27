@@ -52,9 +52,9 @@ const uniParcSubEntryConfig: Record<
           primaryAccession={annotations.primaryAccession}
           sequence={data.entry.sequence?.value}
           communityReferences={[]}
-          // UniParc sub-entry: the accession is synthetic, so skip the
-          // accession-keyed external fetches.
-          enableExternalData={false}
+          // A UniParc sub-entry accession isn't a real UniProtKB one — skip
+          // the GO-CAM / QuickGO accession-keyed lookups it would otherwise do.
+          isUniProtKBAccession={false}
           // The sub-entry page owns its own document <head>; this reused
           // section must not inject a page meta description.
           emitMetaDescription={false}
@@ -92,9 +92,9 @@ const uniParcSubEntryConfig: Record<
             ] as SubcellularLocationUIModel
           }
           sequence={data.entry.sequence?.value}
-          // UniParc sub-entry: synthetic accession — suppress the
-          // accession-keyed feature viewer tools.
-          enableExternalData={false}
+          // A UniParc sub-entry accession isn't a real UniProtKB one —
+          // suppress the accession-keyed feature viewer tools.
+          isUniProtKBAccession={false}
         />
       ) : null,
   },
@@ -118,9 +118,9 @@ const uniParcSubEntryConfig: Record<
           data={annotations[UniProtKBEntrySection.ProteinProcessing]}
           primaryAccession={annotations.primaryAccession}
           sequence={data.entry.sequence?.value}
-          // UniParc sub-entry: synthetic accession — skip the proteomics-PTM
-          // fetch.
-          enableExternalData={false}
+          // A UniParc sub-entry accession isn't a real UniProtKB one — skip
+          // the proteomics-PTM fetch.
+          isUniProtKBAccession={false}
         />
       ) : null,
   },
@@ -132,9 +132,9 @@ const uniParcSubEntryConfig: Record<
         <InteractionSection
           data={annotations[UniProtKBEntrySection.Interaction]}
           primaryAccession={annotations.primaryAccession}
-          // UniParc sub-entry: synthetic accession — skip the IntAct viewer
-          // fetch.
-          enableExternalData={false}
+          // A UniParc sub-entry accession isn't a real UniProtKB one — skip
+          // the IntAct viewer fetch.
+          isUniProtKBAccession={false}
         />
       ) : null,
   },

@@ -49,9 +49,9 @@ const SubEntryFamilyAndDomains = ({ data, annotations }: Props) => {
             primaryAccession={annotations?.primaryAccession ?? ''}
             features={familyAndDomains.featuresData}
             sequence={sequence?.value}
-            // A UniParc sub-entry accession is synthetic — suppress the
-            // accession-keyed full-view link and per-feature tools.
-            enableExternalData={false}
+            // A UniParc sub-entry accession isn't a real UniProtKB one —
+            // suppress the accession-keyed full-view link and tools column.
+            isUniProtKBAccession={false}
           />
           <FreeTextView
             comments={

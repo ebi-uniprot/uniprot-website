@@ -14,10 +14,11 @@ import XRefView from '../protein-data-views/XRefView';
 type Props = {
   data: SubcellularLocationUIModel;
   sequence?: string;
-  // When false, suppresses the accession-keyed FeaturesView tools (full-view
-  // link, BLAST, basket) that would produce dead links for a synthetic UniParc
-  // sub-entry accession. Mirrors the same prop on FunctionSection et al.
-  enableExternalData?: boolean;
+  // Whether `data.primaryAccession` is a real UniProtKB accession. Forwarded
+  // to FeaturesView to suppress the accession-keyed full-view link and the
+  // BLAST/basket tools column for synthetic accessions (e.g. UniParc
+  // sub-entries). Defaults to `true`.
+  isUniProtKBAccession?: boolean;
 };
 
 export const subcellularLocationSectionHasContent = <
@@ -35,7 +36,7 @@ export const subcellularLocationSectionHasContent = <
 const SubcellularLocationSection = ({
   data,
   sequence,
-  enableExternalData = true,
+  isUniProtKBAccession = true,
 }: Props) => {
   if (!subcellularLocationSectionHasContent(data)) {
     return null;
@@ -66,7 +67,7 @@ const SubcellularLocationSection = ({
         primaryAccession={data.primaryAccession}
         features={data.featuresData}
         sequence={sequence}
-        enableExternalData={enableExternalData}
+        isUniProtKBAccession={isUniProtKBAccession}
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView

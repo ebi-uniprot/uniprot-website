@@ -47,13 +47,13 @@ describe('UniProtKBFeaturesView component', () => {
   // synthetic, so the accession-keyed affordances must be suppressed —
   // otherwise the "full feature viewer" link is a dead /uniprotkb/... link and
   // the per-feature BLAST/basket tools act on a non-existent accession.
-  it('suppresses the full-view link and tools column when enableExternalData is false', () => {
+  it('suppresses the full-view link and tools column when isUniProtKBAccession is false', () => {
     customRender(
       <UniProtKBFeaturesView
         primaryAccession="UPI000002A2F6-9606"
         features={FeaturesUIData}
         sequence="ASDASDASASDASDASDSASD"
-        enableExternalData={false}
+        isUniProtKBAccession={false}
       />
     );
     expect(capturedProps.noLinkToFullView).toBe(true);

@@ -28,16 +28,16 @@ describe('InteractionSection', () => {
     expect(screen.queryByText('Complex viewer')).toBeNull();
   });
 
-  // Regression guard: a UniParc sub-entry passes enableExternalData={false} —
+  // Regression guard: a UniParc sub-entry passes isUniProtKBAccession={false} —
   // the IntAct `<interaction-viewer>` (which fetches by accession) must not be
   // rendered.
-  it('does not render the IntAct viewer when enableExternalData is false', async () => {
+  it('does not render the IntAct viewer when isUniProtKBAccession is false', async () => {
     const transformed = uniProtKbConverter(mockHumanData, databaseInfoMaps);
     const { container } = customRender(
       <InteractionSection
         data={transformed[EntrySection.Interaction]}
         primaryAccession={transformed.primaryAccession}
-        enableExternalData={false}
+        isUniProtKBAccession={false}
       />
     );
     await screen.findByRole('heading', { name: 'Binary interactions' });

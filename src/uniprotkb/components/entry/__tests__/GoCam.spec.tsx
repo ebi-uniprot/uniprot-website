@@ -90,13 +90,18 @@ describe('isUniprotCurated', () => {
 });
 
 describe('GoCam component', () => {
-  // Regression guard: a UniParc sub-entry passes enableExternalData={false}
+  // Regression guard: a UniParc sub-entry passes isUniProtKBAccession={false}
   // because its accession is not a real UniProtKB accession — the GO-CAM models
   // lookup must not fire.
-  it('does not request GO-CAM models when enableExternalData is false', async () => {
+  it('does not request GO-CAM models when isUniProtKBAccession is false', async () => {
     const axiosMock = new MockAdapter(axios);
     customRender(
-      <GoCam primaryAccession="P05067" enableExternalData={false} />
+      // A synthetic UniParc sub-entry accession — not dereferenceable at
+      // /uniprotkb/<accession>, so the GO-CAM models lookup must be skipped.
+      <GoCam
+        primaryAccession="UPI000002A2F6-9606"
+        isUniProtKBAccession={false}
+      />
     );
     await screen.findByText(/GO-CAM models have not been found/i);
     expect(

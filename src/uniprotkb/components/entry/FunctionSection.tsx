@@ -243,9 +243,11 @@ type Props = {
   sequence?: string;
   primaryAccession: string;
   communityReferences: Reference[];
-  // Forwarded to GoCam: `false` skips the accession-keyed GO-CAM lookup for a
-  // non-UniProtKB entry (e.g. a UniParc sub-entry). Defaults to `true`.
-  enableExternalData?: boolean;
+  // Whether `primaryAccession` is a real UniProtKB accession. Forwarded to
+  // GoCam / GoRibbon to skip the accession-keyed GO-CAM lookup and hide the
+  // QuickGO link for synthetic accessions (e.g. UniParc sub-entries).
+  // Defaults to `true`.
+  isUniProtKBAccession?: boolean;
   // `false` suppresses the `<meta name="description">` this section writes to
   // the document head. A reused section must not claim the page description —
   // only the standalone UniProtKB entry page should. Defaults to `true`.
@@ -257,7 +259,7 @@ const FunctionSection = ({
   sequence,
   primaryAccession,
   communityReferences,
-  enableExternalData = true,
+  isUniProtKBAccession = true,
   emitMetaDescription = true,
 }: Props) => {
   const isSmallScreen = useSmallScreen();
@@ -404,7 +406,7 @@ const FunctionSection = ({
                     goTerms={data.goTerms}
                     geneNamesData={data.geneNamesData}
                     organismData={data.organismData}
-                    enableExternalData={enableExternalData}
+                    isUniProtKBAccession={isUniProtKBAccession}
                   />
                 </Suspense>
               </Tab>
@@ -428,7 +430,7 @@ const FunctionSection = ({
                   <Suspense fallback={<Loader />}>
                     <GoCam
                       primaryAccession={primaryAccession}
-                      enableExternalData={enableExternalData}
+                      isUniProtKBAccession={isUniProtKBAccession}
                     />
                   </Suspense>
                 ) : null}

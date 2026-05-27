@@ -24,19 +24,19 @@ describe('SubcellularLocationSection', () => {
     ).toBeInTheDocument();
   });
 
-  // Regression guard: a UniParc sub-entry passes enableExternalData={false} to
-  // suppress the accession-keyed FeaturesView tools (full-view link, BLAST,
+  // Regression guard: a UniParc sub-entry passes isUniProtKBAccession={false}
+  // to suppress the accession-keyed FeaturesView tools (full-view link, BLAST,
   // basket) that would produce dead links for a synthetic sub-entry accession.
-  it('does not render the features full-view link when enableExternalData is false', () => {
+  it('does not render the features full-view link when isUniProtKBAccession is false', () => {
     const { container } = customRender(
       <SubcellularLocationSection
         data={data}
         sequence={sequence}
-        enableExternalData={false}
+        isUniProtKBAccession={false}
       />
     );
     // The full-view link rendered by FeaturesView includes /feature-viewer in
-    // its href; with enableExternalData={false} it must not appear.
+    // its href; with isUniProtKBAccession={false} it must not appear.
     const featureViewerLinks = container.querySelectorAll(
       'a[href*="feature-viewer"]'
     );

@@ -64,16 +64,16 @@ export const getUniprotNode = (
 
 type Props = {
   primaryAccession: string;
-  // The GO-CAM lookup is keyed by a real UniProtKB accession. Callers rendering
-  // this for a non-UniProtKB entry (e.g. a UniParc sub-entry) pass `false` to
-  // skip the fetch. Defaults to `true` for the UniProtKB entry page.
-  enableExternalData?: boolean;
+  // Whether `primaryAccession` is a real UniProtKB accession. The GO-CAM
+  // lookup is keyed by one, so for synthetic accessions (e.g. UniParc
+  // sub-entries) callers pass `false` to skip the fetch. Defaults to `true`.
+  isUniProtKBAccession?: boolean;
 };
 
-const GoCam = ({ primaryAccession, enableExternalData = true }: Props) => {
+const GoCam = ({ primaryAccession, isUniProtKBAccession = true }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const allGoCamIdsResponse = useDataApi<GoCamModels[]>(
-    enableExternalData
+    isUniProtKBAccession
       ? externalUrls.GeneOntologyModels(primaryAccession)
       : null
   );
