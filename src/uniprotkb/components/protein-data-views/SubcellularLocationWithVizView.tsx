@@ -37,7 +37,20 @@ export type SubCellularLocation = {
   reviewed: boolean;
 };
 
-const isVirus = ([superkingdom]: Lineage | string[]) => {
+/**
+ * Whether we have enough lineage data to drive the SubCell viz. Callers should
+ * gate the viz on this before consulting `isVirus` — without a superkingdom
+ * we can't classify the organism and the viz has nothing to render.
+ */
+export const hasSuperkingdom = ([superkingdom]: Lineage | string[]): boolean =>
+  superkingdom !== undefined;
+
+export const isVirus = ([superkingdom]: Lineage | string[]) => {
+  if (superkingdom === undefined) {
+    // Belt-and-braces — callers should use hasSuperkingdom() first, but keep
+    // this so isVirus is safe to call on its own.
+    return false;
+  }
   if (typeof superkingdom === 'string') {
     return superkingdom === Superkingdom.Viruses;
   }
@@ -128,12 +141,15 @@ const SubcellularLocationWithVizView: FC<
         Boolean(l)
     );
 
+  // Gate the viz on having a superkingdom we can classify — without one the
+  // viz has no way to pick a body diagram and would render empty.
+  const knownLineage = hasSuperkingdom(lineage);
   const virus = isVirus(lineage);
 
   let uniprotTabContent: ReactElement;
   let selectGoTab = false;
   if (uniprotTextContent) {
-    if (virus || !taxonId || !uniProtLocations?.length) {
+    if (!knownLineage || virus || !taxonId || !uniProtLocations?.length) {
       uniprotTabContent = uniprotTextContent;
     } else {
       uniprotTabContent = (
@@ -149,7 +165,7 @@ const SubcellularLocationWithVizView: FC<
 
   let goTabContent: ReactElement;
   if (goTextContent) {
-    if (virus || !taxonId || !goLocations?.length) {
+    if (!knownLineage || virus || !taxonId || !goLocations?.length) {
       goTabContent = goTextContent;
     } else {
       goTabContent = (

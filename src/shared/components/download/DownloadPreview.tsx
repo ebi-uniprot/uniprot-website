@@ -12,12 +12,17 @@ type Props = {
   previewUrl?: string;
   previewFileFormat?: FileFormat;
   acceptHeaderOverride?: string;
+  // In-memory payload to render directly, bypassing the fetch. Used when the
+  // preview content exists only in the browser (e.g. UniFire-transformed
+  // UniParc sub-entry annotations, which have no API URL).
+  previewData?: unknown;
 };
 
 const DownloadPreview = ({
   previewUrl,
   previewFileFormat,
   acceptHeaderOverride,
+  previewData,
 }: Props) => {
   const scrollRef = useScrollIntoViewRef<HTMLDivElement>();
   const options = useMemo(() => {
@@ -36,8 +41,12 @@ const DownloadPreview = ({
     return { headers };
   }, [acceptHeaderOverride, previewFileFormat]);
 
+  // `useDataApi(undefined)` is its idle state — no request fires, no spinner —
+  // so passing `undefined` when `previewData` is provided short-circuits the
+  // fetch without breaking the rules-of-hooks unconditional call.
+  const hasPreviewData = previewData !== undefined;
   const { data, loading } = useDataApi<JsonObject | string>(
-    previewUrl,
+    hasPreviewData ? undefined : previewUrl,
     options
   );
 
@@ -45,12 +54,16 @@ const DownloadPreview = ({
     return <Loader />;
   }
 
+  const previewContent = hasPreviewData ? previewData : data;
+
   return (
     <div className={styles.preview} ref={scrollRef}>
       <h4>Preview</h4>
-      {data ? (
+      {previewContent ? (
         <CodeBlock lightMode data-testid="download-preview">
-          {typeof data === 'string' ? data : JSON.stringify(data, null, 2)}
+          {typeof previewContent === 'string'
+            ? previewContent
+            : JSON.stringify(previewContent, null, 2)}
         </CodeBlock>
       ) : (
         'No preview available for this format'

@@ -243,6 +243,15 @@ type Props = {
   sequence?: string;
   primaryAccession: string;
   communityReferences: Reference[];
+  // Whether `primaryAccession` is a real UniProtKB accession. Forwarded to
+  // GoCam / GoRibbon to skip the accession-keyed GO-CAM lookup and hide the
+  // QuickGO link for synthetic accessions (e.g. UniParc sub-entries).
+  // Defaults to `true`.
+  isUniProtKBAccession?: boolean;
+  // `false` suppresses the `<meta name="description">` this section writes to
+  // the document head. A reused section must not claim the page description —
+  // only the standalone UniProtKB entry page should. Defaults to `true`.
+  emitMetaDescription?: boolean;
 };
 
 const FunctionSection = ({
@@ -250,6 +259,8 @@ const FunctionSection = ({
   sequence,
   primaryAccession,
   communityReferences,
+  isUniProtKBAccession = true,
+  emitMetaDescription = true,
 }: Props) => {
   const isSmallScreen = useSmallScreen();
   const functionRelatedReferences = communityReferences.filter(
@@ -309,7 +320,7 @@ const FunctionSection = ({
       id={EntrySection.Function}
       data-entry-section
     >
-      {firstFunction && (
+      {emitMetaDescription && firstFunction && (
         <HTMLHead>
           <meta name="description" content={firstFunction} />
         </HTMLHead>
@@ -395,6 +406,7 @@ const FunctionSection = ({
                     goTerms={data.goTerms}
                     geneNamesData={data.geneNamesData}
                     organismData={data.organismData}
+                    isUniProtKBAccession={isUniProtKBAccession}
                   />
                 </Suspense>
               </Tab>
@@ -416,7 +428,10 @@ const FunctionSection = ({
               >
                 {showGoCamTab ? (
                   <Suspense fallback={<Loader />}>
-                    <GoCam primaryAccession={primaryAccession} />
+                    <GoCam
+                      primaryAccession={primaryAccession}
+                      isUniProtKBAccession={isUniProtKBAccession}
+                    />
                   </Suspense>
                 ) : null}
               </Tab>

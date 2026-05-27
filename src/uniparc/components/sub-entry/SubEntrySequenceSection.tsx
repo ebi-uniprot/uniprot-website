@@ -29,13 +29,13 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 const SubEntrySequenceSection = ({
-  data,
+  uniparcData,
 }: {
-  data?: UniParcSubEntryUIModel;
+  uniparcData?: UniParcSubEntryUIModel;
 }) => {
   const history = useHistory();
 
-  const sourceDatabases = data?.subEntry.properties?.filter(
+  const sourceDatabases = uniparcData?.subEntry.properties?.filter(
     (property) => property.key === 'sources'
   );
 
@@ -46,8 +46,8 @@ const SubEntrySequenceSection = ({
   );
   const templateMap = useMemo(() => getTemplateMap(dataDB.data), [dataDB.data]);
 
-  const sequence = data?.entry[EntrySection.Sequence];
-  if (!data || !hasContent(data) || !sequence) {
+  const sequence = uniparcData?.entry[EntrySection.Sequence];
+  if (!uniparcData || !hasContent(uniparcData) || !sequence) {
     return null;
   }
 
@@ -70,12 +70,12 @@ const SubEntrySequenceSection = ({
     },
     {
       title: 'Source',
-      content: data.subEntry.source?.database, // TODO: add external link
+      content: uniparcData.subEntry.source?.database, // TODO: add external link
     },
   ];
 
   const flagPredictions =
-    data.unifire?.predictions.filter(
+    uniparcData.unifire?.predictions.filter(
       (p) => p.annotationType === 'protein.flag'
     ) || [];
 
@@ -109,7 +109,7 @@ const SubEntrySequenceSection = ({
         />
       ) : null}
       <Sequence
-        accession={data.entry.uniParcId}
+        accession={uniparcData.entry.uniParcId}
         sequence={sequence.value}
         infoData={infoData}
         onBlastClick={() =>
