@@ -16,19 +16,20 @@ type Props = {
   uniparcData: UniParcSubEntryUIModel;
 };
 
-/*
-Comment from Aurel's PR:
-Not sure if this logic is valid always. Some UniProtKB entries don't have structures,
-and we'll still want to show the structures for the UniProtKB entries that will be removed
-soon and also for external IDs as eventually it should be based on the sequence. The
-issue is that we can't query the 3D Beacons API like this yet, so I guess it'll do for now
-*/
-export const hasStructure = (subEntry: UniParcSubEntryUIModel['subEntry']) =>
-  subEntry.isUniprotkbEntry && subEntry.id;
+/**
+ * Whether the sub-entry has enough info to drive a structure lookup. The
+ * sequence MD5 is the gate: `StructureView` queries 3D Beacons / AlphaFold /
+ * PDB by checksum (the same path the entry-level Structure tab uses), so any
+ * sub-entry with a sequence can render the section regardless of whether the
+ * xref happens to be a UniProtKB accession. When it *is* a UniProtKB
+ * accession, we also pass `primaryAccession` so the accession-keyed
+ * affordances inside `StructureView` light up.
+ */
+export const hasStructure = (uniparcData: UniParcSubEntryUIModel): boolean =>
+  Boolean(uniparcData.entry.sequence?.md5);
 
 const StructureSection = ({ uniparcData }: Props) =>
-  // TODO: don't need this duplicate check - how to fix in TS?
-  !uniparcData.subEntry.id || !hasStructure(uniparcData.subEntry) ? null : (
+  !hasStructure(uniparcData) ? null : (
     <Card
       header={
         <h2 data-article-id="structure_section">
@@ -39,7 +40,13 @@ const StructureSection = ({ uniparcData }: Props) =>
       data-entry-section
     >
       <StructureView
-        primaryAccession={uniparcData.subEntry.id}
+        // Only pass the accession when the xref is a real UniProtKB one;
+        // otherwise drive the lookup entirely off the sequence MD5.
+        primaryAccession={
+          uniparcData.subEntry.isUniprotkbEntry
+            ? uniparcData.subEntry.id
+            : undefined
+        }
         checksum={uniparcData.entry.sequence?.md5}
         viewerOnly
       />

@@ -448,7 +448,7 @@ const SubEntry = () => {
         ...section,
         disabled:
           (section.id === SubEntrySection.Structure &&
-            !hasStructure(transformedData.subEntry)) ||
+            !hasStructure(transformedData)) ||
           (section.id === SubEntrySection.NamesAndTaxonomy &&
             !namesAndTaxonomyHasContent) ||
           // Annotation sections — enabled when the resolved `annotations`
