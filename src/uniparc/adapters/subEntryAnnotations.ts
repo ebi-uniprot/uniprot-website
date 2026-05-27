@@ -11,6 +11,7 @@ import uniProtKbConverter, {
 import UniProtKBEntrySection from '../../uniprotkb/types/entrySection';
 import { type DatabaseInfoMaps } from '../../uniprotkb/utils/database';
 import { type KeywordUIModel } from '../../uniprotkb/utils/KeywordsUtil';
+import uniparcApiUrls from '../config/apiUrls';
 import { type UniParcPrecomputedModel } from '../types/precomputed';
 import precomputedToUniProtkbConverter from './precomputedToUniProtkbConverter';
 import uniFireToUniProtkbConverter from './uniFireToUniProtkbConverter';
@@ -151,7 +152,7 @@ type BuildSubEntryAnnotationsParams = {
  * Build the annotations `UniProtkbUIModel` the UniParc sub-entry sections
  * render, from whichever source populated the page.
  *
- * Precomputed is preferred (it already exists); UniFire is the fallback. The
+ * Precomputed is preferred (if it exists); UniFire is the fallback. The
  * chosen source is converted to a `UniProtkbAPIModel`, supplemented with the
  * organism (`withOrganism`), then run through `uniProtKbConverter` — the same
  * pipeline the UniProtKB entry page uses.
@@ -227,6 +228,81 @@ const buildSubEntryAnnotations = ({
     );
     return undefined;
   }
+};
+
+/**
+ * The UniFire annotations as a download payload.
+ *
+ * `uniFireToUniProtkbConverter` fills `uniProtkbId` / `proteinExistence` with
+ * empty-string placeholders so the model satisfies `UniProtkbAPIModel` for the
+ * render pipeline. Those are meaningless internal scaffolding in a downloaded
+ * file, so strip them — yielding a clean `UniParcPrecomputedModel`, the same
+ * shape the precomputed endpoint returns, so both sources download
+ * consistently.
+ */
+export const uniFireToDownloadModel = (
+  uniFire: UniFireModel
+): UniParcPrecomputedModel => {
+  const { proteinExistence, ...rest } = uniFireToUniProtkbConverter(uniFire);
+  return { ...rest, uniProtkbId: null } as UniParcPrecomputedModel;
+};
+
+/**
+ * A UniParc sub-entry's downloadable annotations. Precomputed has a real API
+ * endpoint, so it downloads via URL. UniFire annotations are transformed in the
+ * browser and have no URL, so they are serialised to JSON on the fly. The two
+ * are mutually exclusive — a sub-entry has one source or the other.
+ */
+export type SubEntryAnnotationDownload =
+  | { source: 'precomputed'; apiURL: string }
+  | { source: 'unifire'; model: UniParcPrecomputedModel; filename: string };
+
+type SubEntryAnnotationDownloadParams = {
+  hasPrecomputed: boolean;
+  uniFire?: UniFireModel;
+  accession?: string;
+  taxId?: string | number;
+};
+
+/**
+ * Build the download descriptor for a sub-entry's annotations — precomputed (a
+ * real API URL) or UniFire (a model serialised in the browser). Only one
+ * source is ever present (see `shouldRequestUniFire`); precomputed wins if so.
+ *
+ * Returns `undefined` when neither source is available, when the accession /
+ * taxId needed to address the entry are missing, or when the UniFire transform
+ * fails — in every case the caller simply offers no annotation download.
+ */
+export const buildSubEntryAnnotationDownload = ({
+  hasPrecomputed,
+  uniFire,
+  accession,
+  taxId,
+}: SubEntryAnnotationDownloadParams):
+  | SubEntryAnnotationDownload
+  | undefined => {
+  if (!accession || !taxId) {
+    return undefined;
+  }
+  if (hasPrecomputed) {
+    return {
+      source: 'precomputed',
+      apiURL: uniparcApiUrls.precomputedAnnotation(accession, `${taxId}`),
+    };
+  }
+  if (uniFire) {
+    try {
+      return {
+        source: 'unifire',
+        model: uniFireToDownloadModel(uniFire),
+        filename: `${accession}-${taxId}-annotations.json`,
+      };
+    } catch {
+      // uniFireToUniProtkbConverter logs its own error; offer no download.
+      return undefined;
+    }
+  }
+  return undefined;
 };
 
 export default buildSubEntryAnnotations;

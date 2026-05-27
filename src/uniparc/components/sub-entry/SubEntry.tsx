@@ -69,7 +69,9 @@ import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
 import buildSubEntryAnnotations, {
+  buildSubEntryAnnotationDownload,
   shouldRequestUniFire,
+  type SubEntryAnnotationDownload,
 } from '../../adapters/subEntryAnnotations';
 import {
   type UniParcLiteAPIModel,
@@ -315,6 +317,20 @@ const SubEntry = () => {
       uniFireData.data,
     ]
   );
+
+  // The sub-entry's annotations, offered as a JSON download in the Download
+  // panel — see `buildSubEntryAnnotationDownload`.
+  const subEntryAnnotationDownload: SubEntryAnnotationDownload | undefined =
+    useMemo(
+      () =>
+        buildSubEntryAnnotationDownload({
+          hasPrecomputed,
+          uniFire: uniFireData.data || undefined,
+          accession,
+          taxId: subEntryTaxId,
+        }),
+      [hasPrecomputed, uniFireData.data, accession, subEntryTaxId]
+    );
 
   // A migrated annotation section's in-page-nav item is enabled when the
   // resolved `annotations` (precomputed or UniFire, whichever populated the
@@ -564,6 +580,7 @@ const SubEntry = () => {
             <EntryDownloadPanel
               handleToggle={handleToggleDownload}
               nResults={uniparcData.data?.crossReferenceCount}
+              subEntryAnnotationDownload={subEntryAnnotationDownload}
             />
           )}
           <div className="button-group">
