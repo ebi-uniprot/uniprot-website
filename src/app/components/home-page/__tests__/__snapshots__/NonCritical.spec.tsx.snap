@@ -543,7 +543,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <p
           class="latest-news__abstract latest-news__abstract--4-lines"
         >
-          How many members do you have on your team and have you ever considered UniProt as one of them?
+          With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?
         </p>
       </article>
     </div>
