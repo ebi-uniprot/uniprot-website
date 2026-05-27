@@ -12,7 +12,7 @@ const insideUniProtAbstract1 =
   'Antimicrobial resistance contributes to almost 5 million deaths annually, worldwide. To mark World AMR Awareness Week...';
 
 const insideUniProtAbstract2 =
-  'How many members do you have on your team and have you ever considered UniProt as one of them?';
+  'With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?';
 
 const proteinSpotlightAbstract =
   "You've arrived at the supermarket, and your trolley token is missing. It's not where you usually keep it - on your keyring, or in your bag. Flustered, you search for ...";
