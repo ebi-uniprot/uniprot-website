@@ -3,8 +3,8 @@ import './styles/entry-type-icon.scss';
 import {
   CommunityAnnotationIcon,
   ComputerMappedIcon,
+  NonReferenceProteomeIcon,
   ObsoleteIcon,
-  RedundantProteomeIcon,
   ReferenceProteomeIcon,
   SwissProtIcon,
   TremblIcon,
@@ -127,7 +127,7 @@ const EntryTypeIcon = ({
         className="entry-title__status icon--redundant-excluded-proteome"
         title={title || 'This marks a non-reference Proteome entry'}
       >
-        <RedundantProteomeIcon />
+        <NonReferenceProteomeIcon />
       </span>
     );
   }
