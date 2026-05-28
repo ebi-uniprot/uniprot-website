@@ -21,6 +21,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "RCSB-PDB",
       "AlphaFoldDB",
       "EMDB",
+      "MDRepo",
+      "MDposit",
     ],
     "CHEMISTRY": [
       "BindingDB",
@@ -29,6 +31,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GuidetoPHARMACOLOGY",
       "SwissLipids",
       "DrugCentral",
+      "ChEBI",
     ],
     "EAP": [
       "BioCyc",
@@ -68,6 +71,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
+      "AbasyAtlas",
     ],
     "GMA": [
       "Ensembl",
@@ -201,6 +205,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MINT",
       "STRING",
       "FunCoup",
+      "NDEx",
     ],
     "PRM": [
       "Proteomes",
@@ -242,6 +247,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   "databaseNameToCategory": {
     "ABCD": "PAM",
     "AGR": "ORG",
+    "AbasyAtlas": "GEP",
     "Agora": "MISC",
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
@@ -270,6 +276,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "CPTC": "PAM",
     "CTD": "ORG",
     "CarbonylDB": "PTM",
+    "ChEBI": "CHEMISTRY",
     "ChEMBL": "CHEMISTRY",
     "ChiTaRS": "MISC",
     "CleanEx": "GEP",
@@ -338,6 +345,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "LegioList": "ORG",
     "Leproma": "ORG",
     "MANE-Select": "GMA",
+    "MDRepo": "3DS",
+    "MDposit": "3DS",
     "MEROPS": "PFAM",
     "MGI": "ORG",
     "MIM": "ORG",
@@ -351,6 +360,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "MoonDB": "PFAM",
     "MoonProt": "PFAM",
     "NCBIfam": "FMD",
+    "NDEx": "PPI",
     "NIAGADS": "ORG",
     "OGP": "2DG",
     "OMA": "PLG",
@@ -462,6 +472,12 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "AGR",
       "name": "AGR",
       "uriLink": "https://alliancegenome.org/gene/%id",
+    },
+    "AbasyAtlas": {
+      "category": "GEP",
+      "displayName": "AbasyAtlas",
+      "name": "AbasyAtlas",
+      "uriLink": "https://abasy.ccg.unam.mx/details?uniprot=%id",
     },
     "Agora": {
       "attributes": [
@@ -811,6 +827,12 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "CarbonylDB",
       "name": "CarbonylDB",
       "uriLink": "https://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id",
+    },
+    "ChEBI": {
+      "category": "CHEMISTRY",
+      "displayName": "ChEBI",
+      "name": "ChEBI",
+      "uriLink": "https://www.ebi.ac.uk/chebi/%id",
     },
     "ChEMBL": {
       "attributes": [
@@ -1744,6 +1766,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "MANE-Select",
       "uriLink": "https://www.ensembl.org/id/%id",
     },
+    "MDRepo": {
+      "category": "3DS",
+      "displayName": "MDRepo",
+      "name": "MDRepo",
+      "uriLink": "https://mdrepo.org/uniprot/view/%id",
+    },
+    "MDposit": {
+      "category": "3DS",
+      "displayName": "MDposit",
+      "name": "MDposit",
+      "uriLink": "https://mdposit.mddbr.eu/#/pointer?ref=proteins&id=%id",
+    },
     "MEROPS": {
       "attributes": [
         {
@@ -1907,6 +1941,12 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "NCBIfam",
       "name": "NCBIfam",
       "uriLink": "https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/",
+    },
+    "NDEx": {
+      "category": "PPI",
+      "displayName": "NDEx",
+      "name": "NDEx",
+      "uriLink": "https://www.ndexbio.org/identifiers/%id",
     },
     "NIAGADS": {
       "attributes": [
@@ -3092,6 +3132,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
+      "AbasyAtlas",
       "HPA",
     ],
     "external_links": [
@@ -3239,6 +3280,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MINT",
       "STRING",
       "FunCoup",
+      "NDEx",
       "BindingDB",
       "RNAct",
     ],
@@ -3333,6 +3375,8 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "RCSB-PDB",
       "AlphaFoldDB",
       "EMDB",
+      "MDRepo",
+      "MDposit",
       "EvolutionaryTrace",
       "ModBase",
     ],
