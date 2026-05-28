@@ -38,9 +38,10 @@ const SubEntrySequenceSection = ({
   const sourceDatabases = uniparcData?.subEntry.properties?.filter(
     (property) => property.key === 'sources'
   );
+  const sourceXref = uniparcData?.subEntry.source;
 
   const dataDB = useDataApi<DataDBModel>(
-    sourceDatabases?.length
+    sourceDatabases?.length || sourceXref?.database
       ? apiUrls.configure.allDatabases(Namespace.uniparc)
       : undefined
   );
@@ -54,6 +55,20 @@ const SubEntrySequenceSection = ({
   if (dataDB.loading) {
     return <Loader />;
   }
+
+  const sourceDB = sourceXref?.database;
+  const sourceId = sourceXref?.id;
+  const sourceTemplate = sourceDB && templateMap.get(sourceDB);
+  const sourceContent =
+    sourceDB && sourceTemplate && sourceId ? (
+      <ExternalLink
+        url={sourceTemplate.replace('%id', getXrefId(sourceId, sourceDB))}
+      >
+        {sourceDB}
+      </ExternalLink>
+    ) : (
+      sourceDB
+    );
 
   const infoData = [
     {
@@ -70,7 +85,7 @@ const SubEntrySequenceSection = ({
     },
     {
       title: 'Source',
-      content: uniparcData.subEntry.source?.database, // TODO: add external link
+      content: sourceContent,
     },
   ];
 

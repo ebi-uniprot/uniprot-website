@@ -184,9 +184,8 @@ const SubEntry = () => {
     undefined;
 
   const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
-  const canLoadAnnotations = Boolean(
-    subEntryTaxId && accession && subEntryDataPerDatabase
-  );
+  const canLoadAnnotations =
+    subEntryTaxId && accession && subEntryDataPerDatabase;
   // UniFire *runs* the annotation pipeline, so we only let likely-human
   // visitors trigger it. Precompute is a cheap lookup — bots can hit it freely.
   const isHuman = use(BotDetectionContext) === 'human';
@@ -505,7 +504,7 @@ const SubEntry = () => {
           uniparcId={accession}
           subEntry={transformedData.subEntry}
           data={unisaveData?.data}
-          canLoadAnnotations={canLoadAnnotations}
+          canLoadAnnotations={!!canLoadAnnotations}
           annotationsLoading={precomputedData.loading || uniFireData.loading}
           hasAnnotations={
             hasPrecomputed || Boolean(uniFireData.data?.accession)
