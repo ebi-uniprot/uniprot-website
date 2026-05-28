@@ -199,17 +199,23 @@ const SubEntry = () => {
       : null
   );
 
-  const proteomeComponentObject: Record<string, string> = {
-    ...getSubEntryProteomes(subEntryDataPerDatabase?.properties),
-    ...Object.fromEntries(
-      subEntryDataPerDatabase?.proteomes?.map(({ id, component }) => [
-        id,
-        component,
-      ]) ?? []
-    ),
-  };
+  const proteomeComponentObject = useMemo<Record<string, string>>(
+    () => ({
+      ...getSubEntryProteomes(subEntryDataPerDatabase?.properties),
+      ...Object.fromEntries(
+        subEntryDataPerDatabase?.proteomes?.map(({ id, component }) => [
+          id,
+          component,
+        ]) ?? []
+      ),
+    }),
+    [subEntryDataPerDatabase?.properties, subEntryDataPerDatabase?.proteomes]
+  );
 
-  const proteomeIds = Object.keys(proteomeComponentObject);
+  const proteomeIds = useMemo(
+    () => Object.keys(proteomeComponentObject),
+    [proteomeComponentObject]
+  );
 
   const lineageData = useDataApi<TaxonomyAPIModel>(
     subEntryDataPerDatabase?.organism
@@ -218,12 +224,16 @@ const SubEntry = () => {
   );
 
   const proteomesSearchData = useDataApi<SearchResults<ProteomesAPIModel>>(
-    apiUrls.search.search({
-      namespace: Namespace.proteomes,
-      query: proteomeIds.map((proteomeId) => `upid:${proteomeId}`).join(' OR '),
-      size: proteomeIds.length,
-      facets: null,
-    })
+    proteomeIds.length
+      ? apiUrls.search.search({
+          namespace: Namespace.proteomes,
+          query: proteomeIds
+            .map((proteomeId) => `upid:${proteomeId}`)
+            .join(' OR '),
+          size: proteomeIds.length,
+          facets: null,
+        })
+      : null
   );
 
   /*
@@ -231,28 +241,30 @@ const SubEntry = () => {
   Or use the lineage information to go back to either the first parent with the
   rank of “species”, or the first non-hidden parent if no “species” parent exist
   */
-  let speciesTaxon: { taxonId: number; scientificName?: string } | undefined;
-  if (lineageData.data?.rank === 'species') {
-    speciesTaxon = lineageData.data;
-  } else if (lineageData.data?.lineage) {
-    const reverseLineage = [...lineageData.data.lineage].reverse();
-    speciesTaxon =
-      reverseLineage.find((item) => item.rank === 'species') ??
-      reverseLineage.find((item) => !item.hidden);
-  }
+  const speciesTaxons = useMemo<SelectedTaxon[] | undefined>(() => {
+    let speciesTaxon: { taxonId: number; scientificName?: string } | undefined;
+    if (lineageData.data?.rank === 'species') {
+      speciesTaxon = lineageData.data;
+    } else if (lineageData.data?.lineage) {
+      const reverseLineage = [...lineageData.data.lineage].reverse();
+      speciesTaxon =
+        reverseLineage.find((item) => item.rank === 'species') ??
+        reverseLineage.find((item) => !item.hidden);
+    }
+    if (!speciesTaxon) {
+      return undefined;
+    }
+    return [
+      {
+        id: String(speciesTaxon.taxonId),
+        label: speciesTaxon.scientificName
+          ? `${speciesTaxon.scientificName} [${speciesTaxon.taxonId}]`
+          : String(speciesTaxon.taxonId),
+      },
+    ];
+  }, [lineageData.data]);
 
-  const speciesTaxons: SelectedTaxon[] | undefined = speciesTaxon
-    ? [
-        {
-          id: String(speciesTaxon.taxonId),
-          label: speciesTaxon.scientificName
-            ? `${speciesTaxon.scientificName} [${speciesTaxon.taxonId}]`
-            : String(speciesTaxon.taxonId),
-        },
-      ]
-    : undefined;
-
-  const relatedProteomeTaxons: SelectedTaxon[] | undefined = (() => {
+  const relatedProteomeTaxons = useMemo<SelectedTaxon[] | undefined>(() => {
     const allRelated =
       proteomesSearchData.data?.results?.flatMap(
         (proteome) => proteome.relatedProteomes ?? []
@@ -267,7 +279,7 @@ const SubEntry = () => {
       id: String(taxonId),
       label: String(taxonId),
     }));
-  })();
+  }, [proteomesSearchData.data]);
 
   const hasPrecomputed =
     precomputedData.status === 200 && Boolean(precomputedData.data);
