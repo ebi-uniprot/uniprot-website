@@ -25,10 +25,9 @@ const mockWarn = logging.warn as jest.MockedFunction<typeof logging.warn>;
 const mockError = logging.error as jest.MockedFunction<typeof logging.error>;
 
 describe('shouldRequestUniFire', () => {
-  it('requests UniFire once precomputed has resolved with no data and the user opted in', () => {
+  it('requests UniFire once precomputed has resolved with no data', () => {
     expect(
       shouldRequestUniFire({
-        runUniFire: true,
         precomputedResolved: true,
         hasPrecomputed: false,
       })
@@ -40,7 +39,6 @@ describe('shouldRequestUniFire', () => {
     // is still in flight, or the preferred source would be bypassed.
     expect(
       shouldRequestUniFire({
-        runUniFire: true,
         precomputedResolved: false,
         hasPrecomputed: false,
       })
@@ -50,19 +48,8 @@ describe('shouldRequestUniFire', () => {
   it('does NOT request UniFire when precomputed data exists (precomputed wins)', () => {
     expect(
       shouldRequestUniFire({
-        runUniFire: true,
         precomputedResolved: true,
         hasPrecomputed: true,
-      })
-    ).toBe(false);
-  });
-
-  it('does NOT request UniFire when the user has not opted in', () => {
-    expect(
-      shouldRequestUniFire({
-        runUniFire: false,
-        precomputedResolved: true,
-        hasPrecomputed: false,
       })
     ).toBe(false);
   });

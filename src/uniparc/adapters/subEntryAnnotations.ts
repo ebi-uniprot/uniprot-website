@@ -95,25 +95,25 @@ export const getUnrenderedNameFields = (
 };
 
 /**
- * Whether to fire the on-demand UniFire request.
+ * Whether to fire the UniFire fallback request.
  *
- * UniFire *runs* the annotation pipeline, so it is requested only as a fallback:
- * after the (cheap, preferred) precomputed request has resolved
- * (`precomputedResolved`) and produced nothing (`!hasPrecomputed`). Keeping
- * `precomputedResolved` in the predicate is what stops a UniFire request from
- * firing before precomputed has had a chance to answer.
+ * UniFire is the fallback source, so it is requested only after the (cheap,
+ * preferred) precomputed request has resolved (`precomputedResolved`) and
+ * produced nothing (`!hasPrecomputed`). Keeping `precomputedResolved` in the
+ * predicate is what stops a UniFire request from firing before precomputed has
+ * had a chance to answer.
  *
- * The caller still gates this behind `canLoadUniFire` (taxId + accession known).
+ * The caller still gates this behind `canLoadAnnotations` (taxId + accession
+ * known) and bot detection (UniFire is the expensive source — only let
+ * likely-human visitors trigger it).
  */
 export const shouldRequestUniFire = ({
-  runUniFire,
   precomputedResolved,
   hasPrecomputed,
 }: {
-  runUniFire: boolean;
   precomputedResolved: boolean;
   hasPrecomputed: boolean;
-}): boolean => runUniFire && precomputedResolved && !hasPrecomputed;
+}): boolean => precomputedResolved && !hasPrecomputed;
 
 /**
  * Supplement the converted API model with the organism from the UniParc

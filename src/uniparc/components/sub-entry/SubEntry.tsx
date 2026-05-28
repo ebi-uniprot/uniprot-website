@@ -20,15 +20,7 @@ import {
 } from '../../../app/config/urls';
 import ContactLink from '../../../contact/components/ContactLink';
 import { type SelectedTaxon } from '../../../jobs/types/jobsFormData';
-import {
-  addMessage,
-  deleteMessage,
-} from '../../../messages/state/messagesActions';
-import {
-  MessageFormat,
-  MessageLevel,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
+import { deleteMessage } from '../../../messages/state/messagesActions';
 import {
   type ProteomesAPIModel,
   type RelatedProteome,
@@ -58,7 +50,6 @@ import {
   searchableNamespaceLabels,
 } from '../../../shared/types/namespaces';
 import { type SearchResults } from '../../../shared/types/results';
-import * as logging from '../../../shared/utils/logging';
 import { pluralise } from '../../../shared/utils/utils';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UIModel } from '../../../uniprotkb/adapters/sectionConverter';
@@ -151,14 +142,6 @@ const SubEntry = () => {
     xrefId: string;
   }>(LocationToPath[Location.UniParcSubEntry]);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [runUniFire, setRunUniFire] = useState(
-    // Only do an automatic request to UniFire if the user is likely human
-    // In case of this page being a first load and not a navigation, it might
-    // only detect that the user is human _after_ this logic has run (if the
-    // page loaded really fast), so the button might still be presented to the
-    // user, but that's fine
-    use(BotDetectionContext) === 'human'
-  );
 
   const { accession, xrefId, subPage } = match?.params || {};
   let subEntryId = xrefId;
@@ -201,13 +184,18 @@ const SubEntry = () => {
     undefined;
 
   const subEntryTaxId = subEntryDataPerDatabase?.organism?.taxonId;
-  const canLoadUniFire = subEntryTaxId && accession && subEntryDataPerDatabase;
+  const canLoadAnnotations = Boolean(
+    subEntryTaxId && accession && subEntryDataPerDatabase
+  );
+  // UniFire *runs* the annotation pipeline, so we only let likely-human
+  // visitors trigger it. Precompute is a cheap lookup — bots can hit it freely.
+  const isHuman = use(BotDetectionContext) === 'human';
 
   // Precomputed annotations are preferred — they already exist, so this is a
   // cheap fetch. UniFire (which *runs* the annotation pipeline) is the fallback,
   // used only when there is no precomputed data for this entry (HTTP 404).
   const precomputedData = useDataApi<UniParcPrecomputedModel>(
-    canLoadUniFire
+    canLoadAnnotations
       ? uniparcApiUrls.precomputedAnnotation(accession, `${subEntryTaxId}`)
       : null
   );
@@ -285,13 +273,14 @@ const SubEntry = () => {
   const hasPrecomputed =
     precomputedData.status === 200 && Boolean(precomputedData.data);
   // "Settled" means the request has completed (or never fired because
-  // `canLoadUniFire` was falsy — useDataApi resolves null URLs immediately with
-  // loading:false). In both cases UniFire may proceed once this is true.
+  // `canLoadAnnotations` was falsy — useDataApi resolves null URLs immediately
+  // with loading:false). In both cases UniFire may proceed once this is true.
   const precomputedResolved = !precomputedData.loading;
 
   const uniFireData = useDataApi<UniFireModel>(
-    canLoadUniFire &&
-      shouldRequestUniFire({ runUniFire, precomputedResolved, hasPrecomputed })
+    canLoadAnnotations &&
+      isHuman &&
+      shouldRequestUniFire({ precomputedResolved, hasPrecomputed })
       ? uniparcApiUrls.unifire(accession, `${subEntryTaxId}`)
       : null
   );
@@ -346,41 +335,6 @@ const SubEntry = () => {
     }
     return hasAnnotationContent(annotations[section] as Partial<UIModel>);
   };
-
-  useEffect(() => {
-    if (uniFireData.status === 200 && uniFireData.data) {
-      dispatch(
-        addMessage({
-          id: 'load-AA-annotations',
-          content: <>Predictions by automatic annotation rules are loaded</>,
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.SUCCESS,
-          tag: MessageTag.JOB,
-        })
-      );
-    } else if (uniFireData.status === 204) {
-      dispatch(
-        addMessage({
-          id: 'load-AA-annotations',
-          content: <>No predictions generated</>,
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.SUCCESS,
-          tag: MessageTag.JOB,
-        })
-      );
-    } else if (uniFireData.error) {
-      logging.error(uniFireData.error);
-      dispatch(
-        addMessage({
-          id: 'load-AA-annotations',
-          content: <>Encountered error in running the service</>,
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.FAILURE,
-          tag: MessageTag.JOB,
-        })
-      );
-    }
-  }, [dispatch, uniFireData.data, uniFireData.error, uniFireData.status]);
 
   useEffect(() => {
     // Delete the message when user navigates away from the sub-entry page
@@ -551,13 +505,11 @@ const SubEntry = () => {
           uniparcId={accession}
           subEntry={transformedData.subEntry}
           data={unisaveData?.data}
-          showUniFireOption={
-            !!canLoadUniFire && precomputedResolved && !hasPrecomputed
+          canLoadAnnotations={canLoadAnnotations}
+          annotationsLoading={precomputedData.loading || uniFireData.loading}
+          hasAnnotations={
+            hasPrecomputed || Boolean(uniFireData.data?.accession)
           }
-          uniFireData={uniFireData.data}
-          uniFireLoading={uniFireData.loading}
-          runUniFire={runUniFire}
-          setRunUniFire={setRunUniFire}
         />
       </ErrorBoundary>
       <Tabs active={subPage}>

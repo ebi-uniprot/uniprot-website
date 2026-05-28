@@ -1,14 +1,4 @@
-/* Potential background color to use for unifire prediction*/
-/* .unifire-info {
-  background-color: #e9f5f1;
-} */
-
-.run-unifire-button {
-  /* margin-top: 0.5rem; */
-  align-items: center;
-}
-
-.predictions-status {
+.annotation-status {
   margin-top: 1rem;
 }
 
