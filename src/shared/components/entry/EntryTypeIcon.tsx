@@ -134,7 +134,7 @@ const EntryTypeIcon = ({
   if (entryTypeToCheck === EntryType.EXCLUDED_PROTEOME) {
     return (
       <span
-        className="entry-title__status icon--redundant-excluded-proteome"
+        className="entry-title__status icon--excluded-proteome"
         title={title || 'This marks an excluded Proteome entry'}
       >
         <ObsoleteIcon />
