@@ -2612,6 +2612,36 @@ const databaseInfo: DatabaseInfo = [
       },
     ],
   },
+  {
+    name: 'MDRepo',
+    displayName: 'MDRepo',
+    category: '3DS',
+    uriLink: 'https://mdrepo.org/uniprot/view/%id',
+  },
+  {
+    name: 'MDposit',
+    displayName: 'MDposit',
+    category: '3DS',
+    uriLink: 'https://mdposit.mddbr.eu/#/pointer?ref=proteins&id=%id',
+  },
+  {
+    name: 'AbasyAtlas',
+    displayName: 'AbasyAtlas',
+    category: 'GEP',
+    uriLink: 'https://abasy.ccg.unam.mx/details?uniprot=%id',
+  },
+  {
+    name: 'NDEx',
+    displayName: 'NDEx',
+    category: 'PPI',
+    uriLink: 'https://www.ndexbio.org/identifiers/%id',
+  },
+  {
+    name: 'ChEBI',
+    displayName: 'ChEBI',
+    category: 'CHEMISTRY',
+    uriLink: 'https://www.ebi.ac.uk/chebi/%id',
+  },
 ];
 
 export default databaseInfo;

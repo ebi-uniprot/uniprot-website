@@ -308,7 +308,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
       | 
       <a
         class="external-link"
-        href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:314"
+        href="https://www.ebi.ac.uk/chebi/CHEBI:314"
         rel="noopener"
         target="_blank"
       >
@@ -1314,7 +1314,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
            | 
           <a
             class="external-link"
-            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3314"
+            href="https://www.ebi.ac.uk/chebi/ChEBICHEBI:3314"
             rel="noopener"
             target="_blank"
           >
@@ -1337,7 +1337,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
            | 
           <a
             class="external-link"
-            href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=ChEBICHEBI:3214"
+            href="https://www.ebi.ac.uk/chebi/ChEBICHEBI:3214"
             rel="noopener"
             target="_blank"
           >

@@ -22,6 +22,8 @@ describe('selectDatabases', () => {
       'RCSB-PDB',
       'AlphaFoldDB',
       'EMDB',
+      'MDRepo',
+      'MDposit',
       'EvolutionaryTrace',
     ]);
   });
