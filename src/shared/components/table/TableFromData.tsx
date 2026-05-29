@@ -1,3 +1,4 @@
+import { useVirtualizer, type Virtualizer } from '@tanstack/react-virtual';
 import cn from 'classnames';
 import { Message } from 'franklin-sites';
 import {
@@ -5,6 +6,7 @@ import {
   type ReactNode,
   useCallback,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -13,6 +15,10 @@ import styles from './styles/table.module.scss';
 import Table from './Table';
 
 const UNFILTERED_OPTION = 'All' as const;
+
+const VIRTUALIZE_ROW_THRESHOLD = 200;
+const VIRTUALIZE_ROW_OVERSCAN = 10;
+const VIRTUALIZE_ESTIMATED_ROW_HEIGHT = 36;
 
 type TableHeaderFromDataProps<T> = {
   column: TableFromDataColumn<T>;
@@ -79,6 +85,8 @@ type Props<T> = HTMLAttributes<HTMLTableElement> & {
   markBorder?: (datum: T) => boolean;
   noTranslateBody?: boolean;
   expandable?: boolean;
+  virtualize?: boolean;
+  virtualizerRef?: React.RefObject<Virtualizer<HTMLDivElement, Element> | null>;
   id?: string;
 };
 
@@ -96,6 +104,8 @@ function TableFromData<T>({
   markBorder,
   noTranslateBody,
   expandable = true,
+  virtualize = false,
+  virtualizerRef,
   ...props
 }: Props<T>) {
   const [columnsToSelectedOption, setColumnsToSelectedOption] =
@@ -135,6 +145,105 @@ function TableFromData<T>({
       ),
     [columns, data, columnsToSelectedOption]
   );
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Virtualization is opt-in and only kicks in once the data exceeds the
+  // threshold; below that the cost of virtualization (extra DOM, measurement)
+  // outweighs the benefit and the original rendering path is used.
+  const shouldVirtualize =
+    virtualize && filteredData.length > VIRTUALIZE_ROW_THRESHOLD;
+
+  const virtualizer = useVirtualizer({
+    count: shouldVirtualize ? filteredData.length : 0,
+    getScrollElement: () => containerRef.current,
+    estimateSize: () => VIRTUALIZE_ESTIMATED_ROW_HEIGHT,
+    overscan: VIRTUALIZE_ROW_OVERSCAN,
+    // Match the per-row `data-index` attribute used by `measureElement`.
+    indexAttribute: 'data-index',
+  });
+
+  // Forward the virtualizer instance to the parent via ref. Used by the
+  // scroll-to-row hook to jump to rows that aren't currently mounted.
+  if (virtualizerRef) {
+    virtualizerRef.current = shouldVirtualize ? virtualizer : null;
+  }
+
+  if (shouldVirtualize) {
+    const virtualItems = virtualizer.getVirtualItems();
+    const totalSize = virtualizer.getTotalSize();
+    const topPadding = virtualItems[0]?.start ?? 0;
+    const bottomPadding =
+      totalSize - (virtualItems[virtualItems.length - 1]?.end ?? 0);
+    const spacerColSpan = columns.length + (rowExtraContent ? 1 : 0);
+
+    // One <tbody> per logical row (multiple tbodies in a single <table> is
+    // valid HTML). Required because Table.Row outputs both a main <tr> and an
+    // optional expanded extra-content <tr>; wrapping each pair in its own
+    // tbody lets the virtualizer measure the combined height with a single
+    // ResizeObserver and reflow following rows when the user expands one.
+    return (
+      <Table virtualize containerRef={containerRef} {...props}>
+        <Table.Head toggleAll={Boolean(rowExtraContent)}>
+          {columns.map((column) => (
+            <TableHeaderFromData
+              column={column}
+              key={column.id}
+              options={columnIdToFilterOptions[column.id]}
+              onFilterChange={handleFilterChange}
+            />
+          ))}
+        </Table.Head>
+        {topPadding > 0 && (
+          <tbody aria-hidden="true" className={styles['virtual-spacer']}>
+            <tr style={{ height: topPadding }}>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+              <td colSpan={spacerColSpan} />
+            </tr>
+          </tbody>
+        )}
+        {virtualItems.map((virtualItem) => {
+          const datum = filteredData[virtualItem.index];
+          return (
+            <tbody
+              key={getRowId(datum)}
+              data-index={virtualItem.index}
+              ref={virtualizer.measureElement}
+              className={styles['virtual-row']}
+              translate={noTranslateBody ? 'no' : undefined}
+            >
+              <Table.Row
+                isOdd={virtualItem.index % 2 === 1}
+                extraContent={
+                  rowExtraContent && (
+                    <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
+                  )
+                }
+                onClick={(expanded: boolean) => onRowClick?.(datum, expanded)}
+                className={cn({
+                  [styles['mark-background']]: markBackground?.(datum),
+                  [styles['mark-border']]: markBorder?.(datum),
+                })}
+                data-id={getRowId(datum)}
+              >
+                {columns.map((column) => (
+                  <td key={column.id}>{column.render(datum)}</td>
+                ))}
+              </Table.Row>
+            </tbody>
+          );
+        })}
+        {bottomPadding > 0 && (
+          <tbody aria-hidden="true" className={styles['virtual-spacer']}>
+            <tr style={{ height: bottomPadding }}>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+              <td colSpan={spacerColSpan} />
+            </tr>
+          </tbody>
+        )}
+      </Table>
+    );
+  }
 
   return (
     <Table

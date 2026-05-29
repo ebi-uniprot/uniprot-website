@@ -3,6 +3,7 @@ import {
   type ProteinsAPIVariation,
   transformData,
 } from '@nightingale-elements/nightingale-variation-canvas';
+import { type Virtualizer } from '@tanstack/react-virtual';
 import cn from 'classnames';
 import { EllipsisReveal, Loader } from 'franklin-sites';
 import { filterConfig } from 'protvista-uniprot';
@@ -11,9 +12,11 @@ import {
   lazy,
   type ReactNode,
   Suspense,
+  useCallback,
   useEffect,
   useId,
   useMemo,
+  useReducer,
   useRef,
   useState,
 } from 'react';
@@ -24,6 +27,7 @@ import EntryDownloadButton from '../../../../../shared/components/entry/EntryDow
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
+import tableStyles from '../../../../../shared/components/table/styles/table.module.scss';
 import TableFromData, {
   type TableFromDataColumn,
 } from '../../../../../shared/components/table/TableFromData';
@@ -402,6 +406,40 @@ const RowExtraContent = (data: TransformedVariant) => (
   </Fragment>
 );
 
+type ViewerState = {
+  highlightedVariant: TransformedVariant | undefined;
+  committedViewRange: NightingaleViewRange | undefined;
+  isNavigating: boolean;
+};
+
+type ViewerAction =
+  | { type: 'setHighlight'; variant: TransformedVariant | undefined }
+  | { type: 'navigationStart' }
+  | { type: 'navigationEnd'; viewRange: NightingaleViewRange | undefined };
+
+const initialViewerState: ViewerState = {
+  highlightedVariant: undefined,
+  committedViewRange: undefined,
+  isNavigating: false,
+};
+
+function viewerReducer(state: ViewerState, action: ViewerAction): ViewerState {
+  switch (action.type) {
+    case 'setHighlight':
+      return { ...state, highlightedVariant: action.variant };
+    case 'navigationStart':
+      return state.isNavigating ? state : { ...state, isNavigating: true };
+    case 'navigationEnd':
+      return {
+        ...state,
+        isNavigating: false,
+        committedViewRange: action.viewRange ?? state.committedViewRange,
+      };
+    default:
+      return state;
+  }
+}
+
 type VariationViewProps = {
   importedVariants: number | 'loading';
   primaryAccession: string;
@@ -414,12 +452,16 @@ const VariationViewer = ({
   title,
 }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
-  const [highlightedVariant, setHighlightedVariant] =
-    useState<TransformedVariant>();
-  const [nightingaleViewRange, setNightingaleViewRange] =
-    useState<NightingaleViewRange>();
+  const [state, dispatch] = useReducer(viewerReducer, initialViewerState);
+  const { highlightedVariant, committedViewRange, isNavigating } = state;
   const tableId = useId();
-  const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
+
+  const variationTableVirtualizerRef = useRef<Virtualizer<
+    HTMLDivElement,
+    Element
+  > | null>(null);
+  const liveRangeRef = useRef<NightingaleViewRange | undefined>(undefined);
+  const idleTimerRef = useRef<number | undefined>(undefined);
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
@@ -432,31 +474,6 @@ const VariationViewer = ({
 
   const [filters, setFilters] = useState<string[]>([]);
   const managerRef = useRef<NightingaleManager>(null);
-  useEffect(() => {
-    const { current: element } = managerRef;
-
-    if (!element) {
-      return;
-    }
-
-    const listener = (event: Event) => {
-      const { detail } = event as CustomEvent;
-      if (detail?.type === 'filters') {
-        setFilters(detail.value);
-      } else if (detail?.eventType === 'click' && detail?.feature) {
-        setHighlightedVariant(detail.feature);
-        tableScroll(detail.feature);
-      } else if (detail?.['display-start'] && detail?.['display-end']) {
-        setNightingaleViewRange(detail);
-      }
-    };
-
-    element.addEventListener('change', listener);
-
-    return () => element.removeEventListener('change', listener);
-  }, [data, tableScroll]);
-  // 'data' is not directly used in the effect, but we know it's when we're
-  // ready to attach the event listener and avoid re-calling this on each render
 
   // We pass the transformed data to both the variation viewer and the
   // data table as ids are set during the transformation - they are
@@ -481,6 +498,127 @@ const VariationViewer = ({
       sortedVariants &&
       applyFilters(sortedVariants as TransformedVariant[], filters),
     [sortedVariants, filters]
+  );
+
+  const tableScroll = useNightingaleFeatureTableScroll(
+    getRowId,
+    tableId,
+    variationTableVirtualizerRef,
+    filteredVariants
+  );
+
+  useEffect(() => {
+    const { current: element } = managerRef;
+
+    if (!element) {
+      return;
+    }
+
+    const listener = (event: Event) => {
+      const { detail } = event as CustomEvent;
+      if (detail?.type === 'filters') {
+        setFilters(detail.value);
+      } else if (detail?.eventType === 'click' && detail?.feature) {
+        dispatch({ type: 'setHighlight', variant: detail.feature });
+        tableScroll(detail.feature);
+      } else if (detail?.['display-start'] && detail?.['display-end']) {
+        liveRangeRef.current = detail;
+        dispatch({ type: 'navigationStart' });
+        if (idleTimerRef.current !== undefined) {
+          window.clearTimeout(idleTimerRef.current);
+        }
+        idleTimerRef.current = window.setTimeout(() => {
+          dispatch({
+            type: 'navigationEnd',
+            viewRange: liveRangeRef.current,
+          });
+          idleTimerRef.current = undefined;
+        }, 150);
+      }
+    };
+
+    element.addEventListener('change', listener);
+
+    return () => {
+      element.removeEventListener('change', listener);
+      if (idleTimerRef.current !== undefined) {
+        window.clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = undefined;
+      }
+    };
+    // `data` isn't read here, but it's the signal that the manager has
+    // mounted; including it ensures the listener attaches after load.
+  }, [data, tableScroll]);
+
+  // Pair of complementary signals for navigation lifecycle: pointerdown/up
+  // catch brush drags; the 150ms debounce in the change listener catches
+  // wheel/pinch where there's no clear pointerup. Either signal alone may
+  // miss its case, but together they cover both. Depend on `data` so this
+  // runs after the manager actually mounts (it isn't rendered while loading).
+  useEffect(() => {
+    const manager = managerRef.current;
+    if (!manager) {
+      return undefined;
+    }
+    const onDown = () => dispatch({ type: 'navigationStart' });
+    const onUp = () => {
+      if (idleTimerRef.current !== undefined) {
+        window.clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = undefined;
+      }
+      dispatch({
+        type: 'navigationEnd',
+        viewRange: liveRangeRef.current,
+      });
+    };
+    manager.addEventListener('pointerdown', onDown, { capture: true });
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      manager.removeEventListener('pointerdown', onDown, { capture: true });
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [data]);
+
+  const [tableReady, setTableReady] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+    if (typeof window.requestIdleCallback === 'function') {
+      const handle = window.requestIdleCallback(() => setTableReady(true), {
+        timeout: 500,
+      });
+      return () => window.cancelIdleCallback(handle);
+    }
+    const handle = window.setTimeout(() => setTableReady(true), 0);
+    return () => window.clearTimeout(handle);
+  }, []);
+
+  const memoizedColumns = useMemo(
+    () => getColumns(primaryAccession),
+    [primaryAccession]
+  );
+
+  const memoizedMarkBackground = useCallback(
+    (datum: TransformedVariant) =>
+      typeof highlightedVariant?.accession !== 'undefined' &&
+      datum.accession === highlightedVariant.accession,
+    [highlightedVariant?.accession]
+  );
+
+  const memoizedMarkBorder = useCallback(
+    (datum: TransformedVariant) =>
+      Boolean(committedViewRange) &&
+      withinRange(+datum.begin, +datum.end, committedViewRange),
+    [committedViewRange]
+  );
+
+  const handleRowClick = useCallback(
+    (datum: TransformedVariant) =>
+      dispatch({ type: 'setHighlight', variant: datum }),
+    []
   );
 
   if (loading || importedVariants === 'loading') {
@@ -557,22 +695,26 @@ const VariationViewer = ({
           />
         </Suspense>
       </NightingaleManagerComponent>
-      <TableFromData
-        id={tableId}
-        columns={getColumns(primaryAccession)}
-        data={filteredVariants}
-        getRowId={getRowId}
-        onRowClick={setHighlightedVariant}
-        rowExtraContent={RowExtraContent}
-        markBackground={(datum) =>
-          typeof highlightedVariant?.accession !== 'undefined' &&
-          datum.accession === highlightedVariant.accession
-        }
-        markBorder={(datum) =>
-          Boolean(nightingaleViewRange) &&
-          withinRange(+datum.begin, +datum.end, nightingaleViewRange)
-        }
-      />
+      {tableReady && (
+        <div
+          className={cn({
+            [tableStyles.frozen]: isNavigating,
+          })}
+        >
+          <TableFromData
+            id={tableId}
+            virtualize
+            virtualizerRef={variationTableVirtualizerRef}
+            columns={memoizedColumns}
+            data={filteredVariants}
+            getRowId={getRowId}
+            onRowClick={handleRowClick}
+            rowExtraContent={RowExtraContent}
+            markBackground={memoizedMarkBackground}
+            markBorder={memoizedMarkBorder}
+          />
+        </div>
+      )}
     </section>
   );
 };
