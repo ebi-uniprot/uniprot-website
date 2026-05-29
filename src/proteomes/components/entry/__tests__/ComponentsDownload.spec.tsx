@@ -81,7 +81,7 @@ describe('Download reviewed proteins for a proteome entry that is an Eukaryote',
   });
 });
 
-describe('Download proteins for a non reference proteome', () => {
+describe('Download proteins for a non-reference proteome', () => {
   it('should point to uniparc search', async () => {
     const onCloseMock = jest.fn();
     const query = '(proteome:UP000006503)';
