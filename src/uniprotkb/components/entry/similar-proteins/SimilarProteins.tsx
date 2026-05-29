@@ -122,6 +122,11 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
   );
 };
 
+// Deep-compare `isoforms` because the parent (Entry.tsx) derives the array
+// in a useMemo whose deps include the ProtNLM payload — so the reference
+// changes whenever the ProtNLM toggle resolves, even though the isoform
+// list itself is unchanged. Without the deep compare we'd refetch all
+// UniRef clusters on every ProtNLM update.
 export default memo(SimilarProteins, (prevProps, nextProps) => {
   return (
     prevProps.canonical === nextProps.canonical &&

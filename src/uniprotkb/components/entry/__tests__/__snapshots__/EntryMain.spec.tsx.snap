@@ -3112,38 +3112,34 @@ exports[`Entry view should render 1`] = `
                   translate="yes"
                 >
                   <li>
-                    <span
-                      class="text-block"
+                     
+                    <a
+                      href="/keywords/KW-11111"
                     >
-                       
-                      <a
-                        href="/keywords/KW-11111"
-                      >
-                        #keyword value
-                      </a>
-                      <button
-                        aria-controls="62"
-                        aria-expanded="false"
-                        class="svg-colour-reviewed evidence-tag"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                        >
-                          PROSITE-ProRule annotation
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="62"
+                      #keyword value
+                    </a>
+                    <button
+                      aria-controls="62"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
                       />
-                    </span>
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        PROSITE-ProRule annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="62"
+                    />
                   </li>
                 </ul>
               </div>
@@ -4652,28 +4648,20 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                    <span
-                      class="text-block"
+                     
+                    <a
+                      href="/keywords/KW-0326"
                     >
-                       
-                      <a
-                        href="/keywords/KW-0326"
-                      >
-                        #Glycosidase
-                      </a>
-                    </span>
+                      #Glycosidase
+                    </a>
                   </li>
                   <li>
-                    <span
-                      class="text-block"
+                     
+                    <a
+                      href="/keywords/KW-0378"
                     >
-                       
-                      <a
-                        href="/keywords/KW-0378"
-                      >
-                        #Hydrolase
-                      </a>
-                    </span>
+                      #Hydrolase
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -4696,16 +4684,12 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                    <span
-                      class="text-block"
+                     
+                    <a
+                      href="/keywords/KW-0479"
                     >
-                       
-                      <a
-                        href="/keywords/KW-0479"
-                      >
-                        #Metal-binding
-                      </a>
-                    </span>
+                      #Metal-binding
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -6152,16 +6136,12 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                    <span
-                      class="text-block"
+                     
+                    <a
+                      href="/keywords/KW-0732"
                     >
-                       
-                      <a
-                        href="/keywords/KW-0732"
-                      >
-                        #Signal
-                      </a>
-                    </span>
+                      #Signal
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -7318,16 +7298,12 @@ exports[`Entry view should render for non-human entry 1`] = `
                   translate="yes"
                 >
                   <li>
-                    <span
-                      class="text-block"
+                     
+                    <a
+                      href="/keywords/KW-0002"
                     >
-                       
-                      <a
-                        href="/keywords/KW-0002"
-                      >
-                        #3D-structure
-                      </a>
-                    </span>
+                      #3D-structure
+                    </a>
                   </li>
                 </ul>
               </div>

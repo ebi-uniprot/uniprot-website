@@ -74,6 +74,9 @@ const UniProtEvidenceTagContent = ({
               <span key={id || index}>
                 {id === protNLM2Id && accession ? (
                   <ProtNLM2EvidenceLink
+                    // Safe narrowing: the `id === protNLM2Id` check above
+                    // means these properties came from a ProtNlmEvidence,
+                    // whose `properties` is typed as EvidenceProperty[].
                     properties={properties as EvidenceProperty[]}
                     accession={accession}
                   />

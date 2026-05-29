@@ -35,6 +35,10 @@ const ecUrl = 'https://enzyme.expasy.org/EC/';
 const pfamUrl = 'https://www.ebi.ac.uk/interpro/entry/pfam/';
 const pthrUrl = 'https://www.pantherdb.org/panther/family.do?clsAccession=';
 
+// TODO: update with the actual help document once it exists.
+const modelScoreDocsUrl =
+  'https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub';
+
 const matchTypeLabel = new Map([
   ['hydrated', 'Hydrated partial match'],
   ['substring', 'Partial match'],
@@ -56,6 +60,27 @@ const SomethingWentWrong = () => (
   </>
 );
 
+const ModelScoreHeader = ({ modelScore }: { modelScore: string }) => (
+  <>
+    {`ProtNLM2 model score: `}
+    <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
+    <a
+      href={modelScoreDocsUrl}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="ProtNLM2 model score documentation"
+    >
+      <sup>
+        <code>i</code>
+      </sup>
+    </a>
+    <br />
+    <small>0–1 scale. Higher = stronger prediction confidence.</small>
+    <br />
+    <br />
+  </>
+);
+
 type Props = {
   properties: EvidenceProperty[];
   accession: string;
@@ -69,36 +94,25 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
   }
   const propertiesMap = new Map(properties.map((p) => [p.key, p.value]));
   const modelScore = propertiesMap.get('model_score');
+  if (!modelScore) {
+    logging.error(
+      `ProtNLM2 evidence missing model_score: ${JSON.stringify(properties)}`
+    );
+    return <SomethingWentWrong />;
+  }
   const stringMatchText = propertiesMap.get('string_match_text');
   const stringMatchLoc = propertiesMap.get('string_match_location');
   const stringMatchType = propertiesMap.get('string_match_type');
 
   if (stringMatchText && stringMatchLoc && stringMatchType) {
-    const typeValue = stringMatchType ?? '';
     const externalUrl = locToUrl.get(stringMatchLoc);
 
-    // TODO: update href from google docs to actual help document
     return (
       <>
-        {`ProtNLM2 model score: `}
-        <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
-        <a
-          href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="ProtNLM2 model score documentation"
-        >
-          <sup>
-            <code>i</code>
-          </sup>
-        </a>
-        <br />
-        <small>0–1 scale. Higher = stronger prediction confidence.</small>
-        <br />
-        <br />
-        {`${matchTypeLabel.get(typeValue) ?? typeValue} with ${stringMatchLoc}: `}
+        <ModelScoreHeader modelScore={modelScore} />
+        {`${matchTypeLabel.get(stringMatchType) ?? stringMatchType} with ${stringMatchLoc}: `}
         {externalUrl &&
-        (typeValue === 'hydrated' || typeValue === 'substring') ? (
+        (stringMatchType === 'hydrated' || stringMatchType === 'substring') ? (
           <ExternalLink url={`${externalUrl}${stringMatchText}`}>
             {stringMatchText}
           </ExternalLink>
@@ -115,22 +129,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
   if (phmmerAccession && phmmerScore) {
     return (
       <>
-        {`ProtNLM2 model score: `}
-        <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
-        <a
-          href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="ProtNLM2 model score documentation"
-        >
-          <sup>
-            <code>i</code>
-          </sup>
-        </a>
-        <br />
-        <small>0–1 scale. Higher = stronger prediction confidence.</small>
-        <br />
-        <br />
+        <ModelScoreHeader modelScore={modelScore} />
         {'Sequence similarity with '}
         <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
           {phmmerAccession}
@@ -167,28 +166,13 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     });
     return (
       <>
-        {`ProtNLM2 model score: `}
-        <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
-        <a
-          href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="ProtNLM2 model score documentation"
-        >
-          <sup>
-            <code>i</code>
-          </sup>
-        </a>
-        <br />
-        <small>0–1 scale. Higher = stronger prediction confidence.</small>
-        <br />
-        <br />
+        <ModelScoreHeader modelScore={modelScore} />
         {'Structure similarity with '}
         <Link to={getEntryPath(Namespace.uniprotkb, tmalignAccession)}>
           {tmalignAccession}
         </Link>
         <br />
-        <ul style={{ paddingBottom: 5 }}>
+        <ul className="protnlm2-tmalign-scores">
           <li>
             {`TM-score for ${accession} (current entry): `}
             <strong>{Number(tmalignScore1).toFixed(2)}</strong>
@@ -197,11 +181,13 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
             {`TM-score for ${tmalignAccession}: `}
             {Number(tmalignScore2).toFixed(2)}
           </li>
-          <small>
-            0–1 scale. Higher = stronger structural similarity. &gt;0.5 suggests
-            same fold.
-          </small>
         </ul>
+        <small>
+          0–1 scale. Higher = stronger structural similarity. &gt;0.5 suggests
+          same fold.
+        </small>
+        <br />
+        <br />
         <ExternalLink url={foldSeekAlign}>
           Align {accession} and {tmalignAccession} with FoldMason
         </ExternalLink>

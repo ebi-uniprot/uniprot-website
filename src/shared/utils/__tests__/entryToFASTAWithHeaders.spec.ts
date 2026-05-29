@@ -58,6 +58,10 @@ describe('entryToFASTAWithHeaders', () => {
       expect(
         entryToFASTAWithHeaders({
           ...uniProtKBEntryModelData,
+          // Forcing an out-of-union value to exercise the fallback path.
+          // `UniProtkbAPIModel['entryType']` is a tight literal union, so a
+          // plain `as` cast is rejected — `unknown` lets us push 'blabla'
+          // through to test how the formatter handles unexpected input.
           entryType: 'blabla' as unknown as UniProtkbAPIModel['entryType'],
         })
       ).toMatchSnapshot();

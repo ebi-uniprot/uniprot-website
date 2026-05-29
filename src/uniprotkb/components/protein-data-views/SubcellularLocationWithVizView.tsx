@@ -90,6 +90,14 @@ const isUnreviewedEvidence = (e: Evidence) =>
 export const getUniProtEvidenceType = (
   evidences: Evidence[] | undefined = []
 ): EvidenceType | null => {
+  // Empty array → not classifiable. Return null without logging; the
+  // unreviewed predicate is the inverse of reviewed/ai, so for any
+  // non-empty array at least one of the three branches below matches —
+  // logging "Unknown Evidence Type" can only ever fire on `[]`, which
+  // is a legitimate state for some entries, not a bug.
+  if (!evidences.length) {
+    return null;
+  }
   if (evidences.some(isReviewedEvidence)) {
     return 'reviewed';
   }

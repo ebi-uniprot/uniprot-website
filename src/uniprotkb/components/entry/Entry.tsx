@@ -223,10 +223,15 @@ const Entry = () => {
       : null
   );
 
+  // Probe whether a ProtNLM payload exists for this entry. We only need
+  // this when the user has the toggle off — when they have it on, the
+  // GET below tells us availability for free, so a HEAD would be a
+  // duplicate request.
   const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
     match?.params.accession &&
       data &&
-      data.entryType === 'UniProtKB unreviewed (TrEMBL)'
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      !loadProtNLM
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null,
     { method: 'HEAD' }
@@ -529,8 +534,13 @@ const Entry = () => {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
 
-  const hasProtnlm: boolean =
-    !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
+  // Toggle-off: read availability from the HEAD probe.
+  // Toggle-on:  the GET is what's firing — treat "still loading" as
+  //             available so we don't blink the toggle out while the
+  //             user is opted in; once it resolves to non-200 we hide it.
+  const hasProtnlm: boolean = loadProtNLM
+    ? protnlmPayload.loading || protnlmPayload.status === 200
+    : !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
 
   const isAFDBOutOfSync =
     new Date(
@@ -644,10 +654,16 @@ const Entry = () => {
               >
                 Entry
                 {loadProtNLM && hasProtnlm && (
-                  <AiAnnotationsIcon
-                    className="ai-annotation-entry-tab-icon"
-                    aria-hidden="true"
-                  />
+                  <>
+                    <AiAnnotationsIcon
+                      className="ai-annotation-entry-tab-icon"
+                      aria-hidden="true"
+                    />
+                    <span className="visually-hidden">
+                      {' '}
+                      (AI annotations enabled)
+                    </span>
+                  </>
                 )}
               </Link>
             }

@@ -136,6 +136,14 @@ tr:has(.ai-annotation-row) {
   height: 1em;
 }
 
+// TM-score list inside a ProtNLM2 tmalign evidence tooltip. The trailing
+// padding gives the list breathing room before the legend `<small>` that
+// follows it (the legend now lives outside the `<ul>` so the markup is
+// valid HTML).
+.protnlm2-tmalign-scores {
+  padding-bottom: 0.5rem;
+}
+
 .tabs__header__item.entry-tab--ai.tabs__header__item--active,
 .tabs__header__item.entry-tab--ai:hover,
 .tabs__header__item.entry-tab--ai:focus {

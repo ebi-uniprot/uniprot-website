@@ -1506,16 +1506,12 @@ exports[`UniProtKBColumnConfiguration component should render column "keyword": 
     translate="yes"
   >
     <li>
-      <span
-        class="text-block"
+       
+      <a
+        href="/keywords/KW-11111"
       >
-         
-        <a
-          href="/keywords/KW-11111"
-        >
-          #keyword value
-        </a>
-      </span>
+        #keyword value
+      </a>
     </li>
   </ul>
 </DocumentFragment>
@@ -1528,16 +1524,12 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
     translate="yes"
   >
     <li>
-      <span
-        class="text-block"
+       
+      <a
+        href="/keywords/KW-11111"
       >
-         
-        <a
-          href="/keywords/KW-11111"
-        >
-          #KW-11111
-        </a>
-      </span>
+        #KW-11111
+      </a>
     </li>
   </ul>
 </DocumentFragment>

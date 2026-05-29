@@ -125,7 +125,7 @@ exports[`ProtNLM2EvidenceLink renders the tmalign branch 1`] = `
   </a>
   <br />
   <ul
-    style="padding-bottom: 5px;"
+    class="protnlm2-tmalign-scores"
   >
     <li>
       TM-score for A8Y1C3 (current entry): 
@@ -136,10 +136,12 @@ exports[`ProtNLM2EvidenceLink renders the tmalign branch 1`] = `
     <li>
       TM-score for Q99LL3: 0.48
     </li>
-    <small>
-      0–1 scale. Higher = stronger structural similarity. &gt;0.5 suggests same fold.
-    </small>
   </ul>
+  <small>
+    0–1 scale. Higher = stronger structural similarity. &gt;0.5 suggests same fold.
+  </small>
+  <br />
+  <br />
   <a
     class="external-link"
     href="https://search.foldseek.com/foldmason?accessions=A8Y1C3%2CQ99LL3&sources=AlphaFoldDB"

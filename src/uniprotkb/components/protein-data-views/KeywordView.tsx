@@ -1,5 +1,5 @@
-import cn from 'classnames';
 import { ExpandableList, InfoList } from 'franklin-sites';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
@@ -33,18 +33,25 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
     if (!id || !name) {
       return null;
     }
-    return (
-      <span
-        // eslint-disable-next-line @eslint-react/no-array-index-key
-        key={index}
-        className={cn('text-block', {
-          'ai-annotation-keyword': hasProtNLM2Evidence(evidences),
-        })}
-      >
+    const body = (
+      <>
         {' '}
         <KeywordItem id={id} value={idOnly ? id : name} />
         {!inline && <UniProtKBEvidenceTag evidences={evidences} />}
+      </>
+    );
+    // Only wrap AI keywords in a <span> so the `ai-annotation-keyword`
+    // class has an element to attach to. Plain keywords stay as a
+    // Fragment to avoid adding a DOM node for every keyword in every
+    // namespace's keyword list.
+    return hasProtNLM2Evidence(evidences) ? (
+      // eslint-disable-next-line @eslint-react/no-array-index-key
+      <span key={index} className="ai-annotation-keyword">
+        {body}
       </span>
+    ) : (
+      // eslint-disable-next-line @eslint-react/no-array-index-key
+      <Fragment key={index}>{body}</Fragment>
     );
   });
 

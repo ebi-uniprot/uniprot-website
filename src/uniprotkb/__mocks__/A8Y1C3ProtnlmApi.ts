@@ -1,7 +1,6 @@
 import { type UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
 
-// TODO: update url once this endpoint becomes part of rest.uniprot.org
-// Source: https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/protnlm/A8Y1C3
+// Source: uniprotkb/protnlm/A8Y1C3
 // Retrieved: 2026-05-13
 const data: UniProtKBProtNLMAPIModel = {
   entryType: 'UniProtKB unreviewed (TrEMBL)',
