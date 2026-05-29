@@ -96,9 +96,27 @@
 
   // The button-group from EntryDownloadButton/etc. is normally vertical-margin
   // heavy — strip those in the compact bar so buttons sit on a single line.
-  & > * {
+  & > *,
+  :global(.button-group) {
     margin: 0;
   }
+}
+
+// Flattened overflow menu: a vertical, text-only list (icons dropped for a
+// tighter menu, per design). The expanded-vs-collapsed switch is driven in JS
+// (mirroring the header's nav-collapse breakpoint), not CSS.
+.menu-list {
+  svg {
+    display: none;
+  }
+}
+
+// The Menu sits at the far right of the bar, so anchor the popup to the
+// trigger's right edge and let it open leftward — otherwise it overflows the
+// viewport and introduces horizontal scroll.
+.compact-tools :global(.dropdown__content) {
+  right: 0;
+  left: auto;
 }
 
 // In the compact bar the AI toggle should read as secondary to the title, so
@@ -119,23 +137,6 @@
     :global(.toggle__icon) svg {
       width: 0.8rem;
       height: 0.8rem;
-    }
-  }
-}
-
-// Mobile gate: defer the sticky header on small screens. Keep the same DOM
-// (so JS stays simple) but hide the compact bar and don't reserve any space
-// above the tabs.
-@include breakpoint(small only) {
-  .compact-bar {
-    display: none;
-  }
-
-  .container.stuck {
-    --compact-bar-height: 0;
-
-    & :global(.tabs__header) {
-      top: 0;
     }
   }
 }

@@ -5,7 +5,9 @@ import './styles/protnlm.scss';
 import cn from 'classnames';
 import {
   AiAnnotationsIcon,
+  Button,
   Chip,
+  Dropdown,
   Loader,
   LongNumber,
   Tab,
@@ -34,6 +36,8 @@ import {
 } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
+import BlastButton from '../../../shared/components/action-buttons/Blast';
+import MapIDButton from '../../../shared/components/action-buttons/MapID';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
 import { Dataset } from '../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -57,7 +61,7 @@ import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-import {
+import useMatchMedia, {
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
@@ -170,6 +174,11 @@ const HistoryTab = lazy(
 // Currently, just a bit before 2025_04 (latest AFDB release based on 2025_03)
 const AFDB_CUTOFF_DATE = new Date('2025-10-01');
 
+// Below this viewport width the sticky tools bar collapses into the "Menu"
+// dropdown. Tuned by inspection — a bit before the expanded buttons start
+// crowding the title/AI toggle.
+const toolsCollapseMediaQuery = 'only screen and (min-width: 1350px)';
+
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
     const data = transformedData[id];
@@ -192,6 +201,8 @@ const Entry = () => {
   const [isStuck, setFullHeaderRef] = useStickyHeader();
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
+  // When wide enough, show the full tools row; below it, collapse to the Menu.
+  const wideScreen = useMatchMedia(toolsCollapseMediaQuery);
   const [loadProtNLM, setLoadProtNLM] = useLocalStorage<boolean>(
     'ai-annotations',
     false
@@ -592,49 +603,99 @@ const Entry = () => {
 
   // Tools row, lifted out of the Entry tab so it sits on every tab and so the
   // compact sticky header can render the same buttons on the right.
+  // Individual tool nodes, shared between the expanded button row (full header
+  // + roomy compact bar) and the collapsed "Menu" dropdown (cramped compact
+  // bar). Reusing the same element descriptors keeps the two layouts in sync.
+  const alignNode = listOfIsoformAccessions.length > 1 && (
+    <AlignButton
+      selectedEntries={listOfIsoformAccessions}
+      textSuffix="isoforms"
+    />
+  );
+  const downloadButton = (
+    <EntryDownloadButton handleToggle={handleToggleDownload} />
+  );
+  const basketButton = <AddToBasketButton selectedEntries={accession} />;
+  const communityAnnotationLink = (
+    <CommunityAnnotationLink accession={accession} />
+  );
+  const addPublicationLink = (
+    <a
+      href={externalUrls.CommunityCuratedAdd(accession)}
+      className="button tertiary"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Add a publication
+    </a>
+  );
+  const entryFeedbackLink = (
+    <ContactLink
+      to={{
+        pathname: LocationToPath[Location.ContactUpdate],
+        search: stringifyQuery({
+          entry: accession,
+          entryType:
+            transformedData?.entryType === EntryType.REVIEWED
+              ? 'Reviewed (Swiss-Prot)'
+              : 'Unreviewed (TrEMBL)',
+        }),
+      }}
+      className="button tertiary"
+    >
+      Entry feedback
+    </ContactLink>
+  );
+
   const toolsRow =
     !isObsolete && data?.sequence ? (
       <div className="button-group">
         <ToolsDropdown
           selectedEntries={[accession]}
           blast
-          align={
-            listOfIsoformAccessions.length > 1 && (
-              <AlignButton
-                selectedEntries={listOfIsoformAccessions}
-                textSuffix="isoforms"
-              />
-            )
-          }
+          align={alignNode}
           mapID
         />
-        <EntryDownloadButton handleToggle={handleToggleDownload} />
-        <AddToBasketButton selectedEntries={accession} />
-        <CommunityAnnotationLink accession={accession} />
-        <a
-          href={externalUrls.CommunityCuratedAdd(accession)}
-          className="button tertiary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Add a publication
-        </a>
-        <ContactLink
-          to={{
-            pathname: LocationToPath[Location.ContactUpdate],
-            search: stringifyQuery({
-              entry: accession,
-              entryType:
-                transformedData?.entryType === EntryType.REVIEWED
-                  ? 'Reviewed (Swiss-Prot)'
-                  : 'Unreviewed (TrEMBL)',
-            }),
-          }}
-          className="button tertiary"
-        >
-          Entry feedback
-        </ContactLink>
+        {downloadButton}
+        {basketButton}
+        {communityAnnotationLink}
+        {addPublicationLink}
+        {entryFeedbackLink}
       </div>
+    ) : null;
+
+  // Flattened single overflow menu for the cramped compact bar: BLAST and Map
+  // ID are listed directly (not nested in the Tools sub-dropdown), then the
+  // remaining actions/links.
+  const toolsMenu =
+    !isObsolete && data?.sequence ? (
+      <Dropdown
+        visibleElement={(onClick: () => unknown) => (
+          <Button variant="tertiary" onClick={onClick}>
+            Menu
+          </Button>
+        )}
+      >
+        {() => (
+          <ul className={cn('no-bullet', stickyHeaderStyles['menu-list'])}>
+            <li>
+              <BlastButton selectedEntries={[accession]} />
+            </li>
+            {alignNode && <li>{alignNode}</li>}
+            <li>
+              <MapIDButton
+                selectedEntries={[accession]}
+                namespace={Namespace.uniprotkb}
+              />
+            </li>
+            <li>{downloadButton}</li>
+            <li>{basketButton}</li>
+            <li>{communityAnnotationLink}</li>
+            <li>{addPublicationLink}</li>
+            <li>{entryFeedbackLink}</li>
+          </ul>
+        )}
+      </Dropdown>
     ) : null;
 
   const protnlmToggle = hasProtnlm ? (
@@ -735,7 +796,9 @@ const Entry = () => {
             />
           </span>
           {protnlmToggle}
-          <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
+          <div className={stickyHeaderStyles['compact-tools']}>
+            {wideScreen ? toolsRow : toolsMenu}
+          </div>
         </div>
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
