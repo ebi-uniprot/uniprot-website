@@ -1,9 +1,13 @@
 import cn from 'classnames';
 import { lazy, type ReactNode, Suspense } from 'react';
 
-import { useSmallScreen } from '../../hooks/useMatchMedia';
+import useMatchMedia, { useSmallScreen } from '../../hooks/useMatchMedia';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/sidebar-layout.module.scss';
+
+// Opt-in breakpoint (see `collapseSidebarEarly`): collapse the sidebar below
+// ~768px rather than Franklin's default ~640px.
+const earlyCollapseMediaQuery = 'only screen and (max-width: 768px)';
 
 const UniProtFooter = lazy(
   () => import(/* webpackChunkName: "footer" */ './UniProtFooter')
@@ -13,6 +17,11 @@ type SidebarLayoutProps = {
   sidebar: ReactNode;
   className?: string;
   noOverflow?: boolean;
+  // Collapse the sidebar below ~768px instead of Franklin's default ~640px,
+  // freeing horizontal space for the main content (used by the entry page so
+  // its sticky bar gets more room). Opt-in so other pages keep the standard
+  // breakpoint.
+  collapseSidebarEarly?: boolean;
   children: ReactNode;
 };
 
@@ -21,19 +30,25 @@ export const SidebarLayout = ({
   children,
   className,
   noOverflow,
+  collapseSidebarEarly,
 }: SidebarLayoutProps) => {
   const smallScreen = useSmallScreen();
+  const earlyCollapse = useMatchMedia(earlyCollapseMediaQuery);
+  const hideSidebar = collapseSidebarEarly ? earlyCollapse : smallScreen;
 
   return (
     <>
       <div
         className={cn(
           styles['sidebar-layout'],
-          { [styles['no-overflow']]: noOverflow },
+          {
+            [styles['no-overflow']]: noOverflow,
+            [styles['collapse-sidebar-early']]: collapseSidebarEarly,
+          },
           className
         )}
       >
-        {!smallScreen && (
+        {!hideSidebar && (
           <aside className={styles.sidebar}>
             <ErrorBoundary>{sidebar}</ErrorBoundary>
           </aside>

@@ -601,8 +601,6 @@ const Entry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
-  // Tools row, lifted out of the Entry tab so it sits on every tab and so the
-  // compact sticky header can render the same buttons on the right.
   // Individual tool nodes, shared between the expanded button row (full header
   // + roomy compact bar) and the collapsed "Menu" dropdown (cramped compact
   // bar). Reusing the same element descriptors keeps the two layouts in sync.
@@ -647,6 +645,8 @@ const Entry = () => {
     </ContactLink>
   );
 
+  // Expanded tools row, lifted out of the Entry tab so it sits on every tab and
+  // so the compact sticky header can render the same buttons on the right.
   const toolsRow =
     !isObsolete && data?.sequence ? (
       <div className="button-group">
@@ -716,6 +716,10 @@ const Entry = () => {
     <SidebarLayout
       sidebar={sidebar}
       noOverflow
+      // Only when an in-page nav sidebar is actually shown (Entry/Publications
+      // tabs): drop it below ~768px so the sticky bar gets the full width
+      // sooner. Other tabs have no sidebar and keep the default behaviour.
+      collapseSidebarEarly={Boolean(sidebar)}
       className={cn(
         'entry-page',
         sticky['sticky-tabs-container'],
