@@ -71,7 +71,9 @@
 .compact-title {
   font-size: 1rem;
   font-weight: bold;
-  flex: 1 1 auto;
+  // Don't grow: the title hugs its content so the AI toggle sits right next to
+  // it. The tools row is pushed to the far edge via its own margin instead.
+  flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -86,6 +88,8 @@
 
 .compact-tools {
   flex: 0 0 auto;
+  // Pin the tools to the far edge so the title + AI toggle stay grouped left.
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -94,6 +98,28 @@
   // heavy — strip those in the compact bar so buttons sit on a single line.
   & > * {
     margin: 0;
+  }
+}
+
+// In the compact bar the AI toggle should read as secondary to the title, so
+// scale it down. The franklin switch derives every dimension from
+// --toggle-knob-size, so shrinking that (plus the label text and icon) shrinks
+// the whole control proportionally. Also strip the full-header vertical margin
+// so it stays centred in the fixed-height bar.
+.compact-bar {
+  :global(.ai-annotation-entry-title-row__toggle) {
+    --toggle-knob-size: 0.7rem;
+    margin-block: 0;
+    padding: 0.25rem 0.6rem;
+
+    :global(.toggle__header) {
+      font-size: 0.8rem;
+    }
+
+    :global(.toggle__icon) svg {
+      width: 0.8rem;
+      height: 0.8rem;
+    }
   }
 }
 

@@ -637,6 +637,20 @@ const Entry = () => {
       </div>
     ) : null;
 
+  const protnlmToggle = hasProtnlm ? (
+    <ToggleSwitch
+      header={protnlmPayload.loading ? 'Loading...' : 'AI Annotations'}
+      statusOff="Click to enable"
+      statusLoading="Loading AI predictions..."
+      statusOn="Showing AI predictions"
+      isLoading={protnlmPayload.loading}
+      icon={<AiAnnotationsIcon />}
+      checked={loadProtNLM}
+      onChange={setLoadProtNLM}
+      className="ai-annotation-entry-title-row__toggle"
+    />
+  ) : null;
+
   return (
     <SidebarLayout
       sidebar={sidebar}
@@ -692,21 +706,7 @@ const Entry = () => {
                 />
                 <BasketStatus id={data.primaryAccession} className="small" />
               </h1>
-              {hasProtnlm && (
-                <ToggleSwitch
-                  header={
-                    protnlmPayload.loading ? 'Loading...' : 'AI Annotations'
-                  }
-                  statusOff="Click to enable"
-                  statusLoading="Loading AI predictions..."
-                  statusOn="Showing AI predictions"
-                  isLoading={protnlmPayload.loading}
-                  icon={<AiAnnotationsIcon />}
-                  checked={loadProtNLM}
-                  onChange={setLoadProtNLM}
-                  className="ai-annotation-entry-title-row__toggle"
-                />
-              )}
+              {protnlmToggle}
             </div>
             <ProteinOverview data={data} />
             {toolsRow}
@@ -734,6 +734,7 @@ const Entry = () => {
               entryType={data.entryType}
             />
           </span>
+          {protnlmToggle}
           <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
         </div>
       )}
