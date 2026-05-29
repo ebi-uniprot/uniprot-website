@@ -1,8 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
+import './styles/protnlm.scss';
 
 import cn from 'classnames';
-import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import {
+  AiAnnotationsIcon,
+  Chip,
+  Loader,
+  LongNumber,
+  Tab,
+  Tabs,
+  ToggleSwitch,
+} from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
@@ -44,6 +53,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import {
   useMediumScreen,
   useSmallScreen,
@@ -68,6 +78,10 @@ import {
 import { TabLocation as UniParcTabLocation } from '../../../uniparc/types/entry';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import {
+  augmentAPIDataWithProtnlmPredictions,
+  augmentUIDataWithProtnlmPredictions,
+} from '../../adapters/protnlmConverter';
 import uniProtKbConverter, {
   type UniProtkbAPIModel,
   type UniProtkbUIModel,
@@ -79,6 +93,7 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
+import { type UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
 import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -162,6 +177,10 @@ const Entry = () => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
+  const [loadProtNLM, setLoadProtNLM] = useLocalStorage<boolean>(
+    'ai-annotations',
+    false
+  );
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -204,6 +223,29 @@ const Entry = () => {
       : null
   );
 
+  // Probe whether a ProtNLM payload exists for this entry. We only need
+  // this when the user has the toggle off — when they have it on, the
+  // GET below tells us availability for free, so a HEAD would be a
+  // duplicate request.
+  const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      !loadProtNLM
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null,
+    { method: 'HEAD' }
+  );
+
+  const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      loadProtNLM
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null
+  );
+
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
       ({ references }) =>
@@ -218,9 +260,23 @@ const Entry = () => {
     if (!data || !databaseInfoMaps) {
       return [];
     }
-    const transformedData = uniProtKbConverter(data, databaseInfoMaps);
+
+    // Augment UniProtKB data with ProtNLM data. Some augmentations
+    // happen before transformations, and some after. Transform data
+    // as soon as possible, ie even if the protnlm predictions are
+    // still loading.
+    const transformedData = protnlmPayload.data
+      ? augmentUIDataWithProtnlmPredictions(
+          protnlmPayload.data,
+          uniProtKbConverter(
+            augmentAPIDataWithProtnlmPredictions(protnlmPayload.data, data),
+            databaseInfoMaps
+          )
+        )
+      : uniProtKbConverter(data, databaseInfoMaps);
+
     return [transformedData, generatePageTitle(transformedData)];
-  }, [data, databaseInfoMaps]);
+  }, [data, databaseInfoMaps, protnlmPayload.data]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -478,6 +534,14 @@ const Entry = () => {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
 
+  // Toggle-off: read availability from the HEAD probe.
+  // Toggle-on:  the GET is what's firing — treat "still loading" as
+  //             available so we don't blink the toggle out while the
+  //             user is opted in; once it resolves to non-200 we hide it.
+  const hasProtnlm: boolean = loadProtNLM
+    ? protnlmPayload.loading || protnlmPayload.status === 200
+    : !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
+
   const isAFDBOutOfSync =
     new Date(
       transformedData?.sequences.entryAudit?.lastSequenceUpdateDate ||
@@ -545,14 +609,31 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          <h1>
-            <EntryTitle
-              mainTitle={data.primaryAccession}
-              optionalTitle={data.uniProtkbId}
-              entryType={data.entryType}
-            />
-            <BasketStatus id={data.primaryAccession} className="small" />
-          </h1>
+          <div className="ai-annotation-entry-title-row">
+            <h1>
+              <EntryTitle
+                mainTitle={data.primaryAccession}
+                optionalTitle={data.uniProtkbId}
+                entryType={data.entryType}
+              />
+              <BasketStatus id={data.primaryAccession} className="small" />
+            </h1>
+            {hasProtnlm && (
+              <ToggleSwitch
+                header={
+                  protnlmPayload.loading ? 'Loading...' : 'AI Annotations'
+                }
+                statusOff="Click to enable"
+                statusLoading="Loading AI predictions..."
+                statusOn="Showing AI predictions"
+                isLoading={protnlmPayload.loading}
+                icon={<AiAnnotationsIcon />}
+                checked={loadProtNLM}
+                onChange={setLoadProtNLM}
+                className="ai-annotation-entry-title-row__toggle"
+              />
+            )}
+          </div>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       )}
@@ -560,6 +641,7 @@ const Entry = () => {
         <Tabs active={match.params.subPage}>
           <Tab
             disabled={isObsolete}
+            className={loadProtNLM && hasProtnlm ? 'entry-tab--ai' : undefined}
             title={
               <Link
                 className={isObsolete ? helper.disabled : undefined}
@@ -571,6 +653,18 @@ const Entry = () => {
                 )}
               >
                 Entry
+                {loadProtNLM && hasProtnlm && (
+                  <>
+                    <AiAnnotationsIcon
+                      className="ai-annotation-entry-tab-icon"
+                      aria-hidden="true"
+                    />
+                    <span className="visually-hidden">
+                      {' '}
+                      (AI annotations enabled)
+                    </span>
+                  </>
+                )}
               </Link>
             }
             id={TabLocation.Entry}

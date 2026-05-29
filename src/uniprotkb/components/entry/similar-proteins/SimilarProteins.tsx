@@ -1,6 +1,6 @@
 import { Loader, Tab, Tabs } from 'franklin-sites';
-import { zip } from 'lodash-es';
-import { useEffect, useState } from 'react';
+import { isEqual, zip } from 'lodash-es';
+import { memo, useEffect, useState } from 'react';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -122,4 +122,14 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
   );
 };
 
-export default SimilarProteins;
+// Deep-compare `isoforms` because the parent (Entry.tsx) derives the array
+// in a useMemo whose deps include the ProtNLM payload — so the reference
+// changes whenever the ProtNLM toggle resolves, even though the isoform
+// list itself is unchanged. Without the deep compare we'd refetch all
+// UniRef clusters on every ProtNLM update.
+export default memo(SimilarProteins, (prevProps, nextProps) => {
+  return (
+    prevProps.canonical === nextProps.canonical &&
+    isEqual(prevProps.isoforms, nextProps.isoforms)
+  );
+});

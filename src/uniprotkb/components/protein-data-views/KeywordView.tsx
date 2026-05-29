@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type Keyword, type KeywordUIModel } from '../../utils/KeywordsUtil';
+import { hasProtNLM2Evidence } from '../../utils/protnlm';
 import styles from './styles/keyword-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
@@ -32,13 +33,25 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
     if (!id || !name) {
       return null;
     }
-    return (
-      // eslint-disable-next-line @eslint-react/no-array-index-key
-      <Fragment key={index}>
+    const body = (
+      <>
         {' '}
         <KeywordItem id={id} value={idOnly ? id : name} />
         {!inline && <UniProtKBEvidenceTag evidences={evidences} />}
-      </Fragment>
+      </>
+    );
+    // Only wrap AI keywords in a <span> so the `ai-annotation-keyword`
+    // class has an element to attach to. Plain keywords stay as a
+    // Fragment to avoid adding a DOM node for every keyword in every
+    // namespace's keyword list.
+    return hasProtNLM2Evidence(evidences) ? (
+      // eslint-disable-next-line @eslint-react/no-array-index-key
+      <span key={index} className="ai-annotation-keyword">
+        {body}
+      </span>
+    ) : (
+      // eslint-disable-next-line @eslint-react/no-array-index-key
+      <Fragment key={index}>{body}</Fragment>
     );
   });
 
