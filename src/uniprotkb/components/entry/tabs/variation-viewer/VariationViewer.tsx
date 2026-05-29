@@ -118,8 +118,8 @@ const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
 };
 
 const getHighlightedCoordinates = (feature?: TransformedVariant) =>
-  feature?.begin && feature?.end
-    ? `${feature.begin}:${feature.end}`
+  feature?.start && feature?.end
+    ? `${feature.start}:${feature.end}`
     : undefined;
 
 const getRowId = (data: TransformedVariant) => data.accession;
@@ -271,7 +271,7 @@ const getColumns = (
     ),
     render: (data) =>
       data.clinicalSignificances?.map((clinicalSignificance, i) => (
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         <Fragment key={i}>
           {i !== 0 && <br />}
           <span

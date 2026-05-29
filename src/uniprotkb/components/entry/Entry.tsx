@@ -1,12 +1,20 @@
-/* eslint-disable reactHooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
+import './styles/protnlm.scss';
 
 import cn from 'classnames';
-import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import {
+  AiAnnotationsIcon,
+  Chip,
+  Loader,
+  LongNumber,
+  Tab,
+  Tabs,
+  ToggleSwitch,
+} from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
-import joinUrl from 'url-join';
 
 import {
   getEntryPath,
@@ -43,17 +51,12 @@ import HTMLHead from '../../../shared/components/HTMLHead';
 import InPageNav from '../../../shared/components/InPageNav';
 import { SidebarLayout } from '../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import {
-  checkMoveUrl,
-  getProteomes,
-  RefProtMoveUniProtKBEntryMessage,
-  type UniProtKBCheckMoveResponse,
-} from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import {
   useMediumScreen,
   useSmallScreen,
@@ -79,6 +82,10 @@ import {
 import { TabLocation as UniParcTabLocation } from '../../../uniparc/types/entry';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import {
+  augmentAPIDataWithProtnlmPredictions,
+  augmentUIDataWithProtnlmPredictions,
+} from '../../adapters/protnlmConverter';
 import uniProtKbConverter, {
   type UniProtkbAPIModel,
   type UniProtkbUIModel,
@@ -90,6 +97,7 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
+import { type UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
 import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -184,6 +192,10 @@ const Entry = () => {
   const [isStuck, setFullHeaderRef] = useStickyHeader();
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
+  const [loadProtNLM, setLoadProtNLM] = useLocalStorage<boolean>(
+    'ai-annotations',
+    false
+  );
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -226,14 +238,28 @@ const Entry = () => {
       : null
   );
 
-  const refprotmoveData = useDataApi<UniProtKBCheckMoveResponse>(
-    match?.params.accession
-      ? joinUrl(checkMoveUrl, 'uniprotkb', match?.params.accession)
+  // Probe whether a ProtNLM payload exists for this entry. We only need
+  // this when the user has the toggle off — when they have it on, the
+  // GET below tells us availability for free, so a HEAD would be a
+  // duplicate request.
+  const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      !loadProtNLM
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null,
+    { method: 'HEAD' }
+  );
+
+  const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      loadProtNLM
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null
   );
-  const upids = useMemo(() => data && getProteomes(data), [data]);
-
-  const willBeRemoved = refprotmoveData.data?.status === 'remove';
 
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
@@ -249,9 +275,23 @@ const Entry = () => {
     if (!data || !databaseInfoMaps) {
       return [];
     }
-    const transformedData = uniProtKbConverter(data, databaseInfoMaps);
+
+    // Augment UniProtKB data with ProtNLM data. Some augmentations
+    // happen before transformations, and some after. Transform data
+    // as soon as possible, ie even if the protnlm predictions are
+    // still loading.
+    const transformedData = protnlmPayload.data
+      ? augmentUIDataWithProtnlmPredictions(
+          protnlmPayload.data,
+          uniProtKbConverter(
+            augmentAPIDataWithProtnlmPredictions(protnlmPayload.data, data),
+            databaseInfoMaps
+          )
+        )
+      : uniProtKbConverter(data, databaseInfoMaps);
+
     return [transformedData, generatePageTitle(transformedData)];
-  }, [data, databaseInfoMaps]);
+  }, [data, databaseInfoMaps, protnlmPayload.data]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -267,7 +307,7 @@ const Entry = () => {
           taxId,
           numberOfIsoforms
         );
-        let disabled = true;
+        let disabled: boolean;
         switch (nameAndId.id) {
           case EntrySection.ExternalLinks:
             disabled = !hasExternalLinks(transformedData);
@@ -479,8 +519,7 @@ const Entry = () => {
     loading ||
     !data ||
     // if we're gonna redirect, show loading in the meantime
-    (redirectedTo && match?.params.subPage !== TabLocation.History) ||
-    refprotmoveData.loading
+    (redirectedTo && match?.params.subPage !== TabLocation.History)
   ) {
     if (error) {
       return <ErrorHandler status={status} error={error} fullPage />;
@@ -503,12 +542,20 @@ const Entry = () => {
     }
   }
 
-  let hasGenomicCoordinates: boolean | 'loading' = false;
+  let hasGenomicCoordinates: boolean | 'loading';
   if (coordinatesHeadPayload.loading) {
     hasGenomicCoordinates = 'loading';
   } else {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
+
+  // Toggle-off: read availability from the HEAD probe.
+  // Toggle-on:  the GET is what's firing — treat "still loading" as
+  //             available so we don't blink the toggle out while the
+  //             user is opted in; once it resolves to non-200 we hide it.
+  const hasProtnlm: boolean = loadProtNLM
+    ? protnlmPayload.loading || protnlmPayload.status === 200
+    : !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
 
   const isAFDBOutOfSync =
     new Date(
@@ -632,25 +679,35 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          {willBeRemoved ? (
-            <RefProtMoveUniProtKBEntryMessage
-              accession={data.primaryAccession}
-              upids={upids}
-              organism={data.organism}
-            />
-          ) : null}
           <div
             ref={setFullHeaderRef}
             className={stickyHeaderStyles['full-header']}
           >
-            <h1>
-              <EntryTitle
-                mainTitle={data.primaryAccession}
-                optionalTitle={data.uniProtkbId}
-                entryType={data.entryType}
-              />
-              <BasketStatus id={data.primaryAccession} className="small" />
-            </h1>
+            <div className="ai-annotation-entry-title-row">
+              <h1>
+                <EntryTitle
+                  mainTitle={data.primaryAccession}
+                  optionalTitle={data.uniProtkbId}
+                  entryType={data.entryType}
+                />
+                <BasketStatus id={data.primaryAccession} className="small" />
+              </h1>
+              {hasProtnlm && (
+                <ToggleSwitch
+                  header={
+                    protnlmPayload.loading ? 'Loading...' : 'AI Annotations'
+                  }
+                  statusOff="Click to enable"
+                  statusLoading="Loading AI predictions..."
+                  statusOn="Showing AI predictions"
+                  isLoading={protnlmPayload.loading}
+                  icon={<AiAnnotationsIcon />}
+                  checked={loadProtNLM}
+                  onChange={setLoadProtNLM}
+                  className="ai-annotation-entry-title-row__toggle"
+                />
+              )}
+            </div>
             <ProteinOverview data={data} />
             {toolsRow}
           </div>
@@ -684,6 +741,7 @@ const Entry = () => {
         <Tabs active={match.params.subPage}>
           <Tab
             disabled={isObsolete}
+            className={loadProtNLM && hasProtnlm ? 'entry-tab--ai' : undefined}
             title={
               <EntryTabLink
                 className={isObsolete ? helper.disabled : undefined}
@@ -695,6 +753,18 @@ const Entry = () => {
                 )}
               >
                 Entry
+                {loadProtNLM && hasProtnlm && (
+                  <>
+                    <AiAnnotationsIcon
+                      className="ai-annotation-entry-tab-icon"
+                      aria-hidden="true"
+                    />
+                    <span className="visually-hidden">
+                      {' '}
+                      (AI annotations enabled)
+                    </span>
+                  </>
+                )}
               </EntryTabLink>
             }
             id={TabLocation.Entry}

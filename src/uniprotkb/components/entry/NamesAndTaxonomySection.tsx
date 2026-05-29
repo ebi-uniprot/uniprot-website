@@ -124,7 +124,10 @@ const NamesAndTaxonomySection = ({
       data-entry-section
     >
       <h3 data-article-id="protein_names">Protein names</h3>
-      <ProteinNamesView proteinNames={data.proteinNamesData} />
+      <ProteinNamesView
+        proteinNames={data.proteinNamesData}
+        protnlmProteinNames={data.protnlmProteinNamesData}
+      />
       {!!domains?.length && (
         <>
           <h4 className="tiny">{`Including ${domains.length} ${pluralise(
@@ -133,7 +136,7 @@ const NamesAndTaxonomySection = ({
             'domains'
           )}:`}</h4>
           {domains.map((domain, index) => (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <ProteinNamesView key={index} proteinNames={domain} />
           ))}
         </>

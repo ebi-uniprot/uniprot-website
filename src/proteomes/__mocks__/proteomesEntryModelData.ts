@@ -1,7 +1,7 @@
 import { type ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 // Source: proteomes/UP000005640
-// Retrieved: 2026-01-26
+// Retrieved: 2026-05-20
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
   description:
@@ -12,14 +12,12 @@ const mock: ProteomesAPIModel = {
     taxonId: 9606,
     mnemonic: 'HUMAN',
   },
-  modified: '2025-08-29',
-  proteomeType: 'Reference and representative proteome',
+  modified: '2025-12-05',
+  proteomeType: 'Reference proteome',
   components: [
     {
       name: 'Chromosome 1',
-      description:
-        'Homo sapiens chromosome 1, GRCh38 reference primary assembly.',
-      proteinCount: 6965,
+      proteinCount: 13926,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -32,9 +30,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 2',
-      description:
-        'Homo sapiens chromosome 2, GRCh38 reference primary assembly.',
-      proteinCount: 5497,
+      proteinCount: 10399,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -55,9 +51,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 3',
-      description:
-        'Homo sapiens chromosome 3, GRCh38 reference primary assembly.',
-      proteinCount: 4927,
+      proteinCount: 9040,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -74,9 +68,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 4',
-      description:
-        'Homo sapiens chromosome 4, GRCh38 reference primary assembly.',
-      proteinCount: 3087,
+      proteinCount: 5517,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -93,9 +85,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 5',
-      description:
-        'Homo sapiens chromosome 5, GRCh38 reference primary assembly.',
-      proteinCount: 3474,
+      proteinCount: 5956,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -112,9 +102,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 6',
-      description:
-        'Homo sapiens chromosome 6, GRCh38 reference primary assembly.',
-      proteinCount: 3586,
+      proteinCount: 6428,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -127,9 +115,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 7',
-      description:
-        'Homo sapiens chromosome 7, GRCh38 reference primary assembly.',
-      proteinCount: 3626,
+      proteinCount: 7007,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -142,9 +128,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 8',
-      description:
-        'Homo sapiens chromosome 8, GRCh38 reference primary assembly.',
-      proteinCount: 2989,
+      proteinCount: 4936,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -157,9 +141,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 9',
-      description:
-        'Homo sapiens chromosome 9, GRCh38 reference primary assembly.',
-      proteinCount: 2664,
+      proteinCount: 5322,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -172,9 +154,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 10',
-      description:
-        'Homo sapiens chromosome 10, GRCh38 reference primary assembly.',
-      proteinCount: 2792,
+      proteinCount: 5824,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -191,9 +171,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome X',
-      description:
-        'Homo sapiens chromosome X, GRCh38 reference primary assembly.',
-      proteinCount: 2637,
+      proteinCount: 4344,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -206,9 +184,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 11',
-      description:
-        'Homo sapiens chromosome 11, GRCh38 reference primary assembly.',
-      proteinCount: 5250,
+      proteinCount: 8951,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -225,9 +201,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 12',
-      description:
-        'Homo sapiens chromosome 12, GRCh38 reference primary assembly.',
-      proteinCount: 4785,
+      proteinCount: 8119,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -240,9 +214,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 13',
-      description:
-        'Homo sapiens chromosome 13, GRCh38 reference primary assembly.',
-      proteinCount: 1094,
+      proteinCount: 2161,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -255,9 +227,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 14',
-      description:
-        'Homo sapiens chromosome 14, GRCh38 reference primary assembly.',
-      proteinCount: 3128,
+      proteinCount: 5048,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -282,9 +252,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 15',
-      description:
-        'Homo sapiens chromosome 15, GRCh38 reference primary assembly.',
-      proteinCount: 2750,
+      proteinCount: 4595,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -301,9 +269,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 16',
-      description:
-        'Homo sapiens chromosome 16, GRCh38 reference primary assembly.',
-      proteinCount: 4155,
+      proteinCount: 6933,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -320,9 +286,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 17',
-      description:
-        'Homo sapiens chromosome 17, GRCh38 reference primary assembly.',
-      proteinCount: 5506,
+      proteinCount: 9231,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -347,9 +311,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 18',
-      description:
-        'Homo sapiens chromosome 18, GRCh38 reference primary assembly.',
-      proteinCount: 1366,
+      proteinCount: 2335,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -362,9 +324,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 19',
-      description:
-        'Homo sapiens chromosome 19, GRCh38 reference primary assembly.',
-      proteinCount: 5921,
+      proteinCount: 9770,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -377,9 +337,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 20',
-      description:
-        'Homo sapiens chromosome 20, GRCh38 reference primary assembly.',
-      proteinCount: 1791,
+      proteinCount: 3512,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -392,9 +350,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 21',
-      description:
-        'Homo sapiens chromosome 21, GRCh38 reference primary assembly.',
-      proteinCount: 677,
+      proteinCount: 1287,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -407,9 +363,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 22',
-      description:
-        'Homo sapiens chromosome 22, GRCh38 reference primary assembly.',
-      proteinCount: 1758,
+      proteinCount: 3619,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -422,9 +376,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome Y',
-      description:
-        'Homo sapiens chromosome Y, GRCh38 reference primary assembly.',
-      proteinCount: 115,
+      proteinCount: 174,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -441,7 +393,6 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Mitochondrion MT',
-      description: 'Homo sapiens mitochondrion, complete genome.',
       proteinCount: 23,
       genomeAnnotation: {
         source: 'Ensembl',
@@ -455,8 +406,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Unplaced',
-      description: 'HUMAN_Unplaced',
-      proteinCount: 2994,
+      proteinCount: 3063,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -3992,8 +3942,8 @@ const mock: ProteomesAPIModel = {
     level: 'full',
     source: 'Ensembl',
   },
-  geneCount: 20659,
-  proteinCount: 83526,
+  geneCount: 20652,
+  proteinCount: 147506,
   genomeAnnotation: {
     source: 'Ensembl',
     url: 'http://www.ensembl.org/Homo_sapiens/Info/Annotation',
@@ -4195,7 +4145,7 @@ const mock: ProteomesAPIModel = {
   ],
   proteomeStatistics: {
     reviewedProteinCount: 20416,
-    unreviewedProteinCount: 63110,
+    unreviewedProteinCount: 127090,
     isoformProteinCount: 22131,
   },
 };

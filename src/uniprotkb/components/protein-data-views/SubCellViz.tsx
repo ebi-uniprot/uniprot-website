@@ -2,9 +2,19 @@ import '@swissprot/swissbiopics-visualizer';
 import './styles/sub-cell-viz.scss';
 
 import { groupBy } from 'lodash-es';
-import { type FC, memo, useEffect, useRef } from 'react';
+import {
+  type FC,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { type RequireExactlyOne } from 'type-fest';
+import { v1 } from 'uuid';
 
+import * as logging from '../../../shared/utils/logging';
 import { addTooltip } from '../../../shared/utils/tooltip';
 import {
   type SubCellularLocation,
@@ -16,6 +26,9 @@ import {
   from the source code at http://sp.sib.swiss/scripts/uniprot_entry-bundle.js with some modifications
 
   Good membrane example: A1L3X0
+
+  See following for mitigation logic because of the way the custom element is implemented.
+  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
 */
 
 const shapes = [
@@ -35,30 +48,156 @@ const reMpPart = /(mp|part)_(?<id>\w+)/;
 // Typing inspired from
 // https://github.com/ionic-team/stencil/blob/master/test/end-to-end/src/components.d.ts
 // this approach might be useful when we have to type more custom elements
-interface CanonicalDefinitionI extends HTMLElement {
+type SwissBioPicsEl = HTMLElement & {
+  shadowRoot: ShadowRoot | null;
+
   highLight(
     e: HTMLElement | SVGElement | null | undefined,
     target: HTMLElement | SVGElement | null | undefined,
     selector: string
   ): void;
 
+  // Note that there is no "h" in the middle of this method name
+  // This is probably a typo that needs correcting
   removeHiglight(
     e: HTMLElement | SVGElement | null | undefined,
     target: HTMLElement | SVGElement | null | undefined,
     selector: string
   ): void;
-}
 
-type CanonicalDefinitionT = {
-  new (): CanonicalDefinitionI;
+  swissBioPicsRemovedCSSRules?: boolean;
 };
 
 const canonicalName = 'sib-swissbiopics-sl';
-// FIXME: fix definition here, wasn't sure what to do when upgrating to TS 4.4
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const CanonicalDefinition: CanonicalDefinitionT =
-  customElements.get(canonicalName);
+
+// The SwissBioPics web component does async DOM work and sometimes runs callbacks after React unmounts/remounts.
+// In those cases its internal `wrapper` / `terms` nodes may be null, but the library doesn’t null-check,
+// so it can throw (e.g. calling `querySelectorAll` on null). We defensively guard those calls here.
+const patchSwissBioPics = (() => {
+  let done = false;
+
+  return () => {
+    if (done) {
+      return;
+    }
+    done = true;
+
+    const Base = customElements.get(canonicalName);
+    if (!Base?.prototype) {
+      return;
+    }
+
+    const proto = Base.prototype;
+
+    const safeWrap = (
+      fnName: string,
+      guard: (...args: unknown[]) => boolean
+    ) => {
+      const orig = proto[fnName];
+      if (typeof orig !== 'function') {
+        return;
+      }
+
+      proto[fnName] = function patched(
+        this: SwissBioPicsEl,
+        ...args: unknown[]
+      ) {
+        // Keep this try/catch: otherwise library errors bubble into React,
+        // which can trigger ErrorBoundary + HMR remount loops.
+        try {
+          if (!this.isConnected) {
+            return;
+          }
+          if (!guard(...args)) {
+            return;
+          }
+          return orig.apply(this, args);
+        } catch (err) {
+          // Swallow in prod (async library callbacks may fire after unmount
+          // and find wrapper/terms null). Surface in dev via logging.debug so
+          // a developer hunting a real bug can filter the console to see it.
+          logging.debug(err as Error, {
+            tags: { source: 'swissbiopics-patched', fn: fnName },
+          });
+          return;
+        }
+      };
+    };
+
+    const deleteCSSRule = (
+      shadowRoot: ShadowRoot | null | undefined,
+      selectorText: string
+    ) => {
+      if (!shadowRoot) {
+        return;
+      }
+
+      for (const styleSheet of Array.from(shadowRoot.styleSheets || [])) {
+        const { cssRules } = styleSheet;
+        for (let i = 0; i < cssRules.length; i += 1) {
+          const rule = cssRules[i];
+          if (
+            rule instanceof CSSStyleRule &&
+            rule.selectorText === selectorText
+          ) {
+            styleSheet.deleteRule(i);
+            return;
+          }
+        }
+      }
+    };
+
+    safeWrap('findAndSort', (e) => Boolean(e));
+    safeWrap('addListOfPresentSubcellularLocations', (_sls, wrapper, terms) =>
+      Boolean(wrapper && terms)
+    );
+    safeWrap(
+      'addListOfNotPresentSubcellularLocations',
+      (_sls, wrapper, terms) => Boolean(wrapper && terms)
+    );
+    safeWrap('addListOfNotFoundSubcellularLocations', (_sls, wrapper, terms) =>
+      Boolean(wrapper && terms)
+    );
+    safeWrap('addEventHandlers', (wrapper, terms) => Boolean(wrapper && terms));
+
+    // Special-case highLight so we can remove the library's `.lookedAt` shadow CSS.
+    const originalHighLight = proto.highLight;
+    if (typeof originalHighLight === 'function') {
+      proto.highLight = function patchedHighLight(
+        this: SwissBioPicsEl,
+        ...args: unknown[]
+      ) {
+        try {
+          if (!this.isConnected) {
+            return;
+          }
+
+          const target = args[1];
+          if (!target) {
+            return;
+          }
+
+          // Remove the `.lookedAt` CSS rule(s) once per instance to avoid default styling.
+          if (!this.swissBioPicsRemovedCSSRules) {
+            deleteCSSRule(this.shadowRoot, '.lookedAt');
+            // Undo hard-coded cytoskeleton rule present in some versions
+            deleteCSSRule(this.shadowRoot, '#SL0090 .lookedAt');
+            this.swissBioPicsRemovedCSSRules = true;
+          }
+
+          return originalHighLight.apply(this, args);
+        } catch (err) {
+          logging.debug(err as Error, {
+            tags: { source: 'swissbiopics-patched', fn: 'highLight' },
+          });
+          return;
+        }
+      };
+    }
+
+    safeWrap('removeHiglight', (_e, t) => Boolean(t));
+  };
+})();
 
 // Note that these are without leading zeros eg: GO1 (and not GO0000001) so make sure
 // the correct classnames are supplied in SubcellularLocationGOView
@@ -78,16 +217,52 @@ const getUniProtTextSelectors = (subcellularPresentSVG: Element): string[] => [
 ];
 
 const getGoTermSelectors = (locations: SubCellularLocation[] = []) =>
-  locations?.flatMap(({ id }) => [
+  locations.flatMap(({ id }) => [
     `svg .GO${+id} *:not(text)`,
     `svg .part_GO${+id} *:not(text)`,
   ]);
 
 const getUniProtTermSelectors = (locations: SubCellularLocation[] = []) =>
-  locations?.flatMap(({ id }) => [
+  locations.flatMap(({ id }) => [
     `svg #SL${id} *:not(text)`,
     `svg .mp_SL${id} *:not(text)`,
   ]);
+
+const getGoIds = (locations: SubCellularLocation[] = []) =>
+  locations.map(({ id }) => `GO${+id}`);
+
+// Don't include inpicture as some annotations won't be in the viz
+// Look at G3QEA9 > ProtNLM2 > GO70721 / ISGF3 complex
+const getGoLegendSelectors = (goIds: string[]) =>
+  goIds.map((id) => `li.${id}`).join(',\n');
+
+const getGoLegendHoverSelectors = (goIds: string[]) =>
+  goIds.map((id) => `li.${id}.inpicture.lookedAt`).join(',\n');
+
+// The library highlights SVG shapes, but legend hover styling in our page relies on
+// `.lookedAt` being applied to the corresponding legend/text nodes in the light DOM.
+const getHighlights = (
+  instance: Element | null | undefined,
+  image: Element | null | undefined
+) => {
+  if (!instance || !image) {
+    return [];
+  }
+
+  const selectors = getGoTermClassNames(image);
+
+  // For UniProt IDs, the library uses "<id>term" anchors
+  const id = image.id as string | undefined;
+  if (id) {
+    selectors.push(`#${id}term`);
+  }
+
+  if (!selectors.length) {
+    return [];
+  }
+
+  return Array.from(instance.querySelectorAll(selectors.join(',')));
+};
 
 const attachTooltips = (
   locationGroup: Element,
@@ -98,10 +273,12 @@ const attachTooltips = (
   if (!triggerTargetSvgs?.length) {
     return null;
   }
+
   const name = locationGroup.querySelector('.subcell_name')?.textContent;
   let description = locationGroup.querySelector(
     '.subcell_description'
   )?.textContent;
+
   if (partOfShown) {
     // This location is a child of another location
     const parentLocationText =
@@ -110,15 +287,18 @@ const attachTooltips = (
       description = `A part of the shown ${parentLocationText}. ${description}`;
     }
   }
+
   const locationTextSelector = [
     ...getGoTermClassNames(locationGroup),
     ...getUniProtTextSelectors(locationGroup),
   ].join(',');
+
   const locationTextQueryResult =
     instance?.querySelectorAll(locationTextSelector);
   if (!locationTextQueryResult) {
     return null;
   }
+
   const locationTextElements = Array.from(locationTextQueryResult);
 
   const tooltipTarget = triggerTargetSvgs[0];
@@ -139,6 +319,22 @@ const attachTooltips = (
   );
 };
 
+const upsertGlobalStyle = (id: string, cssText: string) => {
+  let styleEl = document.getElementById(id) as HTMLStyleElement | null;
+
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = id;
+    document.head.appendChild(styleEl);
+  }
+
+  styleEl.textContent = cssText;
+
+  return () => {
+    styleEl?.remove();
+  };
+};
+
 type Props = RequireExactlyOne<
   {
     taxonId: number;
@@ -148,139 +344,123 @@ type Props = RequireExactlyOne<
   'uniProtLocations' | 'goLocations'
 >;
 
-let instanceId = 0;
-
 const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
   ({ uniProtLocations, goLocations, taxonId, children }) => {
-    instanceId += 1;
-    const instanceName = useRef(
-      `${canonicalName}-${
-        uniProtLocations?.length ? VizTab.UniProt : VizTab.GO
-      }-${instanceId}`
-    );
+    patchSwissBioPics();
+
+    const elRef = useRef<SwissBioPicsEl | null>(null);
 
     const uniProtLocationIds = uniProtLocations?.map(({ id }) => id).join(',');
     const goLocationIds = goLocations?.map(({ id }) => id).join(',');
 
+    // Force hard remount (so the web component starts clean each time)
+    const instanceKey = useMemo(() => {
+      const tab = uniProtLocations?.length ? VizTab.UniProt : VizTab.GO;
+      return `${tab}|${taxonId}|${uniProtLocationIds ?? ''}|${goLocationIds ?? ''}`;
+    }, [taxonId, uniProtLocations?.length, uniProtLocationIds, goLocationIds]);
+
     /**
-     * NOTE: whole lot of mitigation logic because of the way the custom element
-     * is implemented.
-     * See here for details:
-     * https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+     * contentid points to an element that SwissBioPics moves around the DOM.
+     * If React owns that element, React may later try to remove it from its original parent
+     * and crash with removeChild (because the library already moved it).
+     *
+     * So we create that node imperatively (not as JSX) and clean it up ourselves.
      */
-    /* istanbul ignore next */
+    const contentIdRef = useRef(`swissbiopics-content-${v1()}`);
+    const contentId = contentIdRef.current;
+
+    const [contentReady, setContentReady] = useState(false);
+
+    // Callback ref (with React 19 cleanup) so we set up the placeholder and
+    // gate the custom element's mount in a single commit-phase step. Using
+    // a layout effect here would trip the set-state-in-effect rule even
+    // though the second render is the whole point of the pattern.
+    const setupContentHost = useCallback(
+      (host: HTMLDivElement | null) => {
+        if (!host) {
+          return;
+        }
+
+        document.getElementById(contentId)?.remove();
+
+        const placeholder = document.createElement('div');
+        placeholder.id = contentId;
+        host.appendChild(placeholder);
+
+        setContentReady(true);
+
+        return () => {
+          // Remove from wherever the library moved it to.
+          document.getElementById(contentId)?.remove();
+          setContentReady(false);
+        };
+      },
+      [contentId]
+    );
+
     useEffect(() => {
-      // define a new element for each instance *after* it has been rendered.
-      // cannot reuse the same class with different name, so create a new one
-      class InstanceClass extends CanonicalDefinition {
-        removedCSSRules: boolean;
+      if (!contentReady) {
+        return;
+      }
 
-        constructor() {
-          super();
-          this.removedCSSRules = false;
-        }
-
-        deleteCSSRule(selectorText: string) {
-          for (const styleSheet of super.shadowRoot?.styleSheets || []) {
-            const { cssRules } = styleSheet;
-            for (let index = 0; index < cssRules.length; index += 1) {
-              const cssRule = cssRules[index];
-              if (
-                cssRule instanceof CSSStyleRule &&
-                cssRule.selectorText === selectorText
-              ) {
-                styleSheet.deleteRule(index);
-                return;
-              }
-            }
-          }
-        }
-
-        // logic for highlighting
-        getHighlights(image: HTMLElement | SVGElement | null | undefined) {
-          if (!image) {
-            return [];
-          }
-          const selectors = getGoTermClassNames(image);
-          if (image?.id) {
-            selectors.push(`#${image.id}term`);
-          }
-          return this.querySelectorAll(selectors.join(','));
-        }
-
-        highLight(
-          text: HTMLElement | SVGElement | null | undefined,
-          image: HTMLElement | SVGElement | null | undefined,
-          selector: string
-        ) {
-          if (!this.removedCSSRules) {
-            // Remove the .lookedAt CSS rule to avoid the default styling
-            this.deleteCSSRule('.lookedAt');
-            // Undo hard-coded cytoskeleton rule
-            this.deleteCSSRule('#SL0090 .lookedAt');
-            this.removedCSSRules = true;
-          }
-          super.highLight(text, image, selector);
-          // Add "lookedAt" classname to image SVG and text
-          for (const highlight of this.getHighlights(image)) {
-            highlight?.classList.add('lookedAt');
-          }
-        }
-
-        // Note that there is no "h" in the middle of this method name
-        // This is probably a typo that needs correcting
-        removeHiglight(
-          text: HTMLElement | SVGElement | null | undefined,
-          image: HTMLElement | SVGElement | null | undefined,
-          selector: string
-        ) {
-          // Remove "lookedAt" classname from image SVG and text
-          for (const highlight of this.getHighlights(image)) {
-            highlight?.classList.remove('lookedAt');
-          }
-          super.removeHiglight(text, image, selector);
-        }
+      const instance = elRef.current;
+      const shadowRoot = instance?.shadowRoot as ShadowRoot | undefined;
+      if (!shadowRoot) {
+        return;
       }
 
       const uniProtLocationsByReviewedStatus = groupBy(
         uniProtLocations,
-        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
+        'evidenceType'
       );
-      const goLocationsByReviewedStatus = groupBy(
-        goLocations,
-        ({ reviewed }) => (reviewed ? 'reviewed' : 'unreviewed')
-      );
+      const goLocationsByEvidenceType = groupBy(goLocations, 'evidenceType');
 
       const unreviewed = [
         ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.unreviewed),
-        ...getGoTermSelectors(goLocationsByReviewedStatus.unreviewed),
+        ...getGoTermSelectors(goLocationsByEvidenceType.unreviewed),
       ];
 
       const reviewed = [
         ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.reviewed),
-        ...getGoTermSelectors(goLocationsByReviewedStatus.reviewed),
+        ...getGoTermSelectors(goLocationsByEvidenceType.reviewed),
       ];
 
-      const lookedAt = [...unreviewed, ...reviewed].map(
-        (sel) => `${sel} .lookedAt`
+      const ai = [
+        ...getUniProtTermSelectors(uniProtLocationsByReviewedStatus.ai),
+        ...getGoTermSelectors(goLocationsByEvidenceType.ai),
+      ];
+      const aiGoIds = getGoIds(goLocationsByEvidenceType.ai);
+
+      const legendStyleId = `swissbiopics-legend-${instanceKey}`;
+      const cleanupLegendStyle = upsertGlobalStyle(
+        legendStyleId,
+        `
+        ${getGoLegendSelectors(aiGoIds)} {
+          background-color: var(--ai-color) !important;
+        }
+        ${getGoLegendHoverSelectors(aiGoIds)} {
+          background-color: color-mix(in srgb, var(--fr--color-purple-mid) 40%, white) !important;
+        }
+        `
       );
 
-      /**
-       * This needs to happen after the element has been created and inserted into
-       * the DOM in order to have the constructor being called when already in the
-       * document as the logic depends on that...
-       * We create a new definition everytime otherwise if we navigate to another
-       * entry page the definition will already be registered and it will crash...
-       */
-      if (!customElements.get(instanceName.current)) {
-        customElements.define(instanceName.current, InstanceClass);
-      }
-      // get the instance to modify its shadow root
-      const instance = document.querySelector<InstanceClass>(
-        instanceName.current
-      );
-      const shadowRoot = instance?.shadowRoot;
-      const cleanupTooltips: ReturnType<typeof attachTooltips>[] = [];
+      const cleanupTooltips: Array<ReturnType<typeof attachTooltips>> = [];
+      const uniprot = [...unreviewed, ...reviewed];
+
+      // One AbortController for every listener registered in this effect run
+      // (svgloaded + the per-location mouseenter/mouseleave handlers attached
+      // inside onSvgLoaded). On teardown, `controller.abort()` removes them all
+      // in one call — no per-handler bookkeeping needed.
+      // Pass `controller.signal` directly (not a destructured local) so the
+      // lint rule can trace the signal back to its controller.
+      const controller = new AbortController();
+
+      // `svgloaded` can fire more than once for the same shadow root (eg on
+      // library reload / HMR). Track the nodes we inject so we can swap them
+      // out on each fire and remove them on effect teardown — otherwise
+      // duplicate <style> rules stack and the slot is duplicated.
+      let injectedStyle: HTMLStyleElement | null = null;
+      let injectedSlot: HTMLSlotElement | null = null;
 
       const onSvgLoaded = () => {
         const tabsHeaderHeight =
@@ -290,54 +470,90 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
           : '4rem';
 
         // TODO: Update colors as part of https://www.ebi.ac.uk/panda/jira/browse/TRM-26911
+        const aiLookedAtSelectors = ai
+          .flatMap((s) => [`${s}.lookedAt`, `${s} .lookedAt`])
+          .join(',');
+        const uniprotLookedAtSelectors = uniprot
+          .flatMap((s) => [`${s}.lookedAt`, `${s} .lookedAt`])
+          .join(',');
+
         const css = `
         #fakeContent {
           display: none;
         }
-        ${lookedAt.join(',')} {
+
+        ${uniprotLookedAtSelectors} {
           stroke: black !important;
-          fill: var(--fr--color-sea-blue) !important;
+          fill: color-mix(in srgb, var(--fr--color-sea-blue) 40%, white) !important;
           fill-opacity: 1 !important;
         }
+
+        /* AI rule declared after uniprot so that when a single swissbiopics
+           shape carries classes for both an AI and a non-AI GO term, the AI
+           colour wins the !important tie. */
+        ${aiLookedAtSelectors} {
+          stroke: black !important;
+          fill: color-mix(in srgb, var(--fr--color-purple-mid) 90%, white) !important;
+          fill-opacity: 1 !important;
+        }
+
         #swissbiopic > svg {
           width: 100%;
           position: sticky;
           top: ${pictureTop};
+          grid-area: picture;
         }
+
         #swissbiopic > h1 {
           font-size: 0;
           font-weight: normal;
         }
+
         .subcell_name {
           display: none;
         }
+
         .subcell_description {
           display: none;
         }
+
         ${unreviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: #87BBEB;
+          fill: var(--fr--color-unreviewed);
         }
+
         ${reviewed.join(',')} {
           stroke: black;
           fill-opacity: 1;
-          fill: #E6DAB3;
+          fill: color-mix(in srgb, var(--fr--color-reviewed) 30%, white);
+        }
+
+        ${ai.join(',')} {
+          stroke: black;
+          fill-opacity: 1;
+          fill: color-mix(in srgb, var(--fr--color-purple-mid) 15%, white);
         }
         `;
 
-        const style = document.createElement('style');
-        // inject more styles
-        style.innerText = css;
-        shadowRoot?.appendChild(style);
+        // Drop any nodes / tooltips from a previous fire before re-attaching.
+        injectedStyle?.remove();
+        injectedSlot?.remove();
+        while (cleanupTooltips.length) {
+          cleanupTooltips.pop()?.();
+        }
+
+        injectedStyle = document.createElement('style');
+        injectedStyle.innerText = css;
+        shadowRoot.appendChild(injectedStyle);
+
         // add a slot to inject content
-        const slot = document.createElement('slot');
-        const terms = shadowRoot?.querySelector('.terms');
-        terms?.appendChild(slot);
+        injectedSlot = document.createElement('slot');
+        shadowRoot.querySelector('.terms')?.appendChild(injectedSlot);
 
         // This finds all subcellular location SVGs that will require a tooltip
         const subcellularPresentSVGs =
-          shadowRoot?.querySelectorAll(
+          shadowRoot.querySelectorAll(
             'svg .subcell_present, svg [class*="mp_"], svg [class*="part_"]'
           ) || [];
 
@@ -351,57 +567,96 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
           for (const textSelector of textSelectors) {
             const locationText =
               instance?.querySelector<HTMLElement>(textSelector);
+            if (!locationText) {
+              continue;
+            }
 
-            if (locationText) {
-              locationText.classList.add('inpicture');
-              const locationSVG = shadowRoot?.querySelector<SVGElement>(
-                `#${subcellularPresentSVG.id}`
-              );
-              // TODO: need to remove event listeners on unmount. Will leave for now until
-              // to see what changes are made to @swissprot/swissbiopics-visualizer
-              locationText.addEventListener('mouseenter', () => {
+            locationText.classList.add('inpicture');
+
+            const locationSVG = shadowRoot.querySelector<SVGElement>(
+              `#${subcellularPresentSVG.id}`
+            );
+
+            // The "image" node to derive highlight selectors from:
+            // - GO case: subcellularPresentSVG carries GOxxxx classes
+            // - UniProt case: locationSVG id is used to find #<id>term
+            const highlightSource =
+              (uniProtLocations?.length
+                ? locationSVG
+                : subcellularPresentSVG) || subcellularPresentSVG;
+
+            locationText.addEventListener(
+              'mouseenter',
+              () => {
                 instance?.highLight(locationText, locationSVG, shapesSelector);
-              });
-              locationText.addEventListener('mouseleave', () => {
+
+                // Ensure legend/text nodes get .lookedAt so our global legend CSS works.
+                for (const el of getHighlights(instance, highlightSource)) {
+                  el.classList.add('lookedAt');
+                }
+              },
+              { signal: controller.signal }
+            );
+
+            locationText.addEventListener(
+              'mouseleave',
+              () => {
+                // Remove lookedAt first so the legend hover state drops immediately
+                for (const el of getHighlights(instance, highlightSource)) {
+                  el.classList.remove('lookedAt');
+                }
+
                 instance?.removeHiglight(
                   locationText,
                   locationSVG,
                   shapesSelector
                 );
-              });
-              // Get all of the SVG elements in the picture that should open a tooltip
-              let triggerTargetSvgs: NodeListOf<SVGElement> | undefined =
-                subcellularPresentSVG.querySelectorAll<SVGElement>(
+              },
+              { signal: controller.signal }
+            );
+
+            let triggerTargetSvgs: NodeListOf<SVGElement> | undefined =
+              subcellularPresentSVG.querySelectorAll(scopedShapesSelector);
+
+            if (!triggerTargetSvgs.length) {
+              // If nothing found (as with happens with eg Cell surface) try the parentElement
+              triggerTargetSvgs =
+                subcellularPresentSVG.parentElement?.querySelectorAll(
                   scopedShapesSelector
                 );
-              if (!triggerTargetSvgs.length) {
-                // If nothing found (as with happens with eg Cell surface) try the parentElement
-                triggerTargetSvgs =
-                  subcellularPresentSVG.parentElement?.querySelectorAll<SVGElement>(
-                    scopedShapesSelector
-                  );
-              }
-              cleanupTooltips.push(
-                attachTooltips(
-                  subcellularPresentSVG,
-                  instance,
-                  triggerTargetSvgs,
-                  false
-                )
-              );
             }
+
+            cleanupTooltips.push(
+              attachTooltips(
+                subcellularPresentSVG,
+                instance,
+                triggerTargetSvgs,
+                false
+              )
+            );
           }
         }
       };
-      shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
-      return () => {
-        cleanupTooltips.forEach((cleanup) => cleanup?.());
-        shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
-      };
-    }, [uniProtLocationIds, uniProtLocations, goLocationIds, goLocations]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, react/no-unstable-nested-components
-    const Instance = (props: any) => <instanceName.current {...props} />;
+      shadowRoot.addEventListener('svgloaded', onSvgLoaded, {
+        signal: controller.signal,
+      });
+
+      return () => {
+        cleanupLegendStyle?.();
+        cleanupTooltips.forEach((cleanup) => cleanup?.());
+        controller.abort();
+        injectedStyle?.remove();
+        injectedSlot?.remove();
+      };
+      // `instanceKey` encodes taxonId + the joined location id strings, so it
+      // changes whenever the underlying uniProtLocations/goLocations content
+      // changes — and stays stable when the parent re-renders with fresh-but-
+      // equivalent arrays from `.flatMap().filter()`. Listing the arrays here
+      // would re-run the effect on every parent render and re-attach listeners
+      // for nothing.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contentReady, instanceKey]);
 
     const locationIds = {
       sls: uniProtLocationIds,
@@ -413,11 +668,22 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         {/** if this is not somewhere in the document, it doesn't add one of its 2
          * custom style tags... */}
         <template id="sibSwissBioPicsStyle" />
-        {/** insists on wanting to get stuff from the outside, give empty div */}
-        <div id="fakeContent" />
-        <Instance taxid={taxonId} contentid="fakeContent" {...locationIds}>
-          {children}
-        </Instance>
+
+        {/* Host element that we own; we imperatively create #contentId inside it. */}
+        <div ref={setupContentHost} />
+
+        {/* Only mount the custom element once the content placeholder exists. */}
+        {contentReady ? (
+          <sib-swissbiopics-sl
+            ref={elRef}
+            key={instanceKey}
+            taxid={taxonId}
+            contentid={contentId}
+            {...locationIds}
+          >
+            {children}
+          </sib-swissbiopics-sl>
+        ) : null}
       </>
     );
   }

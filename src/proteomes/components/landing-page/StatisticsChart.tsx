@@ -32,7 +32,7 @@ const StatisticsChart = ({ refProt, nonRefProt }: StatisticsChartProps) => {
   const refProtStats = useDataApi<SearchResults<never>>(
     apiUrls.search.search({
       namespace: Namespace.proteomes,
-      query: 'proteome_type:1',
+      query: 'proteome_type:REFERENCE',
       size: 0,
       facets: [FacetsEnum.Superkingdom],
     })
@@ -41,7 +41,7 @@ const StatisticsChart = ({ refProt, nonRefProt }: StatisticsChartProps) => {
   const nonRefProtStats = useDataApi<SearchResults<never>>(
     apiUrls.search.search({
       namespace: Namespace.proteomes,
-      query: 'proteome_type:2 OR proteome_type:3 OR proteome_type:4',
+      query: 'proteome_type:NON_REFERENCE OR proteome_type:EXCLUDED',
       size: 0,
       facets: [FacetsEnum.Superkingdom],
     })

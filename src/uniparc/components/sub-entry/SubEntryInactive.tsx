@@ -4,8 +4,12 @@ import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 
-const SubEntryInactive = ({ data }: { data: UniParcSubEntryUIModel }) => {
-  const { unisave } = data;
+const SubEntryInactive = ({
+  uniparcData,
+}: {
+  uniparcData: UniParcSubEntryUIModel;
+}) => {
+  const { unisave } = uniparcData;
 
   let events = unisave?.events;
   if (events?.length && events.length > 1 && events[0].eventType === 'merged') {

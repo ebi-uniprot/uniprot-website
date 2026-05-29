@@ -1,0 +1,169 @@
+:root {
+  --ai-color: color-mix(in srgb, var(--fr--color-purple-mid) 3%, white);
+  --ai-border: color-mix(in srgb, var(--fr--color-purple-mid) 25%, transparent);
+}
+// Frame the AI annotation element itself (not its surrounding row), so the
+// "AI predicted name" InfoList row matches the other AI annotation surfaces
+// — only the annotation content is outlined, not the row's title slot.
+// box-shadow draws the frame outside the box without claiming layout space.
+// Inner padding gives the text breathing room from the frame; the matching
+// negative inline margin cancels it out so text inside still aligns with
+// non-AI siblings — only the colored frame sticks out.
+.ai-annotation,
+.ai-annotation-keyword {
+  background-color: var(--ai-color);
+  box-shadow: 0 0 0 1px var(--ai-border);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  margin-inline: -0.5rem;
+}
+
+// The .ai-annotation element can be a <span> wrapping a block <ul>
+// (ProteinNamesView's ExpandableList), so force block display to make the
+// frame visually contain its block children.
+.ai-annotation {
+  display: block;
+}
+
+// Breathing room when the AI annotation sits at the visual top of a card —
+// otherwise its frame crashes into the card's bottom separator. The Function
+// section's `<h3>` only carries a `.visually-hidden` label, so "visual top"
+// means either a literal first child or a child that immediately follows a
+// first-child `<h3>`. Anywhere lower down the card, prose siblings space the
+// frame naturally and no extra margin is wanted.
+.card__content > .ai-annotation:first-child,
+.card__content > h3:first-child + .ai-annotation {
+  margin-top: 0.5rem;
+}
+
+tr:has(.ai-annotation-row) {
+  background-color: var(
+    --ai-color
+  ) !important; // Override the table's typical alternating striping
+  // Table rows can't take a continuous border; left accent stripe instead.
+  box-shadow: inset 0.2rem 0 0 0
+    color-mix(in srgb, var(--fr--color-purple-mid) 60%, transparent) !important; // Override the table's typical alternating striping
+}
+
+// Swissbiopics hover-sync paints `.inpicture.lookedAt` sea-blue by default
+// (sub-cell-viz.scss). For AI rows we want the purple family — regardless of
+// whether the AI class lives on the hovered element itself (GO tab <li>) or
+// on an ancestor section (UniProt tab <div>).
+.ai-annotation.inpicture.lookedAt,
+.ai-annotation .inpicture.lookedAt {
+  background-color: color-mix(in srgb, var(--fr--color-purple-mid) 40%, white);
+}
+
+.ai-annotation-marker {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  // gap from the value text on the left, breathing room before tags on the right
+  margin: 0 0.2rem 0 0.3rem;
+  color: var(--fr--color-purple-mid);
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.ai-annotation-entry-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  // tight row-gap so wrapping on narrow screens doesn't leave a huge gap;
+  // moderate column-gap so the toggle still sits comfortably next to the title.
+  row-gap: 0.25rem;
+  column-gap: 1.5rem;
+  container-type: inline-size;
+
+  & > h1 {
+    margin: 0;
+  }
+
+  &__toggle {
+    min-width: 0;
+    width: auto;
+    flex: 0 1 auto;
+    border-radius: 0.7rem;
+    padding: 0.6rem 1rem;
+    margin: 5px 0;
+
+    & .toggle__icon {
+      // Match the icon to the header text color (grey when off, purple when on).
+      color: var(--toggle-header-color);
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+
+      & svg {
+        fill: currentColor;
+        stroke: currentColor;
+      }
+    }
+
+    & .toggle__header {
+      // Phantom decoy keeps the toggle's intrinsic width pegged to
+      // "AI Annotations" so swapping the live label to "Loading..."
+      // during the loading state doesn't reflow the toggle.
+      &::before {
+        content: 'AI Annotations';
+        display: block;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+      }
+    }
+
+    & .toggle__header__chip {
+      display: none;
+    }
+
+    & .toggle__status {
+      display: none;
+    }
+
+    & .toggle__switch {
+      margin-left: 0.5rem;
+    }
+
+    &.toggle--loading {
+      // franklin-sites flips every tinted var to its on (purple) value while
+      // loading; we want only the border purple. Reset the rest to off so
+      // text/background/icon/switch stay neutral. The opacity shimmer stays
+      // because it lives on .toggle--loading itself.
+      --toggle-status-color: var(--toggle-status-color-off);
+      --toggle-header-color: var(--toggle-header-color-off);
+      --toggle-background-color: var(--toggle-background-color-off);
+      --toggle-switch-color: var(--toggle-switch-color-off);
+      --toggle-icon-color: var(--toggle-icon-color-off);
+    }
+  }
+}
+
+.ai-annotation-entry-tab-icon {
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+}
+
+// TM-score list inside a ProtNLM2 tmalign evidence tooltip. The trailing
+// padding gives the list breathing room before the legend `<small>` that
+// follows it (the legend now lives outside the `<ul>` so the markup is
+// valid HTML).
+.protnlm2-tmalign-scores {
+  padding-bottom: 0.5rem;
+}
+
+.tabs__header__item.entry-tab--ai.tabs__header__item--active,
+.tabs__header__item.entry-tab--ai:hover,
+.tabs__header__item.entry-tab--ai:focus {
+  background-color: var(--ai-color);
+  box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-purple-mid);
+}
+
+@supports (selector(:has(a))) {
+  .tabs__header__item.entry-tab--ai:has(> a) > a {
+    color: var(--fr--color-purple-mid);
+  }
+}

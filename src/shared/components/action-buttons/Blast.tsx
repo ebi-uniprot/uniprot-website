@@ -1,4 +1,5 @@
 import { Location } from '../../../app/config/urls';
+import { type SelectedTaxon } from '../../../jobs/types/jobsFormData';
 import { BLAST_LIMIT } from '../../config/limits';
 import { fromCleanMapper } from '../../utils/getIdKey';
 import ToolsButton from './ToolsButton';
@@ -6,9 +7,14 @@ import ToolsButton from './ToolsButton';
 type BlastButtonProps = {
   selectedEntries: string[];
   textSuffix?: string;
+  taxons?: SelectedTaxon[];
 };
 
-const BlastButton = ({ selectedEntries, textSuffix }: BlastButtonProps) => {
+const BlastButton = ({
+  selectedEntries,
+  textSuffix,
+  taxons,
+}: BlastButtonProps) => {
   const cleanedSelectedEntries = Array.from(
     new Set(selectedEntries.map(fromCleanMapper))
   );
@@ -28,12 +34,20 @@ const BlastButton = ({ selectedEntries, textSuffix }: BlastButtonProps) => {
     }
   }
 
+  if (taxons && taxons.length > 0) {
+    title =
+      taxons.length >= 3
+        ? `Run a BLAST job against ${taxons.length} taxonomies`
+        : `Run a BLAST job against ${taxons.map((t) => t.label).join(', ')}`;
+  }
+
   return (
     <ToolsButton
       selectedEntries={cleanedSelectedEntries}
       disabled={disabled}
       title={title}
       location={Location.Blast}
+      taxons={taxons}
     >
       <span translate="no">BLAST</span>
       {textSuffix && ` ${textSuffix}`}

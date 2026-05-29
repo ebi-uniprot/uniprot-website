@@ -5,7 +5,6 @@ import * as releaseNotes from './releaseNotes';
 import * as results from './results';
 import * as search from './search';
 import * as suggester from './suggester';
-import * as unifire from './unifire';
 
 export default {
   configure,
@@ -15,5 +14,4 @@ export default {
   results,
   search,
   suggester,
-  unifire,
 };

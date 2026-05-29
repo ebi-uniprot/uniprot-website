@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { LocationPinIcon } from 'franklin-sites';
 import { type FC } from 'react';
 
@@ -6,6 +7,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import { type GoXref } from '../../adapters/subcellularLocationConverter';
+import { hasProtNLM2Evidence } from '../../utils/protnlm';
 import GOTermEvidenceTag from './GOTermEvidenceTag';
 import styles from './styles/subcellular-location-go-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -35,7 +37,9 @@ const SubcellularLocationGOView: FC<
             key={id}
             // used in the case that this component is used in conjunction
             // with @swissprot/swissbiopics-visualizer
-            className={getSwissBioPicLocationId(id)}
+            className={cn(getSwissBioPicLocationId(id), {
+              'ai-annotation': hasProtNLM2Evidence(evidences),
+            })}
           >
             <LocationPinIcon
               className="sub-cell-viz__in-view-pin"

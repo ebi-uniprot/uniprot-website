@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+/* eslint-disable class-methods-use-this, @typescript-eslint/no-unused-vars */
 import { screen, waitFor } from '@testing-library/react';
 
 import customRender from '../../__test-helpers__/customRender';
@@ -7,8 +7,13 @@ import InPageNav from '../InPageNav';
 describe('InPageNav component', () => {
   beforeAll(() => {
     global.IntersectionObserver = class FakeIntersectionObserver {
+      constructor(
+        _callback: IntersectionObserverCallback,
+        _options?: IntersectionObserverInit
+      ) {}
       root = null;
       rootMargin = '0px';
+      scrollMargin = '0px';
       thresholds = [];
       observe() {
         return null;

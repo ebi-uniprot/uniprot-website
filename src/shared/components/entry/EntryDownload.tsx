@@ -14,6 +14,7 @@ import { fileFormatEntryDownload as diseasesFFED } from '../../../supporting-dat
 import { fileFormatEntryDownload as keywordsFFED } from '../../../supporting-data/keywords/config/download';
 import { fileFormatEntryDownload as locationsFFED } from '../../../supporting-data/locations/config/download';
 import { fileFormatEntryDownload as taxonomyFFED } from '../../../supporting-data/taxonomy/config/download';
+import { type SubEntryAnnotationDownload } from '../../../uniparc/adapters/subEntryAnnotations';
 import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import { fileFormatEntryDownload as uniParcFFED } from '../../../uniparc/config/download';
 import { type UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
@@ -28,6 +29,7 @@ import useDataApi from '../../hooks/useDataApi';
 import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
 import { FileFormat } from '../../types/resultsDownload';
+import generateAndDownloadJSON from '../../utils/generateAndDownloadJSON';
 import {
   type DownloadMethod,
   type DownloadPanelFormCloseReason,
@@ -96,6 +98,7 @@ export enum Dataset {
   alphaFoldConfidence = 'AlphaFold Confidence',
   alphaFoldCoordinates = 'AlphaFold Coordinates',
   alphaMissenseAnnotations = 'AlphaMissense Annotations',
+  subEntryAnnotation = 'Sub-entry annotation',
 }
 
 const uniprotKBEntryDatasets = {
@@ -279,6 +282,9 @@ export type EntryDownloadProps = {
   dataset?: Dataset;
   featureTypes?: string[];
   sequence?: string;
+  // When set, the format selector gains an "Annotation" optgroup offering the
+  // sub-entry's annotations as JSON (UniParc sub-entry pages only).
+  subEntryAnnotationDownload?: SubEntryAnnotationDownload;
 };
 
 const EntryDownload = ({
@@ -289,6 +295,7 @@ const EntryDownload = ({
   dataset,
   featureTypes,
   sequence,
+  subEntryAnnotationDownload,
 }: EntryDownloadProps) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allEntryPages
@@ -301,7 +308,11 @@ const EntryDownload = ({
   );
   const [selectedFormat, setSelectedFormat] = useState(fileFormats?.[0]);
   const [selectedDataset, setSelectedDataset] = useState(
-    dataset || Dataset.uniprotData
+    // The sub-entry annotation is the contextually relevant download, so make
+    // it the default selection when offered.
+    subEntryAnnotationDownload
+      ? Dataset.subEntryAnnotation
+      : dataset || Dataset.uniprotData
   );
   const [extraContent, setExtraContent] = useState('');
 
@@ -556,6 +567,19 @@ const EntryDownload = ({
     }
   }, [fileFormats]);
 
+  // `selectedDataset` is React state, so it can outlive the annotation prop
+  // that seeded its initial value. If the prop goes away, reset it so the
+  // dialog never holds `subEntryAnnotation` with no matching option (which
+  // would otherwise leave the Download control with an empty URL).
+  useEffect(() => {
+    if (
+      !subEntryAnnotationDownload &&
+      selectedDataset === Dataset.subEntryAnnotation
+    ) {
+      setSelectedDataset(dataset || Dataset.uniprotData);
+    }
+  }, [subEntryAnnotationDownload, selectedDataset, dataset]);
+
   let additionalInformation: JSX.Element | null = null;
   let extraContentNode: JSX.Element | null = null;
 
@@ -567,34 +591,61 @@ const EntryDownload = ({
     uniprotFeaturesMap.get(type)
   );
 
-  const downloadUrl = getEntryDownloadUrl(
-    accession,
-    selectedFormat || FileFormat.fasta,
-    namespace,
-    selectedDataset,
-    downloadColumns,
-    selectedDataset === Dataset.selectedFeatures
-      ? uniprotkbFields
-      : Array.from(uniprotFeaturesMap.values()),
-    alphaFoldUrls
-  );
+  // Sub-entry annotation download. Precomputed has a real endpoint; UniFire is
+  // serialised to JSON on the fly (`isGeneratedAnnotation`), so it has no URL.
+  const isAnnotation = selectedDataset === Dataset.subEntryAnnotation;
+  const isGeneratedAnnotation =
+    isAnnotation && subEntryAnnotationDownload?.source === 'unifire';
+  const annotationApiURL =
+    subEntryAnnotationDownload?.source === 'precomputed'
+      ? subEntryAnnotationDownload.apiURL
+      : '';
 
-  const previewFileFormat =
-    selectedFormat === FileFormat.excel ? FileFormat.tsv : selectedFormat;
+  const downloadUrl = isAnnotation
+    ? annotationApiURL
+    : getEntryDownloadUrl(
+        accession,
+        selectedFormat || FileFormat.fasta,
+        namespace,
+        selectedDataset,
+        downloadColumns,
+        selectedDataset === Dataset.selectedFeatures
+          ? uniprotkbFields
+          : Array.from(uniprotFeaturesMap.values()),
+        alphaFoldUrls
+      );
 
-  const previewUrl = getEntryDownloadUrl(
-    accession,
-    previewFileFormat || FileFormat.fasta,
-    namespace,
-    selectedDataset,
-    downloadColumns,
-    selectedDataset === Dataset.selectedFeatures
-      ? uniprotkbFields
-      : Array.from(uniprotFeaturesMap.values()),
-    alphaFoldUrls
-  );
+  // The annotation preview is always JSON; for everything else it follows the
+  // selected format (Excel previews as TSV — the preview endpoint can't return
+  // a binary xlsx, and TSV is the closest tabular equivalent).
+  const previewFileFormat = isAnnotation
+    ? FileFormat.json
+    : selectedFormat === FileFormat.excel
+      ? FileFormat.tsv
+      : selectedFormat;
 
-  if (nResults && nResults > maxPaginationDownload) {
+  const previewUrl = isAnnotation
+    ? annotationApiURL
+    : getEntryDownloadUrl(
+        accession,
+        previewFileFormat || FileFormat.fasta,
+        namespace,
+        selectedDataset,
+        downloadColumns,
+        selectedDataset === Dataset.selectedFeatures
+          ? uniprotkbFields
+          : Array.from(uniprotFeaturesMap.values()),
+        alphaFoldUrls
+      );
+
+  // The on-the-fly UniFire annotation has no URL — pass the model to
+  // `DownloadPreview` directly and let it skip the fetch.
+  const previewData =
+    isGeneratedAnnotation && subEntryAnnotationDownload?.source === 'unifire'
+      ? subEntryAnnotationDownload.model
+      : undefined;
+
+  if (!isAnnotation && nResults && nResults > maxPaginationDownload) {
     if (
       namespace === Namespace.uniparc &&
       selectedFormat === FileFormat.excel
@@ -667,6 +718,7 @@ const EntryDownload = ({
       <DownloadPreview
         previewUrl={previewUrl}
         previewFileFormat={previewFileFormat}
+        previewData={previewData}
         acceptHeaderOverride={
           selectedDataset === Dataset.interProRepresentativeDomains
             ? '*/*'
@@ -744,31 +796,67 @@ const EntryDownload = ({
       <fieldset>
         <label>
           Format
-          <select
-            id="file-format-select"
-            data-testid="file-format-select"
-            value={selectedFormat}
-            onChange={(e) => setSelectedFormat(e.target.value as FileFormat)}
-          >
-            {fileFormats.map((format) => (
-              <option
-                value={format}
-                key={format}
-                disabled={
-                  format === FileFormat.fastaCanonicalIsoform &&
-                  !isoformsAvailable
+          {subEntryAnnotationDownload ? (
+            // Sub-entry: one grouped selector — the annotation (JSON) sits in
+            // its own optgroup so "JSON (precomputed)" reads distinctly from the
+            // plain "JSON" of the UniParc cross-reference formats.
+            <select
+              id="file-format-select"
+              data-testid="file-format-select"
+              value={isAnnotation ? Dataset.subEntryAnnotation : selectedFormat}
+              onChange={(e) => {
+                const { value } = e.target;
+                if (value === Dataset.subEntryAnnotation) {
+                  setSelectedDataset(Dataset.subEntryAnnotation);
+                } else {
+                  setSelectedDataset(Dataset.uniprotData);
+                  setSelectedFormat(value as FileFormat);
                 }
-              >
-                {format}
-              </option>
-            ))}
-          </select>
+              }}
+            >
+              <optgroup label="Annotation available for cross reference">
+                <option value={Dataset.subEntryAnnotation}>
+                  {subEntryAnnotationDownload.source === 'precomputed'
+                    ? 'JSON (precomputed)'
+                    : 'JSON (generated by UniFire)'}
+                </option>
+              </optgroup>
+              <optgroup label="UniParc">
+                {fileFormats.map((format) => (
+                  <option value={format} key={format}>
+                    {format}
+                  </option>
+                ))}
+              </optgroup>
+            </select>
+          ) : (
+            <select
+              id="file-format-select"
+              data-testid="file-format-select"
+              value={selectedFormat}
+              onChange={(e) => setSelectedFormat(e.target.value as FileFormat)}
+            >
+              {fileFormats.map((format) => (
+                <option
+                  value={format}
+                  key={format}
+                  disabled={
+                    format === FileFormat.fastaCanonicalIsoform &&
+                    !isoformsAvailable
+                  }
+                >
+                  {format}
+                </option>
+              ))}
+            </select>
+          )}
         </label>
       </fieldset>
 
       {(selectedFormat === FileFormat.tsv ||
         selectedFormat === FileFormat.excel) &&
         selectedDataset !== Dataset.interProRepresentativeDomains &&
+        !isAnnotation &&
         downloadColumns && (
           <>
             <legend data-article-id="customize">Customize columns</legend>
@@ -789,26 +877,51 @@ const EntryDownload = ({
           styles['action-buttons']
         )}
       >
-        <Button variant="tertiary" onClick={() => setExtraContent('url')}>
-          Generate URL for API
-        </Button>
+        {/* "Generate URL for API" is hidden only for the on-the-fly UniFire
+            annotation, which has no API URL (the precomputed annotation keeps
+            it). Preview is available for both annotation sources: precomputed
+            previews the API response, UniFire previews the in-memory model. */}
+        {!isGeneratedAnnotation && (
+          <Button variant="tertiary" onClick={() => setExtraContent('url')}>
+            Generate URL for API
+          </Button>
+        )}
         <Button variant="tertiary" onClick={() => setExtraContent('preview')}>
           Preview
         </Button>
         <Button variant="secondary" onClick={() => onClose('cancel')}>
           Cancel
         </Button>
-        <a
-          href={downloadUrl}
-          className={cn('button', 'primary')}
-          title="Download file"
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => onClose('download', 'sync')}
-          download
-        >
-          Download
-        </a>
+        {isGeneratedAnnotation ? (
+          <button
+            type="button"
+            className={cn('button', 'primary')}
+            title="Download file"
+            onClick={() => {
+              if (subEntryAnnotationDownload?.source === 'unifire') {
+                generateAndDownloadJSON(
+                  subEntryAnnotationDownload.model,
+                  subEntryAnnotationDownload.filename
+                );
+              }
+              onClose('download', 'sync');
+            }}
+          >
+            Download
+          </button>
+        ) : (
+          <a
+            href={downloadUrl}
+            className={cn('button', 'primary')}
+            title="Download file"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => onClose('download', 'sync')}
+            download
+          >
+            Download
+          </a>
+        )}
       </section>
       <section>
         {additionalInformation}

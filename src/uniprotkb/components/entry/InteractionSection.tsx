@@ -1,7 +1,7 @@
 import { Card } from 'franklin-sites';
 import { lazy, memo, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { type SetRequired } from 'type-fest/source/set-required';
+import { type SetRequired } from 'type-fest';
 
 import {
   getEntryPath,
@@ -102,8 +102,7 @@ const columns: TableFromDataColumn<Interaction>[] = [
     id: 'type',
     label: 'Type',
     render: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'), // NOTE: Add 'SELF'
-    filter: (data, input) =>
-      (data.organismDiffer ? 'XENO' : 'BINARY') === input,
+    getValue: (data) => (data.organismDiffer ? 'XENO' : 'BINARY'),
   },
   {
     id: 'entry-1',
@@ -125,9 +124,7 @@ const columns: TableFromDataColumn<Interaction>[] = [
           {data.interactantOne.geneName} {data.interactantOne.chainId}
         </>
       ),
-    getOption: (data) => data.interactantOne.uniProtKBAccession || 'Other',
-    filter: (data, input) =>
-      (data.interactantOne.uniProtKBAccession || 'Other') === input,
+    getValue: (data) => data.interactantOne.uniProtKBAccession || 'Other',
   },
   {
     id: 'entry-2',
@@ -175,6 +172,10 @@ const columns: TableFromDataColumn<Interaction>[] = [
 type Props = {
   data: UIModel;
   primaryAccession: string;
+  // Whether `primaryAccession` is a real UniProtKB accession. The IntAct
+  // viewer fetches by one, so for synthetic accessions (e.g. UniParc
+  // sub-entries) callers pass `false` to hide it. Defaults to `true`.
+  isUniProtKBAccession?: boolean;
 };
 
 const InteractionViewer = lazy(
@@ -191,7 +192,11 @@ const ComplexViewer = lazy(
     )
 );
 
-const InteractionSection = ({ data, primaryAccession }: Props) => {
+const InteractionSection = ({
+  data,
+  primaryAccession,
+  isUniProtKBAccession = true,
+}: Props) => {
   const isSmallScreen = useSmallScreen();
   const tableData = useMemo(
     () =>
@@ -255,9 +260,11 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       {tableData.length ? (
         <>
           <h3 data-article-id="binary_interactions">Binary interactions</h3>
-          <LazyComponent render={isSmallScreen ? false : undefined}>
-            <InteractionViewer accession={primaryAccession} />
-          </LazyComponent>
+          {isUniProtKBAccession && (
+            <LazyComponent render={isSmallScreen ? false : undefined}>
+              <InteractionViewer accession={primaryAccession} />
+            </LazyComponent>
+          )}
           <TableFromData
             columns={columns}
             data={tableData}

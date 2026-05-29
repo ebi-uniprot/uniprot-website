@@ -1,0 +1,100 @@
+import { screen } from '@testing-library/react';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
+import uniProtKbConverter from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import databaseInfoMaps from '../../../../uniprotkb/utils/__tests__/__mocks__/databaseInfoMaps';
+import unifireModelData from '../../../__mocks__/unifireModelData';
+import precomputedMock from '../../../__mocks__/uniparcPrecomputedModelData';
+import precomputedToUniProtkbConverter from '../../../adapters/precomputedToUniProtkbConverter';
+import {
+  type ModifiedPrediction,
+  type UniFireModel,
+} from '../../../adapters/uniParcSubEntryConverter';
+import SubEntryKeywordsSection, {
+  keywordsAndGOSectionHasContent,
+} from '../SubEntryKeywordsSection';
+
+// A precomputed model carrying a `Disease` keyword — a category that maps to a
+// section the sub-entry does not render on its own. No corpus entry has one, so
+// the input is synthetic; the rendering path (`KeywordView`) is the same proven
+// component the UniProtKB entry pages use.
+const annotationsWithDiseaseKeyword = () => {
+  const model = JSON.parse(JSON.stringify(precomputedMock));
+  model.keywords = [
+    ...(model.keywords ?? []),
+    { id: 'KW-0225', name: 'Disease variant', category: 'Disease' },
+  ];
+  return uniProtKbConverter(
+    precomputedToUniProtkbConverter(model),
+    databaseInfoMaps
+  );
+};
+
+describe('SubEntryKeywordsSection', () => {
+  it('renders a precomputed keyword whose category has no dedicated section', () => {
+    customRender(
+      <SubEntryKeywordsSection annotations={annotationsWithDiseaseKeyword()} />
+    );
+    expect(
+      screen.getByRole('heading', { name: 'Keywords & Gene Ontology' })
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Disease variant/)).toBeInTheDocument();
+  });
+
+  it('renders nothing when there is no keyword or GO content', () => {
+    customRender(<SubEntryKeywordsSection />);
+    expect(
+      screen.queryByRole('heading', { name: 'Keywords & Gene Ontology' })
+    ).toBeNull();
+  });
+});
+
+describe('SubEntryKeywordsSection — UniFire keyword rendering', () => {
+  // The raw unifireModelData predictions have string evidence arrays;
+  // SubEntryKeywordsSection receives them after uniParcSubEntryConverter
+  // transforms them to ModifiedPrediction (Evidence[] evidence). Build
+  // a minimal already-converted model to test the keyword render path.
+  const unifireWithKeywords: UniFireModel = {
+    accession: unifireModelData.accession,
+    predictions: unifireModelData.predictions
+      .filter((p) => p.annotationType === 'keyword')
+      .map(
+        (p): ModifiedPrediction => ({
+          ...p,
+          evidence: [
+            {
+              evidenceCode: 'ECO:0000256',
+              source: 'ARBA',
+              id: String(p.evidence[0]),
+            },
+          ],
+        })
+      ),
+  };
+
+  it('renders keyword predictions from UniFire', () => {
+    customRender(<SubEntryKeywordsSection unifire={unifireWithKeywords} />);
+    expect(
+      screen.getByRole('heading', { name: 'Keywords & Gene Ontology' })
+    ).toBeInTheDocument();
+    expect(screen.getByText('Amyloid')).toBeInTheDocument();
+  });
+
+  it('keywordsAndGOSectionHasContent is true when UniFire has keyword predictions', () => {
+    expect(keywordsAndGOSectionHasContent(unifireWithKeywords, undefined)).toBe(
+      true
+    );
+  });
+});
+
+describe('keywordsAndGOSectionHasContent', () => {
+  it('is true when precomputed annotations carry a no-section keyword', () => {
+    expect(
+      keywordsAndGOSectionHasContent(undefined, annotationsWithDiseaseKeyword())
+    ).toBe(true);
+  });
+
+  it('is false when there is neither UniFire nor fallback content', () => {
+    expect(keywordsAndGOSectionHasContent(undefined, undefined)).toBe(false);
+  });
+});

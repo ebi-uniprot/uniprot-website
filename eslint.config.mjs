@@ -1,8 +1,8 @@
 import js from '@eslint/js';
+import eslintReact from '@eslint-react/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
-import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import globals from 'globals';
@@ -12,10 +12,10 @@ import typescriptEslint from 'typescript-eslint';
 export default [
   js.configs.recommended,
   ...typescriptEslint.configs.recommended,
-  react.configs.flat.recommended,
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   jsxA11y.flatConfigs.recommended,
+  eslintReact.configs['recommended-typescript'],
   eslintConfigPrettier,
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
@@ -27,8 +27,8 @@ export default [
     },
     plugins: {
       typescriptEslint,
-      reactHooks,
       jsxA11y,
+      'react-hooks': reactHooks,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
@@ -77,8 +77,6 @@ export default [
       'jsx-a11y/control-has-associated-label': 'error',
       'jsx-a11y/label-has-associated-control': 'off',
       'jsx-a11y/label-has-for': 'off',
-      'jsx-no-lambda': 'off',
-      'jsx-no-multiline-js': 'off',
       'no-await-in-loop': 'error',
       'no-bitwise': 'error',
       'no-cond-assign': 'error',
@@ -92,37 +90,34 @@ export default [
       'no-restricted-syntax': 'off',
       'no-shadow': 'off',
       'no-use-before-define': 'off',
-      'reactHooks/exhaustive-deps': 'warn',
-      'reactHooks/rules-of-hooks': 'error',
-      'react/jsx-curly-brace-presence': 'error',
-      'react/destructuring-assignment': 'off',
-      'react/display-name': 'off',
-      'react/function-component-definition': 'off',
-      'react/jsx-filename-extension': [
-        1,
-        {
-          extensions: ['.tsx'],
-        },
-      ],
-      'react/jsx-fragments': 0,
-      'react/jsx-no-constructed-context-values': 'error',
-      'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
-      'react/jsx-props-no-spreading': 'off',
-      'react/jsx-uses-react': 'off',
-      'react/jsx-wrap-multilines': [
+      // Use Meta's canonical hooks rules. Turn off @eslint-react's overlapping
+      // reimplementations to avoid double-reporting. We keep the other hook-
+      // adjacent rules from @eslint-react's preset (set-state-in-effect,
+      // purity, etc.) since they cover ground Meta's plugin doesn't here.
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      '@eslint-react/rules-of-hooks': 'off',
+      '@eslint-react/exhaustive-deps': 'off',
+      // Project-specific overrides on top of @eslint-react's `recommended-typescript`
+      // preset.
+      '@eslint-react/no-array-index-key': 'error', // preset: warn
+      '@eslint-react/no-unstable-context-value': 'error', // not in preset
+      '@eslint-react/dom-no-unsafe-target-blank': 'error', // not in preset
+      '@eslint-react/jsx-no-useless-fragment': [
         'error',
-        {
-          assignment: false,
-          declaration: false,
-        },
-      ],
-      'react/no-array-index-key': 'error',
-      'react/no-did-update-set-state': 'off',
-      'react/no-unstable-nested-components': 'error',
-      'react/prop-types': 'off',
-      'react/react-in-jsx-scope': 'off',
-      'react/require-default-props': 'off',
-      'react/static-property-placement': 'off',
+        { allowExpressions: true },
+      ], // not in preset
+      // Style/naming and React 19 migration hints. Disabled to keep CI signal
+      // focused on correctness rules. Re-enable individually when doing a
+      // targeted cleanup pass.
+      '@eslint-react/naming-convention-ref-name': 'off',
+      '@eslint-react/no-context-provider': 'off',
+      '@eslint-react/no-use-context': 'off',
+      '@eslint-react/no-forward-ref': 'off',
+      '@eslint-react/use-state': 'off',
+      '@eslint-react/no-unnecessary-use-prefix': 'off',
+      '@eslint-react/no-children-map': 'off',
+      '@eslint-react/no-children-count': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
     },
@@ -132,9 +127,6 @@ export default [
           extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
         },
         typescript: true,
-      },
-      react: {
-        version: 'detect',
       },
     },
   },

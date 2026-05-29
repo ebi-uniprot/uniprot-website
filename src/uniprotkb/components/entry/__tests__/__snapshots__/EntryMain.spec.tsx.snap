@@ -2405,7 +2405,7 @@ exports[`Entry view should render 1`] = `
             role="tablist"
           >
             <div
-              aria-controls="69"
+              aria-controls="68"
               class="tabs__header__item tabs__header__item--bordered tabs__header__item--active"
               data-target="0"
               data-testid="tab-title"
@@ -2415,7 +2415,7 @@ exports[`Entry view should render 1`] = `
               UniProt Annotation
             </div>
             <div
-              aria-controls="69"
+              aria-controls="68"
               class="tabs__header__item tabs__header__item--bordered"
               data-target="1"
               data-testid="tab-title"
@@ -2427,7 +2427,7 @@ exports[`Entry view should render 1`] = `
           </div>
           <div
             data-testid="tab-content"
-            id="69"
+            id="68"
             role="tabpanel"
           >
             <div
@@ -2456,6 +2456,29 @@ exports[`Entry view should render 1`] = `
                   </strong>
                    
                   <button
+                    aria-controls="69"
+                    aria-expanded="false"
+                    class="svg-colour-unreviewed evidence-tag"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                    >
+                      automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="69"
+                  />
+                  ; topology value 
+                  <button
                     aria-controls="70"
                     aria-expanded="false"
                     class="svg-colour-unreviewed evidence-tag"
@@ -2477,7 +2500,11 @@ exports[`Entry view should render 1`] = `
                     data-testid="evidence-tag-content"
                     id="70"
                   />
-                  ; topology value 
+                </div>
+                <div
+                  class="text-block"
+                >
+                  Note: value.
                   <button
                     aria-controls="71"
                     aria-expanded="false"
@@ -2501,38 +2528,17 @@ exports[`Entry view should render 1`] = `
                     id="71"
                   />
                 </div>
-                <div
-                  class="text-block"
-                >
-                  Note: value.
-                  <button
-                    aria-controls="72"
-                    aria-expanded="false"
-                    class="svg-colour-unreviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      automatic annotation
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="72"
-                  />
-                </div>
               </section>
             </div>
             <div
               style="display: none;"
-            />
+            >
+              <section
+                class="hero-container hero-container--side-padding"
+              >
+                No GO annotations available.
+              </section>
+            </div>
           </div>
         </div>
       </div>
@@ -5476,7 +5482,17 @@ exports[`Entry view should render for non-human entry 1`] = `
           </div>
           <protvista-uniprot-structure
             accession="P0DTR4"
+            notable=""
           />
+          <div
+            class="loader-container"
+          >
+            <test-file-stub
+              class="loader"
+              height="100"
+              width="100"
+            />
+          </div>
         </div>
         <h3>
           3D structure databases
