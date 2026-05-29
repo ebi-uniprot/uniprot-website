@@ -2532,7 +2532,13 @@ exports[`Entry view should render 1`] = `
             </div>
             <div
               style="display: none;"
-            />
+            >
+              <section
+                class="hero-container hero-container--side-padding"
+              >
+                No GO annotations available.
+              </section>
+            </div>
           </div>
         </div>
       </div>

@@ -145,7 +145,10 @@ const SubcellularLocationWithVizView: FC<
   const uniprotTextContent = !!comments?.length && (
     <SubcellularLocationView comments={comments} />
   );
-  const goTextContent = !!goXrefs && primaryAccession && (
+  // Check `length` (not just truthiness) so an empty array routes to the
+  // "No GO annotations available" fallback below — `SubcellularLocationGOView`
+  // returns `null` when given `[]`, which would leave the GO tab blank.
+  const goTextContent = !!goXrefs?.length && primaryAccession && (
     <SubcellularLocationGOView
       primaryAccession={primaryAccession}
       goXrefs={goXrefs}
