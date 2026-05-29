@@ -1,4 +1,4 @@
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable @eslint-react/no-array-index-key */
 import cn from 'classnames';
 import { type ReactNode } from 'react';
 

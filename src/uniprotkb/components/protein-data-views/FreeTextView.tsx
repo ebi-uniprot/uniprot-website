@@ -65,7 +65,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
             // eg A0A075B6S6
             const { pmid } = pubMedMatch.groups;
             return (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <Fragment key={index}>
                 PubMed:<Link to={getEntryPathForCitation(pmid)}>{pmid}</Link>
               </Fragment>
@@ -76,7 +76,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
             // Replace any occurrences of "AC <accession>" with "AC "<link to accession>
             // eg A0A075B6S6
             return (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <Fragment key={index}>
                 {/* Somehow the part kept "AC ", so put it back */}
                 {part.startsWith('AC ') ? `AC ` : ''}
@@ -100,7 +100,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
               isoform.match(/[A-Z0-9]+-\d+/i)
             ) {
               return (
-                // eslint-disable-next-line react/no-array-index-key
+                // eslint-disable-next-line @eslint-react/no-array-index-key
                 <Fragment key={index}>
                   {text}{' '}
                   <Link to={{ hash: `Isoform_${isoform}` }}>{isoform}</Link>
@@ -129,18 +129,18 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
           // Exceptional case to handle scientific notations present in kinetic specific constants. Example: 5.38x10(2) has be to superscript
           if (mappedArr[index - 1].endsWith('x10')) {
             return (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <sup key={index}>{part.substring(1, part.length - 1)}</sup>
             );
           }
           return (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <sub key={index}>{part.substring(1, part.length - 1)}</sub>
           );
         }
         if (reSuperscript.test(part)) {
           return (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <sup key={index}>{part.substring(1, part.length - 1)}</sup>
           );
         }
@@ -148,7 +148,7 @@ export const RichText = ({ children, addPeriod, noLink }: RichTextProps) => {
         if (needsNewLineRE.test(part)) {
           // add new line before adding the rest of the plain text
           return (
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             <Fragment key={index}>
               ).
               <br />
@@ -184,7 +184,7 @@ export const TextView = ({ comments, type, children }: TextViewProps) => (
   <div className={cn('text-block', { 'ai-annotation': isProtNLM2(comments) })}>
     {children}
     {comments.map((comment, index) => (
-      // eslint-disable-next-line react/no-array-index-key
+      // eslint-disable-next-line @eslint-react/no-array-index-key
       <Fragment key={index}>
         {type && type === 'SIMILARITY' ? (
           <SimilarityView>{comment.value}</SimilarityView>
@@ -219,7 +219,7 @@ const FreeTextView: FC<React.PropsWithChildren<FreeTextProps>> = ({
   const freeTextData = comments.map(
     (item, index) =>
       item.texts && (
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         <Fragment key={index}>
           {showMolecule && item.molecule && (
             <h4 className="tiny">

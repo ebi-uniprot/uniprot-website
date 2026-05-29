@@ -74,9 +74,13 @@ export type UniProtkbAPIModel = {
   secondaryAccessions?: string[];
   uniProtkbId: string;
   proteinExistence: string;
+  // 'AA' is the UniParc sub-entry marker — `UniParcPrecomputedModel` and the
+  // UniFire converter narrow to it so sub-entry data can flow through the
+  // shared UniProtKB pipeline. See `src/uniparc/types/precomputed.ts`.
   entryType:
     | 'UniProtKB reviewed (Swiss-Prot)'
-    | 'UniProtKB unreviewed (TrEMBL)';
+    | 'UniProtKB unreviewed (TrEMBL)'
+    | 'AA';
   inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];

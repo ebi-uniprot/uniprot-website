@@ -14,7 +14,7 @@ export type GenomeAnnotation = {
 
 export type Component = {
   name: string;
-  description: string;
+  description?: string;
   genomeAnnotation: GenomeAnnotation;
   proteomeCrossReferences?: Xref[];
   proteinCount: number;
@@ -58,17 +58,24 @@ export type GenomeAssembly = {
   level: string; // Genome representation
 };
 
-export type RedundantProteome = {
-  id: string;
+export type RelatedProteome = {
+  proteomeId: string;
   similarity: number;
+  taxonomy: Pick<TaxonomyDatum, 'taxonId'>;
+};
+
+export type PanproteomeTaxon = {
+  taxonId: number;
+};
+
+export type EnrichedRelatedProteome = RelatedProteome & {
+  scientificName?: string;
+  proteomeType?: ProteomeType;
 };
 
 export type ProteomeType =
-  | 'Reference and representative proteome'
   | 'Reference proteome'
-  | 'Representative proteome'
-  | 'Redundant proteome'
-  | 'Other proteome'
+  | 'Non-reference proteome'
   | 'Excluded';
 
 export type ProteomesAPIModel = {
@@ -88,24 +95,33 @@ export type ProteomesAPIModel = {
   taxonLineage: Lineage[];
   strain?: string;
   isolate?: string;
-  panproteome?: string;
+  panproteomeTaxon?: PanproteomeTaxon;
   description: string;
-  redundantProteomes?: RedundantProteome[];
-  redundantTo?: string;
+  relatedProteomes?: RelatedProteome[];
   proteinCount: number; // use this in the results table - calculated sum of the components proteinCount: components.reduce((total, { proteinCount }) => proteinCount + total, 0)
   proteomeStatistics: Statistics;
 };
 
-export type ProteomesUIModel = Omit<ProteomesAPIModel, 'panproteome'> & {
-  panproteome: ProteomesAPIModel['panproteome'] | ProteomesAPIModel;
+export type ProteomesUIModel = ProteomesAPIModel & {
+  relatedProteomes?: EnrichedRelatedProteome[];
 };
 
 const proteomesConverter = (
   data: ProteomesAPIModel,
-  panProteomeData?: ProteomesAPIModel
-): ProteomesUIModel => ({
-  ...data,
-  panproteome: panProteomeData || data.panproteome,
-});
+  similarProteomesData?: ProteomesAPIModel[]
+): ProteomesUIModel => {
+  const dataById = new Map(similarProteomesData?.map((p) => [p.id, p]));
+  return {
+    ...data,
+    relatedProteomes: data.relatedProteomes?.map((rp) => {
+      const resolved = dataById.get(rp.proteomeId);
+      return {
+        ...rp,
+        scientificName: resolved?.taxonomy?.scientificName,
+        proteomeType: resolved?.proteomeType,
+      };
+    }),
+  };
+};
 
 export default proteomesConverter;

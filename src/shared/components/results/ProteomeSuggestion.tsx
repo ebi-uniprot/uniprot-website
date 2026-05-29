@@ -49,8 +49,7 @@ const ProteomeSuggestion = ({
     return (
       <>
         {' '}
-        {/* //TODO: After 2026_02: remove word "reference " */}
-        or restrict search to reference proteome{' '}
+        or restrict search to proteome{' '}
         <SearchLink
           query={`${query} AND (proteome:${proteomeInfo.id})`}
           namespace={namespace}
@@ -69,7 +68,6 @@ const ProteomeSuggestion = ({
         {' '}
         or restrict search to{' '}
         <Dropdown
-          // eslint-disable-next-line react/no-unstable-nested-components
           visibleElement={(onClick: () => unknown) => (
             <Button
               variant="tertiary"

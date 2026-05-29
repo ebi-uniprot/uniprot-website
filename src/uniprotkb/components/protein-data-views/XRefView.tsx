@@ -263,7 +263,7 @@ export const DatabaseList = ({
       {xrefs.map((xref, index) => (
         <XRef
           databaseToDatabaseInfo={databaseToDatabaseInfo}
-          key={index} // eslint-disable-line react/no-array-index-key
+          key={index} // eslint-disable-line @eslint-react/no-array-index-key
           database={database}
           xref={xref}
           primaryAccession={primaryAccession}
@@ -445,7 +445,7 @@ const XRefView = ({
         );
 
         return (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <Fragment key={index}>
             <h3>{title}</h3>
             {Object.entries(messagesGroupedByLevel).map(([level, messages]) => (

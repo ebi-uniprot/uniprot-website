@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import {
-  Button,
   InfoList,
   InformationIcon,
   Message,
@@ -18,10 +17,7 @@ import { pickArticle } from '../../../shared/utils/utils';
 import { type DeletedReason } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { TabLocation as UniprotkbTabLocation } from '../../../uniprotkb/types/entry';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
-import type {
-  UniFireModel,
-  UniParcSubEntryUIModel,
-} from '../../adapters/uniParcSubEntryConverter';
+import type { UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import styles from './styles/sub-entry-context.module.css';
 
 const iconSize = '1.125em';
@@ -30,11 +26,9 @@ interface SubEntryContextProps {
   uniparcId: string;
   subEntry: UniParcSubEntryUIModel['subEntry'];
   data?: UniSaveStatus;
-  showUniFireOption: boolean;
-  uniFireData?: UniFireModel;
-  uniFireLoading?: boolean;
-  runUniFire: boolean;
-  setRunUniFire: React.Dispatch<React.SetStateAction<boolean>>;
+  canLoadAnnotations: boolean;
+  annotationsLoading: boolean;
+  hasAnnotations: boolean;
 }
 
 const getDeletedReasonText = (reason?: DeletedReason) => {
@@ -54,11 +48,9 @@ const SubEntryContext = ({
   uniparcId,
   subEntry,
   data,
-  showUniFireOption,
-  uniFireData,
-  uniFireLoading,
-  runUniFire,
-  setRunUniFire,
+  canLoadAnnotations,
+  annotationsLoading,
+  hasAnnotations,
 }: SubEntryContextProps) => {
   const { id: subEntryId, isUniprotkbEntry, active } = subEntry;
 
@@ -83,45 +75,27 @@ const SubEntryContext = ({
 
   let contextInfo;
 
-  const uniFireButton = (
-    <div className={styles['predictions-status']}>
-      {!runUniFire && (
-        <Button
-          variant="primary"
-          onClick={() => setRunUniFire(true)}
-          className={styles['run-unifire-button']}
-          disabled={runUniFire}
-        >
-          Generate annotations
-        </Button>
-      )}
-      {runUniFire && uniFireLoading && (
-        <Button
-          variant="primary"
-          className={styles['run-unifire-button']}
-          disabled={true}
-        >
-          Generating annotations
-        </Button>
-      )}
-      {runUniFire && !uniFireLoading && !uniFireData?.accession && (
-        <>
-          <InformationIcon
-            className={cn(styles.icon, styles.info)}
-            width={iconSize}
-            height={iconSize}
-          />
-          No predictions generated
-        </>
-      )}
-      {runUniFire && !uniFireLoading && uniFireData?.accession && (
+  const annotationStatus = canLoadAnnotations && (
+    <div className={styles['annotation-status']}>
+      {annotationsLoading ? (
+        'Loading annotations'
+      ) : hasAnnotations ? (
         <>
           <SuccessIcon
             className={cn(styles.icon, styles.success)}
             width={iconSize}
             height={iconSize}
           />
-          Predictions generated
+          Annotations loaded
+        </>
+      ) : (
+        <>
+          <InformationIcon
+            className={cn(styles.icon, styles.info)}
+            width={iconSize}
+            height={iconSize}
+          />
+          No annotations available
         </>
       )}
     </div>
@@ -151,16 +125,7 @@ const SubEntryContext = ({
               <strong data-article-id="deleted_accessions">
                 {event.deletedReason?.toLocaleLowerCase() || 'deleted'}
               </strong>
-              .{' '}
-              {showUniFireOption ? (
-                <>
-                  <span>
-                    However, annotations may be generated on demand using
-                    automatic annotation rules.
-                  </span>
-                  {uniFireButton}
-                </>
-              ) : null}
+              .{annotationStatus}
             </div>
           ),
         },
@@ -204,16 +169,7 @@ const SubEntryContext = ({
             title: 'Status',
             content: (
               <div>
-                This is an active {subEntry.database} entry.{' '}
-                {showUniFireOption ? (
-                  <>
-                    <span>
-                      Annotations can be generated on demand using automatic
-                      annotation rules.
-                    </span>
-                    {uniFireButton}
-                  </>
-                ) : null}
+                This is an active {subEntry.database} entry.{annotationStatus}
               </div>
             ),
           },

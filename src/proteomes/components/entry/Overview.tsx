@@ -3,13 +3,12 @@ import { InfoList, LongNumber } from 'franklin-sites';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import AccessionView from '../../../shared/components/results/AccessionView';
 import ftpUrls from '../../../shared/config/ftpUrls';
-import { Namespace } from '../../../shared/types/namespaces';
 import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
+import EntrySection from '../../types/entrySection';
 import BuscoLegend from '../BuscoLegend';
 import BuscoView from '../BuscoView';
 import { PanProteome } from './PanProteome';
@@ -53,17 +52,14 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
               ({data.exclusionReasons.join(', ')})
             </span>
           ) : null}
-          {data.proteomeType === 'Redundant proteome' && data.redundantTo ? (
-            <div>
-              This proteome is{' '}
-              <span data-article-id="proteome_redundancy">redundant</span>{' '}
-              to&nbsp;
-              <AccessionView
-                id={data.redundantTo}
-                namespace={Namespace.proteomes}
-              />
-              .
-            </div>
+          {data.relatedProteomes?.length ? (
+            <>
+              {' ('}
+              <a href={`#${EntrySection.SimilarProteomes}`}>
+                view similarity to reference proteomes
+              </a>
+              )
+            </>
           ) : null}
         </>
       ),
@@ -133,7 +129,7 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
     },
     {
       title: <span data-article-id="pan_proteomes">Pan proteome</span>,
-      content: data.panproteome && <PanProteome proteome={data} />,
+      content: data.panproteomeTaxon && <PanProteome proteome={data} />,
     },
     {
       title: (

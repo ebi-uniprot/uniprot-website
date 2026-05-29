@@ -35,7 +35,7 @@ export const KeywordList = ({ keywords, idOnly, inline }: KeywordListProps) => {
     }
     return (
       <span
-        // eslint-disable-next-line react/no-array-index-key
+        // eslint-disable-next-line @eslint-react/no-array-index-key
         key={index}
         className={cn('text-block', {
           'ai-annotation-keyword': hasProtNLM2Evidence(evidences),

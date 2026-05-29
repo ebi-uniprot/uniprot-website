@@ -5,8 +5,8 @@ import { groupBy } from 'lodash-es';
 import {
   type FC,
   memo,
+  useCallback,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -369,31 +369,34 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
     const contentIdRef = useRef(`swissbiopics-content-${v1()}`);
     const contentId = contentIdRef.current;
 
-    const contentHostRef = useRef<HTMLDivElement | null>(null);
     const [contentReady, setContentReady] = useState(false);
 
-    useLayoutEffect(() => {
-      const host = contentHostRef.current;
-      if (!host) {
-        return;
-      }
+    // Callback ref (with React 19 cleanup) so we set up the placeholder and
+    // gate the custom element's mount in a single commit-phase step. Using
+    // a layout effect here would trip the set-state-in-effect rule even
+    // though the second render is the whole point of the pattern.
+    const setupContentHost = useCallback(
+      (host: HTMLDivElement | null) => {
+        if (!host) {
+          return;
+        }
 
-      document.getElementById(contentId)?.remove();
-
-      const placeholder = document.createElement('div');
-      placeholder.id = contentId;
-      host.appendChild(placeholder);
-
-      setContentReady(true);
-
-      return () => {
-        // Remove from wherever the library moved it to.
         document.getElementById(contentId)?.remove();
-        setContentReady(false);
-      };
-      // contentId is stable (ref), so this runs once per mount.
-      // eslint-disable-next-line reactHooks/exhaustive-deps
-    }, []);
+
+        const placeholder = document.createElement('div');
+        placeholder.id = contentId;
+        host.appendChild(placeholder);
+
+        setContentReady(true);
+
+        return () => {
+          // Remove from wherever the library moved it to.
+          document.getElementById(contentId)?.remove();
+          setContentReady(false);
+        };
+      },
+      [contentId]
+    );
 
     useEffect(() => {
       if (!contentReady) {
@@ -448,8 +451,9 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       // (svgloaded + the per-location mouseenter/mouseleave handlers attached
       // inside onSvgLoaded). On teardown, `controller.abort()` removes them all
       // in one call — no per-handler bookkeeping needed.
+      // Pass `controller.signal` directly (not a destructured local) so the
+      // lint rule can trace the signal back to its controller.
       const controller = new AbortController();
-      const { signal } = controller;
 
       // `svgloaded` can fire more than once for the same shadow root (eg on
       // library reload / HMR). Track the nodes we inject so we can swap them
@@ -591,7 +595,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
                   el.classList.add('lookedAt');
                 }
               },
-              { signal }
+              { signal: controller.signal }
             );
 
             locationText.addEventListener(
@@ -608,7 +612,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
                   shapesSelector
                 );
               },
-              { signal }
+              { signal: controller.signal }
             );
 
             let triggerTargetSvgs: NodeListOf<SVGElement> | undefined =
@@ -634,7 +638,9 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         }
       };
 
-      shadowRoot.addEventListener('svgloaded', onSvgLoaded, { signal });
+      shadowRoot.addEventListener('svgloaded', onSvgLoaded, {
+        signal: controller.signal,
+      });
 
       return () => {
         cleanupLegendStyle?.();
@@ -649,7 +655,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
       // equivalent arrays from `.flatMap().filter()`. Listing the arrays here
       // would re-run the effect on every parent render and re-attach listeners
       // for nothing.
-      // eslint-disable-next-line reactHooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [contentReady, instanceKey]);
 
     const locationIds = {
@@ -664,7 +670,7 @@ const SubCellViz: FC<React.PropsWithChildren<Props>> = memo(
         <template id="sibSwissBioPicsStyle" />
 
         {/* Host element that we own; we imperatively create #contentId inside it. */}
-        <div ref={contentHostRef} />
+        <div ref={setupContentHost} />
 
         {/* Only mount the custom element once the content placeholder exists. */}
         {contentReady ? (

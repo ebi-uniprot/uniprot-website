@@ -19,7 +19,6 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import { RefProtMoveHelpEntry } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import helper from '../../../shared/styles/helper.module.scss';
@@ -254,7 +253,6 @@ const HelpEntry = ({
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
-      <RefProtMoveHelpEntry />
       <h1 className={data.categories?.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>

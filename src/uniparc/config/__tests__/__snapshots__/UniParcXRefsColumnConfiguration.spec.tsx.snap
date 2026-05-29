@@ -111,7 +111,20 @@ exports[`UniParcXRefsColumnConfiguration component should render column "protein
 </DocumentFragment>
 `;
 
-exports[`UniParcXRefsColumnConfiguration component should render column "proteome": proteome 1`] = `<DocumentFragment />`;
+exports[`UniParcXRefsColumnConfiguration component should render column "proteome": proteome 1`] = `
+<DocumentFragment>
+  <span
+    class="xref-proteome"
+  >
+    <a
+      href="/proteomes/UP000000344"
+    >
+      UP000000344
+    </a>
+     (Genome)
+  </span>
+</DocumentFragment>
+`;
 
 exports[`UniParcXRefsColumnConfiguration component should render column "timeline": timeline 1`] = `
 <DocumentFragment>

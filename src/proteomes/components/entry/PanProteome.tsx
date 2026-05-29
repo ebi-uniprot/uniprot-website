@@ -1,49 +1,49 @@
-import { Link } from 'react-router-dom';
+import { logger } from '@sentry/react';
+import { type Method } from 'axios';
 
-import { getEntryPath } from '../../../app/config/urls';
 import ftpUrls from '../../../shared/config/ftpUrls';
-import { Namespace } from '../../../shared/types/namespaces';
-import * as logging from '../../../shared/utils/logging';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 
+const headOptions: { method: Method } = { method: 'HEAD' };
+
 export const PanProteome = ({ proteome }: { proteome: ProteomesUIModel }) => {
-  if (!proteome.panproteome) {
+  const panProteomeSpecies = proteome.panproteomeTaxon
+    ? proteome.taxonLineage?.find(
+        (taxon) => taxon.taxonId === proteome.panproteomeTaxon?.taxonId
+      )
+    : undefined;
+
+  const fastaUrl = panProteomeSpecies
+    ? ftpUrls.panProteomes(panProteomeSpecies.taxonId)
+    : undefined;
+
+  const { status, error } = useDataApi(fastaUrl, headOptions);
+
+  if (!proteome.panproteomeTaxon) {
     return null;
   }
 
-  const panproteomeID =
-    typeof proteome.panproteome === 'string'
-      ? proteome.panproteome
-      : proteome.panproteome.id;
-  const entryIsPanProteome = proteome.id === panproteomeID;
-
-  const name =
-    // If loading, use current proteomes scientificName as a placeholder
-    (entryIsPanProteome && proteome.taxonomy?.scientificName) ||
-    // At this point, the entry is not the pan proteome so try the loaded data
-    (typeof proteome.panproteome !== 'string' &&
-      proteome.panproteome?.taxonomy.scientificName) ||
-    // As a last resort fall back on the panproteome ID which we know must exist
-    panproteomeID;
-
-  /* istanbul ignore if */
-  if (!name) {
-    logging.error('Nothing to render for a pan proteome');
+  if (!panProteomeSpecies) {
+    logger.error(
+      `Pan proteome taxon ID ${proteome.panproteomeTaxon.taxonId} not found in taxon lineage for proteome ${proteome.id}`
+    );
     return null;
   }
+
+  const fastaAvailable = !error && status === 200;
 
   return (
     <>
       {'This proteome is part of the '}
-      {entryIsPanProteome ? (
-        name
-      ) : (
-        <Link to={getEntryPath(Namespace.proteomes, panproteomeID)}>
-          {name}
-        </Link>
+      {panProteomeSpecies.scientificName}
+      {' pan proteome'}
+      {fastaAvailable && (
+        <>
+          {' ('}
+          <a href={fastaUrl}>FASTA</a>)
+        </>
       )}
-      {' pan proteome ('}
-      <a href={ftpUrls.panProteomes(panproteomeID)}>FASTA</a>)
     </>
   );
 };
