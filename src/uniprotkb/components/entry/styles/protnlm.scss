@@ -25,6 +25,17 @@
   display: block;
 }
 
+// Breathing room when the AI annotation sits at the visual top of a card —
+// otherwise its frame crashes into the card's bottom separator. The Function
+// section's `<h3>` only carries a `.visually-hidden` label, so "visual top"
+// means either a literal first child or a child that immediately follows a
+// first-child `<h3>`. Anywhere lower down the card, prose siblings space the
+// frame naturally and no extra margin is wanted.
+.card__content > .ai-annotation:first-child,
+.card__content > h3:first-child + .ai-annotation {
+  margin-top: 0.5rem;
+}
+
 tr:has(.ai-annotation-row) {
   background-color: var(
     --ai-color
