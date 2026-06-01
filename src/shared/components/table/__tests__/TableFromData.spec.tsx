@@ -1,7 +1,10 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
-import TableFromData, { type TableFromDataColumn } from '../TableFromData';
+import TableFromData, {
+  type TableFromDataColumn,
+  VIRTUALIZE_ROW_THRESHOLD,
+} from '../TableFromData';
 
 type Row = { id: string; name: string; age: number };
 
@@ -36,11 +39,11 @@ describe('TableFromData', () => {
       <TableFromData
         virtualize
         columns={columns}
-        data={makeRows(50)}
+        data={makeRows(VIRTUALIZE_ROW_THRESHOLD)}
         getRowId={(d) => d.id}
       />
     );
-    // Below the 200 threshold, virtualization is not engaged.
+    // At or below the threshold, virtualization is not engaged.
     // The bounded scroll container (.virtualize-container) should NOT be present.
     expect(
       document.querySelector('[class*="virtualize-container"]')
@@ -49,7 +52,7 @@ describe('TableFromData', () => {
   });
 
   it('engages virtualized rendering above the threshold', () => {
-    const data = makeRows(300);
+    const data = makeRows(VIRTUALIZE_ROW_THRESHOLD + 1);
     customRender(
       <TableFromData
         virtualize
