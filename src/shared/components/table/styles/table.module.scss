@@ -154,10 +154,13 @@
 }
 
 .frozen {
-  opacity: 0.6;
+  opacity: 0.4;
+  filter: saturate(0.5);
   pointer-events: none;
-  transition: opacity 120ms;
-  will-change: opacity;
+  transition:
+    opacity 160ms ease,
+    filter 160ms ease;
+  will-change: opacity, filter;
 }
 
 .virtual-spacer > tr > td {

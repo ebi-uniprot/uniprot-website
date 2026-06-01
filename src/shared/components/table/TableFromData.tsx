@@ -5,6 +5,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -16,7 +17,7 @@ import Table from './Table';
 
 const UNFILTERED_OPTION = 'All' as const;
 
-const VIRTUALIZE_ROW_THRESHOLD = 200;
+export const VIRTUALIZE_ROW_THRESHOLD = 200;
 const VIRTUALIZE_ROW_OVERSCAN = 10;
 const VIRTUALIZE_ESTIMATED_ROW_HEIGHT = 36;
 
@@ -165,9 +166,11 @@ function TableFromData<T>({
 
   // Forward the virtualizer instance to the parent via ref. Used by the
   // scroll-to-row hook to jump to rows that aren't currently mounted.
-  if (virtualizerRef) {
-    virtualizerRef.current = shouldVirtualize ? virtualizer : null;
-  }
+  useEffect(() => {
+    if (virtualizerRef) {
+      virtualizerRef.current = shouldVirtualize ? virtualizer : null;
+    }
+  }, [shouldVirtualize, virtualizer, virtualizerRef]);
 
   if (shouldVirtualize) {
     const virtualItems = virtualizer.getVirtualItems();
@@ -209,7 +212,6 @@ function TableFromData<T>({
               key={getRowId(datum)}
               data-index={virtualItem.index}
               ref={virtualizer.measureElement}
-              className={styles['virtual-row']}
               translate={noTranslateBody ? 'no' : undefined}
             >
               <Table.Row

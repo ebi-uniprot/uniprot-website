@@ -19,9 +19,15 @@ import {
   useReducer,
   useRef,
   useState,
+  useTransition,
 } from 'react';
 import { type PartialDeep, type SetRequired } from 'type-fest';
 
+import { addMessage } from '../../../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../../../messages/types/messagesTypes';
 import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
@@ -30,12 +36,14 @@ import ExternalLink from '../../../../../shared/components/ExternalLink';
 import tableStyles from '../../../../../shared/components/table/styles/table.module.scss';
 import TableFromData, {
   type TableFromDataColumn,
+  VIRTUALIZE_ROW_THRESHOLD,
 } from '../../../../../shared/components/table/TableFromData';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
 import NightingaleManagerComponent from '../../../../../shared/custom-elements/NightingaleManager';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../../../shared/hooks/useMessagesDispatch';
 import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNightingaleFeatureTableScroll';
 import helper from '../../../../../shared/styles/helper.module.scss';
 import {
@@ -463,8 +471,11 @@ const VariationViewer = ({
   const liveRangeRef = useRef<NightingaleViewRange | undefined>(undefined);
   const idleTimerRef = useRef<number | undefined>(undefined);
 
+  const messagesDispatch = useMessagesDispatch();
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
+  // Previously gated on VARIANT_COUNT_LIMIT; the canvas renderer and virtual
+  // scrolling now handle large datasets, so we always fetch once the count is known.
   const { loading, data, progress, error, status } =
     useDataApi<ProteinsAPIVariation>(
       importedVariants !== 'loading'
@@ -473,6 +484,7 @@ const VariationViewer = ({
     );
 
   const [filters, setFilters] = useState<string[]>([]);
+  const [isFiltering, startFilterTransition] = useTransition();
   const managerRef = useRef<NightingaleManager>(null);
 
   // We pass the transformed data to both the variation viewer and the
@@ -500,6 +512,10 @@ const VariationViewer = ({
     [sortedVariants, filters]
   );
 
+  const isVirtualized = Boolean(
+    filteredVariants && filteredVariants.length > VIRTUALIZE_ROW_THRESHOLD
+  );
+
   const tableScroll = useNightingaleFeatureTableScroll(
     getRowId,
     tableId,
@@ -517,7 +533,9 @@ const VariationViewer = ({
     const listener = (event: Event) => {
       const { detail } = event as CustomEvent;
       if (detail?.type === 'filters') {
-        setFilters(detail.value);
+        // Filter updates touch thousands of rows; mark as a transition so
+        // React can interrupt the heavy re-render to handle further clicks.
+        startFilterTransition(() => setFilters(detail.value));
       } else if (detail?.eventType === 'click' && detail?.feature) {
         dispatch({ type: 'setHighlight', variant: detail.feature });
         tableScroll(detail.feature);
@@ -583,6 +601,7 @@ const VariationViewer = ({
 
   const [tableReady, setTableReady] = useState(false);
   useEffect(() => {
+    // Guard is a no-op in this SPA, but kept to future-proof for SSR adoption.
     if (typeof window === 'undefined') {
       return undefined;
     }
@@ -595,6 +614,28 @@ const VariationViewer = ({
     const handle = window.setTimeout(() => setTableReady(true), 0);
     return () => window.clearTimeout(handle);
   }, []);
+
+  useEffect(() => {
+    if (!isVirtualized) {
+      return;
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        messagesDispatch(
+          addMessage({
+            id: 'variation-viewer-search-hint',
+            content:
+              "Too many rows for the browser's find to search - use the column filters instead.",
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.INFO,
+            displayTime: 5_000,
+          })
+        );
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isVirtualized, messagesDispatch]);
 
   const memoizedColumns = useMemo(
     () => getColumns(primaryAccession),
@@ -698,7 +739,7 @@ const VariationViewer = ({
       {tableReady && (
         <div
           className={cn({
-            [tableStyles.frozen]: isNavigating,
+            [tableStyles.frozen]: isNavigating || isFiltering,
           })}
         >
           <TableFromData
