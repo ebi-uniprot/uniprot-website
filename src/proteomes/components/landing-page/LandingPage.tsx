@@ -160,7 +160,7 @@ const LandingPage = () => {
             available species pan proteomes can be accessed either in bulk or
             individually through the{' '}
             <ExternalLink url={ftpUrls.panProteomes()}>
-              FTP Directory
+              FTP directory
             </ExternalLink>
             , or from the summary header section of a proteome page.
           </p>
