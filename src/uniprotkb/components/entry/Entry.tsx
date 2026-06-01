@@ -61,7 +61,9 @@ import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-import useMatchMedia, {
+import {
+  useEntryHeaderCrampedScreen,
+  useEntryToolsExpandedScreen,
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
@@ -174,11 +176,6 @@ const HistoryTab = lazy(
 // Currently, just a bit before 2025_04 (latest AFDB release based on 2025_03)
 const AFDB_CUTOFF_DATE = new Date('2025-10-01');
 
-// Below this viewport width the sticky tools bar collapses into the "Menu"
-// dropdown. Tuned by inspection — a bit before the expanded buttons start
-// crowding the title/AI toggle.
-const toolsCollapseMediaQuery = 'only screen and (min-width: 1350px)';
-
 const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ id }) => {
     const data = transformedData[id];
@@ -202,7 +199,10 @@ const Entry = () => {
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
   // When wide enough, show the full tools row; below it, collapse to the Menu.
-  const wideScreen = useMatchMedia(toolsCollapseMediaQuery);
+  const wideScreen = useEntryToolsExpandedScreen();
+  // Independent: when the compact bar gets really tight, drop "AI Annotations"
+  // to just "AI" so the toggle stops crowding the title and Menu.
+  const headerCramped = useEntryHeaderCrampedScreen();
   const [loadProtNLM, setLoadProtNLM] = useLocalStorage<boolean>(
     'ai-annotations',
     false
@@ -698,19 +698,31 @@ const Entry = () => {
       </Dropdown>
     ) : null;
 
-  const protnlmToggle = hasProtnlm ? (
-    <ToggleSwitch
-      header={protnlmPayload.loading ? 'Loading...' : 'AI Annotations'}
-      statusOff="Click to enable"
-      statusLoading="Loading AI predictions..."
-      statusOn="Showing AI predictions"
-      isLoading={protnlmPayload.loading}
-      icon={<AiAnnotationsIcon />}
-      checked={loadProtNLM}
-      onChange={setLoadProtNLM}
-      className="ai-annotation-entry-title-row__toggle"
-    />
-  ) : null;
+  // Two flavours: the spacious full-header toggle, and the dense sticky-bar
+  // toggle. Sticky mode is always `compact` (the bar is space-constrained at
+  // every width); only the visible label shrinks further to "AI" once the bar
+  // is genuinely cramped. ariaLabel keeps the accessible name as
+  // "AI Annotations" in all cases. Franklin's `stableWidthLabel` matches the
+  // live label so the loading-state "Loading..." swap doesn't reflow.
+  const makeProtnlmToggle = (opts: { label: string; compact?: boolean }) =>
+    hasProtnlm ? (
+      <ToggleSwitch
+        header={protnlmPayload.loading ? 'Loading...' : opts.label}
+        ariaLabel="AI Annotations"
+        icon={<AiAnnotationsIcon />}
+        isLoading={protnlmPayload.loading}
+        checked={loadProtNLM}
+        onChange={setLoadProtNLM}
+        className="ai-annotation-entry-title-row__toggle"
+        compact={opts.compact}
+        stableWidthLabel={opts.label}
+      />
+    ) : null;
+  const protnlmToggle = makeProtnlmToggle({ label: 'AI Annotations' });
+  const protnlmToggleSticky = makeProtnlmToggle({
+    label: headerCramped ? 'AI' : 'AI Annotations',
+    compact: true,
+  });
 
   return (
     <SidebarLayout
@@ -761,6 +773,7 @@ const Entry = () => {
           <div
             ref={setFullHeaderRef}
             className={stickyHeaderStyles['full-header']}
+            inert={isStuck}
           >
             <div className="ai-annotation-entry-title-row">
               <h1>
@@ -790,7 +803,7 @@ const Entry = () => {
           }
         />
       )}
-      {isStuck && !isObsolete && data && (
+      {isStuck && !isObsolete && data?.sequence && (
         <div className={stickyHeaderStyles['compact-bar']}>
           <span className={stickyHeaderStyles['compact-title']}>
             <EntryTitle
@@ -799,7 +812,7 @@ const Entry = () => {
               entryType={data.entryType}
             />
           </span>
-          {protnlmToggle}
+          {protnlmToggleSticky}
           <div className={stickyHeaderStyles['compact-tools']}>
             {wideScreen ? toolsRow : toolsMenu}
           </div>

@@ -1,13 +1,12 @@
 import cn from 'classnames';
 import { lazy, type ReactNode, Suspense } from 'react';
 
-import useMatchMedia, { useSmallScreen } from '../../hooks/useMatchMedia';
+import {
+  useEarlySidebarCollapseScreen,
+  useSmallScreen,
+} from '../../hooks/useMatchMedia';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import styles from './styles/sidebar-layout.module.scss';
-
-// Opt-in breakpoint (see `collapseSidebarEarly`): collapse the sidebar below
-// ~768px rather than Franklin's default ~640px.
-const earlyCollapseMediaQuery = 'only screen and (max-width: 768px)';
 
 const UniProtFooter = lazy(
   () => import(/* webpackChunkName: "footer" */ './UniProtFooter')
@@ -33,7 +32,7 @@ export const SidebarLayout = ({
   collapseSidebarEarly,
 }: SidebarLayoutProps) => {
   const smallScreen = useSmallScreen();
-  const earlyCollapse = useMatchMedia(earlyCollapseMediaQuery);
+  const earlyCollapse = useEarlySidebarCollapseScreen();
   const hideSidebar = collapseSidebarEarly ? earlyCollapse : smallScreen;
 
   return (

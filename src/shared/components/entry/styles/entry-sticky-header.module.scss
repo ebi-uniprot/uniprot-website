@@ -2,6 +2,12 @@
 @import 'franklin-sites/src/styles/settings';
 @import 'franklin-sites/src/styles/mixins';
 
+// TODO: UniRef entry pages share the same header→overview→tools→tabs
+// structure (src/uniref/components/entry/Entry.tsx) but haven't been wired
+// up to the sticky compact bar yet — opt them in here when ready. Other
+// namespaces using `.entry-page` (proteomes, supporting-data) intentionally
+// do not adopt this pattern.
+
 // Default: compact bar takes no space; the existing tabs__header sticks at top: 0.
 .container {
   --compact-bar-height: 0;
@@ -52,8 +58,7 @@
 .compact-bar {
   position: sticky;
   top: 0;
-  // Above tabs__header (5000) so the compact bar paints on top.
-  z-index: 5001;
+  z-index: var(--z-sticky-bar);
   height: var(--compact-bar-height, 3rem);
   display: flex;
   align-items: center;
@@ -79,8 +84,12 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  // EntryTitle renders nested children; keep the same single-line treatment.
-  & * {
+  // EntryTitle (franklin-sites) wraps the title in `.entry-title` and a status
+  // icon in `.entry-title__status` — both carry their own typography that we
+  // need to override for the compact-bar treatment. Scoped to those classes
+  // rather than `& *` so unrelated future descendants keep their typography.
+  :global(.entry-title),
+  :global(.entry-title__status) {
     font-size: inherit;
     font-weight: inherit;
   }
@@ -119,24 +128,15 @@
   left: auto;
 }
 
-// In the compact bar the AI toggle should read as secondary to the title, so
-// scale it down. The franklin switch derives every dimension from
-// --toggle-knob-size, so shrinking that (plus the label text and icon) shrinks
-// the whole control proportionally. Also strip the full-header vertical margin
-// so it stays centred in the fixed-height bar.
+// Franklin's `compact` prop handles knob/text/icon sizing and `stableWidthLabel`
+// handles loading-state width pegging — all we need here are the compact-bar
+// layout concerns: strip the vertical margin so the toggle sits centred in the
+// fixed-height bar, and pin it against flex-shrink so the title (with its
+// ellipsis) absorbs any space crunch instead of the toggle's "AI" crowding
+// the switch.
 .compact-bar {
   :global(.ai-annotation-entry-title-row__toggle) {
-    --toggle-knob-size: 0.7rem;
+    flex-shrink: 0;
     margin-block: 0;
-    padding: 0.25rem 0.6rem;
-
-    :global(.toggle__header) {
-      font-size: 0.8rem;
-    }
-
-    :global(.toggle__icon) svg {
-      width: 0.8rem;
-      height: 0.8rem;
-    }
   }
 }

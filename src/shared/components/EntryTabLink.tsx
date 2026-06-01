@@ -1,7 +1,8 @@
-import { type FC, type MouseEvent, type ReactNode } from 'react';
+import { type FC, type MouseEvent, type ReactNode, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import baseLayoutStyles from './layouts/styles/base-layout.module.scss';
+import { ScrollableContainerContext } from '../contexts/ScrollableContainer';
+import { useReducedMotion } from '../hooks/useMatchMedia';
 
 type Props = {
   to: string;
@@ -14,6 +15,8 @@ type Props = {
 // Non-active and modifier clicks flow through to <Link> unchanged.
 const EntryTabLink: FC<Props> = ({ to, className, tabIndex, children }) => {
   const location = useLocation();
+  const scrollContainerRef = useContext(ScrollableContainerContext);
+  const reducedMotion = useReducedMotion();
   const currentPath = location.pathname + location.hash;
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -24,9 +27,10 @@ const EntryTabLink: FC<Props> = ({ to, className, tabIndex, children }) => {
       return;
     }
     e.preventDefault();
-    document
-      .querySelector(`.${baseLayoutStyles['main-content']}`)
-      ?.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollContainerRef?.current?.scrollTo({
+      top: 0,
+      behavior: reducedMotion ? 'auto' : 'smooth',
+    });
   };
 
   return (

@@ -1,8 +1,14 @@
 @import 'franklin-sites/src/styles/colours';
 
+// Centralized z-indexes for the entry page's two sticky rows. Declared here
+// so `entry-sticky-header.module.scss` and any future sticky neighbours stay
+// in lockstep — the compact bar must paint above the tabs row.
 .sticky-tabs-container {
+  --z-sticky-tabs-header: 5000;
+  --z-sticky-bar: 5001;
+
   & :global(.tabs__header) {
-    z-index: 5000;
+    z-index: var(--z-sticky-tabs-header);
     position: sticky;
     top: 0;
     background: $colour-sky-white;

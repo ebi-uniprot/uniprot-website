@@ -154,6 +154,7 @@ const Entry = () => {
         <div
           ref={setFullHeaderRef}
           className={stickyHeaderStyles['full-header']}
+          inert={isStuck}
         >
           <h1>
             <EntryTitle
@@ -166,7 +167,7 @@ const Entry = () => {
           {toolsRow}
         </div>
       </ErrorBoundary>
-      {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+      {/* TODO: eventually remove nResults prop (see note in EntryDownload) */}
       {displayDownloadPanel && (
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}

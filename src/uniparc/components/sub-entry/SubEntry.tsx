@@ -547,6 +547,7 @@ const SubEntry = () => {
         <div
           ref={setFullHeaderRef}
           className={stickyHeaderStyles['full-header']}
+          inert={isStuck}
         >
           <h1>{entryTitle}</h1>
           <SubEntryOverview uniparcData={transformedData} />
@@ -570,7 +571,7 @@ const SubEntry = () => {
           }
         />
       </ErrorBoundary>
-      {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+      {/* TODO: eventually remove nResults prop (see note in EntryDownload) */}
       {displayDownloadPanel && (
         <EntryDownloadPanel
           handleToggle={handleToggleDownload}
