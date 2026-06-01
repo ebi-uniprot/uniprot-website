@@ -113,18 +113,15 @@ const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
     .map((f) => getFilter(provenanceFilters, f))
     .filter(Boolean);
 
-  const filteredVariants = variants
-    ?.filter((variant) =>
+  return variants?.filter(
+    (variant) =>
       selectedConsequenceFilters.some((filter) =>
         filter?.filterPredicate(variant)
-      )
-    )
-    .filter((variant) =>
+      ) &&
       selectedProvenanceFilters.some((filter) =>
         filter?.filterPredicate(variant)
       )
-    );
-  return filteredVariants;
+  );
 };
 
 const getHighlightedCoordinates = (feature?: TransformedVariant) =>
@@ -485,6 +482,40 @@ const VariationViewer = ({
 
   const [filters, setFilters] = useState<string[]>([]);
   const [isFiltering, startFilterTransition] = useTransition();
+  // Hold the dim+spinner feedback for a minimum of 1s after the transition
+  // starts so fast filter operations don't flash on/off.
+  const MIN_FILTER_FEEDBACK_MS = 750;
+  const [filteringFeedbackActive, setFilteringFeedbackActive] = useState(false);
+  const filteringStartTimeRef = useRef<number | undefined>(undefined);
+  const filteringFeedbackTimerRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (isFiltering) {
+      setFilteringFeedbackActive(true);
+      filteringStartTimeRef.current = Date.now();
+      if (filteringFeedbackTimerRef.current !== undefined) {
+        window.clearTimeout(filteringFeedbackTimerRef.current);
+        filteringFeedbackTimerRef.current = undefined;
+      }
+      return undefined;
+    }
+    if (filteringStartTimeRef.current === undefined) {
+      return undefined;
+    }
+    const elapsed = Date.now() - filteringStartTimeRef.current;
+    const remaining = Math.max(0, MIN_FILTER_FEEDBACK_MS - elapsed);
+    filteringFeedbackTimerRef.current = window.setTimeout(() => {
+      setFilteringFeedbackActive(false);
+      filteringFeedbackTimerRef.current = undefined;
+      filteringStartTimeRef.current = undefined;
+    }, remaining);
+    return () => {
+      if (filteringFeedbackTimerRef.current !== undefined) {
+        window.clearTimeout(filteringFeedbackTimerRef.current);
+        filteringFeedbackTimerRef.current = undefined;
+      }
+    };
+  }, [isFiltering]);
   const managerRef = useRef<NightingaleManager>(null);
 
   // We pass the transformed data to both the variation viewer and the
@@ -620,12 +651,17 @@ const VariationViewer = ({
       return;
     }
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        !e.altKey &&
+        !e.shiftKey &&
+        e.key === 'f'
+      ) {
         messagesDispatch(
           addMessage({
             id: 'variation-viewer-search-hint',
             content:
-              "Too many rows for the browser's find to search - use the column filters instead.",
+              "Too many rows for the browser's find to search. Use the column filters instead.",
             format: MessageFormat.POP_UP,
             level: MessageLevel.INFO,
             displayTime: 5_000,
@@ -724,36 +760,69 @@ const VariationViewer = ({
         )}
       </div>
       <EntryDownloadButton handleToggle={handleToggleDownload} />
-      <NightingaleManagerComponent
-        reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
-        ref={managerRef}
-        highlight={getHighlightedCoordinates(highlightedVariant)}
-      >
-        <Suspense fallback={null}>
-          <VisualVariationView
-            sequence={transformedData.sequence}
-            variants={filteredVariants}
-          />
-        </Suspense>
-      </NightingaleManagerComponent>
-      {tableReady && (
+      <div className={tableStyles['frozen-container']}>
         <div
           className={cn({
-            [tableStyles.frozen]: isNavigating || isFiltering,
+            // Dim only while filters are recomputing on large datasets; we don't
+            // dim during navigation because the canvas is what the user is driving.
+            [tableStyles.frozen]: filteringFeedbackActive && isVirtualized,
           })}
         >
-          <TableFromData
-            id={tableId}
-            virtualize
-            virtualizerRef={variationTableVirtualizerRef}
-            columns={memoizedColumns}
-            data={filteredVariants}
-            getRowId={getRowId}
-            onRowClick={handleRowClick}
-            rowExtraContent={RowExtraContent}
-            markBackground={memoizedMarkBackground}
-            markBorder={memoizedMarkBorder}
-          />
+          <NightingaleManagerComponent
+            reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
+            ref={managerRef}
+            highlight={getHighlightedCoordinates(highlightedVariant)}
+          >
+            <Suspense fallback={null}>
+              <VisualVariationView
+                sequence={transformedData.sequence}
+                variants={filteredVariants}
+              />
+            </Suspense>
+          </NightingaleManagerComponent>
+        </div>
+        {filteringFeedbackActive && isVirtualized && (
+          <div
+            className={tableStyles['frozen-overlay']}
+            role="status"
+            aria-live="polite"
+            aria-label="Filtering variants"
+          >
+            <Loader />
+          </div>
+        )}
+      </div>
+      {tableReady && (
+        <div className={tableStyles['frozen-container']}>
+          <div
+            className={cn({
+              [tableStyles.frozen]:
+                (isNavigating || filteringFeedbackActive) && isVirtualized,
+            })}
+          >
+            <TableFromData
+              id={tableId}
+              virtualize
+              virtualizerRef={variationTableVirtualizerRef}
+              columns={memoizedColumns}
+              data={filteredVariants}
+              getRowId={getRowId}
+              onRowClick={handleRowClick}
+              rowExtraContent={RowExtraContent}
+              markBackground={memoizedMarkBackground}
+              markBorder={memoizedMarkBorder}
+            />
+          </div>
+          {filteringFeedbackActive && isVirtualized && (
+            <div
+              className={tableStyles['frozen-overlay']}
+              role="status"
+              aria-live="polite"
+              aria-label="Filtering variants"
+            >
+              <Loader />
+            </div>
+          )}
         </div>
       )}
     </section>
