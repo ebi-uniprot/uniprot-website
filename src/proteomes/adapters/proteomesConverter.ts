@@ -75,7 +75,7 @@ export type EnrichedRelatedProteome = RelatedProteome & {
 
 export type ProteomeType =
   | 'Reference proteome'
-  | 'Non Reference proteome'
+  | 'Non-reference proteome'
   | 'Excluded';
 
 export type ProteomesAPIModel = {

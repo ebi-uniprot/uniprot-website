@@ -11,7 +11,7 @@ export enum ProteomeFacetValue {
 
 export const proteomeFacetValueToLabel: Record<ProteomeFacetValue, string> = {
   [ProteomeFacetValue.REFERENCE]: 'Reference proteomes',
-  [ProteomeFacetValue.NON_REFERENCE]: 'Non Reference proteomes',
+  [ProteomeFacetValue.NON_REFERENCE]: 'Non-reference proteomes',
   [ProteomeFacetValue.EXCLUDED]: 'Excluded proteomes',
 };
 
