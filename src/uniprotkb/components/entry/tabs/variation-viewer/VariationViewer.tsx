@@ -21,9 +21,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { type PartialDeep, type SetRequired } from 'type-fest';
 
 import { getEntryPath } from '../../../../../app/config/urls';
-import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
-import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
-import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
 import TableFromData, {
@@ -429,8 +426,6 @@ const VariationViewer = ({
   const searchParams = new URLSearchParams(useLocation().search);
   const loadAllVariants = searchParams.get('loadVariants');
 
-  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
   const shouldRender =
     (importedVariants !== 'loading' &&
       importedVariants <= VARIANT_COUNT_LIMIT) ||
@@ -496,28 +491,17 @@ const VariationViewer = ({
 
   if (loading || importedVariants === 'loading') {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
     );
   }
 
-  const handleToggleDownload = () =>
-    setDisplayDownloadPanel(!displayDownloadPanel);
   if (!shouldRender) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         {title && <h3 data-article-id="variant_viewer">{title}</h3>}
-        <div>
-          {displayDownloadPanel && (
-            <EntryDownloadPanel
-              handleToggle={handleToggleDownload}
-              dataset={Dataset.variation}
-            />
-          )}
-          <EntryDownloadButton handleToggle={handleToggleDownload} />
-        </div>
         <div className={tabsStyles['too-many']}>
           <Message>
             Due to the large number (<LongNumber>{importedVariants}</LongNumber>
@@ -548,7 +532,7 @@ const VariationViewer = ({
 
   if (error && status !== 404) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         <ErrorHandler status={status} error={error} />
       </div>
     );
@@ -562,7 +546,7 @@ const VariationViewer = ({
     !filteredVariants
   ) {
     return (
-      <section className="wider-tab-content hotjar-margin">
+      <section className="wider-tab-content">
         {title && <h3 data-article-id="variant_viewer">{title}</h3>}
         <div className={tabsStyles['no-data']}>
           No variation information available for {primaryAccession}
@@ -585,17 +569,8 @@ const VariationViewer = ({
   }
 
   return (
-    <section className="wider-tab-content hotjar-margin">
+    <section className="wider-tab-content">
       {title && <h2 data-article-id="variant_viewer">{title}</h2>}
-      <div>
-        {displayDownloadPanel && (
-          <EntryDownloadPanel
-            handleToggle={handleToggleDownload}
-            dataset={Dataset.variation}
-          />
-        )}
-      </div>
-      <EntryDownloadButton handleToggle={handleToggleDownload} />
       <NightingaleManagerComponent
         reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
         ref={managerRef}

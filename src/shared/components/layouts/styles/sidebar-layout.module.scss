@@ -82,4 +82,14 @@
   &.no-overflow > .content {
     display: initial;
   }
+
+  // Opt-in (entry page, via `collapseSidebarEarly`): collapse the sidebar a
+  // touch earlier than the shared medium breakpoint. The aside is removed in
+  // JS below ~768px; here we let the content span the full width in the
+  // 640–768 band instead of sitting in column 3 with an empty sidebar gutter.
+  &.collapse-sidebar-early > .content {
+    @media only screen and (max-width: 768px) {
+      grid-column: 1 / 4;
+    }
+  }
 }
