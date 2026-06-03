@@ -2613,18 +2613,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'MDRepo',
-    displayName: 'MDRepo',
-    category: '3DS',
-    uriLink: 'https://mdrepo.org/uniprot/view/%id',
-  },
-  {
-    name: 'MDposit',
-    displayName: 'MDposit',
-    category: '3DS',
-    uriLink: 'https://mdposit.mddbr.eu/#/pointer?ref=proteins&id=%id',
-  },
-  {
     name: 'AbasyAtlas',
     displayName: 'AbasyAtlas',
     category: 'GEP',

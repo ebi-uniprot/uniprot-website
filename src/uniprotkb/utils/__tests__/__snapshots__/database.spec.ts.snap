@@ -21,8 +21,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "RCSB-PDB",
       "AlphaFoldDB",
       "EMDB",
-      "MDRepo",
-      "MDposit",
     ],
     "CHEMISTRY": [
       "BindingDB",
@@ -345,8 +343,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "LegioList": "ORG",
     "Leproma": "ORG",
     "MANE-Select": "GMA",
-    "MDRepo": "3DS",
-    "MDposit": "3DS",
     "MEROPS": "PFAM",
     "MGI": "ORG",
     "MIM": "ORG",
@@ -1765,18 +1761,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "MANE-Select",
       "name": "MANE-Select",
       "uriLink": "https://www.ensembl.org/id/%id",
-    },
-    "MDRepo": {
-      "category": "3DS",
-      "displayName": "MDRepo",
-      "name": "MDRepo",
-      "uriLink": "https://mdrepo.org/uniprot/view/%id",
-    },
-    "MDposit": {
-      "category": "3DS",
-      "displayName": "MDposit",
-      "name": "MDposit",
-      "uriLink": "https://mdposit.mddbr.eu/#/pointer?ref=proteins&id=%id",
     },
     "MEROPS": {
       "attributes": [
@@ -3375,8 +3359,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "RCSB-PDB",
       "AlphaFoldDB",
       "EMDB",
-      "MDRepo",
-      "MDposit",
       "EvolutionaryTrace",
       "ModBase",
     ],
