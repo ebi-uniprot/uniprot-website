@@ -105,9 +105,16 @@ describe('GoCam component', () => {
     );
     await screen.findByText(/GO-CAM models have not been found/i);
     expect(
-      axiosMock.history.get.some((request) =>
-        request.url?.includes('api.geneontology.org')
-      )
+      axiosMock.history.get.some((request) => {
+        if (!request.url) {
+          return false;
+        }
+        try {
+          return new URL(request.url).hostname === 'api.geneontology.org';
+        } catch {
+          return false;
+        }
+      })
     ).toBe(false);
     axiosMock.restore();
   });

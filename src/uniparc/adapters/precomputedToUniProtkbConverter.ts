@@ -58,6 +58,18 @@ const precomputedToUniProtkbConverter = (data: unknown): UniProtkbAPIModel => {
     logging.error(message);
     throw new Error(message);
   }
+  // Drift detection: the type pins entryType: 'AA' and annotationScore: 0.
+  // Anything else means upstream changed shape — log so Sentry picks it up.
+  if (data.entryType !== 'AA') {
+    logging.warn(
+      `Precomputed payload drift for accession ${data.primaryAccession}: unexpected entryType ${JSON.stringify(data.entryType)}`
+    );
+  }
+  if (data.annotationScore !== 0) {
+    logging.warn(
+      `Precomputed payload drift for accession ${data.primaryAccession}: unexpected annotationScore ${JSON.stringify(data.annotationScore)}`
+    );
+  }
   return {
     ...data,
     uniProtkbId: '',

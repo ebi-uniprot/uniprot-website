@@ -31,6 +31,15 @@ const ftpUrls = {
       ftpUniProt,
       `current_release/knowledgebase/pan_proteomes/${taxonId ? `pp${taxonId}/pp${taxonId}.fa.gz` : ''}`
     ),
+  // Temporary ad hoc location: while a data sync issue is resolved, pan proteome
+  // availability is determined by the presence of this preview directory rather
+  // than the (currently unreliable) release metadata. The trailing slash is
+  // required: without it the server returns a 301 redirect whose response lacks
+  // CORS headers, which fails the cross-origin HEAD request in the browser.
+  panProteomesPreview: (taxonId?: number) =>
+    taxonId
+      ? `https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp${taxonId}/`
+      : undefined,
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
   uniparc: joinUrl(ftpUniProt, 'current_release/uniparc'),

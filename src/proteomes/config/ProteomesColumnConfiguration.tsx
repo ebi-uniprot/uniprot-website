@@ -159,14 +159,14 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
   ...getLabelAndTooltip(
     'Protein count',
-    'Number of protein entries associated with this proteome: UniProtKB entries for reference proteomes or UniParc entries for non reference and excluded proteomes'
+    'Number of protein entries associated with this proteome: UniProtKB entries for reference proteomes or UniParc entries for non-reference and excluded proteomes'
   ),
   render: ({ id, proteinCount, proteomeType }) => {
     if (!proteinCount) {
       return 0;
     }
     const shouldPointToUniParc =
-      proteomeType === 'Excluded' || proteomeType === 'Non Reference proteome';
+      proteomeType === 'Excluded' || proteomeType === 'Non-reference proteome';
 
     return (
       <>

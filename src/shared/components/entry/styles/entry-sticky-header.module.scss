@@ -1,0 +1,142 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/mixins';
+
+// TODO: UniRef entry pages share the same header→overview→tools→tabs
+// structure (src/uniref/components/entry/Entry.tsx) but haven't been wired
+// up to the sticky compact bar yet — opt them in here when ready. Other
+// namespaces using `.entry-page` (proteomes, supporting-data) intentionally
+// do not adopt this pattern.
+
+// Default: compact bar takes no space; the existing tabs__header sticks at top: 0.
+.container {
+  --compact-bar-height: 0;
+}
+
+// When there's no sidebar, extend both sticky rows leftward by --sidebar-size
+// so they cover the empty sidebar column. Match the existing extension amount
+// used by entry-page.scss for `.tabs:has(.wider-tab-content)` so the tabs row
+// aligns with the compact bar on tabs that ALSO have wider-tab-content
+// (FeatureViewer, GenomicCoordinates, ExternalLinks, History). Going wider
+// would create a misalignment because that rule has higher specificity.
+// Negative margin pushes the box's left edge; padding-inline-start keeps the
+// inner content (title text, tab labels) at the same visual position.
+.container.no-sidebar {
+  --bar-extend-start: var(--sidebar-size);
+
+  & .compact-bar {
+    margin-inline-start: calc(0.125rem - var(--bar-extend-start));
+    width: calc(100% - 1rem + var(--bar-extend-start));
+    padding-inline-start: calc(0.5rem + var(--bar-extend-start));
+  }
+
+  & :global(.tabs__header) {
+    margin-inline-start: calc(0.125rem - var(--bar-extend-start));
+    width: calc(100% - 1rem + var(--bar-extend-start));
+    padding-inline-start: var(--bar-extend-start);
+  }
+}
+
+// Kept as a <div> rather than <header> to dodge base-layout.scss's global
+// `& header { height: var(--top-header-margin); }` rule, which was written
+// assuming only the page-level <header> exists.
+.full-header {
+  display: block;
+}
+
+// When the full header has scrolled offscreen, reserve room for the compact bar
+// and bump the existing sticky tabs__header below it so they stack instead of
+// overlapping at the same `top: 0`.
+.container.stuck {
+  --compact-bar-height: 3rem;
+
+  & :global(.tabs__header) {
+    top: var(--compact-bar-height);
+  }
+}
+
+.compact-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky-bar);
+  height: var(--compact-bar-height, 3rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0.5rem;
+  background: $colour-sky-white;
+  border-bottom: 1px solid rgba($colour-platinum, 0.5);
+
+  // Match the tabs__header offsets (entry-page.scss) so the two sticky rows
+  // have the same horizontal box and align on both edges.
+  margin-inline: 0.125rem;
+  width: calc(100% - 1rem);
+}
+
+.compact-title {
+  font-size: 1rem;
+  font-weight: bold;
+  // Don't grow: the title hugs its content so the AI toggle sits right next to
+  // it. The tools row is pushed to the far edge via its own margin instead.
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  // EntryTitle (franklin-sites) wraps the title in `.entry-title` and a status
+  // icon in `.entry-title__status` — both carry their own typography that we
+  // need to override for the compact-bar treatment. Scoped to those classes
+  // rather than `& *` so unrelated future descendants keep their typography.
+  :global(.entry-title),
+  :global(.entry-title__status) {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+}
+
+.compact-tools {
+  flex: 0 0 auto;
+  // Pin the tools to the far edge so the title + AI toggle stay grouped left.
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  // The button-group from EntryDownloadButton/etc. is normally vertical-margin
+  // heavy — strip those in the compact bar so buttons sit on a single line.
+  & > *,
+  :global(.button-group) {
+    margin: 0;
+  }
+}
+
+// Flattened overflow menu: a vertical, text-only list (icons dropped for a
+// tighter menu, per design). The expanded-vs-collapsed switch is driven in JS
+// (mirroring the header's nav-collapse breakpoint), not CSS.
+.menu-list {
+  svg {
+    display: none;
+  }
+}
+
+// The Menu sits at the far right of the bar, so anchor the popup to the
+// trigger's right edge and let it open leftward — otherwise it overflows the
+// viewport and introduces horizontal scroll.
+.compact-tools :global(.dropdown__content) {
+  right: 0;
+  left: auto;
+}
+
+// Franklin's `compact` prop handles knob/text/icon sizing and `stableWidthLabel`
+// handles loading-state width pegging — all we need here are the compact-bar
+// layout concerns: strip the vertical margin so the toggle sits centred in the
+// fixed-height bar, and pin it against flex-shrink so the title (with its
+// ellipsis) absorbs any space crunch instead of the toggle's "AI" crowding
+// the switch.
+.compact-bar {
+  :global(.ai-annotation-entry-title-row__toggle) {
+    flex-shrink: 0;
+    margin-block: 0;
+  }
+}

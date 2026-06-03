@@ -155,6 +155,16 @@ const LandingPage = () => {
             characterized sequences may be added.
           </p>
           <p>
+            UniProt also provides pan proteomes for numerous species across the
+            tree of life, to represent the observed protein diversity. All
+            available species pan proteomes can be accessed either in bulk or
+            individually through the{' '}
+            <ExternalLink url={ftpUrls.panProteomes()}>
+              FTP directory
+            </ExternalLink>
+            , or from the summary header section of a proteome page.
+          </p>
+          <p>
             <Link
               to={{
                 pathname: LocationToPath[Location.ProteomesResults],

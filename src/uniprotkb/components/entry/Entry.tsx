@@ -1,8 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import '../../../shared/components/entry/styles/entry-page.scss';
+import './styles/protnlm.scss';
 
 import cn from 'classnames';
-import { Chip, Loader, LongNumber, Tab, Tabs } from 'franklin-sites';
+import {
+  AiAnnotationsIcon,
+  Button,
+  Chip,
+  Dropdown,
+  Loader,
+  LongNumber,
+  Tab,
+  Tabs,
+  ToggleSwitch,
+} from 'franklin-sites';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
@@ -25,7 +36,10 @@ import {
 } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
+import BlastButton from '../../../shared/components/action-buttons/Blast';
+import MapIDButton from '../../../shared/components/action-buttons/MapID';
 import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdown';
+import { Dataset } from '../../../shared/components/entry/EntryDownload';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -33,6 +47,8 @@ import {
   EntryType,
   getEntryTypeFromString,
 } from '../../../shared/components/entry/EntryTypeIcon';
+import stickyHeaderStyles from '../../../shared/components/entry/styles/entry-sticky-header.module.scss';
+import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -44,12 +60,16 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import {
+  useEntryHeaderCrampedScreen,
+  useEntryToolsExpandedScreen,
   useMediumScreen,
   useSmallScreen,
 } from '../../../shared/hooks/useMatchMedia';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
+import useStickyHeader from '../../../shared/hooks/useStickyHeader';
 import useStructuredData from '../../../shared/hooks/useStructuredData';
 import helper from '../../../shared/styles/helper.module.scss';
 import sticky from '../../../shared/styles/sticky.module.scss';
@@ -68,6 +88,10 @@ import {
 import { TabLocation as UniParcTabLocation } from '../../../uniparc/types/entry';
 import { extractIsoformNames } from '../../adapters/extractIsoformsConverter';
 import generatePageTitle from '../../adapters/generatePageTitle';
+import {
+  augmentAPIDataWithProtnlmPredictions,
+  augmentUIDataWithProtnlmPredictions,
+} from '../../adapters/protnlmConverter';
 import uniProtKbConverter, {
   type UniProtkbAPIModel,
   type UniProtkbUIModel,
@@ -79,6 +103,7 @@ import { TabLocation } from '../../types/entry';
 import EntrySection, {
   entrySectionToCommunityAnnotationField,
 } from '../../types/entrySection';
+import { type UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
 import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
@@ -93,6 +118,16 @@ const legacyToNewSubPages = {
   protvista: TabLocation.FeatureViewer,
   'features-viewer': TabLocation.FeatureViewer,
   'variants-viewer': TabLocation.VariantViewer,
+};
+
+// Tabs that download something other than the entry data itself. The main
+// download button in the tools bar uses this to download the data relevant
+// to the active tab. Tabs not listed here fall back to the default entry
+// download (Dataset.uniprotData).
+const tabToDownloadDataset: Partial<Record<TabLocation, Dataset>> = {
+  [TabLocation.VariantViewer]: Dataset.variation,
+  [TabLocation.FeatureViewer]: Dataset.features,
+  [TabLocation.GenomicCoordinates]: Dataset.coordinates,
 };
 
 const VariationViewerTab = lazy(
@@ -160,8 +195,18 @@ const Entry = () => {
     legacyToNewSubPages
   );
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [isStuck, setFullHeaderRef] = useStickyHeader();
   const smallScreen = useSmallScreen();
   const mediumScreen = useMediumScreen();
+  // When wide enough, show the full tools row; below it, collapse to the Menu.
+  const wideScreen = useEntryToolsExpandedScreen();
+  // Independent: when the compact bar gets really tight, drop "AI Annotations"
+  // to just "AI" so the toggle stops crowding the title and Menu.
+  const headerCramped = useEntryHeaderCrampedScreen();
+  const [loadProtNLM, setLoadProtNLM] = useLocalStorage<boolean>(
+    'ai-annotations',
+    false
+  );
 
   const { loading, data, status, error, redirectedTo, progress } =
     useDataApi<UniProtkbAPIModel>(
@@ -204,6 +249,29 @@ const Entry = () => {
       : null
   );
 
+  // Probe whether a ProtNLM payload exists for this entry. We only need
+  // this when the user has the toggle off — when they have it on, the
+  // GET below tells us availability for free, so a HEAD would be a
+  // duplicate request.
+  const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      !loadProtNLM
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null,
+    { method: 'HEAD' }
+  );
+
+  const protnlmPayload = useDataApi<UniProtKBProtNLMAPIModel>(
+    match?.params.accession &&
+      data &&
+      data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
+      loadProtNLM
+      ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
+      : null
+  );
+
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
       ({ references }) =>
@@ -218,9 +286,23 @@ const Entry = () => {
     if (!data || !databaseInfoMaps) {
       return [];
     }
-    const transformedData = uniProtKbConverter(data, databaseInfoMaps);
+
+    // Augment UniProtKB data with ProtNLM data. Some augmentations
+    // happen before transformations, and some after. Transform data
+    // as soon as possible, ie even if the protnlm predictions are
+    // still loading.
+    const transformedData = protnlmPayload.data
+      ? augmentUIDataWithProtnlmPredictions(
+          protnlmPayload.data,
+          uniProtKbConverter(
+            augmentAPIDataWithProtnlmPredictions(protnlmPayload.data, data),
+            databaseInfoMaps
+          )
+        )
+      : uniProtKbConverter(data, databaseInfoMaps);
+
     return [transformedData, generatePageTitle(transformedData)];
-  }, [data, databaseInfoMaps]);
+  }, [data, databaseInfoMaps, protnlmPayload.data]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -478,6 +560,14 @@ const Entry = () => {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
 
+  // Toggle-off: read availability from the HEAD probe.
+  // Toggle-on:  the GET is what's firing — treat "still loading" as
+  //             available so we don't blink the toggle out while the
+  //             user is opted in; once it resolves to non-200 we hide it.
+  const hasProtnlm: boolean = loadProtNLM
+    ? protnlmPayload.loading || protnlmPayload.status === 200
+    : !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
+
   const isAFDBOutOfSync =
     new Date(
       transformedData?.sequences.entryAudit?.lastSequenceUpdateDate ||
@@ -511,11 +601,146 @@ const Entry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
+  // Individual tool nodes, shared between the expanded button row (full header
+  // + roomy compact bar) and the collapsed "Menu" dropdown (cramped compact
+  // bar). Reusing the same element descriptors keeps the two layouts in sync.
+  const alignNode = listOfIsoformAccessions.length > 1 && (
+    <AlignButton
+      selectedEntries={listOfIsoformAccessions}
+      textSuffix="isoforms"
+    />
+  );
+  const downloadButton = (
+    <EntryDownloadButton handleToggle={handleToggleDownload} />
+  );
+  const basketButton = <AddToBasketButton selectedEntries={accession} />;
+  const communityAnnotationLink = (
+    <CommunityAnnotationLink accession={accession} />
+  );
+  const addPublicationLink = (
+    <a
+      href={externalUrls.CommunityCuratedAdd(accession)}
+      className="button tertiary"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Add a publication
+    </a>
+  );
+  const entryFeedbackLink = (
+    <ContactLink
+      to={{
+        pathname: LocationToPath[Location.ContactUpdate],
+        search: stringifyQuery({
+          entry: accession,
+          entryType:
+            transformedData?.entryType === EntryType.REVIEWED
+              ? 'Reviewed (Swiss-Prot)'
+              : 'Unreviewed (TrEMBL)',
+        }),
+      }}
+      className="button tertiary"
+    >
+      Entry feedback
+    </ContactLink>
+  );
+
+  // Expanded tools row, lifted out of the Entry tab so it sits on every tab and
+  // so the compact sticky header can render the same buttons on the right.
+  const toolsRow =
+    !isObsolete && data?.sequence ? (
+      <div className="button-group">
+        <ToolsDropdown
+          selectedEntries={[accession]}
+          blast
+          align={alignNode}
+          mapID
+        />
+        {downloadButton}
+        {basketButton}
+        {communityAnnotationLink}
+        {addPublicationLink}
+        {entryFeedbackLink}
+      </div>
+    ) : null;
+
+  // Flattened single overflow menu for the cramped compact bar: BLAST and Map
+  // ID are listed directly (not nested in the Tools sub-dropdown), then the
+  // remaining actions/links.
+  const toolsMenu =
+    !isObsolete && data?.sequence ? (
+      <Dropdown
+        visibleElement={(onClick: () => unknown) => (
+          <Button variant="tertiary" onClick={onClick}>
+            Menu
+          </Button>
+        )}
+      >
+        {() => (
+          <ul className={cn('no-bullet', stickyHeaderStyles['menu-list'])}>
+            <li>
+              <BlastButton selectedEntries={[accession]} />
+            </li>
+            {alignNode && <li>{alignNode}</li>}
+            <li>
+              <MapIDButton
+                selectedEntries={[accession]}
+                namespace={Namespace.uniprotkb}
+              />
+            </li>
+            <li>{downloadButton}</li>
+            <li>{basketButton}</li>
+            <li>{communityAnnotationLink}</li>
+            <li>{addPublicationLink}</li>
+            <li>{entryFeedbackLink}</li>
+          </ul>
+        )}
+      </Dropdown>
+    ) : null;
+
+  // Two flavours: the spacious full-header toggle, and the dense sticky-bar
+  // toggle. Sticky mode is always `compact` (the bar is space-constrained at
+  // every width); only the visible label shrinks further to "AI" once the bar
+  // is genuinely cramped. ariaLabel keeps the accessible name as
+  // "AI Annotations" in all cases. Franklin's `stableWidthLabel` matches the
+  // live label so the loading-state "Loading..." swap doesn't reflow.
+  const makeProtnlmToggle = (opts: { label: string; compact?: boolean }) =>
+    hasProtnlm ? (
+      <ToggleSwitch
+        header={protnlmPayload.loading ? 'Loading...' : opts.label}
+        ariaLabel="AI Annotations"
+        icon={<AiAnnotationsIcon />}
+        isLoading={protnlmPayload.loading}
+        checked={loadProtNLM}
+        onChange={setLoadProtNLM}
+        className="ai-annotation-entry-title-row__toggle"
+        compact={opts.compact}
+        stableWidthLabel={opts.label}
+      />
+    ) : null;
+  const protnlmToggle = makeProtnlmToggle({ label: 'AI Annotations' });
+  const protnlmToggleSticky = makeProtnlmToggle({
+    label: headerCramped ? 'AI' : 'AI Annotations',
+    compact: true,
+  });
+
   return (
     <SidebarLayout
       sidebar={sidebar}
       noOverflow
-      className={cn('entry-page', sticky['sticky-tabs-container'])}
+      // Only when an in-page nav sidebar is actually shown (Entry/Publications
+      // tabs): drop it below ~768px so the sticky bar gets the full width
+      // sooner. Other tabs have no sidebar and keep the default behaviour.
+      collapseSidebarEarly={Boolean(sidebar)}
+      className={cn(
+        'entry-page',
+        sticky['sticky-tabs-container'],
+        stickyHeaderStyles.container,
+        {
+          [stickyHeaderStyles.stuck]: isStuck,
+          [stickyHeaderStyles['no-sidebar']]: !sidebar,
+        }
+      )}
     >
       <HTMLHead>
         {typeof window !== 'undefined' && (
@@ -545,23 +770,61 @@ const Entry = () => {
               value={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
-          <h1>
+          <div
+            ref={setFullHeaderRef}
+            className={stickyHeaderStyles['full-header']}
+            inert={isStuck}
+          >
+            <div className="ai-annotation-entry-title-row">
+              <h1>
+                <EntryTitle
+                  mainTitle={data.primaryAccession}
+                  optionalTitle={data.uniProtkbId}
+                  entryType={data.entryType}
+                />
+                <BasketStatus id={data.primaryAccession} className="small" />
+              </h1>
+              {protnlmToggle}
+            </div>
+            <ProteinOverview data={data} />
+            {toolsRow}
+          </div>
+        </ErrorBoundary>
+      )}
+      {!isObsolete && data?.sequence && displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
+          sequence={data.sequence.value}
+          dataset={
+            match.params.subPage
+              ? tabToDownloadDataset[match.params.subPage]
+              : undefined
+          }
+        />
+      )}
+      {isStuck && !isObsolete && data?.sequence && (
+        <div className={stickyHeaderStyles['compact-bar']}>
+          <span className={stickyHeaderStyles['compact-title']}>
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
-            <BasketStatus id={data.primaryAccession} className="small" />
-          </h1>
-          <ProteinOverview data={data} />
-        </ErrorBoundary>
+          </span>
+          {protnlmToggleSticky}
+          <div className={stickyHeaderStyles['compact-tools']}>
+            {wideScreen ? toolsRow : toolsMenu}
+          </div>
+        </div>
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
         <Tabs active={match.params.subPage}>
           <Tab
             disabled={isObsolete}
+            className={loadProtNLM && hasProtnlm ? 'entry-tab--ai' : undefined}
             title={
-              <Link
+              <EntryTabLink
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
@@ -571,74 +834,36 @@ const Entry = () => {
                 )}
               >
                 Entry
-              </Link>
+                {loadProtNLM && hasProtnlm && (
+                  <>
+                    <AiAnnotationsIcon
+                      className="ai-annotation-entry-tab-icon"
+                      aria-hidden="true"
+                    />
+                    <span className="visually-hidden">
+                      {' '}
+                      (AI annotations enabled)
+                    </span>
+                  </>
+                )}
+              </EntryTabLink>
             }
             id={TabLocation.Entry}
           >
             {!isObsolete && data.sequence && (
-              <>
-                {displayDownloadPanel && (
-                  <EntryDownloadPanel
-                    handleToggle={handleToggleDownload}
-                    isoformsAvailable={Boolean(listOfIsoformAccessions.length)}
-                    sequence={data.sequence.value}
-                  />
-                )}
-                <div className="button-group">
-                  <ToolsDropdown
-                    selectedEntries={[accession]}
-                    blast
-                    align={
-                      listOfIsoformAccessions.length > 1 && (
-                        <AlignButton
-                          selectedEntries={listOfIsoformAccessions}
-                          textSuffix="isoforms"
-                        />
-                      )
-                    }
-                    mapID
-                  />
-                  <EntryDownloadButton handleToggle={handleToggleDownload} />
-                  <AddToBasketButton selectedEntries={accession} />
-                  <CommunityAnnotationLink accession={accession} />
-                  <a
-                    href={externalUrls.CommunityCuratedAdd(accession)}
-                    className="button tertiary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Add a publication
-                  </a>
-                  <ContactLink
-                    to={{
-                      pathname: LocationToPath[Location.ContactUpdate],
-                      search: stringifyQuery({
-                        entry: accession,
-                        entryType:
-                          transformedData?.entryType === EntryType.REVIEWED
-                            ? 'Reviewed (Swiss-Prot)'
-                            : 'Unreviewed (TrEMBL)',
-                      }),
-                    }}
-                    className="button tertiary"
-                  >
-                    Entry feedback
-                  </ContactLink>
-                </div>
-                <EntryMain
-                  transformedData={transformedData}
-                  importedVariants={importedVariants}
-                  communityReferences={communityReferences}
-                  isoforms={listOfIsoformNames}
-                  hasPhylogenomicXrefs={hasPhylogenomicXrefs}
-                />
-              </>
+              <EntryMain
+                transformedData={transformedData}
+                importedVariants={importedVariants}
+                communityReferences={communityReferences}
+                isoforms={listOfIsoformNames}
+                hasPhylogenomicXrefs={hasPhylogenomicXrefs}
+              />
             )}
           </Tab>
           <Tab
             disabled={importedVariants === 'loading' || !importedVariants}
             title={
-              <Link
+              <EntryTabLink
                 className={cn({
                   [helper.disabled]:
                     importedVariants === 'loading' || !importedVariants,
@@ -669,7 +894,7 @@ const Entry = () => {
                       </Chip>
                     </>
                   )}
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.VariantViewer}
             onPointerOver={VariationViewerTab.preload}
@@ -698,7 +923,7 @@ const Entry = () => {
             disabled={isObsolete}
             title={
               smallScreen ? null : (
-                <Link
+                <EntryTabLink
                   className={isObsolete ? helper.disabled : undefined}
                   tabIndex={isObsolete ? -1 : undefined}
                   to={getEntryPath(
@@ -708,7 +933,7 @@ const Entry = () => {
                   )}
                 >
                   Feature viewer
-                </Link>
+                </EntryTabLink>
               )
             }
             id={TabLocation.FeatureViewer}
@@ -751,7 +976,7 @@ const Entry = () => {
               hasGenomicCoordinates === 'loading' || !hasGenomicCoordinates
             }
             title={
-              <Link
+              <EntryTabLink
                 className={cn({
                   [helper.disabled]:
                     hasGenomicCoordinates === 'loading' ||
@@ -772,7 +997,7 @@ const Entry = () => {
                 )}
               >
                 Genomic coordinates
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.GenomicCoordinates}
             onPointerOver={GenomicCoordinatesTab.preload}
@@ -822,7 +1047,7 @@ const Entry = () => {
           <Tab
             disabled={isObsolete}
             title={
-              <Link
+              <EntryTabLink
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
@@ -832,7 +1057,7 @@ const Entry = () => {
                 )}
               >
                 Publications
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.Publications}
             onPointerOver={PublicationsTab.preload}
@@ -840,17 +1065,6 @@ const Entry = () => {
           >
             <Suspense fallback={<Loader />}>
               <ErrorBoundary>
-                <div className="button-group">
-                  <CommunityAnnotationLink accession={accession} />
-                  <a
-                    href={externalUrls.CommunityCuratedAdd(accession)}
-                    className="button tertiary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Add a publication
-                  </a>
-                </div>
                 <HTMLHead
                   title={[
                     pageTitle,
@@ -865,7 +1079,7 @@ const Entry = () => {
           <Tab
             disabled={isObsolete}
             title={
-              <Link
+              <EntryTabLink
                 className={isObsolete ? helper.disabled : undefined}
                 tabIndex={isObsolete ? -1 : undefined}
                 to={getEntryPath(
@@ -875,7 +1089,7 @@ const Entry = () => {
                 )}
               >
                 External links
-              </Link>
+              </EntryTabLink>
             }
             id={TabLocation.ExternalLinks}
             onPointerOver={ExternalLinksTab.preload}
@@ -899,7 +1113,7 @@ const Entry = () => {
               match.params.subPage === TabLocation.History ? (
                 'History'
               ) : (
-                <Link
+                <EntryTabLink
                   to={getEntryPath(
                     Namespace.uniprotkb,
                     accession,
@@ -907,7 +1121,7 @@ const Entry = () => {
                   )}
                 >
                   History
-                </Link>
+                </EntryTabLink>
               )
             }
             id={TabLocation.History}

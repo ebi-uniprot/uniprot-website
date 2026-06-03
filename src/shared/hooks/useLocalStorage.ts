@@ -22,6 +22,8 @@ export type UserPreferenceKey =
   | `table columns for ${Namespace} entry page`
   // temporary flag for resetting uniparc columns - remove later
   | 'reset-Nov-2025'
+  // ProtNLM AI annotations toggle on the UniProtKB entry page
+  | 'ai-annotations'
   // basket content
   | 'basket';
 

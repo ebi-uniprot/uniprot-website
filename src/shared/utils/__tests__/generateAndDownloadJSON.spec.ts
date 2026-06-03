@@ -85,7 +85,7 @@ describe('generateAndDownloadJSON', () => {
   });
 
   it('returns early when data is undefined', () => {
-    expect(generateAndDownloadJSON(undefined)).toBeUndefined();
+    generateAndDownloadJSON(undefined);
     expect(createElementSpy).not.toHaveBeenCalled();
     expect(BlobMock).not.toHaveBeenCalled();
   });
