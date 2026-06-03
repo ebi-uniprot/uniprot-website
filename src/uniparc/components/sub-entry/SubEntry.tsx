@@ -30,6 +30,10 @@ import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../../shared/components/entry/EntryTypeIcon';
 import stickyHeaderStyles from '../../../shared/components/entry/styles/entry-sticky-header.module.scss';
 import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -56,9 +60,13 @@ import { type SearchResults } from '../../../shared/types/results';
 import { pluralise } from '../../../shared/utils/utils';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UIModel } from '../../../uniprotkb/adapters/sectionConverter';
-import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import {
+  type UniProtkbAPIModel,
+  type UniProtkbUIModel,
+} from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { subcellularLocationSectionHasContent } from '../../../uniprotkb/components/entry/SubcellularLocationSection';
 import uniprotkbUrls from '../../../uniprotkb/config/apiUrls/apiUrls';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type UniSaveStatus } from '../../../uniprotkb/types/uniSave';
 import { reUniProtKBAccession } from '../../../uniprotkb/utils/regexes';
@@ -170,6 +178,19 @@ const SubEntry = () => {
   const subEntryData = useDataApi<SearchResults<UniParcXRef>>(xrefIdURL);
   const unisaveData = useDataApi<UniSaveStatus>(
     isUniProtKB ? uniprotkbUrls.unisave.status(subEntryId as string) : undefined
+  );
+  // The authoritative active/inactive signal for a UniProtKB xref: its
+  // `entryType`. The UniParc xref `active` flag and the unisave status events
+  // can't reliably tell a deleted entry from an active one, so we ask UniProtKB
+  // directly (minimal fields) before deciding whether to redirect there.
+  const uniProtKBEntryData = useDataApi<
+    Pick<UniProtkbAPIModel, 'entryType' | 'inactiveReason'>
+  >(
+    isUniProtKB && subEntryId && accession
+      ? apiUrls.entry.entry(subEntryId, Namespace.uniprotkb, [
+          UniProtKBColumn.accession,
+        ])
+      : undefined
   );
   const dbData = useDataApi<DataDBModel>(
     !isUniProtKB ? apiUrls.configure.allDatabases(Namespace.uniparc) : undefined
@@ -361,7 +382,8 @@ const SubEntry = () => {
     dbData.loading ||
     uniparcData.loading ||
     subEntryData.loading ||
-    unisaveData.loading
+    unisaveData.loading ||
+    uniProtKBEntryData.loading
   ) {
     return (
       <Loader
@@ -411,6 +433,17 @@ const SubEntry = () => {
       />
     );
   }
+
+  const uniProtKBEntryType = getEntryTypeFromString(
+    uniProtKBEntryData.data?.entryType
+  );
+  // Only treat the xref as an active UniProtKB entry once we've confirmed a
+  // non-inactive `entryType`. If the lookup errored or returned nothing, we
+  // stay on the sub-entry page rather than redirecting into a possible loop.
+  const isUniProtKBActive =
+    isUniProtKB &&
+    uniProtKBEntryType !== undefined &&
+    uniProtKBEntryType !== EntryType.INACTIVE;
 
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
@@ -575,7 +608,8 @@ const SubEntry = () => {
         <SubEntryContext
           uniparcId={accession}
           subEntry={transformedData.subEntry}
-          data={unisaveData?.data}
+          isUniProtKBActive={isUniProtKBActive}
+          uniProtKBInactiveReason={uniProtKBEntryData.data?.inactiveReason}
           canLoadAnnotations={!!canLoadAnnotations}
           annotationsLoading={precomputedData.loading || uniFireData.loading}
           hasAnnotations={
