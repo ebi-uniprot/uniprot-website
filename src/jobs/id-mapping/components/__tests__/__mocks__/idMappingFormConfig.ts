@@ -297,7 +297,8 @@ const data: IDMappingFormConfig = {
           from: true,
           to: true,
           ruleId: 8,
-          uriLink: 'https://glyconnect.expasy.org/browser/proteins/%id',
+          uriLink:
+            'https://glyconnect.expasy.org/gcx/search/view/glycome/Protein/%id',
         },
       ],
     },

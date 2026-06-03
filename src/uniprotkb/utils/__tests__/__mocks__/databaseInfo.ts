@@ -362,6 +362,18 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
+    name: 'NDEx',
+    displayName: 'NDEx',
+    category: 'PPI',
+    uriLink: 'http://www.ndexbio.org/identifiers/%id',
+    attributes: [
+      {
+        name: 'Evidences',
+        xmlTag: 'evidences',
+      },
+    ],
+  },
+  {
     name: 'BindingDB',
     displayName: 'BindingDB',
     category: 'CHEMISTRY',
@@ -600,7 +612,8 @@ const databaseInfo: DatabaseInfo = [
     name: 'GlyConnect',
     displayName: 'GlyConnect',
     category: 'PTM',
-    uriLink: 'https://glyconnect.expasy.org/browser/proteins/%id',
+    uriLink:
+      'https://glyconnect.expasy.org/gcx/search/view/glycome/Protein/%id',
     attributes: [
       {
         name: 'glycosylation',
@@ -1977,6 +1990,18 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
+    name: 'AbasyAtlas',
+    displayName: 'AbasyAtlas',
+    category: 'GEP',
+    uriLink: 'https://abasy.ccg.unam.mx/details?uniprot=%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
+      },
+    ],
+  },
+  {
     name: 'AntiFam',
     displayName: 'AntiFam',
     category: 'FMD',
@@ -2304,6 +2329,18 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'DrugCentral',
     category: 'CHEMISTRY',
     uriLink: 'https://drugcentral.org/target/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
+      },
+    ],
+  },
+  {
+    name: 'ChEBI',
+    displayName: 'ChEBI',
+    category: 'CHEMISTRY',
+    uriLink: 'https://www.ebi.ac.uk/chebi/%id',
     attributes: [
       {
         name: 'Description',

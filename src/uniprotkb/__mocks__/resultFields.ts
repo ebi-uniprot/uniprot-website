@@ -807,6 +807,12 @@ const mock = [
         id: 'protein-protein_interaction/mint',
       },
       {
+        label: 'NDEx',
+        name: 'xref_ndex',
+        isMultiValueCrossReference: true,
+        id: 'protein-protein_interaction/ndex',
+      },
+      {
         label: 'STRING',
         name: 'xref_string',
         id: 'protein-protein_interaction/string',
@@ -822,6 +828,11 @@ const mock = [
         label: 'BindingDB',
         name: 'xref_bindingdb',
         id: 'chemistry/bindingdb',
+      },
+      {
+        label: 'ChEBI',
+        name: 'xref_chebi',
+        id: 'chemistry/chebi',
       },
       {
         label: 'ChEMBL',
@@ -1639,6 +1650,11 @@ const mock = [
     isDatabaseGroup: true,
     id: 'gene_expression',
     fields: [
+      {
+        label: 'AbasyAtlas',
+        name: 'xref_abasyatlas',
+        id: 'gene_expression/abasyatlas',
+      },
       {
         label: 'Bgee',
         name: 'xref_bgee',

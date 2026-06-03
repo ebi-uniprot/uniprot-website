@@ -29,6 +29,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GuidetoPHARMACOLOGY",
       "SwissLipids",
       "DrugCentral",
+      "ChEBI",
     ],
     "EAP": [
       "BioCyc",
@@ -68,6 +69,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
+      "AbasyAtlas",
     ],
     "GMA": [
       "Ensembl",
@@ -198,6 +200,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "NDEx",
       "FunCoup",
     ],
     "PRM": [
@@ -240,6 +243,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   "databaseNameToCategory": {
     "ABCD": "PAM",
     "AGR": "ORG",
+    "AbasyAtlas": "GEP",
     "Agora": "MISC",
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
@@ -268,6 +272,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "CPTC": "PAM",
     "CTD": "ORG",
     "CarbonylDB": "PTM",
+    "ChEBI": "CHEMISTRY",
     "ChEMBL": "CHEMISTRY",
     "ChiTaRS": "MISC",
     "CleanEx": "GEP",
@@ -349,6 +354,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "MoonDB": "PFAM",
     "MoonProt": "PFAM",
     "NCBIfam": "FMD",
+    "NDEx": "PPI",
     "NIAGADS": "ORG",
     "OGP": "2DG",
     "OMA": "PLG",
@@ -458,6 +464,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "AGR",
       "name": "AGR",
       "uriLink": "https://alliancegenome.org/gene/%id",
+    },
+    "AbasyAtlas": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "GEP",
+      "displayName": "AbasyAtlas",
+      "name": "AbasyAtlas",
+      "uriLink": "https://abasy.ccg.unam.mx/details?uniprot=%id",
     },
     "Agora": {
       "attributes": [
@@ -807,6 +825,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "CarbonylDB",
       "name": "CarbonylDB",
       "uriLink": "https://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id",
+    },
+    "ChEBI": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "CHEMISTRY",
+      "displayName": "ChEBI",
+      "name": "ChEBI",
+      "uriLink": "https://www.ebi.ac.uk/chebi/%id",
     },
     "ChEMBL": {
       "attributes": [
@@ -1475,7 +1505,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "GlyConnect",
       "name": "GlyConnect",
-      "uriLink": "https://glyconnect.expasy.org/browser/proteins/%id",
+      "uriLink": "https://glyconnect.expasy.org/gcx/search/view/glycome/Protein/%id",
     },
     "GlyCosmos": {
       "attributes": [
@@ -1903,6 +1933,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "NCBIfam",
       "name": "NCBIfam",
       "uriLink": "https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/",
+    },
+    "NDEx": {
+      "attributes": [
+        {
+          "name": "Evidences",
+          "xmlTag": "evidences",
+        },
+      ],
+      "category": "PPI",
+      "displayName": "NDEx",
+      "name": "NDEx",
+      "uriLink": "http://www.ndexbio.org/identifiers/%id",
     },
     "NIAGADS": {
       "attributes": [
@@ -3064,6 +3106,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
+      "AbasyAtlas",
       "HPA",
     ],
     "external_links": [
@@ -3208,6 +3251,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "NDEx",
       "FunCoup",
       "BindingDB",
       "RNAct",
