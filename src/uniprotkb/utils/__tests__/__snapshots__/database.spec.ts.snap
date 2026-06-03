@@ -135,7 +135,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MGI",
       "MIM",
       "NIAGADS",
-      "neXtProt",
       "OpenTargets",
       "Orphanet",
       "ClinPGx",
@@ -188,7 +187,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OMA",
       "OrthoDB",
       "PhylomeDB",
-      "TreeFam",
       "PAN-GO",
     ],
     "PPI": [
@@ -415,7 +413,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "TAIR": "ORG",
     "TCDB": "PFAM",
     "TopDownProteomics": "PROTEOMIC",
-    "TreeFam": "PLG",
     "TubercuList": "ORG",
     "UCSC": "GMA",
     "UniCarbKB": "PTM",
@@ -436,7 +433,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "euHCVdb": "ORG",
     "iPTMnet": "PTM",
     "jPOST": "PROTEOMIC",
-    "neXtProt": "ORG",
   },
   "databaseToDatabaseInfo": {
     "ABCD": {
@@ -943,7 +939,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "DEPOD",
       "name": "DEPOD",
-      "uriLink": "https://depod.bioss.uni-freiburg.de/showp.php?name=%id",
+      "uriLink": "https://depod.zellbiologie.uni-bonn.de/showp.php?name=%id",
     },
     "DIP": {
       "attributes": [
@@ -2166,7 +2162,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PROTEOMIC",
       "displayName": "PRIDE",
       "name": "PRIDE",
-      "uriLink": "https://www.ebi.ac.uk/pride/peptidome/peptidesearch?keyword=%id",
+      "uriLink": "https://www.ebi.ac.uk/pride/archive/proteins/%id",
     },
     "PRINTS": {
       "attributes": [
@@ -2723,18 +2719,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "TopDownProteomics",
       "uriLink": "http://repository.topdownproteomics.org/Proteoforms?query=%id",
     },
-    "TreeFam": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "PLG",
-      "displayName": "TreeFam",
-      "name": "TreeFam",
-      "uriLink": "http://www.treefam.org/family/%id",
-    },
     "TubercuList": {
       "attributes": [
         {
@@ -2996,18 +2980,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "jPOST",
       "uriLink": "https://globe.jpostdb.org/protein?id=%id",
     },
-    "neXtProt": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "ORG",
-      "displayName": "neXtProt",
-      "name": "neXtProt",
-      "uriLink": "https://www.nextprot.org/entry/%id",
-    },
   },
   "entrySectionToDatabaseCategoryOrder": {
     "disease_variants": [
@@ -3139,7 +3111,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MGI",
       "MIM",
       "NIAGADS",
-      "neXtProt",
       "OpenTargets",
       "Orphanet",
       "ClinPGx",
@@ -3225,7 +3196,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OMA",
       "OrthoDB",
       "PhylomeDB",
-      "TreeFam",
       "PAN-GO",
       "AGR",
     ],

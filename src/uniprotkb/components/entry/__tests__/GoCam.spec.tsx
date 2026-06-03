@@ -16,10 +16,10 @@ describe('getGoCamStructures', () => {
   it('should get GO-CAM structures', () => {
     const goCamIdToItem = new Map([
       [
-        '5e72450500001269',
+        '61e0e55600000338',
         {
-          id: '5e72450500001269',
-          label: 'PMID:31006538_LN_enabled by TEX264 Hsap',
+          id: '61e0e55600000338',
+          label: 'SP_RNF186onEPHRINs',
         },
       ],
       [
@@ -40,14 +40,6 @@ describe('getGoCamStructures', () => {
           id: '654d809000001587',
           label:
             'Atg7-mediated  autophagosome assembly via ATM-CHK2-TRIM32 axis (Human)',
-        },
-      ],
-      [
-        '67369e7600002132',
-        {
-          id: '67369e7600002132',
-          label:
-            'IRGQ promotes degradation of misfolded MHC class I proteins b promoting their degradation by autophagy (Human).',
         },
       ],
       [
