@@ -31,6 +31,9 @@ interface SubEntryContextProps {
   // from the entry's authoritative `entryType` (not the UniParc xref `active`
   // flag, which can lag behind UniProtKB).
   isUniProtKBActive: boolean;
+  // Whether the UniProtKB accession was merged or demerged. Detected from the
+  // unisave `merged` events upstream — see `SubEntry`.
+  isUniProtKBMergedOrDemerged: boolean;
   uniProtKBInactiveReason?: InactiveEntryReason;
   canLoadAnnotations: boolean;
   annotationsLoading: boolean;
@@ -54,6 +57,7 @@ const SubEntryContext = ({
   uniparcId,
   subEntry,
   isUniProtKBActive,
+  isUniProtKBMergedOrDemerged,
   uniProtKBInactiveReason,
   canLoadAnnotations,
   annotationsLoading,
@@ -107,6 +111,24 @@ const SubEntryContext = ({
   );
 
   if (isUniprotkbEntry) {
+    // Merged/demerged entries have meaningful UniProtKB history (the entries they
+    // became), so send the user straight to the history tab. Checked before the
+    // active case because a merged accession's entry lookup resolves to its
+    // (active) merged-into entry.
+    if (isUniProtKBMergedOrDemerged) {
+      return (
+        <Redirect
+          to={{
+            pathname: getEntryPath(
+              Namespace.uniprotkb,
+              subEntryId,
+              UniprotkbTabLocation.History
+            ),
+          }}
+        />
+      );
+    }
+
     // Active UniProtKB entries have a full UniProtKB page — send the user there.
     if (isUniProtKBActive) {
       return (
@@ -120,23 +142,7 @@ const SubEntryContext = ({
       );
     }
 
-    const { inactiveReasonType, deletedReason } = uniProtKBInactiveReason ?? {};
-
-    // Merged/demerged entries have meaningful UniProtKB history (the entries they
-    // became), so send the user straight to the history tab.
-    if (inactiveReasonType === 'MERGED' || inactiveReasonType === 'DEMERGED') {
-      return (
-        <Redirect
-          to={{
-            pathname: getEntryPath(
-              Namespace.uniprotkb,
-              subEntryId,
-              UniprotkbTabLocation.History
-            ),
-          }}
-        />
-      );
-    }
+    const { deletedReason } = uniProtKBInactiveReason ?? {};
 
     // Deleted: redirecting to the UniProtKB entry page would just bounce straight
     // back here (it redirects obsolete entries to UniParc), so stay and explain

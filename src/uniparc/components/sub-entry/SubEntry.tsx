@@ -434,14 +434,25 @@ const SubEntry = () => {
     );
   }
 
+  // Merged/demerged is detected from the unisave `merged` events, NOT from the
+  // entry's `inactiveReason`: fetching the entry follows a 303 to the merged-into
+  // accession, so the merge information is lost from `uniProtKBEntryData`.
+  const isUniProtKBMergedOrDemerged = Boolean(
+    isUniProtKB &&
+    unisaveData.data?.events?.some((event) => event.eventType === 'merged')
+  );
+
   const uniProtKBEntryType = getEntryTypeFromString(
     uniProtKBEntryData.data?.entryType
   );
   // Only treat the xref as an active UniProtKB entry once we've confirmed a
-  // non-inactive `entryType`. If the lookup errored or returned nothing, we
-  // stay on the sub-entry page rather than redirecting into a possible loop.
+  // non-inactive `entryType` (and it isn't a merged/demerged accession, whose
+  // entry lookup resolves to the active merged-into entry). If the lookup errored
+  // or returned nothing, we stay on the sub-entry page rather than redirecting
+  // into a possible loop.
   const isUniProtKBActive =
     isUniProtKB &&
+    !isUniProtKBMergedOrDemerged &&
     uniProtKBEntryType !== undefined &&
     uniProtKBEntryType !== EntryType.INACTIVE;
 
@@ -609,6 +620,7 @@ const SubEntry = () => {
           uniparcId={accession}
           subEntry={transformedData.subEntry}
           isUniProtKBActive={isUniProtKBActive}
+          isUniProtKBMergedOrDemerged={isUniProtKBMergedOrDemerged}
           uniProtKBInactiveReason={uniProtKBEntryData.data?.inactiveReason}
           canLoadAnnotations={!!canLoadAnnotations}
           annotationsLoading={precomputedData.loading || uniFireData.loading}
