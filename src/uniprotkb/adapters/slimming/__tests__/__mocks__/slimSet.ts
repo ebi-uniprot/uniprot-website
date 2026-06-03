@@ -1,7 +1,7 @@
 import { type SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-03
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -874,12 +874,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'extracellular region',
           id: 'GO:0005576',
-          aspect: 'cellular_component',
-        },
-        {
-          associations: null,
-          name: 'extracellular space',
-          id: 'GO:0005615',
           aspect: 'cellular_component',
         },
         {
@@ -1934,12 +1928,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'unfolded protein binding',
-          id: 'GO:0051082',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
           name: 'phosphoprotein binding',
           id: 'GO:0051219',
           aspect: 'molecular_function',
@@ -1976,19 +1964,19 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'L-leucine-2-oxoglutarate transaminase activity',
+          name: 'L-leucine:2-oxoglutarate transaminase activity',
           id: 'GO:0052654',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'L-valine-2-oxoglutarate transaminase activity',
+          name: 'L-valine:2-oxoglutarate transaminase activity',
           id: 'GO:0052655',
           aspect: 'molecular_function',
         },
         {
           associations: null,
-          name: 'L-isoleucine-2-oxoglutarate transaminase activity',
+          name: 'L-isoleucine:2-oxoglutarate transaminase activity',
           id: 'GO:0052656',
           aspect: 'molecular_function',
         },
@@ -2639,8 +2627,8 @@ const mock: { goSlimSets: SlimSet[] } = {
       associations: [
         {
           associations: null,
-          name: 'extracellular space',
-          id: 'GO:0005615',
+          name: 'extracellular region',
+          id: 'GO:0005576',
           aspect: 'cellular_component',
         },
         {
@@ -3031,12 +3019,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'receptor ligand activity',
           id: 'GO:0048018',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
-          name: 'unfolded protein binding',
-          id: 'GO:0051082',
           aspect: 'molecular_function',
         },
         {
@@ -4342,12 +4324,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'extracellular region',
           id: 'GO:0005576',
-          aspect: 'cellular_component',
-        },
-        {
-          associations: null,
-          name: 'extracellular space',
-          id: 'GO:0005615',
           aspect: 'cellular_component',
         },
         {
@@ -7019,7 +6995,7 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'receptor complex',
+          name: 'signaling receptor complex',
           id: 'GO:0043235',
           aspect: 'cellular_component',
         },
@@ -7655,12 +7631,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'organic acid metabolic process',
-          id: 'GO:0006082',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'generation of precursor metabolites and energy',
           id: 'GO:0006091',
           aspect: 'biological_process',
@@ -7843,12 +7813,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'muscle contraction',
           id: 'GO:0006936',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'syncytium formation',
-          id: 'GO:0006949',
           aspect: 'biological_process',
         },
         {
@@ -11360,12 +11324,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'exocytic insertion of neurotransmitter receptor to plasma membrane',
-          id: 'GO:0098881',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'synapse pruning',
           id: 'GO:0098883',
           aspect: 'biological_process',
@@ -12902,12 +12860,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'unfolded protein binding',
-          id: 'GO:0051082',
-          aspect: 'molecular_function',
-        },
-        {
-          associations: null,
           name: 'ATP-dependent activity',
           id: 'GO:0140657',
           aspect: 'molecular_function',
@@ -13076,24 +13028,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein phosphorylation',
-          id: 'GO:0006468',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'protein dephosphorylation',
-          id: 'GO:0006470',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'protein lipidation',
-          id: 'GO:0006497',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'amino acid metabolic process',
           id: 'GO:0006520',
           aspect: 'biological_process',
@@ -13232,12 +13166,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'protein alkylation',
-          id: 'GO:0008213',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'RNA splicing',
           id: 'GO:0008380',
           aspect: 'biological_process',
@@ -13274,12 +13202,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'membrane invagination',
-          id: 'GO:0010324',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'protein transport',
           id: 'GO:0015031',
           aspect: 'biological_process',
@@ -13304,20 +13226,14 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'peptidyl-amino acid modification',
-          id: 'GO:0018193',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'signaling',
           id: 'GO:0023052',
           aspect: 'biological_process',
         },
         {
           associations: null,
-          name: 'regulation of protein modification process',
-          id: 'GO:0031399',
+          name: 'protein catabolic process',
+          id: 'GO:0030163',
           aspect: 'biological_process',
         },
         {
@@ -13384,12 +13300,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'sno(s)RNA processing',
           id: 'GO:0043144',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'protein acylation',
-          id: 'GO:0043543',
           aspect: 'biological_process',
         },
         {

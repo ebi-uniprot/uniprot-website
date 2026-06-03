@@ -1,5 +1,5 @@
 // Source: uniparc/UPI0000000001/databases
-// Retrieved: 2026-05-21
+// Retrieved: 2026-06-03
 const mock = {
   results: [
     {
@@ -9,7 +9,7 @@ const mock = {
       version: 3,
       active: true,
       created: '2007-01-23',
-      lastUpdated: '2026-01-28',
+      lastUpdated: '2026-06-10',
       geneName: 'OPG099',
       proteinName: 'Entry-fusion complex associated protein OPG095',
       organism: {
@@ -21,7 +21,7 @@ const mock = {
       proteomes: [
         {
           id: 'UP000000344',
-          component: 'Genome',
+          component: 'Segment',
         },
       ],
     },
@@ -41,56 +41,12 @@ const mock = {
     },
     {
       database: 'UniProtKB/TrEMBL',
-      id: 'Q6RZL4',
-      versionI: 1,
-      version: 1,
-      active: true,
-      created: '2004-07-05',
-      lastUpdated: '2026-01-28',
-      geneName: 'RPXV077',
-      proteinName: 'RPXV077',
-      organism: {
-        scientificName: 'Rabbitpox virus (strain Utrecht)',
-        commonName: 'RPV',
-        taxonId: 45417,
-      },
-      proteomes: [
-        {
-          id: 'UP000166173',
-          component: 'Segment',
-        },
-      ],
-    },
-    {
-      database: 'UniProtKB/TrEMBL',
-      id: 'Q76QK2',
-      versionI: 1,
-      version: 1,
-      active: true,
-      created: '2004-07-05',
-      lastUpdated: '2026-01-28',
-      geneName: 'N1R',
-      proteinName: 'N1R protein',
-      organism: {
-        scientificName: 'Cowpox virus (strain GRI-90 / Grishak)',
-        commonName: 'CPV',
-        taxonId: 265871,
-      },
-      proteomes: [
-        {
-          id: 'UP000137384',
-          component: 'Segment',
-        },
-      ],
-    },
-    {
-      database: 'UniProtKB/TrEMBL',
       id: 'Q71TT2',
       versionI: 1,
       version: 1,
       active: true,
       created: '2006-04-18',
-      lastUpdated: '2026-01-28',
+      lastUpdated: '2026-06-10',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
@@ -131,73 +87,35 @@ const mock = {
     },
     {
       database: 'UniProtKB/TrEMBL',
-      id: 'Q0GNZ6',
+      id: 'Q6RZL4',
       versionI: 1,
       version: 1,
-      active: true,
-      created: '2006-10-03',
+      active: false,
+      created: '2004-07-05',
       lastUpdated: '2026-01-28',
-      geneName: 'HSPV_VK05_RKI-089',
-      proteinName: 'HSPV089',
+      geneName: 'RPXV077',
+      proteinName: 'RPXV077',
       organism: {
-        scientificName: 'Horsepox virus',
-        commonName: 'HSPV',
-        taxonId: 397342,
+        scientificName: 'Rabbitpox virus (strain Utrecht)',
+        commonName: 'RPV',
+        taxonId: 45417,
       },
-      proteomes: [
-        {
-          id: 'UP000111173',
-          component: 'Genome',
-        },
-        {
-          id: 'UP000315999',
-          component: 'Genome',
-        },
-      ],
     },
     {
       database: 'UniProtKB/TrEMBL',
-      id: 'A0A2I2MDI1',
+      id: 'Q76QK2',
       versionI: 1,
       version: 1,
-      active: true,
-      created: '2018-02-28',
+      active: false,
+      created: '2004-07-05',
       lastUpdated: '2026-01-28',
-      geneName: 'L1R',
-      proteinName: 'IMV membrane protein',
+      geneName: 'N1R',
+      proteinName: 'N1R protein',
       organism: {
-        scientificName: 'Vaccinia virus (strain Western Reserve)',
-        commonName: 'VACV',
-        taxonId: 10254,
-      },
-      proteomes: [
-        {
-          id: 'UP000274976',
-          component: 'Segment 1',
-        },
-      ],
-    },
-    {
-      database: 'UniProtKB/TrEMBL',
-      id: 'G0XTE8',
-      versionI: 1,
-      version: 1,
-      active: true,
-      created: '2024-11-27',
-      lastUpdated: '2026-01-28',
-      geneName: 'CPXV_FIN2000_MAN_093',
-      proteinName: 'IMV membrane protein',
-      organism: {
-        scientificName: 'Cowpox virus',
+        scientificName: 'Cowpox virus (strain GRI-90 / Grishak)',
         commonName: 'CPV',
-        taxonId: 10243,
+        taxonId: 265871,
       },
-      proteomes: [
-        {
-          id: 'UP000113999',
-          component: 'Segment',
-        },
-      ],
     },
     {
       database: 'UniProtKB/TrEMBL',
@@ -207,6 +125,38 @@ const mock = {
       active: false,
       created: '2004-07-05',
       lastUpdated: '2011-06-28',
+    },
+    {
+      database: 'UniProtKB/TrEMBL',
+      id: 'Q0GNZ6',
+      versionI: 1,
+      version: 1,
+      active: false,
+      created: '2006-10-03',
+      lastUpdated: '2026-01-28',
+      geneName: 'HSPV_VK05_RKI-089',
+      proteinName: 'HSPV089',
+      organism: {
+        scientificName: 'Horsepox virus',
+        commonName: 'HSPV',
+        taxonId: 397342,
+      },
+    },
+    {
+      database: 'UniProtKB/TrEMBL',
+      id: 'A0A2I2MDI1',
+      versionI: 1,
+      version: 1,
+      active: false,
+      created: '2018-02-28',
+      lastUpdated: '2026-01-28',
+      geneName: 'L1R',
+      proteinName: 'IMV membrane protein',
+      organism: {
+        scientificName: 'Vaccinia virus (strain Western Reserve)',
+        commonName: 'VACV',
+        taxonId: 10254,
+      },
     },
     {
       database: 'UniProtKB/TrEMBL',
@@ -225,13 +175,29 @@ const mock = {
       },
     },
     {
+      database: 'UniProtKB/TrEMBL',
+      id: 'G0XTE8',
+      versionI: 1,
+      version: 1,
+      active: false,
+      created: '2024-11-27',
+      lastUpdated: '2026-01-28',
+      geneName: 'CPXV_FIN2000_MAN_093',
+      proteinName: 'IMV membrane protein',
+      organism: {
+        scientificName: 'Cowpox virus',
+        commonName: 'CPV',
+        taxonId: 10243,
+      },
+    },
+    {
       database: 'RefSeq',
       id: 'YP_232970',
       versionI: 1,
       version: 1,
       active: true,
       created: '2005-10-06',
-      lastUpdated: '2025-09-02',
+      lastUpdated: '2026-03-16',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -248,7 +214,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2022-10-19',
-      lastUpdated: '2025-09-02',
+      lastUpdated: '2026-03-16',
       geneName: 'OPG095',
       proteinName: 'IMV membrane protein L1R',
       organism: {
@@ -373,7 +339,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2025-09-22',
+      lastUpdated: '2026-03-19',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',

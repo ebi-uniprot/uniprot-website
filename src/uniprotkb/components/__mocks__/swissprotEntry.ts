@@ -1,7 +1,7 @@
 import { type UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P05067.json
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-03
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P05067',
@@ -33,9 +33,9 @@ const mock: UniProtkbAPIModel = {
   uniProtkbId: 'A4_HUMAN',
   entryAudit: {
     firstPublicDate: '1987-08-13',
-    lastAnnotationUpdateDate: '2026-01-28',
+    lastAnnotationUpdateDate: '2026-06-10',
     lastSequenceUpdateDate: '1991-11-01',
-    entryVersion: 318,
+    entryVersion: 319,
     sequenceVersion: 3,
   },
   annotationScore: 5,
@@ -364,6 +364,11 @@ const mock: UniProtkbAPIModel = {
           fullName: {
             value: 'Gamma-secretase C-terminal fragment 59',
           },
+          shortNames: [
+            {
+              value: 'Gamma-CTF(59)',
+            },
+          ],
         },
         alternativeNames: [
           {
@@ -379,11 +384,6 @@ const mock: UniProtkbAPIModel = {
               },
             ],
           },
-          {
-            fullName: {
-              value: 'Gamma-CTF(59)',
-            },
-          },
         ],
       },
       {
@@ -391,6 +391,11 @@ const mock: UniProtkbAPIModel = {
           fullName: {
             value: 'Gamma-secretase C-terminal fragment 57',
           },
+          shortNames: [
+            {
+              value: 'Gamma-CTF(57)',
+            },
+          ],
         },
         alternativeNames: [
           {
@@ -406,11 +411,6 @@ const mock: UniProtkbAPIModel = {
               },
             ],
           },
-          {
-            fullName: {
-              value: 'Gamma-CTF(57)',
-            },
-          },
         ],
       },
       {
@@ -418,6 +418,11 @@ const mock: UniProtkbAPIModel = {
           fullName: {
             value: 'Gamma-secretase C-terminal fragment 50',
           },
+          shortNames: [
+            {
+              value: 'Gamma-CTF(50)',
+            },
+          ],
         },
         alternativeNames: [
           {
@@ -432,11 +437,6 @@ const mock: UniProtkbAPIModel = {
                 value: 'AID(50)',
               },
             ],
-          },
-          {
-            fullName: {
-              value: 'Gamma-CTF(50)',
-            },
           },
         ],
       },
@@ -3102,7 +3102,7 @@ const mock: UniProtkbAPIModel = {
             geneName: 'MAPK8IP1',
             intActId: 'EBI-78404',
           },
-          numberOfExperiments: 6,
+          numberOfExperiments: 3,
           organismDiffer: false,
         },
         {
@@ -4584,7 +4584,7 @@ const mock: UniProtkbAPIModel = {
             geneName: 'SHC1',
             intActId: 'EBI-78835',
           },
-          numberOfExperiments: 6,
+          numberOfExperiments: 5,
           organismDiffer: false,
         },
         {
@@ -5671,19 +5671,6 @@ const mock: UniProtkbAPIModel = {
             intActId: 'EBI-77613',
           },
           interactantTwo: {
-            uniProtKBAccession: 'Q9WVI9-1',
-            geneName: 'Mapk8ip1',
-            intActId: 'EBI-288461',
-          },
-          numberOfExperiments: 2,
-          organismDiffer: true,
-        },
-        {
-          interactantOne: {
-            uniProtKBAccession: 'P05067',
-            intActId: 'EBI-77613',
-          },
-          interactantTwo: {
             uniProtKBAccession: 'Q8BGY9',
             geneName: 'Slc5a7',
             intActId: 'EBI-2010752',
@@ -6288,45 +6275,6 @@ const mock: UniProtkbAPIModel = {
           },
           numberOfExperiments: 2,
           organismDiffer: false,
-        },
-        {
-          interactantOne: {
-            uniProtKBAccession: 'P05067-4',
-            intActId: 'EBI-302641',
-          },
-          interactantTwo: {
-            uniProtKBAccession: 'O35430',
-            geneName: 'Apba1',
-            intActId: 'EBI-704760',
-          },
-          numberOfExperiments: 2,
-          organismDiffer: true,
-        },
-        {
-          interactantOne: {
-            uniProtKBAccession: 'P05067-4',
-            intActId: 'EBI-302641',
-          },
-          interactantTwo: {
-            uniProtKBAccession: 'O35431',
-            geneName: 'Apba2',
-            intActId: 'EBI-2028211',
-          },
-          numberOfExperiments: 2,
-          organismDiffer: true,
-        },
-        {
-          interactantOne: {
-            uniProtKBAccession: 'P05067-4',
-            intActId: 'EBI-302641',
-          },
-          interactantTwo: {
-            uniProtKBAccession: 'O70248',
-            geneName: 'Apba3',
-            intActId: 'EBI-8513381',
-          },
-          numberOfExperiments: 2,
-          organismDiffer: true,
         },
         {
           interactantOne: {
@@ -13344,6 +13292,27 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
+      type: 'Helix',
+      location: {
+        start: {
+          value: 30,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 32,
+          modifier: 'EXACT',
+        },
+      },
+      description: '',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0007829',
+          source: 'PDB',
+          id: '4PQD',
+        },
+      ],
+    },
+    {
       type: 'Beta strand',
       location: {
         start: {
@@ -13613,6 +13582,27 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0007829',
           source: 'PDB',
           id: '4PQD',
+        },
+      ],
+    },
+    {
+      type: 'Helix',
+      location: {
+        start: {
+          value: 124,
+          modifier: 'EXACT',
+        },
+        end: {
+          value: 126,
+          modifier: 'EXACT',
+        },
+      },
+      description: '',
+      evidences: [
+        {
+          evidenceCode: 'ECO:0007829',
+          source: 'PDB',
+          id: '3KTM',
         },
       ],
     },
@@ -14310,14 +14300,14 @@ const mock: UniProtkbAPIModel = {
       ],
     },
     {
-      type: 'Beta strand',
+      type: 'Turn',
       location: {
         start: {
-          value: 718,
+          value: 716,
           modifier: 'EXACT',
         },
         end: {
-          value: 720,
+          value: 718,
           modifier: 'EXACT',
         },
       },
@@ -14326,7 +14316,7 @@ const mock: UniProtkbAPIModel = {
         {
           evidenceCode: 'ECO:0007829',
           source: 'PDB',
-          id: '8X52',
+          id: '6IYC',
         },
       ],
     },
@@ -25234,6 +25224,42 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDB',
+      id: '5NX1',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '1.85 A',
+        },
+        {
+          key: 'Chains',
+          value: 'B=289-301, C=289-346, D=302-346',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '5NX3',
+      properties: [
+        {
+          key: 'Method',
+          value: 'X-ray',
+        },
+        {
+          key: 'Resolution',
+          value: '2.30 A',
+        },
+        {
+          key: 'Chains',
+          value: 'B=289-301, C=289-346, D=306-346',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
       id: '5ONP',
       properties: [
         {
@@ -27016,6 +27042,78 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDB',
+      id: '9FH2',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.70 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9FH3',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.90 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9FH4',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '4.00 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9FH5',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.80 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
       id: '9IIO',
       properties: [
         {
@@ -27102,6 +27200,135 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'Chains',
           value: 'A/B/BA/BB/BC/BD/BE/C/CA/CB/CC/CD/CE/D/E=672-713',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9K0D',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.60 A',
+        },
+        {
+          key: 'Chains',
+          value: 'B/F/K/L/S/T=680-692',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9K0E',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.80 A',
+        },
+        {
+          key: 'Chains',
+          value: 'A/D/E/F/L/M=680-692',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9K0F',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '2.80 A',
+        },
+        {
+          key: 'Chains',
+          value: 'K/N/O=680-692',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9M5P',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value: '1/2/3/4/5/6=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9M5Q',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.30 A',
+        },
+        {
+          key: 'Chains',
+          value:
+            'AL/AM/AN/AO/AP/AQ/AR/AS/AT/AU/AV/AW/AX/AY/AZ/Aa/Ab/Ac/Ad/Ae/Af=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9M5R',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.60 A',
+        },
+        {
+          key: 'Chains',
+          value:
+            '0/1/2/3/4/5/6/7/8/9/A/A0/A1/A2/A3/A4/A5/A6/A7/A8/A9/AA/AB/AC/AD/AE/AF/AG/AH/AI=672-711',
+        },
+      ],
+    },
+    {
+      database: 'PDB',
+      id: '9UMH',
+      properties: [
+        {
+          key: 'Method',
+          value: 'EM',
+        },
+        {
+          key: 'Resolution',
+          value: '3.10 A',
+        },
+        {
+          key: 'Chains',
+          value:
+            'AL/AM/AN/AO/AP/AQ/AR/AS/AT/AU/AV/AW/AX/AY/AZ/Aa/Ab/Ac/Ad/Ae/Af=672-711',
         },
       ],
     },
@@ -28337,6 +28564,26 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDBsum',
+      id: '5NX1',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '5NX3',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
       id: '5ONP',
       properties: [
         {
@@ -29327,6 +29574,46 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'PDBsum',
+      id: '9FH2',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9FH3',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9FH4',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9FH5',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
       id: '9IIO',
       properties: [
         {
@@ -29368,6 +29655,76 @@ const mock: UniProtkbAPIModel = {
     {
       database: 'PDBsum',
       id: '9JB2',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9K0D',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9K0E',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9K0F',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9M5P',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9M5Q',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9M5R',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'PDBsum',
+      id: '9UMH',
       properties: [
         {
           key: 'Description',
@@ -29827,6 +30184,26 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'EMDB',
+      id: 'EMD-45642',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
+      id: 'EMD-45647',
+      properties: [
+        {
+          key: 'Description',
+          value: '-',
+        },
+      ],
+    },
+    {
+      database: 'EMDB',
       id: 'EMD-46422',
       properties: [
         {
@@ -30051,7 +30428,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '2408',
+          value: '2409',
         },
       ],
     },
@@ -30161,7 +30538,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'Interactions',
-          value: '926',
+          value: '920',
         },
       ],
     },
@@ -30172,6 +30549,16 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'Description',
           value: '-',
+        },
+      ],
+    },
+    {
+      database: 'NDEx',
+      id: 'IQUERY-CP-APP',
+      properties: [
+        {
+          key: 'Evidences',
+          value: '18 NDEx IQuery Curated Pathways',
         },
       ],
     },
@@ -30261,7 +30648,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'GenericName',
-          value: 'CAD106',
+          value: 'Amilomotide',
         },
       ],
     },
@@ -30292,16 +30679,6 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GenericName',
           value: 'Deferoxamine',
-        },
-      ],
-    },
-    {
-      database: 'DrugBank',
-      id: 'DB06782',
-      properties: [
-        {
-          key: 'GenericName',
-          value: 'Dimercaprol',
         },
       ],
     },
@@ -30357,6 +30734,16 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'DrugBank',
+      id: 'DB13178',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Inositol',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
       id: 'DB02235',
       properties: [
         {
@@ -30372,6 +30759,16 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GenericName',
           value: 'Lecanemab',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
+      id: 'DB12969',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Methylinositol',
         },
       ],
     },
@@ -30402,6 +30799,16 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'GenericName',
           value: 'PTI-110',
+        },
+      ],
+    },
+    {
+      database: 'DrugBank',
+      id: 'DB15746',
+      properties: [
+        {
+          key: 'GenericName',
+          value: 'Recombinant human plasma gelsolin',
         },
       ],
     },
@@ -30527,7 +30934,7 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GlyConnect',
-      id: '49',
+      id: 'P05067',
       properties: [
         {
           key: 'glycosylation',
@@ -30802,7 +31209,7 @@ const mock: UniProtkbAPIModel = {
       properties: [
         {
           key: 'antibodies',
-          value: '4422 antibodies from 55 providers',
+          value: '4430 antibodies from 56 providers',
         },
       ],
     },
@@ -30915,6 +31322,36 @@ const mock: UniProtkbAPIModel = {
         },
       ],
       isoformId: 'P05067-11',
+    },
+    {
+      database: 'Ensembl',
+      id: 'ENST00000872524.1',
+      properties: [
+        {
+          key: 'ProteinId',
+          value: 'ENSP00000542583.1',
+        },
+        {
+          key: 'GeneId',
+          value: 'ENSG00000142192.23',
+        },
+      ],
+      isoformId: 'P05067-7',
+    },
+    {
+      database: 'Ensembl',
+      id: 'ENST00000872525.1',
+      properties: [
+        {
+          key: 'ProteinId',
+          value: 'ENSP00000542584.1',
+        },
+        {
+          key: 'GeneId',
+          value: 'ENSG00000142192.23',
+        },
+      ],
+      isoformId: 'P05067-3',
     },
     {
       database: 'GeneID',
@@ -31986,7 +32423,7 @@ const mock: UniProtkbAPIModel = {
         },
         {
           key: 'GoEvidenceType',
-          value: 'IDA:HPA',
+          value: 'IDA:UniProtKB',
         },
       ],
       evidences: [
@@ -32289,6 +32726,27 @@ const mock: UniProtkbAPIModel = {
           evidenceCode: 'ECO:0000314',
           source: 'PubMed',
           id: '11988176',
+        },
+      ],
+    },
+    {
+      database: 'GO',
+      id: 'GO:0043083',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'C:synaptic cleft',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'TAS:UniProt',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000304',
+          source: 'PubMed',
+          id: '33239400',
         },
       ],
     },
@@ -33621,6 +34079,27 @@ const mock: UniProtkbAPIModel = {
     },
     {
       database: 'GO',
+      id: 'GO:0032224',
+      properties: [
+        {
+          key: 'GoTerm',
+          value: 'P:positive regulation of synaptic transmission, cholinergic',
+        },
+        {
+          key: 'GoEvidenceType',
+          value: 'IDA:UniProt',
+        },
+      ],
+      evidences: [
+        {
+          evidenceCode: 'ECO:0000314',
+          source: 'PubMed',
+          id: '33239400',
+        },
+      ],
+    },
+    {
+      database: 'GO',
       id: 'GO:2000406',
       properties: [
         {
@@ -34645,7 +35124,7 @@ const mock: UniProtkbAPIModel = {
     countByCommentType: {
       FUNCTION: 5,
       SUBUNIT: 8,
-      INTERACTION: 474,
+      INTERACTION: 470,
       'SUBCELLULAR LOCATION': 7,
       'ALTERNATIVE PRODUCTS': 11,
       'TISSUE SPECIFICITY': 1,
@@ -34680,9 +35159,9 @@ const mock: UniProtkbAPIModel = {
       'Natural variant': 21,
       Mutagenesis: 41,
       'Sequence conflict': 5,
-      Helix: 16,
-      'Beta strand': 30,
-      Turn: 6,
+      Helix: 18,
+      'Beta strand': 29,
+      Turn: 7,
     },
     uniParcId: 'UPI000002DB1C',
   },

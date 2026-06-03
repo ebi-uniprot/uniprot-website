@@ -6,7 +6,7 @@ import { type DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-03
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -588,7 +588,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'DEPOD',
     displayName: 'DEPOD',
     category: 'PTM',
-    uriLink: 'https://depod.bioss.uni-freiburg.de/showp.php?name=%id',
+    uriLink: 'https://depod.zellbiologie.uni-bonn.de/showp.php?name=%id',
     attributes: [
       {
         name: 'Description',
@@ -795,7 +795,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PRIDE',
     displayName: 'PRIDE',
     category: 'PROTEOMIC',
-    uriLink: 'https://www.ebi.ac.uk/pride/peptidome/peptidesearch?keyword=%id',
+    uriLink: 'https://www.ebi.ac.uk/pride/archive/proteins/%id',
     attributes: [
       {
         name: 'Description',
@@ -1446,18 +1446,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'neXtProt',
-    displayName: 'neXtProt',
-    category: 'ORG',
-    uriLink: 'https://www.nextprot.org/entry/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OpenTargets',
     displayName: 'OpenTargets',
     category: 'ORG',
@@ -1735,18 +1723,6 @@ const databaseInfo: DatabaseInfo = [
     displayName: 'PhylomeDB',
     category: 'PLG',
     uriLink: 'https://phylomedb.org/search_phylome/?seqid=%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
-    name: 'TreeFam',
-    displayName: 'TreeFam',
-    category: 'PLG',
-    uriLink: 'http://www.treefam.org/family/%id',
     attributes: [
       {
         name: 'Description',

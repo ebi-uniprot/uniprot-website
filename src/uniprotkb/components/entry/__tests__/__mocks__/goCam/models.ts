@@ -1,9 +1,9 @@
 // Source: https://api.geneontology.org/api/gp/UniProtKB:Q9GZQ8/models
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-03
 const models = [
   {
-    gocam: 'http://model.geneontology.org/5e72450500001269',
-    title: 'PMID:31006538_LN_enabled by TEX264 Hsap',
+    gocam: 'http://model.geneontology.org/61e0e55600000338',
+    title: 'SP_RNF186onEPHRINs',
   },
   {
     gocam: 'http://model.geneontology.org/6446bfcb00001774',
@@ -18,11 +18,6 @@ const models = [
     gocam: 'http://model.geneontology.org/654d809000001587',
     title:
       'Atg7-mediated  autophagosome assembly via ATM-CHK2-TRIM32 axis (Human)',
-  },
-  {
-    gocam: 'http://model.geneontology.org/67369e7600002132',
-    title:
-      'IRGQ promotes degradation of misfolded MHC class I proteins b promoting their degradation by autophagy (Human).',
   },
   {
     gocam: 'http://model.geneontology.org/6796b94c00001787',

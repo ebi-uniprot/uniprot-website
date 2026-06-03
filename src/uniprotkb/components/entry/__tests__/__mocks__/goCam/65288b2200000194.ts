@@ -1,7 +1,7 @@
 import { type GoCamModelInfo } from '../../../../../types/goCamTypes';
 
 // Source: https://api.geneontology.org/api/go-cam/gomodel:65288b2200000194
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-03
 const model: GoCamModelInfo = {
   id: 'gomodel:65288b2200000194',
   individuals: [
@@ -315,11 +315,6 @@ const model: GoCamModelInfo = {
           type: 'class',
           id: 'GO:0005575',
           label: 'cellular_component',
-        },
-        {
-          type: 'class',
-          id: 'CARO:0000000',
-          label: 'anatomical entity',
         },
       ],
       annotations: [
@@ -834,12 +829,12 @@ const model: GoCamModelInfo = {
           value: '2023-10-23',
         },
         {
-          key: 'source',
-          value: 'PMID:21177865',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'source',
+          value: 'PMID:21177865',
         },
       ],
     },
@@ -902,11 +897,6 @@ const model: GoCamModelInfo = {
           type: 'class',
           id: 'GO:0005575',
           label: 'cellular_component',
-        },
-        {
-          type: 'class',
-          id: 'CARO:0000000',
-          label: 'anatomical entity',
         },
       ],
       annotations: [
@@ -1217,11 +1207,6 @@ const model: GoCamModelInfo = {
           id: 'GO:0005575',
           label: 'cellular_component',
         },
-        {
-          type: 'class',
-          id: 'CARO:0000000',
-          label: 'anatomical entity',
-        },
       ],
       annotations: [
         {
@@ -1412,12 +1397,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0001-7299-6685',
         },
         {
-          key: 'providedBy',
-          value: 'https://www.uniprot.org',
-        },
-        {
           key: 'date',
           value: '2023-10-23',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
         },
         {
           key: 'source',
@@ -1669,11 +1654,6 @@ const model: GoCamModelInfo = {
           id: 'GO:0005575',
           label: 'cellular_component',
         },
-        {
-          type: 'class',
-          id: 'CARO:0000000',
-          label: 'anatomical entity',
-        },
       ],
       annotations: [
         {
@@ -1743,12 +1723,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'providedBy',
-          value: 'https://www.uniprot.org',
-        },
-        {
           key: 'date',
           value: '2023-10-23',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
         },
         {
           key: 'source',
@@ -1827,6 +1807,290 @@ const model: GoCamModelInfo = {
         {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002109',
+      type: [
+        {
+          type: 'class',
+          id: 'CHEBI:15378',
+          label: 'hydron',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'CHEBI:24431',
+          label: 'chemical entity',
+        },
+      ],
+      annotations: [
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002110',
+      type: [
+        {
+          type: 'class',
+          id: 'GO:0005796',
+          label: 'Golgi lumen',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'UBERON:0001062',
+          label: 'anatomical entity',
+        },
+        {
+          type: 'class',
+          id: 'GO:0110165',
+          label: 'cellular anatomical structure',
+        },
+        {
+          type: 'class',
+          id: 'GO:0005575',
+          label: 'cellular_component',
+        },
+      ],
+      annotations: [
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002111',
+      type: [
+        {
+          type: 'class',
+          id: 'ECO:0000314',
+          label: 'direct assay evidence used in manual assertion',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'ECO:0000000',
+          label: 'evidence',
+        },
+      ],
+      annotations: [
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'source',
+          value: 'PMID:37535724',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002112',
+      type: [
+        {
+          type: 'class',
+          id: 'CHEBI:15378',
+          label: 'hydron',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'CHEBI:24431',
+          label: 'chemical entity',
+        },
+      ],
+      annotations: [
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002113',
+      type: [
+        {
+          type: 'class',
+          id: 'GO:0005829',
+          label: 'cytosol',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'UBERON:0001062',
+          label: 'anatomical entity',
+        },
+        {
+          type: 'class',
+          id: 'GO:0110165',
+          label: 'cellular anatomical structure',
+        },
+        {
+          type: 'class',
+          id: 'GO:0005575',
+          label: 'cellular_component',
+        },
+      ],
+      annotations: [
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002114',
+      type: [
+        {
+          type: 'class',
+          id: 'ECO:0000314',
+          label: 'direct assay evidence used in manual assertion',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'ECO:0000000',
+          label: 'evidence',
+        },
+      ],
+      annotations: [
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'source',
+          value: 'PMID:37535724',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002115',
+      type: [
+        {
+          type: 'class',
+          id: 'ECO:0000314',
+          label: 'direct assay evidence used in manual assertion',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'ECO:0000000',
+          label: 'evidence',
+        },
+      ],
+      annotations: [
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+        {
+          key: 'source',
+          value: 'PMID:37535724',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+      ],
+    },
+    {
+      id: 'gomodel:65288b2200000194/69d8496c00002116',
+      type: [
+        {
+          type: 'class',
+          id: 'ECO:0000314',
+          label: 'direct assay evidence used in manual assertion',
+        },
+      ],
+      'root-type': [
+        {
+          type: 'class',
+          id: 'ECO:0000000',
+          label: 'evidence',
+        },
+      ],
+      annotations: [
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+        {
+          key: 'source',
+          value: 'PMID:37535724',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
         },
       ],
     },
@@ -1938,14 +2202,39 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:65288b2200000194/65288b2200000488',
-      property: 'RO:0002333',
-      'property-label': 'RO:0002333',
-      object: 'gomodel:65288b2200000194/65288b2200000489',
+      subject: 'gomodel:65288b2200000194/69d8496c00002112',
+      property: 'RO:0001025',
+      'property-label': 'RO:0001025',
+      object: 'gomodel:65288b2200000194/69d8496c00002113',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:65288b2200000194/65288b2200000492',
+          value: 'gomodel:65288b2200000194/69d8496c00002114',
+          'value-type': 'IRI',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
+      subject: 'gomodel:65288b2200000194/65288b2200000361',
+      property: 'RO:0002233',
+      'property-label': 'RO:0002233',
+      object: 'gomodel:65288b2200000194/65288b2200000458',
+      annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:65288b2200000194/65288b2200000459',
           'value-type': 'IRI',
         },
         {
@@ -1963,14 +2252,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:65288b2200000194/65288b2200000361',
-      property: 'RO:0002233',
-      'property-label': 'RO:0002233',
-      object: 'gomodel:65288b2200000194/65288b2200000458',
+      subject: 'gomodel:65288b2200000194/65288b2200000488',
+      property: 'RO:0002333',
+      'property-label': 'RO:0002333',
+      object: 'gomodel:65288b2200000194/65288b2200000489',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:65288b2200000194/65288b2200000459',
+          value: 'gomodel:65288b2200000194/65288b2200000492',
           'value-type': 'IRI',
         },
         {
@@ -2108,6 +2397,31 @@ const model: GoCamModelInfo = {
       ],
     },
     {
+      subject: 'gomodel:65288b2200000194/65288b2200000488',
+      property: 'RO:0002234',
+      'property-label': 'RO:0002234',
+      object: 'gomodel:65288b2200000194/69d8496c00002112',
+      annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:65288b2200000194/69d8496c00002116',
+          'value-type': 'IRI',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
       subject: 'gomodel:65288b2200000194/65288b2200000355',
       property: 'RO:0002629',
       'property-label': 'RO:0002629',
@@ -2233,6 +2547,31 @@ const model: GoCamModelInfo = {
       ],
     },
     {
+      subject: 'gomodel:65288b2200000194/65288b2200000488',
+      property: 'RO:0002233',
+      'property-label': 'RO:0002233',
+      object: 'gomodel:65288b2200000194/69d8496c00002109',
+      annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:65288b2200000194/69d8496c00002115',
+          'value-type': 'IRI',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
       subject: 'gomodel:65288b2200000194/65288b2200000361',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
@@ -2250,6 +2589,31 @@ const model: GoCamModelInfo = {
         {
           key: 'date',
           value: '2023-10-23',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
+      subject: 'gomodel:65288b2200000194/69d8496c00002109',
+      property: 'RO:0001025',
+      'property-label': 'RO:0001025',
+      object: 'gomodel:65288b2200000194/69d8496c00002110',
+      annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:65288b2200000194/69d8496c00002111',
+          'value-type': 'IRI',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2026-04-16',
         },
         {
           key: 'providedBy',
@@ -2489,7 +2853,7 @@ const model: GoCamModelInfo = {
     },
     {
       key: 'date',
-      value: '2025-08-21',
+      value: '2026-04-16',
     },
     {
       key: 'title',

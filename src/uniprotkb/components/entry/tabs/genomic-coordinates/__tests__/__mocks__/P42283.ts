@@ -1,7 +1,7 @@
 import { type GenomicEntry } from '../../types';
 
 // Source: https://www.ebi.ac.uk/proteins/api/coordinates?accession=P42283-1%2CQ7KQZ4-2%2CQ7KQZ4-1%2CQ7KQZ4-3%2CQ867Z4-2%2CP42284-3%2CQ867Z4-1%2CQ9V5M6-2%2CQ867Z4-3%2CQ7KQZ4-4%2CP42284-1%2CQ9V5M3-1%2CQ9V5M3-2%2CQ9V5M6-1%2CQ9V5M6-3%2CQ9V5M6-4%2CQ867Z4-5%2CP42284-2%2CQ9V5M3-3%2CQ9V5M3-4%2CQ9V5M3-5%2CQ9V5M6-5
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-03
 const mock: GenomicEntry[] = [
   {
     accession: 'P42284-1',
@@ -126,7 +126,7 @@ const mock: GenomicEntry[] = [
           end: 10532007,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089362',
@@ -280,7 +280,7 @@ const mock: GenomicEntry[] = [
           end: 10519092,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -826,7 +826,7 @@ const mock: GenomicEntry[] = [
           end: 10502144,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089346',
@@ -980,7 +980,7 @@ const mock: GenomicEntry[] = [
           end: 10505076,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -1853,7 +1853,7 @@ const mock: GenomicEntry[] = [
           end: 10505076,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -2751,7 +2751,7 @@ const mock: GenomicEntry[] = [
           end: 10523879,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -2986,7 +2986,7 @@ const mock: GenomicEntry[] = [
           end: 10520397,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089342',
@@ -3116,7 +3116,7 @@ const mock: GenomicEntry[] = [
           end: 10520397,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089349',
@@ -3271,7 +3271,7 @@ const mock: GenomicEntry[] = [
           end: 10525402,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089352',
@@ -3448,7 +3448,7 @@ const mock: GenomicEntry[] = [
           end: 10508350,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -4209,7 +4209,7 @@ const mock: GenomicEntry[] = [
           end: 10508350,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -4995,7 +4995,7 @@ const mock: GenomicEntry[] = [
           end: 10515544,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089348',
@@ -5150,7 +5150,7 @@ const mock: GenomicEntry[] = [
           end: 10517928,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089353',
@@ -5305,7 +5305,7 @@ const mock: GenomicEntry[] = [
           end: 10510643,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089351',
@@ -5435,7 +5435,7 @@ const mock: GenomicEntry[] = [
           end: 10510643,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089359',
@@ -5590,7 +5590,7 @@ const mock: GenomicEntry[] = [
           end: 10491945,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089361',
@@ -5745,7 +5745,7 @@ const mock: GenomicEntry[] = [
           end: 10490102,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089364',
@@ -5900,7 +5900,7 @@ const mock: GenomicEntry[] = [
           end: 10487984,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -6083,7 +6083,7 @@ const mock: GenomicEntry[] = [
           end: 10488776,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -6288,7 +6288,7 @@ const mock: GenomicEntry[] = [
           end: 10500639,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -7241,7 +7241,7 @@ const mock: GenomicEntry[] = [
           end: 10497182,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         ensemblGeneId: 'FBgn0283521',
         ensemblTranscriptId: 'FBtr0089360',
@@ -7419,7 +7419,7 @@ const mock: GenomicEntry[] = [
           end: 10526683,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {
@@ -7628,7 +7628,7 @@ const mock: GenomicEntry[] = [
           end: 10522338,
           reverseStrand: true,
           nucleotideId: 'AE013599.5',
-          assemblyName: 'BDGP6.54',
+          assemblyName: 'BDGP6.46',
         },
         feature: [
           {

@@ -1,7 +1,7 @@
 import { type ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-03
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -1432,11 +1432,6 @@ const mock = [
         name: 'xref_euhcvdb',
         id: 'organism-specific/euhcvdb',
       },
-      {
-        label: 'neXtProt',
-        name: 'xref_nextprot',
-        id: 'organism-specific/nextprot',
-      },
     ],
   },
   {
@@ -1480,11 +1475,6 @@ const mock = [
         label: 'PhylomeDB',
         name: 'xref_phylomedb',
         id: 'phylogenomic/phylomedb',
-      },
-      {
-        label: 'TreeFam',
-        name: 'xref_treefam',
-        id: 'phylogenomic/treefam',
       },
       {
         label: 'eggNOG',
