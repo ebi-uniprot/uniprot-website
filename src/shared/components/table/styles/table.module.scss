@@ -153,11 +153,28 @@
   overflow-y: auto;
 }
 
+.frozen-container {
+  position: relative;
+}
+
 .frozen {
-  opacity: 0.6;
+  opacity: 0.4;
+  filter: saturate(0.5);
   pointer-events: none;
-  transition: opacity 120ms;
-  will-change: opacity;
+  transition:
+    opacity 160ms ease,
+    filter 160ms ease;
+  will-change: opacity, filter;
+}
+
+.frozen-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .virtual-spacer > tr > td {

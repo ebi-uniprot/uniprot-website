@@ -1,5 +1,5 @@
 import { type Virtualizer } from '@tanstack/react-virtual';
-import { type RefObject, useCallback } from 'react';
+import { type RefObject, useCallback, useRef } from 'react';
 
 function useNightingaleFeatureTableScroll<T>(
   getRowId: (feature: T) => string,
@@ -10,6 +10,11 @@ function useNightingaleFeatureTableScroll<T>(
   virtualizerRef?: RefObject<Virtualizer<HTMLDivElement, Element> | null>,
   data?: T[] | null
 ) {
+  // Keep a ref to the latest data so the callback never needs to be recreated
+  // when filtered data changes, preventing unnecessary listener re-attaches.
+  const dataRef = useRef(data);
+  dataRef.current = data;
+
   return useCallback(
     (feature: T) => {
       const rowId = getRowId(feature);
@@ -39,14 +44,14 @@ function useNightingaleFeatureTableScroll<T>(
 
       // Row isn't currently in the DOM (virtualized off-screen): jump by index.
       const virtualizer = virtualizerRef?.current;
-      if (virtualizer && data) {
-        const idx = data.findIndex((d) => getRowId(d) === rowId);
+      if (virtualizer && dataRef.current) {
+        const idx = dataRef.current.findIndex((d) => getRowId(d) === rowId);
         if (idx >= 0) {
           virtualizer.scrollToIndex(idx, { align: 'center' });
         }
       }
     },
-    [getRowId, tableId, virtualizerRef, data]
+    [getRowId, tableId, virtualizerRef]
   );
 }
 

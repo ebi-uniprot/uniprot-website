@@ -3,8 +3,10 @@ import cn from 'classnames';
 import { Message } from 'franklin-sites';
 import {
   type HTMLAttributes,
+  memo,
   type ReactNode,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -16,7 +18,7 @@ import Table from './Table';
 
 const UNFILTERED_OPTION = 'All' as const;
 
-const VIRTUALIZE_ROW_THRESHOLD = 200;
+export const VIRTUALIZE_ROW_THRESHOLD = 1000;
 const VIRTUALIZE_ROW_OVERSCAN = 10;
 const VIRTUALIZE_ESTIMATED_ROW_HEIGHT = 36;
 
@@ -94,6 +96,62 @@ type ColumnsToSelectedFilter = Record<string, string | undefined>;
 
 const collator = new Intl.Collator('en');
 
+type TableFromDataRowProps<T> = {
+  datum: T;
+  isOdd: boolean;
+  columns: TableFromDataColumn<T>[];
+  rowExtraContent?: (datum: T) => React.ReactNode;
+  rowId: string;
+  isMarkedBackground: boolean;
+  isMarkedBorder: boolean;
+  onClick?: (datum: T, expanded: boolean) => void;
+};
+
+function TableFromDataRowComponent<T>({
+  datum,
+  isOdd,
+  columns,
+  rowExtraContent,
+  rowId,
+  isMarkedBackground,
+  isMarkedBorder,
+  onClick,
+}: TableFromDataRowProps<T>) {
+  const handleClick = useCallback(
+    (expanded: boolean) => onClick?.(datum, expanded),
+    [datum, onClick]
+  );
+
+  return (
+    <Table.Row
+      isOdd={isOdd}
+      extraContent={
+        rowExtraContent && (
+          <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
+        )
+      }
+      onClick={handleClick}
+      className={cn({
+        [styles['mark-background']]: isMarkedBackground,
+        [styles['mark-border']]: isMarkedBorder,
+      })}
+      data-id={rowId}
+    >
+      {columns.map((column) => (
+        <td key={column.id}>{column.render(datum)}</td>
+      ))}
+    </Table.Row>
+  );
+}
+
+// React.memo with a generic component requires the cast to preserve the type
+// signature. Memoising the row is the main win for large non-virtualized
+// tables: only rows whose props actually changed (e.g. the previously- and
+// newly-highlighted row) re-render, instead of the whole list.
+const TableFromDataRow = memo(
+  TableFromDataRowComponent
+) as typeof TableFromDataRowComponent;
+
 function TableFromData<T>({
   data,
   columns,
@@ -165,9 +223,11 @@ function TableFromData<T>({
 
   // Forward the virtualizer instance to the parent via ref. Used by the
   // scroll-to-row hook to jump to rows that aren't currently mounted.
-  if (virtualizerRef) {
-    virtualizerRef.current = shouldVirtualize ? virtualizer : null;
-  }
+  useEffect(() => {
+    if (virtualizerRef) {
+      virtualizerRef.current = shouldVirtualize ? virtualizer : null;
+    }
+  }, [shouldVirtualize, virtualizer, virtualizerRef]);
 
   if (shouldVirtualize) {
     const virtualItems = virtualizer.getVirtualItems();
@@ -204,32 +264,24 @@ function TableFromData<T>({
         )}
         {virtualItems.map((virtualItem) => {
           const datum = filteredData[virtualItem.index];
+          const rowId = getRowId(datum);
           return (
             <tbody
-              key={getRowId(datum)}
+              key={rowId}
               data-index={virtualItem.index}
               ref={virtualizer.measureElement}
-              className={styles['virtual-row']}
               translate={noTranslateBody ? 'no' : undefined}
             >
-              <Table.Row
+              <TableFromDataRow
+                datum={datum}
                 isOdd={virtualItem.index % 2 === 1}
-                extraContent={
-                  rowExtraContent && (
-                    <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
-                  )
-                }
-                onClick={(expanded: boolean) => onRowClick?.(datum, expanded)}
-                className={cn({
-                  [styles['mark-background']]: markBackground?.(datum),
-                  [styles['mark-border']]: markBorder?.(datum),
-                })}
-                data-id={getRowId(datum)}
-              >
-                {columns.map((column) => (
-                  <td key={column.id}>{column.render(datum)}</td>
-                ))}
-              </Table.Row>
+                columns={columns}
+                rowExtraContent={rowExtraContent}
+                rowId={rowId}
+                isMarkedBackground={Boolean(markBackground?.(datum))}
+                isMarkedBorder={Boolean(markBorder?.(datum))}
+                onClick={onRowClick}
+              />
             </tbody>
           );
         })}
@@ -262,27 +314,22 @@ function TableFromData<T>({
       </Table.Head>
       <Table.Body translate={noTranslateBody ? 'no' : undefined}>
         {filteredData.length ? (
-          filteredData.map((datum, index) => (
-            <Table.Row
-              isOdd={index % 2 === 1}
-              extraContent={
-                rowExtraContent && (
-                  <td colSpan={columns.length}>{rowExtraContent(datum)}</td>
-                )
-              }
-              key={getRowId(datum)}
-              onClick={(expanded: boolean) => onRowClick?.(datum, expanded)}
-              className={cn({
-                [styles['mark-background']]: markBackground?.(datum),
-                [styles['mark-border']]: markBorder?.(datum),
-              })}
-              data-id={getRowId(datum)}
-            >
-              {columns.map((column) => (
-                <td key={column.id}>{column.render(datum)}</td>
-              ))}
-            </Table.Row>
-          ))
+          filteredData.map((datum, index) => {
+            const rowId = getRowId(datum);
+            return (
+              <TableFromDataRow
+                key={rowId}
+                datum={datum}
+                isOdd={index % 2 === 1}
+                columns={columns}
+                rowExtraContent={rowExtraContent}
+                rowId={rowId}
+                isMarkedBackground={Boolean(markBackground?.(datum))}
+                isMarkedBorder={Boolean(markBorder?.(datum))}
+                onClick={onRowClick}
+              />
+            );
+          })
         ) : (
           <tr>
             <td

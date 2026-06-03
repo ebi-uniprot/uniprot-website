@@ -7,4 +7,5 @@ const NightingaleVariationCanvasComponent = createComponent({
   elementClass: NightingaleVariationCanvas,
   react: React,
 });
+
 export default NightingaleVariationCanvasComponent;
