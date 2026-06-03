@@ -120,34 +120,42 @@ const SubEntryContext = ({
       );
     }
 
-    // Inactive (deleted/demerged): redirecting to the UniProtKB entry page would
-    // just bounce straight back here (it redirects obsolete entries to UniParc),
-    // so stay and explain why, linking to the UniProtKB history.
     const { inactiveReasonType, deletedReason } = uniProtKBInactiveReason ?? {};
-    const statusContent =
-      inactiveReasonType === 'DEMERGED' ? (
-        <div>
-          {subEntryId} has been{' '}
-          <strong data-article-id="merged_accession">demerged</strong> in
-          UniProtKB.{annotationStatus}
-        </div>
-      ) : (
-        <div>
-          Removed from UniProtKB because {subEntryId}{' '}
-          {getDeletedReasonText(deletedReason)}{' '}
-          <strong data-article-id="deleted_accessions">
-            {deletedReason?.toLocaleLowerCase() || 'deleted'}
-          </strong>
-          .{annotationStatus}
-        </div>
-      );
 
+    // Merged/demerged entries have meaningful UniProtKB history (the entries they
+    // became), so send the user straight to the history tab.
+    if (inactiveReasonType === 'MERGED' || inactiveReasonType === 'DEMERGED') {
+      return (
+        <Redirect
+          to={{
+            pathname: getEntryPath(
+              Namespace.uniprotkb,
+              subEntryId,
+              UniprotkbTabLocation.History
+            ),
+          }}
+        />
+      );
+    }
+
+    // Deleted: redirecting to the UniProtKB entry page would just bounce straight
+    // back here (it redirects obsolete entries to UniParc), so stay and explain
+    // why, linking to the UniProtKB history.
     contextInfo = (
       <InfoList
         infoData={[
           {
             title: 'Status',
-            content: statusContent,
+            content: (
+              <div>
+                Removed from UniProtKB because {subEntryId}{' '}
+                {getDeletedReasonText(deletedReason)}{' '}
+                <strong data-article-id="deleted_accessions">
+                  {deletedReason?.toLocaleLowerCase() || 'deleted'}
+                </strong>
+                .{annotationStatus}
+              </div>
+            ),
           },
           {
             title: (
