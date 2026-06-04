@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type UniRuleAPIModel } from '../adapters/uniRuleConverter';
 
 // Source: unirule/search?query=insulin&size=2
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const mock: SearchResults<UniRuleAPIModel> = {
   results: [
     {

@@ -1,7 +1,7 @@
 import { type OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -480,11 +480,11 @@ const unirefApiDocs: OpenAPIV3.Document = {
           name: {
             type: 'string',
           },
-          evidenceDatabaseDetail: {
-            $ref: '#/components/schemas/EvidenceDatabaseDetail',
-          },
           reference: {
             type: 'boolean',
+          },
+          evidenceDatabaseDetail: {
+            $ref: '#/components/schemas/EvidenceDatabaseDetail',
           },
         },
       },
@@ -545,9 +545,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
             type: 'integer',
             format: 'int64',
           },
-          commonName: {
-            type: 'string',
-          },
           scientificName: {
             type: 'string',
           },
@@ -556,6 +553,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
             items: {
               type: 'string',
             },
+          },
+          commonName: {
+            type: 'string',
           },
           evidences: {
             type: 'array',
@@ -595,6 +595,24 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
+          },
           organismName: {
             type: 'string',
           },
@@ -626,24 +644,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           memberId: {
             type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
           },
         },
       },
@@ -715,6 +715,24 @@ const unirefApiDocs: OpenAPIV3.Document = {
       UniRefMember: {
         type: 'object',
         properties: {
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
+          },
           organismName: {
             type: 'string',
           },
@@ -746,24 +764,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           memberId: {
             type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
           },
         },
       },

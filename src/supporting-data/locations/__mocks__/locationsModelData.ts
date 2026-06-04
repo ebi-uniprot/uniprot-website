@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type LocationsAPIModel } from '../adapters/locationsConverter';
 
 // Source: locations/search?query=membrane&size=2
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const mock: SearchResults<LocationsAPIModel> = {
   results: [
     {

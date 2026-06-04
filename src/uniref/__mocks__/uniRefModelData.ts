@@ -1,7 +1,7 @@
 import { type UniRefAPIModel } from '../adapters/uniRefConverter';
 
 // Source: uniref/UniRef100_A0A000
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const mock: UniRefAPIModel = {
   id: 'UniRef100_A0A000',
   name: 'Cluster: 8-amino-7-oxononanoate synthase',

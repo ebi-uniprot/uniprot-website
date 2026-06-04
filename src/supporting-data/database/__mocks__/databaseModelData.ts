@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type DatabaseAPIModel } from '../adapters/databaseConverter';
 
 // Source: database/search?query=embl&size=2
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const mock: SearchResults<DatabaseAPIModel> = {
   results: [
     {

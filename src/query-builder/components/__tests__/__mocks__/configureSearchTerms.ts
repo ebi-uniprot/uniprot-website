@@ -4,7 +4,7 @@ import { type SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',

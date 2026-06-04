@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../../../shared/types/results';
 import { type CitationsAPIModel } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 
 // Source: uniprotkb/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const mock: SearchResults<Partial<CitationsAPIModel>> = {
   facets: [
     {

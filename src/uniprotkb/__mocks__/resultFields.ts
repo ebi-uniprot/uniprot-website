@@ -1,7 +1,7 @@
 import { type ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2026-06-03
+// Retrieved: 2026-06-04
 const mock = [
   {
     groupName: 'Names & Taxonomy',
