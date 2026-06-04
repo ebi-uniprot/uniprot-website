@@ -22,8 +22,11 @@ type Props = {
  * PDB by checksum (the same path the entry-level Structure tab uses), so any
  * sub-entry with a sequence can render the section regardless of whether the
  * xref happens to be a UniProtKB accession. When it *is* a UniProtKB
- * accession, we also pass `primaryAccession` so the accession-keyed
- * affordances inside `StructureView` light up.
+ * accession, we also pass `primaryAccession` — this only enriches the data
+ * lookup (AlphaFold-by-accession) and the public Foldseek / AlphaFold DB links.
+ * We always pass `isUniProtKBAccession={false}` so the UniProtKB-only Feature
+ * Viewer link + AFDB modal stay suppressed (this is a UniParc page), matching
+ * the other reused sections in `UniParcSubEntryConfig`.
  */
 export const hasStructure = (uniparcData: UniParcSubEntryUIModel): boolean =>
   Boolean(uniparcData.entry.sequence?.md5);
@@ -48,7 +51,7 @@ const StructureSection = ({ uniparcData }: Props) =>
             : undefined
         }
         checksum={uniparcData.entry.sequence?.md5}
-        viewerOnly
+        isUniProtKBAccession={false}
       />
     </Card>
   );
