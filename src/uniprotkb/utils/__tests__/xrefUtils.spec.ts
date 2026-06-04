@@ -1,3 +1,6 @@
+import { type Xref } from '../../../shared/types/apiModel';
+import { DatabaseCategory } from '../../types/databaseRefs';
+import EntrySection from '../../types/entrySection';
 import {
   getDatabaseSimilarityCommentImplicitXrefs,
   getDRImplicitXrefs,
@@ -5,6 +8,7 @@ import {
   getGenePatternOrganismImplicitXrefs,
   getJoinedXrefs,
   getUnconditionalImplicitXrefs,
+  getXrefsForSection,
 } from '../xrefUtils';
 import databaseInfoMaps from './__mocks__/databaseInfoMaps';
 
@@ -137,6 +141,67 @@ describe('xrefUtils tests', () => {
       { database: 'ModBase', implicit: true },
       { database: 'MobiDB', implicit: true },
     ]);
+  });
+
+  describe('getXrefsForSection — NDEx prefix split', () => {
+    const iqueryCp: Xref = {
+      database: 'NDEx',
+      id: 'IQUERY-CP-FOO',
+    };
+    const music2: Xref = {
+      database: 'NDEx',
+      id: 'MUSIC2-BAR',
+      properties: { evidences: 'Osteosarcoma cell line (U2OS) cell map' },
+    };
+    const plainAccession: Xref = { database: 'NDEx', id: 'Q14332' };
+    const allNdexXrefs = [iqueryCp, music2, plainAccession];
+
+    const xrefIdsInCategory = (
+      result: ReturnType<typeof getXrefsForSection>,
+      category: DatabaseCategory
+    ): string[] => {
+      const bucket = result.find((entry) => entry.category === category);
+      return (
+        bucket?.databases.flatMap(({ xrefs }) =>
+          xrefs.map((xref) => xref.id ?? '')
+        ) ?? []
+      );
+    };
+
+    it('routes IQUERY-CP-* IDs to Function under PATHWAY', () => {
+      const result = getXrefsForSection(
+        databaseInfoMaps,
+        allNdexXrefs,
+        EntrySection.Function
+      );
+      expect(xrefIdsInCategory(result, DatabaseCategory.PATHWAY)).toEqual([
+        'IQUERY-CP-FOO',
+      ]);
+    });
+
+    it('routes MUSIC2-* and plain-accession IDs to Interaction under INTERACTION', () => {
+      const result = getXrefsForSection(
+        databaseInfoMaps,
+        allNdexXrefs,
+        EntrySection.Interaction
+      );
+      expect(xrefIdsInCategory(result, DatabaseCategory.INTERACTION)).toEqual([
+        'MUSIC2-BAR',
+        'Q14332',
+      ]);
+    });
+
+    it('does not surface NDEx in unrelated sections (e.g. Structure)', () => {
+      const result = getXrefsForSection(
+        databaseInfoMaps,
+        allNdexXrefs,
+        EntrySection.Structure
+      );
+      const allIds = result.flatMap(({ databases }) =>
+        databases.flatMap(({ xrefs }) => xrefs.map((x) => x.id))
+      );
+      expect(allIds).toEqual([]);
+    });
   });
 
   it('should getJoinedXrefs', () => {

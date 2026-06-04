@@ -207,7 +207,7 @@ exports[`Entry view should render 1`] = `
             | 
             <a
               class="external-link"
-              href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:314"
+              href="https://www.ebi.ac.uk/chebi/CHEBI:314"
               rel="noopener"
               target="_blank"
             >
@@ -3864,7 +3864,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             | 
             <a
               class="external-link"
-              href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+              href="https://www.ebi.ac.uk/chebi/CHEBI:60240"
               rel="noopener"
               target="_blank"
             >
@@ -4332,7 +4332,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                  | 
                 <a
                   class="external-link"
-                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+                  href="https://www.ebi.ac.uk/chebi/CHEBI:60240"
                   rel="noopener"
                   target="_blank"
                 >
@@ -4503,7 +4503,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                  | 
                 <a
                   class="external-link"
-                  href="https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60240"
+                  href="https://www.ebi.ac.uk/chebi/CHEBI:60240"
                   rel="noopener"
                   target="_blank"
                 >

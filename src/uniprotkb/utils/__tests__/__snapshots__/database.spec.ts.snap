@@ -30,6 +30,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "SwissLipids",
       "DrugCentral",
       "ChEBI",
+      "ChEBI",
     ],
     "EAP": [
       "BioCyc",
@@ -69,6 +70,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
+      "AbasyAtlas",
       "AbasyAtlas",
     ],
     "GMA": [
@@ -202,6 +204,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "STRING",
       "NDEx",
       "FunCoup",
+      "NDEx",
     ],
     "PRM": [
       "Proteomes",
@@ -466,12 +469,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "uriLink": "https://alliancegenome.org/gene/%id",
     },
     "AbasyAtlas": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
       "category": "GEP",
       "displayName": "AbasyAtlas",
       "name": "AbasyAtlas",
@@ -827,12 +824,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "uriLink": "https://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id",
     },
     "ChEBI": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
       "category": "CHEMISTRY",
       "displayName": "ChEBI",
       "name": "ChEBI",
@@ -1935,16 +1926,10 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "uriLink": "https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/",
     },
     "NDEx": {
-      "attributes": [
-        {
-          "name": "Evidences",
-          "xmlTag": "evidences",
-        },
-      ],
       "category": "PPI",
       "displayName": "NDEx",
       "name": "NDEx",
-      "uriLink": "http://www.ndexbio.org/identifiers/%id",
+      "uriLink": "https://www.ndexbio.org/identifiers/%id",
     },
     "NIAGADS": {
       "attributes": [
@@ -3107,6 +3092,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CollecTF",
       "ExpressionAtlas",
       "AbasyAtlas",
+      "AbasyAtlas",
       "HPA",
     ],
     "external_links": [
@@ -3253,6 +3239,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "STRING",
       "NDEx",
       "FunCoup",
+      "NDEx",
       "BindingDB",
       "RNAct",
     ],
