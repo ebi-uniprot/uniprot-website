@@ -2176,6 +2176,8 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "xref_abasyatlas": xref_abasyatlas 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "xref_abcd": xref_abcd 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_agora": xref_agora 1`] = `<DocumentFragment />`;
@@ -2225,6 +2227,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_cd-co
 exports[`UniProtKBColumnConfiguration component should render column "xref_cdd": xref_cdd 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_cgd": xref_cgd 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_chebi": xref_chebi 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_chembl": xref_chembl 1`] = `<DocumentFragment />`;
 
@@ -2454,11 +2458,7 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_mane-
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_massive": xref_massive 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_medgen": xref_medgen 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render column "xref_merops": xref_merops 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render column "xref_mesh": xref_mesh 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_metosite": xref_metosite 1`] = `<DocumentFragment />`;
 
@@ -2473,6 +2473,8 @@ exports[`UniProtKBColumnConfiguration component should render column "xref_moond
 exports[`UniProtKBColumnConfiguration component should render column "xref_moonprot": xref_moonprot 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_ncbifam": xref_ncbifam 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "xref_ndex": xref_ndex 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_niagads": xref_niagads 1`] = `<DocumentFragment />`;
 
