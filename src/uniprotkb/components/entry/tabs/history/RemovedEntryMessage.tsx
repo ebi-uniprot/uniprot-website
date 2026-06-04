@@ -120,7 +120,7 @@ const RemovedEntryMessage = ({
       />
       {children ||
         (reason?.deletedReason && (
-          <div>
+          <div className={styles.statement}>
             Reason:{' '}
             <strong data-article-id={helpArticleLink}>
               {reason.deletedReason.includes('proteome') &&
@@ -162,7 +162,7 @@ export const DemergedEntryMessage = ({
   return (
     <Card>
       {demergedTo.length ? (
-        <div>
+        <div className={styles.statement}>
           This entry has been <strong>demerged</strong>. Its accession has been
           set as a secondary accession in the following UniProtKB entries.
         </div>
@@ -218,7 +218,7 @@ export const MergedEntryMessage = ({
   ...props
 }: MergedEntryMessageProps) => (
   <RemovedEntryMessage {...props} merged>
-    <div>
+    <div className={styles.statement}>
       This entry has now been <strong>merged</strong> into{' '}
       <Link
         to={getEntryPath(
