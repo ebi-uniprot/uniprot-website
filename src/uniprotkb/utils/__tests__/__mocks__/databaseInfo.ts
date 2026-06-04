@@ -2612,6 +2612,24 @@ const databaseInfo: DatabaseInfo = [
       },
     ],
   },
+  {
+    name: 'AbasyAtlas',
+    displayName: 'AbasyAtlas',
+    category: 'GEP',
+    uriLink: 'https://abasy.ccg.unam.mx/details?uniprot=%id',
+  },
+  {
+    name: 'NDEx',
+    displayName: 'NDEx',
+    category: 'PPI',
+    uriLink: 'https://www.ndexbio.org/identifiers/%id',
+  },
+  {
+    name: 'ChEBI',
+    displayName: 'ChEBI',
+    category: 'CHEMISTRY',
+    uriLink: 'https://www.ebi.ac.uk/chebi/%id',
+  },
 ];
 
 export default databaseInfo;

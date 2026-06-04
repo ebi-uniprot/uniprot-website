@@ -8,9 +8,11 @@ import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { EntryType } from '../../../shared/config/entryTypeIcon';
 import externalUrls from '../../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import helper from '../../../shared/styles/helper.module.scss';
 import { hasContent } from '../../../shared/utils/utils';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import { type Reference } from '../../../supporting-data/citations/adapters/citationsConverter';
 import {
   type Absorption,
@@ -165,6 +167,7 @@ type CofactorViewProps = {
 };
 
 export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
   if (!cofactors?.length) {
     return null;
   }
@@ -215,8 +218,10 @@ export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
                         </ExternalLink>
                         |{' '}
                         <ExternalLink
-                          url={externalUrls.ChEBI(
-                            cofactor.cofactorCrossReference.id
+                          url={getUrlFromDatabaseInfo(
+                            databaseInfoMaps,
+                            'ChEBI',
+                            { id: cofactor.cofactorCrossReference.id }
                           )}
                         >
                           {cofactor.cofactorCrossReference.id}
