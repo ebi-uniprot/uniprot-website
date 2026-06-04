@@ -11,11 +11,9 @@ import ProteomesColumnConfiguration, {
 import EntrySection from '../../types/entrySection';
 import BuscoLegend from '../BuscoLegend';
 import BuscoView from '../BuscoView';
-import { PanProteome, usePanProteomePreview } from './PanProteome';
+import { PanProteome } from './PanProteome';
 
 const Overview = ({ data }: { data: ProteomesUIModel }) => {
-  const panProteome = usePanProteomePreview(data);
-
   const renderColumnContent = (column: ProteomesColumn) => {
     const config = ProteomesColumnConfiguration.get(column);
     return config?.render(data) || null;
@@ -131,12 +129,11 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
     },
     {
       title: <span data-article-id="pan_proteomes">Pan proteome</span>,
-      // TEMPORARY ad hoc gating on the preview FTP directory (data sync issue).
-      // See PanProteome.tsx for context and how to revert to the normal state.
-      content: panProteome && (
+      content: data.panproteomeTaxon && (
         <PanProteome
-          scientificName={panProteome.scientificName}
-          fastaUrl={panProteome.fastaUrl}
+          panproteomeTaxon={data.panproteomeTaxon}
+          taxonLineage={data.taxonLineage}
+          taxonomy={data.taxonomy}
         />
       ),
     },

@@ -36,10 +36,8 @@ const ftpUrls = {
   // than the (currently unreliable) release metadata. The trailing slash is
   // required: without it the server returns a 301 redirect whose response lacks
   // CORS headers, which fails the cross-origin HEAD request in the browser.
-  panProteomesPreview: (taxonId?: number) =>
-    taxonId
-      ? `https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp${taxonId}/`
-      : undefined,
+  panProteomesFasta: (taxonId: number) =>
+    `https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp${taxonId}/pp${taxonId}.fasta.gz`,
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
   uniparc: joinUrl(ftpUniProt, 'current_release/uniparc'),
