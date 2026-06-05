@@ -21,20 +21,20 @@ import styles from './styles/landing-page.module.scss';
 
 const documentationLinks = [
   {
-    label: 'What is a proteome?',
+    label: 'What are proteomes?',
     id: 'proteome',
   },
   {
-    label: 'Reference proteome',
+    label: 'Explore proteomes',
+    id: 'explore_proteomes',
+  },
+  {
+    label: 'What are reference proteomes?',
     id: 'reference_proteome',
   },
   {
-    label: 'Gene-centric isoform mapping',
-    id: 'gene_centric_isoform_mapping',
-  },
-  {
-    label: 'Proteome redundancy',
-    id: 'proteome_redundancy',
+    label: 'How are reference proteomes selected?',
+    id: 'ref_proteomes_workflow',
   },
   {
     label: 'Pan proteome',
