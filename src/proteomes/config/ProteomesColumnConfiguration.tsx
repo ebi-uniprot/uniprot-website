@@ -166,7 +166,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
       return 0;
     }
     const shouldPointToUniParc =
-      proteomeType === 'Excluded' || proteomeType === 'Non-reference proteome';
+      proteomeType === 'Excluded' || proteomeType === 'Non Reference proteome';
 
     return (
       <>

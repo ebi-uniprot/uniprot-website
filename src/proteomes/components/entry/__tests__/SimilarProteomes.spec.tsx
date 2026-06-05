@@ -33,7 +33,7 @@ describe('SimilarProteomes', () => {
   });
 
   it('renders the generic placeholder for a Non-reference proteome with no data', () => {
-    customRender(<SimilarProteomes proteomeType="Non-reference proteome" />);
+    customRender(<SimilarProteomes proteomeType="Non Reference proteome" />);
     expect(
       screen.getByText(/No similar proteome is available for this proteome/)
     ).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe('SimilarProteomes', () => {
   it('renders the generic placeholder when relatedProteomes is empty', () => {
     customRender(
       <SimilarProteomes
-        proteomeType="Non-reference proteome"
+        proteomeType="Non Reference proteome"
         relatedProteomes={[]}
       />
     );
@@ -71,7 +71,7 @@ describe('SimilarProteomes', () => {
   it('renders a row per related proteome, sorted by similarity desc', () => {
     customRender(
       <SimilarProteomes
-        proteomeType="Non-reference proteome"
+        proteomeType="Non Reference proteome"
         relatedProteomes={sample}
       />
     );
@@ -86,7 +86,7 @@ describe('SimilarProteomes', () => {
   it('falls back to the taxon ID when scientificName is missing', () => {
     customRender(
       <SimilarProteomes
-        proteomeType="Non-reference proteome"
+        proteomeType="Non Reference proteome"
         relatedProteomes={[
           {
             proteomeId: 'UP000000003',

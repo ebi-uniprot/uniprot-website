@@ -45,7 +45,9 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
       content: (
         <>
           <EntryTypeIcon entryType={data.proteomeType} />
-          {proteomeType}
+          {proteomeType === 'Non Reference proteome'
+            ? 'Non-reference proteome'
+            : proteomeType}
           {data.exclusionReasons?.length ? (
             <span data-article-id="proteome_exclusion_reasons">
               {' '}

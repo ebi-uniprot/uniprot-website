@@ -116,7 +116,7 @@ const Components = ({
             return 0;
           }
           const shouldPointToUniParc =
-            proteomeType === 'Non-reference proteome' ||
+            proteomeType === 'Non Reference proteome' ||
             proteomeType === 'Excluded';
           return (
             <Link

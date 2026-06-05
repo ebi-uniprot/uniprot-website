@@ -60,7 +60,7 @@ const ComponentsButtons = ({
     []
   );
   const isUniparcSearch =
-    proteomeType === 'Non-reference proteome' || proteomeType === 'Excluded';
+    proteomeType === 'Non Reference proteome' || proteomeType === 'Excluded';
 
   const selectedQuery = useMemo(
     () =>
