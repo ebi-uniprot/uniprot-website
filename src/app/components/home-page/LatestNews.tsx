@@ -12,10 +12,10 @@ const insideUniProtAbstract1 =
   'Antimicrobial resistance contributes to almost 5 million deaths annually, worldwide. To mark World AMR Awareness Week...';
 
 const insideUniProtAbstract2 =
-  'How many members do you have on your team and have you ever considered UniProt as one of them?';
+  'With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?';
 
 const proteinSpotlightAbstract =
-  "You've arrived at the supermarket, and your trolley token is missing. It's not where you usually keep it - on your keyring, or in your bag. Flustered, you search for ...";
+  "Sunday mornings are spent reading the news. Sometimes they're spent catching up on news. This is how, last weekend, I was sorry to learn - and so late - that the British zoologist and ethologist Desmond Morris had died ...";
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -306,21 +306,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/290/"
+            url="https://www.proteinspotlight.org/back_issues/291/"
             noIcon
           >
             Support
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/290/"
+          url="https://www.proteinspotlight.org/back_issues/291/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt290.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt291.jpg"
             alt=""
             width="123"
             height="129"

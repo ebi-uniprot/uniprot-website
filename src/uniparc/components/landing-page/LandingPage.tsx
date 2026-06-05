@@ -167,7 +167,7 @@ const LandingPage = () => {
           <h2>Databases</h2>
           <div className={styles['table-container']}>
             {groupedDatabases.map((databases, index) => (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <table key={index}>
                 <thead>
                   <tr>

@@ -9,7 +9,7 @@ import mockData from './__mocks__/agr-paralogs';
 
 const mock = new MockAdapter(axios);
 mock
-  .onGet(/www.alliancegenome.org\/api\/gene\/HGNC:620\/paralogs/)
+  .onGet(/www\.alliancegenome\.org\/api\/gene\/HGNC:620\/paralogs/)
   .reply(200, mockData, { 'x-total-results': 0 });
 
 describe('AgrOrthology', () => {
