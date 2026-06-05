@@ -13,613 +13,629 @@ exports[`VariationViewer component renders on data 1`] = `
       <test-file-stub />
       Download
     </button>
-    <nightingale-manager
-      reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
-      style="display: block; line-height: 0;"
-    />
-    <table
-      class="table"
+    <div
+      class="frozen-container"
     >
-      <thead
+      <div
         class=""
       >
-        <tr
-          class="row"
-        >
-          <th>
-            <div
-              aria-expanded="false"
-              aria-haspopup="true"
-              class="dropdown"
-            >
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                ±
-              </button>
-            </div>
-          </th>
-          <th>
-            Variant
-            <br />
-            ID(s)
-          </th>
-          <th>
-            Position(s)
-          </th>
-          <th>
-            Change
-          </th>
-          <th>
-            Description
-          </th>
-          <th>
-            Clinical
-            <br />
-            significance
-          </th>
-          <th>
-            Provenance
-          </th>
-        </tr>
-      </thead>
-      <tbody
+        <nightingale-manager
+          reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
+          style="display: block; line-height: 0;"
+        />
+      </div>
+    </div>
+    <div
+      class="frozen-container"
+    >
+      <div
         class=""
       >
-        <tr
-          class="row has-extra-content"
-          data-id="0.02"
+        <table
+          class="table"
         >
-          <td>
-            <button
-              aria-controls="2"
-              aria-expanded="false"
-              type="button"
+          <thead
+            class=""
+          >
+            <tr
+              class="row"
             >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            22
-          </td>
-          <td>
-            <span
-              class="change"
+              <th>
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="dropdown"
+                >
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  >
+                    ±
+                  </button>
+                </div>
+              </th>
+              <th>
+                Variant
+                <br />
+                ID(s)
+              </th>
+              <th>
+                Position(s)
+              </th>
+              <th>
+                Change
+              </th>
+              <th>
+                Description
+              </th>
+              <th>
+                Clinical
+                <br />
+                significance
+              </th>
+              <th>
+                Provenance
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class=""
+          >
+            <tr
+              class="row has-extra-content"
+              data-id="0.02"
             >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N22S"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                N&gt;S
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
+              <td>
+                <button
+                  aria-controls="3"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                22
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N22S"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    N&gt;S
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="3"
             >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="0.03"
             >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content"
-          hidden=""
-          id="2"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row odd has-extra-content"
-          data-id="0.03"
-        >
-          <td>
-            <button
-              aria-controls="3"
-              aria-expanded="false"
-              type="button"
+              <td>
+                <button
+                  aria-controls="4"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                39-44
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  NK
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                  &gt;SK
+                  <button
+                    aria-expanded="false"
+                    class="button tertiary ellipsis-reveal"
+                    title="Show more"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="4"
             >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            39-44
-          </td>
-          <td>
-            <span
-              class="change"
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="0.04"
             >
-              NK
-              <button
-                aria-expanded="false"
-                class="button tertiary ellipsis-reveal"
-                title="Show more"
-                type="button"
-              >
-                [...]
-              </button>
-              &gt;SK
-              <button
-                aria-expanded="false"
-                class="button tertiary ellipsis-reveal"
-                title="Show more"
-                type="button"
-              >
-                [...]
-              </button>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
+              <td>
+                <button
+                  aria-controls="5"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                74
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N74D"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    N&gt;D
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="5"
             >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="0.05"
             >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content odd"
-          hidden=""
-          id="3"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row has-extra-content"
-          data-id="0.04"
-        >
-          <td>
-            <button
-              aria-controls="4"
-              aria-expanded="false"
-              type="button"
+              <td>
+                <button
+                  aria-controls="6"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                88-89
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  GD&gt;TN
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="6"
             >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            74
-          </td>
-          <td>
-            <span
-              class="change"
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="0.06"
             >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N74D"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                N&gt;D
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
+              <td>
+                <button
+                  aria-controls="7"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                98
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N98D"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    N&gt;D
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="7"
             >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="0.07"
             >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content"
-          hidden=""
-          id="4"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row odd has-extra-content"
-          data-id="0.05"
-        >
-          <td>
-            <button
-              aria-controls="5"
-              aria-expanded="false"
-              type="button"
+              <td>
+                <button
+                  aria-controls="8"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                106
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 I106L"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    I&gt;L
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="8"
             >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            88-89
-          </td>
-          <td>
-            <span
-              class="change"
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="0.08"
             >
-              GD&gt;TN
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
+              <td>
+                <button
+                  aria-controls="9"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                120
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 I120T"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    I&gt;T
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="9"
             >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="0.09"
             >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content odd"
-          hidden=""
-          id="5"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row has-extra-content"
-          data-id="0.06"
-        >
-          <td>
-            <button
-              aria-controls="6"
-              aria-expanded="false"
-              type="button"
+              <td>
+                <button
+                  aria-controls="10"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                125
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 M125I"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    M&gt;I
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="10"
             >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            98
-          </td>
-          <td>
-            <span
-              class="change"
+              <td />
+            </tr>
+            <tr
+              class="row has-extra-content"
+              data-id="0.1"
             >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 N98D"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                N&gt;D
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
+              <td>
+                <button
+                  aria-controls="11"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                133
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 S133N"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    S&gt;N
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content"
+              hidden=""
+              id="11"
             >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
+              <td />
+            </tr>
+            <tr
+              class="row odd has-extra-content"
+              data-id="0.11"
             >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content"
-          hidden=""
-          id="6"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row odd has-extra-content"
-          data-id="0.07"
-        >
-          <td>
-            <button
-              aria-controls="7"
-              aria-expanded="false"
-              type="button"
+              <td>
+                <button
+                  aria-controls="12"
+                  aria-expanded="false"
+                  type="button"
+                >
+                  +
+                </button>
+              </td>
+              <td />
+              <td>
+                267
+              </td>
+              <td>
+                <span
+                  class="change"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 H267N"
+                    rel="noopener"
+                    target="_blank"
+                    title="View in ProtVar"
+                  >
+                    H&gt;N
+                  </a>
+                </span>
+              </td>
+              <td>
+                <div
+                  class="bold"
+                >
+                  strain: Type C / C-6814 (UniProt)
+                </div>
+              </td>
+              <td />
+              <td>
+                <span
+                  class="bold"
+                >
+                  UniProt
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="row extra-content odd"
+              hidden=""
+              id="12"
             >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            106
-          </td>
-          <td>
-            <span
-              class="change"
-            >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 I106L"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                I&gt;L
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
-            >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
-            >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content odd"
-          hidden=""
-          id="7"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row has-extra-content"
-          data-id="0.08"
-        >
-          <td>
-            <button
-              aria-controls="8"
-              aria-expanded="false"
-              type="button"
-            >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            120
-          </td>
-          <td>
-            <span
-              class="change"
-            >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 I120T"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                I&gt;T
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
-            >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
-            >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content"
-          hidden=""
-          id="8"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row odd has-extra-content"
-          data-id="0.09"
-        >
-          <td>
-            <button
-              aria-controls="9"
-              aria-expanded="false"
-              type="button"
-            >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            125
-          </td>
-          <td>
-            <span
-              class="change"
-            >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 M125I"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                M&gt;I
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
-            >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
-            >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content odd"
-          hidden=""
-          id="9"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row has-extra-content"
-          data-id="0.1"
-        >
-          <td>
-            <button
-              aria-controls="10"
-              aria-expanded="false"
-              type="button"
-            >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            133
-          </td>
-          <td>
-            <span
-              class="change"
-            >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 S133N"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                S&gt;N
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
-            >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
-            >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content"
-          hidden=""
-          id="10"
-        >
-          <td />
-        </tr>
-        <tr
-          class="row odd has-extra-content"
-          data-id="0.11"
-        >
-          <td>
-            <button
-              aria-controls="11"
-              aria-expanded="false"
-              type="button"
-            >
-              +
-            </button>
-          </td>
-          <td />
-          <td>
-            267
-          </td>
-          <td>
-            <span
-              class="change"
-            >
-              <a
-                class="external-link"
-                href="https://www.ebi.ac.uk/ProtVar/query?search=P0DPR0 H267N"
-                rel="noopener"
-                target="_blank"
-                title="View in ProtVar"
-              >
-                H&gt;N
-              </a>
-            </span>
-          </td>
-          <td>
-            <div
-              class="bold"
-            >
-              strain: Type C / C-6814 (UniProt)
-            </div>
-          </td>
-          <td />
-          <td>
-            <span
-              class="bold"
-            >
-              UniProt
-            </span>
-          </td>
-        </tr>
-        <tr
-          class="row extra-content odd"
-          hidden=""
-          id="11"
-        >
-          <td />
-        </tr>
-      </tbody>
-    </table>
+              <td />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 </DocumentFragment>
 `;

@@ -2075,7 +2075,7 @@
     d3 "7.9.0"
     lodash-es "4.17.15"
 
-"@nightingale-elements/nightingale-variation-canvas@^5.10.1":
+"@nightingale-elements/nightingale-variation-canvas@5.10.1", "@nightingale-elements/nightingale-variation-canvas@^5.10.1":
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-variation-canvas/-/nightingale-variation-canvas-5.10.1.tgz#728be21266c546b82dd8d7cfb64211e6a76145f2"
   integrity sha512-cs/xRyziWrAb+ZQcs2ghINrsWwqh7UyXS/psEs7ovUsnn8WdV1UiE0gCt+x5yU5GjWkdSFelY5AUKYTf2rEwnw==
@@ -2083,16 +2083,6 @@
     "@nightingale-elements/nightingale-new-core" "^5.6.0"
     "@nightingale-elements/nightingale-variation" "^5.10.1"
     d3 "7.9.0"
-
-"@nightingale-elements/nightingale-variation@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-variation/-/nightingale-variation-5.6.0.tgz#10d63198610f9a26aafaeaf22d7d450a81c09981"
-  integrity sha512-/X+dgO+xo/YtihT4Jw0noniqvCBIFNI4PqomsnDfTGax0flTTkGSAlvJgpGT0DNG4M5uepd7yh5fPi1y0H1kXw==
-  dependencies:
-    "@nightingale-elements/nightingale-new-core" "^5.6.0"
-    "@nightingale-elements/nightingale-track" "^5.6.0"
-    d3 "7.8.5"
-    lodash-es "4.17.15"
 
 "@nightingale-elements/nightingale-variation@^5.10.1":
   version "5.10.1"
@@ -3299,6 +3289,18 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@swissprot/swissbiopics-visualizer/-/swissbiopics-visualizer-0.0.29.tgz#1532c78ce0481ea1c0856605b3f34cd1c6b66970"
   integrity sha512-p9ee+6ASJlSRepS9yD30WimH0CeuSdKMuZ56Vu2tTrR+kJeqqFhREoDutWWW3io6e0LBukakitfqzXGU58Irlw==
+
+"@tanstack/react-virtual@3.13.24":
+  version "3.13.24"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.13.24.tgz#77af3d5dcf77358d805b7b3b06d3221af7bd3f6f"
+  integrity sha512-aIJvz5OSkhNIhZIpYivrxrPTKYsjW9Uzy+sP/mx0S3sev2HyvPb7xmjbYvokzEpfgYHy/HjzJ2zFAETuUfgCpg==
+  dependencies:
+    "@tanstack/virtual-core" "3.14.0"
+
+"@tanstack/virtual-core@3.14.0":
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.14.0.tgz#c8839d0d702b8af47c0e57d4ab72fc3ba8bbf3da"
+  integrity sha512-JLANqGy/D6k4Ujmh8Tr25lGimuOXNiaVyXaCAZS0W+1390sADdGnyUdSWNIfd49gebtIxGMij4IktRVzrdr12Q==
 
 "@testing-library/dom@10.4.1":
   version "10.4.1"

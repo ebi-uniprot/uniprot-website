@@ -1,4 +1,4 @@
-import { type ProteinsAPIVariation } from '@nightingale-elements/nightingale-variation';
+import { type ProteinsAPIVariation } from '@nightingale-elements/nightingale-variation-canvas';
 
 // Source: https://www.ebi.ac.uk/proteins/api/variation/P0DPR0
 // Retrieved: 2026-01-26
