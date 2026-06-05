@@ -9,8 +9,9 @@
 // do not adopt this pattern.
 
 // Default: compact bar takes no space; the existing tabs__header sticks at top: 0.
+// Kept as a length (0rem, not 0) so it composes in `calc()` for scroll-margin.
 .container {
-  --compact-bar-height: 0;
+  --compact-bar-height: 0rem;
 }
 
 // When there's no sidebar, extend both sticky rows leftward by --sidebar-size

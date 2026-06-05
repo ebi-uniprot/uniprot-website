@@ -13,7 +13,9 @@
 
 .entry-page {
   *[id] {
-    scroll-margin-top: 4.2em;
+    // Add the sticky compact bar's height (0 unless stuck) so anchored sections
+    // clear it instead of landing behind it.
+    scroll-margin-top: calc(4.2em + var(--compact-bar-height, 0rem));
   }
 
   & .tabs__header {
