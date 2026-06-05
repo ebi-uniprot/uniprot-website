@@ -28,8 +28,8 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
       subcellularLocations: [
         {
           location: expect.objectContaining({
-            value: 'Golgi apparatus membrane',
-            id: 'SL-0134',
+            value: 'Membrane',
+            id: 'SL-0162',
           }),
         },
       ],
@@ -37,11 +37,9 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
   });
 
   it('should merge keywords correctly', () => {
-    expect(result.keywords).toHaveLength(8);
-    const carbohydrateKeyword = result.keywords?.find(
-      (k) => k.id === 'KW-0119'
-    );
-    expect(carbohydrateKeyword?.name).toEqual('Carbohydrate metabolism');
+    expect(result.keywords).toHaveLength(2);
+    const signalKeyword = result.keywords?.find((k) => k.id === 'KW-0732');
+    expect(signalKeyword?.name).toEqual('Signal');
   });
 
   it('should only retain UniProtKB Pfam xrefs and not include ProtNLM data', () => {
@@ -144,7 +142,7 @@ describe('augmentAPIDataWithProtnlmPredictions', () => {
   });
 
   it('should not duplicate GO xrefs when ProtNLM term already exists in UniProt', () => {
-    const goId = 'GO:0008146';
+    const goId = 'GO:0016020';
     const occurrences = (result.uniProtKBCrossReferences || []).filter(
       (xref) => xref.database === 'GO' && xref.id === goId
     ).length;

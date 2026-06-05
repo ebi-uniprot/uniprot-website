@@ -6,7 +6,7 @@ import { type DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -362,6 +362,18 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
+    name: 'NDEx',
+    displayName: 'NDEx',
+    category: 'PPI',
+    uriLink: 'http://www.ndexbio.org/identifiers/%id',
+    attributes: [
+      {
+        name: 'Evidences',
+        xmlTag: 'evidences',
+      },
+    ],
+  },
+  {
     name: 'BindingDB',
     displayName: 'BindingDB',
     category: 'CHEMISTRY',
@@ -588,7 +600,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'DEPOD',
     displayName: 'DEPOD',
     category: 'PTM',
-    uriLink: 'https://depod.bioss.uni-freiburg.de/showp.php?name=%id',
+    uriLink: 'https://depod.zellbiologie.uni-bonn.de/showp.php?name=%id',
     attributes: [
       {
         name: 'Description',
@@ -600,7 +612,8 @@ const databaseInfo: DatabaseInfo = [
     name: 'GlyConnect',
     displayName: 'GlyConnect',
     category: 'PTM',
-    uriLink: 'https://glyconnect.expasy.org/browser/proteins/%id',
+    uriLink:
+      'https://glyconnect.expasy.org/gcx/search/view/glycome/Protein/%id',
     attributes: [
       {
         name: 'glycosylation',
@@ -795,7 +808,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'PRIDE',
     displayName: 'PRIDE',
     category: 'PROTEOMIC',
-    uriLink: 'https://www.ebi.ac.uk/pride/peptidome/peptidesearch?keyword=%id',
+    uriLink: 'https://www.ebi.ac.uk/pride/archive/proteins/%id',
     attributes: [
       {
         name: 'Description',
@@ -1446,18 +1459,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'neXtProt',
-    displayName: 'neXtProt',
-    category: 'ORG',
-    uriLink: 'https://www.nextprot.org/entry/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'OpenTargets',
     displayName: 'OpenTargets',
     category: 'ORG',
@@ -1743,18 +1744,6 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
-    name: 'TreeFam',
-    displayName: 'TreeFam',
-    category: 'PLG',
-    uriLink: 'http://www.treefam.org/family/%id',
-    attributes: [
-      {
-        name: 'Description',
-        xmlTag: 'description',
-      },
-    ],
-  },
-  {
     name: 'BioCyc',
     displayName: 'BioCyc',
     category: 'EAP',
@@ -1997,6 +1986,18 @@ const databaseInfo: DatabaseInfo = [
       {
         name: 'ExpressionPatterns',
         xmlTag: 'expression patterns',
+      },
+    ],
+  },
+  {
+    name: 'AbasyAtlas',
+    displayName: 'AbasyAtlas',
+    category: 'GEP',
+    uriLink: 'https://abasy.ccg.unam.mx/details?uniprot=%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
       },
     ],
   },
@@ -2336,6 +2337,18 @@ const databaseInfo: DatabaseInfo = [
     ],
   },
   {
+    name: 'ChEBI',
+    displayName: 'ChEBI',
+    category: 'CHEMISTRY',
+    uriLink: 'https://www.ebi.ac.uk/chebi/%id',
+    attributes: [
+      {
+        name: 'Description',
+        xmlTag: 'description',
+      },
+    ],
+  },
+  {
     name: 'ABCD',
     displayName: 'ABCD',
     category: 'PAM',
@@ -2611,24 +2624,6 @@ const databaseInfo: DatabaseInfo = [
         xmlTag: 'evidences',
       },
     ],
-  },
-  {
-    name: 'AbasyAtlas',
-    displayName: 'AbasyAtlas',
-    category: 'GEP',
-    uriLink: 'https://abasy.ccg.unam.mx/details?uniprot=%id',
-  },
-  {
-    name: 'NDEx',
-    displayName: 'NDEx',
-    category: 'PPI',
-    uriLink: 'https://www.ndexbio.org/identifiers/%id',
-  },
-  {
-    name: 'ChEBI',
-    displayName: 'ChEBI',
-    category: 'CHEMISTRY',
-    uriLink: 'https://www.ebi.ac.uk/chebi/%id',
   },
 ];
 

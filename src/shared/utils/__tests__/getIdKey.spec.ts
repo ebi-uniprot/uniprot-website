@@ -19,7 +19,7 @@ import { getIdKeyForData, getIdKeyForNamespace } from '../getIdKey';
 
 const testCases: [Namespace, APIModel, string][] = [
   [Namespace.arba, arbaModelData[0], 'ARBA00020180'],
-  [Namespace.citations, citationsModelData[0], 'CI-7TL41NBKJTRQJ'],
+  [Namespace.citations, citationsModelData[0], '12366374'],
   [Namespace.database, databaseModelData[0], 'DB-0022'],
   [Namespace.diseases, diseasesModelData[0], 'DI-01559'],
   [

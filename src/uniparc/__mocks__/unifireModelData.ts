@@ -1,7 +1,7 @@
 import type { UniFireModel } from '../adapters/uniParcSubEntryConverter';
 
-// Source: unifire/run?id=UPI000002A2F6&taxId=9606
-// Retrieved: 2026-05-26
+// unifire/run?id=UPI000002A2F6&taxId=9606
+// 2026-06-03
 const mock: UniFireModel = {
   accession: 'UPI000002A2F6:9606',
   predictions: [

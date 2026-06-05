@@ -403,6 +403,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2026-06-10-release"
+              >
+                UniProt release 2026_02
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              To drink, or not to drink? | Cross-references to AbasyAtlas | Cross-references to NDEx | Changes in ChEBI...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2026-01-28-release"
               >
                 UniProt release 2026_01
@@ -448,24 +466,6 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Cross-references to CARD | Cross-references to FunCoup | Cross-references to PAN-GO
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2025-04-23-release"
-              >
-                UniProt release 2025_02
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Brain property: no trespassing | Cross-references to CD-CODE | Cross-references to STRENDA-DB | Cross-references to YCharOS
             </p>
           </article>
         </li>

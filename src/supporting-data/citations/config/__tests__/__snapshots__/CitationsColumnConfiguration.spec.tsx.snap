@@ -8,61 +8,89 @@ exports[`CitationsColumnConfiguration component should render column "authors": 
     class="expandable-list no-bullet"
   >
     <li>
-      Wang J.
+      Griffin M.
     </li>
     <li>
-      Liu S.J.
+      Casadio R.
     </li>
     <li>
-      Xiao J.
+      Bergamini C.M.
     </li>
   </ul>
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `<DocumentFragment />`;
+exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `
+<DocumentFragment>
+  <a
+    class="external-link"
+    href="https://dx.doi.org/10.1042/bj20021234"
+    rel="noopener"
+    target="_blank"
+  >
+    10.1042/bj20021234
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
 
-exports[`CitationsColumnConfiguration component should render column "first_page": first_page 1`] = `<DocumentFragment />`;
+exports[`CitationsColumnConfiguration component should render column "first_page": first_page 1`] = `
+<DocumentFragment>
+  377
+</DocumentFragment>
+`;
 
 exports[`CitationsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <a
     class="no-wrap"
-    href="/citations/CI-7TL41NBKJTRQJ"
+    href="/citations/12366374"
   >
-    CI-7TL41NBKJTRQJ
+    12366374
   </a>
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "journal": journal 1`] = `<DocumentFragment />`;
+exports[`CitationsColumnConfiguration component should render column "journal": journal 1`] = `
+<DocumentFragment>
+  Biochem J
+</DocumentFragment>
+`;
 
-exports[`CitationsColumnConfiguration component should render column "last_page": last_page 1`] = `<DocumentFragment />`;
+exports[`CitationsColumnConfiguration component should render column "last_page": last_page 1`] = `
+<DocumentFragment>
+  396
+</DocumentFragment>
+`;
 
-exports[`CitationsColumnConfiguration component should render column "lit_abstract": lit_abstract 1`] = `<DocumentFragment />`;
+exports[`CitationsColumnConfiguration component should render column "lit_abstract": lit_abstract 1`] = `
+<DocumentFragment>
+  <div>
+    Transglutaminases (Tgases) are a widely distributed group of enzymes that catalyse the post-translational modification of proteins by the formation of isopeptide bonds. This occurs either through protein cross-linking via epsilon- (gamma-glutamyl)lysine bonds or through incorporation of primary amines at selected peptide-bound glutamine residues. The cross-linked products, often of high molecular mass, are highly resistant to mechanical challenge and proteolytic degradation, and their accumulation is found in a number of tissues and processes where such properties are important, including skin, hair, blood clotting and wound healing. However, deregulation of enzyme activity generally associated with major disruptions in cellular homoeostatic mechanisms has resulted in these enzymes contributing to a number of human diseases, including chronic neurodegeneration, neoplastic diseases, autoimmune diseases, diseases involving progressive tissue fibrosis and diseases related to the epidermis of the skin. In the present review we detail the structural and regulatory features important in mammalian Tgases, with particular focus on the ubiquitous type 2 tissue enzyme. Physiological roles and substrates are discussed with a view to increasing and understanding the pathogenesis of the diseases associated with transglutaminases. Moreover the ability of these enzymes to modify proteins and act as biological glues has not gone unnoticed by the commercial sector. As a consequence, we have included some of the present and future biotechnological applications of this increasingly important group of enzymes.
+  </div>
+</DocumentFragment>
+`;
 
 exports[`CitationsColumnConfiguration component should render column "publication_date": publication_date 1`] = `
 <DocumentFragment>
   <time
-    datetime="2007-12-01T00:00:00.000Z"
+    datetime="2002-01-01T00:00:00.000Z"
   >
-    DEC-2007
+    2002
   </time>
 </DocumentFragment>
 `;
 
 exports[`CitationsColumnConfiguration component should render column "reference": reference 1`] = `
 <DocumentFragment>
-  <div
-    class="tiny"
-  >
-    Submission
-  </div>
-   Submitted to EMBL/GenBank/DDBJ databases (
+  Biochem J 368:377-396 (
   <time
-    datetime="2007-12-01T00:00:00.000Z"
+    datetime="2002-01-01T00:00:00.000Z"
   >
-    DEC-2007
+    2002
   </time>
   )
 </DocumentFragment>
@@ -75,16 +103,16 @@ exports[`CitationsColumnConfiguration component should render column "statistics
   >
     <li>
       <a
-        href="/uniprotkb?query=%28lit_citation_id%3ACI-7TL41NBKJTRQJ%29"
+        href="/uniprotkb?query=%28lit_citation_id%3A12366374%29"
       >
-        2 UniProtKB entries
+        1 UniProtKB entry
       </a>
     </li>
     <li>
       <a
-        href="/uniprotkb?query=%28lit_citation_id%3ACI-7TL41NBKJTRQJ%29+AND+%28reviewed%3Afalse%29"
+        href="/uniprotkb?query=%28lit_citation_id%3A12366374%29+AND+%28reviewed%3Afalse%29"
       >
-        2 unreviewed UniProtKB entries
+        1 unreviewed UniProtKB entry
       </a>
     </li>
   </ul>
@@ -93,8 +121,12 @@ exports[`CitationsColumnConfiguration component should render column "statistics
 
 exports[`CitationsColumnConfiguration component should render column "title": title 1`] = `
 <DocumentFragment>
-  Nature gynogenetic fish.
+  Transglutaminases: nature's biological glues.
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "volume": volume 1`] = `<DocumentFragment />`;
+exports[`CitationsColumnConfiguration component should render column "volume": volume 1`] = `
+<DocumentFragment>
+  368
+</DocumentFragment>
+`;

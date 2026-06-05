@@ -10,10 +10,7 @@ const AgrMethodLabel: React.FC<{
 );
 
 type PredictionMethods = {
-  internal: boolean;
-  obsolete: boolean;
   name: string;
-  notInternalOrObsolete: boolean;
 };
 
 type HomologyGetter<T> = (data: T) => {

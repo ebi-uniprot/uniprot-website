@@ -4,7 +4,7 @@ import { type SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',
@@ -2552,6 +2552,15 @@ const configureSearchTerms: SearchTermType[] = [
             valuePrefix: 'string-',
           },
           {
+            id: 'xref_ndex',
+            label: 'NDEx',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'ndex-',
+          },
+          {
             id: 'xref_funcoup',
             label: 'FunCoup',
             itemType: 'single',
@@ -2620,6 +2629,15 @@ const configureSearchTerms: SearchTermType[] = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'drugcentral-',
+          },
+          {
+            id: 'xref_chebi',
+            label: 'ChEBI',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'chebi-',
           },
         ],
       },
@@ -3389,15 +3407,6 @@ const configureSearchTerms: SearchTermType[] = [
             valuePrefix: 'niagads-',
           },
           {
-            id: 'xref_nextprot',
-            label: 'neXtProt',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'nextprot-',
-          },
-          {
             id: 'xref_opentargets',
             label: 'OpenTargets',
             itemType: 'single',
@@ -3601,15 +3610,6 @@ const configureSearchTerms: SearchTermType[] = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'phylomedb-',
-          },
-          {
-            id: 'xref_treefam',
-            label: 'TreeFam',
-            itemType: 'single',
-            term: 'xref',
-            dataType: 'string',
-            fieldType: 'general',
-            valuePrefix: 'treefam-',
           },
           {
             id: 'xref_pan-go',
@@ -3865,6 +3865,15 @@ const configureSearchTerms: SearchTermType[] = [
             dataType: 'string',
             fieldType: 'general',
             valuePrefix: 'expressionatlas-',
+          },
+          {
+            id: 'xref_abasyatlas',
+            label: 'AbasyAtlas',
+            itemType: 'single',
+            term: 'xref',
+            dataType: 'string',
+            fieldType: 'general',
+            valuePrefix: 'abasyatlas-',
           },
         ],
       },
@@ -4389,6 +4398,16 @@ const configureSearchTerms: SearchTermType[] = [
         dataType: 'string',
         fieldType: 'general',
         example: 'chromosome',
+      },
+      {
+        id: 'is_gene_centric',
+        label: 'Gene Centric',
+        itemType: 'single',
+        term: 'is_gene_centric',
+        dataType: 'boolean',
+        fieldType: 'general',
+        example: 'true',
+        regex: '^true|false$',
       },
     ],
   },

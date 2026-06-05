@@ -1,7 +1,7 @@
 import { type UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/A8Y1C3
-// Retrieved: 2026-02-01
+// Retrieved: 2026-06-04
 const data: UniProtkbAPIModel = {
   entryType: 'UniProtKB unreviewed (TrEMBL)',
   primaryAccession: 'A8Y1C3',
