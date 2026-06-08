@@ -58,7 +58,9 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
             <>
               {' ('}
               <a href={`#${EntrySection.SimilarProteomes}`}>
-                view similarity to reference proteomes
+                {proteomeType === 'Reference proteome'
+                  ? 'view similar reference proteomes'
+                  : 'view similarity to reference proteomes'}
               </a>
               )
             </>
