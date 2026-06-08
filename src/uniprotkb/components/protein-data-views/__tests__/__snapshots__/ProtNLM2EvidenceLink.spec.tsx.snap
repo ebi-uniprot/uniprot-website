@@ -76,7 +76,7 @@ exports[`ProtNLM2EvidenceLink renders the string-match branch (hydrated, InterPr
   </small>
   <br />
   <br />
-  Hydrated partial match with InterPro: 
+  Partial match with InterPro: 
   <a
     class="external-link"
     href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR007669"

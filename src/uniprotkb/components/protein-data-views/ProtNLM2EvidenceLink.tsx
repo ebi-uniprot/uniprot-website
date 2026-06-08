@@ -40,7 +40,7 @@ const modelScoreDocsUrl =
   'https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub';
 
 const matchTypeLabel = new Map([
-  ['hydrated', 'Hydrated partial match'],
+  ['hydrated', 'Partial match'],
   ['substring', 'Partial match'],
   ['exact', 'Exact match'],
   ['exact_sanitized', 'Partial match'],
