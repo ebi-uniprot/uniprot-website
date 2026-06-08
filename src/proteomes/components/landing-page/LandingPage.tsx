@@ -1,5 +1,9 @@
 import cn from 'classnames';
-import { LongNumber, ReferenceProteomeIcon, TremblIcon } from 'franklin-sites';
+import {
+  LongNumber,
+  NonReferenceProteomeIcon,
+  ReferenceProteomeIcon,
+} from 'franklin-sites';
 import { useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import joinUrl from 'url-join';
@@ -80,9 +84,9 @@ const LandingPage = () => {
     refProtCount = data?.facets?.[0].values.find(
       (value) => value.value === 'REFERENCE'
     )?.count;
-    nonRefProtCount = data?.facets?.[0].values
-      .filter((value) => value.value !== 'REFERENCE')
-      ?.reduce((sum, value) => sum + value.count, 0);
+    nonRefProtCount = data?.facets?.[0].values.find(
+      (value) => value.value === 'NON_REFERENCE'
+    )?.count;
   }
 
   const [refProtHovered, setRefProtHovered] = useState(false);
@@ -180,15 +184,13 @@ const LandingPage = () => {
           <h2>Statistics</h2>
           <div className={styles.statistics}>
             <div className={styles.chart}>
-              <h3 className="tiny">Taxonomic origin</h3>
+              <h3 className="tiny">Taxonomic origin of proteomes</h3>
               <StatisticsChart
                 refProt={refProtHovered}
                 nonRefProt={nonRefProtHovered}
               />
             </div>
             <section className={styles['entries-count']}>
-              <h3 className="tiny">Number of Entries</h3>
-              <br />
               <p
                 onPointerEnter={() => setRefProtHovered(true)}
                 onFocus={() => setRefProtHovered(true)}
@@ -211,7 +213,7 @@ const LandingPage = () => {
                         }),
                       }}
                     >
-                      <LongNumber>{refProtCount}</LongNumber> entries
+                      <LongNumber>{refProtCount}</LongNumber>
                     </Link>
                   )}
                   <br />
@@ -234,7 +236,10 @@ const LandingPage = () => {
                 onPointerLeave={() => setNonRefProtHovered(false)}
                 onBlur={() => setNonRefProtHovered(false)}
               >
-                <TremblIcon width="4ch" className={styles['unreviewed-icon']} />
+                <NonReferenceProteomeIcon
+                  width="3ch"
+                  className={styles['non-ref-prot-icon']}
+                />
                 <span>
                   Non-reference proteomes
                   <br />
@@ -248,7 +253,7 @@ const LandingPage = () => {
                         }),
                       }}
                     >
-                      <LongNumber>{nonRefProtCount}</LongNumber> entries
+                      <LongNumber>{nonRefProtCount}</LongNumber>
                     </Link>
                   )}
                 </span>

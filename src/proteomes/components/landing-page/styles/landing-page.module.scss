@@ -28,6 +28,10 @@
   justify-content: flex-start;
   flex-direction: column;
 
+  @media (min-width: 1150px) {
+    margin-top: 3rem;
+  }
+
   p {
     display: flex;
     gap: $global-margin;
@@ -38,11 +42,8 @@
   color: var(--fr--color-reference-proteome);
 }
 
-.unreviewed-icon {
-  color: var(--fr--color-unreviewed);
-  /* Extra width was given to align the sizes of the icon, so compensate with
-  margin to have the text after it aligned */
-  margin-inline-end: -1ch;
+.non-ref-prot-icon {
+  color: var(--fr--color-weldon-blue);
 }
 
 .download {
