@@ -37,9 +37,10 @@ describe('SimilarProteomes', () => {
     expect(
       screen.getByText(/No similar proteome is available for this proteome/)
     ).toBeInTheDocument();
+    // The verbose list of reasons now lives in the help article instead.
     expect(
-      screen.getByText(/taxonomically undefined species/)
-    ).toBeInTheDocument();
+      screen.queryByText(/taxonomically undefined species/)
+    ).not.toBeInTheDocument();
   });
 
   it('renders the generic placeholder when relatedProteomes is empty', () => {

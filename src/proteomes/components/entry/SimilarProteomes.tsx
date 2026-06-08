@@ -65,37 +65,13 @@ const ReferencePlaceholder = () => (
 );
 
 const GenericPlaceholder = () => (
-  <>
-    <p data-article-id={HELP_ARTICLE_ID}>
-      No similar proteome is available for this proteome. A proteome may not
-      have a similar proteome for one of the following reasons:
-    </p>
-    <ul>
-      <li>
-        The proteome has been{' '}
-        <span data-article-id="proteome_exclusion_reasons">excluded</span>;
-      </li>
-      <li>
-        Novel proteomes from surveillance projects are not currently considered
-        for promotion to a reference proteome, and therefore the species might
-        not have reference proteomes;
-      </li>
-      <li>
-        Novel proteomes from metagenome assemblies are not currently considered
-        for promotion to a reference proteome, and therefore the species might
-        not have reference proteomes;
-      </li>
-      <li>
-        Novel proteomes from organisms with the status &lsquo;Candidatus&rsquo;
-        are not currently considered for promotion to a reference proteome;
-      </li>
-      <li>The proteome belongs to a taxonomically undefined species;</li>
-      <li>
-        The proteome is the only one for that species (N.B. being the only one
-        automatically makes it a reference proteome).
-      </li>
-    </ul>
-  </>
+  // The detailed list of reasons lives in the help article; the contextual-help
+  // icon (added by `data-article-id`) links to that section.
+  <p
+    data-article-id={`${HELP_ARTICLE_ID}#what-proteomes-have-a-similarity-score`}
+  >
+    No similar proteome is available for this proteome.
+  </p>
 );
 
 type Props = {
