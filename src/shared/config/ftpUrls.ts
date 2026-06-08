@@ -6,6 +6,12 @@ import { FileFormat } from '../types/resultsDownload';
 
 const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
+// Temporary ad hoc location while a pan-proteome data sync issue is resolved:
+// pan proteome previews are served from this contrib directory rather than the
+// (currently unreliable) release location.
+const panProteomesPreview =
+  'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview';
+
 const ftpUrls = {
   uniprot: ftpUniProt,
   uniprotkb: joinUrl(ftpUniProt, 'knowledgebase/complete'),
@@ -31,13 +37,14 @@ const ftpUrls = {
       ftpUniProt,
       `current_release/knowledgebase/pan_proteomes/${taxonId ? `pp${taxonId}/pp${taxonId}.fa.gz` : ''}`
     ),
-  // Temporary ad hoc location: while a data sync issue is resolved, pan proteome
-  // availability is determined by the presence of this preview directory rather
-  // than the (currently unreliable) release metadata. The trailing slash is
-  // required: without it the server returns a 301 redirect whose response lacks
-  // CORS headers, which fails the cross-origin HEAD request in the browser.
+  // Browseable folder (directory listing) of a species' pan proteome preview
+  // files, linked from the entry page for discoverability. The trailing slash
+  // avoids a 301 redirect to the slashed URL.
+  panProteomesPreviewFolder: (taxonId: number) =>
+    `${panProteomesPreview}/pp${taxonId}/`,
+  // Direct download of the gzipped pan proteome FASTA.
   panProteomesFasta: (taxonId: number) =>
-    `https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp${taxonId}/pp${taxonId}.fasta.gz`,
+    `${panProteomesPreview}/pp${taxonId}/pp${taxonId}.fasta.gz`,
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
   uniparc: joinUrl(ftpUniProt, 'current_release/uniparc'),

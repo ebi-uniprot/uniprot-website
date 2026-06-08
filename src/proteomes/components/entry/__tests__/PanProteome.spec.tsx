@@ -14,10 +14,17 @@ describe('PanProteome', () => {
         taxonomy={taxonomy}
       />
     );
+    // The species name + "pan proteome" links to the browseable FTP folder.
     expect(
-      screen.getByText(/part of the Homo sapiens pan proteome/)
-    ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'FASTA' })).toHaveAttribute(
+      screen.getByRole('link', { name: /Homo sapiens pan proteome/ })
+    ).toHaveAttribute(
+      'href',
+      'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp9606/'
+    );
+    // "Download FASTA" is the direct gzipped-file download.
+    expect(
+      screen.getByRole('link', { name: 'Download FASTA' })
+    ).toHaveAttribute(
       'href',
       'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp9606/pp9606.fasta.gz'
     );
@@ -39,9 +46,14 @@ describe('PanProteome', () => {
       />
     );
     expect(
-      screen.getByText(/part of the Escherichia coli pan proteome/)
-    ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'FASTA' })).toHaveAttribute(
+      screen.getByRole('link', { name: /Escherichia coli pan proteome/ })
+    ).toHaveAttribute(
+      'href',
+      'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp562/'
+    );
+    expect(
+      screen.getByRole('link', { name: 'Download FASTA' })
+    ).toHaveAttribute(
       'href',
       'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp562/pp562.fasta.gz'
     );
