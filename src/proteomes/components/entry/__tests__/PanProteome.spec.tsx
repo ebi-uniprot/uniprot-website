@@ -21,13 +21,6 @@ describe('PanProteome', () => {
       'href',
       'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp9606/'
     );
-    // "Download FASTA" is the direct gzipped-file download.
-    expect(
-      screen.getByRole('link', { name: 'Download FASTA' })
-    ).toHaveAttribute(
-      'href',
-      'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp9606/pp9606.fasta.gz'
-    );
   });
 
   it('uses the matching species-rank lineage entry', () => {

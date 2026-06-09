@@ -3,7 +3,7 @@
 exports[`ProtNLM2EvidenceLink renders the phmmer branch 1`] = `
 <DocumentFragment>
   <span
-    data-article-id="ProtNLM"
+    data-article-id="ProtNLM#protnlm-model-score"
   >
     ProtNLM2 model score
   </span>
@@ -47,7 +47,7 @@ exports[`ProtNLM2EvidenceLink renders the phmmer branch 1`] = `
 exports[`ProtNLM2EvidenceLink renders the string-match branch (hydrated, InterPro link) 1`] = `
 <DocumentFragment>
   <span
-    data-article-id="ProtNLM"
+    data-article-id="ProtNLM#protnlm-model-score"
   >
     ProtNLM2 model score
   </span>
@@ -80,7 +80,7 @@ exports[`ProtNLM2EvidenceLink renders the string-match branch (hydrated, InterPr
 exports[`ProtNLM2EvidenceLink renders the tmalign branch 1`] = `
 <DocumentFragment>
   <span
-    data-article-id="ProtNLM"
+    data-article-id="ProtNLM#protnlm-model-score"
   >
     ProtNLM2 model score
   </span>

@@ -32,10 +32,6 @@ export const PanProteome = ({
         <ExternalLink url={folderUrl}>
           {scientificName} pan proteome
         </ExternalLink>
-        {' ('}
-        {/* Direct download of the gzipped FASTA (kept as a plain download link). */}
-        <a href={fastaUrl}>Download FASTA</a>
-        {')'}
       </>
     )
   );
