@@ -2,23 +2,15 @@
 
 exports[`ProtNLM2EvidenceLink renders the phmmer branch 1`] = `
 <DocumentFragment>
-  ProtNLM2 model score: 
+  <span
+    data-article-id="ProtNLM"
+  >
+    ProtNLM2 model score
+  </span>
+  : 
   <strong>
     0.50
   </strong>
-   
-  <a
-    aria-label="ProtNLM2 model score documentation"
-    href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
-    rel="noreferrer"
-    target="_blank"
-  >
-    <sup>
-      <code>
-        i
-      </code>
-    </sup>
-  </a>
   <br />
   <small>
     0–1 scale. Higher = stronger prediction confidence.
@@ -54,23 +46,15 @@ exports[`ProtNLM2EvidenceLink renders the phmmer branch 1`] = `
 
 exports[`ProtNLM2EvidenceLink renders the string-match branch (hydrated, InterPro link) 1`] = `
 <DocumentFragment>
-  ProtNLM2 model score: 
+  <span
+    data-article-id="ProtNLM"
+  >
+    ProtNLM2 model score
+  </span>
+  : 
   <strong>
     0.64
   </strong>
-   
-  <a
-    aria-label="ProtNLM2 model score documentation"
-    href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
-    rel="noreferrer"
-    target="_blank"
-  >
-    <sup>
-      <code>
-        i
-      </code>
-    </sup>
-  </a>
   <br />
   <small>
     0–1 scale. Higher = stronger prediction confidence.
@@ -95,23 +79,15 @@ exports[`ProtNLM2EvidenceLink renders the string-match branch (hydrated, InterPr
 
 exports[`ProtNLM2EvidenceLink renders the tmalign branch 1`] = `
 <DocumentFragment>
-  ProtNLM2 model score: 
+  <span
+    data-article-id="ProtNLM"
+  >
+    ProtNLM2 model score
+  </span>
+  : 
   <strong>
     0.50
   </strong>
-   
-  <a
-    aria-label="ProtNLM2 model score documentation"
-    href="https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub"
-    rel="noreferrer"
-    target="_blank"
-  >
-    <sup>
-      <code>
-        i
-      </code>
-    </sup>
-  </a>
   <br />
   <small>
     0–1 scale. Higher = stronger prediction confidence.

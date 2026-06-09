@@ -41,10 +41,6 @@ const ecUrl = 'https://enzyme.expasy.org/EC/';
 const pfamUrl = 'https://www.ebi.ac.uk/interpro/entry/pfam/';
 const pthrUrl = 'https://www.pantherdb.org/panther/family.do?clsAccession=';
 
-// TODO: update with the actual help document once it exists.
-const modelScoreDocsUrl =
-  'https://docs.google.com/document/d/e/2PACX-1vQ7bf9WyDZgtNdOVfRZYCi8hUV8oLrBVub8csDJDMcUrVbEufdgrn2cxpRVmntx-20hvZtPRaorh8Rh/pub';
-
 const matchTypeLabel = new Map([
   ['hydrated', 'Partial match'],
   ['substring', 'Partial match'],
@@ -89,18 +85,13 @@ const SimilarEntryLink = ({
 
 const ModelScoreHeader = ({ modelScore }: { modelScore: string }) => (
   <>
-    {`ProtNLM2 model score: `}
-    <strong>{Number(modelScore).toFixed(2)}</strong>{' '}
-    <a
-      href={modelScoreDocsUrl}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="ProtNLM2 model score documentation"
-    >
-      <sup>
-        <code>i</code>
-      </sup>
-    </a>
+    {/* `data-article-id` renders the standard contextual-help "i" and opens the
+        ProtNLM help article (/help/ProtNLM) in the in-page help panel. */}
+    <span data-article-id="ProtNLM#protnlm-model-score">
+      ProtNLM2 model score
+    </span>
+    {`: `}
+    <strong>{Number(modelScore).toFixed(2)}</strong>
     <br />
     <small>0–1 scale. Higher = stronger prediction confidence.</small>
     <br />
