@@ -141,8 +141,8 @@ const LatestNews = () => {
                   styles['latest-news__abstract--2-lines']
                 )}
               >
-                To drink, or not to drink? | Cross-references to AbasyAtlas |
-                Cross-references to NDEx | Changes in ChEBI...
+                To drink, or not to drink? | UniProt resource news | Completing
+                the reorganization of the protein space...
               </p>
             </article>
           </li>
