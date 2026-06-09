@@ -26,6 +26,12 @@
   }
 }
 
+// InPageNav focuses the hash-targeted section (tabindex="-1") for screen
+// readers; don't draw an outline around the whole section.
+[data-entry-section]:focus {
+  outline: none;
+}
+
 /* contextual help */
 /* global style now to avoid layout shift when loading logic later */
 [data-article-id] {
