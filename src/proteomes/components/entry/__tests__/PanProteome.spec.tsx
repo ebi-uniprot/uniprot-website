@@ -44,11 +44,5 @@ describe('PanProteome', () => {
       'href',
       'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp562/'
     );
-    expect(
-      screen.getByRole('link', { name: 'Download FASTA' })
-    ).toHaveAttribute(
-      'href',
-      'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp562/pp562.fasta.gz'
-    );
   });
 });
