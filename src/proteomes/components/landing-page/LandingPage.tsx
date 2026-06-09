@@ -41,7 +41,7 @@ const documentationLinks = [
     id: 'ref_proteomes_workflow',
   },
   {
-    label: 'Pan proteome',
+    label: 'Pan proteomes',
     id: 'pan_proteomes',
   },
 ];
@@ -159,10 +159,17 @@ const LandingPage = () => {
             characterized sequences may be added.
           </p>
           <p>
-            UniProt also provides pan proteomes for numerous species across the
-            tree of life, to represent the observed protein diversity. All
-            available species pan proteomes can be accessed either in bulk or
-            individually through the{' '}
+            UniProt also provides{' '}
+            <Link
+              to={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: 'pan_proteomes',
+              })}
+            >
+              pan proteomes
+            </Link>{' '}
+            for numerous species across the tree of life, to represent the
+            observed protein diversity. All available species pan proteomes can
+            be accessed either in bulk or individually through the{' '}
             <ExternalLink url={ftpUrls.panProteomes()}>
               FTP directory
             </ExternalLink>
