@@ -184,7 +184,10 @@ const LandingPage = () => {
           <h2>Statistics</h2>
           <div className={styles.statistics}>
             <div className={styles.chart}>
-              <h3 className="tiny">Taxonomic origin of proteomes</h3>
+              <h3 className="tiny">
+                Taxonomic origin of {refProtHovered && 'reference'}{' '}
+                {nonRefProtHovered && 'non-reference'} proteomes
+              </h3>
               <StatisticsChart
                 refProt={refProtHovered}
                 nonRefProt={nonRefProtHovered}
