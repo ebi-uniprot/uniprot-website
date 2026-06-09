@@ -41,7 +41,11 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
       content: data.id,
     },
     {
-      title: 'Status',
+      title: (
+        <span data-article-id="proteome_terminology#proteome-status">
+          Status
+        </span>
+      ),
       content: (
         <>
           <EntryTypeIcon entryType={data.proteomeType} />
@@ -70,7 +74,7 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
     },
     {
       title: (
-        <span data-article-id="proteome_terminology#protein-count">
+        <span data-article-id="proteome_terminology#number-of-entries">
           Number of entries
         </span>
       ),
