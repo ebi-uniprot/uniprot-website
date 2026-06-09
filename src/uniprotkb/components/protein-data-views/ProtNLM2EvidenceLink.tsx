@@ -71,15 +71,18 @@ const SomethingWentWrong = () => (
 const SimilarEntryLink = ({
   accession,
   entryType,
+  geneName,
   organism,
 }: {
   accession: string;
   entryType?: string;
+  geneName?: string;
   organism?: string;
 }) => (
   <>
     {entryType && <EntryTypeIcon entryType={entryType} />}
     <Link to={getEntryPath(Namespace.uniprotkb, accession)}>{accession}</Link>
+    {geneName && ` (${geneName})`}
     {organism && ` · ${organism}`}
   </>
 );
@@ -112,23 +115,25 @@ type Props = {
 const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
   const propertiesMap = new Map(properties.map((p) => [p.key, p.value]));
   // Sequence/structure-similarity evidence links a UniProtKB accession; fetch its
-  // entry type + organism to show a Swiss-Prot/TrEMBL icon and the source
-  // species. String-match evidence has no linked accession, so this stays null.
+  // entry type, gene name + organism to show a Swiss-Prot/TrEMBL icon and some
+  // context. String-match evidence has no linked accession, so this stays null.
   const similarAccession =
     propertiesMap.get('phmmer_accession') ||
     propertiesMap.get('tmalign_accession') ||
     undefined;
   const similarEntry = useDataApi<
-    Pick<UniProtkbAPIModel, 'entryType' | 'organism'>
+    Pick<UniProtkbAPIModel, 'entryType' | 'organism' | 'genes'>
   >(
     similarAccession
       ? apiUrls.entry.entry(similarAccession, Namespace.uniprotkb, [
+          UniProtKBColumn.geneNames,
           UniProtKBColumn.organismName,
         ])
       : undefined
   );
   const similarEntryType = similarEntry.data?.entryType;
   const similarOrganism = similarEntry.data?.organism?.scientificName;
+  const similarGeneName = similarEntry.data?.genes?.[0]?.geneName?.value;
 
   const modelScore = propertiesMap.get('model_score');
   const stringMatchText = propertiesMap.get('string_match_text');
@@ -193,6 +198,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
         <SimilarEntryLink
           accession={phmmerAccession}
           entryType={similarEntryType}
+          geneName={similarGeneName}
           organism={similarOrganism}
         />
         <br />
@@ -229,6 +235,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
         <SimilarEntryLink
           accession={tmalignAccession}
           entryType={similarEntryType}
+          geneName={similarGeneName}
           organism={similarOrganism}
         />
         <br />

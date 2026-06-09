@@ -70,11 +70,12 @@ describe('ProtNLM2EvidenceLink', () => {
     errorSpy.mockRestore();
   });
 
-  it('enriches the linked accession with an entry-type icon and organism', async () => {
+  it('enriches the linked accession with an entry-type icon, gene name and organism', async () => {
     const axiosMock = new MockAdapter(axios);
     axiosMock.onGet(/\/uniprotkb\/Q09272/).reply(200, {
       primaryAccession: 'Q09272',
       entryType: 'UniProtKB reviewed (Swiss-Prot)',
+      genes: [{ geneName: { value: 'APP' } }],
       organism: { scientificName: 'Homo sapiens' },
     });
 
@@ -88,10 +89,11 @@ describe('ProtNLM2EvidenceLink', () => {
       { route: `/uniprotkb/${accession}/entry` }
     );
 
-    // Organism appears once the linked entry resolves...
+    // Gene name + organism appear once the linked entry resolves...
     await waitFor(() =>
-      expect(screen.getByText(/Homo sapiens/)).toBeInTheDocument()
+      expect(screen.getByText(/\(APP\)/)).toBeInTheDocument()
     );
+    expect(screen.getByText(/Homo sapiens/)).toBeInTheDocument();
     // ...alongside the Swiss-Prot entry-type icon.
     expect(screen.getByTitle(/reviewed/i)).toBeInTheDocument();
 
