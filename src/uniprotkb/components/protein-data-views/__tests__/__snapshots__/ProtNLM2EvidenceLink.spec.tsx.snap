@@ -31,7 +31,8 @@ exports[`ProtNLM2EvidenceLink renders the phmmer branch 1`] = `
   >
     Q09272
   </a>
-   with phmmer score: 
+  <br />
+  phmmer score: 
   <strong>
     136.30
   </strong>

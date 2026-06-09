@@ -1,3 +1,7 @@
+import { screen, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import * as logging from '../../../../shared/utils/logging';
 import { type EvidenceProperty } from '../../../types/protNLMAPIModel';
@@ -64,6 +68,34 @@ describe('ProtNLM2EvidenceLink', () => {
     expect(container).toHaveTextContent(/something went wrong/i);
     expect(errorSpy).toHaveBeenCalledTimes(1);
     errorSpy.mockRestore();
+  });
+
+  it('enriches the linked accession with an entry-type icon and organism', async () => {
+    const axiosMock = new MockAdapter(axios);
+    axiosMock.onGet(/\/uniprotkb\/Q09272/).reply(200, {
+      primaryAccession: 'Q09272',
+      entryType: 'UniProtKB reviewed (Swiss-Prot)',
+      organism: { scientificName: 'Homo sapiens' },
+    });
+
+    const properties: EvidenceProperty[] = [
+      { key: 'model_score', value: '0.5' },
+      { key: 'phmmer_accession', value: 'Q09272' },
+      { key: 'phmmer_score', value: '136.3' },
+    ];
+    customRender(
+      <ProtNLM2EvidenceLink properties={properties} accession={accession} />,
+      { route: `/uniprotkb/${accession}/entry` }
+    );
+
+    // Organism appears once the linked entry resolves...
+    await waitFor(() =>
+      expect(screen.getByText(/Homo sapiens/)).toBeInTheDocument()
+    );
+    // ...alongside the Swiss-Prot entry-type icon.
+    expect(screen.getByTitle(/reviewed/i)).toBeInTheDocument();
+
+    axiosMock.restore();
   });
 
   it('renders the no-matching-branch fallback when only model_score is present', () => {

@@ -1,4 +1,5 @@
 import { ExternalLink } from 'franklin-sites';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -6,9 +7,14 @@ import {
   Location,
   LocationToPath,
 } from '../../../app/config/urls';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import * as logging from '../../../shared/utils/logging';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
+import { type UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { UniProtKBColumn } from '../../types/columnTypes';
 import { type EvidenceProperty } from '../../types/protNLMAPIModel';
 
 //
@@ -60,6 +66,24 @@ const SomethingWentWrong = () => (
   </>
 );
 
+// The accession a sequence/structure-similarity evidence points to, enriched
+// (once loaded) with a Swiss-Prot/TrEMBL icon and the source organism.
+const SimilarEntryLink = ({
+  accession,
+  entryType,
+  organism,
+}: {
+  accession: string;
+  entryType?: string;
+  organism?: string;
+}) => (
+  <>
+    {entryType && <EntryTypeIcon entryType={entryType} />}
+    <Link to={getEntryPath(Namespace.uniprotkb, accession)}>{accession}</Link>
+    {organism && ` · ${organism}`}
+  </>
+);
+
 const ModelScoreHeader = ({ modelScore }: { modelScore: string }) => (
   <>
     {`ProtNLM2 model score: `}
@@ -86,23 +110,61 @@ type Props = {
   accession: string;
 };
 const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
-  if (properties.some((p) => p.value === null || p.value.trim() === '')) {
-    logging.error(
-      `ProtNLM2 evidence with no value: ${JSON.stringify(properties)}`
-    );
-    return <SomethingWentWrong />;
-  }
   const propertiesMap = new Map(properties.map((p) => [p.key, p.value]));
+  // Sequence/structure-similarity evidence links a UniProtKB accession; fetch its
+  // entry type + organism to show a Swiss-Prot/TrEMBL icon and the source
+  // species. String-match evidence has no linked accession, so this stays null.
+  const similarAccession =
+    propertiesMap.get('phmmer_accession') ||
+    propertiesMap.get('tmalign_accession') ||
+    undefined;
+  const similarEntry = useDataApi<
+    Pick<UniProtkbAPIModel, 'entryType' | 'organism'>
+  >(
+    similarAccession
+      ? apiUrls.entry.entry(similarAccession, Namespace.uniprotkb, [
+          UniProtKBColumn.organismName,
+        ])
+      : undefined
+  );
+  const similarEntryType = similarEntry.data?.entryType;
+  const similarOrganism = similarEntry.data?.organism?.scientificName;
+
   const modelScore = propertiesMap.get('model_score');
-  if (!modelScore) {
-    logging.error(
-      `ProtNLM2 evidence missing model_score: ${JSON.stringify(properties)}`
-    );
-    return <SomethingWentWrong />;
-  }
   const stringMatchText = propertiesMap.get('string_match_text');
   const stringMatchLoc = propertiesMap.get('string_match_location');
   const stringMatchType = propertiesMap.get('string_match_type');
+  const phmmerAccession = propertiesMap.get('phmmer_accession');
+  const phmmerScore = propertiesMap.get('phmmer_score');
+  const tmalignAccession = propertiesMap.get('tmalign_accession');
+  const tmalignScore1 = propertiesMap.get('tmalign_score_chain_1');
+  const tmalignScore2 = propertiesMap.get('tmalign_score_chain_2');
+
+  // Detect malformed / unrecognised evidence (pure). Logged in the effect below
+  // rather than during render, so a re-render (e.g. when the linked entry
+  // resolves) doesn't duplicate the log.
+  let malformedLog: string | undefined;
+  if (properties.some((p) => p.value === null || p.value.trim() === '')) {
+    malformedLog = `ProtNLM2 evidence with no value: ${JSON.stringify(properties)}`;
+  } else if (!modelScore) {
+    malformedLog = `ProtNLM2 evidence missing model_score: ${JSON.stringify(properties)}`;
+  } else if (
+    !(stringMatchText && stringMatchLoc && stringMatchType) &&
+    !(phmmerAccession && phmmerScore) &&
+    !(tmalignAccession && tmalignScore1 && tmalignScore2)
+  ) {
+    malformedLog = `ProtNLM2 evidence fell through all conditions: ${JSON.stringify(properties)}`;
+  }
+
+  useEffect(() => {
+    if (malformedLog) {
+      logging.error(malformedLog);
+    }
+  }, [malformedLog]);
+
+  if (malformedLog || !modelScore) {
+    return <SomethingWentWrong />;
+  }
 
   if (stringMatchText && stringMatchLoc && stringMatchType) {
     const externalUrl = locToUrl.get(stringMatchLoc);
@@ -123,18 +185,18 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     );
   }
 
-  const phmmerAccession = propertiesMap.get('phmmer_accession');
-  const phmmerScore = propertiesMap.get('phmmer_score');
-
   if (phmmerAccession && phmmerScore) {
     return (
       <>
         <ModelScoreHeader modelScore={modelScore} />
         {'Sequence similarity with '}
-        <Link to={getEntryPath(Namespace.uniprotkb, phmmerAccession)}>
-          {phmmerAccession}
-        </Link>{' '}
-        with phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
+        <SimilarEntryLink
+          accession={phmmerAccession}
+          entryType={similarEntryType}
+          organism={similarOrganism}
+        />
+        <br />
+        phmmer score: <strong>{Number(phmmerScore).toFixed(2)}</strong>
         <br />
         <small>Unbounded scale. Higher = stronger sequence similarity.</small>
         <br />
@@ -155,10 +217,6 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     );
   }
 
-  const tmalignAccession = propertiesMap.get('tmalign_accession');
-  const tmalignScore1 = propertiesMap.get('tmalign_score_chain_1');
-  const tmalignScore2 = propertiesMap.get('tmalign_score_chain_2');
-
   if (tmalignAccession && tmalignScore1 && tmalignScore2) {
     const foldSeekAlign = stringifyUrl(foldSeekUrl, {
       accessions: [accession, tmalignAccession].join(','),
@@ -168,9 +226,11 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
       <>
         <ModelScoreHeader modelScore={modelScore} />
         {'Structure similarity with '}
-        <Link to={getEntryPath(Namespace.uniprotkb, tmalignAccession)}>
-          {tmalignAccession}
-        </Link>
+        <SimilarEntryLink
+          accession={tmalignAccession}
+          entryType={similarEntryType}
+          organism={similarOrganism}
+        />
         <br />
         <ul className="protnlm2-tmalign-scores">
           <li>
@@ -195,9 +255,7 @@ const ProtNLM2EvidenceLink = ({ properties, accession }: Props) => {
     );
   }
 
-  logging.error(
-    `ProtNLM2 evidence fell through all conditions: ${JSON.stringify(properties)}`
-  );
+  // Unreachable: `malformedLog` already covers evidence that matches no branch.
   return <SomethingWentWrong />;
 };
 
