@@ -95,6 +95,22 @@
   }
 }
 
+// Descriptive subtitle rendered just after the accession in the compact bar:
+// the gene name, falling back to the protein name when there is none. Secondary
+// styling, and — being inside the ellipsizing `.compact-title` — it truncates
+// first when space is tight, keeping the accession visible.
+.compact-subtitle {
+  font-weight: normal;
+  color: $colour-independence;
+
+  // Divider between the accession and the name. A vertical bar (rather than the
+  // accession's own ' · ') signals a separate category.
+  &::before {
+    content: '|';
+    margin-inline: 0.5rem;
+  }
+}
+
 .compact-tools {
   flex: 0 0 auto;
   // Pin the tools to the far edge so the title + AI toggle stay grouped left.

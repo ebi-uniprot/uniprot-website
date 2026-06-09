@@ -724,6 +724,15 @@ const Entry = () => {
     compact: true,
   });
 
+  // Descriptive label next to the accession in the compact sticky bar: the gene
+  // name if there is one, otherwise the protein name. Organism is omitted (the
+  // bar is space-constrained) — unlike the fuller document title (`pageTitle`).
+  const namesAndTaxonomy = transformedData?.[EntrySection.NamesAndTaxonomy];
+  const stickySubtitle =
+    namesAndTaxonomy?.geneNamesData?.[0]?.geneName?.value ||
+    namesAndTaxonomy?.proteinNamesData?.recommendedName?.fullName.value ||
+    namesAndTaxonomy?.proteinNamesData?.submissionNames?.[0]?.fullName.value;
+
   return (
     <SidebarLayout
       sidebar={sidebar}
@@ -811,6 +820,11 @@ const Entry = () => {
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
+            {stickySubtitle && (
+              <span className={stickyHeaderStyles['compact-subtitle']}>
+                {stickySubtitle}
+              </span>
+            )}
           </span>
           {protnlmToggleSticky}
           <div className={stickyHeaderStyles['compact-tools']}>
