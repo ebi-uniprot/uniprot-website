@@ -596,10 +596,7 @@ const SubEntry = () => {
             accession,
             searchableNamespaceLabels[Namespace.uniparc],
           ]}
-        >
-          {/* Keep until 2026_02 is released */}
-          <meta name="robots" content="noindex" />
-        </HTMLHead>
+        />
         <div
           ref={setFullHeaderRef}
           className={stickyHeaderStyles['full-header']}
