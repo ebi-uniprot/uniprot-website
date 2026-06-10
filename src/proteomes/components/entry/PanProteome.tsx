@@ -17,15 +17,12 @@ export const PanProteome = ({
     ) ?? taxonomy;
 
   const folderUrl =
-    species.taxonId && ftpUrls.panProteomesPreviewFolder(species.taxonId);
-  const fastaUrl =
-    species.taxonId && ftpUrls.panProteomesFasta(species.taxonId);
+    species.taxonId && ftpUrls.panProteomesFolder(species.taxonId);
   const { scientificName } = species;
 
   return (
     scientificName &&
-    folderUrl &&
-    fastaUrl && (
+    folderUrl && (
       <>
         {'This proteome is part of the '}
         {/* Folder link → opens the FTP directory in a new tab for browsing. */}

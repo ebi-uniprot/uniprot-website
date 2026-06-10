@@ -19,7 +19,7 @@ describe('PanProteome', () => {
       screen.getByRole('link', { name: /Homo sapiens pan proteome/ })
     ).toHaveAttribute(
       'href',
-      'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp9606/'
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp9606/'
     );
   });
 
@@ -42,7 +42,7 @@ describe('PanProteome', () => {
       screen.getByRole('link', { name: /Escherichia coli pan proteome/ })
     ).toHaveAttribute(
       'href',
-      'https://ftp.ebi.ac.uk/pub/contrib/insana/pan_proteomes_preview/pp562/'
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp562/'
     );
   });
 });
