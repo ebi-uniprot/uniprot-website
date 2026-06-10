@@ -276,6 +276,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
             'A proteome ID is needed to search by proteome component; the component has been ignored.',
           format: MessageFormat.POP_UP,
           level: MessageLevel.WARNING,
+          displayTime: 5_000,
         })
       );
     }
