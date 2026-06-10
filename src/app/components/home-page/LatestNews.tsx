@@ -141,8 +141,8 @@ const LatestNews = () => {
                   styles['latest-news__abstract--2-lines']
                 )}
               >
-                To drink, or not to drink? | UniProt resource news | Completing
-                the reorganization of the protein space...
+                To drink, or not to drink? | UniProt news | Completing the
+                reorganization of the protein space...
               </p>
             </article>
           </li>
