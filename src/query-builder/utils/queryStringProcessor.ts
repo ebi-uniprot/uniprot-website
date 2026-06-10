@@ -3,6 +3,9 @@ import { getAllTerm } from './clause';
 
 const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;
 
+// Canonical UniProt proteome identifier value, eg UP000005640
+export const reProteomeIdValue = /^UP\d{9}$/i;
+
 export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
@@ -52,12 +55,30 @@ export const stringify = (clauses: Clause[] = []): string => {
       queryJoined = `(${goKey}:${goValue})`;
     } else if (
       clause.queryBits.proteome &&
+      reProteomeIdValue.test(clause.queryBits.proteome) &&
       clause.queryBits.proteomecomponent
     ) {
       // Combine proteome ID + component into a single proteomecomponent clause
       // and suppress the separate `proteome:` clause.
       queryJoined = `(proteomecomponent:"${clause.queryBits.proteome}:${clause.queryBits.proteomecomponent}")`;
     } else {
+      // A proteome component can only be searched when scoped by a valid
+      // proteome ID. On its own it's meaningless, so drop it (the UI warns the
+      // user that a proteome ID is needed).
+      if (
+        clause.queryBits.proteomecomponent &&
+        !(
+          clause.queryBits.proteome &&
+          reProteomeIdValue.test(clause.queryBits.proteome)
+        )
+      ) {
+        query = query.filter(([key]) => key !== 'proteomecomponent');
+        if (!query.length) {
+          // nothing left to search in this clause
+          continue;
+        }
+      }
+
       queryJoined = query
         .map(([key, value]) => {
           const needsQuotes =
