@@ -205,19 +205,17 @@ const SubEntryContext = ({
   }
 
   return (
-    contextInfo && (
-      <Card>
-        <p className={styles['about']}>
-          This is a{' '}
-          <span data-article-id="uniparc_sequence_annotation_pages">
-            sequence annotation page
-          </span>{' '}
-          which combines information from UniParc and UniProtKB annotation
-          prediction tools, where available.
-        </p>
-        {contextInfo}
-      </Card>
-    )
+    <Card>
+      <p className={styles['about']}>
+        This is a{' '}
+        <span data-article-id="uniparc_sequence_annotation_pages">
+          sequence annotation page
+        </span>{' '}
+        which combines information from UniParc and UniProtKB annotation
+        prediction tools, where available.
+      </p>
+      {contextInfo}
+    </Card>
   );
 };
 
