@@ -6,6 +6,7 @@ import AnalysisTools from './AnalysisTools';
 import CoreData from './CoreData';
 import LatestNews from './LatestNews';
 import NeedHelp from './NeedHelp';
+import Protnlm2Banner from './Protnlm2Banner';
 import styles from './styles/non-critical.module.scss';
 import SupportingData from './SupportingData';
 import UniProtData from './UniProtData';
@@ -19,6 +20,7 @@ const HomePageNonCritical = () => (
         styles['home-page-section']
       )}
     >
+      <Protnlm2Banner />
       <Message level="info" className="uniprot-grid-cell--span-12">
         <small>
           Help us keep delivering gold-standard protein knowledge in the Age of

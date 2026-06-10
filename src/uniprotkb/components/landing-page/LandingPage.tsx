@@ -3,6 +3,7 @@ import { LongNumber, SwissProtIcon, TremblIcon } from 'franklin-sites';
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import Protnlm2Banner from '../../../app/components/home-page/Protnlm2Banner';
 import {
   getLocationEntryPath,
   Location,
@@ -121,6 +122,8 @@ const LandingPage = () => {
             </Link>
           </p>
         </div>
+
+        <Protnlm2Banner />
 
         {/* Statistics */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
