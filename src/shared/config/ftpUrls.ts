@@ -7,8 +7,7 @@ import { FileFormat } from '../types/resultsDownload';
 const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
 // Base path for pan proteome files in the current release.
-const panProteomesBase =
-  'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes';
+const panProteomesBase = `${ftpUniProt}current_release/knowledgebase/pan_proteomes`;
 
 const ftpUrls = {
   uniprot: ftpUniProt,
