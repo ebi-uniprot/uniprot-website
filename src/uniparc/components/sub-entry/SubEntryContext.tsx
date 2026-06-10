@@ -1,10 +1,5 @@
 import cn from 'classnames';
-import {
-  InfoList,
-  InformationIcon,
-  Message,
-  SuccessIcon,
-} from 'franklin-sites';
+import { Card, InfoList, InformationIcon, SuccessIcon } from 'franklin-sites';
 import { generatePath, Link, Redirect } from 'react-router-dom';
 
 import {
@@ -85,7 +80,10 @@ const SubEntryContext = ({
   let contextInfo;
 
   const annotationStatus = canLoadAnnotations && (
-    <div className={styles['annotation-status']}>
+    <div
+      className={styles['annotation-status']}
+      data-article-id="uniparc_sequence_annotation_pages"
+    >
       {annotationsLoading ? (
         'Loading annotations'
       ) : hasAnnotations ? (
@@ -95,7 +93,7 @@ const SubEntryContext = ({
             width={iconSize}
             height={iconSize}
           />
-          Annotations loaded
+          Predicted annotations loaded
         </>
       ) : (
         <>
@@ -104,7 +102,7 @@ const SubEntryContext = ({
             width={iconSize}
             height={iconSize}
           />
-          No annotations available
+          No predicted annotations available
         </>
       )}
     </div>
@@ -197,7 +195,7 @@ const SubEntryContext = ({
             title: 'Status',
             content: (
               <div>
-                This is an active {subEntry.database} entry.{annotationStatus}
+                Active {subEntry.database} entry {annotationStatus}
               </div>
             ),
           },
@@ -206,7 +204,21 @@ const SubEntryContext = ({
     );
   }
 
-  return contextInfo && <Message level="info">{contextInfo}</Message>;
+  return (
+    contextInfo && (
+      <Card>
+        <p className={styles['about']}>
+          This is a{' '}
+          <span data-article-id="uniparc_sequence_annotation_pages">
+            sequence annotation page
+          </span>{' '}
+          which combines information from UniParc and UniProtKB annotation
+          prediction tools, where available.
+        </p>
+        {contextInfo}
+      </Card>
+    )
+  );
 };
 
 export default SubEntryContext;

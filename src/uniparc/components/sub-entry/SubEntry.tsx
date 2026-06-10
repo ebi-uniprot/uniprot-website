@@ -606,13 +606,7 @@ const SubEntry = () => {
           <SubEntryOverview uniparcData={transformedData} />
           {toolsRow}
         </div>
-        <Message level="info">
-          These pages are in beta version, please{' '}
-          <ContactLink>
-            provide feedback about them through our contact form
-          </ContactLink>
-          .
-        </Message>
+
         <SubEntryContext
           uniparcId={accession}
           subEntry={transformedData.subEntry}
@@ -625,6 +619,10 @@ const SubEntry = () => {
             hasPrecomputed || Boolean(uniFireData.data?.accession)
           }
         />
+        <Message level="info">
+          This page is currently in beta. Please{' '}
+          <ContactLink>provide feedback through our contact form</ContactLink>.
+        </Message>
       </ErrorBoundary>
       {/* TODO: eventually remove nResults prop (see note in EntryDownload) */}
       {displayDownloadPanel && (
