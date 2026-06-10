@@ -14,7 +14,7 @@ import mockData from './__mocks__/agr-orthologs';
 
 const mock = new MockAdapter(axios);
 mock
-  .onGet(/www.alliancegenome.org\/api\/gene\/HGNC:620\/orthologs/)
+  .onGet(/www\.alliancegenome\.org\/api\/gene\/HGNC:620\/orthologs/)
   .reply(200, mockData, { 'x-total-results': 0 });
 
 describe('AgrOrthology', () => {
