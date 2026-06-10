@@ -10,11 +10,12 @@ import {
   Dropdown,
   Loader,
   LongNumber,
+  SpinnerIcon,
   Tab,
   Tabs,
   ToggleSwitch,
 } from 'franklin-sites';
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { generatePath, Link, Redirect, useHistory } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
@@ -200,8 +201,7 @@ const Entry = () => {
   const mediumScreen = useMediumScreen();
   // When wide enough, show the full tools row; below it, collapse to the Menu.
   const wideScreen = useEntryToolsExpandedScreen();
-  // Independent: when the compact bar gets really tight, drop "AI Annotations"
-  // to just "AI" so the toggle stops crowding the title and Menu.
+  // Drop the label to "AI" when the compact bar gets tight.
   const headerCramped = useEntryHeaderCrampedScreen();
   const [loadProtNLM, setLoadProtNLM] = useLocalStorage<boolean>(
     'ai-annotations',
@@ -249,15 +249,21 @@ const Entry = () => {
       : null
   );
 
-  // Probe whether a ProtNLM payload exists for this entry. We only need
-  // this when the user has the toggle off — when they have it on, the
-  // GET below tells us availability for free, so a HEAD would be a
-  // duplicate request.
+  // Latch availability so the HEAD probe doesn't re-fire on every off→on→off
+  // cycle and blink the toggle out for the request duration. Keyed by
+  // accession so navigation resets it.
+  const confirmedProtnlmAccessionRef = useRef<string | undefined>(undefined);
+  const protnlmConfirmedAvailable =
+    confirmedProtnlmAccessionRef.current === match?.params.accession;
+
+  // Cheap availability check; skipped when the toggle is on (the GET below
+  // tells us for free) or already confirmed.
   const protnlmHeadPayload = useDataApi<UniProtKBProtNLMAPIModel>(
     match?.params.accession &&
       data &&
       data.entryType === 'UniProtKB unreviewed (TrEMBL)' &&
-      !loadProtNLM
+      !loadProtNLM &&
+      !protnlmConfirmedAvailable
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null,
     { method: 'HEAD' }
@@ -271,6 +277,14 @@ const Entry = () => {
       ? uniprotkbApiUrls.protnlm.entry(match.params.accession)
       : null
   );
+
+  // Idempotent ref write, so safe during render under strict-mode double invoke.
+  if (
+    match?.params.accession &&
+    (protnlmHeadPayload.status === 200 || protnlmPayload.status === 200)
+  ) {
+    confirmedProtnlmAccessionRef.current = match.params.accession;
+  }
 
   const communityReferences: Reference[] = useMemo(() => {
     const filteredReferences = communityCuratedPayload.data?.results?.flatMap(
@@ -287,10 +301,7 @@ const Entry = () => {
       return [];
     }
 
-    // Augment UniProtKB data with ProtNLM data. Some augmentations
-    // happen before transformations, and some after. Transform data
-    // as soon as possible, ie even if the protnlm predictions are
-    // still loading.
+    // Some ProtNLM augmentations happen pre-transformation, some post.
     const transformedData = protnlmPayload.data
       ? augmentUIDataWithProtnlmPredictions(
           protnlmPayload.data,
@@ -560,13 +571,13 @@ const Entry = () => {
     hasGenomicCoordinates = coordinatesHeadPayload.status === 200;
   }
 
-  // Toggle-off: read availability from the HEAD probe.
-  // Toggle-on:  the GET is what's firing — treat "still loading" as
-  //             available so we don't blink the toggle out while the
-  //             user is opted in; once it resolves to non-200 we hide it.
-  const hasProtnlm: boolean = loadProtNLM
-    ? protnlmPayload.loading || protnlmPayload.status === 200
-    : !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200;
+  // Treat the in-flight GET as available so initial-load with the toggle on
+  // doesn't blink it out.
+  const hasProtnlm: boolean =
+    protnlmConfirmedAvailable ||
+    (loadProtNLM
+      ? protnlmPayload.loading || protnlmPayload.status === 200
+      : !protnlmHeadPayload.loading && protnlmHeadPayload.status === 200);
 
   const isAFDBOutOfSync =
     new Date(
@@ -698,24 +709,18 @@ const Entry = () => {
       </Dropdown>
     ) : null;
 
-  // Two flavours: the spacious full-header toggle, and the dense sticky-bar
-  // toggle. Sticky mode is always `compact` (the bar is space-constrained at
-  // every width); only the visible label shrinks further to "AI" once the bar
-  // is genuinely cramped. ariaLabel keeps the accessible name as
-  // "AI Annotations" in all cases. Franklin's `stableWidthLabel` matches the
-  // live label so the loading-state "Loading..." swap doesn't reflow.
+  // While loading, swap the icon (not the label) so the label stays put.
   const makeProtnlmToggle = (opts: { label: string; compact?: boolean }) =>
     hasProtnlm ? (
       <ToggleSwitch
-        header={protnlmPayload.loading ? 'Loading...' : opts.label}
+        header={opts.label}
         ariaLabel="AI Annotations"
-        icon={<AiAnnotationsIcon />}
+        icon={protnlmPayload.loading ? <SpinnerIcon /> : <AiAnnotationsIcon />}
         isLoading={protnlmPayload.loading}
         checked={loadProtNLM}
         onChange={setLoadProtNLM}
         className="ai-annotation-entry-title-row__toggle"
         compact={opts.compact}
-        stableWidthLabel={opts.label}
       />
     ) : null;
   const protnlmToggle = makeProtnlmToggle({ label: 'AI Annotations' });

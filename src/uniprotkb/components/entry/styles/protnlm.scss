@@ -70,8 +70,7 @@ tr:has(.ai-annotation-row) {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  // tight row-gap so wrapping on narrow screens doesn't leave a huge gap;
-  // moderate column-gap so the toggle still sits comfortably next to the title.
+  // Tight row-gap for wrapping; moderate column-gap so the toggle isn't crowded.
   row-gap: 0.25rem;
   column-gap: 1.5rem;
   container-type: inline-size;
@@ -85,21 +84,14 @@ tr:has(.ai-annotation-row) {
     flex: 0 1 auto;
     margin: 5px 0;
 
-    // Sizing tuned for the full-header layout. In compact mode Franklin
-    // owns the dimensions via --toggle-padding / --toggle-knob-size /
-    // --toggle-header-font-size / --toggle-icon-size; if we set `padding`
-    // and `border-radius` directly here they'd shadow those variable-driven
-    // values and the `compact` prop would have no visible effect.
+    // Skip in compact mode so franklin's --toggle-* vars stay in charge.
     &:not(.toggle--compact) {
       border-radius: 0.7rem;
       padding: 0.6rem 1rem;
     }
 
     & .toggle__icon {
-      // Franklin v0.0.265+ defaults the icon colour to --toggle-switch-color
-      // (slider tint). Override to --toggle-header-color so the icon reads as
-      // part of the label rather than the slider — grey when off, purple
-      // when on.
+      // Tint the icon as part of the label, not the slider.
       color: var(--toggle-header-color);
       background-color: transparent;
       padding: 0;
@@ -116,10 +108,7 @@ tr:has(.ai-annotation-row) {
     }
 
     &.toggle--loading {
-      // franklin-sites flips every tinted var to its on (purple) value while
-      // loading; we want only the border purple. Reset the rest to off so
-      // text/background/switch stay neutral. The opacity shimmer stays
-      // because it lives on .toggle--loading itself.
+      // Keep only the border in the loading-state purple; reset the rest.
       --toggle-header-color: var(--toggle-header-color-off);
       --toggle-background-color: var(--toggle-background-color-off);
       --toggle-switch-color: var(--toggle-switch-color-off);
