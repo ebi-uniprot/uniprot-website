@@ -1,7 +1,7 @@
 import { type OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -509,13 +509,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
       GeneOntologyEntry: {
         type: 'object',
         properties: {
-          ancestors: {
-            uniqueItems: true,
-            type: 'array',
-            items: {
-              $ref: '#/components/schemas/GeneOntologyEntry',
-            },
-          },
           aspect: {
             type: 'string',
             enum: [
@@ -523,6 +516,13 @@ const unirefApiDocs: OpenAPIV3.Document = {
               'GO Biological Process',
               'GO Cellular Component',
             ],
+          },
+          ancestors: {
+            uniqueItems: true,
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/GeneOntologyEntry',
+            },
           },
           name: {
             type: 'string',
@@ -595,6 +595,27 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
+          },
+          organismName: {
+            type: 'string',
+          },
           organismTaxId: {
             type: 'integer',
             format: 'int64',
@@ -620,27 +641,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
-          },
-          organismName: {
-            type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
           },
           memberId: {
             type: 'string',
@@ -671,9 +671,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
       UniRefEntry: {
         type: 'object',
         properties: {
-          seedId: {
-            type: 'string',
-          },
           representativeMember: {
             $ref: '#/components/schemas/RepresentativeMember',
           },
@@ -698,6 +695,9 @@ const unirefApiDocs: OpenAPIV3.Document = {
               $ref: '#/components/schemas/GeneOntologyEntry',
             },
           },
+          seedId: {
+            type: 'string',
+          },
           name: {
             type: 'string',
           },
@@ -715,6 +715,27 @@ const unirefApiDocs: OpenAPIV3.Document = {
       UniRefMember: {
         type: 'object',
         properties: {
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
+          },
+          organismName: {
+            type: 'string',
+          },
           organismTaxId: {
             type: 'integer',
             format: 'int64',
@@ -740,27 +761,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           overlapRegion: {
             $ref: '#/components/schemas/OverlapRegion',
-          },
-          organismName: {
-            type: 'string',
-          },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
           },
           memberId: {
             type: 'string',

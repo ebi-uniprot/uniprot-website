@@ -29,6 +29,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "GuidetoPHARMACOLOGY",
       "SwissLipids",
       "DrugCentral",
+      "ChEBI",
     ],
     "EAP": [
       "BioCyc",
@@ -68,6 +69,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
+      "AbasyAtlas",
     ],
     "GMA": [
       "Ensembl",
@@ -135,7 +137,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MGI",
       "MIM",
       "NIAGADS",
-      "neXtProt",
       "OpenTargets",
       "Orphanet",
       "ClinPGx",
@@ -188,7 +189,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OMA",
       "OrthoDB",
       "PhylomeDB",
-      "TreeFam",
       "PAN-GO",
     ],
     "PPI": [
@@ -200,6 +200,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "NDEx",
       "FunCoup",
     ],
     "PRM": [
@@ -242,6 +243,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
   "databaseNameToCategory": {
     "ABCD": "PAM",
     "AGR": "ORG",
+    "AbasyAtlas": "GEP",
     "Agora": "MISC",
     "Allergome": "PFAM",
     "AlphaFoldDB": "3DS",
@@ -270,6 +272,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "CPTC": "PAM",
     "CTD": "ORG",
     "CarbonylDB": "PTM",
+    "ChEBI": "CHEMISTRY",
     "ChEMBL": "CHEMISTRY",
     "ChiTaRS": "MISC",
     "CleanEx": "GEP",
@@ -351,6 +354,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "MoonDB": "PFAM",
     "MoonProt": "PFAM",
     "NCBIfam": "FMD",
+    "NDEx": "PPI",
     "NIAGADS": "ORG",
     "OGP": "2DG",
     "OMA": "PLG",
@@ -415,7 +419,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "TAIR": "ORG",
     "TCDB": "PFAM",
     "TopDownProteomics": "PROTEOMIC",
-    "TreeFam": "PLG",
     "TubercuList": "ORG",
     "UCSC": "GMA",
     "UniCarbKB": "PTM",
@@ -436,7 +439,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
     "euHCVdb": "ORG",
     "iPTMnet": "PTM",
     "jPOST": "PROTEOMIC",
-    "neXtProt": "ORG",
   },
   "databaseToDatabaseInfo": {
     "ABCD": {
@@ -462,6 +464,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "displayName": "AGR",
       "name": "AGR",
       "uriLink": "https://alliancegenome.org/gene/%id",
+    },
+    "AbasyAtlas": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "GEP",
+      "displayName": "AbasyAtlas",
+      "name": "AbasyAtlas",
+      "uriLink": "https://abasy.ccg.unam.mx/details?uniprot=%id",
     },
     "Agora": {
       "attributes": [
@@ -812,6 +826,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "CarbonylDB",
       "uriLink": "https://carbonyldb.missouri.edu/CarbonylDB/index.php/detail/protein/%id",
     },
+    "ChEBI": {
+      "attributes": [
+        {
+          "name": "Description",
+          "xmlTag": "description",
+        },
+      ],
+      "category": "CHEMISTRY",
+      "displayName": "ChEBI",
+      "name": "ChEBI",
+      "uriLink": "https://www.ebi.ac.uk/chebi/%id",
+    },
     "ChEMBL": {
       "attributes": [
         {
@@ -943,7 +969,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "DEPOD",
       "name": "DEPOD",
-      "uriLink": "https://depod.bioss.uni-freiburg.de/showp.php?name=%id",
+      "uriLink": "https://depod.zellbiologie.uni-bonn.de/showp.php?name=%id",
     },
     "DIP": {
       "attributes": [
@@ -1479,7 +1505,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PTM",
       "displayName": "GlyConnect",
       "name": "GlyConnect",
-      "uriLink": "https://glyconnect.expasy.org/browser/proteins/%id",
+      "uriLink": "https://glyconnect.expasy.org/gcx/search/view/glycome/Protein/%id",
     },
     "GlyCosmos": {
       "attributes": [
@@ -1908,6 +1934,18 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "NCBIfam",
       "uriLink": "https://www.ncbi.nlm.nih.gov/genome/annotation_prok/evidence/%id/",
     },
+    "NDEx": {
+      "attributes": [
+        {
+          "name": "Evidences",
+          "xmlTag": "evidences",
+        },
+      ],
+      "category": "PPI",
+      "displayName": "NDEx",
+      "name": "NDEx",
+      "uriLink": "http://www.ndexbio.org/identifiers/%id",
+    },
     "NIAGADS": {
       "attributes": [
         {
@@ -2166,7 +2204,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "PROTEOMIC",
       "displayName": "PRIDE",
       "name": "PRIDE",
-      "uriLink": "https://www.ebi.ac.uk/pride/peptidome/peptidesearch?keyword=%id",
+      "uriLink": "https://www.ebi.ac.uk/pride/archive/proteins/%id",
     },
     "PRINTS": {
       "attributes": [
@@ -2723,18 +2761,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "TopDownProteomics",
       "uriLink": "http://repository.topdownproteomics.org/Proteoforms?query=%id",
     },
-    "TreeFam": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "PLG",
-      "displayName": "TreeFam",
-      "name": "TreeFam",
-      "uriLink": "http://www.treefam.org/family/%id",
-    },
     "TubercuList": {
       "attributes": [
         {
@@ -2996,18 +3022,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "name": "jPOST",
       "uriLink": "https://globe.jpostdb.org/protein?id=%id",
     },
-    "neXtProt": {
-      "attributes": [
-        {
-          "name": "Description",
-          "xmlTag": "description",
-        },
-      ],
-      "category": "ORG",
-      "displayName": "neXtProt",
-      "name": "neXtProt",
-      "uriLink": "https://www.nextprot.org/entry/%id",
-    },
   },
   "entrySectionToDatabaseCategoryOrder": {
     "disease_variants": [
@@ -3092,6 +3106,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "CleanEx",
       "CollecTF",
       "ExpressionAtlas",
+      "AbasyAtlas",
       "HPA",
     ],
     "external_links": [
@@ -3139,7 +3154,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "MGI",
       "MIM",
       "NIAGADS",
-      "neXtProt",
       "OpenTargets",
       "Orphanet",
       "ClinPGx",
@@ -3225,7 +3239,6 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "OMA",
       "OrthoDB",
       "PhylomeDB",
-      "TreeFam",
       "PAN-GO",
       "AGR",
     ],
@@ -3238,6 +3251,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "IntAct",
       "MINT",
       "STRING",
+      "NDEx",
       "FunCoup",
       "BindingDB",
       "RNAct",

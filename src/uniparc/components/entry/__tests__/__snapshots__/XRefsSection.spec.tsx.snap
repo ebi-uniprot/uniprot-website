@@ -125,7 +125,18 @@ exports[`XrefSection component should render the xref table properly and match s
                     Vaccinia virus (strain Western Reserve) (VACV)
                   </a>
                 </td>
-                <td />
+                <td>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000000344"
+                    >
+                      UP000000344
+                    </a>
+                     (Segment)
+                  </span>
+                </td>
                 <td>
                   <time
                     datetime="2007-01-23T00:00:00.000Z"
@@ -135,9 +146,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2026-01-28T00:00:00.000Z"
+                    datetime="2026-06-10T00:00:00.000Z"
                   >
-                    2026-01-28
+                    2026-06-10
                   </time>
                 </td>
                 <td>
@@ -228,118 +239,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 <td>
                   <span>
                     <a
-                      href="/uniprotkb/Q6RZL4/entry"
-                    >
-                      Q6RZL4
-                    </a>
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/45417"
-                    title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
-                    translate="no"
-                  >
-                    Rabbitpox virus (strain Utrecht) (RPV)
-                  </a>
-                </td>
-                <td />
-                <td>
-                  <time
-                    datetime="2004-07-05T00:00:00.000Z"
-                  >
-                    2004-07-05
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2026-01-28T00:00:00.000Z"
-                  >
-                    2026-01-28
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    <span
-                      class="entry-title__status icon--unreviewed"
-                      title="This marks an unreviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    UniProtKB unreviewed
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/Q76QK2/entry"
-                    >
-                      Q76QK2
-                    </a>
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/265871"
-                    title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
-                    translate="no"
-                  >
-                    Cowpox virus (strain GRI-90 / Grishak) (CPV)
-                  </a>
-                </td>
-                <td />
-                <td>
-                  <time
-                    datetime="2004-07-05T00:00:00.000Z"
-                  >
-                    2004-07-05
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2026-01-28T00:00:00.000Z"
-                  >
-                    2026-01-28
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    <span
-                      class="entry-title__status icon--unreviewed"
-                      title="This marks an unreviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    UniProtKB unreviewed
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    <a
                       href="/uniprotkb/Q71TT2/entry"
                     >
                       Q71TT2
@@ -360,7 +259,84 @@ exports[`XrefSection component should render the xref table properly and match s
                     Vaccinia virus (VACV)
                   </a>
                 </td>
-                <td />
+                <td>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000097422"
+                    >
+                      UP000097422
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000153808"
+                    >
+                      UP000153808
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000181062"
+                    >
+                      UP000181062
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000181110"
+                    >
+                      UP000181110
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000181229"
+                    >
+                      UP000181229
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000181484"
+                    >
+                      UP000181484
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000501395"
+                    >
+                      UP000501395
+                    </a>
+                     (Genome)
+                  </span>
+                </td>
                 <td>
                   <time
                     datetime="2006-04-18T00:00:00.000Z"
@@ -370,9 +346,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2026-01-28T00:00:00.000Z"
+                    datetime="2026-06-10T00:00:00.000Z"
                   >
-                    2026-01-28
+                    2026-06-10
                   </time>
                 </td>
                 <td>
@@ -383,7 +359,9 @@ exports[`XrefSection component should render the xref table properly and match s
               </tr>
               <tr>
                 <td>
-                  <span>
+                  <span
+                    class="xref-inactive"
+                  >
                     <span
                       class="entry-title__status icon--unreviewed"
                       title="This marks an unreviewed UniProtKB entry"
@@ -394,52 +372,63 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-inactive"
+                  >
                     <a
-                      href="/uniprotkb/Q0GNZ6/entry"
+                      href="/uniparc/UPI0000000001/entry/Q6RZL4"
                     >
-                      Q0GNZ6
+                      Q6RZL4
                     </a>
                   </span>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-inactive"
+                  >
                     1
                   </span>
                 </td>
                 <td>
                   <a
-                    href="/taxonomy/397342"
-                    title="Horsepox virus (HSPV), taxon ID 397342"
+                    class="xref-inactive"
+                    href="/taxonomy/45417"
+                    title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
                     translate="no"
                   >
-                    Horsepox virus (HSPV)
+                    Rabbitpox virus (strain Utrecht) (RPV)
                   </a>
                 </td>
                 <td />
                 <td>
                   <time
-                    datetime="2006-10-03T00:00:00.000Z"
+                    class="xref-inactive"
+                    datetime="2004-07-05T00:00:00.000Z"
                   >
-                    2006-10-03
+                    2004-07-05
                   </time>
                 </td>
                 <td>
                   <time
+                    class="xref-inactive"
                     datetime="2026-01-28T00:00:00.000Z"
                   >
                     2026-01-28
                   </time>
                 </td>
                 <td>
-                  <span>
-                    Yes
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
                   </span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <span>
+                  <span
+                    class="xref-inactive"
+                  >
                     <span
                       class="entry-title__status icon--unreviewed"
                       title="This marks an unreviewed UniProtKB entry"
@@ -450,102 +439,55 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-inactive"
+                  >
                     <a
-                      href="/uniprotkb/A0A2I2MDI1/entry"
+                      href="/uniparc/UPI0000000001/entry/Q76QK2"
                     >
-                      A0A2I2MDI1
+                      Q76QK2
                     </a>
                   </span>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-inactive"
+                  >
                     1
                   </span>
                 </td>
                 <td>
                   <a
-                    href="/taxonomy/10254"
-                    title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                    class="xref-inactive"
+                    href="/taxonomy/265871"
+                    title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
                     translate="no"
                   >
-                    Vaccinia virus (strain Western Reserve) (VACV)
+                    Cowpox virus (strain GRI-90 / Grishak) (CPV)
                   </a>
                 </td>
                 <td />
                 <td>
                   <time
-                    datetime="2018-02-28T00:00:00.000Z"
+                    class="xref-inactive"
+                    datetime="2004-07-05T00:00:00.000Z"
                   >
-                    2018-02-28
+                    2004-07-05
                   </time>
                 </td>
                 <td>
                   <time
+                    class="xref-inactive"
                     datetime="2026-01-28T00:00:00.000Z"
                   >
                     2026-01-28
                   </time>
                 </td>
                 <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span>
-                    <span
-                      class="entry-title__status icon--unreviewed"
-                      title="This marks an unreviewed UniProtKB entry"
-                    >
-                      <test-file-stub />
-                    </span>
-                    UniProtKB unreviewed
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    <a
-                      href="/uniprotkb/G0XTE8/entry"
-                    >
-                      G0XTE8
-                    </a>
-                  </span>
-                </td>
-                <td>
-                  <span>
-                    1
-                  </span>
-                </td>
-                <td>
-                  <a
-                    href="/taxonomy/10243"
-                    title="Cowpox virus (CPV), taxon ID 10243"
-                    translate="no"
+                  <span
+                    class="xref-inactive"
                   >
-                    Cowpox virus (CPV)
-                  </a>
-                </td>
-                <td />
-                <td>
-                  <time
-                    datetime="2024-11-27T00:00:00.000Z"
-                  >
-                    2024-11-27
-                  </time>
-                </td>
-                <td>
-                  <time
-                    datetime="2026-01-28T00:00:00.000Z"
-                  >
-                    2026-01-28
-                  </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
+                    No
                   </span>
                 </td>
               </tr>
@@ -626,6 +568,140 @@ exports[`XrefSection component should render the xref table properly and match s
                     class="xref-inactive"
                   >
                     <a
+                      href="/uniparc/UPI0000000001/entry/Q0GNZ6"
+                    >
+                      Q0GNZ6
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    class="xref-inactive"
+                    href="/taxonomy/397342"
+                    title="Horsepox virus (HSPV), taxon ID 397342"
+                    translate="no"
+                  >
+                    Horsepox virus (HSPV)
+                  </a>
+                </td>
+                <td />
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2006-10-03T00:00:00.000Z"
+                  >
+                    2006-10-03
+                  </time>
+                </td>
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2026-01-28T00:00:00.000Z"
+                  >
+                    2026-01-28
+                  </time>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <a
+                      href="/uniparc/UPI0000000001/entry/A0A2I2MDI1"
+                    >
+                      A0A2I2MDI1
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    class="xref-inactive"
+                    href="/taxonomy/10254"
+                    title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                    translate="no"
+                  >
+                    Vaccinia virus (strain Western Reserve) (VACV)
+                  </a>
+                </td>
+                <td />
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2018-02-28T00:00:00.000Z"
+                  >
+                    2018-02-28
+                  </time>
+                </td>
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2026-01-28T00:00:00.000Z"
+                  >
+                    2026-01-28
+                  </time>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <a
                       href="/uniparc/UPI0000000001/entry/A0A7I8V511"
                     >
                       A0A7I8V511
@@ -676,6 +752,73 @@ exports[`XrefSection component should render the xref table properly and match s
               </tr>
               <tr>
                 <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <span
+                      class="entry-title__status icon--unreviewed"
+                      title="This marks an unreviewed UniProtKB entry"
+                    >
+                      <test-file-stub />
+                    </span>
+                    UniProtKB unreviewed
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    <a
+                      href="/uniparc/UPI0000000001/entry/G0XTE8"
+                    >
+                      G0XTE8
+                    </a>
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
+                <td>
+                  <a
+                    class="xref-inactive"
+                    href="/taxonomy/10243"
+                    title="Cowpox virus (CPV), taxon ID 10243"
+                    translate="no"
+                  >
+                    Cowpox virus (CPV)
+                  </a>
+                </td>
+                <td />
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2024-11-27T00:00:00.000Z"
+                  >
+                    2024-11-27
+                  </time>
+                </td>
+                <td>
+                  <time
+                    class="xref-inactive"
+                    datetime="2026-01-28T00:00:00.000Z"
+                  >
+                    2026-01-28
+                  </time>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <span>
                     RefSeq
                   </span>
@@ -709,9 +852,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-09-02T00:00:00.000Z"
+                    datetime="2026-03-16T00:00:00.000Z"
                   >
-                    2025-09-02
+                    2026-03-16
                   </time>
                 </td>
                 <td>
@@ -755,9 +898,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-09-02T00:00:00.000Z"
+                    datetime="2026-03-16T00:00:00.000Z"
                   >
-                    2025-09-02
+                    2026-03-16
                   </time>
                 </td>
                 <td>
@@ -954,7 +1097,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000000344"
                     >
@@ -1009,7 +1154,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000137384"
                     >
@@ -1064,7 +1211,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000166173"
                     >
@@ -1119,7 +1268,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000111173"
                     >
@@ -1137,9 +1288,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2025-09-22T00:00:00.000Z"
+                    datetime="2026-03-19T00:00:00.000Z"
                   >
-                    2025-09-22
+                    2026-03-19
                   </time>
                 </td>
                 <td>
@@ -1174,7 +1325,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000113999"
                     >
@@ -1229,7 +1382,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000181229"
                     >
@@ -1284,7 +1439,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000181062"
                     >
@@ -1339,7 +1496,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000181110"
                     >
@@ -1394,7 +1553,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000153808"
                     >
@@ -1449,7 +1610,9 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td>
-                  <span>
+                  <span
+                    class="xref-proteome"
+                  >
                     <a
                       href="/proteomes/UP000097422"
                     >

@@ -1,8 +1,14 @@
+@import 'franklin-sites/src/styles/colours';
+
 .entry-title__status {
   svg {
-    width: 0.75em;
-    height: 0.75em;
+    width: 0.825em;
+    height: 0.825em;
     margin-right: 0.25rem;
     position: relative;
   }
+}
+
+.icon--excluded-proteome {
+  color: color-mix(in srgb, $colour-weldon-blue 50%, white);
 }

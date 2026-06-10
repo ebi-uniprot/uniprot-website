@@ -21,6 +21,75 @@ exports[`non-critical HomePage component should render 1`] = `
         class="message__title"
       >
         <small>
+          Over 26,000 UniProtKB unreviewed/TrEMBL entries now include annotations from machine learning / artificial intelligence (AI) using a Protein Natural Language Model, 
+          <a
+            href="/help/ProtNLM"
+          >
+            ProtNLM2
+          </a>
+          , developed by collaborators at 
+          <a
+            class="external-link"
+            href="https://deepmind.google/science/"
+            rel="noopener"
+            target="_blank"
+          >
+            Google DeepMind
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+          . This includes predictions for 
+          <a
+            href="/help/function"
+          >
+            function comments
+          </a>
+          , 
+          <a
+            href="/help/subcellular_location"
+          >
+            subcellular locations
+          </a>
+          , 
+          <a
+            href="/help/keywords"
+          >
+            keywords
+          </a>
+          , and 
+          <a
+            href="/help/gene_ontology"
+          >
+            Gene Ontology
+          </a>
+           (GO) terms. View the 
+          <a
+            href="/help/ProtNLM"
+          >
+            ProtNLM2 help page
+          </a>
+           to learn more and obtain a list of the UniProtKB unreviewed/TrEMBL entries currently annotated by the model.
+        </small>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-12 message message--info"
+      role="status"
+    >
+      <div
+        class="message__side-border"
+      />
+      <test-file-stub
+        class="message--icon-align-top"
+        height="1.125em"
+        width="1.125em"
+      />
+      <div
+        class="message__title"
+      >
+        <small>
           Help us keep delivering gold-standard protein knowledge in the Age of AI. Share your thoughts via our survey: 
           <a
             class="external-link"
@@ -440,6 +509,24 @@ exports[`non-critical HomePage component should render 1`] = `
               class="tiny"
             >
               <a
+                href="/release-notes/2026-06-10-release"
+              >
+                UniProt release 2026_02
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              To drink, or not to drink? | UniProt news | Completing the reorganization of the protein space...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
                 href="/release-notes/2026-01-28-release"
               >
                 UniProt release 2026_01
@@ -485,24 +572,6 @@ exports[`non-critical HomePage component should render 1`] = `
               class="latest-news__abstract latest-news__abstract--2-lines"
             >
               Cross-references to CARD | Cross-references to FunCoup | Cross-references to PAN-GO
-            </p>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3
-              class="tiny"
-            >
-              <a
-                href="/release-notes/2025-04-23-release"
-              >
-                UniProt release 2025_02
-              </a>
-            </h3>
-            <p
-              class="latest-news__abstract latest-news__abstract--2-lines"
-            >
-              Brain property: no trespassing | Cross-references to CD-CODE | Cross-references to STRENDA-DB | Cross-references to YCharOS
             </p>
           </article>
         </li>

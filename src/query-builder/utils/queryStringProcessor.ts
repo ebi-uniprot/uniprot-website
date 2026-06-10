@@ -50,6 +50,13 @@ export const stringify = (clauses: Clause[] = []): string => {
       }`;
       const goValue = clause.queryBits?.go || '*';
       queryJoined = `(${goKey}:${goValue})`;
+    } else if (
+      clause.queryBits.proteome &&
+      clause.queryBits.proteomecomponent
+    ) {
+      // Combine proteome ID + component into a single proteomecomponent clause
+      // and suppress the separate `proteome:` clause.
+      queryJoined = `(proteomecomponent:"${clause.queryBits.proteome}:${clause.queryBits.proteomecomponent}")`;
     } else {
       queryJoined = query
         .map(([key, value]) => {

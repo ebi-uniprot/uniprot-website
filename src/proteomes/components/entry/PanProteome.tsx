@@ -1,49 +1,35 @@
-import { Link } from 'react-router-dom';
+import { ExternalLink } from 'franklin-sites';
 
-import { getEntryPath } from '../../../app/config/urls';
 import ftpUrls from '../../../shared/config/ftpUrls';
-import { Namespace } from '../../../shared/types/namespaces';
-import * as logging from '../../../shared/utils/logging';
 import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 
-export const PanProteome = ({ proteome }: { proteome: ProteomesUIModel }) => {
-  if (!proteome.panproteome) {
-    return null;
-  }
+export const PanProteome = ({
+  panproteomeTaxon,
+  taxonLineage,
+  taxonomy,
+}: Required<
+  Pick<ProteomesUIModel, 'panproteomeTaxon' | 'taxonLineage' | 'taxonomy'>
+>) => {
+  const species =
+    taxonLineage.find(
+      (taxon) =>
+        taxon.rank === 'species' && taxon.taxonId === panproteomeTaxon.taxonId
+    ) ?? taxonomy;
 
-  const panproteomeID =
-    typeof proteome.panproteome === 'string'
-      ? proteome.panproteome
-      : proteome.panproteome.id;
-  const entryIsPanProteome = proteome.id === panproteomeID;
-
-  const name =
-    // If loading, use current proteomes scientificName as a placeholder
-    (entryIsPanProteome && proteome.taxonomy?.scientificName) ||
-    // At this point, the entry is not the pan proteome so try the loaded data
-    (typeof proteome.panproteome !== 'string' &&
-      proteome.panproteome?.taxonomy.scientificName) ||
-    // As a last resort fall back on the panproteome ID which we know must exist
-    panproteomeID;
-
-  /* istanbul ignore if */
-  if (!name) {
-    logging.error('Nothing to render for a pan proteome');
-    return null;
-  }
+  const folderUrl =
+    species.taxonId && ftpUrls.panProteomesFolder(species.taxonId);
+  const { scientificName } = species;
 
   return (
-    <>
-      {'This proteome is part of the '}
-      {entryIsPanProteome ? (
-        name
-      ) : (
-        <Link to={getEntryPath(Namespace.proteomes, panproteomeID)}>
-          {name}
-        </Link>
-      )}
-      {' pan proteome ('}
-      <a href={ftpUrls.panProteomes(panproteomeID)}>FASTA</a>)
-    </>
+    scientificName &&
+    folderUrl && (
+      <>
+        {'This proteome is part of the '}
+        {/* Folder link → opens the FTP directory in a new tab for browsing. */}
+        <ExternalLink url={folderUrl}>
+          {scientificName} pan proteome
+        </ExternalLink>
+      </>
+    )
   );
 };

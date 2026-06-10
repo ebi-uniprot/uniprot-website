@@ -7,7 +7,7 @@ type Payload = {
 };
 
 // Source: uniref/search?facets=identity&query=glucose&size=1
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const mock: Payload = {
   facets: [
     {
@@ -18,17 +18,17 @@ const mock: Payload = {
         {
           label: '100%',
           value: '1.0',
-          count: 1270382,
+          count: 756245,
         },
         {
           label: '90%',
           value: '0.9',
-          count: 378001,
+          count: 293479,
         },
         {
           label: '50%',
           value: '0.5',
-          count: 48852,
+          count: 35793,
         },
       ],
     },

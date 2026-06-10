@@ -71,7 +71,12 @@ const examples: Record<SearchableNamespace, string[]> = {
     'Human',
   ],
   [Namespace.uniparc]: ['UPI000000000B', 'P05067', 'APP', 'database:RefSeq'],
-  [Namespace.proteomes]: ['Human', '9606', 'eukaryota', 'redundant:false'],
+  [Namespace.proteomes]: [
+    'Human',
+    '9606',
+    'eukaryota',
+    'proteome_type:REFERENCE',
+  ],
   // Supporting data
   [Namespace.taxonomy]: [
     'Human',

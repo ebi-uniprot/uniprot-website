@@ -6,6 +6,10 @@ import { FileFormat } from '../types/resultsDownload';
 
 const ftpUniProt = 'https://ftp.uniprot.org/pub/databases/uniprot/';
 
+// Base path for pan proteome files in the current release.
+const panProteomesBase =
+  'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes';
+
 const ftpUrls = {
   uniprot: ftpUniProt,
   uniprotkb: joinUrl(ftpUniProt, 'knowledgebase/complete'),
@@ -26,11 +30,14 @@ const ftpUrls = {
           : ''
       }`
     ),
-  panProteomes: (id?: string) =>
-    joinUrl(
-      ftpUniProt,
-      `/current_release/knowledgebase/pan_proteomes/${id ? `${id}.fasta.gz` : ''}`
-    ),
+  panProteomes: (taxonId?: number) =>
+    taxonId
+      ? `${panProteomesBase}/pp${taxonId}/pp${taxonId}.fa.gz`
+      : panProteomesBase,
+  // Browseable folder (directory listing) of a species' pan proteome files,
+  // linked from the proteome entry page. The trailing slash avoids a 301
+  // redirect to the slashed URL.
+  panProteomesFolder: (taxonId: number) => `${panProteomesBase}/pp${taxonId}/`,
   embeddings: joinUrl(ftpUniProt, 'current_release/knowledgebase/embeddings'),
   uniref: joinUrl(ftpUniProt, 'uniref'),
   uniparc: joinUrl(ftpUniProt, 'current_release/uniparc'),

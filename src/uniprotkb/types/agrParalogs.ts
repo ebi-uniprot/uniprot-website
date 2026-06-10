@@ -13,8 +13,6 @@ export type AgrParalogsResult = {
 };
 
 type GeneToGeneParalogy = {
-  internal: boolean;
-  obsolete: boolean;
   subjectGene: Gene;
   objectGene: Gene;
   predictionMethodsMatched: PredictionMethod[];
@@ -24,44 +22,53 @@ type GeneToGeneParalogy = {
   length: number;
   similarity: number;
   identity: number;
-  notInternalOrObsolete: boolean;
+};
+
+type DataProviderCrossReference = {
+  referencedCurie: string;
+  displayName: string;
+  resourceDescriptorPage: {
+    resourceDescriptor: {
+      prefix: string;
+      name: string;
+      defaultUrlTemplate: string;
+    };
+    name: string;
+    urlTemplate: string;
+  };
 };
 
 type Gene = {
   type: 'Gene';
-  internal: boolean;
-  obsolete: boolean;
   primaryExternalId: string;
+  dataProviderCrossReference: DataProviderCrossReference;
   taxon: Taxon;
   geneSymbol: GeneSymbolName;
   geneFullName: GeneSymbolName;
-  notInternalOrObsolete: boolean;
   dateCreated: string;
 };
 
 type GeneSymbolName = {
-  internal: boolean;
-  obsolete: boolean;
   formatText: string;
   displayText: string;
-  notInternalOrObsolete: boolean;
+};
+
+type Species = {
+  fullName: string;
+  abbreviation: string;
+  displayName: string;
+  phylogeneticOrder: number;
 };
 
 type Taxon = {
-  internal: boolean;
-  obsolete: boolean;
   curie: string;
   name: string;
-  childCount: number;
   descendantCount: number;
-  notInternalOrObsolete: boolean;
+  species: Species;
 };
 
 export type PredictionMethod = {
-  internal: boolean;
-  obsolete: boolean;
   name: PredictionMethodName;
-  notInternalOrObsolete: boolean;
 };
 
 export type PredictionMethodName =

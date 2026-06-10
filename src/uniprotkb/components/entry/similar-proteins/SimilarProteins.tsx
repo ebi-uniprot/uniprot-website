@@ -1,6 +1,6 @@
 import { Loader, Tab, Tabs } from 'franklin-sites';
-import { zip } from 'lodash-es';
-import { useEffect, useState } from 'react';
+import { isEqual, zip } from 'lodash-es';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -11,7 +11,11 @@ import {
   type UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 import { UniRefColumn } from '../../../../uniref/config/UniRefColumnConfiguration';
-import SimilarProteinsTabContent from './SimilarProteinsTabContent';
+import SimilarProteinsError from './SimilarProteinsError';
+import SimilarProteinsTabContent, {
+  type LevelPartition,
+  partitionLevel,
+} from './SimilarProteinsTabContent';
 
 export type IsoformsAndCluster = {
   isoforms: string[];
@@ -55,9 +59,18 @@ type Props = {
   isoforms: string[];
 };
 
+type Data = {
+  mapping: ClusterMapping;
+  // Only levels visited by the scan; the rest load lazily when their tab opens.
+  partitions: Partial<Record<UniRefEntryType, LevelPartition>>;
+  defaultLevel?: UniRefEntryType;
+};
+
 const SimilarProteins = ({ canonical, isoforms }: Props) => {
-  const [mappingData, setMappingData] = useState<ClusterMapping | null>(null);
-  const [mappingLoading, setMappingLoading] = useState(true);
+  const [data, setData] = useState<Data | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -77,25 +90,100 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
         { signal: controller.signal }
       )
     );
-    Promise.all(promises).then(
-      (responses) => {
-        const clusterData = responses.map((response) => response.data.results);
-        const mapping = getClusterMapping(isoforms, clusterData);
-        setMappingData(mapping);
-        setMappingLoading(false);
-      },
-      () => {
-        /* ignore fetch errors */
+    (async () => {
+      const responses = await Promise.all(promises);
+      const clusterData = responses.map((response) => response.data.results);
+      const mapping = getClusterMapping(isoforms, clusterData);
+      // Stop at the first level with similar proteins: clusters are nested,
+      // so every lower-identity level has them too. The rest load on open.
+      const partitions: Partial<Record<UniRefEntryType, LevelPartition>> = {};
+      let defaultLevel: UniRefEntryType | undefined;
+      for (const level of Object.keys(
+        uniRefEntryTypeToPercent
+      ) as UniRefEntryType[]) {
+        // eslint-disable-next-line no-await-in-loop -- intentionally sequential: stop as soon as a level has data
+        const partition = await partitionLevel(
+          Object.values(mapping[level]),
+          canonical,
+          controller.signal
+        );
+        partitions[level] = partition;
+        if (partition.hasSimilar.length > 0) {
+          defaultLevel = level;
+          break;
+        }
       }
-    );
+      setData({ mapping, partitions, defaultLevel });
+      setLoading(false);
+    })().catch(() => {
+      if (!controller.signal.aborted) {
+        setError(true);
+        setLoading(false);
+      }
+    });
     return () => controller.abort();
-  }, [canonical, isoforms]);
+  }, [canonical, isoforms, reload]);
 
-  if (mappingLoading) {
+  // Cache a level's data once a tab finishes loading it, so revisiting is
+  // instant (no loader, no refetch).
+  const handleLoaded = useCallback(
+    (level: string, partition: LevelPartition) => {
+      setData(
+        (current) =>
+          current && {
+            ...current,
+            partitions: {
+              ...current.partitions,
+              [level as UniRefEntryType]: partition,
+            },
+          }
+      );
+    },
+    []
+  );
+
+  // Stable per-level arrays so a lazy tab doesn't refetch on unrelated renders.
+  const mapping = data?.mapping;
+  const isoformsAndClustersByLevel = useMemo<
+    Record<string, IsoformsAndCluster[]>
+  >(
+    () =>
+      mapping
+        ? Object.fromEntries(
+            Object.keys(mapping).map((level) => [
+              level,
+              Object.values(mapping[level as UniRefEntryType]),
+            ])
+          )
+        : {},
+    [mapping]
+  );
+
+  if (loading) {
     return <Loader />;
   }
 
-  return mappingData ? (
+  if (error) {
+    return (
+      <SimilarProteinsError
+        onRetry={() => {
+          setError(false);
+          setLoading(true);
+          setReload((n) => n + 1);
+        }}
+      />
+    );
+  }
+
+  if (!data) {
+    return (
+      <div>
+        <em>No similar UniProtKB entry found.</em>
+      </div>
+    );
+  }
+
+  return (
     <Tabs bordered>
       {Object.entries(uniRefEntryTypeToPercent).map(
         ([clusterType, percentValue]) => (
@@ -103,23 +191,30 @@ const SimilarProteins = ({ canonical, isoforms }: Props) => {
             id={clusterType}
             title={`${percentValue} identity`}
             key={clusterType}
+            defaultSelected={clusterType === data.defaultLevel}
           >
             <SimilarProteinsTabContent
               canonical={canonical}
               clusterType={clusterType}
-              isoformsAndClusters={Object.values(
-                mappingData[clusterType as UniRefEntryType]
-              )}
+              isoformsAndClusters={isoformsAndClustersByLevel[clusterType]}
+              initialPartition={data.partitions[clusterType as UniRefEntryType]}
+              onLoaded={handleLoaded}
             />
           </Tab>
         )
       )}
     </Tabs>
-  ) : (
-    <div>
-      <em>No similar UniProtKB entry found.</em>
-    </div>
   );
 };
 
-export default SimilarProteins;
+// Deep-compare `isoforms` because the parent (Entry.tsx) derives the array
+// in a useMemo whose deps include the ProtNLM payload — so the reference
+// changes whenever the ProtNLM toggle resolves, even though the isoform
+// list itself is unchanged. Without the deep compare we'd refetch all
+// UniRef clusters on every ProtNLM update.
+export default memo(SimilarProteins, (prevProps, nextProps) => {
+  return (
+    prevProps.canonical === nextProps.canonical &&
+    isEqual(prevProps.isoforms, nextProps.isoforms)
+  );
+});

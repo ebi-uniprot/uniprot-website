@@ -22,7 +22,6 @@ const EvidenceLink = ({
   }
 
   const content = formatEvidenceContent(value, source);
-
   let renderedURL = url;
   let isInternal = false;
 

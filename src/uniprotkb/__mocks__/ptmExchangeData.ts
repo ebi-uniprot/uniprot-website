@@ -1,7 +1,7 @@
 import { type ProteomicsPtm } from '../types/proteomicsPtm';
 
 // Source: https://www.ebi.ac.uk/proteins/api/proteomics/ptm/Q653S1
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 // TODO: replace this with a human entry when it is released
 const data: ProteomicsPtm = {
   accession: 'Q653S1',
@@ -11,6 +11,54 @@ const data: ProteomicsPtm = {
   sequenceChecksum: 'AC2FA51B39804EF9',
   taxid: 39947,
   features: [
+    {
+      type: 'PROTEOMICS_PTM',
+      begin: '206',
+      end: '217',
+      xrefs: [
+        {
+          name: 'Proteomes',
+          id: 'UP000059680',
+          url: 'https://www.uniprot.org/proteomes/UP000059680',
+        },
+      ],
+      evidences: [
+        {
+          code: 'ECO:0007829',
+          source: {
+            id: 'AAESDVNVSSPR',
+            url: 'https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=539&action=QUERY&searchWithinThis=Peptide+Sequence&searchForThis=AAESDVNVSSPR',
+          },
+        },
+      ],
+      peptide: 'AAESDVNVSSPR',
+      unique: true,
+      ptms: [
+        {
+          name: 'Phosphorylation',
+          position: 10,
+          sources: ['PTMeXchange'],
+          dbReferences: [
+            {
+              id: 'PXD019291',
+              properties: {
+                'Pubmed ID': '33658224',
+                'Confidence score': 'Silver',
+                'PSM Score': '1.0',
+                'Site q value': '0.0331830606553421',
+                'Dataset ID': 'PXD019291',
+                'Universal Spectrum Id':
+                  'mzspec:PXD019291:S9588TPST_Fr4:scan:12375:[TMT6plex]AAESDVNVSS[Phospho]PR/3',
+                'Final site probability': '0.7701361874966861',
+                'PSM Count (0.05 gFLR)': '1',
+                url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD019291',
+                Proforma: '[TMT6plex]AAESDVNVSS[Phospho]PR',
+              },
+            },
+          ],
+        },
+      ],
+    },
     {
       type: 'PROTEOMICS_PTM',
       begin: '206',
@@ -101,54 +149,6 @@ const data: ProteomicsPtm = {
                 'PSM Count (0.05 gFLR)': '2',
                 url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD002222',
                 Proforma: 'AAESDVNVSS[Phospho]PR',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'PROTEOMICS_PTM',
-      begin: '206',
-      end: '217',
-      xrefs: [
-        {
-          name: 'Proteomes',
-          id: 'UP000059680',
-          url: 'https://www.uniprot.org/proteomes/UP000059680',
-        },
-      ],
-      evidences: [
-        {
-          code: 'ECO:0007829',
-          source: {
-            id: 'AAESDVNVSSPR',
-            url: 'https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=539&action=QUERY&searchWithinThis=Peptide+Sequence&searchForThis=AAESDVNVSSPR',
-          },
-        },
-      ],
-      peptide: 'AAESDVNVSSPR',
-      unique: true,
-      ptms: [
-        {
-          name: 'Phosphorylation',
-          position: 10,
-          sources: ['PTMeXchange'],
-          dbReferences: [
-            {
-              id: 'PXD019291',
-              properties: {
-                'Pubmed ID': '33658224',
-                'Confidence score': 'Silver',
-                'PSM Score': '1.0',
-                'Site q value': '0.0331830606553421',
-                'Dataset ID': 'PXD019291',
-                'Universal Spectrum Id':
-                  'mzspec:PXD019291:S9588TPST_Fr4:scan:12375:[TMT6plex]AAESDVNVSS[Phospho]PR/3',
-                'Final site probability': '0.7701361874966861',
-                'PSM Count (0.05 gFLR)': '1',
-                url: 'https://www.ebi.ac.uk/pride/archive/projects/PXD019291',
-                Proforma: '[TMT6plex]AAESDVNVSS[Phospho]PR',
               },
             },
           ],

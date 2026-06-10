@@ -63,7 +63,7 @@ export type Lineage = {
 export type Xref = {
   database?: string;
   id?: string;
-  properties?: Record<string, string>;
+  properties?: Record<string, string | null>;
   evidences?: Evidence[];
   additionalIds?: string[];
   isoformId?: string;

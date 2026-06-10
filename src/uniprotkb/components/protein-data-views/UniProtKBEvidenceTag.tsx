@@ -1,4 +1,4 @@
-import { EvidenceTag, ExpandableList } from 'franklin-sites';
+import { AiAnnotationsIcon, EvidenceTag, ExpandableList } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 import { memo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
@@ -12,7 +12,9 @@ import {
   labels,
 } from '../../config/evidenceCodes';
 import { type Evidence } from '../../types/modelTypes';
+import { type EvidenceProperty, protNLM2Id } from '../../types/protNLMAPIModel';
 import EvidenceLink from './EvidenceLink';
+import ProtNLM2EvidenceLink from './ProtNLM2EvidenceLink';
 import UniProtKBEntryPublications from './UniProtKBEntryPublications';
 
 export enum EvidenceTagSourceTypes {
@@ -26,6 +28,7 @@ export type UniProtEvidenceTagContentProps = {
   evidenceData: EvidenceData;
   evidences?: Evidence[];
   useGOEvidenceContent?: boolean;
+  accession?: string;
 };
 
 const UniProtEvidenceTagContent = ({
@@ -33,6 +36,7 @@ const UniProtEvidenceTagContent = ({
   evidenceData,
   evidences,
   useGOEvidenceContent,
+  accession,
 }: UniProtEvidenceTagContentProps) => {
   if (!evidences?.length) {
     return null;
@@ -66,9 +70,19 @@ const UniProtEvidenceTagContent = ({
             descriptionString={`${key} sources`}
             key={key}
           >
-            {mappedEvidences.map(({ id, url }: Evidence, index) => (
+            {mappedEvidences.map(({ id, url, properties }: Evidence, index) => (
               <span key={id || index}>
-                <EvidenceLink source={key} value={id} url={url} />
+                {id === protNLM2Id && accession ? (
+                  <ProtNLM2EvidenceLink
+                    // Safe narrowing: the `id === protNLM2Id` check above
+                    // means these properties came from a ProtNlmEvidence,
+                    // whose `properties` is typed as EvidenceProperty[].
+                    properties={properties as EvidenceProperty[]}
+                    accession={accession}
+                  />
+                ) : (
+                  <EvidenceLink source={key} value={id} url={url} />
+                )}
               </span>
             ))}
           </ExpandableList>
@@ -85,13 +99,20 @@ const UniProtKBEvidenceTag = ({
   evidences?: Evidence[];
   goTermEvidence?: boolean;
 }) => {
-  const entryPageMatch = useRouteMatch(allEntryPages);
+  const entryPageMatch = useRouteMatch<{ accession: string }>(allEntryPages);
   if (!entryPageMatch || !evidences?.length) {
     return null;
   }
   const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
+  const hasProtNLM2 = evidences.some((evidence) => evidence.id === protNLM2Id);
   return (
     <>
+      {hasProtNLM2 && (
+        <AiAnnotationsIcon
+          className="ai-annotation-marker"
+          aria-label="AI-predicted annotation"
+        />
+      )}
       {Object.entries(evidenceObj).map(([evidenceCode, references]) => {
         const evidenceData = getEvidenceCodeData(
           getEcoNumberFromString(evidenceCode)
@@ -122,6 +143,7 @@ const UniProtKBEvidenceTag = ({
               evidenceData={evidenceData}
               evidences={references}
               useGOEvidenceContent={goTermEvidence}
+              accession={entryPageMatch.params.accession}
             />
           </EvidenceTag>
         );

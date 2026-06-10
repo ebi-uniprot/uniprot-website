@@ -3,7 +3,7 @@ import { type AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -273,7 +273,7 @@ const goRibbonData: AGRRibbonData = {
         },
         {
           description:
-            'Any biological process involved in the maintenance of an internal steady state.',
+            'Any biological process involved in the maintenance of an internal steady state. Homeostasis allows cells and organisms to maintain stable internal conditions despite varying external conditions.',
           id: 'GO:0042592',
           label: 'homeostatic process',
           type: 'Term',
@@ -442,12 +442,12 @@ const goRibbonData: AGRRibbonData = {
       groups: {
         'GO:0003674': {
           ALL: {
-            nb_classes: 5,
-            nb_annotations: 74,
+            nb_classes: 3,
+            nb_annotations: 71,
           },
           IEA: {
-            nb_classes: 4,
-            nb_annotations: 4,
+            nb_classes: 1,
+            nb_annotations: 1,
           },
           IDA: {
             nb_classes: 1,
@@ -468,12 +468,12 @@ const goRibbonData: AGRRibbonData = {
         },
         'GO:0003824': {
           ALL: {
-            nb_classes: 4,
-            nb_annotations: 11,
+            nb_classes: 2,
+            nb_annotations: 8,
           },
           IEA: {
-            nb_classes: 4,
-            nb_annotations: 4,
+            nb_classes: 1,
+            nb_annotations: 1,
           },
           IDA: {
             nb_classes: 1,
@@ -503,11 +503,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0008150': {
           ALL: {
             nb_classes: 4,
-            nb_annotations: 12,
+            nb_annotations: 11,
           },
           IEA: {
             nb_classes: 1,
-            nb_annotations: 4,
+            nb_annotations: 3,
           },
           IDA: {
             nb_classes: 3,
@@ -525,11 +525,11 @@ const goRibbonData: AGRRibbonData = {
         'GO:0019538': {
           ALL: {
             nb_classes: 2,
-            nb_annotations: 8,
+            nb_annotations: 7,
           },
           IEA: {
             nb_classes: 1,
-            nb_annotations: 4,
+            nb_annotations: 3,
           },
           IDA: {
             nb_classes: 1,
@@ -561,10 +561,6 @@ const goRibbonData: AGRRibbonData = {
             nb_classes: 4,
             nb_annotations: 17,
           },
-          IDA: {
-            nb_classes: 1,
-            nb_annotations: 3,
-          },
           IEA: {
             nb_classes: 3,
             nb_annotations: 3,
@@ -572,6 +568,14 @@ const goRibbonData: AGRRibbonData = {
           TAS: {
             nb_classes: 2,
             nb_annotations: 7,
+          },
+          IDA: {
+            nb_classes: 1,
+            nb_annotations: 2,
+          },
+          EXP: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
           HDA: {
             nb_classes: 1,
@@ -605,11 +609,15 @@ const goRibbonData: AGRRibbonData = {
             nb_classes: 1,
             nb_annotations: 11,
           },
+          IEA: {
+            nb_classes: 1,
+            nb_annotations: 1,
+          },
           IDA: {
             nb_classes: 1,
-            nb_annotations: 3,
+            nb_annotations: 2,
           },
-          IEA: {
+          EXP: {
             nb_classes: 1,
             nb_annotations: 1,
           },
@@ -635,8 +643,8 @@ const goRibbonData: AGRRibbonData = {
           },
         },
       },
-      nb_classes: 13,
-      nb_annotations: 103,
+      nb_classes: 11,
+      nb_annotations: 99,
       label: 'TMPRSS2',
       taxon_id: 'NCBITaxon:9606',
       taxon_label: 'Homo sapiens',
