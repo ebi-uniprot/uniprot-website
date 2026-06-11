@@ -16,6 +16,30 @@ exports[`BlastForm test Renders the form 1`] = `
       </span>
     </h1>
   </div>
+  <div
+    class="message message--failure"
+    role="status"
+  >
+    <div
+      class="message__side-border"
+    />
+    <test-file-stub
+      class="message--icon-align-top"
+      height="1.125em"
+      width="1.125em"
+    />
+    <div
+      class="message__title"
+    >
+      There is currently an issue presenting 
+      <span
+        translate="no"
+      >
+        BLAST
+      </span>
+       results within the website. It is still submit jobs but the results will only be available within the Text Output tab and for downloading. We are working to resolve this issue as soon as possible. We apologize for any inconvenience.
+    </div>
+  </div>
   <form
     aria-label="BLAST job submission form"
   >
