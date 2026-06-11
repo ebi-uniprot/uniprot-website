@@ -1,0 +1,107 @@
+.database-select {
+  width: 100%;
+  min-width: 0; // allow the full-width flex item to shrink to fit its margins
+  // Breathing room around the control within the form section.
+  margin: 1rem;
+  padding: 0;
+  border: none;
+  font-size: 0.875rem; // match the rest of the form
+
+  // Tone down the "data report" look: don't upper-case the column headers.
+  table th {
+    text-transform: none;
+  }
+
+  // The shared table leaves <td> at the default `baseline` alignment, which
+  // lifts the inline-flex radio label (and the bar) above the plain-text cells.
+  // Centre every cell's content vertically so the row lines up.
+  td {
+    vertical-align: middle;
+  }
+
+  // The shared Table reserves a leading cell in every row (and a matching
+  // header cell) for its expand / row-toggle control. This table is
+  // expandable={false} with no row extra content, so that gutter cell is always
+  // empty — hide it.
+  th:first-child,
+  td:first-child {
+    display: none;
+  }
+
+  // Rows behave like selectable options.
+  tbody tr {
+    cursor: pointer;
+  }
+
+  // Drop the zebra striping (uniform, transparent base). Hover, keyboard focus
+  // and the selected row all share one highlight colour. The [data-id] attribute
+  // (set on every body row by TableFromData) raises specificity enough to
+  // override the shared table's striping and hover rules.
+  tbody tr[data-id] {
+    background-color: transparent;
+  }
+  tbody tr[data-id]:hover,
+  tbody tr[data-id]:focus-within,
+  tbody tr[data-id]:has(input:checked) {
+    background-color: #e8f1fb;
+  }
+}
+
+.database-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  cursor: pointer;
+
+  // A global form style gives radios a bottom margin; under `align-items:
+  // center` the flex item's *margin box* is centred, so that bottom margin
+  // lifts the bullet above the label text. Reset it — `!important` is required
+  // to beat that global rule.
+  input {
+    margin-bottom: 0 !important;
+  }
+}
+
+.search-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  white-space: nowrap;
+}
+
+.search-time__track {
+  display: inline-block;
+  flex: none;
+  width: 4rem;
+  height: 0.6rem;
+  box-sizing: border-box;
+  // Always white (plus a visible outline) so the unfilled part of the bar reads
+  // consistently over the highlighted row backgrounds.
+  background-color: #fff;
+  border: 1px solid #adadad;
+  overflow: hidden;
+}
+
+.search-time__bar {
+  display: block;
+  height: 100%;
+  // Keep the smallest database's bar visible rather than zero-width
+  min-width: 0.35rem;
+}
+
+// Green (fast) → red (slow), matching the speed-category text label
+.speed--very-fast {
+  background-color: #1a8a3a;
+}
+.speed--fast {
+  background-color: #7cb342;
+}
+.speed--moderate {
+  background-color: #f9a825;
+}
+.speed--slow {
+  background-color: #ef6c00;
+}
+.speed--very-slow {
+  background-color: #c62828;
+}

@@ -84,6 +84,7 @@ import {
   type SType,
 } from '../types/blastServerParameters';
 import { getAutoMatrixFor } from '../utils';
+import DatabaseSelect from './DatabaseSelect';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
@@ -265,7 +266,10 @@ const BlastForm = ({ initialFormValues }: Props) => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!formValues[BlastFields.sequence].selected) {
+    if (
+      !formValues[BlastFields.sequence].selected ||
+      !formValues[BlastFields.database].selected
+    ) {
       return;
     }
 
@@ -434,9 +438,13 @@ const BlastForm = ({ initialFormValues }: Props) => {
             )}
           </section>
           <section className="tools-form-section">
-            <FormSelect
-              formValue={formValues[BlastFields.database]}
-              updateFormValue={(value) =>
+            <DatabaseSelect
+              selected={
+                formValues[BlastFields.database].selected as
+                  | Database
+                  | undefined
+              }
+              onChange={(value) =>
                 dispatch(updateSelected(BlastFields.database, value))
               }
             />
@@ -604,6 +612,7 @@ const BlastForm = ({ initialFormValues }: Props) => {
                 type="submit"
                 disabled={
                   submitDisabled ||
+                  !formValues[BlastFields.database].selected ||
                   (searchSpaceTotal === 0 &&
                     (
                       formValues[BlastFields.taxons]

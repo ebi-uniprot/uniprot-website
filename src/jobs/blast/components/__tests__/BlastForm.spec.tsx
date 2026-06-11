@@ -140,6 +140,10 @@ describe('BlastForm test', () => {
   });
 
   it('Adds and removes a taxon', async () => {
+    // Selecting a target database is required before the search space (which is
+    // a filtered subset of that database) can be computed.
+    fireEvent.click(screen.getByTestId('database-uniprotkb'));
+
     const autocompleteInput = screen.getByRole('searchbox', {
       name: 'Restrict by taxonomy',
     });
@@ -184,6 +188,10 @@ describe('BlastForm test', () => {
       'sequence-submission-input'
     );
     await setTextArea(textArea, aaSequence);
+    // Selecting a target database is mandatory: submit is disabled until one is
+    // chosen, after which the job can be submitted.
+    expect(submitButton).toBeDisabled();
+    fireEvent.click(screen.getByTestId('database-uniprotkb_swissprot'));
     fireEvent.submit(submitButton);
     expect(submitButton).toBeDisabled();
     jest.runAllTimers();

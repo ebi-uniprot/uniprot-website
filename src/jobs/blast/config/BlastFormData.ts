@@ -32,27 +32,92 @@ export enum BlastFields {
 
 export type BlastFormValues = Record<BlastFields, Readonly<BlastFormValue>>;
 
-const databases = [
+export type SearchTime =
+  | 'Very Fast'
+  | 'Fast'
+  | 'Moderate'
+  | 'Slow'
+  | 'Very Slow';
+
+export type BlastDatabaseOption = {
+  value: Database;
+  label: string;
+  // Approximate number of sequences (raw count; formatted for display, used to
+  // scale the search-time bar, and used to derive the search-speed category)
+  sequences: number;
+  description: string;
+};
+
+export const databases: ReadonlyArray<BlastDatabaseOption> = [
   {
-    value: 'uniprotkb_refprotswissprot',
-    label: 'UniProtKB reference proteomes + Swiss-Prot',
+    value: 'uniprotkb',
+    label: 'UniProtKB',
+    sequences: 140_000_000,
+    description: 'UniProt Knowledge Base',
   },
-  { value: 'uniprotkb', label: 'UniProtKB' },
-  { value: 'uniprotkb_pdb', label: 'UniProtKB with 3D structure (PDB)' },
+  {
+    value: 'uniprotkb_swissprot',
+    label: 'UniProtKB Swiss-Prot',
+    sequences: 575_000,
+    description: 'Manually reviewed, high-quality annotations.',
+  },
+  {
+    value: 'uniprotkb_pdb',
+    label: 'UniProtKB with 3D structure (PDB)',
+    sequences: 200_000,
+    description: 'Proteins with experimentally solved structures.',
+  },
   {
     value: 'afdb',
     label: 'UniProtKB with 3D structure predictions (AlphaFold)',
+    sequences: 214_000_000,
+    description: 'Proteins with AI-predicted 3D models.',
   },
   {
-    value: 'uniprotkb_reference_proteomes',
-    label: 'UniProtKB reference proteomes',
+    value: 'uniref100',
+    label: 'UniRef100',
+    sequences: 200_000_000,
+    description: 'Clusters of 100% identical sequences.',
   },
-  { value: 'uniprotkb_swissprot', label: 'UniProtKB Swiss-Prot' },
-  { value: 'uniref100', label: 'UniRef100' },
-  { value: 'uniref90', label: 'UniRef90' },
-  { value: 'uniref50', label: 'UniRef50' },
-  { value: 'uniparc', label: 'UniParc' },
+  {
+    value: 'uniref90',
+    label: 'UniRef90',
+    sequences: 150_000_000,
+    description: 'Clusters of sequences with ≥90% identity.',
+  },
+  {
+    value: 'uniref50',
+    label: 'UniRef50',
+    sequences: 60_000_000,
+    description: 'Clusters of sequences with ≥50% identity.',
+  },
+  {
+    value: 'uniparc',
+    label: 'UniParc',
+    sequences: 1_000_000_000,
+    description: 'Comprehensive, non-redundant sequence archive.',
+  },
 ];
+
+// Search speed is derived from database size: larger databases take longer to
+// search. The category is assigned from the sequence count via these ascending
+// thresholds rather than being hard-coded per database.
+const searchTimeThresholds: ReadonlyArray<{
+  belowSequences: number;
+  label: SearchTime;
+}> = [
+  { belowSequences: 1_000_000, label: 'Very Fast' },
+  { belowSequences: 100_000_000, label: 'Fast' },
+  { belowSequences: 200_000_000, label: 'Moderate' },
+  { belowSequences: 500_000_000, label: 'Slow' },
+];
+
+export const getSearchTime = (sequences: number): SearchTime => {
+  const threshold = searchTimeThresholds.find(
+    ({ belowSequences }) => sequences < belowSequences
+  );
+  return threshold?.label ?? 'Very Slow';
+};
 
 const formData: Readonly<BlastFormValues> = deepFreeze({
   [BlastFields.program]: {
@@ -74,7 +139,8 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   },
   [BlastFields.database]: {
     fieldName: 'database',
-    selected: 'uniprotkb_refprotswissprot',
+    // No default: selecting a target database is mandatory
+    selected: '',
     values: databases,
   },
   [BlastFields.taxons]: {
@@ -181,9 +247,22 @@ export const databaseToNamespace = (
   return undefined;
 };
 
-export const databaseValueToName = (value: string) => {
-  const database = databases.find((database) => database.value === value);
-  return database?.label || '';
-};
+// Databases that are no longer offered in the selector but whose names must
+// still resolve for previously-submitted jobs shown on the dashboard.
+const legacyDatabases: ReadonlyArray<{ value: Database; label: string }> = [
+  {
+    value: 'uniprotkb_refprotswissprot',
+    label: 'UniProtKB reference proteomes + Swiss-Prot',
+  },
+  {
+    value: 'uniprotkb_reference_proteomes',
+    label: 'UniProtKB reference proteomes',
+  },
+];
+
+export const databaseValueToName = (value: string) =>
+  databases.find((database) => database.value === value)?.label ||
+  legacyDatabases.find((database) => database.value === value)?.label ||
+  '';
 
 export default formData;

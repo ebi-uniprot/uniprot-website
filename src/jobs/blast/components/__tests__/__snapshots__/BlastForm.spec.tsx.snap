@@ -95,75 +95,432 @@ exports[`BlastForm test Renders the form 1`] = `
       <section
         class="tools-form-section"
       >
-        <section
-          class="tools-form-section__item"
+        <fieldset
+          aria-label="Target database (required)"
+          class="database-select"
         >
-          <label>
-            Target database
-            <select>
-              <option
-                data-testid="Target database-uniprotkb_refprotswissprot"
-                value="uniprotkb_refprotswissprot"
+          <table
+            class="table"
+          >
+            <thead
+              class=""
+            >
+              <tr
+                class="row"
               >
-                UniProtKB reference proteomes + Swiss-Prot
-              </option>
-              <option
-                data-testid="Target database-uniprotkb"
-                value="uniprotkb"
+                <th />
+                <th>
+                  Target Database (required)
+                </th>
+                <th>
+                  Sequences
+                </th>
+                <th>
+                  Search Time
+                </th>
+                <th>
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class=""
+            >
+              <tr
+                class="row"
+                data-id="uniprotkb"
               >
-                UniProtKB
-              </option>
-              <option
-                data-testid="Target database-uniprotkb_pdb"
-                value="uniprotkb_pdb"
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-uniprotkb"
+                      name="database"
+                      type="radio"
+                      value="uniprotkb"
+                    />
+                    UniProtKB
+                  </label>
+                </td>
+                <td>
+                  140M
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--moderate"
+                          style="width: 77%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Moderate
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  UniProt Knowledge Base
+                </td>
+              </tr>
+              <tr
+                class="row odd"
+                data-id="uniprotkb_swissprot"
               >
-                UniProtKB with 3D structure (PDB)
-              </option>
-              <option
-                data-testid="Target database-afdb"
-                value="afdb"
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-uniprotkb_swissprot"
+                      name="database"
+                      type="radio"
+                      value="uniprotkb_swissprot"
+                    />
+                    UniProtKB Swiss-Prot
+                  </label>
+                </td>
+                <td>
+                  575k
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--very-fast"
+                          style="width: 12%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Very Fast
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  Manually reviewed, high-quality annotations.
+                </td>
+              </tr>
+              <tr
+                class="row"
+                data-id="uniprotkb_pdb"
               >
-                UniProtKB with 3D structure predictions (AlphaFold)
-              </option>
-              <option
-                data-testid="Target database-uniprotkb_reference_proteomes"
-                value="uniprotkb_reference_proteomes"
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-uniprotkb_pdb"
+                      name="database"
+                      type="radio"
+                      value="uniprotkb_pdb"
+                    />
+                    UniProtKB with 3D structure (PDB)
+                  </label>
+                </td>
+                <td>
+                  200k
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--very-fast"
+                          style="width: 0%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Very Fast
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  Proteins with experimentally solved structures.
+                </td>
+              </tr>
+              <tr
+                class="row odd"
+                data-id="afdb"
               >
-                UniProtKB reference proteomes
-              </option>
-              <option
-                data-testid="Target database-uniprotkb_swissprot"
-                value="uniprotkb_swissprot"
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-afdb"
+                      name="database"
+                      type="radio"
+                      value="afdb"
+                    />
+                    UniProtKB with 3D structure predictions (AlphaFold)
+                  </label>
+                </td>
+                <td>
+                  214M
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--slow"
+                          style="width: 82%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Slow
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  Proteins with AI-predicted 3D models.
+                </td>
+              </tr>
+              <tr
+                class="row"
+                data-id="uniref100"
               >
-                UniProtKB Swiss-Prot
-              </option>
-              <option
-                data-testid="Target database-uniref100"
-                value="uniref100"
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-uniref100"
+                      name="database"
+                      type="radio"
+                      value="uniref100"
+                    />
+                    UniRef100
+                  </label>
+                </td>
+                <td>
+                  200M
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--slow"
+                          style="width: 81%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Slow
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  Clusters of 100% identical sequences.
+                </td>
+              </tr>
+              <tr
+                class="row odd"
+                data-id="uniref90"
               >
-                UniRef100
-              </option>
-              <option
-                data-testid="Target database-uniref90"
-                value="uniref90"
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-uniref90"
+                      name="database"
+                      type="radio"
+                      value="uniref90"
+                    />
+                    UniRef90
+                  </label>
+                </td>
+                <td>
+                  150M
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--moderate"
+                          style="width: 78%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Moderate
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  Clusters of sequences with ≥90% identity.
+                </td>
+              </tr>
+              <tr
+                class="row"
+                data-id="uniref50"
               >
-                UniRef90
-              </option>
-              <option
-                data-testid="Target database-uniref50"
-                value="uniref50"
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-uniref50"
+                      name="database"
+                      type="radio"
+                      value="uniref50"
+                    />
+                    UniRef50
+                  </label>
+                </td>
+                <td>
+                  60M
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--fast"
+                          style="width: 67%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Fast
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  Clusters of sequences with ≥50% identity.
+                </td>
+              </tr>
+              <tr
+                class="row odd"
+                data-id="uniparc"
               >
-                UniRef50
-              </option>
-              <option
-                data-testid="Target database-uniparc"
-                value="uniparc"
-              >
-                UniParc
-              </option>
-            </select>
-          </label>
-        </section>
+                <td />
+                <td>
+                  <label
+                    class="database-option"
+                  >
+                    <input
+                      data-testid="database-uniparc"
+                      name="database"
+                      type="radio"
+                      value="uniparc"
+                    />
+                    UniParc
+                  </label>
+                </td>
+                <td>
+                  1B
+                </td>
+                <td>
+                  <span
+                    class="search-time"
+                  >
+                    <span
+                      style="display: inline-block;"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="search-time__track"
+                      >
+                        <span
+                          class="search-time__bar speed--very-slow"
+                          style="width: 100%;"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      class="visually-hidden"
+                    >
+                      Very Slow
+                    </span>
+                  </span>
+                </td>
+                <td>
+                  Comprehensive, non-redundant sequence archive.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </fieldset>
         <section
           class="tools-form-section__item tools-form-section__item--taxon-select"
         >
