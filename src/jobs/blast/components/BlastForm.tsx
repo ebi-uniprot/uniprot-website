@@ -84,7 +84,6 @@ import {
   type SType,
 } from '../types/blastServerParameters';
 import { getAutoMatrixFor } from '../utils';
-import BlastResultsIssueMessage from './BlastResultsIssueMessage';
 
 const title = namespaceAndToolsLabels[JobTypes.BLAST];
 
@@ -378,7 +377,6 @@ const BlastForm = ({ initialFormValues }: Props) => {
           </span>
         }
       />
-      <BlastResultsIssueMessage />
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}

@@ -43,7 +43,6 @@ import {
   filterBlastByFacets,
   filterBlastDataForResults,
 } from '../../utils/blastFacetDataUtils';
-import BlastResultsIssueMessage from '../BlastResultsIssueMessage';
 import BlastResultSidebar from './BlastResultSidebar';
 import HSPDetailPanel, { type HSPDetailPanelProps } from './HSPDetailPanel';
 
@@ -357,7 +356,6 @@ const BlastResult = () => {
         }
         resultsCount={loading ? undefined : hitsFiltered.length}
       />
-      <BlastResultsIssueMessage />
       <Tabs
         active={match.params.subPage}
         className={accessionsLoading ? helper.stale : undefined}
