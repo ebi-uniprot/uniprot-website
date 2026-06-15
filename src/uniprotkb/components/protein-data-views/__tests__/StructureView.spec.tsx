@@ -164,6 +164,10 @@ describe('StructureView', () => {
     });
     fireStructuresLoaded([pdbStructure, alphaFoldStructure]);
 
+    // The AlphaFold structure lives in the "AlphaFoldDB" tab, so switch to it
+    // before interacting with its row.
+    await userEvent.click(screen.getByText('AlphaFoldDB'));
+
     const afRow = screen
       .getAllByRole('row')
       .find((r) => r.textContent?.includes('AF-P12345'));
