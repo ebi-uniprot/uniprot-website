@@ -27,7 +27,7 @@ export const PanProteome = ({
         {'This proteome is part of the '}
         {/* Folder link → opens the FTP directory in a new tab for browsing. */}
         <ExternalLink url={folderUrl}>
-          {scientificName} pan proteome
+          <i>{scientificName}</i> pan proteome
         </ExternalLink>
       </>
     )
