@@ -330,13 +330,22 @@ const SubEntry = () => {
         databaseInfoMaps,
         precomputed: hasPrecomputed ? precomputedData.data : undefined,
         uniFire: uniFireData.data || undefined,
-        xrefOrganism: subEntryDataPerDatabase?.organism,
+        // The xref organism carries only taxonId + name; splice in the full
+        // taxonomic lineage (fetched separately) so the Subcellular Location
+        // viz can classify the organism and pick a body diagram.
+        xrefOrganism: subEntryDataPerDatabase?.organism
+          ? {
+              ...subEntryDataPerDatabase.organism,
+              lineage: lineageData.data?.lineage,
+            }
+          : undefined,
         accession,
       }),
     [
       accession,
       databaseInfoMaps,
       subEntryDataPerDatabase?.organism,
+      lineageData.data?.lineage,
       hasPrecomputed,
       precomputedData.data,
       uniFireData.data,
