@@ -19,6 +19,8 @@ type ToolsButtonProps = {
   title: string;
   location: Location;
   taxons?: SelectedTaxon[];
+  /** Hide the trailing " (n)" entry count (e.g. for descriptive menu labels) */
+  hideCount?: boolean;
 };
 
 const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
@@ -31,13 +33,14 @@ const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
   title,
   location,
   taxons,
+  hideCount,
   children,
 }) => {
   const content = (
     <>
       {children}
       {/* Just show count when it wouldn't be 0 */}
-      {selectedEntries?.length
+      {!hideCount && selectedEntries?.length
         ? ` (${roundNumber(selectedEntries.length + (sequence ? 1 : 0))})`
         : null}
     </>

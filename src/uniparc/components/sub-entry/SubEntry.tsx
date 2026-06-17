@@ -122,6 +122,17 @@ const reUniProtKBAccessionWithBounds = new RegExp(
   'i'
 );
 
+// Taxonomy roots for non-biological sequences. Any organism whose lineage
+// passes through one of these (synthetic constructs, cloning vectors,
+// unidentified/unclassified, …) shouldn't offer an organism-restricted BLAST.
+const NON_BIOLOGICAL_TAXON_IDS = new Set([
+  2787854, // other entries
+  28384, // other sequences
+  81077, // artificial sequences
+  2787823, // unclassified entries
+  12908, // unclassified sequences
+]);
+
 type ExternalXrefLinkProps = { xref: UniParcXRef; dataDB: DataDBModel };
 
 const ExternalXrefLink = ({ xref, dataDB }: ExternalXrefLinkProps) => {
@@ -262,32 +273,38 @@ const SubEntry = () => {
   );
 
   /*
-  If the current taxon has a rank of “species”, it should be used as taxonId.
-  Or use the lineage information to go back to either the first parent with the
-  rank of “species”, or the first non-hidden parent if no “species” parent exist
+  Restrict the "find similar proteins" BLAST to the organism's species (e.g. a
+  subspecies/strain like Canis lupus familiaris restricts to Canis lupus). When
+  there is no species in the lineage, fall back to the entry's own organism (the
+  one shown in the page header) — e.g. an organism only resolved to genus.
+  Non-biological organisms (synthetic constructs, unidentified, cloning vectors,
+  …) sit under "other sequences" or "unclassified sequences" in the taxonomy —
+  restricting a BLAST to those isn't meaningful, so we skip the option for them.
   */
-  const speciesTaxons = useMemo<SelectedTaxon[] | undefined>(() => {
-    let speciesTaxon: { taxonId: number; scientificName?: string } | undefined;
-    if (lineageData.data?.rank === 'species') {
-      speciesTaxon = lineageData.data;
-    } else if (lineageData.data?.lineage) {
-      const reverseLineage = [...lineageData.data.lineage].reverse();
-      speciesTaxon =
-        reverseLineage.find((item) => item.rank === 'species') ??
-        reverseLineage.find((item) => !item.hidden);
-    }
-    if (!speciesTaxon) {
+  const organismTaxon = useMemo<SelectedTaxon | undefined>(() => {
+    const organism = subEntryDataPerDatabase?.organism;
+    if (!organism?.taxonId) {
       return undefined;
     }
-    return [
-      {
-        id: String(speciesTaxon.taxonId),
-        label: speciesTaxon.scientificName
-          ? `${speciesTaxon.scientificName} [${speciesTaxon.taxonId}]`
-          : String(speciesTaxon.taxonId),
-      },
+    const taxonIds = [
+      organism.taxonId,
+      ...(lineageData.data?.lineage?.map((item) => item.taxonId) ?? []),
     ];
-  }, [lineageData.data]);
+    if (taxonIds.some((taxonId) => NON_BIOLOGICAL_TAXON_IDS.has(taxonId))) {
+      return undefined;
+    }
+    const speciesTaxon =
+      lineageData.data?.rank === 'species'
+        ? lineageData.data
+        : [...(lineageData.data?.lineage ?? [])]
+            .reverse()
+            .find((item) => item.rank === 'species');
+    const target = speciesTaxon ?? organism;
+    return {
+      id: String(target.taxonId),
+      label: target.scientificName ?? String(target.taxonId),
+    };
+  }, [subEntryDataPerDatabase?.organism, lineageData.data]);
 
   const relatedProteomeTaxons = useMemo<SelectedTaxon[] | undefined>(() => {
     const allRelated =
@@ -556,24 +573,33 @@ const SubEntry = () => {
           <li>
             <BlastButton
               selectedEntries={[accession]}
-              textSuffix="against the sequence"
+              label="Find similar proteins in UniProtKB"
             />
           </li>
+          {organismTaxon && (
+            <li>
+              <BlastButton
+                selectedEntries={[accession]}
+                label={
+                  <>
+                    Find similar proteins in UniProtKB restricted by{' '}
+                    <em>{organismTaxon.label}</em>
+                  </>
+                }
+                taxons={[organismTaxon]}
+              />
+            </li>
+          )}
           {relatedProteomeTaxons && (
             <li>
               <BlastButton
                 selectedEntries={[accession]}
-                textSuffix={`against related proteome ${pluralise(' taxon', relatedProteomeTaxons.length)}`}
+                label={`Find similar proteins in UniProtKB restricted by related proteome ${pluralise(
+                  'taxonomy',
+                  relatedProteomeTaxons.length,
+                  'taxonomies'
+                )} (${relatedProteomeTaxons.length})`}
                 taxons={relatedProteomeTaxons}
-              />
-            </li>
-          )}
-          {speciesTaxons && (
-            <li>
-              <BlastButton
-                selectedEntries={[accession]}
-                textSuffix={`against the ${pluralise('taxon', speciesTaxons.length)}`}
-                taxons={speciesTaxons}
               />
             </li>
           )}
