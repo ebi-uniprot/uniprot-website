@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
-import { type JSX, lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { type JSX, lazy, Suspense, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { type Except } from 'type-fest';
 
@@ -111,10 +111,6 @@ type Params = {
 const useParamsData = (
   id: string
 ): Partial<UseDataAPIState<PublicServerParameters>> => {
-  const [paramsData, setParamsData] = useState<
-    Partial<UseDataAPIState<PublicServerParameters>>
-  >({});
-
   const paramsXMLData = useDataApi<string>(
     urls.resultUrl(id, { format: 'parameters' })
   );
@@ -122,25 +118,26 @@ const useParamsData = (
     urls.resultUrl(id, { format: 'sequence' })
   );
 
-  useEffect(() => {
+  // Purely derived from the two requests, so compute it during render rather
+  // than syncing it into state from an effect.
+  return useMemo<Partial<UseDataAPIState<PublicServerParameters>>>(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
     const error = paramsXMLData.error || sequenceData.error;
     const status = paramsXMLData.status || sequenceData.status;
-    /* eslint-disable @eslint-react/set-state-in-effect -- combines two async requests (params XML + sequence) into the returned state */
     if (loading) {
-      setParamsData({ loading });
-    } else if (error) {
-      setParamsData({ loading, error, status });
-    } else if (paramsXMLData.data && sequenceData.data) {
-      setParamsData({
+      return { loading };
+    }
+    if (error) {
+      return { loading, error, status };
+    }
+    if (paramsXMLData.data && sequenceData.data) {
+      return {
         loading,
         data: inputParamsXMLToObject(paramsXMLData.data, sequenceData.data),
-      });
+      };
     }
-    /* eslint-enable @eslint-react/set-state-in-effect */
+    return {};
   }, [paramsXMLData, sequenceData]);
-
-  return paramsData;
 };
 
 // probably going to change with the custom endpoint to enrich data, so keep it
