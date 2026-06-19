@@ -107,7 +107,10 @@ export const TaxonomyLineage = ({
   <>
     {lineage?.length
       ? Array.from(lineage).map((data, index) => (
-          <Fragment key={data.taxonId || index}>
+          <Fragment
+            // eslint-disable-next-line @eslint-react/no-array-index-key -- lineage is a fixed-order array; index only disambiguates the rare entry that shares or lacks both taxonId and scientificName
+            key={`${data.taxonId ?? ''}|${data.scientificName ?? ''}|${index}`}
+          >
             {index ? ' > ' : undefined}
             {data.taxonId ? (
               <TaxonomyView

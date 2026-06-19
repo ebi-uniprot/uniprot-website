@@ -126,6 +126,7 @@ const useParamsData = (
     const loading = paramsXMLData.loading || sequenceData.loading;
     const error = paramsXMLData.error || sequenceData.error;
     const status = paramsXMLData.status || sequenceData.status;
+    /* eslint-disable @eslint-react/set-state-in-effect -- combines two async requests (params XML + sequence) into the returned state */
     if (loading) {
       setParamsData({ loading });
     } else if (error) {
@@ -136,6 +137,7 @@ const useParamsData = (
         data: inputParamsXMLToObject(paramsXMLData.data, sequenceData.data),
       });
     }
+    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [paramsXMLData, sequenceData]);
 
   return paramsData;

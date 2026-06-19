@@ -4,6 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 import configureSearchTerms from '../../../../query-builder/components/__tests__/__mocks__/configureSearchTerms';
 import customRender from '../../../__test-helpers__/customRender';
+import settle from '../../../__test-helpers__/settle';
 import { Namespace } from '../../../types/namespaces';
 import SearchSuggestions from '../SearchSuggestions';
 
@@ -180,6 +181,8 @@ describe('SearchSuggestions', () => {
       />
     );
 
+    await settle();
+
     expect(container).toBeEmptyDOMElement();
   });
 
@@ -209,6 +212,8 @@ describe('SearchSuggestions', () => {
       />
     );
 
+    await settle();
+
     expect(container).toBeEmptyDOMElement();
   });
 
@@ -220,6 +225,8 @@ describe('SearchSuggestions', () => {
         total={1}
       />
     );
+
+    await settle();
 
     expect(container).toBeEmptyDOMElement();
   });
@@ -249,6 +256,8 @@ describe('SearchSuggestions', () => {
       />
     );
 
+    await settle();
+
     expect(container.querySelector('small')).toHaveTextContent('');
   });
 
@@ -260,6 +269,8 @@ describe('SearchSuggestions', () => {
         total={5122}
       />
     );
+
+    await settle();
 
     expect(container.querySelector('small')).toHaveTextContent('');
   });

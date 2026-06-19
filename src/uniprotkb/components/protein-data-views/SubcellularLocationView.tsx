@@ -49,7 +49,10 @@ const SubcellularLocationView = ({ comments }: Props) => {
         return (
           <section
             className={cn('text-block', { 'ai-annotation': isAi })}
-            key={subcellData.molecule || index}
+            key={
+              // eslint-disable-next-line @eslint-react/no-array-index-key -- static, API-ordered comment list; molecule id is often absent for these entries
+              subcellData.molecule || index
+            }
           >
             {subcellData.molecule && <h3>{subcellData.molecule}</h3>}
             {subcellData.subcellularLocations.map(({ location, topology }) => (

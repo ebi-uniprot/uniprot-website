@@ -11,6 +11,11 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 // custom plugins
 const LegacyModuleSplitPlugin = require('./webpack-plugins/legacy-module-split-plugin');
 
+// Pin the corejs3 polyfill plugin to the installed core-js version so the two
+// can never drift; the plugin must not assume polyfills newer than what is
+// actually installed.
+const coreJsVersion = require('core-js/package.json').version;
+
 // some plugins are conditionally-loaded as they are also conditionally used.
 
 const legacyModuleSplitPlugin = new LegacyModuleSplitPlugin();
@@ -106,26 +111,61 @@ const getConfigFor = ({
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
-              presets: [
+              // `targets` lives at the top level so both preset-env and the
+              // corejs3 polyfill plugin read the same value (Babel 8 requirement).
+              targets:
+                isModern && !isTest
+                  ? {
+                      esmodules: true,
+                    }
+                  : {
+                      esmodules: false,
+                      browsers:
+                        'defaults, Firefox >= 35, Chrome >= 40, Edge >= 12, Safari >= 9, cover 95% in CN, not dead',
+                    },
+              // `.ts` files can't contain JSX, so preset-react (which puts the
+              // parser in JSX mode) is applied only to the other extensions.
+              // This lets Babel 8 parse generic arrows like `<T>(x) => ...` in
+              // `.ts` files without a trailing comma, which Prettier strips back
+              // out there. `onlyRemoveTypeImports: false` keeps Babel 7's
+              // behaviour of fully eliding type-only imports (e.g. from the
+              // types-only `type-fest`), instead of leaving a bare side-effect
+              // import.
+              overrides: [
+                {
+                  test: /\.ts$/,
+                  presets: [
+                    '@babel/preset-env',
+                    [
+                      '@babel/preset-typescript',
+                      { onlyRemoveTypeImports: false },
+                    ],
+                  ],
+                },
+                {
+                  exclude: /\.ts$/,
+                  presets: [
+                    '@babel/preset-env',
+                    ['@babel/preset-react', { runtime: 'automatic' }],
+                    [
+                      '@babel/preset-typescript',
+                      { onlyRemoveTypeImports: false },
+                    ],
+                  ],
+                },
+              ],
+              // Babel 8 removed preset-env's `useBuiltIns`/`corejs` options; the
+              // corejs3 polyfill plugin is the documented replacement
+              // (`usage-global` is the equivalent of `useBuiltIns: 'usage'`).
+              plugins: [
                 [
-                  '@babel/preset-env',
+                  'polyfill-corejs3',
                   {
-                    useBuiltIns: 'usage',
-                    corejs: { version: '3', proposals: true },
-                    targets:
-                      isModern && !isTest
-                        ? {
-                            esmodules: true,
-                          }
-                        : {
-                            esmodules: false,
-                            browsers:
-                              'defaults, Firefox >= 35, Chrome >= 40, Edge >= 12, Safari >= 9, cover 95% in CN, not dead',
-                          },
+                    method: 'usage-global',
+                    version: coreJsVersion,
+                    proposals: true,
                   },
                 ],
-                ['@babel/preset-react', { runtime: 'automatic' }],
-                '@babel/preset-typescript',
               ],
             },
           },

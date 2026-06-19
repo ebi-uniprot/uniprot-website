@@ -69,12 +69,13 @@ function VisualFeaturesView<T extends ProcessedFeature>({
         onFeatureClick(detail.feature as T);
       }
     };
-    if (trackRef.current) {
-      trackRef.current.data = features;
-      trackRef.current.addEventListener('change', eventHandler);
+    const track = trackRef.current;
+    if (track) {
+      track.data = features;
+      track.addEventListener('change', eventHandler);
     }
     return () => {
-      document.removeEventListener('change', eventHandler);
+      track?.removeEventListener('change', eventHandler);
     };
   }, [features, onFeatureClick]);
 
@@ -103,11 +104,12 @@ function VisualFeaturesView<T extends ProcessedFeature>({
         onViewRangeChange(detail);
       }
     };
-    if (managerRef.current) {
-      managerRef.current.addEventListener('change', eventHandler);
+    const manager = managerRef.current;
+    if (manager) {
+      manager.addEventListener('change', eventHandler);
     }
     return () => {
-      document.removeEventListener('change', eventHandler);
+      manager?.removeEventListener('change', eventHandler);
     };
   }, [managerRef, onViewRangeChange]);
 
