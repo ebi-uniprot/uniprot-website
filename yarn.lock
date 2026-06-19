@@ -1374,10 +1374,10 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.28.6"
 
-"@babel/plugin-transform-regenerator@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/@babel/plugin-transform-regenerator/-/plugin-transform-regenerator-8.0.1.tgz"
-  integrity sha512-1WjCi/45Mn5e0uvz26FdvRe6bTAvN6WAtkHgIjl0w/LkBvrv4Y5bDR+8YY72r7cefXBfwYUXIHSoxQkrIfnjXQ==
+"@babel/plugin-transform-regenerator@^8.0.2":
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-regenerator/-/plugin-transform-regenerator-8.0.2.tgz#fbef65bd45ddc94aedff6c20d5678cc43a234400"
+  integrity sha512-aFfsjCRYducRV4dPnpsBbdRkLjboca9FVDg6HZCgy0Ahvk2ZQ/2exmCRC5qS9P6rsWwrmIheNaIM6A1j2F8KMA==
   dependencies:
     "@babel/helper-plugin-utils" "^8.0.1"
 
@@ -1567,10 +1567,10 @@
     "@babel/helper-create-regexp-features-plugin" "^8.0.1"
     "@babel/helper-plugin-utils" "^8.0.1"
 
-"@babel/preset-env@8.0.1":
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/@babel/preset-env/-/preset-env-8.0.1.tgz"
-  integrity sha512-tiwl69ZQGIbPif28GK8vI/Nm1nYdP+UHXWRnqXl0fjfBS7DWmAs2XvlpVkZyZjVVDxcprcbzCnN93SbuSgz8WQ==
+"@babel/preset-env@8.0.2":
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-8.0.2.tgz#dfee131c5dec359bab222ad33abb5b8480d639b3"
+  integrity sha512-CUGLn9hNBCF/eXnwdFAWERbniCcXCRvnKwLV9fegeUEIqv7YlU2MepsWMMM54GcILx5XYMnRh+JAL+K5G+mK6g==
   dependencies:
     "@babel/compat-data" "^8.0.0"
     "@babel/helper-compilation-targets" "^8.0.0"
@@ -1621,7 +1621,7 @@
     "@babel/plugin-transform-private-methods" "^8.0.1"
     "@babel/plugin-transform-private-property-in-object" "^8.0.1"
     "@babel/plugin-transform-property-literals" "^8.0.1"
-    "@babel/plugin-transform-regenerator" "^8.0.1"
+    "@babel/plugin-transform-regenerator" "^8.0.2"
     "@babel/plugin-transform-regexp-modifiers" "^8.0.1"
     "@babel/plugin-transform-reserved-words" "^8.0.1"
     "@babel/plugin-transform-shorthand-properties" "^8.0.1"
@@ -1633,8 +1633,8 @@
     "@babel/plugin-transform-unicode-property-regex" "^8.0.1"
     "@babel/plugin-transform-unicode-regex" "^8.0.1"
     "@babel/plugin-transform-unicode-sets-regex" "^8.0.1"
-    "@babel/preset-modules" "0.1.6-no-external-plugins"
-    babel-plugin-polyfill-corejs3 "^1.0.0-rc.2"
+    "@babel/preset-modules" "^0.2.0"
+    babel-plugin-polyfill-corejs3 "^1.0.0"
     core-js-compat "^3.48.0"
     semver "^7.7.3"
 
@@ -1722,6 +1722,17 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/types" "^7.4.4"
+    esutils "^2.0.2"
+
+"@babel/preset-modules@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@babel/preset-modules/-/preset-modules-0.2.0.tgz#dd34a1696e9e4f4d2ded987f6205de7368e0f654"
+  integrity sha512-yz0RBN2fx4fjCeFcTWsWgL7PxSRltvTa0Qg14HkWCU3qS8MO7ZSJlBVbGceynd5C9NsJwwUHNQD3dc6tYO+jqQ==
+  dependencies:
+    "@babel/helper-plugin-utils" "^8.0.1"
+    "@babel/plugin-transform-dotall-regex" "^8.0.1"
+    "@babel/plugin-transform-unicode-property-regex" "^8.0.1"
+    "@babel/types" "^8.0.0"
     esutils "^2.0.2"
 
 "@babel/preset-react@8.0.1":
@@ -5763,7 +5774,7 @@ babel-plugin-polyfill-corejs2@^0.4.15:
     "@babel/helper-define-polyfill-provider" "^0.6.8"
     semver "^6.3.1"
 
-babel-plugin-polyfill-corejs3@1.0.0, babel-plugin-polyfill-corejs3@^1.0.0-rc.2:
+babel-plugin-polyfill-corejs3@1.0.0, babel-plugin-polyfill-corejs3@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/babel-plugin-polyfill-corejs3/-/babel-plugin-polyfill-corejs3-1.0.0.tgz"
   integrity sha512-yIkslVjbmml2Xjb6XhFW7lISXHsqk6cesxTdDsXoMom4Lnb99DbD3OQbSOoM5Z+ASh8YXYaLAsRQrU2Jeh3Qig==

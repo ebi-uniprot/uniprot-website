@@ -165,7 +165,7 @@
   "devDependencies": {
     "@babel/core": "8.0.1",
     "@babel/parser": "8.0.0",
-    "@babel/preset-env": "8.0.1",
+    "@babel/preset-env": "8.0.2",
     "@babel/preset-react": "8.0.1",
     "@babel/preset-typescript": "8.0.1",
     "@eslint-react/eslint-plugin": "5.9.0",
