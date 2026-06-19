@@ -32,12 +32,14 @@ const structureTabs = [
     description:
       'Experimentally determined structures from the Protein Data Bank (PDB).',
     belongs: (row: StructureRow) => row.source === PDB_SOURCE,
+    hiddenColumns: ['source', 'isoform', 'oligomeric_state'],
   },
   {
     id: 'alphafolddb',
     title: 'AlphaFoldDB',
     description: 'Computationally predicted structures from AlphaFold DB.',
     belongs: (row: StructureRow) => row.source === ALPHAFOLD_SOURCE,
+    hiddenColumns: ['source', 'method', 'resolution'],
   },
   {
     id: 'others',
@@ -45,6 +47,7 @@ const structureTabs = [
     description: 'Structures and models from other sources.',
     belongs: (row: StructureRow) =>
       row.source !== PDB_SOURCE && row.source !== ALPHAFOLD_SOURCE,
+    hiddenColumns: ['isoform', 'method', 'resolution', 'oligomeric_state'],
   },
 ] as const;
 
@@ -156,15 +159,27 @@ const StructureView = ({
   const columns = useMemo((): TableFromDataColumn<ProcessedStructureData>[] => {
     const cols: TableFromDataColumn<ProcessedStructureData>[] = [
       {
+        id: 'id',
+        label: 'Identifier',
+        render: (row) => {
+          if (row.source === 'AlphaFold DB') {
+            return (
+              <ExternalLink url={`https://alphafold.ebi.ac.uk/entry/${row.id}`}>
+                {row.id}
+              </ExternalLink>
+            );
+          }
+          if (row.sourceDBLink) {
+            return <ExternalLink url={row.sourceDBLink}>{row.id}</ExternalLink>;
+          }
+          return row.id;
+        },
+      },
+      {
         id: 'source',
         label: 'Source',
         render: (row) => <strong>{row.source}</strong>,
         getValue: (row) => row.source,
-      },
-      {
-        id: 'id',
-        label: 'Identifier',
-        render: (row) => row.id,
       },
     ];
 
@@ -215,89 +230,36 @@ const StructureView = ({
         render: (row) => row.positions ?? null,
       },
       {
+        id: 'oligomeric_state',
+        label: 'Oligomeric State',
+        render: (row) => row.oligomericState ?? null,
+      },
+      {
         id: 'links',
         label: 'Links',
         render: (row) => {
-          if (row.source === 'PDB') {
+          const downloadLink = row.downloadUrl ? (
+            <a href={row.downloadUrl} target="_blank" rel="noopener noreferrer">
+              <DownloadIcon width="1em" />
+            </a>
+          ) : null;
+          if (
+            row.source === 'PDB' ||
+            (row.source === 'AlphaFold DB' && row.isoformIsCanonical === true)
+          ) {
+            const accession = row.source === 'PDB' ? row.id : primaryAccession;
             return (
               <span className={helper['no-wrap']}>
+                {downloadLink}&nbsp;
                 <ExternalLink
-                  url={`https://www.ebi.ac.uk/pdbe-srv/view/entry/${row.id}`}
+                  url={`https://search.foldseek.com/search?accession=${accession}&source=${row.source}`}
                 >
-                  PDBe
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://www.rcsb.org/structure/${row.id}`}>
-                  RCSB-PDB
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://pdbj.org/mine/summary/${row.id}`}>
-                  PDBj
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://www.ebi.ac.uk/pdbsum/${row.id}`}>
-                  PDBsum
+                  Foldseek
                 </ExternalLink>
               </span>
             );
           }
-          if (row.source === 'AlphaFold DB' && primaryAccession) {
-            return (
-              <ExternalLink
-                url={`https://alphafold.ebi.ac.uk/entry/${primaryAccession}`}
-              >
-                AlphaFold DB
-              </ExternalLink>
-            );
-          }
-          if (row.sourceDBLink) {
-            return (
-              <ExternalLink url={row.sourceDBLink}>{row.source}</ExternalLink>
-            );
-          }
-          return null;
-        },
-      },
-      {
-        id: 'download',
-        label: 'Download',
-        render: (row) => {
-          const links: React.ReactNode[] = [];
-          if (row.downloadUrl) {
-            links.push(
-              <a
-                key="source"
-                href={row.downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source <DownloadIcon width="1em" />
-              </a>
-            );
-          }
-          if (
-            primaryAccession &&
-            (row.source === 'PDB' || row.source === 'AlphaFold DB')
-          ) {
-            const accession = row.source === 'PDB' ? row.id : primaryAccession;
-            const source = row.source === 'PDB' ? 'PDB' : 'AlphaFoldDB';
-            links.push(
-              <ExternalLink
-                key="foldseek"
-                url={`https://search.foldseek.com/search?accession=${accession}&source=${source}`}
-              >
-                Foldseek
-              </ExternalLink>
-            );
-          }
-          return links.length ? (
-            <span className={helper['no-wrap']}>
-              {links.reduce<React.ReactNode[]>(
-                (acc, link, i) => (i ? [...acc, ' · ', link] : [link]),
-                []
-              )}
-            </span>
-          ) : null;
+          return downloadLink;
         },
       }
     );
@@ -382,7 +344,10 @@ const StructureView = ({
         {!viewerOnly && !loading && structures.length > 0 && activeTab && (
           <TableFromData
             data={activeTab.rows}
-            columns={columns}
+            columns={columns.filter(
+              (col) =>
+                !(activeTab.hiddenColumns as readonly string[]).includes(col.id)
+            )}
             getRowId={(row) => row.rowKey}
             onRowClick={handleRowClick}
             markBackground={(row) => row.id === selectedId}
