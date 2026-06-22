@@ -54,7 +54,8 @@ the `unregister` function instead of the `register` function.
 
 ### Build Scripts
 
-| Build script | Use                               |
-| ------------ | --------------------------------- |
-| `build:prod` | Web Production Kubernetes cluster |
-| `build:dev`  | Debugging service workers         |
+| Build script    | Use                               |
+| --------------- | --------------------------------- |
+| `build:prod`    | Web Production Kubernetes cluster |
+| `build:dev`     | Debugging service workers         |
+| `build:netlify` | Build for netlify instance        |
