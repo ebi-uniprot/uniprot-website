@@ -26,10 +26,15 @@ function TableHeaderFromData<T>({
   selectedValue,
   onFilterChange,
 }: TableHeaderFromDataProps<T>) {
+  const filterChoices = column.filterOptions
+    ? column.filterOptions.map((option) => option.label)
+    : options && options.size > 1
+      ? [...options]
+      : undefined;
   return (
     <th>
       {column.label}
-      {options && options.size > 1 && (
+      {filterChoices && (
         <>
           <br />
           <select
@@ -37,7 +42,7 @@ function TableHeaderFromData<T>({
             value={selectedValue}
             onChange={(e) => onFilterChange(column.id, e.target.value)}
           >
-            {[UNFILTERED_OPTION, ...options].map((option) => (
+            {[UNFILTERED_OPTION, ...filterChoices].map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -70,7 +75,14 @@ function filterDatum<T>(
 ): boolean {
   return columns.every((column) => {
     const filterValue = filterValues[column.id];
-    if (filterValue === undefined || !column.getValue) {
+    if (filterValue === undefined) {
+      return true;
+    }
+    if (column.filterOptions) {
+      const option = column.filterOptions.find((o) => o.label === filterValue);
+      return option?.predicate(datum) ?? true;
+    }
+    if (!column.getValue) {
       return true;
     }
     return getCellString(column, datum) === filterValue;
@@ -82,6 +94,7 @@ export type TableFromDataColumn<T> = {
   label: ReactNode;
   render: (datum: T) => ReactNode;
   getValue?: (datum: T) => string | number | null | undefined;
+  filterOptions?: { label: string; predicate: (datum: T) => boolean }[];
 };
 
 type Props<T> = HTMLAttributes<HTMLTableElement> & {

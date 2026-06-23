@@ -25,6 +25,13 @@ type StructureRow = ProcessedStructureData & { rowKey: string };
 const PDB_SOURCE = 'PDB';
 const ALPHAFOLD_SOURCE = 'AlphaFold DB';
 
+const parseResolution = (resolution?: string): number | undefined => {
+  const match = resolution?.match(/[\d.]+/);
+  return match ? parseFloat(match[0]) : undefined;
+};
+
+const RESOLUTION_THRESHOLDS = [2.5, 4, 6, 10] as const;
+
 const structureTabs = [
   {
     id: 'pdb',
@@ -218,6 +225,13 @@ const StructureView = ({
         id: 'resolution',
         label: 'Resolution',
         render: (row) => row.resolution?.replace(/ A\b/g, ' Å') ?? null,
+        filterOptions: RESOLUTION_THRESHOLDS.map((threshold) => ({
+          label: `Below ${threshold} Å`,
+          predicate: (row) => {
+            const resolution = parseResolution(row.resolution);
+            return resolution !== undefined && resolution < threshold;
+          },
+        })),
       },
       {
         id: 'chain',
@@ -233,6 +247,7 @@ const StructureView = ({
         id: 'oligomeric_state',
         label: 'Oligomeric State',
         render: (row) => row.oligomericState ?? null,
+        getValue: (row) => row.oligomericState,
       },
       {
         id: 'links',
