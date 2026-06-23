@@ -265,7 +265,8 @@ const StructureView = ({
             const accession = row.source === 'PDB' ? row.id : primaryAccession;
             return (
               <span className={helper['no-wrap']}>
-                {downloadLink}&nbsp;
+                {downloadLink}
+                {' · '}
                 <ExternalLink
                   url={`https://search.foldseek.com/search?accession=${accession}&source=${row.source}`}
                 >
