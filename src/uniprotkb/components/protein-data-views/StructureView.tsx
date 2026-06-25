@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { DownloadIcon, Loader, Message } from 'franklin-sites';
 import {
   type ProcessedStructureData,
@@ -20,6 +21,42 @@ import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';
 
 type StructureRow = ProcessedStructureData & { rowKey: string };
+
+const PDB_SOURCE = 'PDB';
+const ALPHAFOLD_SOURCE = 'AlphaFold DB';
+
+const parseResolution = (resolution?: string): number | undefined => {
+  const match = resolution?.match(/[\d.]+/);
+  return match ? parseFloat(match[0]) : undefined;
+};
+
+const RESOLUTION_THRESHOLDS = [2.5, 4, 6, 10] as const;
+
+const structureTabs = [
+  {
+    id: 'pdb',
+    title: 'PDB',
+    description:
+      'Experimentally determined structures from the Protein Data Bank (PDB).',
+    belongs: (row: StructureRow) => row.source === PDB_SOURCE,
+    hiddenColumns: ['source', 'isoform', 'oligomeric_state'],
+  },
+  {
+    id: 'alphafolddb',
+    title: 'AlphaFoldDB',
+    description: 'Computationally predicted structures from AlphaFold DB.',
+    belongs: (row: StructureRow) => row.source === ALPHAFOLD_SOURCE,
+    hiddenColumns: ['source', 'method', 'resolution'],
+  },
+  {
+    id: 'others',
+    title: 'Others',
+    description: 'Structures and models from other sources.',
+    belongs: (row: StructureRow) =>
+      row.source !== PDB_SOURCE && row.source !== ALPHAFOLD_SOURCE,
+    hiddenColumns: ['isoform', 'method', 'resolution', 'oligomeric_state'],
+  },
+] as const;
 
 const StructureView = ({
   primaryAccession,
@@ -98,18 +135,58 @@ const StructureView = ({
     [structureEl]
   );
 
+  // Group the loaded structures into the visible tabs, dropping any tab with no
+  // structures to show.
+  const visibleTabs = useMemo(
+    () =>
+      structureTabs
+        .map((tab) => ({ ...tab, rows: structures.filter(tab.belongs) }))
+        .filter((tab) => tab.rows.length > 0),
+    [structures]
+  );
+
+  const selectedStructure = structures.find((row) => row.id === selectedId);
+  const activeTab =
+    visibleTabs.find(
+      (tab) => selectedStructure && tab.belongs(selectedStructure)
+    ) ?? visibleTabs[0];
+
+  // Switching tabs selects that tab's first structure, which both highlights
+  // the row and drives the shared viewer.
+  const handleTabClick = useCallback(
+    (rows: StructureRow[]) => {
+      const [first] = rows;
+      if (first) {
+        handleRowClick(first);
+      }
+    },
+    [handleRowClick]
+  );
+
   const columns = useMemo((): TableFromDataColumn<ProcessedStructureData>[] => {
     const cols: TableFromDataColumn<ProcessedStructureData>[] = [
+      {
+        id: 'id',
+        label: 'Identifier',
+        render: (row) => {
+          if (row.source === 'AlphaFold DB') {
+            return (
+              <ExternalLink url={`https://alphafold.ebi.ac.uk/entry/${row.id}`}>
+                {row.id}
+              </ExternalLink>
+            );
+          }
+          if (row.sourceDBLink) {
+            return <ExternalLink url={row.sourceDBLink}>{row.id}</ExternalLink>;
+          }
+          return row.id;
+        },
+      },
       {
         id: 'source',
         label: 'Source',
         render: (row) => <strong>{row.source}</strong>,
         getValue: (row) => row.source,
-      },
-      {
-        id: 'id',
-        label: 'Identifier',
-        render: (row) => row.id,
       },
     ];
 
@@ -148,6 +225,13 @@ const StructureView = ({
         id: 'resolution',
         label: 'Resolution',
         render: (row) => row.resolution?.replace(/ A\b/g, ' Å') ?? null,
+        filterOptions: RESOLUTION_THRESHOLDS.map((threshold) => ({
+          label: `Below ${threshold} Å`,
+          predicate: (row) => {
+            const resolution = parseResolution(row.resolution);
+            return resolution !== undefined && resolution < threshold;
+          },
+        })),
       },
       {
         id: 'chain',
@@ -160,89 +244,40 @@ const StructureView = ({
         render: (row) => row.positions ?? null,
       },
       {
+        id: 'oligomeric_state',
+        label: 'Oligomeric State',
+        render: (row) => row.oligomericState ?? null,
+        getValue: (row) => row.oligomericState,
+      },
+      {
         id: 'links',
         label: 'Links',
         render: (row) => {
-          if (row.source === 'PDB') {
+          const downloadLink = row.downloadUrl ? (
+            <a href={row.downloadUrl} target="_blank" rel="noopener noreferrer">
+              <DownloadIcon width="1em" />
+            </a>
+          ) : null;
+          if (
+            row.source === 'PDB' ||
+            (row.source === 'AlphaFold DB' && row.isoformIsCanonical === true)
+          ) {
+            const accession = row.source === 'PDB' ? row.id : primaryAccession;
+            const foldseekSource =
+              row.source === PDB_SOURCE ? 'PDB' : 'AlphaFoldDB';
             return (
               <span className={helper['no-wrap']}>
+                {downloadLink}
+                {' · '}
                 <ExternalLink
-                  url={`https://www.ebi.ac.uk/pdbe-srv/view/entry/${row.id}`}
+                  url={`https://search.foldseek.com/search?accession=${accession}&source=${foldseekSource}`}
                 >
-                  PDBe
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://www.rcsb.org/structure/${row.id}`}>
-                  RCSB-PDB
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://pdbj.org/mine/summary/${row.id}`}>
-                  PDBj
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://www.ebi.ac.uk/pdbsum/${row.id}`}>
-                  PDBsum
+                  Foldseek
                 </ExternalLink>
               </span>
             );
           }
-          if (row.source === 'AlphaFold DB' && primaryAccession) {
-            return (
-              <ExternalLink
-                url={`https://alphafold.ebi.ac.uk/entry/${primaryAccession}`}
-              >
-                AlphaFold DB
-              </ExternalLink>
-            );
-          }
-          if (row.sourceDBLink) {
-            return (
-              <ExternalLink url={row.sourceDBLink}>{row.source}</ExternalLink>
-            );
-          }
-          return null;
-        },
-      },
-      {
-        id: 'download',
-        label: 'Download',
-        render: (row) => {
-          const links: React.ReactNode[] = [];
-          if (row.downloadUrl) {
-            links.push(
-              <a
-                key="source"
-                href={row.downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source <DownloadIcon width="1em" />
-              </a>
-            );
-          }
-          if (
-            primaryAccession &&
-            (row.source === 'PDB' || row.source === 'AlphaFold DB')
-          ) {
-            const accession = row.source === 'PDB' ? row.id : primaryAccession;
-            const source = row.source === 'PDB' ? 'PDB' : 'AlphaFoldDB';
-            links.push(
-              <ExternalLink
-                key="foldseek"
-                url={`https://search.foldseek.com/search?accession=${accession}&source=${source}`}
-              >
-                Foldseek
-              </ExternalLink>
-            );
-          }
-          return links.length ? (
-            <span className={helper['no-wrap']}>
-              {links.reduce<React.ReactNode[]>(
-                (acc, link, i) => (i ? [...acc, ' · ', link] : [link]),
-                []
-              )}
-            </span>
-          ) : null;
+          return downloadLink;
         },
       }
     );
@@ -277,29 +312,66 @@ const StructureView = ({
           <AFDBOutOfSync modal />
         </>
       )}
-      <protvista-uniprot-structure
-        ref={setStructureEl}
-        accession={primaryAccession}
-        checksum={checksum}
-        sequence={sequence}
-        noTable
-      />
-      {!viewerOnly && loading && <Loader />}
-      {!viewerOnly && !loading && structures.length === 0 && (
-        <Message level="info">
-          No structure information available
-          {primaryAccession ? ` for ${primaryAccession}` : ''}.
-        </Message>
-      )}
-      {!viewerOnly && !loading && structures.length > 0 && (
-        <TableFromData
-          data={structures}
-          columns={columns}
-          getRowId={(row) => row.rowKey}
-          onRowClick={handleRowClick}
-          markBackground={(row) => row.id === selectedId}
+      <div className="tabs">
+        {!viewerOnly && !loading && structures.length > 0 && activeTab && (
+          <>
+            <div className="tabs__header" role="tablist">
+              {visibleTabs.map((tab) => (
+                <div
+                  key={tab.id}
+                  id={tab.id}
+                  role="tab"
+                  tabIndex={0}
+                  aria-selected={tab.id === activeTab.id}
+                  className={cn(
+                    'tabs__header__item',
+                    'tabs__header__item--bordered',
+                    {
+                      'tabs__header__item--active': tab.id === activeTab.id,
+                    }
+                  )}
+                  onClick={() => handleTabClick(tab.rows)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      handleTabClick(tab.rows);
+                    }
+                  }}
+                >
+                  {tab.title}
+                </div>
+              ))}
+            </div>
+            <p>{activeTab.description}</p>
+          </>
+        )}
+        <protvista-uniprot-structure
+          ref={setStructureEl}
+          accession={primaryAccession}
+          checksum={checksum}
+          sequence={sequence}
+          noTable
         />
-      )}
+        {!viewerOnly && loading && <Loader />}
+        {!viewerOnly && !loading && structures.length === 0 && (
+          <Message level="info">
+            No structure information available
+            {primaryAccession ? ` for ${primaryAccession}` : ''}.
+          </Message>
+        )}
+        {!viewerOnly && !loading && structures.length > 0 && activeTab && (
+          <TableFromData
+            data={activeTab.rows}
+            columns={columns.filter(
+              (col) =>
+                !(activeTab.hiddenColumns as readonly string[]).includes(col.id)
+            )}
+            getRowId={(row) => row.rowKey}
+            onRowClick={handleRowClick}
+            markBackground={(row) => row.id === selectedId}
+          />
+        )}
+      </div>
     </div>
   );
 };

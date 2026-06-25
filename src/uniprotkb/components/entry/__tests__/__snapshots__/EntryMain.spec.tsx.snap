@@ -5526,18 +5526,22 @@ exports[`Entry view should render for non-human entry 1`] = `
               .
             </div>
           </div>
-          <protvista-uniprot-structure
-            accession="P0DTR4"
-            notable=""
-          />
           <div
-            class="loader-container"
+            class="tabs"
           >
-            <test-file-stub
-              class="loader"
-              height="100"
-              width="100"
+            <protvista-uniprot-structure
+              accession="P0DTR4"
+              notable=""
             />
+            <div
+              class="loader-container"
+            >
+              <test-file-stub
+                class="loader"
+                height="100"
+                width="100"
+              />
+            </div>
           </div>
         </div>
         <h3>
