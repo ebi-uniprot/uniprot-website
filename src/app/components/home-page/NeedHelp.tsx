@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import cn from 'classnames';
 import {
   CalendarIcon,
@@ -42,56 +43,96 @@ const resource = 'UniProt* The Universal Protein Resource';
 const urlEBISearch = `https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:${resource}&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,start_date,end_date,status&size=1&sort=start_date`;
 
 // corresponding schema
+// Got this from:
+// curl -s https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_online\?query\=uniprot\&format\=json\&fieldurl\=true\&viewurl\=true\&entryattrs\=score\&fields\=title,subtitle,description,training_type,type,venue,country,year,date_time_clean,course_image,status,location,materials,timeframe,recording_available\&start\=0\&size\=10\&hlfields\=description\&facetcount\=50\&facets\=type:Webinar%20series
+// And derived with https://app.quicktype.io
 export type PayloadEBISearch = {
   hitCount: number;
-  entries: Array<{
-    id: string;
-    source: string;
-    fields: {
-      title: string[];
-      subtitle: string[];
-      description: string[];
-      city: string[];
-      country: string[];
-      // Only country?
-      location: string[];
-      // More precise venue
-      venue: string[];
-      date_time_clean: string[];
-      start_date: string[];
-      end_date: string[];
-      status: string[];
-    };
-    fieldURLs: Array<{
-      name: string;
-      value: string;
-    }>;
-  }>;
+  entries: Entry[];
+  facets: Facet[];
 };
 
-// Copy from https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training_online&page=1&facets=type:Online%20tutorial,type:Recorded%20webinar
+export type Entry = {
+  id: string;
+  source: string;
+  score: string;
+  fields: { [key: string]: string[] };
+  fieldURLs: FieldURL[];
+  highlights: Highlights;
+  deepLinkFragments: DeepLinkFragment[];
+};
+
+export type DeepLinkFragment = {
+  id: string;
+  fragments: unknown[];
+};
+
+export type FieldURL = {
+  name: string;
+  value: string;
+};
+
+export type Highlights = {
+  description: string[];
+};
+
+export type Facet = {
+  id: string;
+  label: string;
+  total: number;
+  facetValues: FacetValue[];
+};
+
+export type FacetValue = {
+  label: string;
+  value: string;
+  count: number;
+};
+
+// Used to copy from:
+// https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training_online&page=1&facets=type:Online%20tutorial,type:Recorded%20webinar
+// But now copy from:
+// curl -s https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_online\?query\=uniprot\&format\=json\&fieldurl\=true\&viewurl\=true\&entryattrs\=score\&fields\=title,subtitle,description,training_type,type,venue,country,year,date_time_clean,course_image,status,location,materials,timeframe,recording_available\&start\=0\&size\=10\&hlfields\=description\&facetcount\=50\&facets\=type:Webinar%20series | jq ".entries[0]"
 const fallback: PayloadEBISearch['entries'][0] = {
-  id: '102',
+  id: '3913',
   source: 'ebiweb_training_online',
+  score: 'NaN',
   fields: {
     title: ['UniProt'],
-    subtitle: ['Quick tour'],
-    description: [
-      'This quick tour provides a brief introduction to the Universal Protein Resource, UniProt.',
+    subtitle: [
+      'Exploring protein sequence and functional information – 2025/26',
     ],
-    location: ['Online'],
-    venue: ['Online'],
-    status: [],
-    date_time_clean: [], // eslint-disable-line camelcase
-    start_date: [], // eslint-disable-line camelcase
-    end_date: [], // eslint-disable-line camelcase
-    city: [],
+    description: [
+      'Join experts from UniProt as they introduce you to this essential resource for protein sequence and functional information.The series begins with an overview of the UniProt website, showing how students and researchers at all career stages can access data from the UniProtKB and Proteomes sections of the UniProt protein function database.Running until May 2026, the series will cover a range of topics, including:Functional annotation of proteinsUsing BLASTAutomatic annotationVariants and diseaseThe webinars in this series are listed below (with more to be added soon). Follow the links to learn more about each session. Please note that you will need to register for each webinar individually. Recordings will be made openly available on the respective webinar pages.',
+    ],
+    training_type: ['Online'],
+    type: ['Webinar series'],
+    venue: [],
     country: [],
+    year: [],
+    date_time_clean: ['2 October 2025 - 18 June 2026'],
+    course_image: [],
+    status: [],
+    location: ['Online'],
+    materials: [],
+    timeframe: [],
+    recording_available: [],
   },
   fieldURLs: [
     {
       name: 'main',
-      value: 'https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour',
+      value: 'https://www.ebi.ac.uk/training/events/uniprot-2025-26',
+    },
+  ],
+  highlights: {
+    description: [
+      'Join experts from UniProt as they introduce you to this essential resource for protein sequence and functional information.The series begins with an overview of the UniProt website, showing how students and researchers at all career stages can access data from the UniProtKB and Proteomes sections of the UniProt protein function database.Running until May 2026, the series will cover a range of topics, including:Functional annotation of proteinsUsing BLASTAutomatic annotationVariants and diseaseThe webinars in this series are listed below (with more to be added soon). Follow the links to learn more about each session. Please note that you will need to register for each webinar individually. Recordings will be made openly available on the respective webinar pages.',
+    ],
+  },
+  deepLinkFragments: [
+    {
+      id: 'description',
+      fragments: [],
     },
   ],
 };
