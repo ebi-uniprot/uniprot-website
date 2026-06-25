@@ -263,12 +263,14 @@ const StructureView = ({
             (row.source === 'AlphaFold DB' && row.isoformIsCanonical === true)
           ) {
             const accession = row.source === 'PDB' ? row.id : primaryAccession;
+            const foldseekSource =
+              row.source === PDB_SOURCE ? 'PDB' : 'AlphaFoldDB';
             return (
               <span className={helper['no-wrap']}>
                 {downloadLink}
                 {' · '}
                 <ExternalLink
-                  url={`https://search.foldseek.com/search?accession=${accession}&source=${row.source}`}
+                  url={`https://search.foldseek.com/search?accession=${accession}&source=${foldseekSource}`}
                 >
                   Foldseek
                 </ExternalLink>

@@ -23,6 +23,7 @@ const alphaFoldStructure: ProcessedStructureData = {
   source: 'AlphaFold DB',
   method: 'Predicted',
   protvistaFeatureId: 'feat-2',
+  isoformIsCanonical: true,
   downloadUrl: 'https://alphafold.ebi.ac.uk/files/AF-P12345-F1-model_v4.pdb',
 };
 
@@ -97,18 +98,23 @@ describe('StructureView', () => {
     expect(screen.getByRole('cell', { name: '2.5 Å' })).toBeInTheDocument();
   });
 
-  it('renders PDB external links', () => {
+  it('renders the PDB identifier link and a Foldseek link', () => {
     customRender(<StructureView primaryAccession="P12345" />, {
       route: '/uniprotkb/P12345/entry',
     });
-    fireStructuresLoaded([pdbStructure]);
-    expect(screen.getByRole('link', { name: /PDBe/i })).toHaveAttribute(
+    fireStructuresLoaded([
+      {
+        ...pdbStructure,
+        sourceDBLink: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/5R7Y',
+      },
+    ]);
+    expect(screen.getByRole('link', { name: '5R7Y' })).toHaveAttribute(
       'href',
       'https://www.ebi.ac.uk/pdbe-srv/view/entry/5R7Y'
     );
-    expect(screen.getByRole('link', { name: /RCSB-PDB/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /Foldseek/i })).toHaveAttribute(
       'href',
-      'https://www.rcsb.org/structure/5R7Y'
+      'https://search.foldseek.com/search?accession=5R7Y&source=PDB'
     );
   });
 
@@ -117,9 +123,11 @@ describe('StructureView', () => {
       route: '/uniprotkb/P12345/entry',
     });
     fireStructuresLoaded([alphaFoldStructure]);
-    expect(screen.getByRole('link', { name: /AlphaFold DB/i })).toHaveAttribute(
+    expect(
+      screen.getByRole('link', { name: alphaFoldStructure.id })
+    ).toHaveAttribute(
       'href',
-      'https://alphafold.ebi.ac.uk/entry/P12345'
+      `https://alphafold.ebi.ac.uk/entry/${alphaFoldStructure.id}`
     );
     expect(screen.getByRole('link', { name: /Foldseek/i })).toHaveAttribute(
       'href',
@@ -127,13 +135,17 @@ describe('StructureView', () => {
     );
   });
 
-  it('renders a Source download link with the download icon', () => {
+  it('renders a download link with the download icon', () => {
     customRender(<StructureView primaryAccession="P12345" />, {
       route: '/uniprotkb/P12345/entry',
     });
     fireStructuresLoaded([alphaFoldStructure]);
-    const sourceLink = screen.getByRole('link', { name: /Source/i });
-    expect(sourceLink).toHaveAttribute('href', alphaFoldStructure.downloadUrl);
+    const downloadLink = document.querySelector(
+      `a[href="${alphaFoldStructure.downloadUrl}"]`
+    );
+    expect(downloadLink).toBeInTheDocument();
+    expect(downloadLink).toHaveAttribute('target', '_blank');
+    expect(downloadLink?.firstElementChild).toBeInTheDocument();
   });
 
   it('hides the table when viewerOnly, even after structures-loaded', () => {
@@ -190,7 +202,11 @@ describe('StructureView', () => {
       { route: '/uniprotkb/P12345/entry' }
     );
     fireStructuresLoaded([
-      { ...pdbStructure, isoformId: 'P12345-2', isoformIsCanonical: false },
+      {
+        ...alphaFoldStructure,
+        isoformId: 'P12345-2',
+        isoformIsCanonical: false,
+      },
     ]);
     expect(
       screen.getByRole('columnheader', { name: 'Isoform' })
