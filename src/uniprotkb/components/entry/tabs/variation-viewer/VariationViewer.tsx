@@ -91,10 +91,6 @@ const groupByCategory = (filters: FilterConfig, category: string) =>
   filters.filter((f) => f.type.name === category);
 
 type FilterConfig = typeof filterConfig;
-type FilterConfigItem = FilterConfig[0];
-
-const getFilter = (haystack: FilterConfig, needle: FilterConfigItem) =>
-  haystack?.find((f) => f.name === needle.name);
 
 // copied/adapted logic from protvista-uniprot
 const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
@@ -106,21 +102,13 @@ const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
   const consequenceFilters = groupByCategory(activeFilters, 'consequence');
   const provenanceFilters = groupByCategory(activeFilters, 'provenance');
 
-  const selectedConsequenceFilters = activeFilters
-    .map((f) => getFilter(consequenceFilters, f))
-    .filter(Boolean);
-  const selectedProvenanceFilters = activeFilters
-    .map((f) => getFilter(provenanceFilters, f))
-    .filter(Boolean);
-
-  return variants?.filter(
+  // A variant is kept only if it matches at least one selected filter in each
+  // category. `consequenceFilters`/`provenanceFilters` are already the selected
+  // filters per category, so they can be used as the predicates directly.
+  return variants.filter(
     (variant) =>
-      selectedConsequenceFilters.some((filter) =>
-        filter?.filterPredicate(variant)
-      ) &&
-      selectedProvenanceFilters.some((filter) =>
-        filter?.filterPredicate(variant)
-      )
+      consequenceFilters.some((filter) => filter.filterPredicate(variant)) &&
+      provenanceFilters.some((filter) => filter.filterPredicate(variant))
   );
 };
 
