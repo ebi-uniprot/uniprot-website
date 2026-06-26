@@ -1,4 +1,5 @@
 import { type QueryBit, type SearchTermType } from '../types/searchTypes';
+import { reProteomeIdValue } from './queryStringProcessor';
 
 const integerRange = /^\[(\*|-?\d+) TO (\*|-?\d+)\]$/;
 const dateRange = /^\[(\*|\d{4}-\d{2}-\d{2}) TO (\*|\d{4}-\d{2}-\d{2})\]$/;
@@ -32,6 +33,19 @@ const initializer = (
 
   if (field.term === 'xref' && initialValue?.database) {
     return '*';
+  }
+
+  if (
+    (field.term === 'proteome' || field.term === 'proteomecomponent') &&
+    initialValue?.proteomecomponent
+  ) {
+    const [proteomeId, component] = initialValue.proteomecomponent.split(':');
+    // A bare component value (eg proteomecomponent:"segment") must not populate
+    // the proteome ID field — it belongs to the component field instead.
+    if (reProteomeIdValue.test(proteomeId)) {
+      return (field.term === 'proteome' ? proteomeId : component) || '';
+    }
+    return field.term === 'proteome' ? '' : initialValue.proteomecomponent;
   }
 
   // Deal with autocomplete fields as they have two terms with different behavior:

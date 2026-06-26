@@ -1,5 +1,5 @@
 // Source: uniparc/UPI0000000001/databases
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const mock = {
   results: [
     {
@@ -9,7 +9,7 @@ const mock = {
       version: 3,
       active: true,
       created: '2007-01-23',
-      lastUpdated: '2026-01-28',
+      lastUpdated: '2026-06-10',
       geneName: 'OPG099',
       proteinName: 'Entry-fusion complex associated protein OPG095',
       organism: {
@@ -18,6 +18,12 @@ const mock = {
         taxonId: 10254,
       },
       ncbiGi: '138624',
+      proteomes: [
+        {
+          id: 'UP000000344',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'UniProtKB/Swiss-Prot',
@@ -35,10 +41,56 @@ const mock = {
     },
     {
       database: 'UniProtKB/TrEMBL',
-      id: 'Q6RZL4',
+      id: 'Q71TT2',
       versionI: 1,
       version: 1,
       active: true,
+      created: '2006-04-18',
+      lastUpdated: '2026-06-10',
+      geneName: 'L1R',
+      proteinName: 'L1R',
+      organism: {
+        scientificName: 'Vaccinia virus',
+        commonName: 'VACV',
+        taxonId: 10245,
+      },
+      proteomes: [
+        {
+          id: 'UP000097422',
+          component: 'Genome',
+        },
+        {
+          id: 'UP000153808',
+          component: 'Genome',
+        },
+        {
+          id: 'UP000181062',
+          component: 'Genome',
+        },
+        {
+          id: 'UP000181110',
+          component: 'Genome',
+        },
+        {
+          id: 'UP000181229',
+          component: 'Genome',
+        },
+        {
+          id: 'UP000181484',
+          component: 'Genome',
+        },
+        {
+          id: 'UP000501395',
+          component: 'Genome',
+        },
+      ],
+    },
+    {
+      database: 'UniProtKB/TrEMBL',
+      id: 'Q6RZL4',
+      versionI: 1,
+      version: 1,
+      active: false,
       created: '2004-07-05',
       lastUpdated: '2026-01-28',
       geneName: 'RPXV077',
@@ -54,7 +106,7 @@ const mock = {
       id: 'Q76QK2',
       versionI: 1,
       version: 1,
-      active: true,
+      active: false,
       created: '2004-07-05',
       lastUpdated: '2026-01-28',
       geneName: 'N1R',
@@ -67,26 +119,19 @@ const mock = {
     },
     {
       database: 'UniProtKB/TrEMBL',
-      id: 'Q71TT2',
+      id: 'Q76ZT7',
       versionI: 1,
       version: 1,
-      active: true,
-      created: '2006-04-18',
-      lastUpdated: '2026-01-28',
-      geneName: 'L1R',
-      proteinName: 'L1R',
-      organism: {
-        scientificName: 'Vaccinia virus',
-        commonName: 'VACV',
-        taxonId: 10245,
-      },
+      active: false,
+      created: '2004-07-05',
+      lastUpdated: '2011-06-28',
     },
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q0GNZ6',
       versionI: 1,
       version: 1,
-      active: true,
+      active: false,
       created: '2006-10-03',
       lastUpdated: '2026-01-28',
       geneName: 'HSPV_VK05_RKI-089',
@@ -102,7 +147,7 @@ const mock = {
       id: 'A0A2I2MDI1',
       versionI: 1,
       version: 1,
-      active: true,
+      active: false,
       created: '2018-02-28',
       lastUpdated: '2026-01-28',
       geneName: 'L1R',
@@ -112,31 +157,6 @@ const mock = {
         commonName: 'VACV',
         taxonId: 10254,
       },
-    },
-    {
-      database: 'UniProtKB/TrEMBL',
-      id: 'G0XTE8',
-      versionI: 1,
-      version: 1,
-      active: true,
-      created: '2024-11-27',
-      lastUpdated: '2026-01-28',
-      geneName: 'CPXV_FIN2000_MAN_093',
-      proteinName: 'IMV membrane protein',
-      organism: {
-        scientificName: 'Cowpox virus',
-        commonName: 'CPV',
-        taxonId: 10243,
-      },
-    },
-    {
-      database: 'UniProtKB/TrEMBL',
-      id: 'Q76ZT7',
-      versionI: 1,
-      version: 1,
-      active: false,
-      created: '2004-07-05',
-      lastUpdated: '2011-06-28',
     },
     {
       database: 'UniProtKB/TrEMBL',
@@ -155,13 +175,29 @@ const mock = {
       },
     },
     {
+      database: 'UniProtKB/TrEMBL',
+      id: 'G0XTE8',
+      versionI: 1,
+      version: 1,
+      active: false,
+      created: '2024-11-27',
+      lastUpdated: '2026-01-28',
+      geneName: 'CPXV_FIN2000_MAN_093',
+      proteinName: 'IMV membrane protein',
+      organism: {
+        scientificName: 'Cowpox virus',
+        commonName: 'CPV',
+        taxonId: 10243,
+      },
+    },
+    {
       database: 'RefSeq',
       id: 'YP_232970',
       versionI: 1,
       version: 1,
       active: true,
       created: '2005-10-06',
-      lastUpdated: '2025-09-02',
+      lastUpdated: '2026-03-16',
       geneName: 'L1R',
       proteinName: 'IMV membrane protein',
       organism: {
@@ -178,7 +214,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2022-10-19',
-      lastUpdated: '2025-09-02',
+      lastUpdated: '2026-03-16',
       geneName: 'OPG095',
       proteinName: 'IMV membrane protein L1R',
       organism: {
@@ -244,8 +280,12 @@ const mock = {
         taxonId: 10254,
       },
       ncbiGi: '29692194',
-      proteomeId: 'UP000000344',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000000344',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -263,8 +303,12 @@ const mock = {
         taxonId: 10243,
       },
       ncbiGi: '30519462',
-      proteomeId: 'UP000137384',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000137384',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -281,8 +325,12 @@ const mock = {
         taxonId: 32606,
       },
       ncbiGi: '44971440',
-      proteomeId: 'UP000166173',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000166173',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -291,7 +339,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2025-09-22',
+      lastUpdated: '2026-03-19',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',
@@ -299,8 +347,12 @@ const mock = {
         taxonId: 397342,
       },
       ncbiGi: '111184275',
-      proteomeId: 'UP000111173',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000111173',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -318,8 +370,12 @@ const mock = {
         taxonId: 10243,
       },
       ncbiGi: '325557828',
-      proteomeId: 'UP000113999',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000113999',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -337,8 +393,12 @@ const mock = {
         taxonId: 10245,
       },
       ncbiGi: '480542501',
-      proteomeId: 'UP000181229',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000181229',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -356,8 +416,12 @@ const mock = {
         taxonId: 10245,
       },
       ncbiGi: '480543595',
-      proteomeId: 'UP000181062',
-      component: 'Genome',
+      proteomes: [
+        {
+          id: 'UP000181062',
+          component: 'Genome',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -375,8 +439,12 @@ const mock = {
         taxonId: 10245,
       },
       ncbiGi: '723605536',
-      proteomeId: 'UP000181110',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000181110',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -394,8 +462,12 @@ const mock = {
         taxonId: 10245,
       },
       ncbiGi: '723605742',
-      proteomeId: 'UP000153808',
-      component: 'Segment',
+      proteomes: [
+        {
+          id: 'UP000153808',
+          component: 'Segment',
+        },
+      ],
     },
     {
       database: 'EMBL',
@@ -413,8 +485,12 @@ const mock = {
         taxonId: 10245,
       },
       ncbiGi: '929050100',
-      proteomeId: 'UP000097422',
-      component: 'Genome',
+      proteomes: [
+        {
+          id: 'UP000097422',
+          component: 'Genome',
+        },
+      ],
     },
   ],
 };

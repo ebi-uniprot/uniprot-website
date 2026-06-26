@@ -3,8 +3,8 @@ import './styles/entry-type-icon.scss';
 import {
   CommunityAnnotationIcon,
   ComputerMappedIcon,
+  NonReferenceProteomeIcon,
   ObsoleteIcon,
-  RedundantProteomeIcon,
   ReferenceProteomeIcon,
   SwissProtIcon,
   TremblIcon,
@@ -17,9 +17,8 @@ export enum EntryType {
   INACTIVE,
   UNIPARC,
   REFERENCE_PROTEOME,
-  REDUNDANT_PROTEOME,
+  NON_REFERENCE_PROTEOME,
   EXCLUDED_PROTEOME,
-  OTHER_PROTEOME,
   COMMUNITY_CURATED,
   COMPUTATIONAL_ANNOTATION,
 }
@@ -43,17 +42,16 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   if (entryTypeString.match(/ORCID$|community/gi)) {
     return EntryType.COMMUNITY_CURATED;
   }
-  if (entryTypeString.match(/Reference|Representative/gi)) {
-    return EntryType.REFERENCE_PROTEOME;
+  if (
+    entryTypeString.match(/Non\sReference\sproteome|Non-reference\sproteome/i)
+  ) {
+    return EntryType.NON_REFERENCE_PROTEOME;
   }
-  if (entryTypeString.match(/Redundant/gi)) {
-    return EntryType.REDUNDANT_PROTEOME;
+  if (entryTypeString.match(/Reference\sproteome/i)) {
+    return EntryType.REFERENCE_PROTEOME;
   }
   if (entryTypeString.match(/Excluded/gi)) {
     return EntryType.EXCLUDED_PROTEOME;
-  }
-  if (entryTypeString.match(/Other\sproteome/gi)) {
-    return EntryType.OTHER_PROTEOME;
   }
   if (entryTypeString.match(/Computational/gi)) {
     return EntryType.COMPUTATIONAL_ANNOTATION;
@@ -125,20 +123,20 @@ const EntryTypeIcon = ({
       </span>
     );
   }
-  if (entryTypeToCheck === EntryType.REDUNDANT_PROTEOME) {
+  if (entryTypeToCheck === EntryType.NON_REFERENCE_PROTEOME) {
     return (
       <span
         className="entry-title__status icon--redundant-excluded-proteome"
-        title={title || 'This marks a redundant Proteome entry'}
+        title={title || 'This marks a non-reference Proteome entry'}
       >
-        <RedundantProteomeIcon />
+        <NonReferenceProteomeIcon />
       </span>
     );
   }
   if (entryTypeToCheck === EntryType.EXCLUDED_PROTEOME) {
     return (
       <span
-        className="entry-title__status icon--redundant-excluded-proteome"
+        className="entry-title__status icon--excluded-proteome"
         title={title || 'This marks an excluded Proteome entry'}
       >
         <ObsoleteIcon />

@@ -1,16 +1,16 @@
 import { type UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/P0DTR4
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P0DTR4',
   uniProtkbId: 'ADAC_FLAPL',
   entryAudit: {
     firstPublicDate: '2019-11-13',
-    lastAnnotationUpdateDate: '2026-01-28',
+    lastAnnotationUpdateDate: '2026-06-10',
     lastSequenceUpdateDate: '2019-11-13',
-    entryVersion: 18,
+    entryVersion: 19,
     sequenceVersion: 1,
   },
   annotationScore: 5,
@@ -837,6 +837,16 @@ const mock: UniProtkbAPIModel = {
         {
           key: 'Description',
           value: '-',
+        },
+      ],
+    },
+    {
+      database: 'CAZy',
+      id: 'CBM32',
+      properties: [
+        {
+          key: 'FamilyName',
+          value: 'Carbohydrate-Binding Module Family 32',
         },
       ],
     },

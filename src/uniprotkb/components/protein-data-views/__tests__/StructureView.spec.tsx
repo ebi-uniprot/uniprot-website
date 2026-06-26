@@ -60,7 +60,7 @@ describe('StructureView', () => {
     expect(el).toHaveAttribute('accession', 'P12345');
   });
 
-  it('renders the Feature Viewer message when primaryAccession is set and not viewerOnly', () => {
+  it('renders the Feature Viewer message when primaryAccession is set and isUniProtKBAccession is true', () => {
     customRender(<StructureView primaryAccession="P12345" />, {
       route: '/uniprotkb/P12345/entry',
     });
@@ -69,10 +69,13 @@ describe('StructureView', () => {
     ).toBeInTheDocument();
   });
 
-  it('hides the Feature Viewer message when viewerOnly', () => {
-    customRender(<StructureView primaryAccession="P12345" viewerOnly />, {
-      route: '/uniprotkb/P12345/entry',
-    });
+  it('hides the Feature Viewer message when not a UniProtKB accession', () => {
+    customRender(
+      <StructureView primaryAccession="P12345" isUniProtKBAccession={false} />,
+      {
+        route: '/uniprotkb/P12345/entry',
+      }
+    );
     expect(
       screen.queryByRole('link', { name: 'Feature Viewer' })
     ).not.toBeInTheDocument();
@@ -140,6 +143,18 @@ describe('StructureView', () => {
     fireStructuresLoaded([pdbStructure]);
     expect(
       screen.queryByRole('cell', { name: '5R7Y' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('shows the table but not the Feature Viewer message for a non-UniProtKB accession', () => {
+    customRender(
+      <StructureView primaryAccession="P12345" isUniProtKBAccession={false} />,
+      { route: '/uniprotkb/P12345/entry' }
+    );
+    fireStructuresLoaded([pdbStructure]);
+    expect(screen.getByRole('cell', { name: '5R7Y' })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: 'Feature Viewer' })
     ).not.toBeInTheDocument();
   });
 

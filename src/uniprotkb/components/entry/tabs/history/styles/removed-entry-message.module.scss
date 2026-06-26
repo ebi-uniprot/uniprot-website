@@ -1,3 +1,9 @@
 .active-entries-table {
   margin: 1rem 0;
 }
+
+// Primary "what happened to this entry" status line (e.g. "merged into …",
+// "demerged"), emphasised so it stands out regardless of message variant.
+.statement {
+  font-size: 1rem;
+}

@@ -107,7 +107,7 @@ describe('tools adapter tests', () => {
           align: 0,
           alignments: 250,
           compstats: 'F',
-          database: 'uniprotkb_refprotswissprot',
+          database: 'uniprotkb',
           exp: '1e-1',
           filter: 'T',
           matrix: 'BLOSUM45',
@@ -129,7 +129,7 @@ describe('tools adapter tests', () => {
         );
 
         expect(formParams).toEqual({
-          database: 'uniprotkb_refprotswissprot',
+          database: 'uniprotkb',
           filter: 'T',
           gapped: false,
           hits: 250,
@@ -148,7 +148,7 @@ describe('tools adapter tests', () => {
         const serverParams: PublicServerParameters[JobTypes.BLAST] = {
           alignments: 250,
           compstats: 'F',
-          database: 'uniprotkb_refprotswissprot',
+          database: 'uniprotkb',
           exp: '1e-1',
           filter: 'T',
           matrix: 'BLOSUM45',
@@ -166,7 +166,7 @@ describe('tools adapter tests', () => {
         );
 
         expect(formParams).toEqual({
-          database: 'uniprotkb_refprotswissprot',
+          database: 'uniprotkb',
           filter: 'T',
           gapped: false,
           hits: 250,

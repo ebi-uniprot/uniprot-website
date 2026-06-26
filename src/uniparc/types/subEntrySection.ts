@@ -9,6 +9,10 @@ enum SubEntrySection {
   FamilyAndDomains = 'family_and_domains',
   Sequence = 'sequence',
   SimilarProteins = 'similar_proteins',
+  // Catch-all keywords section. Renders UniFire `keyword` / `xref.GO`
+  // predictions (uncategorised, so `uniProtKbConverter` cannot section them)
+  // and, as a fallback, precomputed keywords whose category has no dedicated
+  // sub-entry section. The value is the DOM id and in-page-nav anchor.
   KeywordsAndGO = 'keywords_and_go',
 }
 

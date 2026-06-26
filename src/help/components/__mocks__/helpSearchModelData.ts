@@ -1,7 +1,7 @@
 import { type HelpSearchResponse } from '../../types/apiModel';
 
 // Source: help/search?facets=category&query=canonical&size=500
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const helpModelData: HelpSearchResponse = {
   facets: [
     {
@@ -31,6 +31,10 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'Entry information',
+          count: 1,
+        },
+        {
+          value: 'Get started',
           count: 1,
         },
         {
@@ -67,7 +71,7 @@ const helpModelData: HelpSearchResponse = {
         },
         {
           value: 'UniProtKB',
-          count: 9,
+          count: 10,
         },
         {
           value: 'UniRef',
@@ -97,7 +101,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'canonical_and_isoforms',
       title:
         'What is the canonical sequence? Are all isoforms described in one entry?',
-      lastModified: '2022-12-23',
+      lastModified: '2023-02-14',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -119,7 +123,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'retrieve_sets',
       title: 'How to retrieve sets of protein sequences?',
-      lastModified: '2026-01-07',
+      lastModified: '2026-04-27',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -132,14 +136,14 @@ const helpModelData: HelpSearchResponse = {
       ],
       matches: {
         content: [
-          ' entries in these formats each contain only one protein sequence, the so-called \'<span class="match-highlight">canonical\'</span> sequence.',
+          ' these formats each contain only one protein sequence, the so-called \'<span class="match-highlight">canonical\'</span> sequence. UniProtKB',
         ],
       },
     },
     {
       id: 'conflict',
       title: 'Sequence conflict',
-      lastModified: '2025-11-26',
+      lastModified: '2026-01-08',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -151,7 +155,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequence_processing',
       title: 'Sequence processing',
-      lastModified: '2022-04-28',
+      lastModified: '2022-05-07',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -163,7 +167,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'alternative_products',
       title: 'Alternative products',
-      lastModified: '2023-11-24',
+      lastModified: '2023-12-06',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -175,7 +179,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'proteome',
       title: 'What are proteomes?',
-      lastModified: '2026-01-07',
+      lastModified: '2026-01-08',
       type: 'help',
       categories: ['Proteomes', 'UniProtKB', 'Keywords', 'Sequence', 'faq'],
       matches: {
@@ -187,7 +191,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequence_caution',
       title: 'Sequence caution',
-      lastModified: '2022-04-28',
+      lastModified: '2022-05-07',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -218,7 +222,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequences',
       title: 'Sequences',
-      lastModified: '2025-11-26',
+      lastModified: '2026-01-08',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -230,7 +234,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'human_proteome',
       title: "What is UniProt's human proteome?",
-      lastModified: '2025-11-26',
+      lastModified: '2026-01-08',
       type: 'help',
       categories: [
         'Proteomes',
@@ -250,7 +254,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequence_length',
       title: 'Sequence length',
-      lastModified: '2022-04-28',
+      lastModified: '2022-05-07',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -260,21 +264,21 @@ const helpModelData: HelpSearchResponse = {
       },
     },
     {
-      id: 'structure_section',
-      title: 'Structure annotation in UniProt',
-      lastModified: '2025-10-24',
+      id: 'explore_uniprotkb_entry',
+      title: 'Explore UniProtKB entry',
+      lastModified: '2026-04-27',
       type: 'help',
-      categories: ['3D structure', 'manual'],
+      categories: ['Get started', 'UniProtKB'],
       matches: {
         content: [
-          ' (see the PDB cross-reference <span class="match-highlight">help</span> page). These structures may cover different ranges of the sequence,',
+          ' coordinates are shown for both the <span class="match-highlight">canonical</span> and isoform sequences. Example: P49841. If this tab is disabled,',
         ],
       },
     },
     {
       id: 'unsure',
       title: 'Sequence uncertainty',
-      lastModified: '2022-04-28',
+      lastModified: '2022-05-07',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -284,9 +288,21 @@ const helpModelData: HelpSearchResponse = {
       },
     },
     {
+      id: 'structure_section',
+      title: 'Structure annotation in UniProt',
+      lastModified: '2026-04-27',
+      type: 'help',
+      categories: ['3D structure', 'manual'],
+      matches: {
+        content: [
+          ' (see the PDB cross-reference <span class="match-highlight">help</span> page). These structures may cover different ranges of the sequence,',
+        ],
+      },
+    },
+    {
       id: 'sequence_status',
       title: 'Sequence status',
-      lastModified: '2023-10-12',
+      lastModified: '2023-10-27',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -298,7 +314,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'var_seq',
       title: 'Alternative sequence',
-      lastModified: '2022-04-28',
+      lastModified: '2022-05-07',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -310,7 +326,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'cross_references_section',
       title: 'Cross-references section',
-      lastModified: '2025-02-04',
+      lastModified: '2025-03-11',
       type: 'help',
       categories: ['Cross-references', 'manual'],
       matches: {
@@ -322,7 +338,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequences_section',
       title: 'Sequence section',
-      lastModified: '2023-06-06',
+      lastModified: '2023-06-09',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -334,7 +350,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'variant',
       title: 'Natural variant',
-      lastModified: '2025-10-17',
+      lastModified: '2025-09-19',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -346,7 +362,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'entry_history',
       title: 'Entry history',
-      lastModified: '2022-04-28',
+      lastModified: '2022-05-07',
       type: 'help',
       categories: ['Entry information', 'manual'],
       matches: {
@@ -359,7 +375,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'protein_diversity',
       title:
         'How are protein sequence variety and protein diversity represented in UniProtKB?',
-      lastModified: '2025-11-26',
+      lastModified: '2026-01-08',
       type: 'help',
       categories: [
         'UniProtKB',
@@ -379,7 +395,7 @@ const helpModelData: HelpSearchResponse = {
       id: 'gene_centric_isoform_mapping',
       title:
         'Automatic gene-centric isoform mapping for eukaryotic reference proteome entries',
-      lastModified: '2025-10-17',
+      lastModified: '2022-05-07',
       type: 'help',
       categories: ['help'],
       matches: {
@@ -391,7 +407,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'sequence_origin',
       title: 'Where do the UniProtKB protein sequences come from?',
-      lastModified: '2025-11-26',
+      lastModified: '2026-01-08',
       type: 'help',
       categories: ['UniProtKB', 'Sequence', 'faq'],
       matches: {
@@ -403,7 +419,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'manual_curation',
       title: 'How do we manually annotate a UniProtKB entry?',
-      lastModified: '2025-06-12',
+      lastModified: '2025-09-19',
       type: 'help',
       categories: ['UniProtKB', 'Biocuration', 'About UniProt', 'faq'],
       matches: {
@@ -415,7 +431,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'redundancy',
       title: 'How redundant are the UniProt databases?',
-      lastModified: '2025-02-04',
+      lastModified: '2026-04-27',
       type: 'help',
       categories: [
         'UniParc',
@@ -434,7 +450,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'rna_editing',
       title: 'RNA editing',
-      lastModified: '2025-03-05',
+      lastModified: '2025-03-11',
       type: 'help',
       categories: ['Sequence', 'manual'],
       matches: {
@@ -446,7 +462,7 @@ const helpModelData: HelpSearchResponse = {
     {
       id: 'query-fields',
       title: 'UniProtKB query fields',
-      lastModified: '2025-11-26',
+      lastModified: '2026-01-08',
       type: 'help',
       categories: ['Text search', 'Technical', 'Website', 'help'],
       matches: {

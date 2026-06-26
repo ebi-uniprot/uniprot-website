@@ -33,19 +33,11 @@ export enum BlastFields {
 export type BlastFormValues = Record<BlastFields, Readonly<BlastFormValue>>;
 
 const databases = [
-  {
-    value: 'uniprotkb_refprotswissprot',
-    label: 'UniProtKB reference proteomes + Swiss-Prot',
-  },
   { value: 'uniprotkb', label: 'UniProtKB' },
   { value: 'uniprotkb_pdb', label: 'UniProtKB with 3D structure (PDB)' },
   {
     value: 'afdb',
     label: 'UniProtKB with 3D structure predictions (AlphaFold)',
-  },
-  {
-    value: 'uniprotkb_reference_proteomes',
-    label: 'UniProtKB reference proteomes',
   },
   { value: 'uniprotkb_swissprot', label: 'UniProtKB Swiss-Prot' },
   { value: 'uniref100', label: 'UniRef100' },
@@ -74,7 +66,7 @@ const formData: Readonly<BlastFormValues> = deepFreeze({
   },
   [BlastFields.database]: {
     fieldName: 'database',
-    selected: 'uniprotkb_refprotswissprot',
+    selected: 'uniprotkb',
     values: databases,
   },
   [BlastFields.taxons]: {

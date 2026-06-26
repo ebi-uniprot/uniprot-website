@@ -81,7 +81,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                UniProtKB reviewed (Swiss-Prot) (25)
+                UniProtKB reviewed (Swiss-Prot) (26)
               </a>
             </li>
             <li>
@@ -95,7 +95,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                Computationally mapped (26)
+                Computationally mapped (27)
               </a>
             </li>
             <li>
@@ -130,7 +130,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 class=""
                 href="/?facets=categories%3AInteraction"
               >
-                Interaction (27)
+                Interaction (28)
               </a>
             </li>
             <li>
@@ -138,7 +138,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 class=""
                 href="/?facets=categories%3AFunction"
               >
-                Function (14)
+                Function (15)
               </a>
             </li>
             <li>
@@ -162,7 +162,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 class=""
                 href="/?facets=categories%3ADisease+%26+Variants"
               >
-                Disease & Variants (7)
+                Disease & Variants (8)
               </a>
             </li>
             <li>
@@ -192,7 +192,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 class=""
                 href="/?facets=is_large_scale%3Afalse"
               >
-                Small scale (31)
+                Small scale (33)
               </a>
             </li>
             <li>

@@ -124,7 +124,10 @@ const NamesAndTaxonomySection = ({
       data-entry-section
     >
       <h3 data-article-id="protein_names">Protein names</h3>
-      <ProteinNamesView proteinNames={data.proteinNamesData} />
+      <ProteinNamesView
+        proteinNames={data.proteinNamesData}
+        protnlmProteinNames={data.protnlmProteinNamesData}
+      />
       {!!domains?.length && (
         <>
           <h4 className="tiny">{`Including ${domains.length} ${pluralise(

@@ -1,5 +1,9 @@
 import cn from 'classnames';
-import { LongNumber, ReferenceProteomeIcon, TremblIcon } from 'franklin-sites';
+import {
+  LongNumber,
+  NonReferenceProteomeIcon,
+  ReferenceProteomeIcon,
+} from 'franklin-sites';
 import { useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import joinUrl from 'url-join';
@@ -8,7 +12,6 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import SpeciesIllustration from '../../../images/species_illustration.img.svg';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import HTMLHead from '../../../shared/components/HTMLHead';
-import { RefProtMoveResultsMessage } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import ftpUrls from '../../../shared/config/ftpUrls';
 // import YouTubeEmbed from '../../../shared/components/YouTubeEmbed';
@@ -22,23 +25,23 @@ import styles from './styles/landing-page.module.scss';
 
 const documentationLinks = [
   {
-    label: 'What is a proteome?',
+    label: 'What are proteomes?',
     id: 'proteome',
   },
   {
-    label: 'Reference proteome',
+    label: 'Explore proteomes',
+    id: 'explore_proteomes',
+  },
+  {
+    label: 'What are reference proteomes?',
     id: 'reference_proteome',
   },
   {
-    label: 'Gene-centric isoform mapping',
-    id: 'gene_centric_isoform_mapping',
+    label: 'How are reference proteomes selected?',
+    id: 'ref_proteomes_workflow',
   },
   {
-    label: 'Proteome redundancy',
-    id: 'proteome_redundancy',
-  },
-  {
-    label: 'Pan proteome',
+    label: 'Pan proteomes',
     id: 'pan_proteomes',
   },
 ];
@@ -79,11 +82,11 @@ const LandingPage = () => {
 
   if (data?.facets?.[0].values?.length) {
     refProtCount = data?.facets?.[0].values.find(
-      (value) => value.value === '1'
+      (value) => value.value === 'REFERENCE'
     )?.count;
-    nonRefProtCount = data?.facets?.[0].values
-      .filter((value) => value.value !== '1')
-      ?.reduce((sum, value) => sum + value.count, 0);
+    nonRefProtCount = data?.facets?.[0].values.find(
+      (value) => value.value === 'NON_REFERENCE'
+    )?.count;
   }
 
   const [refProtHovered, setRefProtHovered] = useState(false);
@@ -156,6 +159,23 @@ const LandingPage = () => {
             characterized sequences may be added.
           </p>
           <p>
+            UniProt also provides{' '}
+            <Link
+              to={generatePath(LocationToPath[Location.HelpEntry], {
+                accession: 'pan_proteomes',
+              })}
+            >
+              pan proteomes
+            </Link>{' '}
+            for numerous species across the tree of life, to represent the
+            observed protein diversity. All available species pan proteomes can
+            be accessed either in bulk or individually through the{' '}
+            <ExternalLink url={ftpUrls.panProteomes()}>
+              FTP directory
+            </ExternalLink>
+            , or from the summary header section of a proteome page.
+          </p>
+          <p>
             <Link
               to={{
                 pathname: LocationToPath[Location.ProteomesResults],
@@ -166,21 +186,21 @@ const LandingPage = () => {
             </Link>
           </p>
         </div>
-        <RefProtMoveResultsMessage namespace={Namespace.proteomes} />
         {/* Statistics */}
         <section className="uniprot-grid-cell--small-span-12 uniprot-grid-cell--medium-span-9">
           <h2>Statistics</h2>
           <div className={styles.statistics}>
             <div className={styles.chart}>
-              <h3 className="tiny">Taxonomic origin</h3>
+              <h3 className="tiny">
+                Taxonomic origin of {refProtHovered && 'reference'}{' '}
+                {nonRefProtHovered && 'non-reference'} proteomes
+              </h3>
               <StatisticsChart
                 refProt={refProtHovered}
                 nonRefProt={nonRefProtHovered}
               />
             </div>
             <section className={styles['entries-count']}>
-              <h3 className="tiny">Number of Entries</h3>
-              <br />
               <p
                 onPointerEnter={() => setRefProtHovered(true)}
                 onFocus={() => setRefProtHovered(true)}
@@ -199,11 +219,11 @@ const LandingPage = () => {
                       to={{
                         pathname: LocationToPath[Location.ProteomesResults],
                         search: stringifyQuery({
-                          query: 'proteome_type:1',
+                          query: 'proteome_type:REFERENCE',
                         }),
                       }}
                     >
-                      <LongNumber>{refProtCount}</LongNumber> entries
+                      <LongNumber>{refProtCount}</LongNumber>
                     </Link>
                   )}
                   <br />
@@ -226,7 +246,10 @@ const LandingPage = () => {
                 onPointerLeave={() => setNonRefProtHovered(false)}
                 onBlur={() => setNonRefProtHovered(false)}
               >
-                <TremblIcon width="4ch" className={styles['unreviewed-icon']} />
+                <NonReferenceProteomeIcon
+                  width="3ch"
+                  className={styles['non-ref-prot-icon']}
+                />
                 <span>
                   Non-reference proteomes
                   <br />
@@ -236,11 +259,11 @@ const LandingPage = () => {
                         pathname: LocationToPath[Location.ProteomesResults],
                         search: stringifyQuery({
                           query:
-                            'proteome_type:2 OR proteome_type:3 OR proteome_type:4',
+                            'proteome_type:NON_REFERENCE OR proteome_type:EXCLUDED',
                         }),
                       }}
                     >
-                      <LongNumber>{nonRefProtCount}</LongNumber> entries
+                      <LongNumber>{nonRefProtCount}</LongNumber>
                     </Link>
                   )}
                 </span>

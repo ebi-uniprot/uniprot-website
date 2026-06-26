@@ -29,31 +29,46 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 const SubEntrySequenceSection = ({
-  data,
+  uniparcData,
 }: {
-  data?: UniParcSubEntryUIModel;
+  uniparcData?: UniParcSubEntryUIModel;
 }) => {
   const history = useHistory();
 
-  const sourceDatabases = data?.subEntry.properties?.filter(
+  const sourceDatabases = uniparcData?.subEntry.properties?.filter(
     (property) => property.key === 'sources'
   );
+  const sourceXref = uniparcData?.subEntry.source;
 
   const dataDB = useDataApi<DataDBModel>(
-    sourceDatabases?.length
+    sourceDatabases?.length || sourceXref?.database
       ? apiUrls.configure.allDatabases(Namespace.uniparc)
       : undefined
   );
   const templateMap = useMemo(() => getTemplateMap(dataDB.data), [dataDB.data]);
 
-  const sequence = data?.entry[EntrySection.Sequence];
-  if (!data || !hasContent(data) || !sequence) {
+  const sequence = uniparcData?.entry[EntrySection.Sequence];
+  if (!uniparcData || !hasContent(uniparcData) || !sequence) {
     return null;
   }
 
   if (dataDB.loading) {
     return <Loader />;
   }
+
+  const sourceDB = sourceXref?.database;
+  const sourceId = sourceXref?.id;
+  const sourceTemplate = sourceDB && templateMap.get(sourceDB);
+  const sourceContent =
+    sourceDB && sourceTemplate && sourceId ? (
+      <ExternalLink
+        url={sourceTemplate.replace('%id', getXrefId(sourceId, sourceDB))}
+      >
+        {sourceDB}
+      </ExternalLink>
+    ) : (
+      sourceDB
+    );
 
   const infoData = [
     {
@@ -70,12 +85,12 @@ const SubEntrySequenceSection = ({
     },
     {
       title: 'Source',
-      content: data.subEntry.source?.database, // TODO: add external link
+      content: sourceContent,
     },
   ];
 
   const flagPredictions =
-    data.unifire?.predictions.filter(
+    uniparcData.unifire?.predictions.filter(
       (p) => p.annotationType === 'protein.flag'
     ) || [];
 
@@ -109,7 +124,7 @@ const SubEntrySequenceSection = ({
         />
       ) : null}
       <Sequence
-        accession={data.entry.uniParcId}
+        accession={uniparcData.entry.uniParcId}
         sequence={sequence.value}
         infoData={infoData}
         onBlastClick={() =>

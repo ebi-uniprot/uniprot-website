@@ -102,7 +102,7 @@ const Entry = () => {
           <BasketStatus id={accession} className="small" />
         </h1>
         <Overview transformedData={transformedData} />
-        {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
+        {/* TODO: eventually remove nResults prop (see note in EntryDownload) */}
         {displayDownloadPanel && (
           <EntryDownloadPanel
             handleToggle={handleToggleDownload}

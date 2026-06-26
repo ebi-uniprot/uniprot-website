@@ -47,7 +47,7 @@ import { pluralise } from '../../shared/utils/utils';
 import { type Clause, type SearchTermType } from '../types/searchTypes';
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
-import { stringify } from '../utils/queryStringProcessor';
+import { reProteomeIdValue, stringify } from '../utils/queryStringProcessor';
 import ClauseList from './ClauseList';
 
 type Props = {
@@ -258,6 +258,28 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    // A proteome component can only be searched when scoped by a valid proteome
+    // ID. If the user provided a component without one, warn them and ignore it
+    // (stringify drops it from the resulting query).
+    const hasOrphanComponent = clauses.some(
+      (clause) =>
+        clause.queryBits.proteomecomponent &&
+        !(
+          clause.queryBits.proteome &&
+          reProteomeIdValue.test(clause.queryBits.proteome)
+        )
+    );
+    if (hasOrphanComponent) {
+      dispatch(
+        addMessage({
+          content:
+            'A proteome ID is needed to search by proteome component; the component has been ignored.',
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.WARNING,
+          displayTime: 5_000,
+        })
+      );
+    }
     const search = stringifyQuery({ query: stringify(clauses) || '*' });
     const pathname =
       searchspace === toolResults && jobId && jobResultsLocation

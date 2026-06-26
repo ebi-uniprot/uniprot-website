@@ -11,3 +11,9 @@
   max-inline-size: 50ch;
   margin-inline: auto;
 }
+
+// NightingaleZoomTool floats left; flow-root contains it so the wrapper keeps
+// its height and the feature viewer's navigation rail below stays aligned.
+.zoom-tool-row {
+  display: flow-root;
+}

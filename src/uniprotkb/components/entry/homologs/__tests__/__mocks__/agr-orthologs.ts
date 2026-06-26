@@ -1,13 +1,13 @@
 import { type AgrOrthologs } from '../../../../../types/agrOrthologs';
 
 // Source: https://www.alliancegenome.org/api/gene/HGNC:620/orthologs?filter.stringency=all&limit=10000
-// Retrieved: 2025-07-07
+// Retrieved: 2026-06-04
 const mock: AgrOrthologs = {
   results: [
     {
       category: 'gene_to_gene_orthology',
       searchable: false,
-      stringencyFilter: 'all',
+      stringencyFilter: 'stringent',
       geneAnnotations: [
         {
           hasDiseaseAnnotations: true,
@@ -15,16 +15,16 @@ const mock: AgrOrthologs = {
           geneIdentifier: 'HGNC:620',
         },
         {
-          hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'FB:FBgn0031560',
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: true,
+          geneIdentifier: 'MGI:88059',
         },
       ],
       geneAnnotationsMap: {
-        'FB:FBgn0031560': {
-          hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'FB:FBgn0031560',
+        'MGI:88059': {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: true,
+          geneIdentifier: 'MGI:88059',
         },
         'HGNC:620': {
           hasDiseaseAnnotations: true,
@@ -33,151 +33,83 @@ const mock: AgrOrthologs = {
         },
       },
       geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
         subjectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'HGNC:620',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:9606',
             name: 'Homo sapiens',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'APP',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         objectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'FB:FBgn0031560',
+          primaryExternalId: 'MGI:88059',
           taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:7227',
-            name: 'Drosophila melanogaster',
-            childCount: 0,
+            curie: 'NCBITaxon:10090',
+            name: 'Mus musculus',
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'CG16713',
-            notInternalOrObsolete: true,
+            displayText: 'App',
           },
-          notInternalOrObsolete: true,
         },
         isBestScore: {
-          internal: false,
-          obsolete: false,
-          name: 'No',
-          notInternalOrObsolete: true,
+          name: 'Yes',
         },
         isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
-          name: 'No',
-          notInternalOrObsolete: true,
+          name: 'Yes',
         },
         confidence: {
-          internal: false,
-          obsolete: false,
-          name: 'low',
-          notInternalOrObsolete: true,
+          name: 'high',
         },
-        strictFilter: false,
-        moderateFilter: false,
+        strictFilter: true,
+        moderateFilter: true,
         predictionMethodsMatched: [
           {
-            internal: false,
-            obsolete: false,
+            name: 'HGNC',
+          },
+          {
+            name: 'Hieranoid',
+          },
+          {
+            name: 'InParanoid',
+          },
+          {
+            name: 'OMA',
+          },
+          {
+            name: 'OrthoFinder',
+          },
+          {
+            name: 'OrthoInspector',
+          },
+          {
+            name: 'PANTHER',
+          },
+          {
             name: 'PhylomeDB',
-            notInternalOrObsolete: true,
+          },
+          {
+            name: 'SonicParanoid',
           },
         ],
         predictionMethodsNotMatched: [
           {
-            internal: false,
-            obsolete: false,
-            name: 'SonicParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoFinder',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Hieranoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'InParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PANTHER',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OMA',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
             name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoInspector',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotCalled: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Xenbase',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'ZFIN',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'HGNC',
-            notInternalOrObsolete: true,
           },
         ],
-        notInternalOrObsolete: true,
       },
     },
     {
@@ -209,333 +141,89 @@ const mock: AgrOrthologs = {
         },
       },
       geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
         subjectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'HGNC:620',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:9606',
             name: 'Homo sapiens',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'APP',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         objectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'ZFIN:ZDB-GENE-000616-13',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:7955',
             name: 'Danio rerio',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'appa',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         isBestScore: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         confidence: {
-          internal: false,
-          obsolete: false,
           name: 'high',
-          notInternalOrObsolete: true,
         },
         strictFilter: true,
         moderateFilter: true,
         predictionMethodsMatched: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Hieranoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'InParanoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OMA',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OrthoFinder',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OrthoInspector',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'PANTHER',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'PhylomeDB',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'SonicParanoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'ZFIN',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotMatched: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotCalled: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Xenbase',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'HGNC',
-            notInternalOrObsolete: true,
           },
         ],
-        notInternalOrObsolete: true,
       },
     },
     {
       category: 'gene_to_gene_orthology',
       searchable: false,
-      stringencyFilter: 'stringent',
-      geneAnnotations: [
-        {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-        {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: true,
-          geneIdentifier: 'RGD:2139',
-        },
-      ],
-      geneAnnotationsMap: {
-        'HGNC:620': {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-        'RGD:2139': {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: true,
-          geneIdentifier: 'RGD:2139',
-        },
-      },
-      geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
-        subjectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'HGNC:620',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:9606',
-            name: 'Homo sapiens',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'APP',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        objectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'RGD:2139',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:10116',
-            name: 'Rattus norvegicus',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'App',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        isBestScore: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
-        },
-        isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
-        },
-        confidence: {
-          internal: false,
-          obsolete: false,
-          name: 'high',
-          notInternalOrObsolete: true,
-        },
-        strictFilter: true,
-        moderateFilter: true,
-        predictionMethodsMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Hieranoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'InParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OMA',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoFinder',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoInspector',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PANTHER',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PhylomeDB',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'HGNC',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'SonicParanoid',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotCalled: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Xenbase',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'ZFIN',
-            notInternalOrObsolete: true,
-          },
-        ],
-        notInternalOrObsolete: true,
-      },
-    },
-    {
-      category: 'gene_to_gene_orthology',
-      searchable: false,
-      stringencyFilter: 'stringent',
+      stringencyFilter: 'all',
       geneAnnotations: [
         {
           hasDiseaseAnnotations: true,
@@ -544,15 +232,15 @@ const mock: AgrOrthologs = {
         },
         {
           hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: true,
-          geneIdentifier: 'FB:FBgn0000108',
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'FB:FBgn0031560',
         },
       ],
       geneAnnotationsMap: {
-        'FB:FBgn0000108': {
+        'FB:FBgn0031560': {
           hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: true,
-          geneIdentifier: 'FB:FBgn0000108',
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'FB:FBgn0031560',
         },
         'HGNC:620': {
           hasDiseaseAnnotations: true,
@@ -561,327 +249,83 @@ const mock: AgrOrthologs = {
         },
       },
       geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
         subjectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'HGNC:620',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:9606',
             name: 'Homo sapiens',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'APP',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         objectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'FB:FBgn0000108',
+          primaryExternalId: 'FB:FBgn0031560',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:7227',
             name: 'Drosophila melanogaster',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'Appl',
-            notInternalOrObsolete: true,
+            displayText: 'CG16713',
           },
-          notInternalOrObsolete: true,
         },
         isBestScore: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
-        },
-        isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
           name: 'No',
-          notInternalOrObsolete: true,
-        },
-        confidence: {
-          internal: false,
-          obsolete: false,
-          name: 'moderate',
-          notInternalOrObsolete: true,
-        },
-        strictFilter: true,
-        moderateFilter: false,
-        predictionMethodsMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Hieranoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'InParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OMA',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoFinder',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoInspector',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PANTHER',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'SonicParanoid',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PhylomeDB',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotCalled: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Xenbase',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'ZFIN',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'HGNC',
-            notInternalOrObsolete: true,
-          },
-        ],
-        notInternalOrObsolete: true,
-      },
-    },
-    {
-      category: 'gene_to_gene_orthology',
-      searchable: false,
-      stringencyFilter: 'stringent',
-      geneAnnotations: [
-        {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-        {
-          hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'Xenbase:XB-GENE-479154',
-        },
-      ],
-      geneAnnotationsMap: {
-        'Xenbase:XB-GENE-479154': {
-          hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'Xenbase:XB-GENE-479154',
-        },
-        'HGNC:620': {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-      },
-      geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
-        subjectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'HGNC:620',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:9606',
-            name: 'Homo sapiens',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'APP',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        objectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'Xenbase:XB-GENE-479154',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:8364',
-            name: 'Xenopus tropicalis',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'app',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        isBestScore: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
         },
         isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
+          name: 'No',
         },
         confidence: {
-          internal: false,
-          obsolete: false,
-          name: 'high',
-          notInternalOrObsolete: true,
+          name: 'low',
         },
-        strictFilter: true,
+        strictFilter: false,
         moderateFilter: false,
         predictionMethodsMatched: [
           {
-            internal: false,
-            obsolete: false,
-            name: 'Hieranoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'InParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OMA',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoFinder',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoInspector',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PANTHER',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
             name: 'PhylomeDB',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'SonicParanoid',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotMatched: [
           {
-            internal: false,
-            obsolete: false,
+            name: 'SonicParanoid',
+          },
+          {
+            name: 'OrthoFinder',
+          },
+          {
+            name: 'Hieranoid',
+          },
+          {
+            name: 'InParanoid',
+          },
+          {
+            name: 'PANTHER',
+          },
+          {
+            name: 'OMA',
+          },
+          {
             name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
+          },
+          {
+            name: 'OrthoInspector',
           },
         ],
         predictionMethodsNotCalled: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Xenbase',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'ZFIN',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'HGNC',
-            notInternalOrObsolete: true,
           },
         ],
-        notInternalOrObsolete: true,
       },
     },
     {
@@ -913,433 +357,46 @@ const mock: AgrOrthologs = {
         },
       },
       geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
         subjectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'HGNC:620',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:9606',
             name: 'Homo sapiens',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'APP',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         objectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'Xenbase:XB-GENE-17345003',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:8355',
             name: 'Xenopus laevis',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'app.S',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         isBestScore: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         confidence: {
-          internal: false,
-          obsolete: false,
           name: 'high',
-          notInternalOrObsolete: true,
         },
         strictFilter: true,
         moderateFilter: true,
         predictionMethodsMatched: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Xenbase',
-            notInternalOrObsolete: true,
           },
         ],
-        notInternalOrObsolete: true,
-      },
-    },
-    {
-      category: 'gene_to_gene_orthology',
-      searchable: false,
-      stringencyFilter: 'all',
-      geneAnnotations: [
-        {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-        {
-          hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'RGD:69257',
-        },
-      ],
-      geneAnnotationsMap: {
-        'RGD:69257': {
-          hasDiseaseAnnotations: false,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'RGD:69257',
-        },
-        'HGNC:620': {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-      },
-      geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
-        subjectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'HGNC:620',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:9606',
-            name: 'Homo sapiens',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'APP',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        objectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'RGD:69257',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:10116',
-            name: 'Rattus norvegicus',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'Aplp1',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        isBestScore: {
-          internal: false,
-          obsolete: false,
-          name: 'No',
-          notInternalOrObsolete: true,
-        },
-        isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
-          name: 'No',
-          notInternalOrObsolete: true,
-        },
-        confidence: {
-          internal: false,
-          obsolete: false,
-          name: 'low',
-          notInternalOrObsolete: true,
-        },
-        strictFilter: false,
-        moderateFilter: false,
-        predictionMethodsMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'SonicParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoFinder',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Hieranoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'HGNC',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'InParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PANTHER',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OMA',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoInspector',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PhylomeDB',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotCalled: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Xenbase',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'ZFIN',
-            notInternalOrObsolete: true,
-          },
-        ],
-        notInternalOrObsolete: true,
-      },
-    },
-    {
-      category: 'gene_to_gene_orthology',
-      searchable: false,
-      stringencyFilter: 'stringent',
-      geneAnnotations: [
-        {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-        {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: true,
-          geneIdentifier: 'WB:WBGene00000149',
-        },
-      ],
-      geneAnnotationsMap: {
-        'WB:WBGene00000149': {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: true,
-          geneIdentifier: 'WB:WBGene00000149',
-        },
-        'HGNC:620': {
-          hasDiseaseAnnotations: true,
-          hasExpressionAnnotations: false,
-          geneIdentifier: 'HGNC:620',
-        },
-      },
-      geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
-        subjectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'HGNC:620',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:9606',
-            name: 'Homo sapiens',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'APP',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        objectGene: {
-          type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'WB:WBGene00000149',
-          taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:6239',
-            name: 'Caenorhabditis elegans',
-            childCount: 0,
-            descendantCount: 0,
-            notInternalOrObsolete: true,
-          },
-          geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'apl-1',
-            notInternalOrObsolete: true,
-          },
-          notInternalOrObsolete: true,
-        },
-        isBestScore: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
-        },
-        isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
-        },
-        confidence: {
-          internal: false,
-          obsolete: false,
-          name: 'high',
-          notInternalOrObsolete: true,
-        },
-        strictFilter: true,
-        moderateFilter: false,
-        predictionMethodsMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Hieranoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'InParanoid',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OMA',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoFinder',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'OrthoInspector',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PANTHER',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'PhylomeDB',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'SonicParanoid',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotMatched: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
-          },
-        ],
-        predictionMethodsNotCalled: [
-          {
-            internal: false,
-            obsolete: false,
-            name: 'Xenbase',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'ZFIN',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
-            name: 'HGNC',
-            notInternalOrObsolete: true,
-          },
-        ],
-        notInternalOrObsolete: true,
       },
     },
     {
@@ -1371,81 +428,154 @@ const mock: AgrOrthologs = {
         },
       },
       geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
         subjectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'HGNC:620',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:9606',
             name: 'Homo sapiens',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'APP',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         objectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'Xenbase:XB-GENE-479158',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:8355',
             name: 'Xenopus laevis',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'app.L',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         isBestScore: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         confidence: {
-          internal: false,
-          obsolete: false,
           name: 'high',
-          notInternalOrObsolete: true,
         },
         strictFilter: true,
         moderateFilter: true,
         predictionMethodsMatched: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Xenbase',
-            notInternalOrObsolete: true,
           },
         ],
-        notInternalOrObsolete: true,
+      },
+    },
+    {
+      category: 'gene_to_gene_orthology',
+      searchable: false,
+      stringencyFilter: 'stringent',
+      geneAnnotations: [
+        {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+        {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: true,
+          geneIdentifier: 'WB:WBGene00000149',
+        },
+      ],
+      geneAnnotationsMap: {
+        'WB:WBGene00000149': {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: true,
+          geneIdentifier: 'WB:WBGene00000149',
+        },
+        'HGNC:620': {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+      },
+      geneToGeneOrthologyGenerated: {
+        subjectGene: {
+          type: 'Gene',
+          primaryExternalId: 'HGNC:620',
+          taxon: {
+            curie: 'NCBITaxon:9606',
+            name: 'Homo sapiens',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'APP',
+          },
+        },
+        objectGene: {
+          type: 'Gene',
+          primaryExternalId: 'WB:WBGene00000149',
+          taxon: {
+            curie: 'NCBITaxon:6239',
+            name: 'Caenorhabditis elegans',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'apl-1',
+          },
+        },
+        isBestScore: {
+          name: 'Yes',
+        },
+        isBestScoreReverse: {
+          name: 'Yes',
+        },
+        confidence: {
+          name: 'high',
+        },
+        strictFilter: true,
+        moderateFilter: false,
+        predictionMethodsMatched: [
+          {
+            name: 'Hieranoid',
+          },
+          {
+            name: 'InParanoid',
+          },
+          {
+            name: 'OMA',
+          },
+          {
+            name: 'OrthoFinder',
+          },
+          {
+            name: 'OrthoInspector',
+          },
+          {
+            name: 'PANTHER',
+          },
+          {
+            name: 'PhylomeDB',
+          },
+          {
+            name: 'SonicParanoid',
+          },
+        ],
+        predictionMethodsNotMatched: [
+          {
+            name: 'Ensembl Compara',
+          },
+        ],
+        predictionMethodsNotCalled: [
+          {
+            name: 'Xenbase',
+          },
+          {
+            name: 'ZFIN',
+          },
+          {
+            name: 'HGNC',
+          },
+        ],
       },
     },
     {
@@ -1461,14 +591,14 @@ const mock: AgrOrthologs = {
         {
           hasDiseaseAnnotations: false,
           hasExpressionAnnotations: true,
-          geneIdentifier: 'MGI:88059',
+          geneIdentifier: 'FB:FBgn0000108',
         },
       ],
       geneAnnotationsMap: {
-        'MGI:88059': {
+        'FB:FBgn0000108': {
           hasDiseaseAnnotations: false,
           hasExpressionAnnotations: true,
-          geneIdentifier: 'MGI:88059',
+          geneIdentifier: 'FB:FBgn0000108',
         },
         'HGNC:620': {
           hasDiseaseAnnotations: true,
@@ -1477,151 +607,83 @@ const mock: AgrOrthologs = {
         },
       },
       geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
         subjectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'HGNC:620',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:9606',
             name: 'Homo sapiens',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'APP',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         objectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
-          primaryExternalId: 'MGI:88059',
+          primaryExternalId: 'FB:FBgn0000108',
           taxon: {
-            internal: false,
-            obsolete: false,
-            curie: 'NCBITaxon:10090',
-            name: 'Mus musculus',
-            childCount: 0,
+            curie: 'NCBITaxon:7227',
+            name: 'Drosophila melanogaster',
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
-            displayText: 'App',
-            notInternalOrObsolete: true,
+            displayText: 'Appl',
           },
-          notInternalOrObsolete: true,
         },
         isBestScore: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
-          name: 'Yes',
-          notInternalOrObsolete: true,
+          name: 'No',
         },
         confidence: {
-          internal: false,
-          obsolete: false,
-          name: 'high',
-          notInternalOrObsolete: true,
+          name: 'moderate',
         },
         strictFilter: true,
-        moderateFilter: true,
+        moderateFilter: false,
         predictionMethodsMatched: [
           {
-            internal: false,
-            obsolete: false,
-            name: 'HGNC',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
             name: 'Hieranoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'InParanoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OMA',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OrthoFinder',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OrthoInspector',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'PANTHER',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
-            name: 'PhylomeDB',
-            notInternalOrObsolete: true,
-          },
-          {
-            internal: false,
-            obsolete: false,
             name: 'SonicParanoid',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotMatched: [
           {
-            internal: false,
-            obsolete: false,
+            name: 'PhylomeDB',
+          },
+          {
             name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotCalled: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Xenbase',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'ZFIN',
-            notInternalOrObsolete: true,
+          },
+          {
+            name: 'HGNC',
           },
         ],
-        notInternalOrObsolete: true,
       },
     },
     {
@@ -1653,157 +715,413 @@ const mock: AgrOrthologs = {
         },
       },
       geneToGeneOrthologyGenerated: {
-        internal: false,
-        obsolete: false,
         subjectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'HGNC:620',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:9606',
             name: 'Homo sapiens',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'APP',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         objectGene: {
           type: 'Gene',
-          internal: false,
-          obsolete: false,
           primaryExternalId: 'ZFIN:ZDB-GENE-020220-1',
           taxon: {
-            internal: false,
-            obsolete: false,
             curie: 'NCBITaxon:7955',
             name: 'Danio rerio',
-            childCount: 0,
             descendantCount: 0,
-            notInternalOrObsolete: true,
           },
           geneSymbol: {
-            internal: false,
-            obsolete: false,
             displayText: 'appb',
-            notInternalOrObsolete: true,
           },
-          notInternalOrObsolete: true,
         },
         isBestScore: {
-          internal: false,
-          obsolete: false,
           name: 'No',
-          notInternalOrObsolete: true,
         },
         isBestScoreReverse: {
-          internal: false,
-          obsolete: false,
           name: 'Yes',
-          notInternalOrObsolete: true,
         },
         confidence: {
-          internal: false,
-          obsolete: false,
           name: 'moderate',
-          notInternalOrObsolete: true,
         },
         strictFilter: true,
         moderateFilter: true,
         predictionMethodsMatched: [
           {
-            internal: false,
-            obsolete: false,
             name: 'OMA',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OrthoFinder',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'PANTHER',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'PhylomeDB',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'ZFIN',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotMatched: [
           {
-            internal: false,
-            obsolete: false,
             name: 'SonicParanoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'Hieranoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'InParanoid',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'Ensembl Compara',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'OrthoInspector',
-            notInternalOrObsolete: true,
           },
         ],
         predictionMethodsNotCalled: [
           {
-            internal: false,
-            obsolete: false,
             name: 'Xenbase',
-            notInternalOrObsolete: true,
           },
           {
-            internal: false,
-            obsolete: false,
             name: 'HGNC',
-            notInternalOrObsolete: true,
           },
         ],
-        notInternalOrObsolete: true,
+      },
+    },
+    {
+      category: 'gene_to_gene_orthology',
+      searchable: false,
+      stringencyFilter: 'stringent',
+      geneAnnotations: [
+        {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+        {
+          hasDiseaseAnnotations: false,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'Xenbase:XB-GENE-479154',
+        },
+      ],
+      geneAnnotationsMap: {
+        'Xenbase:XB-GENE-479154': {
+          hasDiseaseAnnotations: false,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'Xenbase:XB-GENE-479154',
+        },
+        'HGNC:620': {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+      },
+      geneToGeneOrthologyGenerated: {
+        subjectGene: {
+          type: 'Gene',
+          primaryExternalId: 'HGNC:620',
+          taxon: {
+            curie: 'NCBITaxon:9606',
+            name: 'Homo sapiens',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'APP',
+          },
+        },
+        objectGene: {
+          type: 'Gene',
+          primaryExternalId: 'Xenbase:XB-GENE-479154',
+          taxon: {
+            curie: 'NCBITaxon:8364',
+            name: 'Xenopus tropicalis',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'app',
+          },
+        },
+        isBestScore: {
+          name: 'Yes',
+        },
+        isBestScoreReverse: {
+          name: 'Yes',
+        },
+        confidence: {
+          name: 'high',
+        },
+        strictFilter: true,
+        moderateFilter: false,
+        predictionMethodsMatched: [
+          {
+            name: 'Hieranoid',
+          },
+          {
+            name: 'InParanoid',
+          },
+          {
+            name: 'OMA',
+          },
+          {
+            name: 'OrthoFinder',
+          },
+          {
+            name: 'OrthoInspector',
+          },
+          {
+            name: 'PANTHER',
+          },
+          {
+            name: 'PhylomeDB',
+          },
+          {
+            name: 'SonicParanoid',
+          },
+        ],
+        predictionMethodsNotMatched: [
+          {
+            name: 'Ensembl Compara',
+          },
+        ],
+        predictionMethodsNotCalled: [
+          {
+            name: 'Xenbase',
+          },
+          {
+            name: 'ZFIN',
+          },
+          {
+            name: 'HGNC',
+          },
+        ],
+      },
+    },
+    {
+      category: 'gene_to_gene_orthology',
+      searchable: false,
+      stringencyFilter: 'all',
+      geneAnnotations: [
+        {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+        {
+          hasDiseaseAnnotations: false,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'RGD:69257',
+        },
+      ],
+      geneAnnotationsMap: {
+        'RGD:69257': {
+          hasDiseaseAnnotations: false,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'RGD:69257',
+        },
+        'HGNC:620': {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+      },
+      geneToGeneOrthologyGenerated: {
+        subjectGene: {
+          type: 'Gene',
+          primaryExternalId: 'HGNC:620',
+          taxon: {
+            curie: 'NCBITaxon:9606',
+            name: 'Homo sapiens',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'APP',
+          },
+        },
+        objectGene: {
+          type: 'Gene',
+          primaryExternalId: 'RGD:69257',
+          taxon: {
+            curie: 'NCBITaxon:10116',
+            name: 'Rattus norvegicus',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'Aplp1',
+          },
+        },
+        isBestScore: {
+          name: 'No',
+        },
+        isBestScoreReverse: {
+          name: 'No',
+        },
+        confidence: {
+          name: 'low',
+        },
+        strictFilter: false,
+        moderateFilter: false,
+        predictionMethodsMatched: [
+          {
+            name: 'Ensembl Compara',
+          },
+        ],
+        predictionMethodsNotMatched: [
+          {
+            name: 'SonicParanoid',
+          },
+          {
+            name: 'OrthoFinder',
+          },
+          {
+            name: 'Hieranoid',
+          },
+          {
+            name: 'HGNC',
+          },
+          {
+            name: 'InParanoid',
+          },
+          {
+            name: 'PANTHER',
+          },
+          {
+            name: 'OMA',
+          },
+          {
+            name: 'OrthoInspector',
+          },
+          {
+            name: 'PhylomeDB',
+          },
+        ],
+        predictionMethodsNotCalled: [
+          {
+            name: 'Xenbase',
+          },
+          {
+            name: 'ZFIN',
+          },
+        ],
+      },
+    },
+    {
+      category: 'gene_to_gene_orthology',
+      searchable: false,
+      stringencyFilter: 'stringent',
+      geneAnnotations: [
+        {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+        {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: true,
+          geneIdentifier: 'RGD:2139',
+        },
+      ],
+      geneAnnotationsMap: {
+        'HGNC:620': {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: false,
+          geneIdentifier: 'HGNC:620',
+        },
+        'RGD:2139': {
+          hasDiseaseAnnotations: true,
+          hasExpressionAnnotations: true,
+          geneIdentifier: 'RGD:2139',
+        },
+      },
+      geneToGeneOrthologyGenerated: {
+        subjectGene: {
+          type: 'Gene',
+          primaryExternalId: 'HGNC:620',
+          taxon: {
+            curie: 'NCBITaxon:9606',
+            name: 'Homo sapiens',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'APP',
+          },
+        },
+        objectGene: {
+          type: 'Gene',
+          primaryExternalId: 'RGD:2139',
+          taxon: {
+            curie: 'NCBITaxon:10116',
+            name: 'Rattus norvegicus',
+            descendantCount: 0,
+          },
+          geneSymbol: {
+            displayText: 'App',
+          },
+        },
+        isBestScore: {
+          name: 'Yes',
+        },
+        isBestScoreReverse: {
+          name: 'Yes',
+        },
+        confidence: {
+          name: 'high',
+        },
+        strictFilter: true,
+        moderateFilter: true,
+        predictionMethodsMatched: [
+          {
+            name: 'Hieranoid',
+          },
+          {
+            name: 'InParanoid',
+          },
+          {
+            name: 'OMA',
+          },
+          {
+            name: 'OrthoFinder',
+          },
+          {
+            name: 'OrthoInspector',
+          },
+          {
+            name: 'PANTHER',
+          },
+          {
+            name: 'PhylomeDB',
+          },
+          {
+            name: 'HGNC',
+          },
+          {
+            name: 'SonicParanoid',
+          },
+        ],
+        predictionMethodsNotMatched: [
+          {
+            name: 'Ensembl Compara',
+          },
+        ],
+        predictionMethodsNotCalled: [
+          {
+            name: 'Xenbase',
+          },
+          {
+            name: 'ZFIN',
+          },
+        ],
       },
     },
   ],
   total: 11,
   returnedRecords: 11,
-  requestDate: '2025/07/07 18:54:44',
+  requestDate: '2026/06/04 17:18:41',
 };
 
 export default mock;

@@ -74,8 +74,7 @@ describe('TableFromData', () => {
         id: 'name-filter',
         label: 'Name',
         render: (d) => d.name,
-        filter: (d, value) => d.name === value,
-        getOption: (d) => d.name,
+        getValue: (d) => d.name,
       },
     ];
     customRender(
@@ -100,8 +99,7 @@ describe('TableFromData', () => {
         id: 'name-filter',
         label: 'Name',
         render: (d) => d.name,
-        filter: () => false,
-        getOption: (d) => d.name,
+        getValue: (d) => d.name,
       },
     ];
     customRender(
@@ -112,7 +110,8 @@ describe('TableFromData', () => {
       />
     );
     const select = screen.getByRole('combobox');
-    fireEvent.change(select, { target: { value: 'name-1' } });
+    // Select a value that no row matches so every row is filtered out.
+    fireEvent.change(select, { target: { value: 'no-such-name' } });
     expect(
       screen.getByText(/No data matches selected filters/i)
     ).toBeInTheDocument();

@@ -140,7 +140,7 @@ const configMap = new Map<
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.ProteomesResults],
         search: stringifyQuery({
-          query: `(${fieldName}:${accession}) AND (proteome_type:1)`,
+          query: `(${fieldName}:${accession}) AND (proteome_type:REFERENCE)`,
         }),
       }),
     },

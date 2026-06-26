@@ -131,12 +131,6 @@ const getQueryForCount = (database?: Database, taxons?: SelectedTaxon[]) => {
     .join(' OR ');
   let databaseQuery = null;
   switch (database) {
-    case 'uniprotkb_refprotswissprot':
-      databaseQuery = 'keyword:KW-1185 OR reviewed:true';
-      break;
-    case 'uniprotkb_reference_proteomes':
-      databaseQuery = 'keyword:KW-1185';
-      break;
     case 'uniprotkb_swissprot':
       databaseQuery = 'reviewed:true';
       break;

@@ -27,12 +27,14 @@ const StructureView = ({
   isoforms,
   checksum,
   viewerOnly = false,
+  isUniProtKBAccession = true,
 }: {
   primaryAccession?: string;
   checksum?: string;
   sequence?: string;
   isoforms?: IsoformSequences;
   viewerOnly?: boolean;
+  isUniProtKBAccession?: boolean;
 }) => {
   const structureElement = useCustomElement(
     /* istanbul ignore next */
@@ -254,7 +256,7 @@ const StructureView = ({
 
   return (
     <div className={styles.container}>
-      {primaryAccession && !viewerOnly && (
+      {primaryAccession && isUniProtKBAccession && (
         <>
           <Message level="info">
             View UniProt features on this structure in the{' '}

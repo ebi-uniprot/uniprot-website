@@ -3,37 +3,70 @@ import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
+import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import KeywordView from '../../../uniprotkb/components/protein-data-views/KeywordView';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import { getFallbackKeywords } from '../../adapters/subEntryAnnotations';
 import {
   type ModifiedPrediction,
   type UniFireModel,
 } from '../../adapters/uniParcSubEntryConverter';
 
+export { getFallbackKeywords };
+
+const getPredictions = (
+  unifire: UniFireModel | undefined,
+  annotationType: string
+): ModifiedPrediction[] =>
+  (unifire?.predictions as ModifiedPrediction[])?.filter(
+    (prediction) => prediction.annotationType === annotationType
+  ) ?? [];
+
+/** Whether the Keywords & GO section has anything to show, for either source. */
+export const keywordsAndGOSectionHasContent = (
+  unifire?: UniFireModel,
+  annotations?: UniProtkbUIModel
+): boolean =>
+  getPredictions(unifire, 'keyword').length > 0 ||
+  getPredictions(unifire, 'xref.GO').length > 0 ||
+  getFallbackKeywords(annotations).length > 0;
+
 type Props = {
-  data: UniFireModel | undefined;
+  unifire?: UniFireModel;
+  annotations?: UniProtkbUIModel;
 };
 
-const SubEntryKeywordsSection = ({ data }: Props) => {
-  const keywordPredictions =
-    (data?.predictions as ModifiedPrediction[])?.filter(
-      (prediction) => prediction.annotationType === 'keyword'
-    ) || [];
-  const goPredictions =
-    (data?.predictions as ModifiedPrediction[])?.filter(
-      (prediction) => prediction.annotationType === 'xref.GO'
-    ) || [];
+const SubEntryKeywordsSection = ({ unifire, annotations }: Props) => {
+  const keywordPredictions = getPredictions(unifire, 'keyword');
+  const goPredictions = getPredictions(unifire, 'xref.GO');
+  const fallbackKeywords = getFallbackKeywords(annotations);
 
-  if (keywordPredictions.length || goPredictions.length) {
-    return (
-      <Card
-        header={<h2>Keywords & Gene Ontology</h2>}
-        id="keywords_and_go"
-        data-entry-section
-      >
-        {keywordPredictions.length ? (
-          <>
-            <h3>Keywords</h3>
-            {keywordPredictions.map((prediction, index) => (
+  if (
+    !keywordPredictions.length &&
+    !goPredictions.length &&
+    !fallbackKeywords.length
+  ) {
+    return null;
+  }
+
+  return (
+    <Card
+      header={<h2>Keywords & Gene Ontology</h2>}
+      id="keywords_and_go"
+      data-entry-section
+    >
+      {keywordPredictions.length ? (
+        <>
+          <h3>Keywords</h3>
+          {keywordPredictions
+            .filter(
+              (
+                prediction
+              ): prediction is ModifiedPrediction & {
+                annotationValue: string;
+              } => Boolean(prediction.annotationValue)
+            )
+            .map((prediction, index) => (
               // eslint-disable-next-line @eslint-react/no-array-index-key
               <div key={index} style={{ margin: '0.5em 0' }}>
                 <Link
@@ -47,12 +80,24 @@ const SubEntryKeywordsSection = ({ data }: Props) => {
                 <UniProtKBEvidenceTag evidences={prediction.evidence} />
               </div>
             ))}
-          </>
-        ) : null}
-        {goPredictions.length ? (
-          <>
-            <h3>Gene Ontology</h3>
-            {goPredictions.map((prediction, index) => (
+        </>
+      ) : null}
+      {/* Precomputed keywords whose category has no dedicated sub-entry
+          section — rendered here so they are not dropped. KeywordView renders
+          nothing when the list is empty (the UniFire branch). */}
+      <KeywordView keywords={fallbackKeywords} />
+      {goPredictions.length ? (
+        <>
+          <h3>Gene Ontology</h3>
+          {goPredictions
+            .filter(
+              (
+                prediction
+              ): prediction is ModifiedPrediction & {
+                annotationValue: string;
+              } => Boolean(prediction.annotationValue)
+            )
+            .map((prediction, index) => (
               // eslint-disable-next-line @eslint-react/no-array-index-key
               <div key={index} style={{ margin: '0.5em 0' }}>
                 <ExternalLink
@@ -63,12 +108,10 @@ const SubEntryKeywordsSection = ({ data }: Props) => {
                 <UniProtKBEvidenceTag evidences={prediction.evidence} />
               </div>
             ))}
-          </>
-        ) : null}
-      </Card>
-    );
-  }
-  return null;
+        </>
+      ) : null}
+    </Card>
+  );
 };
 
 export default SubEntryKeywordsSection;

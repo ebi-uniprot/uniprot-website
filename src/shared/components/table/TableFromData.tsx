@@ -264,6 +264,9 @@ function TableFromData<T>({
               column={column}
               key={column.id}
               options={columnIdToFilterOptions[column.id]}
+              selectedValue={
+                columnsToSelectedOption[column.id] ?? UNFILTERED_OPTION
+              }
               onFilterChange={handleFilterChange}
             />
           ))}

@@ -138,7 +138,7 @@ exports[`KeywordsColumnConfiguration component should render column "statistics"
       <a
         href="/uniprotkb?query=%28keyword%3AKW-0021%29"
       >
-        187,014 UniProtKB entries
+        147,292 UniProtKB entries
       </a>
     </li>
     <li>
@@ -152,7 +152,7 @@ exports[`KeywordsColumnConfiguration component should render column "statistics"
       <a
         href="/uniprotkb?query=%28keyword%3AKW-0021%29+AND+%28reviewed%3Afalse%29"
       >
-        184,500 unreviewed UniProtKB entries
+        144,778 unreviewed UniProtKB entries
       </a>
     </li>
   </ul>

@@ -1,47 +1,48 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import data from '../../../__mocks__/proteomesEntryModelData';
-import proteomesConverter, {
-  type ProteomesUIModel,
-} from '../../../adapters/proteomesConverter';
 import { PanProteome } from '../PanProteome';
 
+const taxonomy = { taxonId: 9606, scientificName: 'Homo sapiens' };
+
 describe('PanProteome', () => {
-  it('should not render if no panproteome', () => {
-    const { container } = customRender(
-      <PanProteome proteome={proteomesConverter(data)} />
+  it('falls back to taxonomy when no species-rank lineage entry matches', () => {
+    customRender(
+      <PanProteome
+        panproteomeTaxon={{ taxonId: 9606 }}
+        taxonLineage={[]}
+        taxonomy={taxonomy}
+      />
     );
-    expect(container).toBeEmptyDOMElement();
+    // The species name + "pan proteome" links to the browseable FTP folder.
+    expect(
+      screen.getByRole('link', { name: /Homo sapiens pan proteome/ })
+    ).toHaveAttribute(
+      'href',
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp9606/'
+    );
   });
 
-  it('should render a link to FASTA, when is a panproteome', () => {
-    const uiData = proteomesConverter(data);
-    const customisedData: ProteomesUIModel = {
-      ...uiData,
-      panproteome: uiData.id,
-    };
-    const { asFragment } = customRender(
-      <PanProteome proteome={customisedData} />
+  it('uses the matching species-rank lineage entry', () => {
+    customRender(
+      <PanProteome
+        panproteomeTaxon={{ taxonId: 562 }}
+        taxonLineage={[
+          {
+            taxonId: 562,
+            rank: 'species',
+            scientificName: 'Escherichia coli',
+            hidden: false,
+          },
+        ]}
+        taxonomy={taxonomy}
+      />
     );
-    expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
     expect(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      screen.getByText(customisedData.taxonomy.scientificName!, {
-        exact: false,
-      })
-    ).toBeInTheDocument();
-  });
-
-  it('should render a link to entry and a link to FASTA, when is part of a panproteome', () => {
-    // reuse the same mock as proteome and related panproteome (with a different id)
-    const uiData = proteomesConverter(data, { ...data, id: 'UP1' });
-    const { asFragment } = customRender(<PanProteome proteome={uiData} />);
-    expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByRole('link', { name: 'FASTA' })).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: uiData.taxonomy.scientificName })
-    ).toBeInTheDocument();
+      screen.getByRole('link', { name: /Escherichia coli pan proteome/ })
+    ).toHaveAttribute(
+      'href',
+      'https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp562/'
+    );
   });
 });

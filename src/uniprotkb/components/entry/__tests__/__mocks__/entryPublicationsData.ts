@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../../../shared/types/results';
 import { type CitationsAPIModel } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 
 // Source: uniprotkb/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const mock: SearchResults<Partial<CitationsAPIModel>> = {
   facets: [
     {
@@ -13,12 +13,12 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         {
           label: 'UniProtKB reviewed (Swiss-Prot)',
           value: '2',
-          count: 25,
+          count: 26,
         },
         {
           label: 'Computationally mapped',
           value: '1',
-          count: 26,
+          count: 27,
         },
         {
           label: 'Community curated',
@@ -34,11 +34,11 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       values: [
         {
           value: 'Interaction',
-          count: 27,
+          count: 28,
         },
         {
           value: 'Function',
-          count: 14,
+          count: 15,
         },
         {
           value: 'Sequences',
@@ -50,7 +50,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
         {
           value: 'Disease & Variants',
-          count: 7,
+          count: 8,
         },
         {
           value: 'Subcellular Location',
@@ -65,11 +65,11 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
           count: 3,
         },
         {
-          value: 'Structure',
-          count: 1,
+          value: 'Unclassified',
+          count: 2,
         },
         {
-          value: 'Unclassified',
+          value: 'Structure',
           count: 1,
         },
       ],
@@ -82,7 +82,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         {
           label: 'Small scale',
           value: 'false',
-          count: 31,
+          count: 33,
         },
         {
           label: 'Large scale',
@@ -145,7 +145,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 2,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 5,
+        computationallyMappedProteinCount: 4,
         communityMappedProteinCount: 0,
       },
     },
@@ -640,7 +640,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 1875,
-        unreviewedProteinCount: 4973,
+        unreviewedProteinCount: 11936,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -704,7 +704,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 537,
-        unreviewedProteinCount: 2463,
+        unreviewedProteinCount: 1397,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -776,8 +776,8 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 32640,
-        unreviewedProteinCount: 17733,
+        reviewedProteinCount: 32643,
+        unreviewedProteinCount: 17711,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -996,7 +996,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 1,
         unreviewedProteinCount: 5,
-        computationallyMappedProteinCount: 4,
+        computationallyMappedProteinCount: 6,
         communityMappedProteinCount: 0,
       },
     },
@@ -1058,7 +1058,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 2,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 11,
+        computationallyMappedProteinCount: 2,
         communityMappedProteinCount: 0,
       },
     },
@@ -1117,7 +1117,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 4,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 17,
+        computationallyMappedProteinCount: 15,
         communityMappedProteinCount: 0,
       },
     },
@@ -1220,7 +1220,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 3421,
-        unreviewedProteinCount: 5033,
+        unreviewedProteinCount: 5205,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1278,7 +1278,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 6,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 16,
+        computationallyMappedProteinCount: 2,
         communityMappedProteinCount: 0,
       },
     },
@@ -1325,7 +1325,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 5,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 26,
+        computationallyMappedProteinCount: 8,
         communityMappedProteinCount: 0,
       },
     },
@@ -1426,7 +1426,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 4960,
-        unreviewedProteinCount: 12586,
+        unreviewedProteinCount: 12958,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1486,7 +1486,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 2149,
-        unreviewedProteinCount: 3232,
+        unreviewedProteinCount: 3346,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1550,7 +1550,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 2292,
-        unreviewedProteinCount: 3055,
+        unreviewedProteinCount: 3164,
         computationallyMappedProteinCount: 5,
         communityMappedProteinCount: 0,
       },
@@ -1611,7 +1611,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 4864,
-        unreviewedProteinCount: 8097,
+        unreviewedProteinCount: 8376,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1690,7 +1690,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 5,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 10,
+        computationallyMappedProteinCount: 9,
         communityMappedProteinCount: 1,
       },
     },
@@ -1814,52 +1814,48 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
     },
     {
       citation: {
-        id: '25237103',
+        id: '33993848',
         citationType: 'UniProt indexed literatures',
-        authors: ['Arnaoutov A.', 'Dasso M.'],
+        authors: [
+          'Huang W.',
+          'Li N.',
+          'Zhang Y.',
+          'Wang X.',
+          'Yin M.',
+          'Lei Q.Y.',
+        ],
         citationCrossReferences: [
           {
             database: 'PubMed',
-            id: '25237103',
+            id: '33993848',
           },
           {
             database: 'DOI',
-            id: '10.1126/science.1251550',
+            id: '10.1080/15548627.2021.1924038',
           },
         ],
         title:
-          'Enzyme regulation. IRBIT is a novel regulator of ribonucleotide reductase in higher eukaryotes.',
-        publicationDate: '2014',
-        journal: 'Science',
-        firstPage: '1512',
-        lastPage: '1515',
-        volume: '345',
+          'AHCYL1 senses SAH to inhibit autophagy through interaction with PIK3C3 in an MTORC1-independent manner.',
+        publicationDate: '2022',
+        journal: 'Autophagy',
+        firstPage: '309',
+        lastPage: '319',
+        volume: '18',
         completeAuthorList: true,
         literatureAbstract:
-          'Ribonucleotide reductase (RNR) supplies the balanced pools of deoxynucleotide triphosphates (dNTPs) necessary for DNA replication and maintenance of genomic integrity. RNR is subject to allosteric regulatory mechanisms in all eukaryotes, as well as to control by small protein inhibitors Sml1p and Spd1p in budding and fission yeast, respectively. Here, we show that the metazoan protein IRBIT forms a deoxyadenosine triphosphate (dATP)-dependent complex with RNR, which stabilizes dATP in the activity site of RNR and thus inhibits the enzyme. Formation of the RNR-IRBIT complex is regulated through phosphorylation of IRBIT, and ablation of IRBIT expression in HeLa cells causes imbalanced dNTP pools and altered cell cycle progression. We demonstrate a mechanism for RNR regulation in higher eukaryotes that acts by enhancing allosteric RNR inhibition by dATP.',
+          'S-adenosyl-l-homocysteine (SAH), an amino acid derivative, is a key intermediate metabolite in methionine metabolism, which is normally considered as a harmful by-product and hydrolyzed quickly once formed. AHCY (adenosylhomocysteinase) converts SAH into homocysteine and adenosine. There are two other members in the AHCY family, AHCYL1 (adenosylhomocysteinase like 1) and AHCYL2 (adenosylhomocysteinase like 2). Here we define AHCYL1 function as a SAH sensor to inhibit macroautophagy/autophagy through PIK3C3. The C terminus of AHCYL1 interacts with SAH specifically and the interaction with SAH promotes the binding of the N terminus to the catalytic domain of PIK3C3, resulting in inhibition of PIK3C3. More importantly, this observation was further validated <i>in vivo</i>, indicating that SAH functions as a signaling molecule. Our study uncovers a new axis of SAH-AHCYL1-PIK3C3, which senses the intracellular level of SAH to inhibit autophagy in an MTORC1-independent manner.<b>Abbreviations:</b> ADOX: adenosine dialdehyde; AHCY: adenosylhomocysteinase; AHCYL1: adenosylhomocysteinase like 1; cLEU: cycloleucine; PIK3C3: phosphatidylinositol 3-kinase catalytic subunit type 3; PtdIns3P: phosphatidylinositol-3-phosphate; SAH: S-adenosyl-l-homocysteine; SAM: S-adenosyl-l-methionine.',
       },
       references: [
         {
           source: {
             name: 'UniProtKB reviewed (Swiss-Prot)',
           },
-          citationId: '25237103',
-          sourceCategories: [
-            'Function',
-            'Family & Domains',
-            'PTM / Processing',
-            'Disease & Variants',
-            'Interaction',
-            'Structure',
-          ],
+          citationId: '33993848',
+          sourceCategories: ['Function', 'Disease & Variants', 'Interaction'],
           referencePositions: [
-            'X-RAY CRYSTALLOGRAPHY (2.64 ANGSTROMS) OF 89-530 OF MUTANT ALA-508 IN COMPLEX WITH NAD',
-            'COFACTOR',
             'FUNCTION',
-            'INTERACTION WITH RRM1',
-            'MISCELLANEOUS',
-            'PEST REGION',
-            'PHOSPHORYLATION',
+            'INTERACTION WITH PIK3C3',
+            'MUTAGENESIS OF THR-155 AND GLN-157',
           ],
           referenceNumber: 24,
         },
@@ -1867,7 +1863,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 2,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 6,
+        computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
     },

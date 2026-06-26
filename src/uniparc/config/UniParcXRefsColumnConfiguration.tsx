@@ -250,14 +250,20 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
   label: 'Proteome',
   render: (xref) =>
-    xref.proteomeId && (
-      <span className={xref.active ? undefined : 'xref-inactive'}>
-        <Link to={getEntryPath(Namespace.proteomes, xref.proteomeId)}>
-          {xref.proteomeId}
-        </Link>
-        {xref.component ? ` (${xref.component})` : undefined}
-      </span>
-    ),
+    xref.proteomes?.length
+      ? xref.proteomes.map((proteome, i) => (
+          <span
+            key={`${proteome.id}-${proteome.component}`}
+            className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
+          >
+            <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
+              {proteome.id}
+            </Link>
+            {proteome.component ? ` (${proteome.component})` : undefined}
+            {i < (xref.proteomes?.length ?? 0) - 1 && <br />}
+          </span>
+        ))
+      : null,
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.active, {

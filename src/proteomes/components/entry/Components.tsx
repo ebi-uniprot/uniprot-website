@@ -116,7 +116,7 @@ const Components = ({
             return 0;
           }
           const shouldPointToUniParc =
-            proteomeType === 'Redundant proteome' ||
+            proteomeType === 'Non Reference proteome' ||
             proteomeType === 'Excluded';
           return (
             <Link
@@ -128,7 +128,9 @@ const Components = ({
                       : Location.UniProtKBResults
                   ],
                 search: stringifyQuery({
-                  query: `(proteome:${id}) AND (proteomecomponent:"${name}")`,
+                  query: shouldPointToUniParc
+                    ? `(proteomecomponent:"${id}:${name}")`
+                    : `(proteome:${id}) AND (proteomecomponent:"${name}")`,
                 }),
               }}
             >

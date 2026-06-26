@@ -12,9 +12,11 @@ type EntryMainProps = {
 const EntryMain = ({ transformedData }: EntryMainProps) => (
   <>
     {ProteomesEntryConfig.map(({ id, sectionContent }) => (
-      <Suspense fallback={<Loader />} key={id}>
-        <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
-      </Suspense>
+      <section id={id} key={id}>
+        <Suspense fallback={<Loader />}>
+          <ErrorBoundary>{sectionContent(transformedData)}</ErrorBoundary>
+        </Suspense>
+      </section>
     ))}
   </>
 );

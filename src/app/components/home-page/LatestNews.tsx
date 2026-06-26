@@ -129,6 +129,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2026-06-10-release',
+                  })}
+                >
+                  UniProt release 2026_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                To drink, or not to drink? | UniProt news | Completing the
+                reorganization of the protein space...
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2026-01-28-release',
                   })}
                 >
@@ -187,28 +209,6 @@ const LatestNews = () => {
               >
                 Cross-references to CARD | Cross-references to FunCoup |
                 Cross-references to PAN-GO
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2025-04-23-release',
-                  })}
-                >
-                  UniProt release 2025_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Brain property: no trespassing | Cross-references to CD-CODE |
-                Cross-references to STRENDA-DB | Cross-references to YCharOS
               </p>
             </article>
           </li>

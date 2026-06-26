@@ -1,7 +1,7 @@
 import { type ReceivedFieldData } from '../types/resultsTypes';
 
 // Source: configure/uniprotkb/result-fields
-// Retrieved: 2026-01-26
+// Retrieved: 2026-06-04
 const mock = [
   {
     groupName: 'Names & Taxonomy',
@@ -807,6 +807,12 @@ const mock = [
         id: 'protein-protein_interaction/mint',
       },
       {
+        label: 'NDEx',
+        name: 'xref_ndex',
+        isMultiValueCrossReference: true,
+        id: 'protein-protein_interaction/ndex',
+      },
+      {
         label: 'STRING',
         name: 'xref_string',
         id: 'protein-protein_interaction/string',
@@ -822,6 +828,11 @@ const mock = [
         label: 'BindingDB',
         name: 'xref_bindingdb',
         id: 'chemistry/bindingdb',
+      },
+      {
+        label: 'ChEBI',
+        name: 'xref_chebi',
+        id: 'chemistry/chebi',
       },
       {
         label: 'ChEMBL',
@@ -1432,11 +1443,6 @@ const mock = [
         name: 'xref_euhcvdb',
         id: 'organism-specific/euhcvdb',
       },
-      {
-        label: 'neXtProt',
-        name: 'xref_nextprot',
-        id: 'organism-specific/nextprot',
-      },
     ],
   },
   {
@@ -1480,11 +1486,6 @@ const mock = [
         label: 'PhylomeDB',
         name: 'xref_phylomedb',
         id: 'phylogenomic/phylomedb',
-      },
-      {
-        label: 'TreeFam',
-        name: 'xref_treefam',
-        id: 'phylogenomic/treefam',
       },
       {
         label: 'eggNOG',
@@ -1649,6 +1650,11 @@ const mock = [
     isDatabaseGroup: true,
     id: 'gene_expression',
     fields: [
+      {
+        label: 'AbasyAtlas',
+        name: 'xref_abasyatlas',
+        id: 'gene_expression/abasyatlas',
+      },
       {
         label: 'Bgee',
         name: 'xref_bgee',

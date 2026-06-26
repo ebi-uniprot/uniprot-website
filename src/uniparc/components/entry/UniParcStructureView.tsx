@@ -27,7 +27,7 @@ const UniParcStructureView = ({ data }: Props) =>
       id={SubEntrySection.Structure}
       data-entry-section
     >
-      <StructureView checksum={data.md5} viewerOnly />
+      <StructureView checksum={data.md5} isUniProtKBAccession={false} />
     </Card>
   );
 
