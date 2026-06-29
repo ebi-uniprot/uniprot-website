@@ -221,7 +221,7 @@ const AlignForm = ({ initialFormValues }: Props) => {
             <legend>
               Find a protein sequence by UniProt ID (e.g. P05067 or A4_HUMAN or
               UPI0000000001) to align with the{' '}
-              <ExternalLink url="http://www.clustal.org/">
+              <ExternalLink url="https://www.ebi.ac.uk/jdispatcher/msa/clustalo">
                 Clustal Omega program
               </ExternalLink>
               .
