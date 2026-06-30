@@ -148,7 +148,7 @@ const HelpEntryContent = ({
 
   // event delegation here, not actually doing anything with the div
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, @eslint-react/dom-no-dangerously-set-innerhtml
     <div dangerouslySetInnerHTML={{ __html: html }} onClick={handleClick} />
   );
 };

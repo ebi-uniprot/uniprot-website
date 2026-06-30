@@ -1,5 +1,5 @@
 import { Message } from 'franklin-sites';
-import { type HTMLAttributes, useEffect } from 'react';
+import { type HTMLAttributes, useEffect, useState } from 'react';
 
 import ErrorComponent from './ErrorComponent';
 import ArtWork from './svgs/503.img.svg';
@@ -15,7 +15,7 @@ const ServiceUnavailable = ({
   noReload,
   ...props
 }: ServiceUnavailableProps) => {
-  const retryIndex = +(sessionStorage.getItem(KEY) || 0);
+  const [retryIndex] = useState(() => +(sessionStorage.getItem(KEY) || 0));
   const willReload = !noReload && navigator.onLine && retryIndex in BACKOFF;
 
   useEffect(() => {

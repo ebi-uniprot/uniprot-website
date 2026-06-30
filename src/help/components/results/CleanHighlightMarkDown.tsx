@@ -13,6 +13,7 @@ const cleanTextOptions = {
 
 const CleanHighlightMarkDown = ({ md }: { md: string }) => (
   <span
+    // eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- content is sanitized by parseMarkdown via cleanText
     dangerouslySetInnerHTML={{
       __html: parseMarkdown(md, cleanTextOptions, true),
     }}

@@ -98,6 +98,17 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   const [searchspace, setSearchspace] =
     useState<Searchspace>(initialSearchspace);
 
+  // Reset the clauses whenever the searchspace changes, so the seeding effect
+  // below re-derives them for the new namespace. Done during render (React's
+  // "adjust state when a value changes" pattern) rather than in an effect, to
+  // avoid an extra render pass with stale clauses.
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [previousSearchspace, setPreviousSearchspace] = useState(searchspace);
+  if (searchspace !== previousSearchspace) {
+    setPreviousSearchspace(searchspace);
+    setClauses([]);
+  }
+
   const namespace =
     searchspace === toolResults ? jobResultsNamespace : searchspace;
 
@@ -116,9 +127,6 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
   >(namespace ? apiUrls.configure.queryBuilderTerms(namespace) : undefined);
 
   const loading = idMappingDetailsLoading || searchTermsLoading;
-  useEffect(() => {
-    setClauses([]);
-  }, [searchspace]);
 
   useEffect(() => {
     if (
@@ -129,6 +137,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
       return;
     }
 
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- seeds the initial clauses from the URL query once they are empty
     setClauses((clauses) => {
       if (clauses.length) {
         return clauses;
