@@ -1445,11 +1445,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
       {data.references
         ?.filter((reference) => reference.citation?.id.match(rePubMedId))
         ?.map(
-          (reference, index) =>
+          (reference) =>
             reference.citation && (
               <Link
-                // eslint-disable-next-line @eslint-react/no-array-index-key -- references may share a citation id; index disambiguates the key
-                key={`${reference.citation.id}-${index}`}
+                key={reference.citation.id}
                 to={getEntryPath(Namespace.citations, reference.citation.id)}
               >
                 {reference.citation.id}
@@ -1471,13 +1470,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litDoiId, {
     return (
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
         {doiReferences?.map(
-          (xref, index) =>
+          (xref) =>
             xref?.id && (
-              <ExternalLink
-                url={externalUrls.DOI(xref.id)}
-                // eslint-disable-next-line @eslint-react/no-array-index-key -- references may share a DOI; index disambiguates the key
-                key={`${xref.id}-${index}`}
-              >
+              <ExternalLink url={externalUrls.DOI(xref.id)} key={xref.id}>
                 {xref.id}
               </ExternalLink>
             )

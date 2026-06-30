@@ -1,7 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
-import settle from '../../../../../shared/__test-helpers__/settle';
 import { Namespace } from '../../../../../shared/types/namespaces';
 import BlastResultTable from '../BlastResultTable';
 import noHits from './__mocks__/example-empty';
@@ -25,10 +24,9 @@ describe('BlastResultTable tests', () => {
     fireEvent.click(toggle);
     const hspTracks = screen.getAllByTestId('blast-summary-track');
     expect(hspTracks.length).toBe(2);
-    await settle();
   });
 
-  it('should render without any hits', async () => {
+  it('should render without any hits', () => {
     const { asFragment } = customRender(
       <BlastResultTable
         data={noHits}
@@ -40,6 +38,5 @@ describe('BlastResultTable tests', () => {
     );
     expect(asFragment()).toMatchSnapshot();
     expect(screen.queryByTestId('blast-summary-track')).not.toBeInTheDocument();
-    await settle();
   });
 });

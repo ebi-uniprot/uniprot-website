@@ -69,7 +69,7 @@ export default [
             './*.js',
             '**/*.spec.*',
             '**/__mocks__/*.ts',
-            '**/__test-helpers__/*.{ts,tsx}',
+            '**/__test-helpers__/*.ts?',
           ],
         },
       ],

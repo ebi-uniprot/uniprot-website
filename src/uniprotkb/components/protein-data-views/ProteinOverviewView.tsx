@@ -74,18 +74,18 @@ const ProteinOverview = ({ data, inCard }: Props) => {
         {[
           name,
           geneNameListNode && (
-            <Fragment key="gene">
+            <>
               <strong>Gene:</strong> {geneNameListNode}
-            </Fragment>
+            </>
           ),
           organismNameNode,
           ecNumberNode,
           data.sequence?.length && `${data.sequence.length} amino acids`,
           proteinExistence,
           annotationScoreNode && (
-            <Fragment key="annotationScore">
+            <>
               <strong>Annotation score:</strong> {annotationScoreNode}
-            </Fragment>
+            </>
           ),
         ]
           .filter(Boolean)

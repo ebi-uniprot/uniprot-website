@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this, @typescript-eslint/no-unused-vars */
-import { act, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 
 import customRender from '../../__test-helpers__/customRender';
 import InPageNav from '../InPageNav';
@@ -74,9 +74,7 @@ describe('InPageNav component', () => {
     const target = screen.getByTestId('target');
     target.scrollIntoView = jest.fn();
 
-    act(() => {
-      history.push({ ...history.location, hash: '#id3' });
-    });
+    history.push({ ...history.location, hash: '#id3' });
 
     await waitFor(() => expect(target.scrollIntoView).toHaveBeenCalledTimes(1));
   });
@@ -92,9 +90,7 @@ describe('InPageNav component', () => {
 
     document.body.scrollTo = jest.fn();
 
-    act(() => {
-      history.push({ ...history.location, hash: '' });
-    });
+    history.push({ ...history.location, hash: '' });
 
     await waitFor(() =>
       expect(document.body.scrollTo).toHaveBeenCalledTimes(1)
