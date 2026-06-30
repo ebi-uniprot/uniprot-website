@@ -280,7 +280,6 @@ const FunctionSection = ({
   // 3. User had big screen but reduced it: continue to show GO-CAM tab
   const [showGoCamTab, setShowGoCamTab] = useState(!isSmallScreen);
   useEffect(() => {
-    // eslint-disable-next-line @eslint-react/set-state-in-effect -- sticky flag: once shown (large screen), the GO-CAM tab stays shown
     setShowGoCamTab((v) => v || !isSmallScreen);
   }, [isSmallScreen]);
 

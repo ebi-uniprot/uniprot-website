@@ -41,14 +41,6 @@ jest.mock(
   { virtual: true }
 );
 
-// GoRibbon side-effect-imports this web-component bundle, which jest can't
-// resolve; mock it so the module loads in tests.
-jest.mock(
-  '@geneontology/web-components/go-annotation-ribbon-strips',
-  () => ({}),
-  { virtual: true }
-);
-
 global.beforeEach(() => {
   resetUuidV1();
 });
@@ -101,53 +93,6 @@ jest.mock('react', () => ({
 };
 
 global.ResizeObserver = ResizeObserver;
-
-// jsdom does not implement HTMLCanvasElement.getContext. Nightingale's
-// `withCanvas` mixin calls `getContext('2d')` and the canvas tracks draw on the
-// returned context. Provide a no-op 2D context stub so canvas-based custom
-// elements render in tests without "Not implemented" errors.
-const make2dContext = () => {
-  const valueReturning: Record<string, () => unknown> = {
-    measureText: () => ({ width: 0 }),
-    getImageData: () => ({ data: [] }),
-    createLinearGradient: () => ({ addColorStop: () => undefined }),
-    createRadialGradient: () => ({ addColorStop: () => undefined }),
-    createPattern: () => null,
-    getLineDash: () => [],
-  };
-  return new Proxy(
-    {},
-    {
-      // Return purpose-built helpers where a value is expected, otherwise a
-      // no-op function so any drawing method (arc, fillRect, …) is callable.
-      get: (_target, prop: string) => valueReturning[prop] ?? (() => undefined),
-      // Allow setting context properties (fillStyle, lineWidth, …).
-      set: () => true,
-    }
-  );
-};
-
-// Guarded: some specs use the `node` test environment, where HTMLCanvasElement
-// does not exist.
-if (typeof HTMLCanvasElement !== 'undefined') {
-  HTMLCanvasElement.prototype.getContext = jest.fn((contextId: string) =>
-    contextId === '2d' ? make2dContext() : null
-  ) as typeof HTMLCanvasElement.prototype.getContext;
-}
-
-// @nightingale-elements/nightingale-track's ConfigHelper emits a stray
-// `console.log(type)` for feature types that have no configured colour. Filter
-// only that third-party debug output (identified by its source path); every
-// other console.log passes through untouched.
-const originalConsoleLog = console.log.bind(console);
-console.log = (...args: Parameters<typeof console.log>) => {
-  if (
-    (new Error().stack ?? '').includes('nightingale-track/src/ConfigHelper')
-  ) {
-    return;
-  }
-  originalConsoleLog(...args);
-};
 
 /* "Fail on console error" util */
 // Uncomment to have jest stop when a console error is shown in order to fix it

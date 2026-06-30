@@ -50,11 +50,9 @@ const usePagination = <T extends APIModel, R extends APIModel>(
 
   // Reset conditions, when any of the things in the dep array changes
   useEffect(() => {
-    /* eslint-disable @eslint-react/set-state-in-effect -- resets the accumulated pages when the query/converter changes; cannot be derived during render */
     setAllResults([]);
     setMetaData({ total: undefined, nextUrl: undefined });
     setUrl(initialApiUrl);
-    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [initialApiUrl, converter]);
 
   const { data, loading, progress, headers, error, status } = useDataApi<
@@ -70,7 +68,6 @@ const usePagination = <T extends APIModel, R extends APIModel>(
       ? converter(results as T[])
       : (results as R[]);
     const total: string | undefined = headers?.['x-total-results'];
-    /* eslint-disable @eslint-react/set-state-in-effect -- accumulates each fetched page into state as the request resolves */
     setAllResults((allRes) => [...allRes, ...transformedResults]);
     setMetaData({
       total: total ? parseInt(total, 10) : 0,
@@ -78,7 +75,6 @@ const usePagination = <T extends APIModel, R extends APIModel>(
       warnings,
       suggestions,
     });
-    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [data, headers, converter]);
 
   const { total, nextUrl, warnings, suggestions } = metaData;

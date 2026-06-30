@@ -70,7 +70,7 @@ const SuggestionEntriesTable = ({ activeEntries, inactiveEntries }: Props) => {
       <DataTable
         data={mergedData}
         columns={columnConfig}
-        getIdKey={(row, index) => row.primaryAccession ?? `row-${index}`}
+        getIdKey={(row) => row.primaryAccession}
         density="compact"
       />
     </div>

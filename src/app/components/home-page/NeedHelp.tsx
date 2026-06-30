@@ -346,7 +346,6 @@ const NeedHelp = () => {
             {seminar?.fields.title[0].length <= 100 && (
               <p
                 className={styles.description}
-                // eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- content is sanitized by cleanText
                 dangerouslySetInnerHTML={{
                   __html: cleanText(seminar?.fields.description[0], {
                     ...cleanTextDefaultOptions,

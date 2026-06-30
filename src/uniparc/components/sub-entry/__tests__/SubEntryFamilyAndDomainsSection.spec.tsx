@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import settle from '../../../../shared/__test-helpers__/settle';
 import uniProtKbConverter, {
   type UniProtkbUIModel,
 } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -49,7 +48,7 @@ describe('SubEntryFamilyAndDomainsSection', () => {
     ).toBeNull();
   });
 
-  it('renders the section heading when sequence features are present', async () => {
+  it('renders the section heading when sequence features are present', () => {
     customRender(
       <SubEntryFamilyAndDomainsSection
         uniparcData={uniparcDataWithSequenceFeatures()}
@@ -58,7 +57,6 @@ describe('SubEntryFamilyAndDomainsSection', () => {
     expect(
       screen.getByRole('heading', { name: /Family & Domains/i })
     ).toBeInTheDocument();
-    await settle();
   });
 
   it('renders precomputed SIMILARITY comments', () => {
