@@ -15,6 +15,7 @@ import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
 import ComputationalyMappedSequences from './ComputationallyMappedSequences';
+import SeqhubView from './SeqhubView';
 
 type Props = {
   data: SequenceUIModel;
@@ -45,6 +46,7 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
     >
       <SequenceView data={data} accession={primaryAccession} />
       <ComputationalyMappedSequences primaryAccession={primaryAccession} />
+      <SeqhubView sequence={data.sequence?.value} />
       {data.sequenceCaution && data.sequenceCaution.length > 0 && (
         <>
           <h3 data-article-id="sequence_caution">Sequence caution</h3>
