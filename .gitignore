@@ -25,3 +25,6 @@ yalc.lock
 
 # Local Netlify folder
 .netlify
+
+# Statistics archival bundles
+/archive
