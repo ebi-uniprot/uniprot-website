@@ -1,5 +1,5 @@
 import { Loader, Message } from 'franklin-sites';
-import { use, useCallback, useEffect, useRef, useState } from 'react';
+import { use, useCallback, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
@@ -14,6 +14,7 @@ import { type UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../../types/entry';
 import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 import tabsStyles from './styles/tabs-styles.module.scss';
+import ZoomHint from './ZoomHint';
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
@@ -33,27 +34,6 @@ const FeatureViewer = ({
     typeof showTooltipAtCoordinates
   > | null>(null);
 
-  // Show a "scroll to zoom" hint the very first time the user scrolls over the
-  // feature viewer, then never again.
-  const [showZoomHint, setShowZoomHint] = useState(false);
-  const zoomHintShown = useRef(false);
-  const zoomHintTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const onScrollOrWheel = useCallback(() => {
-    if (zoomHintShown.current) {
-      return;
-    }
-    zoomHintShown.current = true;
-    setShowZoomHint(true);
-    zoomHintTimeout.current = setTimeout(() => setShowZoomHint(false), 3000);
-  }, []);
-  useEffect(
-    () => () => {
-      if (zoomHintTimeout.current) {
-        clearTimeout(zoomHintTimeout.current);
-      }
-    },
-    []
-  );
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, status } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession),
@@ -188,21 +168,12 @@ const FeatureViewer = ({
       )}
 
       {shouldRender ? (
-        <div
-          className={tabsStyles['feature-viewer-container']}
-          onScroll={onScrollOrWheel}
-          onWheel={onScrollOrWheel}
-        >
+        <ZoomHint>
           <protvistaUniprotElement.name
             accession={accession}
             ref={protvistaUniprotRef}
           />
-          {showZoomHint && (
-            <div className={tabsStyles['zoom-hint']}>
-              <span>Use [CTRL] + scroll to zoom</span>
-            </div>
-          )}
-        </div>
+        </ZoomHint>
       ) : (
         <div className={tabsStyles['too-many']}>
           <Message>
