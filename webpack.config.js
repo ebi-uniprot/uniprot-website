@@ -11,6 +11,10 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 // custom plugins
 const LegacyModuleSplitPlugin = require('./webpack-plugins/legacy-module-split-plugin');
 
+// Pin the corejs3 polyfill plugin to the installed core-js version so it only
+// injects polyfills that actually exist in the bundled runtime.
+const coreJsVersion = require('core-js/package.json').version;
+
 // some plugins are conditionally-loaded as they are also conditionally used.
 
 const legacyModuleSplitPlugin = new LegacyModuleSplitPlugin();
@@ -105,6 +109,13 @@ const getConfigFor = ({
           use: {
             loader: 'babel-loader',
             options: {
+              // Keep the build self-contained: never merge the root
+              // babel.config.js (which is jest-only and targets node:'current'
+              // with a bare preset-react) or any .babelrc into the browser
+              // bundle. Those leaking in previously emitted the dev JSX runtime
+              // (react/jsx-dev-runtime) into production and crashed it.
+              configFile: false,
+              babelrc: false,
               cacheDirectory: true,
               // `targets` lives at the top level so both preset-env and the
               // corejs3 polyfill plugin read the same value (Babel 8 requirement).

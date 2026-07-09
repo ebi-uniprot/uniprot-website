@@ -204,6 +204,7 @@ const Landing = () => {
   const updateContent = useMemo(
     () =>
       throttle(() => {
+        // eslint-disable-next-line @eslint-react/set-state-in-effect -- scans the rendered DOM for in-page articles (also driven by a MutationObserver)
         setInPageArticles(getAllArticles());
       }, 500),
     []

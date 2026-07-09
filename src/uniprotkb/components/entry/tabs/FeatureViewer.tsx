@@ -67,17 +67,17 @@ const FeatureViewer = ({
   useEffect(() => {
     const ref = protvistaUniprotRef.current;
     ref?.addEventListener('change', onProtvistaUniprotChange);
+    return () => {
+      ref?.removeEventListener('change', onProtvistaUniprotChange);
+    };
   }, [onProtvistaUniprotChange, protvistaUniprotElement]);
 
+  // Dismiss any lingering tooltip when the viewer unmounts
   useEffect(
     () => () => {
       hideTooltip.current?.();
-      protvistaUniprotRef.current?.removeEventListener(
-        'change',
-        onProtvistaUniprotChange
-      );
     },
-    [onProtvistaUniprotChange]
+    []
   );
 
   // TODO: when updating to react 19, update below pattern to use ref callback

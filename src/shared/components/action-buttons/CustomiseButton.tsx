@@ -1,5 +1,5 @@
 import { Button, EditIcon, SlidingPanel } from 'franklin-sites';
-import { type FormEvent, Suspense, useEffect, useState } from 'react';
+import { type FormEvent, Suspense, useState } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { frame } from 'timing-functions';
 
@@ -36,9 +36,18 @@ const CustomiseButton = ({ namespace }: { namespace: Namespace }) => {
   );
   const [columns, setColumns] = useState(localStorageColumns);
 
-  useEffect(() => {
+  // Resync the editable column selection when the stored preference changes
+  // (e.g. saved here, or updated from another tab). Done during render (React's
+  // "adjust state when a value changes" pattern) rather than in an effect, to
+  // avoid an extra render pass. `localStorageColumns` is referentially stable
+  // between genuine changes, so this can't loop.
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [previousLocalStorageColumns, setPreviousLocalStorageColumns] =
+    useState(localStorageColumns);
+  if (localStorageColumns !== previousLocalStorageColumns) {
+    setPreviousLocalStorageColumns(localStorageColumns);
     setColumns(localStorageColumns);
-  }, [localStorageColumns]);
+  }
 
   const close = () => displayCustomisePanel && setDisplayCustomisePanel(false);
 

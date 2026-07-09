@@ -280,6 +280,7 @@ const FunctionSection = ({
   // 3. User had big screen but reduced it: continue to show GO-CAM tab
   const [showGoCamTab, setShowGoCamTab] = useState(!isSmallScreen);
   useEffect(() => {
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- sticky flag: once shown (large screen), the GO-CAM tab stays shown
     setShowGoCamTab((v) => v || !isSmallScreen);
   }, [isSmallScreen]);
 
@@ -352,8 +353,7 @@ const FunctionSection = ({
       <CatalyticActivityView
         comments={
           data.commentsData.get('CATALYTIC ACTIVITY') as
-            | CatalyticActivityComment[]
-            | undefined
+            CatalyticActivityComment[] | undefined
         }
         title="Catalytic activity"
         defaultHideAllReactions={isSmallScreen}
@@ -367,8 +367,7 @@ const FunctionSection = ({
       <FreeTextView
         comments={
           data.commentsData.get('ACTIVITY REGULATION') as
-            | FreeTextComment[]
-            | undefined
+            FreeTextComment[] | undefined
         }
         title="Activity regulation"
         articleId="activity_regulation"
@@ -376,8 +375,7 @@ const FunctionSection = ({
       <FreeTextView
         comments={
           data.commentsData.get('BIOTECHNOLOGY') as
-            | FreeTextComment[]
-            | undefined
+            FreeTextComment[] | undefined
         }
         title="Biotechnology"
         articleId="biotechnological_use"
