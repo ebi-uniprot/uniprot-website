@@ -18,3 +18,29 @@
   display: flow-root;
   float: right;
 }
+
+.feature-viewer-container {
+  position: relative;
+}
+
+.zoom-hint {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+
+  span {
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    background: rgb(0 0 0 / 70%);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
