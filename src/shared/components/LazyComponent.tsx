@@ -41,7 +41,6 @@ const LazyComponent: FC<React.PropsWithChildren<Props>> = ({
   useEffect(() => {
     // Always follow props, in case it changes
     if (typeof render !== 'undefined') {
-      // eslint-disable-next-line @eslint-react/set-state-in-effect -- keeps the render state in sync with the controlling prop
       setShouldRender(render);
     }
 
@@ -52,7 +51,6 @@ const LazyComponent: FC<React.PropsWithChildren<Props>> = ({
 
     if (!ioSupported) {
       // Just render if IntersectionObserver is not supported
-      // eslint-disable-next-line @eslint-react/set-state-in-effect -- renders immediately when IntersectionObserver is unavailable
       setShouldRender(true);
       return;
     }

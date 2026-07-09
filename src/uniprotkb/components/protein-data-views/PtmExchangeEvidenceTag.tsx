@@ -36,7 +36,6 @@ const PtmExchangeEvidence = ({ evidences }: { evidences?: Evidence[] }) => {
             key={key}
           >
             {mappedEvidences.map(({ id, url }: Evidence, index) => (
-              // eslint-disable-next-line @eslint-react/no-array-index-key -- static, API-ordered evidence list; evidence may lack an id
               <span key={id || index}>
                 <EvidenceLink source={key} value={id} url={url} />
               </span>

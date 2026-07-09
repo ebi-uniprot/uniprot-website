@@ -11,11 +11,6 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 // custom plugins
 const LegacyModuleSplitPlugin = require('./webpack-plugins/legacy-module-split-plugin');
 
-// Pin the corejs3 polyfill plugin to the installed core-js version so the two
-// can never drift; the plugin must not assume polyfills newer than what is
-// actually installed.
-const coreJsVersion = require('core-js/package.json').version;
-
 // some plugins are conditionally-loaded as they are also conditionally used.
 
 const legacyModuleSplitPlugin = new LegacyModuleSplitPlugin();

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Button, Dropdown, Header } from 'franklin-sites';
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link, useLocation, useRouteMatch } from 'react-router-dom';
 import { type Organization, type WithContext } from 'schema-dts';
 
@@ -110,15 +110,11 @@ const SearchContainerWithNamespace = () => {
 
   const [selectedSearchspace, setSelectedSearchspace] = useState(searchspace);
 
-  // Sync the selected searchspace when the route-derived searchspace changes.
-  // Done during render (React's "adjust state when a value changes" pattern)
-  // rather than in an effect, to avoid an extra render pass.
-  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
-  const [previousSearchspace, setPreviousSearchspace] = useState(searchspace);
-  if (searchspace && searchspace !== previousSearchspace) {
-    setPreviousSearchspace(searchspace);
-    setSelectedSearchspace(searchspace);
-  }
+  useEffect(() => {
+    if (searchspace) {
+      setSelectedSearchspace(searchspace);
+    }
+  }, [searchspace]);
 
   return (
     <Suspense fallback={null}>

@@ -276,11 +276,9 @@ const MembersSection = ({ id, identity, representativeMember }: Props) => {
 
   // reset everything when it looks like we changed entry
   useEffect(() => {
-    /* eslint-disable @eslint-react/set-state-in-effect -- resets the accumulated pages when the entry changes; cannot be derived during render */
     setAllResults([]);
     setMetadata({ total: 0, nextUrl: undefined });
     setUrl(initialUrl);
-    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [initialUrl]);
 
   useEffect(() => {
@@ -288,13 +286,11 @@ const MembersSection = ({ id, identity, representativeMember }: Props) => {
       return;
     }
     const { results } = data;
-    /* eslint-disable @eslint-react/set-state-in-effect -- accumulates each fetched page into state as the request resolves */
     setAllResults((allRes) => [...allRes, ...results]);
     setMetadata(() => ({
       total: +(headers?.['x-total-results'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
-    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [data, headers]);
 
   const smallScreen = useSmallScreen();

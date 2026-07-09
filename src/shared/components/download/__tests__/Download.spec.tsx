@@ -13,7 +13,6 @@ import { UniParcColumn } from '../../../../uniparc/config/UniParcColumnConfigura
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import customRender from '../../../__test-helpers__/customRender';
-import settle from '../../../__test-helpers__/settle';
 import { DOWNLOAD_SIZE_LIMIT } from '../../../config/limits';
 import { IDMappingDetailsContext } from '../../../contexts/IDMappingDetails';
 import { Namespace } from '../../../types/namespaces';
@@ -32,7 +31,7 @@ describe('Download component', () => {
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
   let onCloseMock: jest.Mock;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     onCloseMock = jest.fn();
 
     customRender(
@@ -49,9 +48,6 @@ describe('Download component', () => {
         },
       }
     );
-    // Flush the in-flight column-config fetch triggered by the render above so
-    // its dispatch runs within act (no act() warnings) before each test body.
-    await settle();
   });
 
   it('should call onClose when cancel button is clicked', () => {
@@ -166,7 +162,6 @@ describe('Download with passed query and selectedQuery props', () => {
     expect(downloadLink.href).toEqual(
       expect.stringContaining(stringifyQuery({ query: `(${selectedQuery})` }))
     );
-    await settle();
   });
 });
 
@@ -219,12 +214,11 @@ describe('Download uniparc entries with passed proteome id as query', () => {
     expect(downloadLink.href).toEqual(
       expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );
-    await settle();
   });
 });
 
 describe('Download with UniProtKB entry history / UniSave', () => {
-  it('should render as expected, 2 selected', async () => {
+  it('should render as expected, 2 selected', () => {
     const onCloseMock = jest.fn();
     const selectedEntries = ['23', '22'];
     const accession = 'P05067';
@@ -253,10 +247,9 @@ describe('Download with UniProtKB entry history / UniSave', () => {
         `unisave/${accession}?download=true&format=txt&versions=${selectedEntries[0]}%2C${selectedEntries[1]}`
       )
     );
-    await settle();
   });
 
-  it('should render as expected, none selected, "download all"', async () => {
+  it('should render as expected, none selected, "download all"', () => {
     const onCloseMock = jest.fn();
     const accession = 'P05067';
 
@@ -283,12 +276,11 @@ describe('Download with UniProtKB entry history / UniSave', () => {
     expect(downloadLink.href).toEqual(
       expect.stringContaining(`unisave/${accession}?download=true&format=txt`)
     );
-    await settle();
   });
 });
 
 describe('Download with ID mapping results', () => {
-  it('should not display column selection for results which map to a non-uniprot namespace and have correct download link', async () => {
+  it('should not display column selection for results which map to a non-uniprot namespace and have correct download link', () => {
     customRender(
       <IDMappingDetailsContext.Provider
         value={{ loading: false, data: SimpleMappingDetails }}
@@ -310,7 +302,6 @@ describe('Download with ID mapping results', () => {
       expect.stringContaining('/idmapping/stream/id1')
     );
     expect(screen.queryByText('Customize columns')).not.toBeInTheDocument();
-    await settle();
   });
 
   it('should display column selection for results which map to a uniprot namespace and have correct download link', async () => {

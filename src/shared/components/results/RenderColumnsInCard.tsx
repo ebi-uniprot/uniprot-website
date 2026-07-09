@@ -29,10 +29,7 @@ const RenderColumnsInCard = <Schema extends Record<string, unknown>>({
       return (
         <span
           className={styles['result-card__info-bit']}
-          key={
-            // eslint-disable-next-line @eslint-react/no-array-index-key -- static, positionally-stable renderer config; label may be a non-string node
-            typeof renderer.label === 'string' ? renderer.label : index
-          }
+          key={typeof renderer.label === 'string' ? renderer.label : index}
         >
           <strong>{renderer.label}: </strong>
           {rendered}

@@ -163,7 +163,6 @@ const AlignOverview = ({
       ...alignment.map((al) => al.sequence.length)
     );
     if (typeof displayPosition[1] === 'undefined') {
-      // eslint-disable-next-line @eslint-react/set-state-in-effect -- seeds the initial display window from the measured alignment width
       setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
     }
   }, [alignmentLength, alignment, displayPosition]);

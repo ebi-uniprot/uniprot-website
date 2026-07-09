@@ -18,9 +18,6 @@ import Contact from './Contact';
 import ReleaseInfo from './ReleaseInfo';
 import footer from './styles/footer.module.scss';
 
-// Computed once at module load; the copyright year doesn't need to update live.
-const currentYear = new Date().getFullYear();
-
 const FooterConsortium = () => (
   <div className={footer.consortium}>
     <Link
@@ -64,7 +61,7 @@ const FooterCopyrightAndMisc = () => (
           accession: 'about',
         })}
       >
-        © 2002 – {currentYear} UniProt consortium
+        © 2002 – {new Date().getFullYear()} UniProt consortium
       </Link>
     </p>
     <p>

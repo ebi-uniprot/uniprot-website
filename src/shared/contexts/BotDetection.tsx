@@ -54,8 +54,7 @@ const focusEvents: number[] = [];
 
 export const BotDetectionProvider = ({ children }: { children: ReactNode }) => {
   const [status, setStatus] = useState<BotDetectionStatus>(
-    () =>
-      (sessionStorage.getItem('bot-detection') as BotDetectionStatus) ||
+    (sessionStorage.getItem('bot-detection') as BotDetectionStatus) ||
       'undetermined'
   );
 

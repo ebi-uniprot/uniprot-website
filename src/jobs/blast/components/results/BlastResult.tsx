@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
-import { type JSX, lazy, Suspense, useMemo, useState } from 'react';
+import { type JSX, lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { type Except } from 'type-fest';
 
@@ -111,6 +111,10 @@ type Params = {
 const useParamsData = (
   id: string
 ): Partial<UseDataAPIState<PublicServerParameters>> => {
+  const [paramsData, setParamsData] = useState<
+    Partial<UseDataAPIState<PublicServerParameters>>
+  >({});
+
   const paramsXMLData = useDataApi<string>(
     urls.resultUrl(id, { format: 'parameters' })
   );
@@ -118,26 +122,23 @@ const useParamsData = (
     urls.resultUrl(id, { format: 'sequence' })
   );
 
-  // Purely derived from the two requests, so compute it during render rather
-  // than syncing it into state from an effect.
-  return useMemo<Partial<UseDataAPIState<PublicServerParameters>>>(() => {
+  useEffect(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
     const error = paramsXMLData.error || sequenceData.error;
     const status = paramsXMLData.status || sequenceData.status;
     if (loading) {
-      return { loading };
-    }
-    if (error) {
-      return { loading, error, status };
-    }
-    if (paramsXMLData.data && sequenceData.data) {
-      return {
+      setParamsData({ loading });
+    } else if (error) {
+      setParamsData({ loading, error, status });
+    } else if (paramsXMLData.data && sequenceData.data) {
+      setParamsData({
         loading,
         data: inputParamsXMLToObject(paramsXMLData.data, sequenceData.data),
-      };
+      });
     }
-    return {};
   }, [paramsXMLData, sequenceData]);
+
+  return paramsData;
 };
 
 // probably going to change with the custom endpoint to enrich data, so keep it

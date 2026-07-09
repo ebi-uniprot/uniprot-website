@@ -206,7 +206,6 @@ export const Facets: FC<
             <li
               key={
                 (typeof child === 'object' && 'key' in child && child.key) ||
-                // eslint-disable-next-line @eslint-react/no-array-index-key -- arbitrary external children rendered in a fixed, positional order
                 index
               }
             >

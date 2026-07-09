@@ -25,10 +25,8 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
 
   // Reset conditions, when any of the things in the dep array changes
   useEffect(() => {
-    /* eslint-disable @eslint-react/set-state-in-effect -- resets the accumulated pages when the query/converter changes; cannot be derived during render */
     setAllResults([]);
     setBatchStart(0);
-    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [initialApiUrl, converter]);
 
   const { data, loading, progress, error, status } = useDataApi<
@@ -50,7 +48,6 @@ const usePaginatedAccessions = <T extends APIModel, R extends APIModel>(
       ? converter(results as T[])
       : (results as R[]);
 
-    // eslint-disable-next-line @eslint-react/set-state-in-effect -- accumulates each fetched batch into state as the request resolves
     setAllResults((allRes) => [...allRes, ...transformedResults]);
   }, [data, converter]);
 
