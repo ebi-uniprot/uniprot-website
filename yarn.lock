@@ -2048,6 +2048,16 @@
     "@nightingale-elements/nightingale-new-core" "^5.6.0"
     d3 "7.9.0"
 
+"@nightingale-elements/nightingale-structure@5.10.2":
+  version "5.10.2"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-structure/-/nightingale-structure-5.10.2.tgz#84f019b51f856441efde742f6b961d5971e8492a"
+  integrity sha512-udJKAR6cDJHWpSlM8rnCcYojPxVJwtmmZ2d+qVGtidAdEiJ9WxqJkXmMtkUmn+zkFpKylHWoXlmzlPGHPK6XhQ==
+  dependencies:
+    "@nightingale-elements/nightingale-new-core" "^5.6.0"
+    d3 "7.9.0"
+    dompurify "^3.0.0"
+    molstar "3.44.0"
+
 "@nightingale-elements/nightingale-structure@5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-structure/-/nightingale-structure-5.8.0.tgz#55e69196a05206fa6cb8507a7e97836f2c3765b9"
@@ -6838,6 +6848,13 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   integrity sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==
   dependencies:
     domelementtype "^2.3.0"
+
+dompurify@^3.0.0:
+  version "3.4.11"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.4.11.tgz#29c8ba496475f279ef4015784068452fb14a0680"
+  integrity sha512-zhlUV12GsaRzMsf9q5M254YhA4+VuF0fG+QFqu6aYpoGlKtz+w8//jBcGVYBgQkR5GHjUomejY84AV+/uPbWdw==
+  optionalDependencies:
+    "@types/trusted-types" "^2.0.7"
 
 dompurify@^3.4.0:
   version "3.4.5"
@@ -11752,8 +11769,10 @@ protvista-tooltip@^3.8.22:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
-"protvista-uniprot@file:.yalc/protvista-uniprot":
-  version "4.9.1"
+protvista-uniprot@4.9.2:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.9.2.tgz#b3e7bed30da12c19b645e9fb0fd588dcd9c814cb"
+  integrity sha512-yOW5nbbJ8TvAp64JduRVQn40YZXHtJBEogdzoSKY67nC+C5YTks2BJbz22eVw4Lw+ylm3QY3wIy9J7YzOPohRw==
   dependencies:
     "@nightingale-elements/nightingale-colored-sequence" "5.6.0"
     "@nightingale-elements/nightingale-filter" "5.6.0"
@@ -11763,7 +11782,7 @@ protvista-tooltip@^3.8.22:
     "@nightingale-elements/nightingale-navigation" "5.6.0"
     "@nightingale-elements/nightingale-sequence" "5.6.0"
     "@nightingale-elements/nightingale-sequence-heatmap" "5.6.2"
-    "@nightingale-elements/nightingale-structure" "5.8.0"
+    "@nightingale-elements/nightingale-structure" "5.10.2"
     "@nightingale-elements/nightingale-track-canvas" "5.6.0"
     "@nightingale-elements/nightingale-variation-canvas" "^5.10.1"
     color-hash "2.0.2"
