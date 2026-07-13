@@ -48,7 +48,7 @@ const ZoomHint = ({ children }: { children: ReactNode }) => {
       {children}
       {showZoomHint && (
         <div className={styles['zoom-hint']}>
-          <span>Use [CTRL] + scroll to zoom</span>
+          <span>Use [CTRL/CMD] + scroll to zoom</span>
         </div>
       )}
     </div>
