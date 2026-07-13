@@ -1,4 +1,4 @@
-import './styles/XrefsSection.scss';
+import './styles/XRefsSection.scss';
 
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 import { useMemo } from 'react';
