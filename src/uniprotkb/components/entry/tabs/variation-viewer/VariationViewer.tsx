@@ -55,6 +55,7 @@ import { type TransformedVariant } from '../../../../types/variation';
 import { sortByLocation } from '../../../../utils';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import tabsStyles from '../styles/tabs-styles.module.scss';
+import ZoomHint from '../ZoomHint';
 import styles from './styles/variation-viewer.module.scss';
 
 const VisualVariationView = lazy(
@@ -781,10 +782,12 @@ const VariationViewer = ({
             highlight={getHighlightedCoordinates(highlightedVariant)}
           >
             <Suspense fallback={null}>
-              <VisualVariationView
-                sequence={transformedData.sequence}
-                variants={filteredVariants}
-              />
+              <ZoomHint>
+                <VisualVariationView
+                  sequence={transformedData.sequence}
+                  variants={filteredVariants}
+                />
+              </ZoomHint>
             </Suspense>
           </NightingaleManagerComponent>
         </div>
