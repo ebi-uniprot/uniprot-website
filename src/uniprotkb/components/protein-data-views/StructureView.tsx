@@ -164,7 +164,7 @@ const StructureView = ({
         id: 'id',
         label: 'Identifier',
         render: (row) => {
-          if (row.source === 'AlphaFold DB') {
+          if (row.source === ALPHAFOLD_SOURCE) {
             return (
               <ExternalLink url={`https://alphafold.ebi.ac.uk/entry/${row.id}`}>
                 {row.id}
@@ -249,15 +249,23 @@ const StructureView = ({
         label: 'Links',
         render: (row) => {
           const downloadLink = row.downloadUrl ? (
-            <a href={row.downloadUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={row.downloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download structure file"
+            >
               <DownloadIcon width="1em" />
             </a>
           ) : null;
-          if (
-            row.source === 'PDB' ||
-            (row.source === 'AlphaFold DB' && row.isoformIsCanonical === true)
-          ) {
-            const accession = row.source === 'PDB' ? row.id : primaryAccession;
+          const foldseekAccession =
+            row.source === PDB_SOURCE ? row.id : primaryAccession;
+          const showFoldseek =
+            row.source === PDB_SOURCE ||
+            (row.source === ALPHAFOLD_SOURCE &&
+              row.isoformIsCanonical === true &&
+              Boolean(foldseekAccession));
+          if (showFoldseek) {
             const foldseekSource =
               row.source === PDB_SOURCE ? 'PDB' : 'AlphaFoldDB';
             return (
@@ -265,7 +273,7 @@ const StructureView = ({
                 {downloadLink}
                 {' · '}
                 <ExternalLink
-                  url={`https://search.foldseek.com/search?accession=${accession}&source=${foldseekSource}`}
+                  url={`https://search.foldseek.com/search?accession=${foldseekAccession}&source=${foldseekSource}`}
                 >
                   Foldseek
                 </ExternalLink>
@@ -344,6 +352,7 @@ const StructureView = ({
               }}
             >
               <TableFromData
+                key={tab.id}
                 data={tab.rows}
                 columns={columns.filter(
                   (col) =>
