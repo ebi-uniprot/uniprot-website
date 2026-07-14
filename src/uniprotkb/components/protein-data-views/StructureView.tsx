@@ -35,22 +35,18 @@ const structureTabs = [
   {
     id: 'pdb',
     title: 'PDB',
-    description:
-      'Experimentally determined structures from the Protein Data Bank (PDB).',
     belongs: (row: StructureRow) => row.source === PDB_SOURCE,
     hiddenColumns: ['source', 'isoform', 'oligomeric_state'],
   },
   {
     id: 'alphafolddb',
     title: 'AlphaFoldDB',
-    description: 'Computationally predicted structures from AlphaFold DB.',
     belongs: (row: StructureRow) => row.source === ALPHAFOLD_SOURCE,
     hiddenColumns: ['source', 'method', 'resolution'],
   },
   {
     id: 'others',
     title: 'Others',
-    description: 'Structures and models from other sources.',
     belongs: (row: StructureRow) =>
       row.source !== PDB_SOURCE && row.source !== ALPHAFOLD_SOURCE,
     hiddenColumns: ['isoform', 'method', 'resolution', 'oligomeric_state'],
@@ -311,6 +307,12 @@ const StructureView = ({
           <AFDBOutOfSync modal />
         </>
       )}
+      {selectedStructure && (
+        <p className={styles['selected-structure']}>
+          Selected structure: <strong>{selectedStructure.id}</strong> (
+          {selectedStructure.source})
+        </p>
+      )}
       <protvista-uniprot-structure
         ref={setStructureEl}
         accession={primaryAccession}
@@ -341,7 +343,6 @@ const StructureView = ({
                 }
               }}
             >
-              <p>{tab.description}</p>
               <TableFromData
                 data={tab.rows}
                 columns={columns.filter(
