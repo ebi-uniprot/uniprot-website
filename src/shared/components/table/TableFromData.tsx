@@ -238,9 +238,15 @@ function TableFromData<T>({
   // Forward the virtualizer instance to the parent via ref. Used by the
   // scroll-to-row hook to jump to rows that aren't currently mounted.
   useEffect(() => {
-    if (virtualizerRef) {
-      virtualizerRef.current = shouldVirtualize ? virtualizer : null;
+    if (!virtualizerRef) {
+      return undefined;
     }
+    virtualizerRef.current = shouldVirtualize ? virtualizer : null;
+    // Clear on unmount so a parent that outlives this table doesn't hold a
+    // stale virtualizer.
+    return () => {
+      virtualizerRef.current = null;
+    };
   }, [shouldVirtualize, virtualizer, virtualizerRef]);
 
   if (shouldVirtualize) {

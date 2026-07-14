@@ -416,6 +416,10 @@ const initialViewerState: ViewerState = {
   isNavigating: false,
 };
 
+// Hold the dim+spinner feedback for at least this long after a filter
+// transition starts so fast filter operations don't flash on/off.
+const MIN_FILTER_FEEDBACK_MS = 750;
+
 function viewerReducer(state: ViewerState, action: ViewerAction): ViewerState {
   switch (action.type) {
     case 'setHighlight':
@@ -470,24 +474,16 @@ const VariationViewer = ({
 
   const [filters, setFilters] = useState<string[]>([]);
   const [isFiltering, startFilterTransition] = useTransition();
-  // Hold the dim+spinner feedback for a minimum of 1s after the transition
-  // starts so fast filter operations don't flash on/off.
-  const MIN_FILTER_FEEDBACK_MS = 750;
   const [filteringFeedbackActive, setFilteringFeedbackActive] = useState(false);
   const filteringStartTimeRef = useRef<number | undefined>(undefined);
   const filteringFeedbackTimerRef = useRef<number | undefined>(undefined);
 
+  // The feedback is switched on in the filter event handler; this effect only
+  // schedules switching it back off once the transition settles, holding it on
+  // for a minimum duration so fast filters don't flash. The only state update
+  // happens inside the timer callback, never synchronously during the effect.
   useEffect(() => {
-    if (isFiltering) {
-      setFilteringFeedbackActive(true);
-      filteringStartTimeRef.current = Date.now();
-      if (filteringFeedbackTimerRef.current !== undefined) {
-        window.clearTimeout(filteringFeedbackTimerRef.current);
-        filteringFeedbackTimerRef.current = undefined;
-      }
-      return undefined;
-    }
-    if (filteringStartTimeRef.current === undefined) {
+    if (isFiltering || filteringStartTimeRef.current === undefined) {
       return undefined;
     }
     const elapsed = Date.now() - filteringStartTimeRef.current;
@@ -552,6 +548,16 @@ const VariationViewer = ({
     const listener = (event: Event) => {
       const { detail } = event as CustomEvent;
       if (detail?.type === 'filters') {
+        // Show the dim+spinner feedback immediately. Doing it here (in the
+        // event handler) rather than in an effect keeps the "on" transition out
+        // of render-time state updates; the effect below only schedules turning
+        // it back off. Cancel any pending "off" timer from a previous filter.
+        setFilteringFeedbackActive(true);
+        filteringStartTimeRef.current = Date.now();
+        if (filteringFeedbackTimerRef.current !== undefined) {
+          window.clearTimeout(filteringFeedbackTimerRef.current);
+          filteringFeedbackTimerRef.current = undefined;
+        }
         // Filter updates touch thousands of rows; mark as a transition so
         // React can interrupt the heavy re-render to handle further clicks.
         startFilterTransition(() => setFilters(detail.value));
@@ -633,6 +639,19 @@ const VariationViewer = ({
     const handle = window.setTimeout(() => setTableReady(true), 0);
     return () => window.clearTimeout(handle);
   }, []);
+
+  // If a canvas click set a highlight before the table finished its deferred
+  // mount, that scroll was a no-op (no row in the DOM and no virtualizer yet).
+  // Flush it once the table is ready. The highlight is read from a ref so this
+  // fires only on the readiness transition — not on every highlight change,
+  // which would scroll the table on ordinary row clicks.
+  const highlightedVariantRef = useRef(highlightedVariant);
+  highlightedVariantRef.current = highlightedVariant;
+  useEffect(() => {
+    if (tableReady && highlightedVariantRef.current) {
+      tableScroll(highlightedVariantRef.current);
+    }
+  }, [tableReady, tableScroll]);
 
   useEffect(() => {
     if (!isVirtualized) {
@@ -802,12 +821,9 @@ const VariationViewer = ({
             />
           </div>
           {filteringFeedbackActive && isVirtualized && (
-            <div
-              className={tableStyles['frozen-overlay']}
-              role="status"
-              aria-live="polite"
-              aria-label="Filtering variants"
-            >
+            // Decorative spinner only; the canvas-block overlay above is the
+            // single live region, so this one must not announce again.
+            <div className={tableStyles['frozen-overlay']} aria-hidden="true">
               <Loader />
             </div>
           )}

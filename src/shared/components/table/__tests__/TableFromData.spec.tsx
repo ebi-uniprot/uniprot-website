@@ -67,7 +67,7 @@ describe('TableFromData', () => {
     expect(container).not.toBeNull();
   });
 
-  it('passes filter changes through both branches', () => {
+  it('filters rows in the non-virtualized branch', () => {
     const filterColumns: TableFromDataColumn<Row>[] = [
       { id: 'age', label: 'Age', render: (d) => d.age },
       {
@@ -90,6 +90,45 @@ describe('TableFromData', () => {
     const bodyRows = document.querySelectorAll('tbody tr');
     expect(bodyRows).toHaveLength(1);
     expect(bodyRows[0]).toHaveTextContent('name-1');
+  });
+
+  it('filters rows while virtualization is engaged', () => {
+    // Above the threshold so virtualization engages, but the filter column has
+    // only two distinct values. Selecting the rare one drops the result below
+    // the threshold, so it falls back to the non-virtualized branch and the
+    // single matching row is rendered.
+    const filterColumns: TableFromDataColumn<Row>[] = [
+      { id: 'name', label: 'Name', render: (d) => d.name },
+      {
+        id: 'parity',
+        label: 'Parity',
+        render: (d) => d.name,
+        getValue: (d) => (d.age === 0 ? 'first' : 'rest'),
+      },
+    ];
+    customRender(
+      <TableFromData
+        virtualize
+        columns={filterColumns}
+        data={makeRows(VIRTUALIZE_ROW_THRESHOLD + 1)}
+        getRowId={(d) => d.id}
+      />
+    );
+    // Initially virtualized: the bounded scroll container is present.
+    expect(
+      document.querySelector('[class*="virtualize-container"]')
+    ).not.toBeNull();
+
+    const select = screen.getByRole('combobox');
+    fireEvent.change(select, { target: { value: 'first' } });
+
+    // Only the single 'first' row matches → below threshold → non-virtualized.
+    expect(
+      document.querySelector('[class*="virtualize-container"]')
+    ).toBeNull();
+    const bodyRows = document.querySelectorAll('tbody tr');
+    expect(bodyRows).toHaveLength(1);
+    expect(bodyRows[0]).toHaveTextContent('name-0');
   });
 
   it('shows a no-data message when filters exclude all rows', () => {

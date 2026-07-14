@@ -18,8 +18,16 @@ const makeVirtualizerRef = (scrollToIndex: jest.Mock) =>
   }) as RefObject<Virtualizer<HTMLDivElement, Element> | null>;
 
 describe('useNightingaleFeatureTableScroll', () => {
+  // jsdom doesn't implement scrollIntoView; tests that need it assign a mock.
+  // Capture and restore so the override doesn't leak into other tests.
+  const originalScrollIntoView = Element.prototype.scrollIntoView;
+
   beforeEach(() => {
     document.body.innerHTML = '';
+  });
+
+  afterEach(() => {
+    Element.prototype.scrollIntoView = originalScrollIntoView;
   });
 
   it('returns a no-op when the table is not in the DOM', () => {
