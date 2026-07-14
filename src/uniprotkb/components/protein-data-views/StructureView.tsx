@@ -1,5 +1,4 @@
-import cn from 'classnames';
-import { DownloadIcon, Loader, Message } from 'franklin-sites';
+import { DownloadIcon, Loader, Message, Tab, Tabs } from 'franklin-sites';
 import {
   type ProcessedStructureData,
   type ProtvistaUniprotStructure,
@@ -312,66 +311,51 @@ const StructureView = ({
           <AFDBOutOfSync modal />
         </>
       )}
-      <div className="tabs">
-        {!viewerOnly && !loading && structures.length > 0 && activeTab && (
-          <>
-            <div className="tabs__header" role="tablist">
-              {visibleTabs.map((tab) => (
-                <div
-                  key={tab.id}
-                  id={tab.id}
-                  role="tab"
-                  tabIndex={0}
-                  aria-selected={tab.id === activeTab.id}
-                  className={cn(
-                    'tabs__header__item',
-                    'tabs__header__item--bordered',
-                    {
-                      'tabs__header__item--active': tab.id === activeTab.id,
-                    }
-                  )}
-                  onClick={() => handleTabClick(tab.rows)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.preventDefault();
-                      handleTabClick(tab.rows);
-                    }
-                  }}
-                >
-                  {tab.title}
-                </div>
-              ))}
-            </div>
-            <p>{activeTab.description}</p>
-          </>
-        )}
-        <protvista-uniprot-structure
-          ref={setStructureEl}
-          accession={primaryAccession}
-          checksum={checksum}
-          sequence={sequence}
-          noTable
-        />
-        {!viewerOnly && loading && <Loader />}
-        {!viewerOnly && !loading && structures.length === 0 && (
-          <Message level="info">
-            No structure information available
-            {primaryAccession ? ` for ${primaryAccession}` : ''}.
-          </Message>
-        )}
-        {!viewerOnly && !loading && structures.length > 0 && activeTab && (
-          <TableFromData
-            data={activeTab.rows}
-            columns={columns.filter(
-              (col) =>
-                !(activeTab.hiddenColumns as readonly string[]).includes(col.id)
-            )}
-            getRowId={(row) => row.rowKey}
-            onRowClick={handleRowClick}
-            markBackground={(row) => row.id === selectedId}
-          />
-        )}
-      </div>
+      <protvista-uniprot-structure
+        ref={setStructureEl}
+        accession={primaryAccession}
+        checksum={checksum}
+        sequence={sequence}
+        noTable
+      />
+      {!viewerOnly && loading && <Loader />}
+      {!viewerOnly && !loading && structures.length === 0 && (
+        <Message level="info">
+          No structure information available
+          {primaryAccession ? ` for ${primaryAccession}` : ''}.
+        </Message>
+      )}
+      {!viewerOnly && !loading && structures.length > 0 && activeTab && (
+        <Tabs bordered active={activeTab.id}>
+          {visibleTabs.map((tab) => (
+            <Tab
+              key={tab.id}
+              id={tab.id}
+              title={tab.title}
+              tabIndex={0}
+              onClick={() => handleTabClick(tab.rows)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleTabClick(tab.rows);
+                }
+              }}
+            >
+              <p>{tab.description}</p>
+              <TableFromData
+                data={tab.rows}
+                columns={columns.filter(
+                  (col) =>
+                    !(tab.hiddenColumns as readonly string[]).includes(col.id)
+                )}
+                getRowId={(row) => row.rowKey}
+                onRowClick={handleRowClick}
+                markBackground={(row) => row.id === selectedId}
+              />
+            </Tab>
+          ))}
+        </Tabs>
+      )}
     </div>
   );
 };
