@@ -318,7 +318,10 @@ const StructureView = ({
       {selectedStructure && (
         <p className={styles['selected-structure']}>
           Selected structure: <strong>{selectedStructure.id}</strong> (
-          {selectedStructure.source})
+          {selectedStructure.source}){' '}
+          {selectedStructure.positions
+            ? `| Positions: ${selectedStructure.positions}`
+            : null}
         </p>
       )}
       <protvista-uniprot-structure
