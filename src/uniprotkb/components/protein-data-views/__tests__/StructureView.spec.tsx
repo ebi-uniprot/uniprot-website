@@ -105,12 +105,11 @@ describe('StructureView', () => {
     fireStructuresLoaded([
       {
         ...pdbStructure,
-        sourceDBLink: 'https://www.ebi.ac.uk/pdbe-srv/view/entry/5R7Y',
       },
     ]);
     expect(screen.getByRole('link', { name: '5R7Y' })).toHaveAttribute(
       'href',
-      'https://www.ebi.ac.uk/pdbe-srv/view/entry/5R7Y'
+      'https://www.ebi.ac.uk/pdbe/entry/pdb/5R7Y'
     );
     expect(screen.getByRole('link', { name: /Foldseek/i })).toHaveAttribute(
       'href',
