@@ -164,6 +164,15 @@ const StructureView = ({
         id: 'id',
         label: 'Identifier',
         render: (row) => {
+          if (row.source === PDB_SOURCE) {
+            return (
+              <ExternalLink
+                url={`https://www.ebi.ac.uk/pdbe/entry/pdb/${row.id}`}
+              >
+                {row.id}
+              </ExternalLink>
+            );
+          }
           if (row.source === ALPHAFOLD_SOURCE) {
             return (
               <ExternalLink url={`https://alphafold.ebi.ac.uk/entry/${row.id}`}>
