@@ -1,3 +1,4 @@
+import { type Xref } from '../../../shared/types/apiModel';
 import mockGoXrefs from '../../__mocks__/goXrefs';
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
 import databaseInfoMaps from '../../utils/__tests__/__mocks__/databaseInfoMaps';
@@ -120,6 +121,36 @@ describe('getAndPrepareSubcellGoXrefs', () => {
         evidences: [
           { evidenceCode: 'ECO:0000269', source: 'PubMed', id: '21873635' },
         ],
+      },
+    ]);
+  });
+
+  // Regression: a GO xref can have a `properties` object that lacks `GoTerm`.
+  // The C:-prefix check must be null-safe or it throws on `undefined.startsWith`.
+  it('does not throw when a GO xref has properties without a GoTerm', () => {
+    const xrefs: Xref[] = [
+      {
+        database: 'GO',
+        id: 'GO:0005886',
+        properties: { GoEvidenceType: 'IEA:UniProtKB-SubCell' },
+      },
+      {
+        database: 'GO',
+        id: 'GO:0005634',
+        properties: {
+          GoTerm: 'C:nucleus',
+          GoEvidenceType: 'IEA:UniProtKB-SubCell',
+        },
+      },
+    ];
+    expect(getAndPrepareSubcellGoXrefs(xrefs)).toEqual([
+      {
+        database: 'GO',
+        id: 'GO:0005634',
+        properties: {
+          GoTerm: 'nucleus',
+          GoEvidenceType: 'IEA:UniProtKB-SubCell',
+        },
       },
     ]);
   });

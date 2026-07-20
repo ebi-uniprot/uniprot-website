@@ -24,6 +24,7 @@ export const AFDBOutOfSync = ({ modal }: { modal?: boolean }) => {
     document.startViewTransition(() => {
       // OK to use flushSync in this case
       // https://developer.chrome.com/docs/web-platform/view-transitions/same-document#working_with_frameworks
+      // eslint-disable-next-line @eslint-react/dom-no-flush-sync
       flushSync(() => {
         setIsModalClosed(true);
       });

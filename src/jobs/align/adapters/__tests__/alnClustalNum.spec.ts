@@ -45,8 +45,9 @@ describe('alnClustalNum parser', () => {
   });
 
   it('should throw an error when no header is present', () => {
+    expect(() => alnClustalNum(noHeader)).toThrow(SyntaxError);
     expect(() => alnClustalNum(noHeader)).toThrow(
-      new SyntaxError('No CLUSTAL header found in file')
+      'No CLUSTAL header found in file'
     );
   });
 

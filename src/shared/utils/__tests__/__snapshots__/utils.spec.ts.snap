@@ -11,27 +11,11 @@ exports[`deepFindAllByKey addBlastLinksToFreeText should handle no positions 1`]
 exports[`deepFindAllByKey addBlastLinksToFreeText should handle positions at the beggining 1`] = `
 [
   [
-    {
-      "$$typeof": Symbol(react.transitional.element),
-      "_owner": null,
-      "_store": {},
-      "key": "10-34",
-      "props": {
-        "children": "10-34",
-        "to": "/blast?ids=UP_ACCESSION[10-34]",
-      },
-      "type": {
-        "$$typeof": Symbol(react.forward_ref),
-        "propTypes": {
-          "innerRef": [Function],
-          "onClick": [Function],
-          "replace": [Function],
-          "target": [Function],
-          "to": [Function],
-        },
-        "render": [Function],
-      },
-    },
+    <Link
+      to="/blast?ids=UP_ACCESSION[10-34]"
+    >
+      10-34
+    </Link>,
     " SOME TEXT",
   ],
 ]
@@ -41,27 +25,11 @@ exports[`deepFindAllByKey addBlastLinksToFreeText should handle positions at the
 [
   [
     "SOME TEXT ",
-    {
-      "$$typeof": Symbol(react.transitional.element),
-      "_owner": null,
-      "_store": {},
-      "key": "10-34",
-      "props": {
-        "children": "10-34",
-        "to": "/blast?ids=UP_ACCESSION[10-34]",
-      },
-      "type": {
-        "$$typeof": Symbol(react.forward_ref),
-        "propTypes": {
-          "innerRef": [Function],
-          "onClick": [Function],
-          "replace": [Function],
-          "target": [Function],
-          "to": [Function],
-        },
-        "render": [Function],
-      },
-    },
+    <Link
+      to="/blast?ids=UP_ACCESSION[10-34]"
+    >
+      10-34
+    </Link>,
   ],
 ]
 `;

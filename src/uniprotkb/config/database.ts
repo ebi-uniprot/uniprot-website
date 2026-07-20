@@ -246,3 +246,29 @@ export const viewProteinLinkDatabases = new Map([
   ['SMART', externalUrls.SMART],
   ['PROSITE', externalUrls.PROSITE],
 ]);
+
+export type EntrySectionSplit = {
+  category: DatabaseCategory;
+  matchesId: (id: string) => boolean;
+};
+
+// For databases whose records split across multiple entry-page sections by
+// xref ID prefix (the default routing keys only on the database's category).
+// NDEx: `IQUERY-CP-*` IDs render in Function under "Enzyme and pathway
+// databases"; other IDs (e.g. `MUSIC2-*`, plain accessions) render in
+// Interaction under INTERACTION. See TRM-32610.
+export const databaseNameToEntrySectionsById: Record<
+  string,
+  Partial<Record<EntrySection, EntrySectionSplit>>
+> = {
+  NDEx: {
+    [EntrySection.Function]: {
+      category: DatabaseCategory.PATHWAY,
+      matchesId: (id) => id.startsWith('IQUERY-CP-'),
+    },
+    [EntrySection.Interaction]: {
+      category: DatabaseCategory.INTERACTION,
+      matchesId: (id) => !id.startsWith('IQUERY-CP-'),
+    },
+  },
+};

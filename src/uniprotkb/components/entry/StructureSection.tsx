@@ -25,7 +25,7 @@ const StructureView = lazy(
 
 type Props = {
   data: UIModel & {
-    isoforms?: IsoformSequences[];
+    isoforms?: IsoformSequences;
   };
   primaryAccession: string;
   crc64?: string;

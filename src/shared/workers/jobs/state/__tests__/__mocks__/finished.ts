@@ -20,7 +20,7 @@ const finished: FinishedJob<JobTypes.BLAST> = {
     stype: 'protein',
     program: 'blastp',
     sequence: 'MLPGLALLLL',
-    database: 'uniprotkb_refprotswissprot',
+    database: 'uniprotkb',
     taxIDs: [{ id: '9606', label: 'Homo sapiens' }],
     negativeTaxIDs: [],
     threshold: '10',

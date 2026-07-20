@@ -1,5 +1,6 @@
 import '@geneontology/web-components/go-annotation-ribbon-strips';
 
+import cn from 'classnames';
 import { Loader } from 'franklin-sites';
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -26,6 +27,7 @@ import {
   useGOData,
 } from '../../adapters/slimming/GORibbonHandler';
 import { type UniProtKBSimplifiedTaxonomy } from '../../adapters/uniProtkbConverter';
+import { hasProtNLM2Evidence } from '../../utils/protnlm';
 import GOTermEvidenceTag from '../protein-data-views/GOTermEvidenceTag';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 import styles from './styles/go-ribbon.module.scss';
@@ -43,7 +45,11 @@ const useColumns = () => {
       id: 'term',
       label: 'Term',
       render: (data) => (
-        <>
+        <span
+          className={cn({
+            'ai-annotation-row': hasProtNLM2Evidence(data.evidences),
+          })}
+        >
           <ExternalLink
             url={getUrlFromDatabaseInfo(databaseInfoMaps, 'GO', {
               id: data.id,
@@ -53,7 +59,7 @@ const useColumns = () => {
           </ExternalLink>
           <GOTermEvidenceTag evidence={data.properties?.GoEvidenceType} />
           <UniProtKBEvidenceTag evidences={data.evidences} goTermEvidence />
-        </>
+        </span>
       ),
     },
   ];
@@ -82,6 +88,10 @@ type GoRibbonProps = {
   goTerms?: GroupedGoTerms;
   geneNamesData?: GeneNamesData;
   organismData?: TaxonomyDatum | UniProtKBSimplifiedTaxonomy;
+  // Whether `primaryAccession` is a real UniProtKB accession. QuickGO is
+  // keyed by one, so for synthetic accessions (e.g. UniParc sub-entries)
+  // callers pass `false` to hide the QuickGO link. Defaults to `true`.
+  isUniProtKBAccession?: boolean;
 };
 
 const GoRibbon = ({
@@ -89,6 +99,7 @@ const GoRibbon = ({
   goTerms,
   geneNamesData,
   organismData,
+  isUniProtKBAccession = true,
 }: GoRibbonProps) => {
   const isSmallScreen = useSmallScreen();
   const columns = useColumns();
@@ -230,11 +241,13 @@ const GoRibbon = ({
           getRowId={getRowId}
         />
       )}
-      <div className={styles['quickgo-link']}>
-        <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
-          Access the complete set of GO annotations on QuickGO
-        </ExternalLink>
-      </div>
+      {isUniProtKBAccession && (
+        <div className={styles['quickgo-link']}>
+          <ExternalLink url={externalUrls.QuickGOAnnotations(primaryAccession)}>
+            Access the complete set of GO annotations on QuickGO
+          </ExternalLink>
+        </div>
+      )}
     </div>
   );
 };

@@ -95,8 +95,10 @@ const newicktree = (string?: string): NewickTree => {
     }
   } catch (error) {
     throw new SyntaxError(
-      (error instanceof Error ? error : null)?.message ||
-        'Error while parsing the input in Newick format'
+      error instanceof Error
+        ? error.message
+        : 'Error while parsing the input in Newick format',
+      { cause: error }
     );
   }
 

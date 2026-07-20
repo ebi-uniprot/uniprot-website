@@ -28,7 +28,7 @@ export const columnConfiguration: FeatureColumnConfiguration<ProcessedFeature>[]
     {
       id: 'type',
       label: 'Type',
-      filter: (data, input) => data.type === input,
+      getValue: (data) => data.type,
       render: (data) => data.type,
     },
     {
@@ -87,7 +87,7 @@ export const columnConfiguration: FeatureColumnConfiguration<ProcessedFeature>[]
     {
       id: 'source',
       label: 'Source',
-      filter: (data, input) => data.source === input,
+      getValue: (data) => data.source,
       render: (data) => data.source,
     },
     {

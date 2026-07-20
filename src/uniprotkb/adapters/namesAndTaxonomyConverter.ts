@@ -44,6 +44,7 @@ export type NamesAndTaxonomyUIModel = {
   primaryAccession?: string;
   secondaryAccessions?: string[];
   proteinNamesData?: ProteinNamesData;
+  protnlmProteinNamesData?: ProteinNames[];
   geneNamesData?: GeneNamesData;
   organismData?: UniProtKBSimplifiedTaxonomy;
   proteomesData?: Xref[];

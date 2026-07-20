@@ -12,6 +12,8 @@ const from = new Date('2025-02-05T09:30:00+00:00');
 const to = new Date('2025-02-05T11:30:00+00:00');
 
 const TZ = () => {
+  // Guarding a non-React platform API call, not React rendering.
+  // eslint-disable-next-line @eslint-react/error-boundaries
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     return <span className={styles.spaced}>({tz} time zone)</span>;

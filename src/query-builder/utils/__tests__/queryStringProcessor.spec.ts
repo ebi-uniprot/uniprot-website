@@ -1,6 +1,7 @@
 /**
  * @jest-environment node
  */
+import { getSearchTerm } from '../../components/__tests__/__mocks__/configureSearchTerms';
 import { parse, stringify } from '../queryStringProcessor';
 import testData from './__mocks__/clauseQueryTestData';
 
@@ -8,6 +9,55 @@ describe('search querystring stringifier', () => {
   testData.forEach(({ description, queryString, clauses }) => {
     test(description, () => {
       expect(stringify(clauses)).toBe(queryString);
+    });
+  });
+
+  describe('proteome + proteomecomponent fusion', () => {
+    test('combines proteome ID and component into a single proteomecomponent clause', () => {
+      expect(
+        stringify([
+          {
+            id: 0,
+            searchTerm: getSearchTerm('proteome'),
+            logicOperator: 'AND',
+            queryBits: {
+              proteome: 'UP000005640',
+              proteomecomponent: 'chromosome',
+            },
+          },
+        ])
+      ).toBe('(proteomecomponent:"UP000005640:chromosome")');
+    });
+
+    test('does not include a separate proteome clause when both queryBits are present', () => {
+      const result = stringify([
+        {
+          id: 0,
+          searchTerm: getSearchTerm('proteome'),
+          logicOperator: 'AND',
+          queryBits: {
+            proteome: 'UP000005640',
+            proteomecomponent: 'chromosome',
+          },
+        },
+      ]);
+      expect(result).not.toMatch(/\(proteome:/);
+      expect(result).not.toMatch(/AND/);
+    });
+
+    test('leaves a proteome-only clause untouched', () => {
+      expect(
+        stringify([
+          {
+            id: 0,
+            searchTerm: getSearchTerm('proteome'),
+            logicOperator: 'AND',
+            queryBits: {
+              proteome: 'UP000005640',
+            },
+          },
+        ])
+      ).toBe('(proteome:UP000005640)');
     });
   });
 

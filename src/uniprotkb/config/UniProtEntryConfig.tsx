@@ -145,8 +145,8 @@ const UniProtKBEntryConfig: {
     id: EntrySection.SimilarProteins,
     sectionContent: (data) => (
       <SimilarProteinsSection
-        {...data[EntrySection.SimilarProteins]}
         key={EntrySection.SimilarProteins}
+        {...data[EntrySection.SimilarProteins]}
       />
     ),
   },
@@ -154,8 +154,8 @@ const UniProtKBEntryConfig: {
     id: EntrySection.Homologs,
     sectionContent: (data) => (
       <HomologsSection
-        {...data[EntrySection.Homologs]}
         key={EntrySection.Homologs}
+        {...data[EntrySection.Homologs]}
       />
     ),
   },

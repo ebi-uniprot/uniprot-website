@@ -23,8 +23,6 @@ type GeneAnnotation = {
 };
 
 type GeneToGeneOrthologyGenerated = {
-  internal: boolean;
-  obsolete: boolean;
   subjectGene: Gene;
   objectGene: Gene;
   isBestScore: Score;
@@ -35,22 +33,14 @@ type GeneToGeneOrthologyGenerated = {
   predictionMethodsMatched: PredictionMethod[];
   predictionMethodsNotMatched?: PredictionMethod[];
   predictionMethodsNotCalled?: PredictionMethod[];
-  notInternalOrObsolete: boolean;
 };
 
 type Confidence = {
-  internal: boolean;
-  obsolete: boolean;
-  name?: 'moderate' | 'low' | 'high';
-  notInternalOrObsolete: boolean;
-  displayText?: string;
+  name: 'moderate' | 'low' | 'high';
 };
 
 type Score = {
-  internal: false;
-  obsolete: false;
   name: 'Yes' | 'No';
-  notInternalOrObsolete: true;
 };
 
 export type PredictionMethodName =
@@ -69,36 +59,23 @@ export type PredictionMethodName =
 
 type Gene = {
   type: 'Gene';
-  internal: boolean;
-  obsolete: boolean;
   primaryExternalId: string;
   taxon: Taxon;
   geneSymbol: GeneSymbol;
-  notInternalOrObsolete: boolean;
 };
 
 type PredictionMethod = {
-  internal: boolean;
-  obsolete: boolean;
   name: PredictionMethodName;
-  notInternalOrObsolete: boolean;
 };
 
 type GeneSymbol = {
-  internal: boolean;
-  obsolete: boolean;
   displayText: string;
-  notInternalOrObsolete: boolean;
 };
 
 type Taxon = {
-  internal: boolean;
-  obsolete: boolean;
   curie: string;
   name: string;
-  childCount: number;
   descendantCount: number;
-  notInternalOrObsolete: boolean;
 };
 
 type StringencyFilter = 'all' | 'stringent';

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import externalUrls from '../../../shared/config/externalUrls';
+import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
+import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import { RichText } from './FreeTextView';
 
 // For Ligand and LigandPart context refer to:
@@ -28,6 +29,7 @@ type LigandViewProps = {
   ligand: Ligand | LigandPart;
 };
 const LigandView = ({ ligand }: LigandViewProps) => {
+  const databaseInfoMaps = useDatabaseInfoMaps();
   const id = ligand.id?.replace('ChEBI:', '');
   return (
     <>
@@ -45,7 +47,12 @@ const LigandView = ({ ligand }: LigandViewProps) => {
             UniProtKB
           </Link>
           {' | '}
-          <ExternalLink url={externalUrls.ChEBI(id)}>ChEBI</ExternalLink>)
+          <ExternalLink
+            url={getUrlFromDatabaseInfo(databaseInfoMaps, 'ChEBI', { id })}
+          >
+            ChEBI
+          </ExternalLink>
+          )
         </>
       )}
       {ligand.note && <RichText>{`; ${ligand.note}`}</RichText>}

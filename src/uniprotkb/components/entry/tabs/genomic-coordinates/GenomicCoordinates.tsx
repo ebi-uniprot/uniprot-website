@@ -1,9 +1,6 @@
 import { Loader } from 'franklin-sites';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode } from 'react';
 
-import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
-import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
-import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
@@ -26,8 +23,6 @@ const GenomicCoordinates = ({
   maneSelect,
   title,
 }: GenomicCoordinatesProps) => {
-  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
   let isoformIDs = [primaryAccession];
   let canonical: string | undefined; // if only one canonical no need to annotate it
   // If defined, it means there is more than one isoform
@@ -45,7 +40,7 @@ const GenomicCoordinates = ({
 
   if (loading) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         {title && <h3>{title}</h3>}
         <Loader progress={progress} />
       </div>
@@ -54,7 +49,7 @@ const GenomicCoordinates = ({
 
   if (error && status !== 404) {
     return (
-      <div className="wider-tab-content hotjar-margin">
+      <div className="wider-tab-content">
         <ErrorHandler status={status} error={error} />
       </div>
     );
@@ -62,7 +57,7 @@ const GenomicCoordinates = ({
 
   if (status === 404 || !data || !data?.length) {
     return (
-      <section className="wider-tab-content hotjar-margin">
+      <section className="wider-tab-content">
         {title && <h3>{title}</h3>}
         <div className={tabsStyles['no-data']}>
           No genomic coordinate information available for {primaryAccession}
@@ -73,19 +68,9 @@ const GenomicCoordinates = ({
 
   const groupedByGene = groupByGene(data);
 
-  const handleToggleDownload = () =>
-    setDisplayDownloadPanel(!displayDownloadPanel);
-
   return (
-    <section className="wider-tab-content hotjar-margin">
+    <section className="wider-tab-content">
       {title && <h2>{title}</h2>}
-      {displayDownloadPanel && (
-        <EntryDownloadPanel
-          handleToggle={handleToggleDownload}
-          dataset={Dataset.coordinates}
-        />
-      )}
-      <EntryDownloadButton handleToggle={handleToggleDownload} />
       {Object.entries(groupedByGene).map(([gene, data], index) => (
         <GeneEntry
           key={gene}

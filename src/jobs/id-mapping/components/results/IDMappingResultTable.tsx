@@ -113,6 +113,11 @@ const IDMappingResultTable = ({
     logging.warn('Non-UniParc IDs have been suggested for an ID Mapping job.');
   }
 
+  // Returns a Namespace enum (string primitive), so React's Object.is
+  // comparison keeps the context value stable without useMemo.
+  // eslint-disable-next-line @eslint-react/no-unstable-context-value
+  const fromNamespace = rawDBToNamespace(detailsData?.from);
+
   return (
     <>
       <ResultsButtons
@@ -331,9 +336,7 @@ const IDMappingResultTable = ({
           )}
         </HeroContainer>
       )}
-      <IDMappingFromContext.Provider
-        value={rawDBToNamespace(detailsData?.from)}
-      >
+      <IDMappingFromContext.Provider value={fromNamespace}>
         <ResultsData
           resultsDataObject={resultsDataObject}
           setSelectedItemFromEvent={

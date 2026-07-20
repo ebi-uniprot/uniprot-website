@@ -21,7 +21,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089362",
           "ensemblTranslationId": "FBpp0088396",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10532007,
             "exon": [
@@ -525,7 +525,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10519092,
             "exon": [
@@ -678,7 +678,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089346",
           "ensemblTranslationId": "FBpp0088380",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10502144,
             "exon": [
@@ -1606,7 +1606,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10505076,
             "exon": [
@@ -2509,7 +2509,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10505076,
             "exon": [
@@ -2748,7 +2748,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10523879,
             "exon": [
@@ -2901,7 +2901,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089342",
           "ensemblTranslationId": "FBpp0088376",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10520397,
             "exon": [
@@ -3052,7 +3052,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089349",
           "ensemblTranslationId": "FBpp0088383",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10520397,
             "exon": [
@@ -3205,7 +3205,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089352",
           "ensemblTranslationId": "FBpp0088386",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10525402,
             "exon": [
@@ -3965,7 +3965,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10508350,
             "exon": [
@@ -4746,7 +4746,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10508350,
             "exon": [
@@ -4922,7 +4922,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089348",
           "ensemblTranslationId": "FBpp0088382",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10515544,
             "exon": [
@@ -5098,7 +5098,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089353",
           "ensemblTranslationId": "FBpp0088387",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10517928,
             "exon": [
@@ -5251,7 +5251,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089351",
           "ensemblTranslationId": "FBpp0088385",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10510643,
             "exon": [
@@ -5402,7 +5402,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089359",
           "ensemblTranslationId": "FBpp0088393",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10510643,
             "exon": [
@@ -5555,7 +5555,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089361",
           "ensemblTranslationId": "FBpp0088395",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10491945,
             "exon": [
@@ -5708,7 +5708,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089364",
           "ensemblTranslationId": "FBpp0088950",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10490102,
             "exon": [
@@ -5891,7 +5891,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10487984,
             "exon": [
@@ -6074,7 +6074,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10488776,
             "exon": [
@@ -7035,7 +7035,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10500639,
             "exon": [
@@ -7211,7 +7211,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
           "ensemblTranscriptId": "FBtr0089360",
           "ensemblTranslationId": "FBpp0088394",
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10497182,
             "exon": [
@@ -7422,7 +7422,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10526683,
             "exon": [
@@ -7684,7 +7684,7 @@ exports[`groupCoordinates groups coordinates according to genes and isoforms 1`]
             },
           ],
           "genomicLocation": {
-            "assemblyName": "BDGP6.54",
+            "assemblyName": "BDGP6.46",
             "chromosome": "2R",
             "end": 10522338,
             "exon": [

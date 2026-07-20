@@ -3,7 +3,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
 import { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import joinUrl from 'url-join';
 
 import { getEntryPath, Location } from '../../../app/config/urls';
@@ -13,6 +13,8 @@ import ToolsDropdown from '../../../shared/components/action-buttons/ToolsDropdo
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../shared/components/entry/EntryDownloadPanel';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import stickyHeaderStyles from '../../../shared/components/entry/styles/entry-sticky-header.module.scss';
+import EntryTabLink from '../../../shared/components/EntryTabLink';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
@@ -24,6 +26,7 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import { useSmallScreen } from '../../../shared/hooks/useMatchMedia';
 import useMatchWithRedirect from '../../../shared/hooks/useMatchWithRedirect';
+import useStickyHeader from '../../../shared/hooks/useStickyHeader';
 import sticky from '../../../shared/styles/sticky.module.scss';
 import {
   Namespace,
@@ -49,6 +52,7 @@ const Entry = () => {
     subPage?: TabLocation;
   }>(Location.UniParcEntry, TabLocation);
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [isStuck, setFullHeaderRef] = useStickyHeader();
   const smallScreen = useSmallScreen();
 
   const [columns] = useLocalStorage(
@@ -116,11 +120,29 @@ const Entry = () => {
   const handleToggleDownload = () =>
     setDisplayDownloadPanel(!displayDownloadPanel);
 
+  // Tools row, lifted out of the Entry tab so it sits on every tab and so the
+  // compact sticky header can render the same buttons on the right.
+  const toolsRow = (
+    <div className="button-group">
+      <ToolsDropdown selectedEntries={[match.params.accession]} blast mapID />
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
+      <AddToBasketButton selectedEntries={match.params.accession} />
+    </div>
+  );
+
   return (
     <SidebarLayout
       sidebar={sidebar}
       noOverflow
-      className={cn('entry-page', sticky['sticky-tabs-container'])}
+      className={cn(
+        'entry-page',
+        sticky['sticky-tabs-container'],
+        stickyHeaderStyles.container,
+        {
+          [stickyHeaderStyles.stuck]: isStuck,
+          [stickyHeaderStyles['no-sidebar']]: !sidebar,
+        }
+      )}
     >
       <HTMLHead
         title={[
@@ -129,19 +151,45 @@ const Entry = () => {
         ]}
       />
       <ErrorBoundary>
-        <h1>
-          <EntryTitle
-            mainTitle="UniParc"
-            optionalTitle={transformedData.uniParcId}
-          />
-          <BasketStatus id={transformedData.uniParcId} className="small" />
-        </h1>
-        <Overview data={transformedData} />
+        <div
+          ref={setFullHeaderRef}
+          className={stickyHeaderStyles['full-header']}
+          inert={isStuck}
+        >
+          <h1>
+            <EntryTitle
+              mainTitle="UniParc"
+              optionalTitle={transformedData.uniParcId}
+            />
+            <BasketStatus id={transformedData.uniParcId} className="small" />
+          </h1>
+          <Overview data={transformedData} />
+          {toolsRow}
+        </div>
       </ErrorBoundary>
+      {/* TODO: eventually remove nResults prop (see note in EntryDownload) */}
+      {displayDownloadPanel && (
+        <EntryDownloadPanel
+          handleToggle={handleToggleDownload}
+          nResults={transformedData.crossReferenceCount}
+          columns={columns}
+        />
+      )}
+      {isStuck && (
+        <div className={stickyHeaderStyles['compact-bar']}>
+          <span className={stickyHeaderStyles['compact-title']}>
+            <EntryTitle
+              mainTitle="UniParc"
+              optionalTitle={transformedData.uniParcId}
+            />
+          </span>
+          <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
+        </div>
+      )}
       <Tabs active={match.params.subPage}>
         <Tab
           title={
-            <Link
+            <EntryTabLink
               to={getEntryPath(
                 Namespace.uniparc,
                 match.params.accession,
@@ -149,32 +197,15 @@ const Entry = () => {
               )}
             >
               Entry
-            </Link>
+            </EntryTabLink>
           }
           id={TabLocation.Entry}
         >
-          {/* TODO: evenutally remove nResults prop (see note in EntryDownload) */}
-          {displayDownloadPanel && (
-            <EntryDownloadPanel
-              handleToggle={handleToggleDownload}
-              nResults={transformedData.crossReferenceCount}
-              columns={columns}
-            />
-          )}
-          <div className="button-group">
-            <ToolsDropdown
-              selectedEntries={[match.params.accession]}
-              blast
-              mapID
-            />
-            <EntryDownloadButton handleToggle={handleToggleDownload} />
-            <AddToBasketButton selectedEntries={match.params.accession} />
-          </div>
           <EntryMain transformedData={transformedData} />
         </Tab>
         <Tab
           title={
-            <Link
+            <EntryTabLink
               to={getEntryPath(
                 Namespace.uniparc,
                 match.params.accession,
@@ -182,7 +213,7 @@ const Entry = () => {
               )}
             >
               Structure viewer
-            </Link>
+            </EntryTabLink>
           }
           id={TabLocation.StructureViewer}
         >
@@ -198,7 +229,7 @@ const Entry = () => {
         <Tab
           title={
             smallScreen ? null : (
-              <Link
+              <EntryTabLink
                 to={getEntryPath(
                   Namespace.uniparc,
                   match.params.accession,
@@ -206,7 +237,7 @@ const Entry = () => {
                 )}
               >
                 Feature viewer
-              </Link>
+              </EntryTabLink>
             )
           }
           id={TabLocation.FeatureViewer}

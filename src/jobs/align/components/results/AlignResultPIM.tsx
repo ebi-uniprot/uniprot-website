@@ -65,7 +65,7 @@ const AlignResultPIM: FC<React.PropsWithChildren<AlignResultPIMProps>> = ({
         {/* for every sequence in the alignment */}
         {parsed.map(({ name, accession, values }, indexRow) => (
           <Fragment
-            key={indexRow} // eslint-disable-line react/no-array-index-key
+            key={indexRow} // eslint-disable-line @eslint-react/no-array-index-key
           >
             <span
               className={cn('align-result-pim__name', {
@@ -109,7 +109,7 @@ const AlignResultPIM: FC<React.PropsWithChildren<AlignResultPIMProps>> = ({
                 (parsed.length + parsed.length - 2);
               return (
                 <span
-                  key={indexCol} // eslint-disable-line react/no-array-index-key
+                  key={indexCol} // eslint-disable-line @eslint-react/no-array-index-key
                   className={cn('align-result-pim__cell', {
                     'align-result-pim__cell--hovered': isHovered,
                     'align-result-pim__cell--dark': opacity < 0.5,

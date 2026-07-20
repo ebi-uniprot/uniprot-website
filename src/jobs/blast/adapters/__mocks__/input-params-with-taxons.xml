@@ -51,7 +51,7 @@
     <stringArrayParameter>
         <name>database</name>
         <value>
-            <string>uniprotkb_refprotswissprot</string>
+            <string>uniprotkb</string>
         </value>
     </stringArrayParameter>
 </parameters>

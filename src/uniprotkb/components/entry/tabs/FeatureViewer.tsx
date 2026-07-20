@@ -1,11 +1,8 @@
 import { Loader, Message } from 'franklin-sites';
-import { use, useCallback, useEffect, useRef, useState } from 'react';
+import { use, useCallback, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
-import { Dataset } from '../../../../shared/components/entry/EntryDownload';
-import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
-import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { VARIANT_COUNT_LIMIT } from '../../../../shared/config/limits';
 import { BotDetectionContext } from '../../../../shared/contexts/BotDetection';
@@ -17,6 +14,7 @@ import { type UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../../types/entry';
 import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 import tabsStyles from './styles/tabs-styles.module.scss';
+import ZoomHint from './ZoomHint';
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
@@ -31,11 +29,11 @@ const FeatureViewer = ({
   importedVariants: number | 'loading';
   sequence: string;
 }) => {
-  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const protvistaUniprotRef = useRef<HTMLElement>(null);
   const hideTooltip = useRef<ReturnType<
     typeof showTooltipAtCoordinates
   > | null>(null);
+
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, status } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession),
@@ -139,7 +137,7 @@ const FeatureViewer = ({
 
   if (status !== 200) {
     return (
-      <section className="wider-tab-content hotjar-margin">
+      <section className="wider-tab-content">
         <h3 data-article-id="feature_viewer">Feature viewer</h3>
         <div className={tabsStyles['no-data']}>
           No feature information available for {accession}
@@ -153,24 +151,11 @@ const FeatureViewer = ({
       importedVariants <= VARIANT_COUNT_LIMIT) ||
     loadAllFeatures;
 
-  const handleToggleDownload = () =>
-    setDisplayDownloadPanel(!displayDownloadPanel);
-
   return (
-    <section
-      className="wider-tab-content hotjar-margin"
-      ref={containerRefCallback}
-    >
+    <section className="wider-tab-content" ref={containerRefCallback}>
       <h3 data-article-id="feature_viewer">Feature viewer</h3>
-      <div>
-        {displayDownloadPanel && (
-          <EntryDownloadPanel
-            handleToggle={handleToggleDownload}
-            dataset={Dataset.features}
-            sequence={sequence}
-          />
-        )}
-        {shouldRender && (
+      {shouldRender && (
+        <div className={tabsStyles['zoom-tool-row']}>
           <NightingaleZoomTool
             length={sequence.length}
             nightingaleNavigationGetter={() =>
@@ -179,15 +164,16 @@ const FeatureViewer = ({
               ) || null
             }
           />
-        )}
-        <EntryDownloadButton handleToggle={handleToggleDownload} />
-      </div>
+        </div>
+      )}
 
       {shouldRender ? (
-        <protvistaUniprotElement.name
-          accession={accession}
-          ref={protvistaUniprotRef}
-        />
+        <ZoomHint>
+          <protvistaUniprotElement.name
+            accession={accession}
+            ref={protvistaUniprotRef}
+          />
+        </ZoomHint>
       ) : (
         <div className={tabsStyles['too-many']}>
           <Message>

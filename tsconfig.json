@@ -2,8 +2,9 @@
   "compilerOptions": {
     // Target latest version of ECMAScript.
     "target": "esnext",
-    // Search under node_modules for non-relative imports.
-    "moduleResolution": "node",
+    // Mirror the bundler's resolution: honors `exports` maps when present,
+    // falls back to `main`/index lookup when absent.
+    "moduleResolution": "bundler",
     // Process & infer types from .js files.
     "allowJs": true,
     // Don't emit; allow Babel to transform files.
@@ -29,7 +30,19 @@
       }
     ],
     "paths": {
-      "react": ["./node_modules/@types/react"]
+      "react": ["./node_modules/@types/react"],
+      // franklin-sites and protvista-uniprot publish types but their `exports`
+      // maps lack a "types" condition, so `bundler` resolution can't find them.
+      // Alias to the declaration files until those packages add the condition.
+      "franklin-sites": [
+        "./node_modules/franklin-sites/dist/types/components/index.d.ts"
+      ],
+      "franklin-sites/dist/types/*": [
+        "./node_modules/franklin-sites/dist/types/*"
+      ],
+      "protvista-uniprot": [
+        "./node_modules/protvista-uniprot/dist/types/index.d.ts"
+      ]
     }
   },
   "include": ["src"],

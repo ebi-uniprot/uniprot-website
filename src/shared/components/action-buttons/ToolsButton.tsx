@@ -4,6 +4,7 @@ import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { type Location, LocationToPath } from '../../../app/config/urls';
+import { type SelectedTaxon } from '../../../jobs/types/jobsFormData';
 import helper from '../../styles/helper.module.scss';
 import { roundNumber } from '../../utils/roundNumber';
 import { stringifyQuery } from '../../utils/url';
@@ -17,6 +18,9 @@ type ToolsButtonProps = {
   disabled?: boolean;
   title: string;
   location: Location;
+  taxons?: SelectedTaxon[];
+  /** Hide the trailing " (n)" entry count (e.g. for descriptive menu labels) */
+  hideCount?: boolean;
 };
 
 const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
@@ -28,13 +32,15 @@ const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
   disabled,
   title,
   location,
+  taxons,
+  hideCount,
   children,
 }) => {
   const content = (
     <>
       {children}
       {/* Just show count when it wouldn't be 0 */}
-      {selectedEntries?.length
+      {!hideCount && selectedEntries?.length
         ? ` (${roundNumber(selectedEntries.length + (sequence ? 1 : 0))})`
         : null}
     </>
@@ -65,6 +71,9 @@ const ToolsButton: FC<React.PropsWithChildren<ToolsButtonProps>> = ({
           from,
           to,
           peps,
+          taxIDs: taxons?.length
+            ? taxons.map(({ id, label }) => `${id}|${label}`).join(',')
+            : undefined,
         }),
       }}
     >

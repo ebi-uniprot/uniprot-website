@@ -74,4 +74,27 @@ describe('ProteinProcessingSection', () => {
       screen.queryByRole('row', { name: /PTMeXchange/ })
     ).not.toBeInTheDocument();
   });
+
+  // Regression guard: a UniParc sub-entry passes isUniProtKBAccession={false}
+  // because its accession is not a real UniProtKB accession — the PTMeXchange
+  // request must not fire.
+  it('does not request PTMeXchange data when isUniProtKBAccession is false', async () => {
+    axiosMock.resetHistory();
+    const transformedData = uniProtKbConverter(mockHumanData, databaseInfoMaps);
+    customRender(
+      <ProteinProcessingSection
+        data={transformedData[EntrySection.ProteinProcessing]}
+        sequence={transformedData[EntrySection.Sequence].sequence?.value}
+        primaryAccession={transformedData.primaryAccession}
+        isUniProtKBAccession={false}
+      />,
+      { route: `/uniprotkb/P05067/entry` }
+    );
+    await screen.findByRole('heading', { name: 'PTM/Processing' });
+    expect(
+      axiosMock.history.get.some((request) =>
+        request.url?.includes('/proteomics/ptm/')
+      )
+    ).toBe(false);
+  });
 });

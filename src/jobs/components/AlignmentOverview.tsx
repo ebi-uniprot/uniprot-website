@@ -52,7 +52,7 @@ const AlignmentOverview = memo(
             height={trackHeight}
             length={length}
             highlight={highlight}
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line @eslint-react/no-array-index-key
             key={index}
           />
         ))}

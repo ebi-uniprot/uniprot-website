@@ -261,7 +261,7 @@ const DidYouMean = ({
     />
   );
 
-  let content: ReactNode = null;
+  let content: ReactNode;
   if (renderContent) {
     content = (
       <div className={styles.suggestions}>

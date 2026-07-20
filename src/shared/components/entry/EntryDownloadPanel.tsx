@@ -2,6 +2,7 @@ import { SlidingPanel } from 'franklin-sites';
 import { Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { type SubEntryAnnotationDownload } from '../../../uniparc/adapters/subEntryAnnotations';
 import { type Column } from '../../config/columns';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import EntryDownload, { type Dataset } from './EntryDownload';
@@ -14,6 +15,7 @@ type EntryDownloadPanelProps = {
   dataset?: Dataset;
   featureTypes?: string[];
   sequence?: string;
+  subEntryAnnotationDownload?: SubEntryAnnotationDownload;
 };
 const EntryDownloadPanel = ({
   handleToggle,
@@ -23,6 +25,7 @@ const EntryDownloadPanel = ({
   dataset,
   featureTypes,
   sequence,
+  subEntryAnnotationDownload,
 }: EntryDownloadPanelProps) => {
   const { pathname } = useLocation();
   return (
@@ -42,6 +45,7 @@ const EntryDownloadPanel = ({
             dataset={dataset}
             featureTypes={featureTypes}
             sequence={sequence}
+            subEntryAnnotationDownload={subEntryAnnotationDownload}
           />
         </ErrorBoundary>
       </SlidingPanel>

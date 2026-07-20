@@ -3,6 +3,7 @@ import { groupBy } from 'lodash-es';
 import { type Xref } from '../../shared/types/apiModel';
 import { type GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 import {
+  databaseNameToEntrySectionsById,
   implicitDatabaseAlwaysInclude,
   implicitDatabaseDRAbsence,
   implicitDatabaseDRPresence,
@@ -308,12 +309,21 @@ export const getXrefsForSection = (
     if (!name) {
       return;
     }
-    if (!databasesForSection.includes(name)) {
-      return;
-    }
-    const category = databaseNameToCategory.get(name);
-    if (!category) {
-      return;
+    const split = databaseNameToEntrySectionsById[name]?.[section];
+    let category: DatabaseCategory | undefined;
+    if (split) {
+      if (!xref.id || !split.matchesId(xref.id)) {
+        return;
+      }
+      category = split.category;
+    } else {
+      if (!databasesForSection.includes(name)) {
+        return;
+      }
+      category = databaseNameToCategory.get(name);
+      if (!category) {
+        return;
+      }
     }
     const nameToXrefs = categoryToNameToXrefs.get(category) || {};
     if (!nameToXrefs[name]) {

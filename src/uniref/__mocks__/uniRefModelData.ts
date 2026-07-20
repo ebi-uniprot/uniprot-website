@@ -1,38 +1,37 @@
 import { type UniRefAPIModel } from '../adapters/uniRefConverter';
 
-// Source: uniref/UniRef100_A0A0B7GQ86
-// Retrieved: 2026-01-26
+// Source: uniref/UniRef100_A0A000
+// Retrieved: 2026-06-04
 const mock: UniRefAPIModel = {
-  id: 'UniRef100_A0A0B7GQ86',
-  name: 'Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...',
+  id: 'UniRef100_A0A000',
+  name: 'Cluster: 8-amino-7-oxononanoate synthase',
   memberCount: 1,
-  updated: '2021-02-10',
+  updated: '2026-06-10',
   entryType: 'UniRef100',
   commonTaxon: {
-    scientificName: 'Streptococcus sanguinis',
-    taxonId: 1305,
+    scientificName: 'Streptomyces viridosporus',
+    taxonId: 67581,
   },
-  seedId: 'A0A0B7GQ86',
+  seedId: 'A0A000',
   representativeMember: {
     memberIdType: 'UniProtKB ID',
-    memberId: 'A0A0B7GQ86_STRSA',
-    organismName: 'Streptococcus sanguinis',
-    organismTaxId: 1305,
-    sequenceLength: 730,
-    proteinName:
-      'PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...',
-    accessions: ['A0A0B7GQ86'],
-    uniref50Id: 'UniRef50_P35595',
-    uniref90Id: 'UniRef90_A0A0B7GQ86',
-    uniparcId: 'UPI000588D8C8',
+    memberId: 'A0A000_STRVD',
+    organismName: 'Streptomyces viridosporus',
+    organismTaxId: 67581,
+    sequenceLength: 394,
+    proteinName: '8-amino-7-oxononanoate synthase',
+    accessions: ['A0A000'],
+    uniref50Id: 'UniRef50_A0A371PVM1',
+    uniref90Id: 'UniRef90_A0ABX6AL62',
+    uniparcId: 'UPI0000E5B23C',
     seed: true,
     sequence: {
       value:
-        'MMKDSFKNIFSFEFWQKFGKALMVVVAVMPAAGLMISIGKSIPMINPNLGVLVTTGGVLEQIGWGVIGNLHILFALAIGGSWAKERAGGAFAAGLSFILINRITGVMFGVTGDMLADKTAVVKTMFGASIKVSDYFISVLESPALNMGVFVGIIAGFVGATAYNKYYNFRKLPDALSFFNGKRFVPFVVILRSAIVAIVLSFVWPVVQSGINSFGIWIANSQDTAPILAPFIYGTLERLLLPFGLHHMLTIPMNYTELGGVYEVITGSGAGTTVAGQDPLWLAWVTDLVGTKTADPNTYKHLLETVHPARFKVGQMIGSFGILMGVAAAIYHNVDADKKHKYKGMMIATALATFLTGVTEPIEYMFMFVATPLYLVYSLVQGAAFAMADIVALRVHSFGSIEFLTRTPMAINAGLGGDIINFIWVTILFGVVMYFISNFMIKKFNYATPGRNGNYETAEGSDEASSSDSTGGKVAAASQAVNVINLLGGRANIVDVDACMTRLRVTVKDAEKVGTEEQWKAEGAMGLVMKGQGVQAIYGPKADVLKSDIQDLLDSGEVIPETLPSQKAESEAAEVSYKGVTEEVETVADGQVIDLADVKDPVFSQKMMGDGFAVEPENGKIYSPVAGTVTSVFPSKHAIGLVTDNGLEVLVHIGLETVSLEGKPFEVHVSEGQKVAAGDLLVTADLEAIKEAGRETSTIVVFTNAAAIKSVTVEKLGQASAKTVVAKVEL',
-      length: 730,
-      molWeight: 77899,
-      crc64: 'AF209122B81434C9',
-      md5: '1DFB054E2548BEEB3553424EA107BFE7',
+        'MDFFVRLARETGDRKREFLELGRKAGRFPAASTSNGEISIWCSNDYLGMGQHPDVLDAMKRSVDEYGGGSGGSRNTGGTNHFHVALEREPAEPHGKEDAVLFTSGYSANEGSLSVLAGAVDDCQVFSDSANHASIIDGLRHSGARKHVFRHKDGRHLEELLAAADRDKPKFIALESVHSMRGDIALLAEIAGLAKRYGAVTFLDEVHAVGMYGPGGAGIAARDGVHCEFTVVMGTLAKAFGMTGGYVAGPAVLMDAVRARARSFVFTTALPPAVAAGALAAVRHLRGSDEERRRPAENARLTHGLLRERDIPVLSDRSPIVPVLVGEDRMCKRMSALPLERHGAYVQAIDAPSVPAGEEILRIAPSAVHETEEIHRFVDALDGIWSELGAARRV',
+      length: 394,
+      molWeight: 42315,
+      crc64: 'F1DD0C1042811B48',
+      md5: 'E8872C7A0261B9E88E6FF47EB34E4162',
     },
   },
 };

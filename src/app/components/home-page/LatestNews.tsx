@@ -12,10 +12,10 @@ const insideUniProtAbstract1 =
   'Antimicrobial resistance contributes to almost 5 million deaths annually, worldwide. To mark World AMR Awareness Week...';
 
 const insideUniProtAbstract2 =
-  'How many members do you have on your team and have you ever considered UniProt as one of them?';
+  'With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?';
 
 const proteinSpotlightAbstract =
-  "You've arrived at the supermarket, and your trolley token is missing. It's not where you usually keep it - on your keyring, or in your bag. Flustered, you search for ...";
+  'Our most precious things are kept where they meet the least damage. Out of reach on a shelf, in the depths of a drawer, deposited in a bank or perhaps parked in the garage. Frequently, too, a layer of protect...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -129,6 +129,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2026-06-10-release',
+                  })}
+                >
+                  UniProt release 2026_02
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                To drink, or not to drink? | UniProt news | Completing the
+                reorganization of the protein space...
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2026-01-28-release',
                   })}
                 >
@@ -187,28 +209,6 @@ const LatestNews = () => {
               >
                 Cross-references to CARD | Cross-references to FunCoup |
                 Cross-references to PAN-GO
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2025-04-23-release',
-                  })}
-                >
-                  UniProt release 2025_02
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Brain property: no trespassing | Cross-references to CD-CODE |
-                Cross-references to STRENDA-DB | Cross-references to YCharOS
               </p>
             </article>
           </li>
@@ -306,21 +306,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/290/"
+            url="https://www.proteinspotlight.org/back_issues/292/"
             noIcon
           >
-            Support
+            Unfurling our heritage
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/290/"
+          url="https://www.proteinspotlight.org/back_issues/292/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt290.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt292.jpg"
             alt=""
             width="123"
             height="129"

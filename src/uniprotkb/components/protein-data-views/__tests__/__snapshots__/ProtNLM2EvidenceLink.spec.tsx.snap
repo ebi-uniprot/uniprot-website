@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ProtNLM2EvidenceLink renders the phmmer branch 1`] = `
+<DocumentFragment>
+  <span
+    data-article-id="ProtNLM#protnlm-model-score"
+  >
+    ProtNLM2 model score
+  </span>
+  : 
+  <strong>
+    0.50
+  </strong>
+  <br />
+  <small>
+    0–1 scale. Higher = stronger prediction confidence.
+  </small>
+  <br />
+  <br />
+  Sequence similarity with 
+  <a
+    href="/uniprotkb/Q09272"
+  >
+    Q09272
+  </a>
+  <br />
+  phmmer score: 
+  <strong>
+    136.30
+  </strong>
+  <br />
+  <small>
+    Unbounded scale. Higher = stronger sequence similarity.
+  </small>
+  <br />
+  <br />
+  <a
+    href="/align?ids=A8Y1C3%2CQ09272"
+    rel="noreferrer"
+    target="_blank"
+  >
+    Align A8Y1C3 and Q09272 with Clustal Omega
+  </a>
+</DocumentFragment>
+`;
+
+exports[`ProtNLM2EvidenceLink renders the string-match branch (hydrated, InterPro link) 1`] = `
+<DocumentFragment>
+  <span
+    data-article-id="ProtNLM#protnlm-model-score"
+  >
+    ProtNLM2 model score
+  </span>
+  : 
+  <strong>
+    0.64
+  </strong>
+  <br />
+  <small>
+    0–1 scale. Higher = stronger prediction confidence.
+  </small>
+  <br />
+  <br />
+  Partial match with InterPro: 
+  <a
+    class="external-link"
+    href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR007669"
+    rel="noopener"
+    target="_blank"
+  >
+    IPR007669
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`ProtNLM2EvidenceLink renders the tmalign branch 1`] = `
+<DocumentFragment>
+  <span
+    data-article-id="ProtNLM#protnlm-model-score"
+  >
+    ProtNLM2 model score
+  </span>
+  : 
+  <strong>
+    0.50
+  </strong>
+  <br />
+  <small>
+    0–1 scale. Higher = stronger prediction confidence.
+  </small>
+  <br />
+  <br />
+  Structure similarity with 
+  <a
+    href="/uniprotkb/Q99LL3"
+  >
+    Q99LL3
+  </a>
+  <br />
+  <ul
+    class="protnlm2-tmalign-scores"
+  >
+    <li>
+      TM-score for A8Y1C3 (current entry): 
+      <strong>
+        0.59
+      </strong>
+    </li>
+    <li>
+      TM-score for Q99LL3: 0.48
+    </li>
+  </ul>
+  <small>
+    0–1 scale. Higher = stronger structural similarity. &gt;0.5 suggests same fold.
+  </small>
+  <br />
+  <br />
+  <a
+    class="external-link"
+    href="https://search.foldseek.com/foldmason?accessions=A8Y1C3%2CQ99LL3&sources=AlphaFoldDB"
+    rel="noopener"
+    target="_blank"
+  >
+    Align A8Y1C3 and Q99LL3 with FoldMason
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;

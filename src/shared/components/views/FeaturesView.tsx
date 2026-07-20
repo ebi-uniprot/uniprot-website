@@ -66,9 +66,8 @@ export type ProcessedFeature = Feature & {
 export type FeatureColumnConfiguration<T> = {
   id: string;
   label: ReactNode;
-  filter?: (data: T, input: string) => boolean;
   render: (data: T) => ReactNode;
-  getOption?: (data: T) => string | number; // Fallback if render fn doesn't return string or number
+  getValue?: (data: T) => string | number | null | undefined;
 };
 
 type FeatureViewProps<T extends ProcessedFeature> = {

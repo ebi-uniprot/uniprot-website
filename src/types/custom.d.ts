@@ -40,6 +40,13 @@ declare module '*.module.css' {
   export = classes;
 }
 
+// Side-effect imports of global stylesheets.
+declare module '*.scss';
+declare module '*.css';
+
+// Custom element registered for side effects only.
+declare module '@geneontology/web-components/go-annotation-ribbon-strips';
+
 // Just for one test file
 declare module 'react-beautiful-dnd-test-utils';
 

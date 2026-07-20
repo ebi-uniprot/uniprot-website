@@ -90,8 +90,6 @@ const externalUrls = {
   RheaSearch: (id: string | number) =>
     `https://www.rhea-db.org/rhea?query=${id}`,
   RheaEntry: (id: string | number) => `https://www.rhea-db.org/rhea/${id}`,
-  ChEBI: (id: string | number) =>
-    `https://www.ebi.ac.uk/chebi/searchId.do?chebiId=${id}`,
   EspacenetPatent: (id: string | number) =>
     `https://worldwide.espacenet.com/textdoc?DB=EPODOC&IDX=${id}`,
   // Homology

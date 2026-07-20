@@ -3,13 +3,12 @@ import { InfoList, LongNumber } from 'franklin-sites';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../../shared/components/ExternalLink';
-import AccessionView from '../../../shared/components/results/AccessionView';
 import ftpUrls from '../../../shared/config/ftpUrls';
-import { Namespace } from '../../../shared/types/namespaces';
 import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
+import EntrySection from '../../types/entrySection';
 import BuscoLegend from '../BuscoLegend';
 import BuscoView from '../BuscoView';
 import { PanProteome } from './PanProteome';
@@ -42,35 +41,40 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
       content: data.id,
     },
     {
-      title: 'Status',
+      title: (
+        <span data-article-id="proteome_terminology#proteome-status">
+          Status
+        </span>
+      ),
       content: (
         <>
           <EntryTypeIcon entryType={data.proteomeType} />
-          {proteomeType}
+          {proteomeType === 'Non Reference proteome'
+            ? 'Non-reference proteome'
+            : proteomeType}
           {data.exclusionReasons?.length ? (
             <span data-article-id="proteome_exclusion_reasons">
               {' '}
               ({data.exclusionReasons.join(', ')})
             </span>
           ) : null}
-          {data.proteomeType === 'Redundant proteome' && data.redundantTo ? (
-            <div>
-              This proteome is{' '}
-              <span data-article-id="proteome_redundancy">redundant</span>{' '}
-              to&nbsp;
-              <AccessionView
-                id={data.redundantTo}
-                namespace={Namespace.proteomes}
-              />
-              .
-            </div>
+          {data.relatedProteomes?.length ? (
+            <>
+              {' ('}
+              <a href={`#${EntrySection.SimilarProteomes}`}>
+                {proteomeType === 'Reference proteome'
+                  ? 'view similar reference proteomes'
+                  : 'view similarity to reference proteomes'}
+              </a>
+              )
+            </>
           ) : null}
         </>
       ),
     },
     {
       title: (
-        <span data-article-id="proteome_terminology#protein-count">
+        <span data-article-id="proteome_terminology#number-of-entries">
           Number of entries
         </span>
       ),
@@ -133,7 +137,13 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
     },
     {
       title: <span data-article-id="pan_proteomes">Pan proteome</span>,
-      content: data.panproteome && <PanProteome proteome={data} />,
+      content: data.panproteomeTaxon && (
+        <PanProteome
+          panproteomeTaxon={data.panproteomeTaxon}
+          taxonLineage={data.taxonLineage}
+          taxonomy={data.taxonomy}
+        />
+      ),
     },
     {
       title: (

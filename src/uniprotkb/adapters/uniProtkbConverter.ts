@@ -54,7 +54,7 @@ export type UniProtKBReference = Omit<Reference, 'citationId'> & {
 
 // Specific to the API, will be transformed by the adaptor into something usable
 export type UniProtKBXref = Omit<Xref, 'properties'> & {
-  properties?: Array<{ key: string; value: string }>;
+  properties?: Array<{ key: string; value: string | null }>;
 };
 
 export type AnnotationScoreValue = 0 | 1 | 2 | 3 | 4 | 5;
@@ -74,7 +74,13 @@ export type UniProtkbAPIModel = {
   secondaryAccessions?: string[];
   uniProtkbId: string;
   proteinExistence: string;
-  entryType: string;
+  // 'AA' is the UniParc sub-entry marker — `UniParcPrecomputedModel` and the
+  // UniFire converter narrow to it so sub-entry data can flow through the
+  // shared UniProtKB pipeline. See `src/uniparc/types/precomputed.ts`.
+  entryType:
+    | 'UniProtKB reviewed (Swiss-Prot)'
+    | 'UniProtKB unreviewed (TrEMBL)'
+    | 'AA';
   inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];

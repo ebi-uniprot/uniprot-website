@@ -1,5 +1,8 @@
-/* By default don't display the messages */
-.container :global(.message) {
+/* Hide StructureView's own banner-level messages by default; they're
+   conditionally shown below based on the embedded structure viewer's state.
+   Use the direct-child combinator so messages rendered inside nested
+   components (e.g. TableFromData's empty-state warning) are not caught. */
+.container > :global(.message) {
   display: none;
 }
 
@@ -7,7 +10,7 @@
 @supports selector(:has(*)) {
   .container:has(nightingale-structure) {
     /* Info message about feature viewer */
-    & :global(.message--info) {
+    & > :global(.message--info) {
       display: grid;
       margin-block-start: 0.5em;
     }
@@ -16,7 +19,7 @@
   /* Target the message only if there's a protvista-structure with the
   "structureid" attribute set to something that looks like an AFDB ID */
   .container:has(nightingale-structure[structure-id^='AF']) {
-    & :global(.message--warning) {
+    & > :global(.message--warning) {
       /* Display and revert to the default style of the message */
       display: grid;
       margin-block-start: 0.5em;

@@ -32,12 +32,19 @@ IdMappingColumnConfiguration.set(IDMappingColumn.from, fromColumnConfig);
 
 const origin = 'https://www.uniprot.org';
 
+const isSameOrigin = (url: string) => {
+  if (url === origin) {
+    return true;
+  }
+  return url.startsWith(`${origin}/`) || url.startsWith(`${origin}?`);
+};
+
 IdMappingColumnConfiguration.set(IDMappingColumn.to, {
   label: 'To',
   render: (row) => {
     const { url, to } = row as MappingTo & MappingFrom;
-    if (url?.startsWith(origin)) {
-      return <Link to={url.replace(origin, '')}>{to}</Link>;
+    if (url && isSameOrigin(url)) {
+      return <Link to={url.slice(origin.length)}>{to}</Link>;
     }
     return <ExternalLink url={url || null}>{to}</ExternalLink>;
   },

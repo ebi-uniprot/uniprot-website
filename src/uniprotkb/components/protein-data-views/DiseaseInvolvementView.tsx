@@ -98,7 +98,7 @@ const DiseaseVariants = ({
         }
 
         return (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <Table.Row isOdd={Boolean(i % 2)} key={i}>
             <td>
               {variant.alternativeSequence?.originalSequence?.length === 1 &&
@@ -178,7 +178,7 @@ const DiseaseInvolvementEntry = ({
     const noteContent = (
       <ExpandableList descriptionString="notes">
         {note.texts.map((text, index) => (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <Fragment key={index}>
             {text.value}
             <UniProtKBEvidenceTag evidences={text.evidences} />
@@ -290,7 +290,7 @@ const DiseaseInvolvementView = ({
       )}
       {comments.map((comment, index) => (
         <DiseaseInvolvementEntry
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           key={index}
           comment={comment}
           features={features}

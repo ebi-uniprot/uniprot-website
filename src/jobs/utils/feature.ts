@@ -1,36 +1,10 @@
-import { type ReactNode } from 'react';
+import { type getFeatureTooltip } from 'protvista-uniprot';
 import urljoin from 'url-join';
 
 import { type ProcessedFeature } from '../../shared/components/views/FeaturesView';
-import {
-  type Ligand,
-  type LigandPart,
-} from '../../uniprotkb/components/protein-data-views/LigandDescriptionView';
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
-import type FeatureType from '../../uniprotkb/types/featureType';
 
-export type Source = {
-  id: string;
-  name: string;
-  url?: string;
-  alternativeUrl?: string;
-};
-
-export type Evidence = {
-  code: string;
-  source?: Source;
-};
-
-export type TooltipFeature = {
-  type: FeatureType;
-  start: number;
-  end: number;
-  ftId?: string;
-  evidences?: Evidence[];
-  description?: ReactNode;
-  ligand?: Ligand;
-  ligandPart?: LigandPart;
-};
+type TooltipFeature = Parameters<typeof getFeatureTooltip>[0];
 
 export const prepareFeatureForTooltip = (
   feature: ProcessedFeature
@@ -43,11 +17,15 @@ export const prepareFeatureForTooltip = (
 
   if (feature.description) {
     if (feature.type === 'Binding site') {
-      tooltipFeature.ligand = feature.ligand;
-      tooltipFeature.ligandPart = feature.ligandPart;
+      if (feature.ligand) {
+        tooltipFeature.ligand = { name: feature.ligand.name };
+      }
+      if (feature.ligandPart?.name) {
+        tooltipFeature.ligandPart = { name: feature.ligandPart.name };
+      }
       tooltipFeature.description = feature.ligandDescription;
     } else {
-      tooltipFeature.description = feature.description;
+      tooltipFeature.description = feature.description as string | undefined;
     }
   }
 
@@ -60,27 +38,21 @@ export const prepareFeatureForTooltip = (
   }
 
   tooltipFeature.evidences = feature.evidences.map((e) => {
-    const tooltipEvidence: Evidence = { code: e.evidenceCode };
-    if (e.id && e.source) {
-      const source: Source = {
-        id: e.id,
-        name: e.source,
-      };
-      const { url, isInternal } = getEvidenceLink(e.source, e.id);
-      if (url) {
-        source.url = isInternal
-          ? urljoin('https://www.uniprot.org/', url)
-          : url;
-      }
-      if (e.source === 'PubMed') {
-        const { url: alternativeUrl } = getEvidenceLink('EuropePMC', e.id);
-        if (alternativeUrl) {
-          source.alternativeUrl = alternativeUrl;
-        }
-      }
-      tooltipEvidence.source = source;
+    if (!e.id || !e.source) {
+      return { code: e.evidenceCode };
     }
-    return tooltipEvidence;
+    const { url, isInternal } = getEvidenceLink(e.source, e.id);
+    const source: Record<string, string> = { id: e.id, name: e.source };
+    if (url) {
+      source.url = isInternal ? urljoin('https://www.uniprot.org/', url) : url;
+    }
+    if (e.source === 'PubMed') {
+      const { url: alternativeUrl } = getEvidenceLink('EuropePMC', e.id);
+      if (alternativeUrl) {
+        source.alternativeUrl = alternativeUrl;
+      }
+    }
+    return { code: e.evidenceCode, source };
   });
 
   return tooltipFeature;

@@ -82,18 +82,14 @@ export const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'species',
     label: 'Species',
-    filter: (data, filterValue) =>
-      data.geneToGeneOrthologyGenerated.objectGene.taxon.name === filterValue,
+    getValue: (data) => data.geneToGeneOrthologyGenerated.objectGene.taxon.name,
     render: (data) => data.geneToGeneOrthologyGenerated.objectGene.taxon.name,
   },
   {
     id: 'gene-symbol',
     label: 'Gene Symbol',
-    getOption: (data) =>
+    getValue: (data) =>
       data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText || '',
-    filter: (data, filterValue) =>
-      data.geneToGeneOrthologyGenerated.objectGene.geneSymbol.displayText ===
-      filterValue,
     render: (data) => {
       const query = getXrefAndTaxonQuery(
         data.geneToGeneOrthologyGenerated.objectGene
@@ -120,22 +116,18 @@ export const columns: TableFromDataColumn<AgrOrthologsResult>[] = [
   {
     id: 'best',
     label: 'Best',
-    filter: (data, filterValue) =>
-      filterValue ===
-      (isBest(data.geneToGeneOrthologyGenerated.isBestScore.name)
-        ? 'Yes'
-        : 'No'),
+    getValue: (data) =>
+      isBest(data.geneToGeneOrthologyGenerated.isBestScore.name) ? 'Yes' : 'No',
     render: (data) =>
       isBest(data.geneToGeneOrthologyGenerated.isBestScore.name) ? 'Yes' : 'No',
   },
   {
     id: 'best-reverse',
     label: 'Best Reverse',
-    filter: (data, filterValue) =>
-      filterValue ===
-      (isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
+    getValue: (data) =>
+      isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
         ? 'Yes'
-        : 'No'),
+        : 'No',
     render: (data) =>
       isBest(data.geneToGeneOrthologyGenerated.isBestScoreReverse.name)
         ? 'Yes'

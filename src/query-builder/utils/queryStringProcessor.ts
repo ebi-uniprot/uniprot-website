@@ -1,9 +1,16 @@
+import { Namespace } from '../../shared/types/namespaces';
 import { type Clause, type Operator } from '../types/searchTypes';
 import { getAllTerm } from './clause';
 
 const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;
 
-export const stringify = (clauses: Clause[] = []): string => {
+// Canonical UniProt proteome identifier value, eg UP000005640
+export const reProteomeIdValue = /^UP\d{9}$/i;
+
+export const stringify = (
+  clauses: Clause[] = [],
+  namespace?: Namespace
+): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
     let query = Object.entries(clause.queryBits)
@@ -50,7 +57,34 @@ export const stringify = (clauses: Clause[] = []): string => {
       }`;
       const goValue = clause.queryBits?.go || '*';
       queryJoined = `(${goKey}:${goValue})`;
+    } else if (
+      clause.queryBits.proteome &&
+      reProteomeIdValue.test(clause.queryBits.proteome) &&
+      clause.queryBits.proteomecomponent
+    ) {
+      // Combine proteome ID + component into a single proteomecomponent clause
+      // and suppress the separate `proteome:` clause.
+      queryJoined = `(proteomecomponent:"${clause.queryBits.proteome}:${clause.queryBits.proteomecomponent}")`;
     } else {
+      // A proteome component can only be searched when scoped by a valid
+      // proteome ID. On its own it's meaningless, so drop it (the UI warns the
+      // user that a proteome ID is needed).
+      if (
+        // TODO: Remove namespace check when proteome component query is consistent in both UniProtKB and UniParc
+        namespace === Namespace.uniparc &&
+        clause.queryBits.proteomecomponent &&
+        !(
+          clause.queryBits.proteome &&
+          reProteomeIdValue.test(clause.queryBits.proteome)
+        )
+      ) {
+        query = query.filter(([key]) => key !== 'proteomecomponent');
+        if (!query.length) {
+          // nothing left to search in this clause
+          continue;
+        }
+      }
+
       queryJoined = query
         .map(([key, value]) => {
           const needsQuotes =

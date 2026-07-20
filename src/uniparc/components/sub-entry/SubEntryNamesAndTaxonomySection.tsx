@@ -7,16 +7,13 @@ import TaxonomyView, {
   TaxonomyId,
   TaxonomyLineage,
 } from '../../../shared/components/entry/TaxonomyView';
-import apiUrls from '../../../shared/config/apiUrls/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { type UniProtkbUIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type Evidence } from '../../../uniprotkb/types/modelTypes';
-import {
-  type ModifiedPrediction,
-  type UniParcSubEntryUIModel,
-} from '../../adapters/uniParcSubEntryConverter';
+import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryProteomes } from '../../utils/subEntry';
@@ -27,102 +24,120 @@ const genericEvidences: Evidence[] = [
   },
 ];
 
+type NameValue = { value: string; evidences?: Evidence[] };
+
 const NameContent = ({
   predictions,
 }: {
-  predictions: ModifiedPrediction[] | string;
+  predictions: NameValue[] | string;
 }) => {
-  const renderedPredictions: Partial<ModifiedPrediction>[] =
+  const renderedNames: NameValue[] =
     typeof predictions === 'string'
-      ? [{ annotationValue: predictions, evidence: genericEvidences }]
+      ? [{ value: predictions, evidences: genericEvidences }]
       : predictions;
 
-  return renderedPredictions.map((prediction, index) => (
-    // eslint-disable-next-line react/no-array-index-key
+  return renderedNames.map((name, index) => (
+    // eslint-disable-next-line @eslint-react/no-array-index-key
     <div key={index}>
-      {prediction.annotationValue}
-      {prediction.evidence && (
-        <UniProtKBEvidenceTag evidences={prediction.evidence} />
-      )}
+      {name.value}
+      {name.evidences && <UniProtKBEvidenceTag evidences={name.evidences} />}
     </div>
   ));
 };
 
+/**
+ * Whether the Names & Taxonomy section has anything to show — imported
+ * protein/gene/organism/proteome data from the UniParc cross-reference, or
+ * predicted names from the converted `annotations` (source-agnostic, so it
+ * covers both the UniFire and precomputed branches). Shared by the section's
+ * own render guard and the in-page-nav gating in `SubEntry`, so the nav and the
+ * rendered card never disagree.
+ */
+export const namesAndTaxonomySectionHasContent = (
+  uniparcData?: UniParcSubEntryUIModel,
+  annotations?: UniProtkbUIModel
+): boolean => {
+  const subEntry = uniparcData?.subEntry;
+  if (!subEntry) {
+    return false;
+  }
+  const {
+    proteinName,
+    geneName,
+    organism,
+    properties,
+    proteomes: proteomesArr,
+  } = subEntry;
+  const namesAndTaxonomy =
+    annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
+  const proteinNames = namesAndTaxonomy?.proteinNamesData;
+  const geneNames = namesAndTaxonomy?.geneNamesData;
+  const proteomes = getSubEntryProteomes(properties);
+  return Boolean(
+    proteinName?.length ||
+    geneName ||
+    organism ||
+    proteinNames?.recommendedName ||
+    proteinNames?.alternativeNames?.length ||
+    geneNames?.length ||
+    Object.keys(proteomes).length ||
+    proteomesArr?.length
+  );
+};
+
 type SubEntryNamesAndTaxonomySectionProps = {
-  data?: UniParcSubEntryUIModel;
+  uniparcData?: UniParcSubEntryUIModel;
+  annotations?: UniProtkbUIModel;
+  lineageData?: TaxonomyAPIModel;
+  proteomeComponentObject?: Record<string, string>;
 };
 
 const SubEntryNamesAndTaxonomySection = ({
-  data,
+  uniparcData,
+  annotations,
+  lineageData,
+  proteomeComponentObject = {},
 }: SubEntryNamesAndTaxonomySectionProps) => {
-  const { data: lineageData } = useDataApi<TaxonomyAPIModel>(
-    data?.subEntry?.organism
-      ? apiUrls.entry.entry(
-          `${data.subEntry.organism.taxonId}`,
-          Namespace.taxonomy
-        )
-      : null
-  );
-
-  if (!data?.subEntry) {
+  if (!uniparcData?.subEntry) {
     return null;
   }
 
-  const { proteinName, geneName, organism, properties, proteomeId, component } =
-    data.subEntry;
-  const { predictions } = data.unifire || { predictions: [] };
+  const { proteinName, geneName, organism } = uniparcData.subEntry;
+  const namesAndTaxonomy =
+    annotations?.[UniProtKBEntrySection.NamesAndTaxonomy];
+  // Deliberately renders only:
+  //   - proteinNamesData.recommendedName (fullName / shortNames / ecNumbers)
+  //   - proteinNamesData.alternativeNames (same sub-fields)
+  //   - geneNamesData[].geneName / synonyms
+  // The `ProteinNamesData` / `GeneNamesData` types also permit
+  // submissionNames, allergenName, biotechName, cdAntigenNames, innNames,
+  // includes, contains, orfNames, and orderedLocusNames — empirically the
+  // precomputed corpus does not populate any of these, but if a future payload
+  // does, `getUnrenderedNameFields` in subEntryAnnotations.ts emits a warning
+  // so the gap surfaces before quietly dropping data. Keep that helper in sync
+  // with the fields rendered here.
+  const proteinNames = namesAndTaxonomy?.proteinNamesData;
+  const geneNames = namesAndTaxonomy?.geneNamesData;
 
-  const recommendedFullNamePrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.fullName'
-    ) || [];
-
+  const recommendedFullNamePrediction = proteinNames?.recommendedName?.fullName
+    ? [proteinNames.recommendedName.fullName]
+    : [];
   const recommendedShortNamePrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.shortName'
-    ) || [];
-
+    proteinNames?.recommendedName?.shortNames ?? [];
   const recommendedECPrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.recommendedName.ecNumber'
-    ) || [];
-
-  const alternativeNamePrediction = [
-    'protein.alternativeName.fullName',
-    'protein.alternativeName.shortName',
-  ]
-    .map(
-      (type) =>
-        (predictions as ModifiedPrediction[])?.filter(
-          (prediction) => prediction.annotationType === type
-        ) || []
-    )
-    .flat();
-
-  const alternativeECPrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) =>
-        prediction.annotationType === 'protein.alternativeName.ecNumber'
-    ) || [];
-
-  const geneNamePrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) => prediction.annotationType === 'gene.name.primary'
-    ) || [];
-
-  const geneNameSynonymsPrediction =
-    (predictions as ModifiedPrediction[])?.filter(
-      (prediction) => prediction.annotationType === 'gene.name.synonym'
-    ) || [];
-
-  const proteomeComponentObject = getSubEntryProteomes(properties);
-
-  if (proteomeId && component) {
-    proteomeComponentObject[proteomeId] = component;
-  }
+    proteinNames?.recommendedName?.ecNumbers ?? [];
+  const alternativeNamePrediction = (
+    proteinNames?.alternativeNames ?? []
+  ).flatMap((alt) => [alt.fullName, ...(alt.shortNames ?? [])]);
+  const alternativeECPrediction = (
+    proteinNames?.alternativeNames ?? []
+  ).flatMap((alt) => alt.ecNumbers ?? []);
+  const geneNamePrediction = (geneNames ?? []).flatMap((gene) =>
+    gene.geneName ? [gene.geneName] : []
+  );
+  const geneNameSynonymsPrediction = (geneNames ?? []).flatMap(
+    (gene) => gene.synonyms ?? []
+  );
 
   const proteomeContent = Object.entries(proteomeComponentObject).map(
     ([proteomeId, component]) => (
@@ -225,12 +240,7 @@ const SubEntryNamesAndTaxonomySection = ({
   );
   const hasGeneNameContent = geneNameInfoData.some((item) => item.content);
 
-  if (
-    !hasProteinNameContent &&
-    (!geneName || !hasGeneNameContent) &&
-    !organism &&
-    proteomeContent.length === 0
-  ) {
+  if (!namesAndTaxonomySectionHasContent(uniparcData, annotations)) {
     return null;
   }
 

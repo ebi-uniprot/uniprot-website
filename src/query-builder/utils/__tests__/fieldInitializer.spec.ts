@@ -20,4 +20,35 @@ describe('field initializer', () => {
       )
     ).toEqual('9606');
   });
+
+  describe('proteome / proteomecomponent', () => {
+    it('should return the proteome ID part for the `proteome` field', () => {
+      expect(
+        initializer(getSearchTerm('proteome'), {
+          proteomecomponent: 'UP000005640:chromosome',
+        })
+      ).toEqual('UP000005640');
+    });
+
+    it('should return the component part for the `proteome_component` field', () => {
+      expect(
+        initializer(getSearchTerm('proteome_component'), {
+          proteomecomponent: 'UP000005640:chromosome',
+        })
+      ).toEqual('chromosome');
+    });
+
+    it('should return the proteome ID and an empty component when no `:` is present', () => {
+      expect(
+        initializer(getSearchTerm('proteome'), {
+          proteomecomponent: 'UP000005640',
+        })
+      ).toEqual('UP000005640');
+      expect(
+        initializer(getSearchTerm('proteome_component'), {
+          proteomecomponent: 'UP000005640',
+        })
+      ).toEqual('');
+    });
+  });
 });

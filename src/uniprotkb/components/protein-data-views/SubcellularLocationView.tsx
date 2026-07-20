@@ -1,11 +1,13 @@
 import './styles/sub-cell-viz.scss';
 
+import cn from 'classnames';
 import { LocationPinIcon } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type SubcellularLocationComment } from '../../types/commentTypes';
+import { hasProtNLM2Evidence } from '../../utils/protnlm';
 import { TextView } from './FreeTextView';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
@@ -35,51 +37,59 @@ const SubcellularLocationView = ({ comments }: Props) => {
     Array.from(comments).sort(noMoleculeFirstSort);
   return (
     <>
-      {noMoleculeFirstComments.map(
-        (subcellData, index) =>
-          subcellData.subcellularLocations && (
-            <section className="text-block" key={subcellData.molecule || index}>
-              {subcellData.molecule && <h3>{subcellData.molecule}</h3>}
-              {subcellData.subcellularLocations.map(
-                ({ location, topology }) => (
-                  <div
-                    // id is used in the case that this component is used in conjunction
-                    // with @swissprot/swissbiopics-visualizer
-                    id={location.id && getSwissBioPicLocationId(location.id)}
-                    key={`${location.value}${topology?.value}`}
-                  >
-                    <LocationPinIcon
-                      className="sub-cell-viz__in-view-pin"
-                      height="1em"
-                    />
-                    <strong>
-                      {location.id ? (
-                        <Link
-                          to={getEntryPath(Namespace.locations, location.id)}
-                          className="sub-cell-viz__location-id"
-                        >
-                          {location.value}
-                        </Link>
-                      ) : (
-                        location.value
-                      )}
-                    </strong>{' '}
-                    <UniProtKBEvidenceTag evidences={location.evidences} />
-                    {topology && (
-                      <>
-                        {`; ${topology.value} `}
-                        <UniProtKBEvidenceTag evidences={topology.evidences} />
-                      </>
-                    )}
-                  </div>
-                )
-              )}
-              {subcellData.note && (
-                <TextView comments={subcellData.note.texts}>Note: </TextView>
-              )}
-            </section>
-          )
-      )}
+      {noMoleculeFirstComments.map((subcellData, index) => {
+        if (!subcellData.subcellularLocations) {
+          return null;
+        }
+        const isAi = subcellData.subcellularLocations.some(
+          ({ location, topology }) =>
+            hasProtNLM2Evidence(location.evidences) ||
+            hasProtNLM2Evidence(topology?.evidences)
+        );
+        return (
+          <section
+            className={cn('text-block', { 'ai-annotation': isAi })}
+            key={subcellData.molecule || index}
+          >
+            {subcellData.molecule && <h3>{subcellData.molecule}</h3>}
+            {subcellData.subcellularLocations.map(({ location, topology }) => (
+              <div
+                // id is used in the case that this component is used in conjunction
+                // with @swissprot/swissbiopics-visualizer
+                id={location.id && getSwissBioPicLocationId(location.id)}
+                key={`${location.value}${topology?.value}`}
+              >
+                <LocationPinIcon
+                  className="sub-cell-viz__in-view-pin"
+                  height="1em"
+                />
+                <strong>
+                  {location.id ? (
+                    <Link
+                      to={getEntryPath(Namespace.locations, location.id)}
+                      className="sub-cell-viz__location-id"
+                    >
+                      {location.value}
+                    </Link>
+                  ) : (
+                    location.value
+                  )}
+                </strong>{' '}
+                <UniProtKBEvidenceTag evidences={location.evidences} />
+                {topology && (
+                  <>
+                    {`; ${topology.value} `}
+                    <UniProtKBEvidenceTag evidences={topology.evidences} />
+                  </>
+                )}
+              </div>
+            ))}
+            {subcellData.note && (
+              <TextView comments={subcellData.note.texts}>Note: </TextView>
+            )}
+          </section>
+        );
+      })}
     </>
   );
 };

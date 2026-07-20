@@ -51,7 +51,7 @@ const ToolsDropdown = ({
     );
   } else if (typeof align === 'object') {
     alignNode = Array.isArray(align) ? (
-      // eslint-disable-next-line react/no-array-index-key
+      // eslint-disable-next-line @eslint-react/no-array-index-key
       align.map((alignItem, index) => <li key={index}>{alignItem}</li>)
     ) : (
       <li>{align}</li>

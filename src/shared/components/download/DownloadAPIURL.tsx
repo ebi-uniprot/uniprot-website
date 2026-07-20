@@ -30,7 +30,7 @@ const reUniparcProteome = new RegExp(`/uniparc/proteome/UP\\d+/stream`);
 export const getSearchURL = (streamURL: string, batchSize = 500) => {
   const { base, query } = splitUrl(streamURL);
 
-  let baseUrl = base;
+  let baseUrl: string;
   if (base.search(reIdMapping) >= 0) {
     baseUrl = base.replace(reIdMapping, (_match, namespace) =>
       namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
@@ -129,7 +129,6 @@ const DownloadAPIURL = ({
     return (
       <div className={styles['api-url']} ref={scrollRef}>
         <CodeBlock lightMode>
-          {/* eslint-disable-next-line react/jsx-curly-brace-presence */}
           {
             "// this specific combination of parameters doesn't have a corresponding direct API or download endpoint."
           }

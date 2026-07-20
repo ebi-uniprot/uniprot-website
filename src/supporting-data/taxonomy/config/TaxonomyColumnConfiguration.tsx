@@ -1,4 +1,5 @@
 import { ExpandableList } from 'franklin-sites';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPathFor } from '../../../app/config/urls';
@@ -140,10 +141,10 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.strains, {
     strains?.length ? (
       <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
         {strains?.map((strain) => (
-          <>
+          <Fragment key={strain.name}>
             {strain.name}
             {strain.synonyms?.length && ` (${strain.synonyms.join(', ')})`}
-          </>
+          </Fragment>
         ))}
       </ExpandableList>
     ) : null,

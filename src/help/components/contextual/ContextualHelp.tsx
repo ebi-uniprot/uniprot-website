@@ -57,7 +57,7 @@ const ContextualHelp = () => {
           const target = generatePath(LocationToPath[Location.HelpEntry], {
             accession: element.dataset.articleId,
           });
-          window.open(target.replace('%23', '#'), 'external_help');
+          window.open(target.replaceAll('%23', '#'), 'external_help');
         } else {
           setArticlePath(element.dataset.articleId);
           setDisplayButton(false);

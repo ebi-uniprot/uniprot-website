@@ -48,7 +48,7 @@ const formatSuffixWithCount = (prefix: string, number: string) => {
   return `${count} ${pluralise(prefix, count)}`;
 };
 
-export const getPropertyString = (key?: string, value?: string) => {
+export const getPropertyString = (key?: string, value?: string | null) => {
   if (!value || value === '-') {
     return '';
   }
@@ -137,22 +137,25 @@ export const XRef = ({
 
   let resistanceMechanismNode;
   if (database === 'CARD' && properties) {
-    resistanceMechanismNode = (
-      <div className={styles['resistance-mechanism-container']}>
-        <span className={styles['resistance-angle']}>∟</span> Resistance
-        mechanism:
-        <div className={styles['resistance-details']}>
-          <ExternalLink
-            url={processUrlTemplate(uriLink, {
-              id: properties[PropertyKey.ResistanceMechanismIdentifier],
-            })}
-          >
-            {properties[PropertyKey.ResistanceMechanismIdentifier]}
-          </ExternalLink>
-          {properties[PropertyKey.ResistanceMechanismName]}
+    const resistanceId = properties[PropertyKey.ResistanceMechanismIdentifier];
+    if (resistanceId) {
+      resistanceMechanismNode = (
+        <div className={styles['resistance-mechanism-container']}>
+          <span className={styles['resistance-angle']}>∟</span> Resistance
+          mechanism:
+          <div className={styles['resistance-details']}>
+            <ExternalLink
+              url={processUrlTemplate(uriLink, {
+                id: resistanceId,
+              })}
+            >
+              {resistanceId}
+            </ExternalLink>
+            {properties[PropertyKey.ResistanceMechanismName]}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   let isoformNode;
@@ -260,7 +263,7 @@ export const DatabaseList = ({
       {xrefs.map((xref, index) => (
         <XRef
           databaseToDatabaseInfo={databaseToDatabaseInfo}
-          key={index} // eslint-disable-line react/no-array-index-key
+          key={index} // eslint-disable-line @eslint-react/no-array-index-key
           database={database}
           xref={xref}
           primaryAccession={primaryAccession}
@@ -442,7 +445,7 @@ const XRefView = ({
         );
 
         return (
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <Fragment key={index}>
             <h3>{title}</h3>
             {Object.entries(messagesGroupedByLevel).map(([level, messages]) => (

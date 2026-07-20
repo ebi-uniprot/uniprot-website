@@ -19,7 +19,6 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import HTMLHead from '../../../shared/components/HTMLHead';
 import { SingleColumnLayout } from '../../../shared/components/layouts/SingleColumnLayout';
-import { RefProtMoveHelpEntry } from '../../../shared/components/RefProtMoveMessages';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import helper from '../../../shared/styles/helper.module.scss';
@@ -38,7 +37,7 @@ import { type HelpEntryResponse } from '../../types/apiModel';
 import RelatedArticles from './RelatedArticles';
 import styles from './styles/entry.module.scss';
 
-const internalRE = /^(https?:)?\/\/www.uniprot.org\//i;
+const internalRE = /^(https?:)?\/\/www\.uniprot\.org\//i;
 const sameAppURL =
   typeof window !== 'undefined'
     ? new RegExp(window.location.origin + BASE_URL, 'i')
@@ -254,7 +253,6 @@ const HelpEntry = ({
   return (
     <SingleColumnLayout>
       <HTMLHead title={[data.title, 'UniProt help']} />
-      <RefProtMoveHelpEntry />
       <h1 className={data.categories?.includes('faq') ? 'big' : undefined}>
         {data.title}
       </h1>

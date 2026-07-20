@@ -18,7 +18,7 @@ export const warn: LoggingHelper = (message, context) => {
       level: 'warning',
     });
   } else if (!isTest) {
-    console.warn(message, context);
+    console.warn('%o', message, context);
   }
 };
 
@@ -28,13 +28,13 @@ export const error: LoggingHelper = (message, context) => {
     captureException(message, context);
   }
   if (!isTest) {
-    console.error(message, context);
+    console.error('%o', message, context);
   }
 };
 
 /* istanbul ignore next */
 export const debug: LoggingHelper = (message, context) => {
   if (!isProduction && !isTest) {
-    console.debug(message, context);
+    console.debug('%o', message, context);
   }
 };

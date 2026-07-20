@@ -13,22 +13,26 @@ const StructureView = lazy(
 );
 
 type Props = {
-  data: UniParcSubEntryUIModel;
+  uniparcData: UniParcSubEntryUIModel;
 };
 
-/*
-Comment from Aurel's PR:
-Not sure if this logic is valid always. Some UniProtKB entries don't have structures,
-and we'll still want to show the structures for the UniProtKB entries that will be removed
-soon and also for external IDs as eventually it should be based on the sequence. The 
-issue is that we can't query the 3D Beacons API like this yet, so I guess it'll do for now
-*/
-export const hasStructure = (data: UniParcSubEntryUIModel['subEntry']) =>
-  data.isUniprotkbEntry && data.id;
+/**
+ * Whether the sub-entry has enough info to drive a structure lookup. The
+ * sequence MD5 is the gate: `StructureView` queries 3D Beacons / AlphaFold /
+ * PDB by checksum (the same path the entry-level Structure tab uses), so any
+ * sub-entry with a sequence can render the section regardless of whether the
+ * xref happens to be a UniProtKB accession. When it *is* a UniProtKB
+ * accession, we also pass `primaryAccession` — this only enriches the data
+ * lookup (AlphaFold-by-accession) and the public Foldseek / AlphaFold DB links.
+ * We always pass `isUniProtKBAccession={false}` so the UniProtKB-only Feature
+ * Viewer link + AFDB modal stay suppressed (this is a UniParc page), matching
+ * the other reused sections in `UniParcSubEntryConfig`.
+ */
+export const hasStructure = (uniparcData: UniParcSubEntryUIModel): boolean =>
+  Boolean(uniparcData.entry.sequence?.md5);
 
-const StructureSection = ({ data }: Props) =>
-  // TODO: don't need this duplicate check - how to fix in TS?
-  !data.subEntry.id || !hasStructure(data.subEntry) ? null : (
+const StructureSection = ({ uniparcData }: Props) =>
+  !hasStructure(uniparcData) ? null : (
     <Card
       header={
         <h2 data-article-id="structure_section">
@@ -39,9 +43,15 @@ const StructureSection = ({ data }: Props) =>
       data-entry-section
     >
       <StructureView
-        primaryAccession={data.subEntry.id}
-        checksum={data.entry.sequence?.md5}
-        viewerOnly
+        // Only pass the accession when the xref is a real UniProtKB one;
+        // otherwise drive the lookup entirely off the sequence MD5.
+        primaryAccession={
+          uniparcData.subEntry.isUniprotkbEntry
+            ? uniparcData.subEntry.id
+            : undefined
+        }
+        checksum={uniparcData.entry.sequence?.md5}
+        isUniProtKBAccession={false}
       />
     </Card>
   );

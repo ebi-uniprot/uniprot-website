@@ -6,9 +6,15 @@ import {
   getEvidenceCodeData,
 } from '../../config/evidenceCodes';
 import { type GoEvidenceType } from '../../types/modelTypes';
+import { protNLM2Evidence } from '../../types/protNLMAPIModel';
 
 const GOTermEvidenceTag = ({ evidence }: { evidence?: GoEvidenceType }) => {
   if (!evidence) {
+    return null;
+  }
+  // ProtNLM2 contribution is already surfaced by the row stripe and the
+  // AI marker on the sibling UniProtKBEvidenceTag — skip the duplicate chip.
+  if (evidence === protNLM2Evidence) {
     return null;
   }
   const evidenceCode = getEcoNumberFromGoEvidenceType(evidence);

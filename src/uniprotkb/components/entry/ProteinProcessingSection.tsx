@@ -19,16 +19,24 @@ type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence?: string;
+  // Whether `primaryAccession` is a real UniProtKB accession. The
+  // proteomics-PTM lookup is keyed by one, so for synthetic accessions
+  // (e.g. UniParc sub-entries) callers pass `false` to skip the fetch.
+  // Defaults to `true`.
+  isUniProtKBAccession?: boolean;
 };
 
 const ProteinProcessingSection = ({
   data,
   sequence,
   primaryAccession,
+  isUniProtKBAccession = true,
 }: Props) => {
   const { loading: proteomicsPtmLoading, data: proteomicsPtmData } =
     useDataApi<ProteomicsPtm>(
-      apiUrls.proteinsApi.proteomicsPtm(primaryAccession)
+      isUniProtKBAccession
+        ? apiUrls.proteinsApi.proteomicsPtm(primaryAccession)
+        : null
     );
 
   if (proteomicsPtmLoading) {

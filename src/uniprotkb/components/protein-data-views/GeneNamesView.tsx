@@ -12,7 +12,7 @@ const geneAlternativeNamesView = (
   <>
     {firstComma && ', '}
     {alternativeNames.map((altName, index) => (
-      // eslint-disable-next-line react/no-array-index-key
+      // eslint-disable-next-line @eslint-react/no-array-index-key
       <Fragment key={index}>
         {index ? ', ' : undefined}
         <NameWithEvidence data={altName} key={altName.value} />
