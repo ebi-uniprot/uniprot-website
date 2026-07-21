@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 
 import useMatchMedia from '../hooks/useMatchMedia';
@@ -17,6 +18,8 @@ type ToggletipProps = {
   content: ReactNode;
   // The visible trigger — rendered as an inline, underlined, clickable button.
   children: ReactNode;
+  // Optional extra class for the inline wrapper, e.g. spacing at the call site.
+  className?: string;
 };
 
 // Short explanatory popup that adapts to the input device: a transient tooltip
@@ -26,7 +29,7 @@ type ToggletipProps = {
 // beats a native `title` everywhere — instant, styleable, keyboard-operable,
 // and announced to screen readers via the adjacent live region — meeting WCAG
 // 1.4.13 / 2.1.1 / 4.1.2.
-const Toggletip = ({ content, children }: ToggletipProps) => {
+const Toggletip = ({ content, children, className }: ToggletipProps) => {
   const canHover = useMatchMedia(HOVER_CAPABLE_QUERY);
   const [open, setOpen] = useState(false);
   const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -93,7 +96,7 @@ const Toggletip = ({ content, children }: ToggletipProps) => {
   return (
     <span
       ref={containerRef}
-      className={styles.container}
+      className={cn(styles.container, className)}
       onMouseEnter={canHover ? show : undefined}
       onMouseLeave={canHover ? scheduleHide : undefined}
     >
