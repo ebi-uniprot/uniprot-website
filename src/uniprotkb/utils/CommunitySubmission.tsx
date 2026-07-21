@@ -2,6 +2,8 @@
 // not to share their details. UniProt still knows who the submitter is —
 // they have just opted out of having their identity displayed publicly.
 
+import Toggletip from '../../shared/components/Toggletip';
+
 // The literal source ID returned by the API for community submissions where
 // the contributor has opted not to share their identity.
 const ANONYMOUS_SOURCE_ID = 'Anonymous';
@@ -14,7 +16,9 @@ export const isWithheldSubmitter = (sourceId?: string) =>
   sourceId === ANONYMOUS_SOURCE_ID;
 
 const WithheldByRequest = () => (
-  <span title={WITHHELD_BY_REQUEST_TOOLTIP}>{WITHHELD_BY_REQUEST_LABEL}</span>
+  <Toggletip content={WITHHELD_BY_REQUEST_TOOLTIP}>
+    {WITHHELD_BY_REQUEST_LABEL}
+  </Toggletip>
 );
 
 export default WithheldByRequest;

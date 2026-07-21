@@ -111,9 +111,19 @@ exports[`PublicationSource Community annotations renders ORCID links 2`] = `
   </span>
   ORCID: 
   <span
-    title="UniProt knows who submitted this entry, but the contributor has requested that their details not be shared publicly."
+    class="container"
   >
-    Withheld by request
+    <button
+      aria-expanded="false"
+      class="trigger"
+      type="button"
+    >
+      Withheld by request
+    </button>
+    <span
+      class="bubble"
+      role="status"
+    />
   </span>
    (
   <a

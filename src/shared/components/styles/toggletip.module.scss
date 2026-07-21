@@ -1,0 +1,54 @@
+@import 'franklin-sites/src/styles/common/z-index';
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+// The trigger is a real <button> reset to read as inline text, keeping the
+// dotted-underline affordance but with an honest `pointer` cursor.
+.trigger {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+
+// Doubles as the aria-live region, so it is always kept in the DOM (and the
+// accessibility tree) for reliable announcement — never `display: none`. It is
+// invisible while empty (closed) because the painted box only applies once it
+// holds content.
+.bubble {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  z-index: $z-index-high;
+}
+
+// While open (has content): the visible bubble, matching the app's tooltip look.
+.bubble:not(:empty) {
+  width: max-content;
+  max-width: 350px;
+  padding: 5px 9px;
+  background: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: normal;
+
+  // Transparent connector bridging the gap to the trigger, so the pointer can
+  // travel onto the bubble without leaving the hover region and dismissing it
+  // (WCAG 1.4.13 "hoverable").
+  &::before {
+    content: '';
+    position: absolute;
+    top: -0.25rem;
+    right: 0;
+    left: 0;
+    height: 0.25rem;
+  }
+}
