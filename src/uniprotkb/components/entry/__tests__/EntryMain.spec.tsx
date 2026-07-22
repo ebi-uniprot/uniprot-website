@@ -25,6 +25,19 @@ describe('Entry view', () => {
   beforeAll(() => {
     // eslint-disable-next-line no-console
     console.warn = jest.fn();
+    // jsdom doesn't implement SVG layout; nightingale components call getBBox
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.SVGElement.prototype.getBBox = () => ({
+      width: 10,
+      height: 10,
+    });
+  });
+
+  afterAll(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete window.SVGElement.prototype.getBBox;
   });
 
   it('should render', async () => {
