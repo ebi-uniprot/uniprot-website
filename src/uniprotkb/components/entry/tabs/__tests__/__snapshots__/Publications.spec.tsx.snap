@@ -101,47 +101,6 @@ exports[`PublicationSource Community annotations renders ORCID links 1`] = `
 </DocumentFragment>
 `;
 
-exports[`PublicationSource Community annotations renders ORCID links 2`] = `
-<DocumentFragment>
-  <span
-    class="entry-title__status icon--community-annotation"
-    title="Community curated"
-  >
-    <test-file-stub />
-  </span>
-  ORCID: 
-  <span
-    class="container"
-  >
-    <button
-      aria-expanded="false"
-      class="trigger"
-      type="button"
-    >
-      Withheld by request
-    </button>
-    <span
-      class="bubble"
-      role="status"
-    />
-  </span>
-   (
-  <a
-    class="external-link"
-    href="//community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
-    rel="noopener"
-    target="_blank"
-  >
-    see community submission
-    <test-file-stub
-      data-testid="external-link-icon"
-      width="12.5"
-    />
-  </a>
-  ).
-</DocumentFragment>
-`;
-
 exports[`PublicationSource Exceptions renders correctly for GAD 1`] = `
 <DocumentFragment>
   <span

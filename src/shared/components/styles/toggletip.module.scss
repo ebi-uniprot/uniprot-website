@@ -19,19 +19,18 @@
   text-decoration: underline dotted;
 }
 
-// Doubles as the aria-live region, so it is always kept in the DOM (and the
-// accessibility tree) for reliable announcement — never `display: none`. It is
-// invisible while empty (closed) because the painted box only applies once it
-// holds content.
+// Visible bubble for sighted users (the screen-reader copy is a separate
+// visually-hidden element associated via aria-describedby). Hidden until open.
 .bubble {
+  display: none;
+}
+
+.bubble.open {
+  display: block;
   position: absolute;
   top: calc(100% + 0.25rem);
   left: 0;
   z-index: $z-index-high;
-}
-
-// While open (has content): the visible bubble, matching the app's tooltip look.
-.bubble:not(:empty) {
   width: max-content;
   max-width: 350px;
   padding: 5px 9px;
