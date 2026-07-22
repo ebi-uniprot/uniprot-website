@@ -10,7 +10,7 @@ const ANONYMOUS_SOURCE_ID = 'Anonymous';
 
 const WITHHELD_BY_REQUEST_LABEL = 'Withheld by request';
 const WITHHELD_BY_REQUEST_TOOLTIP =
-  'UniProt knows who submitted this entry, but the contributor has requested that their details not be shared publicly.';
+  'The contributor authenticated with ORCID but has chosen not to display their identity publicly.';
 
 export const isWithheldSubmitter = (sourceId?: string) =>
   sourceId === ANONYMOUS_SOURCE_ID;

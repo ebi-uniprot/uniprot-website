@@ -124,13 +124,13 @@ exports[`PublicationSource Community annotations renders ORCID links 2`] = `
       class="visually-hidden"
       id="1"
     >
-      UniProt knows who submitted this entry, but the contributor has requested that their details not be shared publicly.
+      The contributor authenticated with ORCID but has chosen not to display their identity publicly.
     </span>
     <span
       aria-hidden="true"
       class="bubble"
     >
-      UniProt knows who submitted this entry, but the contributor has requested that their details not be shared publicly.
+      The contributor authenticated with ORCID but has chosen not to display their identity publicly.
     </span>
   </span>
    (
