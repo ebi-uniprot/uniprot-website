@@ -40,7 +40,7 @@ const FooterConsortium = () => (
       </ExternalLink>
       <ExternalLink
         noIcon
-        url="https://pir.georgetown.edu/"
+        url="https://proteininformationresource.org/"
         title="Protein Information Resource"
       >
         <img src={PIRLogo} loading="lazy" alt="" width="231" height="218" />
