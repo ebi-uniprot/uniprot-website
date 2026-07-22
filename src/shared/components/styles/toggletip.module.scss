@@ -5,15 +5,17 @@
   display: inline-block;
 }
 
-// The trigger is a real <button> reset to read as inline text, keeping the
-// dotted-underline affordance but with an honest `pointer` cursor.
+// The trigger is a real <button> reset to read as inline text. Dotted underline
+// + `help` cursor is the platform convention for an explanatory affordance (cf.
+// the UA default `abbr[title] { cursor: help }`) — signalling "more info here",
+// not a link, which `cursor: pointer` would wrongly imply.
 .trigger {
   padding: 0;
   border: none;
   background: none;
   font: inherit;
   color: inherit;
-  cursor: pointer;
+  cursor: help;
   text-decoration: underline dotted;
 }
 
