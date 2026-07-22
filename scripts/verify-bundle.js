@@ -13,7 +13,14 @@ const path = require('path');
 
 const buildDir = path.resolve(__dirname, '..', 'build');
 
-const DEV_RUNTIME_MARKERS = ['jsx-dev-runtime', 'jsxDEV'];
+// Match only the import specifier `react/jsx-dev-runtime`, which appears when
+// APP code is compiled with the dev JSX transform (`@babel/preset-react`
+// `development: true`) — the actual production-crashing bug this guard exists
+// for. The bare `jsxDEV` identifier is intentionally NOT matched: it also
+// occurs inside React's own `react-jsx-runtime.development.js`, which is
+// legitimately bundled by any `--mode development` build (the Netlify preview
+// deploys are dev-mode) and does not indicate the transform misconfiguration.
+const DEV_RUNTIME_MARKERS = ['jsx-dev-runtime'];
 
 const walk = (dir) => {
   const out = [];
