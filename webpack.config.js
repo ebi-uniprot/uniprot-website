@@ -26,6 +26,7 @@ const getConfigFor = ({
   isLiveReload,
   isTest,
   isLMIC,
+  isPreviewProduction,
   hasStats,
   gitCommitHash,
   gitCommitState,
@@ -328,6 +329,7 @@ const getConfigFor = ({
         inject: isLiveReload,
         templateParameters: (_compilation, assets, _assetTags, options) => ({
           isDev,
+          isPreviewProduction,
           isUx,
           isLiveReload,
           options,
@@ -496,6 +498,10 @@ module.exports = (env, argv) => {
   }
 
   const isLMIC = Boolean(env.LMIC);
+  // Production-quality build for a non-public preview (e.g. Netlify): a real
+  // production build (minified, prod React runtime) that is still treated like
+  // dev for indexing/analytics — keeps `noindex`, skips Google Analytics + Hotjar.
+  const isPreviewProduction = Boolean(env.PREVIEW_PRODUCTION);
 
   const modernConfig = getConfigFor({
     isModern: true,
@@ -504,6 +510,7 @@ module.exports = (env, argv) => {
     isLiveReload,
     isTest,
     isLMIC,
+    isPreviewProduction,
     hasStats: !!env.STATS,
     gitCommitHash,
     gitCommitState,
@@ -527,7 +534,14 @@ module.exports = (env, argv) => {
     };
   }
 
-  if (!isDev) {
+  // Skip the legacy (nomodule) bundle for preview-production builds. The
+  // modern+legacy split emits a single index.html from two parallel
+  // compilations sharing one plugin instance, which is racy — the "wrong"
+  // HTML can win and drop the modern `type="module"` scripts (leaving only
+  // nomodule scripts, so nothing runs in a modern browser). A preview is only
+  // opened in modern browsers, so building the modern bundle alone keeps the
+  // output deterministic while staying production-quality.
+  if (!isDev && !isPreviewProduction) {
     const legacyConfig = getConfigFor({
       isModern: false,
       isDev,
@@ -535,6 +549,7 @@ module.exports = (env, argv) => {
       isLiveReload,
       isTest,
       isLMIC,
+      isPreviewProduction,
       hasStats: !!env.STATS,
       gitCommitHash,
       gitCommitState,
@@ -542,6 +557,17 @@ module.exports = (env, argv) => {
       publicPath,
       apiPrefix,
     });
+
+    // Force `legacy` to compile before `modern`. Both compilations emit the
+    // same build/index.html and share one LegacyModuleSplitPlugin instance that
+    // snapshots the script list per compilation. Run in parallel this is a race:
+    // whichever writes index.html last wins, and if its snapshot was taken
+    // before the other bundle finished, that HTML is missing the other bundle's
+    // scripts (the bug that shipped a legacy-only index.html with no modern
+    // `type="module"` tags). With this dependency, `modern` always compiles last
+    // with both bundles' scripts accumulated, so its index.html — written last —
+    // is always complete. Deterministic, at the cost of a serial build.
+    modernConfig.dependencies = ['legacy'];
 
     return [legacyConfig, modernConfig];
   }

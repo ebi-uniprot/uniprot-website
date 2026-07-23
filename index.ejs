@@ -61,7 +61,7 @@
          (copied from static/). Cross-origin manifests are CORS-blocked by browsers. -->
     <link rel="manifest" href="/manifest.json" />
 
-    <% } if (isDev) { %>
+    <% } if (isDev || isPreviewProduction) { %>
     <!-- Prevent indexing when the website is not public -->
     <meta name="robots" content="noindex" />
       <% if (isUx) { %>
