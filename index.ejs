@@ -56,15 +56,23 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.uniprot.org/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="https://www.uniprot.org/favicon-16x16.png" />
     <!-- PWA manifest -->
-    <!-- Same-origin so it works on any deploy origin (Netlify previews, etc.);
-         resolves to the same URL on www.uniprot.org. Served from build/manifest.json
-         (copied from static/). Cross-origin manifests are CORS-blocked by browsers. -->
-    <link rel="manifest" href="/manifest.json" />
+    <!-- Same-origin so it works on any deploy origin (Netlify previews, etc.) —
+         cross-origin manifests are CORS-blocked by browsers. BASE_URL is the
+         webpack publicPath (always ends in "/"), so this also resolves correctly
+         on sub-path deploys (/uniprot/front-end/dev/ etc.) where a root-absolute
+         "/manifest.json" would 404. Served from build/manifest.json (copied from
+         static/ by CopyPlugin). -->
+    <link rel="manifest" href="<%= BASE_URL %>manifest.json" />
 
     <% } if (isDev || isPreviewProduction) { %>
     <!-- Prevent indexing when the website is not public -->
     <meta name="robots" content="noindex" />
-      <% if (isUx) { %>
+      <%
+        /* Preview-production deploys must stay analytics-free, even when built
+           from the `ux` branch — otherwise a Netlify preview would report into
+           the UX property. */
+      %>
+      <% if (isUx && !isPreviewProduction) { %>
         <!-- Google tag (gtag.js) -->
         <script
           async
@@ -166,7 +174,7 @@
         }
       }
     </style>
-    <% if (!options.inject) { %> <% for (const css of assets.styles) { %>
+    <% if (!options.inject) { %> <% for (const css of assets.styles || []) { %>
     <link rel="stylesheet" href="<%= css %>" />
     <% } %> <% } %>
   </head>

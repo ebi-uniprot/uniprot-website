@@ -312,8 +312,11 @@ const getConfigFor = ({
                 if (absoluteFilename.includes('robots.txt')) {
                   return (
                     input +
-                    // Block everything if in dev mode, link to sitemap if not
-                    (isDev
+                    // Block everything on any non-public build (dev, and
+                    // preview-production deploys such as Netlify), link to the
+                    // sitemaps only on the real public production build. This
+                    // must agree with the `noindex` meta tag in index.ejs.
+                    (isDev || isPreviewProduction
                       ? '\nDisallow: /'
                       : '\nSitemap: https://www.uniprot.org/sitemap-index.xml\nSitemap: https://www.uniprot.org/data-sitemap-index.xml.gz')
                   );
@@ -332,6 +335,10 @@ const getConfigFor = ({
           isPreviewProduction,
           isUx,
           isLiveReload,
+          // Public path (always ends in "/"), so the template can build
+          // same-origin URLs that also work on sub-path deploys
+          // (e.g. "/uniprot/front-end/dev/").
+          BASE_URL: publicPath,
           options,
           assets,
         }),
