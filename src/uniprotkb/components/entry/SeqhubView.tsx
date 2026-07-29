@@ -29,12 +29,21 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
   );
 };
 
+// UniProt lineages are ordered broadest→narrowest and the top-level entry is the
+// domain/superkingdom. SeqHub only covers prokaryotes (Bacteria/Archaea).
+export const isProkaryote = (lineage?: string[]) =>
+  Boolean(
+    lineage?.some((taxon) => taxon === 'Bacteria' || taxon === 'Archaea')
+  );
+
 type Props = {
   sequence?: string;
+  lineage?: string[];
 };
 
-const SeqhubView = ({ sequence }: Props) => {
-  if (!sequence) {
+const SeqhubView = ({ sequence, lineage }: Props) => {
+  // SeqHub is prokaryote-only; bail out before the probe for everything else.
+  if (!sequence || !isProkaryote(lineage)) {
     return null;
   }
   // Defer both the availability probe and the iframe until the section nears the

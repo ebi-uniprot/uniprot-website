@@ -20,9 +20,10 @@ import SeqhubView from './SeqhubView';
 type Props = {
   data: SequenceUIModel;
   primaryAccession: string;
+  taxonLineage?: string[];
 };
 
-const SequenceSection = ({ data, primaryAccession }: Props) => {
+const SequenceSection = ({ data, primaryAccession, taxonLineage }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
@@ -46,7 +47,7 @@ const SequenceSection = ({ data, primaryAccession }: Props) => {
     >
       <SequenceView data={data} accession={primaryAccession} />
       <ComputationalyMappedSequences primaryAccession={primaryAccession} />
-      <SeqhubView sequence={data.sequence?.value} />
+      <SeqhubView sequence={data.sequence?.value} lineage={taxonLineage} />
       {data.sequenceCaution && data.sequenceCaution.length > 0 && (
         <>
           <h3 data-article-id="sequence_caution">Sequence caution</h3>
