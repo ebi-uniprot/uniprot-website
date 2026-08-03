@@ -1,4 +1,11 @@
-import { DownloadIcon, Loader, Message, Tab, Tabs } from 'franklin-sites';
+import {
+  DownloadIcon,
+  EllipsisReveal,
+  Loader,
+  Message,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import {
   type ProcessedStructureData,
   type ProtvistaUniprotStructure,
@@ -240,7 +247,19 @@ const StructureView = ({
       {
         id: 'chain',
         label: 'Chain',
-        render: (row) => row.chain ?? null,
+        render: (row) =>
+          row.chain ? (
+            <>
+              {row.chain.length > 10 ? (
+                <span className={helper['no-wrap']}>
+                  {row.chain.slice(0, 10)}
+                  <EllipsisReveal>{row.chain.slice(10)}</EllipsisReveal>
+                </span>
+              ) : (
+                row.chain
+              )}
+            </>
+          ) : null,
       },
       {
         id: 'positions',
