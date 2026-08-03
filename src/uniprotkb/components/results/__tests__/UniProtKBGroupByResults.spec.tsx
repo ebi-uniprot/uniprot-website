@@ -52,7 +52,11 @@ describe('UniProtKBGroupByResults component with EC groups', () => {
     rendered = customRender(<UniProtKBGroupByResults total={123} />, {
       route: 'uniprotkb?groupBy=ec&parent=3.-.-.-&query=shadab',
     });
-    expect(await screen.findByText(/Hydrolases/)).toBeVisible();
+    // "Hydrolases" is now the Toggletip trigger button; its description also
+    // contains the word, so query the button specifically to stay unambiguous.
+    expect(
+      await screen.findByRole('button', { name: 'Hydrolases' })
+    ).toBeVisible();
   });
 
   it('should render', () => {

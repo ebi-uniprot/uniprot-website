@@ -44,7 +44,7 @@ exports[`HomePage component should render 1`] = `
           </a>
           <a
             class="external-link"
-            href="https://pir.georgetown.edu/"
+            href="https://proteininformationresource.org/"
             rel="noopener"
             target="_blank"
             title="Protein Information Resource"
