@@ -21,19 +21,36 @@ const Table = ({
   children,
   className,
   expandable,
+  virtualize,
+  containerRef,
   id,
   ...props
 }: HTMLAttributes<HTMLTableElement> & {
   expandable?: boolean;
+  virtualize?: boolean;
+  containerRef?: React.RefObject<HTMLDivElement | null>;
   id?: string;
 }) => {
-  const [containerRef, expandTable, setExpandTable, showButton] =
+  const [expandableContainerRef, expandTable, setExpandTable, showButton] =
     useExpandTable(expandable);
+
+  if (virtualize) {
+    return (
+      <div
+        ref={containerRef}
+        className={cn(styles.container, styles['virtualize-container'])}
+      >
+        <table className={cn(styles.table, className)} id={id} {...props}>
+          {children}
+        </table>
+      </div>
+    );
+  }
 
   return expandable ? (
     <div>
       <div
-        ref={containerRef}
+        ref={expandableContainerRef}
         className={cn(styles.container, {
           [styles.collapsed]: expandable && !expandTable,
         })}
