@@ -174,6 +174,7 @@ const StructureView = ({
           if (row.source === PDB_SOURCE) {
             return (
               <ExternalLink
+                // Use https://www.wwpdb.org/pdb?id= whenever the new ids are mapped to UniProt
                 url={`https://www.ebi.ac.uk/pdbe/entry/pdb/${row.id}`}
               >
                 {row.id}
