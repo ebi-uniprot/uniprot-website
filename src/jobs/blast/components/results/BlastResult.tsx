@@ -1,8 +1,9 @@
 import cn from 'classnames';
-import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { EllipsisReveal, Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { type JSX, lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { type Except } from 'type-fest';
+import joinUrl from 'url-join';
 
 import {
   type blastNamespaces,
@@ -14,6 +15,7 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
+import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import useColumnNames from '../../../../shared/hooks/useColumnNames';
 import useDataApi, {
@@ -28,6 +30,8 @@ import {
 } from '../../../../shared/types/namespaces';
 import { type SearchResults } from '../../../../shared/types/results';
 import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
+import { stringifyUrl } from '../../../../shared/utils/url';
+import { type TaxonomyAPIModel } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
@@ -37,8 +41,10 @@ import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
+import { databaseValueToName } from '../../config/BlastFormData';
 import { type BlastHit, type BlastResults } from '../../types/blastResults';
 import { type PublicServerParameters } from '../../types/blastServerParameters';
+import { taxonIdsToLabels } from '../../utils';
 import {
   filterBlastByFacets,
   filterBlastDataForResults,
@@ -176,6 +182,30 @@ const enrich = (
   return output;
 };
 
+// Render a comma-separated list of taxon IDs as scientific-name labels,
+// collapsing long lists behind an EllipsisReveal like the jobs dashboard does
+const renderTaxonLabels = (
+  csv: string | undefined,
+  taxonIdToLabel: Map<string, string>
+) => {
+  const labels = taxonIdsToLabels(csv, taxonIdToLabel);
+  if (!labels.length) {
+    return null;
+  }
+  const [first, ...rest] = labels;
+  return (
+    <>
+      {first}
+      {rest.length ? (
+        <EllipsisReveal>
+          {', '}
+          {rest.join(', ')}
+        </EllipsisReveal>
+      ) : null}
+    </>
+  );
+};
+
 const BlastResult = () => {
   const location = useLocation();
 
@@ -286,6 +316,52 @@ const BlastResult = () => {
   useMarkJobAsSeen(data, match?.params.id);
 
   const inputParamsData = useParamsData(match?.params.id || '');
+  const serverParameters = inputParamsData.data;
+
+  // The parameters endpoint only exposes taxonomy restrictions as taxon *IDs*.
+  // Resolve the included + excluded IDs to scientific names in a single request
+  // so the results header can label them (e.g. "Homo sapiens [9606]").
+  const restrictedTaxonIds = serverParameters?.taxids;
+  const excludedTaxonIds = serverParameters?.negative_taxids;
+  const allTaxonIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const csv of [restrictedTaxonIds, excludedTaxonIds]) {
+      for (const id of (csv || '').split(',')) {
+        const trimmed = id.trim();
+        if (trimmed) {
+          ids.add(trimmed);
+        }
+      }
+    }
+    return [...ids];
+  }, [restrictedTaxonIds, excludedTaxonIds]);
+
+  const { data: taxonomyData } = useDataApi<SearchResults<TaxonomyAPIModel>>(
+    allTaxonIds.length
+      ? stringifyUrl(
+          joinUrl(
+            apiPrefix,
+            Namespace.taxonomy,
+            'taxonIds',
+            allTaxonIds.join(',')
+          ),
+          { fields: 'scientific_name' }
+        )
+      : null
+  );
+
+  const taxonIdToLabel = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const taxon of taxonomyData?.results || []) {
+      if (taxon.scientificName) {
+        map.set(
+          String(taxon.taxonId),
+          `${taxon.scientificName} [${taxon.taxonId}]`
+        );
+      }
+    }
+    return map;
+  }, [taxonomyData]);
 
   const resultTableData = useMemo<BlastResults | null>(() => {
     if (!blastData || accessionsLoading || !hitsFiltered.length) {
@@ -338,6 +414,22 @@ const BlastResult = () => {
 
   const basePath = `/blast/${namespace}/${match.params.id}/`;
 
+  // Prefer the actual search database name (e.g. "UniProtKB Swiss-Prot") over
+  // the generic namespace label, falling back to the namespace while the
+  // parameters endpoint is still loading or if it doesn't resolve to a label
+  const databaseLabel =
+    (serverParameters?.database &&
+      databaseValueToName(serverParameters.database)) ||
+    namespaceAndToolsLabels[namespace];
+  const restrictedTaxonLabels = renderTaxonLabels(
+    restrictedTaxonIds,
+    taxonIdToLabel
+  );
+  const excludedTaxonLabels = renderTaxonLabels(
+    excludedTaxonIds,
+    taxonIdToLabel
+  );
+
   return (
     <SidebarLayout sidebar={sidebar}>
       <HTMLHead title={title}>
@@ -346,11 +438,15 @@ const BlastResult = () => {
       <PageIntro
         heading={namespaceAndToolsLabels[jobType]}
         headingPostscript={
-          !loading && (
+          (serverParameters || !loading) && (
             /* Not sure why fragments and keys are needed, but otherwise gets
             the React key warnings messages and children are rendered as array */
             <small key="postscript">
-              found in {namespaceAndToolsLabels[namespace]}
+              found in {databaseLabel}
+              {restrictedTaxonLabels && (
+                <>, restricted to {restrictedTaxonLabels}</>
+              )}
+              {excludedTaxonLabels && <>, excluding {excludedTaxonLabels}</>}
             </small>
           )
         }
