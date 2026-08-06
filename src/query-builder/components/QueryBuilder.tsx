@@ -262,17 +262,14 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     // A proteome component can only be searched when scoped by a valid proteome
     // ID. If the user provided a component without one, warn them and ignore it
     // (stringify drops it from the resulting query).
-    // TODO: Remove namespace check when proteome component query is consistent in both UniProtKB and UniParc
-    const hasOrphanComponent =
-      namespace === Namespace.uniparc &&
-      clauses.some(
-        (clause) =>
-          clause.queryBits.proteomecomponent &&
-          !(
-            clause.queryBits.proteome &&
-            reProteomeIdValue.test(clause.queryBits.proteome)
-          )
-      );
+    const hasOrphanComponent = clauses.some(
+      (clause) =>
+        clause.queryBits.proteomecomponent &&
+        !(
+          clause.queryBits.proteome &&
+          reProteomeIdValue.test(clause.queryBits.proteome)
+        )
+    );
     if (hasOrphanComponent) {
       dispatch(
         addMessage({
@@ -285,7 +282,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
       );
     }
     const search = stringifyQuery({
-      query: stringify(clauses, namespace) || '*',
+      query: stringify(clauses) || '*',
     });
     const pathname =
       searchspace === toolResults && jobId && jobResultsLocation
