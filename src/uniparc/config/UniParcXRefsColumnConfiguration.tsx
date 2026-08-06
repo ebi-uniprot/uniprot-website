@@ -21,7 +21,7 @@ import {
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
 import Timeline from '../components/entry/Timeline';
-import { getSubEntryPath } from '../utils/subEntry';
+import { getSubEntryPath, getSubEntryProteomes } from '../utils/subEntry';
 import { getXrefId } from '../utils/uniparcXref';
 
 export enum UniParcXRefsColumn {
@@ -249,21 +249,45 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
   label: 'Proteome',
-  render: (xref) =>
-    xref.proteomes?.length
-      ? xref.proteomes.map((proteome, i) => (
-          <span
-            key={`${proteome.id}-${proteome.component}`}
-            className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
-          >
-            <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
-              {proteome.id}
-            </Link>
-            {proteome.component ? ` (${proteome.component})` : undefined}
-            {i < (xref.proteomes?.length ?? 0) - 1 && <br />}
-          </span>
-        ))
-      : null,
+  render: (xref) => {
+    if (xref.proteomes?.length) {
+      return xref.proteomes.map((proteome, i) => (
+        <span
+          key={`${proteome.id}-${proteome.component}`}
+          className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
+        >
+          <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
+            {proteome.id}
+          </Link>
+          {proteome.component ? ` (${proteome.component})` : undefined}
+          {i < (xref.proteomes?.length ?? 0) - 1 && <br />}
+        </span>
+      ));
+    }
+    const xrefSources = xref.properties?.filter(
+      (property) => property.key === 'sources'
+    );
+    if (xrefSources?.length) {
+      return xrefSources.map((property) => {
+        const [, , proteomeId, ...component] = property.value.split(':');
+        if (proteomeId && component.length) {
+          return (
+            <span
+              key={`${proteomeId}-${component.join(':')}`}
+              className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
+            >
+              <Link to={getEntryPath(Namespace.proteomes, proteomeId)}>
+                {proteomeId}
+              </Link>
+              {component.length ? ` (${component.join(':')})` : undefined}
+              <br />
+            </span>
+          );
+        }
+      });
+    }
+    return null;
+  },
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.active, {
