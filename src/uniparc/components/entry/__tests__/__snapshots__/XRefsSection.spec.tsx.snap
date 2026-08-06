@@ -378,6 +378,12 @@ exports[`XrefSection component should render the xref table properly and match s
                     <a
                       href="/uniparc/UPI0000000001/entry/Q6RZL4"
                     >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this cross-reference"
+                      >
+                        <test-file-stub />
+                      </span>
                       Q6RZL4
                     </a>
                   </span>
@@ -445,6 +451,12 @@ exports[`XrefSection component should render the xref table properly and match s
                     <a
                       href="/uniparc/UPI0000000001/entry/Q76QK2"
                     >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this cross-reference"
+                      >
+                        <test-file-stub />
+                      </span>
                       Q76QK2
                     </a>
                   </span>
@@ -512,6 +524,12 @@ exports[`XrefSection component should render the xref table properly and match s
                     <a
                       href="/uniparc/UPI0000000001/entry/Q76ZT7"
                     >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this cross-reference"
+                      >
+                        <test-file-stub />
+                      </span>
                       Q76ZT7
                     </a>
                   </span>
@@ -570,6 +588,12 @@ exports[`XrefSection component should render the xref table properly and match s
                     <a
                       href="/uniparc/UPI0000000001/entry/Q0GNZ6"
                     >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this cross-reference"
+                      >
+                        <test-file-stub />
+                      </span>
                       Q0GNZ6
                     </a>
                   </span>
@@ -637,6 +661,12 @@ exports[`XrefSection component should render the xref table properly and match s
                     <a
                       href="/uniparc/UPI0000000001/entry/A0A2I2MDI1"
                     >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this cross-reference"
+                      >
+                        <test-file-stub />
+                      </span>
                       A0A2I2MDI1
                     </a>
                   </span>
@@ -704,6 +734,12 @@ exports[`XrefSection component should render the xref table properly and match s
                     <a
                       href="/uniparc/UPI0000000001/entry/A0A7I8V511"
                     >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this cross-reference"
+                      >
+                        <test-file-stub />
+                      </span>
                       A0A7I8V511
                     </a>
                   </span>
@@ -771,6 +807,12 @@ exports[`XrefSection component should render the xref table properly and match s
                     <a
                       href="/uniparc/UPI0000000001/entry/G0XTE8"
                     >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this cross-reference"
+                      >
+                        <test-file-stub />
+                      </span>
                       G0XTE8
                     </a>
                   </span>

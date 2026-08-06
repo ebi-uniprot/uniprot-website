@@ -96,6 +96,19 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
   },
 });
 
+// The identifiers in this column don't all link to the same kind of page:
+// UniProtKB ones go to UniProtKB (or to its history page when obsolete), the
+// rest go either to a UniParc sub-entry page (SAP) or straight out to the
+// source database. External links already carry franklin's external-link icon,
+// and UniProtKB rows are marked by the entry type icon in the "Database"
+// column, so flag the SAP ones to complete the set.
+const subEntryLinkTitle =
+  'Links to the UniParc sequence archive page for this cross-reference';
+
+const SubEntryLinkIcon = () => (
+  <EntryTypeIcon entryType={EntryType.UNIPARC} title={subEntryLinkTitle} />
+);
+
 const getAccessionColumn =
   (uniparcAccession: string, templateMap: Map<string, string> = new Map()) =>
   (xref: UniParcXRef) => {
@@ -147,6 +160,7 @@ const getAccessionColumn =
                   TabLocation.Entry
                 )}
               >
+                <SubEntryLinkIcon />
                 {xref.id}
               </Link>
             )}
@@ -168,6 +182,7 @@ const getAccessionColumn =
                 TabLocation.Entry
               )}
             >
+              <SubEntryLinkIcon />
               {xref.id}
               {xref.chain && ` (chain ${xref.chain})`}
             </Link>
