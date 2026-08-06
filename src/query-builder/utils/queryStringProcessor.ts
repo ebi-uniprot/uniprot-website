@@ -1,4 +1,3 @@
-import { Namespace } from '../../shared/types/namespaces';
 import { type Clause, type Operator } from '../types/searchTypes';
 import { getAllTerm } from './clause';
 
@@ -7,10 +6,7 @@ const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;
 // Canonical UniProt proteome identifier value, eg UP000005640
 export const reProteomeIdValue = /^UP\d{9}$/i;
 
-export const stringify = (
-  clauses: Clause[] = [],
-  namespace?: Namespace
-): string => {
+export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
     let query = Object.entries(clause.queryBits)
@@ -70,8 +66,6 @@ export const stringify = (
       // proteome ID. On its own it's meaningless, so drop it (the UI warns the
       // user that a proteome ID is needed).
       if (
-        // TODO: Remove namespace check when proteome component query is consistent in both UniProtKB and UniParc
-        namespace === Namespace.uniparc &&
         clause.queryBits.proteomecomponent &&
         !(
           clause.queryBits.proteome &&
