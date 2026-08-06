@@ -21,7 +21,7 @@ import {
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
 import Timeline from '../components/entry/Timeline';
-import { getSubEntryPath, getSubEntryProteomes } from '../utils/subEntry';
+import { getSubEntryPath } from '../utils/subEntry';
 import { getXrefId } from '../utils/uniparcXref';
 
 export enum UniParcXRefsColumn {
