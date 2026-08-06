@@ -128,9 +128,7 @@ const Components = ({
                       : Location.UniProtKBResults
                   ],
                 search: stringifyQuery({
-                  query: shouldPointToUniParc
-                    ? `(proteomecomponent:"${id}:${name}")`
-                    : `(proteome:${id}) AND (proteomecomponent:"${name}")`,
+                  query: `(proteomecomponent:"${id}:${name}")`,
                 }),
               }}
             >
