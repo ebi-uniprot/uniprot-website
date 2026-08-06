@@ -21,7 +21,7 @@ import {
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
 import Timeline from '../components/entry/Timeline';
-import { getSubEntryPath } from '../utils/subEntry';
+import { getSubEntryPath, getSubEntryProteomes } from '../utils/subEntry';
 import { getXrefId } from '../utils/uniparcXref';
 
 export enum UniParcXRefsColumn {
@@ -264,27 +264,22 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
         </span>
       ));
     }
-    const xrefSources = xref.properties?.filter(
-      (property) => property.key === 'sources'
+    const sourceProteomes = Object.entries(
+      getSubEntryProteomes(xref.properties)
     );
-    if (xrefSources?.length) {
-      return xrefSources.map((property) => {
-        const [, , proteomeId, ...component] = property.value.split(':');
-        if (proteomeId && component.length) {
-          return (
-            <span
-              key={`${proteomeId}-${component.join(':')}`}
-              className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
-            >
-              <Link to={getEntryPath(Namespace.proteomes, proteomeId)}>
-                {proteomeId}
-              </Link>
-              {component.length ? ` (${component.join(':')})` : undefined}
-              <br />
-            </span>
-          );
-        }
-      });
+    if (sourceProteomes.length) {
+      return sourceProteomes.map(([proteomeId, component], i) => (
+        <span
+          key={`${proteomeId}-${component}`}
+          className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
+        >
+          <Link to={getEntryPath(Namespace.proteomes, proteomeId)}>
+            {proteomeId}
+          </Link>
+          {component ? ` (${component})` : undefined}
+          {i < sourceProteomes.length - 1 && <br />}
+        </span>
+      ));
     }
     return null;
   },
