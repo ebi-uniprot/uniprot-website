@@ -43,6 +43,7 @@ const useXref = ({ accession, size, withFacets = false }: Arg = {}) => {
       ...Object.fromEntries(
         selectedFacets.map(({ name, value }) => [name, value])
       ),
+      includeSources: true,
     };
 
     return stringifyUrl(xrefApiPrefix, options);
