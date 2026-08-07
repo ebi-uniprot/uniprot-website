@@ -22,9 +22,15 @@ type Arg = {
   accession?: string;
   size?: number;
   withFacets?: boolean;
+  includeSources?: boolean;
 };
 
-const useXref = ({ accession, size, withFacets = false }: Arg = {}) => {
+const useXref = ({
+  accession,
+  size,
+  withFacets = false,
+  includeSources = false,
+}: Arg = {}) => {
   const { search: queryParamFromUrl } = useLocation();
 
   const [{ selectedFacets }] = getParamsFromURL(queryParamFromUrl);
@@ -43,7 +49,7 @@ const useXref = ({ accession, size, withFacets = false }: Arg = {}) => {
       ...Object.fromEntries(
         selectedFacets.map(({ name, value }) => [name, value])
       ),
-      includeSources: true,
+      includeSources: includeSources || undefined,
     };
 
     return stringifyUrl(xrefApiPrefix, options);
