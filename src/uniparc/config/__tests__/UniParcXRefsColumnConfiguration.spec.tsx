@@ -29,11 +29,12 @@ describe('UniParcXRefsColumnConfiguration component', () => {
         properties: [{ key: 'sources', value: 'EMBL:CAA12345:UP000005640' }],
       };
       customRender(<>{render(xref)}</>);
-      expect(screen.getByRole('link', { name: 'UP000005640' })).toHaveAttribute(
+      const link = screen.getByRole('link', { name: 'UP000005640' });
+      expect(link).toHaveAttribute(
         'href',
         expect.stringContaining('UP000005640')
       );
-      expect(screen.queryByText(/\(/)).not.toBeInTheDocument();
+      expect(link.parentElement).toHaveTextContent(/^UP000005640$/);
     });
 
     it('renders the component alongside the proteome link when present', () => {
