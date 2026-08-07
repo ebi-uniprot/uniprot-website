@@ -250,38 +250,22 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
   label: 'Proteome',
   render: (xref) => {
-    if (xref.proteomes?.length) {
-      return xref.proteomes.map((proteome, i) => (
-        <span
-          key={`${proteome.id}-${proteome.component}`}
-          className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
-        >
-          <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
-            {proteome.id}
-          </Link>
-          {proteome.component ? ` (${proteome.component})` : undefined}
-          {i < (xref.proteomes?.length ?? 0) - 1 && <br />}
-        </span>
-      ));
+    const proteomes: [id: string, component?: string][] = xref.proteomes?.length
+      ? xref.proteomes.map(({ id, component }) => [id, component])
+      : Object.entries(getSubEntryProteomes(xref.properties));
+    if (!proteomes.length) {
+      return null;
     }
-    const sourceProteomes = Object.entries(
-      getSubEntryProteomes(xref.properties)
-    );
-    if (sourceProteomes.length) {
-      return sourceProteomes.map(([proteomeId, component], i) => (
-        <span
-          key={`${proteomeId}-${component}`}
-          className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
-        >
-          <Link to={getEntryPath(Namespace.proteomes, proteomeId)}>
-            {proteomeId}
-          </Link>
-          {component ? ` (${component})` : undefined}
-          {i < sourceProteomes.length - 1 && <br />}
-        </span>
-      ));
-    }
-    return null;
+    return proteomes.map(([id, component], i) => (
+      <span
+        key={`${id}-${component}`}
+        className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
+      >
+        <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link>
+        {component ? ` (${component})` : undefined}
+        {i < proteomes.length - 1 && <br />}
+      </span>
+    ));
   },
 });
 
