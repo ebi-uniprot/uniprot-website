@@ -1,3 +1,4 @@
+import { ClockIcon, ExternalLinkIcon } from 'franklin-sites';
 import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -99,14 +100,45 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
 // The identifiers in this column don't all link to the same kind of page:
 // UniProtKB ones go to UniProtKB (or to its history page when obsolete), the
 // rest go either to a UniParc sub-entry page (SAP) or straight out to the
-// source database. External links already carry franklin's external-link icon,
-// and UniProtKB rows are marked by the entry type icon in the "Database"
-// column, so flag the SAP ones to complete the set.
-const subEntryLinkTitle =
-  'Links to the UniParc sequence archive page for this cross-reference';
+// source database. Mark the three surprising destinations and leave UniProtKB —
+// the expected one, already named in the "Database" column — unmarked, so the
+// column carries the minimum ink needed to tell them apart.
+//
+// Every marker leads the identifier so they align into one vertical scan-line.
+// That is why the external one is rendered here rather than letting franklin's
+// ExternalLink append its own trailing icon (see `noIcon` at the call site).
+// Keep these in sync with the legend in XRefsSection.
+export const destinationIconTitles = {
+  subEntry: 'Links to the UniParc sequence archive page for this entry',
+  external: 'Links out to the source database',
+  history: 'Links to the entry history in UniProtKB',
+};
 
 const SubEntryLinkIcon = () => (
-  <EntryTypeIcon entryType={EntryType.UNIPARC} title={subEntryLinkTitle} />
+  <EntryTypeIcon
+    entryType={EntryType.UNIPARC}
+    title={destinationIconTitles.subEntry}
+  />
+);
+
+const ExternalDestinationIcon = () => (
+  <span
+    className="entry-title__status"
+    title={destinationIconTitles.external}
+    data-testid="external-destination-icon"
+  >
+    <ExternalLinkIcon />
+  </span>
+);
+
+const HistoryDestinationIcon = () => (
+  <span
+    className="entry-title__status"
+    title={destinationIconTitles.history}
+    data-testid="history-destination-icon"
+  >
+    <ClockIcon />
+  </span>
 );
 
 const getAccessionColumn =
@@ -132,6 +164,7 @@ const getAccessionColumn =
           <Link
             to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
           >
+            <HistoryDestinationIcon />
             {xref.id}
           </Link>
         );
@@ -189,7 +222,12 @@ const getAccessionColumn =
           );
         } else {
           cell = (
-            <ExternalLink url={template.replace('%id', id)} rel="nofollow">
+            <ExternalLink
+              url={template.replace('%id', id)}
+              rel="nofollow"
+              noIcon
+            >
+              <ExternalDestinationIcon />
               {xref.id}
               {xref.chain && ` (chain ${xref.chain})`}
             </ExternalLink>
