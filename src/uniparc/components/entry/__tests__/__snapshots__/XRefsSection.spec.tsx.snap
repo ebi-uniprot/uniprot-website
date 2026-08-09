@@ -874,7 +874,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    YP_232970
+                    <a
+                      href="/uniparc/UPI0000000001/entry/RefSeq:YP_232970"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      YP_232970
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -920,7 +930,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    YP_010509298
+                    <a
+                      href="/uniparc/UPI0000000001/entry/RefSeq:YP_010509298"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      YP_010509298
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -970,7 +990,21 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    YP_006721
+                    <a
+                      class="external-link"
+                      href="https://www.ncbi.nlm.nih.gov/protein/YP_006721"
+                      rel="noopener nofollow"
+                      target="_blank"
+                    >
+                      <span
+                        class="entry-title__status"
+                        data-testid="external-destination-icon"
+                        title="Links out to the source database"
+                      >
+                        <test-file-stub />
+                      </span>
+                      YP_006721
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1018,7 +1052,21 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    YP_010488138
+                    <a
+                      class="external-link"
+                      href="https://www.ncbi.nlm.nih.gov/protein/YP_010488138"
+                      rel="noopener nofollow"
+                      target="_blank"
+                    >
+                      <span
+                        class="entry-title__status"
+                        data-testid="external-destination-icon"
+                        title="Links out to the source database"
+                      >
+                        <test-file-stub />
+                      </span>
+                      YP_010488138
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1075,7 +1123,21 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    YP_010500340
+                    <a
+                      class="external-link"
+                      href="https://www.ncbi.nlm.nih.gov/protein/YP_010500340"
+                      rel="noopener nofollow"
+                      target="_blank"
+                    >
+                      <span
+                        class="entry-title__status"
+                        data-testid="external-destination-icon"
+                        title="Links out to the source database"
+                      >
+                        <test-file-stub />
+                      </span>
+                      YP_010500340
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1128,7 +1190,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    AAO89367
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:AAO89367"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      AAO89367
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1185,7 +1257,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    CAD90637
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:CAD90637"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      CAD90637
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1242,7 +1324,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    AAS49790
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:AAS49790"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      AAS49790
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1299,7 +1391,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    ABH08195
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:ABH08195"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      ABH08195
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1356,7 +1458,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    ADZ29210
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:ADZ29210"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      ADZ29210
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1413,7 +1525,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    AGJ91256
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:AGJ91256"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      AGJ91256
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1470,7 +1592,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    AGJ92346
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:AGJ92346"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      AGJ92346
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1527,7 +1659,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    AIX99207
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:AIX99207"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      AIX99207
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1584,7 +1726,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    AIX99412
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:AIX99412"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      AIX99412
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1641,7 +1793,17 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    ALF05084
+                    <a
+                      href="/uniparc/UPI0000000001/entry/EMBL:ALF05084"
+                    >
+                      <span
+                        class="entry-title__status icon--uniparc"
+                        title="Links to the UniParc sequence archive page for this entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      ALF05084
+                    </a>
                   </span>
                 </td>
                 <td>
@@ -1710,7 +1872,7 @@ exports[`XrefSection component should render the xref table properly and match s
           <span>
             <span
               class="entry-title__status icon--uniparc"
-              title="This marks a UniParc entry"
+              title="Links to the UniParc sequence archive page for this entry"
             >
               <test-file-stub />
             </span>
@@ -1719,6 +1881,7 @@ exports[`XrefSection component should render the xref table properly and match s
           <span>
             <span
               class="entry-title__status"
+              title="Links out to the source database"
             >
               <test-file-stub />
             </span>
@@ -1727,6 +1890,7 @@ exports[`XrefSection component should render the xref table properly and match s
           <span>
             <span
               class="entry-title__status"
+              title="Links to the entry history in UniProtKB"
             >
               <test-file-stub />
             </span>

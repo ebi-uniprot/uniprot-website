@@ -25,6 +25,7 @@ import {
 } from '../../adapters/uniParcConverter';
 import {
   defaultColumns,
+  destinationIconTitles,
   getUniParcXRefsColumns,
 } from '../../config/UniParcXRefsColumnConfiguration';
 import EntrySection from '../../types/entrySection';
@@ -51,21 +52,34 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
 // The identifiers in this table link to three different kinds of page. The
 // icons that tell them apart are explained here rather than only in a `title`
 // tooltip, which keyboard and touch users can't reach.
-// Keep in sync with `destinationIconTitles` in UniParcXRefsColumnConfiguration.
+//
+// The icons reuse `destinationIconTitles` so the legend and the cells can't
+// drift apart. Passing an explicit title matters for `EntryTypeIcon`, which
+// otherwise falls back to "This marks a UniParc entry" — true of the icon in
+// general, but contradicting the label sitting next to it here.
 const DestinationLegend = () => (
   <div className="xref-legend">
     <span>
-      <EntryTypeIcon entryType={EntryType.UNIPARC} />
+      <EntryTypeIcon
+        entryType={EntryType.UNIPARC}
+        title={destinationIconTitles.subEntry}
+      />
       Sequence archive page
     </span>
     <span>
-      <span className="entry-title__status">
+      <span
+        className="entry-title__status"
+        title={destinationIconTitles.external}
+      >
         <ExternalLinkIcon />
       </span>
       Source database
     </span>
     <span>
-      <span className="entry-title__status">
+      <span
+        className="entry-title__status"
+        title={destinationIconTitles.history}
+      >
         <ClockIcon />
       </span>
       Entry history
