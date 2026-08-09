@@ -242,6 +242,8 @@ const getAccessionColumn =
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
   label: 'Identifier',
+  tooltip:
+    'The identifier in the source database. Icons show where each link goes — see the key below the table.',
   render: getAccessionColumn(''),
 });
 
@@ -321,6 +323,8 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.active, {
   label: 'Active',
+  tooltip:
+    'Whether this cross-reference is still present in the source database. Obsolete ones are shown on a tinted row and remain clickable.',
   render: (xref) => (
     <span className={xref.active ? undefined : 'xref-inactive'}>
       {xref.active ? 'Yes' : 'No'}
@@ -417,6 +421,7 @@ export const getUniParcXRefsColumns = (
       return {
         name,
         label: descriptor?.label,
+        tooltip: descriptor?.tooltip,
         uniparcAccession,
         render: getAccessionColumn(uniparcAccession, templateMap),
       };
@@ -426,6 +431,7 @@ export const getUniParcXRefsColumns = (
       return {
         name,
         label: descriptor?.label,
+        tooltip: descriptor?.tooltip,
         render: getTimelineColumn(firstSeen, lastSeen),
       };
     }
