@@ -1,9 +1,18 @@
 import './styles/XRefsSection.scss';
 
-import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
+import {
+  Card,
+  ClockIcon,
+  DataTableWithLoader,
+  ExternalLinkIcon,
+  Loader,
+} from 'franklin-sites';
 import { useMemo } from 'react';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
+import EntryTypeIcon, {
+  EntryType,
+} from '../../../shared/components/entry/EntryTypeIcon';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -37,6 +46,32 @@ const getIdKey = (_xref: UniParcXRef, index: number) => `${index}`;
 
 const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
+
+// The identifiers in this table link to three different kinds of page. The
+// icons that tell them apart are explained here rather than only in a `title`
+// tooltip, which keyboard and touch users can't reach.
+// Keep in sync with `destinationIconTitles` in UniParcXRefsColumnConfiguration.
+const DestinationLegend = () => (
+  <div className="xref-legend">
+    <span>
+      <EntryTypeIcon entryType={EntryType.UNIPARC} />
+      Sequence archive page
+    </span>
+    <span>
+      <span className="entry-title__status">
+        <ExternalLinkIcon />
+      </span>
+      Source database
+    </span>
+    <span>
+      <span className="entry-title__status">
+        <ClockIcon />
+      </span>
+      Entry history
+    </span>
+    <span>Unmarked identifiers link to UniProtKB.</span>
+  </div>
+);
 
 type Props = {
   entryData: UniParcUIModel;
@@ -122,6 +157,7 @@ const XRefsSection = ({ entryData }: Props) => {
           />
         ) : null}
       </div>
+      {total && allResults.length ? <DestinationLegend /> : null}
     </Card>
   );
 };

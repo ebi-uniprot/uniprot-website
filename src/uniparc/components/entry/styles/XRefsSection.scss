@@ -5,3 +5,20 @@
 .xref-proteome {
   white-space: nowrap;
 }
+
+// Destination legend under the table. The icons carry meaning that `title`
+// tooltips can't convey to keyboard or touch users, so it is spelled out.
+.xref-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--fr--color-outer-space);
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+}

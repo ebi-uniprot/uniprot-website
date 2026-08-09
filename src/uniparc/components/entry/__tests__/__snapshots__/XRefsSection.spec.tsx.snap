@@ -1697,6 +1697,38 @@ exports[`XrefSection component should render the xref table properly and match s
             </button>
           </div>
         </div>
+        <div
+          class="xref-legend"
+        >
+          <span>
+            <span
+              class="entry-title__status icon--uniparc"
+              title="This marks a UniParc entry"
+            >
+              <test-file-stub />
+            </span>
+            Sequence archive page
+          </span>
+          <span>
+            <span
+              class="entry-title__status"
+            >
+              <test-file-stub />
+            </span>
+            Source database
+          </span>
+          <span>
+            <span
+              class="entry-title__status"
+            >
+              <test-file-stub />
+            </span>
+            Entry history
+          </span>
+          <span>
+            Unmarked identifiers link to UniProtKB.
+          </span>
+        </div>
       </div>
     </div>
   </section>
