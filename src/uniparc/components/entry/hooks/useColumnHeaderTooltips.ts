@@ -26,11 +26,16 @@ const useColumnHeaderTooltips = <Datum>(columns: ColumnDescriptor<Datum>[]) => {
         return;
       }
       const info = columns.find(({ name }) => name === columnName);
-      if (info?.tooltip && eventTarget.firstChild) {
+      if (info?.tooltip) {
+        // Anchor the tooltip to the header's own content where there is an
+        // element to measure, otherwise to the cell. `useColumns` uses
+        // `firstChild` here, which works only because its headers wrap their
+        // label in an element; these headers are plain text, so `firstChild`
+        // is a text node and floating-ui throws on `getBoundingClientRect`.
         showTooltip(
           info.tooltip,
           eventTarget,
-          eventTarget.firstChild as Element
+          eventTarget.firstElementChild ?? eventTarget
         );
       }
     };
