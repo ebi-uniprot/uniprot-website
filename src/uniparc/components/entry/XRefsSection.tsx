@@ -1,18 +1,9 @@
 import './styles/XRefsSection.scss';
 
-import {
-  Card,
-  ClockIcon,
-  DataTableWithLoader,
-  ExternalLinkIcon,
-  Loader,
-} from 'franklin-sites';
+import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 import { useMemo } from 'react';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
-import EntryTypeIcon, {
-  EntryType,
-} from '../../../shared/components/entry/EntryTypeIcon';
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -25,7 +16,6 @@ import {
 } from '../../adapters/uniParcConverter';
 import {
   defaultColumns,
-  destinationIconTitles,
   getUniParcXRefsColumns,
 } from '../../config/UniParcXRefsColumnConfiguration';
 import EntrySection from '../../types/entrySection';
@@ -48,45 +38,6 @@ const getIdKey = (_xref: UniParcXRef, index: number) => `${index}`;
 
 const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
-
-// The identifiers in this table link to three different kinds of page. The
-// icons that tell them apart are explained here rather than only in a `title`
-// tooltip, which keyboard and touch users can't reach.
-//
-// The icons reuse `destinationIconTitles` so the legend and the cells can't
-// drift apart. Passing an explicit title matters for `EntryTypeIcon`, which
-// otherwise falls back to "This marks a UniParc entry" — true of the icon in
-// general, but contradicting the label sitting next to it here.
-const DestinationLegend = () => (
-  <div className="xref-legend">
-    <span>
-      <EntryTypeIcon
-        entryType={EntryType.UNIPARC}
-        title={destinationIconTitles.subEntry}
-      />
-      Sequence archive page
-    </span>
-    <span>
-      <span
-        className="entry-title__status"
-        title={destinationIconTitles.external}
-      >
-        <ExternalLinkIcon />
-      </span>
-      Source database
-    </span>
-    <span>
-      <span
-        className="entry-title__status"
-        title={destinationIconTitles.history}
-      >
-        <ClockIcon />
-      </span>
-      Entry history
-    </span>
-    <span>Unmarked identifiers link to UniProtKB.</span>
-  </div>
-);
 
 type Props = {
   entryData: UniParcUIModel;
@@ -174,7 +125,6 @@ const XRefsSection = ({ entryData }: Props) => {
           />
         ) : null}
       </div>
-      {total && allResults.length ? <DestinationLegend /> : null}
     </Card>
   );
 };

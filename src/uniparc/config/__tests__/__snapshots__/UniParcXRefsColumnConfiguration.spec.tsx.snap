@@ -3,11 +3,7 @@
 exports[`UniParcXRefsColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
   <span>
-    <a
-      href="/uniprotkb/P07612/entry"
-    >
-      P07612
-    </a>
+    P07612
   </span>
 </DocumentFragment>
 `;
@@ -59,6 +55,16 @@ exports[`UniParcXRefsColumnConfiguration component should render column "last_se
   >
     2026-06-10
   </time>
+</DocumentFragment>
+`;
+
+exports[`UniParcXRefsColumnConfiguration component should render column "links": links 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniprotkb/P07612/entry"
+  >
+    UniProtKB entry
+  </a>
 </DocumentFragment>
 `;
 

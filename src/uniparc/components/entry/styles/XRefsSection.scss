@@ -1,47 +1,11 @@
-// `.xref-inactive` used to carry `opacity: .5`. That read as "disabled" on rows
-// that are in fact still clickable — and obsolete rows are the ones that
-// navigate off-site, the most consequential click in the table. It also dropped
-// link text below AA contrast. The class is now only a marker for the row tint
-// below and for `.xref-proteome`; text stays at full contrast.
-
-// Franklin's DataTableRow renders a bare `<tr>` with no className hook, so the
-// row is tinted from its cells' contents instead — same approach as
-// `tr:has(.ai-annotation-row)` in protnlm.scss.
-//
-// The tint has to beat `tr:nth-of-type(2n) { background: $colour-platinum }`
-// striping, hence `!important`, and has to stay legible against *both* stripe
-// states. A platinum-derived wash would come out lighter than the stripe it
-// sits on and invert the signal on even rows, so this uses a warm neutral
-// instead: distinct in hue from the blue-grey striping at any row position,
-// and reading as "archival" rather than "disabled".
-//
-// Browsers without `:has()` get no tint; the "Active" column still spells the
-// status out in words.
-tr:has(.xref-inactive) {
-  background-color: color-mix(
-    in srgb,
-    var(--fr--color-coyote-brown) 8%,
-    white
-  ) !important;
+// Obsolete cross-references are dimmed so they read as archival. The Links
+// column is deliberately left un-dimmed (its cells never carry `.xref-inactive`)
+// so its links keep full colour and contrast and stay clearly clickable — those
+// links are the whole point of an obsolete row.
+.xref-inactive {
+  opacity: 0.5;
 }
 
 .xref-proteome {
   white-space: nowrap;
-}
-
-// Destination legend under the table. The icons carry meaning that `title`
-// tooltips can't convey to keyboard or touch users, so it is spelled out.
-.xref-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.5rem;
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--fr--color-outer-space);
-
-  > span {
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-  }
 }

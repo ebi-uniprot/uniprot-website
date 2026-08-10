@@ -5,7 +5,6 @@ import testColumnConfiguration from '../../../shared/__test-helpers__/testColumn
 import data from '../../__mocks__/uniparcXrefsModelData';
 import { type UniParcXRef } from '../../adapters/uniParcConverter';
 import UniParcXRefsColumnConfiguration, {
-  destinationIconTitles,
   getUniParcXRefsColumns,
   UniParcXRefsColumn,
 } from '../UniParcXRefsColumnConfiguration';
@@ -21,89 +20,110 @@ describe('UniParcXRefsColumnConfiguration component', () => {
   );
 });
 
-describe('Identifier column destination markers', () => {
+describe('Links column destinations', () => {
   const templateMap = new Map([
     ['EMBL', 'https://www.ebi.ac.uk/ena/browser/view/%id'],
   ]);
 
-  const renderAccessionCell = (xref: UniParcXRef) => {
+  const renderLinksCell = (xref: UniParcXRef) => {
     const [column] = getUniParcXRefsColumns(
-      [UniParcXRefsColumn.accession],
+      [UniParcXRefsColumn.links],
       templateMap,
       'UPI0000000001'
     );
     return customRender(<div>{column.render(xref)}</div>);
   };
 
-  it('marks an active non-UniProtKB xref as going to the sequence archive page', () => {
-    renderAccessionCell({ database: 'EMBL', id: 'AAB12345', active: true });
-
-    expect(
-      screen.getByTitle(destinationIconTitles.subEntry)
-    ).toBeInTheDocument();
-    expect(screen.getByRole('link')).toHaveAttribute(
-      'href',
-      '/uniparc/UPI0000000001/entry/EMBL:AAB12345'
-    );
-  });
-
-  it('marks an obsolete non-UniProtKB xref as leaving for the source database', () => {
-    renderAccessionCell({ database: 'EMBL', id: 'AAB12345', active: false });
-
-    expect(
-      screen.getByTitle(destinationIconTitles.external)
-    ).toBeInTheDocument();
-    expect(screen.getByRole('link')).toHaveAttribute(
-      'href',
-      'https://www.ebi.ac.uk/ena/browser/view/AAB12345'
-    );
-    // The marker leads the identifier, so franklin's own trailing icon is off
-    expect(screen.queryByTestId('external-link-icon')).not.toBeInTheDocument();
-  });
-
-  it('marks an obsolete reviewed xref as going to the entry history', () => {
-    renderAccessionCell({
-      database: 'UniProtKB/Swiss-Prot',
-      id: 'P12345',
-      active: false,
-    });
-
-    expect(
-      screen.getByTitle(destinationIconTitles.history)
-    ).toBeInTheDocument();
-    expect(screen.getByRole('link')).toHaveAttribute(
-      'href',
-      '/uniprotkb/P12345/history'
-    );
-  });
-
-  it('leaves an active UniProtKB xref unmarked, as the expected destination', () => {
-    renderAccessionCell({
+  it('links an active UniProtKB xref to its entry', () => {
+    renderLinksCell({
       database: 'UniProtKB/Swiss-Prot',
       id: 'P12345',
       active: true,
     });
 
-    expect(screen.getByRole('link')).toHaveAttribute(
-      'href',
-      '/uniprotkb/P12345/entry'
-    );
-    for (const title of Object.values(destinationIconTitles)) {
-      expect(screen.queryByTitle(title)).not.toBeInTheDocument();
-    }
+    expect(
+      screen.getByRole('link', { name: 'UniProtKB entry' })
+    ).toHaveAttribute('href', '/uniprotkb/P12345/entry');
   });
 
-  it('renders an unlinkable xref as plain text with no marker', () => {
-    const { container } = renderAccessionCell({
+  it('links an obsolete reviewed xref to its history, not the sub-entry', () => {
+    renderLinksCell({
+      database: 'UniProtKB/Swiss-Prot',
+      id: 'P12345',
+      active: false,
+    });
+
+    expect(screen.getByRole('link', { name: 'History' })).toHaveAttribute(
+      'href',
+      '/uniprotkb/P12345/history'
+    );
+    expect(
+      screen.queryByRole('link', { name: 'Sequence annotation' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('links an obsolete TrEMBL xref with an organism to its sequence annotation', () => {
+    renderLinksCell({
+      database: 'UniProtKB/TrEMBL',
+      id: 'Q71TT2',
+      active: false,
+      organism: { taxonId: 10254 },
+    });
+
+    expect(
+      screen.getByRole('link', { name: 'Sequence annotation' })
+    ).toHaveAttribute('href', '/uniparc/UPI0000000001/entry/Q71TT2');
+  });
+
+  it('links an obsolete TrEMBL xref with no organism to its history', () => {
+    renderLinksCell({
+      database: 'UniProtKB/TrEMBL',
+      id: 'Q71TT2',
+      active: false,
+    });
+
+    expect(screen.getByRole('link', { name: 'History' })).toHaveAttribute(
+      'href',
+      '/uniprotkb/Q71TT2/history'
+    );
+  });
+
+  it('links an active non-UniProtKB xref to the sequence annotation sub-entry', () => {
+    renderLinksCell({ database: 'EMBL', id: 'AAB12345', active: true });
+
+    expect(
+      screen.getByRole('link', { name: 'Sequence annotation' })
+    ).toHaveAttribute('href', '/uniparc/UPI0000000001/entry/EMBL:AAB12345');
+  });
+
+  it('links an obsolete non-UniProtKB xref out to the source database', () => {
+    renderLinksCell({ database: 'EMBL', id: 'AAB12345', active: false });
+
+    expect(
+      screen.getByRole('link', { name: /Source database/ })
+    ).toHaveAttribute(
+      'href',
+      'https://www.ebi.ac.uk/ena/browser/view/AAB12345'
+    );
+  });
+
+  it('renders no link for an obsolete isoform', () => {
+    renderLinksCell({
+      database: 'UniProtKB/Swiss-Prot protein isoforms',
+      id: 'P12345-2',
+      active: false,
+    });
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+  it('renders no link for a database with no URL template', () => {
+    renderLinksCell({
       database: 'DatabaseWithNoTemplate',
       id: 'XYZ123',
       active: true,
     });
 
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
-    expect(container).toHaveTextContent('XYZ123');
-    for (const title of Object.values(destinationIconTitles)) {
-      expect(screen.queryByTitle(title)).not.toBeInTheDocument();
-    }
   });
 });

@@ -1,4 +1,3 @@
-import { ClockIcon, ExternalLinkIcon } from 'franklin-sites';
 import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -29,6 +28,7 @@ export enum UniParcXRefsColumn {
   // Names & taxonomy
   database = 'database',
   accession = 'accession',
+  links = 'links',
   gene = 'gene',
   ncbiGi = 'ncbiGi',
   organism = 'organism',
@@ -48,12 +48,13 @@ export enum UniParcXRefsColumn {
 export const defaultColumns = [
   UniParcXRefsColumn.database,
   UniParcXRefsColumn.accession,
-  UniParcXRefsColumn.version,
+  UniParcXRefsColumn.active,
+  UniParcXRefsColumn.links,
   UniParcXRefsColumn.organism,
   UniParcXRefsColumn.proteome,
+  UniParcXRefsColumn.version,
   UniParcXRefsColumn.firstSeen,
   UniParcXRefsColumn.lastSeen,
-  UniParcXRefsColumn.active,
 ];
 
 export const primaryKeyColumns = [
@@ -97,115 +98,81 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
   },
 });
 
-// The identifiers in this column don't all link to the same kind of page:
-// UniProtKB ones go to UniProtKB (or to its history page when obsolete), the
-// rest go either to a UniParc sub-entry page (SAP) or straight out to the
-// source database. Mark the three surprising destinations and leave UniProtKB —
-// the expected one, already named in the "Database" column — unmarked, so the
-// column carries the minimum ink needed to tell them apart.
-//
-// Every marker leads the identifier so they align into one vertical scan-line.
-// That is why the external one is rendered here rather than letting franklin's
-// ExternalLink append its own trailing icon (see `noIcon` at the call site).
-// Keep these in sync with the legend in XRefsSection.
-export const destinationIconTitles = {
-  subEntry: 'Links to the UniParc sequence archive page for this entry',
-  external: 'Links out to the source database',
-  history: 'Links to the entry history in UniProtKB',
-};
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
+  label: 'Identifier',
+  tooltip: 'The identifier as it appears in the source database.',
+  render: (xref) =>
+    xref.id && (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.id}
+        {xref.chain && ` (chain ${xref.chain})`}
+      </span>
+    ),
+});
 
-const SubEntryLinkIcon = () => (
-  <EntryTypeIcon
-    entryType={EntryType.UNIPARC}
-    title={destinationIconTitles.subEntry}
-  />
-);
-
-const ExternalDestinationIcon = () => (
-  <span
-    className="entry-title__status"
-    title={destinationIconTitles.external}
-    data-testid="external-destination-icon"
-  >
-    <ExternalLinkIcon />
-  </span>
-);
-
-const HistoryDestinationIcon = () => (
-  <span
-    className="entry-title__status"
-    title={destinationIconTitles.history}
-    data-testid="history-destination-icon"
-  >
-    <ClockIcon />
-  </span>
-);
-
-const getAccessionColumn =
+// The identifier column above is just text now; this column spells out every
+// page a cross-reference can be opened on, so each link's label says where it
+// leads:
+//   - active UniProtKB entries -> the UniProtKB entry (plus a basket control)
+//   - obsolete reviewed entries, and obsolete TrEMBL with no organism -> the
+//     UniProtKB history page (the record is gone, but its history remains)
+//   - obsolete TrEMBL that still carries an organism, and active external
+//     references -> the UniParc sub-entry ("sequence annotation") page
+//   - obsolete external references -> back out to the source database
+// Obsolete isoforms and databases with no URL template have nowhere to link.
+const getLinksColumn =
   (uniparcAccession: string, templateMap: Map<string, string> = new Map()) =>
   (xref: UniParcXRef) => {
     if (!xref.id) {
       return null;
     }
-    let cell: ReactNode = xref.id;
+    let cell: ReactNode = null;
     if (
       xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
       xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
       xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
     ) {
-      if (xref.database.includes('isoforms') && !xref.active) {
-        cell = xref.id;
-      } else if (
-        xref.database === XRefsInternalDatabasesEnum.REVIEWED &&
-        !xref.active
-      ) {
-        // Link to history page for inactive entries that were reviewed
+      if (xref.active) {
+        cell = (
+          <>
+            <Link
+              to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.Entry)}
+            >
+              UniProtKB entry
+            </Link>
+            <BasketStatus id={xref.id} />
+          </>
+        );
+      } else if (xref.database === XRefsInternalDatabasesEnum.REVIEWED) {
         cell = (
           <Link
             to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
           >
-            <HistoryDestinationIcon />
-            {xref.id}
+            History
           </Link>
         );
-      } else {
-        // internal link
-        cell = (
-          <>
-            {xref.active ? (
-              <>
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    xref.id,
-                    TabLocation.Entry
-                  )}
-                >
-                  {xref.id}
-                </Link>
-                {xref.active && <BasketStatus id={xref.id} />}
-              </>
-            ) : (
-              <Link
-                to={getSubEntryPath(
-                  uniparcAccession,
-                  xref.id,
-                  TabLocation.Entry
-                )}
-              >
-                <SubEntryLinkIcon />
-                {xref.id}
-              </Link>
-            )}
-          </>
+      } else if (xref.database === XRefsInternalDatabasesEnum.UNREVIEWED) {
+        // Obsolete TrEMBL: the sub-entry page is only meaningful while the
+        // cross-reference still carries an organism; otherwise fall back to the
+        // UniProtKB history.
+        cell = xref.organism ? (
+          <Link
+            to={getSubEntryPath(uniparcAccession, xref.id, TabLocation.Entry)}
+          >
+            Sequence annotation
+          </Link>
+        ) : (
+          <Link
+            to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
+          >
+            History
+          </Link>
         );
       }
+      // Obsolete isoforms fall through with no link.
     } else {
       const template = xref.database && templateMap.get(xref.database);
       if (template) {
-        let { id } = xref;
-        id = getXrefId(id, xref.database as string);
-
         if (xref.active) {
           cell = (
             <Link
@@ -215,36 +182,28 @@ const getAccessionColumn =
                 TabLocation.Entry
               )}
             >
-              <SubEntryLinkIcon />
-              {xref.id}
-              {xref.chain && ` (chain ${xref.chain})`}
+              Sequence annotation
             </Link>
           );
         } else {
+          const id = getXrefId(xref.id, xref.database as string);
           cell = (
-            <ExternalLink
-              url={template.replace('%id', id)}
-              rel="nofollow"
-              noIcon
-            >
-              <ExternalDestinationIcon />
-              {xref.id}
-              {xref.chain && ` (chain ${xref.chain})`}
+            <ExternalLink url={template.replace('%id', id)} rel="nofollow">
+              Source database
             </ExternalLink>
           );
         }
       }
     }
-    return (
-      <span className={xref.active ? undefined : 'xref-inactive'}>{cell}</span>
-    );
+    // Unlike the other columns, the Links cell is never given `.xref-inactive`,
+    // so its links keep full colour/contrast on dimmed obsolete rows.
+    return cell;
   };
 
-UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
-  label: 'Identifier',
-  tooltip:
-    'The identifier in the source database. Icons show where each link goes — see the key below the table.',
-  render: getAccessionColumn(''),
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.links, {
+  label: 'Links',
+  tooltip: 'Where this cross-reference can be opened.',
+  render: getLinksColumn(''),
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.gene, {
@@ -416,14 +375,14 @@ export const getUniParcXRefsColumns = (
         },
       };
     }
-    // In case of accession column, replace with the current template map
-    if (name === UniParcXRefsColumn.accession) {
+    // The links column needs the current accession + template map to build its
+    // per-row destinations.
+    if (name === UniParcXRefsColumn.links) {
       return {
         name,
         label: descriptor?.label,
         tooltip: descriptor?.tooltip,
-        uniparcAccession,
-        render: getAccessionColumn(uniparcAccession, templateMap),
+        render: getLinksColumn(uniparcAccession, templateMap),
       };
     }
     // In case of timeline column, replace with the current template map
