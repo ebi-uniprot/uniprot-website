@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import { ExternalLink, Message } from 'franklin-sites';
 import { memo } from 'react';
 
 import AnalysisTools from './AnalysisTools';
@@ -21,16 +20,6 @@ const HomePageNonCritical = () => (
       )}
     >
       <Protnlm2Banner />
-      <Message level="info" className="uniprot-grid-cell--span-12">
-        <small>
-          Help us keep delivering gold-standard protein knowledge in the Age of
-          AI. Share your thoughts via our survey:{' '}
-          <ExternalLink url="https://forms.gle/mnn7j2RuveHW4d7d7">
-            UniProt in the Age of AI
-          </ExternalLink>
-          .
-        </small>
-      </Message>
     </div>
     <CoreData />
     <SupportingData />

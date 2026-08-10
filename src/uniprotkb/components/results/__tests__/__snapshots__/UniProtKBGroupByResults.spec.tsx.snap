@@ -107,10 +107,27 @@ exports[`UniProtKBGroupByResults component with EC groups should render 1`] = `
           class="label"
         >
           <span
-            class="active-label"
-            title="Parent node currently set to Hydrolases (ID:3.-.-.-)"
+            class="container active-label"
           >
-            Hydrolases
+            <button
+              aria-describedby="1"
+              class="trigger"
+              type="button"
+            >
+              Hydrolases
+            </button>
+            <span
+              class="visually-hidden"
+              id="1"
+            >
+              Parent node currently set to Hydrolases (ID:3.-.-.-)
+            </span>
+            <span
+              aria-hidden="true"
+              class="bubble"
+            >
+              Parent node currently set to Hydrolases (ID:3.-.-.-)
+            </span>
           </span>
           <a
             class="external-link"
@@ -326,9 +343,27 @@ exports[`UniProtKBGroupByResults component with taxonomy groups should render 1`
           class="label"
         >
           <span
-            title="Parent node currently set to top level"
+            class="container"
           >
-            Top level
+            <button
+              aria-describedby="1"
+              class="trigger"
+              type="button"
+            >
+              Top level
+            </button>
+            <span
+              class="visually-hidden"
+              id="1"
+            >
+              Parent node currently set to top level
+            </span>
+            <span
+              aria-hidden="true"
+              class="bubble"
+            >
+              Parent node currently set to top level
+            </span>
           </span>
         </span>
       </li>

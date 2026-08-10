@@ -28,6 +28,9 @@ import {
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
 import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';
+import WithheldByRequest, {
+  isWithheldSubmitter,
+} from '../../../utils/CommunitySubmission';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
 
 const orcidIDRegExp = /(\d{4}-){3}\d{4}/;
@@ -60,15 +63,19 @@ export const PublicationSource = ({
       <>
         <EntryTypeIcon entryType={source.name} />
         {source.name}:{' '}
-        <ExternalLink
-          url={
-            source.id && orcidIDRegExp.test(source.id)
-              ? processUrlTemplate(uriLink, { id: source.id })
-              : null
-          }
-        >
-          {source.id}
-        </ExternalLink>
+        {isWithheldSubmitter(source.id) ? (
+          <WithheldByRequest />
+        ) : (
+          <ExternalLink
+            url={
+              source.id && orcidIDRegExp.test(source.id)
+                ? processUrlTemplate(uriLink, { id: source.id })
+                : null
+            }
+          >
+            {source.id}
+          </ExternalLink>
+        )}
         {' ('}
         <ExternalLink
           url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
