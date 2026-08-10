@@ -62,6 +62,7 @@ const StructureView = ({
       return;
     }
     const apply = (data: ReadonlyArray<ProcessedStructureData>) => {
+      /* eslint-disable @eslint-react/set-state-in-effect -- syncs state from the structure custom element's data (also runs as a catch-up on mount) */
       setStructures(
         data.map((row, i) => ({ ...row, rowKey: `${row.id}:${i}` }))
       );
@@ -73,6 +74,7 @@ const StructureView = ({
       }
       setSelectedId(next);
       setLoading(false);
+      /* eslint-enable @eslint-react/set-state-in-effect */
     };
     // Catch up in case the event fired before this listener was attached.
     if (structureEl.data?.length) {

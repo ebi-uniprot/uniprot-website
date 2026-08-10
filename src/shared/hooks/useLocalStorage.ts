@@ -78,6 +78,7 @@ function useLocalStorage<T extends JsonValue>(
 
   // effect in order to change the value returned when the hook's key changes
   useEffect(() => {
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- re-reads the stored value when the storage key changes
     setState(initialiser<T>(key, defaultValueStr));
   }, [key, defaultValueStr]);
 
