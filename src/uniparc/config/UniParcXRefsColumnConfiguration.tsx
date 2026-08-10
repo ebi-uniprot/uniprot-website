@@ -201,7 +201,7 @@ const getLinksColumn =
   };
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.links, {
-  label: 'Links',
+  label: 'Go to',
   tooltip: 'Where this cross-reference can be opened.',
   render: getLinksColumn(''),
 });

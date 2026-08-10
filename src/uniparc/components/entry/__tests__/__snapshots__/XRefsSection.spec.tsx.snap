@@ -59,7 +59,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   class=""
                   data-column-name="links"
                 >
-                  Links
+                  Go to
                 </th>
                 <th
                   class=""
