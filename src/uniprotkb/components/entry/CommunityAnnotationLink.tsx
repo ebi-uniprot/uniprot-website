@@ -1,16 +1,12 @@
-import { type Method } from 'axios';
 import { CommunityAnnotationIcon } from 'franklin-sites';
 import { type FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import externalUrls from '../../../shared/config/externalUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useCommunityCuratedCount from '../../hooks/useCommunityCuratedCount';
 import { TabLocation } from '../../types/entry';
-
-const fetchOptions: { method: Method } = {
-  method: 'HEAD',
-};
+import { communityCuratedFacet } from '../../utils/CommunitySubmission';
+import { facetsAsString } from '../../utils/resultsUtils';
 
 type CommunityAnnotationLinkProps = {
   accession: string;
@@ -19,10 +15,8 @@ type CommunityAnnotationLinkProps = {
 const CommunityAnnotationLink: FC<
   React.PropsWithChildren<CommunityAnnotationLinkProps>
 > = ({ accession }) => {
-  const url = externalUrls.CommunityCuratedGetByAccession(accession);
-  const { headers } = useDataApi(url, fetchOptions);
-  const nSubmissions = +(headers?.['x-total-results'] || 0);
-  if (!nSubmissions) {
+  const { count } = useCommunityCuratedCount(accession);
+  if (!count) {
     return null;
   }
   return (
@@ -32,11 +26,11 @@ const CommunityAnnotationLink: FC<
           accession,
           subPage: TabLocation.Publications,
         }),
-        search: '?facets=types:0',
+        search: `?facets=${facetsAsString([communityCuratedFacet])}`,
       }}
       className="button tertiary"
     >
-      <CommunityAnnotationIcon /> {`Community curated (${nSubmissions})`}
+      <CommunityAnnotationIcon /> {`Community curated (${count})`}
     </Link>
   );
 };

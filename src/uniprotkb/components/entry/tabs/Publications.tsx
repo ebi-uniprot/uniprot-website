@@ -9,6 +9,7 @@ import { Location, LocationToPath } from '../../../../app/config/urls';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../shared/components/ExternalLink';
+import externalUrls from '../../../../shared/config/externalUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
@@ -22,6 +23,7 @@ import {
 } from '../../../../shared/utils/utils';
 import { processUrlTemplate } from '../../../../shared/utils/xrefs';
 import {
+  type Citation,
   type CitationsAPIModel,
   type Reference,
   type Source,
@@ -29,20 +31,24 @@ import {
 import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';
 import WithheldByRequest, {
+  isCommunityCuratedFacet,
   isWithheldSubmitter,
 } from '../../../utils/CommunitySubmission';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
+import CommunityPublicationsMessage from '../CommunityPublicationsMessage';
 
 const orcidIDRegExp = /(\d{4}-){3}\d{4}/;
 
 type PublicationSourceProps = {
   accession: string;
   source: Source;
+  citationId?: Citation['id'];
 };
 
 export const PublicationSource = ({
   accession,
   source,
+  citationId,
 }: PublicationSourceProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 
@@ -78,7 +84,10 @@ export const PublicationSource = ({
         )}
         {' ('}
         <ExternalLink
-          url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+          url={externalUrls.CommunityCuratedGetByAccession(
+            accession,
+            citationId
+          )}
         >
           see community submission
         </ExternalLink>
@@ -139,6 +148,7 @@ export const PublicationReference = ({
       sourceCategories,
       communityAnnotation,
       annotation,
+      citationId,
     } = reference;
 
     const groupedReferenceComments = groupBy(referenceComments, 'type');
@@ -211,7 +221,11 @@ export const PublicationReference = ({
       {
         title: 'Source',
         content: source && (
-          <PublicationSource accession={accession} source={source} />
+          <PublicationSource
+            accession={accession}
+            source={source}
+            citationId={citationId}
+          />
         ),
       },
     ];
@@ -326,25 +340,33 @@ const Publications = ({ accession }: PublicationsProps) => {
     return <ErrorHandler status={status} error={error} />;
   }
 
-  if (allResults.length === 0 && loading) {
-    return <Loader />;
-  }
-
   const { total, nextUrl } = metaData;
+
+  /* Only the results are replaced by the loader, rather than the whole section,
+  so that changing facets doesn't unmount the community message: it would
+  refetch its counts and flash back in on every facet change. */
+  const loadingFirstPage = allResults.length === 0 && loading;
 
   return (
     <section>
       <h2 data-article-id="publications_section">
         {pluralise('Publication', total)} for {accession}
       </h2>
-      <DataListWithLoader
-        getIdKey={getIdKey}
-        data={resultsWithReferences}
-        dataRenderer={cardRenderer}
-        onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
-        loaderComponent={<Loader />}
-        hasMoreData={total > allResults.length}
-      />
+      {selectedFacets.some(isCommunityCuratedFacet) && (
+        <CommunityPublicationsMessage accession={accession} />
+      )}
+      {loadingFirstPage ? (
+        <Loader />
+      ) : (
+        <DataListWithLoader
+          getIdKey={getIdKey}
+          data={resultsWithReferences}
+          dataRenderer={cardRenderer}
+          onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
+          loaderComponent={<Loader />}
+          hasMoreData={total > allResults.length}
+        />
+      )}
     </section>
   );
 };

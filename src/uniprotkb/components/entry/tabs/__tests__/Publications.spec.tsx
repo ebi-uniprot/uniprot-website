@@ -15,6 +15,25 @@ describe('PublicationReference', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it('should pass the citation ID down to the community submission link', () => {
+    const communityResult = entryPublicationData.results.find((result) =>
+      result.references?.some((reference) => reference.source?.name === 'ORCID')
+    );
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const references = communityResult!.references!;
+    const { citationId } =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      references.find((reference) => reference.source?.name === 'ORCID')!;
+
+    customRender(
+      <PublicationReference references={references} accession="O43865" />
+    );
+
+    expect(
+      screen.getByRole('link', { name: /see community submission/ })
+    ).toHaveAttribute('href', expect.stringContaining(`pmid=${citationId}`));
+  });
 });
 
 describe('PublicationSource', () => {
@@ -63,6 +82,37 @@ describe('PublicationSource', () => {
       );
       expect(screen.getAllByRole('link')).toHaveLength(1);
       expect(asFragment()).toMatchSnapshot();
+    });
+
+    it('links the community submission to the specific publication when the citation is a PubMed ID', () => {
+      customRender(
+        <PublicationSource
+          accession="P12345"
+          source={{ name: 'ORCID', id: '0009-0004-6150-6467' }}
+          citationId="12345678"
+        />
+      );
+      expect(
+        screen.getByRole('link', { name: /see community submission/ })
+      ).toHaveAttribute(
+        'href',
+        expect.stringContaining('accession=P12345&pmid=12345678')
+      );
+    });
+
+    it('links the community submission to the accession when the citation is not a PubMed ID', () => {
+      customRender(
+        <PublicationSource
+          accession="P12345"
+          source={{ name: 'ORCID', id: '0009-0004-6150-6467' }}
+          citationId="CI-1234ABCD5"
+        />
+      );
+      const href = screen
+        .getByRole('link', { name: /see community submission/ })
+        .getAttribute('href');
+      expect(href).toContain('accession=P12345');
+      expect(href).not.toContain('pmid');
     });
   });
 

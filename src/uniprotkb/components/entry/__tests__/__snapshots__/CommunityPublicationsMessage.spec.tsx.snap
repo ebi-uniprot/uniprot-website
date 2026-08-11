@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CommunityPublicationsMessage should link to the submissions on their own when the counts match 1`] = `
+<DocumentFragment>
+  <div
+    class="message message--info"
+    role="status"
+  >
+    <div
+      class="message__side-border"
+    />
+    <test-file-stub
+      class="message--icon-align-top"
+      height="1.125em"
+      width="1.125em"
+    />
+    <div
+      class="message__title"
+    >
+      <a
+        class="external-link"
+        href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=P05067"
+        rel="noopener"
+        target="_blank"
+      >
+        View all community curated publications (3) within the Community Bibliography Submissions website
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CommunityPublicationsMessage should report the release missing the latest submissions 1`] = `
+<DocumentFragment>
+  <div
+    class="message message--info"
+    role="status"
+  >
+    <div
+      class="message__side-border"
+    />
+    <test-file-stub
+      class="message--icon-align-top"
+      height="1.125em"
+      width="1.125em"
+    />
+    <div
+      class="message__title"
+    >
+      This release of UniProt is missing the latest community curated publications. This happens when new community submissions are made between releases. You can:
+      <ul>
+        <li>
+          <a
+            class="external-link"
+            href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=P05067"
+            rel="noopener"
+            target="_blank"
+          >
+            View all community curated publications (12) within the Community Bibliography Submissions website
+            <test-file-stub
+              data-testid="external-link-icon"
+              width="12.5"
+            />
+          </a>
+        </li>
+        <li>
+          <a
+            href="/uniprotkb/P05067/publications"
+          >
+            View all current publications in this UniProt release
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

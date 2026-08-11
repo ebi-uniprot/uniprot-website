@@ -83,7 +83,7 @@ export const getParamsFromURL = (
   return [params, unknownParams];
 };
 
-const facetsAsString = (facets?: SelectedFacet[]): string | undefined =>
+export const facetsAsString = (facets?: SelectedFacet[]): string | undefined =>
   facets?.length
     ? facets.map(({ name, value }) => `${name}:${value}`).join(',')
     : undefined;
