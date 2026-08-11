@@ -67,7 +67,8 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
   const BaseLayout = getComponent('BaseLayout', true);
   const [tagIds, sections, idToOperation] = useMemo(() => {
     const spec = getSpec().get('json');
-    const idToOperation = getIdToOperation(spec.get('paths').toJSON());
+    // `toJS` (deep) and not `toJSON`, which is shallow since immutable 4
+    const idToOperation = getIdToOperation(spec.get('paths').toJS());
     return [
       ...getTagIdsAndSections(spec, idToOperation, styles['section-path']),
       idToOperation,
@@ -82,7 +83,7 @@ const AugmentingLayout = ({ getComponent, dispatch, spec: getSpec }: any) => {
         }
       } else {
         const operation = idToOperation.get(id);
-        if (operation?.tag && operation?.operationId) {
+        if (operation) {
           dispatch(getLayoutAction(operation, true));
         }
       }
