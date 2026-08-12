@@ -51,7 +51,7 @@ exports[`CommunityPublicationsMessage should report the release missing the late
     <div
       class="message__title"
     >
-      This release of UniProt is missing the latest community curated publications. This happens when new community submissions are made between releases. You can:
+      This release of UniProt is missing the latest community curated publications. This happens when new community submissions are made between releases.
       <ul>
         <li>
           <a

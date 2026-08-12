@@ -48,7 +48,7 @@ const CommunityPublicationsMessage = ({
     <Message level="info">
       This release of UniProt is missing the latest community curated
       publications. This happens when new community submissions are made between
-      releases. You can:
+      releases.
       <ul>
         <li>{submissionsLink}</li>
         {/* This release being behind is the case most likely to leave the user
