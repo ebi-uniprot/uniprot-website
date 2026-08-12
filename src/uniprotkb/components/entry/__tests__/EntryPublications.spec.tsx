@@ -1,6 +1,7 @@
 import { act, screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
+import externalUrls from '../../../../shared/config/externalUrls';
 import {
   type CommunityCuratedCounts,
   CommunityCuratedCountsContext,
@@ -100,7 +101,10 @@ describe('EntryPublications tests', () => {
     renderTab('/uniprotkb/P05067/publications?facets=types%3A0', counts);
     expect(
       screen.getByRole('link', { name: /community curated publications/ })
-    ).toHaveAttribute('href', expect.stringContaining('community.uniprot.org'));
+    ).toHaveAttribute(
+      'href',
+      externalUrls.CommunityCuratedGetByAccession('P05067')
+    );
   });
 
   it('should not request the counts again when the facet is toggled', () => {
@@ -117,7 +121,7 @@ describe('EntryPublications tests', () => {
     // rendered behind must not reach the community curation site
     expect(
       (useDataApi as jest.Mock).mock.calls.filter(([url]) =>
-        String(url).includes('community.uniprot.org')
+        String(url).startsWith('https://community.uniprot.org/')
       )
     ).toHaveLength(0);
   });
