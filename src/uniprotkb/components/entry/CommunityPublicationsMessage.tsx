@@ -1,13 +1,12 @@
 import { Message } from 'franklin-sites';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import externalUrls from '../../../shared/config/externalUrls';
+import { CommunityCuratedCountsContext } from '../../../shared/contexts/CommunityCuratedCounts';
 import { Namespace } from '../../../shared/types/namespaces';
-import useCommunityCuratedCount, {
-  useUniProtCommunityCuratedCount,
-} from '../../hooks/useCommunityCuratedCount';
 import { TabLocation } from '../../types/entry';
 
 type CommunityPublicationsMessageProps = {
@@ -23,26 +22,25 @@ type CommunityPublicationsMessageProps = {
 const CommunityPublicationsMessage = ({
   accession,
 }: CommunityPublicationsMessageProps) => {
-  const { count: submitted, loading: loadingSubmitted } =
-    useCommunityCuratedCount(accession);
-  const { count: indexed, loading: loadingIndexed } =
-    useUniProtCommunityCuratedCount(accession);
+  // Both counted once by the entry, so that toggling the facet this message is
+  // rendered behind doesn't re-request them
+  const { submitted, indexed } = useContext(CommunityCuratedCountsContext);
 
-  // Wait for both counts, otherwise the submitted one arriving first is briefly
-  // compared against a count of zero and wrongly reported as out of sync.
-  // Nothing submitted means there is nothing to link to either.
-  if (loadingSubmitted || loadingIndexed || !submitted) {
-    return null;
-  }
-
+  /* Whoever is looking at the community publications of an entry always gets a
+  way through to the submissions themselves, whatever the counts say or fail to
+  say: they are the authority, and the two are not guaranteed to be counting
+  the same thing. */
   const submissionsLink = (
     <ExternalLink url={externalUrls.CommunityCuratedGetByAccession(accession)}>
-      View all community curated publications ({submitted}) within the Community
-      Bibliography Submissions website
+      View all community curated publications
+      {submitted ? ` (${submitted})` : ''} within the Community Bibliography
+      Submissions website
     </ExternalLink>
   );
 
-  if (submitted <= indexed) {
+  /* Only claim the release is behind once we know what it holds, otherwise the
+  submitted count is compared against a zero we have not been given yet */
+  if (indexed === undefined || submitted <= indexed) {
     return <Message level="info">{submissionsLink}</Message>;
   }
 

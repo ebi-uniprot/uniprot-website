@@ -1,9 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import useCommunityCuratedCount, {
-  useUniProtCommunityCuratedCount,
-} from '../useCommunityCuratedCount';
+import useCommunityCuratedCount from '../useCommunityCuratedCount';
 
 jest.mock('../../../shared/hooks/useDataApi');
 
@@ -27,7 +25,7 @@ describe('useCommunityCuratedCount', () => {
 
     const { result } = renderHook(() => useCommunityCuratedCount('P05067'));
 
-    expect(result.current.count).toBe(3);
+    expect(result.current).toBe(3);
   });
 
   it('should return 0 when there are no submissions', () => {
@@ -38,7 +36,7 @@ describe('useCommunityCuratedCount', () => {
 
     const { result } = renderHook(() => useCommunityCuratedCount('P05067'));
 
-    expect(result.current.count).toBe(0);
+    expect(result.current).toBe(0);
   });
 
   it('should return 0 when the header is missing', () => {
@@ -46,33 +44,14 @@ describe('useCommunityCuratedCount', () => {
 
     const { result } = renderHook(() => useCommunityCuratedCount('P05067'));
 
-    expect(result.current.count).toBe(0);
-  });
-});
-
-describe('useUniProtCommunityCuratedCount', () => {
-  it('should query our own publications endpoint for the community facet only', () => {
-    (useDataApi as jest.Mock).mockReturnValue({ loading: true });
-
-    renderHook(() => useUniProtCommunityCuratedCount('P05067'));
-
-    expect(useDataApi).toHaveBeenCalledWith(
-      expect.stringContaining(
-        'P05067/publications?facetFilter=%28types%3A%220%22%29&size=0'
-      )
-    );
+    expect(result.current).toBe(0);
   });
 
-  it('should return the number of community references', () => {
-    (useDataApi as jest.Mock).mockReturnValue({
-      loading: false,
-      headers: { 'x-total-results': '11' },
-    });
+  it('should not request anything without an accession', () => {
+    (useDataApi as jest.Mock).mockReturnValue({ loading: false });
 
-    const { result } = renderHook(() =>
-      useUniProtCommunityCuratedCount('P05067')
-    );
+    renderHook(() => useCommunityCuratedCount(undefined));
 
-    expect(result.current.count).toBe(11);
+    expect(useDataApi).toHaveBeenCalledWith(null, { method: 'HEAD' });
   });
 });

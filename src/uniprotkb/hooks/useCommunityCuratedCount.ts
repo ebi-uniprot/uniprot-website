@@ -2,8 +2,6 @@ import { type Method } from 'axios';
 
 import externalUrls from '../../shared/config/externalUrls';
 import useDataApi from '../../shared/hooks/useDataApi';
-import apiUrls from '../config/apiUrls/apiUrls';
-import { communityCuratedFacet } from '../utils/CommunitySubmission';
 
 const fetchOptions: { method: Method } = {
   method: 'HEAD',
@@ -11,38 +9,16 @@ const fetchOptions: { method: Method } = {
 
 /**
  * Number of community submissions held for an accession on the PIR community
- * curation site.
+ * curation site, 0 until known. Submissions take some time to make their way
+ * into UniProt, so this can run ahead of what the current release holds —
+ * which the entry counts and shares through the CommunityCuratedCountsContext.
  */
-const useCommunityCuratedCount = (accession: string) => {
-  const { headers, loading, error } = useDataApi(
-    externalUrls.CommunityCuratedQuery(accession),
+const useCommunityCuratedCount = (accession?: string) => {
+  const { headers } = useDataApi(
+    accession ? externalUrls.CommunityCuratedQuery(accession) : null,
     fetchOptions
   );
-  return {
-    count: +(headers?.['x-total-results'] || 0),
-    loading,
-    error,
-  };
-};
-
-/**
- * Number of community references UniProt holds for an accession. Submissions
- * take some time to make their way from PIR into UniProt, so this can lag
- * behind the count held by PIR.
- */
-export const useUniProtCommunityCuratedCount = (accession: string) => {
-  const { headers, loading, error } = useDataApi(
-    apiUrls.publications.entryPublications({
-      accession,
-      selectedFacets: [communityCuratedFacet],
-      size: 0,
-    })
-  );
-  return {
-    count: +(headers?.['x-total-results'] || 0),
-    loading,
-    error,
-  };
+  return +(headers?.['x-total-results'] || 0);
 };
 
 export default useCommunityCuratedCount;

@@ -1,21 +1,21 @@
 import { CommunityAnnotationIcon } from 'franklin-sites';
-import { type FC } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import useCommunityCuratedCount from '../../hooks/useCommunityCuratedCount';
 import { TabLocation } from '../../types/entry';
 import { communityCuratedFacet } from '../../utils/CommunitySubmission';
 import { facetsAsString } from '../../utils/resultsUtils';
 
 type CommunityAnnotationLinkProps = {
   accession: string;
+  /** Submissions held for the entry by PIR, counted once by the entry */
+  count: number;
 };
 
-const CommunityAnnotationLink: FC<
-  React.PropsWithChildren<CommunityAnnotationLinkProps>
-> = ({ accession }) => {
-  const { count } = useCommunityCuratedCount(accession);
+const CommunityAnnotationLink = ({
+  accession,
+  count,
+}: CommunityAnnotationLinkProps) => {
   if (!count) {
     return null;
   }

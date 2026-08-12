@@ -59,6 +59,7 @@ import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-lay
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
+import { CommunityCuratedCountsContext } from '../../../shared/contexts/CommunityCuratedCounts';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -99,6 +100,7 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
+import useCommunityCuratedCount from '../../hooks/useCommunityCuratedCount';
 import { DatabaseCategory } from '../../types/databaseRefs';
 import { TabLocation } from '../../types/entry';
 import EntrySection, {
@@ -107,6 +109,7 @@ import EntrySection, {
 import { type UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
 import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
+import { communityCuratedFacet } from '../../utils/CommunitySubmission';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
@@ -239,12 +242,7 @@ const Entry = () => {
     match?.params.accession
       ? uniprotkbApiUrls.publications.entryPublications({
           accession: match.params.accession,
-          selectedFacets: [
-            {
-              name: 'types',
-              value: '0',
-            },
-          ],
+          selectedFacets: [communityCuratedFacet],
         })
       : null
   );
@@ -457,6 +455,26 @@ const Entry = () => {
     transformedData.inactiveReason
   );
 
+  /* Fetched here, once per entry, rather than by the components that need
+  them: they are read from both the tools row and the publications tab, and
+  neither count depends on the tab or on the facets, so fetching them lower
+  down would re-request on every remount. Obsolete entries show neither, so
+  don't ask PIR about them. */
+  const communitySubmittedCount = useCommunityCuratedCount(
+    isObsolete ? undefined : match?.params.accession
+  );
+  const communityCuratedCounts = useMemo(
+    () => ({
+      submitted: communitySubmittedCount,
+      // Undefined until resolved, so that consumers can tell "not known yet"
+      // apart from "this release holds none"
+      indexed: communityCuratedPayload.headers
+        ? +(communityCuratedPayload.headers['x-total-results'] || 0)
+        : undefined,
+    }),
+    [communitySubmittedCount, communityCuratedPayload.headers]
+  );
+
   // Redirect to history when demerged and to UniParc when deleted
   useEffect(() => {
     if (
@@ -626,7 +644,10 @@ const Entry = () => {
   );
   const basketButton = <AddToBasketButton selectedEntries={accession} />;
   const communityAnnotationLink = (
-    <CommunityAnnotationLink accession={accession} />
+    <CommunityAnnotationLink
+      accession={accession}
+      count={communitySubmittedCount}
+    />
   );
   const addPublicationLink = (
     <a
@@ -1091,7 +1112,11 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <PublicationsTab accession={accession} />
+                <CommunityCuratedCountsContext.Provider
+                  value={communityCuratedCounts}
+                >
+                  <PublicationsTab accession={accession} />
+                </CommunityCuratedCountsContext.Provider>
               </ErrorBoundary>
             </Suspense>
           </Tab>
