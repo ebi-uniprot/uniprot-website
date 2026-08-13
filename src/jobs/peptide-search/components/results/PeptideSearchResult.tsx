@@ -23,7 +23,7 @@ import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
-import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
+import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../../../shared/config/limits';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -36,7 +36,6 @@ import {
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import { type SearchResults } from '../../../../shared/types/results';
-import { stringifyUrl } from '../../../../shared/utils/url';
 import {
   type TaxonomyAPIModel,
   type TaxonomyDatum,
@@ -196,17 +195,13 @@ const PeptideSearchResult = () => {
   const { data: taxonomyData, loading: taxonomyLoading } = useDataApi<
     SearchResults<TaxonomyAPIModel>
   >(
-    parsedParams.taxonIds
-      ? stringifyUrl(
-          joinUrl(
-            apiPrefix,
-            Namespace.taxonomy,
-            'taxonIds',
-            parsedParams.taxonIds
-          ),
-          { fields: 'scientific_name' }
-        )
-      : null
+    useMemo(
+      () =>
+        apiUrls.search.taxonIds(
+          parsedParams.taxonIds.split(',').filter(Boolean)
+        ),
+      [parsedParams.taxonIds]
+    )
   );
 
   const jobInputParameters = useMemo(

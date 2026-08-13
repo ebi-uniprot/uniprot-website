@@ -22,6 +22,28 @@ describe('apiUrls.search.search', () => {
   });
 });
 
+describe('apiUrls.search.taxonIds', () => {
+  it('should return undefined without any ID', () => {
+    expect(apiUrls.search.taxonIds()).toBeUndefined();
+    expect(apiUrls.search.taxonIds([])).toBeUndefined();
+  });
+
+  it('should request the scientific names of all the IDs in one page', () => {
+    // The endpoint defaults to a page size of 25 and we don't follow `next`
+    expect(apiUrls.search.taxonIds(['9606', '10090'])).toEqual(
+      expect.stringContaining(
+        '/api/taxonomy/taxonIds/9606,10090?fields=scientific_name&size=500'
+      )
+    );
+  });
+
+  it('should accept overrides', () => {
+    expect(
+      apiUrls.search.taxonIds(['9606'], { fields: 'lineage', size: 1 })
+    ).toEqual(expect.stringContaining('?fields=lineage&size=1'));
+  });
+});
+
 describe('apiUrls.entry.download', () => {
   const getLastPath = (url: string) => url.substr(url.lastIndexOf('/') + 1);
   const accession = 'P123456';
