@@ -9,15 +9,56 @@ import XRefsSection from '../XRefsSection';
 jest.mock('../../../../shared/hooks/useDataApi');
 jest.mock('../../../../shared/hooks/usePagination');
 
+// What UniProtKB reports about the mock's obsolete TrEMBL cross-references.
+// Between them these cover every destination the Links column can pick; the
+// remaining obsolete rows (A0A2I2MDI1, A0A7I8V511, G0XTE8) are deliberately
+// left out so the unresolved fallback is covered too.
+const obsoleteEntries = {
+  results: [
+    {
+      primaryAccession: 'Q6RZL4',
+      entryType: 'Inactive',
+      inactiveReason: {
+        inactiveReasonType: 'MERGED',
+        mergeDemergeTo: ['P07612'],
+      },
+    },
+    {
+      primaryAccession: 'Q76QK2',
+      entryType: 'Inactive',
+      inactiveReason: {
+        inactiveReasonType: 'DEMERGED',
+        mergeDemergeTo: ['P07612', 'Q71TT2'],
+      },
+    },
+    {
+      primaryAccession: 'Q76ZT7',
+      entryType: 'Inactive',
+      inactiveReason: {
+        inactiveReasonType: 'DELETED',
+        deletedReason: 'Redundant sequence',
+      },
+    },
+    // The xref says inactive but UniProtKB still has it: the xref `active` flag
+    // lags behind UniProtKB, so this happens in real data.
+    {
+      primaryAccession: 'Q0GNZ6',
+      entryType: 'UniProtKB unreviewed (TrEMBL)',
+    },
+  ],
+};
+
 describe('XrefSection component', () => {
   it('should render the xref table properly and match snapshot', async () => {
     // The database list has to be populated, otherwise every non-UniProtKB
     // identifier falls through to unlinked plain text and neither the
     // sub-entry nor the external-link branch of the Identifier column renders.
-    (useDataApi as jest.Mock).mockReturnValue({
+    // The UniProtKB search is what tells the Links column where each obsolete
+    // TrEMBL row actually leads.
+    (useDataApi as jest.Mock).mockImplementation((url?: string | null) => ({
       loading: false,
-      data: allDatabases,
-    });
+      data: url?.includes('/uniprotkb/search') ? obsoleteEntries : allDatabases,
+    }));
     (usePagination as jest.Mock).mockReturnValue({
       allResults: uniparcXrefsData.results,
       initialLoading: false,

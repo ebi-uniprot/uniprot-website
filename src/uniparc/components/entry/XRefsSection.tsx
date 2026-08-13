@@ -21,6 +21,7 @@ import {
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import useColumnHeaderTooltips from './hooks/useColumnHeaderTooltips';
+import useObsoleteXRefStatuses from './hooks/useObsoleteXRefStatuses';
 import useXref from './hooks/useXref';
 
 export type DataDBModel = Array<{
@@ -90,6 +91,8 @@ const XRefsSection = ({ entryData }: Props) => {
   const firstSeen = entryData?.oldestCrossRefCreated;
   const lastSeen = entryData?.mostRecentCrossRefUpdated;
 
+  const obsoleteStatuses = useObsoleteXRefStatuses(allResults);
+
   const columnDescriptors = useMemo(
     () =>
       getUniParcXRefsColumns(
@@ -97,9 +100,17 @@ const XRefsSection = ({ entryData }: Props) => {
         getTemplateMap(dataDB),
         entryData.uniParcId,
         firstSeen,
-        lastSeen
+        lastSeen,
+        obsoleteStatuses
       ),
-    [columns, dataDB, entryData.uniParcId, firstSeen, lastSeen]
+    [
+      columns,
+      dataDB,
+      entryData.uniParcId,
+      firstSeen,
+      lastSeen,
+      obsoleteStatuses,
+    ]
   );
 
   const tooltipWrapperRef = useColumnHeaderTooltips(columnDescriptors);

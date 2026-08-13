@@ -20,6 +20,7 @@ import {
   type UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
+import { type ObsoleteXRefStatus } from '../components/entry/hooks/useObsoleteXRefStatuses';
 import Timeline from '../components/entry/Timeline';
 import { getSubEntryPath } from '../utils/subEntry';
 import { getXrefId } from '../utils/uniparcXref';
@@ -110,18 +111,39 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
     ),
 });
 
+const uniProtKBEntryLink = (id: string) => (
+  <>
+    <Link to={getEntryPath(Namespace.uniprotkb, id, TabLocation.Entry)}>
+      UniProtKB entry
+    </Link>
+    <BasketStatus id={id} />
+  </>
+);
+
+const uniProtKBHistoryLink = (id: string) => (
+  <Link to={getEntryPath(Namespace.uniprotkb, id, TabLocation.History)}>
+    History
+  </Link>
+);
+
 // The identifier column above is just text now; this column spells out every
 // page a cross-reference can be opened on, so each link's label says where it
 // leads:
 //   - active UniProtKB entries -> the UniProtKB entry (plus a basket control)
-//   - obsolete reviewed entries, and obsolete TrEMBL with no organism -> the
-//     UniProtKB history page (the record is gone, but its history remains)
-//   - obsolete TrEMBL that still carries an organism, and active external
-//     references -> the UniParc sub-entry ("sequence annotation") page
+//   - obsolete reviewed entries -> the UniProtKB history page (the record is
+//     gone, but its history remains)
+//   - obsolete TrEMBL -> wherever it actually ended up, which only UniProtKB can
+//     say: see `useObsoleteXRefStatuses` and the comment in the branch below
+//   - active external references -> the UniParc sub-entry ("sequence
+//     annotation") page
 //   - obsolete external references -> back out to the source database
 // Obsolete isoforms and databases with no URL template have nowhere to link.
 const getLinksColumn =
-  (uniparcAccession: string, templateMap: Map<string, string> = new Map()) =>
+  (
+    uniparcAccession: string,
+    templateMap: Map<string, string> = new Map(),
+    obsoleteStatuses: Map<string, ObsoleteXRefStatus> = new Map()
+  ) =>
   (xref: UniParcXRef) => {
     if (!xref.id) {
       return null;
@@ -133,41 +155,36 @@ const getLinksColumn =
       xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
     ) {
       if (xref.active) {
-        cell = (
-          <>
-            <Link
-              to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.Entry)}
-            >
-              UniProtKB entry
-            </Link>
-            <BasketStatus id={xref.id} />
-          </>
-        );
+        cell = uniProtKBEntryLink(xref.id);
       } else if (xref.database === XRefsInternalDatabasesEnum.REVIEWED) {
-        cell = (
-          <Link
-            to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
-          >
-            History
-          </Link>
-        );
+        cell = uniProtKBHistoryLink(xref.id);
       } else if (xref.database === XRefsInternalDatabasesEnum.UNREVIEWED) {
-        // Obsolete TrEMBL: the sub-entry page is only meaningful while the
-        // cross-reference still carries an organism; otherwise fall back to the
-        // UniProtKB history.
-        cell = xref.organism ? (
-          <Link
-            to={getSubEntryPath(uniparcAccession, xref.id, TabLocation.Entry)}
-          >
-            Sequence annotation
-          </Link>
-        ) : (
-          <Link
-            to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
-          >
-            History
-          </Link>
-        );
+        // Obsolete TrEMBL ends up in one of three places, and the xref row can't
+        // tell them apart — it carries no merge information, and its `active`
+        // flag can lag behind UniProtKB. Merged and still-active accessions get
+        // linked straight to their destination, which also spares them the
+        // sub-entry page's redirect.
+        //
+        // Until the lookup resolves — or if it can't, e.g. past its accession
+        // limit — fall back to the sub-entry page with a label that doesn't
+        // promise a specific page. That page routes correctly on its own, so the
+        // destination is right either way; only the wording is less specific.
+        const status = obsoleteStatuses.get(xref.id);
+        if (status === 'active') {
+          cell = uniProtKBEntryLink(xref.id);
+        } else if (status === 'merged') {
+          cell = uniProtKBHistoryLink(xref.id);
+        } else {
+          cell = (
+            <Link
+              to={getSubEntryPath(uniparcAccession, xref.id, TabLocation.Entry)}
+            >
+              {status === 'deleted'
+                ? 'Sequence annotation'
+                : 'UniProtKB record'}
+            </Link>
+          );
+        }
       }
       // Obsolete isoforms fall through with no link.
     } else {
@@ -360,7 +377,8 @@ export const getUniParcXRefsColumns = (
   templateMap: Map<string, string>,
   uniparcAccession: string,
   firstSeen?: string,
-  lastSeen?: string
+  lastSeen?: string,
+  obsoleteStatuses?: Map<string, ObsoleteXRefStatus>
 ): ColumnDescriptor<UniParcXRef>[] =>
   columns.map((name) => {
     const descriptor = UniParcXRefsColumnConfiguration.get(name);
@@ -375,14 +393,14 @@ export const getUniParcXRefsColumns = (
         },
       };
     }
-    // The links column needs the current accession + template map to build its
-    // per-row destinations.
+    // The links column needs the current accession, template map and resolved
+    // obsolete-entry statuses to build its per-row destinations.
     if (name === UniParcXRefsColumn.links) {
       return {
         name,
         label: descriptor?.label,
         tooltip: descriptor?.tooltip,
-        render: getLinksColumn(uniparcAccession, templateMap),
+        render: getLinksColumn(uniparcAccession, templateMap, obsoleteStatuses),
       };
     }
     // In case of timeline column, replace with the current template map

@@ -402,9 +402,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    href="/uniparc/UPI0000000001/entry/Q6RZL4"
+                    href="/uniprotkb/Q6RZL4/history"
                   >
-                    Sequence annotation
+                    History
                   </a>
                 </td>
                 <td>
@@ -472,9 +472,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    href="/uniparc/UPI0000000001/entry/Q76QK2"
+                    href="/uniprotkb/Q76QK2/history"
                   >
-                    Sequence annotation
+                    History
                   </a>
                 </td>
                 <td>
@@ -542,9 +542,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb/Q76ZT7/history"
+                    href="/uniparc/UPI0000000001/entry/Q76ZT7"
                   >
-                    History
+                    Sequence annotation
                   </a>
                 </td>
                 <td />
@@ -603,9 +603,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    href="/uniparc/UPI0000000001/entry/Q0GNZ6"
+                    href="/uniprotkb/Q0GNZ6/entry"
                   >
-                    Sequence annotation
+                    UniProtKB entry
                   </a>
                 </td>
                 <td>
@@ -675,7 +675,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   <a
                     href="/uniparc/UPI0000000001/entry/A0A2I2MDI1"
                   >
-                    Sequence annotation
+                    UniProtKB record
                   </a>
                 </td>
                 <td>
@@ -745,7 +745,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   <a
                     href="/uniparc/UPI0000000001/entry/A0A7I8V511"
                   >
-                    Sequence annotation
+                    UniProtKB record
                   </a>
                 </td>
                 <td>
@@ -815,7 +815,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   <a
                     href="/uniparc/UPI0000000001/entry/G0XTE8"
                   >
-                    Sequence annotation
+                    UniProtKB record
                   </a>
                 </td>
                 <td>

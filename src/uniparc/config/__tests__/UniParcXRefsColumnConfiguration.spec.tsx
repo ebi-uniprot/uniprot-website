@@ -4,6 +4,7 @@ import customRender from '../../../shared/__test-helpers__/customRender';
 import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
 import data from '../../__mocks__/uniparcXrefsModelData';
 import { type UniParcXRef } from '../../adapters/uniParcConverter';
+import { type ObsoleteXRefStatus } from '../../components/entry/hooks/useObsoleteXRefStatuses';
 import UniParcXRefsColumnConfiguration, {
   getUniParcXRefsColumns,
   UniParcXRefsColumn,
@@ -25,11 +26,17 @@ describe('Links column destinations', () => {
     ['EMBL', 'https://www.ebi.ac.uk/ena/browser/view/%id'],
   ]);
 
-  const renderLinksCell = (xref: UniParcXRef) => {
+  const renderLinksCell = (
+    xref: UniParcXRef,
+    obsoleteStatuses?: Map<string, ObsoleteXRefStatus>
+  ) => {
     const [column] = getUniParcXRefsColumns(
       [UniParcXRefsColumn.links],
       templateMap,
-      'UPI0000000001'
+      'UPI0000000001',
+      undefined,
+      undefined,
+      obsoleteStatuses
     );
     return customRender(<div>{column.render(xref)}</div>);
   };
@@ -62,30 +69,55 @@ describe('Links column destinations', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('links an obsolete TrEMBL xref with an organism to its sequence annotation', () => {
-    renderLinksCell({
-      database: 'UniProtKB/TrEMBL',
-      id: 'Q71TT2',
-      active: false,
-      organism: { taxonId: 10254 },
-    });
+  // An obsolete TrEMBL xref can have ended up in one of three places and the row
+  // itself gives no clue which, so the destination follows the resolved status
+  // rather than anything on the xref.
+  const obsoleteTrEMBL: UniParcXRef = {
+    database: 'UniProtKB/TrEMBL',
+    id: 'Q71TT2',
+    active: false,
+  };
+
+  it.each([
+    ['with an organism', { ...obsoleteTrEMBL, organism: { taxonId: 10254 } }],
+    ['with no organism', obsoleteTrEMBL],
+  ])(
+    'labels an unresolved obsolete TrEMBL xref %s without promising a page',
+    (_, xref) => {
+      renderLinksCell(xref);
+
+      // Whichever page the sub-entry router settles on, this label holds
+      expect(
+        screen.getByRole('link', { name: 'UniProtKB record' })
+      ).toHaveAttribute('href', '/uniparc/UPI0000000001/entry/Q71TT2');
+    }
+  );
+
+  it('links a deleted TrEMBL xref to its sequence annotation', () => {
+    renderLinksCell(obsoleteTrEMBL, new Map([['Q71TT2', 'deleted']]));
 
     expect(
       screen.getByRole('link', { name: 'Sequence annotation' })
     ).toHaveAttribute('href', '/uniparc/UPI0000000001/entry/Q71TT2');
   });
 
-  it('links an obsolete TrEMBL xref with no organism to its history', () => {
-    renderLinksCell({
-      database: 'UniProtKB/TrEMBL',
-      id: 'Q71TT2',
-      active: false,
-    });
+  it('links a merged TrEMBL xref straight to its history', () => {
+    renderLinksCell(obsoleteTrEMBL, new Map([['Q71TT2', 'merged']]));
 
+    // Straight to history rather than via the sub-entry page, which would only
+    // redirect there anyway
     expect(screen.getByRole('link', { name: 'History' })).toHaveAttribute(
       'href',
       '/uniprotkb/Q71TT2/history'
     );
+  });
+
+  it('links a TrEMBL xref that UniProtKB still has to its entry', () => {
+    renderLinksCell(obsoleteTrEMBL, new Map([['Q71TT2', 'active']]));
+
+    expect(
+      screen.getByRole('link', { name: 'UniProtKB entry' })
+    ).toHaveAttribute('href', '/uniprotkb/Q71TT2/entry');
   });
 
   it('links an active non-UniProtKB xref to the sequence annotation sub-entry', () => {
