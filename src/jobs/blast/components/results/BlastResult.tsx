@@ -1,9 +1,8 @@
 import cn from 'classnames';
-import { EllipsisReveal, Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
+import { Loader, PageIntro, Tab, Tabs } from 'franklin-sites';
 import { type JSX, lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { type Except } from 'type-fest';
-import joinUrl from 'url-join';
 
 import {
   type blastNamespaces,
@@ -15,7 +14,6 @@ import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler
 import HTMLHead from '../../../../shared/components/HTMLHead';
 import { SidebarLayout } from '../../../../shared/components/layouts/SideBarLayout';
 import sidebarStyles from '../../../../shared/components/layouts/styles/sidebar-layout.module.scss';
-import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
 import apiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import useColumnNames from '../../../../shared/hooks/useColumnNames';
 import useDataApi, {
@@ -30,7 +28,6 @@ import {
 } from '../../../../shared/types/namespaces';
 import { type SearchResults } from '../../../../shared/types/results';
 import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
-import { stringifyUrl } from '../../../../shared/utils/url';
 import { type TaxonomyAPIModel } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -44,7 +41,7 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 import { databaseValueToName } from '../../config/BlastFormData';
 import { type BlastHit, type BlastResults } from '../../types/blastResults';
 import { type PublicServerParameters } from '../../types/blastServerParameters';
-import { taxonIdsToLabels } from '../../utils';
+import { parseTaxonIds, taxonIdsToSummary } from '../../utils';
 import {
   filterBlastByFacets,
   filterBlastDataForResults,
@@ -182,30 +179,6 @@ const enrich = (
   return output;
 };
 
-// Render a comma-separated list of taxon IDs as scientific-name labels,
-// collapsing long lists behind an EllipsisReveal like the jobs dashboard does
-const renderTaxonLabels = (
-  csv: string | undefined,
-  taxonIdToLabel: Map<string, string>
-) => {
-  const labels = taxonIdsToLabels(csv, taxonIdToLabel);
-  if (!labels.length) {
-    return null;
-  }
-  const [first, ...rest] = labels;
-  return (
-    <>
-      {first}
-      {rest.length ? (
-        <EllipsisReveal>
-          {', '}
-          {rest.join(', ')}
-        </EllipsisReveal>
-      ) : null}
-    </>
-  );
-};
-
 const BlastResult = () => {
   const location = useLocation();
 
@@ -323,32 +296,31 @@ const BlastResult = () => {
   // so the results header can label them (e.g. "Homo sapiens [9606]").
   const restrictedTaxonIds = serverParameters?.taxids;
   const excludedTaxonIds = serverParameters?.negative_taxids;
-  const allTaxonIds = useMemo(() => {
-    const ids = new Set<string>();
-    for (const csv of [restrictedTaxonIds, excludedTaxonIds]) {
-      for (const id of (csv || '').split(',')) {
-        const trimmed = id.trim();
-        if (trimmed) {
-          ids.add(trimmed);
-        }
-      }
-    }
-    return [...ids];
-  }, [restrictedTaxonIds, excludedTaxonIds]);
-
-  const { data: taxonomyData } = useDataApi<SearchResults<TaxonomyAPIModel>>(
-    allTaxonIds.length
-      ? stringifyUrl(
-          joinUrl(
-            apiPrefix,
-            Namespace.taxonomy,
-            'taxonIds',
-            allTaxonIds.join(',')
-          ),
-          { fields: 'scientific_name' }
-        )
-      : null
+  const taxonomyUrl = useMemo(
+    () =>
+      apiUrls.search.taxonIds([
+        ...new Set([
+          ...parseTaxonIds(restrictedTaxonIds),
+          ...parseTaxonIds(excludedTaxonIds),
+        ]),
+      ]),
+    [restrictedTaxonIds, excludedTaxonIds]
   );
+
+  const {
+    data: taxonomyData,
+    loading: taxonomyLoading,
+    url: taxonomyRequestedUrl,
+  } = useDataApi<SearchResults<TaxonomyAPIModel>>(taxonomyUrl);
+
+  // Don't label the restrictions until the taxonomy request has settled,
+  // otherwise the heading paints bare numeric IDs before the names arrive.
+  // Comparing the URLs covers the render between the parameters resolving and
+  // the request actually starting, when `loading` is still false. On error this
+  // becomes true with an empty map, so the clauses show bare IDs rather than
+  // disappearing and misstating the scope of the search.
+  const taxonomySettled =
+    !taxonomyLoading && taxonomyRequestedUrl === taxonomyUrl;
 
   const taxonIdToLabel = useMemo(() => {
     const map = new Map<string, string>();
@@ -421,14 +393,10 @@ const BlastResult = () => {
     (serverParameters?.database &&
       databaseValueToName(serverParameters.database)) ||
     namespaceAndToolsLabels[namespace];
-  const restrictedTaxonLabels = renderTaxonLabels(
-    restrictedTaxonIds,
-    taxonIdToLabel
-  );
-  const excludedTaxonLabels = renderTaxonLabels(
-    excludedTaxonIds,
-    taxonIdToLabel
-  );
+  const restrictedTaxonLabels =
+    taxonomySettled && taxonIdsToSummary(restrictedTaxonIds, taxonIdToLabel);
+  const excludedTaxonLabels =
+    taxonomySettled && taxonIdsToSummary(excludedTaxonIds, taxonIdToLabel);
 
   return (
     <SidebarLayout sidebar={sidebar}>
