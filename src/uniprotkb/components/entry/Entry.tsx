@@ -466,25 +466,17 @@ const Entry = () => {
     match?.params.accession
   );
   const communityCuratedCounts = useMemo(() => {
-    const indexed = +(
-      communityCuratedPayload.headers?.['x-total-results'] || 0
-    );
+    /* Undefined until the response carries a count, so that consumers can tell
+    "not known yet" apart from "this release holds none": a failed request
+    carries the headers of its error response, which hold no count, and the 0
+    read off them would claim a release is behind on a count never obtained. */
+    const total = communityCuratedPayload.headers?.['x-total-results'];
+    const indexed = total === undefined ? NaN : +total;
     return {
       submitted: communitySubmittedCount,
-      /* Undefined until the request resolves successfully, so that consumers
-      can tell "not known yet" apart from "this release holds none": a failed
-      request carries the headers of its error response, and the 0 read off
-      them would claim a release is behind on a count never obtained. */
-      indexed:
-        communityCuratedPayload.status === 200 && Number.isFinite(indexed)
-          ? indexed
-          : undefined,
+      indexed: Number.isFinite(indexed) ? indexed : undefined,
     };
-  }, [
-    communitySubmittedCount,
-    communityCuratedPayload.headers,
-    communityCuratedPayload.status,
-  ]);
+  }, [communitySubmittedCount, communityCuratedPayload.headers]);
 
   // Redirect to history when demerged and to UniParc when deleted
   useEffect(() => {

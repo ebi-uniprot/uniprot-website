@@ -14,15 +14,15 @@ const fetchOptions: { method: Method } = {
  * which the entry counts and shares through the CommunityCuratedCountsContext.
  */
 const useCommunityCuratedCount = (accession?: string) => {
-  const { headers, status } = useDataApi(
+  const { headers } = useDataApi(
     accession ? externalUrls.CommunityCuratedQuery(accession) : null,
     fetchOptions
   );
-  /* A failed request carries the headers of its error response, so only a
-  successful one has been given a count to read — and a non-numerical one would
-  otherwise read as NaN, which is neither a count nor falsy in the same way. */
+  /* The header is what we have been given a count in, whatever the response it
+  came on: anything else — no header at all, or one holding something that
+  isn't a number — is no count, rather than the NaN it would otherwise read as. */
   const count = +(headers?.['x-total-results'] || 0);
-  return status === 200 && Number.isFinite(count) ? count : 0;
+  return Number.isFinite(count) ? count : 0;
 };
 
 export default useCommunityCuratedCount;

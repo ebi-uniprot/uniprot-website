@@ -20,7 +20,6 @@ describe('useCommunityCuratedCount', () => {
   it('should return the number of submissions', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
-      status: 200,
       headers: { 'x-total-results': '3' },
     });
 
@@ -32,7 +31,6 @@ describe('useCommunityCuratedCount', () => {
   it('should return 0 when there are no submissions', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
-      status: 200,
       headers: { 'x-total-results': '0' },
     });
 
@@ -44,7 +42,6 @@ describe('useCommunityCuratedCount', () => {
   it('should return 0 when the header is missing', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
-      status: 200,
       headers: {},
     });
 
@@ -53,12 +50,13 @@ describe('useCommunityCuratedCount', () => {
     expect(result.current).toBe(0);
   });
 
-  // A failed request still carries the headers of its error response
+  // A failed request carries the headers of its error response, which hold no
+  // count
   it('should return 0 when the request failed', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
       status: 500,
-      headers: { 'x-total-results': '3' },
+      headers: { 'content-type': 'text/html' },
       error: new Error('nope'),
     });
 
@@ -67,10 +65,24 @@ describe('useCommunityCuratedCount', () => {
     expect(result.current).toBe(0);
   });
 
+  /* Anything the endpoint answers a count on is a count: this one is a HEAD to
+  an external site whose exact status is not ours to predict, and the button it
+  feeds used to disappear whenever we guessed at it. */
+  it('should return the count whatever the status it came on', () => {
+    (useDataApi as jest.Mock).mockReturnValue({
+      loading: false,
+      status: 203,
+      headers: { 'x-total-results': '1' },
+    });
+
+    const { result } = renderHook(() => useCommunityCuratedCount('Q9QZ05'));
+
+    expect(result.current).toBe(1);
+  });
+
   it('should return 0 rather than NaN when the count is not a number', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
-      status: 200,
       headers: { 'x-total-results': 'unknown' },
     });
 
