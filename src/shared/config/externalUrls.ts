@@ -81,7 +81,9 @@ const externalUrls = {
   EuropePMC: (id: string | number) => `//europepmc.org/article/MED/${id}`,
   // Data endpoint, queried with HEAD to count the submissions for an accession
   CommunityCuratedQuery: (accession: string) =>
-    `https://community.uniprot.org/cgi-bin/bbsub_query?accession=${accession}`,
+    stringifyUrl('https://community.uniprot.org/cgi-bin/bbsub_query', {
+      accession,
+    }),
   /**
    * Human-facing page listing the community submissions for an accession, deep
    * linking to a specific publication when given a PubMed ID. Citation IDs are

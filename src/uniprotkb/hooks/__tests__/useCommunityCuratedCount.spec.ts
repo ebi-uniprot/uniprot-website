@@ -20,6 +20,7 @@ describe('useCommunityCuratedCount', () => {
   it('should return the number of submissions', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
+      status: 200,
       headers: { 'x-total-results': '3' },
     });
 
@@ -31,6 +32,7 @@ describe('useCommunityCuratedCount', () => {
   it('should return 0 when there are no submissions', () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
+      status: 200,
       headers: { 'x-total-results': '0' },
     });
 
@@ -40,7 +42,37 @@ describe('useCommunityCuratedCount', () => {
   });
 
   it('should return 0 when the header is missing', () => {
-    (useDataApi as jest.Mock).mockReturnValue({ loading: false, headers: {} });
+    (useDataApi as jest.Mock).mockReturnValue({
+      loading: false,
+      status: 200,
+      headers: {},
+    });
+
+    const { result } = renderHook(() => useCommunityCuratedCount('P05067'));
+
+    expect(result.current).toBe(0);
+  });
+
+  // A failed request still carries the headers of its error response
+  it('should return 0 when the request failed', () => {
+    (useDataApi as jest.Mock).mockReturnValue({
+      loading: false,
+      status: 500,
+      headers: { 'x-total-results': '3' },
+      error: new Error('nope'),
+    });
+
+    const { result } = renderHook(() => useCommunityCuratedCount('P05067'));
+
+    expect(result.current).toBe(0);
+  });
+
+  it('should return 0 rather than NaN when the count is not a number', () => {
+    (useDataApi as jest.Mock).mockReturnValue({
+      loading: false,
+      status: 200,
+      headers: { 'x-total-results': 'unknown' },
+    });
 
     const { result } = renderHook(() => useCommunityCuratedCount('P05067'));
 

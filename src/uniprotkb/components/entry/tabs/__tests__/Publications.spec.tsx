@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
+import { type Reference } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 import entryPublicationData from '../../__tests__/__mocks__/entryPublicationsData';
 import { PublicationReference, PublicationSource } from '../Publications';
 
@@ -33,6 +34,41 @@ describe('PublicationReference', () => {
     expect(
       screen.getByRole('link', { name: /see community submission/ })
     ).toHaveAttribute('href', expect.stringContaining(`pmid=${citationId}`));
+  });
+
+  /* The rows of the references of a citation are merged into a single list, and
+  the comment groups one reference has and another doesn't used to shift every
+  row after them out of line with the rows they were merged onto. */
+  it('should merge rows by title when the references hold different comments', () => {
+    const references: Reference[] = [
+      {
+        citationId: '12345678',
+        referencePositions: ['FUNCTION'],
+        referenceComments: [{ type: 'TISSUE', value: 'Liver' }],
+        sourceCategories: ['Function'],
+        source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+      },
+      {
+        citationId: '12345678',
+        sourceCategories: ['Expression'],
+        source: { name: 'ORCID', id: '0009-0004-6150-6467' },
+        communityAnnotation: { comment: 'A community comment' },
+      },
+    ];
+
+    customRender(
+      <PublicationReference references={references} accession="O43865" />
+    );
+
+    // Both the rows the second reference is alone in having...
+    expect(
+      screen.getByRole('link', { name: /see community submission/ })
+    ).toHaveAttribute('href', expect.stringContaining('pmid=12345678'));
+    expect(screen.getByText('A community comment')).toBeInTheDocument();
+    // ...and the ones it shares with the first
+    expect(screen.getByText('Liver')).toBeInTheDocument();
+    expect(screen.getByText('Function, Expression')).toBeInTheDocument();
+    expect(screen.getByText('Categories')).toBeInTheDocument();
   });
 });
 

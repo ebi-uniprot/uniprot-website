@@ -140,6 +140,15 @@ export const PublicationReference = ({
   references,
   accession,
 }: PublicationsReferenceProps) => {
+  /* The categories of every reference end up merged into a single row below,
+  so pluralise its title on what that row will hold rather than on any one
+  reference: a title that changes from one reference to the next would be two
+  rows counting the same thing. */
+  const totalCategories = references.reduce(
+    (total, { sourceCategories }) => total + (sourceCategories?.length ?? 0),
+    0
+  );
+
   const infoListWithContent = references.map((reference) => {
     const {
       referencePositions,
@@ -211,11 +220,7 @@ export const PublicationReference = ({
         content: communityAnnotation?.disease,
       },
       {
-        title: pluralise(
-          'Category',
-          sourceCategories?.length ?? 0,
-          'Categories'
-        ),
+        title: pluralise('Category', totalCategories, 'Categories'),
         content: sourceCategories?.join(', '),
       },
       {
@@ -232,29 +237,31 @@ export const PublicationReference = ({
     return infoListData;
   });
 
-  // Merging all of them into one
-  let mergedInfoList: InfoListItem[] = [];
-  infoListWithContent.forEach((arr) => {
-    if (mergedInfoList.length) {
-      arr.forEach((obj, i) => {
-        if (
-          obj.title === mergedInfoList[i].title &&
-          obj.content !== undefined &&
-          mergedInfoList[i].content !== obj.content
-        ) {
-          mergedInfoList[i].content = (
-            <>
-              {mergedInfoList[i].content}
-              {mergedInfoList[i].content && ', '}
-              {obj.content}
-            </>
-          );
-        }
-      });
-    } else {
-      mergedInfoList = [...arr];
+  /* Merging all of them into one, matching rows by title rather than by
+  position: the comment groups spliced in above vary from one reference to the
+  next, so the same title doesn't sit at the same index in every list. A row a
+  later reference is alone in having — the community submission link on the
+  source of an ORCID reference, say — is appended rather than dropped. */
+  const mergedInfoList: InfoListItem[] = [];
+  const mergedByTitle = new Map<string, InfoListItem>();
+  for (const infoListData of infoListWithContent) {
+    for (const { title, content } of infoListData) {
+      const merged = mergedByTitle.get(title);
+      if (!merged) {
+        const item: InfoListItem = { title, content };
+        mergedByTitle.set(title, item);
+        mergedInfoList.push(item);
+      } else if (content !== undefined && merged.content !== content) {
+        merged.content = (
+          <>
+            {merged.content}
+            {merged.content && ', '}
+            {content}
+          </>
+        );
+      }
     }
-  });
+  }
 
   return (
     <InfoList infoData={mergedInfoList} isCompact className="text-block" />
@@ -343,8 +350,8 @@ const Publications = ({ accession }: PublicationsProps) => {
   const { total, nextUrl } = metaData;
 
   /* Only the results are replaced by the loader, rather than the whole section,
-  so that changing facets doesn't unmount the community message: it would
-  refetch its counts and flash back in on every facet change. */
+  so that the heading and the community message stay put while a facet change
+  reloads the results, rather than flashing out and back in around it. */
   const loadingFirstPage = allResults.length === 0 && loading;
 
   return (

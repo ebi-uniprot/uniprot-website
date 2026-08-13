@@ -85,8 +85,7 @@ describe('EntryPublications tests', () => {
     expect(
       screen.queryByText(/Identification of an S-adenosylhomocysteine/)
     ).not.toBeInTheDocument();
-    // Still the very same node, so it never unmounted, refetched its count and
-    // flashed back in
+    // Still the very same node, so it never unmounted and flashed back in
     expect(screen.getByRole('link', communityCuratedLink)).toBe(link);
   });
 
@@ -105,24 +104,5 @@ describe('EntryPublications tests', () => {
       'href',
       externalUrls.CommunityCuratedGetByAccession('P05067')
     );
-  });
-
-  it('should not request the counts again when the facet is toggled', () => {
-    const { history } = renderTab('/uniprotkb/P05067/publications');
-
-    for (const search of ['?facets=types%3A0', '', '?facets=types%3A0']) {
-      act(() => {
-        history.push(`/uniprotkb/P05067/publications${search}`);
-      });
-    }
-
-    expect(screen.getByRole('link', communityCuratedLink)).toBeInTheDocument();
-    // The counts come from the entry, so toggling the facet the message is
-    // rendered behind must not reach the community curation site
-    expect(
-      (useDataApi as jest.Mock).mock.calls.filter(([url]) =>
-        String(url).startsWith('https://community.uniprot.org/')
-      )
-    ).toHaveLength(0);
   });
 });

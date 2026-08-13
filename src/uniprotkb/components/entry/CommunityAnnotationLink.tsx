@@ -4,7 +4,7 @@ import { generatePath, Link } from 'react-router-dom';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { TabLocation } from '../../types/entry';
 import { communityCuratedFacet } from '../../utils/CommunitySubmission';
-import { facetsAsString } from '../../utils/resultsUtils';
+import { getLocationObjForParams } from '../../utils/resultsUtils';
 
 type CommunityAnnotationLinkProps = {
   accession: string;
@@ -21,13 +21,13 @@ const CommunityAnnotationLink = ({
   }
   return (
     <Link
-      to={{
+      to={getLocationObjForParams({
         pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
           accession,
           subPage: TabLocation.Publications,
         }),
-        search: `?facets=${facetsAsString([communityCuratedFacet])}`,
-      }}
+        selectedFacets: [communityCuratedFacet],
+      })}
       className="button tertiary"
     >
       <CommunityAnnotationIcon /> {`Community curated (${count})`}

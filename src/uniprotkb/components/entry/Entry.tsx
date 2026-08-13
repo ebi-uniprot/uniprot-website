@@ -458,22 +458,33 @@ const Entry = () => {
   /* Fetched here, once per entry, rather than by the components that need
   them: they are read from both the tools row and the publications tab, and
   neither count depends on the tab or on the facets, so fetching them lower
-  down would re-request on every remount. Obsolete entries show neither, so
-  don't ask PIR about them. */
+  down would re-request on every remount. Asked for alongside the entry itself
+  rather than behind it: whether the entry turns out to be obsolete — which
+  nothing here knows on the first render — is not worth holding the count, and
+  so the tools row, behind a round trip. */
   const communitySubmittedCount = useCommunityCuratedCount(
-    isObsolete ? undefined : match?.params.accession
+    match?.params.accession
   );
-  const communityCuratedCounts = useMemo(
-    () => ({
+  const communityCuratedCounts = useMemo(() => {
+    const indexed = +(
+      communityCuratedPayload.headers?.['x-total-results'] || 0
+    );
+    return {
       submitted: communitySubmittedCount,
-      // Undefined until resolved, so that consumers can tell "not known yet"
-      // apart from "this release holds none"
-      indexed: communityCuratedPayload.headers
-        ? +(communityCuratedPayload.headers['x-total-results'] || 0)
-        : undefined,
-    }),
-    [communitySubmittedCount, communityCuratedPayload.headers]
-  );
+      /* Undefined until the request resolves successfully, so that consumers
+      can tell "not known yet" apart from "this release holds none": a failed
+      request carries the headers of its error response, and the 0 read off
+      them would claim a release is behind on a count never obtained. */
+      indexed:
+        communityCuratedPayload.status === 200 && Number.isFinite(indexed)
+          ? indexed
+          : undefined,
+    };
+  }, [
+    communitySubmittedCount,
+    communityCuratedPayload.headers,
+    communityCuratedPayload.status,
+  ]);
 
   // Redirect to history when demerged and to UniParc when deleted
   useEffect(() => {
