@@ -1,29 +1,18 @@
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import useDataApi from '../../../../shared/hooks/useDataApi';
 import CommunityAnnotationLink from '../CommunityAnnotationLink';
-
-jest.mock('../../../../shared/hooks/useDataApi');
 
 describe('CommunityAnnotationLink', () => {
   it('should render with >0 number of submissions', () => {
-    (useDataApi as jest.Mock).mockReturnValue({
-      loading: false,
-      headers: { 'x-total-results': 3 },
-    });
     const { asFragment } = customRender(
-      <CommunityAnnotationLink accession="P05067" />
+      <CommunityAnnotationLink accession="P05067" count={3} />
     );
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByText('Community curated (3)')).toBeInTheDocument();
   });
   it('should render nothing with no submission', () => {
-    (useDataApi as jest.Mock).mockReturnValue({
-      loading: false,
-      headers: { 'x-total-results': 0 },
-    });
-    customRender(<CommunityAnnotationLink accession="P05067" />);
+    customRender(<CommunityAnnotationLink accession="P05067" count={0} />);
     expect(screen.queryByText('Community curated')).not.toBeInTheDocument();
   });
 });
