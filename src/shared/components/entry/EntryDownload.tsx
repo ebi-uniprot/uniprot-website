@@ -516,11 +516,13 @@ const EntryDownload = ({
   useEffect(() => {
     if (data) {
       const fields = data[0]?.fields?.flatMap((item) => item.name);
+      // eslint-disable-next-line @eslint-react/set-state-in-effect -- seeds the editable column selection from fetched field metadata
       setDownloadColumns(fields);
     }
   }, [data]);
 
   useEffect(() => {
+    /* eslint-disable @eslint-react/set-state-in-effect -- the available file formats are a function of the selected dataset/namespace */
     switch (selectedDataset) {
       case Dataset.uniprotData:
         setFileFormats(namespace ? formatMap.get(namespace) : []);
@@ -559,10 +561,12 @@ const EntryDownload = ({
       default:
         break;
     }
+    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [namespace, selectedDataset]);
 
   useEffect(() => {
     if (fileFormats) {
+      // eslint-disable-next-line @eslint-react/set-state-in-effect -- resets the selected format when the available formats change
       setSelectedFormat(fileFormats[0]);
     }
   }, [fileFormats]);
@@ -576,6 +580,7 @@ const EntryDownload = ({
       !subEntryAnnotationDownload &&
       selectedDataset === Dataset.subEntryAnnotation
     ) {
+      // eslint-disable-next-line @eslint-react/set-state-in-effect -- resets the dataset when the prop that seeded it disappears
       setSelectedDataset(dataset || Dataset.uniprotData);
     }
   }, [subEntryAnnotationDownload, selectedDataset, dataset]);

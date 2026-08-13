@@ -94,9 +94,6 @@ const GoCam = ({ primaryAccession, isUniProtKBAccession = true }: Props) => {
     const cancelTokenSource = axios.CancelToken.source();
     const abortController = new AbortController();
     const { signal } = abortController;
-    signal.addEventListener('abort', () => {
-      cancelTokenSource.cancel('Operation canceled by the user.');
-    });
 
     async function fetchGoCamModels() {
       if (goCamIdToItem.size) {
@@ -139,6 +136,7 @@ const GoCam = ({ primaryAccession, isUniProtKBAccession = true }: Props) => {
     fetchGoCamModels();
     return () => {
       abortController.abort();
+      cancelTokenSource.cancel('Operation canceled by the user.');
     };
   }, [goCamIdToItem, primaryAccession, setGoCamIdToNode]);
 

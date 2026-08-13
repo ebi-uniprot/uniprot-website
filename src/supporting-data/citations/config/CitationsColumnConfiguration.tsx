@@ -121,6 +121,7 @@ CitationsColumnConfiguration.set(CitationsColumn.litAbstract, {
   render: ({ citation }) =>
     citation?.literatureAbstract && (
       <div
+        // eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- content is sanitized by cleanText
         dangerouslySetInnerHTML={{
           __html: cleanText(citation.literatureAbstract, {
             ...cleanTextDefaultOptions,

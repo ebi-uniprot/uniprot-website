@@ -1,4 +1,5 @@
 import customRender from '../../../__test-helpers__/customRender';
+import settle from '../../../__test-helpers__/settle';
 import {
   useEarlySidebarCollapseScreen,
   useSmallScreen,
@@ -36,41 +37,46 @@ describe('SidebarLayout', () => {
     useEarlySidebarMock.mockReturnValue(false);
   });
 
-  it('renders the sidebar at typical desktop widths', () => {
+  it('renders the sidebar at typical desktop widths', async () => {
     const { queryByText } = renderLayout();
     expect(queryByText('{{ Sidebar }}')).toBeInTheDocument();
     expect(queryByText('{{ Main Content }}')).toBeInTheDocument();
+    await settle();
   });
 
-  it('hides the sidebar below the Franklin small breakpoint', () => {
+  it('hides the sidebar below the Franklin small breakpoint', async () => {
     useSmallScreenMock.mockReturnValue(true);
     const { queryByText } = renderLayout();
     expect(queryByText('{{ Sidebar }}')).not.toBeInTheDocument();
     expect(queryByText('{{ Main Content }}')).toBeInTheDocument();
+    await settle();
   });
 
   describe('collapseSidebarEarly', () => {
-    it('hides the sidebar at the early-collapse breakpoint when opted in', () => {
+    it('hides the sidebar at the early-collapse breakpoint when opted in', async () => {
       // Between small (640px) and early-collapse (768px): small=false,
       // early=true. Without the opt-in, the sidebar would still show.
       useSmallScreenMock.mockReturnValue(false);
       useEarlySidebarMock.mockReturnValue(true);
       const { queryByText } = renderLayout({ collapseSidebarEarly: true });
       expect(queryByText('{{ Sidebar }}')).not.toBeInTheDocument();
+      await settle();
     });
 
-    it('ignores the early-collapse signal when not opted in', () => {
+    it('ignores the early-collapse signal when not opted in', async () => {
       useSmallScreenMock.mockReturnValue(false);
       useEarlySidebarMock.mockReturnValue(true);
       const { queryByText } = renderLayout();
       expect(queryByText('{{ Sidebar }}')).toBeInTheDocument();
+      await settle();
     });
 
-    it('still hides the sidebar below the small breakpoint when opted in', () => {
+    it('still hides the sidebar below the small breakpoint when opted in', async () => {
       useSmallScreenMock.mockReturnValue(true);
       useEarlySidebarMock.mockReturnValue(true);
       const { queryByText } = renderLayout({ collapseSidebarEarly: true });
       expect(queryByText('{{ Sidebar }}')).not.toBeInTheDocument();
+      await settle();
     });
   });
 });

@@ -5,16 +5,26 @@ module.exports = function (api) {
   api.cache(true);
 
   return {
-    presets: [
-      [
-        '@babel/preset-env',
-        {
-          useBuiltIns: 'usage',
-          corejs: { version: '3', proposals: true },
-        },
-      ],
-      ['@babel/preset-react', { runtime: 'automatic' }],
-      '@babel/preset-typescript',
+    // `.ts` files can't contain JSX, so preset-react (which puts the parser
+    // in JSX mode) is applied only to the other extensions. This lets Babel 8
+    // parse generic arrows like `<T>(x) => ...` in `.ts` files without a
+    // trailing comma.
+    overrides: [
+      {
+        test: /\.ts$/,
+        presets: [
+          ['@babel/preset-env', { targets: { node: 'current' } }],
+          ['@babel/preset-typescript', { onlyRemoveTypeImports: false }],
+        ],
+      },
+      {
+        exclude: /\.ts$/,
+        presets: [
+          ['@babel/preset-env', { targets: { node: 'current' } }],
+          ['@babel/preset-react', { runtime: 'automatic' }],
+          ['@babel/preset-typescript', { onlyRemoveTypeImports: false }],
+        ],
+      },
     ],
   };
 };

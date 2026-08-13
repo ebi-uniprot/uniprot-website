@@ -28,6 +28,9 @@ import {
 } from '../../../../supporting-data/citations/adapters/citationsConverter';
 import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';
+import WithheldByRequest, {
+  isWithheldSubmitter,
+} from '../../../utils/CommunitySubmission';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
 
 const orcidIDRegExp = /(\d{4}-){3}\d{4}/;
@@ -60,15 +63,19 @@ export const PublicationSource = ({
       <>
         <EntryTypeIcon entryType={source.name} />
         {source.name}:{' '}
-        <ExternalLink
-          url={
-            source.id && orcidIDRegExp.test(source.id)
-              ? processUrlTemplate(uriLink, { id: source.id })
-              : null
-          }
-        >
-          {source.id}
-        </ExternalLink>
+        {isWithheldSubmitter(source.id) ? (
+          <WithheldByRequest />
+        ) : (
+          <ExternalLink
+            url={
+              source.id && orcidIDRegExp.test(source.id)
+                ? processUrlTemplate(uriLink, { id: source.id })
+                : null
+            }
+          >
+            {source.id}
+          </ExternalLink>
+        )}
         {' ('}
         <ExternalLink
           url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
@@ -292,9 +299,11 @@ const Publications = ({ accession }: PublicationsProps) => {
   );
 
   useEffect(() => {
+    /* eslint-disable @eslint-react/set-state-in-effect -- resets the accumulated pages when the query changes; cannot be derived during render */
     setAllResults([]);
     setMetaData({ total: 0, nextUrl: undefined });
     setUrl(initialUrl);
+    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [initialUrl]);
 
   useEffect(() => {
@@ -302,11 +311,13 @@ const Publications = ({ accession }: PublicationsProps) => {
       return;
     }
     const { results } = data;
+    /* eslint-disable @eslint-react/set-state-in-effect -- accumulates each fetched page into state as the request resolves */
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: +(headers?.['x-total-results'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
+    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [data, headers]);
 
   const cardRenderer = useMemo(() => cardRendererFor(accession), [accession]);

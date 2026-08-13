@@ -140,7 +140,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+1%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+1%22%29"
                   >
                     13,926
                   </a>
@@ -206,7 +206,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+2%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+2%22%29"
                   >
                     10,399
                   </a>
@@ -259,7 +259,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+3%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+3%22%29"
                   >
                     9,040
                   </a>
@@ -312,7 +312,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+4%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+4%22%29"
                   >
                     5,517
                   </a>
@@ -365,7 +365,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+5%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+5%22%29"
                   >
                     5,956
                   </a>
@@ -405,7 +405,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+6%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+6%22%29"
                   >
                     6,428
                   </a>
@@ -445,7 +445,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+7%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+7%22%29"
                   >
                     7,007
                   </a>
@@ -485,7 +485,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+8%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+8%22%29"
                   >
                     4,936
                   </a>
@@ -525,7 +525,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+9%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+9%22%29"
                   >
                     5,322
                   </a>
@@ -578,7 +578,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+10%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+10%22%29"
                   >
                     5,824
                   </a>
@@ -618,7 +618,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+X%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+X%22%29"
                   >
                     4,344
                   </a>
@@ -671,7 +671,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+11%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+11%22%29"
                   >
                     8,951
                   </a>
@@ -711,7 +711,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+12%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+12%22%29"
                   >
                     8,119
                   </a>
@@ -751,7 +751,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+13%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+13%22%29"
                   >
                     2,161
                   </a>
@@ -830,7 +830,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+14%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+14%22%29"
                   >
                     5,048
                   </a>
@@ -883,7 +883,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+15%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+15%22%29"
                   >
                     4,595
                   </a>
@@ -936,7 +936,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+16%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+16%22%29"
                   >
                     6,933
                   </a>
@@ -1015,7 +1015,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+17%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+17%22%29"
                   >
                     9,231
                   </a>
@@ -1055,7 +1055,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+18%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+18%22%29"
                   >
                     2,335
                   </a>
@@ -1095,7 +1095,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+19%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+19%22%29"
                   >
                     9,770
                   </a>
@@ -1135,7 +1135,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+20%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+20%22%29"
                   >
                     3,512
                   </a>
@@ -1175,7 +1175,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+21%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+21%22%29"
                   >
                     1,287
                   </a>
@@ -1215,7 +1215,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+22%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+22%22%29"
                   >
                     3,619
                   </a>
@@ -1268,7 +1268,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+Y%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+Y%22%29"
                   >
                     174
                   </a>
@@ -1308,7 +1308,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AMitochondrion+MT%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Mitochondrion+MT%22%29"
                   >
                     23
                   </a>
@@ -1348,7 +1348,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AUnplaced%22%29"
+                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Unplaced%22%29"
                   >
                     3,063
                   </a>

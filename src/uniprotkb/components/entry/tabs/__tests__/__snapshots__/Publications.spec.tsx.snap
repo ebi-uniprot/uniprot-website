@@ -109,7 +109,31 @@ exports[`PublicationSource Community annotations renders ORCID links 2`] = `
   >
     <test-file-stub />
   </span>
-  ORCID: Anonymous (
+  ORCID: 
+  <span
+    class="container"
+  >
+    <button
+      aria-describedby="1"
+      class="trigger"
+      type="button"
+    >
+      Withheld by request
+    </button>
+    <span
+      class="visually-hidden"
+      id="1"
+    >
+      The contributor authenticated with ORCID but has chosen not to display their identity publicly.
+    </span>
+    <span
+      aria-hidden="true"
+      class="bubble"
+    >
+      The contributor authenticated with ORCID but has chosen not to display their identity publicly.
+    </span>
+  </span>
+   (
   <a
     class="external-link"
     href="//community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
