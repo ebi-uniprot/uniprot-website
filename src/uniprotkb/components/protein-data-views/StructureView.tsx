@@ -1,4 +1,11 @@
-import { DownloadIcon, Loader, Message } from 'franklin-sites';
+import {
+  DownloadIcon,
+  EllipsisReveal,
+  Loader,
+  Message,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import {
   type ProcessedStructureData,
   type ProtvistaUniprotStructure,
@@ -20,6 +27,38 @@ import { AFDBOutOfSync } from './AFDBOutOfSync';
 import styles from './styles/structure-view.module.scss';
 
 type StructureRow = ProcessedStructureData & { rowKey: string };
+
+const PDB_SOURCE = 'PDB';
+const ALPHAFOLD_SOURCE = 'AlphaFold DB';
+
+const parseResolution = (resolution?: string): number | undefined => {
+  const match = resolution?.match(/[\d.]+/);
+  return match ? parseFloat(match[0]) : undefined;
+};
+
+const RESOLUTION_THRESHOLDS = [2.5, 4, 6, 10] as const;
+
+const structureTabs = [
+  {
+    id: 'pdb',
+    title: 'PDB',
+    belongs: (row: StructureRow) => row.source === PDB_SOURCE,
+    hiddenColumns: ['source', 'isoform', 'oligomeric_state'],
+  },
+  {
+    id: 'alphafolddb',
+    title: 'AlphaFoldDB',
+    belongs: (row: StructureRow) => row.source === ALPHAFOLD_SOURCE,
+    hiddenColumns: ['source', 'method', 'resolution'],
+  },
+  {
+    id: 'others',
+    title: 'Others',
+    belongs: (row: StructureRow) =>
+      row.source !== PDB_SOURCE && row.source !== ALPHAFOLD_SOURCE,
+    hiddenColumns: ['isoform', 'method', 'resolution', 'oligomeric_state'],
+  },
+] as const;
 
 const StructureView = ({
   primaryAccession,
@@ -100,18 +139,68 @@ const StructureView = ({
     [structureEl]
   );
 
+  // Group the loaded structures into the visible tabs, dropping any tab with no
+  // structures to show.
+  const visibleTabs = useMemo(
+    () =>
+      structureTabs
+        .map((tab) => ({ ...tab, rows: structures.filter(tab.belongs) }))
+        .filter((tab) => tab.rows.length > 0),
+    [structures]
+  );
+
+  const selectedStructure = structures.find((row) => row.id === selectedId);
+  const activeTab =
+    visibleTabs.find(
+      (tab) => selectedStructure && tab.belongs(selectedStructure)
+    ) ?? visibleTabs[0];
+
+  // Switching tabs selects that tab's first structure, which both highlights
+  // the row and drives the shared viewer.
+  const handleTabClick = useCallback(
+    (rows: StructureRow[]) => {
+      const [first] = rows;
+      if (first) {
+        handleRowClick(first);
+      }
+    },
+    [handleRowClick]
+  );
+
   const columns = useMemo((): TableFromDataColumn<ProcessedStructureData>[] => {
     const cols: TableFromDataColumn<ProcessedStructureData>[] = [
+      {
+        id: 'id',
+        label: 'Identifier',
+        render: (row) => {
+          if (row.source === PDB_SOURCE) {
+            return (
+              <ExternalLink
+                // Use https://www.wwpdb.org/pdb?id= whenever the new ids are mapped to UniProt
+                url={`https://www.ebi.ac.uk/pdbe/entry/pdb/${row.id}`}
+              >
+                {row.id}
+              </ExternalLink>
+            );
+          }
+          if (row.source === ALPHAFOLD_SOURCE) {
+            return (
+              <ExternalLink url={`https://alphafold.ebi.ac.uk/entry/${row.id}`}>
+                {row.id}
+              </ExternalLink>
+            );
+          }
+          if (row.sourceDBLink) {
+            return <ExternalLink url={row.sourceDBLink}>{row.id}</ExternalLink>;
+          }
+          return row.id;
+        },
+      },
       {
         id: 'source',
         label: 'Source',
         render: (row) => <strong>{row.source}</strong>,
         getValue: (row) => row.source,
-      },
-      {
-        id: 'id',
-        label: 'Identifier',
-        render: (row) => row.id,
       },
     ];
 
@@ -150,11 +239,30 @@ const StructureView = ({
         id: 'resolution',
         label: 'Resolution',
         render: (row) => row.resolution?.replace(/ A\b/g, ' Å') ?? null,
+        filterOptions: RESOLUTION_THRESHOLDS.map((threshold) => ({
+          label: `Below ${threshold} Å`,
+          predicate: (row) => {
+            const resolution = parseResolution(row.resolution);
+            return resolution !== undefined && resolution < threshold;
+          },
+        })),
       },
       {
         id: 'chain',
         label: 'Chain',
-        render: (row) => row.chain ?? null,
+        render: (row) =>
+          row.chain ? (
+            <>
+              {row.chain.length > 10 ? (
+                <span className={helper['no-wrap']}>
+                  {row.chain.slice(0, 10)}
+                  <EllipsisReveal>{row.chain.slice(10)}</EllipsisReveal>
+                </span>
+              ) : (
+                row.chain
+              )}
+            </>
+          ) : null,
       },
       {
         id: 'positions',
@@ -162,89 +270,48 @@ const StructureView = ({
         render: (row) => row.positions ?? null,
       },
       {
+        id: 'oligomeric_state',
+        label: 'Oligomeric State',
+        render: (row) => row.oligomericState ?? null,
+        getValue: (row) => row.oligomericState,
+      },
+      {
         id: 'links',
         label: 'Links',
         render: (row) => {
-          if (row.source === 'PDB') {
+          const downloadLink = row.downloadUrl ? (
+            <a
+              href={row.downloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download structure file"
+            >
+              <DownloadIcon width="1em" />
+            </a>
+          ) : null;
+          const foldseekAccession =
+            row.source === PDB_SOURCE ? row.id : primaryAccession;
+          const showFoldseek =
+            row.source === PDB_SOURCE ||
+            (row.source === ALPHAFOLD_SOURCE &&
+              row.isoformIsCanonical === true &&
+              Boolean(foldseekAccession));
+          if (showFoldseek) {
+            const foldseekSource =
+              row.source === PDB_SOURCE ? 'PDB' : 'AlphaFoldDB';
             return (
               <span className={helper['no-wrap']}>
+                {downloadLink}
+                {' · '}
                 <ExternalLink
-                  url={`https://www.ebi.ac.uk/pdbe-srv/view/entry/${row.id}`}
+                  url={`https://search.foldseek.com/search?accession=${foldseekAccession}&source=${foldseekSource}`}
                 >
-                  PDBe
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://www.rcsb.org/structure/${row.id}`}>
-                  RCSB-PDB
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://pdbj.org/mine/summary/${row.id}`}>
-                  PDBj
-                </ExternalLink>
-                {' · '}
-                <ExternalLink url={`https://www.ebi.ac.uk/pdbsum/${row.id}`}>
-                  PDBsum
+                  Foldseek
                 </ExternalLink>
               </span>
             );
           }
-          if (row.source === 'AlphaFold DB' && primaryAccession) {
-            return (
-              <ExternalLink
-                url={`https://alphafold.ebi.ac.uk/entry/${primaryAccession}`}
-              >
-                AlphaFold DB
-              </ExternalLink>
-            );
-          }
-          if (row.sourceDBLink) {
-            return (
-              <ExternalLink url={row.sourceDBLink}>{row.source}</ExternalLink>
-            );
-          }
-          return null;
-        },
-      },
-      {
-        id: 'download',
-        label: 'Download',
-        render: (row) => {
-          const links: React.ReactNode[] = [];
-          if (row.downloadUrl) {
-            links.push(
-              <a
-                key="source"
-                href={row.downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source <DownloadIcon width="1em" />
-              </a>
-            );
-          }
-          if (
-            primaryAccession &&
-            (row.source === 'PDB' || row.source === 'AlphaFold DB')
-          ) {
-            const accession = row.source === 'PDB' ? row.id : primaryAccession;
-            const source = row.source === 'PDB' ? 'PDB' : 'AlphaFoldDB';
-            links.push(
-              <ExternalLink
-                key="foldseek"
-                url={`https://search.foldseek.com/search?accession=${accession}&source=${source}`}
-              >
-                Foldseek
-              </ExternalLink>
-            );
-          }
-          return links.length ? (
-            <span className={helper['no-wrap']}>
-              {links.reduce<React.ReactNode[]>(
-                (acc, link, i) => (i ? [...acc, ' · ', link] : [link]),
-                []
-              )}
-            </span>
-          ) : null;
+          return downloadLink;
         },
       }
     );
@@ -279,6 +346,15 @@ const StructureView = ({
           <AFDBOutOfSync modal />
         </>
       )}
+      {selectedStructure && (
+        <p className={styles['selected-structure']}>
+          Selected structure: <strong>{selectedStructure.id}</strong> (
+          {selectedStructure.source}){' '}
+          {selectedStructure.positions
+            ? `| Positions: ${selectedStructure.positions}`
+            : null}
+        </p>
+      )}
       <protvista-uniprot-structure
         ref={setStructureEl}
         accession={primaryAccession}
@@ -293,14 +369,36 @@ const StructureView = ({
           {primaryAccession ? ` for ${primaryAccession}` : ''}.
         </Message>
       )}
-      {!viewerOnly && !loading && structures.length > 0 && (
-        <TableFromData
-          data={structures}
-          columns={columns}
-          getRowId={(row) => row.rowKey}
-          onRowClick={handleRowClick}
-          markBackground={(row) => row.id === selectedId}
-        />
+      {!viewerOnly && !loading && structures.length > 0 && activeTab && (
+        <Tabs bordered active={activeTab.id}>
+          {visibleTabs.map((tab) => (
+            <Tab
+              key={tab.id}
+              id={tab.id}
+              title={tab.title}
+              tabIndex={0}
+              onClick={() => handleTabClick(tab.rows)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleTabClick(tab.rows);
+                }
+              }}
+            >
+              <TableFromData
+                key={tab.id}
+                data={tab.rows}
+                columns={columns.filter(
+                  (col) =>
+                    !(tab.hiddenColumns as readonly string[]).includes(col.id)
+                )}
+                getRowId={(row) => row.rowKey}
+                onRowClick={handleRowClick}
+                markBackground={(row) => row.id === selectedId}
+              />
+            </Tab>
+          ))}
+        </Tabs>
       )}
     </div>
   );

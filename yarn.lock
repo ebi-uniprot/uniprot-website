@@ -2878,6 +2878,16 @@
     "@nightingale-elements/nightingale-new-core" "^5.6.0"
     d3 "7.9.0"
 
+"@nightingale-elements/nightingale-structure@5.10.2":
+  version "5.10.2"
+  resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-structure/-/nightingale-structure-5.10.2.tgz#84f019b51f856441efde742f6b961d5971e8492a"
+  integrity sha512-udJKAR6cDJHWpSlM8rnCcYojPxVJwtmmZ2d+qVGtidAdEiJ9WxqJkXmMtkUmn+zkFpKylHWoXlmzlPGHPK6XhQ==
+  dependencies:
+    "@nightingale-elements/nightingale-new-core" "^5.6.0"
+    d3 "7.9.0"
+    dompurify "^3.0.0"
+    molstar "3.44.0"
+
 "@nightingale-elements/nightingale-structure@5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@nightingale-elements/nightingale-structure/-/nightingale-structure-5.8.0.tgz#55e69196a05206fa6cb8507a7e97836f2c3765b9"
@@ -8080,7 +8090,7 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   dependencies:
     domelementtype "^2.3.0"
 
-dompurify@^3.4.12:
+dompurify@^3.0.0, dompurify@^3.4.12:
   version "3.4.13"
   resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.4.13.tgz#fc28949d59f92d62e28a3a764bcbeee35897a1be"
   integrity sha512-2vmYIoqjze2d+kakP8S/nS5shfsl587kzwEjcGlTdiksUVgFHnFCsLYDVj/JNqJVOQZGSYBTmuycv0PodwmnMQ==
@@ -12977,10 +12987,10 @@ protvista-tooltip@^3.8.22:
     lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
-protvista-uniprot@4.9.1:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.9.1.tgz#32e23911edb4bcdf2f1d68ff2acaa432eded1ae5"
-  integrity sha512-APEC5aIAi2Y7meRkIv62AP4AX7k56POACZ50wxeTlbUsyADSle8p441RSBvkHOmw0J763DdkEOrC8EmVnj6+8g==
+protvista-uniprot@4.9.4:
+  version "4.9.4"
+  resolved "https://registry.yarnpkg.com/protvista-uniprot/-/protvista-uniprot-4.9.4.tgz#33f1cf74772e155e5665ed7bf3b85a2cb80649eb"
+  integrity sha512-clPt0MtOqCSUzGGl3AtQLzsHMKX31C1L38wGKj4wo4FQ7z5D8OM7IvBsqY/US+55KQlzZkSAKtXPuhcn8cFDgA==
   dependencies:
     "@nightingale-elements/nightingale-colored-sequence" "5.6.0"
     "@nightingale-elements/nightingale-filter" "5.6.0"
@@ -12990,7 +13000,7 @@ protvista-uniprot@4.9.1:
     "@nightingale-elements/nightingale-navigation" "5.6.0"
     "@nightingale-elements/nightingale-sequence" "5.6.0"
     "@nightingale-elements/nightingale-sequence-heatmap" "5.6.2"
-    "@nightingale-elements/nightingale-structure" "5.8.0"
+    "@nightingale-elements/nightingale-structure" "5.10.2"
     "@nightingale-elements/nightingale-track-canvas" "5.6.0"
     "@nightingale-elements/nightingale-variation-canvas" "^5.10.1"
     color-hash "2.0.2"
