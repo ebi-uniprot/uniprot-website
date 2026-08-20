@@ -22,7 +22,7 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
         title="Genomic context similarity"
         src={url}
         width="100%"
-        height="428"
+        height="526"
         className={styles.seqhub}
       />
     </>
