@@ -36,6 +36,7 @@ import {
   namespaceAndToolsLabels,
 } from '../../../../shared/types/namespaces';
 import { type SearchResults } from '../../../../shared/types/results';
+import parseTaxonIds from '../../../../shared/utils/taxonIds';
 import {
   type TaxonomyAPIModel,
   type TaxonomyDatum,
@@ -192,17 +193,12 @@ const PeptideSearchResult = () => {
     [jobParameters]
   );
 
-  const { data: taxonomyData, loading: taxonomyLoading } = useDataApi<
-    SearchResults<TaxonomyAPIModel>
-  >(
-    useMemo(
-      () =>
-        apiUrls.search.taxonIds(
-          parsedParams.taxonIds.split(',').filter(Boolean)
-        ),
-      [parsedParams.taxonIds]
-    )
+  const taxonomyUrl = apiUrls.search.taxonIds(
+    parseTaxonIds(parsedParams.taxonIds)
   );
+
+  const { data: taxonomyData, loading: taxonomyLoading } =
+    useDataApi<SearchResults<TaxonomyAPIModel>>(taxonomyUrl);
 
   const jobInputParameters = useMemo(
     () => getJobInputParameters(parsedParams, taxonomyLoading, taxonomyData),

@@ -28,6 +28,7 @@ import {
 } from '../../../../shared/types/namespaces';
 import { type SearchResults } from '../../../../shared/types/results';
 import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
+import parseTaxonIds from '../../../../shared/utils/taxonIds';
 import { type TaxonomyAPIModel } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -41,7 +42,7 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 import { databaseValueToName } from '../../config/BlastFormData';
 import { type BlastHit, type BlastResults } from '../../types/blastResults';
 import { type PublicServerParameters } from '../../types/blastServerParameters';
-import { parseTaxonIds, taxonIdsToSummary } from '../../utils';
+import { taxonIdsToSummary } from '../../utils';
 import {
   filterBlastByFacets,
   filterBlastDataForResults,
@@ -296,31 +297,21 @@ const BlastResult = () => {
   // so the results header can label them (e.g. "Homo sapiens [9606]").
   const restrictedTaxonIds = serverParameters?.taxids;
   const excludedTaxonIds = serverParameters?.negative_taxids;
-  const taxonomyUrl = useMemo(
-    () =>
-      apiUrls.search.taxonIds([
-        ...new Set([
-          ...parseTaxonIds(restrictedTaxonIds),
-          ...parseTaxonIds(excludedTaxonIds),
-        ]),
-      ]),
-    [restrictedTaxonIds, excludedTaxonIds]
-  );
+  const taxonomyUrl = apiUrls.search.taxonIds([
+    ...new Set([
+      ...parseTaxonIds(restrictedTaxonIds),
+      ...parseTaxonIds(excludedTaxonIds),
+    ]),
+  ]);
 
-  const {
-    data: taxonomyData,
-    loading: taxonomyLoading,
-    url: taxonomyRequestedUrl,
-  } = useDataApi<SearchResults<TaxonomyAPIModel>>(taxonomyUrl);
+  const { data: taxonomyData, loading: taxonomyLoading } =
+    useDataApi<SearchResults<TaxonomyAPIModel>>(taxonomyUrl);
 
   // Don't label the restrictions until the taxonomy request has settled,
-  // otherwise the heading paints bare numeric IDs before the names arrive.
-  // Comparing the URLs covers the render between the parameters resolving and
-  // the request actually starting, when `loading` is still false. On error this
-  // becomes true with an empty map, so the clauses show bare IDs rather than
-  // disappearing and misstating the scope of the search.
-  const taxonomySettled =
-    !taxonomyLoading && taxonomyRequestedUrl === taxonomyUrl;
+  // otherwise the heading paints bare numeric IDs before the names arrive. On
+  // error this becomes true with an empty map, so the clauses show bare IDs
+  // rather than disappearing and misstating the scope of the search.
+  const taxonomySettled = !taxonomyLoading;
 
   const taxonIdToLabel = useMemo(() => {
     const map = new Map<string, string>();

@@ -1,12 +1,5 @@
+import parseTaxonIds from '../../../shared/utils/taxonIds';
 import { type FormParameters } from '../types/blastFormParameters';
-
-// Split a comma-separated list of taxon IDs, as returned by the BLAST
-// parameters endpoint, into individual IDs
-export const parseTaxonIds = (csv: string | undefined): string[] =>
-  (csv || '')
-    .split(',')
-    .map((id) => id.trim())
-    .filter(Boolean);
 
 // Map a comma-separated list of taxon IDs to scientific-name labels, falling
 // back to the bare ID when a name hasn't been resolved

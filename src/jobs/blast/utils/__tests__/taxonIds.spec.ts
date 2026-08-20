@@ -1,22 +1,10 @@
-import { parseTaxonIds, taxonIdsToLabels, taxonIdsToSummary } from '..';
+import { taxonIdsToLabels, taxonIdsToSummary } from '..';
 
 const taxonIdToLabel = new Map([
   ['9606', 'Homo sapiens [9606]'],
   ['10090', 'Mus musculus [10090]'],
   ['562', 'Escherichia coli [562]'],
 ]);
-
-describe('parseTaxonIds', () => {
-  it('returns an empty array for missing or empty input', () => {
-    expect(parseTaxonIds(undefined)).toEqual([]);
-    expect(parseTaxonIds('')).toEqual([]);
-    expect(parseTaxonIds(' , ')).toEqual([]);
-  });
-
-  it('splits, trims, and ignores empty entries', () => {
-    expect(parseTaxonIds(' 9606 , , 10090 ')).toEqual(['9606', '10090']);
-  });
-});
 
 describe('taxonIdsToLabels', () => {
   it('returns an empty array for missing or empty input', () => {
