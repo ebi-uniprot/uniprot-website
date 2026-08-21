@@ -28,6 +28,8 @@ import {
 } from '../../../../shared/types/namespaces';
 import { type SearchResults } from '../../../../shared/types/results';
 import { getIdKeyForData } from '../../../../shared/utils/getIdKey';
+import parseTaxonIds from '../../../../shared/utils/taxonIds';
+import { type TaxonomyAPIModel } from '../../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { type UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import { type UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
@@ -37,8 +39,10 @@ import toolsURLs from '../../../config/urls';
 import useMarkJobAsSeen from '../../../hooks/useMarkJobAsSeen';
 import { JobTypes } from '../../../types/jobTypes';
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
+import { databaseValueToName } from '../../config/BlastFormData';
 import { type BlastHit, type BlastResults } from '../../types/blastResults';
 import { type PublicServerParameters } from '../../types/blastServerParameters';
+import { taxonIdsToSummary } from '../../utils';
 import {
   filterBlastByFacets,
   filterBlastDataForResults,
@@ -285,6 +289,41 @@ const BlastResult = () => {
   useMarkJobAsSeen(data, match?.params.id);
 
   const inputParamsData = useParamsData(match?.params.id || '');
+  const serverParameters = inputParamsData.data;
+
+  // The parameters endpoint only exposes taxonomy restrictions as taxon *IDs*.
+  // Resolve the included + excluded IDs to scientific names in a single request
+  // so the results header can label them (e.g. "Homo sapiens [9606]").
+  const restrictedTaxonIds = serverParameters?.taxids;
+  const excludedTaxonIds = serverParameters?.negative_taxids;
+  const taxonomyUrl = apiUrls.search.taxonIds([
+    ...new Set([
+      ...parseTaxonIds(restrictedTaxonIds),
+      ...parseTaxonIds(excludedTaxonIds),
+    ]),
+  ]);
+
+  const { data: taxonomyData, loading: taxonomyLoading } =
+    useDataApi<SearchResults<TaxonomyAPIModel>>(taxonomyUrl);
+
+  // Don't label the restrictions until the taxonomy request has settled,
+  // otherwise the heading paints bare numeric IDs before the names arrive. On
+  // error this becomes true with an empty map, so the clauses show bare IDs
+  // rather than disappearing and misstating the scope of the search.
+  const taxonomySettled = !taxonomyLoading;
+
+  const taxonIdToLabel = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const taxon of taxonomyData?.results || []) {
+      if (taxon.scientificName) {
+        map.set(
+          String(taxon.taxonId),
+          `${taxon.scientificName} [${taxon.taxonId}]`
+        );
+      }
+    }
+    return map;
+  }, [taxonomyData]);
 
   const resultTableData = useMemo<BlastResults | null>(() => {
     if (!blastData || accessionsLoading || !hitsFiltered.length) {
@@ -337,6 +376,18 @@ const BlastResult = () => {
 
   const basePath = `/blast/${namespace}/${match.params.id}/`;
 
+  // Prefer the actual search database name (e.g. "UniProtKB Swiss-Prot") over
+  // the generic namespace label, falling back to the namespace while the
+  // parameters endpoint is still loading or if it doesn't resolve to a label
+  const databaseLabel =
+    (serverParameters?.database &&
+      databaseValueToName(serverParameters.database)) ||
+    namespaceAndToolsLabels[namespace];
+  const restrictedTaxonLabels =
+    taxonomySettled && taxonIdsToSummary(restrictedTaxonIds, taxonIdToLabel);
+  const excludedTaxonLabels =
+    taxonomySettled && taxonIdsToSummary(excludedTaxonIds, taxonIdToLabel);
+
   return (
     <SidebarLayout sidebar={sidebar}>
       <HTMLHead title={title}>
@@ -345,11 +396,15 @@ const BlastResult = () => {
       <PageIntro
         heading={namespaceAndToolsLabels[jobType]}
         headingPostscript={
-          !loading && (
+          (serverParameters || !loading) && (
             /* Not sure why fragments and keys are needed, but otherwise gets
             the React key warnings messages and children are rendered as array */
             <small key="postscript">
-              found in {namespaceAndToolsLabels[namespace]}
+              found in {databaseLabel}
+              {restrictedTaxonLabels && (
+                <>, restricted to {restrictedTaxonLabels}</>
+              )}
+              {excludedTaxonLabels && <>, excluding {excludedTaxonLabels}</>}
             </small>
           )
         }
