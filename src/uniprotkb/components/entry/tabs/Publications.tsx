@@ -9,6 +9,7 @@ import { Location, LocationToPath } from '../../../../app/config/urls';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../shared/components/ExternalLink';
+import externalUrls from '../../../../shared/config/externalUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 // import usePrefetch from '../../../shared/hooks/usePrefetch';
 import useDatabaseInfoMaps from '../../../../shared/hooks/useDatabaseInfoMaps';
@@ -22,6 +23,7 @@ import {
 } from '../../../../shared/utils/utils';
 import { processUrlTemplate } from '../../../../shared/utils/xrefs';
 import {
+  type Citation,
   type CitationsAPIModel,
   type Reference,
   type Source,
@@ -29,20 +31,24 @@ import {
 import LiteratureCitation from '../../../../supporting-data/citations/components/LiteratureCitation';
 import apiUrls from '../../../config/apiUrls/apiUrls';
 import WithheldByRequest, {
+  isCommunityCuratedFacet,
   isWithheldSubmitter,
 } from '../../../utils/CommunitySubmission';
 import { getParamsFromURL } from '../../../utils/resultsUtils';
+import CommunityPublicationsMessage from '../CommunityPublicationsMessage';
 
 const orcidIDRegExp = /(\d{4}-){3}\d{4}/;
 
 type PublicationSourceProps = {
   accession: string;
   source: Source;
+  citationId?: Citation['id'];
 };
 
 export const PublicationSource = ({
   accession,
   source,
+  citationId,
 }: PublicationSourceProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
 
@@ -78,7 +84,10 @@ export const PublicationSource = ({
         )}
         {' ('}
         <ExternalLink
-          url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+          url={externalUrls.CommunityCuratedGetByAccession(
+            accession,
+            citationId
+          )}
         >
           see community submission
         </ExternalLink>
@@ -131,6 +140,15 @@ export const PublicationReference = ({
   references,
   accession,
 }: PublicationsReferenceProps) => {
+  /* The categories of every reference end up merged into a single row below,
+  so pluralise its title on what that row will hold rather than on any one
+  reference: a title that changes from one reference to the next would be two
+  rows counting the same thing. */
+  const totalCategories = references.reduce(
+    (total, { sourceCategories }) => total + (sourceCategories?.length ?? 0),
+    0
+  );
+
   const infoListWithContent = references.map((reference) => {
     const {
       referencePositions,
@@ -139,6 +157,7 @@ export const PublicationReference = ({
       sourceCategories,
       communityAnnotation,
       annotation,
+      citationId,
     } = reference;
 
     const groupedReferenceComments = groupBy(referenceComments, 'type');
@@ -201,46 +220,48 @@ export const PublicationReference = ({
         content: communityAnnotation?.disease,
       },
       {
-        title: pluralise(
-          'Category',
-          sourceCategories?.length ?? 0,
-          'Categories'
-        ),
+        title: pluralise('Category', totalCategories, 'Categories'),
         content: sourceCategories?.join(', '),
       },
       {
         title: 'Source',
         content: source && (
-          <PublicationSource accession={accession} source={source} />
+          <PublicationSource
+            accession={accession}
+            source={source}
+            citationId={citationId}
+          />
         ),
       },
     ];
     return infoListData;
   });
 
-  // Merging all of them into one
-  let mergedInfoList: InfoListItem[] = [];
-  infoListWithContent.forEach((arr) => {
-    if (mergedInfoList.length) {
-      arr.forEach((obj, i) => {
-        if (
-          obj.title === mergedInfoList[i].title &&
-          obj.content !== undefined &&
-          mergedInfoList[i].content !== obj.content
-        ) {
-          mergedInfoList[i].content = (
-            <>
-              {mergedInfoList[i].content}
-              {mergedInfoList[i].content && ', '}
-              {obj.content}
-            </>
-          );
-        }
-      });
-    } else {
-      mergedInfoList = [...arr];
+  /* Merging all of them into one, matching rows by title rather than by
+  position: the comment groups spliced in above vary from one reference to the
+  next, so the same title doesn't sit at the same index in every list. A row a
+  later reference is alone in having — the community submission link on the
+  source of an ORCID reference, say — is appended rather than dropped. */
+  const mergedInfoList: InfoListItem[] = [];
+  const mergedByTitle = new Map<string, InfoListItem>();
+  for (const infoListData of infoListWithContent) {
+    for (const { title, content } of infoListData) {
+      const merged = mergedByTitle.get(title);
+      if (!merged) {
+        const item: InfoListItem = { title, content };
+        mergedByTitle.set(title, item);
+        mergedInfoList.push(item);
+      } else if (content !== undefined && merged.content !== content) {
+        merged.content = (
+          <>
+            {merged.content}
+            {merged.content && ', '}
+            {content}
+          </>
+        );
+      }
     }
-  });
+  }
 
   return (
     <InfoList infoData={mergedInfoList} isCompact className="text-block" />
@@ -326,25 +347,33 @@ const Publications = ({ accession }: PublicationsProps) => {
     return <ErrorHandler status={status} error={error} />;
   }
 
-  if (allResults.length === 0 && loading) {
-    return <Loader />;
-  }
-
   const { total, nextUrl } = metaData;
+
+  /* Only the results are replaced by the loader, rather than the whole section,
+  so that the heading and the community message stay put while a facet change
+  reloads the results, rather than flashing out and back in around it. */
+  const loadingFirstPage = allResults.length === 0 && loading;
 
   return (
     <section>
       <h2 data-article-id="publications_section">
         {pluralise('Publication', total)} for {accession}
       </h2>
-      <DataListWithLoader
-        getIdKey={getIdKey}
-        data={resultsWithReferences}
-        dataRenderer={cardRenderer}
-        onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
-        loaderComponent={<Loader />}
-        hasMoreData={total > allResults.length}
-      />
+      {selectedFacets.some(isCommunityCuratedFacet) && (
+        <CommunityPublicationsMessage accession={accession} />
+      )}
+      {loadingFirstPage ? (
+        <Loader />
+      ) : (
+        <DataListWithLoader
+          getIdKey={getIdKey}
+          data={resultsWithReferences}
+          dataRenderer={cardRenderer}
+          onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
+          loaderComponent={<Loader />}
+          hasMoreData={total > allResults.length}
+        />
+      )}
     </section>
   );
 };

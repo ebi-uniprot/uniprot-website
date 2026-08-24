@@ -120,14 +120,7 @@ const SubmissionDate = ({
   submissionDate?: string;
 }) => (
   <ExternalLink
-    url={
-      citationId && citationId.match(/\d+/)
-        ? externalUrls.CommunityCuratedGetByAccessionAndPmid(
-            accession,
-            citationId
-          )
-        : externalUrls.CommunityCuratedGetByAccession(accession)
-    }
+    url={externalUrls.CommunityCuratedGetByAccession(accession, citationId)}
   >
     <time dateTime={submissionDate}>{submissionDate}</time>
   </ExternalLink>
