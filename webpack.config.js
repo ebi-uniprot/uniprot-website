@@ -104,8 +104,26 @@ const getConfigFor = ({
         // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude:
-            /node_modules\/((?!@nightingale-elements\/nightingale-msa|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
+          exclude: (modulePath) => {
+            // Packages that still need babel-preset-env downleveling and
+            // corejs polyfilling for the legacy bundle. Matched as a plain
+            // substring so it works the same whether pnpm resolved the
+            // module to its flat node_modules/<pkg>/ path or its real
+            // node_modules/.pnpm/<pkg>@<version>/node_modules/<pkg>/ path.
+            const include = [
+              '@nightingale-elements/nightingale-msa',
+              'protvista-uniprot',
+              'p-map',
+              'aggregate-error',
+              'molstar',
+            ];
+            if (!modulePath.includes('node_modules')) {
+              return false;
+            }
+            return !include.some((pkg) =>
+              modulePath.includes(`/node_modules/${pkg}/`)
+            );
+          },
           use: {
             loader: 'babel-loader',
             options: {

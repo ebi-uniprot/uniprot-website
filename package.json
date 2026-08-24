@@ -25,7 +25,7 @@
     "prettier": "prettier src --write",
     "verify:bundle": "node scripts/verify-bundle.js",
     "test": "npm-run-all test:lint test:types test:unit",
-    "test:lint": "eslint src --cache --cache-location 'node_modules/.cache'",
+    "test:lint": "eslint src --cache --cache-location 'node_modules/.cache/eslint/'",
     "test:types": "tsc",
     "test:unit": "jest --coverage",
     "test:unit-bail-on-console-error": "jest --coverage --setupFilesAfterEnv \"<rootDir>/jest.setup.ts\" \"<rootDir>/jest.setup.consoleerrorfail.ts\" --bail --runInBand",
