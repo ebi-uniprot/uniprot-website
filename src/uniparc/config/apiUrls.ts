@@ -50,7 +50,7 @@ const precomputedAnnotation = (uniparcId: string, taxId: string) =>
 
 // TEMPORARY: during the dev rollout, precomputed annotations are served from
 // wwwdev while UniFire's `run` service is only on rest.uniprot.org. So under
-// `yarn start:dev` (`apiPrefix` → wwwdev) UniFire must be pinned to its host
+// `pnpm start:dev` (`apiPrefix` → wwwdev) UniFire must be pinned to its host
 // rather than follow `apiPrefix`. Once everything is served from
 // rest.uniprot.org, delete UNIFIRE_HOST and build this from `apiPrefix` like
 // every other API URL.

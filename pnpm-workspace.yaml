@@ -1,0 +1,40 @@
+# Native postinstall builds pnpm ignores by default (`pnpm install` reported
+# these). Allowed only where the package is a direct dependency of a real,
+# in-use feature (molstar's `canvas`/`gl` bindings; the swagger-ui-react
+# API-docs page's `tree-sitter*` YAML/JSON spec parsers via apidom; sass's
+# `@parcel/watcher` for dev-server live reload; ESLint's `unrs-resolver` for
+# TS import resolution). Disallowed where the build is a no-op beyond a
+# console message (`core-js`, `core-js-pure`) or pure install telemetry
+# (`@scarf/scarf`, pulled in transitively by swagger-ui-dist/molstar).
+allowBuilds:
+  '@parcel/watcher': true
+  '@scarf/scarf': false
+  '@tree-sitter-grammars/tree-sitter-yaml': true
+  canvas: true
+  core-js: false
+  core-js-pure: false
+  gl: true
+  tree-sitter: true
+  tree-sitter-json: true
+  unrs-resolver: true
+overrides:
+  "@babel/parser": "8.0.4"
+autoInstallPeers: true
+strictPeerDependencies: false
+# Packages reached into by filename rather than Node module resolution, so
+# they need a real entry at the root of node_modules rather than just being
+# reachable via pnpm's symlinked dependency graph:
+#  - molstar: webpack.config.js resolves `node_modules/molstar/build`
+#    directly for CSS processing and a splitChunks cache group. Transitively
+#    resolved by @nightingale-elements/nightingale-structure.
+#  - foundation-sites: sass-loader's `loadPaths: ['node_modules']` does a
+#    literal directory lookup for franklin-sites' `@import
+#    'foundation-sites/...'`, not Node resolution. Transitively resolved by
+#    franklin-sites.
+# Hoisting (rather than declaring our own pinned dependency on either) means
+# there is always a single copy of each, tracking whatever version the
+# actual consumer (nightingale-structure / franklin-sites) requires, with no
+# manual version to keep in sync as those packages are updated.
+publicHoistPattern:
+  - molstar
+  - foundation-sites

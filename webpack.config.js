@@ -97,7 +97,6 @@ const getConfigFor = ({
         ),
         'lodash.unset': path.resolve('./node_modules/lodash-es/unset'),
       },
-      symlinks: false,
     },
     // MODULE
     module: {
@@ -407,7 +406,7 @@ const getConfigFor = ({
         cacheGroups: {
           geneontology: {
             // list the package to extract into its own bundle, plus all its
-            // dependencies used *only* by it (use `yarn why <dependency>` to find)
+            // dependencies used *only* by it (use `pnpm why <dependency>` to find)
             test: /[\\/]node_modules[\\/](@geneontology|amigo2-instance-data|react-icons|react-popper|react-transition-group|popper\.js|underscore|bbop-core)[\\/]/,
             name: 'geneontology',
             chunks: 'all',
@@ -481,7 +480,7 @@ module.exports = (env, argv) => {
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
     // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
+    // from a predefined env in a pnpm/npm script
     if (Array.isArray(env.PUBLIC_PATH)) {
       // so we take the last one
       publicPath = env.PUBLIC_PATH[env.PUBLIC_PATH.length - 1];
@@ -493,7 +492,7 @@ module.exports = (env, argv) => {
   let apiPrefix;
   if (env.API_PREFIX) {
     // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
+    // from a predefined env in a pnpm/npm script
     if (Array.isArray(env.API_PREFIX)) {
       // so we take the last one
       apiPrefix = env.API_PREFIX[env.API_PREFIX.length - 1];

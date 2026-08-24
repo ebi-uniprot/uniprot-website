@@ -13,4 +13,4 @@
 ## Debugging:
 
 - Make sure to use eslint without caching turned on
-- npm/yarn will have copied the content of the eslint rule at the moment of installing, make sure to link it to not have stale code
+- npm/pnpm will have copied the content of the eslint rule at the moment of installing, make sure to link it to not have stale code
