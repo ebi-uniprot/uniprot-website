@@ -14,7 +14,7 @@ You don't need to read or memorise all the styling rules; Write your code exactl
 
 ### Running TypeScript/TSX/React Linter
 
-Simply execute `pnpm lint`.
+Simply execute `pnpm test:lint`. To automatically fix problems, run `pnpm lint-fix`.
 
 # Running Unit Tests
 
@@ -38,7 +38,7 @@ _Jest_ has a rather unique feature called _Snapshot Testing_. If you are not fam
 Here there are two points to keep in mind:
 
 1.  _Jest_ will automatically create a directory called `__snapshots__`, where ever it can find a snapshot test! All of your compiled snapshots will be stored in that directory and they need to be committed to the repository as well, as they are part of your tests.
-2.  After updating a component which has snapshots tests already, you would need to run the following command to update your snapshots with the latest changes from your component: `pnpm update-snapshots`. [Jest's documentation](https://facebook.github.io/jest/docs/en/snapshot-testing.html#updating-snapshots) has a section for updating, as well as resolving failing snapshot tests.
+2.  After updating a component which has snapshots tests already, you would need to run the following command to update your snapshots with the latest changes from your component: `pnpm exec jest -u`. [Jest's documentation](https://facebook.github.io/jest/docs/en/snapshot-testing.html#updating-snapshots) has a section for updating, as well as resolving failing snapshot tests.
 
 ### Debugging service workers
 

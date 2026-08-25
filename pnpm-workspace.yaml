@@ -19,8 +19,6 @@ allowBuilds:
   unrs-resolver: true
 overrides:
   "@babel/parser": "8.0.4"
-autoInstallPeers: true
-strictPeerDependencies: false
 # Packages reached into by filename rather than Node module resolution, so
 # they need a real entry at the root of node_modules rather than just being
 # reachable via pnpm's symlinked dependency graph:

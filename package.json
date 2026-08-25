@@ -63,7 +63,7 @@
       "jsx"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!(?:\\.pnpm/(?:franklin-sites|p-map|aggregate-error|clean-stack|protvista-uniprot|@nightingale|@lit|url-join|marked|marked-gfm-heading-id|react-diff-viewer-continued)[^/]*/)|(?:franklin-sites|p-map|aggregate-error|clean-stack|protvista-uniprot|@nightingale|@lit|url-join|marked|marked-gfm-heading-id|react-diff-viewer-continued)/).+\\.js"
+      "<rootDir>/node_modules/(?!(?:\\.pnpm/)?(?:@(?:nightingale-elements|lit|lit-labs)[+/]|(?:franklin-sites|p-map|aggregate-error|clean-stack|protvista-uniprot|url-join|marked|marked-gfm-heading-id|react-diff-viewer-continued)[@/])).+\\.js"
     ],
     "testPathIgnorePatterns": [
       "/__mocks__/",
