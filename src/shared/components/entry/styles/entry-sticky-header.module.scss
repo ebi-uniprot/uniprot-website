@@ -54,6 +54,41 @@
   & :global(.tabs__header) {
     top: var(--compact-bar-height);
   }
+
+  // Shrink the tabs row to the compact bar's height (58px down to 48px) so the
+  // two sticky rows read as one two-tier bar rather than a chunky strip under a
+  // slim one. On a laptop viewport the page header plus these two rows already
+  // cost ~170px before any content, so the 10px is worth reclaiming.
+  //
+  // Scoped through `> main >` to the layout's own tabs row: a tabs row nested
+  // inside a tab panel (GO annotations, Similar Proteins) is not sticky (see
+  // the guard in sticky.module.scss) and keeps its normal height.
+  & > main > :global(.tabs) > :global(.tabs__header) {
+    // `min-height` rather than `height` so the row grows instead of squashing
+    // its labels if a classic horizontal scrollbar appears on a narrow window.
+    min-height: var(--compact-bar-height);
+
+    // The row's unstuck height comes from its items' 1rem block padding, so
+    // that has to go for `min-height` to take effect; flex centres the label
+    // instead. The items still stretch to the row's full height (the header's
+    // default `align-items: stretch`), so the active-tab underline and the
+    // hover tint keep spanning it.
+    & > :global(.tabs__header__item) {
+      display: flex;
+      align-items: center;
+      padding-block: 0;
+
+      // Tab titles are usually an <a> (EntryTabLink) carrying its own 1rem
+      // padding. Same treatment, plus stretching it so the whole cell stays
+      // the click target rather than only the text's line box.
+      & > a {
+        display: flex;
+        align-items: center;
+        align-self: stretch;
+        padding-block: 0;
+      }
+    }
+  }
 }
 
 .compact-bar {
