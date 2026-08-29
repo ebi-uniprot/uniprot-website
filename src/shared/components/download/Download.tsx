@@ -12,6 +12,7 @@ import {
   type ChangeEventHandler,
   type JSX,
   useCallback,
+  useEffect,
   useMemo,
   useReducer,
 } from 'react';
@@ -21,6 +22,7 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import AsyncDownloadForm from '../../../jobs/async-download/components/AsyncDownloadForm';
 import { type PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
 import { type JobTypes } from '../../../jobs/types/jobTypes';
+import usePrecomputedProteomeCount from '../../../uniparc/hooks/usePrecomputedProteomeCount';
 import { type ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 import apiUrls from '../../config/apiUrls/apiUrls';
 import { MAX_PEPTIDE_FACETS_OR_DOWNLOAD } from '../../config/limits';
@@ -30,7 +32,7 @@ import useJobFromUrl from '../../hooks/useJobFromUrl';
 import helper from '../../styles/helper.module.scss';
 import sticky from '../../styles/sticky.module.scss';
 import { Namespace } from '../../types/namespaces';
-import { type FileFormat } from '../../types/resultsDownload';
+import { FileFormat } from '../../types/resultsDownload';
 import {
   type DownloadMethod,
   type DownloadPanelFormCloseReason,
@@ -70,6 +72,7 @@ import {
   getPreviewCount,
   getPreviewOptions,
   getRedirectToIDMapping,
+  getUniParcProteomeSearchId,
   isAsyncDownloadIdMapping,
   isUniParcProteomeSearch,
   showColumnSelect,
@@ -127,6 +130,36 @@ export const proteomeFastaOption = (
   </fieldset>
 );
 
+export const proteomePrecomputedOption = (
+  precomputed: boolean,
+  handleChange: ChangeEventHandler<HTMLInputElement>
+) => (
+  <fieldset>
+    <p className={styles['new-fasta-header']}>
+      <span data-article-id="precomputed-annotations">
+        Precomputed annotations for proteomes
+      </span>
+      <small>
+        <Chip>New</Chip>
+      </small>
+      <br />
+      For proteomes, we can provide precomputed UniProtKB-style annotations
+      (protein names, gene names, keywords, …) for every sequence in the
+      proteome, instead of the UniParc entries themselves.
+      <label>
+        <input
+          aria-label="uniparc proteome precomputed annotations"
+          type="checkbox"
+          name="proteome precomputed annotations"
+          checked={precomputed}
+          onChange={handleChange}
+        />
+        Proceed with precomputed annotations.
+      </label>
+    </p>
+  </fieldset>
+);
+
 const Download = (props: DownloadProps<JobTypes>) => {
   const {
     totalNumberResults,
@@ -153,6 +186,23 @@ const Download = (props: DownloadProps<JobTypes>) => {
   const { data } = useDataApi<ReceivedFieldData>(
     apiUrls.configure.resultsFields(namespace)
   );
+
+  const downloadOptions = getDownloadOptions(state, props, location, job);
+  const proteomeSearchId = getUniParcProteomeSearchId(
+    state,
+    props,
+    downloadOptions.query
+  );
+  const precomputedCount = usePrecomputedProteomeCount(proteomeSearchId);
+
+  useEffect(() => {
+    if (
+      !precomputedCount &&
+      state.selectedFileFormat === FileFormat.jsonPrecomputed
+    ) {
+      dispatch(updateSelectedFileFormat(FileFormat.json));
+    }
+  }, [precomputedCount, state.selectedFileFormat]);
 
   const fieldData = useMemo(
     () => prepareFieldData(data, undefined, true),
@@ -183,9 +233,22 @@ const Download = (props: DownloadProps<JobTypes>) => {
     dispatch(updateFastaHeader(!state.proteomeFastaHeader));
   };
 
+  const handlePrecomputedChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      updateSelectedFileFormat(
+        e.target.checked ? FileFormat.jsonPrecomputed : FileFormat.json
+      )
+    );
+  };
+
+  const fileFormatOptions = precomputedCount
+    ? state.fileFormatOptions.flatMap((f) =>
+        f === FileFormat.json ? [f, FileFormat.jsonPrecomputed] : [f]
+      )
+    : state.fileFormatOptions;
+
   // Variables derived from state, props, location and/or job
   const downloadCount = getDownloadCount(state, props);
-  const downloadOptions = getDownloadOptions(state, props, location, job);
   const downloadUrl = apiUrls.results.download(downloadOptions);
   const previewOptions = getPreviewOptions(state, props, location, job);
   const previewUrl = previewOptions && apiUrls.results.download(previewOptions);
@@ -349,7 +412,7 @@ const Download = (props: DownloadProps<JobTypes>) => {
             }
             disabled={redirectToIDMapping}
           >
-            {state.fileFormatOptions.map((format) => (
+            {fileFormatOptions.map((format) => (
               <option value={format} key={format}>
                 {format}
               </option>
@@ -360,6 +423,14 @@ const Download = (props: DownloadProps<JobTypes>) => {
       {/* UniParc-proteome FASTA option */}
       {isUniParcProteomeSearch(state, props, downloadOptions.query) &&
         proteomeFastaOption(state.proteomeFastaHeader, handleFastaHeaderChange)}
+      {/* UniParc-proteome precomputed annotations option */}
+      {Boolean(precomputedCount) &&
+        (state.selectedFileFormat === FileFormat.json ||
+          state.selectedFileFormat === FileFormat.jsonPrecomputed) &&
+        proteomePrecomputedOption(
+          state.selectedFileFormat === FileFormat.jsonPrecomputed,
+          handlePrecomputedChange
+        )}
       {/* compressed not supported in UniSave */}
       {namespace !== Namespace.unisave && (
         <fieldset disabled={state.disableForm}>
