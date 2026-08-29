@@ -1,5 +1,4 @@
 import { Card, InfoList } from 'franklin-sites';
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
@@ -103,7 +102,7 @@ export const SubEntryProteomeRow = ({
   );
 
   return (
-    <Fragment key={proteomeId}>
+    <>
       <Link to={getEntryPath(Namespace.proteomes, proteomeId)}>
         {proteomeId}
       </Link>{' '}
@@ -123,7 +122,7 @@ export const SubEntryProteomeRow = ({
         </>
       ) : null}
       <br />
-    </Fragment>
+    </>
   );
 };
 
