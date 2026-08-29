@@ -55,7 +55,7 @@ const precomputedProteomeAnnotations = (
       )
     : joinUrl(apiPrefix, Namespace.uniprotkb, 'precomputed', 'proteome', upId);
   return stringifyUrl(url, {
-    compressed: options.compressed,
+    compressed: options.compressed || undefined,
     size: options.size,
     download: options.download || undefined,
   });
