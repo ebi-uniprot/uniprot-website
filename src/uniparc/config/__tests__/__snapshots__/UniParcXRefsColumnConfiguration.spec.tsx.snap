@@ -58,16 +58,6 @@ exports[`UniParcXRefsColumnConfiguration component should render column "last_se
 </DocumentFragment>
 `;
 
-exports[`UniParcXRefsColumnConfiguration component should render column "links": links 1`] = `
-<DocumentFragment>
-  <a
-    href="/uniprotkb/P07612/entry"
-  >
-    UniProtKB entry
-  </a>
-</DocumentFragment>
-`;
-
 exports[`UniParcXRefsColumnConfiguration component should render column "ncbiGi": ncbiGi 1`] = `
 <DocumentFragment>
   <a

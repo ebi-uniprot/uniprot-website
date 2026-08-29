@@ -29,7 +29,6 @@ export enum UniParcXRefsColumn {
   // Names & taxonomy
   database = 'database',
   accession = 'accession',
-  links = 'links',
   gene = 'gene',
   ncbiGi = 'ncbiGi',
   organism = 'organism',
@@ -50,7 +49,6 @@ export const defaultColumns = [
   UniParcXRefsColumn.database,
   UniParcXRefsColumn.accession,
   UniParcXRefsColumn.active,
-  UniParcXRefsColumn.links,
   UniParcXRefsColumn.organism,
   UniParcXRefsColumn.proteome,
   UniParcXRefsColumn.version,
@@ -111,9 +109,17 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
     ),
 });
 
+// Every link in this column is labelled by where it goes, so on a table with
+// hundreds of rows the visible text alone would give them all the same
+// accessible name and no way to tell which row is focused (WCAG 2.4.4). The
+// identifier goes in an `aria-label` that still starts with the visible label,
+// so the two agree (WCAG 2.5.3).
 const uniProtKBEntryLink = (id: string) => (
   <>
-    <Link to={getEntryPath(Namespace.uniprotkb, id, TabLocation.Entry)}>
+    <Link
+      to={getEntryPath(Namespace.uniprotkb, id, TabLocation.Entry)}
+      aria-label={`UniProtKB entry ${id}`}
+    >
       UniProtKB entry
     </Link>
     <BasketStatus id={id} />
@@ -121,8 +127,26 @@ const uniProtKBEntryLink = (id: string) => (
 );
 
 const uniProtKBHistoryLink = (id: string) => (
-  <Link to={getEntryPath(Namespace.uniprotkb, id, TabLocation.History)}>
+  <Link
+    to={getEntryPath(Namespace.uniprotkb, id, TabLocation.History)}
+    aria-label={`History of ${id}`}
+  >
     History
+  </Link>
+);
+
+const subEntryLink = (
+  uniparcAccession: string,
+  xrefId: string,
+  label: string,
+  // What the link is *about*, when that isn't the sub-entry's own identifier
+  subject: string = xrefId
+) => (
+  <Link
+    to={getSubEntryPath(uniparcAccession, xrefId, TabLocation.Entry)}
+    aria-label={`${label} for ${subject}`}
+  >
+    {label}
   </Link>
 );
 
@@ -175,14 +199,10 @@ const getLinksColumn =
         } else if (status === 'merged') {
           cell = uniProtKBHistoryLink(xref.id);
         } else {
-          cell = (
-            <Link
-              to={getSubEntryPath(uniparcAccession, xref.id, TabLocation.Entry)}
-            >
-              {status === 'deleted'
-                ? 'Sequence annotation'
-                : 'UniProtKB record'}
-            </Link>
+          cell = subEntryLink(
+            uniparcAccession,
+            xref.id,
+            status === 'deleted' ? 'Sequence annotation' : 'UniProtKB record'
           );
         }
       }
@@ -191,21 +211,20 @@ const getLinksColumn =
       const template = xref.database && templateMap.get(xref.database);
       if (template) {
         if (xref.active) {
-          cell = (
-            <Link
-              to={getSubEntryPath(
-                uniparcAccession,
-                `${xref.database}:${xref.id}`,
-                TabLocation.Entry
-              )}
-            >
-              Sequence annotation
-            </Link>
+          cell = subEntryLink(
+            uniparcAccession,
+            `${xref.database}:${xref.id}`,
+            'Sequence annotation',
+            xref.id
           );
         } else {
           const id = getXrefId(xref.id, xref.database as string);
           cell = (
-            <ExternalLink url={template.replace('%id', id)} rel="nofollow">
+            <ExternalLink
+              url={template.replace('%id', id)}
+              rel="nofollow"
+              aria-label={`Source database entry ${id}`}
+            >
               Source database
             </ExternalLink>
           );
@@ -217,11 +236,26 @@ const getLinksColumn =
     return cell;
   };
 
-UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.links, {
-  label: 'Go to',
-  tooltip: 'Where this cross-reference can be opened.',
-  render: getLinksColumn(''),
-});
+// "Go to" is the one column here with no field behind it on the API's uniparc
+// entry-result-fields, so — unlike every other column — it must never reach the
+// stored column list: `fields=…,links` is rejected with a 400 by the download
+// endpoints, and the Customise Table panel (which labels columns from that same
+// endpoint) would silently drop it, leaving it impossible to re-add. It is
+// injected into the rendered table instead, by `getUniParcXRefsColumns` below,
+// which also guarantees it to users whose stored column list predates it.
+// Typed as `string` rather than inferred, so it can be compared against a
+// `UniParcXRefsColumn` — which no longer has a `links` member
+const linksColumnName: string = 'links';
+const linksColumnLabel = 'Go to';
+const linksColumnTooltip = 'Where this cross-reference can be opened.';
+
+/**
+ * Drop columns that only exist on the client, so they never end up in a
+ * `fields` parameter or the column-select panel. "Go to" was briefly a stored
+ * column, so it can still come back out of localStorage.
+ */
+export const withoutClientOnlyColumns = (columns: UniParcXRefsColumn[]) =>
+  columns.filter((name) => name !== linksColumnName);
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.gene, {
   label: 'Gene name',
@@ -300,7 +334,7 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.active, {
   label: 'Active',
   tooltip:
-    'Whether this cross-reference is still present in the source database. Obsolete ones are shown on a tinted row and remain clickable.',
+    'Whether this cross-reference is still present in the source database. Obsolete ones are dimmed; where they can still be viewed, the "Go to" column links to it.',
   render: (xref) => (
     <span className={xref.active ? undefined : 'xref-inactive'}>
       {xref.active ? 'Yes' : 'No'}
@@ -372,6 +406,26 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.versionUniParc, {
 
 export default UniParcXRefsColumnConfiguration;
 
+// Where the injected "Go to" column lands, in order of preference: the default
+// layout puts it straight after "Active", and if that has been customised away
+// it sits next to the identifier it describes — which, being a primary key
+// column, can't itself be removed. Leading the table is a fallback for stored
+// column lists that hold neither.
+const linksColumnAnchors = [
+  UniParcXRefsColumn.active,
+  UniParcXRefsColumn.accession,
+];
+
+const getLinksColumnIndex = (columns: UniParcXRefsColumn[]) => {
+  for (const anchor of linksColumnAnchors) {
+    const index = columns.indexOf(anchor);
+    if (index !== -1) {
+      return index + 1;
+    }
+  }
+  return 0;
+};
+
 export const getUniParcXRefsColumns = (
   columns: UniParcXRefsColumn[],
   templateMap: Map<string, string>,
@@ -379,41 +433,45 @@ export const getUniParcXRefsColumns = (
   firstSeen?: string,
   lastSeen?: string,
   obsoleteStatuses?: Map<string, ObsoleteXRefStatus>
-): ColumnDescriptor<UniParcXRef>[] =>
-  columns.map((name) => {
-    const descriptor = UniParcXRefsColumnConfiguration.get(name);
-    if (!descriptor) {
+): ColumnDescriptor<UniParcXRef>[] => {
+  const storedColumns = withoutClientOnlyColumns(columns);
+  const descriptors: ColumnDescriptor<UniParcXRef>[] = storedColumns.map(
+    (name) => {
+      const descriptor = UniParcXRefsColumnConfiguration.get(name);
+      if (!descriptor) {
+        return {
+          label: name,
+          name,
+          render: () => {
+            const message = `${name} has no config yet`;
+            logging.warn(message);
+            return <div className="warning">{message}</div>;
+          },
+        };
+      }
+      // In case of timeline column, replace with the current template map
+      if (name === UniParcXRefsColumn.timeline) {
+        return {
+          name,
+          label: descriptor?.label,
+          tooltip: descriptor?.tooltip,
+          render: getTimelineColumn(firstSeen, lastSeen),
+        };
+      }
       return {
-        label: name,
         name,
-        render: () => {
-          const message = `${name} has no config yet`;
-          logging.warn(message);
-          return <div className="warning">{message}</div>;
-        },
+        ...descriptor,
       };
     }
-    // The links column needs the current accession, template map and resolved
-    // obsolete-entry statuses to build its per-row destinations.
-    if (name === UniParcXRefsColumn.links) {
-      return {
-        name,
-        label: descriptor?.label,
-        tooltip: descriptor?.tooltip,
-        render: getLinksColumn(uniparcAccession, templateMap, obsoleteStatuses),
-      };
-    }
-    // In case of timeline column, replace with the current template map
-    if (name === UniParcXRefsColumn.timeline) {
-      return {
-        name,
-        label: descriptor?.label,
-        tooltip: descriptor?.tooltip,
-        render: getTimelineColumn(firstSeen, lastSeen),
-      };
-    }
-    return {
-      name,
-      ...descriptor,
-    };
+  );
+  // Always present, whatever the stored column list says, and built here
+  // because it needs the current accession, template map and resolved
+  // obsolete-entry statuses to work out its per-row destinations.
+  descriptors.splice(getLinksColumnIndex(storedColumns), 0, {
+    name: linksColumnName,
+    label: linksColumnLabel,
+    tooltip: linksColumnTooltip,
+    render: getLinksColumn(uniparcAccession, templateMap, obsoleteStatuses),
   });
+  return descriptors;
+};

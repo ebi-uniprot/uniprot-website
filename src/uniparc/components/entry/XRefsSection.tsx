@@ -52,7 +52,14 @@ const XRefsSection = ({ entryData }: Props) => {
 
   const xRefDataObject = usePagination<UniParcXRef, UniParcXRef>(initialApiUrl);
 
-  const { data: dataDB } = useDataApi<DataDBModel>(
+  // The "Go to" column turns a database name into an outbound URL through this
+  // map, so until it lands every external cross-reference has a blank cell. It
+  // is a separate request from the xrefs one, and cached by the service worker,
+  // so waiting for it is near-free and spares the table a column that paints
+  // empty and fills in afterwards. If it fails the table still renders, with
+  // those rows unlinked — which is what they looked like before this column
+  // existed and the templates were missing.
+  const { data: dataDB, loading: loadingDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
 
@@ -113,9 +120,9 @@ const XRefsSection = ({ entryData }: Props) => {
     ]
   );
 
-  const tooltipWrapperRef = useColumnHeaderTooltips(columnDescriptors);
+  const setTooltipWrapper = useColumnHeaderTooltips(columnDescriptors);
 
-  if (initialLoading) {
+  if (initialLoading || loadingDB) {
     return <Loader progress={progress} />;
   }
 
@@ -124,7 +131,7 @@ const XRefsSection = ({ entryData }: Props) => {
       <div className="button-group">
         <CustomiseButton namespace={Namespace.uniparc} />
       </div>
-      <div className={helper['overflow-y-container']} ref={tooltipWrapperRef}>
+      <div className={helper['overflow-y-container']} ref={setTooltipWrapper}>
         {total && allResults.length ? (
           <DataTableWithLoader
             getIdKey={getIdKey}

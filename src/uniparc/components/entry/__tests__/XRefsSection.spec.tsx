@@ -1,3 +1,6 @@
+import { cleanup, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
@@ -48,25 +51,30 @@ const obsoleteEntries = {
   ],
 };
 
+const loadedXrefs = {
+  allResults: uniparcXrefsData.results,
+  initialLoading: false,
+  progress: 1,
+  hasMoreData: true,
+  handleLoadMoreRows: jest.fn(),
+  total: 3,
+};
+
 describe('XrefSection component', () => {
-  it('should render the xref table properly and match snapshot', async () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
     // The database list has to be populated, otherwise every non-UniProtKB
-    // identifier falls through to unlinked plain text and neither the
-    // sub-entry nor the external-link branch of the Identifier column renders.
-    // The UniProtKB search is what tells the Links column where each obsolete
-    // TrEMBL row actually leads.
+    // identifier falls through to an unlinked cell and neither the sub-entry
+    // nor the external-link branch of the "Go to" column renders. The UniProtKB
+    // search is what tells that column where each obsolete TrEMBL row leads.
     (useDataApi as jest.Mock).mockImplementation((url?: string | null) => ({
       loading: false,
       data: url?.includes('/uniprotkb/search') ? obsoleteEntries : allDatabases,
     }));
-    (usePagination as jest.Mock).mockReturnValue({
-      allResults: uniparcXrefsData.results,
-      initialLoading: false,
-      progress: 1,
-      hasMoreData: true,
-      handleLoadMoreRows: jest.fn(),
-      total: 3,
-    });
+    (usePagination as jest.Mock).mockReturnValue(loadedXrefs);
+  });
+
+  it('should render the xref table properly and match snapshot', async () => {
     const { asFragment } = customRender(
       <XRefsSection entryData={uniParcData} />
     );
@@ -87,5 +95,60 @@ describe('XrefSection component', () => {
     );
     const table = container.querySelector('.overflow-y-container');
     expect(table).toBeEmptyDOMElement();
+  });
+
+  // The element the tooltips attach to only exists once the loader has gone, so
+  // this has to go through the loading state to be worth anything.
+  describe('column header tooltips', () => {
+    const renderAfterLoading = () => {
+      (usePagination as jest.Mock).mockReturnValue({
+        ...loadedXrefs,
+        initialLoading: true,
+      });
+      const { rerender } = customRender(
+        <XRefsSection entryData={uniParcData} />
+      );
+      expect(
+        screen.queryByRole('columnheader', { name: 'Go to' })
+      ).not.toBeInTheDocument();
+      (usePagination as jest.Mock).mockReturnValue(loadedXrefs);
+      rerender(<XRefsSection entryData={uniParcData} />);
+      return screen.getByRole('columnheader', { name: 'Go to' });
+    };
+
+    it('shows the tooltip on hover', async () => {
+      const header = renderAfterLoading();
+
+      await userEvent.hover(header);
+
+      expect(
+        await screen.findByText('Where this cross-reference can be opened.')
+      ).toBeInTheDocument();
+    });
+
+    // The tooltip is the only place a column's meaning is written down, so it
+    // can't be mouse-only
+    it('shows the tooltip on keyboard focus', async () => {
+      const header = renderAfterLoading();
+
+      // A `th` isn't focusable on its own, so without this the focus handler
+      // could never be reached
+      expect(header).toHaveAttribute('tabindex', '0');
+      header.focus();
+
+      expect(
+        await screen.findByText('Where this cross-reference can be opened.')
+      ).toBeInTheDocument();
+    });
+
+    it('dismisses an open tooltip when the table goes away', async () => {
+      const header = renderAfterLoading();
+      header.focus();
+      await screen.findByRole('tooltip');
+
+      cleanup();
+
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    });
   });
 });

@@ -6,6 +6,7 @@ import data from '../../__mocks__/uniparcXrefsModelData';
 import { type UniParcXRef } from '../../adapters/uniParcConverter';
 import { type ObsoleteXRefStatus } from '../../components/entry/hooks/useObsoleteXRefStatuses';
 import UniParcXRefsColumnConfiguration, {
+  defaultColumns,
   getUniParcXRefsColumns,
   UniParcXRefsColumn,
 } from '../UniParcXRefsColumnConfiguration';
@@ -26,20 +27,69 @@ describe('Links column destinations', () => {
     ['EMBL', 'https://www.ebi.ac.uk/ena/browser/view/%id'],
   ]);
 
-  const renderLinksCell = (
-    xref: UniParcXRef,
+  const getLinksColumn = (
+    columns: UniParcXRefsColumn[] = [],
     obsoleteStatuses?: Map<string, ObsoleteXRefStatus>
-  ) => {
-    const [column] = getUniParcXRefsColumns(
-      [UniParcXRefsColumn.links],
+  ) =>
+    getUniParcXRefsColumns(
+      columns,
       templateMap,
       'UPI0000000001',
       undefined,
       undefined,
       obsoleteStatuses
-    );
-    return customRender(<div>{column.render(xref)}</div>);
+    ).find(({ name }) => name === 'links');
+
+  const renderLinksCell = (
+    xref: UniParcXRef,
+    obsoleteStatuses?: Map<string, ObsoleteXRefStatus>
+  ) => {
+    const column = getLinksColumn([], obsoleteStatuses);
+    return customRender(<div>{column?.render(xref)}</div>);
   };
+
+  // "Go to" has no API field behind it, so it is never stored, downloaded or
+  // offered in the Customise Table panel — it is added to the rendered table
+  // whatever the stored column list happens to say.
+  it('is present whatever the stored columns are', () => {
+    expect(defaultColumns).not.toContain('links');
+    expect(getLinksColumn([])).toBeDefined();
+    expect(getLinksColumn(defaultColumns)).toBeDefined();
+  });
+
+  it('sits after "Active" by default, and after the identifier without it', () => {
+    const names = (columns: UniParcXRefsColumn[]) =>
+      getUniParcXRefsColumns(columns, templateMap, 'UPI0000000001').map(
+        ({ name }) => name
+      );
+
+    expect(names(defaultColumns)).toEqual([
+      'database',
+      'accession',
+      'active',
+      'links',
+      'organism',
+      'proteome',
+      'version',
+      'first_seen',
+      'last_seen',
+    ]);
+    expect(
+      names([UniParcXRefsColumn.database, UniParcXRefsColumn.accession])
+    ).toEqual(['database', 'accession', 'links']);
+  });
+
+  // Stored column lists from before it became a fixed column can still hold it,
+  // and it would render as an unknown column (and 400 the download) if kept
+  it('is not duplicated by a stale stored column list', () => {
+    const names = getUniParcXRefsColumns(
+      ['links' as UniParcXRefsColumn, UniParcXRefsColumn.active],
+      templateMap,
+      'UPI0000000001'
+    ).map(({ name }) => name);
+
+    expect(names).toEqual(['active', 'links']);
+  });
 
   it('links an active UniProtKB xref to its entry', () => {
     renderLinksCell({
@@ -49,7 +99,7 @@ describe('Links column destinations', () => {
     });
 
     expect(
-      screen.getByRole('link', { name: 'UniProtKB entry' })
+      screen.getByRole('link', { name: 'UniProtKB entry P12345' })
     ).toHaveAttribute('href', '/uniprotkb/P12345/entry');
   });
 
@@ -60,12 +110,11 @@ describe('Links column destinations', () => {
       active: false,
     });
 
-    expect(screen.getByRole('link', { name: 'History' })).toHaveAttribute(
-      'href',
-      '/uniprotkb/P12345/history'
-    );
     expect(
-      screen.queryByRole('link', { name: 'Sequence annotation' })
+      screen.getByRole('link', { name: 'History of P12345' })
+    ).toHaveAttribute('href', '/uniprotkb/P12345/history');
+    expect(
+      screen.queryByRole('link', { name: /Sequence annotation/ })
     ).not.toBeInTheDocument();
   });
 
@@ -88,7 +137,7 @@ describe('Links column destinations', () => {
 
       // Whichever page the sub-entry router settles on, this label holds
       expect(
-        screen.getByRole('link', { name: 'UniProtKB record' })
+        screen.getByRole('link', { name: 'UniProtKB record for Q71TT2' })
       ).toHaveAttribute('href', '/uniparc/UPI0000000001/entry/Q71TT2');
     }
   );
@@ -97,7 +146,7 @@ describe('Links column destinations', () => {
     renderLinksCell(obsoleteTrEMBL, new Map([['Q71TT2', 'deleted']]));
 
     expect(
-      screen.getByRole('link', { name: 'Sequence annotation' })
+      screen.getByRole('link', { name: 'Sequence annotation for Q71TT2' })
     ).toHaveAttribute('href', '/uniparc/UPI0000000001/entry/Q71TT2');
   });
 
@@ -106,17 +155,16 @@ describe('Links column destinations', () => {
 
     // Straight to history rather than via the sub-entry page, which would only
     // redirect there anyway
-    expect(screen.getByRole('link', { name: 'History' })).toHaveAttribute(
-      'href',
-      '/uniprotkb/Q71TT2/history'
-    );
+    expect(
+      screen.getByRole('link', { name: 'History of Q71TT2' })
+    ).toHaveAttribute('href', '/uniprotkb/Q71TT2/history');
   });
 
   it('links a TrEMBL xref that UniProtKB still has to its entry', () => {
     renderLinksCell(obsoleteTrEMBL, new Map([['Q71TT2', 'active']]));
 
     expect(
-      screen.getByRole('link', { name: 'UniProtKB entry' })
+      screen.getByRole('link', { name: 'UniProtKB entry Q71TT2' })
     ).toHaveAttribute('href', '/uniprotkb/Q71TT2/entry');
   });
 
@@ -124,7 +172,7 @@ describe('Links column destinations', () => {
     renderLinksCell({ database: 'EMBL', id: 'AAB12345', active: true });
 
     expect(
-      screen.getByRole('link', { name: 'Sequence annotation' })
+      screen.getByRole('link', { name: 'Sequence annotation for AAB12345' })
     ).toHaveAttribute('href', '/uniparc/UPI0000000001/entry/EMBL:AAB12345');
   });
 
@@ -132,7 +180,7 @@ describe('Links column destinations', () => {
     renderLinksCell({ database: 'EMBL', id: 'AAB12345', active: false });
 
     expect(
-      screen.getByRole('link', { name: /Source database/ })
+      screen.getByRole('link', { name: /^Source database entry AAB12345/ })
     ).toHaveAttribute(
       'href',
       'https://www.ebi.ac.uk/ena/browser/view/AAB12345'
