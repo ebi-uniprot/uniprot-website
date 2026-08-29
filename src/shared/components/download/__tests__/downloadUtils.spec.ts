@@ -25,6 +25,7 @@ import {
   getPreviewFileFormat,
   getPreviewOptions,
   getRedirectToIDMapping,
+  getUniParcProteomeSearchId,
   hasColumns,
   isAsyncDownloadIdMapping,
   isSubsequenceFrom,
@@ -1134,6 +1135,62 @@ describe('Download Utils', () => {
     expect(
       isUniParcProteomeSearch(state, props, downloadOptions.query)
     ).toEqual(true);
+    expect(
+      getUniParcProteomeSearchId(state, props, downloadOptions.query)
+    ).toEqual('UP000001478');
+
+    // getUniParcProteomeSearchId query variations
+    expect(
+      getUniParcProteomeSearchId(state, props, 'proteome:UP000005640')
+    ).toEqual('UP000005640');
+    expect(
+      getUniParcProteomeSearchId(state, props, '(proteome:UP000005640)')
+    ).toEqual('UP000005640');
+    expect(
+      getUniParcProteomeSearchId(state, props, '(upid:UP000005640)')
+    ).toEqual('UP000005640');
+    // Negative cases for getUniParcProteomeSearchId
+    expect(
+      getUniParcProteomeSearchId(
+        state,
+        props,
+        'proteome:UP000005640 AND taxonomy_id:9606'
+      )
+    ).toBeUndefined();
+    expect(
+      getUniParcProteomeSearchId(
+        { ...state, nSelectedEntries: 2 },
+        props,
+        'proteome:UP000005640'
+      )
+    ).toBeUndefined();
+    expect(
+      getUniParcProteomeSearchId(
+        state,
+        { ...props, namespace: Namespace.uniprotkb },
+        'proteome:UP000005640'
+      )
+    ).toBeUndefined();
+
+    // jsonPrecomputed options in getDownloadOptions
+    state.selectedFileFormat = FileFormat.jsonPrecomputed;
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      ...downloadOptions,
+      fileFormat: FileFormat.jsonPrecomputed,
+      uniparcProteomeFastaHeader: undefined,
+      uniparcProteomePrecomputed: 'UP000001478',
+    });
+
+    // plain json should not set uniparcProteomePrecomputed
+    state.selectedFileFormat = FileFormat.json;
+    expect(
+      getDownloadOptions(state, props, location, job).uniparcProteomePrecomputed
+    ).toBeUndefined();
+
+    // getIsAsyncDownload returns false for jsonPrecomputed even above limit
+    const hugeProps = { ...props, totalNumberResults: 10_000_000 };
+    state.selectedFileFormat = FileFormat.jsonPrecomputed;
+    expect(getIsAsyncDownload(state, hugeProps, location, job)).toBe(false);
   });
   test('idmapping uniprot download with inactive entries', () => {
     const props: DownloadProps<JobTypes> = {
