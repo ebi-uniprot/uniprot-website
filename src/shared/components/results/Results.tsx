@@ -18,6 +18,7 @@ import {
   searchableNamespaceLabels,
 } from '../../types/namespaces';
 import { type SearchResults, type Suggestion } from '../../types/results';
+import { stringifyUrl } from '../../utils/url';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import NoResultsPage from '../error-pages/full-pages/NoResultsPage';
@@ -31,7 +32,7 @@ import SearchSuggestions from './SearchSuggestions';
 
 const Results = () => {
   const ns = useNS();
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
 
@@ -110,6 +111,11 @@ const Results = () => {
         searchableNamespaceLabels[ns as SearchableNamespace]
       } search${total !== undefined ? ` (${total})` : ''}`}
       titleLoading={resultsDataInitialLoading}
+      // Deliberate consolidation: every faceted/filtered results URL points at
+      // the unfiltered one. `pathname` comes from the router rather than
+      // `window.location`, so it is free of the BASE_URL basename that preview
+      // builds are served under.
+      canonical={stringifyUrl(pathname, { query: '*' })}
     >
       <meta
         name="description"
@@ -117,12 +123,6 @@ const Results = () => {
           searchableNamespaceLabels[ns as SearchableNamespace]
         } dataset of UniProt`}
       />
-      {typeof window !== 'undefined' && (
-        <link
-          rel="canonical"
-          href={`${window.location.origin}${window.location.pathname}?query=*`}
-        />
-      )}
     </HTMLHead>
   );
 

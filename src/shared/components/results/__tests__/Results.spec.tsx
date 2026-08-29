@@ -4,6 +4,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import customRender from '../../../__test-helpers__/customRender';
+import { canonical, clearHeadTags } from '../../../__test-helpers__/headTags';
 import Results from '../Results';
 
 jest.mock('../SearchSuggestions', () => ({
@@ -88,5 +89,22 @@ describe('Results component', () => {
     });
     const table = await screen.findByText('Entry');
     expect(table).toBeInTheDocument();
+  });
+});
+
+describe('Results head tags', () => {
+  beforeEach(clearHeadTags);
+
+  it('consolidates a filtered search onto the unfiltered results URL', async () => {
+    customRender(<Results />, {
+      route: '/uniprotkb?query=blah&facets=reviewed%3Atrue',
+    });
+
+    await waitFor(() =>
+      expect(canonical()).toHaveAttribute(
+        'href',
+        'https://www.uniprot.org/uniprotkb?query=*'
+      )
+    );
   });
 });

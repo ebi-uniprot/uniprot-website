@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { CodeBlock, Loader } from 'franklin-sites';
 import { type FC } from 'react';
 
+import { PRODUCTION_ORIGIN } from '../../app/config/urls';
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../shared/components/ExternalLink';
 import { type UseDataAPIState } from '../../shared/hooks/useDataApi';
@@ -27,20 +28,18 @@ const documentation = new Map<JobTypes, string>([
     JobTypes.BLAST,
     'https://www.ebi.ac.uk/seqdb/confluence/pages/viewpage.action?pageId=94147939#NCBIBLAST+HelpandDocumentation-RESTAPI',
   ],
-  [JobTypes.ID_MAPPING, 'https://www.uniprot.org/api-documentation/idmapping'],
+  [JobTypes.ID_MAPPING, `${PRODUCTION_ORIGIN}/api-documentation/idmapping`],
   [JobTypes.PEPTIDE_SEARCH, 'https://peptidesearch.uniprot.org/asyncrest/'],
   [
     JobTypes.ASYNC_DOWNLOAD,
-    'https://www.uniprot.org/api-documentation', // TODO: determine final URL
+    `${PRODUCTION_ORIGIN}/api-documentation`, // TODO: determine final URL
   ],
 ]);
 
 function inputToCurl<T extends JobTypes>(
   jobType: T,
   input?:
-    | Partial<PublicServerParameters[T]>
-    | PeptideSearchFormParameters
-    | null
+    Partial<PublicServerParameters[T]> | PeptideSearchFormParameters | null
 ) {
   const excluded = exclude.get(jobType) || [];
   const inputEntries = Object.entries(input || {}).filter(

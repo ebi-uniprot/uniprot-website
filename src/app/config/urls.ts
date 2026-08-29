@@ -240,6 +240,21 @@ export const getEntryPath = (
 export const getEntryPathFor = (namespace: SearchableNamespace) =>
   partial(getEntryPath, namespace);
 
+// Hardcoded rather than read from the runtime origin: a canonical must name
+// production whichever origin served the bundle, and must agree with the
+// production URL `entry.structured.ts` puts in the JSON-LD.
+export const PRODUCTION_ORIGIN = 'https://www.uniprot.org';
+
+/**
+ * Canonical URL for a route: production origin + pathname, no query string and
+ * no fragment. Pass a path built with `getEntryPath` rather than
+ * `useLocation().pathname` wherever a route has optional segments, so that the
+ * canonical matches the sitemap exactly (`/uniprotkb/<accession>/entry`, not
+ * `/uniprotkb/<accession>`).
+ */
+export const getCanonicalURL = (pathname: string) =>
+  `${PRODUCTION_ORIGIN}${pathname}`;
+
 export const getLocationEntryPath = (location: Location, accession: string) =>
   generatePath(LocationToPath[location], {
     accession: `${accession}`,

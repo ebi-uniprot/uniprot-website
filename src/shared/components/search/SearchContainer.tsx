@@ -17,6 +17,7 @@ import { type SearchAction, type WebSite, type WithContext } from 'schema-dts';
 import {
   Location,
   LocationToPath,
+  PRODUCTION_ORIGIN,
   SearchResultsLocations,
 } from '../../../app/config/urls';
 import { rawDBToNamespace } from '../../../jobs/id-mapping/utils';
@@ -124,13 +125,13 @@ const rawQueryClean = (raw: string) =>
 const webSiteSchemaFor = (namespace: Searchspace): WithContext<WebSite> => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  url: 'https://www.uniprot.org',
+  url: PRODUCTION_ORIGIN,
   name: 'UniProt',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: `https://www.uniprot.org/${
+      urlTemplate: `${PRODUCTION_ORIGIN}/${
         namespace === toolResults ? Namespace.uniprotkb : namespace
       }?query={q}`,
     },

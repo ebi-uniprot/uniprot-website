@@ -4,9 +4,15 @@ import MockAdapter from 'axios-mock-adapter';
 import { type ReactNode } from 'react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
+import {
+  canonical,
+  clearHeadTags,
+  robots,
+} from '../../../../shared/__test-helpers__/headTags';
 import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../shared/config/externalUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
+import inactiveEntryData from '../../../__mocks__/inactiveEntryModelData';
 import entryData from '../../../__mocks__/uniProtKBEntryModelData';
 import uniprotkbApiUrls from '../../../config/apiUrls/apiUrls';
 import Entry from '../Entry';
@@ -68,8 +74,18 @@ mock
     },
     { 'x-total-results': 25 }
   )
+  .onGet(
+    sharedApiUrls.entry.entry(
+      inactiveEntryData.primaryAccession,
+      Namespace.uniprotkb
+    )
+  )
+  .reply(200, inactiveEntryData)
+  // 404, not 500: useDataApi retries transient failures, so a catch-all 500
+  // would leave every auxiliary endpoint mid-backoff when we snapshot. 404 is
+  // what "this entry has no such data" actually looks like anyway.
   .onAny()
-  .reply(500);
+  .reply(404);
 
 let rendered: ReturnType<typeof customRender>;
 
@@ -110,5 +126,50 @@ describe('Entry', () => {
       );
       expect(smallFacetButton2).toBeInTheDocument();
     });
+  });
+});
+
+describe('Entry head tags', () => {
+  beforeEach(clearHeadTags);
+
+  it('canonicalises to the sitemap URL, dropping the query string', async () => {
+    await act(async () => {
+      customRender(<Entry />, {
+        route: `/uniprotkb/${primaryAccession}/entry?fromCovid19Portal=true`,
+      });
+    });
+
+    await waitFor(() =>
+      expect(canonical()).toHaveAttribute(
+        'href',
+        `https://www.uniprot.org/uniprotkb/${primaryAccession}/entry`
+      )
+    );
+  });
+
+  it('canonicalises to the /entry tab even when the URL omits it', async () => {
+    await act(async () => {
+      customRender(<Entry />, { route: `/uniprotkb/${primaryAccession}` });
+    });
+
+    await waitFor(() =>
+      expect(canonical()).toHaveAttribute(
+        'href',
+        `https://www.uniprot.org/uniprotkb/${primaryAccession}/entry`
+      )
+    );
+  });
+
+  it('does not let an obsolete entry be indexed', async () => {
+    const obsolete = inactiveEntryData.primaryAccession;
+    await act(async () => {
+      customRender(<Entry />, { route: `/uniprotkb/${obsolete}/entry` });
+    });
+
+    // The robots tag doubles as the barrier telling us Helmet has flushed
+    await waitFor(() => expect(robots()).toHaveAttribute('content', 'noindex'));
+    // A canonical would tell Google this URL is the same page as some other
+    expect(canonical()).toBeNull();
+    expect(document.title).toContain(obsolete);
   });
 });
