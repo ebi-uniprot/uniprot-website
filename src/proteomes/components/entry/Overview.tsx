@@ -4,16 +4,25 @@ import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import ftpUrls from '../../../shared/config/ftpUrls';
+import uniparcApiUrls from '../../../uniparc/config/apiUrls';
+import usePrecomputedProteomeCount from '../../../uniparc/hooks/usePrecomputedProteomeCount';
 import { type ProteomesUIModel } from '../../adapters/proteomesConverter';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
 import EntrySection from '../../types/entrySection';
+import { isUniParcProteome } from '../../utils';
 import BuscoLegend from '../BuscoLegend';
 import BuscoView from '../BuscoView';
 import { PanProteome } from './PanProteome';
 
 const Overview = ({ data }: { data: ProteomesUIModel }) => {
+  const precomputedCount = usePrecomputedProteomeCount(
+    isUniParcProteome(data.proteomeType) && data.proteinCount
+      ? data.id
+      : undefined
+  );
+
   const renderColumnContent = (column: ProteomesColumn) => {
     const config = ProteomesColumnConfiguration.get(column);
     return config?.render(data) || null;
@@ -78,7 +87,25 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
           Number of entries
         </span>
       ),
-      content: renderColumnContent(ProteomesColumn.proteinCount),
+      content: (
+        <>
+          {renderColumnContent(ProteomesColumn.proteinCount)}
+          {precomputedCount > 0 ? (
+            <>
+              {' · '}
+              <a
+                href={uniparcApiUrls.precomputedProteomeAnnotations(data.id, {
+                  stream: true,
+                  compressed: true,
+                  download: true,
+                })}
+              >
+                Download precomputed annotations
+              </a>
+            </>
+          ) : null}
+        </>
+      ),
     },
     {
       title: (
