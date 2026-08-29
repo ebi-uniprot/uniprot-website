@@ -1,6 +1,7 @@
 import { type LocationDescriptorObject } from 'history';
 import { partial } from 'lodash-es';
 import { generatePath, matchPath } from 'react-router-dom';
+import joinUrl from 'url-join';
 
 import { databaseToNamespace } from '../../jobs/blast/config/BlastFormData';
 import { type FormParameters as BLASTFormParameters } from '../../jobs/blast/types/blastFormParameters';
@@ -246,14 +247,17 @@ export const getEntryPathFor = (namespace: SearchableNamespace) =>
 export const PRODUCTION_ORIGIN = 'https://www.uniprot.org';
 
 /**
- * Canonical URL for a route: production origin + pathname, no query string and
- * no fragment. Pass a path built with `getEntryPath` rather than
+ * Canonical URL for a route: the given path resolved against the production
+ * origin. Pass a path built with `getEntryPath` rather than
  * `useLocation().pathname` wherever a route has optional segments, so that the
  * canonical matches the sitemap exactly (`/uniprotkb/<accession>/entry`, not
- * `/uniprotkb/<accession>`).
+ * `/uniprotkb/<accession>`). Joined rather than concatenated so a missing
+ * leading slash or an accidental double slash cannot produce a malformed
+ * canonical -- and unlike `new URL`, `joinUrl` can never resolve a
+ * `//host`-shaped path onto another origin.
  */
 export const getCanonicalURL = (pathname: string) =>
-  `${PRODUCTION_ORIGIN}${pathname}`;
+  joinUrl(PRODUCTION_ORIGIN, pathname);
 
 export const getLocationEntryPath = (location: Location, accession: string) =>
   generatePath(LocationToPath[location], {
