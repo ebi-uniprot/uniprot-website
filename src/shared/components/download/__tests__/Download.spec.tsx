@@ -24,9 +24,14 @@ import { stringifyQuery } from '../../../utils/url';
 import Download from '../Download';
 
 const mock = new MockAdapter(axios, { onNoMatch: 'passthrough' });
-mock
-  .onHead(/\/uniprotkb\/precomputed\/proteome\/UP000001478/)
-  .reply(200, undefined, { 'x-total-results': '13794' });
+
+afterEach(() => {
+  mock.reset();
+});
+
+afterAll(() => {
+  mock.restore();
+});
 
 const initialColumns = [
   UniProtKBColumn.accession,
@@ -230,6 +235,10 @@ describe('Download uniparc entries with passed proteome id as query', () => {
   });
 
   it('should offer precomputed annotations option and handle format toggling when probe count > 0', async () => {
+    mock
+      .onHead(/\/uniprotkb\/precomputed\/proteome\/UP000001478/)
+      .reply(200, undefined, { 'x-total-results': '13794' });
+
     const namespace = Namespace.uniparc;
     const onCloseMock = jest.fn();
     const query = '(upid:UP000001478)';
@@ -290,9 +299,31 @@ describe('Download uniparc entries with passed proteome id as query', () => {
       )
     );
 
+    // Generate URL for API should strip download=true from stream and search URLs
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Generate URL for API' })
+    );
+    const streamCode = screen.getByText((content) =>
+      content.includes(
+        '/uniprotkb/precomputed/proteome/UP000001478/stream?compressed=true'
+      )
+    );
+    expect(streamCode).toBeInTheDocument();
+    expect(streamCode.textContent).not.toContain('download=true');
+
+    const searchCode = screen.getByText((content) =>
+      content.includes(
+        '/uniprotkb/precomputed/proteome/UP000001478?compressed=true&size=500'
+      )
+    );
+    expect(searchCode).toBeInTheDocument();
+    expect(searchCode.textContent).not.toContain('download=true');
+
     // Compressed toggle reflected in href
     fireEvent.click(screen.getByLabelText('No'));
-    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link', {
+      name: 'Download',
+    });
     expect(downloadLink.href).toEqual(
       expect.stringContaining(
         '/uniprotkb/precomputed/proteome/UP000001478/stream?download=true'
@@ -307,7 +338,9 @@ describe('Download uniparc entries with passed proteome id as query', () => {
     expect(
       screen.getByTestId<HTMLSelectElement>('file-format-select').value
     ).toBe(FileFormat.json);
-    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link', {
+      name: 'Download',
+    });
     expect(downloadLink.href).toEqual(expect.stringContaining('format=json'));
 
     // Selecting dropdown option directly checks the checkbox

@@ -312,7 +312,9 @@ const Download = (props: DownloadProps<JobTypes>) => {
       extraContentNode = (
         <DownloadAPIURL
           // Remove the download attribute as it's unnecessary for API access
-          apiURL={downloadUrl.replace('download=true&', '')}
+          apiURL={downloadUrl
+            .replace('?download=true&', '?')
+            .replace(/[?&]download=true(?=&|$)/, '')}
           onCopy={() => onClose('copy', 'api-url')}
           disableSearch={
             isEmbeddings ||
