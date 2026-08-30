@@ -13,9 +13,11 @@
 
 .entry-page {
   *[id] {
-    // Add the sticky compact bar's height (0 unless stuck) so anchored sections
-    // clear it instead of landing behind it.
-    scroll-margin-top: calc(4.2em + var(--compact-bar-height, 0rem));
+    // Entry pages with the sticky compact bar set --anchor-scroll-margin to the
+    // height of the two stuck rows (entry-sticky-header.module.scss) so an
+    // anchored section lands below them instead of behind them. The others
+    // (UniRef, Proteomes) have nothing sticky to clear and keep the default.
+    scroll-margin-top: var(--anchor-scroll-margin, 4.2em);
   }
 
   & .tabs__header {

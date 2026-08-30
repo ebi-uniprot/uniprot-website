@@ -621,6 +621,11 @@ const Entry = () => {
   isObsolete =
     (redirectedTo && accession !== match.params.accession) || isObsolete;
 
+  // The compact bar and the `stuck` class that shrinks and offsets the tabs row
+  // to sit under it share one condition: an entry without these (obsolete, or
+  // no sequence) renders no bar, so the tabs must keep their normal position.
+  const showCompactBar = Boolean(isStuck && !isObsolete && data?.sequence);
+
   let sidebar = null;
   if (!isObsolete) {
     if (match.params.subPage === TabLocation.Publications) {
@@ -775,7 +780,7 @@ const Entry = () => {
         sticky['sticky-tabs-container'],
         stickyHeaderStyles.container,
         {
-          [stickyHeaderStyles.stuck]: isStuck,
+          [stickyHeaderStyles.stuck]: showCompactBar,
           [stickyHeaderStyles['no-sidebar']]: !sidebar,
         }
       )}
@@ -811,7 +816,9 @@ const Entry = () => {
           <div
             ref={setFullHeaderRef}
             className={stickyHeaderStyles['full-header']}
-            inert={isStuck}
+            // Same condition as the bar: without a compact bar to take over,
+            // the full header must stay interactive.
+            inert={showCompactBar}
           >
             <div className="ai-annotation-entry-title-row">
               <h1>
@@ -841,7 +848,7 @@ const Entry = () => {
           }
         />
       )}
-      {isStuck && !isObsolete && data?.sequence && (
+      {showCompactBar && (
         <div className={stickyHeaderStyles['compact-bar']}>
           <span className={stickyHeaderStyles['compact-title']}>
             <EntryTitle
@@ -862,7 +869,10 @@ const Entry = () => {
         </div>
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
-        <Tabs active={match.params.subPage}>
+        <Tabs
+          active={match.params.subPage}
+          className={stickyHeaderStyles['entry-tabs']}
+        >
           <Tab
             disabled={isObsolete}
             className={loadProtNLM && hasProtnlm ? 'entry-tab--ai' : undefined}

@@ -688,7 +688,7 @@ const SubEntry = () => {
           <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
         </div>
       )}
-      <Tabs active={subPage}>
+      <Tabs active={subPage} className={stickyHeaderStyles['entry-tabs']}>
         <Tab
           title={
             <EntryTabLink
