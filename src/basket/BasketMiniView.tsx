@@ -152,6 +152,7 @@ const BasketMiniViewTab = ({
         subsetsMap={subsetsMap}
         inBasket
         inBasketMini
+        onFullView={onFullView}
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
