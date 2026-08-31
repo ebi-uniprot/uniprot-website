@@ -225,39 +225,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                 >
                   <a
                     aria-hidden="true"
-                    href="/help/proteome"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    <a
-                      href="/help/proteome"
-                    >
-                      What are proteomes?
-                    </a>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                       
-                      <span
-                        class="match-highlight"
-                      >
-                        canonical
-                      </span>
-                       and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and database
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
                     href="/help/sequence_caution"
                     tabindex="-1"
                   />
@@ -357,29 +324,62 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                 >
                   <a
                     aria-hidden="true"
-                    href="/help/human_proteome"
+                    href="/help/proteome"
                     tabindex="-1"
                   />
                   <div
                     class="decorated-list-item__title tiny"
                   >
                     <a
-                      href="/help/human_proteome"
+                      href="/help/proteome"
                     >
-                      What is UniProt's human proteome?
+                      What are proteomes?
                     </a>
                   </div>
                   <div
                     class="decorated-list-item__content"
                   >
                     <span>
-                       the 
+                       
                       <span
                         class="match-highlight"
                       >
                         canonical
                       </span>
-                       sequence? Are all isoforms described in one entry?). Query: proteome:up000005640 AND
+                       and additional sequences), gene mapping files, Coding DNA Sequence (CDS) FASTA files and database
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    href="/help/structure_section"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/structure_section"
+                    >
+                      Structure annotation in UniProt
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       available for one protein (see the PDB cross-reference 
+                      <span
+                        class="match-highlight"
+                      >
+                        help
+                      </span>
+                       page). These structures may cover different
                     </span>
                   </div>
                 </div>
@@ -479,39 +479,6 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                         canonical
                       </span>
                        sequence? Are
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="decorated-list-item decorated-list-item--has-link"
-                >
-                  <a
-                    aria-hidden="true"
-                    href="/help/structure_section"
-                    tabindex="-1"
-                  />
-                  <div
-                    class="decorated-list-item__title tiny"
-                  >
-                    <a
-                      href="/help/structure_section"
-                    >
-                      Structure annotation in UniProt
-                    </a>
-                  </div>
-                  <div
-                    class="decorated-list-item__content"
-                  >
-                    <span>
-                       (see the PDB cross-reference 
-                      <span
-                        class="match-highlight"
-                      >
-                        help
-                      </span>
-                       page). These structures may cover different ranges of the sequence,
                     </span>
                   </div>
                 </div>
@@ -677,6 +644,39 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                         canonical
                       </span>
                        sequence) is usually the most common polymorphic
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    href="/help/pan_proteomes_workflow"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/pan_proteomes_workflow"
+                    >
+                      Pan proteomes workflow
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       Reviewed/Swiss-Prot entry over unreviewed/TrEMBL entry GeneCentric 
+                      <span
+                        class="match-highlight"
+                      >
+                        canonical
+                      </span>
+                       sequence over an isoform Entry
                     </span>
                   </div>
                 </div>
@@ -907,6 +907,45 @@ exports[`HelpQuickSearch tests should render with input 1`] = `
                         canonical
                       </span>
                        protein sequence displayed by default in the
+                    </span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--has-link"
+                >
+                  <a
+                    aria-hidden="true"
+                    href="/help/human_proteome"
+                    tabindex="-1"
+                  />
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    <a
+                      href="/help/human_proteome"
+                    >
+                      What is UniProt's human proteome?
+                    </a>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <span>
+                       
+                      <span
+                        class="match-highlight"
+                      >
+                        help
+                      </span>
+                       on how to navigate the Proteomes resource, please see our ‘Explore proteomes’ 
+                      <span
+                        class="match-highlight"
+                      >
+                        help
+                      </span>
+                       page. Our FTP
                     </span>
                   </div>
                 </div>
