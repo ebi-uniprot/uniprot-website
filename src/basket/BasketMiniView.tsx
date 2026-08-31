@@ -1,11 +1,19 @@
 import { BinIcon, Button, FullViewIcon, Tab, Tabs } from 'franklin-sites';
-import { type Dispatch, type SetStateAction, useEffect, useMemo } from 'react';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../app/config/urls';
 import { reIds } from '../jobs/utils/urls';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 import ResultsData from '../shared/components/results/ResultsData';
+import { type Column } from '../shared/config/columns';
 import useBasket, { type Basket } from '../shared/hooks/useBasket';
 import {
   type ColumnDescriptor,
@@ -21,9 +29,15 @@ import { getIdKeyForData } from '../shared/utils/getIdKey';
 import { UniParcColumn } from '../uniparc/config/UniParcColumnConfiguration';
 import { type UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
+import { SortDirection } from '../uniprotkb/types/resultsTypes';
 import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
 import EmptyBasket from './EmptyBasket';
 import styles from './styles/basket-mini-view.module.scss';
+import {
+  type BasketSort,
+  basketSortValueGetters,
+  sortBasketAccessions,
+} from './utils/basketSort';
 
 const uniProtKBColumns = [
   UniProtKBColumn.accession,
@@ -99,8 +113,10 @@ const BasketMiniViewTab = ({
   );
 
   const initialApiUrl = useNSQuery({
-    // Passing accessions without modifications in case of subsets
-    accessions: Array.from(new Set(subsetsMap.values())),
+    // Passing accessions without modifications in case of subsets. Sorted to a
+    // canonical order so reordering the basket (via sorting) doesn't change the
+    // fetch URL — the display order comes from updateResultsWithAccessionSubsets.
+    accessions: Array.from(new Set(subsetsMap.values())).sort(),
     overrideNS: namespace,
     withFacets: false,
     withColumns: false,
@@ -112,32 +128,79 @@ const BasketMiniViewTab = ({
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect(resultsDataObject.initialLoading);
 
+  // The last applied sort — drives the header arrow and the asc/descend toggle.
+  // It is transient (reset below when the basket contents change, and on
+  // remount), matching that the stored basket order is a snapshot rather than a
+  // live field-sort.
+  const [lastSort, setLastSort] = useState<BasketSort | undefined>(undefined);
+
   // reset the selection every time the namespace changes
   useEffect(() => {
     setSelectedEntries([]);
   }, [namespace, setSelectedEntries]);
 
+  // Clear the sort indicator whenever entries are added or removed, so the arrow
+  // doesn't imply the list is still fully sorted by that field.
+  const [previousAccessionCount, setPreviousAccessionCount] = useState(
+    accessions.length
+  );
+  if (accessions.length !== previousAccessionCount) {
+    setPreviousAccessionCount(accessions.length);
+    setLastSort(undefined);
+  }
+
   const databaseInfoMaps = useDatabaseInfoMaps();
 
-  const columns = useMemo<Array<ColumnDescriptor<APIModel>>>(
-    () =>
-      columnNames &&
-      getColumnsToDisplay(
-        namespace,
-        columnNames,
-        undefined,
-        undefined,
-        undefined,
-        databaseInfoMaps
-      ),
-    [namespace, columnNames, databaseInfoMaps]
-  );
+  const columns = useMemo<Array<ColumnDescriptor<APIModel>>>(() => {
+    const getters = basketSortValueGetters[namespace];
+    return getColumnsToDisplay(
+      namespace,
+      columnNames,
+      undefined,
+      undefined,
+      undefined,
+      databaseInfoMaps
+    ).map((column) =>
+      getters?.[column.name]
+        ? {
+            ...column,
+            sortable: true,
+            sorted:
+              column.name === lastSort?.column ? lastSort.direction : undefined,
+          }
+        : column
+    );
+  }, [namespace, columnNames, databaseInfoMaps, lastSort]);
 
   // Replacing the full accession including subsets in the resultsData
-  resultsDataObject.allResults = updateResultsWithAccessionSubsets(
+  const allResults = updateResultsWithAccessionSubsets(
     resultsDataObject.allResults,
     namespace,
     accessions
+  );
+  resultsDataObject.allResults = allResults;
+
+  // Sorting reorders the stored basket (persisted, and reflected in the full
+  // view). Clicking the same column again toggles ascending/descending.
+  const handleSort = useCallback(
+    (columnName: string) => {
+      const column = columnName as Column;
+      const direction =
+        lastSort?.column === column &&
+        lastSort.direction === SortDirection.ascend
+          ? SortDirection.descend
+          : SortDirection.ascend;
+      const newOrder = sortBasketAccessions(allResults, namespace, accessions, {
+        column,
+        direction,
+      });
+      setBasket(
+        (currentBasket) =>
+          new Map([...currentBasket, [namespace, new Set(newOrder)]])
+      );
+      setLastSort({ column, direction });
+    },
+    [accessions, allResults, lastSort, namespace, setBasket]
   );
 
   return (
@@ -161,6 +224,7 @@ const BasketMiniViewTab = ({
         namespaceOverride={namespace}
         columnsOverride={columns}
         basketSetter={setBasket}
+        onColumnSort={handleSort}
       />
       {/* both classnames from Franklin */}
       <div className="button-group sliding-panel__button-row">
