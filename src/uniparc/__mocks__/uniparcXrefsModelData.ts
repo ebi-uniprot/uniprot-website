@@ -1,5 +1,5 @@
 // Source: uniparc/UPI0000000001/databases
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock = {
   results: [
     {
@@ -9,7 +9,7 @@ const mock = {
       version: 3,
       active: true,
       created: '2007-01-23',
-      lastUpdated: '2026-06-10',
+      lastUpdated: '2026-09-02',
       geneName: 'OPG099',
       proteinName: 'Entry-fusion complex associated protein OPG095',
       organism: {
@@ -46,7 +46,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-04-18',
-      lastUpdated: '2026-06-10',
+      lastUpdated: '2026-09-02',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
@@ -339,7 +339,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2026-03-19',
+      lastUpdated: '2026-05-22',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',

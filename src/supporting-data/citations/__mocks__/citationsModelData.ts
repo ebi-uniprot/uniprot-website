@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type CitationsAPIModel } from '../adapters/citationsConverter';
 
 // Source: citations/search?query=nature&size=2
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: SearchResults<CitationsAPIModel> = {
   results: [
     {
