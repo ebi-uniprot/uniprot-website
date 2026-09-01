@@ -23,6 +23,21 @@ const quoteIfNeeded = (value: string): string => {
   return `${quote}${value}${quote}`;
 };
 
+// A proteome component can only be searched when scoped by a valid proteome
+// ID, unless it's already in fused form (see reFusedProteomeComponentValue).
+// Single source of truth for the condition under which stringify() drops a
+// clause's `proteomecomponent` bit, so the UI's warning toast can't drift
+// out of sync with the actual drop.
+export const isOrphanProteomeComponent = (clause: Clause): boolean =>
+  Boolean(
+    clause.queryBits.proteomecomponent &&
+    !(
+      clause.queryBits.proteome &&
+      reProteomeIdValue.test(clause.queryBits.proteome)
+    ) &&
+    !reFusedProteomeComponentValue.test(clause.queryBits.proteomecomponent)
+  );
+
 export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
@@ -100,13 +115,7 @@ export const stringify = (clauses: Clause[] = []): string => {
       // A proteome component can only be searched when scoped by a valid
       // proteome ID. On its own it's meaningless, so drop it (the UI warns the
       // user that a proteome ID is needed).
-      if (
-        clause.queryBits.proteomecomponent &&
-        !(
-          clause.queryBits.proteome &&
-          reProteomeIdValue.test(clause.queryBits.proteome)
-        )
-      ) {
+      if (isOrphanProteomeComponent(clause)) {
         query = query.filter(([key]) => key !== 'proteomecomponent');
         if (!query.length) {
           // nothing left to search in this clause

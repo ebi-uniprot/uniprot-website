@@ -47,7 +47,10 @@ import { pluralise } from '../../shared/utils/utils';
 import { type Clause, type SearchTermType } from '../types/searchTypes';
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
-import { reProteomeIdValue, stringify } from '../utils/queryStringProcessor';
+import {
+  isOrphanProteomeComponent,
+  stringify,
+} from '../utils/queryStringProcessor';
 import ClauseList from './ClauseList';
 
 type Props = {
@@ -262,14 +265,7 @@ const QueryBuilder = ({ onCancel, fieldToAdd, initialSearchspace }: Props) => {
     // A proteome component can only be searched when scoped by a valid proteome
     // ID. If the user provided a component without one, warn them and ignore it
     // (stringify drops it from the resulting query).
-    const hasOrphanComponent = clauses.some(
-      (clause) =>
-        clause.queryBits.proteomecomponent &&
-        !(
-          clause.queryBits.proteome &&
-          reProteomeIdValue.test(clause.queryBits.proteome)
-        )
-    );
+    const hasOrphanComponent = clauses.some(isOrphanProteomeComponent);
     if (hasOrphanComponent) {
       dispatch(
         addMessage({

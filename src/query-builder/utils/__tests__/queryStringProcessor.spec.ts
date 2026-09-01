@@ -2,7 +2,11 @@
  * @jest-environment node
  */
 import { getSearchTerm } from '../../components/__tests__/__mocks__/configureSearchTerms';
-import { parse, stringify } from '../queryStringProcessor';
+import {
+  isOrphanProteomeComponent,
+  parse,
+  stringify,
+} from '../queryStringProcessor';
 import testData from './__mocks__/clauseQueryTestData';
 
 describe('search querystring stringifier', () => {
@@ -89,6 +93,66 @@ describe('search querystring stringifier', () => {
           },
         ])
       ).toBe('(proteomecomponent:"UP000005640:chromosome 1")');
+    });
+  });
+
+  describe('isOrphanProteomeComponent', () => {
+    it('is true for a component with no proteome ID', () => {
+      expect(
+        isOrphanProteomeComponent({
+          id: 0,
+          searchTerm: getSearchTerm('proteome'),
+          logicOperator: 'AND',
+          queryBits: { proteomecomponent: 'chromosome' },
+        })
+      ).toBe(true);
+    });
+
+    it('is true for a component with an invalid proteome ID', () => {
+      expect(
+        isOrphanProteomeComponent({
+          id: 0,
+          searchTerm: getSearchTerm('proteome'),
+          logicOperator: 'AND',
+          queryBits: {
+            proteome: 'not-a-proteome-id',
+            proteomecomponent: 'chromosome',
+          },
+        })
+      ).toBe(true);
+    });
+
+    it('is false, and matches stringify, for a component with a valid proteome ID', () => {
+      const clause = {
+        id: 0,
+        searchTerm: getSearchTerm('proteome'),
+        logicOperator: 'AND' as const,
+        queryBits: { proteome: 'UP000005640', proteomecomponent: 'chromosome' },
+      };
+      expect(isOrphanProteomeComponent(clause)).toBe(false);
+      expect(stringify([clause])).not.toBe('');
+    });
+
+    it('is false, and matches stringify, for an already-fused component with no separate proteome bit', () => {
+      const clause = {
+        id: 0,
+        searchTerm: getSearchTerm('proteome'),
+        logicOperator: 'AND' as const,
+        queryBits: { proteomecomponent: 'UP000005640:chromosome' },
+      };
+      expect(isOrphanProteomeComponent(clause)).toBe(false);
+      expect(stringify([clause])).not.toBe('');
+    });
+
+    it('is false when there is no component at all', () => {
+      expect(
+        isOrphanProteomeComponent({
+          id: 0,
+          searchTerm: getSearchTerm('proteome'),
+          logicOperator: 'AND',
+          queryBits: { proteome: 'UP000005640' },
+        })
+      ).toBe(false);
     });
   });
 
