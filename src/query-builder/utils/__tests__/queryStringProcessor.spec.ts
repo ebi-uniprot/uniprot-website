@@ -59,6 +59,11 @@ describe('search querystring stringifier', () => {
         ])
       ).toBe('(proteome:UP000005640)');
     });
+
+    test('round-trips a fused clause through parse then stringify', () => {
+      const queryString = '(proteomecomponent:"UP000005640:chromosome")';
+      expect(stringify(parse(queryString))).toBe(queryString);
+    });
   });
 
   // edge cases

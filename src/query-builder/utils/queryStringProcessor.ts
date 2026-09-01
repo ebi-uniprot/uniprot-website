@@ -6,6 +6,12 @@ const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;
 // Canonical UniProt proteome identifier value, eg UP000005640
 export const reProteomeIdValue = /^UP\d{9}$/i;
 
+// Fused proteome + component value, eg UP000005640:chromosome. Produced by
+// parse() when a query string already contains a fused `proteomecomponent`
+// clause, since parse() has no way to split it back into separate `proteome`
+// and `proteomecomponent` query bits.
+const reFusedProteomeComponentValue = /^UP\d{9}:/i;
+
 export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
@@ -61,6 +67,14 @@ export const stringify = (clauses: Clause[] = []): string => {
       // Combine proteome ID + component into a single proteomecomponent clause
       // and suppress the separate `proteome:` clause.
       queryJoined = `(proteomecomponent:"${clause.queryBits.proteome}:${clause.queryBits.proteomecomponent}")`;
+    } else if (
+      clause.queryBits.proteomecomponent &&
+      reFusedProteomeComponentValue.test(clause.queryBits.proteomecomponent)
+    ) {
+      // Value is already in fused form, eg round-tripped through parse().
+      // Emit it unchanged rather than treating it as an orphaned component
+      // with no proteome ID.
+      queryJoined = `(proteomecomponent:"${clause.queryBits.proteomecomponent}")`;
     } else {
       // A proteome component can only be searched when scoped by a valid
       // proteome ID. On its own it's meaningless, so drop it (the UI warns the
