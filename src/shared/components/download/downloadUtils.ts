@@ -241,23 +241,27 @@ export const isXrefWithFullOption = (
   return false;
 };
 
+export const getUniParcProteomeSearchId = (
+  state: DownloadState,
+  props: DownloadProps<JobTypes>,
+  query: string | undefined
+): string | undefined => {
+  if (props.namespace === Namespace.uniparc && !state.nSelectedEntries) {
+    const match = query?.match(reProteomeId);
+    if (match && match.length > 2) {
+      return match[2];
+    }
+  }
+  return undefined;
+};
+
 export const isUniParcProteomeSearch = (
   state: DownloadState,
   props: DownloadProps<JobTypes>,
   query: string | undefined
-) => {
-  if (
-    props.namespace === Namespace.uniparc &&
-    state.selectedFileFormat === FileFormat.fasta &&
-    !state.nSelectedEntries
-  ) {
-    const match = query?.match(reProteomeId);
-    if (match && match.length > 1) {
-      return true;
-    }
-  }
-  return false;
-};
+) =>
+  state.selectedFileFormat === FileFormat.fasta &&
+  Boolean(getUniParcProteomeSearchId(state, props, query));
 
 export const filterFullXrefColumns = (
   columns: string[],
@@ -347,6 +351,11 @@ export const getDownloadOptions = (
     downloadOptions.uniparcProteomeFastaHeader = state.proteomeFastaHeader;
   }
 
+  const proteomeId = getUniParcProteomeSearchId(state, props, query);
+  if (proteomeId && state.selectedFileFormat === FileFormat.jsonPrecomputed) {
+    downloadOptions.uniparcProteomePrecomputed = proteomeId;
+  }
+
   if (getIsEmbeddings(state)) {
     const accessions = extractAccessionsForEmbeddings(
       selected.length ? selected : props.accessions || []
@@ -431,16 +440,22 @@ export const getIsAsyncDownload = (
   props: DownloadProps<JobTypes>,
   location: HistoryLocation<unknown>,
   job: JobFromUrl
-) =>
-  (props.namespace === Namespace.uniprotkb &&
-    ((state.selectedFileFormat === FileFormat.embeddings &&
-      !getFtpFilenamesAndUrls(state, props, location, job)) ||
-      getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
-  (props.namespace === Namespace.uniparc &&
-    getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
-  (props.namespace === Namespace.uniref &&
-    getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
-  isAsyncDownloadIdMapping(state, props, job);
+) => {
+  if (state.selectedFileFormat === FileFormat.jsonPrecomputed) {
+    return false;
+  }
+  return (
+    (props.namespace === Namespace.uniprotkb &&
+      ((state.selectedFileFormat === FileFormat.embeddings &&
+        !getFtpFilenamesAndUrls(state, props, location, job)) ||
+        getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT)) ||
+    (props.namespace === Namespace.uniparc &&
+      getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
+    (props.namespace === Namespace.uniref &&
+      getDownloadCount(state, props) > DOWNLOAD_SIZE_LIMIT) ||
+    isAsyncDownloadIdMapping(state, props, job)
+  );
+};
 
 export const getColumnsNamespace = (
   props: DownloadProps<JobTypes>,

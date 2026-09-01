@@ -20,6 +20,7 @@ import {
 } from '../../../shared/utils/url';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { type ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import { isNonReferenceOrExcluded } from '../../utils';
 
 const ComponentsDownloadComponent = lazy(
   () =>
@@ -59,8 +60,7 @@ const ComponentsButtons = ({
     },
     []
   );
-  const isUniparcSearch =
-    proteomeType === 'Non Reference proteome' || proteomeType === 'Excluded';
+  const isUniparcSearch = isNonReferenceOrExcluded(proteomeType);
 
   const selectedQuery = useMemo(
     () =>
