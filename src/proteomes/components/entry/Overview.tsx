@@ -91,7 +91,8 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
         <>
           {renderColumnContent(ProteomesColumn.proteinCount)}
           {precomputedCount > 0 ? (
-            <div>
+            <>
+              {' '}
               <a
                 href={uniparcApiUrls.precomputedProteomeAnnotations(data.id, {
                   stream: true,
@@ -101,7 +102,7 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
               >
                 Download predicted annotations
               </a>
-            </div>
+            </>
           ) : null}
         </>
       ),

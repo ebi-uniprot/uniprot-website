@@ -109,7 +109,7 @@ export const SubEntryProteomeRow = ({
       ({component})
       {precomputedCount > 0 ? (
         <>
-          {' · '}
+          &nbsp;&nbsp;
           <a
             href={uniparcApiUrls.precomputedProteomeAnnotations(proteomeId, {
               stream: true,
