@@ -23,11 +23,16 @@ const quoteIfNeeded = (value: string): string => {
   return `${quote}${value}${quote}`;
 };
 
-// A proteome component can only be searched when scoped by a valid proteome
-// ID, unless it's already in fused form (see reFusedProteomeComponentValue).
+// A proteome component can only be searched when scoped by a *canonical*
+// proteome ID, unless it's already in fused form (see
+// reFusedProteomeComponentValue). Anything that can't be fused has no working
+// equivalent: from 2026_03 the legacy two-field form — eg
+// `(proteome:UP000000625) AND (proteomecomponent:Chromosome)` — returns no
+// results, so falling back to it would silently give the user an empty result
+// set. Dropping the component and warning is the honest option.
 // Single source of truth for the condition under which stringify() drops a
-// clause's `proteomecomponent` bit, so the UI's warning toast can't drift
-// out of sync with the actual drop.
+// clause's `proteomecomponent` bit, so the UI's warning toast can't drift out
+// of sync with the actual drop.
 export const isOrphanProteomeComponent = (clause: Clause): boolean =>
   Boolean(
     clause.queryBits.proteomecomponent &&

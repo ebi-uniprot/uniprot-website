@@ -14,7 +14,7 @@ import {
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
 import lazy from '../../../shared/utils/lazy';
-import { stringifyUrl } from '../../../shared/utils/url';
+import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 import {
   isUniParcProteome,
   type ProteomesAPIModel,
@@ -137,7 +137,7 @@ const ComponentsButtons = ({
                   ? Location.UniParcResults
                   : Location.UniProtKBResults
               ],
-            search: `query=${selectedQuery}`,
+            search: stringifyQuery({ query: selectedQuery }),
           }}
         >
           View proteins

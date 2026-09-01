@@ -52,11 +52,17 @@ const initializer = (
         ? undefined
         : initialValue.proteomecomponent.slice(separatorIndex + 1);
     // A bare component value (eg proteomecomponent:"segment") must not populate
-    // the proteome ID field — it belongs to the component field instead.
+    // the proteome ID field — it belongs to the component field instead. The
+    // proteome ID then comes from its own query bit, if there is one: parse()
+    // folds a legacy two-clause bookmark into a single clause holding an
+    // unfused pair, and dropping the ID here would show the user a blank
+    // proteome field for a query which does specify one.
     if (reProteomeIdValue.test(proteomeId)) {
       return (field.term === 'proteome' ? proteomeId : component) || '';
     }
-    return field.term === 'proteome' ? '' : initialValue.proteomecomponent;
+    return field.term === 'proteome'
+      ? initialValue.proteome || ''
+      : initialValue.proteomecomponent;
   }
 
   // Deal with autocomplete fields as they have two terms with different behavior:

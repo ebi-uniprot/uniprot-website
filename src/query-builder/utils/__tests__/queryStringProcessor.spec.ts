@@ -94,6 +94,26 @@ describe('search querystring stringifier', () => {
         ])
       ).toBe('(proteomecomponent:"UP000005640:chromosome 1")');
     });
+
+    test('never falls back to the legacy two-field form', () => {
+      // eg the `*` wildcard the query builder itself suggests: there's no ID
+      // to fuse with, and `(proteome:*) AND (proteomecomponent:chromosome)`
+      // returns no results from 2026_03, so the component is dropped (and the
+      // UI warns) rather than producing a silently empty search
+      expect(
+        stringify([
+          {
+            id: 0,
+            searchTerm: getSearchTerm('proteome'),
+            logicOperator: 'AND',
+            queryBits: {
+              proteome: '*',
+              proteomecomponent: 'chromosome',
+            },
+          },
+        ])
+      ).toBe('(proteome:*)');
+    });
   });
 
   describe('legacy two-clause proteome + proteomecomponent migration', () => {
@@ -162,18 +182,18 @@ describe('search querystring stringifier', () => {
       ).toBe(true);
     });
 
-    it('is true for a component with an invalid proteome ID', () => {
-      expect(
-        isOrphanProteomeComponent({
-          id: 0,
-          searchTerm: getSearchTerm('proteome'),
-          logicOperator: 'AND',
-          queryBits: {
-            proteome: 'not-a-proteome-id',
-            proteomecomponent: 'chromosome',
-          },
-        })
-      ).toBe(true);
+    it('is true, and matches stringify, for a component with an invalid proteome ID', () => {
+      const clause = {
+        id: 0,
+        searchTerm: getSearchTerm('proteome'),
+        logicOperator: 'AND' as const,
+        queryBits: {
+          proteome: 'not-a-proteome-id',
+          proteomecomponent: 'chromosome',
+        },
+      };
+      expect(isOrphanProteomeComponent(clause)).toBe(true);
+      expect(stringify([clause])).toBe('(proteome:not-a-proteome-id)');
     });
 
     it('is false, and matches stringify, for a component with a valid proteome ID', () => {

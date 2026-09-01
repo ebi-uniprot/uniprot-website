@@ -57,7 +57,7 @@ exports[`EntryMain view should render 1`] = `
             </button>
             <a
               class="button tertiary"
-              href="/uniprotkb?query=(proteome:UP000005640)"
+              href="/uniprotkb?query=%28proteome%3AUP000005640%29"
             >
               View proteins
             </a>
