@@ -238,6 +238,39 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
         }
       }
 
+      // Legacy (pre-2026_03) links and bookmarks encode a proteome ID and a
+      // component name as two separate, AND-joined clauses instead of a
+      // single fused `proteomecomponent` clause. Fold the second one into
+      // the first so it round-trips through stringify()'s fusion instead of
+      // being treated as an orphan component and dropped. Only a plain `AND`
+      // join is folded: an OR/NOT join changes the meaning of the pair, and
+      // there's no fused-field equivalent for eg "this proteome but NOT this
+      // component", so those are left alone (and still get the orphan
+      // warning, same as before this migration).
+      // Unlike length/experimental evidence above, only the immediately
+      // preceding clause is considered: those fields are always generated
+      // atomically by a single form control, but a proteome ID and a
+      // component name could each appear anywhere in a hand-edited query, so
+      // pairing with a distant, unrelated clause would silently narrow it.
+      const proteomeFusionKey =
+        key === 'proteomecomponent'
+          ? 'proteome'
+          : key === 'proteome'
+            ? 'proteomecomponent'
+            : undefined;
+      const previousClause = clauses[clauses.length - 1];
+      if (
+        key &&
+        proteomeFusionKey &&
+        currentClause.logicOperator === 'AND' &&
+        previousClause?.searchTerm.term === proteomeFusionKey &&
+        Object.keys(previousClause.queryBits).length === 1 &&
+        proteomeFusionKey in previousClause.queryBits
+      ) {
+        previousClause.queryBits[key] = value;
+        continue;
+      }
+
       // GO search terms are of the format go(_{evidence})?:id so must be handled differently
       const goKeyMatch = key?.match(goKey);
       if (goKeyMatch) {

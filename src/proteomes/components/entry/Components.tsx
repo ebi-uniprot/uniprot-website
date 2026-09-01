@@ -58,8 +58,15 @@ const Components = ({
       width?: string;
       ellipsis?: boolean;
     }>
-  >(
-    () => [
+  >(() => {
+    const shouldPointToUniParc = isUniParcProteome(proteomeType);
+    const pathname =
+      LocationToPath[
+        shouldPointToUniParc
+          ? Location.UniParcResults
+          : Location.UniProtKBResults
+      ];
+    return [
       {
         label: 'Component name',
         name: 'component_name',
@@ -117,16 +124,10 @@ const Components = ({
           if (!proteinCount) {
             return 0;
           }
-          const shouldPointToUniParc = isUniParcProteome(proteomeType);
           return (
             <Link
               to={{
-                pathname:
-                  LocationToPath[
-                    shouldPointToUniParc
-                      ? Location.UniParcResults
-                      : Location.UniProtKBResults
-                  ],
+                pathname,
                 search: stringifyQuery({
                   query: proteomeComponentQuery(id, name),
                 }),
@@ -137,9 +138,8 @@ const Components = ({
           );
         },
       },
-    ],
-    [databaseInfoMaps, id, proteomeType, taxonomy.taxonId]
-  );
+    ];
+  }, [databaseInfoMaps, id, proteomeType, taxonomy.taxonId]);
 
   if (!components?.length) {
     return null;

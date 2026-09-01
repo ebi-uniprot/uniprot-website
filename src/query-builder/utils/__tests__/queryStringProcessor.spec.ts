@@ -96,6 +96,60 @@ describe('search querystring stringifier', () => {
     });
   });
 
+  describe('legacy two-clause proteome + proteomecomponent migration', () => {
+    test('folds a legacy `(proteome:ID) AND (proteomecomponent:"name")` bookmark into the fused form', () => {
+      const legacyQueryString =
+        '(proteome:UP000005640) AND (proteomecomponent:"chromosome")';
+      const parsed = parse(legacyQueryString);
+      expect(parsed).toHaveLength(1);
+      expect(parsed[0].queryBits).toEqual({
+        proteome: 'UP000005640',
+        proteomecomponent: 'chromosome',
+      });
+      expect(stringify(parsed)).toBe(
+        '(proteomecomponent:"UP000005640:chromosome")'
+      );
+    });
+
+    test('folds the reverse order too', () => {
+      const legacyQueryString =
+        '(proteomecomponent:"chromosome") AND (proteome:UP000005640)';
+      const parsed = parse(legacyQueryString);
+      expect(parsed).toHaveLength(1);
+      expect(stringify(parsed)).toBe(
+        '(proteomecomponent:"UP000005640:chromosome")'
+      );
+    });
+
+    test('does not fold across an intervening, unrelated clause', () => {
+      const queryString =
+        '(proteome:UP000005640) AND (organism_id:9606) AND (proteomecomponent:"chromosome")';
+      const parsed = parse(queryString);
+      expect(parsed).toHaveLength(3);
+      // the component clause stays orphaned rather than being paired with a
+      // non-adjacent proteome clause
+      expect(isOrphanProteomeComponent(parsed[2])).toBe(true);
+    });
+
+    test('does not fold an OR-joined component (changes the meaning of the pair)', () => {
+      const queryString =
+        '(proteome:UP000005640) OR (proteomecomponent:"chromosome")';
+      const parsed = parse(queryString);
+      expect(parsed).toHaveLength(2);
+      expect(isOrphanProteomeComponent(parsed[1])).toBe(true);
+    });
+
+    test('does not fold a NOT-joined component (no fused-field equivalent for exclusion)', () => {
+      const queryString =
+        '(proteome:UP000005640) NOT (proteomecomponent:"chromosome")';
+      const parsed = parse(queryString);
+      expect(parsed).toHaveLength(2);
+      expect(isOrphanProteomeComponent(parsed[1])).toBe(true);
+      // the dropped clause's own NOT doesn't leak onto the surviving clause
+      expect(stringify(parsed)).toBe('(proteome:UP000005640)');
+    });
+  });
+
   describe('isOrphanProteomeComponent', () => {
     it('is true for a component with no proteome ID', () => {
       expect(
