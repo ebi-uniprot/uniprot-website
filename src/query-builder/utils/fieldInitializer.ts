@@ -39,7 +39,18 @@ const initializer = (
     (field.term === 'proteome' || field.term === 'proteomecomponent') &&
     initialValue?.proteomecomponent
   ) {
-    const [proteomeId, component] = initialValue.proteomecomponent.split(':');
+    // Split on the first colon only: component names can contain colons of
+    // their own (eg "Chromosome 1: segment 2"), and a naive split(':') would
+    // silently truncate them.
+    const separatorIndex = initialValue.proteomecomponent.indexOf(':');
+    const proteomeId =
+      separatorIndex === -1
+        ? initialValue.proteomecomponent
+        : initialValue.proteomecomponent.slice(0, separatorIndex);
+    const component =
+      separatorIndex === -1
+        ? undefined
+        : initialValue.proteomecomponent.slice(separatorIndex + 1);
     // A bare component value (eg proteomecomponent:"segment") must not populate
     // the proteome ID field — it belongs to the component field instead.
     if (reProteomeIdValue.test(proteomeId)) {

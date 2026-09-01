@@ -50,5 +50,18 @@ describe('field initializer', () => {
         })
       ).toEqual('');
     });
+
+    it('should keep colons that are part of the component name itself', () => {
+      expect(
+        initializer(getSearchTerm('proteome'), {
+          proteomecomponent: 'UP000005640:Chromosome 1: segment 2',
+        })
+      ).toEqual('UP000005640');
+      expect(
+        initializer(getSearchTerm('proteome_component'), {
+          proteomecomponent: 'UP000005640:Chromosome 1: segment 2',
+        })
+      ).toEqual('Chromosome 1: segment 2');
+    });
   });
 });
