@@ -64,14 +64,14 @@ const ComponentsButtons = ({
 
   const selectedQuery = useMemo(
     () =>
-      `(proteome:${id})${
+      `${
         selectedEntries.length !== 0 &&
         selectedEntries.length !== components?.length
-          ? ` AND (${createSelectedQueryString(
-              selectedEntries.map((component) => `"${component}"`),
+          ? `(${createSelectedQueryString(
+              selectedEntries.map((component) => `"${id}:${component}"`),
               UniProtKBColumn.proteomeComponent
             )})`
-          : ''
+          : `(proteome:${id})`
       }`,
     [id, components?.length, selectedEntries]
   );

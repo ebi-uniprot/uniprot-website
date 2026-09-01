@@ -131,7 +131,7 @@ describe('Download with passed query and selectedQuery props', () => {
     const onCloseMock = jest.fn();
     const query = '(proteome:UP000002494)';
     const selectedQuery =
-      '(proteome:UP000002494) AND (proteomecomponent:"Chromosome 1" OR proteomecomponent:"Chromosome 2")';
+      '(proteomecomponent:"UP000002494:Chromosome 1" OR proteomecomponent:"UP000002494:Chromosome 2")';
     const numberSelectedEntries = 123;
     const totalNumberResults = 456;
 
