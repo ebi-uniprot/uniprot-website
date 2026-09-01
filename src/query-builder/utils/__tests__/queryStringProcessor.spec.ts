@@ -64,6 +64,22 @@ describe('search querystring stringifier', () => {
       const queryString = '(proteomecomponent:"UP000005640:chromosome")';
       expect(stringify(parse(queryString))).toBe(queryString);
     });
+
+    test('does not double-quote a component the user has already quoted', () => {
+      expect(
+        stringify([
+          {
+            id: 0,
+            searchTerm: getSearchTerm('proteome'),
+            logicOperator: 'AND',
+            queryBits: {
+              proteome: 'UP000005640',
+              proteomecomponent: '"chromosome 1"',
+            },
+          },
+        ])
+      ).toBe('(proteomecomponent:"UP000005640:chromosome 1")');
+    });
   });
 
   // edge cases

@@ -12,6 +12,17 @@ export const reProteomeIdValue = /^UP\d{9}$/i;
 // and `proteomecomponent` query bits.
 const reFusedProteomeComponentValue = /^UP\d{9}:/i;
 
+const quoteIfNeeded = (value: string): string => {
+  const needsQuotes =
+    // contains ' ' or ':'
+    /[ :]/.test(value) &&
+    // but isn't of the form '[... TO ...]';
+    !(value.startsWith('[') && value.endsWith(']')) &&
+    !(value.startsWith('"') && value.endsWith('"'));
+  const quote = needsQuotes ? '"' : '';
+  return `${quote}${value}${quote}`;
+};
+
 export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
@@ -66,7 +77,15 @@ export const stringify = (clauses: Clause[] = []): string => {
     ) {
       // Combine proteome ID + component into a single proteomecomponent clause
       // and suppress the separate `proteome:` clause.
-      queryJoined = `(proteomecomponent:"${clause.queryBits.proteome}:${clause.queryBits.proteomecomponent}")`;
+      const rawComponent = clause.queryBits.proteomecomponent;
+      // Don't double-quote a component the user has already quoted themselves,
+      // eg pasted as "chromosome 1".
+      const component =
+        rawComponent.startsWith('"') && rawComponent.endsWith('"')
+          ? rawComponent.slice(1, -1)
+          : rawComponent;
+      const combined = `${clause.queryBits.proteome}:${component}`;
+      queryJoined = `(proteomecomponent:${quoteIfNeeded(combined)})`;
     } else if (
       clause.queryBits.proteomecomponent &&
       reFusedProteomeComponentValue.test(clause.queryBits.proteomecomponent)
@@ -74,7 +93,9 @@ export const stringify = (clauses: Clause[] = []): string => {
       // Value is already in fused form, eg round-tripped through parse().
       // Emit it unchanged rather than treating it as an orphaned component
       // with no proteome ID.
-      queryJoined = `(proteomecomponent:"${clause.queryBits.proteomecomponent}")`;
+      queryJoined = `(proteomecomponent:${quoteIfNeeded(
+        clause.queryBits.proteomecomponent
+      )})`;
     } else {
       // A proteome component can only be searched when scoped by a valid
       // proteome ID. On its own it's meaningless, so drop it (the UI warns the
@@ -95,19 +116,11 @@ export const stringify = (clauses: Clause[] = []): string => {
 
       queryJoined = query
         .map(([key, value]) => {
-          const needsQuotes =
-            // contains ' ' or ':'
-            /[ :]/.test(value) &&
-            // but isn't of the form '[... TO ...]';
-            !(value.startsWith('[') && value.endsWith(']')) &&
-            !(value.startsWith('"') && value.endsWith('"'));
-          const quote = needsQuotes ? '"' : '';
-
           // free-text search
           if (key === 'All') {
-            return `${quote}${value}${quote}`;
+            return quoteIfNeeded(value);
           }
-          return `(${key}:${quote}${value}${quote})`;
+          return `(${key}:${quoteIfNeeded(value)})`;
         })
         .join(` ${joinSeperator} `);
       if (query.length > 1) {
