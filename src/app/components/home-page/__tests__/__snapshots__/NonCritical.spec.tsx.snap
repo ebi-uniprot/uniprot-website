@@ -649,17 +649,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/292/"
+          href="https://www.proteinspotlight.org/back_issues/293/"
           rel="noopener"
           target="_blank"
         >
-          Unfurling our heritage
+          Bubbles, foam and gush
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/292/"
+        href="https://www.proteinspotlight.org/back_issues/293/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -668,14 +668,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt292.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt293.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          Our  most  precious  things  are  kept  where  they  meet  the  least  damage.  Out  of  reach  on  a  shelf,  in  the  depths  of  a  drawer,  deposited  in  a  bank  or  perhaps  parked  in  the  garage.  Frequently,  too,  a  layer  of  protect...
+          A  ting  of  metal  against  glass.  The  lights  are  dimmed.  Voices  turn  to  a  murmur.  All  eyes  are  set  on  the  bottle  of  champagne  and  its  cork  as  it  is  gradually  eased  out.  Then  a  pop,  and  your  host  is  nervously  juggling  with  glasses  and  a  challenging  flow…
       </p>
     </article>
   </section>

@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?';
 
 const proteinSpotlightAbstract =
-  'Our most precious things are kept where they meet the least damage. Out of reach on a shelf, in the depths of a drawer, deposited in a bank or perhaps parked in the garage. Frequently, too, a layer of protect...';
+  'A ting of metal against glass. The lights are dimmed. Voices turn to a murmur. All eyes are set on the bottle of champagne and its cork as it is gradually eased out. Then a pop, and your host is nervously juggling with glasses and a challenging flow of bubbles...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -306,21 +306,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/292/"
+            url="https://www.proteinspotlight.org/back_issues/293/"
             noIcon
           >
-            Unfurling our heritage
+            Bubbles, foam and gush
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/292/"
+          url="https://www.proteinspotlight.org/back_issues/293/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt292.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt293.jpg"
             alt=""
             width="123"
             height="129"
