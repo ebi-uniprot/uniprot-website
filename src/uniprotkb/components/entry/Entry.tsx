@@ -780,32 +780,44 @@ const Entry = () => {
         }
       )}
     >
-      <HTMLHead>
-        {typeof window !== 'undefined' && (
-          <link rel="canonical" href={window.location.href} />
-        )}
-      </HTMLHead>
       {isObsolete ? (
-        <h1>{match.params.accession}</h1>
+        <>
+          <HTMLHead
+            title={[
+              match.params.accession,
+              'Obsolete entry',
+              searchableNamespaceLabels[Namespace.uniprotkb],
+            ]}
+          >
+            {/* No canonical here: the UniParc record this entry points at is
+                different content, not the same page under another URL */}
+            <meta name="robots" content="noindex" />
+          </HTMLHead>
+          <h1>{match.params.accession}</h1>
+        </>
       ) : (
         <ErrorBoundary>
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
+            // Always the Entry tab: the route's subPage segment is optional,
+            // so `/uniprotkb/P05067` and `/uniprotkb/P05067/entry` would
+            // otherwise each claim to be canonical
+            canonical={getEntryPath(
+              Namespace.uniprotkb,
+              data.primaryAccession,
+              TabLocation.Entry
+            )}
           >
             {/** Below: experiment with OpenGraph and related */}
-            {/* @ts-expect-error og tags */}
-            <meta name="twitter:label1" value="Protein Name" />
+            <meta name="twitter:label1" content="Protein Name" />
             <meta
               name="twitter:data1"
-              // @ts-expect-error og tags
-              value={data.proteinDescription?.recommendedName?.fullName.value}
+              content={data.proteinDescription?.recommendedName?.fullName.value}
             />
-            {/* @ts-expect-error og tags */}
-            <meta name="twitter:label2" value="Gene Name" />
+            <meta name="twitter:label2" content="Gene Name" />
             <meta
-              name="twitter:data1"
-              // @ts-expect-error og tags
-              value={data.genes?.[0]?.geneName?.value}
+              name="twitter:data2"
+              content={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
           <div

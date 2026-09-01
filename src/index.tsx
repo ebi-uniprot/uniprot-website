@@ -3,6 +3,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from './app/components/App';
+import { PRODUCTION_ORIGIN } from './app/config/urls';
 import GlobalContext from './app/contexts/Global';
 
 // eslint-disable-next-line no-console
@@ -38,7 +39,7 @@ if (
   ).then((serviceWorkerModule) => {
     if (obsoleteHosts.has(window.location.host)) {
       serviceWorkerModule.unregister().finally(() => {
-        location.replace('https://www.uniprot.org');
+        location.replace(PRODUCTION_ORIGIN);
       });
     } else {
       serviceWorkerModule.register();
@@ -48,7 +49,7 @@ if (
     }
   });
 } else if (obsoleteHosts.has(window.location.host)) {
-  location.replace('https://www.uniprot.org');
+  location.replace(PRODUCTION_ORIGIN);
 }
 
 /* Page tracking */

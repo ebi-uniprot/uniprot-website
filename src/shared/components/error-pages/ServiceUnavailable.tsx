@@ -1,6 +1,7 @@
 import { Message } from 'franklin-sites';
 import { type HTMLAttributes, useEffect, useState } from 'react';
 
+import jitter from '../../utils/jitter';
 import ErrorComponent from './ErrorComponent';
 import ArtWork from './svgs/503.img.svg';
 
@@ -17,6 +18,13 @@ const ServiceUnavailable = ({
 }: ServiceUnavailableProps) => {
   const [retryIndex] = useState(() => +(sessionStorage.getItem(KEY) || 0));
   const willReload = !noReload && navigator.onLine && retryIndex in BACKOFF;
+  // Jittered so that clients that failed together don't reload together -- a
+  // reload re-requests everything the page needs, not one call. Fixed for the
+  // life of the component: a re-render must not move the deadline. The message
+  // below quotes the floor, not this exact value.
+  const [delayMs] = useState(() =>
+    willReload ? jitter(BACKOFF[retryIndex] * 1_000) : undefined
+  );
 
   useEffect(() => {
     let timeout: number | undefined;
@@ -24,14 +32,14 @@ const ServiceUnavailable = ({
       timeout = window.setTimeout(() => {
         sessionStorage.setItem(KEY, `${retryIndex + 1}`);
         document.location.reload();
-      }, BACKOFF[retryIndex] * 1000);
+      }, delayMs);
     }
 
     return () => {
       window.sessionStorage.removeItem(KEY);
       window.clearTimeout(timeout);
     };
-  }, [retryIndex, willReload]);
+  }, [delayMs, retryIndex, willReload]);
 
   return (
     <ErrorComponent
