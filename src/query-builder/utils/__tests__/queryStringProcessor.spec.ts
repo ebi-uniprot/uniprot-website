@@ -65,6 +65,16 @@ describe('search querystring stringifier', () => {
       expect(stringify(parse(queryString))).toBe(queryString);
     });
 
+    test('round-trips a quoted value containing a closing parenthesis', () => {
+      const queryString = '(proteomecomponent:"UP000005640:Chromosome (1)")';
+      const parsed = parse(queryString);
+      expect(parsed[0].searchTerm.term).toBe('proteomecomponent');
+      expect(parsed[0].queryBits.proteomecomponent).toBe(
+        'UP000005640:Chromosome (1)'
+      );
+      expect(stringify(parsed)).toBe(queryString);
+    });
+
     test('does not double-quote a component the user has already quoted', () => {
       expect(
         stringify([

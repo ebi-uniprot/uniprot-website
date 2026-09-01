@@ -14,8 +14,10 @@ import { stringifyQuery } from '../../../shared/utils/url';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
   type Component,
+  isUniParcProteome,
   type ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
+import { proteomeComponentQuery } from '../../utils/query';
 import ComponentsButtons from './ComponentsButtons';
 
 const genomeAccessionDB = 'GenomeAccession' as const;
@@ -115,9 +117,7 @@ const Components = ({
           if (!proteinCount) {
             return 0;
           }
-          const shouldPointToUniParc =
-            proteomeType === 'Non Reference proteome' ||
-            proteomeType === 'Excluded';
+          const shouldPointToUniParc = isUniParcProteome(proteomeType);
           return (
             <Link
               to={{
@@ -128,7 +128,7 @@ const Components = ({
                       : Location.UniProtKBResults
                   ],
                 search: stringifyQuery({
-                  query: `(proteomecomponent:"${id}:${name}")`,
+                  query: proteomeComponentQuery(id, name),
                 }),
               }}
             >

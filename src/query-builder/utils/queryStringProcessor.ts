@@ -141,7 +141,11 @@ export const stringify = (clauses: Clause[] = []): string => {
 };
 
 const clauseSplitter = / *\b(AND|OR|NOT)\b */;
-const clauseMatcher = /^\(*(\w+):"?([^")]*)"?\)*$/;
+// A quoted value (group 2) is matched wholesale up to its closing quote, so
+// it can itself contain a ')' (eg a component name like "Chromosome (1)")
+// without truncating the match. An unquoted value (group 3) keeps the
+// original, narrower matching.
+const clauseMatcher = /^\(*(\w+):(?:"([^"]*)"|([^")]*))\)*$/;
 const splitClause = (
   clause: string
 ): [key: string | undefined, value: string] => {
@@ -149,7 +153,7 @@ const splitClause = (
   if (!match) {
     return [undefined, clause];
   }
-  return [match[1], match[2]];
+  return [match[1], match[2] ?? match[3] ?? ''];
 };
 const lengthKey = /^(\w\w)(len)_/;
 const goKey = /^go(_(?<evidence>\w+))?/;

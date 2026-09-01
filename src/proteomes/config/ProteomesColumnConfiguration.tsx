@@ -13,6 +13,7 @@ import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { pluralise } from '../../shared/utils/utils';
 import {
+  isUniParcProteome,
   type ProteomesAPIModel,
   type ProteomesUIModel,
 } from '../adapters/proteomesConverter';
@@ -165,8 +166,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     if (!proteinCount) {
       return 0;
     }
-    const shouldPointToUniParc =
-      proteomeType === 'Excluded' || proteomeType === 'Non Reference proteome';
+    const shouldPointToUniParc = isUniParcProteome(proteomeType);
 
     return (
       <>
