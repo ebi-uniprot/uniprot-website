@@ -45,6 +45,51 @@ export const sortExons =
     return reverse ? end2 - end1 : end1 - end2;
   };
 
+export const deduplicateAndNormalizeGenomicEntries = (
+  genomicEntries: GenomicEntry[],
+  canonical?: string
+): GenomicEntry[] => {
+  if (!genomicEntries || !genomicEntries.length) {
+    return [];
+  }
+
+  // Find all base accessions that have a suffixed isoform entry present (e.g. 'P05067-1' -> 'P05067')
+  const accessionsWithIsoformPresent = new Set<string>();
+  for (const entry of genomicEntries) {
+    if (entry.accession.includes('-')) {
+      const [base] = entry.accession.split('-');
+      accessionsWithIsoformPresent.add(base);
+    }
+  }
+
+  // 1. Deduplicate: drop un-suffixed canonical entries if a suffixed isoform entry is present
+  const deduplicated = genomicEntries.filter((entry) => {
+    if (
+      !entry.accession.includes('-') &&
+      accessionsWithIsoformPresent.has(entry.accession)
+    ) {
+      return false;
+    }
+    return true;
+  });
+
+  // 2. Normalize: if an entry is un-suffixed and matches canonical's base accession, map it to canonical
+  if (canonical) {
+    const [canonicalBase] = canonical.split('-');
+    return deduplicated.map((entry) => {
+      if (entry.accession === canonicalBase) {
+        return {
+          ...entry,
+          accession: canonical,
+        };
+      }
+      return entry;
+    });
+  }
+
+  return deduplicated;
+};
+
 // Genomic entries flattened by coordinates, grouped first by gene, then by accession
 export type GroupedData = Record<
   string,

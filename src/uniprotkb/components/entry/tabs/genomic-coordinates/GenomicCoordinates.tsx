@@ -1,5 +1,5 @@
 import { Loader } from 'franklin-sites';
-import { type ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
@@ -8,7 +8,7 @@ import { type Isoform } from '../../../../types/commentTypes';
 import tabsStyles from '../styles/tabs-styles.module.scss';
 import GeneEntry from './GeneEntry';
 import { type GenomicEntry } from './types';
-import { groupByGene } from './utils';
+import { deduplicateAndNormalizeGenomicEntries, groupByGene } from './utils';
 
 type GenomicCoordinatesProps = {
   primaryAccession: string;
@@ -33,9 +33,21 @@ const GenomicCoordinates = ({
     )?.isoformIds[0];
   }
 
+  const baseAccessions = Array.from(
+    new Set(isoformIDs.map((id) => id.split('-')[0]))
+  );
+  const accessionsToFetch = Array.from(
+    new Set([...isoformIDs, ...baseAccessions, primaryAccession])
+  );
+
   // For the future, add computationally mapped isoforms somehow
   const { loading, data, progress, error, status } = useDataApi<GenomicEntry[]>(
-    apiUrls.proteinsApi.coordinates(isoformIDs)
+    apiUrls.proteinsApi.coordinates(accessionsToFetch)
+  );
+
+  const processedData = useMemo(
+    () => (data ? deduplicateAndNormalizeGenomicEntries(data, canonical) : []),
+    [data, canonical]
   );
 
   if (loading) {
@@ -55,7 +67,7 @@ const GenomicCoordinates = ({
     );
   }
 
-  if (status === 404 || !data || !data?.length) {
+  if (status === 404 || !processedData || !processedData.length) {
     return (
       <section className="wider-tab-content">
         {title && <h3>{title}</h3>}
@@ -66,7 +78,7 @@ const GenomicCoordinates = ({
     );
   }
 
-  const groupedByGene = groupByGene(data);
+  const groupedByGene = groupByGene(processedData);
 
   return (
     <section className="wider-tab-content">

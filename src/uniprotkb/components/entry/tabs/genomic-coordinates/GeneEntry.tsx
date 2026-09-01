@@ -87,7 +87,9 @@ const GeneEntry = ({
     ([accession]) => accession
   );
   const notMappedIsoforms = isoformIDs.filter(
-    (isoform) => !mappedIsoforms.includes(isoform)
+    (isoform) =>
+      !mappedIsoforms.includes(isoform) &&
+      !mappedIsoforms.includes(isoform.split('-')[0])
   );
 
   return (
