@@ -16,7 +16,7 @@ import {
   type Component,
   type ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
-import { isUniParcProteome } from '../../utils';
+import { isNonReferenceOrExcluded } from '../../utils';
 import ComponentsButtons from './ComponentsButtons';
 
 const genomeAccessionDB = 'GenomeAccession' as const;
@@ -116,7 +116,7 @@ const Components = ({
           if (!proteinCount) {
             return 0;
           }
-          const shouldPointToUniParc = isUniParcProteome(proteomeType);
+          const shouldPointToUniParc = isNonReferenceOrExcluded(proteomeType);
           return (
             <Link
               to={{

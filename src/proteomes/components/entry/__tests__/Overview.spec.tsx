@@ -35,7 +35,7 @@ describe('Overview', () => {
     customRender(<Overview data={data} />);
 
     const link = await screen.findByRole('link', {
-      name: 'Download precomputed annotations',
+      name: 'Download predicted annotations',
     });
     expect(link).toHaveAttribute(
       'href',
@@ -59,7 +59,7 @@ describe('Overview', () => {
     customRender(<Overview data={data} />);
 
     const link = await screen.findByRole('link', {
-      name: 'Download precomputed annotations',
+      name: 'Download predicted annotations',
     });
     expect(link).toHaveAttribute(
       'href',
@@ -79,7 +79,7 @@ describe('Overview', () => {
     customRender(<Overview data={data} />);
 
     expect(
-      screen.queryByRole('link', { name: 'Download precomputed annotations' })
+      screen.queryByRole('link', { name: 'Download predicted annotations' })
     ).not.toBeInTheDocument();
     expect(mock.history.head).toHaveLength(0);
   });
@@ -102,7 +102,7 @@ describe('Overview', () => {
     await settle();
 
     expect(
-      screen.queryByRole('link', { name: 'Download precomputed annotations' })
+      screen.queryByRole('link', { name: 'Download predicted annotations' })
     ).not.toBeInTheDocument();
   });
 
@@ -118,7 +118,7 @@ describe('Overview', () => {
     customRender(<Overview data={data} />);
 
     expect(
-      screen.queryByRole('link', { name: 'Download precomputed annotations' })
+      screen.queryByRole('link', { name: 'Download predicted annotations' })
     ).not.toBeInTheDocument();
     expect(mock.history.head).toHaveLength(0);
   });

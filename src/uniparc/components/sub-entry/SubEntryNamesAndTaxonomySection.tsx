@@ -117,7 +117,7 @@ export const SubEntryProteomeRow = ({
               download: true,
             })}
           >
-            Download precomputed annotations
+            Download predicted annotations
           </a>
         </>
       ) : null}

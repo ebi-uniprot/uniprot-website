@@ -25,7 +25,7 @@ import {
   type ProteomesAPIModel,
   type RelatedProteome,
 } from '../../../proteomes/adapters/proteomesConverter';
-import { isUniParcProteome } from '../../../proteomes/utils';
+import { isNonReferenceOrExcluded } from '../../../proteomes/utils';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -277,7 +277,9 @@ const SubEntry = () => {
     () =>
       new Set(
         proteomesSearchData.data?.results
-          ?.filter((proteome) => isUniParcProteome(proteome.proteomeType))
+          ?.filter((proteome) =>
+            isNonReferenceOrExcluded(proteome.proteomeType)
+          )
           .map((proteome) => proteome.id)
       ),
     [proteomesSearchData.data?.results]

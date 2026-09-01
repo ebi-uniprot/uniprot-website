@@ -30,7 +30,7 @@ describe('SubEntryProteomeRow', () => {
     );
 
     const link = await screen.findByRole('link', {
-      name: 'Download precomputed annotations',
+      name: 'Download predicted annotations',
     });
     expect(link).toHaveAttribute(
       'href',
@@ -50,7 +50,7 @@ describe('SubEntryProteomeRow', () => {
     );
 
     expect(
-      screen.queryByRole('link', { name: 'Download precomputed annotations' })
+      screen.queryByRole('link', { name: 'Download predicted annotations' })
     ).not.toBeInTheDocument();
     expect(mock.history.head).toHaveLength(0);
   });
@@ -67,7 +67,7 @@ describe('SubEntryProteomeRow', () => {
     await settle();
 
     expect(
-      screen.queryByRole('link', { name: 'Download precomputed annotations' })
+      screen.queryByRole('link', { name: 'Download predicted annotations' })
     ).not.toBeInTheDocument();
   });
 });
@@ -98,7 +98,7 @@ describe('SubEntryNamesAndTaxonomySection with proteomes', () => {
     );
 
     const link = await screen.findByRole('link', {
-      name: 'Download precomputed annotations',
+      name: 'Download predicted annotations',
     });
     expect(link).toHaveAttribute(
       'href',
@@ -107,7 +107,7 @@ describe('SubEntryNamesAndTaxonomySection with proteomes', () => {
 
     // upId2 is not qualifying, so only one download link should exist
     expect(
-      screen.getAllByRole('link', { name: 'Download precomputed annotations' })
+      screen.getAllByRole('link', { name: 'Download predicted annotations' })
     ).toHaveLength(1);
     expect(mock.history.head.some((req) => req.url?.includes(upId2))).toBe(
       false
@@ -130,7 +130,7 @@ describe('SubEntryNamesAndTaxonomySection with proteomes', () => {
     );
 
     expect(
-      screen.queryByRole('link', { name: 'Download precomputed annotations' })
+      screen.queryByRole('link', { name: 'Download predicted annotations' })
     ).not.toBeInTheDocument();
     expect(mock.history.head).toHaveLength(0);
   });

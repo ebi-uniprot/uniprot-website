@@ -11,14 +11,14 @@ import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
 import EntrySection from '../../types/entrySection';
-import { isUniParcProteome } from '../../utils';
+import { isNonReferenceOrExcluded } from '../../utils';
 import BuscoLegend from '../BuscoLegend';
 import BuscoView from '../BuscoView';
 import { PanProteome } from './PanProteome';
 
 const Overview = ({ data }: { data: ProteomesUIModel }) => {
   const precomputedCount = usePrecomputedProteomeCount(
-    isUniParcProteome(data.proteomeType) && data.proteinCount
+    isNonReferenceOrExcluded(data.proteomeType) && data.proteinCount
       ? data.id
       : undefined
   );
@@ -91,8 +91,7 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
         <>
           {renderColumnContent(ProteomesColumn.proteinCount)}
           {precomputedCount > 0 ? (
-            <>
-              {' · '}
+            <div>
               <a
                 href={uniparcApiUrls.precomputedProteomeAnnotations(data.id, {
                   stream: true,
@@ -100,9 +99,9 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
                   download: true,
                 })}
               >
-                Download precomputed annotations
+                Download predicted annotations
               </a>
-            </>
+            </div>
           ) : null}
         </>
       ),
