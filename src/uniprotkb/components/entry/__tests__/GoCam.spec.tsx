@@ -43,6 +43,14 @@ describe('getGoCamStructures', () => {
         },
       ],
       [
+        '67369e7600002132',
+        {
+          id: '67369e7600002132',
+          label:
+            'IRGQ promotes degradation of misfolded MHC class I proteins b promoting their degradation by autophagy (Human).',
+        },
+      ],
+      [
         '6796b94c00001787',
         {
           id: '6796b94c00001787',

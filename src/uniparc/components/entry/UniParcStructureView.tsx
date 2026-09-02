@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import { type Sequence } from '../../../shared/types/sequence';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
 import SubEntrySection from '../../types/subEntrySection';
+import styles from './styles/uniparc-structure-section.module.scss';
 
 const StructureView = lazy(
   () =>
@@ -26,6 +27,7 @@ const UniParcStructureView = ({ data }: Props) =>
       }
       id={SubEntrySection.Structure}
       data-entry-section
+      className={styles['structure-section']}
     >
       <StructureView checksum={data.md5} isUniProtKBAccession={false} />
     </Card>

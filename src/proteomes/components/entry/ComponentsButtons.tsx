@@ -15,10 +15,8 @@ import {
 } from '../../../shared/utils/gtagEvents';
 import lazy from '../../../shared/utils/lazy';
 import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
-import {
-  isUniParcProteome,
-  type ProteomesAPIModel,
-} from '../../adapters/proteomesConverter';
+import { type ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import { isNonReferenceOrExcluded } from '../../utils';
 import { proteomeComponentQuery } from '../../utils/query';
 
 const ComponentsDownloadComponent = lazy(
@@ -59,7 +57,7 @@ const ComponentsButtons = ({
     },
     []
   );
-  const isUniparcSearch = isUniParcProteome(proteomeType);
+  const isUniparcSearch = isNonReferenceOrExcluded(proteomeType);
 
   const selectedQuery = useMemo(
     () =>

@@ -25,6 +25,7 @@ import {
   type ProteomesAPIModel,
   type RelatedProteome,
 } from '../../../proteomes/adapters/proteomesConverter';
+import { isNonReferenceOrExcluded } from '../../../proteomes/utils';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryDownloadButton from '../../../shared/components/entry/EntryDownloadButton';
@@ -270,6 +271,18 @@ const SubEntry = () => {
           facets: null,
         })
       : null
+  );
+
+  const qualifyingProteomeIds = useMemo(
+    () =>
+      new Set(
+        proteomesSearchData.data?.results
+          ?.filter((proteome) =>
+            isNonReferenceOrExcluded(proteome.proteomeType)
+          )
+          .map((proteome) => proteome.id)
+      ),
+    [proteomesSearchData.data?.results]
   );
 
   /*
@@ -695,6 +708,7 @@ const SubEntry = () => {
             annotations={annotations}
             lineageData={lineageData.data}
             proteomeComponentObject={proteomeComponentObject}
+            qualifyingProteomeIds={qualifyingProteomeIds}
           />
         </Tab>
         <Tab

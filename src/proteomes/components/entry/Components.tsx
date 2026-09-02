@@ -14,9 +14,9 @@ import { stringifyQuery } from '../../../shared/utils/url';
 import { getUrlFromDatabaseInfo } from '../../../shared/utils/xrefs';
 import {
   type Component,
-  isUniParcProteome,
   type ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
+import { isNonReferenceOrExcluded } from '../../utils';
 import { proteomeComponentQuery } from '../../utils/query';
 import ComponentsButtons from './ComponentsButtons';
 
@@ -59,7 +59,7 @@ const Components = ({
       ellipsis?: boolean;
     }>
   >(() => {
-    const shouldPointToUniParc = isUniParcProteome(proteomeType);
+    const shouldPointToUniParc = isNonReferenceOrExcluded(proteomeType);
     const pathname =
       LocationToPath[
         shouldPointToUniParc

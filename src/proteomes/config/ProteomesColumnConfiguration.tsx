@@ -13,12 +13,12 @@ import { Namespace } from '../../shared/types/namespaces';
 import getLabelAndTooltip from '../../shared/utils/getLabelAndTooltip';
 import { pluralise } from '../../shared/utils/utils';
 import {
-  isUniParcProteome,
   type ProteomesAPIModel,
   type ProteomesUIModel,
 } from '../adapters/proteomesConverter';
 import BuscoLegend from '../components/BuscoLegend';
 import BuscoView from '../components/BuscoView';
+import { isNonReferenceOrExcluded } from '../utils';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -166,7 +166,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     if (!proteinCount) {
       return 0;
     }
-    const shouldPointToUniParc = isUniParcProteome(proteomeType);
+    const shouldPointToUniParc = isNonReferenceOrExcluded(proteomeType);
 
     return (
       <>

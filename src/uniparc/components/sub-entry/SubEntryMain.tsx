@@ -17,6 +17,7 @@ type EntryMainProps = {
   annotations?: UniProtkbUIModel;
   lineageData?: TaxonomyAPIModel;
   proteomeComponentObject?: Record<string, string>;
+  qualifyingProteomeIds?: Set<string>;
 };
 
 const SubEntryMain = ({
@@ -24,6 +25,7 @@ const SubEntryMain = ({
   annotations,
   lineageData,
   proteomeComponentObject,
+  qualifyingProteomeIds,
 }: EntryMainProps) => (
   <>
     {Object.values(UniParcSubEntryConfig).map(({ id, sectionContent }) => (
@@ -32,6 +34,7 @@ const SubEntryMain = ({
           {sectionContent(uniparcData, annotations, {
             lineageData,
             proteomeComponentObject,
+            qualifyingProteomeIds,
           })}
         </ErrorBoundary>
       </Suspense>

@@ -74,14 +74,7 @@ export type EnrichedRelatedProteome = RelatedProteome & {
 };
 
 export type ProteomeType =
-  | 'Reference proteome'
-  | 'Non Reference proteome'
-  | 'Excluded';
-
-// Non-reference and excluded proteomes only have UniParc entries, not
-// UniProtKB ones, so their proteins have to be searched/linked via UniParc.
-export const isUniParcProteome = (proteomeType?: ProteomeType) =>
-  proteomeType === 'Non Reference proteome' || proteomeType === 'Excluded';
+  'Reference proteome' | 'Non Reference proteome' | 'Excluded';
 
 export type ProteomesAPIModel = {
   id: string;

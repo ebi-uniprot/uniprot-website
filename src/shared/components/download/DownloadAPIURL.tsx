@@ -26,6 +26,9 @@ const reIdMapping = new RegExp(
 );
 
 const reUniparcProteome = new RegExp(`/uniparc/proteome/UP\\d+/stream`);
+const rePrecomputedProteome = new RegExp(
+  `/uniprotkb/precomputed/proteome/UP\\d+/stream`
+);
 
 export const getSearchURL = (streamURL: string, batchSize = 500) => {
   const { base, query } = splitUrl(streamURL);
@@ -35,7 +38,10 @@ export const getSearchURL = (streamURL: string, batchSize = 500) => {
     baseUrl = base.replace(reIdMapping, (_match, namespace) =>
       namespace ? `/idmapping/${namespace}/results/` : '/idmapping/results/'
     );
-  } else if (base.search(reUniparcProteome) >= 0) {
+  } else if (
+    base.search(reUniparcProteome) >= 0 ||
+    base.search(rePrecomputedProteome) >= 0
+  ) {
     baseUrl = base.replace('/stream', '');
   } else {
     baseUrl = base.replace('/stream', '/search');
