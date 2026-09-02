@@ -25,6 +25,7 @@ import {
   getPreviewFileFormat,
   getPreviewOptions,
   getRedirectToIDMapping,
+  getUniParcProteomeSearchId,
   hasColumns,
   isAsyncDownloadIdMapping,
   isSubsequenceFrom,
@@ -1134,6 +1135,145 @@ describe('Download Utils', () => {
     expect(
       isUniParcProteomeSearch(state, props, downloadOptions.query)
     ).toEqual(true);
+  });
+
+  test('getUniParcProteomeSearchId query variations and conditions', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 5,
+      namespace: Namespace.uniparc,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+    const job: JobFromUrl = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+
+    expect(
+      getUniParcProteomeSearchId(state, props, 'upid:UP000001478')
+    ).toEqual('UP000001478');
+    expect(
+      getUniParcProteomeSearchId(state, props, 'proteome:UP000005640')
+    ).toEqual('UP000005640');
+    expect(
+      getUniParcProteomeSearchId(state, props, '(proteome:UP000005640)')
+    ).toEqual('UP000005640');
+    expect(
+      getUniParcProteomeSearchId(state, props, '(upid:UP000005640)')
+    ).toEqual('UP000005640');
+
+    // Negative cases
+    expect(
+      getUniParcProteomeSearchId(
+        state,
+        props,
+        'proteome:UP000005640 AND taxonomy_id:9606'
+      )
+    ).toBeUndefined();
+    expect(
+      getUniParcProteomeSearchId(
+        { ...state, nSelectedEntries: 2 },
+        props,
+        'proteome:UP000005640'
+      )
+    ).toBeUndefined();
+    expect(
+      getUniParcProteomeSearchId(
+        state,
+        { ...props, namespace: Namespace.uniprotkb },
+        'proteome:UP000005640'
+      )
+    ).toBeUndefined();
+  });
+
+  test('downloadOptions for uniparc with jsonPrecomputed format', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 5,
+      namespace: Namespace.uniparc,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+    const location = {
+      pathname: '/uniparc',
+      search: '?query=upid:UP000001478',
+      hash: '',
+      key: 'foo',
+      state: undefined,
+    };
+    const job: JobFromUrl = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+
+    state.selectedFileFormat = FileFormat.jsonPrecomputed;
+    expect(getDownloadOptions(state, props, location, job)).toEqual({
+      compressed: true,
+      fileFormat: FileFormat.jsonPrecomputed,
+      namespace: Namespace.uniparc,
+      query: 'upid:UP000001478',
+      selected: [],
+      selectedFacets: [],
+      selectedIdField: 'upi',
+      accessions: undefined,
+      base: undefined,
+      sortColumn: undefined,
+      sortDirection: undefined,
+      uniparcProteomeFastaHeader: undefined,
+      uniparcProteomePrecomputed: 'UP000001478',
+    });
+
+    // plain json should not set uniparcProteomePrecomputed
+    state.selectedFileFormat = FileFormat.json;
+    expect(
+      getDownloadOptions(state, props, location, job).uniparcProteomePrecomputed
+    ).toBeUndefined();
+  });
+
+  test('getIsAsyncDownload returns false for jsonPrecomputed even above limit', () => {
+    const props: DownloadProps<JobTypes> = {
+      selectedEntries: [],
+      totalNumberResults: 10_000_000,
+      namespace: Namespace.uniparc,
+      notCustomisable: false,
+      inBasketMini: false,
+      onClose: jest.fn(),
+    };
+    const location = {
+      pathname: '/uniparc',
+      search: '?query=upid:UP000001478',
+      hash: '',
+      key: 'foo',
+      state: undefined,
+    };
+    const job: JobFromUrl = {
+      jobId: undefined,
+      jobResultsLocation: undefined,
+      jobResultsNamespace: undefined,
+    };
+    const state = getDownloadInitialState({
+      props,
+      job,
+      selectedColumns: defaultColumns,
+    });
+    state.selectedFileFormat = FileFormat.jsonPrecomputed;
+
+    expect(getIsAsyncDownload(state, props, location, job)).toBe(false);
   });
   test('idmapping uniprot download with inactive entries', () => {
     const props: DownloadProps<JobTypes> = {

@@ -18,6 +18,7 @@ import {
 } from '../adapters/proteomesConverter';
 import BuscoLegend from '../components/BuscoLegend';
 import BuscoView from '../components/BuscoView';
+import { isNonReferenceOrExcluded } from '../utils';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -165,8 +166,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
     if (!proteinCount) {
       return 0;
     }
-    const shouldPointToUniParc =
-      proteomeType === 'Excluded' || proteomeType === 'Non Reference proteome';
+    const shouldPointToUniParc = isNonReferenceOrExcluded(proteomeType);
 
     return (
       <>

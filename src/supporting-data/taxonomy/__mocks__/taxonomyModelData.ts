@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 
 // Source: taxonomy/search?size=2&query=primate
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: SearchResults<TaxonomyAPIModel> = {
   results: [
     {
@@ -51,17 +51,17 @@ const mock: SearchResults<TaxonomyAPIModel> = {
       },
     },
     {
-      scientificName: 'Primate calicivirus',
-      taxonId: 37299,
-      mnemonic: 'VESV',
+      scientificName: 'Primate lentivirus group',
+      taxonId: 11652,
+      mnemonic: '9PLVG',
       parent: {
-        scientificName: 'Vesicular exanthema of swine virus',
-        commonName: 'VESV',
-        taxonId: 35612,
+        scientificName: 'unclassified Lentivirus',
+        taxonId: 348386,
       },
-      rank: 'no rank',
-      hidden: true,
+      rank: 'clade',
+      hidden: false,
       active: true,
+      otherNames: ['Primate immunodeficiency viruses'],
       lineage: [
         {
           scientificName: 'Viruses',
@@ -77,58 +77,57 @@ const mock: SearchResults<TaxonomyAPIModel> = {
           hidden: false,
         },
         {
-          scientificName: 'Orthornavirae',
-          taxonId: 2732396,
+          scientificName: 'Pararnavirae',
+          taxonId: 2732397,
           rank: 'kingdom',
           hidden: false,
         },
         {
-          scientificName: 'Pisuviricota',
-          taxonId: 2732408,
+          scientificName: 'Artverviricota',
+          taxonId: 2732409,
           rank: 'phylum',
           hidden: false,
         },
         {
-          scientificName: 'Pisoniviricetes',
-          taxonId: 2732506,
+          scientificName: 'Revtraviricetes',
+          taxonId: 2732514,
           rank: 'class',
           hidden: false,
         },
         {
-          scientificName: 'Picornavirales',
-          taxonId: 464095,
+          scientificName: 'Ortervirales',
+          taxonId: 2169561,
           rank: 'order',
           hidden: false,
         },
         {
-          scientificName: 'Caliciviridae',
-          taxonId: 11974,
+          scientificName: 'Retroviridae',
+          taxonId: 11632,
           rank: 'family',
           hidden: false,
         },
         {
-          scientificName: 'Vesivirus',
-          taxonId: 95337,
+          scientificName: 'Orthoretrovirinae',
+          taxonId: 327045,
+          rank: 'subfamily',
+          hidden: false,
+        },
+        {
+          scientificName: 'Lentivirus',
+          taxonId: 11646,
           rank: 'genus',
           hidden: false,
         },
         {
-          scientificName: 'Vesivirus exanthema',
-          taxonId: 3433198,
-          rank: 'species',
-          hidden: false,
-        },
-        {
-          scientificName: 'Vesicular exanthema of swine virus',
-          commonName: 'VESV',
-          taxonId: 35612,
+          scientificName: 'unclassified Lentivirus',
+          taxonId: 348386,
           rank: 'no rank',
-          hidden: false,
+          hidden: true,
         },
       ],
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 3,
+        unreviewedProteinCount: 0,
         referenceProteomeCount: 0,
         proteomeCount: 0,
       },

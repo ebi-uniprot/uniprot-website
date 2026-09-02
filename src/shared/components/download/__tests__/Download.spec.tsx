@@ -6,6 +6,8 @@ jest.mock('../../../hooks/useSupportsJobs', () => ({
 }));
 
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import SimpleMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/SimpleMappingDetails';
 import UniProtkbMappingDetails from '../../../../jobs/id-mapping/components/results/__mocks__/UniProtkbMappingDetails';
@@ -20,6 +22,16 @@ import { Namespace } from '../../../types/namespaces';
 import { FileFormat } from '../../../types/resultsDownload';
 import { stringifyQuery } from '../../../utils/url';
 import Download from '../Download';
+
+const mock = new MockAdapter(axios, { onNoMatch: 'passthrough' });
+
+afterEach(() => {
+  mock.reset();
+});
+
+afterAll(() => {
+  mock.restore();
+});
 
 const initialColumns = [
   UniProtKBColumn.accession,
@@ -135,7 +147,7 @@ describe('Download with passed query and selectedQuery props', () => {
     const onCloseMock = jest.fn();
     const query = '(proteome:UP000002494)';
     const selectedQuery =
-      '(proteome:UP000002494) AND (proteomecomponent:"Chromosome 1" OR proteomecomponent:"Chromosome 2")';
+      '(proteomecomponent:"UP000002494:Chromosome 1" OR proteomecomponent:"UP000002494:Chromosome 2")';
     const numberSelectedEntries = 123;
     const totalNumberResults = 456;
 
@@ -220,6 +232,193 @@ describe('Download uniparc entries with passed proteome id as query', () => {
       expect.stringContaining(stringifyQuery({ query: `(${query})` }))
     );
     await settle();
+  });
+
+  it('should offer precomputed annotations option and handle format toggling when probe count > 0', async () => {
+    mock
+      .onHead(/\/uniprotkb\/precomputed\/proteome\/UP000001478/)
+      .reply(200, undefined, { 'x-total-results': '13794' });
+
+    const namespace = Namespace.uniparc;
+    const onCloseMock = jest.fn();
+    const query = '(upid:UP000001478)';
+    const numberSelectedEntries = 0;
+    const totalNumberResults = 4042;
+
+    customRender(
+      <Download
+        query={query}
+        numberSelectedEntries={numberSelectedEntries}
+        totalNumberResults={totalNumberResults}
+        onClose={onCloseMock}
+        namespace={namespace}
+      />,
+      {
+        route: '/uniprotkb?query=nod2',
+        initialLocalStorage: {
+          'table columns for uniparc': [UniParcColumn.accession],
+        },
+      }
+    );
+
+    // Format select contains JSON (precomputed annotation)
+    expect(
+      await screen.findByText('JSON (precomputed annotation)')
+    ).toBeInTheDocument();
+
+    // Default FASTA selected -> precomputed fieldset not shown
+    expect(
+      screen.queryByLabelText('Proceed with precomputed annotations.')
+    ).not.toBeInTheDocument();
+
+    // Switch to JSON
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.json } });
+
+    // Helper fieldset shown and unchecked
+    const precomputedCheckbox = screen.getByLabelText<HTMLInputElement>(
+      'Proceed with precomputed annotations.'
+    );
+    expect(precomputedCheckbox).toBeInTheDocument();
+    expect(precomputedCheckbox.checked).toBe(false);
+
+    let downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(expect.stringContaining('format=json'));
+
+    // Ticking the checkbox selects JSON (precomputed annotation) and updates URL to stream
+    fireEvent.click(precomputedCheckbox);
+    expect(precomputedCheckbox.checked).toBe(true);
+    expect(
+      screen.getByTestId<HTMLSelectElement>('file-format-select').value
+    ).toBe(FileFormat.jsonPrecomputed);
+
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link');
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        '/uniprotkb/precomputed/proteome/UP000001478/stream?compressed=true&download=true'
+      )
+    );
+
+    // Generate URL for API should strip download=true from stream and search URLs
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Generate URL for API' })
+    );
+    const streamCode = screen.getByText((content) =>
+      content.includes(
+        '/uniprotkb/precomputed/proteome/UP000001478/stream?compressed=true'
+      )
+    );
+    expect(streamCode).toBeInTheDocument();
+    expect(streamCode.textContent).not.toContain('download=true');
+
+    const searchCode = screen.getByText((content) =>
+      content.includes(
+        '/uniprotkb/precomputed/proteome/UP000001478?compressed=true&size=500'
+      )
+    );
+    expect(searchCode).toBeInTheDocument();
+    expect(searchCode.textContent).not.toContain('download=true');
+
+    // Compressed toggle reflected in href
+    fireEvent.click(screen.getByLabelText('No'));
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link', {
+      name: 'Download',
+    });
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(
+        '/uniprotkb/precomputed/proteome/UP000001478/stream?download=true'
+      )
+    );
+    expect(downloadLink.href).toEqual(
+      expect.not.stringContaining('compressed')
+    );
+
+    // Unticking the checkbox restores plain JSON
+    fireEvent.click(precomputedCheckbox);
+    expect(
+      screen.getByTestId<HTMLSelectElement>('file-format-select').value
+    ).toBe(FileFormat.json);
+    downloadLink = screen.getByRole<HTMLAnchorElement>('link', {
+      name: 'Download',
+    });
+    expect(downloadLink.href).toEqual(expect.stringContaining('format=json'));
+
+    // Selecting dropdown option directly checks the checkbox
+    fireEvent.change(formatSelect, {
+      target: { value: FileFormat.jsonPrecomputed },
+    });
+    expect(
+      screen.getByLabelText<HTMLInputElement>(
+        'Proceed with precomputed annotations.'
+      ).checked
+    ).toBe(true);
+
+    await settle();
+  });
+
+  it('should not offer precomputed annotations when probe returns 404', async () => {
+    mock.onHead(/\/uniprotkb\/precomputed\/proteome\/UP000009999/).reply(404);
+
+    const namespace = Namespace.uniparc;
+    const onCloseMock = jest.fn();
+    const query = 'proteome:UP000009999';
+
+    customRender(
+      <Download
+        query={query}
+        numberSelectedEntries={0}
+        totalNumberResults={100}
+        onClose={onCloseMock}
+        namespace={namespace}
+      />,
+      {
+        route: '/uniprotkb?query=nod2',
+        initialLocalStorage: {
+          'table columns for uniparc': [UniParcColumn.accession],
+        },
+      }
+    );
+
+    await settle();
+
+    expect(
+      screen.queryByText('JSON (precomputed annotation)')
+    ).not.toBeInTheDocument();
+
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.json } });
+
+    expect(
+      screen.queryByLabelText('Proceed with precomputed annotations.')
+    ).not.toBeInTheDocument();
+  });
+
+  it('should not offer precomputed annotations for non-proteome queries', async () => {
+    const namespace = Namespace.uniparc;
+    const onCloseMock = jest.fn();
+    const query = 'gene:BRCA1';
+
+    customRender(
+      <Download
+        query={query}
+        numberSelectedEntries={0}
+        totalNumberResults={100}
+        onClose={onCloseMock}
+        namespace={namespace}
+      />,
+      {
+        route: '/uniprotkb?query=nod2',
+        initialLocalStorage: {
+          'table columns for uniparc': [UniParcColumn.accession],
+        },
+      }
+    );
+
+    await settle();
+
+    expect(
+      screen.queryByText('JSON (precomputed annotation)')
+    ).not.toBeInTheDocument();
   });
 });
 

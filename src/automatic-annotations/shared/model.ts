@@ -267,11 +267,7 @@ export type RuleException = {
   accessions?: string[];
   note?: string;
   category?: string;
-  annotation?: {
-    annotationType?: 'ANNOTATION' | 'POSITIONAL_FEATURE';
-    // NOTE: below, added
-    proteinDescription?: ProteinSection;
-  };
+  annotation?: Annotation;
 };
 
 export type Rule = {

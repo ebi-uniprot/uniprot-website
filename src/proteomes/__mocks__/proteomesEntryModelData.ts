@@ -1,7 +1,7 @@
 import { type ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 // Source: proteomes/UP000005640
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
   description:
@@ -12,12 +12,12 @@ const mock: ProteomesAPIModel = {
     taxonId: 9606,
     mnemonic: 'HUMAN',
   },
-  modified: '2025-12-05',
+  modified: '2026-04-22',
   proteomeType: 'Reference proteome',
   components: [
     {
       name: 'Chromosome 1',
-      proteinCount: 13926,
+      proteinCount: 13931,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -30,7 +30,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 2',
-      proteinCount: 10399,
+      proteinCount: 10408,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -51,7 +51,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 3',
-      proteinCount: 9040,
+      proteinCount: 9042,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -68,7 +68,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 4',
-      proteinCount: 5517,
+      proteinCount: 5518,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -85,7 +85,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 5',
-      proteinCount: 5956,
+      proteinCount: 5957,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -102,7 +102,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 6',
-      proteinCount: 6428,
+      proteinCount: 6445,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -115,7 +115,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 7',
-      proteinCount: 7007,
+      proteinCount: 7010,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -128,7 +128,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 8',
-      proteinCount: 4936,
+      proteinCount: 4940,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -141,7 +141,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 9',
-      proteinCount: 5322,
+      proteinCount: 5327,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -154,7 +154,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 10',
-      proteinCount: 5824,
+      proteinCount: 5825,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -171,7 +171,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome X',
-      proteinCount: 4344,
+      proteinCount: 4380,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -184,7 +184,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 11',
-      proteinCount: 8951,
+      proteinCount: 8954,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -201,7 +201,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 12',
-      proteinCount: 8119,
+      proteinCount: 8124,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -214,7 +214,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 13',
-      proteinCount: 2161,
+      proteinCount: 2162,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -227,7 +227,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 14',
-      proteinCount: 5048,
+      proteinCount: 5064,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -252,7 +252,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 15',
-      proteinCount: 4595,
+      proteinCount: 4601,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -269,7 +269,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 16',
-      proteinCount: 6933,
+      proteinCount: 6938,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -286,7 +286,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 17',
-      proteinCount: 9231,
+      proteinCount: 9244,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -324,7 +324,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 19',
-      proteinCount: 9770,
+      proteinCount: 9778,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -337,7 +337,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 20',
-      proteinCount: 3512,
+      proteinCount: 3514,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -363,7 +363,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome 22',
-      proteinCount: 3619,
+      proteinCount: 3625,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -376,7 +376,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Chromosome Y',
-      proteinCount: 174,
+      proteinCount: 241,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -406,7 +406,7 @@ const mock: ProteomesAPIModel = {
     },
     {
       name: 'Unplaced',
-      proteinCount: 3063,
+      proteinCount: 2974,
       genomeAnnotation: {
         source: 'Ensembl',
       },
@@ -3942,8 +3942,8 @@ const mock: ProteomesAPIModel = {
     level: 'full',
     source: 'Ensembl',
   },
-  geneCount: 20652,
-  proteinCount: 147506,
+  geneCount: 147503,
+  proteinCount: 147520,
   genomeAnnotation: {
     source: 'Ensembl',
     url: 'http://www.ensembl.org/Homo_sapiens/Info/Annotation',
@@ -4145,7 +4145,7 @@ const mock: ProteomesAPIModel = {
   ],
   proteomeStatistics: {
     reviewedProteinCount: 20416,
-    unreviewedProteinCount: 127090,
+    unreviewedProteinCount: 127104,
     isoformProteinCount: 22131,
   },
 };

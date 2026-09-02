@@ -6,7 +6,7 @@ import { type DatabaseInfo } from '../../../types/databaseRefs';
 
 // TODO: update when TRM-29539 is fixed and deployed
 // Source: configure/uniprotkb/allDatabases
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const databaseInfo: DatabaseInfo = [
   {
     name: 'EMBL',
@@ -1772,8 +1772,7 @@ const databaseInfo: DatabaseInfo = [
     name: 'Reactome',
     displayName: 'Reactome',
     category: 'EAP',
-    uriLink:
-      'https://www.reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession',
+    uriLink: 'https://reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession',
     attributes: [
       {
         name: 'PathwayName',

@@ -129,6 +129,28 @@ const LatestNews = () => {
               <h3 className="tiny">
                 <Link
                   to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
+                    accession: '2026-09-02-release',
+                  })}
+                >
+                  UniProt release 2026_03
+                </Link>
+              </h3>
+              <p
+                className={cn(
+                  styles['latest-news__abstract'],
+                  styles['latest-news__abstract--2-lines']
+                )}
+              >
+                UniProt news | Cross-references to MDposit | Cross-references to
+                MDRepo...
+              </p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <h3 className="tiny">
+                <Link
+                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
                     accession: '2026-06-10-release',
                   })}
                 >
@@ -187,28 +209,6 @@ const LatestNews = () => {
               >
                 The strange case of the Cheetah and Leopard proteomes |
                 UniProtKB/Swiss-Prot not updated in release 2025_04...
-              </p>
-            </article>
-          </li>
-          <li>
-            <article>
-              <h3 className="tiny">
-                <Link
-                  to={generatePath(LocationToPath[Location.ReleaseNotesEntry], {
-                    accession: '2025-06-18-release',
-                  })}
-                >
-                  UniProt release 2025_03
-                </Link>
-              </h3>
-              <p
-                className={cn(
-                  styles['latest-news__abstract'],
-                  styles['latest-news__abstract--2-lines']
-                )}
-              >
-                Cross-references to CARD | Cross-references to FunCoup |
-                Cross-references to PAN-GO
               </p>
             </article>
           </li>
