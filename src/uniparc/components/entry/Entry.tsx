@@ -186,7 +186,10 @@ const Entry = () => {
           <div className={stickyHeaderStyles['compact-tools']}>{toolsRow}</div>
         </div>
       )}
-      <Tabs active={match.params.subPage}>
+      <Tabs
+        active={match.params.subPage}
+        className={stickyHeaderStyles['entry-tabs']}
+      >
         <Tab
           title={
             <EntryTabLink

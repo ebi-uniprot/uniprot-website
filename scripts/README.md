@@ -64,7 +64,7 @@ export default mock as any;
 
 ### Usage
 
-The script should be called through `package.json` script, for example using `yarn run update-mocks`. It supports several command-line options to customize its behavior:
+The script should be called through `package.json` script, for example using `pnpm run update-mocks`. It supports several command-line options to customize its behavior:
 
 #### CLI Options
 

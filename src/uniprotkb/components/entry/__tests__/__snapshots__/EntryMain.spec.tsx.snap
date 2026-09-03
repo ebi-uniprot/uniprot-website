@@ -4571,65 +4571,6 @@ exports[`Entry view should render for non-human entry 1`] = `
           </tbody>
         </table>
         <h3
-          data-article-id="gene_ontology"
-        >
-          Gene Ontology
-        </h3>
-        <div
-          class="tabs padding-top-small"
-        >
-          <div
-            class="tabs__header"
-            role="tablist"
-          >
-            <div
-              aria-controls="26"
-              class="tabs__header__item tabs__header__item--bordered tabs__header__item--active"
-              data-target="0"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              GO annotations
-            </div>
-            <div
-              aria-controls="26"
-              class="tabs__header__item tabs__header__item--bordered"
-              data-target="1"
-              data-testid="tab-title"
-              role="tab"
-              tabindex="0"
-            >
-              <span
-                title="GO-CAM models from the Gene Ontology knowledgebase may be available for this entry."
-              >
-                GO-CAM models
-                <button
-                  class="chip chip--compact"
-                  type="button"
-                >
-                  New
-                </button>
-              </span>
-            </div>
-          </div>
-          <div
-            data-testid="tab-content"
-            id="26"
-            role="tabpanel"
-          >
-            <div
-              class="loader-container"
-            >
-              <test-file-stub
-                class="loader"
-                height="100"
-                width="100"
-              />
-            </div>
-          </div>
-        </div>
-        <h3
           data-article-id="keywords"
         >
           Keywords
@@ -4839,7 +4780,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <strong>
                   A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                   <button
-                    aria-controls="27"
+                    aria-controls="26"
                     aria-expanded="false"
                     class="svg-colour-reviewed evidence-tag"
                     data-testid="evidence-tag-trigger"
@@ -4858,7 +4799,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="27"
+                    id="26"
                   />
                 </strong>
               </div>
@@ -4914,7 +4855,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     </a>
                     )
                     <button
-                      aria-controls="28"
+                      aria-controls="27"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -4933,7 +4874,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="28"
+                      id="27"
                     />
                   </li>
                 </ul>
@@ -4958,6 +4899,31 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     CBM32 
                     <button
+                      aria-controls="28"
+                      aria-expanded="false"
+                      class="svg-colour-reviewed evidence-tag"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="28"
+                    />
+                  </li>
+                  <li>
+                    FpGalNAc deacetylase (FpGalNAcDeAc 
+                    <button
                       aria-controls="29"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
@@ -4978,31 +4944,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
                       id="29"
-                    />
-                  </li>
-                  <li>
-                    FpGalNAc deacetylase (FpGalNAcDeAc 
-                    <button
-                      aria-controls="30"
-                      aria-expanded="false"
-                      class="svg-colour-reviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="30"
                     />
                     ) 
                   </li>
@@ -5209,7 +5150,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="32"
+                  aria-controls="31"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5226,7 +5167,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 Loss of deacetylase activity.
                 <button
-                  aria-controls="33"
+                  aria-controls="32"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -5245,7 +5186,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="33"
+                  id="32"
                 />
               </td>
               <td />
@@ -5253,7 +5194,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content"
               hidden=""
-              id="32"
+              id="31"
             >
               <td />
             </tr>
@@ -5263,7 +5204,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="34"
+                  aria-controls="33"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5280,7 +5221,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 5-fold reduction in deacetylase rate.
                 <button
-                  aria-controls="35"
+                  aria-controls="34"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -5299,7 +5240,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="35"
+                  id="34"
                 />
               </td>
               <td />
@@ -5307,7 +5248,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content odd"
               hidden=""
-              id="34"
+              id="33"
             >
               <td />
             </tr>
@@ -5317,7 +5258,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="36"
+                  aria-controls="35"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5334,7 +5275,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 Dramatic reduction in deacetylase rate.
                 <button
-                  aria-controls="37"
+                  aria-controls="36"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -5353,7 +5294,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="37"
+                  id="36"
                 />
               </td>
               <td />
@@ -5361,7 +5302,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content"
               hidden=""
-              id="36"
+              id="35"
             >
               <td />
             </tr>
@@ -5371,7 +5312,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="38"
+                  aria-controls="37"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5388,7 +5329,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 Very dramatic reduction in deacetylase rate.
                 <button
-                  aria-controls="39"
+                  aria-controls="38"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -5407,7 +5348,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="39"
+                  id="38"
                 />
               </td>
               <td />
@@ -5415,7 +5356,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content odd"
               hidden=""
-              id="38"
+              id="37"
             >
               <td />
             </tr>
@@ -5425,7 +5366,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="40"
+                  aria-controls="39"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5442,7 +5383,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 3000-fold reduction in deacetylase rate.
                 <button
-                  aria-controls="41"
+                  aria-controls="40"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -5461,7 +5402,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="41"
+                  id="40"
                 />
               </td>
               <td />
@@ -5469,7 +5410,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content"
               hidden=""
-              id="40"
+              id="39"
             >
               <td />
             </tr>
@@ -5807,7 +5748,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="43"
+                  aria-controls="42"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5824,7 +5765,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 Deacetylase activity
                 <button
-                  aria-controls="44"
+                  aria-controls="43"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -5843,7 +5784,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="44"
+                  id="43"
                 />
               </td>
               <td>
@@ -5879,7 +5820,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content"
               hidden=""
-              id="43"
+              id="42"
             >
               <td />
             </tr>
@@ -5889,7 +5830,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="45"
+                  aria-controls="44"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5906,7 +5847,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 F5/8 type C
                 <button
-                  aria-controls="46"
+                  aria-controls="45"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -5925,7 +5866,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="46"
+                  id="45"
                 />
               </td>
               <td>
@@ -5961,7 +5902,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content odd"
               hidden=""
-              id="45"
+              id="44"
             >
               <td />
             </tr>
@@ -5971,7 +5912,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="47"
+                  aria-controls="46"
                   aria-expanded="false"
                   type="button"
                 >
@@ -5988,7 +5929,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 CBM32 carbohydrate-binding domain
                 <button
-                  aria-controls="48"
+                  aria-controls="47"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -6007,7 +5948,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="48"
+                  id="47"
                 />
               </td>
               <td>
@@ -6043,7 +5984,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content"
               hidden=""
-              id="47"
+              id="46"
             >
               <td />
             </tr>
@@ -6053,7 +5994,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             >
               <td>
                 <button
-                  aria-controls="49"
+                  aria-controls="48"
                   aria-expanded="false"
                   type="button"
                 >
@@ -6070,7 +6011,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <td>
                 Not required for activity on soluble substrates
                 <button
-                  aria-controls="50"
+                  aria-controls="49"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -6089,7 +6030,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="50"
+                  id="49"
                 />
               </td>
               <td>
@@ -6125,7 +6066,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row extra-content odd"
               hidden=""
-              id="49"
+              id="48"
             >
               <td />
             </tr>
@@ -6141,7 +6082,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures.
           <button
-            aria-controls="51"
+            aria-controls="50"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -6160,7 +6101,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="51"
+            id="50"
           />
         </div>
         <h3

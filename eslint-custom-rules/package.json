@@ -1,9 +1,0 @@
-{
-  "name": "eslint-plugin-uniprot-website",
-  "version": "1.0.0",
-  "main": "index.js",
-  "private": true,
-  "scripts": {
-    "test": "node rules/__tests__/runner.js"
-  }
-}

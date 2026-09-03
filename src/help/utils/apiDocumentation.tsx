@@ -6,20 +6,32 @@ export const SCHEMAS_ID = 'schemas' as const;
 
 export const tagNameToId = (name: string) => name.replaceAll(' ', '_');
 
-export const getIdToOperation = (paths: OpenAPIV3.PathItemObject) =>
-  new Map(
-    Object.entries(paths).flatMap(([path, methods]) =>
-      Object.values(methods).map((method) => {
+export type Operation = { path: string; tag: string; operationId: string };
+
+// Path items mix operations with $ref/summary/description (strings) and
+// servers/parameters (arrays)
+const isOperation = (value: unknown): value is OpenAPIV3.OperationObject =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+export const getIdToOperation = (paths: OpenAPIV3.PathsObject) =>
+  new Map<string, Operation>(
+    Object.entries(paths).flatMap(([path, pathItem]) =>
+      Object.values(pathItem ?? {}).flatMap((method) => {
+        if (!isOperation(method)) {
+          return [];
+        }
         const tag = method.tags?.[0];
         const { operationId } = method;
-        const id = `operations-${tag.replaceAll(' ', '_')}-${operationId}`;
-        return [id, { path, tag, operationId }];
+        if (!tag || !operationId) {
+          return [];
+        }
+        const id = `operations-${tagNameToId(tag)}-${operationId}`;
+        return [[id, { path, tag, operationId }] as const];
       })
     )
   );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getLayoutAction = (operation: any, shown: boolean) => ({
+export const getLayoutAction = (operation: Operation, shown: boolean) => ({
   type: 'layout_show',
   payload: {
     thing: ['operations', operation.tag, operation.operationId],

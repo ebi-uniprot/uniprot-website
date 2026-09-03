@@ -1,7 +1,7 @@
 import { type AgrParalogs } from '../../../../../types/agrParalogs';
 
 // Source: https://www.alliancegenome.org/api/gene/HGNC:620/paralogs?filter.stringency=all&limit=10000
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: AgrParalogs = {
   results: [
     {
@@ -256,7 +256,7 @@ const mock: AgrParalogs = {
   total: 2,
   returnedRecords: 2,
   requestDuration: '0s',
-  requestDate: '2026/06/04 17:18:41',
+  requestDate: '2026/08/31 13:38:39',
 };
 
 export default mock;

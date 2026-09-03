@@ -95,7 +95,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                Computationally mapped (27)
+                Computationally mapped (28)
               </a>
             </li>
             <li>
@@ -162,7 +162,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 class=""
                 href="/?facets=categories%3ADisease+%26+Variants"
               >
-                Disease & Variants (8)
+                Disease & Variants (9)
               </a>
             </li>
             <li>
@@ -192,7 +192,7 @@ exports[`EntryPublication facets tests should render 1`] = `
                 class=""
                 href="/?facets=is_large_scale%3Afalse"
               >
-                Small scale (33)
+                Small scale (34)
               </a>
             </li>
             <li>

@@ -57,7 +57,7 @@ exports[`EntryMain view should render 1`] = `
             </button>
             <a
               class="button tertiary"
-              href="/uniprotkb?query=(proteome:UP000005640)"
+              href="/uniprotkb?query=%28proteome%3AUP000005640%29"
             >
               View proteins
             </a>
@@ -140,9 +140,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+1%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+1%22%29"
                   >
-                    13,926
+                    13,931
                   </a>
                 </td>
               </tr>
@@ -206,9 +206,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+2%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+2%22%29"
                   >
-                    10,399
+                    10,408
                   </a>
                 </td>
               </tr>
@@ -259,9 +259,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+3%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+3%22%29"
                   >
-                    9,040
+                    9,042
                   </a>
                 </td>
               </tr>
@@ -312,9 +312,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+4%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+4%22%29"
                   >
-                    5,517
+                    5,518
                   </a>
                 </td>
               </tr>
@@ -365,9 +365,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+5%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+5%22%29"
                   >
-                    5,956
+                    5,957
                   </a>
                 </td>
               </tr>
@@ -405,9 +405,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+6%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+6%22%29"
                   >
-                    6,428
+                    6,445
                   </a>
                 </td>
               </tr>
@@ -445,9 +445,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+7%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+7%22%29"
                   >
-                    7,007
+                    7,010
                   </a>
                 </td>
               </tr>
@@ -485,9 +485,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+8%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+8%22%29"
                   >
-                    4,936
+                    4,940
                   </a>
                 </td>
               </tr>
@@ -525,9 +525,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+9%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+9%22%29"
                   >
-                    5,322
+                    5,327
                   </a>
                 </td>
               </tr>
@@ -578,9 +578,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+10%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+10%22%29"
                   >
-                    5,824
+                    5,825
                   </a>
                 </td>
               </tr>
@@ -618,9 +618,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+X%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+X%22%29"
                   >
-                    4,344
+                    4,380
                   </a>
                 </td>
               </tr>
@@ -671,9 +671,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+11%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+11%22%29"
                   >
-                    8,951
+                    8,954
                   </a>
                 </td>
               </tr>
@@ -711,9 +711,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+12%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+12%22%29"
                   >
-                    8,119
+                    8,124
                   </a>
                 </td>
               </tr>
@@ -751,9 +751,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+13%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+13%22%29"
                   >
-                    2,161
+                    2,162
                   </a>
                 </td>
               </tr>
@@ -830,9 +830,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+14%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+14%22%29"
                   >
-                    5,048
+                    5,064
                   </a>
                 </td>
               </tr>
@@ -883,9 +883,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+15%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+15%22%29"
                   >
-                    4,595
+                    4,601
                   </a>
                 </td>
               </tr>
@@ -936,9 +936,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+16%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+16%22%29"
                   >
-                    6,933
+                    6,938
                   </a>
                 </td>
               </tr>
@@ -1015,9 +1015,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+17%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+17%22%29"
                   >
-                    9,231
+                    9,244
                   </a>
                 </td>
               </tr>
@@ -1055,7 +1055,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+18%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+18%22%29"
                   >
                     2,335
                   </a>
@@ -1095,9 +1095,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+19%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+19%22%29"
                   >
-                    9,770
+                    9,778
                   </a>
                 </td>
               </tr>
@@ -1135,9 +1135,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+20%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+20%22%29"
                   >
-                    3,512
+                    3,514
                   </a>
                 </td>
               </tr>
@@ -1175,7 +1175,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+21%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+21%22%29"
                   >
                     1,287
                   </a>
@@ -1215,9 +1215,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+22%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+22%22%29"
                   >
-                    3,619
+                    3,625
                   </a>
                 </td>
               </tr>
@@ -1268,9 +1268,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Chromosome+Y%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AChromosome+Y%22%29"
                   >
-                    174
+                    241
                   </a>
                 </td>
               </tr>
@@ -1308,7 +1308,7 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Mitochondrion+MT%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AMitochondrion+MT%22%29"
                   >
                     23
                   </a>
@@ -1348,9 +1348,9 @@ exports[`EntryMain view should render 1`] = `
                 </td>
                 <td>
                   <a
-                    href="/uniprotkb?query=%28proteome%3AUP000005640%29+AND+%28proteomecomponent%3A%22Unplaced%22%29"
+                    href="/uniprotkb?query=%28proteomecomponent%3A%22UP000005640%3AUnplaced%22%29"
                   >
-                    3,063
+                    2,974
                   </a>
                 </td>
               </tr>
@@ -1398,7 +1398,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/23932108"
                       >
-                        Mapping the human reference genome's missing sequence by three-way admixture in Latino genomes.
+                        <span>
+                          Mapping the human reference genome's missing sequence by three-way admixture in Latino genomes.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -1521,7 +1523,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/18477386"
                       >
-                        Finishing the finished human chromosome 22 sequence.
+                        <span>
+                          Finishing the finished human chromosome 22 sequence.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -1682,7 +1686,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/10508508"
                       >
-                        Reanalysis and revision of the Cambridge reference sequence for human mitochondrial DNA.
+                        <span>
+                          Reanalysis and revision of the Cambridge reference sequence for human mitochondrial DNA.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -1811,7 +1817,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/23435088"
                       >
-                        Using population admixture to help complete maps of the human genome.
+                        <span>
+                          Using population admixture to help complete maps of the human genome.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -1972,7 +1980,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/7219534"
                       >
-                        Sequence and organization of the human mitochondrial genome.
+                        <span>
+                          Sequence and organization of the human mitochondrial genome.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -2133,7 +2143,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/10830953"
                       >
-                        The DNA sequence of human chromosome 21.
+                        <span>
+                          The DNA sequence of human chromosome 21.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -2299,7 +2311,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/11237011"
                       >
-                        Initial sequencing and analysis of the human genome.
+                        <span>
+                          Initial sequencing and analysis of the human genome.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -2465,7 +2479,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/11780052"
                       >
-                        The DNA sequence and comparative analysis of human chromosome 20.
+                        <span>
+                          The DNA sequence and comparative analysis of human chromosome 20.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -2626,7 +2642,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/12508121"
                       >
-                        The DNA sequence and analysis of human chromosome 14.
+                        <span>
+                          The DNA sequence and analysis of human chromosome 14.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -2787,7 +2805,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/12815422"
                       >
-                        The male-specific region of the human Y chromosome is a mosaic of discrete sequence classes.
+                        <span>
+                          The male-specific region of the human Y chromosome is a mosaic of discrete sequence classes.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -2948,7 +2968,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/12853948"
                       >
-                        The DNA sequence of human chromosome 7.
+                        <span>
+                          The DNA sequence of human chromosome 7.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -3109,7 +3131,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/14574404"
                       >
-                        The DNA sequence and analysis of human chromosome 6.
+                        <span>
+                          The DNA sequence and analysis of human chromosome 6.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -3270,7 +3294,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15057823"
                       >
-                        The DNA sequence and analysis of human chromosome 13.
+                        <span>
+                          The DNA sequence and analysis of human chromosome 13.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -3431,7 +3457,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15057824"
                       >
-                        The DNA sequence and biology of human chromosome 19.
+                        <span>
+                          The DNA sequence and biology of human chromosome 19.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -3592,7 +3620,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15164053"
                       >
-                        DNA sequence and analysis of human chromosome 9.
+                        <span>
+                          DNA sequence and analysis of human chromosome 9.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -3753,7 +3783,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15164054"
                       >
-                        The DNA sequence and comparative analysis of human chromosome 10.
+                        <span>
+                          The DNA sequence and comparative analysis of human chromosome 10.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -3914,7 +3946,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15372022"
                       >
-                        The DNA sequence and comparative analysis of human chromosome 5.
+                        <span>
+                          The DNA sequence and comparative analysis of human chromosome 5.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -4075,7 +4109,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15496913"
                       >
-                        Finishing the euchromatic sequence of the human genome.
+                        <span>
+                          Finishing the euchromatic sequence of the human genome.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -4177,7 +4213,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15616553"
                       >
-                        The sequence and analysis of duplication-rich human chromosome 16.
+                        <span>
+                          The sequence and analysis of duplication-rich human chromosome 16.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -4338,7 +4376,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15772651"
                       >
-                        The DNA sequence of the human X chromosome.
+                        <span>
+                          The DNA sequence of the human X chromosome.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -4499,7 +4539,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/15815621"
                       >
-                        Generation and annotation of the DNA sequences of human chromosomes 2 and 4.
+                        <span>
+                          Generation and annotation of the DNA sequences of human chromosomes 2 and 4.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -4660,7 +4702,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16177791"
                       >
-                        DNA sequence and analysis of human chromosome 18.
+                        <span>
+                          DNA sequence and analysis of human chromosome 18.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -4821,7 +4865,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16421571"
                       >
-                        DNA sequence and analysis of human chromosome 8.
+                        <span>
+                          DNA sequence and analysis of human chromosome 8.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -4982,7 +5028,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16625196"
                       >
-                        DNA sequence of human chromosome 17 and analysis of rearrangement in the human lineage.
+                        <span>
+                          DNA sequence of human chromosome 17 and analysis of rearrangement in the human lineage.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -5143,7 +5191,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16641997"
                       >
-                        The DNA sequence, annotation and analysis of human chromosome 3.
+                        <span>
+                          The DNA sequence, annotation and analysis of human chromosome 3.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -5304,7 +5354,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16541075"
                       >
-                        The finished DNA sequence of human chromosome 12.
+                        <span>
+                          The finished DNA sequence of human chromosome 12.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -5470,7 +5522,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16554811"
                       >
-                        Human chromosome 11 DNA sequence and analysis including novel gene identification.
+                        <span>
+                          Human chromosome 11 DNA sequence and analysis including novel gene identification.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -5631,7 +5685,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16572171"
                       >
-                        Analysis of the DNA sequence and duplication history of human chromosome 15.
+                        <span>
+                          Analysis of the DNA sequence and duplication history of human chromosome 15.
+                        </span>
                       </a>
                     </h3>
                     <div
@@ -5792,7 +5848,9 @@ exports[`EntryMain view should render 1`] = `
                       <a
                         href="/citations/16710414"
                       >
-                        The DNA sequence and biological annotation of human chromosome 1.
+                        <span>
+                          The DNA sequence and biological annotation of human chromosome 1.
+                        </span>
                       </a>
                     </h3>
                     <div

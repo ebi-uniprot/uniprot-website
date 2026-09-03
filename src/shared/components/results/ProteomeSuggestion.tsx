@@ -37,11 +37,13 @@ const ProteomeSuggestion = ({
 
   useEffect(() => {
     if (data?.results.length) {
+      /* eslint-disable @eslint-react/set-state-in-effect -- syncs the proteome info from the fetched data */
       if (namespace === Namespace.uniprotkb) {
         setProteomeInfo(data.results[0]);
       } else if (namespace === Namespace.uniparc) {
         setProteomeInfo(data.results);
       }
+      /* eslint-enable @eslint-react/set-state-in-effect */
     }
   }, [data, namespace]);
 

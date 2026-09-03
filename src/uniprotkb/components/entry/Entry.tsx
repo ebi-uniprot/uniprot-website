@@ -59,6 +59,7 @@ import sidebarStyles from '../../../shared/components/layouts/styles/sidebar-lay
 import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
 import { AFDBOutOfSyncContext } from '../../../shared/contexts/AFDBOutOfSync';
+import { CommunityCuratedCountsContext } from '../../../shared/contexts/CommunityCuratedCounts';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -99,6 +100,7 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 import uniprotkbApiUrls from '../../config/apiUrls/apiUrls';
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
+import useCommunityCuratedCount from '../../hooks/useCommunityCuratedCount';
 import { DatabaseCategory } from '../../types/databaseRefs';
 import { TabLocation } from '../../types/entry';
 import EntrySection, {
@@ -107,6 +109,7 @@ import EntrySection, {
 import { type UniProtKBProtNLMAPIModel } from '../../types/protNLMAPIModel';
 import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
+import { communityCuratedFacet } from '../../utils/CommunitySubmission';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
@@ -239,12 +242,7 @@ const Entry = () => {
     match?.params.accession
       ? uniprotkbApiUrls.publications.entryPublications({
           accession: match.params.accession,
-          selectedFacets: [
-            {
-              name: 'types',
-              value: '0',
-            },
-          ],
+          selectedFacets: [communityCuratedFacet],
         })
       : null
   );
@@ -457,6 +455,29 @@ const Entry = () => {
     transformedData.inactiveReason
   );
 
+  /* Fetched here, once per entry, rather than by the components that need
+  them: they are read from both the tools row and the publications tab, and
+  neither count depends on the tab or on the facets, so fetching them lower
+  down would re-request on every remount. Asked for alongside the entry itself
+  rather than behind it: whether the entry turns out to be obsolete — which
+  nothing here knows on the first render — is not worth holding the count, and
+  so the tools row, behind a round trip. */
+  const communitySubmittedCount = useCommunityCuratedCount(
+    match?.params.accession
+  );
+  const communityCuratedCounts = useMemo(() => {
+    /* Undefined until the response carries a count, so that consumers can tell
+    "not known yet" apart from "this release holds none": a failed request
+    carries the headers of its error response, which hold no count, and the 0
+    read off them would claim a release is behind on a count never obtained. */
+    const total = communityCuratedPayload.headers?.['x-total-results'];
+    const indexed = total === undefined ? NaN : +total;
+    return {
+      submitted: communitySubmittedCount,
+      indexed: Number.isFinite(indexed) ? indexed : undefined,
+    };
+  }, [communitySubmittedCount, communityCuratedPayload.headers]);
+
   // Redirect to history when demerged and to UniParc when deleted
   useEffect(() => {
     if (
@@ -600,6 +621,11 @@ const Entry = () => {
   isObsolete =
     (redirectedTo && accession !== match.params.accession) || isObsolete;
 
+  // The compact bar and the `stuck` class that shrinks and offsets the tabs row
+  // to sit under it share one condition: an entry without these (obsolete, or
+  // no sequence) renders no bar, so the tabs must keep their normal position.
+  const showCompactBar = Boolean(isStuck && !isObsolete && data?.sequence);
+
   let sidebar = null;
   if (!isObsolete) {
     if (match.params.subPage === TabLocation.Publications) {
@@ -626,7 +652,10 @@ const Entry = () => {
   );
   const basketButton = <AddToBasketButton selectedEntries={accession} />;
   const communityAnnotationLink = (
-    <CommunityAnnotationLink accession={accession} />
+    <CommunityAnnotationLink
+      accession={accession}
+      count={communitySubmittedCount}
+    />
   );
   const addPublicationLink = (
     <a
@@ -751,7 +780,7 @@ const Entry = () => {
         sticky['sticky-tabs-container'],
         stickyHeaderStyles.container,
         {
-          [stickyHeaderStyles.stuck]: isStuck,
+          [stickyHeaderStyles.stuck]: showCompactBar,
           [stickyHeaderStyles['no-sidebar']]: !sidebar,
         }
       )}
@@ -787,7 +816,9 @@ const Entry = () => {
           <div
             ref={setFullHeaderRef}
             className={stickyHeaderStyles['full-header']}
-            inert={isStuck}
+            // Same condition as the bar: without a compact bar to take over,
+            // the full header must stay interactive.
+            inert={showCompactBar}
           >
             <div className="ai-annotation-entry-title-row">
               <h1>
@@ -817,7 +848,7 @@ const Entry = () => {
           }
         />
       )}
-      {isStuck && !isObsolete && data?.sequence && (
+      {showCompactBar && (
         <div className={stickyHeaderStyles['compact-bar']}>
           <span className={stickyHeaderStyles['compact-title']}>
             <EntryTitle
@@ -838,7 +869,10 @@ const Entry = () => {
         </div>
       )}
       <AFDBOutOfSyncContext.Provider value={isAFDBOutOfSync}>
-        <Tabs active={match.params.subPage}>
+        <Tabs
+          active={match.params.subPage}
+          className={stickyHeaderStyles['entry-tabs']}
+        >
           <Tab
             disabled={isObsolete}
             className={loadProtNLM && hasProtnlm ? 'entry-tab--ai' : undefined}
@@ -1091,7 +1125,11 @@ const Entry = () => {
                     searchableNamespaceLabels[Namespace.uniprotkb],
                   ]}
                 />
-                <PublicationsTab accession={accession} />
+                <CommunityCuratedCountsContext.Provider
+                  value={communityCuratedCounts}
+                >
+                  <PublicationsTab accession={accession} />
+                </CommunityCuratedCountsContext.Provider>
               </ErrorBoundary>
             </Suspense>
           </Tab>

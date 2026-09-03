@@ -177,9 +177,9 @@ function md51(s: string): Number4 {
 
   let tail: Number16 = Array(16).fill(0) as Number16;
   for (i = 0; i < s.length; i += 1) {
-    tail[i >> 2] |= s.charCodeAt(i) << (i % 4 << 3);
+    tail[i >> 2] |= s.charCodeAt(i) << ((i % 4) << 3);
   }
-  tail[i >> 2] |= 0x80 << (i % 4 << 3);
+  tail[i >> 2] |= 0x80 << ((i % 4) << 3);
 
   if (i > 55) {
     md5cycle(state, tail);

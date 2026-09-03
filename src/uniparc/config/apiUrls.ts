@@ -39,13 +39,31 @@ const databases = (
   });
 };
 
-const proteomeFasta = (upid: string, stream?: boolean) => {
-  const baseUrl = stream
-    ? joinUrl(apiPrefix, 'uniparc', 'proteome', upid, 'stream')
-    : joinUrl(apiPrefix, 'uniparc', 'proteome', upid);
-  return stringifyUrl(baseUrl, {
-    format: fileFormatToUrlParameter[FileFormat.fasta],
-    compressed: true,
+// Precomputed UniProtKB annotations for a whole proteome. JSON only.
+// `stream: false` targets the paginated endpoint (used for previews).
+const precomputedProteomeAnnotations = (
+  upId: string,
+  options: {
+    stream?: boolean;
+    compressed?: boolean;
+    size?: number;
+    download?: boolean;
+  } = {}
+) => {
+  const url = options.stream
+    ? joinUrl(
+        apiPrefix,
+        Namespace.uniprotkb,
+        'precomputed',
+        'proteome',
+        upId,
+        'stream'
+      )
+    : joinUrl(apiPrefix, Namespace.uniprotkb, 'precomputed', 'proteome', upId);
+  return stringifyUrl(url, {
+    compressed: options.compressed || undefined,
+    size: options.size,
+    download: options.download || undefined,
   });
 };
 
@@ -56,7 +74,7 @@ const precomputedAnnotation = (uniparcId: string, taxId: string) =>
 
 // TEMPORARY: during the dev rollout, precomputed annotations are served from
 // wwwdev while UniFire's `run` service is only on rest.uniprot.org. So under
-// `yarn start:dev` (`apiPrefix` → wwwdev) UniFire must be pinned to its host
+// `pnpm start:dev` (`apiPrefix` → wwwdev) UniFire must be pinned to its host
 // rather than follow `apiPrefix`. Once everything is served from
 // rest.uniprot.org, delete UNIFIRE_HOST and build this from `apiPrefix` like
 // every other API URL.
@@ -69,4 +87,9 @@ const unifire = (uniparcId: string, taxId: string) =>
     taxId,
   });
 
-export default { databases, proteomeFasta, precomputedAnnotation, unifire };
+export default {
+  databases,
+  precomputedProteomeAnnotations,
+  precomputedAnnotation,
+  unifire,
+};

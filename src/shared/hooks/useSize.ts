@@ -24,6 +24,7 @@ function useSize<E extends ContainerElement = ContainerElement>(
     if (!ref.current) {
       return;
     }
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- measures the live DOM size, which is only available after layout
     setRect(ref.current.getBoundingClientRect());
   }, [ref, setRect]);
 
