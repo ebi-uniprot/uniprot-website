@@ -30,6 +30,7 @@ const databases = (
     size: options.size,
     fields: options.fields,
     facets: options.facets,
+    includeSources: includeXrefSource || undefined,
   });
 };
 
