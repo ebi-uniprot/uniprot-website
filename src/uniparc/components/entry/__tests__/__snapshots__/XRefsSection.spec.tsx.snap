@@ -146,9 +146,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2026-06-10T00:00:00.000Z"
+                    datetime="2026-09-02T00:00:00.000Z"
                   >
-                    2026-06-10
+                    2026-09-02
                   </time>
                 </td>
                 <td>
@@ -199,7 +199,18 @@ exports[`XrefSection component should render the xref table properly and match s
                     Vaccinia virus (strain Western Reserve) (VACV)
                   </a>
                 </td>
-                <td />
+                <td>
+                  <span
+                    class="xref-proteome xref-inactive"
+                  >
+                    <a
+                      href="/proteomes/UP000000344"
+                    >
+                      UP000000344
+                    </a>
+                     (Segment)
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -264,39 +275,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     class="xref-proteome"
                   >
                     <a
-                      href="/proteomes/UP000097422"
-                    >
-                      UP000097422
-                    </a>
-                     (Genome)
-                    <br />
-                  </span>
-                  <span
-                    class="xref-proteome"
-                  >
-                    <a
-                      href="/proteomes/UP000153808"
-                    >
-                      UP000153808
-                    </a>
-                     (Genome)
-                    <br />
-                  </span>
-                  <span
-                    class="xref-proteome"
-                  >
-                    <a
-                      href="/proteomes/UP000181062"
-                    >
-                      UP000181062
-                    </a>
-                     (Genome)
-                    <br />
-                  </span>
-                  <span
-                    class="xref-proteome"
-                  >
-                    <a
                       href="/proteomes/UP000181110"
                     >
                       UP000181110
@@ -330,6 +308,39 @@ exports[`XrefSection component should render the xref table properly and match s
                     class="xref-proteome"
                   >
                     <a
+                      href="/proteomes/UP000181062"
+                    >
+                      UP000181062
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000097422"
+                    >
+                      UP000097422
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
+                      href="/proteomes/UP000153808"
+                    >
+                      UP000153808
+                    </a>
+                     (Genome)
+                    <br />
+                  </span>
+                  <span
+                    class="xref-proteome"
+                  >
+                    <a
                       href="/proteomes/UP000501395"
                     >
                       UP000501395
@@ -346,9 +357,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2026-06-10T00:00:00.000Z"
+                    datetime="2026-09-02T00:00:00.000Z"
                   >
-                    2026-06-10
+                    2026-09-02
                   </time>
                 </td>
                 <td>
@@ -399,7 +410,18 @@ exports[`XrefSection component should render the xref table properly and match s
                     Rabbitpox virus (strain Utrecht) (RPV)
                   </a>
                 </td>
-                <td />
+                <td>
+                  <span
+                    class="xref-proteome xref-inactive"
+                  >
+                    <a
+                      href="/proteomes/UP000166173"
+                    >
+                      UP000166173
+                    </a>
+                     (Segment)
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -466,7 +488,18 @@ exports[`XrefSection component should render the xref table properly and match s
                     Cowpox virus (strain GRI-90 / Grishak) (CPV)
                   </a>
                 </td>
-                <td />
+                <td>
+                  <span
+                    class="xref-proteome xref-inactive"
+                  >
+                    <a
+                      href="/proteomes/UP000137384"
+                    >
+                      UP000137384
+                    </a>
+                     (Segment)
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -658,7 +691,18 @@ exports[`XrefSection component should render the xref table properly and match s
                     Vaccinia virus (strain Western Reserve) (VACV)
                   </a>
                 </td>
-                <td />
+                <td>
+                  <span
+                    class="xref-proteome xref-inactive"
+                  >
+                    <a
+                      href="/proteomes/UP000274976"
+                    >
+                      UP000274976
+                    </a>
+                     (Segment 1)
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -792,7 +836,18 @@ exports[`XrefSection component should render the xref table properly and match s
                     Cowpox virus (CPV)
                   </a>
                 </td>
-                <td />
+                <td>
+                  <span
+                    class="xref-proteome xref-inactive"
+                  >
+                    <a
+                      href="/proteomes/UP000113999"
+                    >
+                      UP000113999
+                    </a>
+                     (Segment)
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -1288,9 +1343,9 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <time
-                    datetime="2026-03-19T00:00:00.000Z"
+                    datetime="2026-05-22T00:00:00.000Z"
                   >
-                    2026-03-19
+                    2026-05-22
                   </time>
                 </td>
                 <td>

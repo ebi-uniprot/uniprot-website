@@ -1,15 +1,29 @@
-// Source: uniparc/UPI0000000001/databases
-// Retrieved: 2026-06-04
+// Source: uniparc/UPI0000000001/databases?includeSources=true
+// Retrieved: 2026-09-03
 const mock = {
   results: [
     {
       database: 'UniProtKB/Swiss-Prot',
       id: 'P07612',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:AAO89367:UP000000344:Segment',
+        },
+        {
+          key: 'sources',
+          value: 'RefSeq:YP_232970:',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:CAA26010:',
+        },
+      ],
       versionI: 3,
       version: 3,
       active: true,
       created: '2007-01-23',
-      lastUpdated: '2026-06-10',
+      lastUpdated: '2026-09-02',
       geneName: 'OPG099',
       proteinName: 'Entry-fusion complex associated protein OPG095',
       organism: {
@@ -28,6 +42,20 @@ const mock = {
     {
       database: 'UniProtKB/Swiss-Prot',
       id: 'P07612',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:AAO89367:UP000000344:Segment',
+        },
+        {
+          key: 'sources',
+          value: 'RefSeq:YP_232970:',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:CAA26010:',
+        },
+      ],
       versionI: 1,
       version: 1,
       active: false,
@@ -42,11 +70,49 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q71TT2',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:AIX99207:UP000181110:Segment',
+        },
+        {
+          key: 'sources',
+          value: 'RefSeq:YP_232970:',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:AGJ91256:UP000181229:Segment',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:ALF05335:UP000181484:Segment',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:AGJ92346:UP000181062:Genome',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:AAF63732:',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:ALF05084:UP000097422:Genome',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:AIX99412:UP000153808:Segment',
+        },
+        {
+          key: 'sources',
+          value: 'EMBL:QKE61229:UP000501395:Segment',
+        },
+      ],
       versionI: 1,
       version: 1,
       active: true,
       created: '2006-04-18',
-      lastUpdated: '2026-06-10',
+      lastUpdated: '2026-09-02',
       geneName: 'L1R',
       proteinName: 'L1R',
       organism: {
@@ -88,6 +154,12 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q6RZL4',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:AAS49790:UP000166173:Segment',
+        },
+      ],
       versionI: 1,
       version: 1,
       active: false,
@@ -104,6 +176,12 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'Q76QK2',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:CAD90637:UP000137384:Segment',
+        },
+      ],
       versionI: 1,
       version: 1,
       active: false,
@@ -145,6 +223,12 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'A0A2I2MDI1',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:SOU90100:UP000274976:Segment 1',
+        },
+      ],
       versionI: 1,
       version: 1,
       active: false,
@@ -161,6 +245,12 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'A0A7I8V511',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:CAD4625965:',
+        },
+      ],
       versionI: 1,
       version: 1,
       active: false,
@@ -177,6 +267,12 @@ const mock = {
     {
       database: 'UniProtKB/TrEMBL',
       id: 'G0XTE8',
+      properties: [
+        {
+          key: 'sources',
+          value: 'EMBL:ADZ29210:UP000113999:Segment',
+        },
+      ],
       versionI: 1,
       version: 1,
       active: false,
@@ -339,7 +435,7 @@ const mock = {
       version: 1,
       active: true,
       created: '2006-09-02',
-      lastUpdated: '2026-03-19',
+      lastUpdated: '2026-05-22',
       proteinName: 'HSPV089',
       organism: {
         scientificName: 'Horsepox virus',
