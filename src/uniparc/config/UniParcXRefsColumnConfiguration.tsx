@@ -250,9 +250,12 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
   label: 'Proteome',
   render: (xref) => {
-    const proteomes: [id: string, component?: string][] = xref.proteomes?.length
-      ? xref.proteomes.map(({ id, component }) => [id, component])
-      : Object.entries(getSubEntryProteomes(xref.properties));
+    const proteomes = Object.entries({
+      ...getSubEntryProteomes(xref.properties),
+      ...Object.fromEntries(
+        xref.proteomes?.map(({ id, component }) => [id, component]) ?? []
+      ),
+    });
     if (!proteomes.length) {
       return null;
     }
