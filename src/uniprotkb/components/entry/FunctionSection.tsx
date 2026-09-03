@@ -353,7 +353,8 @@ const FunctionSection = ({
       <CatalyticActivityView
         comments={
           data.commentsData.get('CATALYTIC ACTIVITY') as
-            CatalyticActivityComment[] | undefined
+            | CatalyticActivityComment[]
+            | undefined
         }
         title="Catalytic activity"
         defaultHideAllReactions={isSmallScreen}
@@ -367,7 +368,8 @@ const FunctionSection = ({
       <FreeTextView
         comments={
           data.commentsData.get('ACTIVITY REGULATION') as
-            FreeTextComment[] | undefined
+            | FreeTextComment[]
+            | undefined
         }
         title="Activity regulation"
         articleId="activity_regulation"
@@ -375,7 +377,8 @@ const FunctionSection = ({
       <FreeTextView
         comments={
           data.commentsData.get('BIOTECHNOLOGY') as
-            FreeTextComment[] | undefined
+            | FreeTextComment[]
+            | undefined
         }
         title="Biotechnology"
         articleId="biotechnological_use"

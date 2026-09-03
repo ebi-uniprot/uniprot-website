@@ -1,10 +1,7 @@
 import { useLocation } from 'react-router-dom';
-import joinUrl from 'url-join';
 
-import { apiPrefix } from '../../../../shared/config/apiUrls/apiPrefix';
-import { Namespace } from '../../../../shared/types/namespaces';
-import { stringifyUrl } from '../../../../shared/utils/url';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
+import apiUrls from '../../../config/apiUrls';
 
 enum XRefFacetEnum {
   Status = 'status',
@@ -22,30 +19,25 @@ type Arg = {
   accession?: string;
   size?: number;
   withFacets?: boolean;
+  includeSources?: boolean;
 };
 
-const useXref = ({ accession, size, withFacets = false }: Arg = {}) => {
+const useXref = ({
+  accession,
+  size,
+  withFacets = false,
+  includeSources = false,
+}: Arg = {}) => {
   const { search: queryParamFromUrl } = useLocation();
 
   const [{ selectedFacets }] = getParamsFromURL(queryParamFromUrl);
 
   if (accession) {
-    const xrefApiPrefix = joinUrl(
-      apiPrefix,
-      Namespace.uniparc,
-      accession,
-      'databases'
-    );
-
-    const options = {
+    return apiUrls.databases(accession, undefined, includeSources, undefined, {
       facets: withFacets ? defaultXrefFacets.join(',') : undefined,
       size,
-      ...Object.fromEntries(
-        selectedFacets.map(({ name, value }) => [name, value])
-      ),
-    };
-
-    return stringifyUrl(xrefApiPrefix, options);
+      selectedFacets,
+    });
   }
   return undefined;
 };
