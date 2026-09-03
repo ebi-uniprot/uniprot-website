@@ -5,6 +5,7 @@ import { fileFormatToUrlParameter } from '../../shared/config/resultsDownload';
 import { Namespace } from '../../shared/types/namespaces';
 import { FileFormat } from '../../shared/types/resultsDownload';
 import { stringifyUrl } from '../../shared/utils/url';
+import { type SelectedFacet } from '../../uniprotkb/types/resultsTypes';
 
 const databases = (
   upid: string,
@@ -16,6 +17,7 @@ const databases = (
     size?: number;
     fields?: string;
     facets?: string;
+    selectedFacets?: SelectedFacet[];
   } = {}
 ) => {
   const url = stream
@@ -26,11 +28,14 @@ const databases = (
     return stringifyUrl(url, { id: xrefId, includeSources: includeXrefSource });
   }
   return stringifyUrl(url, {
-    format: fileFormatToUrlParameter[options.format || FileFormat.json],
+    format: options.format && fileFormatToUrlParameter[options.format],
     size: options.size,
     fields: options.fields,
     facets: options.facets,
     includeSources: includeXrefSource || undefined,
+    ...Object.fromEntries(
+      (options.selectedFacets || []).map(({ name, value }) => [name, value])
+    ),
   });
 };
 
