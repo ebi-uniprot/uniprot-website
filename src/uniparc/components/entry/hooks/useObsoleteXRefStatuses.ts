@@ -60,11 +60,12 @@ const nothingResolved: Resolved = {
  * sub-entry page's redirect entirely.
  *
  * Answers accumulate across calls rather than being re-derived from the latest
- * response. `xrefs` grows a page at a time as the table is scrolled, and each
- * new obsolete accession would otherwise change the query URL, empty the map
- * while the re-query is in flight — flipping already-labelled rows back to the
- * generic fallback — and, past the per-query cap, permanently evict rows that
- * had already resolved.
+ * response, and each batch of accessions is frozen while its request is in
+ * flight. `xrefs` grows a page at a time as the table is scrolled, and each new
+ * obsolete accession would otherwise change the query URL, empty the map while
+ * the re-query is in flight — flipping already-labelled rows back to the
+ * generic fallback — and, past the per-query cap, either evict rows that had
+ * already resolved or cancel and restart the in-flight request forever.
  *
  * Accessions absent from a response stay unresolved rather than being assumed
  * active: `active:false` is deliberately NOT part of the query, so an entry that
@@ -73,9 +74,16 @@ const nothingResolved: Resolved = {
  */
 const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
   const [resolved, setResolved] = useState(nothingResolved);
+  // The accessions the request currently in flight is about. Held in state
+  // rather than derived from `xrefs` on every render so that a page loading
+  // mid-request can't change the query URL: `useDataApi` would cancel the
+  // in-flight request and start another, and on an entry with more obsolete
+  // TrEMBL rows than fit in one query, continuous scrolling could keep doing
+  // that indefinitely, leaving every row on the generic fallback label.
+  const [batch, setBatch] = useState<string[]>([]);
 
-  const pending = useMemo(() => {
-    const unresolved = new Set<string>();
+  const unresolved = useMemo(() => {
+    const accessions = new Set<string>();
     for (const xref of xrefs) {
       if (
         xref.id &&
@@ -83,26 +91,33 @@ const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
         xref.database === XRefsInternalDatabasesEnum.UNREVIEWED &&
         !resolved.requested.has(xref.id)
       ) {
-        unresolved.add(xref.id);
+        accessions.add(xref.id);
       }
     }
-    return (
-      Array.from(unresolved)
-        // Sorted so that scrolling back and forth reuses the same URL
-        .sort()
-        .slice(0, maxAccessionsPerQuery)
-    );
+    // Sorted so that scrolling back and forth reuses the same URL
+    return Array.from(accessions).sort();
   }, [xrefs, resolved.requested]);
 
-  const { data, loading } = useDataApi<SearchResults<UniProtkbAPIModel>>(
-    pending.length
+  // A batch is only ever replaced once the one before it has been answered
+  useEffect(() => {
+    if (batch.length) {
+      return;
+    }
+    const next = unresolved.slice(0, maxAccessionsPerQuery);
+    if (next.length) {
+      setBatch(next);
+    }
+  }, [batch, unresolved]);
+
+  const { data, loading, error } = useDataApi<SearchResults<UniProtkbAPIModel>>(
+    batch.length
       ? apiUrls.search.search({
           namespace: Namespace.uniprotkb,
-          query: pending
+          query: batch
             .map((accession) => `accession:${accession}`)
             .join(' OR '),
           // Without this the endpoint would cap the response at its default 25
-          size: pending.length,
+          size: batch.length,
           columns: [UniProtKBColumn.accession],
           facets: null,
         })
@@ -111,13 +126,15 @@ const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
 
   useEffect(() => {
     // `data` is cleared whenever the URL changes, so anything here answers the
-    // batch `pending` currently holds
-    if (loading || !data || !pending.length) {
+    // batch currently in flight. A failed batch counts as answered too: its
+    // accessions stay unresolved, but retrying them would block every later
+    // batch behind a request that has already failed once.
+    if (!batch.length || loading || (!data && !error)) {
       return;
     }
     setResolved((previous) => {
       const statuses = new Map(previous.statuses);
-      for (const entry of data.results || []) {
+      for (const entry of data?.results || []) {
         const entryType = getEntryTypeFromString(entry.entryType);
         if (entryType === undefined) {
           // Nothing to go on: leave it unresolved rather than guess, so the row
@@ -136,10 +153,12 @@ const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
       }
       return {
         statuses,
-        requested: new Set([...previous.requested, ...pending]),
+        requested: new Set([...previous.requested, ...batch]),
       };
     });
-  }, [data, loading, pending]);
+    // Frees the next batch to be issued
+    setBatch([]);
+  }, [batch, data, error, loading]);
 
   return resolved.statuses;
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import { type ColumnDescriptor } from '../../../../shared/hooks/useColumns';
 import { addTooltip } from '../../../../shared/utils/tooltip';
@@ -18,6 +18,13 @@ import { addTooltip } from '../../../../shared/utils/tooltip';
  * headers are given a tab stop so those focus handlers can be reached at all: a
  * `th` isn't focusable, and the tooltip is the only place a column's meaning is
  * written down.
+ *
+ * That tooltip is a `div` in `document.body` that only exists while it is
+ * showing, so it can't be what `aria-describedby` points at — the tab stop
+ * would then be three stops that announce nothing but the column label. Each
+ * header instead describes itself through a hidden copy of the text, kept
+ * beside the table rather than inside the `th` (where it would be read out as
+ * part of the column's name, on the header and on every cell under it).
  *
  * Returns a callback ref to put on an element wrapping the table.
  */
@@ -40,18 +47,30 @@ const useColumnHeaderTooltips = <Datum>(columns: ColumnDescriptor<Datum>[]) => {
       .map((column) => [column.name, column.tooltip])
   );
 
+  const id = useId();
+
   useEffect(() => {
     const pairs: Array<[string, string]> = JSON.parse(tooltipsKey);
     const cleanups = pairs.map(([name, tooltip]) => {
       const header = wrapper?.querySelector(`th[data-column-name="${name}"]`);
-      if (!(header instanceof HTMLElement)) {
+      if (!wrapper || !(header instanceof HTMLElement)) {
         return undefined;
       }
       header.tabIndex = 0;
       const removeTooltip = addTooltip(header, tooltip);
+      const description = document.createElement('span');
+      description.id = `column-tooltip-${id}${name}`;
+      description.className = 'visually-hidden';
+      // The column tooltips here are plain sentences; `addTooltip` is what
+      // renders the (sanitised) markup version of them
+      description.textContent = tooltip;
+      wrapper.append(description);
+      header.setAttribute('aria-describedby', description.id);
       return () => {
         removeTooltip();
         header.removeAttribute('tabindex');
+        header.removeAttribute('aria-describedby');
+        description.remove();
       };
     });
     return () => {
@@ -59,7 +78,7 @@ const useColumnHeaderTooltips = <Datum>(columns: ColumnDescriptor<Datum>[]) => {
         cleanup?.();
       }
     };
-  }, [tooltipsKey, wrapper]);
+  }, [id, tooltipsKey, wrapper]);
 
   return setWrapper;
 };

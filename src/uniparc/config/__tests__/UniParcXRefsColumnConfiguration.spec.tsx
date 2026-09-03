@@ -57,17 +57,17 @@ describe('Links column destinations', () => {
     expect(getLinksColumn(defaultColumns)).toBeDefined();
   });
 
-  it('sits after "Active" by default, and after the identifier without it', () => {
-    const names = (columns: UniParcXRefsColumn[]) =>
-      getUniParcXRefsColumns(columns, templateMap, 'UPI0000000001').map(
-        ({ name }) => name
-      );
+  const names = (columns: UniParcXRefsColumn[]) =>
+    getUniParcXRefsColumns(columns, templateMap, 'UPI0000000001').map(
+      ({ name }) => name
+    );
 
+  it('sits right after the identifier it describes', () => {
     expect(names(defaultColumns)).toEqual([
       'database',
       'accession',
-      'active',
       'links',
+      'active',
       'organism',
       'proteome',
       'version',
@@ -79,16 +79,40 @@ describe('Links column destinations', () => {
     ).toEqual(['database', 'accession', 'links']);
   });
 
+  // Column lists stored before this column existed put `active` last, so
+  // anchoring on it would strand "Go to" at the far end of a horizontally
+  // scrolling table, columns away from the identifier it explains
+  it('stays next to the identifier in a stored column order', () => {
+    expect(
+      names([
+        UniParcXRefsColumn.database,
+        UniParcXRefsColumn.accession,
+        UniParcXRefsColumn.version,
+        UniParcXRefsColumn.organism,
+        UniParcXRefsColumn.proteome,
+        UniParcXRefsColumn.firstSeen,
+        UniParcXRefsColumn.lastSeen,
+        UniParcXRefsColumn.active,
+      ])
+    ).toEqual([
+      'database',
+      'accession',
+      'links',
+      'version',
+      'organism',
+      'proteome',
+      'first_seen',
+      'last_seen',
+      'active',
+    ]);
+  });
+
   // Stored column lists from before it became a fixed column can still hold it,
   // and it would render as an unknown column (and 400 the download) if kept
   it('is not duplicated by a stale stored column list', () => {
-    const names = getUniParcXRefsColumns(
-      ['links' as UniParcXRefsColumn, UniParcXRefsColumn.active],
-      templateMap,
-      'UPI0000000001'
-    ).map(({ name }) => name);
-
-    expect(names).toEqual(['active', 'links']);
+    expect(
+      names(['links' as UniParcXRefsColumn, UniParcXRefsColumn.active])
+    ).toEqual(['active', 'links']);
   });
 
   it('links an active UniProtKB xref to its entry', () => {
@@ -197,11 +221,28 @@ describe('Links column destinations', () => {
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
-  it('renders no link for a database with no URL template', () => {
+  // The sub-entry page is built from the xref row, so an active external
+  // reference links whether or not the database templates have arrived
+  it('links an active xref of a database with no URL template', () => {
     renderLinksCell({
       database: 'DatabaseWithNoTemplate',
       id: 'XYZ123',
       active: true,
+    });
+
+    expect(
+      screen.getByRole('link', { name: 'Sequence annotation for XYZ123' })
+    ).toHaveAttribute(
+      'href',
+      '/uniparc/UPI0000000001/entry/DatabaseWithNoTemplate:XYZ123'
+    );
+  });
+
+  it('renders no link for an obsolete xref with no URL template', () => {
+    renderLinksCell({
+      database: 'DatabaseWithNoTemplate',
+      id: 'XYZ123',
+      active: false,
     });
 
     expect(screen.queryByRole('link')).not.toBeInTheDocument();

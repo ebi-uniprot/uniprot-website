@@ -174,6 +174,36 @@ describe('useObsoleteXRefStatuses', () => {
     ).toEqual([['Q76QK2'], ['Q76ZT7']]);
   });
 
+  // A page loading while a batch is in flight must not change that batch's
+  // query: `useDataApi` would cancel the request and start another, and with
+  // more obsolete accessions than fit in one query, scrolling could keep doing
+  // that forever — leaving every row on the generic fallback label.
+  it('keeps the in-flight batch when a new page adds an earlier accession', () => {
+    // Never answers, so the first batch stays in flight
+    mockUseDataApi.mockReturnValue({ loading: true });
+    const ids = Array.from(
+      { length: 100 },
+      (_, i) => `Q${`${i + 1}`.padStart(5, '0')}`
+    );
+
+    const { rerender } = renderHook(
+      ({ xrefs }: { xrefs: UniParcXRef[] }) => useObsoleteXRefStatuses(xrefs),
+      { initialProps: { xrefs: ids.map(obsoleteTrEMBL) } }
+    );
+
+    const [firstUrl] = searchUrls();
+    expect(firstUrl).toBeDefined();
+    expect(accessionsAskedFor(firstUrl as string)).toHaveLength(100);
+
+    // Sorts before every accession already being asked about, so a window
+    // recomputed from `xrefs` would drop the last one and re-query
+    rerender({
+      xrefs: [obsoleteTrEMBL('Q00000'), ...ids.map(obsoleteTrEMBL)],
+    });
+
+    expect(new Set(searchUrls())).toEqual(new Set([firstUrl]));
+  });
+
   // The search endpoint rejects more than 100 OR clauses, so the rest have to
   // wait for a following batch rather than evict what already resolved.
   it('resolves more accessions than fit in one query, a batch at a time', async () => {

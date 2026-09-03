@@ -160,8 +160,11 @@ const subEntryLink = (
 //     say: see `useObsoleteXRefStatuses` and the comment in the branch below
 //   - active external references -> the UniParc sub-entry ("sequence
 //     annotation") page
-//   - obsolete external references -> back out to the source database
-// Obsolete isoforms and databases with no URL template have nowhere to link.
+//   - obsolete external references -> back out to the source database, via that
+//     database's URL template
+// Obsolete isoforms have nowhere to link, and neither does an obsolete external
+// reference whose database has no template (or whose templates haven't loaded
+// yet — see `XRefsSection`).
 const getLinksColumn =
   (
     uniparcAccession: string,
@@ -207,28 +210,30 @@ const getLinksColumn =
         }
       }
       // Obsolete isoforms fall through with no link.
+    } else if (xref.active) {
+      // The sub-entry page is built from the xref row itself, so this link needs
+      // nothing from the database templates — which arrive in their own request,
+      // and might not arrive at all. Kept out of the template branch below so
+      // these rows link as soon as the table paints.
+      cell = subEntryLink(
+        uniparcAccession,
+        `${xref.database}:${xref.id}`,
+        'Sequence annotation',
+        xref.id
+      );
     } else {
       const template = xref.database && templateMap.get(xref.database);
       if (template) {
-        if (xref.active) {
-          cell = subEntryLink(
-            uniparcAccession,
-            `${xref.database}:${xref.id}`,
-            'Sequence annotation',
-            xref.id
-          );
-        } else {
-          const id = getXrefId(xref.id, xref.database as string);
-          cell = (
-            <ExternalLink
-              url={template.replace('%id', id)}
-              rel="nofollow"
-              aria-label={`Source database entry ${id}`}
-            >
-              Source database
-            </ExternalLink>
-          );
-        }
+        const id = getXrefId(xref.id, xref.database as string);
+        cell = (
+          <ExternalLink
+            url={template.replace('%id', id)}
+            rel="nofollow"
+            aria-label={`Source database entry ${id}`}
+          >
+            Source database
+          </ExternalLink>
+        );
       }
     }
     // Unlike the other columns, the Links cell is never given `.xref-inactive`,
@@ -406,14 +411,18 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.versionUniParc, {
 
 export default UniParcXRefsColumnConfiguration;
 
-// Where the injected "Go to" column lands, in order of preference: the default
-// layout puts it straight after "Active", and if that has been customised away
-// it sits next to the identifier it describes — which, being a primary key
-// column, can't itself be removed. Leading the table is a fallback for stored
-// column lists that hold neither.
+// Where the injected "Go to" column lands, in order of preference: straight
+// after the identifier it describes — which, being a primary key column, can't
+// be customised away, so this is where it ends up for everyone whatever their
+// stored column order happens to be. Anchoring on "Active" instead would place
+// it correctly only for the default layout: column lists stored before this
+// column existed end "…, first_seen, last_seen, active", which would strand it
+// as the last column of a horizontally scrolling table, several columns away
+// from the identifier it explains. "Active" is kept as a fallback, and leading
+// the table as a last resort, for lists holding neither.
 const linksColumnAnchors = [
-  UniParcXRefsColumn.active,
   UniParcXRefsColumn.accession,
+  UniParcXRefsColumn.active,
 ];
 
 const getLinksColumnIndex = (columns: UniParcXRefsColumn[]) => {

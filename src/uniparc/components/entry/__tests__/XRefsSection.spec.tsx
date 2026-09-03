@@ -81,6 +81,27 @@ describe('XrefSection component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  // Only obsolete external cross-references need the database templates, so the
+  // card is not held behind that request — it would otherwise show a loader
+  // stuck at a completed progress bar, waiting on something the xrefs don't
+  // need.
+  it('renders the table before the database templates arrive', () => {
+    (useDataApi as jest.Mock).mockImplementation((url?: string | null) =>
+      url?.includes('/uniprotkb/search')
+        ? { loading: false, data: obsoleteEntries }
+        : { loading: true }
+    );
+
+    customRender(<XRefsSection entryData={uniParcData} />);
+
+    expect(screen.getByRole('table')).toBeInTheDocument();
+    // The sub-entry page is built from the xref row, so this link needs nothing
+    // from the templates
+    expect(
+      screen.getByRole('link', { name: 'Sequence annotation for YP_232970' })
+    ).toBeInTheDocument();
+  });
+
   test("should return null when there are no cross-references (shouldn't happen)", () => {
     (usePagination as jest.Mock).mockReturnValue({
       allResults: [],
@@ -121,9 +142,9 @@ describe('XrefSection component', () => {
 
       await userEvent.hover(header);
 
-      expect(
-        await screen.findByText('Where this cross-reference can be opened.')
-      ).toBeInTheDocument();
+      expect(await screen.findByRole('tooltip')).toHaveTextContent(
+        'Where this cross-reference can be opened.'
+      );
     });
 
     // The tooltip is the only place a column's meaning is written down, so it
@@ -136,9 +157,24 @@ describe('XrefSection component', () => {
       expect(header).toHaveAttribute('tabindex', '0');
       header.focus();
 
-      expect(
-        await screen.findByText('Where this cross-reference can be opened.')
-      ).toBeInTheDocument();
+      expect(await screen.findByRole('tooltip')).toHaveTextContent(
+        'Where this cross-reference can be opened.'
+      );
+    });
+
+    // The tooltip element itself is only in the DOM while it shows, so the tab
+    // stop it adds would otherwise announce nothing but the column label
+    it('describes the header for screen readers', () => {
+      const header = renderAfterLoading();
+
+      const describedBy = header.getAttribute('aria-describedby');
+      expect(describedBy).toBeTruthy();
+      expect(document.getElementById(describedBy as string)).toHaveTextContent(
+        'Where this cross-reference can be opened.'
+      );
+      // Kept out of the `th`, where it would be read out as part of the column
+      // name — on the header and on every cell under it
+      expect(header).toHaveAccessibleName('Go to');
     });
 
     it('dismisses an open tooltip when the table goes away', async () => {

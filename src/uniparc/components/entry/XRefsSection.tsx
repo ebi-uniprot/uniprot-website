@@ -53,13 +53,12 @@ const XRefsSection = ({ entryData }: Props) => {
   const xRefDataObject = usePagination<UniParcXRef, UniParcXRef>(initialApiUrl);
 
   // The "Go to" column turns a database name into an outbound URL through this
-  // map, so until it lands every external cross-reference has a blank cell. It
-  // is a separate request from the xrefs one, and cached by the service worker,
-  // so waiting for it is near-free and spares the table a column that paints
-  // empty and fills in afterwards. If it fails the table still renders, with
-  // those rows unlinked — which is what they looked like before this column
-  // existed and the templates were missing.
-  const { data: dataDB, loading: loadingDB } = useDataApi<DataDBModel>(
+  // map. It is a separate request from the xrefs one, so the table is not held
+  // back for it: only obsolete external cross-references need a template (an
+  // active one links to its sub-entry page, which is built from the row
+  // itself), and those cells fill in when it lands. If it never does, they stay
+  // unlinked — which is what they looked like before this column existed.
+  const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
 
@@ -122,7 +121,7 @@ const XRefsSection = ({ entryData }: Props) => {
 
   const setTooltipWrapper = useColumnHeaderTooltips(columnDescriptors);
 
-  if (initialLoading || loadingDB) {
+  if (initialLoading) {
     return <Loader progress={progress} />;
   }
 
