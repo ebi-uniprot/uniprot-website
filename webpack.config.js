@@ -97,7 +97,6 @@ const getConfigFor = ({
         ),
         'lodash.unset': path.resolve('./node_modules/lodash-es/unset'),
       },
-      symlinks: false,
     },
     // MODULE
     module: {
@@ -105,8 +104,26 @@ const getConfigFor = ({
         // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude:
-            /node_modules\/((?!@nightingale-elements\/nightingale-msa|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
+          exclude: (modulePath) => {
+            // Packages that still need babel-preset-env downleveling and
+            // corejs polyfilling for the legacy bundle. Matched as a plain
+            // substring so it works the same whether pnpm resolved the
+            // module to its flat node_modules/<pkg>/ path or its real
+            // node_modules/.pnpm/<pkg>@<version>/node_modules/<pkg>/ path.
+            const include = [
+              '@nightingale-elements/nightingale-msa',
+              'protvista-uniprot',
+              'p-map',
+              'aggregate-error',
+              'molstar',
+            ];
+            if (!modulePath.includes('node_modules')) {
+              return false;
+            }
+            return !include.some((pkg) =>
+              modulePath.includes(`/node_modules/${pkg}/`)
+            );
+          },
           use: {
             loader: 'babel-loader',
             options: {
@@ -407,7 +424,7 @@ const getConfigFor = ({
         cacheGroups: {
           geneontology: {
             // list the package to extract into its own bundle, plus all its
-            // dependencies used *only* by it (use `yarn why <dependency>` to find)
+            // dependencies used *only* by it (use `pnpm why <dependency>` to find)
             test: /[\\/]node_modules[\\/](@geneontology|amigo2-instance-data|react-icons|react-popper|react-transition-group|popper\.js|underscore|bbop-core)[\\/]/,
             name: 'geneontology',
             chunks: 'all',
@@ -481,7 +498,7 @@ module.exports = (env, argv) => {
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
     // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
+    // from a predefined env in a pnpm/npm script
     if (Array.isArray(env.PUBLIC_PATH)) {
       // so we take the last one
       publicPath = env.PUBLIC_PATH[env.PUBLIC_PATH.length - 1];
@@ -493,7 +510,7 @@ module.exports = (env, argv) => {
   let apiPrefix;
   if (env.API_PREFIX) {
     // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
+    // from a predefined env in a pnpm/npm script
     if (Array.isArray(env.API_PREFIX)) {
       // so we take the last one
       apiPrefix = env.API_PREFIX[env.API_PREFIX.length - 1];
