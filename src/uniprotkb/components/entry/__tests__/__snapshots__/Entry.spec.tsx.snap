@@ -270,7 +270,7 @@ exports[`Entry basic should render main 1`] = `
     </div>
   </div>
   <div
-    class="tabs"
+    class="tabs entry-tabs"
   >
     <div
       class="tabs__header"
