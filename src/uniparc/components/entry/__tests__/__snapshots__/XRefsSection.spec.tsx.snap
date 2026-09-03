@@ -44,16 +44,28 @@ exports[`XrefSection component should render the xref table properly and match s
                   Database
                 </th>
                 <th
+                  aria-describedby="column-tooltip-56accession"
                   class=""
                   data-column-name="accession"
+                  tabindex="0"
                 >
                   Identifier
                 </th>
                 <th
+                  aria-describedby="column-tooltip-56links"
                   class=""
-                  data-column-name="version"
+                  data-column-name="links"
+                  tabindex="0"
                 >
-                  Version
+                  Go to
+                </th>
+                <th
+                  aria-describedby="column-tooltip-56active"
+                  class=""
+                  data-column-name="active"
+                  tabindex="0"
+                >
+                  Active
                 </th>
                 <th
                   class=""
@@ -69,6 +81,12 @@ exports[`XrefSection component should render the xref table properly and match s
                 </th>
                 <th
                   class=""
+                  data-column-name="version"
+                >
+                  Version
+                </th>
+                <th
+                  class=""
                   data-column-name="first_seen"
                 >
                   First seen
@@ -78,12 +96,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   data-column-name="last_seen"
                 >
                   Last seen
-                </th>
-                <th
-                  class=""
-                  data-column-name="active"
-                >
-                  Active
                 </th>
               </tr>
             </thead>
@@ -104,16 +116,20 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    <a
-                      href="/uniprotkb/P07612/entry"
-                    >
-                      P07612
-                    </a>
+                    P07612
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="UniProtKB entry P07612"
+                    href="/uniprotkb/P07612/entry"
+                  >
+                    UniProtKB entry
+                  </a>
+                </td>
+                <td>
                   <span>
-                    3
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -138,6 +154,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    3
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2007-01-23T00:00:00.000Z"
                   >
@@ -150,11 +171,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2026-09-02
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -175,18 +191,22 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniprotkb/P07612/history"
-                    >
-                      P07612
-                    </a>
+                    P07612
                   </span>
+                </td>
+                <td>
+                  <a
+                    aria-label="History of P07612"
+                    href="/uniprotkb/P07612/history"
+                  >
+                    History
+                  </a>
                 </td>
                 <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -200,6 +220,13 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -216,13 +243,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2004-11-23
                   </time>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -238,16 +258,20 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <span>
-                    <a
-                      href="/uniprotkb/Q71TT2/entry"
-                    >
-                      Q71TT2
-                    </a>
+                    Q71TT2
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="UniProtKB entry Q71TT2"
+                    href="/uniprotkb/Q71TT2/entry"
+                  >
+                    UniProtKB entry
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -338,6 +362,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2006-04-18T00:00:00.000Z"
                   >
@@ -350,11 +379,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2026-09-02
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -375,18 +399,22 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniparc/UPI0000000001/entry/Q6RZL4"
-                    >
-                      Q6RZL4
-                    </a>
+                    Q6RZL4
                   </span>
+                </td>
+                <td>
+                  <a
+                    aria-label="History of Q6RZL4"
+                    href="/uniprotkb/Q6RZL4/history"
+                  >
+                    History
+                  </a>
                 </td>
                 <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -401,6 +429,13 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td />
                 <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     class="xref-inactive"
                     datetime="2004-07-05T00:00:00.000Z"
@@ -415,13 +450,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2026-01-28
                   </time>
-                </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -442,18 +470,22 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniparc/UPI0000000001/entry/Q76QK2"
-                    >
-                      Q76QK2
-                    </a>
+                    Q76QK2
                   </span>
+                </td>
+                <td>
+                  <a
+                    aria-label="History of Q76QK2"
+                    href="/uniprotkb/Q76QK2/history"
+                  >
+                    History
+                  </a>
                 </td>
                 <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -468,6 +500,13 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td />
                 <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     class="xref-inactive"
                     datetime="2004-07-05T00:00:00.000Z"
@@ -482,13 +521,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2026-01-28
                   </time>
-                </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -509,13 +541,26 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniparc/UPI0000000001/entry/Q76ZT7"
-                    >
-                      Q76ZT7
-                    </a>
+                    Q76ZT7
                   </span>
                 </td>
+                <td>
+                  <a
+                    aria-label="Sequence annotation for Q76ZT7"
+                    href="/uniparc/UPI0000000001/entry/Q76ZT7"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
+                  </span>
+                </td>
+                <td />
+                <td />
                 <td>
                   <span
                     class="xref-inactive"
@@ -523,8 +568,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     1
                   </span>
                 </td>
-                <td />
-                <td />
                 <td>
                   <time
                     class="xref-inactive"
@@ -541,13 +584,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2011-06-28
                   </time>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -567,18 +603,22 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniparc/UPI0000000001/entry/Q0GNZ6"
-                    >
-                      Q0GNZ6
-                    </a>
+                    Q0GNZ6
                   </span>
+                </td>
+                <td>
+                  <a
+                    aria-label="UniProtKB entry Q0GNZ6"
+                    href="/uniprotkb/Q0GNZ6/entry"
+                  >
+                    UniProtKB entry
+                  </a>
                 </td>
                 <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -592,6 +632,13 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -608,13 +655,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2026-01-28
                   </time>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -634,18 +674,22 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniparc/UPI0000000001/entry/A0A2I2MDI1"
-                    >
-                      A0A2I2MDI1
-                    </a>
+                    A0A2I2MDI1
                   </span>
+                </td>
+                <td>
+                  <a
+                    aria-label="UniProtKB record for A0A2I2MDI1"
+                    href="/uniparc/UPI0000000001/entry/A0A2I2MDI1"
+                  >
+                    UniProtKB record
+                  </a>
                 </td>
                 <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -659,6 +703,13 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -675,13 +726,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2026-01-28
                   </time>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -701,18 +745,22 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniparc/UPI0000000001/entry/A0A7I8V511"
-                    >
-                      A0A7I8V511
-                    </a>
+                    A0A7I8V511
                   </span>
+                </td>
+                <td>
+                  <a
+                    aria-label="UniProtKB record for A0A7I8V511"
+                    href="/uniparc/UPI0000000001/entry/A0A7I8V511"
+                  >
+                    UniProtKB record
+                  </a>
                 </td>
                 <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -726,6 +774,13 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -742,13 +797,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2021-06-02
                   </time>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -768,18 +816,22 @@ exports[`XrefSection component should render the xref table properly and match s
                   <span
                     class="xref-inactive"
                   >
-                    <a
-                      href="/uniparc/UPI0000000001/entry/G0XTE8"
-                    >
-                      G0XTE8
-                    </a>
+                    G0XTE8
                   </span>
+                </td>
+                <td>
+                  <a
+                    aria-label="UniProtKB record for G0XTE8"
+                    href="/uniparc/UPI0000000001/entry/G0XTE8"
+                  >
+                    UniProtKB record
+                  </a>
                 </td>
                 <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -793,6 +845,13 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -809,13 +868,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2026-01-28
                   </time>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -829,8 +881,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for YP_232970"
+                    href="/uniparc/UPI0000000001/entry/RefSeq:YP_232970"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -843,6 +903,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span>
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     datetime="2005-10-06T00:00:00.000Z"
@@ -857,11 +922,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2026-03-16
                   </time>
                 </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -875,8 +935,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for YP_010509298"
+                    href="/uniparc/UPI0000000001/entry/RefSeq:YP_010509298"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -890,6 +958,11 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td />
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2022-10-19T00:00:00.000Z"
                   >
@@ -902,11 +975,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2026-03-16
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -925,14 +993,36 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Source database entry YP_006721"
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/protein/YP_006721"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    Source database
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    No
+                  </span>
+                </td>
+                <td />
+                <td />
+                <td>
                   <span
                     class="xref-inactive"
                   >
                     1
                   </span>
                 </td>
-                <td />
-                <td />
                 <td>
                   <time
                     class="xref-inactive"
@@ -948,13 +1038,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2005-07-09
                   </time>
-                </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -973,10 +1056,25 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Source database entry YP_010488138"
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/protein/YP_010488138"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    Source database
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -990,6 +1088,13 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -1005,13 +1110,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2022-11-07
                   </time>
-                </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1030,10 +1128,25 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Source database entry YP_010500340"
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/protein/YP_010500340"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    Source database
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </td>
+                <td>
                   <span
                     class="xref-inactive"
                   >
-                    1
+                    No
                   </span>
                 </td>
                 <td>
@@ -1047,6 +1160,13 @@ exports[`XrefSection component should render the xref table properly and match s
                   </a>
                 </td>
                 <td />
+                <td>
+                  <span
+                    class="xref-inactive"
+                  >
+                    1
+                  </span>
+                </td>
                 <td>
                   <time
                     class="xref-inactive"
@@ -1063,13 +1183,6 @@ exports[`XrefSection component should render the xref table properly and match s
                     2022-11-07
                   </time>
                 </td>
-                <td>
-                  <span
-                    class="xref-inactive"
-                  >
-                    No
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td>
@@ -1083,8 +1196,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for AAO89367"
+                    href="/uniparc/UPI0000000001/entry/EMBL:AAO89367"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1109,6 +1230,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2003-06-16T00:00:00.000Z"
                   >
@@ -1121,11 +1247,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1140,8 +1261,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for CAD90637"
+                    href="/uniparc/UPI0000000001/entry/EMBL:CAD90637"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1166,6 +1295,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2003-06-16T00:00:00.000Z"
                   >
@@ -1178,11 +1312,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1197,8 +1326,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for AAS49790"
+                    href="/uniparc/UPI0000000001/entry/EMBL:AAS49790"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1223,6 +1360,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2004-03-31T00:00:00.000Z"
                   >
@@ -1235,11 +1377,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1254,8 +1391,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for ABH08195"
+                    href="/uniparc/UPI0000000001/entry/EMBL:ABH08195"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1280,6 +1425,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2006-09-02T00:00:00.000Z"
                   >
@@ -1292,11 +1442,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2026-05-22
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1311,8 +1456,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for ADZ29210"
+                    href="/uniparc/UPI0000000001/entry/EMBL:ADZ29210"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1337,6 +1490,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2011-08-10T00:00:00.000Z"
                   >
@@ -1349,11 +1507,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1368,8 +1521,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for AGJ91256"
+                    href="/uniparc/UPI0000000001/entry/EMBL:AGJ91256"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1394,6 +1555,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2013-04-24T00:00:00.000Z"
                   >
@@ -1406,11 +1572,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1425,8 +1586,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for AGJ92346"
+                    href="/uniparc/UPI0000000001/entry/EMBL:AGJ92346"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1451,6 +1620,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2013-04-24T00:00:00.000Z"
                   >
@@ -1463,11 +1637,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1482,8 +1651,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for AIX99207"
+                    href="/uniparc/UPI0000000001/entry/EMBL:AIX99207"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1508,6 +1685,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2014-12-15T00:00:00.000Z"
                   >
@@ -1520,11 +1702,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1539,8 +1716,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for AIX99412"
+                    href="/uniparc/UPI0000000001/entry/EMBL:AIX99412"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1565,6 +1750,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2014-12-15T00:00:00.000Z"
                   >
@@ -1577,11 +1767,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
               <tr>
@@ -1596,8 +1781,16 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <a
+                    aria-label="Sequence annotation for ALF05084"
+                    href="/uniparc/UPI0000000001/entry/EMBL:ALF05084"
+                  >
+                    Sequence annotation
+                  </a>
+                </td>
+                <td>
                   <span>
-                    1
+                    Yes
                   </span>
                 </td>
                 <td>
@@ -1622,6 +1815,11 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
+                  <span>
+                    1
+                  </span>
+                </td>
+                <td>
                   <time
                     datetime="2015-10-11T00:00:00.000Z"
                   >
@@ -1634,11 +1832,6 @@ exports[`XrefSection component should render the xref table properly and match s
                   >
                     2024-07-17
                   </time>
-                </td>
-                <td>
-                  <span>
-                    Yes
-                  </span>
                 </td>
               </tr>
             </tbody>
@@ -1654,6 +1847,24 @@ exports[`XrefSection component should render the xref table properly and match s
               Load more data
             </button>
           </div>
+          <span
+            class="visually-hidden"
+            id="column-tooltip-56accession"
+          >
+            The identifier as it appears in the source database.
+          </span>
+          <span
+            class="visually-hidden"
+            id="column-tooltip-56links"
+          >
+            Where this cross-reference can be opened.
+          </span>
+          <span
+            class="visually-hidden"
+            id="column-tooltip-56active"
+          >
+            Whether this cross-reference is still present in the source database. Obsolete ones are dimmed; where they can still be viewed, the "Go to" column links to it.
+          </span>
         </div>
       </div>
     </div>
