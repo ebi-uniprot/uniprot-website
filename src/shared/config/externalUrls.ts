@@ -10,7 +10,7 @@ const externalUrls = {
   AlphaFoldPrediction: (id: string) =>
     `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
   SeqhubEmbed: (sequence: string) =>
-    `https://seqhub.org/embed/search-list?q=${sequence}`,
+    `https://seqhub.org/embed/search-list?q=${encodeURIComponent(sequence)}`,
   QuickGOTerm: (id: string) => `https://www.ebi.ac.uk/QuickGO/term/${id}`,
   QuickGOAnnotations: (id: string | number) =>
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
