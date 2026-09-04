@@ -24,6 +24,7 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
   // non-safelisted header here would trigger a preflight that fails, and the
   // embed would silently disappear for everyone.
   useEffect(() => {
+    setAvailable(undefined);
     // eslint-disable-next-line import/no-named-as-default-member
     const source = axios.CancelToken.source();
     let didCancel = false;
@@ -75,12 +76,10 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
   );
 };
 
-// UniProt lineages are ordered broadest→narrowest and the top-level entry is the
-// domain/superkingdom. SeqHub only covers prokaryotes (Bacteria/Archaea).
-export const isProkaryote = (lineage?: string[]) =>
-  Boolean(
-    lineage?.some((taxon) => taxon === 'Bacteria' || taxon === 'Archaea')
-  );
+// UniProt lineages are ordered broadest→narrowest, so the top-level entry is
+// the domain/superkingdom. SeqHub only covers prokaryotes (Bacteria/Archaea).
+export const isProkaryote = ([superkingdom]: string[] = []) =>
+  superkingdom === 'Bacteria' || superkingdom === 'Archaea';
 
 // SeqHub takes the whole sequence in the query string, so entry length is URL
 // length. Measured against the live endpoint, it answers 200 up to ~16,100
