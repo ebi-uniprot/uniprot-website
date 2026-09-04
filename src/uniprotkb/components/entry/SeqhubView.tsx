@@ -17,7 +17,12 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
 
   return (
     <>
-      <h3 className={styles.heading}>Genomic context similarity</h3>
+      <h3
+        className={styles.heading}
+        data-article-id="genomic-context-similarity"
+      >
+        Genomic context similarity
+      </h3>
       <iframe
         title="Genomic context similarity"
         src={url}
