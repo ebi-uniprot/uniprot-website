@@ -650,7 +650,13 @@ const Entry = () => {
   const downloadButton = (
     <EntryDownloadButton handleToggle={handleToggleDownload} />
   );
-  const basketButton = <AddToBasketButton selectedEntries={accession} />;
+  // spell out the basket on narrow screens
+  const basketButton = (
+    <AddToBasketButton
+      selectedEntries={accession}
+      withBasketLabel={!wideScreen}
+    />
+  );
   const communityAnnotationLink = (
     <CommunityAnnotationLink
       accession={accession}
