@@ -1,4 +1,4 @@
-import { ExpandableList, InfoList } from 'franklin-sites';
+import { ExpandableList, InfoList, Tab, Tabs } from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
 import { Fragment, memo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -288,15 +288,20 @@ const DiseaseInvolvementView = ({
       {includeTitle && (
         <h3 data-article-id="involvement_in_disease">Involvement in disease</h3>
       )}
-      {comments.map((comment, index) => (
-        <DiseaseInvolvementEntry
-          // eslint-disable-next-line @eslint-react/no-array-index-key
-          key={index}
-          comment={comment}
-          features={features}
-          accession={accession}
-        />
-      ))}
+      <Tabs>
+        <Tab title="UniProt Annotations" id="uniprot-annotations">
+          {comments.map((comment, index) => (
+            <DiseaseInvolvementEntry
+              // eslint-disable-next-line @eslint-react/no-array-index-key
+              key={index}
+              comment={comment}
+              features={features}
+              accession={accession}
+            />
+          ))}
+        </Tab>
+        <Tab title="AI-powered summaries" id="ai-powered-summaries"></Tab>
+      </Tabs>
     </>
   );
 };
