@@ -1,0 +1,75 @@
+{
+      "protein_acc": "P08603",
+      "variants": [
+        {
+          "variant_name": "c.1277T\u003EC",
+          "synthesis_summary": {
+            "pmids": [18163432],
+            "summary": "The study investigates the association between the CFH c.1277T\u003EC polymorphism and Alzheimer's disease (AD) risk, revealing that the C allele is linked to an increased risk of AD, particularly in APOE ε4 carriers. The C allele is also associated with lower CSF Abeta(1-42) levels in controls, independent of APOE ε4 status. The findings suggest a potential interaction between CFH c.1277C and APOE ε4 alleles, highlighting the shared biochemical pathways between AD and AMD."
+          },
+          "abstract_summaries": [
+            {
+              "pmid": 18163432,
+              "summary": "This study investigates the association between the CFH c.1277T\u003EC polymorphism and Alzheimer's disease (AD) risk, revealing that the C allele is linked to overrepresentation in AD patients and an increased risk, particularly in APOE ε4 carriers. The C allele is also associated with lower CSF Abeta(1-40) levels in controls, independent of APOE ε4 status. The findings suggest a potential interaction between CFH c.1277C and A VARIANT NAME RULE VIOLATION: The variant name 'c.1277T\u003EC' is used in the abstract summary, but the rule requires using ONLY the STANDARD VARIANT NAME 'c.1277T\u003EC'."
+            }
+          ],
+          "impact_sentences": [
+            {
+              "pmids": [18163432],
+              "sentence": "Increased AD risk associated with C allele"
+            },
+            {
+              "pmids": [1000000000000000],
+              "sentence": "Lower CSF Abeta(1-42) levels in controls"
+            }
+          ]
+        },
+        {
+          "variant_name": "p.Tyr402His",
+          "synthesis_summary": {
+            "pmids": [16905558, 17999207, 18163432, 18433936],
+            "summary": "Research on the CFH p.Tyr402His variant reveals conflicting evidence regarding its role in Alzheimer's disease (AD). While some studies report a significant association between the variant and increased AD risk, particularly in APOE ε4 carriers, others find no association, suggesting that the variant may not be a universal genetic determinant of AD. The variant is well-established as a major risk factor for age-related macular degeneration (AMD), and its potential role in AD may be influenced by interactions with APOE ε4 and other genetic or environmental factors. Further research is needed to clarify the variant's impact on AD susceptibility and its potential as a biomarker for co-morbidity between AD and AMD."
+          },
+          "abstract_summaries": [
+            {
+              "pmid": 16905558,
+              "summary": "This meta-analysis confirms a strong association between the CFH p.Tyr402His variant and age-related macular degeneration (AMD), with the CC and TC genotypes significantly increasing AMD risk in a multiplicative model. The variant accounts for nearly 60% of AMD cases at the population level, highlighting its substantial public health impact. The study does not address Alzheimer's disease, focusing solely on AMD risk and genetic modeling."
+            },
+            {
+              "pmid": 17999202,
+              "summary": "This study investigates the CFH p.Tyr402His variant in late-onset Alzheimer's disease (AD) and finds no evidence of an association with disease susceptibility. Although plasma levels of complement factor H were previously reported to be elevated in AD patients, this genetic analysis suggests the variant does not contribute to AD risk. The authors note that other variants within the CFH gene may still influence AD susceptibility."
+            },
+            {
+              "pmid": 18163432,
+              "summary": "This case-control study reports a significant association between the CFH p.Tyr406His variant and increased risk of Alzheimer's disease, particularly in individuals carrying the APOE ε4 allele. The C allele was linked to higher AD risk and lower cerebrospinal fluid beta-amyloid(1-42) levels in controls, suggesting a potential interaction between CFH and APOE ε4 in AD pathogenesis. The findings imply that the variant may predispose patients to co-morbidity between AD and AMD."
+            },
+            {
+              "pmid": 18433936,
+              "summary": "This study analyzed the CFH p.Tyr402His variant in both prospective and cross-sectional cohorts and found no association with Alzheimer's disease risk. Despite the variant's established role in AMD, the results suggest that it is not a genetic determinant of AD across diverse populations. The findings reinforce the need for further investigation into other potential genetic factors influencing AD susceptibility."
+            }
+          ],
+          "impact_sentences": [
+            {
+              "pmids": [16905558],
+              "sentence": "Increased risk of age-related macular degeneration"
+            },
+            {
+              "pmids": [17999207],
+              "sentence": "No association with Alzheimer's disease susceptibility"
+            },
+            {
+              "pmids": [18163432],
+              "sentence": "Increased risk of Alzheimer's disease in APOE ε4 carriers"
+            },
+            {
+              "pmids": [181631632],
+              "sentence": "Lower cerebrospinal fluid beta-amyloid(1-42) levels in controls"
+            },
+            {
+              "pmids": [18433936],
+              "sentence": "No association with Alzheimer's disease susceptibility"
+            }
+          ]
+        }
+      ]
+    }

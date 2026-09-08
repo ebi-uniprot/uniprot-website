@@ -11,7 +11,9 @@ import externalUrls from '../../../shared/config/externalUrls';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type DiseaseComment } from '../../types/commentTypes';
+import { type Variant } from '../../types/variantAISummary';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
+import variantSummary from './__tests__/__mocks__/variantAISummary.json';
 import { RichText } from './FreeTextView';
 import styles from './styles/disease-involvement-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -266,6 +268,42 @@ const DiseaseInvolvementEntry = ({
   );
 };
 
+const AIpoweredSummaries = () => {
+  // TODO: Replace the mock with the API call when the API is ready.
+  const variants = variantSummary.variants;
+
+  return (
+    <div>
+      {variants.map((variant: Variant) => (
+        <div key={variant.variant_name}>
+          <h4>{variant.variant_name}</h4>
+          <h5>Synthesis Summary</h5>
+          <p>
+            {variant.synthesis_summary.summary} (PMIDs:{' '}
+            {variant.synthesis_summary.pmids.join(', ')})
+          </p>
+          <Table
+            expandable={variant.impact_sentences.length > MIN_ROWS_TO_EXPAND}
+          >
+            <Table.Head>
+              <th>PMID</th>
+              <th>Impact Description</th>
+            </Table.Head>
+            <Table.Body translate="no">
+              {variant.impact_sentences.map((impactSentence, i) => (
+                <Table.Row isOdd={Boolean(i % 2)} key={i}>
+                  <td>{impactSentence.pmids.join(',')}</td>
+                  <td>{impactSentence.sentence}</td>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 type DiseaseInvolvementProps = {
   comments?: DiseaseComment[];
   features?: FeatureDatum[];
@@ -300,7 +338,9 @@ const DiseaseInvolvementView = ({
             />
           ))}
         </Tab>
-        <Tab title="AI-powered summaries" id="ai-powered-summaries"></Tab>
+        <Tab title="AI-powered summaries" id="ai-powered-summaries">
+          <AIpoweredSummaries />
+        </Tab>
       </Tabs>
     </>
   );
