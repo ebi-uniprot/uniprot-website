@@ -58,18 +58,14 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
       >
         Genomic context similarity
       </h3>
-      {/* Third-party origin: sandbox it so the embed can run its own scripts and
-      reach its own backend, but cannot navigate the top-level page or open
-      popups. `allow-same-origin` is safe here precisely because seqhub.org is
-      cross-origin — it grants the frame its own origin, not ours. */}
       <iframe
         title="Genomic context similarity"
         src={url}
         width="100%"
         height="526"
         className={styles.seqhub}
-        // eslint-disable-next-line @eslint-react/dom-no-unsafe-iframe-sandbox -- cross-origin frame, see comment above
-        sandbox="allow-scripts allow-same-origin"
+        // eslint-disable-next-line @eslint-react/dom-no-unsafe-iframe-sandbox -- cross-origin frame from seqhub
+        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
         referrerPolicy="no-referrer"
       />
     </>
