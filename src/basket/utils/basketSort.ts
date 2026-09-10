@@ -2,7 +2,6 @@ import { type Column } from '../../shared/config/columns';
 import { type APIModel } from '../../shared/types/apiModel';
 import { Namespace } from '../../shared/types/namespaces';
 import intlCollator from '../../shared/utils/collator';
-import { getIdKeyForData } from '../../shared/utils/getIdKey';
 import { type UniParcLiteAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniParcColumn } from '../../uniparc/config/UniParcColumnConfiguration';
 import { type UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
@@ -16,8 +15,11 @@ export type BasketSort = { column: Column; direction: SortDirection };
 type SortValueGetter = (entry: APIModel) => string | undefined;
 
 // Per-namespace accessors returning the primitive value used to sort each of the
-// basket side panel's default columns. Only those default columns are listed; any
-// column without an entry here is treated as non-sortable in the panel.
+// basket's sortable columns. Any column without an entry here is treated as
+// non-sortable in both basket views.
+// The API has no sort field for UniRef name, UniParc organism or UniParc
+// UniProtKB accession, which is why the basket sorts client side throughout
+// rather than asking the API to sort.
 export const basketSortValueGetters: Partial<
   Record<Namespace, Record<string, SortValueGetter>>
 > = {
@@ -44,37 +46,37 @@ export const basketSortValueGetters: Partial<
 };
 
 /**
- * Compute a new basket order (array of accessions) by sorting the loaded entry
- * `results` on the chosen column, then appending any basket accessions that are
- * missing from `results` (obsolete or not-yet-loaded) in their existing relative
- * order — so a sort never drops basket items.
- *
- * Returns `currentAccessions` unchanged when there is nothing to sort or the
- * column has no accessor.
+ * The columns to request when loading the sort values for a whole basket, so
+ * that sorting covers every entry rather than only the page currently rendered.
+ */
+export const getBasketSortFields = (namespace: Namespace): Column[] =>
+  Object.keys(basketSortValueGetters[namespace] || {}) as Column[];
+
+/**
+ * Compute a new basket order by sorting `accessions` on the value returned by
+ * `getSortValue`. Accessions without a value (obsolete, or not returned by the
+ * API) keep their relative order at the end, so a sort never drops basket items.
  */
 export const sortBasketAccessions = (
-  results: APIModel[],
-  namespace: Namespace,
-  currentAccessions: string[],
-  sort: BasketSort
+  accessions: string[],
+  sort: BasketSort,
+  getSortValue: (accession: string) => string | undefined
 ): string[] => {
-  const getValue = basketSortValueGetters[namespace]?.[sort.column];
-  if (!results.length || !getValue) {
-    return currentAccessions;
+  const known: string[] = [];
+  const unknown: string[] = [];
+  for (const accession of accessions) {
+    if (getSortValue(accession) === undefined) {
+      unknown.push(accession);
+    } else {
+      known.push(accession);
+    }
   }
-
-  const getIdKey = getIdKeyForData(results[0]);
-  const sorted = [...results].sort((a, b) => {
+  known.sort((a, b) => {
     const comparison = intlCollator.compare(
-      getValue(a) ?? '',
-      getValue(b) ?? ''
+      getSortValue(a) ?? '',
+      getSortValue(b) ?? ''
     );
     return sort.direction === SortDirection.descend ? -comparison : comparison;
   });
-  const sortedIds = sorted.map(getIdKey);
-
-  const presentIds = new Set(sortedIds);
-  const missing = currentAccessions.filter((acc) => !presentIds.has(acc));
-
-  return [...sortedIds, ...missing];
+  return [...known, ...unknown];
 };
