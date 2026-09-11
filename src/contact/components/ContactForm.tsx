@@ -157,7 +157,11 @@ const suggestionMessages: Record<Suggestion, ReactNode> = {
 const ContactForm = () => {
   const formId = useId();
   const isUpdate = !!useRouteMatch(LocationToPath[Location.ContactUpdate]);
-  const { state: locationState, search } = useLocation<ContactLocationState>();
+  const {
+    state: locationState,
+    search,
+    pathname,
+  } = useLocation<ContactLocationState>();
 
   const genericUrlSearchParams = new URLSearchParams(search);
   const rawHistory = genericUrlSearchParams.get('history');
@@ -283,14 +287,7 @@ Website version: ${commitHash}`.trim();
 
   return (
     <>
-      <HTMLHead title="Contact us">
-        {typeof window !== 'undefined' && (
-          <link
-            rel="canonical"
-            href={window.location.origin + window.location.pathname}
-          />
-        )}
-      </HTMLHead>
+      <HTMLHead title="Contact us" canonical={pathname} />
       <PageIntro heading="Contact us" />
       <section className={styles.container}>
         <h2 className="medium">{description}</h2>

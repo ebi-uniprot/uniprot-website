@@ -8,6 +8,7 @@ import { type ViewMode } from '../hooks/useViewMode';
 
 type GtagEventName =
   | 'api_data_load_fail'
+  | 'api_data_load_retry'
   | 'api_data_load_success'
   | 'cache_update'
   | 'copy_api_url_click'
@@ -79,7 +80,11 @@ const sendGtagEvent = (
 };
 
 export const sendGtagEventApiData = (
-  event: 'success' | 'fail',
+  // 'fail' fires per attempt, so a retried request reports more than one. A
+  // 'retry' alongside it marks the ones that got another go, which keeps API
+  // degradation visible while still letting "failures a user actually saw" be
+  // recovered as fail - retry.
+  event: 'success' | 'fail' | 'retry',
   url: string
 ) => {
   sendGtagEvent(`api_data_load_${event}`, { url });

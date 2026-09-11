@@ -6,7 +6,11 @@ import { type Organization, type WithContext } from 'schema-dts';
 
 import description from '../../../app/config/description';
 import * as socialUrls from '../../../app/config/socialUrls';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  Location,
+  LocationToPath,
+  PRODUCTION_ORIGIN,
+} from '../../../app/config/urls';
 import Logo from '../../../images/uniprot-logo.img.svg';
 import useJobFromUrl from '../../hooks/useJobFromUrl';
 import useMatchMedia from '../../hooks/useMatchMedia';
@@ -135,14 +139,14 @@ const SearchContainerWithNamespace = () => {
 const organizationSchema: WithContext<Organization> = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  url: 'https://www.uniprot.org',
-  logo: ['https://www.uniprot.org/android-chrome-512x512.png', Logo],
+  url: PRODUCTION_ORIGIN,
+  logo: [`${PRODUCTION_ORIGIN}/android-chrome-512x512.png`, Logo],
   name: 'UniProt',
   description,
   sameAs: Object.values(socialUrls),
   contactPoint: {
     '@type': 'ContactPoint',
-    url: 'https://www.uniprot.org/contact',
+    url: `${PRODUCTION_ORIGIN}/contact`,
   },
 };
 

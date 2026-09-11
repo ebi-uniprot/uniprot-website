@@ -7,6 +7,7 @@ import {
 } from 'schema-dts';
 
 import parseDate from '../../../shared/utils/parseDate';
+import { PRODUCTION_ORIGIN } from '../../config/urls';
 import { type PayloadEBISearch } from './NeedHelp';
 
 export const isCourseOnsite = (
@@ -27,7 +28,7 @@ const dataToSchema = (
     // TODO: reference to the consortium markup from the footer
     '@type': 'Consortium',
     name: 'UniProt consortium',
-    url: 'https://www.uniprot.org',
+    url: PRODUCTION_ORIGIN,
   };
 
   let event: Event | undefined;

@@ -1,6 +1,6 @@
 import { type WithContext } from 'schema-dts';
 
-import { getEntryPath } from '../../../app/config/urls';
+import { getCanonicalURL, getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../types/entry';
@@ -13,11 +13,10 @@ const dataToSchema = (
     return;
   }
 
-  const url = `https://www.uniprot.org${getEntryPath(
-    Namespace.uniprotkb,
-    data.primaryAccession,
-    TabLocation.Entry
-  )}`;
+  // Same helper as the page's <link rel="canonical">, so the two cannot disagree
+  const url = getCanonicalURL(
+    getEntryPath(Namespace.uniprotkb, data.primaryAccession, TabLocation.Entry)
+  );
 
   return {
     '@context': [

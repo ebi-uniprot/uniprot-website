@@ -168,11 +168,7 @@ const HomePage = () => (
   <>
     <main>
       {/* Activate the HTML head logic, but no title, so uses default */}
-      <HTMLHead>
-        {typeof window !== 'undefined' && (
-          <link rel="canonical" href={window.location.origin} />
-        )}
-      </HTMLHead>
+      <HTMLHead canonical={LocationToPath[Location.Home]} />
       <h1 className="visually-hidden">UniProt website home page</h1>
       <ErrorBoundary>
         <HomePageHeader />
