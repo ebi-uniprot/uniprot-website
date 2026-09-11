@@ -6,6 +6,9 @@ import externalUrls from '../../../shared/config/externalUrls';
 import fetchData from '../../../shared/utils/fetchData';
 import styles from './styles/seqhub-view.module.scss';
 
+// Hotjar event name for seqhub iframe load
+export const SEQHUB_EMBED_EVENT = 'genomic_context_similarity_loaded';
+
 const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
   const url = externalUrls.SeqhubEmbed(sequence);
   const [available, setAvailable] = useState<boolean>();
@@ -45,6 +48,13 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
       source.cancel();
     };
   }, [url]);
+
+  // Hotjar event trigger
+  useEffect(() => {
+    if (available && typeof window.hj === 'function') {
+      window.hj('event', SEQHUB_EMBED_EVENT);
+    }
+  }, [available]);
 
   if (!available) {
     return null;
