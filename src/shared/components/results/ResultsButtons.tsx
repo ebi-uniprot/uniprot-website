@@ -3,6 +3,7 @@ import {
   // StatisticsIcon,
   Button,
   DownloadIcon,
+  EditIcon,
   SlidingPanel,
 } from 'franklin-sites';
 import {
@@ -15,8 +16,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { generatePath, Link, useHistory, useLocation } from 'react-router-dom';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { ResubmitButton } from '../../../jobs/components/ResultButtons';
 import { type PublicServerParameters } from '../../../jobs/types/jobsServerParameters';
 import { type JobTypes } from '../../../jobs/types/jobTypes';
@@ -69,6 +71,8 @@ type ResultsButtonsProps<T extends JobTypes> = {
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
   inBasket?: boolean;
   inBasketMini?: boolean;
+  // In the basket side panel, navigate to the full view (and close the panel)
+  onFullView?: () => void;
   notCustomisable?: boolean;
   subsetsMap?: Map<string, string>;
   jobType?: T;
@@ -89,6 +93,7 @@ const ResultsButtons: FC<
   disableCardToggle = false,
   inBasket = false,
   inBasketMini = false,
+  onFullView,
   notCustomisable = false,
   subsetsMap,
   jobType,
@@ -295,9 +300,23 @@ const ResultsButtons: FC<
             {!notCustomisable &&
               !sharedUrlMode &&
               // Exception for ID mapping results!
-              (viewMode === 'table' || disableCardToggle) && (
+              (viewMode === 'table' || disableCardToggle) &&
+              // The basket side panel shows fixed columns; sending the user to
+              // the full view is where columns can actually be customised.
+              (inBasketMini ? (
+                <Link
+                  className="button tertiary"
+                  to={generatePath(LocationToPath[Location.Basket], {
+                    namespace,
+                  })}
+                  onClick={onFullView}
+                >
+                  <EditIcon />
+                  Customize columns in full view
+                </Link>
+              ) : (
                 <CustomiseButton namespace={namespace} />
-              )}
+              ))}
           </>
         )}
 

@@ -46,6 +46,10 @@ type Props = {
   basketSetter?: Dispatch<SetStateAction<Basket>>;
   disableCardToggle?: boolean;
   displayPeptideSearchMatchColumns?: boolean;
+  // Client-side header-click handler. When provided, it replaces the default
+  // server-side (URL-based) sorting — used by the basket side panel to reorder
+  // its locally-held entries.
+  onColumnSort?: (columnName: string) => void;
 };
 
 const ResultsData = ({
@@ -58,6 +62,7 @@ const ResultsData = ({
   basketSetter,
   disableCardToggle = false,
   displayPeptideSearchMatchColumns,
+  onColumnSort,
 }: Props) => {
   const namespace = useNS(namespaceOverride) || Namespace.uniprotkb;
   const { viewMode } = useViewMode(namespaceOverride, disableCardToggle);
@@ -170,7 +175,7 @@ const ResultsData = ({
             onSelectionChange={
               smallScreen ? undefined : setSelectedItemFromEvent
             }
-            onHeaderClick={updateColumnSort}
+            onHeaderClick={onColumnSort ?? updateColumnSort}
             onLoadMoreItems={handleLoadMoreRows}
             hasMoreData={hasMoreData}
             loaderComponent={loadComponent}
