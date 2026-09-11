@@ -146,17 +146,19 @@ const ProteinNamesViewFlat = ({
       {names.shortNames && (
         <>
           {' ('}
-          {names.shortNames.map((shortName, index): JSX.Element => (
-            // eslint-disable-next-line @eslint-react/no-array-index-key
-            <Fragment key={index}>
-              {index > 0 && '; '}
-              {noEvidence ? (
-                `${shortName.value}`
-              ) : (
-                <NameWithEvidence data={shortName} />
-              )}
-            </Fragment>
-          ))}
+          {names.shortNames.map(
+            (shortName, index): JSX.Element => (
+              // eslint-disable-next-line @eslint-react/no-array-index-key
+              <Fragment key={index}>
+                {index > 0 && '; '}
+                {noEvidence ? (
+                  `${shortName.value}`
+                ) : (
+                  <NameWithEvidence data={shortName} />
+                )}
+              </Fragment>
+            )
+          )}
           {') '}
         </>
       )}
