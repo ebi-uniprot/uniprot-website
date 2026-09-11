@@ -1,3 +1,7 @@
+// Obsolete cross-references are dimmed so they read as archival. The Links
+// column is deliberately left un-dimmed (its cells never carry `.xref-inactive`)
+// so its links keep full colour and contrast and stay clearly clickable — those
+// links are the whole point of an obsolete row.
 .xref-inactive {
   opacity: 0.5;
 }

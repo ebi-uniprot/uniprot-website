@@ -2,7 +2,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 
 import cn from 'classnames';
 import { Loader, Tab, Tabs } from 'franklin-sites';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import joinUrl from 'url-join';
 
@@ -37,7 +37,10 @@ import uniParcConverter, {
   type UniParcLiteAPIModel,
   type UniParcXRef,
 } from '../../adapters/uniParcConverter';
-import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
+import {
+  defaultColumns,
+  withoutClientOnlyColumns,
+} from '../../config/UniParcXRefsColumnConfiguration';
 import { TabLocation } from '../../types/entry';
 import EntrySection from '../../types/entrySection';
 import EntryMain from './EntryMain';
@@ -55,9 +58,16 @@ const Entry = () => {
   const [isStuck, setFullHeaderRef] = useStickyHeader();
   const smallScreen = useSmallScreen();
 
-  const [columns] = useLocalStorage(
+  const [storedColumns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
     defaultColumns
+  );
+  // These become the `fields` parameter of the cross-reference download, and
+  // the API rejects the whole request over a single field it doesn't know
+  // about, so anything the client made up has to come out first.
+  const columns = useMemo(
+    () => withoutClientOnlyColumns(storedColumns),
+    [storedColumns]
   );
 
   const baseURL =
