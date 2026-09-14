@@ -17,7 +17,12 @@ import {
   useRef,
   useState,
 } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import {
+  generatePath,
+  Link,
+  useLocation,
+  useRouteMatch,
+} from 'react-router-dom';
 import { schedule } from 'timing-functions';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -34,6 +39,7 @@ import {
   sendGtagEventPanelOpen,
 } from '../../utils/gtagEvents';
 import lazy from '../../utils/lazy';
+import { addTooltip } from '../../utils/tooltip';
 import { pluralise } from '../../utils/utils';
 import { Status } from '../../workers/jobs/types/jobStatuses';
 import ErrorBoundary from '../error-component/ErrorBoundary';
@@ -168,12 +174,36 @@ const JobsDashboard = () => {
 const Basket = () => {
   const [basket] = useBasket();
   const { pathname } = useLocation();
+  // Viewing the basket in full view already shows everything the panel would,
+  // and having both mounted lets their two sorts fight over the shared basket
+  // order. So on the full-view route the panel is disabled and kept closed.
+  const onBasketFullView = Boolean(
+    useRouteMatch(LocationToPath[Location.Basket])
+  );
 
   const [display, setDisplay] = useState(false);
   const close = useCallback((reason: PanelCloseReason) => {
     sendGtagEventPanelClose('basket', reason);
     setDisplay(false);
   }, []);
+
+  // Close a panel opened elsewhere when arriving at the full view
+  useEffect(() => {
+    if (onBasketFullView) {
+      setDisplay(false);
+    }
+  }, [onBasketFullView]);
+
+  const disabledRef = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    if (!onBasketFullView || !disabledRef.current) {
+      return undefined;
+    }
+    return addTooltip(
+      disabledRef.current,
+      'You’re currently viewing the basket in full view.'
+    );
+  }, [onBasketFullView]);
   const [buttonX, setButtonX] = useSafeState<number | undefined>(undefined);
 
   const ref = useRef<HTMLAnchorElement>(null);
@@ -199,37 +229,54 @@ const Basket = () => {
     [basket]
   );
 
+  const bubble = count ? (
+    <Bubble
+      className={styles.bubble}
+      size="small"
+      title={`${count} ${pluralise('item', count)} in the basket`}
+    >
+      {count}
+    </Bubble>
+  ) : null;
+
   return (
     <>
-      <Link
-        ref={ref}
-        to={generatePath(LocationToPath[Location.Basket], {
-          namespace: Namespace.uniprotkb,
-        })}
-        onClick={(event) => {
-          if (event.metaKey || event.ctrlKey || event.shiftKey) {
-            return; // default behaviour of opening a new tab or new window
-          }
-          event.preventDefault();
-          sendGtagEventPanelOpen('basket');
-          setDisplay(true);
-        }}
-        title="Basket"
-        className={cn(styles['secondary-item'], helper['no-small'])}
-        onPointerOver={BasketMiniView.preload}
-        onFocus={BasketMiniView.preload}
-      >
-        <BasketIcon width={secondaryItemIconSize} />
-        {count ? (
-          <Bubble
-            className={styles.bubble}
-            size="small"
-            title={`${count} ${pluralise('item', count)} in the basket`}
-          >
-            {count}
-          </Bubble>
-        ) : null}
-      </Link>
+      {onBasketFullView ? (
+        <span
+          ref={disabledRef}
+          className={cn(
+            styles['secondary-item'],
+            styles['secondary-item--disabled'],
+            helper['no-small']
+          )}
+          aria-disabled="true"
+        >
+          <BasketIcon width={secondaryItemIconSize} />
+          {bubble}
+        </span>
+      ) : (
+        <Link
+          ref={ref}
+          to={generatePath(LocationToPath[Location.Basket], {
+            namespace: Namespace.uniprotkb,
+          })}
+          onClick={(event) => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey) {
+              return; // default behaviour of opening a new tab or new window
+            }
+            event.preventDefault();
+            sendGtagEventPanelOpen('basket');
+            setDisplay(true);
+          }}
+          title="Basket"
+          className={cn(styles['secondary-item'], helper['no-small'])}
+          onPointerOver={BasketMiniView.preload}
+          onFocus={BasketMiniView.preload}
+        >
+          <BasketIcon width={secondaryItemIconSize} />
+          {bubble}
+        </Link>
+      )}
       {display && (
         <SlidingPanel
           title={
