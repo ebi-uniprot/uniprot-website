@@ -208,6 +208,40 @@ describe('basket sorting', () => {
     expect(sortedColumn()).toBe('organism_name');
   });
 
+  it('settles instead of looping when the panel and full view are both open', async () => {
+    // Both views share the single basket order; each sorting it used to make
+    // their two write-back effects overwrite each other forever.
+    customRender(
+      <>
+        <BasketFullView />
+        <BasketMiniView onFullView={jest.fn()} />
+      </>,
+      {
+        route: '/basket/uniprotkb',
+        path: '/basket/:namespace',
+        initialLocalStorage: { basket: { uniprotkb: [...allAccessions] } },
+      }
+    );
+    await settle();
+
+    const th = (column: string, index: number) =>
+      document.querySelectorAll(`th[data-column-name="${column}"]`)[
+        index
+      ] as HTMLElement;
+
+    // sort the full view one way, then the panel another (different column)
+    fireEvent.click(th('organism_name', 0));
+    await settle();
+    fireEvent.click(th('accession', 1));
+    await settle();
+
+    // the last sort wins and the order stays put rather than ping-ponging
+    const order = storedOrder();
+    expect(order).toEqual(allAccessions);
+    await settle();
+    expect(storedOrder()).toEqual(order);
+  });
+
   it('does not load sort values until the user sorts', async () => {
     customRender(<BasketMiniView onFullView={jest.fn()} />, {
       initialLocalStorage: { basket: { uniprotkb: allAccessions.slice(0, 3) } },

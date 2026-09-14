@@ -134,17 +134,28 @@ const useBasketSort = ({
   );
 
   // Applied as an effect rather than in the click handler so that it runs once
-  // the values for the whole basket have loaded. Re-runs are no-ops: the basket
-  // is already in this order, and a sort never survives entries being added.
+  // the values for the whole basket have loaded. A given sort is applied at most
+  // once: the panel and the full view share the same basket order, so re-writing
+  // it on every order change would let two mounted views fight over it forever.
+  const appliedSortKey = useRef<string | undefined>(undefined);
   useEffect(() => {
-    if (!sort || hasMoreData || !entriesById.size) {
+    if (!sort) {
+      appliedSortKey.current = undefined; // reset so re-selecting a sort re-applies
       return;
+    }
+    if (hasMoreData || !entriesById.size) {
+      return;
+    }
+    const sortKey = `${sort.column}:${sort.direction}`;
+    if (appliedSortKey.current === sortKey) {
+      return; // already applied; don't re-assert over another view's reorder
     }
     const newOrder = sortBasketAccessions(
       splitKey(accessionsKey),
       sort,
       getSortValue
     );
+    appliedSortKey.current = sortKey;
     if (newOrder.join(',') === accessionsKey) {
       return;
     }
