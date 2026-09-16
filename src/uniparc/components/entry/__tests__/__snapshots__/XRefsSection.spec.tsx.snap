@@ -211,7 +211,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/10254"
                     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
                     translate="no"
@@ -419,7 +418,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/45417"
                     title="Rabbitpox virus (strain Utrecht) (RPV), taxon ID 45417"
                     translate="no"
@@ -490,7 +488,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/265871"
                     title="Cowpox virus (strain GRI-90 / Grishak) (CPV), taxon ID 265871"
                     translate="no"
@@ -623,7 +620,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/397342"
                     title="Horsepox virus (HSPV), taxon ID 397342"
                     translate="no"
@@ -694,7 +690,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/10254"
                     title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
                     translate="no"
@@ -765,7 +760,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/9606"
                     title="Homo sapiens (Human), taxon ID 9606"
                     translate="no"
@@ -836,7 +830,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/10243"
                     title="Cowpox virus (CPV), taxon ID 10243"
                     translate="no"
@@ -1079,7 +1072,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/397342"
                     title="Horsepox virus (HSPV), taxon ID 397342"
                     translate="no"
@@ -1151,7 +1143,6 @@ exports[`XrefSection component should render the xref table properly and match s
                 </td>
                 <td>
                   <a
-                    class="xref-inactive"
                     href="/taxonomy/397342"
                     title="Horsepox virus (HSPV), taxon ID 397342"
                     translate="no"

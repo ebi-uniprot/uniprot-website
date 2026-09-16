@@ -236,8 +236,7 @@ const getLinksColumn =
         );
       }
     }
-    // Unlike the other columns, the Links cell is never given `.xref-inactive`,
-    // so its links keep full colour/contrast on dimmed obsolete rows.
+    // Not dimmed on obsolete rows; see XRefsSection.scss
     return cell;
   };
 
@@ -275,36 +274,18 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.gene, {
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.ncbiGi, {
   label: 'NCBI GI',
   render: (xref) =>
-    xref.ncbiGi && (
-      <EvidenceLink
-        source="RefSeq"
-        value={xref.ncbiGi}
-        className={xref.active ? undefined : 'xref-inactive'}
-      />
-    ),
+    xref.ncbiGi && <EvidenceLink source="RefSeq" value={xref.ncbiGi} />,
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.organism, {
   label: 'Organism',
-  render: (xref) =>
-    xref.organism && (
-      <TaxonomyView
-        data={xref.organism}
-        className={xref.active ? undefined : 'xref-inactive'}
-      />
-    ),
+  render: (xref) => xref.organism && <TaxonomyView data={xref.organism} />,
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.organismId, {
   label: 'Organism ID',
   render: (xref) =>
-    xref.organism && (
-      <TaxonomyView
-        data={xref.organism}
-        displayOnlyID
-        className={xref.active ? undefined : 'xref-inactive'}
-      />
-    ),
+    xref.organism && <TaxonomyView data={xref.organism} displayOnlyID />,
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
@@ -324,7 +305,7 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
       ? xref.proteomes.map((proteome, i) => (
           <span
             key={`${proteome.id}-${proteome.component}`}
-            className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
+            className="xref-proteome"
           >
             <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
               {proteome.id}

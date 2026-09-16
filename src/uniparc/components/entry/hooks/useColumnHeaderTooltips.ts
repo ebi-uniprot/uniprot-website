@@ -1,4 +1,5 @@
-import { useEffect, useId, useState } from 'react';
+import { isEqual } from 'lodash-es';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { type ColumnDescriptor } from '../../../../shared/hooks/useColumns';
 import { addTooltip } from '../../../../shared/utils/tooltip';
@@ -36,22 +37,21 @@ const useColumnHeaderTooltips = <Datum>(columns: ColumnDescriptor<Datum>[]) => {
   // wrapper actually appears, and again whenever the loader remounts it.
   const [wrapper, setWrapper] = useState<HTMLElement | null>(null);
 
-  // Which header carries which tooltip is all this needs, and `columns` is a
-  // new array on every render — re-attaching each time would dismiss an open
-  // tooltip whenever anything else about the table changed (another page
-  // loading, an obsolete cross-reference resolving). Serialised so the effect
-  // re-runs only when the tooltips themselves do.
-  const tooltipsKey = JSON.stringify(
-    columns
-      .filter((column) => column.tooltip)
-      .map((column) => [column.name, column.tooltip])
+  // `columns` is new every render; only re-attach when the tooltips change
+  const tooltipsRef = useRef<Array<[string, string]>>([]);
+  const tooltips = columns.flatMap(
+    ({ name, tooltip }): Array<[string, string]> =>
+      tooltip ? [[name, tooltip]] : []
   );
+  if (!isEqual(tooltips, tooltipsRef.current)) {
+    tooltipsRef.current = tooltips;
+  }
+  const stableTooltips = tooltipsRef.current;
 
   const id = useId();
 
   useEffect(() => {
-    const pairs: Array<[string, string]> = JSON.parse(tooltipsKey);
-    const cleanups = pairs.map(([name, tooltip]) => {
+    const cleanups = stableTooltips.map(([name, tooltip]) => {
       const header = wrapper?.querySelector(`th[data-column-name="${name}"]`);
       if (!wrapper || !(header instanceof HTMLElement)) {
         return undefined;
@@ -78,7 +78,7 @@ const useColumnHeaderTooltips = <Datum>(columns: ColumnDescriptor<Datum>[]) => {
         cleanup?.();
       }
     };
-  }, [id, tooltipsKey, wrapper]);
+  }, [id, stableTooltips, wrapper]);
 
   return setWrapper;
 };
