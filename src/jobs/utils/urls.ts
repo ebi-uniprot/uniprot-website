@@ -1,6 +1,10 @@
 export const reIds = /(?<id>\w+-?\d*)(\[(?<start>\d+)-(?<end>\d+)\])?/;
 // Note: also supporting isoform in regex
 
+// Drops a subset range, if any, e.g. "P05067[1-10]" -> "P05067"
+export const getIdWithoutRange = (idMaybeWithRange: string) =>
+  idMaybeWithRange.match(reIds)?.groups?.id || idMaybeWithRange;
+
 export type IdMaybeWithRange = {
   id: string;
   start?: number;

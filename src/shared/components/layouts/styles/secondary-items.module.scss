@@ -9,6 +9,14 @@
     width: 2ch;
     height: 2ch;
   }
+
+  &--disabled {
+    // match the spacing franklin gives the sibling <a> items so the icon
+    // does not shift when it becomes this inert <span>
+    margin: 0.1rem 0.25rem;
+    cursor: default;
+    opacity: 0.4;
+  }
 }
 
 .bubble {
