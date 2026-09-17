@@ -48,7 +48,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   data-column-name="accession"
                 >
                   <button
-                    aria-describedby="73"
+                    aria-describedby="38"
                     class="trigger"
                     type="button"
                   >
@@ -56,7 +56,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   </button>
                   <span
                     hidden=""
-                    id="73"
+                    id="38"
                   >
                     The identifier as it appears in the source database.
                   </span>
@@ -66,7 +66,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   data-column-name="links"
                 >
                   <button
-                    aria-describedby="74"
+                    aria-describedby="39"
                     class="trigger"
                     type="button"
                   >
@@ -74,7 +74,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   </button>
                   <span
                     hidden=""
-                    id="74"
+                    id="39"
                   >
                     Where this cross-reference can be opened.
                   </span>
@@ -84,7 +84,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   data-column-name="active"
                 >
                   <button
-                    aria-describedby="75"
+                    aria-describedby="40"
                     class="trigger"
                     type="button"
                   >
@@ -92,7 +92,7 @@ exports[`XrefSection component should render the xref table properly and match s
                   </button>
                   <span
                     hidden=""
-                    id="75"
+                    id="40"
                   >
                     Whether this cross-reference is still present in the source database. Obsolete ones are dimmed; where they can still be viewed, the "Go to" column links to it.
                   </span>

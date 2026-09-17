@@ -60,12 +60,18 @@ const nothingResolved: Resolved = {
  * sub-entry page's redirect entirely.
  *
  * Answers accumulate across calls rather than being re-derived from the latest
- * response, and each batch of accessions is frozen while its request is in
- * flight. `xrefs` grows a page at a time as the table is scrolled, and each new
- * obsolete accession would otherwise change the query URL, empty the map while
- * the re-query is in flight — flipping already-labelled rows back to the
- * generic fallback — and, past the per-query cap, either evict rows that had
- * already resolved or cancel and restart the in-flight request forever.
+ * response: `xrefs` grows a page at a time as the table is scrolled, and
+ * re-deriving from the latest response alone would blank out rows that had
+ * already resolved.
+ *
+ * The batch being asked about is derived from `xrefs` rather than stored. That
+ * is only safe because the window can't shift while its request is in flight:
+ * `xrefs` is the table's accumulated pages, which only ever grow by appending,
+ * so the first unresolved accessions *in table order* stay the same until they
+ * are answered — at which point `requested` moves the window on. A window that
+ * a later page could insert into would change the query URL mid-request, and
+ * `useDataApi` would cancel and restart it — with more obsolete accessions than
+ * fit in one query, potentially forever.
  *
  * Accessions absent from a response stay unresolved rather than being assumed
  * active: `active:false` is deliberately NOT part of the query, so an entry that
@@ -74,15 +80,10 @@ const nothingResolved: Resolved = {
  */
 const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
   const [resolved, setResolved] = useState(nothingResolved);
-  // The accessions the request currently in flight is about. Held in state
-  // rather than derived from `xrefs` on every render so that a page loading
-  // mid-request can't change the query URL: `useDataApi` would cancel the
-  // in-flight request and start another, and on an entry with more obsolete
-  // TrEMBL rows than fit in one query, continuous scrolling could keep doing
-  // that indefinitely, leaving every row on the generic fallback label.
-  const [batch, setBatch] = useState<string[]>([]);
 
-  const unresolved = useMemo(() => {
+  // The first unresolved accessions in table order (see above for why that
+  // order is what keeps the window stable while its request is in flight)
+  const batch = useMemo(() => {
     const accessions = new Set<string>();
     for (const xref of xrefs) {
       if (
@@ -92,22 +93,14 @@ const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
         !resolved.requested.has(xref.id)
       ) {
         accessions.add(xref.id);
+        if (accessions.size === maxAccessionsPerQuery) {
+          break;
+        }
       }
     }
-    // Sorted so that scrolling back and forth reuses the same URL
+    // Sorted within the window so the URL is canonical for the cache
     return Array.from(accessions).sort();
   }, [xrefs, resolved.requested]);
-
-  // A batch is only ever replaced once the one before it has been answered
-  useEffect(() => {
-    if (batch.length) {
-      return;
-    }
-    const next = unresolved.slice(0, maxAccessionsPerQuery);
-    if (next.length) {
-      setBatch(next);
-    }
-  }, [batch, unresolved]);
 
   const { data, loading, error } = useDataApi<SearchResults<UniProtkbAPIModel>>(
     batch.length
@@ -132,6 +125,7 @@ const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
     if (!batch.length || loading || (!data && !error)) {
       return;
     }
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- accumulates each answered batch into state as the request resolves
     setResolved((previous) => {
       const statuses = new Map(previous.statuses);
       for (const entry of data?.results || []) {
@@ -156,8 +150,6 @@ const useObsoleteXRefStatuses = (xrefs: UniParcXRef[]) => {
         requested: new Set([...previous.requested, ...batch]),
       };
     });
-    // Frees the next batch to be issued
-    setBatch([]);
   }, [batch, data, error, loading]);
 
   return resolved.statuses;

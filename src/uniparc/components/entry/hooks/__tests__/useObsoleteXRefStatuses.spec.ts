@@ -177,8 +177,9 @@ describe('useObsoleteXRefStatuses', () => {
   // A page loading while a batch is in flight must not change that batch's
   // query: `useDataApi` would cancel the request and start another, and with
   // more obsolete accessions than fit in one query, scrolling could keep doing
-  // that forever — leaving every row on the generic fallback label.
-  it('keeps the in-flight batch when a new page adds an earlier accession', () => {
+  // that forever — leaving every row on the generic fallback label. Pages are
+  // only ever appended, so the window is taken in table order, not sort order.
+  it('keeps the in-flight batch when a new page is appended', () => {
     // Never answers, so the first batch stays in flight
     mockUseDataApi.mockReturnValue({ loading: true });
     const ids = Array.from(
@@ -196,12 +197,123 @@ describe('useObsoleteXRefStatuses', () => {
     expect(accessionsAskedFor(firstUrl as string)).toHaveLength(100);
 
     // Sorts before every accession already being asked about, so a window
-    // recomputed from `xrefs` would drop the last one and re-query
+    // taken in sort order would drop the last one and re-query
     rerender({
-      xrefs: [obsoleteTrEMBL('Q00000'), ...ids.map(obsoleteTrEMBL)],
+      xrefs: [...ids.map(obsoleteTrEMBL), obsoleteTrEMBL('Q00000')],
     });
 
     expect(new Set(searchUrls())).toEqual(new Set([firstUrl]));
+  });
+
+  it('asks about a repeated accession once', () => {
+    renderHook(() =>
+      useObsoleteXRefStatuses([
+        obsoleteTrEMBL('Q76QK2'),
+        obsoleteTrEMBL('Q76QK2'),
+      ])
+    );
+
+    const [url] = searchUrls();
+    expect(accessionsAskedFor(url as string)).toEqual(['Q76QK2']);
+    expect(
+      new URL(url as string, 'http://localhost').searchParams.get('size')
+    ).toBe('1');
+  });
+
+  // An accession UniProtKB has no record of stays unresolved, but has been
+  // asked about; taking up a slot in every later batch would be pointless.
+  it('does not ask again about an accession UniProtKB had no record of', async () => {
+    mockUniProtKB({ Q76QK2: inactive('Q76QK2', 'DELETED') });
+
+    const { result, rerender } = renderHook(
+      ({ xrefs }: { xrefs: UniParcXRef[] }) => useObsoleteXRefStatuses(xrefs),
+      {
+        initialProps: {
+          xrefs: [obsoleteTrEMBL('Q99999'), obsoleteTrEMBL('Q76QK2')],
+        },
+      }
+    );
+    await waitFor(() =>
+      expect(result.current).toEqual(new Map([['Q76QK2', 'deleted']]))
+    );
+
+    rerender({
+      xrefs: [
+        obsoleteTrEMBL('Q99999'),
+        obsoleteTrEMBL('Q76QK2'),
+        obsoleteTrEMBL('Q76ZT7'),
+      ],
+    });
+
+    await waitFor(() =>
+      expect(
+        searchUrls().map((url) => accessionsAskedFor(url as string))
+      ).toEqual([['Q76QK2', 'Q99999'], ['Q76ZT7']])
+    );
+  });
+
+  // Retrying a failed batch would block every later one behind a request
+  // that has already failed once; its accessions just stay unresolved.
+  it('moves on to the next batch when one fails', async () => {
+    const ids = Array.from(
+      { length: 150 },
+      (_, i) => `Q${`${i}`.padStart(5, '0')}`
+    );
+    mockUseDataApi.mockImplementation((url?: string | null) => {
+      if (!url) {
+        return { loading: false };
+      }
+      const asked = accessionsAskedFor(url);
+      // The first batch, in table order, is the one holding the first id
+      if (asked.includes(ids[0])) {
+        return { loading: false, error: new Error('Service Unavailable') };
+      }
+      return {
+        loading: false,
+        data: { results: asked.map((id) => inactive(id, 'DELETED')) },
+      };
+    });
+
+    const { result } = renderHook(() =>
+      useObsoleteXRefStatuses(ids.map(obsoleteTrEMBL))
+    );
+
+    await waitFor(() => expect(result.current.size).toBe(50));
+    const batches = searchUrls().map((url) =>
+      accessionsAskedFor(url as string)
+    );
+    expect(batches.map((batch) => batch.length)).toEqual([100, 50]);
+    expect(result.current.has(ids[0])).toBe(false);
+    expect(result.current.has(ids[149])).toBe(true);
+  });
+
+  // Emptying the table (a reload) leaves nothing to ask about; what had been
+  // resolved is kept, since an accession's fate doesn't change.
+  it('stops asking when the table is emptied, and resumes with new rows', async () => {
+    mockUniProtKB({
+      Q76QK2: inactive('Q76QK2', 'MERGED'),
+      Q76ZT7: inactive('Q76ZT7', 'DELETED'),
+    });
+    const { result, rerender } = renderHook(
+      ({ xrefs }: { xrefs: UniParcXRef[] }) => useObsoleteXRefStatuses(xrefs),
+      { initialProps: { xrefs: [obsoleteTrEMBL('Q76QK2')] } }
+    );
+    await waitFor(() =>
+      expect(result.current).toEqual(new Map([['Q76QK2', 'merged']]))
+    );
+
+    rerender({ xrefs: [] });
+    expect(mockUseDataApi).toHaveBeenLastCalledWith(null);
+
+    rerender({ xrefs: [obsoleteTrEMBL('Q76ZT7')] });
+    await waitFor(() =>
+      expect(result.current).toEqual(
+        new Map([
+          ['Q76QK2', 'merged'],
+          ['Q76ZT7', 'deleted'],
+        ])
+      )
+    );
   });
 
   // The search endpoint rejects more than 100 OR clauses, so the rest have to
