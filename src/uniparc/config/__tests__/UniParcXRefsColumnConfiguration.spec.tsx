@@ -2,6 +2,7 @@ import { screen } from '@testing-library/react';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
 import testColumnConfiguration from '../../../shared/__test-helpers__/testColumnConfiguration';
+import { localStorageCache } from '../../../shared/hooks/useLocalStorage';
 import data from '../../__mocks__/uniparcXrefsModelData';
 import { type UniParcXRef } from '../../adapters/uniParcConverter';
 import { type ObsoleteXRefStatus } from '../../components/entry/hooks/useObsoleteXRefStatuses';
@@ -65,6 +66,86 @@ describe('UniParcXRefsColumnConfiguration component', () => {
         1
       );
     });
+  });
+});
+
+describe('Basket status', () => {
+  const initialLocalStorage = {
+    basket: { uniprotkb: ['P12345', 'AAB12345'], uniref: [], uniparc: [] },
+  };
+
+  // Earlier renders cache the empty default basket
+  beforeEach(() => {
+    localStorageCache.clear();
+  });
+
+  const renderIdentifierCell = (xref: UniParcXRef) => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const { render } = UniParcXRefsColumnConfiguration.get(
+      UniParcXRefsColumn.accession
+    )!;
+    return customRender(<div>{render(xref)}</div>, { initialLocalStorage });
+  };
+
+  it('marks a UniProtKB identifier that is in the basket', () => {
+    renderIdentifierCell({
+      database: 'UniProtKB/TrEMBL',
+      id: 'P12345',
+      active: true,
+    });
+
+    expect(screen.getByTitle('In the basket')).toBeInTheDocument();
+  });
+
+  it('marks an obsolete one without dimming the icon', () => {
+    renderIdentifierCell({
+      database: 'UniProtKB/Swiss-Prot',
+      id: 'P12345',
+      active: false,
+    });
+
+    expect(screen.getByText('P12345')).toHaveClass('xref-inactive');
+    expect(screen.getByTitle('In the basket').closest('.xref-inactive')).toBe(
+      null
+    );
+  });
+
+  it('does not mark a UniProtKB identifier missing from the basket', () => {
+    renderIdentifierCell({
+      database: 'UniProtKB/Swiss-Prot',
+      id: 'Q99999',
+      active: true,
+    });
+
+    expect(screen.queryByTitle('In the basket')).not.toBeInTheDocument();
+  });
+
+  // Any id that isn't UniRef or UniParc is looked up as a UniProtKB accession
+  it('does not mark an external identifier, even if the id matches', () => {
+    renderIdentifierCell({ database: 'EMBL', id: 'AAB12345', active: true });
+
+    expect(screen.queryByTitle('In the basket')).not.toBeInTheDocument();
+  });
+
+  it('is not shown in the "Go to" column', () => {
+    const column = getUniParcXRefsColumns([], new Map(), 'UPI0000000001').find(
+      ({ name }) => name === 'links'
+    );
+    customRender(
+      <div>
+        {column?.render({
+          database: 'UniProtKB/Swiss-Prot',
+          id: 'P12345',
+          active: true,
+        })}
+      </div>,
+      { initialLocalStorage }
+    );
+
+    expect(
+      screen.getByRole('link', { name: 'UniProtKB entry P12345' })
+    ).toBeInTheDocument();
+    expect(screen.queryByTitle('In the basket')).not.toBeInTheDocument();
   });
 });
 

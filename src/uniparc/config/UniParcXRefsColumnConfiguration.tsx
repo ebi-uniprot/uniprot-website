@@ -22,6 +22,7 @@ import {
 } from '../adapters/uniParcConverter';
 import ColumnHeaderLabel from '../components/entry/ColumnHeaderLabel';
 import { type ObsoleteXRefStatus } from '../components/entry/hooks/useObsoleteXRefStatuses';
+import identifierStyles from '../components/entry/styles/xref-identifier.module.scss';
 import Timeline from '../components/entry/Timeline';
 import { getSubEntryPath, getSubEntryProteomes } from '../utils/subEntry';
 import { getXrefId } from '../utils/uniparcXref';
@@ -98,16 +99,39 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
   },
 });
 
+const uniProtKBDatabases = new Set<string>([
+  XRefsInternalDatabasesEnum.REVIEWED,
+  XRefsInternalDatabasesEnum.UNREVIEWED,
+  'UniProtKB/Swiss-Prot protein isoforms',
+]);
+
+const isUniProtKBXRef = (xref: UniParcXRef) =>
+  Boolean(xref.database && uniProtKBDatabases.has(xref.database));
+
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
   label: 'Identifier',
   tooltip: 'The identifier as it appears in the source database.',
-  render: (xref) =>
-    xref.id && (
+  render: (xref) => {
+    if (!xref.id) {
+      return null;
+    }
+    const identifier = (
       <span className={xref.active ? undefined : 'xref-inactive'}>
         {xref.id}
         {xref.chain && ` (chain ${xref.chain})`}
       </span>
-    ),
+    );
+    if (!isUniProtKBXRef(xref)) {
+      return identifier;
+    }
+    // Basket status sits outside the dimmed span
+    return (
+      <span className={identifierStyles['xref-identifier']}>
+        {identifier}
+        <BasketStatus id={xref.id} />
+      </span>
+    );
+  },
 });
 
 // Every link in this column is labelled by where it goes, so on a table with
@@ -116,15 +140,12 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
 // identifier goes in an `aria-label` that still starts with the visible label,
 // so the two agree (WCAG 2.5.3).
 const uniProtKBEntryLink = (id: string) => (
-  <>
-    <Link
-      to={getEntryPath(Namespace.uniprotkb, id, TabLocation.Entry)}
-      aria-label={`UniProtKB entry ${id}`}
-    >
-      UniProtKB entry
-    </Link>
-    <BasketStatus id={id} />
-  </>
+  <Link
+    to={getEntryPath(Namespace.uniprotkb, id, TabLocation.Entry)}
+    aria-label={`UniProtKB entry ${id}`}
+  >
+    UniProtKB entry
+  </Link>
 );
 
 const uniProtKBHistoryLink = (id: string) => (
@@ -151,10 +172,10 @@ const subEntryLink = (
   </Link>
 );
 
-// The identifier column above is just text now; this column spells out every
-// page a cross-reference can be opened on, so each link's label says where it
-// leads:
-//   - active UniProtKB entries -> the UniProtKB entry (plus a basket control)
+// The identifier column above is just text (plus basket status) now; this
+// column spells out every page a cross-reference can be opened on, so each
+// link's label says where it leads:
+//   - active UniProtKB entries -> the UniProtKB entry
 //   - obsolete reviewed entries -> the UniProtKB history page (the record is
 //     gone, but its history remains)
 //   - obsolete TrEMBL -> wherever it actually ended up, which only UniProtKB can
@@ -177,11 +198,7 @@ const getLinksColumn =
       return null;
     }
     let cell: ReactNode = null;
-    if (
-      xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
-      xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
-      xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
-    ) {
+    if (isUniProtKBXRef(xref)) {
       if (xref.active) {
         cell = uniProtKBEntryLink(xref.id);
       } else if (xref.database === XRefsInternalDatabasesEnum.REVIEWED) {
