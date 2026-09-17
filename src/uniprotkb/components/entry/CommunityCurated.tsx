@@ -17,6 +17,9 @@ import {
   type Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import EntrySection from '../../types/entrySection';
+import WithheldByRequest, {
+  isWithheldSubmitter,
+} from '../../utils/CommunitySubmission';
 import { type DatabaseInfoMaps } from '../../utils/database';
 import styles from './styles/community-curated.module.scss';
 
@@ -117,14 +120,7 @@ const SubmissionDate = ({
   submissionDate?: string;
 }) => (
   <ExternalLink
-    url={
-      citationId && citationId.match(/\d+/)
-        ? externalUrls.CommunityCuratedGetByAccessionAndPmid(
-            accession,
-            citationId
-          )
-        : externalUrls.CommunityCuratedGetByAccession(accession)
-    }
+    url={externalUrls.CommunityCuratedGetByAccession(accession, citationId)}
   >
     <time dateTime={submissionDate}>{submissionDate}</time>
   </ExternalLink>
@@ -179,7 +175,9 @@ const GroupedCommunityReference = ({
                 />
               </td>
               <td>
-                {source?.id && source.id !== 'Anonymous' ? (
+                {isWithheldSubmitter(source?.id) ? (
+                  <WithheldByRequest />
+                ) : source?.id ? (
                   <ExternalLink
                     url={processUrlTemplate(
                       databaseInfoMaps?.databaseToDatabaseInfo[source.name]
@@ -191,7 +189,7 @@ const GroupedCommunityReference = ({
                     {source.id}
                   </ExternalLink>
                 ) : (
-                  source?.id || ''
+                  ''
                 )}
               </td>
             </tr>

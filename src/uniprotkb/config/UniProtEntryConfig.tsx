@@ -137,6 +137,7 @@ const UniProtKBEntryConfig: {
       <SequenceSection
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
+        taxonLineage={data[EntrySection.NamesAndTaxonomy].organismData?.lineage}
         key={EntrySection.Sequence}
       />
     ),

@@ -47,11 +47,14 @@ export const getPropertyValue = (
 type Sortable = { start: number | string; end?: number | string };
 export const sortByLocation = (a: Sortable, b: Sortable) => {
   const aStart = +a.start;
-  const aEnd = a.end ? +a.end : -Infinity;
   const bStart = +b.start;
-  const bEnd = b.end ? +b.end : -Infinity;
-  if (aStart === bStart) {
-    return aEnd - bEnd;
+  if (aStart !== bStart) {
+    return aStart - bStart;
   }
-  return aStart - bStart;
+  // Coerce the ends only on the rare start-tie path. Computing them eagerly
+  // wastes an O(n log n) string→number coercion per comparison when sorting
+  // large variant sets, even though `end` is only the tie-breaker.
+  const aEnd = a.end ? +a.end : -Infinity;
+  const bEnd = b.end ? +b.end : -Infinity;
+  return aEnd - bEnd;
 };

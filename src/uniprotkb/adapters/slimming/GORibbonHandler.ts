@@ -316,6 +316,7 @@ export const useGOData = (
     for (let i = taxonData.lineage.length - 1; i >= 0; i -= 1) {
       const slimSet = taxIdToSlimSet.get(`${taxonData.lineage[i].taxonId}`);
       if (slimSet) {
+        // eslint-disable-next-line @eslint-react/set-state-in-effect -- selects the slim set derived from the taxonomy lineage data
         setSelectedSlimSet(slimSet);
         return;
       }
@@ -324,6 +325,7 @@ export const useGOData = (
       (slimSet) => slimSet.id === DEFAULT_SLIMMING_SET
     );
     if (defaultSlimmingSet) {
+      // eslint-disable-next-line @eslint-react/set-state-in-effect -- falls back to the default slim set derived from the fetched data
       setSelectedSlimSet(defaultSlimmingSet);
       return;
     }

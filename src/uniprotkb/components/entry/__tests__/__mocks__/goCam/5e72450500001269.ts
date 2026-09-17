@@ -1,7 +1,7 @@
 import { type GoCamModelInfo } from '../../../../../types/goCamTypes';
 
 // Source: https://api.geneontology.org/api/go-cam/gomodel:5e72450500001269
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const model: GoCamModelInfo = {
   id: 'gomodel:5e72450500001269',
   individuals: [
@@ -81,12 +81,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'date',
@@ -112,20 +112,20 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'date',
-          value: '2020-04-08',
-        },
-        {
           key: 'with',
           value: 'UniProtKB:Q9GZQ8',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
+          key: 'date',
+          value: '2020-04-08',
         },
         {
           key: 'source',
           value: 'PMID:31006538',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'contributor',
@@ -156,12 +156,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'hint-layout-y',
-          value: '2063.042273228062',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'hint-layout-y',
+          value: '2063.042273228062',
         },
         {
           key: 'hint-layout-x',
@@ -412,12 +412,12 @@ const model: GoCamModelInfo = {
           value: '2199.542273228062',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'hint-layout-x',
@@ -495,12 +495,12 @@ const model: GoCamModelInfo = {
           value: 'UniProtKB:Q9Y6I9',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
-        },
-        {
           key: 'source',
           value: 'PMID:31006538',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
           key: 'date',
@@ -636,12 +636,12 @@ const model: GoCamModelInfo = {
           value: '1233.0388377128857',
         },
         {
-          key: 'hint-layout-y',
-          value: '370.9743289221462',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'hint-layout-y',
+          value: '370.9743289221462',
         },
         {
           key: 'date',
@@ -689,12 +689,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
-          key: 'date',
-          value: '2025-11-25',
-        },
-        {
           key: 'hint-layout-y',
           value: '153.02886805023746',
+        },
+        {
+          key: 'date',
+          value: '2025-11-25',
         },
         {
           key: 'contributor',
@@ -807,12 +807,12 @@ const model: GoCamModelInfo = {
           value: '2025-11-25',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
       ],
     },
@@ -860,12 +860,12 @@ const model: GoCamModelInfo = {
           value: '2283.860490146035',
         },
         {
-          key: 'hint-layout-y',
-          value: '390.78554673253535',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'hint-layout-y',
+          value: '390.78554673253535',
         },
       ],
     },
@@ -1317,12 +1317,12 @@ const model: GoCamModelInfo = {
           value: '2020-04-08',
         },
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'source',
+          value: 'PMID:31006538',
         },
       ],
     },
@@ -1562,12 +1562,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
-          key: 'hint-layout-x',
-          value: '770.2934778178338',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'hint-layout-x',
+          value: '770.2934778178338',
         },
         {
           key: 'date',
@@ -1642,12 +1642,12 @@ const model: GoCamModelInfo = {
           value: 'UniProtKB:Q9GZQ8',
         },
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'date',
           value: '2020-04-08',
+        },
+        {
+          key: 'source',
+          value: 'PMID:31006538',
         },
         {
           key: 'contributor',
@@ -1682,16 +1682,16 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
         },
         {
           key: 'hint-layout-x',
           value: '770.2934778178338',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
           key: 'hint-layout-y',
@@ -1814,12 +1814,12 @@ const model: GoCamModelInfo = {
           value: '2025-11-25',
         },
         {
-          key: 'hint-layout-x',
-          value: '407.29347781783383',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'hint-layout-x',
+          value: '407.29347781783383',
         },
         {
           key: 'contributor',
@@ -2158,12 +2158,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'date',
           value: '2020-04-08',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'with',
@@ -2194,20 +2194,20 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
         },
         {
           key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
+          value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
           key: 'hint-layout-x',
           value: '407.29347781783383',
-        },
-        {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
           key: 'hint-layout-y',
@@ -2322,16 +2322,16 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
+          key: 'hint-layout-y',
+          value: '2472.542273228062',
+        },
+        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
         },
         {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
-        },
-        {
-          key: 'hint-layout-y',
-          value: '2472.542273228062',
         },
         {
           key: 'date',
@@ -2418,12 +2418,12 @@ const model: GoCamModelInfo = {
           value: '2020-04-08',
         },
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'source',
+          value: 'PMID:31006538',
         },
       ],
     },
@@ -2458,12 +2458,12 @@ const model: GoCamModelInfo = {
           value: '2025-11-25',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'hint-layout-x',
           value: '770.2934778178338',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'contributor',
@@ -2534,12 +2534,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'source',
+          value: 'PMID:31006538',
         },
         {
           key: 'providedBy',
@@ -2662,12 +2662,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'date',
           value: '2020-04-08',
+        },
+        {
+          key: 'source',
+          value: 'PMID:31006538',
         },
         {
           key: 'contributor',
@@ -2790,12 +2790,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'with',
-          value: 'UniProtKB:Q13501',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'with',
+          value: 'UniProtKB:Q13501',
         },
         {
           key: 'date',
@@ -2834,16 +2834,16 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
+        },
+        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
           key: 'date',
           value: '2025-11-25',
-        },
-        {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
         },
         {
           key: 'hint-layout-x',
@@ -3046,12 +3046,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
-        },
-        {
           key: 'source',
           value: 'PMID:31006538',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
           key: 'providedBy',
@@ -3358,12 +3358,12 @@ const model: GoCamModelInfo = {
           value: 'http://informatics.jax.org',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
-        },
-        {
           key: 'hint-layout-y',
           value: '2609.042273228062',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
           key: 'date',
@@ -3482,12 +3482,12 @@ const model: GoCamModelInfo = {
           value: '2609.042273228062',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'contributor',
@@ -3570,12 +3570,12 @@ const model: GoCamModelInfo = {
           value: 'UniProtKB:Q9ULG6',
         },
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'source',
+          value: 'PMID:31006538',
         },
       ],
     },
@@ -3602,12 +3602,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'hint-layout-y',
-          value: '2063.042273228062',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'hint-layout-y',
+          value: '2063.042273228062',
         },
         {
           key: 'hint-layout-x',
@@ -3862,12 +3862,12 @@ const model: GoCamModelInfo = {
           value: '2336.042273228062',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7476-6306',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
           key: 'hint-layout-x',
@@ -4051,12 +4051,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
-          key: 'date',
-          value: '2025-11-25',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'date',
+          value: '2025-11-25',
         },
         {
           key: 'contributor',
@@ -4246,12 +4246,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7476-6306',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
           key: 'contributor',
@@ -4306,12 +4306,12 @@ const model: GoCamModelInfo = {
           value: '516.2601239890388',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7476-6306',
-        },
-        {
           key: 'hint-layout-y',
           value: '1232.6695032375067',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
           key: 'contributor',
@@ -4679,24 +4679,24 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'source',
           value: 'PMID:31006538',
         },
         {
-          key: 'with',
-          value: 'MGI:3526069,MGI:2176173',
-        },
-        {
           key: 'date',
           value: '2020-04-08',
+        },
+        {
+          key: 'with',
+          value: 'MGI:3526069,MGI:2176173',
         },
       ],
     },
@@ -4773,12 +4773,12 @@ const model: GoCamModelInfo = {
           value: 'PMID:31006538',
         },
         {
-          key: 'date',
-          value: '2020-04-08',
-        },
-        {
           key: 'with',
           value: 'MGI:3526069,MGI:2176173',
+        },
+        {
+          key: 'date',
+          value: '2020-04-08',
         },
       ],
     },
@@ -5028,12 +5028,12 @@ const model: GoCamModelInfo = {
           value: 'http://informatics.jax.org',
         },
         {
-          key: 'date',
-          value: '2025-11-25',
-        },
-        {
           key: 'hint-layout-y',
           value: '2472.542273228062',
+        },
+        {
+          key: 'date',
+          value: '2025-11-25',
         },
       ],
     },
@@ -5140,12 +5140,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'hint-layout-y',
-          value: '1626.9029487918708',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
+        },
+        {
+          key: 'hint-layout-y',
+          value: '1626.9029487918708',
         },
         {
           key: 'date',
@@ -5346,12 +5346,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
-          key: 'hint-layout-x',
-          value: '1224.5921438163796',
-        },
-        {
           key: 'date',
           value: '2025-11-25',
+        },
+        {
+          key: 'hint-layout-x',
+          value: '1224.5921438163796',
         },
         {
           key: 'hint-layout-y',
@@ -5622,12 +5622,12 @@ const model: GoCamModelInfo = {
           value: 'http://informatics.jax.org',
         },
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'date',
           value: '2020-04-08',
+        },
+        {
+          key: 'source',
+          value: 'PMID:31006538',
         },
         {
           key: 'contributor',
@@ -5662,12 +5662,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'date',
-          value: '2025-11-25',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'date',
+          value: '2025-11-25',
         },
         {
           key: 'contributor',
@@ -5785,12 +5785,12 @@ const model: GoCamModelInfo = {
           value: '1775.9673091896695',
         },
         {
-          key: 'date',
-          value: '2025-11-25',
-        },
-        {
           key: 'hint-layout-x',
           value: '1574.1553243057551',
+        },
+        {
+          key: 'date',
+          value: '2025-11-25',
         },
         {
           key: 'contributor',
@@ -5824,12 +5824,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
-        },
-        {
           key: 'source',
           value: 'PMID:31006538',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
           key: 'date',
@@ -5943,12 +5943,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'date',
-          value: '2020-04-08',
-        },
-        {
           key: 'source',
           value: 'PMID:31006538',
+        },
+        {
+          key: 'date',
+          value: '2020-04-08',
         },
         {
           key: 'contributor',
@@ -5982,12 +5982,12 @@ const model: GoCamModelInfo = {
           value: '2022.2624898732188',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
         },
         {
           key: 'hint-layout-y',
@@ -6114,12 +6114,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7476-6306',
-        },
-        {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7476-6306',
         },
         {
           key: 'hint-layout-y',
@@ -6157,20 +6157,20 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'date',
           value: '2025-11-25',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
+          key: 'source',
+          value: 'PMID:31006538',
         },
         {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
       ],
     },
@@ -6402,20 +6402,20 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'source',
-          value: 'PMID:31006538',
-        },
-        {
           key: 'date',
           value: '2025-11-25',
         },
         {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7476-6306',
+          key: 'source',
+          value: 'PMID:31006538',
         },
         {
           key: 'providedBy',
           value: 'http://informatics.jax.org',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7476-6306',
         },
       ],
     },
@@ -6437,12 +6437,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'date',
-          value: '2025-11-25',
-        },
-        {
           key: 'source',
           value: 'PMID:31006538',
+        },
+        {
+          key: 'date',
+          value: '2025-11-25',
         },
         {
           key: 'contributor',
@@ -6476,12 +6476,12 @@ const model: GoCamModelInfo = {
           value: 'PMID:31006538',
         },
         {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7476-6306',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
         },
         {
           key: 'date',
@@ -6627,31 +6627,6 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001354',
-      property: 'RO:0002333',
-      'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001355',
-      annotations: [
-        {
-          key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001356',
-          'value-type': 'IRI',
-        },
-        {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0002-9796-7693',
-        },
-        {
-          key: 'date',
-          value: '2020-04-08',
-        },
-        {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-      ],
-    },
-    {
       subject: 'gomodel:5e72450500001269/5e72450500001291',
       property: 'RO:0001025',
       'property-label': 'RO:0001025',
@@ -6669,6 +6644,31 @@ const model: GoCamModelInfo = {
         {
           key: 'date',
           value: '2025-11-25',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
+        },
+      ],
+    },
+    {
+      subject: 'gomodel:5e72450500001269/5e72450500001354',
+      property: 'RO:0002333',
+      'property-label': 'RO:0002333',
+      object: 'gomodel:5e72450500001269/5e72450500001355',
+      annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:5e72450500001269/5e72450500001356',
+          'value-type': 'IRI',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0002-9796-7693',
+        },
+        {
+          key: 'date',
+          value: '2020-04-08',
         },
         {
           key: 'providedBy',
@@ -6802,14 +6802,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001327',
+      subject: 'gomodel:5e72450500001269/5e72450500001394',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001328',
+      object: 'gomodel:5e72450500001269/5e72450500001395',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001329',
+          value: 'gomodel:5e72450500001269/5e72450500001396',
           'value-type': 'IRI',
         },
         {
@@ -6827,14 +6827,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001394',
+      subject: 'gomodel:5e72450500001269/5e72450500001327',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001395',
+      object: 'gomodel:5e72450500001269/5e72450500001328',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001396',
+          value: 'gomodel:5e72450500001269/5e72450500001329',
           'value-type': 'IRI',
         },
         {
@@ -6902,31 +6902,6 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001288',
-      property: 'RO:0001025',
-      'property-label': 'RO:0001025',
-      object: 'gomodel:5e72450500001269/5e72450500001289',
-      annotations: [
-        {
-          key: 'evidence',
-          value: 'gomodel:5e72450500001269/6918f23700002216',
-          'value-type': 'IRI',
-        },
-        {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7476-6306',
-        },
-        {
-          key: 'date',
-          value: '2025-11-25',
-        },
-        {
-          key: 'providedBy',
-          value: 'http://informatics.jax.org',
-        },
-      ],
-    },
-    {
       subject: 'gomodel:5e72450500001269/5e72450500001312',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
@@ -6944,6 +6919,31 @@ const model: GoCamModelInfo = {
         {
           key: 'date',
           value: '2020-04-08',
+        },
+        {
+          key: 'providedBy',
+          value: 'http://informatics.jax.org',
+        },
+      ],
+    },
+    {
+      subject: 'gomodel:5e72450500001269/5e72450500001288',
+      property: 'RO:0001025',
+      'property-label': 'RO:0001025',
+      object: 'gomodel:5e72450500001269/5e72450500001289',
+      annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:5e72450500001269/6918f23700002216',
+          'value-type': 'IRI',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7476-6306',
+        },
+        {
+          key: 'date',
+          value: '2025-11-25',
         },
         {
           key: 'providedBy',
@@ -7052,14 +7052,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001309',
+      subject: 'gomodel:5e72450500001269/5e72450500001318',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001310',
+      object: 'gomodel:5e72450500001269/5e72450500001319',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001311',
+          value: 'gomodel:5e72450500001269/5e72450500001320',
           'value-type': 'IRI',
         },
         {
@@ -7077,14 +7077,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001318',
+      subject: 'gomodel:5e72450500001269/5e72450500001309',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001319',
+      object: 'gomodel:5e72450500001269/5e72450500001310',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001320',
+          value: 'gomodel:5e72450500001269/5e72450500001311',
           'value-type': 'IRI',
         },
         {
@@ -7127,14 +7127,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001273',
-      property: 'RO:0002333',
-      'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001274',
+      subject: 'gomodel:5e72450500001269/5e72450500001383',
+      property: 'RO:0002418',
+      'property-label': 'RO:0002418',
+      object: 'gomodel:5e72450500001269/5e72450500001386',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001275',
+          value: 'gomodel:5e72450500001269/5e72450500001387',
           'value-type': 'IRI',
         },
         {
@@ -7152,14 +7152,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001383',
-      property: 'RO:0002418',
-      'property-label': 'RO:0002418',
-      object: 'gomodel:5e72450500001269/5e72450500001386',
+      subject: 'gomodel:5e72450500001269/5e72450500001273',
+      property: 'RO:0002333',
+      'property-label': 'RO:0002333',
+      object: 'gomodel:5e72450500001269/5e72450500001274',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001387',
+          value: 'gomodel:5e72450500001269/5e72450500001275',
           'value-type': 'IRI',
         },
         {
@@ -7352,14 +7352,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001304',
+      subject: 'gomodel:5e72450500001269/5e72450500001333',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001305',
+      object: 'gomodel:5e72450500001269/5e72450500001334',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001306',
+          value: 'gomodel:5e72450500001269/5e72450500001335',
           'value-type': 'IRI',
         },
         {
@@ -7377,14 +7377,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001333',
+      subject: 'gomodel:5e72450500001269/5e72450500001304',
       property: 'RO:0002333',
       'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001334',
+      object: 'gomodel:5e72450500001269/5e72450500001305',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001335',
+          value: 'gomodel:5e72450500001269/5e72450500001306',
           'value-type': 'IRI',
         },
         {
@@ -7527,14 +7527,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001304',
-      property: 'RO:0002418',
-      'property-label': 'RO:0002418',
-      object: 'gomodel:5e72450500001269/5e72450500001307',
+      subject: 'gomodel:5e72450500001269/5e72450500001339',
+      property: 'RO:0002333',
+      'property-label': 'RO:0002333',
+      object: 'gomodel:5e72450500001269/5e72450500001340',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001308',
+          value: 'gomodel:5e72450500001269/5e72450500001341',
           'value-type': 'IRI',
         },
         {
@@ -7552,14 +7552,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001339',
-      property: 'RO:0002333',
-      'property-label': 'RO:0002333',
-      object: 'gomodel:5e72450500001269/5e72450500001340',
+      subject: 'gomodel:5e72450500001269/5e72450500001304',
+      property: 'RO:0002418',
+      'property-label': 'RO:0002418',
+      object: 'gomodel:5e72450500001269/5e72450500001307',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001341',
+          value: 'gomodel:5e72450500001269/5e72450500001308',
           'value-type': 'IRI',
         },
         {
@@ -7677,14 +7677,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001402',
+      subject: 'gomodel:5e72450500001269/5e72450500001294',
       property: 'RO:0002418',
       'property-label': 'RO:0002418',
-      object: 'gomodel:5e72450500001269/5e72450500001405',
+      object: 'gomodel:5e72450500001269/5e72450500001297',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001406',
+          value: 'gomodel:5e72450500001269/5e72450500001298',
           'value-type': 'IRI',
         },
         {
@@ -7702,14 +7702,14 @@ const model: GoCamModelInfo = {
       ],
     },
     {
-      subject: 'gomodel:5e72450500001269/5e72450500001294',
+      subject: 'gomodel:5e72450500001269/5e72450500001402',
       property: 'RO:0002418',
       'property-label': 'RO:0002418',
-      object: 'gomodel:5e72450500001269/5e72450500001297',
+      object: 'gomodel:5e72450500001269/5e72450500001405',
       annotations: [
         {
           key: 'evidence',
-          value: 'gomodel:5e72450500001269/5e72450500001298',
+          value: 'gomodel:5e72450500001269/5e72450500001406',
           'value-type': 'IRI',
         },
         {

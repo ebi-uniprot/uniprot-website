@@ -25,6 +25,7 @@ import {
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../shared/components/ExternalLink';
+import Toggletip from '../../../shared/components/Toggletip';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import useMessagesDispatch from '../../../shared/hooks/useMessagesDispatch';
@@ -494,9 +495,9 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
               {id ? (
                 <ParentNodeLink label="Top level" />
               ) : (
-                <span title="Parent node currently set to top level">
+                <Toggletip content="Parent node currently set to top level">
                   Top level
-                </span>
+                </Toggletip>
               )}
             </span>
           </li>
@@ -513,12 +514,12 @@ const GroupByRoot = ({ groupBy, query, id, total }: GroupByRootProps) => {
               />
             </span>
             <span className={styles.label}>
-              <span
+              <Toggletip
                 className={styles['active-label']}
-                title={`Parent node currently set to ${parentLabel} (ID:${id})`}
+                content={`Parent node currently set to ${parentLabel} (ID:${id})`}
               >
                 {parentLabel}
-              </span>
+              </Toggletip>
               <GroupByLink
                 id={id}
                 groupBy={groupBy}

@@ -1,6 +1,7 @@
 import { enableFetchMocks, type FetchMock } from 'jest-fetch-mock';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
+import settle from '../../../../shared/__test-helpers__/settle';
 import interactionData from '../../../__mocks__/interaction.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData';
 import mockData from '../../../__mocks__/uniProtKBEntryModelData';
@@ -24,6 +25,19 @@ describe('Entry view', () => {
   beforeAll(() => {
     // eslint-disable-next-line no-console
     console.warn = jest.fn();
+    // jsdom doesn't implement SVG layout; nightingale components call getBBox
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.SVGElement.prototype.getBBox = () => ({
+      width: 10,
+      height: 10,
+    });
+  });
+
+  afterAll(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete window.SVGElement.prototype.getBBox;
   });
 
   it('should render', async () => {
@@ -38,6 +52,7 @@ describe('Entry view', () => {
       { route: `/uniprotkb/P05067/entry` }
     );
     expect(asFragment()).toMatchSnapshot();
+    await settle();
   });
 
   it('should render for non-human entry', async () => {
@@ -55,5 +70,6 @@ describe('Entry view', () => {
       { route: `/uniprotkb/P05067/entry` }
     );
     expect(asFragment()).toMatchSnapshot();
+    await settle();
   });
 });

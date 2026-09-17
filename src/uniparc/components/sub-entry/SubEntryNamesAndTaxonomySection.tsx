@@ -1,5 +1,4 @@
 import { Card, InfoList } from 'franklin-sites';
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getEntryPath } from '../../../app/config/urls';
@@ -14,7 +13,9 @@ import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-vie
 import UniProtKBEntrySection from '../../../uniprotkb/types/entrySection';
 import { type Evidence } from '../../../uniprotkb/types/modelTypes';
 import { type UniParcSubEntryUIModel } from '../../adapters/uniParcSubEntryConverter';
+import uniparcApiUrls from '../../config/apiUrls';
 import { entrySectionToLabel } from '../../config/UniParcSubEntrySectionLabels';
+import usePrecomputedProteomeCount from '../../hooks/usePrecomputedProteomeCount';
 import SubEntrySection from '../../types/subEntrySection';
 import { getSubEntryProteomes } from '../../utils/subEntry';
 
@@ -85,11 +86,52 @@ export const namesAndTaxonomySectionHasContent = (
   );
 };
 
+type SubEntryProteomeRowProps = {
+  proteomeId: string;
+  component: string;
+  isQualifying?: boolean;
+};
+
+export const SubEntryProteomeRow = ({
+  proteomeId,
+  component,
+  isQualifying,
+}: SubEntryProteomeRowProps) => {
+  const precomputedCount = usePrecomputedProteomeCount(
+    isQualifying ? proteomeId : undefined
+  );
+
+  return (
+    <>
+      <Link to={getEntryPath(Namespace.proteomes, proteomeId)}>
+        {proteomeId}
+      </Link>{' '}
+      ({component})
+      {precomputedCount > 0 ? (
+        <>
+          &nbsp;&nbsp;
+          <a
+            href={uniparcApiUrls.precomputedProteomeAnnotations(proteomeId, {
+              stream: true,
+              compressed: true,
+              download: true,
+            })}
+          >
+            Download predicted annotations
+          </a>
+        </>
+      ) : null}
+      <br />
+    </>
+  );
+};
+
 type SubEntryNamesAndTaxonomySectionProps = {
   uniparcData?: UniParcSubEntryUIModel;
   annotations?: UniProtkbUIModel;
   lineageData?: TaxonomyAPIModel;
   proteomeComponentObject?: Record<string, string>;
+  qualifyingProteomeIds?: Set<string>;
 };
 
 const SubEntryNamesAndTaxonomySection = ({
@@ -97,6 +139,7 @@ const SubEntryNamesAndTaxonomySection = ({
   annotations,
   lineageData,
   proteomeComponentObject = {},
+  qualifyingProteomeIds,
 }: SubEntryNamesAndTaxonomySectionProps) => {
   if (!uniparcData?.subEntry) {
     return null;
@@ -141,13 +184,12 @@ const SubEntryNamesAndTaxonomySection = ({
 
   const proteomeContent = Object.entries(proteomeComponentObject).map(
     ([proteomeId, component]) => (
-      <Fragment key={proteomeId}>
-        <Link to={getEntryPath(Namespace.proteomes, proteomeId)}>
-          {proteomeId}
-        </Link>{' '}
-        ({component})
-        <br />
-      </Fragment>
+      <SubEntryProteomeRow
+        key={proteomeId}
+        proteomeId={proteomeId}
+        component={component}
+        isQualifying={qualifyingProteomeIds?.has(proteomeId)}
+      />
     )
   );
 

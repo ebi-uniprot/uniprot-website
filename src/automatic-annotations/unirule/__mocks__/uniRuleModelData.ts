@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type UniRuleAPIModel } from '../adapters/uniRuleConverter';
 
 // Source: unirule/search?query=insulin&size=2
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: SearchResults<UniRuleAPIModel> = {
   results: [
     {
@@ -192,7 +192,7 @@ const mock: SearchResults<UniRuleAPIModel> = {
       ],
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 1822,
+        unreviewedProteinCount: 1890,
       },
       createdDate: '2012-07-03',
       modifiedDate: '2018-11-13',
@@ -339,6 +339,29 @@ const mock: SearchResults<UniRuleAPIModel> = {
             },
           },
         ],
+        ruleExceptions: [
+          {
+            category: 'Known exception',
+            annotation: {
+              annotationType: 'ANNOTATION',
+              dbReference: {
+                database: 'GO',
+                id: 'GO:0005576',
+                properties: [
+                  {
+                    key: 'GoTerm',
+                    value: '-',
+                  },
+                  {
+                    key: 'GoEvidenceType',
+                    value: ':-',
+                  },
+                ],
+              },
+            },
+            accessions: ['Q32L79'],
+          },
+        ],
       },
       samFeatureSets: [
         {
@@ -369,10 +392,10 @@ const mock: SearchResults<UniRuleAPIModel> = {
       ],
       statistics: {
         reviewedProteinCount: 0,
-        unreviewedProteinCount: 41,
+        unreviewedProteinCount: 44,
       },
       createdDate: '2015-05-22',
-      modifiedDate: '2018-11-13',
+      modifiedDate: '2026-05-04',
     },
   ],
 };

@@ -29,6 +29,27 @@ export const search = (options: SearchOptions = {}) =>
     getSearchParams(options)
   );
 
+type TaxonIdsOptions = {
+  fields?: string;
+  size?: number;
+};
+
+// The endpoint is cursor-paginated with a default page size of 25, and we don't
+// follow the `next` link, so ask for enough in one go to cover any realistic
+// list of taxon restrictions
+const TAXON_IDS_SIZE = 500;
+
+export const taxonIds = (
+  ids?: string[],
+  { fields = 'scientific_name', size = TAXON_IDS_SIZE }: TaxonIdsOptions = {}
+) =>
+  ids?.length
+    ? stringifyUrl(
+        joinUrl(apiPrefix, Namespace.taxonomy, 'taxonIds', ids.join(',')),
+        { fields, size }
+      )
+    : undefined;
+
 type AccessionsOptions = {
   namespace?: Namespace;
   columns?: string[];

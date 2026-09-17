@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console, import/no-extraneous-dependencies */
-import { readFile, writeFile, glob } from 'node:fs/promises';
+import { glob, readFile, writeFile } from 'node:fs/promises';
+import process from 'node:process';
 import { parseArgs, styleText } from 'node:util';
 
+import { parse } from '@babel/parser';
+import { format, resolveConfig } from 'prettier';
 import recast from 'recast';
-import parser from '@babel/parser';
-import prettier from 'prettier';
 
 /* Configs and options */
 
@@ -32,7 +33,7 @@ const argsConfig = {
 const recastOptions = {
   parser: {
     parse(source) {
-      return parser.parse(source, {
+      return parse(source, {
         sourceType: 'module',
         plugins: ['typescript'],
       });
@@ -44,7 +45,7 @@ const fetchOptions = {
   headers: { Accept: 'application/json' },
 };
 
-const prettierConfig = await prettier.resolveConfig(import.meta.dirname);
+const prettierConfig = await resolveConfig(import.meta.dirname);
 
 const objectKeyRE = /^[$_a-zA-Z][$_a-zA-Z0-9]*$/;
 const timeStampRE = /\d{4}-\d{2}-\d{2}/;
@@ -130,7 +131,6 @@ const astPathHandler = (path, context, baseAPI, tasks) => {
 
         const payload = await response.json();
 
-        // eslint-disable-next-line no-param-reassign
         declaration.init = createValueExpression(payload);
 
         // Update the date in the comment to keep track of when last updated
@@ -167,7 +167,7 @@ const processFile = async (file, baseAPI, dry) => {
   // replace some ugly whitespaces between properties within objects
   output = output.replaceAll(/,\n\s*\n/gm, ',\n');
   // more formatting
-  output = await prettier.format(output, {
+  output = await format(output, {
     ...prettierConfig,
     parser: 'typescript',
   });

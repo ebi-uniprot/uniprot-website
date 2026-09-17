@@ -1,12 +1,26 @@
-### Installing JavaScript Dependencies
+## Development setup
 
-To install JavaScript dependencies, first make sure you are in the root directory of your `uniprot-website` project -- this directory should contain a file named `package.json`, then type `yarn` in the command-line and press return. This should download and install the required JavaScript packages -- this may take a few minutes to finish.
+This repo uses [pnpm](https://pnpm.io), pinned via the `packageManager` field in `package.json`. The easiest way to get the right version is corepack, which ships with Node (≥ 24 required):
 
-# Usage
+```shell
+corepack enable   # one-time; may need sudo depending on your Node install
+pnpm install
+```
 
-Run `yarn run start`
+Alternatively, [install pnpm yourself](https://pnpm.io/installation).
 
-# Coding-styles & Linters
+## Installing JavaScript Dependencies
+
+To install JavaScript dependencies, first make sure you are in the root directory of your `uniprot-website` project -- this directory should contain a file named `package.json`, then type `pnpm install` in the command-line and press return. This should download and install the required JavaScript packages -- this may take a few minutes to finish.
+
+## Start the development server
+
+| Command              | REST API   |
+| -------------------- | ---------- |
+| `pnpm run start`     | Production |
+| `pnpm run start:dev` | Dev        |
+
+## Coding-styles & Linters
 
 Our preferred coding-style conventions are the [Airbnb's](http://airbnb.io/projects/styleguides/) [JavaScript](https://github.com/airbnb/javascript), [React](https://github.com/airbnb/javascript/tree/master/react) and [CSS+Sass](https://github.com/airbnb/css) style guides.
 
@@ -14,13 +28,13 @@ You don't need to read or memorise all the styling rules; Write your code exactl
 
 ### Running TypeScript/TSX/React Linter
 
-Simply execute `yarn lint`.
+Simply execute `pnpm test:lint`. To automatically fix problems, run `pnpm lint-fix`.
 
-# Running Unit Tests
+## Running Unit Tests
 
-Currently all tests are written on top of Facebook's [Jest Framework](https://facebook.github.io/jest/). Running existing tests would be as easy as executing `yarn test` in the root directory of the project, in the command-line.
+Currently all tests are written on top of Facebook's [Jest Framework](https://facebook.github.io/jest/). Running existing tests would be as easy as executing `pnpm test` in the root directory of the project, in the command-line.
 
-# Writing Unit Tests
+## Writing Unit Tests
 
 As mentioned above, tests are written on top of [Jest](https://facebook.github.io/jest/). If you aren't familiar with either Jest or Unit Testing in general, the best place to start would be [Jest's Getting Started](https://facebook.github.io/jest/docs/en/getting-started.html) page.
 
@@ -37,22 +51,16 @@ _Jest_ has a rather unique feature called _Snapshot Testing_. If you are not fam
 
 Here there are two points to keep in mind:
 
-1.  _Jest_ will automatically create a directory called `__snapshots__`, where ever it can find a snapshot test! All of your compiled snapshots will be stored in that directory and they need to be committed to the repository as well, as they are part of your tests.
-2.  After updating a component which has snapshots tests already, you would need to run the following command to update your snapshots with the latest changes from your component: `yarn update-snapshots`. [Jest's documentation](https://facebook.github.io/jest/docs/en/snapshot-testing.html#updating-snapshots) has a section for updating, as well as resolving failing snapshot tests.
+1. _Jest_ will automatically create a directory called `__snapshots__`, where ever it can find a snapshot test! All of your compiled snapshots will be stored in that directory and they need to be committed to the repository as well, as they are part of your tests.
+2. After updating a component which has snapshots tests already, you would need to run the following command to update your snapshots with the latest changes from your component: `pnpm exec jest -u`. [Jest's documentation](https://facebook.github.io/jest/docs/en/snapshot-testing.html#updating-snapshots) has a section for updating, as well as resolving failing snapshot tests.
 
-### Debugging service workers
+## Debugging service workers
 
-Service workers shouldn't be registered on a live-reload development
-environment. To be able to have them running, you need to generate a build,
-preferably a dev build through `yarn run build:dev` to have an easier time
-debugging. Serve the compiled website through any static asset server (e.g.
-running `npx serve build`) and you can have a look at the website where the
-service worker should be registered and functioning.
+Service workers shouldn't be registered on a live-reload development environment. To be able to have them running, you need to generate a build, preferably a dev build through `pnpm run build:dev` to have an easier time debugging. Serve the compiled website through any static asset server (e.g. running `npx serve build`) and you can have a look at the website where the service worker should be registered and functioning.
 
-Something's gone wrong with caching on a deployed build? In the entry point use
-the `unregister` function instead of the `register` function.
+Something's gone wrong with caching on a deployed build? In the entry point use the `unregister` function instead of the `register` function.
 
-### Build Scripts
+## Build Scripts
 
 | Build script        | Use                                                 |
 | ------------------- | --------------------------------------------------- |

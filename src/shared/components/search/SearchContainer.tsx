@@ -291,6 +291,7 @@ const SearchContainer = ({
     ) {
       return;
     }
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- syncs the search box from the URL query parameter
     setSearchTerm(query || '');
   }, [history, location.search]);
 

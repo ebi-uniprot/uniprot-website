@@ -11,6 +11,10 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 // custom plugins
 const LegacyModuleSplitPlugin = require('./webpack-plugins/legacy-module-split-plugin');
 
+// Pin the corejs3 polyfill plugin to the installed core-js version so it only
+// injects polyfills that actually exist in the bundled runtime.
+const coreJsVersion = require('core-js/package.json').version;
+
 // some plugins are conditionally-loaded as they are also conditionally used.
 
 const legacyModuleSplitPlugin = new LegacyModuleSplitPlugin();
@@ -22,6 +26,7 @@ const getConfigFor = ({
   isLiveReload,
   isTest,
   isLMIC,
+  isPreviewProduction,
   hasStats,
   gitCommitHash,
   gitCommitState,
@@ -92,7 +97,6 @@ const getConfigFor = ({
         ),
         'lodash.unset': path.resolve('./node_modules/lodash-es/unset'),
       },
-      symlinks: false,
     },
     // MODULE
     module: {
@@ -100,32 +104,95 @@ const getConfigFor = ({
         // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude:
-            /node_modules\/((?!@nightingale-elements\/nightingale-msa|protvista-uniprot|p-map|aggregate-error|molstar).*)/,
+          exclude: (modulePath) => {
+            // Packages that still need babel-preset-env downleveling and
+            // corejs polyfilling for the legacy bundle. Matched as a plain
+            // substring so it works the same whether pnpm resolved the
+            // module to its flat node_modules/<pkg>/ path or its real
+            // node_modules/.pnpm/<pkg>@<version>/node_modules/<pkg>/ path.
+            const include = [
+              '@nightingale-elements/nightingale-msa',
+              'protvista-uniprot',
+              'p-map',
+              'aggregate-error',
+              'molstar',
+            ];
+            if (!modulePath.includes('node_modules')) {
+              return false;
+            }
+            return !include.some((pkg) =>
+              modulePath.includes(`/node_modules/${pkg}/`)
+            );
+          },
           use: {
             loader: 'babel-loader',
             options: {
+              // Keep the build self-contained: never merge the root
+              // babel.config.js (which is jest-only and targets node:'current'
+              // with a bare preset-react) or any .babelrc into the browser
+              // bundle. Those leaking in previously emitted the dev JSX runtime
+              // (react/jsx-dev-runtime) into production and crashed it.
+              configFile: false,
+              babelrc: false,
               cacheDirectory: true,
-              presets: [
+              // `targets` lives at the top level so both preset-env and the
+              // corejs3 polyfill plugin read the same value (Babel 8 requirement).
+              targets:
+                isModern && !isTest
+                  ? {
+                      esmodules: true,
+                    }
+                  : {
+                      esmodules: false,
+                      browsers:
+                        'defaults, Firefox >= 35, Chrome >= 40, Edge >= 12, Safari >= 9, cover 95% in CN, not dead',
+                    },
+              // `.ts` files can't contain JSX, so preset-react (which puts the
+              // parser in JSX mode) is applied only to the other extensions.
+              // This lets Babel 8 parse generic arrows like `<T>(x) => ...` in
+              // `.ts` files without a trailing comma, which Prettier strips back
+              // out there. `onlyRemoveTypeImports: false` keeps Babel 7's
+              // behaviour of fully eliding type-only imports (e.g. from the
+              // types-only `type-fest`), instead of leaving a bare side-effect
+              // import.
+              overrides: [
+                {
+                  test: /\.ts$/,
+                  presets: [
+                    '@babel/preset-env',
+                    [
+                      '@babel/preset-typescript',
+                      { onlyRemoveTypeImports: false },
+                    ],
+                  ],
+                },
+                {
+                  exclude: /\.ts$/,
+                  presets: [
+                    '@babel/preset-env',
+                    [
+                      '@babel/preset-react',
+                      { runtime: 'automatic', development: isLiveReload },
+                    ],
+                    [
+                      '@babel/preset-typescript',
+                      { onlyRemoveTypeImports: false },
+                    ],
+                  ],
+                },
+              ],
+              // Babel 8 removed preset-env's `useBuiltIns`/`corejs` options; the
+              // corejs3 polyfill plugin is the documented replacement
+              // (`usage-global` is the equivalent of `useBuiltIns: 'usage'`).
+              plugins: [
                 [
-                  '@babel/preset-env',
+                  'polyfill-corejs3',
                   {
-                    useBuiltIns: 'usage',
-                    corejs: { version: '3', proposals: true },
-                    targets:
-                      isModern && !isTest
-                        ? {
-                            esmodules: true,
-                          }
-                        : {
-                            esmodules: false,
-                            browsers:
-                              'defaults, Firefox >= 35, Chrome >= 40, Edge >= 12, Safari >= 9, cover 95% in CN, not dead',
-                          },
+                    method: 'usage-global',
+                    version: coreJsVersion,
+                    proposals: true,
                   },
                 ],
-                ['@babel/preset-react', { runtime: 'automatic' }],
-                '@babel/preset-typescript',
               ],
             },
           },
@@ -262,8 +329,11 @@ const getConfigFor = ({
                 if (absoluteFilename.includes('robots.txt')) {
                   return (
                     input +
-                    // Block everything if in dev mode, link to sitemap if not
-                    (isDev
+                    // Block everything on any non-public build (dev, and
+                    // preview-production deploys such as Netlify), link to the
+                    // sitemaps only on the real public production build. This
+                    // must agree with the `noindex` meta tag in index.ejs.
+                    (isDev || isPreviewProduction
                       ? '\nDisallow: /'
                       : '\nSitemap: https://www.uniprot.org/sitemap-index.xml\nSitemap: https://www.uniprot.org/data-sitemap-index.xml.gz')
                   );
@@ -279,8 +349,13 @@ const getConfigFor = ({
         inject: isLiveReload,
         templateParameters: (_compilation, assets, _assetTags, options) => ({
           isDev,
+          isPreviewProduction,
           isUx,
           isLiveReload,
+          // Public path (always ends in "/"), so the template can build
+          // same-origin URLs that also work on sub-path deploys
+          // (e.g. "/uniprot/front-end/dev/").
+          BASE_URL: publicPath,
           options,
           assets,
         }),
@@ -349,7 +424,7 @@ const getConfigFor = ({
         cacheGroups: {
           geneontology: {
             // list the package to extract into its own bundle, plus all its
-            // dependencies used *only* by it (use `yarn why <dependency>` to find)
+            // dependencies used *only* by it (use `pnpm why <dependency>` to find)
             test: /[\\/]node_modules[\\/](@geneontology|amigo2-instance-data|react-icons|react-popper|react-transition-group|popper\.js|underscore|bbop-core)[\\/]/,
             name: 'geneontology',
             chunks: 'all',
@@ -423,7 +498,7 @@ module.exports = (env, argv) => {
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
     // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
+    // from a predefined env in a pnpm/npm script
     if (Array.isArray(env.PUBLIC_PATH)) {
       // so we take the last one
       publicPath = env.PUBLIC_PATH[env.PUBLIC_PATH.length - 1];
@@ -435,7 +510,7 @@ module.exports = (env, argv) => {
   let apiPrefix;
   if (env.API_PREFIX) {
     // if we have an array, it means we've probably overriden env in the CLI
-    // from a predefined env in a yarn/npm script
+    // from a predefined env in a pnpm/npm script
     if (Array.isArray(env.API_PREFIX)) {
       // so we take the last one
       apiPrefix = env.API_PREFIX[env.API_PREFIX.length - 1];
@@ -447,6 +522,10 @@ module.exports = (env, argv) => {
   }
 
   const isLMIC = Boolean(env.LMIC);
+  // Production-quality build for a non-public preview (e.g. Netlify): a real
+  // production build (minified, prod React runtime) that is still treated like
+  // dev for indexing/analytics — keeps `noindex`, skips Google Analytics + Hotjar.
+  const isPreviewProduction = Boolean(env.PREVIEW_PRODUCTION);
 
   const modernConfig = getConfigFor({
     isModern: true,
@@ -455,6 +534,7 @@ module.exports = (env, argv) => {
     isLiveReload,
     isTest,
     isLMIC,
+    isPreviewProduction,
     hasStats: !!env.STATS,
     gitCommitHash,
     gitCommitState,
@@ -478,7 +558,14 @@ module.exports = (env, argv) => {
     };
   }
 
-  if (!isDev) {
+  // Skip the legacy (nomodule) bundle for preview-production builds. The
+  // modern+legacy split emits a single index.html from two parallel
+  // compilations sharing one plugin instance, which is racy — the "wrong"
+  // HTML can win and drop the modern `type="module"` scripts (leaving only
+  // nomodule scripts, so nothing runs in a modern browser). A preview is only
+  // opened in modern browsers, so building the modern bundle alone keeps the
+  // output deterministic while staying production-quality.
+  if (!isDev && !isPreviewProduction) {
     const legacyConfig = getConfigFor({
       isModern: false,
       isDev,
@@ -486,6 +573,7 @@ module.exports = (env, argv) => {
       isLiveReload,
       isTest,
       isLMIC,
+      isPreviewProduction,
       hasStats: !!env.STATS,
       gitCommitHash,
       gitCommitState,
@@ -493,6 +581,17 @@ module.exports = (env, argv) => {
       publicPath,
       apiPrefix,
     });
+
+    // Force `legacy` to compile before `modern`. Both compilations emit the
+    // same build/index.html and share one LegacyModuleSplitPlugin instance that
+    // snapshots the script list per compilation. Run in parallel this is a race:
+    // whichever writes index.html last wins, and if its snapshot was taken
+    // before the other bundle finished, that HTML is missing the other bundle's
+    // scripts (the bug that shipped a legacy-only index.html with no modern
+    // `type="module"` tags). With this dependency, `modern` always compiles last
+    // with both bundles' scripts accumulated, so its index.html — written last —
+    // is always complete. Deterministic, at the cost of a serial build.
+    modernConfig.dependencies = ['legacy'];
 
     return [legacyConfig, modernConfig];
   }

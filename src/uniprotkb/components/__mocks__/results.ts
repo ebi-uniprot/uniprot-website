@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../shared/types/results';
 import { type UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 // Source: uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=glucose&size=2
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: SearchResults<UniProtkbAPIModel> = {
   facets: [
     {
@@ -13,12 +13,12 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Reviewed (Swiss-Prot)',
           value: 'true',
-          count: 16683,
+          count: 16723,
         },
         {
           label: 'Unreviewed (TrEMBL)',
           value: 'false',
-          count: 1935079,
+          count: 1991140,
         },
       ],
     },
@@ -30,27 +30,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Human',
           value: '9606',
-          count: 1937,
+          count: 2851,
         },
         {
           label: 'Mouse',
           value: '10090',
-          count: 1693,
+          count: 1721,
         },
         {
           label: 'Rat',
           value: '10116',
-          count: 1538,
+          count: 1570,
         },
         {
           label: 'Bovine',
           value: '9913',
-          count: 1037,
+          count: 1044,
         },
         {
           label: 'A. thaliana',
           value: '3702',
-          count: 988,
+          count: 990,
         },
       ],
     },
@@ -62,52 +62,52 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: '3D structure',
           value: '1',
-          count: 2841,
+          count: 2837,
         },
         {
           label: 'Active site',
           value: '2',
-          count: 372184,
+          count: 466243,
         },
         {
           label: 'Activity regulation',
           value: '3',
-          count: 24755,
+          count: 25521,
         },
         {
           label: 'Allergen',
           value: '4',
-          count: 25,
+          count: 26,
         },
         {
           label: 'Alternative products (isoforms)',
           value: '5',
-          count: 1205,
+          count: 1207,
         },
         {
           label: 'Alternative splicing',
           value: '6',
-          count: 1130,
+          count: 1131,
         },
         {
           label: 'Beta strand',
           value: '7',
-          count: 1883,
+          count: 1890,
         },
         {
           label: 'Binary interaction',
           value: '8',
-          count: 1460,
+          count: 1468,
         },
         {
           label: 'Binding site',
           value: '9',
-          count: 388102,
+          count: 414582,
         },
         {
           label: 'Biophysicochemical properties',
           value: '10',
-          count: 1510,
+          count: 1516,
         },
         {
           label: 'Biotechnological use',
@@ -117,132 +117,132 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Catalytic activity',
           value: '13',
-          count: 882207,
+          count: 956284,
         },
         {
           label: 'Chain',
           value: '14',
-          count: 185614,
+          count: 216249,
         },
         {
           label: 'Cofactors',
           value: '15',
-          count: 464715,
+          count: 480642,
         },
         {
           label: 'Coiled-coil',
           value: '16',
-          count: 42984,
+          count: 44417,
         },
         {
           label: 'Compositional bias',
           value: '17',
-          count: 275660,
+          count: 285826,
         },
         {
           label: 'Cross-link',
           value: '18',
-          count: 650,
+          count: 1170,
         },
         {
           label: 'Developmental stage',
           value: '19',
-          count: 734,
+          count: 740,
         },
         {
           label: 'Disease',
           value: '20',
-          count: 419,
+          count: 423,
         },
         {
           label: 'Disruption phenotype',
           value: '21',
-          count: 1616,
+          count: 1627,
         },
         {
           label: 'Disulfide bond',
           value: '22',
-          count: 12967,
+          count: 14555,
         },
         {
           label: 'DNA binding',
           value: '23',
-          count: 1004,
+          count: 37430,
         },
         {
           label: 'Domain',
           value: '24',
-          count: 1445661,
+          count: 1500224,
         },
         {
           label: 'Function',
           value: '25',
-          count: 543528,
+          count: 559131,
         },
         {
           label: 'Glycosylation',
           value: '26',
-          count: 2226,
+          count: 2269,
         },
         {
           label: 'Helix',
           value: '27',
-          count: 1986,
+          count: 1992,
         },
         {
           label: 'Induction',
           value: '28',
-          count: 3076,
+          count: 3125,
         },
         {
           label: 'Initiator methionine',
           value: '29',
-          count: 20268,
+          count: 20778,
         },
         {
           label: 'Intramembrane',
           value: '30',
-          count: 68,
+          count: 72,
         },
         {
           label: 'Lipidation',
           value: '31',
-          count: 335,
+          count: 34349,
         },
         {
           label: 'Mass spectrometry',
           value: '32',
-          count: 147,
+          count: 148,
         },
         {
           label: 'Modified residue',
           value: '34',
-          count: 54935,
+          count: 59393,
         },
         {
           label: 'Motif',
           value: '35',
-          count: 3858,
+          count: 5786,
         },
         {
           label: 'Mutagenesis',
           value: '36',
-          count: 1577,
+          count: 1592,
         },
         {
           label: 'Natural variant',
           value: '37',
-          count: 885,
+          count: 884,
         },
         {
           label: 'Non-standard residue',
           value: '38',
-          count: 72,
+          count: 71,
         },
         {
           label: 'Pathway',
           value: '40',
-          count: 508762,
+          count: 531348,
         },
         {
           label: 'Peptide',
@@ -252,32 +252,32 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Pharmaceutical use',
           value: '42',
-          count: 13,
+          count: 14,
         },
         {
           label: 'Polymorphism',
           value: '43',
-          count: 82,
+          count: 81,
         },
         {
           label: 'Propeptide',
           value: '44',
-          count: 528,
+          count: 568,
         },
         {
           label: 'PTM comments',
           value: '45',
-          count: 20230,
+          count: 26846,
         },
         {
           label: 'Region',
           value: '46',
-          count: 400274,
+          count: 418739,
         },
         {
           label: 'Repeat',
           value: '47',
-          count: 9773,
+          count: 10209,
         },
         {
           label: 'RNA editing',
@@ -287,27 +287,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Signal peptide',
           value: '49',
-          count: 171338,
+          count: 179306,
         },
         {
           label: 'Subcellular location',
           value: '50',
-          count: 749770,
+          count: 799648,
         },
         {
           label: 'Subunit structure',
           value: '51',
-          count: 309793,
+          count: 318843,
         },
         {
           label: 'Tissue specificity',
           value: '52',
-          count: 2548,
+          count: 2569,
         },
         {
           label: 'Topological domain',
           value: '53',
-          count: 1376,
+          count: 1387,
         },
         {
           label: 'Toxic dose',
@@ -317,22 +317,22 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Transit peptide',
           value: '55',
-          count: 384,
+          count: 385,
         },
         {
           label: 'Transmembrane',
           value: '56',
-          count: 460565,
+          count: 476975,
         },
         {
           label: 'Turn',
           value: '57',
-          count: 1727,
+          count: 1731,
         },
         {
           label: 'Zinc finger',
           value: '58',
-          count: 1643,
+          count: 1953,
         },
       ],
     },
@@ -344,22 +344,22 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: 'Homology',
           value: '3',
-          count: 1482339,
+          count: 1543057,
         },
         {
           label: 'Predicted',
           value: '4',
-          count: 436263,
+          count: 430115,
         },
         {
           label: 'Transcript level',
           value: '2',
-          count: 22200,
+          count: 22743,
         },
         {
           label: 'Protein level',
           value: '1',
-          count: 10933,
+          count: 11921,
         },
         {
           label: 'Uncertain',
@@ -375,23 +375,23 @@ const mock: SearchResults<UniProtkbAPIModel> = {
       values: [
         {
           value: '5',
-          count: 14118,
+          count: 14688,
         },
         {
           value: '4',
-          count: 47703,
+          count: 49169,
         },
         {
           value: '3',
-          count: 281062,
+          count: 290169,
         },
         {
           value: '2',
-          count: 794871,
+          count: 825368,
         },
         {
           value: '1',
-          count: 814008,
+          count: 828469,
         },
       ],
     },
@@ -403,27 +403,27 @@ const mock: SearchResults<UniProtkbAPIModel> = {
         {
           label: '1 - 200',
           value: '[1 TO 200]',
-          count: 125750,
+          count: 129037,
         },
         {
           label: '201 - 400',
           value: '[201 TO 400]',
-          count: 690095,
+          count: 702053,
         },
         {
           label: '401 - 600',
           value: '[401 TO 600]',
-          count: 724453,
+          count: 744314,
         },
         {
           label: '601 - 800',
           value: '[601 TO 800]',
-          count: 236475,
+          count: 245694,
         },
         {
           label: '>= 801',
           value: '[801 TO *]',
-          count: 174989,
+          count: 186765,
         },
       ],
     },
@@ -436,9 +436,9 @@ const mock: SearchResults<UniProtkbAPIModel> = {
       uniProtkbId: 'SC5A1_HUMAN',
       entryAudit: {
         firstPublicDate: '1990-01-01',
-        lastAnnotationUpdateDate: '2026-06-10',
+        lastAnnotationUpdateDate: '2026-09-02',
         lastSequenceUpdateDate: '1990-01-01',
-        entryVersion: 227,
+        entryVersion: 228,
         sequenceVersion: 1,
       },
       annotationScore: 5,
@@ -7172,7 +7172,7 @@ const mock: SearchResults<UniProtkbAPIModel> = {
           properties: [
             {
               key: 'antibodies',
-              value: '383 antibodies from 35 providers',
+              value: '390 antibodies from 37 providers',
             },
           ],
         },

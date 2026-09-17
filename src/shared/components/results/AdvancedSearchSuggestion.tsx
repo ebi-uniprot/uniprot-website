@@ -79,6 +79,7 @@ const AdvancedSearchSuggestion = ({
     if (!searchTerms?.length) {
       return;
     }
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- iteratively measures layout and reflows the displayed terms to avoid paint flashes
     setTermsToDisplay(searchTerms.length);
   }, [searchTerms]);
 
@@ -91,6 +92,7 @@ const AdvancedSearchSuggestion = ({
     if (!clientRects?.length) {
       return;
     }
+    /* eslint-disable @eslint-react/set-state-in-effect -- iteratively measures layout and reflows the displayed terms to avoid paint flashes */
     if (clientRects.length > linesToDisplay) {
       // We have more lines than required
       if (termsToDisplay === 1) {
@@ -102,6 +104,7 @@ const AdvancedSearchSuggestion = ({
       }
       setTermsToDisplay((termsToDisplay) => termsToDisplay - 1);
     }
+    /* eslint-enable @eslint-react/set-state-in-effect */
   }, [searchTerms, linesToDisplay, termsToDisplay]);
 
   if (!searchTerms?.length) {

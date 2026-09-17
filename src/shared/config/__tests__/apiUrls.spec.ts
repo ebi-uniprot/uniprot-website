@@ -22,6 +22,28 @@ describe('apiUrls.search.search', () => {
   });
 });
 
+describe('apiUrls.search.taxonIds', () => {
+  it('should return undefined without any ID', () => {
+    expect(apiUrls.search.taxonIds()).toBeUndefined();
+    expect(apiUrls.search.taxonIds([])).toBeUndefined();
+  });
+
+  it('should request the scientific names of all the IDs in one page', () => {
+    // The endpoint defaults to a page size of 25 and we don't follow `next`
+    expect(apiUrls.search.taxonIds(['9606', '10090'])).toEqual(
+      expect.stringContaining(
+        '/api/taxonomy/taxonIds/9606,10090?fields=scientific_name&size=500'
+      )
+    );
+  });
+
+  it('should accept overrides', () => {
+    expect(
+      apiUrls.search.taxonIds(['9606'], { fields: 'lineage', size: 1 })
+    ).toEqual(expect.stringContaining('?fields=lineage&size=1'));
+  });
+});
+
 describe('apiUrls.entry.download', () => {
   const getLastPath = (url: string) => url.substr(url.lastIndexOf('/') + 1);
   const accession = 'P123456';
@@ -62,5 +84,37 @@ describe('apiUrls.results.download', () => {
         jobId: 'foo',
       })
     ).toContain('jobId=foo');
+  });
+
+  it('should generate precomputed proteome stream download URL', () => {
+    expect(
+      apiUrls.results.download({
+        fileFormat: FileFormat.jsonPrecomputed,
+        compressed: true,
+        selected: [],
+        selectedIdField: UniProtKBColumn.accession,
+        namespace: Namespace.uniparc,
+        query: 'proteome:UP000005640',
+        uniparcProteomePrecomputed: 'UP000005640',
+        download: true,
+      })
+    ).toBe(
+      '/<testing>/api/uniprotkb/precomputed/proteome/UP000005640/stream?compressed=true&download=true'
+    );
+  });
+
+  it('should generate precomputed proteome preview URL with size', () => {
+    expect(
+      apiUrls.results.download({
+        fileFormat: FileFormat.jsonPrecomputed,
+        compressed: false,
+        selected: [],
+        selectedIdField: UniProtKBColumn.accession,
+        namespace: Namespace.uniparc,
+        query: 'proteome:UP000005640',
+        uniparcProteomePrecomputed: 'UP000005640',
+        size: 10,
+      })
+    ).toBe('/<testing>/api/uniprotkb/precomputed/proteome/UP000005640?size=10');
   });
 });

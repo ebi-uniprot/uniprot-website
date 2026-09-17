@@ -71,6 +71,7 @@ const UniProtEvidenceTagContent = ({
             key={key}
           >
             {mappedEvidences.map(({ id, url, properties }: Evidence, index) => (
+              // eslint-disable-next-line @eslint-react/no-array-index-key -- static, API-ordered evidence list; evidence may lack an id
               <span key={id || index}>
                 {id === protNLM2Id && accession ? (
                   <ProtNLM2EvidenceLink

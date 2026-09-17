@@ -14,8 +14,14 @@ describe('ComponentsButtons', () => {
     [getComponents(1), [], '(proteome:id)'],
     [getComponents(1), ['a'], '(proteome:id)'],
     [getComponents(2), [], '(proteome:id)'],
-    [getComponents(2), ['a'], '(proteome:id) AND (proteomecomponent:"a")'],
+    [getComponents(2), ['a'], '(proteomecomponent:"id:a")'],
     [getComponents(2), ['a', 'b'], '(proteome:id)'],
+    // characters which would break the query if it weren't URL-encoded
+    [
+      getComponents(2),
+      ['plasmid pXO1 & pXO2'],
+      '(proteomecomponent:"id:plasmid pXO1 & pXO2")',
+    ],
   ];
 
   test.each(testCases)(

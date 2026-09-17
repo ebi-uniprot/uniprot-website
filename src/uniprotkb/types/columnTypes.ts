@@ -253,6 +253,8 @@ export enum UniProtKBColumn {
   xrefMalacards = 'xref_malacards',
   xrefManeSelect = 'xref_mane-select',
   xrefMassive = 'xref_massive',
+  xrefMdposit = 'xref_mdposit',
+  xrefMdrepo = 'xref_mdrepo',
   xrefMerops = 'xref_merops',
   xrefMetosite = 'xref_metosite',
   xrefMgi = 'xref_mgi',

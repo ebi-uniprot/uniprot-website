@@ -33,6 +33,7 @@ export enum FileFormat {
   gff = 'GFF',
   list = 'List',
   json = 'JSON',
+  jsonPrecomputed = 'JSON (precomputed annotation)',
   jsonIdMappingFromTo = 'JSON (from/to only)',
   obo = 'OBO',
   embeddings = 'Embeddings',

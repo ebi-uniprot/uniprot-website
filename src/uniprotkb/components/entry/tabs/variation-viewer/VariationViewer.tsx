@@ -2,49 +2,60 @@ import type NightingaleManager from '@nightingale-elements/nightingale-manager';
 import {
   type ProteinsAPIVariation,
   transformData,
-} from '@nightingale-elements/nightingale-variation';
+} from '@nightingale-elements/nightingale-variation-canvas';
+import { type Virtualizer } from '@tanstack/react-virtual';
 import cn from 'classnames';
-import { EllipsisReveal, Loader, LongNumber, Message } from 'franklin-sites';
+import { EllipsisReveal, Loader } from 'franklin-sites';
 import { filterConfig } from 'protvista-uniprot';
 import {
   Fragment,
   lazy,
   type ReactNode,
   Suspense,
+  useCallback,
   useEffect,
   useId,
   useMemo,
+  useReducer,
   useRef,
   useState,
+  useTransition,
 } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { type PartialDeep, type SetRequired } from 'type-fest';
 
-import { getEntryPath } from '../../../../../app/config/urls';
+import { addMessage } from '../../../../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../../../messages/types/messagesTypes';
+import { Dataset } from '../../../../../shared/components/entry/EntryDownload';
+import EntryDownloadButton from '../../../../../shared/components/entry/EntryDownloadButton';
+import EntryDownloadPanel from '../../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../../shared/components/error-pages/ErrorHandler';
 import ExternalLink from '../../../../../shared/components/ExternalLink';
+import tableStyles from '../../../../../shared/components/table/styles/table.module.scss';
 import TableFromData, {
   type TableFromDataColumn,
+  VIRTUALIZE_ROW_THRESHOLD,
 } from '../../../../../shared/components/table/TableFromData';
 import apiUrls from '../../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../../shared/config/externalUrls';
-import { VARIANT_COUNT_LIMIT } from '../../../../../shared/config/limits';
 import NightingaleManagerComponent from '../../../../../shared/custom-elements/NightingaleManager';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import { useSmallScreen } from '../../../../../shared/hooks/useMatchMedia';
+import useMessagesDispatch from '../../../../../shared/hooks/useMessagesDispatch';
 import useNightingaleFeatureTableScroll from '../../../../../shared/hooks/useNightingaleFeatureTableScroll';
 import helper from '../../../../../shared/styles/helper.module.scss';
-import { Namespace } from '../../../../../shared/types/namespaces';
 import {
   type NightingaleViewRange,
   withinRange,
 } from '../../../../../shared/utils/nightingale';
-import { TabLocation } from '../../../../types/entry';
 import { type Evidence } from '../../../../types/modelTypes';
 import { type TransformedVariant } from '../../../../types/variation';
 import { sortByLocation } from '../../../../utils';
 import UniProtKBEvidenceTag from '../../../protein-data-views/UniProtKBEvidenceTag';
 import tabsStyles from '../styles/tabs-styles.module.scss';
+import ZoomHint from '../ZoomHint';
 import styles from './styles/variation-viewer.module.scss';
 
 const VisualVariationView = lazy(
@@ -81,10 +92,6 @@ const groupByCategory = (filters: FilterConfig, category: string) =>
   filters.filter((f) => f.type.name === category);
 
 type FilterConfig = typeof filterConfig;
-type FilterConfigItem = FilterConfig[0];
-
-const getFilter = (haystack: FilterConfig, needle: FilterConfigItem) =>
-  haystack?.find((f) => f.name === needle.name);
 
 // copied/adapted logic from protvista-uniprot
 const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
@@ -96,25 +103,14 @@ const applyFilters = (variants: TransformedVariant[], filters: string[]) => {
   const consequenceFilters = groupByCategory(activeFilters, 'consequence');
   const provenanceFilters = groupByCategory(activeFilters, 'provenance');
 
-  const selectedConsequenceFilters = activeFilters
-    .map((f) => getFilter(consequenceFilters, f))
-    .filter(Boolean);
-  const selectedProvenanceFilters = activeFilters
-    .map((f) => getFilter(provenanceFilters, f))
-    .filter(Boolean);
-
-  const filteredVariants = variants
-    ?.filter((variant) =>
-      selectedConsequenceFilters.some((filter) =>
-        filter?.filterPredicate(variant)
-      )
-    )
-    .filter((variant) =>
-      selectedProvenanceFilters.some((filter) =>
-        filter?.filterPredicate(variant)
-      )
-    );
-  return filteredVariants;
+  // A variant is kept only if it matches at least one selected filter in each
+  // category. `consequenceFilters`/`provenanceFilters` are already the selected
+  // filters per category, so they can be used as the predicates directly.
+  return variants.filter(
+    (variant) =>
+      consequenceFilters.some((filter) => filter.filterPredicate(variant)) &&
+      provenanceFilters.some((filter) => filter.filterPredicate(variant))
+  );
 };
 
 const getHighlightedCoordinates = (feature?: TransformedVariant) =>
@@ -404,6 +400,44 @@ const RowExtraContent = (data: TransformedVariant) => (
   </Fragment>
 );
 
+type ViewerState = {
+  highlightedVariant: TransformedVariant | undefined;
+  committedViewRange: NightingaleViewRange | undefined;
+  isNavigating: boolean;
+};
+
+type ViewerAction =
+  | { type: 'setHighlight'; variant: TransformedVariant | undefined }
+  | { type: 'navigationStart' }
+  | { type: 'navigationEnd'; viewRange: NightingaleViewRange | undefined };
+
+const initialViewerState: ViewerState = {
+  highlightedVariant: undefined,
+  committedViewRange: undefined,
+  isNavigating: false,
+};
+
+// Hold the dim+spinner feedback for at least this long after a filter
+// transition starts so fast filter operations don't flash on/off.
+const MIN_FILTER_FEEDBACK_MS = 750;
+
+function viewerReducer(state: ViewerState, action: ViewerAction): ViewerState {
+  switch (action.type) {
+    case 'setHighlight':
+      return { ...state, highlightedVariant: action.variant };
+    case 'navigationStart':
+      return state.isNavigating ? state : { ...state, isNavigating: true };
+    case 'navigationEnd':
+      return {
+        ...state,
+        isNavigating: false,
+        committedViewRange: action.viewRange ?? state.committedViewRange,
+      };
+    default:
+      return state;
+  }
+}
+
 type VariationViewProps = {
   importedVariants: number | 'loading';
   primaryAccession: string;
@@ -416,53 +450,58 @@ const VariationViewer = ({
   title,
 }: VariationViewProps) => {
   const isSmallScreen = useSmallScreen();
-  const [highlightedVariant, setHighlightedVariant] =
-    useState<TransformedVariant>();
-  const [nightingaleViewRange, setNightingaleViewRange] =
-    useState<NightingaleViewRange>();
+  const [state, dispatch] = useReducer(viewerReducer, initialViewerState);
+  const { highlightedVariant, committedViewRange, isNavigating } = state;
   const tableId = useId();
-  const tableScroll = useNightingaleFeatureTableScroll(getRowId, tableId);
 
-  const searchParams = new URLSearchParams(useLocation().search);
-  const loadAllVariants = searchParams.get('loadVariants');
+  const variationTableVirtualizerRef = useRef<Virtualizer<
+    HTMLDivElement,
+    Element
+  > | null>(null);
+  const liveRangeRef = useRef<NightingaleViewRange | undefined>(undefined);
+  const idleTimerRef = useRef<number | undefined>(undefined);
 
-  const shouldRender =
-    (importedVariants !== 'loading' &&
-      importedVariants <= VARIANT_COUNT_LIMIT) ||
-    loadAllVariants;
+  const messagesDispatch = useMessagesDispatch();
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
+  // Previously gated on VARIANT_COUNT_LIMIT; the canvas renderer and virtual
+  // scrolling now handle large datasets, so we always fetch once the count is known.
   const { loading, data, progress, error, status } =
     useDataApi<ProteinsAPIVariation>(
-      shouldRender ? apiUrls.proteinsApi.variation(primaryAccession) : undefined
+      importedVariants !== 'loading'
+        ? apiUrls.proteinsApi.variation(primaryAccession)
+        : undefined
     );
 
   const [filters, setFilters] = useState<string[]>([]);
-  const managerRef = useRef<NightingaleManager>(null);
+  const [isFiltering, startFilterTransition] = useTransition();
+  const [filteringFeedbackActive, setFilteringFeedbackActive] = useState(false);
+  const filteringStartTimeRef = useRef<number | undefined>(undefined);
+  const filteringFeedbackTimerRef = useRef<number | undefined>(undefined);
+
+  // The feedback is switched on in the filter event handler; this effect only
+  // schedules switching it back off once the transition settles, holding it on
+  // for a minimum duration so fast filters don't flash. The only state update
+  // happens inside the timer callback, never synchronously during the effect.
   useEffect(() => {
-    const { current: element } = managerRef;
-
-    if (!element) {
-      return;
+    if (isFiltering || filteringStartTimeRef.current === undefined) {
+      return undefined;
     }
-
-    const listener = (event: Event) => {
-      const { detail } = event as CustomEvent;
-      if (detail?.type === 'filters') {
-        setFilters(detail.value);
-      } else if (detail?.eventType === 'click' && detail?.feature) {
-        setHighlightedVariant(detail.feature);
-        tableScroll(detail.feature);
-      } else if (detail?.['display-start'] && detail?.['display-end']) {
-        setNightingaleViewRange(detail);
+    const elapsed = Date.now() - filteringStartTimeRef.current;
+    const remaining = Math.max(0, MIN_FILTER_FEEDBACK_MS - elapsed);
+    filteringFeedbackTimerRef.current = window.setTimeout(() => {
+      setFilteringFeedbackActive(false);
+      filteringFeedbackTimerRef.current = undefined;
+      filteringStartTimeRef.current = undefined;
+    }, remaining);
+    return () => {
+      if (filteringFeedbackTimerRef.current !== undefined) {
+        window.clearTimeout(filteringFeedbackTimerRef.current);
+        filteringFeedbackTimerRef.current = undefined;
       }
     };
-
-    element.addEventListener('change', listener);
-
-    return () => element.removeEventListener('change', listener);
-  }, [data, tableScroll]);
-  // 'data' is not directly used in the effect, but we know it's when we're
-  // ready to attach the event listener and avoid re-calling this on each render
+  }, [isFiltering]);
+  const managerRef = useRef<NightingaleManager>(null);
 
   // We pass the transformed data to both the variation viewer and the
   // data table as ids are set during the transformation - they are
@@ -489,6 +528,184 @@ const VariationViewer = ({
     [sortedVariants, filters]
   );
 
+  const isVirtualized = Boolean(
+    filteredVariants && filteredVariants.length > VIRTUALIZE_ROW_THRESHOLD
+  );
+
+  const tableScroll = useNightingaleFeatureTableScroll(
+    getRowId,
+    tableId,
+    variationTableVirtualizerRef,
+    filteredVariants
+  );
+
+  useEffect(() => {
+    const { current: element } = managerRef;
+
+    if (!element) {
+      return;
+    }
+
+    const listener = (event: Event) => {
+      const { detail } = event as CustomEvent;
+      if (detail?.type === 'filters') {
+        // Show the dim+spinner feedback immediately. Doing it here (in the
+        // event handler) rather than in an effect keeps the "on" transition out
+        // of render-time state updates; the effect below only schedules turning
+        // it back off. Cancel any pending "off" timer from a previous filter.
+        setFilteringFeedbackActive(true);
+        filteringStartTimeRef.current = Date.now();
+        if (filteringFeedbackTimerRef.current !== undefined) {
+          window.clearTimeout(filteringFeedbackTimerRef.current);
+          filteringFeedbackTimerRef.current = undefined;
+        }
+        // Filter updates touch thousands of rows; mark as a transition so
+        // React can interrupt the heavy re-render to handle further clicks.
+        startFilterTransition(() => setFilters(detail.value));
+      } else if (detail?.eventType === 'click' && detail?.feature) {
+        dispatch({ type: 'setHighlight', variant: detail.feature });
+        tableScroll(detail.feature);
+      } else if (detail?.['display-start'] && detail?.['display-end']) {
+        liveRangeRef.current = detail;
+        dispatch({ type: 'navigationStart' });
+        if (idleTimerRef.current !== undefined) {
+          window.clearTimeout(idleTimerRef.current);
+        }
+        idleTimerRef.current = window.setTimeout(() => {
+          dispatch({
+            type: 'navigationEnd',
+            viewRange: liveRangeRef.current,
+          });
+          idleTimerRef.current = undefined;
+        }, 150);
+      }
+    };
+
+    element.addEventListener('change', listener);
+
+    return () => {
+      element.removeEventListener('change', listener);
+      if (idleTimerRef.current !== undefined) {
+        window.clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = undefined;
+      }
+    };
+    // `data` isn't read here, but it's the signal that the manager has
+    // mounted; including it ensures the listener attaches after load.
+  }, [data, tableScroll]);
+
+  // Pair of complementary signals for navigation lifecycle: pointerdown/up
+  // catch brush drags; the 150ms debounce in the change listener catches
+  // wheel/pinch where there's no clear pointerup. Either signal alone may
+  // miss its case, but together they cover both. Depend on `data` so this
+  // runs after the manager actually mounts (it isn't rendered while loading).
+  useEffect(() => {
+    const manager = managerRef.current;
+    if (!manager) {
+      return undefined;
+    }
+    const onDown = () => dispatch({ type: 'navigationStart' });
+    const onUp = () => {
+      if (idleTimerRef.current !== undefined) {
+        window.clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = undefined;
+      }
+      dispatch({
+        type: 'navigationEnd',
+        viewRange: liveRangeRef.current,
+      });
+    };
+    manager.addEventListener('pointerdown', onDown, { capture: true });
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      manager.removeEventListener('pointerdown', onDown, { capture: true });
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [data]);
+
+  const [tableReady, setTableReady] = useState(false);
+  useEffect(() => {
+    // Guard is a no-op in this SPA, but kept to future-proof for SSR adoption.
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+    if (typeof window.requestIdleCallback === 'function') {
+      const handle = window.requestIdleCallback(() => setTableReady(true), {
+        timeout: 500,
+      });
+      return () => window.cancelIdleCallback(handle);
+    }
+    const handle = window.setTimeout(() => setTableReady(true), 0);
+    return () => window.clearTimeout(handle);
+  }, []);
+
+  // If a canvas click set a highlight before the table finished its deferred
+  // mount, that scroll was a no-op (no row in the DOM and no virtualizer yet).
+  // Flush it once the table is ready. The highlight is read from a ref so this
+  // fires only on the readiness transition — not on every highlight change,
+  // which would scroll the table on ordinary row clicks.
+  const highlightedVariantRef = useRef(highlightedVariant);
+  highlightedVariantRef.current = highlightedVariant;
+  useEffect(() => {
+    if (tableReady && highlightedVariantRef.current) {
+      tableScroll(highlightedVariantRef.current);
+    }
+  }, [tableReady, tableScroll]);
+
+  useEffect(() => {
+    if (!isVirtualized) {
+      return;
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        !e.altKey &&
+        !e.shiftKey &&
+        e.key === 'f'
+      ) {
+        messagesDispatch(
+          addMessage({
+            id: 'variation-viewer-search-hint',
+            content:
+              "Too many rows for the browser's find to search. Use the column filters instead.",
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.INFO,
+            displayTime: 5_000,
+          })
+        );
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isVirtualized, messagesDispatch]);
+
+  const memoizedColumns = useMemo(
+    () => getColumns(primaryAccession),
+    [primaryAccession]
+  );
+
+  const memoizedMarkBackground = useCallback(
+    (datum: TransformedVariant) =>
+      typeof highlightedVariant?.accession !== 'undefined' &&
+      datum.accession === highlightedVariant.accession,
+    [highlightedVariant?.accession]
+  );
+
+  const memoizedMarkBorder = useCallback(
+    (datum: TransformedVariant) =>
+      Boolean(committedViewRange) &&
+      withinRange(+datum.begin, +datum.end, committedViewRange),
+    [committedViewRange]
+  );
+
+  const handleRowClick = useCallback(
+    (datum: TransformedVariant) =>
+      dispatch({ type: 'setHighlight', variant: datum }),
+    []
+  );
+
   if (loading || importedVariants === 'loading') {
     return (
       <div className="wider-tab-content">
@@ -498,37 +715,8 @@ const VariationViewer = ({
     );
   }
 
-  if (!shouldRender) {
-    return (
-      <div className="wider-tab-content">
-        {title && <h3 data-article-id="variant_viewer">{title}</h3>}
-        <div className={tabsStyles['too-many']}>
-          <Message>
-            Due to the large number (<LongNumber>{importedVariants}</LongNumber>
-            ) of variations for this entry, the variant viewer will not be
-            loaded automatically for performance reasons.
-          </Message>
-          <Link
-            className="button primary"
-            to={{
-              pathname: getEntryPath(
-                Namespace.uniprotkb,
-                primaryAccession,
-                TabLocation.VariantViewer
-              ),
-              search: new URLSearchParams({
-                loadVariants: 'true',
-              }).toString(),
-            }}
-            target="variants"
-          >
-            Click to load the <LongNumber>{importedVariants}</LongNumber>{' '}
-            variations
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const handleToggleDownload = () =>
+    setDisplayDownloadPanel(!displayDownloadPanel);
 
   if (error && status !== 404) {
     return (
@@ -571,34 +759,79 @@ const VariationViewer = ({
   return (
     <section className="wider-tab-content">
       {title && <h2 data-article-id="variant_viewer">{title}</h2>}
-      <NightingaleManagerComponent
-        reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
-        ref={managerRef}
-        highlight={getHighlightedCoordinates(highlightedVariant)}
-      >
-        <Suspense fallback={null}>
-          <VisualVariationView
-            sequence={transformedData.sequence}
-            variants={filteredVariants}
+      <div>
+        {displayDownloadPanel && (
+          <EntryDownloadPanel
+            handleToggle={handleToggleDownload}
+            dataset={Dataset.variation}
           />
-        </Suspense>
-      </NightingaleManagerComponent>
-      <TableFromData
-        id={tableId}
-        columns={getColumns(primaryAccession)}
-        data={filteredVariants}
-        getRowId={getRowId}
-        onRowClick={setHighlightedVariant}
-        rowExtraContent={RowExtraContent}
-        markBackground={(datum) =>
-          typeof highlightedVariant?.accession !== 'undefined' &&
-          datum.accession === highlightedVariant.accession
-        }
-        markBorder={(datum) =>
-          Boolean(nightingaleViewRange) &&
-          withinRange(+datum.begin, +datum.end, nightingaleViewRange)
-        }
-      />
+        )}
+      </div>
+      <EntryDownloadButton handleToggle={handleToggleDownload} />
+      <div className={tableStyles['frozen-container']}>
+        <div
+          className={cn({
+            // Dim only while filters are recomputing on large datasets; we don't
+            // dim during navigation because the canvas is what the user is driving.
+            [tableStyles.frozen]: filteringFeedbackActive && isVirtualized,
+          })}
+        >
+          <NightingaleManagerComponent
+            reflected-attributes="highlight,display-start,display-end,activefilters,filters,selectedid"
+            ref={managerRef}
+            highlight={getHighlightedCoordinates(highlightedVariant)}
+          >
+            <Suspense fallback={null}>
+              <ZoomHint>
+                <VisualVariationView
+                  sequence={transformedData.sequence}
+                  variants={filteredVariants}
+                />
+              </ZoomHint>
+            </Suspense>
+          </NightingaleManagerComponent>
+        </div>
+        {filteringFeedbackActive && isVirtualized && (
+          <div
+            className={tableStyles['frozen-overlay']}
+            role="status"
+            aria-live="polite"
+            aria-label="Filtering variants"
+          >
+            <Loader />
+          </div>
+        )}
+      </div>
+      {tableReady && (
+        <div className={tableStyles['frozen-container']}>
+          <div
+            className={cn({
+              [tableStyles.frozen]:
+                (isNavigating || filteringFeedbackActive) && isVirtualized,
+            })}
+          >
+            <TableFromData
+              id={tableId}
+              virtualize
+              virtualizerRef={variationTableVirtualizerRef}
+              columns={memoizedColumns}
+              data={filteredVariants}
+              getRowId={getRowId}
+              onRowClick={handleRowClick}
+              rowExtraContent={RowExtraContent}
+              markBackground={memoizedMarkBackground}
+              markBorder={memoizedMarkBorder}
+            />
+          </div>
+          {filteringFeedbackActive && isVirtualized && (
+            // Decorative spinner only; the canvas-block overlay above is the
+            // single live region, so this one must not announce again.
+            <div className={tableStyles['frozen-overlay']} aria-hidden="true">
+              <Loader />
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 };

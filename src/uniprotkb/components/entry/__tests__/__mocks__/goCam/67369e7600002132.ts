@@ -1,7 +1,7 @@
 import { type GoCamModelInfo } from '../../../../../types/goCamTypes';
 
 // Source: https://api.geneontology.org/api/go-cam/gomodel:67369e7600002132
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const model: GoCamModelInfo = {
   id: 'gomodel:67369e7600002132',
   individuals: [
@@ -100,12 +100,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'date',
-          value: '2024-11-28',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2024-11-28',
         },
         {
           key: 'providedBy',
@@ -319,12 +319,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0001-7299-6685',
         },
         {
-          key: 'date',
-          value: '2024-11-28',
-        },
-        {
           key: 'source',
           value: 'PMID:15169837',
+        },
+        {
+          key: 'date',
+          value: '2024-11-28',
         },
         {
           key: 'providedBy',
@@ -395,16 +395,16 @@ const model: GoCamModelInfo = {
           value: 'https://www.uniprot.org',
         },
         {
-          key: 'source',
-          value: 'PMID:33499712',
+          key: 'date',
+          value: '2025-09-15',
         },
         {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
         },
         {
-          key: 'date',
-          value: '2025-09-15',
+          key: 'source',
+          value: 'PMID:33499712',
         },
       ],
     },
@@ -465,12 +465,12 @@ const model: GoCamModelInfo = {
           value: 'https://orcid.org/0000-0001-7299-6685',
         },
         {
-          key: 'source',
-          value: 'PMID:15169837',
-        },
-        {
           key: 'date',
           value: '2024-11-28',
+        },
+        {
+          key: 'source',
+          value: 'PMID:15169837',
         },
         {
           key: 'providedBy',
@@ -891,12 +891,12 @@ const model: GoCamModelInfo = {
           value: '2024-11-28',
         },
         {
-          key: 'providedBy',
-          value: 'https://www.uniprot.org',
-        },
-        {
           key: 'source',
           value: 'PMID:39481378',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
         },
       ],
     },
@@ -1093,12 +1093,12 @@ const model: GoCamModelInfo = {
       ],
       annotations: [
         {
-          key: 'providedBy',
-          value: 'https://www.uniprot.org',
-        },
-        {
           key: 'date',
           value: '2024-11-28',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
         },
         {
           key: 'contributor',
@@ -1173,12 +1173,12 @@ const model: GoCamModelInfo = {
           value: '2024-11-28',
         },
         {
-          key: 'providedBy',
-          value: 'https://www.uniprot.org',
-        },
-        {
           key: 'contributor',
           value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
         },
       ],
     },
@@ -1685,6 +1685,31 @@ const model: GoCamModelInfo = {
       ],
     },
     {
+      subject: 'gomodel:67369e7600002132/67369e7600002440',
+      property: 'RO:0002333',
+      'property-label': 'RO:0002333',
+      object: 'gomodel:67369e7600002132/67369e7600002441',
+      annotations: [
+        {
+          key: 'evidence',
+          value: 'gomodel:67369e7600002132/67369e7600002447',
+          'value-type': 'IRI',
+        },
+        {
+          key: 'contributor',
+          value: 'https://orcid.org/0000-0001-7299-6685',
+        },
+        {
+          key: 'date',
+          value: '2024-11-28',
+        },
+        {
+          key: 'providedBy',
+          value: 'https://www.uniprot.org',
+        },
+      ],
+    },
+    {
       subject: 'gomodel:67369e7600002132/67369e7600002426',
       property: 'RO:0002629',
       'property-label': 'RO:0002629',
@@ -1718,31 +1743,6 @@ const model: GoCamModelInfo = {
         {
           key: 'evidence',
           value: 'gomodel:67369e7600002132/67369e7600002451',
-          'value-type': 'IRI',
-        },
-        {
-          key: 'contributor',
-          value: 'https://orcid.org/0000-0001-7299-6685',
-        },
-        {
-          key: 'date',
-          value: '2024-11-28',
-        },
-        {
-          key: 'providedBy',
-          value: 'https://www.uniprot.org',
-        },
-      ],
-    },
-    {
-      subject: 'gomodel:67369e7600002132/67369e7600002440',
-      property: 'RO:0002333',
-      'property-label': 'RO:0002333',
-      object: 'gomodel:67369e7600002132/67369e7600002441',
-      annotations: [
-        {
-          key: 'evidence',
-          value: 'gomodel:67369e7600002132/67369e7600002447',
           'value-type': 'IRI',
         },
         {

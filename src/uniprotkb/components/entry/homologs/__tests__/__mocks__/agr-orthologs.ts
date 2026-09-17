@@ -1,7 +1,7 @@
 import { type AgrOrthologs } from '../../../../../types/agrOrthologs';
 
 // Source: https://www.alliancegenome.org/api/gene/HGNC:620/orthologs?filter.stringency=all&limit=10000
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: AgrOrthologs = {
   results: [
     {
@@ -1121,7 +1121,7 @@ const mock: AgrOrthologs = {
   ],
   total: 11,
   returnedRecords: 11,
-  requestDate: '2026/06/04 17:18:41',
+  requestDate: '2026/08/31 13:38:39',
 };
 
 export default mock;

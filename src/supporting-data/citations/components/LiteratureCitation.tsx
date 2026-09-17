@@ -11,7 +11,7 @@ import {
   SwissProtIcon,
   TremblIcon,
 } from 'franklin-sites';
-import { capitalize } from 'lodash-es';
+import { capitalize, unescape } from 'lodash-es';
 import {
   createElement,
   type FC,
@@ -169,6 +169,7 @@ const Abstract: FC<React.PropsWithChildren<AbstractProps>> = ({
       </Button>
       {display && (
         <p
+          // eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- content is sanitized by cleanText
           dangerouslySetInnerHTML={{
             __html: cleanText(abstract, {
               ...cleanTextDefaultOptions,
@@ -405,7 +406,16 @@ const LiteratureCitation = ({
   const { title, authors, literatureAbstract, authoringGroup } = citation;
   const { pubmedId, journalInfo } = formatCitationData(citation);
 
-  const headingContent = title || <em>No title available.</em>;
+  const headingContent = title ? (
+    <span
+      // eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- content is sanitized by cleanText
+      dangerouslySetInnerHTML={{
+        __html: cleanText(unescape(title), cleanTextDefaultOptions),
+      }}
+    />
+  ) : (
+    <em>No title available.</em>
+  );
 
   const heading = createElement(
     headingLevel,

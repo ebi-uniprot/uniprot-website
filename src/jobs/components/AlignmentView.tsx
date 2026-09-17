@@ -143,6 +143,7 @@ const AlignmentView = ({
   useEffect(() => {
     // if no default value was available on first render, set it now
     if (!annotation && annotationChoices.length) {
+      // eslint-disable-next-line @eslint-react/set-state-in-effect -- seeds the default annotation choice once it becomes available
       setAnnotation(annotationChoices[0]);
     }
   }, [annotation, annotationChoices]);

@@ -67,8 +67,9 @@ export const ECNumbersView = ({
   orientation = 'horizontal',
 }: ECNumbersViewProps) => {
   const databaseInfoMaps = useDatabaseInfoMaps();
-  const content = ecNumbers?.map((ecNumber) => (
-    <Fragment key={ecNumber.value}>
+  const content = ecNumbers?.map((ecNumber, index) => (
+    // eslint-disable-next-line @eslint-react/no-array-index-key -- the same EC number can appear more than once; index disambiguates the key
+    <Fragment key={`${ecNumber.value}-${index}`}>
       {`EC:${ecNumber.value}`}
       {noLinks ? null : (
         <>

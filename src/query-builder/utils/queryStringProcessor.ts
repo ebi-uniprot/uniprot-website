@@ -1,4 +1,3 @@
-import { Namespace } from '../../shared/types/namespaces';
 import { type Clause, type Operator } from '../types/searchTypes';
 import { getAllTerm } from './clause';
 
@@ -7,10 +6,44 @@ const reExperimentalEvidenceKey = /^(?<term>\w+)_exp/;
 // Canonical UniProt proteome identifier value, eg UP000005640
 export const reProteomeIdValue = /^UP\d{9}$/i;
 
-export const stringify = (
-  clauses: Clause[] = [],
-  namespace?: Namespace
-): string => {
+// Fused proteome + component value, eg UP000005640:chromosome. Produced by
+// parse() when a query string already contains a fused `proteomecomponent`
+// clause, since parse() has no way to split it back into separate `proteome`
+// and `proteomecomponent` query bits.
+const reFusedProteomeComponentValue = /^UP\d{9}:/i;
+
+const quoteIfNeeded = (value: string): string => {
+  const needsQuotes =
+    // contains ' ' or ':'
+    /[ :]/.test(value) &&
+    // but isn't of the form '[... TO ...]';
+    !(value.startsWith('[') && value.endsWith(']')) &&
+    !(value.startsWith('"') && value.endsWith('"'));
+  const quote = needsQuotes ? '"' : '';
+  return `${quote}${value}${quote}`;
+};
+
+// A proteome component can only be searched when scoped by a *canonical*
+// proteome ID, unless it's already in fused form (see
+// reFusedProteomeComponentValue). Anything that can't be fused has no working
+// equivalent: from 2026_03 the legacy two-field form — eg
+// `(proteome:UP000000625) AND (proteomecomponent:Chromosome)` — returns no
+// results, so falling back to it would silently give the user an empty result
+// set. Dropping the component and warning is the honest option.
+// Single source of truth for the condition under which stringify() drops a
+// clause's `proteomecomponent` bit, so the UI's warning toast can't drift out
+// of sync with the actual drop.
+export const isOrphanProteomeComponent = (clause: Clause): boolean =>
+  Boolean(
+    clause.queryBits.proteomecomponent &&
+    !(
+      clause.queryBits.proteome &&
+      reProteomeIdValue.test(clause.queryBits.proteome)
+    ) &&
+    !reFusedProteomeComponentValue.test(clause.queryBits.proteomecomponent)
+  );
+
+export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
   for (const clause of clauses) {
     let query = Object.entries(clause.queryBits)
@@ -64,20 +97,30 @@ export const stringify = (
     ) {
       // Combine proteome ID + component into a single proteomecomponent clause
       // and suppress the separate `proteome:` clause.
-      queryJoined = `(proteomecomponent:"${clause.queryBits.proteome}:${clause.queryBits.proteomecomponent}")`;
+      const rawComponent = clause.queryBits.proteomecomponent;
+      // Don't double-quote a component the user has already quoted themselves,
+      // eg pasted as "chromosome 1".
+      const component =
+        rawComponent.startsWith('"') && rawComponent.endsWith('"')
+          ? rawComponent.slice(1, -1)
+          : rawComponent;
+      const combined = `${clause.queryBits.proteome}:${component}`;
+      queryJoined = `(proteomecomponent:${quoteIfNeeded(combined)})`;
+    } else if (
+      clause.queryBits.proteomecomponent &&
+      reFusedProteomeComponentValue.test(clause.queryBits.proteomecomponent)
+    ) {
+      // Value is already in fused form, eg round-tripped through parse().
+      // Emit it unchanged rather than treating it as an orphaned component
+      // with no proteome ID.
+      queryJoined = `(proteomecomponent:${quoteIfNeeded(
+        clause.queryBits.proteomecomponent
+      )})`;
     } else {
       // A proteome component can only be searched when scoped by a valid
       // proteome ID. On its own it's meaningless, so drop it (the UI warns the
       // user that a proteome ID is needed).
-      if (
-        // TODO: Remove namespace check when proteome component query is consistent in both UniProtKB and UniParc
-        namespace === Namespace.uniparc &&
-        clause.queryBits.proteomecomponent &&
-        !(
-          clause.queryBits.proteome &&
-          reProteomeIdValue.test(clause.queryBits.proteome)
-        )
-      ) {
+      if (isOrphanProteomeComponent(clause)) {
         query = query.filter(([key]) => key !== 'proteomecomponent');
         if (!query.length) {
           // nothing left to search in this clause
@@ -87,19 +130,11 @@ export const stringify = (
 
       queryJoined = query
         .map(([key, value]) => {
-          const needsQuotes =
-            // contains ' ' or ':'
-            /[ :]/.test(value) &&
-            // but isn't of the form '[... TO ...]';
-            !(value.startsWith('[') && value.endsWith(']')) &&
-            !(value.startsWith('"') && value.endsWith('"'));
-          const quote = needsQuotes ? '"' : '';
-
           // free-text search
           if (key === 'All') {
-            return `${quote}${value}${quote}`;
+            return quoteIfNeeded(value);
           }
-          return `(${key}:${quote}${value}${quote})`;
+          return `(${key}:${quoteIfNeeded(value)})`;
         })
         .join(` ${joinSeperator} `);
       if (query.length > 1) {
@@ -120,7 +155,11 @@ export const stringify = (
 };
 
 const clauseSplitter = / *\b(AND|OR|NOT)\b */;
-const clauseMatcher = /^\(*(\w+):"?([^")]*)"?\)*$/;
+// A quoted value (group 2) is matched wholesale up to its closing quote, so
+// it can itself contain a ')' (eg a component name like "Chromosome (1)")
+// without truncating the match. An unquoted value (group 3) keeps the
+// original, narrower matching.
+const clauseMatcher = /^\(*(\w+):(?:"([^"]*)"|([^")]*))\)*$/;
 const splitClause = (
   clause: string
 ): [key: string | undefined, value: string] => {
@@ -128,7 +167,7 @@ const splitClause = (
   if (!match) {
     return [undefined, clause];
   }
-  return [match[1], match[2]];
+  return [match[1], match[2] ?? match[3] ?? ''];
 };
 const lengthKey = /^(\w\w)(len)_/;
 const goKey = /^go(_(?<evidence>\w+))?/;
@@ -202,6 +241,39 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
           correspondingClause.queryBits[key] = value;
           continue;
         }
+      }
+
+      // Legacy (pre-2026_03) links and bookmarks encode a proteome ID and a
+      // component name as two separate, AND-joined clauses instead of a
+      // single fused `proteomecomponent` clause. Fold the second one into
+      // the first so it round-trips through stringify()'s fusion instead of
+      // being treated as an orphan component and dropped. Only a plain `AND`
+      // join is folded: an OR/NOT join changes the meaning of the pair, and
+      // there's no fused-field equivalent for eg "this proteome but NOT this
+      // component", so those are left alone (and still get the orphan
+      // warning, same as before this migration).
+      // Unlike length/experimental evidence above, only the immediately
+      // preceding clause is considered: those fields are always generated
+      // atomically by a single form control, but a proteome ID and a
+      // component name could each appear anywhere in a hand-edited query, so
+      // pairing with a distant, unrelated clause would silently narrow it.
+      const proteomeFusionKey =
+        key === 'proteomecomponent'
+          ? 'proteome'
+          : key === 'proteome'
+            ? 'proteomecomponent'
+            : undefined;
+      const previousClause = clauses[clauses.length - 1];
+      if (
+        key &&
+        proteomeFusionKey &&
+        currentClause.logicOperator === 'AND' &&
+        previousClause?.searchTerm.term === proteomeFusionKey &&
+        Object.keys(previousClause.queryBits).length === 1 &&
+        proteomeFusionKey in previousClause.queryBits
+      ) {
+        previousClause.queryBits[key] = value;
+        continue;
       }
 
       // GO search terms are of the format go(_{evidence})?:id so must be handled differently

@@ -14,6 +14,7 @@ import { type UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { TabLocation } from '../../../types/entry';
 import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 import tabsStyles from './styles/tabs-styles.module.scss';
+import ZoomHint from './ZoomHint';
 
 const hideTooltipEvents = new Set([undefined, 'reset', 'click']);
 
@@ -32,6 +33,7 @@ const FeatureViewer = ({
   const hideTooltip = useRef<ReturnType<
     typeof showTooltipAtCoordinates
   > | null>(null);
+
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, status } = useDataApi<UniProtkbAPIModel>(
     apiUrls.proteinsApi.proteins(accession),
@@ -67,17 +69,17 @@ const FeatureViewer = ({
   useEffect(() => {
     const ref = protvistaUniprotRef.current;
     ref?.addEventListener('change', onProtvistaUniprotChange);
+    return () => {
+      ref?.removeEventListener('change', onProtvistaUniprotChange);
+    };
   }, [onProtvistaUniprotChange, protvistaUniprotElement]);
 
+  // Dismiss any lingering tooltip when the viewer unmounts
   useEffect(
     () => () => {
       hideTooltip.current?.();
-      protvistaUniprotRef.current?.removeEventListener(
-        'change',
-        onProtvistaUniprotChange
-      );
     },
-    [onProtvistaUniprotChange]
+    []
   );
 
   // TODO: when updating to react 19, update below pattern to use ref callback
@@ -166,10 +168,12 @@ const FeatureViewer = ({
       )}
 
       {shouldRender ? (
-        <protvistaUniprotElement.name
-          accession={accession}
-          ref={protvistaUniprotRef}
-        />
+        <ZoomHint>
+          <protvistaUniprotElement.name
+            accession={accession}
+            ref={protvistaUniprotRef}
+          />
+        </ZoomHint>
       ) : (
         <div className={tabsStyles['too-many']}>
           <Message>

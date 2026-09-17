@@ -1,37 +1,57 @@
-import { useCallback } from 'react';
+import { type Virtualizer } from '@tanstack/react-virtual';
+import { type RefObject, useCallback, useRef } from 'react';
 
 function useNightingaleFeatureTableScroll<T>(
   getRowId: (feature: T) => string,
-  tableId: string
+  tableId: string,
+  // The ref (not the instance) is taken so the callback reads the latest
+  // virtualizer at execution time. The instance is set inside a child effect
+  // and isn't observable to the parent on the same render.
+  virtualizerRef?: RefObject<Virtualizer<HTMLDivElement, Element> | null>,
+  data?: T[] | null
 ) {
+  // Keep a ref to the latest data so the callback never needs to be recreated
+  // when filtered data changes, preventing unnecessary listener re-attaches.
+  const dataRef = useRef(data);
+  dataRef.current = data;
+
   return useCallback(
     (feature: T) => {
-      // Select elements based on the feature and tableId
-      const rowSelector = `tr[data-id="${getRowId(feature)}"]`;
+      const rowId = getRowId(feature);
+      const rowSelector = `tr[data-id="${rowId}"]`;
       const tableSelector = `table[id="${tableId}"]`;
       const row = document.querySelector<HTMLElement>(rowSelector);
       const table = document.querySelector<HTMLElement>(tableSelector);
 
-      if (!row || !table) {
-        return; // If we don't have a target row or table, bail early
+      if (!table) {
+        return;
       }
 
-      // Identify table parts and related elements
-      const thead = table.firstElementChild as HTMLElement | null;
-      const container = table.parentElement;
+      if (row) {
+        const thead = table.firstElementChild as HTMLElement | null;
+        const container = table.parentElement;
 
-      // Determine scroll positioning behavior: use nearest if we can offset
-      // for the sticky header height, otherwise fallback to center
-      let block: ScrollLogicalPosition = 'center';
-      if (container && thead) {
-        // Adjust container to account for the sticky header height
-        container.style.scrollPaddingTop = `${thead.offsetHeight}px`;
-        block = 'nearest';
+        let block: ScrollLogicalPosition = 'center';
+        if (container && thead) {
+          // Offset the sticky-header height so 'nearest' lands the row below it
+          container.style.scrollPaddingTop = `${thead.offsetHeight}px`;
+          block = 'nearest';
+        }
+
+        row.scrollIntoView({ behavior: 'smooth', block });
+        return;
       }
 
-      row.scrollIntoView({ behavior: 'smooth', block });
+      // Row isn't currently in the DOM (virtualized off-screen): jump by index.
+      const virtualizer = virtualizerRef?.current;
+      if (virtualizer && dataRef.current) {
+        const idx = dataRef.current.findIndex((d) => getRowId(d) === rowId);
+        if (idx >= 0) {
+          virtualizer.scrollToIndex(idx, { align: 'center' });
+        }
+      }
     },
-    [getRowId, tableId]
+    [getRowId, tableId, virtualizerRef]
   );
 }
 

@@ -1,0 +1,55 @@
+@import 'franklin-sites/src/styles/common/z-index';
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+// The trigger is a real <button> reset to read as inline text. Dotted underline
+// + `help` cursor is the platform convention for an explanatory affordance (cf.
+// the UA default `abbr[title] { cursor: help }`) — signalling "more info here",
+// not a link, which `cursor: pointer` would wrongly imply.
+.trigger {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: help;
+  text-decoration: underline dotted;
+}
+
+// Visible bubble for sighted users (the screen-reader copy is a separate
+// visually-hidden element associated via aria-describedby). Hidden until open.
+.bubble {
+  display: none;
+}
+
+.bubble.open {
+  display: block;
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  z-index: $z-index-high;
+  width: max-content;
+  max-width: 350px;
+  padding: 5px 9px;
+  background: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: normal;
+
+  // Transparent connector bridging the gap to the trigger, so the pointer can
+  // travel onto the bubble without leaving the hover region and dismissing it
+  // (WCAG 1.4.13 "hoverable").
+  &::before {
+    content: '';
+    position: absolute;
+    top: -0.25rem;
+    right: 0;
+    left: 0;
+    height: 0.25rem;
+  }
+}
