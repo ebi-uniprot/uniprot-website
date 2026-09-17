@@ -1,4 +1,4 @@
-/* eslint-disable no-console, import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies */
 
 /**
  * Tests for the archive data verifier. Run with:
@@ -15,7 +15,6 @@ import { JSDOM } from 'jsdom';
 import { isSafeResourceUrl } from './capture.mjs';
 import {
   formatLargeNumber,
-  getEmbeddedData,
   historyMax,
   parseTick,
   verifyArchive,
@@ -244,7 +243,9 @@ function buildFixture(gt, opts = {}) {
     const c = cat(ds, 'PUBLICATION');
     const rows = c.items
       .map((it, r) => {
-        if (opts.dropRow && ds === 'combined' && r === 0) return '';
+        if (opts.dropRow && ds === 'combined' && r === 0) {
+          return '';
+        }
         const count =
           opts.mutateCell && ds === 'combined' && r === 0
             ? '999,999,999'
