@@ -20,6 +20,12 @@ as `<name>.test.mjs` (or `.test.js`) and they are collected automatically:
 pnpm test:scripts-unit        # every test under scripts/
 ```
 
+Note that "every test" includes `archive-statistics/archive.test.mjs`, which needs working
+network **and** an archive on disk (see the table below), so on a fresh checkout it fails
+until you have run `pnpm archive:statistics` at least once. That is the point of it — it is
+the check that the current release has actually been archived — but it is unrelated to
+whatever else you may be changing under `scripts/`.
+
 This is deliberately **not** part of `pnpm test`, which stays scoped to `src`
 (`test:lint`, `test:types`, `test:unit`). Someone working on the app should not have to
 think about these. Run it when you change something under `scripts/`.

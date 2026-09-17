@@ -104,7 +104,7 @@
     "testEnvironment": "jsdom"
   },
   "lint-staged": {
-    "*.+(ts|tsx|js|jsx|css|scss)": [
+    "*.+(ts|tsx|js|jsx|mjs|cjs|css|scss|md)": [
       "prettier --write"
     ]
   },

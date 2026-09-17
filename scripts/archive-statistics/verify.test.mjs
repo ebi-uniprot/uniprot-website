@@ -58,8 +58,21 @@ test('isSafeResourceUrl only applies address rules to IP literals', () => {
   assert.equal(isSafeResourceUrl('http://100.64.0.1/x'), false);
   assert.equal(isSafeResourceUrl('http://[::1]/x'), false);
   assert.equal(isSafeResourceUrl('http://[fe80::1]/x'), false);
+  // The rest of link-local (fe80::/10 runs to febf::) and site-local
+  // (fec0::/10): an `fe80`-only prefix test let these three through.
+  assert.equal(isSafeResourceUrl('http://[fe90::1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[feb0::1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[fec0::1]/x'), false);
   assert.equal(isSafeResourceUrl('http://[::ffff:127.0.0.1]/x'), false);
   assert.equal(isSafeResourceUrl('http://[::ffff:7f00:1]/x'), false);
+  // IETF protocol assignments, benchmarking, multicast and broadcast.
+  assert.equal(isSafeResourceUrl('http://192.0.0.1/x'), false);
+  assert.equal(isSafeResourceUrl('http://198.18.0.1/x'), false);
+  assert.equal(isSafeResourceUrl('http://224.0.0.1/x'), false);
+  assert.equal(isSafeResourceUrl('http://255.255.255.255/x'), false);
+  // Neighbouring public addresses stay fetchable.
+  assert.equal(isSafeResourceUrl('http://192.0.1.1/x'), true);
+  assert.equal(isSafeResourceUrl('http://198.20.0.1/x'), true);
   // …as are non-http(s) schemes and junk.
   assert.equal(isSafeResourceUrl('file:///etc/passwd'), false);
   assert.equal(isSafeResourceUrl('not a url'), false);
@@ -147,6 +160,30 @@ function groundTruth(opts = {}) {
       { name: 'Nature', count: 30 * f, entryCount: 25 * f },
     ],
   });
+  // AUDIT→ENTRY is what StatsTable divides by for its per-entry average
+  // column (getNumberReleaseEntries), and backs the "Total number of entries"
+  // row table.
+  const audit = (f) => ({
+    categoryName: 'AUDIT',
+    label: 'Audit',
+    totalCount: 2800 * f,
+    items: [
+      { name: 'ENTRY', count: 2000 * f, entryCount: 2000 * f },
+      { name: 'ANNOTATION_UPDATED', count: 500 * f, entryCount: 500 * f },
+      { name: 'UPDATED_SEQUENCE', count: 300 * f, entryCount: 300 * f },
+    ],
+  });
+  // The only table with a Percent column (StatsTable gates it on
+  // SEQUENCE_AMINO_ACID with more than one item).
+  const aminoAcid = (f) => ({
+    categoryName: 'SEQUENCE_AMINO_ACID',
+    label: 'Amino acid composition',
+    totalCount: 1000 * f,
+    items: [
+      { name: 'Ala', label: 'Ala', count: 750 * f, entryCount: 700 * f },
+      { name: 'Cys', label: 'Cys', count: 250 * f, entryCount: 240 * f },
+    ],
+  });
   // Backs the "Sequence corrections" line (ReviewedSequenceCorrections).
   const misc = (f) => ({
     categoryName: 'MISCELLANEOUS',
@@ -164,6 +201,8 @@ function groundTruth(opts = {}) {
       seqStats(f),
       topJournal(f),
       misc(f),
+      audit(f),
+      aminoAcid(f),
     ],
   });
   return {
@@ -188,6 +227,17 @@ const DS = ['combined', 'reviewed', 'unreviewed'];
 function buildFixture(gt, opts = {}) {
   const cat = (ds, name) =>
     gt.statistics[ds].results.find((r) => r.categoryName === name);
+  // The page's per-entry average and percent columns, reproduced the way
+  // StatsTable renders them (including its "too small to show" case).
+  const twoDp = (value) => {
+    const text = value.toFixed(2);
+    return text === '0.00' ? '<0.01' : text;
+  };
+  const average = (ds, count) =>
+    twoDp(
+      count /
+        cat(ds, 'AUDIT').items.find((it) => it.name === 'ENTRY').entryCount
+    );
 
   // Tabbed PUBLICATION group: 3 panels, each a table with Count + Entries-with columns.
   const tabbedPanels = DS.map((ds, i) => {
@@ -199,13 +249,17 @@ function buildFixture(gt, opts = {}) {
           opts.mutateCell && ds === 'combined' && r === 0
             ? '999,999,999'
             : N(it.count);
-        return `<tr><td>${it.name}</td><td>${count}</td><td>${N(it.entryCount)}</td></tr>`;
+        const avg =
+          opts.mutateAverage && ds === 'combined' && r === 0
+            ? '99.99'
+            : average(ds, it.count);
+        return `<tr><td>${it.name}</td><td>${count}</td><td>${N(it.entryCount)}</td><td>${avg}</td></tr>`;
       })
       .join('');
     const label = opts.swapLabels
       ? LABELS[i === 1 ? 2 : i === 2 ? 1 : 0]
       : LABELS[i];
-    return `<h4 class="archived-tabs__label">${label}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Publication type</th><th>Count</th><th>Entries with publication type</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    return `<h4 class="archived-tabs__label">${label}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Publication type</th><th>Count</th><th>Entries with publication type</th><th>Average count per ${['UniProtKB', 'reviewed', 'unreviewed'][i]} entry</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }).join('');
   const tabbed = `<h3>Publication</h3><div class="archived-tabs">${tabbedPanels}</div>`;
 
@@ -242,12 +296,42 @@ function buildFixture(gt, opts = {}) {
           opts.mutateCitations && ds === 'combined' && r === 0
             ? '999,999,999'
             : N(it.count);
-        return `<tr><td>${it.name}</td><td>${citations}</td><td>${N(it.entryCount)}</td></tr>`;
+        return `<tr><td>${it.name}</td><td>${citations}</td><td>${N(it.entryCount)}</td><td>${average(ds, it.count)}</td></tr>`;
       })
       .join('');
-    return `<h4 class="archived-tabs__label">${LABELS[i]}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Journal</th><th>Citations</th><th>Entries with journal</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    return `<h4 class="archived-tabs__label">${LABELS[i]}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Journal</th><th>Citations</th><th>Entries with journal</th><th>Average citations per ${['UniProtKB', 'reviewed', 'unreviewed'][i]} entry</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }).join('');
   const journals = `<h3>Top Journal</h3><div class="archived-tabs">${journalPanels}</div>`;
+
+  // Amino acid composition: the one table StatsTable gives a Percent column,
+  // so the fixture covers both derived cells (percent AND per-entry average).
+  const aminoPanels = DS.map((ds, i) => {
+    const c = cat(ds, 'SEQUENCE_AMINO_ACID');
+    const rows = c.items
+      .map((it) => {
+        const percent = twoDp((it.count / c.totalCount) * 100);
+        return `<tr><td>${it.label}</td><td>${N(it.count)}</td><td>${percent}%</td><td>${N(it.entryCount)}</td><td>${average(ds, it.count)}</td></tr>`;
+      })
+      .join('');
+    return `<h4 class="archived-tabs__label">${LABELS[i]}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Amino acid</th><th>Count</th><th>Percent</th><th>Entries with amino acid</th><th>Average count per ${['UniProtKB', 'reviewed', 'unreviewed'][i]} entry</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }).join('');
+  const amino = `<h3>Amino acid composition</h3><div class="archived-tabs">${aminoPanels}</div>`;
+
+  // AUDIT row-per-dataset table. Present because the source has AUDIT items:
+  // coverage is gated on the payload, so omitting it is a mismatch.
+  const auditBody = DS.map((ds, i) => {
+    const items = cat(ds, 'AUDIT').items;
+    const cells = ['ENTRY', 'ANNOTATION_UPDATED', 'UPDATED_SEQUENCE']
+      .map((name) => items.find((it) => it.name === name))
+      .map((it) => `<td>${N(it.entryCount)}</td>`)
+      .join('');
+    // `dropDatasetRow` removes the Reviewed row: every check this table runs is
+    // per row, so a dropped row used to take its own verification with it.
+    return opts.dropDatasetRow && i === 1
+      ? ''
+      : `<tr><td>${LABELS[i]}</td>${cells}</tr>`;
+  }).join('');
+  const auditTable = `<h3>Total number of entries in this release of UniProtKB</h3><table><thead><tr><th>Section</th><th>Entries</th><th>Annotation updated</th><th>Sequence updated</th></tr></thead><tbody>${auditBody}</tbody></table>`;
 
   // "Miscellaneous statistics" card: ReviewedSequenceCorrections renders its
   // <h3> and text as a bare fragment, so the Encoded Locations content below is
@@ -289,12 +373,19 @@ function buildFixture(gt, opts = {}) {
 
   // Pie group (SUPERKINGDOM): 3 figures, each with the union slice names.
   const pieFigs = ['UniProtKB', 'reviewed', 'unreviewed']
+    // `pieDropFigure` loses a whole dataset's chart; the slice checks are per
+    // figure, so the remaining two used to verify clean on their own.
+    .filter((capn) => !(opts.pieDropFigure && capn === 'reviewed'))
     .map((capn) => {
       const slices = unionNames
         .filter(
           (n) => !(opts.removeSlice && capn === 'UniProtKB' && n === 'Bacteria')
         )
-        .map((n) => `<g data-key="${n}"><path/></g>`)
+        // `pieNoKeys` is what a chart stripped of its data-keys looks like:
+        // nothing left to identify it by, and every slice check below unrun.
+        .map((n) =>
+          opts.pieNoKeys ? '<g><path/></g>' : `<g data-key="${n}"><path/></g>`
+        )
         .join('');
       return `<figure><figcaption>${capn}</figcaption><svg><g>${slices}</g></svg></figure>`;
     })
@@ -305,7 +396,10 @@ function buildFixture(gt, opts = {}) {
     gt
   ).replace(/</g, '\\u003c')}</script>`;
 
-  return `<!DOCTYPE html><html><body><main>${tabbed}${journals}${columnar}${rowsTable}${miscCard}${chart}${pie}</main>${dataBlock}</body></html>`;
+  // `dropView` renders everything except the columnar table — a view whose
+  // data is right there in the payload, which is what makes it a mismatch
+  // rather than a document that simply has less to show.
+  return `<!DOCTYPE html><html><body><main>${tabbed}${journals}${amino}${opts.dropView ? '' : columnar}${rowsTable}${auditTable}${miscCard}${chart}${pie}</main>${dataBlock}</body></html>`;
 }
 
 test('fixture: clean archive verifies OK', () => {
@@ -334,16 +428,74 @@ const CORRUPTIONS = [
     'sequence correction value only in a sibling',
     { correctionsElsewhere: true },
   ],
+  // The four below are all the same failure in different clothes: a view (or
+  // part of one) is simply absent, so the checks that would have covered it
+  // never run. Every one of these passed before coverage was asserted.
+  // The four below are the same failure in different clothes: a view, or part
+  // of one, is simply absent, so the checks that would have covered it never
+  // run. Each names the mismatch it must produce — "something failed" would be
+  // satisfied by an unrelated check, which is how a coverage hole hides.
+  [
+    'a whole view missing from the document',
+    { dropView: true },
+    'coverage:columnar:Taxonomic distribution of the sequences across kingdoms',
+  ],
+  [
+    'a dataset row missing from a row table',
+    { dropDatasetRow: true },
+    'Total number of entries in this release of UniProtKB:rows',
+  ],
+  ['a pie figure missing', { pieDropFigure: true }, 'pie:SUPERKINGDOM:figures'],
+  [
+    'a pie nothing can identify',
+    { pieNoKeys: true },
+    'coverage:pie:SUPERKINGDOM',
+  ],
 ];
 
-for (const [name, opts] of CORRUPTIONS) {
+for (const [name, opts, expectedMismatch] of CORRUPTIONS) {
   test(`fixture: ${name} is flagged`, () => {
     const gt = groundTruth();
     const result = verifyArchive(buildFixture(gt, opts), gt);
     assert.equal(result.ok, false, `expected ${name} to fail verification`);
     assert.ok(result.mismatches.length > 0);
+    if (expectedMismatch) {
+      assert.ok(
+        result.mismatches.some((m) => m.name === expectedMismatch),
+        `expected a "${expectedMismatch}" mismatch, got ${JSON.stringify(result.mismatches.map((m) => m.name))}`
+      );
+    }
   });
 }
+
+test('fixture: a wrong derived cell is warned about, not failed', () => {
+  // Percent and per-entry average are recomputed from the source, but they are
+  // cosmetic: a mismatch says the page and the payload disagree, which is worth
+  // reporting without refusing to write an otherwise-faithful archive.
+  const gt = groundTruth();
+  const result = verifyArchive(buildFixture(gt, { mutateAverage: true }), gt);
+  assert.equal(result.ok, true, JSON.stringify(result.mismatches, null, 2));
+  const warnings = result.checks.filter(
+    (c) => !c.ok && c.severity === 'warning'
+  );
+  assert.ok(
+    warnings.some((w) => w.name.endsWith(':derived')),
+    `expected a derived-cell warning, got ${JSON.stringify(warnings)}`
+  );
+});
+
+test('fixture: derived cells cannot stand in for a missing raw value', () => {
+  // The percent and average cells live in the same <tbody> as the raw ones, so
+  // before they were recomputed and removed from the pool, one of them could
+  // satisfy a raw value that was not displayed at all.
+  const gt = groundTruth();
+  const result = verifyArchive(buildFixture(gt), gt);
+  const derived = result.checks.filter((c) => c.name.endsWith(':derived'));
+  assert.ok(
+    derived.length >= 3 && derived.every((c) => c.ok),
+    `expected the fixture's derived cells to be checked, got ${JSON.stringify(derived)}`
+  );
+});
 
 test('fixture: table heading no registry entry covers is warned about', () => {
   const gt = groundTruth();
@@ -396,5 +548,11 @@ test('fixture: a blank archive cannot pass vacuously', () => {
   assert.ok(
     result.mismatches.some((m) => m.name.startsWith('structure:')),
     `expected a structure mismatch, got ${JSON.stringify(result.mismatches)}`
+  );
+  // One per view the payload has data for, rather than three anchors: a
+  // document that is two-thirds gutted trips exactly the same wire.
+  assert.ok(
+    result.mismatches.filter((m) => m.name.startsWith('coverage:')).length >= 5,
+    `expected a coverage mismatch per missing view, got ${JSON.stringify(result.mismatches)}`
   );
 });

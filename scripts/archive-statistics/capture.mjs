@@ -57,12 +57,13 @@ const fetchFailure = (error) => ({ status: 0, headers: [], data: '', error });
 
 /**
  * Range test for an IPv4 literal: "this host", loopback, private, link-local
- * (incl. cloud metadata) and CGNAT.
+ * (incl. cloud metadata), CGNAT, IETF protocol assignments, benchmarking,
+ * multicast and the reserved 240/4 space (which ends at 255.255.255.255).
  * @param {string} host dotted-quad literal
  * @returns {boolean}
  */
 function isSafeIPv4(host) {
-  const [a, b] = host.split('.').map(Number);
+  const [a, b, c] = host.split('.').map(Number);
   if (a === 0 || a === 127 || a === 10) {
     return false;
   }
@@ -72,11 +73,20 @@ function isSafeIPv4(host) {
   if (a === 192 && b === 168) {
     return false;
   }
+  if (a === 192 && b === 0 && c === 0) {
+    return false; // IETF protocol assignments (RFC 6890)
+  }
   if (a === 172 && b >= 16 && b <= 31) {
     return false;
   }
   if (a === 100 && b >= 64 && b <= 127) {
     return false; // CGNAT (RFC 6598)
+  }
+  if (a === 198 && (b === 18 || b === 19)) {
+    return false; // benchmarking (RFC 2544)
+  }
+  if (a >= 224) {
+    return false; // multicast, reserved 240/4, and the 255.255.255.255 broadcast
   }
   return true;
 }
@@ -111,8 +121,11 @@ export function isSafeResourceUrl(rawUrl) {
     if (host === '::1' || host === '::') {
       return false;
     }
-    if (/^(fe80|fc|fd)/.test(host)) {
-      return false; // link-local / unique-local
+    // fe80::/10 is fe80–febf and site-local fec0::/10 is fec0–feff, so the
+    // whole fe8–fef range goes; fc/fd is unique-local (fc00::/7). Matching on
+    // `fe80` alone would have let fe90:: / fea0:: / feb0:: through.
+    if (/^(fe[89abcdef]|fc|fd)/.test(host)) {
+      return false; // link-local / site-local / unique-local
     }
     if (host.startsWith('::ffff:')) {
       // IPv4-mapped: apply the IPv4 rules to the dotted form, and refuse the

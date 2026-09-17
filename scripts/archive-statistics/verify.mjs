@@ -12,6 +12,11 @@
  * them to that ground truth.
  *
  * Strategy (kept decoupled from the live React components so it doesn't rot):
+ *  - COVERAGE is asserted, not assumed: every check below is driven by what it
+ *    FINDS in the DOM, so on its own a gutted capture yields fewer checks and
+ *    still "passes". A registry of the views the page renders is therefore
+ *    matched against the embedded source — anything the data says must be on
+ *    the page, and is not, is a mismatch (see `checkRegistryCoverage`).
  *  - Anchor only on capture-owned / semantic markup (`.archived-tabs`,
  *    `.archived-tabs__label`, `.archived-charts`, `<figcaption>`, `data-key`,
  *    `.x-axis`/`.y-axis`/`.domain`, `<thead>` headers, section headings h2–h4).
@@ -20,9 +25,12 @@
  *    assert every source RAW value (count / entryCount / totalCount), formatted
  *    exactly as the page formats it, is present, and that the row count matches
  *    the source item count. This catches dropped/duplicated rows, wrong values,
- *    and dataset swaps without per-row name matching. Derived cells (%,
- *    averages) are not required to match (warnings only) — they depend on
- *    reproducing D3/rounding exactly.
+ *    and dataset swaps without per-row name matching. Derived cells (Percent,
+ *    per-entry average) are recomputed from the source and reported as
+ *    WARNINGS: they are cosmetic, but a disagreement means the page and the
+ *    payload are telling different stories. They are also taken out of the
+ *    pool the raw values are matched against, where they would otherwise be
+ *    free to satisfy a *missing* raw value.
  *  - TABLES (one row per dataset, a handful of columns): here the registry
  *    names the statistic behind each column, so every cell is compared to its
  *    own source value. Presence alone would not do: those cells render as
@@ -60,6 +68,18 @@ export function formatLargeNumber(x) {
     : integerWithCommas;
 }
 
+/**
+ * Format a source value, or null when the source does not have one. Callers
+ * report the null as a mismatch: a payload that changed shape should fail the
+ * gate with something readable, not crash the whole run on
+ * `undefined.toString()`.
+ */
+function fmt(value) {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? formatLargeNumber(value)
+    : null;
+}
+
 const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
 
 /** Parse a D3 axis tick label to a number: "300,000", "2,200", "260M", "600k", "0.0". */
@@ -94,6 +114,7 @@ const DATASET_LABELS = [
   'Reviewed (Swiss-Prot)',
   'Unreviewed (TrEMBL)',
 ];
+const DATASET_KEYS = ['combined', 'reviewed', 'unreviewed'];
 
 // ── View registry: section heading text → what it renders ──
 // Headings are hardcoded UI titles (StatisticsPage.tsx), not category labels.
@@ -158,15 +179,22 @@ const ROWS = {
     category: 'SEQUENCE_STATS',
     columns: [{ name: 'AMINO_ACID_TOTAL', accessor: 'count' }],
   },
+  // UniqueReferencesTable passes `excludeUniProtKB`, so this one has no
+  // UniProtKB row — which is why the expected rows are per-entry, not global.
   'Unique references': {
     category: 'MISCELLANEOUS',
     columns: [{ name: 'UNIQUE_CITATION_ID', accessor: 'count' }],
+    excludeUniProtKB: true,
   },
   'Total number of species represented in this release of UniProtKB': {
     category: 'TOTAL_ORGANISM',
     columns: [{ totalCount: true }],
   },
 };
+
+// The taxonomy pie groups, identified by their slice names rather than by a
+// heading: both groups render under the same "Taxonomic distribution" heading.
+const PIE_CATEGORIES = ['SUPERKINGDOM', 'EUKARYOTA'];
 
 const MISC_EXCLUDE = new Set([
   'UNIQUE_AUTHOR',
@@ -214,13 +242,10 @@ function unionItemNames(stats, categoryName) {
   return names;
 }
 
-/** All raw formatted strings a category+dataset should surface (count + entryCount, or totalCount). */
-function expectedValues(category, { totalCountOnly, fields } = {}) {
+/** All raw formatted strings a category+dataset should surface (count + entryCount). */
+function expectedValues(category, { fields } = {}) {
   if (!category) {
     return [];
-  }
-  if (totalCountOnly) {
-    return [formatLargeNumber(category.totalCount)];
   }
   // Only require fields the table actually has a column for (gate on <thead>).
   const wantCount = !fields || fields.count;
@@ -288,9 +313,9 @@ function nearestHeading(el) {
   return null;
 }
 
-const cellsOf = (table) =>
-  [...table.querySelectorAll('tbody td')].map((td) => norm(td.textContent));
 const bodyRows = (table) => [...table.querySelectorAll('tbody tr')];
+const rowCells = (tr) =>
+  [...tr.querySelectorAll('td')].map((td) => norm(td.textContent));
 
 /** Multiset containment: every expected string present (with multiplicity) in rendered. */
 function missingValues(expected, rendered) {
@@ -330,7 +355,174 @@ function checkArchiveStructure(doc, push) {
   }
 }
 
-function checkTabbedGroups(doc, stats, push) {
+/**
+ * The views the SOURCE says this page must show, as registry keys the checks
+ * below mark off as they match them.
+ *
+ * Gating on the embedded data rather than on the registry alone is what makes
+ * this safe to assert: a document is only ever required to render what its own
+ * payload actually contains, so a payload missing a category (or a fixture
+ * carrying a handful of them) is not failed for a view that would have had
+ * nothing to display — while a real archive, whose payload has everything, is
+ * required to render everything.
+ */
+function requiredViews(stats) {
+  const combined = indexByCategory(stats.combined);
+  const hasItems = (categoryName, transform) =>
+    Boolean(
+      applyTransform(combined.get(categoryName), transform)?.items?.length
+    );
+  const required = [];
+  for (const [heading, spec] of Object.entries(TABBED)) {
+    if (hasItems(spec.category, spec.transform)) {
+      required.push(`tabs:${heading}`);
+    }
+  }
+  for (const [heading, categoryName] of Object.entries(COLUMNAR)) {
+    if (hasItems(categoryName)) {
+      required.push(`columnar:${heading}`);
+    }
+  }
+  for (const [heading, spec] of Object.entries(ROWS)) {
+    const category = combined.get(spec.category);
+    // Several row tables read the same category, so the category alone does
+    // not say which of them has data — the columns' own statistics do.
+    const hasData = spec.columns.some((column) =>
+      column.totalCount
+        ? typeof category?.totalCount === 'number'
+        : Boolean(category?.items.some((it) => it.name === column.name))
+    );
+    if (hasData) {
+      required.push(`rows:${heading}`);
+    }
+  }
+  for (const [heading, spec] of Object.entries(CHART_GROUPS)) {
+    const hasData =
+      spec.chart === 'history'
+        ? Boolean(stats.__history?.results?.length)
+        : hasItems(spec.category);
+    if (hasData) {
+      required.push(`chart:${heading}`);
+    }
+  }
+  for (const categoryName of PIE_CATEGORIES) {
+    if (unionItemNames(stats, categoryName).size) {
+      required.push(`pie:${categoryName}`);
+    }
+  }
+  return required;
+}
+
+/**
+ * Fail on any view the source has data for that nothing in the document
+ * matched — the check that turns "I found no disagreement" into "I looked at
+ * everything there was to look at". Rendering one twice is a mismatch too: it
+ * means two views were identified as the same thing, so one of them is not
+ * being verified as itself.
+ */
+function checkRegistryCoverage(stats, found, push) {
+  for (const key of requiredViews(stats)) {
+    const n = found.get(key) || 0;
+    push(
+      'error',
+      `coverage:${key}`,
+      n === 1,
+      n === 1
+        ? 'rendered once'
+        : n === 0
+          ? 'the source has this data but the document has no such view'
+          : `${n} views in the document match this one registry entry`
+    );
+  }
+}
+
+/**
+ * AUDIT→ENTRY entryCount for a dataset: what StatsTable divides by for its
+ * per-entry average column (getNumberReleaseEntries, statistics/utils.ts).
+ */
+function numberReleaseEntries(stats, ds) {
+  const entry = indexByCategory(stats[ds])
+    .get('AUDIT')
+    ?.items.find((it) => it.name === 'ENTRY');
+  return typeof entry?.entryCount === 'number' ? entry.entryCount : NaN;
+}
+
+/** `toFixed(2)` with the page's "too small to show" special case. */
+const twoDecimals = (value) => {
+  const text = value.toFixed(2);
+  return text === '0.00' ? '<0.01' : text;
+};
+
+/**
+ * Walk a tabbed table's rows once, recomputing the DERIVED cells (Percent,
+ * per-entry average) and returning everything else as the pool the raw-value
+ * check matches against.
+ *
+ * Mirrors StatsTable.tsx: the Count and average columns are dropped when every
+ * item's count equals its entryCount, and only the amino-acid table (with more
+ * than one item) has a Percent column. Rows are matched to their source item by
+ * first cell (`label || name`), not by column index — the abbreviation <td> is
+ * rendered per row, so indices shift from row to row.
+ */
+function readTabbedRows(table, category, categoryName, releaseEntries) {
+  const hasOnlyEntryCounts = category.items.every(
+    (it) => it.count === it.entryCount
+  );
+  const hasPercent =
+    category.items.length > 1 &&
+    categoryName === 'SEQUENCE_AMINO_ACID' &&
+    typeof category.totalCount === 'number';
+  const canAverage = Number.isFinite(releaseEntries) && releaseEntries > 0;
+  const byLabel = new Map(
+    category.items.map((it) => [norm(it.label || it.name), it])
+  );
+  const pool = [];
+  const mismatches = [];
+  let checked = 0;
+  let unmatched = 0;
+  for (const tr of bodyRows(table)) {
+    const cells = rowCells(tr);
+    const item = byLabel.get(norm(tr.querySelector('td,th')?.textContent));
+    if (!item || typeof item.count !== 'number') {
+      unmatched += 1;
+      pool.push(...cells);
+      continue;
+    }
+    const expected = [];
+    if (!hasOnlyEntryCounts && canAverage) {
+      expected.push(twoDecimals(item.count / releaseEntries));
+    }
+    if (hasPercent) {
+      expected.push(
+        `${twoDecimals((item.count / category.totalCount) * 100)}%`
+      );
+    }
+    const remaining = [...cells];
+    for (const value of expected) {
+      checked += 1;
+      const at = remaining.indexOf(value);
+      if (at < 0) {
+        mismatches.push(`${norm(item.label || item.name)} → ${value}`);
+      } else {
+        remaining.splice(at, 1); // not available to satisfy a raw value
+      }
+    }
+    pool.push(...remaining);
+  }
+  return {
+    pool,
+    derived: {
+      checked,
+      mismatches,
+      unmatched,
+      // Say so rather than skipping in silence: no AUDIT/ENTRY in the payload
+      // means the averages on screen cannot be recomputed at all.
+      averagesUncheckable: !hasOnlyEntryCounts && !canAverage,
+    },
+  };
+}
+
+function checkTabbedGroups(doc, stats, push, mark) {
   for (const group of doc.querySelectorAll('.archived-tabs')) {
     const heading = nearestHeading(group);
     const chart = CHART_GROUPS[heading];
@@ -347,6 +539,7 @@ function checkTabbedGroups(doc, stats, push) {
       );
       continue;
     }
+    mark(`tabs:${heading}`);
     const panels = [...group.querySelectorAll('.archived-tabs__panel')];
     const labels = [...group.querySelectorAll('.archived-tabs__label')].map(
       (l) => norm(l.textContent)
@@ -380,7 +573,12 @@ function checkTabbedGroups(doc, stats, push) {
         );
         return;
       }
-      const rendered = cellsOf(table);
+      const { pool, derived } = readTabbedRows(
+        table,
+        category,
+        spec.category,
+        numberReleaseEntries(stats, ds)
+      );
       const fields = rawFieldsFromHead(table, spec.countLabel);
       // A registry entry that no longer matches the rendered <thead> means we
       // are guessing which columns to verify — say so rather than leaving a
@@ -393,10 +591,33 @@ function checkTabbedGroups(doc, stats, push) {
           ? 'count/entry columns identified from <thead>'
           : `no count or entry-count column recognised (headers: ${JSON.stringify(fields.headers)}) — verifying all raw values`
       );
-      const missing = missingValues(
-        expectedValues(category, { fields }),
-        rendered
-      );
+      if (derived.checked || derived.mismatches.length) {
+        push(
+          'warning',
+          `${heading}:${ds}:derived`,
+          derived.mismatches.length === 0,
+          derived.mismatches.length
+            ? `${derived.mismatches.length} derived cell(s) not found where recomputed from source, e.g. ${derived.mismatches.slice(0, 3).join(', ')}`
+            : `${derived.checked} derived cell(s) match a recomputation`
+        );
+      }
+      if (derived.averagesUncheckable) {
+        push(
+          'warning',
+          `${heading}:${ds}:derived-averages`,
+          false,
+          'no AUDIT/ENTRY entryCount in the source — per-entry averages not checked'
+        );
+      }
+      if (derived.unmatched) {
+        push(
+          'warning',
+          `${heading}:${ds}:rows-matched`,
+          false,
+          `${derived.unmatched} row(s) could not be matched to a source item by name — their derived cells are unchecked`
+        );
+      }
+      const missing = missingValues(expectedValues(category, { fields }), pool);
       push(
         'error',
         `${heading}:${ds}:values`,
@@ -416,7 +637,7 @@ function checkTabbedGroups(doc, stats, push) {
   }
 }
 
-function checkColumnarTables(doc, stats, push) {
+function checkColumnarTables(doc, stats, push, mark) {
   for (const table of doc.querySelectorAll('table')) {
     if (table.closest('.archived-tabs')) {
       continue;
@@ -426,6 +647,7 @@ function checkColumnarTables(doc, stats, push) {
     if (!categoryName) {
       continue;
     }
+    mark(`columnar:${heading}`);
     const headers = [...table.querySelectorAll('thead th')].map((th) =>
       norm(th.textContent)
     );
@@ -448,9 +670,24 @@ function checkColumnarTables(doc, stats, push) {
       const rendered = rowsEls.map((tr) =>
         norm(tr.querySelectorAll('td')[col]?.textContent || '')
       );
-      const expected = category.items.map((it) =>
-        formatLargeNumber(it.entryCount)
-      );
+      const expected = [];
+      const withoutSource = [];
+      for (const it of category.items) {
+        const text = fmt(it.entryCount);
+        if (text === null) {
+          withoutSource.push(it.name);
+        } else {
+          expected.push(text);
+        }
+      }
+      if (withoutSource.length) {
+        push(
+          'error',
+          `${heading}:${ds}:source`,
+          false,
+          `${withoutSource.length} source item(s) have no numeric entryCount, e.g. ${withoutSource.slice(0, 3).join(', ')}`
+        );
+      }
       const missing = missingValues(expected, rendered);
       push(
         'error',
@@ -475,7 +712,7 @@ function checkColumnarTables(doc, stats, push) {
   }
 }
 
-function checkRowTables(doc, stats, push) {
+function checkRowTables(doc, stats, push, mark) {
   for (const table of doc.querySelectorAll('table')) {
     if (table.closest('.archived-tabs')) {
       continue;
@@ -485,6 +722,27 @@ function checkRowTables(doc, stats, push) {
       continue; // reported by checkUnregisteredTables
     }
     const spec = ROWS[heading];
+    mark(`rows:${heading}`);
+    // Which datasets the table shows, asserted rather than inferred: the loop
+    // below verifies the rows it FINDS, so a dropped row would otherwise take
+    // its cells' checks away with it and leave the table looking clean.
+    const expectedLabels = spec.excludeUniProtKB
+      ? DATASET_LABELS.slice(1)
+      : DATASET_LABELS;
+    const labels = bodyRows(table)
+      .map((tr) => norm(tr.querySelector('td,th')?.textContent))
+      .filter((label) => datasetKey(label));
+    const okLabels =
+      labels.length === expectedLabels.length &&
+      expectedLabels.every((expected, i) => labels[i] === expected);
+    push(
+      'error',
+      `${heading}:rows`,
+      okLabels,
+      okLabels
+        ? `${labels.length} dataset row(s) in order`
+        : `dataset rows were ${JSON.stringify(labels)}, expected ${JSON.stringify(expectedLabels)}`
+    );
     for (const tr of bodyRows(table)) {
       const cells = [...tr.querySelectorAll('td,th')].map((c) =>
         norm(c.textContent)
@@ -520,8 +778,8 @@ function checkRowTables(doc, stats, push) {
         // populated) is a mismatch — which a "traces back to some source
         // value" check would wave through.
         const expected = column.totalCount
-          ? formatLargeNumber(category.totalCount)
-          : formatLargeNumber(
+          ? fmt(category.totalCount)
+          : fmt(
               category.items.find((it) => it.name === column.name)?.[
                 accessor
               ] || 0
@@ -530,6 +788,15 @@ function checkRowTables(doc, stats, push) {
         const label = column.totalCount
           ? 'totalCount'
           : `${column.name}.${accessor}`;
+        if (expected === null) {
+          push(
+            'error',
+            `${heading}:${ds}:${label}`,
+            false,
+            `source has no numeric ${label} to compare ${JSON.stringify(actual ?? null)} against`
+          );
+          return;
+        }
         push(
           'error',
           `${heading}:${ds}:${label}`,
@@ -597,7 +864,16 @@ function checkSequenceCorrections(doc, stats, push) {
     text += node.textContent || '';
   }
   text = norm(text);
-  const expected = formatLargeNumber(item.count);
+  const expected = fmt(item.count);
+  if (expected === null) {
+    push(
+      'error',
+      'Sequence corrections:value',
+      false,
+      'source SEQUENCE_CORRECTION has no numeric count'
+    );
+    return;
+  }
   push(
     'error',
     'Sequence corrections:value',
@@ -615,13 +891,14 @@ function yAxisMax(svg) {
   return { ticks, max: ticks.length ? Math.max(...ticks) : NaN };
 }
 
-function checkLineCharts(doc, stats, push) {
+function checkLineCharts(doc, stats, push, mark) {
   for (const group of doc.querySelectorAll('.archived-tabs')) {
     const heading = nearestHeading(group);
     const chart = CHART_GROUPS[heading];
     if (!chart) {
       continue;
     }
+    mark(`chart:${heading}`);
     const panels = [...group.querySelectorAll('.archived-tabs__panel')];
     const labels = [...group.querySelectorAll('.archived-tabs__label')].map(
       (l) => norm(l.textContent)
@@ -707,7 +984,7 @@ export function historyMax(history, ds) {
   return counts.length ? Math.max(...counts) : NaN;
 }
 
-function checkPies(doc, stats, push) {
+function checkPies(doc, stats, push, mark) {
   for (const group of doc.querySelectorAll('.archived-charts')) {
     const figures = [...group.querySelectorAll('figure')];
     const keys0 = [...(figures[0]?.querySelectorAll('g[data-key]') || [])].map(
@@ -715,20 +992,42 @@ function checkPies(doc, stats, push) {
     );
     // Every figure shows the union of names with per-dataset values, so
     // identify and compare against the union across datasets.
-    const candidate = ['SUPERKINGDOM', 'EUKARYOTA'].find((cn) => {
+    const candidate = PIE_CATEGORIES.find((cn) => {
       const names = unionItemNames(stats, cn);
       return keys0.length && keys0.every((k) => names.has(k));
     });
     if (!candidate) {
+      // An ERROR, not a warning: "I could not tell what this chart is" leaves
+      // every slice check below unrun, which is precisely the silent loss of
+      // coverage this gate exists to prevent (a pie stripped of its data-keys
+      // lands here).
       push(
-        'warning',
+        'error',
         'pie',
         false,
-        `could not map pie (keys: ${keys0.slice(0, 4).join(', ')})`
+        `could not map pie (keys: ${keys0.slice(0, 4).join(', ') || 'none'})`
       );
       continue;
     }
+    mark(`pie:${candidate}`);
     const names = unionItemNames(stats, candidate);
+    // One figure per dataset, in order: the slice checks below are per figure,
+    // so a dropped figure simply takes its own checks with it, and a figure is
+    // only ever named by its caption — never compared against it.
+    const captions = figures.map((fig) =>
+      norm(fig.querySelector('figcaption')?.textContent)
+    );
+    const okFigures =
+      captions.length === DATASET_KEYS.length &&
+      DATASET_KEYS.every((key, i) => datasetKey(captions[i]) === key);
+    push(
+      'error',
+      `pie:${candidate}:figures`,
+      okFigures,
+      okFigures
+        ? 'one figure per dataset, in order'
+        : `figure captions were ${JSON.stringify(captions)}`
+    );
     figures.forEach((fig) => {
       const ds = norm(fig.querySelector('figcaption')?.textContent || '');
       const slices = [...fig.querySelectorAll('g[data-key]')];
@@ -771,15 +1070,20 @@ export function verifyDocument(document, groundTruth) {
   const checks = [];
   const push = (severity, name, ok, detail) =>
     checks.push({ severity, name, ok, detail });
+  // Registry keys the checks below matched in the document, counted so that
+  // neither a missing view nor a duplicated one goes unnoticed.
+  const found = new Map();
+  const mark = (key) => found.set(key, (found.get(key) || 0) + 1);
 
   checkArchiveStructure(document, push);
-  checkTabbedGroups(document, stats, push);
-  checkColumnarTables(document, stats, push);
-  checkRowTables(document, stats, push);
+  checkTabbedGroups(document, stats, push, mark);
+  checkColumnarTables(document, stats, push, mark);
+  checkRowTables(document, stats, push, mark);
   checkUnregisteredTables(document, push);
   checkSequenceCorrections(document, stats, push);
-  checkLineCharts(document, stats, push);
-  checkPies(document, stats, push);
+  checkLineCharts(document, stats, push, mark);
+  checkPies(document, stats, push, mark);
+  checkRegistryCoverage(stats, found, push);
 
   const mismatches = checks.filter((c) => !c.ok && c.severity === 'error');
   return { ok: mismatches.length === 0, checks, mismatches };

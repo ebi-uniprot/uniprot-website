@@ -26,7 +26,7 @@ import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
 
 import { archiveFileName, DEFAULT_API, resolveRelease } from './index.mjs';
-import { getEmbeddedData, verifyArchive } from './verify.mjs';
+import { getEmbeddedData, verifyDocument } from './verify.mjs';
 
 const ARCHIVE_DIR = fileURLToPath(new URL('../../archive/', import.meta.url));
 
@@ -84,8 +84,10 @@ test('every archive on disk verifies against its embedded data', async (t) => {
     // eslint-disable-next-line no-await-in-loop
     await t.test(name, () => {
       const html = readFileSync(join(ARCHIVE_DIR, name), 'utf8');
-      const embedded = getEmbeddedData(new JSDOM(html).window.document);
-      const result = verifyArchive(html, embedded);
+      // One parse, reused: an archive with its fonts and images inlined runs to
+      // tens of MB, and verifyArchive() would parse the same string again.
+      const { document } = new JSDOM(html).window;
+      const result = verifyDocument(document, getEmbeddedData(document));
       assert.equal(
         result.ok,
         true,

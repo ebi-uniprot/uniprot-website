@@ -54,23 +54,31 @@ pnpm verify:statistics archive/uniprotkb-statistics-<release>.html
 
 It cross-checks, per dataset (UniProtKB / Reviewed / Unreviewed):
 
-- **Structure** — the anchors every other check reads (`.archived-tabs`,
-  `.archived-charts`, tables) must be present at all. Everything below only reports
-  what it _finds_ disagreeing with the source, so without this a blank or gutted
-  capture runs zero checks and reports OK.
+- **Coverage** — every view the embedded source has data for must actually be in the
+  document, and exactly once. Everything below only reports what it _finds_
+  disagreeing with the source, so without this a blank or gutted capture runs fewer
+  checks and still reports OK. Coverage is gated on the payload rather than on the
+  registry alone: a document is only required to render what its own data contains,
+  which is what makes the assertion safe to make.
 - **Tables** — every source raw value (count / entryCount / totalCount), formatted
   exactly as the page formats it, must be present, and row counts must match the
   source item counts. Catches dropped/duplicated rows, wrong values and dataset
-  swaps. Derived cells (percentages, per-entry averages) are recomputed but only
-  reported as warnings (they depend on reproducing D3/rounding). The small
-  row-per-dataset tables go further — the registry names the statistic behind
-  each column, so every cell is compared to its own source value (those cells
-  render as `… || 0`, so "all zeros" would otherwise pass). A table whose
-  heading matches no registry entry is warned about, never silently skipped.
+  swaps. Derived cells (Percent, per-entry average) are recomputed from the source
+  and reported as **warnings** — they are cosmetic, but a disagreement means the
+  page and the payload are telling different stories. They are also taken out of the
+  pool the raw values are matched against, where they would otherwise be free to
+  satisfy a raw value that is not displayed at all. The small row-per-dataset tables
+  go further — the registry names the statistic behind each column, so every cell is
+  compared to its own source value (those cells render as `… || 0`, so "all zeros"
+  would otherwise pass), and the dataset rows themselves must all be present, in
+  order. A table whose heading matches no registry entry is warned about, never
+  silently skipped.
 - **Charts** — the sequence-length and history line plots hold data that appears in
   no table, so their y-axis scale is checked against the source max; a y-axis scaled
   to a fraction of the real max means the chart was frozen mid-D3-transition (the bug
-  this whole check was built to catch). Pie slice counts/names are checked too.
+  this whole check was built to catch). Each pie group must have one figure per
+  dataset, in order, and its slice counts/names are checked against the source; a
+  pie the verifier cannot identify at all is a mismatch, not a warning.
 
 The verifier deliberately anchors only on capture-owned markup (`.archived-tabs`,
 `.archived-charts`, `data-key`, axis classes, `<thead>` headers, section headings) and
