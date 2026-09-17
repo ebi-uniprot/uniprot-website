@@ -211,6 +211,23 @@ describe('sortBasketAccessions', () => {
     ).toEqual(['P00001', 'P00002', 'P99999']);
   });
 
+  it('looks up each sort value only once', () => {
+    const accessions = ['P00002', 'P99999', 'P00001'];
+    const getValue = jest.fn(
+      valueGetter(
+        Namespace.uniprotkb,
+        UniProtKBColumn.accession,
+        uniProtkbEntries
+      )
+    );
+    sortBasketAccessions(
+      accessions,
+      { column: UniProtKBColumn.accession, direction: SortDirection.descend },
+      getValue
+    );
+    expect(getValue).toHaveBeenCalledTimes(accessions.length);
+  });
+
   it('returns the accessions unchanged when nothing has a sort value', () => {
     const accessions = ['P00002', 'P00001'];
     // Column without an accessor

@@ -3,7 +3,7 @@ import { type Dispatch, type SetStateAction, useEffect } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../app/config/urls';
-import { reIds } from '../jobs/utils/urls';
+import { getIdWithoutRange } from '../jobs/utils/urls';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 import ResultsData from '../shared/components/results/ResultsData';
 import useBasket, { type Basket } from '../shared/hooks/useBasket';
@@ -88,10 +88,7 @@ const BasketMiniViewTab = ({
   onFullView,
 }: BasketMiniViewTabProps) => {
   const subsetsMap = new Map(
-    accessions.map((accession) => {
-      const { id } = accession.match(reIds)?.groups || { id: accession };
-      return [accession, id];
-    })
+    accessions.map((accession) => [accession, getIdWithoutRange(accession)])
   );
 
   const initialApiUrl = useNSQuery({

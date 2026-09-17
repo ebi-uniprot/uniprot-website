@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 
-import { reIds } from '../../jobs/utils/urls';
+import { getIdWithoutRange } from '../../jobs/utils/urls';
 import apiUrls from '../../shared/config/apiUrls/apiUrls';
 import { type Column } from '../../shared/config/columns';
 import { type Basket } from '../../shared/hooks/useBasket';
@@ -31,10 +31,6 @@ import {
 
 // Largest page the API will serve. Bigger baskets are paged through below.
 const SORT_VALUES_PAGE_SIZE = 500;
-
-// Basket accessions may carry a subset range, the entry is stored under the id
-const toEntryId = (accession: string) =>
-  accession.match(reIds)?.groups?.id || accession;
 
 type Args = {
   namespace: Namespace;
@@ -68,29 +64,16 @@ const useBasketSort = ({
   // Stable across re-renders, unlike the `accessions` array itself
   const accessionsKey = accessions.join(',');
   const splitKey = (key: string) => key.split(',').filter(Boolean);
-  // Same but independent of the order, to spot contents changing
+  // Same but independent of the order, which the sort values don't depend on
   const membershipKey = useMemo(
     () => splitKey(accessionsKey).sort().join(','),
     [accessionsKey]
   );
 
-  // An entry added to a sorted basket goes to the end, where it was dropped,
-  // and the sort is dropped with it. Sorting is a one-off rearrangement of the
-  // basket rather than an order it keeps up to date, so the arrow has to go
-  // too. Removing an entry leaves the rest sorted, so that keeps the sort.
-  const [previousMembership, setPreviousMembership] = useState(membershipKey);
-  if (membershipKey !== previousMembership) {
-    const previous = new Set(splitKey(previousMembership));
-    setPreviousMembership(membershipKey);
-    if (splitKey(membershipKey).some((accession) => !previous.has(accession))) {
-      setSort(undefined);
-    }
-  }
-
   const sortValuesUrl = useMemo(
     () =>
       apiUrls.search.accessions(
-        Array.from(new Set(splitKey(accessionsKey).map(toEntryId))),
+        Array.from(new Set(splitKey(membershipKey).map(getIdWithoutRange))),
         {
           namespace,
           columns: getBasketSortFields(namespace),
@@ -98,7 +81,8 @@ const useBasketSort = ({
           size: SORT_VALUES_PAGE_SIZE,
         }
       ),
-    [accessionsKey, namespace]
+    // The API URL builder sorts the accessions, so only membership matters
+    [membershipKey, namespace]
   );
 
   // Only fetched once the user actually sorts, and reused for every subsequent
@@ -127,7 +111,7 @@ const useBasketSort = ({
   const getSortValue = useCallback(
     (accession: string) => {
       const getValue = sort && basketSortValueGetters[namespace]?.[sort.column];
-      const entry = entriesById.get(toEntryId(accession));
+      const entry = entriesById.get(getIdWithoutRange(accession));
       return getValue && entry ? getValue(entry) : undefined;
     },
     [entriesById, namespace, sort]
@@ -138,7 +122,23 @@ const useBasketSort = ({
   // once: the panel and the full view share the same basket order, so re-writing
   // it on every order change would let two mounted views fight over it forever.
   const appliedSortKey = useRef<string | undefined>(undefined);
+  const previousAccessionsKey = useRef(accessionsKey);
   useEffect(() => {
+    // An entry added to a sorted basket goes to the end, where it was dropped,
+    // and the sort is dropped with it. Sorting is a one-off rearrangement of the
+    // basket rather than an order it keeps up to date, so the arrow has to go
+    // too. Removing an entry leaves the rest sorted, so that keeps the sort.
+    // Tracked before any early return so it never goes stale.
+    const previousKey = previousAccessionsKey.current;
+    previousAccessionsKey.current = accessionsKey;
+    if (sort && previousKey !== accessionsKey) {
+      const previous = new Set(splitKey(previousKey));
+      if (splitKey(accessionsKey).some((id) => !previous.has(id))) {
+        // eslint-disable-next-line @eslint-react/set-state-in-effect -- the basket contents are external to this hook
+        setSort(undefined);
+        return;
+      }
+    }
     if (!sort) {
       appliedSortKey.current = undefined; // reset so re-selecting a sort re-applies
       return;

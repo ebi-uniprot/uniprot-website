@@ -50,6 +50,7 @@ const mockApi = () => {
       return { loading: false };
     }
     if (url.includes('configure')) {
+      requested.push(url);
       return { loading: false, data: mockResultFields };
     }
     if (!cache.has(url)) {
@@ -240,6 +241,26 @@ describe('basket sorting', () => {
     expect(order).toEqual(allAccessions);
     await settle();
     expect(storedOrder()).toEqual(order);
+  });
+
+  it('does not load the result fields, as the basket brings its own columns', async () => {
+    customRender(
+      <>
+        <BasketFullView />
+        <BasketMiniView onFullView={jest.fn()} />
+      </>,
+      {
+        route: '/basket/uniprotkb',
+        path: '/basket/:namespace',
+        initialLocalStorage: {
+          basket: { uniprotkb: allAccessions.slice(0, 3) },
+        },
+      }
+    );
+    await settle();
+    clickHeader('accession');
+    await settle();
+    expect(requested.some((url) => url.includes('result-fields'))).toBe(false);
   });
 
   it('does not load sort values until the user sorts', async () => {

@@ -56,27 +56,24 @@ export const getBasketSortFields = (namespace: Namespace): Column[] =>
  * Compute a new basket order by sorting `accessions` on the value returned by
  * `getSortValue`. Accessions without a value (obsolete, or not returned by the
  * API) keep their relative order at the end, so a sort never drops basket items.
+ * Each value is looked up once, rather than on every comparison.
  */
 export const sortBasketAccessions = (
   accessions: string[],
   sort: BasketSort,
   getSortValue: (accession: string) => string | undefined
 ): string[] => {
-  const known: string[] = [];
+  const known: Array<{ accession: string; value: string }> = [];
   const unknown: string[] = [];
   for (const accession of accessions) {
-    if (getSortValue(accession) === undefined) {
+    const value = getSortValue(accession);
+    if (value === undefined) {
       unknown.push(accession);
     } else {
-      known.push(accession);
+      known.push({ accession, value });
     }
   }
-  known.sort((a, b) => {
-    const comparison = intlCollator.compare(
-      getSortValue(a) ?? '',
-      getSortValue(b) ?? ''
-    );
-    return sort.direction === SortDirection.descend ? -comparison : comparison;
-  });
-  return [...known, ...unknown];
+  const direction = sort.direction === SortDirection.descend ? -1 : 1;
+  known.sort((a, b) => direction * intlCollator.compare(a.value, b.value));
+  return [...known.map(({ accession }) => accession), ...unknown];
 };

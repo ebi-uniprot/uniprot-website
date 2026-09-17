@@ -6,7 +6,7 @@ import {
   Location,
   LocationToPath,
 } from '../app/config/urls';
-import { reIds } from '../jobs/utils/urls';
+import { getIdWithoutRange } from '../jobs/utils/urls';
 import HTMLHead from '../shared/components/HTMLHead';
 import { SidebarLayout } from '../shared/components/layouts/SideBarLayout';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
@@ -41,10 +41,7 @@ const BasketFullView = () => {
   const accessions = Array.from(subBasket);
 
   const subsetsMap = new Map(
-    accessions.map((accession) => {
-      const { id } = accession.match(reIds)?.groups || { id: accession };
-      return [accession, id];
-    })
+    accessions.map((accession) => [accession, getIdWithoutRange(accession)])
   );
 
   // Query for facets
