@@ -6,7 +6,7 @@
   "homepage": "https://ebi-uniprot.github.io/uniprot-website/",
   "license": "MIT",
   "engines": {
-    "node": ">=20.12"
+    "node": ">=22"
   },
   "scripts": {
     "start": "pnpm start:prod",
@@ -25,7 +25,7 @@
     "lint-fix": "eslint src --fix",
     "jest-coverage-ratchet": "jest-coverage-ratchet",
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
-    "prettier": "prettier src --write",
+    "prettier": "prettier src scripts --write",
     "verify:bundle": "node scripts/verify-bundle.js",
     "test": "npm-run-all test:lint test:types test:unit",
     "test:lint": "eslint src --cache --cache-location 'node_modules/.cache/eslint/'",
@@ -34,6 +34,7 @@
     "test:unit-bail-on-console-error": "jest --coverage --setupFilesAfterEnv \"<rootDir>/jest.setup.ts\" \"<rootDir>/jest.setup.consoleerrorfail.ts\" --bail --runInBand",
     "test:functional": "jest --config src/tests/jest.config.json src/tests/functional",
     "test:visual": "jest --config src/tests/jest.config.json src/tests/visual",
+    "test:scripts-unit": "node --test \"scripts/**/*.test.{mjs,js}\"",
     "clear-test-cache": "jest --clearCache",
     "prepare": "husky",
     "update-mocks": "scripts/update-mocks.mjs",
@@ -240,9 +241,9 @@
     "process": "0.11.10",
     "recast": "0.23.12",
     "rimraf": "6.1.3",
-    "single-file-cli": "2.0.83",
     "sass": "1.101.3",
     "sass-loader": "17.0.0",
+    "single-file-cli": "2.0.83",
     "style-loader": "4.0.0",
     "svg-inline-loader": "0.8.2",
     "typescript": "6.0.3",

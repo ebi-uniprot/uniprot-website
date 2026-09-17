@@ -263,6 +263,10 @@ async function flattenTabs(page) {
   return page.evaluate(async () => {
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     // Click every "Expand table" button in a panel so full tables are captured.
+    // Each click must be awaited until React has committed the expansion:
+    // StatsTable's handler *collapses* when it is already expanded, so finding
+    // the same stale "Expand table" button and clicking again would toggle the
+    // table shut and leave a truncated (10-row) capture.
     const expandPanel = async (panel) => {
       for (let guard = 0; guard < 100; guard += 1) {
         const button = Array.from(panel.querySelectorAll('button')).find((b) =>
@@ -272,8 +276,29 @@ async function flattenTabs(page) {
           return;
         }
         button.click();
-        await sleep(50); // let React re-render the expanded table
+        // Committed = the button detached, or its label flipped to "Collapse
+        // table". Polling beats a fixed sleep: a large table (TOP_ORGANISM,
+        // CROSS_REFERENCE) can take well over 50ms to re-render under load.
+        let committed = false;
+        for (let i = 0; i < 40; i += 1) {
+          await sleep(50);
+          if (
+            !button.isConnected ||
+            !/expand table/i.test(button.textContent || '')
+          ) {
+            committed = true;
+            break;
+          }
+        }
+        if (!committed) {
+          throw new Error(
+            'Table did not expand: the "Expand table" button never changed state'
+          );
+        }
       }
+      throw new Error(
+        'More than 100 "Expand table" buttons in one panel — aborting rather than capturing partial tables'
+      );
     };
 
     const tablists = Array.from(document.querySelectorAll('[role="tablist"]'));
@@ -418,7 +443,7 @@ async function flattenSelectCharts(page) {
       // the SVG markup differs from the previous option's final SVG and is
       // stable across two polls. Avoids the fragility of a fixed sleep (which
       // could snapshot the previous/mid-transition chart).
-      const waitStableSvg = async (previous) => {
+      const waitStableSvg = async (previous, label) => {
         let last = null;
         for (let i = 0; i < 50; i += 1) {
           await sleep(100);
@@ -429,14 +454,21 @@ async function flattenSelectCharts(page) {
           }
           last = current;
         }
-        return readSvg();
+        // Never fall back to whatever is on screen: that is the *previous*
+        // option's chart, which would be stacked under this option's label and
+        // file dataset N-1's numbers as dataset N. The data verifier cannot
+        // catch that (it compares slice names, not per-dataset values), so this
+        // has to fail the capture — same contract as flattenTabs above.
+        throw new Error(
+          `Chart for "${label}" never rendered content distinct from the previous option`
+        );
       };
 
       const rendered = [];
       let previous = null;
       for (const option of options) {
         setSelectValue(select, option.value);
-        const svg = await waitStableSvg(previous);
+        const svg = await waitStableSvg(previous, option.label);
         previous = svg;
         rendered.push({ label: option.label, svg });
       }
@@ -588,11 +620,18 @@ async function serializeWithSingleFile(page) {
           for (let i = 0; i < binary.length; i += 1) {
             bytes[i] = binary.charCodeAt(i);
           }
-          return {
+          // Return a real Response, not a look-alike: SingleFile reads `ok`
+          // and calls `text()` on fetched stylesheets, and a bare object
+          // missing those makes it drop the resource from the archive.
+          const nullBody = status === 204 || status === 205 || status === 304;
+          const response = new Response(nullBody ? null : bytes, {
             status,
             headers: new Headers(headers),
-            arrayBuffer: () => Promise.resolve(bytes.buffer),
-          };
+          });
+          // `url` is read-only and always '' on a constructed Response, but
+          // SingleFile resolves relative URLs inside fetched CSS against it.
+          Object.defineProperty(response, 'url', { value: url });
+          return response;
         }
       },
     });

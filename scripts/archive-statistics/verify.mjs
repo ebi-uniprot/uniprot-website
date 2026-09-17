@@ -103,13 +103,16 @@ const TABBED = {
   'Sequence annotations (features)': { category: 'FEATURES' },
   'General annotation (comments)': { category: 'COMMENTS' },
   'Cross-references': { category: 'CROSS_REFERENCE' },
-  'Top Journal': { category: 'TOP_JOURNAL' },
+  // StatsTable renders `{countLabel || 'Count'}`, so a group passing a custom
+  // countLabel needs it here or its count column goes unverified.
+  'Top Journal': { category: 'TOP_JOURNAL', countLabel: 'Citations' },
   'Most represented species': { category: 'TOP_ORGANISM' },
   'Encoded Locations': {
     category: 'MISCELLANEOUS',
     transform: 'encodedLocations',
   },
-  'Amino acid composition': { category: 'SEQUENCE_AMINO_ACID', bars: true },
+  // The table is verified; the AminoAcidBarPlot SVG is knowingly not.
+  'Amino acid composition': { category: 'SEQUENCE_AMINO_ACID' },
 };
 const CHART_GROUPS = {
   'Sequence size': { category: 'SEQUENCE_COUNT', chart: 'seqLength' },
@@ -193,6 +196,24 @@ function indexByCategory(payload) {
   return map;
 }
 
+/**
+ * Names of a category across ALL three datasets. Views built with `merge()`
+ * (src/uniprotkb/components/statistics/utils.ts) render one row/slice per
+ * distinct name across uniprotkb+reviewed+unreviewed, which is not necessarily
+ * what the combined payload lists — comparing against combined alone fails a
+ * correct archive whenever a name appears only in reviewed or unreviewed.
+ */
+function unionItemNames(stats, categoryName) {
+  const names = new Set();
+  for (const ds of ['combined', 'reviewed', 'unreviewed']) {
+    for (const item of indexByCategory(stats[ds]).get(categoryName)?.items ||
+      []) {
+      names.add(item.name);
+    }
+  }
+  return names;
+}
+
 /** All raw formatted strings a category+dataset should surface (count + entryCount, or totalCount). */
 function expectedValues(category, { totalCountOnly, fields } = {}) {
   if (!category) {
@@ -216,17 +237,24 @@ function expectedValues(category, { totalCountOnly, fields } = {}) {
   return out;
 }
 
-/** Which raw columns a tabbed table renders, from its <thead>. */
-function rawFieldsFromHead(table) {
+/**
+ * Which raw columns a tabbed table renders, from its <thead>. `countLabel`
+ * is the registry's expected heading for the count column — StatsTable renders
+ * `{countLabel || 'Count'}`, so "Top Journal" labels it "Citations".
+ */
+function rawFieldsFromHead(table, countLabel) {
   const headers = [...table.querySelectorAll('thead th')].map((th) =>
     norm(th.textContent)
   );
   const fields = {
-    count: headers.some((h) => h === 'Count'),
+    count: headers.some((h) => h === (countLabel || 'Count')),
     entryCount: headers.some((h) => /^Entries with/i.test(h)),
+    headers,
+    matched: true,
   };
   if (!fields.count && !fields.entryCount) {
     fields.count = fields.entryCount = true; // unknown layout → require both
+    fields.matched = false;
   }
   return fields;
 }
@@ -284,6 +312,24 @@ function missingValues(expected, rendered) {
 
 // ── Checks ──
 
+/**
+ * Assert the anchors every other check is driven by are actually present.
+ * Without this the verifier passes vacuously: it only reports what it FINDS
+ * disagreeing with the source, so a blank or gutted document yields zero checks
+ * and an "OK" verdict. Anchors, not a minimum check count — there is no
+ * threshold to re-tune as the registry grows.
+ */
+function checkArchiveStructure(doc, push) {
+  for (const [what, selector] of [
+    ['tab groups', '.archived-tabs'],
+    ['chart groups', '.archived-charts'],
+    ['tables', 'table'],
+  ]) {
+    const n = doc.querySelectorAll(selector).length;
+    push('error', `structure:${what}`, n > 0, `${n} ${what} found`);
+  }
+}
+
 function checkTabbedGroups(doc, stats, push) {
   for (const group of doc.querySelectorAll('.archived-tabs')) {
     const heading = nearestHeading(group);
@@ -335,8 +381,20 @@ function checkTabbedGroups(doc, stats, push) {
         return;
       }
       const rendered = cellsOf(table);
+      const fields = rawFieldsFromHead(table, spec.countLabel);
+      // A registry entry that no longer matches the rendered <thead> means we
+      // are guessing which columns to verify — say so rather than leaving a
+      // column silently unchecked (the failure mode a custom countLabel caused).
+      push(
+        'warning',
+        `${heading}:${ds}:columns`,
+        fields.matched,
+        fields.matched
+          ? 'count/entry columns identified from <thead>'
+          : `no count or entry-count column recognised (headers: ${JSON.stringify(fields.headers)}) — verifying all raw values`
+      );
       const missing = missingValues(
-        expectedValues(category, { fields: rawFieldsFromHead(table) }),
+        expectedValues(category, { fields }),
         rendered
       );
       push(
@@ -403,14 +461,15 @@ function checkColumnarTables(doc, stats, push) {
           : `all ${category.items.length} entryCounts present`
       );
     }
-    // One row per distinct name across datasets = the combined (union) item count.
-    const combined = indexByCategory(stats.combined).get(categoryName);
-    if (combined) {
+    // One row per distinct name across datasets — the union, which is what
+    // merge() renders and is not always what the combined payload lists.
+    const union = unionItemNames(stats, categoryName);
+    if (union.size) {
       push(
         'error',
         `${heading}:rows`,
-        rowsEls.length === combined.items.length,
-        `${rowsEls.length} rows vs ${combined.items.length} union items`
+        rowsEls.length === union.size,
+        `${rowsEls.length} rows vs ${union.size} union items`
       );
     }
   }
@@ -525,7 +584,19 @@ function checkSequenceCorrections(doc, stats, push) {
   if (!item) {
     return;
   }
-  const text = norm(heading?.parentElement?.textContent || '');
+  // ReviewedSequenceCorrections renders <h3> + text as a bare fragment, so
+  // parentElement is the whole "Miscellaneous statistics" card — matching in
+  // there would pass on any unrelated number (e.g. an Encoded Locations count).
+  // Read only the nodes between this heading and the next one.
+  let text = '';
+  for (
+    let node = heading?.nextSibling;
+    node && !/^H[1-4]$/.test(node.tagName || '');
+    node = node.nextSibling
+  ) {
+    text += node.textContent || '';
+  }
+  text = norm(text);
   const expected = formatLargeNumber(item.count);
   push(
     'error',
@@ -581,7 +652,7 @@ function checkLineCharts(doc, stats, push) {
 
       let sourceMax = NaN;
       if (chart.chart === 'seqLength') {
-        const cat = indexByCategory(stats[ds]).get('SEQUENCE_COUNT');
+        const cat = indexByCategory(stats[ds]).get(chart.category);
         sourceMax = cat ? Math.max(...cat.items.map((it) => it.count)) : NaN;
       } else if (chart.chart === 'history') {
         sourceMax = historyMax(stats.__history, ds);
@@ -642,14 +713,10 @@ function checkPies(doc, stats, push) {
     const keys0 = [...(figures[0]?.querySelectorAll('g[data-key]') || [])].map(
       (g) => g.getAttribute('data-key')
     );
-    // Every figure shows the union of names (combined) with per-dataset values, so
-    // identify and compare against the combined category.
+    // Every figure shows the union of names with per-dataset values, so
+    // identify and compare against the union across datasets.
     const candidate = ['SUPERKINGDOM', 'EUKARYOTA'].find((cn) => {
-      const names = new Set(
-        (indexByCategory(stats.combined).get(cn)?.items || []).map(
-          (i) => i.name
-        )
-      );
+      const names = unionItemNames(stats, cn);
       return keys0.length && keys0.every((k) => names.has(k));
     });
     if (!candidate) {
@@ -661,16 +728,15 @@ function checkPies(doc, stats, push) {
       );
       continue;
     }
-    const cat = indexByCategory(stats.combined).get(candidate);
-    const names = new Set(cat.items.map((i) => i.name));
+    const names = unionItemNames(stats, candidate);
     figures.forEach((fig) => {
       const ds = norm(fig.querySelector('figcaption')?.textContent || '');
       const slices = [...fig.querySelectorAll('g[data-key]')];
       push(
         'error',
         `pie:${candidate}:${ds}:slices`,
-        slices.length === cat.items.length,
-        `${slices.length} slices vs ${cat.items.length} items`
+        slices.length === names.size,
+        `${slices.length} slices vs ${names.size} union items`
       );
       const keys = new Set(slices.map((g) => g.getAttribute('data-key')));
       const missing = [...names].filter((n) => !keys.has(n));
@@ -689,11 +755,13 @@ function checkPies(doc, stats, push) {
 // ── Orchestration ──
 
 /**
- * @param {string} html
+ * Verify an already-parsed archive. Prefer this over `verifyArchive` when the
+ * caller has a document in hand: an archive with inlined fonts and images runs
+ * to tens of MB, and a second JSDOM parse doubles peak memory and runtime.
+ * @param {Document} document
  * @param {{ statistics: {combined,reviewed,unreviewed}, history? }} groundTruth
  */
-export function verifyArchive(html, groundTruth) {
-  const { document } = new JSDOM(html).window;
+export function verifyDocument(document, groundTruth) {
   const stats = {
     combined: groundTruth.statistics.combined,
     reviewed: groundTruth.statistics.reviewed,
@@ -704,6 +772,7 @@ export function verifyArchive(html, groundTruth) {
   const push = (severity, name, ok, detail) =>
     checks.push({ severity, name, ok, detail });
 
+  checkArchiveStructure(document, push);
   checkTabbedGroups(document, stats, push);
   checkColumnarTables(document, stats, push);
   checkRowTables(document, stats, push);
@@ -714,6 +783,14 @@ export function verifyArchive(html, groundTruth) {
 
   const mismatches = checks.filter((c) => !c.ok && c.severity === 'error');
   return { ok: mismatches.length === 0, checks, mismatches };
+}
+
+/**
+ * @param {string} html
+ * @param {{ statistics: {combined,reviewed,unreviewed}, history? }} groundTruth
+ */
+export function verifyArchive(html, groundTruth) {
+  return verifyDocument(new JSDOM(html).window.document, groundTruth);
 }
 
 export function printVerifyReport(result, log = console.log) {
@@ -752,7 +829,7 @@ async function main(argv) {
   const html = await readFile(file, 'utf8');
   const { document } = new JSDOM(html).window;
   const embedded = getEmbeddedData(document);
-  const result = verifyArchive(html, embedded);
+  const result = verifyDocument(document, embedded);
   printVerifyReport(result);
   process.exit(result.ok ? 0 : 1);
 }

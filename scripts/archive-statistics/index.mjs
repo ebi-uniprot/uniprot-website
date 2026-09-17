@@ -22,11 +22,18 @@
 
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { parseArgs, styleText } from 'node:util';
 
 import { captureStatisticsPage } from './capture.mjs';
 
-const DEFAULT_API = 'https://rest.uniprot.org';
+// A release number is interpolated into the output filename, so keep it to
+// characters that cannot escape --out. The release-mismatch guard in main()
+// only fires when the API returns an x-uniprot-release header, so this cannot
+// be left to that check alone.
+const RELEASE_PATTERN = /^[\w.]+$/;
+
+export const DEFAULT_API = 'https://rest.uniprot.org';
 const DEFAULT_URL = 'https://www.uniprot.org/uniprotkb/statistics';
 
 // Single source of truth for CLI options: drives both parseArgs and --help.
@@ -55,9 +62,7 @@ const argsConfig = {
   ),
 };
 
-const log = (msg) => console.log(msg);
-const step = (msg) =>
-  console.log(styleText(['bgBlue', 'whiteBright'], ` ${msg} `));
+const defaultLog = (msg) => console.log(msg);
 
 const fetchOptions = { headers: { Accept: 'application/json' } };
 
@@ -87,7 +92,7 @@ const statisticsUrls = (api, release) => ({
  * Resolve the release to archive and fetch the allDatabases response (whose
  * headers carry the current release, mirroring src/shared/contexts/UniProtData.tsx).
  */
-const resolveRelease = async (api, requested) => {
+export const resolveRelease = async (api, requested) => {
   const { data, headers } = await fetchJson(databasesUrl(api));
   const headerRelease = headers.get('x-uniprot-release');
   const headerReleaseDate = headers.get('x-uniprot-release-date');
@@ -105,6 +110,10 @@ const resolveRelease = async (api, requested) => {
     allDatabases: data,
   };
 };
+
+/** The filename an archive for `release` is written as. */
+export const archiveFileName = (release) =>
+  `uniprotkb-statistics-${release}.html`;
 
 /** Fetch the four statistics payloads for a release. */
 const fetchStatistics = async (urls) => {
@@ -171,7 +180,7 @@ const buildMetadata = (meta, sources, stats) => ({
  * never terminate the <script> tag. Read it back with
  * `JSON.parse(document.getElementById('archived-statistics-data').textContent)`.
  */
-const embedData = (html, payload) => {
+export const embedData = (html, payload) => {
   const json = JSON.stringify(payload).replace(/</g, '\\u003c');
   const block = `<script type="application/json" id="archived-statistics-data">${json}</script>`;
   // With compressHTML SingleFile omits the optional end tags, so appending at
@@ -185,7 +194,7 @@ const embedData = (html, payload) => {
   );
 };
 
-const printHelp = () => {
+const printHelp = (log) => {
   const width = Math.max(...OPTIONS.map((o) => o.usage.length));
   const lines = [
     'Archive the UniProtKB statistics page as a single self-contained HTML file.',
@@ -196,11 +205,29 @@ const printHelp = () => {
   log(lines.join('\n'));
 };
 
-const main = async () => {
-  const { values } = parseArgs(argsConfig);
+/**
+ * @param {string[]} [argv] CLI arguments (defaults to this process's).
+ * @param {object} [deps]
+ * @param {typeof captureStatisticsPage} [deps.capture] Page capture, injectable
+ *   so tests can drive the orchestration — the release guards, the fail-closed
+ *   verification gate and the output path — without a browser.
+ * @param {(msg: string) => void} [deps.log] Progress logger.
+ */
+export const main = async (
+  argv = process.argv.slice(2),
+  { capture = captureStatisticsPage, log = defaultLog } = {}
+) => {
+  const step = (msg) => log(styleText(['bgBlue', 'whiteBright'], ` ${msg} `));
+  const { values } = parseArgs({ ...argsConfig, args: argv });
   if (values.help) {
-    printHelp();
+    printHelp(log);
     return;
+  }
+
+  if (values.release !== 'current' && !RELEASE_PATTERN.test(values.release)) {
+    throw new Error(
+      `Invalid --release "${values.release}": expected "current" or a release number such as 2026_02.`
+    );
   }
 
   const api = values.api.replace(/\/$/, '');
@@ -239,7 +266,7 @@ const main = async () => {
   const stats = await fetchStatistics(urls);
 
   step('Capturing self-contained HTML');
-  const html = await captureStatisticsPage({
+  const html = await capture({
     url: values.url,
     browserExecutablePath: values['browser-path'],
     channel: values.channel,
@@ -282,10 +309,7 @@ const main = async () => {
   }
 
   await mkdir(values.out, { recursive: true });
-  const outFile = join(
-    values.out,
-    `uniprotkb-statistics-${release.releaseNumber}.html`
-  );
+  const outFile = join(values.out, archiveFileName(release.releaseNumber));
   await writeFile(outFile, doc);
 
   step('Done');
@@ -294,9 +318,11 @@ const main = async () => {
   );
 };
 
-try {
-  await main();
-} catch (error) {
-  console.error(styleText(['red', 'bold'], error.stack || String(error)));
-  process.exit(1);
+// Only run as a CLI, so importing this module for tests does not execute it
+// (same guard as verify.mjs).
+if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
+  main().catch((error) => {
+    console.error(styleText(['red', 'bold'], error.stack || String(error)));
+    process.exit(1);
+  });
 }

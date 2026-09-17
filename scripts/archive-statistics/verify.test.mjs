@@ -8,9 +8,7 @@
  */
 
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { fileURLToPath } from 'node:url';
 
 import { JSDOM } from 'jsdom';
 
@@ -21,6 +19,7 @@ import {
   historyMax,
   parseTick,
   verifyArchive,
+  verifyDocument,
 } from './verify.mjs';
 
 // ── Unit tests for the pure helpers ──
@@ -92,7 +91,14 @@ test('historyMax accumulates per release date, like the page', () => {
 
 const N = formatLargeNumber;
 
-function groundTruth() {
+/**
+ * @param {object} [opts]
+ * @param {boolean} [opts.reviewedOnlyName] Give `reviewed` a superkingdom name
+ *   that `combined` does not list. The page renders the UNION of names across
+ *   datasets (merge() in statistics/utils.ts), so a correct archive then has
+ *   more rows/slices than the combined payload has items.
+ */
+function groundTruth(opts = {}) {
   const pub = (f) => ({
     categoryName: 'PUBLICATION',
     label: 'Publication',
@@ -130,13 +136,46 @@ function groundTruth() {
     totalCount: 70 * f,
     items: [{ name: 'ISOFORMS', count: 40 * f, entryCount: 30 * f }],
   });
+  // Backs the "Top Journal" tab group, whose count column StatsTable labels
+  // "Citations", not "Count" (StatisticsPage.tsx passes countLabel="Citations").
+  const topJournal = (f) => ({
+    categoryName: 'TOP_JOURNAL',
+    label: 'Top journal',
+    totalCount: 90 * f,
+    items: [
+      { name: 'J Biol Chem', count: 60 * f, entryCount: 50 * f },
+      { name: 'Nature', count: 30 * f, entryCount: 25 * f },
+    ],
+  });
+  // Backs the "Sequence corrections" line (ReviewedSequenceCorrections).
+  const misc = (f) => ({
+    categoryName: 'MISCELLANEOUS',
+    label: 'Miscellaneous',
+    totalCount: 8123 * f,
+    items: [
+      { name: 'SEQUENCE_CORRECTION', count: 8123 * f, entryCount: 8123 * f },
+    ],
+  });
   const build = (f, skNames, scMax) => ({
-    results: [pub(f), superkingdom(skNames, f), seqCount(scMax), seqStats(f)],
+    results: [
+      pub(f),
+      superkingdom(skNames, f),
+      seqCount(scMax),
+      seqStats(f),
+      topJournal(f),
+      misc(f),
+    ],
   });
   return {
     statistics: {
       combined: build(3, ['Bacteria', 'Archaea', 'Other'], 300000),
-      reviewed: build(1, ['Bacteria', 'Archaea'], 2200),
+      reviewed: build(
+        1,
+        opts.reviewedOnlyName
+          ? ['Bacteria', 'Archaea', 'Viruses']
+          : ['Bacteria', 'Archaea'],
+        2200
+      ),
       unreviewed: build(2, ['Bacteria', 'Archaea', 'Other'], 320000),
     },
   };
@@ -170,8 +209,14 @@ function buildFixture(gt, opts = {}) {
   }).join('');
   const tabbed = `<h3>Publication</h3><div class="archived-tabs">${tabbedPanels}</div>`;
 
-  // Columnar SUPERKINGDOM table (3 dataset columns; rows = combined/union names).
-  const unionNames = cat('combined', 'SUPERKINGDOM').items.map((i) => i.name);
+  // Columnar SUPERKINGDOM table (3 dataset columns). Rows are the UNION of
+  // names across datasets — what merge() renders — which is not necessarily
+  // what the combined payload lists.
+  const unionNames = [
+    ...new Set(
+      DS.flatMap((ds) => cat(ds, 'SUPERKINGDOM').items.map((i) => i.name))
+    ),
+  ];
   const colHeaders = `<tr><th>Taxonomy</th>${LABELS.map((l) => `<th>${l}</th>`).join('')}</tr>`;
   const colRows = unionNames
     .map((name) => {
@@ -186,6 +231,38 @@ function buildFixture(gt, opts = {}) {
     ? 'Taxonomic distribution of the sequences by kingdom' // not in the registry
     : 'Taxonomic distribution of the sequences across kingdoms';
   const columnar = `<h3>${columnarHeading}</h3><div class="side-by-side"><table><thead>${colHeaders}</thead><tbody>${colRows}</tbody></table></div>`;
+
+  // Tabbed TOP_JOURNAL group: same shape, but the count column is headed
+  // "Citations". A verifier that only recognises "Count" leaves it unchecked.
+  const journalPanels = DS.map((ds, i) => {
+    const c = cat(ds, 'TOP_JOURNAL');
+    const rows = c.items
+      .map((it, r) => {
+        const citations =
+          opts.mutateCitations && ds === 'combined' && r === 0
+            ? '999,999,999'
+            : N(it.count);
+        return `<tr><td>${it.name}</td><td>${citations}</td><td>${N(it.entryCount)}</td></tr>`;
+      })
+      .join('');
+    return `<h4 class="archived-tabs__label">${LABELS[i]}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Journal</th><th>Citations</th><th>Entries with journal</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }).join('');
+  const journals = `<h3>Top Journal</h3><div class="archived-tabs">${journalPanels}</div>`;
+
+  // "Miscellaneous statistics" card: ReviewedSequenceCorrections renders its
+  // <h3> and text as a bare fragment, so the Encoded Locations content below is
+  // its DOM sibling — a check scoped to the whole card cannot tell them apart.
+  const correction = cat('reviewed', 'MISCELLANEOUS').items.find(
+    (i) => i.name === 'SEQUENCE_CORRECTION'
+  );
+  const shownCorrection = opts.correctionsElsewhere
+    ? N(correction.count + 1) // wrong value here…
+    : N(correction.count);
+  const miscCard =
+    `<div><h2>Miscellaneous statistics</h2>` +
+    `<h3>Sequence corrections</h3>Number of Reviewed (Swiss-Prot) entries with at least one sequence correction: <span>${shownCorrection}</span>` +
+    `<h3>Encoded Locations</h3><p>Mitochondrion: ${N(correction.count)}</p>` + // …but the right one still appears in the same card
+    `</div>`;
 
   // Row-per-dataset table (AbstractSectionTable): one row per dataset, one
   // column per (item, accessor).
@@ -228,7 +305,7 @@ function buildFixture(gt, opts = {}) {
     gt
   ).replace(/</g, '\\u003c')}</script>`;
 
-  return `<!DOCTYPE html><html><body><main>${tabbed}${columnar}${rowsTable}${chart}${pie}</main>${dataBlock}</body></html>`;
+  return `<!DOCTYPE html><html><body><main>${tabbed}${journals}${columnar}${rowsTable}${miscCard}${chart}${pie}</main>${dataBlock}</body></html>`;
 }
 
 test('fixture: clean archive verifies OK', () => {
@@ -248,6 +325,15 @@ const CORRUPTIONS = [
   // `data.X?.[accessor] || 0` — which a traceability-only check waves through.
   ['all-zero rows table', { zeroRows: true }],
   ['dropped rows column', { dropColumn: true }],
+  // The count column is headed "Citations" (countLabel), not "Count" — a
+  // verifier that only looks for "Count" skips the whole column silently.
+  ['mutated custom-labelled count column', { mutateCitations: true }],
+  // The right number is still present in the same card, just not on the
+  // Sequence corrections line — a card-wide text match waves this through.
+  [
+    'sequence correction value only in a sibling',
+    { correctionsElsewhere: true },
+  ],
 ];
 
 for (const [name, opts] of CORRUPTIONS) {
@@ -273,22 +359,42 @@ test('fixture: table heading no registry entry covers is warned about', () => {
   );
 });
 
-// ── Guarded smoke test against a real archive, if one is present ──
-
-test('real archive verifies OK (if present)', (t) => {
-  const file = fileURLToPath(
-    new URL('../../archive/uniprotkb-statistics-2026_02.html', import.meta.url)
+test('fixture: a name only in reviewed does not fail a correct archive', () => {
+  // Rows and pie slices come from merge()'s union, so there are 4 of each while
+  // the combined payload lists 3 items. Comparing against combined alone would
+  // reject this perfectly good archive and write no file at all.
+  const gt = groundTruth({ reviewedOnlyName: true });
+  const result = verifyArchive(buildFixture(gt), gt);
+  assert.equal(result.ok, true, JSON.stringify(result.mismatches, null, 2));
+  // The pie must still be *identified*: falling back to a warning would quietly
+  // drop the slice checks rather than fail, which is its own coverage hole.
+  assert.ok(
+    !result.checks.some((c) => !c.ok && c.detail.includes('could not map pie')),
+    'expected the pie to be matched against the union, not skipped'
   );
-  if (!existsSync(file)) {
-    t.skip('no archive/uniprotkb-statistics-2026_02.html on disk');
-    return;
-  }
-  const html = readFileSync(file, 'utf8');
-  const embedded = getEmbeddedData(new JSDOM(html).window.document);
-  const result = verifyArchive(html, embedded);
-  assert.equal(
-    result.ok,
-    true,
-    result.mismatches.map((m) => `${m.name}: ${m.detail}`).join('\n')
+});
+
+test('verifyDocument on a pre-parsed document matches verifyArchive', () => {
+  const gt = groundTruth();
+  const html = buildFixture(gt);
+  const viaString = verifyArchive(html, gt);
+  const viaDocument = verifyDocument(new JSDOM(html).window.document, gt);
+  assert.deepEqual(viaDocument.checks, viaString.checks);
+  assert.equal(viaDocument.ok, viaString.ok);
+});
+
+test('fixture: a blank archive cannot pass vacuously', () => {
+  // The checks are driven by what is found in the DOM, so before the structure
+  // anchors a document containing nothing ran ZERO checks and reported OK —
+  // i.e. a gutted capture would have sailed through the fail-closed gate.
+  const gt = groundTruth();
+  const result = verifyArchive(
+    '<!DOCTYPE html><html><body><main></main></body></html>',
+    gt
+  );
+  assert.equal(result.ok, false, 'an empty document must not verify');
+  assert.ok(
+    result.mismatches.some((m) => m.name.startsWith('structure:')),
+    `expected a structure mismatch, got ${JSON.stringify(result.mismatches)}`
   );
 });

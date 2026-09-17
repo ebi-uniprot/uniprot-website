@@ -49,11 +49,15 @@ override). The check is browser-free (jsdom + the embedded JSON as ground truth)
 any archived file can also be re-checked later, offline:
 
 ```bash
-pnpm verify:statistics archive/uniprotkb-statistics-2026_02.html
+pnpm verify:statistics archive/uniprotkb-statistics-<release>.html
 ```
 
 It cross-checks, per dataset (UniProtKB / Reviewed / Unreviewed):
 
+- **Structure** — the anchors every other check reads (`.archived-tabs`,
+  `.archived-charts`, tables) must be present at all. Everything below only reports
+  what it _finds_ disagreeing with the source, so without this a blank or gutted
+  capture runs zero checks and reports OK.
 - **Tables** — every source raw value (count / entryCount / totalCount), formatted
   exactly as the page formats it, must be present, and row counts must match the
   source item counts. Catches dropped/duplicated rows, wrong values and dataset
@@ -72,12 +76,27 @@ The verifier deliberately anchors only on capture-owned markup (`.archived-tabs`
 `.archived-charts`, `data-key`, axis classes, `<thead>` headers, section headings) and
 a small heading→category registry, never on SingleFile's hashed CSS-module class
 names. If the statistics UI is restructured, update the registry / anchors in
-`verify.mjs`. Tests: `node --test "scripts/archive-statistics/**/*.test.mjs"`
-(a bare directory argument is run as a module, not expanded, on Node 22+).
+`verify.mjs`. Tests: `pnpm test:scripts-unit` (or, for this directory alone,
+`node --test "scripts/archive-statistics/**/*.test.mjs"` — a bare directory argument is
+run as a module, not expanded, on Node 22+). It is not part of `pnpm test`, which covers
+`src` only.
+
+Three test files, split by what they need:
+
+- `verify.test.mjs` — the verifier itself: helpers, plus a fixture archive it corrupts
+  one way at a time. Offline.
+- `index.test.mjs` — only what the gate cannot see: the embedded JSON block (the gate
+  compares against the in-memory stats, never the block), the release guards that run
+  before the browser launches, and the fail-closed gate itself. Injects `capture`, so
+  it needs neither browser nor network.
+- `archive.test.mjs` — the archives actually on disk: asks the live API which release
+  is current and fails if it has not been archived yet, then re-verifies every file in
+  `archive/`. **Needs network**, and fails rather than skips if the API is unreachable.
 
 ## Prerequisites
 
-- Node 20.12+ (uses global `fetch`, and `util.styleText`, which landed in 20.12).
+- Node 22+ (uses global `fetch`, and `util.styleText`'s array format, which needs 20.13+;
+  `package.json` pins `engines.node` to >=22 to match the versions actually used).
 - Dev dependencies: `playwright`, `single-file-cli` and `jsdom` (the verifier parses
   the archived HTML with it) — all three added to `package.json`.
 - A Chromium for Playwright. Either:
@@ -112,6 +131,7 @@ node scripts/archive-statistics/index.mjs --channel chrome --out ./public
 | `--out <dir>`                  | `./archive`                | Output directory for the `.html` file.                                   |
 | `--browser-path <path>`        | —                          | Chrome/Chromium executable for Playwright.                               |
 | `--channel <name>`             | —                          | Playwright browser channel (e.g. `chrome`, `msedge`).                    |
+| `--no-verify`                  | off                        | Skip the verification gate and write the file regardless.                |
 
 ## Caveats
 
