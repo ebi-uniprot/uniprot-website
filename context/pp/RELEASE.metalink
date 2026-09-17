@@ -1,0 +1,113 @@
+<metalink xmlns="http://www.metalinker.org/" version="3.0">
+  <publisher>
+    <name>UniProt Consortium</name>
+    <url>http://www.uniprot.org/</url>
+  </publisher>
+  <license>
+    <name>Creative Commons Attribution 4.0 International (CC BY 4.0)</name>
+    <url>http://creativecommons.org/licenses/by/4.0/</url>
+  </license>
+  <description>UniProt</description>
+  <version>2026_03</version>
+  <files>
+    <file name="README_pp_mmseqs">
+      <size>2905</size>
+      <verification>
+        <hash type="md5">2b3b395035aab79f5cf091deaa648272</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_mmseqs</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_mmseqs</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_mmseqs</url>
+      </resources>
+    </file>
+  <file name="README">
+      <size>9125</size>
+      <verification>
+        <hash type="md5">0cecefb796850a14ca1fe35148c12f37</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/README</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README</url>
+      </resources>
+    </file>
+  <file name="README_pp_matrix">
+      <size>6454</size>
+      <verification>
+        <hash type="md5">0e0169ae48764dc98f1404601d844960</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_matrix</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_matrix</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_matrix</url>
+      </resources>
+    </file>
+  <file name="README_pp_fasta">
+      <size>7360</size>
+      <verification>
+        <hash type="md5">5af7abd0d30544176cec49cfcefa8215</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_fasta</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_fasta</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_fasta</url>
+      </resources>
+    </file>
+  <file name="CITATION">
+      <size>622</size>
+      <verification>
+        <hash type="md5">34e9b1dc77547a75fa5fbe399d8f288d</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/CITATION</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/CITATION</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/CITATION</url>
+      </resources>
+    </file>
+  <file name="pp2proteomes.tsv">
+      <size>4043888</size>
+      <verification>
+        <hash type="md5">b43d352ff78d4d181d03e04c1178c17d</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp2proteomes.tsv</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp2proteomes.tsv</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp2proteomes.tsv</url>
+      </resources>
+    </file>
+  <file name="filter_pp_fasta.py">
+      <size>8797</size>
+      <verification>
+        <hash type="md5">d9ceac4144dd6b0414b2634b2bf328a8</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/filter_pp_fasta.py</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/filter_pp_fasta.py</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/filter_pp_fasta.py</url>
+      </resources>
+    </file>
+  <file name="README_pp_stats">
+      <size>7354</size>
+      <verification>
+        <hash type="md5">9249146e38140544ee200b543c66a45b</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_stats</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_stats</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/README_pp_stats</url>
+      </resources>
+    </file>
+  <file name="CHANGELOG">
+      <size>301</size>
+      <verification>
+        <hash type="md5">edd437101237136b2591df55d848172a</hash>
+      </verification>
+      <resources>
+        <url type="ftp" location="ch" preference="100">ftp://ftp.expasy.org/databases/uniprot/current_release/knowledgebase/pan_proteomes/CHANGELOG</url>
+        <url type="ftp" location="uk" preference="100">ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/CHANGELOG</url>
+        <url type="ftp" location="us" preference="100">ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/CHANGELOG</url>
+      </resources>
+    </file>
+  </files>
+</metalink>

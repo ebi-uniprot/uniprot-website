@@ -1,0 +1,160 @@
+{
+    "schema_version": "1.0",
+    "up_release": "2026_03",
+    "species": {
+        "tax_id": 9,
+        "name": "Buchnera aphidicola",
+        "url": "https://www.uniprot.org/taxonomy/9"
+    },
+    "proteomes": {
+        "total_clustered": 124,
+        "rp": 13,
+        "included_in_pp_fasta": 80
+    },
+    "proteome_sizes_distribution": {
+        "min": 354,
+        "q1": 389.0,
+        "median": 475.5,
+        "q3": 567.75,
+        "max": 1050,
+        "mean": 482.13
+    },
+    "clustering": {
+        "total_proteins": 59784,
+        "clusters": {
+            "total": 37812,
+            "singletons": 28645,
+            "non_singletons": 9167
+        }
+    },
+    "pan_proteome": {
+        "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp9/",
+        "size": 13019,
+        "upkb_entries": 5656,
+        "rp_composition": [
+            {
+                "rp_id": "UP000000416",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000000416",
+                "clusters": 555,
+                "singleton_clusters": 4,
+                "included_in_pp_fasta": 555
+            },
+            {
+                "rp_id": "UP000001806",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000001806",
+                "clusters": 573,
+                "singleton_clusters": 9,
+                "included_in_pp_fasta": 512
+            },
+            {
+                "rp_id": "UP000000601",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000000601",
+                "clusters": 507,
+                "singleton_clusters": 496,
+                "included_in_pp_fasta": 498
+            },
+            {
+                "rp_id": "UP000077654",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000077654",
+                "clusters": 499,
+                "singleton_clusters": 472,
+                "included_in_pp_fasta": 488
+            },
+            {
+                "rp_id": "UP000298594",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000298594",
+                "clusters": 586,
+                "singleton_clusters": 391,
+                "included_in_pp_fasta": 482
+            },
+            {
+                "rp_id": "UP000298782",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000298782",
+                "clusters": 455,
+                "singleton_clusters": 434,
+                "included_in_pp_fasta": 444
+            },
+            {
+                "rp_id": "UP000298677",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000298677",
+                "clusters": 444,
+                "singleton_clusters": 231,
+                "included_in_pp_fasta": 435
+            },
+            {
+                "rp_id": "UP000317544",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000317544",
+                "clusters": 441,
+                "singleton_clusters": 427,
+                "included_in_pp_fasta": 433
+            },
+            {
+                "rp_id": "UP000298603",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000298603",
+                "clusters": 389,
+                "singleton_clusters": 363,
+                "included_in_pp_fasta": 384
+            },
+            {
+                "rp_id": "UP000243633",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000243633",
+                "clusters": 382,
+                "singleton_clusters": 5,
+                "included_in_pp_fasta": 373
+            },
+            {
+                "rp_id": "UP000000669",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000000669",
+                "clusters": 362,
+                "singleton_clusters": 339,
+                "included_in_pp_fasta": 355
+            },
+            {
+                "rp_id": "UP000006811",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000006811",
+                "clusters": 359,
+                "singleton_clusters": 346,
+                "included_in_pp_fasta": 349
+            },
+            {
+                "rp_id": "UP000298636",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000298636",
+                "clusters": 354,
+                "singleton_clusters": 335,
+                "included_in_pp_fasta": 347
+            }
+        ],
+        "protein_frequency_distribution_pct": {
+            "min": 1,
+            "q1": 1.0,
+            "median": 2,
+            "q3": 2.0,
+            "max": 98,
+            "mean": 2.33,
+            "decile_analysis": [
+                { "bin": 0, "median": 1, "mean": 1 },
+                { "bin": 1, "median": 1, "mean": 1 },
+                { "bin": 2, "median": 1, "mean": 1.04 },
+                { "bin": 3, "median": 2, "mean": 2 },
+                { "bin": 4, "median": 2, "mean": 2 },
+                { "bin": 5, "median": 2, "mean": 2 },
+                { "bin": 6, "median": 2, "mean": 2 },
+                { "bin": 7, "median": 2, "mean": 2 },
+                { "bin": 8, "median": 2, "mean": 2.32 },
+                { "bin": 9, "median": 6.0, "mean": 7.94 }
+            ]
+        },
+        "protein_frequency_histogram": [
+            { "range": "0-10%", "count": 12871 },
+            { "range": "11-20%", "count": 74 },
+            { "range": "21-30%", "count": 21 },
+            { "range": "31-40%", "count": 34 },
+            { "range": "41-50%", "count": 9 },
+            { "range": "51-60%", "count": 1 },
+            { "range": "61-70%", "count": 1 },
+            { "range": "71-80%", "count": 4 },
+            { "range": "81-90%", "count": 0 },
+            { "range": "91-100%", "count": 4 }
+        ]
+    }
+}

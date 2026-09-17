@@ -1,0 +1,76 @@
+{
+    "schema_version": "1.0",
+    "up_release": "2026_03",
+    "species": {
+        "tax_id": 24,
+        "name": "Shewanella putrefaciens",
+        "url": "https://www.uniprot.org/taxonomy/24"
+    },
+    "proteomes": {
+        "total_clustered": 7,
+        "rp": 1,
+        "included_in_pp_fasta": 7
+    },
+    "proteome_sizes_distribution": {
+        "min": 3695,
+        "q1": 3696.0,
+        "median": 3905,
+        "q3": 4168.0,
+        "max": 4407,
+        "mean": 3960.29
+    },
+    "clustering": {
+        "total_proteins": 27722,
+        "clusters": {
+            "total": 6156,
+            "singletons": 2154,
+            "non_singletons": 4002
+        }
+    },
+    "pan_proteome": {
+        "url": "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/pan_proteomes/pp24/",
+        "size": 6156,
+        "upkb_entries": 3687,
+        "rp_composition": [
+            {
+                "rp_id": "UP000827084",
+                "rp_url": "https://www.uniprot.org/proteomes/UP000827084",
+                "clusters": 3687,
+                "singleton_clusters": 0,
+                "included_in_pp_fasta": 3687
+            }
+        ],
+        "protein_frequency_distribution_pct": {
+            "min": 14,
+            "q1": 14.0,
+            "median": 86.0,
+            "q3": 100.0,
+            "max": 100,
+            "mean": 63.75,
+            "decile_analysis": [
+                { "bin": 0, "median": 14, "mean": 14 },
+                { "bin": 1, "median": 14, "mean": 14 },
+                { "bin": 2, "median": 14, "mean": 14 },
+                { "bin": 3, "median": 14, "mean": 22.97 },
+                { "bin": 4, "median": 86, "mean": 72.75 },
+                { "bin": 5, "median": 100, "mean": 99.45 },
+                { "bin": 6, "median": 100, "mean": 100 },
+                { "bin": 7, "median": 100, "mean": 100 },
+                { "bin": 8, "median": 100, "mean": 100 },
+                { "bin": 9, "median": 100, "mean": 100 }
+            ]
+        },
+        "protein_frequency_histogram": [
+            { "range": "0-10%", "count": 0 },
+            { "range": "11-20%", "count": 2154 },
+            { "range": "21-30%", "count": 240 },
+            { "range": "31-40%", "count": 0 },
+            { "range": "41-50%", "count": 158 },
+            { "range": "51-60%", "count": 99 },
+            { "range": "61-70%", "count": 0 },
+            { "range": "71-80%", "count": 88 },
+            { "range": "81-90%", "count": 360 },
+            { "range": "91-100%", "count": 3057 }
+        ]
+    }
+}
