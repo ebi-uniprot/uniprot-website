@@ -99,4 +99,14 @@ describe('getSearchURL', () => {
       'https://rest.uniprot.org/uniparc/proteome/UP000001478?format=fasta&size=500'
     );
   });
+
+  it('should get precomputed-proteome search url for jsonPrecomputed download', () => {
+    expect(
+      getSearchURL(
+        'https://rest.uniprot.org/uniprotkb/precomputed/proteome/UP000001478/stream?compressed=true'
+      )
+    ).toEqual(
+      'https://rest.uniprot.org/uniprotkb/precomputed/proteome/UP000001478?compressed=true&size=500'
+    );
+  });
 });

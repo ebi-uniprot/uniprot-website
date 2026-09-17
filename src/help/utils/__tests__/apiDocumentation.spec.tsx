@@ -132,4 +132,32 @@ describe('getIdToOperation', () => {
       ],
     ]);
   });
+
+  it('should ignore path item entries which are not operations', () => {
+    expect(
+      Array.from(
+        getIdToOperation({
+          '/uniref/{id}': {
+            summary: 'UniRef cluster',
+            servers: [{ url: 'https://rest.uniprot.org' }],
+            parameters: [{ name: 'id', in: 'path' }],
+            get: {
+              tags: ['UniRef'],
+              operationId: 'getById',
+              responses: {},
+            },
+          },
+        })
+      )
+    ).toEqual([
+      [
+        'operations-UniRef-getById',
+        {
+          path: '/uniref/{id}',
+          tag: 'UniRef',
+          operationId: 'getById',
+        },
+      ],
+    ]);
+  });
 });

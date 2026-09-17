@@ -14,6 +14,7 @@ type AddToBasketButtonProps = {
   setSelectedEntries?: Dispatch<SetStateAction<string[]>>;
   remove?: boolean;
   textSuffix?: string;
+  withBasketLabel?: boolean;
 };
 
 const AddToBasketButton = ({
@@ -21,6 +22,7 @@ const AddToBasketButton = ({
   setSelectedEntries,
   remove,
   textSuffix,
+  withBasketLabel,
 }: AddToBasketButtonProps) => {
   const [basket, setBasket] = useBasket();
 
@@ -53,6 +55,11 @@ const AddToBasketButton = ({
       n,
       'entries'
     )} ${finalRemove ? 'from' : 'to'} the basket`;
+  }
+
+  let basketLabel = finalRemove ? 'Remove' : 'Add';
+  if (withBasketLabel) {
+    basketLabel = finalRemove ? 'Remove from basket' : 'Add to basket';
   }
 
   const addToBasket = () => {
@@ -116,7 +123,7 @@ const AddToBasketButton = ({
       className={helper['no-small']}
     >
       <BasketIcon />
-      {finalRemove ? 'Remove' : 'Add'}
+      {basketLabel}
       {textSuffix && ` ${textSuffix}`}
     </Button>
   );

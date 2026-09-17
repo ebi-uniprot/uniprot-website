@@ -23,7 +23,7 @@ import {
 import ColumnHeaderLabel from '../components/entry/ColumnHeaderLabel';
 import { type ObsoleteXRefStatus } from '../components/entry/hooks/useObsoleteXRefStatuses';
 import Timeline from '../components/entry/Timeline';
-import { getSubEntryPath } from '../utils/subEntry';
+import { getSubEntryPath, getSubEntryProteomes } from '../utils/subEntry';
 import { getXrefId } from '../utils/uniparcXref';
 
 export enum UniParcXRefsColumn {
@@ -301,21 +301,24 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
   label: 'Proteome',
-  render: (xref) =>
-    xref.proteomes?.length
-      ? xref.proteomes.map((proteome, i) => (
-          <span
-            key={`${proteome.id}-${proteome.component}`}
-            className="xref-proteome"
-          >
-            <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
-              {proteome.id}
-            </Link>
-            {proteome.component ? ` (${proteome.component})` : undefined}
-            {i < (xref.proteomes?.length ?? 0) - 1 && <br />}
-          </span>
-        ))
-      : null,
+  render: (xref) => {
+    const proteomes = Object.entries({
+      ...getSubEntryProteomes(xref.properties),
+      ...Object.fromEntries(
+        xref.proteomes?.map(({ id, component }) => [id, component]) ?? []
+      ),
+    });
+    if (!proteomes.length) {
+      return null;
+    }
+    return proteomes.map(([id, component], i) => (
+      <span key={`${id}-${component}`} className="xref-proteome">
+        <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link>
+        {component ? ` (${component})` : undefined}
+        {i < proteomes.length - 1 && <br />}
+      </span>
+    ));
+  },
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.active, {

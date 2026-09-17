@@ -218,8 +218,8 @@ export const XRef = ({
 
   return (
     <>
-      {linkAttributes.map(({ url, text }, index) => (
-        <ExternalLink url={url || null} key={url || index}>
+      {linkAttributes.map(({ url, text }) => (
+        <ExternalLink url={url || null} key={`${url ?? ''}-${text ?? ''}`}>
           {text}
         </ExternalLink>
       ))}

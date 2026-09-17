@@ -1,5 +1,5 @@
 import { Card } from 'franklin-sites';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import {
@@ -35,7 +35,7 @@ const HelpCard = ({
     isReleaseNote ? Location.ReleaseNotesEntry : Location.HelpEntry,
     id
   );
-  const now = new Date();
+  const now = useMemo(() => new Date(), []);
   const date = releaseDate ? parseDate(releaseDate) : null;
 
   const HeadingElement = headingLevel;

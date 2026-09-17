@@ -4,7 +4,7 @@ import { type SearchTermType } from '../../../types/searchTypes';
 import { flatten } from '../../../utils/parseAndMatchQuery';
 
 // Source: configure/uniprotkb/search-fields
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const configureSearchTerms: SearchTermType[] = [
   {
     id: 'accession_field',
@@ -4381,23 +4381,40 @@ const configureSearchTerms: SearchTermType[] = [
     itemType: 'group',
     items: [
       {
-        id: 'proteome',
-        label: 'Proteome ID',
+        id: 'proteomecomponent',
+        label: 'Proteome Component',
+        itemType: 'sibling_group',
+        siblings: [
+          {
+            id: 'proteome',
+            label: 'Proteome ID',
+            itemType: 'single',
+            term: 'proteome',
+            dataType: 'string',
+            fieldType: 'general',
+            example: 'UP000005640',
+            regex: '(?i)^UP[0-9]{9}$',
+          },
+          {
+            id: 'proteome_component',
+            label: 'Proteome Component',
+            itemType: 'single',
+            term: 'proteomecomponent',
+            dataType: 'string',
+            fieldType: 'general',
+            example: 'chromosome',
+          },
+        ],
+      },
+      {
+        id: 'proteome_canonical',
+        label: 'Canonical Proteome ID',
         itemType: 'single',
-        term: 'proteome',
+        term: 'proteome_canonical',
         dataType: 'string',
         fieldType: 'general',
         example: 'UP000005640',
         regex: '(?i)^UP[0-9]{9}$',
-      },
-      {
-        id: 'proteome_component',
-        label: 'Proteome Component',
-        itemType: 'single',
-        term: 'proteomecomponent',
-        dataType: 'string',
-        fieldType: 'general',
-        example: 'chromosome',
       },
       {
         id: 'is_gene_centric',

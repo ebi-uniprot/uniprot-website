@@ -3,10 +3,21 @@
 // they have just opted out of having their identity displayed publicly.
 
 import Toggletip from '../../shared/components/Toggletip';
+import { type SelectedFacet } from '../types/resultsTypes';
 
 // The literal source ID returned by the API for community submissions where
 // the contributor has opted not to share their identity.
 const ANONYMOUS_SOURCE_ID = 'Anonymous';
+
+// The entry publications facet narrowing the results down to the community
+// submitted references.
+export const communityCuratedFacet: SelectedFacet = {
+  name: 'types',
+  value: '0',
+};
+
+export const isCommunityCuratedFacet = ({ name, value }: SelectedFacet) =>
+  name === communityCuratedFacet.name && value === communityCuratedFacet.value;
 
 const WITHHELD_BY_REQUEST_LABEL = 'Withheld by request';
 const WITHHELD_BY_REQUEST_TOOLTIP =

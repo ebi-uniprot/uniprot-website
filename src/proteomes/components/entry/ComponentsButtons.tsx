@@ -14,12 +14,10 @@ import {
   sendGtagEventPanelResultsDownloadClose,
 } from '../../../shared/utils/gtagEvents';
 import lazy from '../../../shared/utils/lazy';
-import {
-  createSelectedQueryString,
-  stringifyUrl,
-} from '../../../shared/utils/url';
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { stringifyQuery, stringifyUrl } from '../../../shared/utils/url';
 import { type ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import { isNonReferenceOrExcluded } from '../../utils';
+import { proteomeComponentQuery } from '../../utils/query';
 
 const ComponentsDownloadComponent = lazy(
   () =>
@@ -59,20 +57,14 @@ const ComponentsButtons = ({
     },
     []
   );
-  const isUniparcSearch =
-    proteomeType === 'Non Reference proteome' || proteomeType === 'Excluded';
+  const isUniparcSearch = isNonReferenceOrExcluded(proteomeType);
 
   const selectedQuery = useMemo(
     () =>
-      `(proteome:${id})${
-        selectedEntries.length !== 0 &&
-        selectedEntries.length !== components?.length
-          ? ` AND (${createSelectedQueryString(
-              selectedEntries.map((component) => `"${component}"`),
-              UniProtKBColumn.proteomeComponent
-            )})`
-          : ''
-      }`,
+      selectedEntries.length !== 0 &&
+      selectedEntries.length !== components?.length
+        ? proteomeComponentQuery(id, selectedEntries)
+        : `(proteome:${id})`,
     [id, components?.length, selectedEntries]
   );
 
@@ -143,7 +135,7 @@ const ComponentsButtons = ({
                   ? Location.UniParcResults
                   : Location.UniProtKBResults
               ],
-            search: `query=${selectedQuery}`,
+            search: stringifyQuery({ query: selectedQuery }),
           }}
         >
           View proteins

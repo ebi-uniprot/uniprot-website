@@ -59,7 +59,10 @@ const GeneNamesView: FC<
       return (
         <InfoList
           infoData={infoData}
-          key={geneNames.geneName?.value || index}
+          key={
+            // eslint-disable-next-line @eslint-react/no-array-index-key -- static, API-ordered gene list; a gene may lack a primary name
+            geneNames.geneName?.value || index
+          }
           isCompact={isCompact}
           highlightFirstItem={isCompact}
           noTitles={noTitles}

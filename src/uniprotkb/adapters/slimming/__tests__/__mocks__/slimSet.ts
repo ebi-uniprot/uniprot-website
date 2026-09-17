@@ -1,7 +1,7 @@
 import { type SlimSet } from '../../GORibbonHandler';
 
 // Source: https://www.ebi.ac.uk/QuickGO/services/internal/presets?fields=goSlimSets
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: { goSlimSets: SlimSet[] } = {
   goSlimSets: [
     {
@@ -11096,12 +11096,6 @@ const mock: { goSlimSets: SlimSet[] } = {
         },
         {
           associations: null,
-          name: 'synaptic vesicle docking',
-          id: 'GO:0016081',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
           name: 'synaptic vesicle priming',
           id: 'GO:0016082',
           aspect: 'biological_process',
@@ -11614,12 +11608,6 @@ const mock: { goSlimSets: SlimSet[] } = {
           associations: null,
           name: 'regulation of exocytic insertion of neurotransmitter receptor to postsynaptic membrane',
           id: 'GO:0099145',
-          aspect: 'biological_process',
-        },
-        {
-          associations: null,
-          name: 'regulation of synaptic vesicle docking',
-          id: 'GO:0099148',
           aspect: 'biological_process',
         },
         {

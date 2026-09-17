@@ -104,6 +104,7 @@ const ComponentsDownload = ({
 
   useEffect(
     () =>
+      // eslint-disable-next-line @eslint-react/set-state-in-effect -- syncs the UniParc FASTA option from the current selection and result counts
       setUniparcProteomeFasta(
         isUniparcProteomeHeaderApplicable(
           namespace,

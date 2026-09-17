@@ -43,7 +43,9 @@ exports[`CitationsCard tests should render the card component 1`] = `
                   <a
                     href="/citations/14702039"
                   >
-                    Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                    <span>
+                      Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                    </span>
                   </a>
                 </h2>
                 <div

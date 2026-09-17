@@ -35,6 +35,7 @@ const ContextualHelp = () => {
   useEffect(() => {
     // Make sure to reset the button when in pages without contextual help
     if (!shouldBeVisible) {
+      // eslint-disable-next-line @eslint-react/set-state-in-effect -- resets the button when navigating to a page without contextual help
       setDisplayButton(true);
     }
   }, [shouldBeVisible]);

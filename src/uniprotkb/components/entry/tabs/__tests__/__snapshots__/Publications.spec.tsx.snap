@@ -87,7 +87,7 @@ exports[`PublicationSource Community annotations renders ORCID links 1`] = `
    (
   <a
     class="external-link"
-    href="//community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
+    href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
     rel="noopener"
     target="_blank"
   >
@@ -136,7 +136,7 @@ exports[`PublicationSource Community annotations renders ORCID links 2`] = `
    (
   <a
     class="external-link"
-    href="//community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
+    href="https://community.uniprot.org/bbsub/bbsubinfo.html?accession=P12345"
     rel="noopener"
     target="_blank"
   >

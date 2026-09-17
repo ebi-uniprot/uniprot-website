@@ -2,7 +2,7 @@ import { type SearchResults } from '../../../../../shared/types/results';
 import { type CitationsAPIModel } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 
 // Source: uniprotkb/O43865/publications?facets=types%2Ccategories%2Cis_large_scale
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const mock: SearchResults<Partial<CitationsAPIModel>> = {
   facets: [
     {
@@ -18,7 +18,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         {
           label: 'Computationally mapped',
           value: '1',
-          count: 27,
+          count: 28,
         },
         {
           label: 'Community curated',
@@ -50,7 +50,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
         {
           value: 'Disease & Variants',
-          count: 8,
+          count: 9,
         },
         {
           value: 'Subcellular Location',
@@ -82,7 +82,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         {
           label: 'Small scale',
           value: 'false',
-          count: 33,
+          count: 34,
         },
         {
           label: 'Large scale',
@@ -145,7 +145,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 2,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 4,
+        computationallyMappedProteinCount: 3,
         communityMappedProteinCount: 0,
       },
     },
@@ -776,8 +776,8 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 32643,
-        unreviewedProteinCount: 17711,
+        reviewedProteinCount: 32651,
+        unreviewedProteinCount: 17701,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1117,7 +1117,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 4,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 15,
+        computationallyMappedProteinCount: 13,
         communityMappedProteinCount: 0,
       },
     },
@@ -1220,7 +1220,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 3421,
-        unreviewedProteinCount: 5205,
+        unreviewedProteinCount: 5204,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1278,7 +1278,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 6,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 2,
+        computationallyMappedProteinCount: 1,
         communityMappedProteinCount: 0,
       },
     },
@@ -1325,7 +1325,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 5,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 8,
+        computationallyMappedProteinCount: 7,
         communityMappedProteinCount: 0,
       },
     },
@@ -1426,7 +1426,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 4960,
-        unreviewedProteinCount: 12958,
+        unreviewedProteinCount: 12957,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1486,7 +1486,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 2149,
-        unreviewedProteinCount: 3346,
+        unreviewedProteinCount: 3345,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1550,7 +1550,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 2292,
-        unreviewedProteinCount: 3164,
+        unreviewedProteinCount: 3163,
         computationallyMappedProteinCount: 5,
         communityMappedProteinCount: 0,
       },
@@ -1611,7 +1611,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       ],
       statistics: {
         reviewedProteinCount: 4864,
-        unreviewedProteinCount: 8376,
+        unreviewedProteinCount: 8374,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
@@ -1690,7 +1690,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 5,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 9,
+        computationallyMappedProteinCount: 8,
         communityMappedProteinCount: 1,
       },
     },
@@ -1751,7 +1751,7 @@ const mock: SearchResults<Partial<CitationsAPIModel>> = {
       statistics: {
         reviewedProteinCount: 8,
         unreviewedProteinCount: 0,
-        computationallyMappedProteinCount: 1,
+        computationallyMappedProteinCount: 3,
         communityMappedProteinCount: 0,
       },
     },

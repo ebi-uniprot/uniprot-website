@@ -9,6 +9,8 @@ const IntActBase = '//www.ebi.ac.uk/intact/';
 const externalUrls = {
   AlphaFoldPrediction: (id: string) =>
     `https://alphafold.ebi.ac.uk/api/prediction/${id}`,
+  SeqhubEmbed: (sequence: string) =>
+    `https://seqhub.org/embed/search-list?q=${encodeURIComponent(sequence)}`,
   QuickGOTerm: (id: string) => `https://www.ebi.ac.uk/QuickGO/term/${id}`,
   QuickGOAnnotations: (id: string | number) =>
     `//www.ebi.ac.uk/QuickGO/annotations?geneProductId=${id}`,
@@ -79,12 +81,22 @@ const externalUrls = {
   DOI: (id: string | number) => `https://dx.doi.org/${id}`,
   PubMed: (id: string | number) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
   EuropePMC: (id: string | number) => `//europepmc.org/article/MED/${id}`,
-  CommunityCuratedGetByAccession: (id: string) =>
-    `https://community.uniprot.org/cgi-bin/bbsub_query?accession=${id}`,
-  CommunityCuratedGetByAccessionAndPmid: (accession: string, pmid: string) =>
-    joinUrl(
-      `https://community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}&pmid=${pmid}`
-    ),
+  // Data endpoint, queried with HEAD to count the submissions for an accession
+  CommunityCuratedQuery: (accession: string) =>
+    stringifyUrl('https://community.uniprot.org/cgi-bin/bbsub_query', {
+      accession,
+    }),
+  /**
+   * Human-facing page listing the community submissions for an accession, deep
+   * linking to a specific publication when given a PubMed ID. Citation IDs are
+   * not always PubMed IDs (they can be internal `CI-`/`IND` identifiers) so
+   * anything non-numerical is dropped and we link to the accession instead.
+   */
+  CommunityCuratedGetByAccession: (accession: string, pmid?: string) =>
+    stringifyUrl('https://community.uniprot.org/bbsub/bbsubinfo.html', {
+      accession,
+      pmid: pmid && /^\d+$/.test(pmid) ? pmid : undefined,
+    }),
   CommunityCuratedAdd: (id: string | number) =>
     `https://community.uniprot.org/bbsub/bbsub.html?accession=${id}`,
   RheaSearch: (id: string | number) =>

@@ -1,6 +1,7 @@
 import { act, screen } from '@testing-library/react';
 
 import customRender from '../../../../../../shared/__test-helpers__/customRender';
+import settle from '../../../../../../shared/__test-helpers__/settle';
 import { VIRTUALIZE_ROW_THRESHOLD } from '../../../../../../shared/components/table/TableFromData';
 import useDataApi from '../../../../../../shared/hooks/useDataApi';
 import VariationViewer from '../VariationViewer';
@@ -63,7 +64,7 @@ describe('VariationViewer component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders on data', () => {
+  it('renders on data', async () => {
     (useDataApi as jest.Mock).mockReturnValue({
       loading: false,
       data: P0DPR0,
@@ -79,6 +80,7 @@ describe('VariationViewer component', () => {
 
     // Add 1 for thead row
     expect(screen.getAllByRole('row')).toHaveLength(P0DPR0.features.length + 1);
+    await settle();
     // TODO: see if this can be changed after the big Nightingale upgrade
     // At the moment it's taking the variants from this mock:
     // __mocks__/protvista-variation-adapter.js

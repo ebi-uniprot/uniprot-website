@@ -670,8 +670,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
     const catalyticActivityComments = data[
       EntrySection.Function
     ].commentsData.get('CATALYTIC ACTIVITY') as
-      | CatalyticActivityComment[]
-      | undefined;
+      CatalyticActivityComment[] | undefined;
     return (
       catalyticActivityComments && (
         <CatalyticActivityView
@@ -694,8 +693,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
     const catalyticActivityComments = data[
       EntrySection.Function
     ].commentsData.get('CATALYTIC ACTIVITY') as
-      | CatalyticActivityComment[]
-      | undefined;
+      CatalyticActivityComment[] | undefined;
     return (
       <ExpandableList displayNumberOfHiddenItems>
         {catalyticActivityComments?.map(({ reaction }) =>
@@ -1445,10 +1443,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
       {data.references
         ?.filter((reference) => reference.citation?.id.match(rePubMedId))
         ?.map(
-          (reference) =>
+          (reference, index) =>
             reference.citation && (
               <Link
-                key={reference.citation.id}
+                // eslint-disable-next-line @eslint-react/no-array-index-key -- references may share a citation id; index disambiguates the key
+                key={`${reference.citation.id}-${index}`}
                 to={getEntryPath(Namespace.citations, reference.citation.id)}
               >
                 {reference.citation.id}
@@ -1470,9 +1469,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litDoiId, {
     return (
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
         {doiReferences?.map(
-          (xref) =>
+          (xref, index) =>
             xref?.id && (
-              <ExternalLink url={externalUrls.DOI(xref.id)} key={xref.id}>
+              <ExternalLink
+                url={externalUrls.DOI(xref.id)}
+                // eslint-disable-next-line @eslint-react/no-array-index-key -- references may share a DOI; index disambiguates the key
+                key={`${xref.id}-${index}`}
+              >
                 {xref.id}
               </ExternalLink>
             )
@@ -1518,8 +1521,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   render: (data) => {
     const similarityTexts = (
       data[EntrySection.FamilyAndDomains].commentsData.get('SIMILARITY') as
-        | FreeTextComment[]
-        | undefined
+        FreeTextComment[] | undefined
     )?.flatMap((comment) => comment.texts?.map((text) => text.value));
     return (
       <>

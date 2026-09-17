@@ -1,7 +1,7 @@
 import { type GroupByAPIModel } from '../components/results/UniProtKBGroupBy';
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?query=%28%2A%29
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 export const taxonomyRoot: GroupByAPIModel = {
   ancestors: [],
   groups: [
@@ -9,33 +9,33 @@ export const taxonomyRoot: GroupByAPIModel = {
       id: '131567',
       label: 'cellular organisms',
       expandable: true,
-      count: 195969221,
+      count: 148700306,
     },
     {
       id: '2787854',
       label: 'other entries',
       expandable: true,
-      count: 1162,
+      count: 434,
     },
     {
       id: '2787823',
       label: 'unclassified entries',
       expandable: true,
-      count: 2426711,
+      count: 4719,
     },
     {
       id: '10239',
       label: 'Viruses',
       expandable: true,
-      count: 4733846,
+      count: 1104680,
     },
   ],
   parent: {
-    count: 203130940,
+    count: 149810139,
   },
 };
 // Source: https://rest.uniprot.org/uniprotkb/groups/taxonomy?parent=131567&query=%28%2A%29
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 export const taxonomyCellularOrgranisms = {
   ancestors: [],
   groups: [
@@ -43,51 +43,34 @@ export const taxonomyCellularOrgranisms = {
       id: '2157',
       label: 'Archaea',
       expandable: true,
-      count: 2544553,
+      count: 1767834,
     },
     {
       id: '2',
       label: 'Bacteria',
       expandable: true,
-      count: 103199990,
+      count: 74117227,
     },
     {
       id: '2759',
       label: 'Eukaryota',
       expandable: true,
-      count: 90224678,
+      count: 72815245,
     },
   ],
   parent: {
     label: 'cellular organisms',
-    count: 195969221,
+    count: 148700306,
   },
 };
 
 // Source: https://rest.uniprot.org/uniprotkb/groups/ec?parent=3.-.-.-&query=%28shadab%29
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 export const ecNonRoot = {
-  ancestors: [
-    {
-      id: '3.2.-.-',
-      label: 'Glycosylases',
-    },
-    {
-      id: '3.2.1.-',
-      label:
-        'Glycosidases, i.e. enzymes hydrolyzing O- and S-glycosyl compounds',
-    },
-  ],
-  groups: [
-    {
-      id: '3.2.1.18',
-      label: 'exo-alpha-sialidase',
-      expandable: false,
-      count: 37,
-    },
-  ],
+  ancestors: [],
+  groups: [],
   parent: {
     label: 'Hydrolases',
-    count: 37,
+    count: 0,
   },
 };

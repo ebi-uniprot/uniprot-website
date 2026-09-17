@@ -1,7 +1,7 @@
 import { type OpenAPIV3 } from 'openapi-types';
 
 // Source: uniref/api/docs
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const unirefApiDocs: OpenAPIV3.Document = {
   openapi: '3.0.1',
   info: {
@@ -509,6 +509,13 @@ const unirefApiDocs: OpenAPIV3.Document = {
       GeneOntologyEntry: {
         type: 'object',
         properties: {
+          ancestors: {
+            uniqueItems: true,
+            type: 'array',
+            items: {
+              $ref: '#/components/schemas/GeneOntologyEntry',
+            },
+          },
           aspect: {
             type: 'string',
             enum: [
@@ -516,13 +523,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
               'GO Biological Process',
               'GO Cellular Component',
             ],
-          },
-          ancestors: {
-            uniqueItems: true,
-            type: 'array',
-            items: {
-              $ref: '#/components/schemas/GeneOntologyEntry',
-            },
           },
           name: {
             type: 'string',
@@ -535,24 +535,24 @@ const unirefApiDocs: OpenAPIV3.Document = {
       Organism: {
         type: 'object',
         properties: {
+          taxonId: {
+            type: 'integer',
+            format: 'int64',
+          },
           lineages: {
             type: 'array',
             items: {
               type: 'string',
             },
           },
-          taxonId: {
-            type: 'integer',
-            format: 'int64',
-          },
-          scientificName: {
-            type: 'string',
-          },
           synonyms: {
             type: 'array',
             items: {
               type: 'string',
             },
+          },
+          scientificName: {
+            type: 'string',
           },
           commonName: {
             type: 'string',
@@ -595,24 +595,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
           sequence: {
             $ref: '#/components/schemas/Sequence',
           },
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
-          },
           organismName: {
             type: 'string',
           },
@@ -645,6 +627,24 @@ const unirefApiDocs: OpenAPIV3.Document = {
           memberId: {
             type: 'string',
           },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
+          },
         },
       },
       Sequence: {
@@ -671,12 +671,12 @@ const unirefApiDocs: OpenAPIV3.Document = {
       UniRefEntry: {
         type: 'object',
         properties: {
-          representativeMember: {
-            $ref: '#/components/schemas/RepresentativeMember',
-          },
           entryType: {
             type: 'string',
             enum: ['UniRef100', 'UniRef90', 'UniRef50'],
+          },
+          representativeMember: {
+            $ref: '#/components/schemas/RepresentativeMember',
           },
           updated: {
             type: 'string',
@@ -715,24 +715,6 @@ const unirefApiDocs: OpenAPIV3.Document = {
       UniRefMember: {
         type: 'object',
         properties: {
-          uniProtAccessions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          memberIdType: {
-            type: 'string',
-            enum: [
-              'UniProtKB Reviewed (Swiss-Prot)',
-              'UniProtKB Unreviewed (TrEMBL)',
-              'UniProtKB ID',
-              'UniParc',
-            ],
-          },
-          seed: {
-            type: 'boolean',
-          },
           organismName: {
             type: 'string',
           },
@@ -764,6 +746,24 @@ const unirefApiDocs: OpenAPIV3.Document = {
           },
           memberId: {
             type: 'string',
+          },
+          uniProtAccessions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          memberIdType: {
+            type: 'string',
+            enum: [
+              'UniProtKB Reviewed (Swiss-Prot)',
+              'UniProtKB Unreviewed (TrEMBL)',
+              'UniProtKB ID',
+              'UniParc',
+            ],
+          },
+          seed: {
+            type: 'boolean',
           },
         },
       },

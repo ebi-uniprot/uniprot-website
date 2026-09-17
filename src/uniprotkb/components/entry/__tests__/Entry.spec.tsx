@@ -5,6 +5,7 @@ import { type ReactNode } from 'react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';
+import externalUrls from '../../../../shared/config/externalUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import entryData from '../../../__mocks__/uniProtKBEntryModelData';
 import uniprotkbApiUrls from '../../../config/apiUrls/apiUrls';
@@ -45,6 +46,8 @@ mock
     })
   )
   .reply(200, entryPublicationsData, { 'x-total-results': 25 })
+  .onHead(externalUrls.CommunityCuratedQuery(primaryAccession))
+  .reply(200, undefined, { 'x-total-results': '1' })
   .onGet(filteredUrl)
   .reply(
     200,
@@ -83,6 +86,18 @@ describe('Entry', () => {
     it('should render main', async () => {
       const { asFragment } = rendered;
       expect(asFragment()).toMatchSnapshot();
+    });
+
+    // The count comes from a HEAD to the community curation site, made by the
+    // entry and handed to the tools row
+    it('should link to the community curated publications of the entry', async () => {
+      const link = await screen.findByRole('link', {
+        name: /Community curated \(1\)/,
+      });
+      expect(link).toHaveAttribute(
+        'href',
+        `/uniprotkb/${primaryAccession}/publications?facets=types%3A0`
+      );
     });
 
     it.skip('should switch to publications and apply a filter', async () => {

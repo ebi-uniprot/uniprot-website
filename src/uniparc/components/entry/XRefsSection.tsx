@@ -47,6 +47,7 @@ const XRefsSection = ({ entryData }: Props) => {
   const initialApiUrl = useXref({
     accession: entryData.uniParcId,
     withFacets: false,
+    includeSources: true,
   });
 
   const xRefDataObject = usePagination<UniParcXRef, UniParcXRef>(initialApiUrl);

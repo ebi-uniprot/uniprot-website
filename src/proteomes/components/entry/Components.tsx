@@ -16,6 +16,8 @@ import {
   type Component,
   type ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
+import { isNonReferenceOrExcluded } from '../../utils';
+import { proteomeComponentQuery } from '../../utils/query';
 import ComponentsButtons from './ComponentsButtons';
 
 const genomeAccessionDB = 'GenomeAccession' as const;
@@ -56,8 +58,15 @@ const Components = ({
       width?: string;
       ellipsis?: boolean;
     }>
-  >(
-    () => [
+  >(() => {
+    const shouldPointToUniParc = isNonReferenceOrExcluded(proteomeType);
+    const pathname =
+      LocationToPath[
+        shouldPointToUniParc
+          ? Location.UniParcResults
+          : Location.UniProtKBResults
+      ];
+    return [
       {
         label: 'Component name',
         name: 'component_name',
@@ -115,22 +124,12 @@ const Components = ({
           if (!proteinCount) {
             return 0;
           }
-          const shouldPointToUniParc =
-            proteomeType === 'Non Reference proteome' ||
-            proteomeType === 'Excluded';
           return (
             <Link
               to={{
-                pathname:
-                  LocationToPath[
-                    shouldPointToUniParc
-                      ? Location.UniParcResults
-                      : Location.UniProtKBResults
-                  ],
+                pathname,
                 search: stringifyQuery({
-                  query: shouldPointToUniParc
-                    ? `(proteomecomponent:"${id}:${name}")`
-                    : `(proteome:${id}) AND (proteomecomponent:"${name}")`,
+                  query: proteomeComponentQuery(id, name),
                 }),
               }}
             >
@@ -139,9 +138,8 @@ const Components = ({
           );
         },
       },
-    ],
-    [databaseInfoMaps, id, proteomeType, taxonomy.taxonId]
-  );
+    ];
+  }, [databaseInfoMaps, id, proteomeType, taxonomy.taxonId]);
 
   if (!components?.length) {
     return null;
