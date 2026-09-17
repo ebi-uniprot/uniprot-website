@@ -121,14 +121,12 @@ export const getCategories = (slimSet: SlimSet): AGRRibbonCategory[] => {
           type: 'All',
         },
         // Handle the case where there is no slimmed annotation for an aspect
-        ...(slimsByAspect[name] || []).map(
-          (term): AGRRibbonGroup => ({
-            id: term.id,
-            label: term.name,
-            description: '',
-            type: 'Term',
-          })
-        ),
+        ...(slimsByAspect[name] || []).map((term): AGRRibbonGroup => ({
+          id: term.id,
+          label: term.name,
+          description: '',
+          type: 'Term',
+        })),
         {
           id,
           label: `Other ${label}`,

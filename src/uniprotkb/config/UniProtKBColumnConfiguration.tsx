@@ -670,8 +670,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
     const catalyticActivityComments = data[
       EntrySection.Function
     ].commentsData.get('CATALYTIC ACTIVITY') as
-      | CatalyticActivityComment[]
-      | undefined;
+      CatalyticActivityComment[] | undefined;
     return (
       catalyticActivityComments && (
         <CatalyticActivityView
@@ -694,8 +693,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.rhea, {
     const catalyticActivityComments = data[
       EntrySection.Function
     ].commentsData.get('CATALYTIC ACTIVITY') as
-      | CatalyticActivityComment[]
-      | undefined;
+      CatalyticActivityComment[] | undefined;
     return (
       <ExpandableList displayNumberOfHiddenItems>
         {catalyticActivityComments?.map(({ reaction }) =>
@@ -1523,8 +1521,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   render: (data) => {
     const similarityTexts = (
       data[EntrySection.FamilyAndDomains].commentsData.get('SIMILARITY') as
-        | FreeTextComment[]
-        | undefined
+        FreeTextComment[] | undefined
     )?.flatMap((comment) => comment.texts?.map((text) => text.value));
     return (
       <>

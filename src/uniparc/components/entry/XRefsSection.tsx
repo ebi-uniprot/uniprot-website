@@ -20,6 +20,7 @@ import {
 } from '../../config/UniParcXRefsColumnConfiguration';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import useObsoleteXRefStatuses from './hooks/useObsoleteXRefStatuses';
 import useXref from './hooks/useXref';
 
 export type DataDBModel = Array<{
@@ -51,6 +52,12 @@ const XRefsSection = ({ entryData }: Props) => {
 
   const xRefDataObject = usePagination<UniParcXRef, UniParcXRef>(initialApiUrl);
 
+  // The "Go to" column turns a database name into an outbound URL through this
+  // map. It is a separate request from the xrefs one, so the table is not held
+  // back for it: only obsolete external cross-references need a template (an
+  // active one links to its sub-entry page, which is built from the row
+  // itself), and those cells fill in when it lands. If it never does, they stay
+  // unlinked — which is what they looked like before this column existed.
   const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );
@@ -90,6 +97,8 @@ const XRefsSection = ({ entryData }: Props) => {
   const firstSeen = entryData?.oldestCrossRefCreated;
   const lastSeen = entryData?.mostRecentCrossRefUpdated;
 
+  const obsoleteStatuses = useObsoleteXRefStatuses(allResults);
+
   const columnDescriptors = useMemo(
     () =>
       getUniParcXRefsColumns(
@@ -97,9 +106,17 @@ const XRefsSection = ({ entryData }: Props) => {
         getTemplateMap(dataDB),
         entryData.uniParcId,
         firstSeen,
-        lastSeen
+        lastSeen,
+        obsoleteStatuses
       ),
-    [columns, dataDB, entryData.uniParcId, firstSeen, lastSeen]
+    [
+      columns,
+      dataDB,
+      entryData.uniParcId,
+      firstSeen,
+      lastSeen,
+      obsoleteStatuses,
+    ]
   );
 
   if (initialLoading) {

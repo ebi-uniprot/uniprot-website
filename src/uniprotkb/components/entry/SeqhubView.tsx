@@ -27,7 +27,6 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
   // non-safelisted header here would trigger a preflight that fails, and the
   // embed would silently disappear for everyone.
   useEffect(() => {
-    setAvailable(undefined);
     // eslint-disable-next-line import/no-named-as-default-member
     const source = axios.CancelToken.source();
     let didCancel = false;
@@ -116,7 +115,9 @@ const SeqhubView = ({ sequence, lineage }: Props) => {
   // (no phantom loader/heading) for entries where SeqHub has nothing.
   return (
     <LazyComponent fallback={null}>
-      <SeqhubEmbed sequence={sequence} />
+      {/* Keyed so a new sequence remounts the embed: the probe result starts
+          from "unknown" again, and the unmount cleanup cancels the old probe */}
+      <SeqhubEmbed key={sequence} sequence={sequence} />
     </LazyComponent>
   );
 };
