@@ -20,7 +20,6 @@ import {
 } from '../../config/UniParcXRefsColumnConfiguration';
 import EntrySection from '../../types/entrySection';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
-import useColumnHeaderTooltips from './hooks/useColumnHeaderTooltips';
 import useObsoleteXRefStatuses from './hooks/useObsoleteXRefStatuses';
 import useXref from './hooks/useXref';
 
@@ -119,8 +118,6 @@ const XRefsSection = ({ entryData }: Props) => {
     ]
   );
 
-  const setTooltipWrapper = useColumnHeaderTooltips(columnDescriptors);
-
   if (initialLoading) {
     return <Loader progress={progress} />;
   }
@@ -130,7 +127,7 @@ const XRefsSection = ({ entryData }: Props) => {
       <div className="button-group">
         <CustomiseButton namespace={Namespace.uniparc} />
       </div>
-      <div className={helper['overflow-y-container']} ref={setTooltipWrapper}>
+      <div className={helper['overflow-y-container']}>
         {total && allResults.length ? (
           <DataTableWithLoader
             getIdKey={getIdKey}

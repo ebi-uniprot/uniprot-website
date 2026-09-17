@@ -1,4 +1,4 @@
-import { cleanup, screen } from '@testing-library/react';
+import { cleanup, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
@@ -118,8 +118,8 @@ describe('XrefSection component', () => {
     expect(table).toBeEmptyDOMElement();
   });
 
-  // The element the tooltips attach to only exists once the loader has gone, so
-  // this has to go through the loading state to be worth anything.
+  // The header only exists once the loader has gone, so this goes through the
+  // loading state to check the tooltip is attached when the table appears.
   describe('column header tooltips', () => {
     const renderAfterLoading = () => {
       (usePagination as jest.Mock).mockReturnValue({
@@ -134,13 +134,18 @@ describe('XrefSection component', () => {
       ).not.toBeInTheDocument();
       (usePagination as jest.Mock).mockReturnValue(loadedXrefs);
       rerender(<XRefsSection entryData={uniParcData} />);
-      return screen.getByRole('columnheader', { name: 'Go to' });
+      const header = screen.getByRole('columnheader', { name: 'Go to' });
+      // The tooltip hangs off the label, not the `th` franklin renders
+      return {
+        header,
+        label: within(header).getByRole('button', { name: 'Go to' }),
+      };
     };
 
     it('shows the tooltip on hover', async () => {
-      const header = renderAfterLoading();
+      const { label } = renderAfterLoading();
 
-      await userEvent.hover(header);
+      await userEvent.hover(label);
 
       expect(await screen.findByRole('tooltip')).toHaveTextContent(
         'Where this cross-reference can be opened.'
@@ -150,12 +155,12 @@ describe('XrefSection component', () => {
     // The tooltip is the only place a column's meaning is written down, so it
     // can't be mouse-only
     it('shows the tooltip on keyboard focus', async () => {
-      const header = renderAfterLoading();
+      const { label } = renderAfterLoading();
 
-      // A `th` isn't focusable on its own, so without this the focus handler
-      // could never be reached
-      expect(header).toHaveAttribute('tabindex', '0');
-      header.focus();
+      // A `th` isn't focusable on its own; the label being a button is what
+      // lets the focus handler be reached at all
+      label.focus();
+      expect(label).toHaveFocus();
 
       expect(await screen.findByRole('tooltip')).toHaveTextContent(
         'Where this cross-reference can be opened.'
@@ -165,21 +170,21 @@ describe('XrefSection component', () => {
     // The tooltip element itself is only in the DOM while it shows, so the tab
     // stop it adds would otherwise announce nothing but the column label
     it('describes the header for screen readers', () => {
-      const header = renderAfterLoading();
+      const { header, label } = renderAfterLoading();
 
-      const describedBy = header.getAttribute('aria-describedby');
+      const describedBy = label.getAttribute('aria-describedby');
       expect(describedBy).toBeTruthy();
       expect(document.getElementById(describedBy as string)).toHaveTextContent(
         'Where this cross-reference can be opened.'
       );
-      // Kept out of the `th`, where it would be read out as part of the column
-      // name — on the header and on every cell under it
+      // The description is `hidden`, so it isn't folded into the column name
+      // — which would be read out on the header and on every cell under it
       expect(header).toHaveAccessibleName('Go to');
     });
 
     it('dismisses an open tooltip when the table goes away', async () => {
-      const header = renderAfterLoading();
-      header.focus();
+      const { label } = renderAfterLoading();
+      label.focus();
       await screen.findByRole('tooltip');
 
       cleanup();

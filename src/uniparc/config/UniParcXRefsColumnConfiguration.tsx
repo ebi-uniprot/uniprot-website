@@ -20,6 +20,7 @@ import {
   type UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
+import ColumnHeaderLabel from '../components/entry/ColumnHeaderLabel';
 import { type ObsoleteXRefStatus } from '../components/entry/hooks/useObsoleteXRefStatuses';
 import Timeline from '../components/entry/Timeline';
 import { getSubEntryPath } from '../utils/subEntry';
@@ -463,5 +464,14 @@ export const getUniParcXRefsColumns = (
     tooltip: linksColumnTooltip,
     render: getLinksColumn(uniparcAccession, templateMap, obsoleteStatuses),
   });
-  return descriptors;
+  // Franklin renders `label` but ignores `tooltip`, so the header explains
+  // itself through the label
+  return descriptors.map((descriptor) => ({
+    ...descriptor,
+    label: (
+      <ColumnHeaderLabel tooltip={descriptor.tooltip}>
+        {descriptor.label}
+      </ColumnHeaderLabel>
+    ),
+  }));
 };
