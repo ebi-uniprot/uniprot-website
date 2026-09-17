@@ -16,12 +16,20 @@
  *    `.archived-tabs__label`, `.archived-charts`, `<figcaption>`, `data-key`,
  *    `.x-axis`/`.y-axis`/`.domain`, `<thead>` headers, section headings h2–h4).
  *    SingleFile hashes CSS-module class names, so those are never used.
- *  - TABLES: for each (category, dataset) scope, assert every source RAW value
- *    (count / entryCount / totalCount), formatted exactly as the page formats it,
- *    is present, and that the row count matches the source item count. This
- *    catches dropped/duplicated rows, wrong values, and dataset swaps without
- *    per-row name matching. Derived cells (%, averages) are not required to match
- *    (warnings only) — they depend on reproducing D3/rounding exactly.
+ *  - TABLES (many rows, one per item): for each (category, dataset) scope,
+ *    assert every source RAW value (count / entryCount / totalCount), formatted
+ *    exactly as the page formats it, is present, and that the row count matches
+ *    the source item count. This catches dropped/duplicated rows, wrong values,
+ *    and dataset swaps without per-row name matching. Derived cells (%,
+ *    averages) are not required to match (warnings only) — they depend on
+ *    reproducing D3/rounding exactly.
+ *  - TABLES (one row per dataset, a handful of columns): here the registry
+ *    names the statistic behind each column, so every cell is compared to its
+ *    own source value. Presence alone would not do: those cells render as
+ *    `… || 0`, so a capture whose data never populated is all zeros and every
+ *    zero would "trace back" to something.
+ *  - A table whose heading matches no registry entry is reported as a warning
+ *    rather than skipped, so a UI rename cannot quietly shrink coverage.
  *  - CHARTS: only invariants are checkable from static SVG. The high-value ones
  *    are the sequence-length and history line plots (their data is NOT in any
  *    table), where a y-axis whose top tick is below the source max means the
@@ -117,18 +125,43 @@ const COLUMNAR = {
     'SEQUENCE_RANGE',
   'Frequency of journal citations': 'JOURNAL_FREQUENCY',
 };
+// Row-per-dataset tables (AbstractSectionTable). `columns` lists the statistic
+// behind each numeric column, in the order StatisticsPage.tsx passes them as
+// `tableData`, so every cell can be compared to its own source value rather
+// than merely traced back to *some* source value. `accessor` defaults to
+// 'entryCount'; `totalCount` marks a column rendering the category total.
 const ROWS = {
-  'Total number of entries in this release of UniProtKB': { category: 'AUDIT' },
+  'Total number of entries in this release of UniProtKB': {
+    category: 'AUDIT',
+    columns: [
+      { name: 'ENTRY' },
+      { name: 'ANNOTATION_UPDATED' },
+      { name: 'UPDATED_SEQUENCE' },
+    ],
+  },
   'Total number of new entries in this release of UniProtKB': {
     category: 'AUDIT',
+    columns: [{ name: 'NEW_ENTRY' }, { name: 'NEW_ENTRY_AND_NEW_SEQUENCE' }],
   },
-  'Number of fragments': { category: 'SEQUENCE_STATS' },
-  'Number of isoforms': { category: 'SEQUENCE_STATS' },
-  'Amino acids in this release': { category: 'SEQUENCE_STATS' },
-  'Unique references': { category: 'MISCELLANEOUS', transform: 'uniqueRefs' },
+  'Number of fragments': {
+    category: 'SEQUENCE_STATS',
+    columns: [{ name: 'FRAGMENT' }],
+  },
+  'Number of isoforms': {
+    category: 'SEQUENCE_STATS',
+    columns: [{ name: 'ISOFORMS', accessor: 'count' }, { name: 'ISOFORMS' }],
+  },
+  'Amino acids in this release': {
+    category: 'SEQUENCE_STATS',
+    columns: [{ name: 'AMINO_ACID_TOTAL', accessor: 'count' }],
+  },
+  'Unique references': {
+    category: 'MISCELLANEOUS',
+    columns: [{ name: 'UNIQUE_CITATION_ID', accessor: 'count' }],
+  },
   'Total number of species represented in this release of UniProtKB': {
     category: 'TOTAL_ORGANISM',
-    totalCountOnly: true,
+    columns: [{ totalCount: true }],
   },
 };
 
@@ -145,12 +178,6 @@ function applyTransform(category, transform) {
     return {
       ...category,
       items: category.items.filter((i) => !MISC_EXCLUDE.has(i.name)),
-    };
-  }
-  if (transform === 'uniqueRefs') {
-    return {
-      ...category,
-      items: category.items.filter((i) => i.name === 'UNIQUE_CITATION_ID'),
     };
   }
   return category;
@@ -395,22 +422,28 @@ function checkRowTables(doc, stats, push) {
       continue;
     }
     const heading = nearestHeading(table);
-    const spec = ROWS[heading];
-    if (!spec) {
-      continue;
+    if (!Object.hasOwn(ROWS, heading)) {
+      continue; // reported by checkUnregisteredTables
     }
+    const spec = ROWS[heading];
     for (const tr of bodyRows(table)) {
       const cells = [...tr.querySelectorAll('td,th')].map((c) =>
         norm(c.textContent)
       );
+      // First cell is the section label; `excludeUniProtKB` tables simply have
+      // no UniProtKB row, and any other leading cell is not a dataset row.
       const ds = datasetKey(cells[0]);
       if (!ds) {
-        continue; // e.g. excludeUniProtKB — first cell not a known dataset label handled below
+        continue;
       }
-      const category = applyTransform(
-        indexByCategory(stats[ds]).get(spec.category),
-        spec.transform
+      const values = cells.slice(1);
+      push(
+        'error',
+        `${heading}:${ds}:columns`,
+        values.length === spec.columns.length,
+        `${values.length} column(s) vs ${spec.columns.length} in the registry`
       );
+      const category = indexByCategory(stats[ds]).get(spec.category);
       if (!category) {
         push(
           'error',
@@ -420,22 +453,65 @@ function checkRowTables(doc, stats, push) {
         );
         continue;
       }
-      const allowed = new Set(
-        spec.totalCountOnly
-          ? [formatLargeNumber(category.totalCount)]
-          : expectedValues(category)
-      );
-      const numeric = cells.slice(1).filter((c) => /\d/.test(c));
-      const bad = numeric.filter((c) => !allowed.has(c) && c !== '0');
-      push(
-        'error',
-        `${heading}:${ds}:values`,
-        bad.length === 0,
-        bad.length
-          ? `displayed value(s) not found in ${spec.category}/${ds}: ${bad.slice(0, 3).join(', ')}`
-          : `${numeric.length} value(s) trace to source`
-      );
+      spec.columns.forEach((column, i) => {
+        const accessor = column.accessor || 'entryCount';
+        // Reproduces AbstractSectionTable's `data.<dataset>?.[accessor] || 0`:
+        // a statistic absent for this dataset legitimately shows 0, but a
+        // non-zero source value displayed as 0 (a capture whose data never
+        // populated) is a mismatch — which a "traces back to some source
+        // value" check would wave through.
+        const expected = column.totalCount
+          ? formatLargeNumber(category.totalCount)
+          : formatLargeNumber(
+              category.items.find((it) => it.name === column.name)?.[
+                accessor
+              ] || 0
+            );
+        const actual = values[i];
+        const label = column.totalCount
+          ? 'totalCount'
+          : `${column.name}.${accessor}`;
+        push(
+          'error',
+          `${heading}:${ds}:${label}`,
+          actual === expected,
+          actual === expected
+            ? `shows ${expected}`
+            : `displayed ${JSON.stringify(actual ?? null)}, source ${expected}`
+        );
+      });
     }
+  }
+}
+
+/**
+ * Any non-tabbed table whose heading matches no registry entry is going
+ * completely unverified — say so rather than skipping in silence, so a renamed
+ * heading in the UI cannot quietly shrink what this gate covers. It lives in
+ * its own pass because checkRowTables and checkColumnarTables each walk every
+ * table, and so would flag each other's.
+ */
+function checkUnregisteredTables(doc, push) {
+  const reported = new Set();
+  for (const table of doc.querySelectorAll('table')) {
+    if (table.closest('.archived-tabs')) {
+      continue;
+    }
+    const heading = nearestHeading(table);
+    if (
+      Object.hasOwn(ROWS, heading) ||
+      Object.hasOwn(COLUMNAR, heading) ||
+      reported.has(heading)
+    ) {
+      continue;
+    }
+    reported.add(heading);
+    push(
+      'warning',
+      `table:${heading}`,
+      false,
+      `Unrecognised table heading "${heading}" — table not verified`
+    );
   }
 }
 
@@ -529,28 +605,35 @@ function checkLineCharts(doc, stats, push) {
   }
 }
 
-/** Per-dataset max of accumulated entry counts over history (UNIPROTKB = REVIEWED + UNREVIEWED per releaseDate). */
-function historyMax(history, ds) {
+/**
+ * Per-dataset max of the counts the history chart actually plots. Mirrors
+ * processResults() in HistoricalReleasesEntries.tsx: counts ACCUMULATE per
+ * (statisticsType, releaseDate) rather than overwrite, and every row also
+ * accumulates into UNIPROTKB — so more than one row for a date raises the
+ * plotted max, and computing it any other way would fail a correct archive.
+ */
+export function historyMax(history, ds) {
   if (!history?.results) {
     return NaN;
   }
-  const byType = { reviewed: new Map(), unreviewed: new Map() };
+  const byType = {
+    UNIPROTKB: new Map(),
+    REVIEWED: new Map(),
+    UNREVIEWED: new Map(),
+  };
+  const add = (map, date, count) => map.set(date, (map.get(date) || 0) + count);
   for (const r of history.results) {
-    const key = r.statisticsType === 'REVIEWED' ? 'reviewed' : 'unreviewed';
-    byType[key].set(r.releaseDate, r.entryCount);
+    const map = byType[r.statisticsType];
+    if (!map) {
+      continue; // unknown type: the page would throw, we just don't plot it
+    }
+    add(map, r.releaseDate, r.entryCount);
+    add(byType.UNIPROTKB, r.releaseDate, r.entryCount);
   }
-  if (ds === 'reviewed') {
-    return Math.max(...byType.reviewed.values());
-  }
-  if (ds === 'unreviewed') {
-    return Math.max(...byType.unreviewed.values());
-  }
-  // combined: sum reviewed + unreviewed per date
-  let m = 0;
-  for (const [date, rev] of byType.reviewed) {
-    m = Math.max(m, rev + (byType.unreviewed.get(date) || 0));
-  }
-  return m;
+  const key =
+    { reviewed: 'REVIEWED', unreviewed: 'UNREVIEWED' }[ds] || 'UNIPROTKB';
+  const counts = [...byType[key].values()];
+  return counts.length ? Math.max(...counts) : NaN;
 }
 
 function checkPies(doc, stats, push) {
@@ -624,6 +707,7 @@ export function verifyArchive(html, groundTruth) {
   checkTabbedGroups(document, stats, push);
   checkColumnarTables(document, stats, push);
   checkRowTables(document, stats, push);
+  checkUnregisteredTables(document, push);
   checkSequenceCorrections(document, stats, push);
   checkLineCharts(document, stats, push);
   checkPies(document, stats, push);

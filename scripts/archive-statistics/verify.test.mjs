@@ -2,20 +2,23 @@
 
 /**
  * Tests for the archive data verifier. Run with:
- *   node --test scripts/archive-statistics/
- * (jest is scoped to src/, so these use Node's built-in test runner.)
+ *   node --test scripts/archive-statistics/verify.test.mjs
+ * (a bare directory argument is run as a module rather than expanded on Node
+ * 22+; jest is scoped to src/, so these use Node's built-in test runner.)
  */
 
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
+import { fileURLToPath } from 'node:url';
 
 import { JSDOM } from 'jsdom';
 
+import { isSafeResourceUrl } from './capture.mjs';
 import {
   formatLargeNumber,
   getEmbeddedData,
+  historyMax,
   parseTick,
   verifyArchive,
 } from './verify.mjs';
@@ -39,6 +42,50 @@ test('parseTick handles comma and SI formats', () => {
   assert.equal(parseTick('260M'), 260000000);
   assert.equal(parseTick('0.0'), 0);
   assert.ok(Number.isNaN(parseTick('n/a')));
+});
+
+test('isSafeResourceUrl only applies address rules to IP literals', () => {
+  // A hostname that merely starts like an IPv6 unique-local prefix is fine:
+  // refusing it silently drops that font/image from the archive.
+  assert.equal(isSafeResourceUrl('https://fdn.example.com/f.woff2'), true);
+  assert.equal(isSafeResourceUrl('https://fc-assets.example.org/a.png'), true);
+  assert.equal(isSafeResourceUrl('https://www.uniprot.org/x.css'), true);
+  // Literals are blocked — including IPv4-mapped and CGNAT.
+  assert.equal(isSafeResourceUrl('http://127.0.0.1/x'), false);
+  assert.equal(
+    isSafeResourceUrl('http://169.254.169.254/latest/meta-data'),
+    false
+  );
+  assert.equal(isSafeResourceUrl('http://100.64.0.1/x'), false);
+  assert.equal(isSafeResourceUrl('http://[::1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[fe80::1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[::ffff:127.0.0.1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[::ffff:7f00:1]/x'), false);
+  // …as are non-http(s) schemes and junk.
+  assert.equal(isSafeResourceUrl('file:///etc/passwd'), false);
+  assert.equal(isSafeResourceUrl('not a url'), false);
+});
+
+test('historyMax accumulates per release date, like the page', () => {
+  const history = {
+    results: [
+      { statisticsType: 'REVIEWED', releaseDate: '2024-01-01', entryCount: 10 },
+      { statisticsType: 'REVIEWED', releaseDate: '2024-01-01', entryCount: 5 },
+      {
+        statisticsType: 'UNREVIEWED',
+        releaseDate: '2024-01-01',
+        entryCount: 7,
+      },
+      { statisticsType: 'REVIEWED', releaseDate: '2024-06-01', entryCount: 12 },
+    ],
+  };
+  // Two rows for one (type, date) sum rather than the last one winning: the
+  // chart plots the sum, so overwriting would compute a max below the real one
+  // and fail a correct archive.
+  assert.equal(historyMax(history, 'reviewed'), 15);
+  assert.equal(historyMax(history, 'unreviewed'), 7);
+  assert.equal(historyMax(history, 'combined'), 22); // 15 + 7 on 2024-01-01
+  assert.ok(Number.isNaN(historyMax(undefined, 'reviewed')));
 });
 
 // ── Minimal fixture: one of each family/chart the verifier reads ──
@@ -75,8 +122,16 @@ function groundTruth() {
       { name: '300', count: Math.round(max / 2), entryCount: 0 },
     ],
   });
+  // Backs the "Number of isoforms" table (AbstractSectionTable): two columns
+  // reading two accessors off the same item.
+  const seqStats = (f) => ({
+    categoryName: 'SEQUENCE_STATS',
+    label: 'Sequence stats',
+    totalCount: 70 * f,
+    items: [{ name: 'ISOFORMS', count: 40 * f, entryCount: 30 * f }],
+  });
   const build = (f, skNames, scMax) => ({
-    results: [pub(f), superkingdom(skNames, f), seqCount(scMax)],
+    results: [pub(f), superkingdom(skNames, f), seqCount(scMax), seqStats(f)],
   });
   return {
     statistics: {
@@ -127,7 +182,22 @@ function buildFixture(gt, opts = {}) {
       return `<tr><td>${name}</td>${cells}</tr>`;
     })
     .join('');
-  const columnar = `<h3>Taxonomic distribution of the sequences across kingdoms</h3><div class="side-by-side"><table><thead>${colHeaders}</thead><tbody>${colRows}</tbody></table></div>`;
+  const columnarHeading = opts.renameHeading
+    ? 'Taxonomic distribution of the sequences by kingdom' // not in the registry
+    : 'Taxonomic distribution of the sequences across kingdoms';
+  const columnar = `<h3>${columnarHeading}</h3><div class="side-by-side"><table><thead>${colHeaders}</thead><tbody>${colRows}</tbody></table></div>`;
+
+  // Row-per-dataset table (AbstractSectionTable): one row per dataset, one
+  // column per (item, accessor).
+  const rowsBody = DS.map((ds, i) => {
+    const it = cat(ds, 'SEQUENCE_STATS').items[0];
+    const cells = [N(it.count), N(it.entryCount)]
+      .slice(0, opts.dropColumn ? 1 : 2)
+      .map((v) => `<td>${opts.zeroRows ? '0' : v}</td>`)
+      .join('');
+    return `<tr><td>${LABELS[i]}</td>${cells}</tr>`;
+  }).join('');
+  const rowsTable = `<h3>Number of isoforms</h3><table><thead><tr><th>Section</th><th>Isoforms</th><th>Entries with isoforms</th></tr></thead><tbody>${rowsBody}</tbody></table>`;
 
   // Sequence-size line-plot group: 3 panels each with a y-axis + data path.
   const chartPanels = DS.map((ds, i) => {
@@ -158,7 +228,7 @@ function buildFixture(gt, opts = {}) {
     gt
   ).replace(/</g, '\\u003c')}</script>`;
 
-  return `<!DOCTYPE html><html><body><main>${tabbed}${columnar}${chart}${pie}</main>${dataBlock}</body></html>`;
+  return `<!DOCTYPE html><html><body><main>${tabbed}${columnar}${rowsTable}${chart}${pie}</main>${dataBlock}</body></html>`;
 }
 
 test('fixture: clean archive verifies OK', () => {
@@ -174,6 +244,10 @@ const CORRUPTIONS = [
   ['swapped dataset labels', { swapLabels: true }],
   ['shrunk chart y-axis (mid-transition)', { shrinkAxis: true }],
   ['removed a pie slice', { removeSlice: true }],
+  // A capture whose data never populated renders every cell as 0 — the page's
+  // `data.X?.[accessor] || 0` — which a traceability-only check waves through.
+  ['all-zero rows table', { zeroRows: true }],
+  ['dropped rows column', { dropColumn: true }],
 ];
 
 for (const [name, opts] of CORRUPTIONS) {
@@ -184,6 +258,20 @@ for (const [name, opts] of CORRUPTIONS) {
     assert.ok(result.mismatches.length > 0);
   });
 }
+
+test('fixture: table heading no registry entry covers is warned about', () => {
+  const gt = groundTruth();
+  const result = verifyArchive(buildFixture(gt, { renameHeading: true }), gt);
+  const warnings = result.checks.filter(
+    (c) => !c.ok && c.severity === 'warning'
+  );
+  assert.ok(
+    warnings.some((w) =>
+      w.detail.includes('Taxonomic distribution of the sequences by kingdom')
+    ),
+    `expected a warning naming the unrecognised heading, got ${JSON.stringify(warnings)}`
+  );
+});
 
 // ── Guarded smoke test against a real archive, if one is present ──
 

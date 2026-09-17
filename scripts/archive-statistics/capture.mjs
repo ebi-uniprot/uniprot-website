@@ -17,6 +17,8 @@
  * static labelled sections.
  */
 
+import { isIP } from 'node:net';
+
 import { chromium } from 'playwright';
 import { script as singleFileBundle } from 'single-file-cli/lib/single-file-bundle.js';
 
@@ -54,6 +56,32 @@ const RESOURCE_FETCH_TIMEOUT_MS = 30_000;
 const fetchFailure = (error) => ({ status: 0, headers: [], data: '', error });
 
 /**
+ * Range test for an IPv4 literal: "this host", loopback, private, link-local
+ * (incl. cloud metadata) and CGNAT.
+ * @param {string} host dotted-quad literal
+ * @returns {boolean}
+ */
+function isSafeIPv4(host) {
+  const [a, b] = host.split('.').map(Number);
+  if (a === 0 || a === 127 || a === 10) {
+    return false;
+  }
+  if (a === 169 && b === 254) {
+    return false; // link-local + cloud metadata (169.254.169.254)
+  }
+  if (a === 192 && b === 168) {
+    return false;
+  }
+  if (a === 172 && b >= 16 && b <= 31) {
+    return false;
+  }
+  if (a === 100 && b >= 64 && b <= 127) {
+    return false; // CGNAT (RFC 6598)
+  }
+  return true;
+}
+
+/**
  * SSRF guard for the Node-side resource fetch fallback: only http(s), and never
  * loopback / private / link-local / metadata address literals. This is
  * defence-in-depth — the tool targets the trusted public site — and does not
@@ -61,7 +89,7 @@ const fetchFailure = (error) => ({ status: 0, headers: [], data: '', error });
  * @param {string} rawUrl
  * @returns {boolean}
  */
-function isSafeResourceUrl(rawUrl) {
+export function isSafeResourceUrl(rawUrl) {
   let parsed;
   try {
     parsed = new URL(rawUrl);
@@ -75,28 +103,29 @@ function isSafeResourceUrl(rawUrl) {
   if (host === 'localhost' || host.endsWith('.localhost')) {
     return false;
   }
-  // IPv6 loopback / link-local / unique-local.
-  if (host === '::1' || host === '::' || /^(fe80|fc|fd)/.test(host)) {
-    return false;
+  // Address rules apply only to actual IP literals — gating on isIP() keeps a
+  // legitimate hostname (fdn.example.com, fc-assets.example.org) from matching
+  // the fc/fd unique-local prefixes and losing that resource from the archive.
+  const family = isIP(host);
+  if (family === 6) {
+    if (host === '::1' || host === '::') {
+      return false;
+    }
+    if (/^(fe80|fc|fd)/.test(host)) {
+      return false; // link-local / unique-local
+    }
+    if (host.startsWith('::ffff:')) {
+      // IPv4-mapped: apply the IPv4 rules to the dotted form, and refuse the
+      // hex form (::ffff:7f00:1) rather than let it through unchecked.
+      const mapped = host.slice('::ffff:'.length);
+      return isIP(mapped) === 4 ? isSafeIPv4(mapped) : false;
+    }
+    return true;
   }
-  const ipv4 = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
-  if (ipv4) {
-    const a = Number(ipv4[1]);
-    const b = Number(ipv4[2]);
-    if (a === 0 || a === 127 || a === 10) {
-      return false;
-    }
-    if (a === 169 && b === 254) {
-      return false; // link-local + cloud metadata (169.254.169.254)
-    }
-    if (a === 192 && b === 168) {
-      return false;
-    }
-    if (a === 172 && b >= 16 && b <= 31) {
-      return false;
-    }
+  if (family === 4) {
+    return isSafeIPv4(host);
   }
-  return true;
+  return true; // a DNS name — not resolved here (see the doc comment)
 }
 
 /**
@@ -257,6 +286,10 @@ async function flattenTabs(page) {
       }
       const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
       const panels = [];
+      // HTML of the panel captured for the previous tab — the tabpanel element
+      // is reused across tabs, so this is what a freshly-clicked tab must
+      // differ from before we believe it has rendered.
+      let previousHtml = null;
       for (const tab of tabs) {
         const title = (tab.textContent || '').trim();
         tab.click();
@@ -274,25 +307,41 @@ async function flattenTabs(page) {
         if (!panel || !panel.textContent.trim()) {
           throw new Error(`Tab panel "${title}" did not render any content`);
         }
-        await expandPanel(panel);
         // Wait until the panel stops changing before snapshotting. A chart panel
         // (e.g. the sequence-length line plots, which live in these tabs) is
         // non-empty immediately from its static axis labels, but its D3 line and
         // axes draw over a ~1s transition — capturing early freezes a
         // mid-animation chart with a wrong (interpolated) y-axis scale. Poll the
-        // panel's HTML until it is unchanged across two reads (or a timeout).
-        let previous = null;
+        // panel's HTML until it is unchanged across two reads AND differs from
+        // the previous tab's panel: "stable" on its own is also true of the
+        // previous dataset still sitting in the reused tabpanel, which would
+        // file dataset N-1's numbers under dataset N's label (same `changed`
+        // guard as waitStableSvg in flattenSelectCharts).
+        let lastPoll = null;
         let settled = panel;
+        let stable = false;
         for (let i = 0; i < 60; i += 1) {
           await sleep(100);
           settled = container.querySelector('[role="tabpanel"]') || settled;
           const html = settled.innerHTML;
-          if (html === previous) {
+          const changed = previousHtml === null || html !== previousHtml;
+          if (html === lastPoll && changed) {
+            stable = true;
             break;
           }
-          previous = html;
+          lastPoll = html;
         }
-        panels.push({ title, html: settled.innerHTML });
+        if (!stable) {
+          throw new Error(
+            `Tab panel "${title}" never rendered content distinct from the previous tab`
+          );
+        }
+        // Expand only once this tab's own panel is on screen — expanding before
+        // the wait would expand whichever panel was still mounted, and the
+        // re-render would drop it.
+        await expandPanel(settled);
+        previousHtml = settled.innerHTML;
+        panels.push({ title, html: previousHtml });
       }
       const wrapper = document.createElement('div');
       wrapper.className = 'archived-tabs';
@@ -452,20 +501,46 @@ async function serializeWithSingleFile(page) {
     if (!isSafeResourceUrl(url)) {
       return fetchFailure('blocked url');
     }
+    const controller = new AbortController();
     try {
       const response = await fetch(url, {
         method: 'GET',
         redirect: 'follow',
-        signal: AbortSignal.timeout(RESOURCE_FETCH_TIMEOUT_MS),
+        signal: AbortSignal.any([
+          AbortSignal.timeout(RESOURCE_FETCH_TIMEOUT_MS),
+          controller.signal,
+        ]),
       });
-      const buffer = Buffer.from(await response.arrayBuffer());
-      if (buffer.byteLength > MAX_RESOURCE_BYTES) {
+      // Enforce the cap *before* the body is materialised: reading it whole and
+      // then measuring would let a huge response into memory first, which is
+      // exactly what the cap exists to prevent. Trust a declared
+      // content-length, then stream and abort once the running total passes it.
+      const declared = Number(response.headers.get('content-length'));
+      if (Number.isFinite(declared) && declared > MAX_RESOURCE_BYTES) {
+        controller.abort();
+        return fetchFailure('resource too large');
+      }
+      const chunks = [];
+      let total = 0;
+      let tooLarge = false;
+      for await (const chunk of response.body ?? []) {
+        total += chunk.byteLength;
+        if (total > MAX_RESOURCE_BYTES) {
+          tooLarge = true;
+          break; // cancels the body stream
+        }
+        chunks.push(chunk);
+      }
+      if (tooLarge) {
+        // Break first, abort after: aborting mid-iteration rejects the pending
+        // read, and that error would mask the reason in the returned failure.
+        controller.abort();
         return fetchFailure('resource too large');
       }
       return {
         status: response.status,
         headers: Array.from(response.headers.entries()),
-        data: buffer.toString('base64'),
+        data: Buffer.concat(chunks).toString('base64'),
       };
     } catch (error) {
       return fetchFailure(String(error));

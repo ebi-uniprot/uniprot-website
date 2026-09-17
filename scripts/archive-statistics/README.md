@@ -49,7 +49,7 @@ override). The check is browser-free (jsdom + the embedded JSON as ground truth)
 any archived file can also be re-checked later, offline:
 
 ```bash
-yarn verify:statistics archive/uniprotkb-statistics-2026_02.html
+pnpm verify:statistics archive/uniprotkb-statistics-2026_02.html
 ```
 
 It cross-checks, per dataset (UniProtKB / Reviewed / Unreviewed):
@@ -58,7 +58,11 @@ It cross-checks, per dataset (UniProtKB / Reviewed / Unreviewed):
   exactly as the page formats it, must be present, and row counts must match the
   source item counts. Catches dropped/duplicated rows, wrong values and dataset
   swaps. Derived cells (percentages, per-entry averages) are recomputed but only
-  reported as warnings (they depend on reproducing D3/rounding).
+  reported as warnings (they depend on reproducing D3/rounding). The small
+  row-per-dataset tables go further — the registry names the statistic behind
+  each column, so every cell is compared to its own source value (those cells
+  render as `… || 0`, so "all zeros" would otherwise pass). A table whose
+  heading matches no registry entry is warned about, never silently skipped.
 - **Charts** — the sequence-length and history line plots hold data that appears in
   no table, so their y-axis scale is checked against the source max; a y-axis scaled
   to a fraction of the real max means the chart was frozen mid-D3-transition (the bug
@@ -68,12 +72,14 @@ The verifier deliberately anchors only on capture-owned markup (`.archived-tabs`
 `.archived-charts`, `data-key`, axis classes, `<thead>` headers, section headings) and
 a small heading→category registry, never on SingleFile's hashed CSS-module class
 names. If the statistics UI is restructured, update the registry / anchors in
-`verify.mjs`. Tests: `node --test scripts/archive-statistics/`.
+`verify.mjs`. Tests: `node --test "scripts/archive-statistics/**/*.test.mjs"`
+(a bare directory argument is run as a module, not expanded, on Node 22+).
 
 ## Prerequisites
 
-- Node 18+ (uses global `fetch`).
-- Dev dependencies: `playwright` and `single-file-cli` (added to `package.json`).
+- Node 20.12+ (uses global `fetch`, and `util.styleText`, which landed in 20.12).
+- Dev dependencies: `playwright`, `single-file-cli` and `jsdom` (the verifier parses
+  the archived HTML with it) — all three added to `package.json`.
 - A Chromium for Playwright. Either:
   - `npx playwright install chromium` (downloads Playwright's browser), **or**
   - point at an existing browser with `--channel chrome` or
@@ -90,7 +96,7 @@ names. If the statistics UI is restructured, update the registry / anchors in
 node scripts/archive-statistics/index.mjs
 
 # …or via the package script
-yarn archive:statistics
+pnpm archive:statistics
 
 # Use an installed Chrome instead of Playwright's bundled browser, into ./public
 node scripts/archive-statistics/index.mjs --channel chrome --out ./public

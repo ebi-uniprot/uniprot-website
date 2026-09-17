@@ -129,15 +129,27 @@ const commentSafe = (value) =>
     .replace(/[<>]/g, '')
     .replace(/-{2,}/g, '-');
 
+/**
+ * Insert `block` immediately before the last occurrence of `tag`, or return
+ * null if the tag is absent. Last, not first: `</body>` can also appear inside
+ * an inlined stylesheet or data URI, and splicing into one of those would
+ * corrupt the resource.
+ */
+const spliceBefore = (html, tag, block) => {
+  const at = html.lastIndexOf(tag);
+  return at === -1 ? null : `${html.slice(0, at)}${block}\n${html.slice(at)}`;
+};
+
 /** Prepend an archival banner comment (after the doctype, to avoid quirks mode). */
 const withBanner = (html, meta) => {
   const banner = `<!--\n  UniProtKB statistics — archival snapshot\n  Release:      ${commentSafe(meta.releaseNumber)} (${commentSafe(meta.headerReleaseDate) || 'unknown date'})\n  Captured:     ${commentSafe(meta.capturedAt)}\n  Source page:  ${commentSafe(meta.sourceUrl)}\n  Data API:     ${commentSafe(meta.api)}\n\n  Static, self-contained capture (JavaScript removed). Interactive features are\n  frozen and the Reviewed/Unreviewed tab tables are stacked as static sections.\n  The underlying JSON data is embedded in this file (script id "archived-statistics-data").\n  Links to uniprot.org are absolute and may age out over time.\n-->\n`;
-  // Use a replacer function so `$` sequences in the banner are not treated as
-  // special replacement patterns.
-  if (html.includes('<html')) {
-    return html.replace('<html', () => `${banner}<html`);
-  }
-  return banner + html;
+  // Anchor on the real start tag (`<html>` / `<html lang=…`) rather than the
+  // bare substring, and insert by index so `$` sequences in the banner are not
+  // treated as special replacement patterns.
+  const at = html.search(/<html[\s>]/i);
+  return at === -1
+    ? banner + html
+    : `${html.slice(0, at)}${banner}${html.slice(at)}`;
 };
 
 /** Capture metadata for the embedded data block's `metadata` section. */
@@ -162,13 +174,15 @@ const buildMetadata = (meta, sources, stats) => ({
 const embedData = (html, payload) => {
   const json = JSON.stringify(payload).replace(/</g, '\\u003c');
   const block = `<script type="application/json" id="archived-statistics-data">${json}</script>`;
-  if (html.includes('</body>')) {
-    return html.replace('</body>', () => `${block}\n</body>`);
-  }
-  if (html.includes('</html>')) {
-    return html.replace('</html>', () => `${block}\n</html>`);
-  }
-  return `${html}\n${block}`;
+  // With compressHTML SingleFile omits the optional end tags, so appending at
+  // the end of the document is the normal path here (content after an omitted
+  // </body> is still parsed into the body); the splices cover a capture made
+  // with compression off.
+  return (
+    spliceBefore(html, '</body>', block) ??
+    spliceBefore(html, '</html>', block) ??
+    `${html}\n${block}`
+  );
 };
 
 const printHelp = () => {

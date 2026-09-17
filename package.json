@@ -5,6 +5,9 @@
   "packageManager": "pnpm@12.3.4",
   "homepage": "https://ebi-uniprot.github.io/uniprot-website/",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.12"
+  },
   "scripts": {
     "start": "pnpm start:prod",
     "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/api --mode development",
@@ -226,6 +229,7 @@
     "jest-environment-jsdom": "30.4.1",
     "jest-fetch-mock": "4.2.0",
     "jest-silent-reporter": "0.6.0",
+    "jsdom": "30.1.0",
     "lint-staged": "17.1.1",
     "lodash": "4.18.1",
     "mini-css-extract-plugin": "2.10.2",
