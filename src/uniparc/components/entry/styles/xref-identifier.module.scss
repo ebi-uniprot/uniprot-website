@@ -1,0 +1,8 @@
+.xref-identifier {
+  white-space: nowrap;
+
+  // Stops the basket icon pushing the identifier below the rest of the row
+  svg {
+    vertical-align: top;
+  }
+}
