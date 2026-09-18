@@ -753,9 +753,6 @@ exports[`GenomicCoordinates component renders on error 1`] = `
           <div>
             Please try again later
           </div>
-          <small>
-            We will reload this page for you in 5 seconds
-          </small>
         </div>
       </div>
     </div>

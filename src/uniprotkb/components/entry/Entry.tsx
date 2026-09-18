@@ -450,10 +450,18 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
-  let isObsolete = Boolean(
-    transformedData?.entryType === EntryType.INACTIVE &&
-    transformedData.inactiveReason
-  );
+  const isObsolete =
+    Boolean(
+      transformedData?.entryType === EntryType.INACTIVE &&
+      transformedData.inactiveReason
+    ) ||
+    // A merged entry's history, viewed under the old accession: the data is the
+    // entry it was merged into, but this URL is not that entry's page
+    Boolean(
+      redirectedTo &&
+      data?.primaryAccession &&
+      data.primaryAccession !== match?.params.accession
+    );
 
   /* Fetched here, once per entry, rather than by the components that need
   them: they are read from both the tools row and the publications tab, and
@@ -555,7 +563,12 @@ const Entry = () => {
     return () => dispatch(deleteMessage('accession-merge'));
   }, []);
 
-  const structuredData = useMemo(() => dataToSchema(data), [data]);
+  const structuredData = useMemo(
+    // An obsolete entry is noindex and deliberately carries no canonical:
+    // JSON-LD naming a live Protein at a canonical URL would contradict both
+    () => (isObsolete ? undefined : dataToSchema(data)),
+    [data, isObsolete]
+  );
   useStructuredData(structuredData);
 
   if (
@@ -615,11 +628,6 @@ const Entry = () => {
   );
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
-
-  // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
-  // merged entry's history), the user is viewing content of an obsolete entry
-  isObsolete =
-    (redirectedTo && accession !== match.params.accession) || isObsolete;
 
   let sidebar = null;
   if (!isObsolete) {

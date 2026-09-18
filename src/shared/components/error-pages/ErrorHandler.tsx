@@ -33,7 +33,15 @@ const ErrorHandler = ({
 }: ErrorHandlerProps) => {
   const isPermanent = isPermanentStatus(status);
 
-  let component = <ServiceUnavailable {...props} noReload={noReload} />;
+  let component = (
+    <ServiceUnavailable
+      {...props}
+      // A reload replaces the whole document: right when the page itself is the
+      // error, wrong when one widget on an otherwise working page failed -- it
+      // re-requests everything, including whatever rate-limited us
+      noReload={noReload || !fullPage}
+    />
+  );
   if (!status) {
     // No status returned and a syntax error... it's likely to be NordVPN issue
     if (error instanceof SyntaxError) {

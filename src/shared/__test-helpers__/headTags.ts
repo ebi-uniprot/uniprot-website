@@ -2,6 +2,12 @@ export const canonical = () => document.querySelector('link[rel="canonical"]');
 
 export const robots = () => document.querySelector('meta[name="robots"]');
 
+export const structuredData = () =>
+  Array.from(
+    document.querySelectorAll('script[type="application/ld+json"]'),
+    (script) => script.textContent
+  );
+
 /**
  * react-helmet-async writes to `document.head` outside React's tree, so tags
  * survive an unmount and leak into the next test. Call in a `beforeEach` of
@@ -10,7 +16,7 @@ export const robots = () => document.querySelector('meta[name="robots"]');
  */
 export const clearHeadTags = () => {
   for (const tag of document.querySelectorAll(
-    'link[rel="canonical"], meta[name="robots"]'
+    'link[rel="canonical"], meta[name="robots"], script[type="application/ld+json"]'
   )) {
     tag.remove();
   }

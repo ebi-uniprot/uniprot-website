@@ -8,6 +8,7 @@ import {
   canonical,
   clearHeadTags,
   robots,
+  structuredData,
 } from '../../../../shared/__test-helpers__/headTags';
 import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../../shared/config/externalUrls';
@@ -171,5 +172,32 @@ describe('Entry head tags', () => {
     // A canonical would tell Google this URL is the same page as some other
     expect(canonical()).toBeNull();
     expect(document.title).toContain(obsolete);
+  });
+
+  it('does not describe an obsolete entry as a live protein', async () => {
+    const obsolete = inactiveEntryData.primaryAccession;
+    await act(async () => {
+      customRender(<Entry />, { route: `/uniprotkb/${obsolete}/entry` });
+    });
+
+    await waitFor(() => expect(robots()).toHaveAttribute('content', 'noindex'));
+    // JSON-LD naming a Protein at a canonical URL would contradict both the
+    // noindex above and the canonical this page deliberately does not emit
+    for (const json of structuredData()) {
+      expect(json).toBeFalsy();
+    }
+  });
+
+  it('still describes a live entry, at the same URL as its canonical', async () => {
+    await act(async () => {
+      customRender(<Entry />, {
+        route: `/uniprotkb/${primaryAccession}/entry`,
+      });
+    });
+
+    await waitFor(() => expect(structuredData().join('')).toBeTruthy());
+    const schema = JSON.parse(structuredData().join(''));
+    expect(schema.url).toBe(canonical()?.getAttribute('href'));
+    expect(schema.mainEntity['@id']).toBe(schema.url);
   });
 });

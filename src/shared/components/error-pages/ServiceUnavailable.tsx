@@ -20,15 +20,16 @@ const ServiceUnavailable = ({
   const willReload = !noReload && navigator.onLine && retryIndex in BACKOFF;
   // Jittered so that clients that failed together don't reload together -- a
   // reload re-requests everything the page needs, not one call. Fixed for the
-  // life of the component: a re-render must not move the deadline. The message
-  // below quotes the floor, not this exact value.
+  // life of the component: a re-render must not move the deadline. Derived from
+  // `retryIndex` alone rather than from `willReload`, which a re-render can flip
+  // (coming back online, say) long after this value was frozen as undefined.
   const [delayMs] = useState(() =>
-    willReload ? jitter(BACKOFF[retryIndex] * 1_000) : undefined
+    retryIndex in BACKOFF ? jitter(BACKOFF[retryIndex] * 1_000) : undefined
   );
 
   useEffect(() => {
     let timeout: number | undefined;
-    if (willReload) {
+    if (willReload && delayMs !== undefined) {
       timeout = window.setTimeout(() => {
         sessionStorage.setItem(KEY, `${retryIndex + 1}`);
         document.location.reload();
@@ -49,11 +50,7 @@ const ServiceUnavailable = ({
       <Message level="failure">
         <h4>This service is currently unavailable!</h4>
         <div>Please try again later</div>
-        {willReload && (
-          <small>
-            We will reload this page for you in {BACKOFF[retryIndex]} seconds
-          </small>
-        )}
+        {willReload && <small>We will reload this page for you shortly</small>}
         {!navigator.onLine && (
           <small>
             You appear to be offline, make sure to get a network connection
