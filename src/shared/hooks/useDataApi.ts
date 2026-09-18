@@ -1,4 +1,4 @@
-import axios, {
+import {
   type AxiosError,
   type AxiosProgressEvent,
   type AxiosRequestConfig,
@@ -17,7 +17,9 @@ import { apiPrefix } from '../config/apiUrls/apiPrefix';
 import { BotDetectionContext } from '../contexts/BotDetection';
 import { Namespace } from '../types/namespaces';
 import fetchData from '../utils/fetchData';
+import { sendGtagEventApiData } from '../utils/gtagEvents';
 import * as logging from '../utils/logging';
+import withRetry, { isSafeMethod } from '../utils/withRetry';
 import { type UserPreferenceKey } from './useLocalStorage';
 import useMessagesDispatch from './useMessagesDispatch';
 
@@ -167,31 +169,51 @@ function useDataApi<T>(
     dispatch({ type: ActionType.INIT, url: urlToLoad });
 
     // variables to handle cancellation
-    // eslint-disable-next-line import/no-named-as-default-member
-    const source = axios.CancelToken.source();
+    const controller = new AbortController();
 
-    // to keep track of the last time we dispatched a progress action
-    let lastProgressDate: number;
+    // Retrying replays the request, so it is only safe for a method that
+    // reads. Callers can override the method and at least one (the contact
+    // form) POSTs through this hook -- replaying that would send the message
+    // more than once.
+    const retryEnabled = isSafeMethod(optionsRef.current?.method);
+
     // actual request
-    fetchData<T>(urlToLoad, source.token, {
-      ...optionsRef.current,
-      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-        optionsRef.current?.onDownloadProgress?.(progressEvent);
-        if (didCancel || progressEvent.progress === undefined) {
-          return;
-        }
-        const now = Date.now();
-        // If last time we dispatched a progress action was less than threshold
-        if (lastProgressDate && now - lastProgressDate < PROGRESS_THRESHOLD) {
-          // skip, don't want to refresh too often
-          return;
-        }
-        dispatch({
-          type: ActionType.PROGRESS,
-          progress: progressEvent.progress,
-        });
-        lastProgressDate = now;
-      },
+    const attempt = () => {
+      // to keep track of the last time we dispatched a progress action.
+      // Scoped to the attempt so a retried download doesn't report progress
+      // that appears to go backwards.
+      let lastProgressDate: number;
+      // fetchData's second parameter is axios's deprecated CancelToken; the
+      // AbortSignal goes through the request config instead
+      return fetchData<T>(urlToLoad, undefined, {
+        ...optionsRef.current,
+        signal: controller.signal,
+        onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+          optionsRef.current?.onDownloadProgress?.(progressEvent);
+          if (didCancel || progressEvent.progress === undefined) {
+            return;
+          }
+          const now = Date.now();
+          // If last time we dispatched a progress action was less than threshold
+          if (lastProgressDate && now - lastProgressDate < PROGRESS_THRESHOLD) {
+            // skip, don't want to refresh too often
+            return;
+          }
+          dispatch({
+            type: ActionType.PROGRESS,
+            progress: progressEvent.progress,
+          });
+          lastProgressDate = now;
+        },
+      });
+    };
+
+    withRetry(attempt, {
+      enabled: retryEnabled,
+      signal: controller.signal,
+      // fetchData reports a 'fail' for every attempt; pair the ones we
+      // replay with a 'retry' so the two can be told apart downstream
+      onRetry: () => sendGtagEventApiData('retry', urlToLoad),
     }).then(
       // handle ok
       (response: AxiosResponse<T>) => {
@@ -223,7 +245,7 @@ function useDataApi<T>(
     // handle unmounting of the hook
 
     return () => {
-      source.cancel();
+      controller.abort();
       didCancel = true;
     };
   }, [urlToLoad, optionsRef]);

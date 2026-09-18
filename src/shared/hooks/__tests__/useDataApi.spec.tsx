@@ -13,7 +13,14 @@ const mock = new MockAdapter(axios);
 
 afterEach(() => {
   mock.reset();
+  // Harmless when a test never faked them
+  jest.useRealTimers();
 });
+
+// useDataApi retries a transient failure with a backoff before the error
+// surfaces. Fake timers so these tests skip that wait instead of sitting
+// through it -- `waitFor` advances them, so nothing else has to change.
+const skipBackoffs = () => jest.useFakeTimers();
 
 afterAll(() => {
   mock.restore();
@@ -46,32 +53,40 @@ describe('useDataApi hook', () => {
   });
 
   it('should return no network error', async () => {
+    skipBackoffs();
     mock.onGet(url).networkError();
     const { result } = renderHook(() => useDataApi(url));
 
     expect(result.current).toEqual({ loading: true, url });
 
-    await waitFor(() =>
-      expect(result.current).toEqual({
-        loading: false,
-        url,
-        error: new Error('Network Error'),
-      })
+    await waitFor(
+      () =>
+        expect(result.current).toEqual({
+          loading: false,
+          url,
+          error: new Error('Network Error'),
+        }),
+      // Two retries' worth of backoff, all of it skipped
+      { timeout: 5_000 }
     );
   });
 
   it('should return timeout error', async () => {
+    skipBackoffs();
     mock.onGet(url).timeout();
     const { result } = renderHook(() => useDataApi(url));
 
     expect(result.current).toEqual({ loading: true, url });
 
-    await waitFor(() =>
-      expect(result.current).toEqual({
-        loading: false,
-        url,
-        error: new Error('timeout of 0ms exceeded'),
-      })
+    await waitFor(
+      () =>
+        expect(result.current).toEqual({
+          loading: false,
+          url,
+          error: new Error('timeout of 0ms exceeded'),
+        }),
+      // Two retries' worth of backoff, all of it skipped
+      { timeout: 5_000 }
     );
   });
 
@@ -130,6 +145,50 @@ describe('useDataApi hook', () => {
         statusText: undefined,
       })
     );
+  });
+
+  it('should retry a transient failure and succeed', async () => {
+    skipBackoffs();
+    mock.onGet(url).replyOnce(503);
+    mock.onGet(url).reply(200, 'some data');
+    const { result } = renderHook(() => useDataApi(url));
+
+    await waitFor(
+      () =>
+        expect(result.current).toEqual({
+          loading: false,
+          progress: 1,
+          url,
+          data: 'some data',
+          status: 200,
+          headers: new AxiosHeaders(),
+          statusText: undefined,
+        }),
+      { timeout: 5_000 }
+    );
+    expect(mock.history.get).toHaveLength(2);
+  });
+
+  it('should not retry a 404', async () => {
+    mock.onGet(url).reply(404);
+    const { result } = renderHook(() => useDataApi(url));
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    expect(result.current.status).toBe(404);
+    expect(mock.history.get).toHaveLength(1);
+  });
+
+  it('should not replay a POST, which would submit it twice', async () => {
+    // The contact form sends its message through this hook
+    const postOptions = { method: 'POST', data: 'a message' };
+    mock.onPost(url).reply(503);
+    const { result } = renderHook(() => useDataApi(url, postOptions));
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    expect(result.current.status).toBe(503);
+    expect(mock.history.post).toHaveLength(1);
   });
 
   it('should handle cancellation', async () => {

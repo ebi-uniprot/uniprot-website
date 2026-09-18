@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { Header } from 'franklin-sites';
 
+import { PRODUCTION_ORIGIN } from '../../../app/config/urls';
 import styles from './styles/documentation-header.module.scss';
 
 const HeaderContent = () => (
@@ -30,7 +31,7 @@ const ApiDocumentationHeader = () => (
     // search={<SearchContainer/>}
     homepageLink={
       // Linking to www.uniprot.org as the documentation URL will be different
-      <a href="https://www.uniprot.org">
+      <a href={PRODUCTION_ORIGIN}>
         <div className={styles.logo} aria-label="UniProt API Documentation" />
       </a>
     }
