@@ -17,6 +17,8 @@ allowBuilds:
   tree-sitter: true
   tree-sitter-json: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - jsdom@30.1.0
 overrides:
   "@babel/parser": "8.0.4"
 # Packages reached into by filename rather than Node module resolution, so
