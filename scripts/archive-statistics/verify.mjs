@@ -263,25 +263,44 @@ function expectedValues(category, { fields } = {}) {
 }
 
 /**
- * Which raw columns a tabbed table renders, from its <thead>. `countLabel`
- * is the registry's expected heading for the count column — StatsTable renders
- * `{countLabel || 'Count'}`, so "Top Journal" labels it "Citations".
+ * Which raw columns a tabbed table renders, from its <thead>, cross-checked
+ * against the columns StatsTable would render for this source category.
+ * `countLabel` is the registry's expected heading for the count column —
+ * StatsTable renders `{countLabel || 'Count'}`, so "Top Journal" labels it
+ * "Citations". The entry-count heading is `Entries with <nameLabel>` when the
+ * table has a nameLabel and plain `Entry count` otherwise; StatsTable omits the
+ * count column when every count equals its entryCount, and omits the
+ * entry-count column only for TOTAL_ORGANISM.
+ *
+ * `matched` is false when the rendered columns disagree with that expectation
+ * (a heading renamed, a column dropped, an unknown layout): the caller warns,
+ * and both raw values are required so nothing goes unchecked by accident.
  */
-function rawFieldsFromHead(table, countLabel) {
+function rawFieldsFromHead(table, countLabel, category, categoryName) {
   const headers = [...table.querySelectorAll('thead th')].map((th) =>
     norm(th.textContent)
   );
-  const fields = {
-    count: headers.some((h) => h === (countLabel || 'Count')),
-    entryCount: headers.some((h) => /^Entries with/i.test(h)),
-    headers,
-    matched: true,
+  const expected = {
+    count: !category.items.every((it) => it.count === it.entryCount),
+    entryCount: categoryName !== 'TOTAL_ORGANISM',
   };
-  if (!fields.count && !fields.entryCount) {
-    fields.count = fields.entryCount = true; // unknown layout → require both
-    fields.matched = false;
-  }
-  return fields;
+  const rendered = {
+    count: headers.some((h) => h === (countLabel || 'Count')),
+    entryCount: headers.some(
+      (h) => /^Entries with /i.test(h) || /^Entry count$/i.test(h)
+    ),
+  };
+  const matched =
+    rendered.count === expected.count &&
+    rendered.entryCount === expected.entryCount;
+  return {
+    count: matched ? rendered.count : true,
+    entryCount: matched ? rendered.entryCount : true,
+    expected,
+    rendered,
+    headers,
+    matched,
+  };
 }
 
 // ── DOM helpers ──
@@ -579,17 +598,27 @@ function checkTabbedGroups(doc, stats, push, mark) {
         spec.category,
         numberReleaseEntries(stats, ds)
       );
-      const fields = rawFieldsFromHead(table, spec.countLabel);
-      // A registry entry that no longer matches the rendered <thead> means we
-      // are guessing which columns to verify — say so rather than leaving a
-      // column silently unchecked (the failure mode a custom countLabel caused).
+      const fields = rawFieldsFromHead(
+        table,
+        spec.countLabel,
+        category,
+        spec.category
+      );
+      // A <thead> that disagrees with the columns the source data says the
+      // page renders means we are guessing which columns to verify — say so
+      // rather than leaving a column silently unchecked (the failure mode a
+      // custom countLabel, or an unrecognised entry-count heading, caused).
+      const describe = (f) =>
+        [f.count && 'count', f.entryCount && 'entry-count']
+          .filter(Boolean)
+          .join('+') || 'none';
       push(
         'warning',
         `${heading}:${ds}:columns`,
         fields.matched,
         fields.matched
-          ? 'count/entry columns identified from <thead>'
-          : `no count or entry-count column recognised (headers: ${JSON.stringify(fields.headers)}) — verifying all raw values`
+          ? `${describe(fields.rendered)} column(s) identified from <thead>, as expected from the source`
+          : `expected ${describe(fields.expected)} column(s) but recognised ${describe(fields.rendered)} (headers: ${JSON.stringify(fields.headers)}) — verifying all raw values`
       );
       if (derived.checked || derived.mismatches.length) {
         push(

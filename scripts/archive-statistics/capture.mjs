@@ -92,6 +92,97 @@ function isSafeIPv4(host) {
 }
 
 /**
+ * Expand an IPv6 literal (already validated by `isIP`) into its eight 16-bit
+ * groups. A trailing dotted-quad (`::ffff:1.2.3.4`) is folded into the last
+ * two groups, so the prefix checks below work on numbers, not spellings.
+ * Note that `new URL()` already re-serialises every IPv6 host into compressed
+ * hex (`[::169.254.169.254]` becomes `::a9fe:a9fe`), which is exactly why a
+ * string-prefix check on the dotted form was never reached.
+ * @param {string} host
+ * @returns {number[]}
+ */
+function ipv6Groups(host) {
+  let text = host;
+  const dotted = /(?:^|:)(\d{1,3}(?:\.\d{1,3}){3})$/.exec(text);
+  if (dotted) {
+    const [a, b, c, d] = dotted[1].split('.').map(Number);
+    const hi = ((a << 8) | b).toString(16);
+    const lo = ((c << 8) | d).toString(16);
+    text = `${text.slice(0, -dotted[1].length)}${hi}:${lo}`;
+  }
+  const [head, tail = ''] = text.split('::');
+  const headGroups = head ? head.split(':') : [];
+  const tailGroups = tail ? tail.split(':') : [];
+  const fill = text.includes('::')
+    ? 8 - headGroups.length - tailGroups.length
+    : 0;
+  return [...headGroups, ...Array(fill).fill('0'), ...tailGroups].map((g) =>
+    parseInt(g, 16)
+  );
+}
+
+/**
+ * If the address is one of the transition forms that carries an IPv4 address
+ * inside it, return that IPv4 address as a dotted quad so the IPv4 rules can be
+ * applied to it. Covers IPv4-compatible `::a.b.c.d` (deprecated but still
+ * routed), IPv4-mapped `::ffff:a.b.c.d`, IPv4-translated `::ffff:0:a.b.c.d`
+ * (RFC 2765), the NAT64 well-known prefix `64:ff9b::/96` (RFC 6052) and 6to4
+ * `2002:AABB:CCDD::/48` (RFC 3056).
+ * @param {number[]} g the eight groups from `ipv6Groups`
+ * @returns {string | null}
+ */
+function embeddedIPv4(g) {
+  const dotted = (hi, lo) => `${hi >> 8}.${hi & 0xff}.${lo >> 8}.${lo & 0xff}`;
+  const zeroPrefix = g[0] === 0 && g[1] === 0 && g[2] === 0 && g[3] === 0;
+  if (zeroPrefix && g[4] === 0 && (g[5] === 0 || g[5] === 0xffff)) {
+    return dotted(g[6], g[7]); // ::a.b.c.d and ::ffff:a.b.c.d
+  }
+  if (zeroPrefix && g[4] === 0xffff && g[5] === 0) {
+    return dotted(g[6], g[7]); // ::ffff:0:a.b.c.d
+  }
+  if (
+    g[0] === 0x64 &&
+    g[1] === 0xff9b &&
+    g[2] === 0 &&
+    g[3] === 0 &&
+    g[4] === 0 &&
+    g[5] === 0
+  ) {
+    return dotted(g[6], g[7]); // 64:ff9b::a.b.c.d
+  }
+  if (g[0] === 0x2002) {
+    return dotted(g[1], g[2]); // 2002:AABB:CCDD::
+  }
+  return null;
+}
+
+/**
+ * IPv6 counterpart of `isSafeIPv4`: refuses the unspecified and loopback
+ * addresses, link-local, site-local, unique-local and multicast, and defers to
+ * the IPv4 rules for any address that embeds an IPv4 one.
+ * @param {string} host IPv6 literal
+ * @returns {boolean}
+ */
+function isSafeIPv6(host) {
+  const groups = ipv6Groups(host);
+  const embedded = embeddedIPv4(groups);
+  if (embedded !== null) {
+    return isSafeIPv4(embedded);
+  }
+  const top = groups[0];
+  if (top >= 0xfe80 && top <= 0xfeff) {
+    return false; // link-local fe80::/10 and site-local fec0::/10
+  }
+  if ((top & 0xfe00) === 0xfc00) {
+    return false; // unique-local fc00::/7
+  }
+  if ((top & 0xff00) === 0xff00) {
+    return false; // multicast ff00::/8
+  }
+  return true;
+}
+
+/**
  * SSRF guard for the Node-side resource fetch fallback: only http(s), and never
  * loopback / private / link-local / metadata address literals. This is
  * defence-in-depth — the tool targets the trusted public site — and does not
@@ -118,22 +209,7 @@ export function isSafeResourceUrl(rawUrl) {
   // the fc/fd unique-local prefixes and losing that resource from the archive.
   const family = isIP(host);
   if (family === 6) {
-    if (host === '::1' || host === '::') {
-      return false;
-    }
-    // fe80::/10 is fe80–febf and site-local fec0::/10 is fec0–feff, so the
-    // whole fe8–fef range goes; fc/fd is unique-local (fc00::/7). Matching on
-    // `fe80` alone would have let fe90:: / fea0:: / feb0:: through.
-    if (/^(fe[89abcdef]|fc|fd)/.test(host)) {
-      return false; // link-local / site-local / unique-local
-    }
-    if (host.startsWith('::ffff:')) {
-      // IPv4-mapped: apply the IPv4 rules to the dotted form, and refuse the
-      // hex form (::ffff:7f00:1) rather than let it through unchecked.
-      const mapped = host.slice('::ffff:'.length);
-      return isIP(mapped) === 4 ? isSafeIPv4(mapped) : false;
-    }
-    return true;
+    return isSafeIPv6(host);
   }
   if (family === 4) {
     return isSafeIPv4(host);

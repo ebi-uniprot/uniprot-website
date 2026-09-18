@@ -64,6 +64,23 @@ test('isSafeResourceUrl only applies address rules to IP literals', () => {
   assert.equal(isSafeResourceUrl('http://[fec0::1]/x'), false);
   assert.equal(isSafeResourceUrl('http://[::ffff:127.0.0.1]/x'), false);
   assert.equal(isSafeResourceUrl('http://[::ffff:7f00:1]/x'), false);
+  // Every other IPv6 form that embeds an IPv4 address gets the IPv4 rules —
+  // `new URL()` re-serialises them all as hex, so `[::169.254.169.254]`
+  // arrives as `::a9fe:a9fe` and a dotted-string check never sees it.
+  assert.equal(isSafeResourceUrl('http://[::169.254.169.254]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[::127.0.0.1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[::a9fe:a9fe]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[::ffff:0:127.0.0.1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[64:ff9b::169.254.169.254]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[2002:a9fe:a9fe::1]/x'), false);
+  assert.equal(isSafeResourceUrl('http://[ff02::1]/x'), false);
+  // …but a public IPv4 address stays fetchable through those same forms,
+  // as does a plain public IPv6 address.
+  assert.equal(isSafeResourceUrl('http://[::ffff:8.8.8.8]/x'), true);
+  assert.equal(isSafeResourceUrl('http://[64:ff9b::8.8.8.8]/x'), true);
+  assert.equal(isSafeResourceUrl('http://[2002:808:808::1]/x'), true);
+  assert.equal(isSafeResourceUrl('http://[2606:4700::6810:84e5]/x'), true);
+  assert.equal(isSafeResourceUrl('http://[fe7f::1]/x'), true);
   // IETF protocol assignments, benchmarking, multicast and broadcast.
   assert.equal(isSafeResourceUrl('http://192.0.0.1/x'), false);
   assert.equal(isSafeResourceUrl('http://198.18.0.1/x'), false);
@@ -254,13 +271,25 @@ function buildFixture(gt, opts = {}) {
           opts.mutateAverage && ds === 'combined' && r === 0
             ? '99.99'
             : average(ds, it.count);
-        return `<tr><td>${it.name}</td><td>${count}</td><td>${N(it.entryCount)}</td><td>${avg}</td></tr>`;
+        const entryCount =
+          opts.mutateEntryCount && ds === 'combined' && r === 0
+            ? '888,888,888'
+            : N(it.entryCount);
+        const entryCell = opts.dropEntryCountColumn
+          ? ''
+          : `<td>${entryCount}</td>`;
+        return `<tr><td>${it.name}</td><td>${count}</td>${entryCell}<td>${avg}</td></tr>`;
       })
       .join('');
     const label = opts.swapLabels
       ? LABELS[i === 1 ? 2 : i === 2 ? 1 : 0]
       : LABELS[i];
-    return `<h4 class="archived-tabs__label">${label}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Publication type</th><th>Count</th><th>Entries with publication type</th><th>Average count per ${['UniProtKB', 'reviewed', 'unreviewed'][i]} entry</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    // StatsTable heads the entry-count column `Entries with <nameLabel>` or,
+    // for a table without a nameLabel, plain `Entry count`.
+    const entryHeading = opts.dropEntryCountColumn
+      ? ''
+      : `<th>${opts.plainEntryCountHeading ? 'Entry count' : 'Entries with publication type'}</th>`;
+    return `<h4 class="archived-tabs__label">${label}</h4><div class="archived-tabs__panel"><table><thead><tr><th>Publication type</th><th>Count</th>${entryHeading}<th>Average count per ${['UniProtKB', 'reviewed', 'unreviewed'][i]} entry</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }).join('');
   const tabbed = `<h3>Publication</h3><div class="archived-tabs">${tabbedPanels}</div>`;
 
@@ -423,6 +452,21 @@ const CORRUPTIONS = [
   // The count column is headed "Citations" (countLabel), not "Count" — a
   // verifier that only looks for "Count" skips the whole column silently.
   ['mutated custom-labelled count column', { mutateCitations: true }],
+  // The same hole on the other column: a table without a nameLabel heads it
+  // "Entry count", and a verifier that only knows "Entries with …" treated
+  // the column as absent and never required its values.
+  [
+    'mutated entry-count cell under an "Entry count" heading',
+    { plainEntryCountHeading: true, mutateEntryCount: true },
+    'Publication:combined:values',
+  ],
+  // The entry-count column is gone altogether. The source says the page
+  // renders one, so this must be reported, not read as a layout choice.
+  [
+    'dropped entry-count column',
+    { dropEntryCountColumn: true },
+    'Publication:combined:values',
+  ],
   // The right number is still present in the same card, just not on the
   // Sequence corrections line — a card-wide text match waves this through.
   [
@@ -468,6 +512,20 @@ for (const [name, opts, expectedMismatch] of CORRUPTIONS) {
     }
   });
 }
+
+test('fixture: an "Entry count" heading is recognised, not guessed at', () => {
+  const gt = groundTruth();
+  const result = verifyArchive(
+    buildFixture(gt, { plainEntryCountHeading: true }),
+    gt
+  );
+  assert.equal(result.ok, true, JSON.stringify(result.mismatches, null, 2));
+  const columns = result.checks.filter((c) => c.name.endsWith(':columns'));
+  assert.ok(
+    columns.length >= 3 && columns.every((c) => c.ok),
+    `expected every tabbed table's columns to be identified, got ${JSON.stringify(columns)}`
+  );
+});
 
 test('fixture: a wrong derived cell is warned about, not failed', () => {
   // Percent and per-entry average are recomputed from the source, but they are
