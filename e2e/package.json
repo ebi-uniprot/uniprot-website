@@ -2,7 +2,7 @@
   "name": "uniprot-website-e2e",
   "private": true,
   "description": "Browser tests for the UniProt website. Separate from the root package on purpose: run by hand, occasionally, so its dependencies are not part of the app's install.",
-  "packageManager": "pnpm@12.5.1",
+  "packageManager": "pnpm@12.3.4",
   "scripts": {
     "test": "playwright test",
     "install-browser": "playwright install chromium"
