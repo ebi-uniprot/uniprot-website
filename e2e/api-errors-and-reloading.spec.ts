@@ -538,6 +538,9 @@ test.describe('K. head tags', () => {
     );
   });
 
+  // Needs the dev server's history fallback to serve the shell for a path
+  // with a dot in it, as production does (see historyApiFallback in
+  // webpack.config.js)
   test('a versioned accession lands on the history tab, with no merge notice', async ({
     page,
   }) => {
