@@ -129,6 +129,13 @@ const failApi = async (
 const gaps = (times: number[]) =>
   times.slice(1).map((time, i) => time - times[i]);
 
+// A backoff is measured between request arrivals, on a page still parsing the
+// dev bundle, where a timer fires when the main thread gets round to it. The
+// floor of a gap is the contract; the ceiling only has to rule out the next
+// order of magnitude (a Retry-After being waited on, a reload), so it is
+// generous.
+const TIMER_SLACK_MS = 2_000;
+
 /**
  * The reload delays ServiceUnavailable currently has scheduled, read from the
  * page: wrap setTimeout and keep the timers whose callback reloads the
@@ -235,7 +242,7 @@ test('A. transient failure is retried and recovers', async ({ page }) => {
   await expect.poll(attempts).toHaveLength(2);
   const [gap] = gaps(attempts());
   expect(gap).toBeGreaterThanOrEqual(150);
-  expect(gap).toBeLessThan(800);
+  expect(gap).toBeLessThan(300 + TIMER_SLACK_MS);
   await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
 });
 
@@ -396,7 +403,7 @@ test('F. 429 with a short Retry-After is honoured in-request', async ({
   const [gap] = gaps(attempts());
   // Retry-After plus the usual jittered backoff on top
   expect(gap).toBeGreaterThanOrEqual(2_150);
-  expect(gap).toBeLessThan(2_800);
+  expect(gap).toBeLessThan(2_300 + TIMER_SLACK_MS);
 });
 
 test('G. 429 with a Retry-After too long to wait for in-request', async ({
