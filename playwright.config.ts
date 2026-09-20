@@ -20,8 +20,8 @@ export default defineConfig({
   },
   webServer: {
     // The app's own dev server. On a port nothing else is likely to use (not
-    // 8xxx), so that a `pnpm start` left running -- possibly pointed at the
-    // fake API from the manual walkthrough -- is never mistaken for it.
+    // 8xxx), so that a `pnpm start` left running, possibly pointed at some
+    // other API, is never mistaken for it.
     command:
       'pnpm exec webpack serve --env API_PREFIX=https://rest.uniprot.org --mode development --no-open --port 27831',
     url: 'http://localhost:27831',

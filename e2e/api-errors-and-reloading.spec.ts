@@ -1,11 +1,11 @@
 import { expect, type Page, type Request, test } from '@playwright/test';
 
 /*
- * The automated twin of scripts/fake-api/README.md: same scenarios, same
- * letters. Where the walkthrough runs a fake API on :5555, this intercepts
- * rest.uniprot.org in the browser with page.route, which gives each test its
- * own knobs without a process to restart. Everything else is real: the dev
- * server, the reload, sessionStorage surviving it, the timers.
+ * How the website behaves when the API fails, in a real browser. Each test
+ * intercepts rest.uniprot.org with page.route, which gives it its own knobs:
+ * the status, a Retry-After, how many requests to fail before recovering.
+ * Everything else is real: the dev server, the reload, sessionStorage
+ * surviving it, the timers -- the backoffs are measured, not faked.
  */
 
 const ENTRY = '/uniprotkb/P05067/entry';
@@ -20,8 +20,8 @@ const ASKED_TO_WAIT = 'The service asked us to wait before trying again';
 const OFFLINE = 'You appear to be offline';
 const NOT_FOUND = "Sorry, this page can't be found!";
 
-// Mirrors the fake API's CORS: without these a fulfilled cross-origin
-// response is blocked by the browser, and Retry-After stays hidden
+// What a cross-origin API has to send: without these a fulfilled response
+// is blocked by the browser, and Retry-After stays hidden
 const CORS = {
   'access-control-allow-origin': '*',
   'access-control-expose-headers': 'retry-after, link, x-total-results',
@@ -209,7 +209,7 @@ test.beforeEach(async ({ page }) => {
 
 // If this one fails, so does everything else, for the same reason: the app
 // under test is not talking to rest.uniprot.org. Usually a dev server left
-// running from the manual walkthrough, pointed at the fake API.
+// running on the port, started with a different API_PREFIX.
 test('0. the app under test talks to the real API', async ({ page }) => {
   const origins = new Set<string>();
   page.on('request', (request) => origins.add(new URL(request.url()).origin));
@@ -220,7 +220,7 @@ test('0. the app under test talks to the real API', async ({ page }) => {
   );
   expect(
     origins,
-    `API requests went to ${[...origins].join(', ')} -- is a dev server pointed at the fake API still running?`
+    `API requests went to ${[...origins].join(', ')} -- is a dev server with another API_PREFIX still running on the port?`
   ).toContain(API);
 });
 
@@ -276,6 +276,13 @@ test('B. persistent 5xx: error page, two bounded reloads, then expiry', async ({
   expect(await storedRetry(page)).toMatchObject({ index: 2 });
 
   // That was the last one
+  await expect(page.getByText(WILL_RELOAD)).toHaveCount(0);
+  expect(await reloadDelays(page)).toEqual([]);
+
+  // And a reload by hand does not start the sequence over: the count is
+  // still fresh, so the outage is still the same one
+  await page.reload();
+  await expect(page.getByText(UNAVAILABLE)).toBeVisible();
   await expect(page.getByText(WILL_RELOAD)).toHaveCount(0);
   expect(await reloadDelays(page)).toEqual([]);
 
