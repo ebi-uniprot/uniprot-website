@@ -1,0 +1,4 @@
+# Marks this directory as its own pnpm root. Without it pnpm walks up to the
+# repository's pnpm-workspace.yaml, installs the app's dependencies instead of
+# these, and runs the app's older `playwright` binary, which cannot find
+# @playwright/test.
