@@ -9,17 +9,15 @@ is real: the dev build, the reload, `sessionStorage` surviving it, and the
 timers -- the backoffs are measured, not faked, which is why the suite takes
 a couple of minutes.
 
-This directory is a workspace package of the root project: `pnpm install`
-at the root installs it too, and it pins the same Playwright version as the
-root's own `playwright` dependency, so there is one copy and one browser
-build. It keeps its own scripts, and nothing here runs as part of the app's
-`pnpm test`, lint or type check.
+Playwright installs with the app (`@playwright/test`, at the same version as
+the root's `playwright` dependency), and the config is `playwright.config.ts`
+at the repository root. The suite is its own script and is not part of
+`pnpm test`, lint or the type check.
 
 ## One-off setup
 
 ```bash
-pnpm install                          # at the root, as for the app itself
-pnpm --filter uniprot-website-e2e install-browser   # headless Chromium, ~150 MB
+pnpm test:e2e-install-browser    # headless Chromium, ~150 MB, cached per machine
 ```
 
 The browser lands in Playwright's per-machine cache
@@ -28,12 +26,12 @@ only downloaded again when the pinned Playwright version changes.
 
 ## Run
 
-From `e2e/` (or from the root with `pnpm --filter uniprot-website-e2e test`):
+From the repository root:
 
 ```bash
-pnpm test                 # starts the app's dev server itself, on :27831
-pnpm test --headed        # watch it happen
-pnpm test -g "B\."        # one scenario
+pnpm test:e2e                 # starts the app's dev server itself, on :27831
+pnpm test:e2e --headed        # watch it happen
+pnpm test:e2e -g "B\."        # one scenario
 ```
 
 The suite starts its own `webpack serve` on port 27831, pointed at the real
@@ -42,7 +40,7 @@ API, and reuses one already on 27831. It deliberately ignores :8080, so a
 fake API -- cannot be picked up by mistake. If test `0.` fails, that is
 what happened anyway: check what is listening on 27831.
 
-A failing test leaves a trace in `e2e/test-results/`; open it with
+A failing test leaves a trace in `test-results/` at the root; open it with
 `pnpm exec playwright show-trace <file>`.
 
 ## What is and isn't covered

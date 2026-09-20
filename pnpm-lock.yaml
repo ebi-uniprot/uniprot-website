@@ -320,6 +320,9 @@ importers:
       '@nightingale-elements/nightingale-structure':
         specifier: 5.8.0
         version: 5.8.0(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
+      '@playwright/test':
+        specifier: 1.61.1
+        version: 1.61.1
       '@svgr/webpack':
         specifier: 8.1.0
         version: 8.1.0(supports-color@8.1.1)(typescript@6.0.3)
@@ -545,15 +548,6 @@ importers:
       worker-loader:
         specifier: 3.0.8
         version: 3.0.8(webpack@5.108.4)
-
-  e2e:
-    devDependencies:
-      '@playwright/test':
-        specifier: 1.61.1
-        version: 1.61.1
-      '@types/node':
-        specifier: 25.9.0
-        version: 25.9.0
 
 packages:
 

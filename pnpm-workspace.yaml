@@ -1,9 +1,3 @@
-# The browser tests are a workspace package: installed with the app, sharing
-# one Playwright version with the root's own `playwright` dependency, but
-# with their own scripts and never part of the app's test or lint runs.
-packages:
-  - e2e
-
 # Native postinstall builds pnpm ignores by default (`pnpm install` reported
 # these). Allowed only where the package is a direct dependency of a real,
 # in-use feature (molstar's `canvas`/`gl` bindings; the swagger-ui-react

@@ -140,8 +140,9 @@ const gaps = (times: number[]) =>
 const recordReloadDelays = (page: Page) =>
   page.addInitScript(() => {
     const live = new Map<number, number>();
-    (window as unknown as { __reloadDelays: () => number[] }).__reloadDelays =
-      () => [...live.values()];
+    (
+      window as unknown as { uniprotReloadDelays: () => number[] }
+    ).uniprotReloadDelays = () => [...live.values()];
     const originalSet = window.setTimeout;
     const originalClear = window.clearTimeout;
     window.setTimeout = ((
@@ -169,7 +170,9 @@ const recordReloadDelays = (page: Page) =>
 
 const reloadDelays = (page: Page) =>
   page.evaluate(() =>
-    (window as unknown as { __reloadDelays: () => number[] }).__reloadDelays()
+    (
+      window as unknown as { uniprotReloadDelays: () => number[] }
+    ).uniprotReloadDelays()
   );
 
 // Every dev build carries one static noindex in its HTML (index.ejs). The app
@@ -289,16 +292,21 @@ test('B. persistent 5xx: error page, two bounded reloads, then expiry', async ({
 test('B. clients that failed together do not reload together', async ({
   browser,
 }) => {
-  const delays: number[] = [];
-  for (let i = 0; i < 4; i += 1) {
-    const page = await browser.newPage();
-    await recordReloadDelays(page);
-    await failApi(page, { status: 503 });
-    await page.goto(ENTRY);
-    await expect(page.getByText(WILL_RELOAD)).toBeVisible();
-    delays.push(...(await reloadDelays(page)));
-    await page.close();
-  }
+  // Four clients hitting the outage at once, as they would
+  const delays = (
+    await Promise.all(
+      Array.from({ length: 4 }, async () => {
+        const page = await browser.newPage();
+        await recordReloadDelays(page);
+        await failApi(page, { status: 503 });
+        await page.goto(ENTRY);
+        await expect(page.getByText(WILL_RELOAD)).toBeVisible();
+        const scheduled = await reloadDelays(page);
+        await page.close();
+        return scheduled;
+      })
+    )
+  ).flat();
   expect(delays).toHaveLength(4);
   expect(new Set(delays).size).toBeGreaterThan(1);
 });

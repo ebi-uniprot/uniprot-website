@@ -34,6 +34,20 @@ Simply execute `pnpm test:lint`. To automatically fix problems, run `pnpm lint-f
 
 Currently all tests are written on top of Facebook's [Jest Framework](https://facebook.github.io/jest/). Running existing tests would be as easy as executing `pnpm test` in the root directory of the project, in the command-line.
 
+## Running Browser Tests
+
+A small Playwright suite in `e2e/` checks what unit tests cannot: real page
+reloads, `sessionStorage` surviving them, and the head tags a crawler sees.
+It starts the dev server itself and takes a couple of minutes, so it is not
+part of `pnpm test`:
+
+```bash
+pnpm test:e2e-install-browser   # once per machine: headless Chromium
+pnpm test:e2e
+```
+
+See `e2e/README.md` for what it covers.
+
 ## Writing Unit Tests
 
 As mentioned above, tests are written on top of [Jest](https://facebook.github.io/jest/). If you aren't familiar with either Jest or Unit Testing in general, the best place to start would be [Jest's Getting Started](https://facebook.github.io/jest/docs/en/getting-started.html) page.
