@@ -219,19 +219,17 @@ test('0. the app under test talks to the real API', async ({ page }) => {
 });
 
 test('A. transient failure is retried and recovers', async ({ page }) => {
-  const attempts = await failApi(page, { status: 503, failFirst: 2 });
+  const attempts = await failApi(page, { status: 503, failFirst: 1 });
 
   await page.goto(ENTRY);
 
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
     ENTRY_TITLE
   );
-  await expect.poll(attempts).toHaveLength(3);
-  const [first, second] = gaps(attempts());
-  expect(first).toBeGreaterThanOrEqual(150);
-  expect(first).toBeLessThan(800);
-  expect(second).toBeGreaterThanOrEqual(300);
-  expect(second).toBeLessThan(1_100);
+  await expect.poll(attempts).toHaveLength(2);
+  const [gap] = gaps(attempts());
+  expect(gap).toBeGreaterThanOrEqual(150);
+  expect(gap).toBeLessThan(800);
   await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
 });
 
@@ -243,7 +241,7 @@ test('B. persistent 5xx: error page, two bounded reloads, then expiry', async ({
   await page.goto(ENTRY);
   await expect(page.getByText(UNAVAILABLE)).toBeVisible();
   await expect(page.getByText(WILL_RELOAD)).toBeVisible();
-  await expect.poll(attempts).toHaveLength(3);
+  await expect.poll(attempts).toHaveLength(2);
   await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
 
   let [delay] = await reloadDelays(page);
@@ -253,7 +251,7 @@ test('B. persistent 5xx: error page, two bounded reloads, then expiry', async ({
   // First reload, for real
   await page.waitForEvent('load', { timeout: delay + 5_000 });
   await expect(page.getByText(UNAVAILABLE)).toBeVisible();
-  await expect.poll(attempts).toHaveLength(6);
+  await expect.poll(attempts).toHaveLength(4);
   expect(await storedRetry(page)).toMatchObject({
     index: 1,
     page: pageKey(page),
@@ -266,7 +264,7 @@ test('B. persistent 5xx: error page, two bounded reloads, then expiry', async ({
   // Second reload, for real
   await page.waitForEvent('load', { timeout: delay + 5_000 });
   await expect(page.getByText(UNAVAILABLE)).toBeVisible();
-  await expect.poll(attempts).toHaveLength(9);
+  await expect.poll(attempts).toHaveLength(6);
   expect(await storedRetry(page)).toMatchObject({ index: 2 });
 
   // That was the last one
@@ -341,7 +339,7 @@ test('E. 429 without Retry-After behaves like a 503', async ({ page }) => {
   await page.goto(ENTRY);
   await expect(page.getByText(UNAVAILABLE)).toBeVisible();
   await expect(page.getByText(NOT_FOUND)).toHaveCount(0);
-  await expect.poll(attempts).toHaveLength(3);
+  await expect.poll(attempts).toHaveLength(2);
   await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
   const [delay] = await reloadDelays(page);
   expect(delay).toBeGreaterThanOrEqual(5_000);
@@ -354,7 +352,7 @@ test('F. 429 with a short Retry-After is honoured in-request', async ({
   const attempts = await failApi(page, {
     status: 429,
     retryAfter: '2',
-    failFirst: 2,
+    failFirst: 1,
   });
 
   await page.goto(ENTRY);
@@ -362,13 +360,11 @@ test('F. 429 with a short Retry-After is honoured in-request', async ({
     ENTRY_TITLE,
     { timeout: 30_000 }
   );
-  await expect.poll(attempts).toHaveLength(3);
-  const [first, second] = gaps(attempts());
+  await expect.poll(attempts).toHaveLength(2);
+  const [gap] = gaps(attempts());
   // Retry-After plus the usual jittered backoff on top
-  expect(first).toBeGreaterThanOrEqual(2_150);
-  expect(first).toBeLessThan(2_800);
-  expect(second).toBeGreaterThanOrEqual(2_300);
-  expect(second).toBeLessThan(3_100);
+  expect(gap).toBeGreaterThanOrEqual(2_150);
+  expect(gap).toBeLessThan(2_800);
 });
 
 test('G. 429 with a Retry-After too long to wait for in-request', async ({
@@ -400,7 +396,7 @@ test('I. network error is retried, then reloads', async ({ page }) => {
 
   await page.goto(ENTRY);
   await expect(page.getByText(WILL_RELOAD)).toBeVisible();
-  await expect.poll(attempts).toHaveLength(3);
+  await expect.poll(attempts).toHaveLength(2);
   const [delay] = await reloadDelays(page);
   expect(delay).toBeGreaterThanOrEqual(5_000);
   expect(delay).toBeLessThan(10_000);

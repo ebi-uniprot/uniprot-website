@@ -3,7 +3,10 @@ import { AxiosError, isAxiosError, isCancel } from 'axios';
 import { isTransientStatus } from './httpStatus';
 import jitter from './jitter';
 
-const MAX_RETRIES = 2;
+// One replay rides out a blip. A second would triple the traffic every
+// failing client sends to an API that is struggling rather than down --
+// and without Retry-After, the client cannot tell the two apart.
+const MAX_RETRIES = 1;
 // Floor of the first backoff, doubling with each attempt
 const BASE_DELAY_MS = 150;
 // Longer than this and the server is telling us to come back later than a page
@@ -101,7 +104,7 @@ type WithRetryOptions = {
 
 /**
  * Retry transient failures and network errors, but never a cancellation and
- * never a 4xx that is an answer rather than a "come back later". Two retries
+ * never a 4xx that is an answer rather than a "come back later". One retry
  * with a short backoff rides out a blip without turning a struggling API into
  * a stampede.
  */

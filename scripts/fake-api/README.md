@@ -125,14 +125,14 @@ Visit `/uniprotkb/P05067/entry`.
 
 Visit `/uniprotkb/P05067/entry`.
 
-- [ ] 3 attempts inside ~1 s, all `503`, then the page
+- [ ] 2 attempts inside ~1 s, both `503`, then the page
       "This service is currently unavailable!" with the line
       "We will reload this page for you shortly".
 - [ ] No runtime `noindex` (console line says `1`). This is the whole point
       of the change: an API blip must not deindex the entry.
 - [ ] Between **5 and 10 s** later the page reloads by itself. Session storage
-      now has `retry-index` = `{"index":1,"href":"http://localhost:8080/uniprotkb/P05067/entry","at":…}`.
-- [ ] After the reload: 3 more attempts, the error page again, and a second
+      now has `retry-index` = `{"index":1,"page":"/uniprotkb/P05067/entry","at":…}`.
+- [ ] After the reload: 2 more attempts, the error page again, and a second
       reload between **20 and 40 s** later. `index` becomes `2`.
 - [ ] After the second reload: error page, but the "We will reload" line is
       **gone** and nothing further happens. Two reloads is the limit.
@@ -178,16 +178,15 @@ Restore the original `SHOULD_FAIL` afterwards.
 
 Visit `/uniprotkb/P05067/entry`.
 
-- [ ] Identical to B: 3 attempts, unavailable page (not the 404 page), no
+- [ ] Identical to B: 2 attempts, unavailable page (not the 404 page), no
       `noindex`, reloads at 5–10 s then 20–40 s.
 
 ### F. 429 with a short Retry-After is honoured in-request
 
-`STATUS = 429`, `RETRY_AFTER = '2'`, `FAIL_FIRST = 2`
+`STATUS = 429`, `RETRY_AFTER = '2'`, `FAIL_FIRST = 1`
 
-- [ ] 3 attempts, with gaps of roughly **2.2–2.3 s** and **2.3–2.6 s** (the
-      header, plus the usual jittered backoff on top), then a `200` and the
-      page renders.
+- [ ] 2 attempts, with a gap of roughly **2.2–2.3 s** (the header, plus the
+      usual jittered backoff on top), then a `200` and the page renders.
 
 ### G. 429 with a Retry-After too long to wait for in-request
 
@@ -213,7 +212,7 @@ Visit `/uniprotkb/P05067/entry`.
 Point the app at the real API (`yarn start`).
 
 - [ ] Network tab → right-click the `/uniprotkb/P05067?fields=…` row →
-      _Block request URL_ → reload. 3 attempts (all `(blocked)`), then the
+      _Block request URL_ → reload. 2 attempts (both `(blocked)`), then the
       unavailable page and the 5–10 s reload as in B. Unblock to recover.
 - [ ] Network throttling → _Offline_ → reload. The page shows "You appear to
       be offline…" and **does not** schedule a reload. Set it back to
@@ -287,7 +286,7 @@ whoever owns the rate limiter.)
   matching too much. The default one excludes `search` and `stream`; if you
   edited it, check it against the URL in the Network tab.
 - **The reload comes at 20–40 s on a fresh test.** A `retry-index` is left
-  over from the previous scenario. Clear it in Session storage (or wait 60 s).
+  over from the previous scenario. Clear it in Session storage (or wait 5 min).
 - **No retries at all, straight to the error page.** Check the request
   method: only GET/HEAD/OPTIONS are retried. And check it is a transient
   status (408, 425, 429, 5xx, or no status): anything else is treated as an

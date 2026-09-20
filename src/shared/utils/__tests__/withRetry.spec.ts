@@ -140,7 +140,7 @@ describe('withRetry', () => {
     expect(attempt).toHaveBeenCalledTimes(1);
   });
 
-  it('gives up after two retries and rejects with the original error', async () => {
+  it('gives up after one retry and rejects with the original error', async () => {
     const error = responseError(503);
     const attempt = jest.fn().mockRejectedValue(error);
 
@@ -148,7 +148,7 @@ describe('withRetry', () => {
     await flushBackoffs();
     await settled;
 
-    expect(attempt).toHaveBeenCalledTimes(3);
+    expect(attempt).toHaveBeenCalledTimes(2);
   });
 
   it('reports each replay through onRetry, once per attempt', async () => {
@@ -161,9 +161,9 @@ describe('withRetry', () => {
     await flushBackoffs();
     await settled;
 
-    // Three attempts, but only the two that got another go are marked
-    expect(attempt).toHaveBeenCalledTimes(3);
-    expect(onRetry).toHaveBeenCalledTimes(2);
+    // Two attempts, but only the one that got another go is marked
+    expect(attempt).toHaveBeenCalledTimes(2);
+    expect(onRetry).toHaveBeenCalledTimes(1);
   });
 
   it('does not report a retry when there was none', async () => {

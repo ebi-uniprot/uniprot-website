@@ -145,7 +145,7 @@ describe('Results head tags', () => {
       await screen.findByText(
         'This service is currently unavailable!',
         {},
-        // useDataApi retries a 503 twice, with a backoff, before it surfaces
+        // useDataApi retries a 503 once, with a backoff, before it surfaces
         { timeout: 5_000 }
       );
       expect(canonical()).toBeNull();
