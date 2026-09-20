@@ -52,42 +52,38 @@ describe('useDataApi hook', () => {
     );
   });
 
+  // The mock adapter's network error carries no error code, so it is not the
+  // dropped connection withRetry replays: it surfaces first time
   it('should return no network error', async () => {
-    skipBackoffs();
     mock.onGet(url).networkError();
     const { result } = renderHook(() => useDataApi(url));
 
     expect(result.current).toEqual({ loading: true, url });
 
-    await waitFor(
-      () =>
-        expect(result.current).toEqual({
-          loading: false,
-          url,
-          error: new Error('Network Error'),
-        }),
-      // Two retries' worth of backoff, all of it skipped
-      { timeout: 5_000 }
+    await waitFor(() =>
+      expect(result.current).toEqual({
+        loading: false,
+        url,
+        error: new Error('Network Error'),
+      })
     );
   });
 
-  it('should return timeout error', async () => {
-    skipBackoffs();
+  it('should return timeout error, without replaying it', async () => {
     mock.onGet(url).timeout();
     const { result } = renderHook(() => useDataApi(url));
 
     expect(result.current).toEqual({ loading: true, url });
 
-    await waitFor(
-      () =>
-        expect(result.current).toEqual({
-          loading: false,
-          url,
-          error: new Error('timeout of 0ms exceeded'),
-        }),
-      // Two retries' worth of backoff, all of it skipped
-      { timeout: 5_000 }
+    await waitFor(() =>
+      expect(result.current).toEqual({
+        loading: false,
+        url,
+        error: new Error('timeout of 0ms exceeded'),
+      })
     );
+    // A replay would make the user sit through the timeout again
+    expect(mock.history.get).toHaveLength(1);
   });
 
   it('should return 400', async () => {
@@ -177,6 +173,23 @@ describe('useDataApi hook', () => {
 
     expect(result.current.status).toBe(404);
     expect(mock.history.get).toHaveLength(1);
+  });
+
+  it('should honour a signal the caller passes, as well as its own', async () => {
+    mock.onGet(url).reply(200, 'some data');
+    const controller = new AbortController();
+    const { result } = renderHook(() =>
+      useDataApi(url, { signal: controller.signal })
+    );
+    controller.abort();
+
+    // Give the (cancelled) request every chance to settle
+    await new Promise((resolve) => {
+      setTimeout(resolve, 50);
+    });
+
+    expect(mock.history.get).toHaveLength(1);
+    expect(result.current.data).toBeUndefined();
   });
 
   it('should not replay a POST, which would submit it twice', async () => {

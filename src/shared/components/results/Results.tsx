@@ -1,6 +1,7 @@
 import { Loader } from 'franklin-sites';
 import { useLocation } from 'react-router-dom';
 
+import { SearchResultsLocations } from '../../../app/config/urls';
 import {
   escapeInvalidSearchFieldQueryWithColon,
   getParamsFromURL,
@@ -32,7 +33,7 @@ import SearchSuggestions from './SearchSuggestions';
 
 const Results = () => {
   const ns = useNS();
-  const { search, pathname } = useLocation();
+  const { search } = useLocation();
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect();
 
@@ -112,10 +113,13 @@ const Results = () => {
       } search${total !== undefined ? ` (${total})` : ''}`}
       titleLoading={resultsDataInitialLoading}
       // Deliberate consolidation: every faceted/filtered results URL points at
-      // the unfiltered one. `pathname` comes from the router rather than
-      // `window.location`, so it is free of the BASE_URL basename that preview
-      // builds are served under.
-      canonical={stringifyUrl(pathname, { query: '*' })}
+      // the unfiltered one. Built from the namespace rather than echoing the
+      // pathname: the route matches `/UniProtKB/` as readily as `/uniprotkb`,
+      // and each spelling would otherwise claim to be canonical.
+      canonical={stringifyUrl(
+        SearchResultsLocations[ns as SearchableNamespace],
+        { query: '*' }
+      )}
     >
       <meta
         name="description"

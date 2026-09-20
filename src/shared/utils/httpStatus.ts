@@ -2,8 +2,10 @@
 const TRANSIENT_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
 
 /**
- * Worth asking again: the server said to come back, or never answered at all
- * (no status means a network error or a timeout).
+ * Worth asking again: the server said to come back, or never answered at all.
+ * No status only says the failure was not an HTTP answer; whether *that* is
+ * worth a replay (a dropped connection is, a timeout is not) is decided from
+ * the error itself, in withRetry.
  */
 export const isTransientStatus = (status?: number) =>
   status === undefined || TRANSIENT_STATUSES.has(status);

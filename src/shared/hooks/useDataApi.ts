@@ -170,6 +170,22 @@ function useDataApi<T>(
 
     // variables to handle cancellation
     const controller = new AbortController();
+    // Ours is the signal the request gets, so that unmounting always cancels;
+    // a caller's own signal is honoured by folding it into ours rather than
+    // by letting it replace ours. Scoped to our signal so the listener goes
+    // away with the request instead of outliving it on the caller's signal.
+    const callerSignal = optionsRef.current?.signal;
+    if (callerSignal) {
+      if (callerSignal.aborted) {
+        controller.abort();
+      } else {
+        // Optional call: axios types the signal loosely, as anything AbortSignal-like
+        callerSignal.addEventListener?.('abort', () => controller.abort(), {
+          once: true,
+          signal: controller.signal,
+        });
+      }
+    }
 
     // Retrying replays the request, so it is only safe for a method that
     // reads. Callers can override the method and at least one (the contact
@@ -184,7 +200,8 @@ function useDataApi<T>(
       // that appears to go backwards.
       let lastProgressDate: number;
       // fetchData's second parameter is axios's deprecated CancelToken; the
-      // AbortSignal goes through the request config instead
+      // AbortSignal goes through the request config instead. Ours last, on
+      // purpose: it already carries the caller's (see above).
       return fetchData<T>(urlToLoad, undefined, {
         ...optionsRef.current,
         signal: controller.signal,

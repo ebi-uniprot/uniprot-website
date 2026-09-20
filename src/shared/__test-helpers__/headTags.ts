@@ -1,3 +1,7 @@
+import { act } from '@testing-library/react';
+
+import { STRUCTURED_DATA_THROTTLE_MS } from '../hooks/useStructuredData';
+
 export const canonical = () => document.querySelector('link[rel="canonical"]');
 
 export const robots = () => document.querySelector('meta[name="robots"]');
@@ -21,3 +25,17 @@ export const clearHeadTags = () => {
     tag.remove();
   }
 };
+
+/**
+ * useStructuredData writes on the trailing edge of a throttle: a spec asserting
+ * JSON-LD is absent must wait that out, or it passes before anything could have
+ * been written. A timer queued after the throttle's own is guaranteed to fire
+ * after it, so this is deterministic, not a race.
+ */
+export const settleStructuredData = () =>
+  act(
+    () =>
+      new Promise<void>((resolve) => {
+        setTimeout(resolve, STRUCTURED_DATA_THROTTLE_MS + 50);
+      })
+  );

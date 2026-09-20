@@ -8,6 +8,7 @@ import {
   canonical,
   clearHeadTags,
   robots,
+  settleStructuredData,
   structuredData,
 } from '../../../../shared/__test-helpers__/headTags';
 import sharedApiUrls from '../../../../shared/config/apiUrls/apiUrls';
@@ -181,10 +182,40 @@ describe('Entry head tags', () => {
     });
 
     await waitFor(() => expect(robots()).toHaveAttribute('content', 'noindex'));
+    await settleStructuredData();
     // JSON-LD naming a Protein at a canonical URL would contradict both the
-    // noindex above and the canonical this page deliberately does not emit
-    for (const json of structuredData()) {
-      expect(json).toBeFalsy();
+    // noindex above and the canonical this page deliberately does not emit.
+    // The script tag is still there -- the hook always mounts one -- but empty.
+    expect(structuredData()).toEqual(['']);
+  });
+
+  // Neither: a canonical would tell Google this error is the entry page,
+  // noindex would tell it to drop a page that is fine
+  it('emits no canonical and no robots directive while the API is down', async () => {
+    // Layered over the suite's mock; restoring hands it back
+    const down = new MockAdapter(axios);
+    down
+      .onGet(sharedApiUrls.entry.entry(primaryAccession, Namespace.uniprotkb))
+      .reply(503)
+      .onAny()
+      .reply(404);
+    try {
+      await act(async () => {
+        customRender(<Entry />, {
+          route: `/uniprotkb/${primaryAccession}/entry`,
+        });
+      });
+
+      await screen.findByText(
+        'This service is currently unavailable!',
+        {},
+        // useDataApi retries a 503 twice, with a backoff, before it surfaces
+        { timeout: 5_000 }
+      );
+      expect(canonical()).toBeNull();
+      expect(robots()).toBeNull();
+    } finally {
+      down.restore();
     }
   });
 
@@ -195,8 +226,9 @@ describe('Entry head tags', () => {
       });
     });
 
-    await waitFor(() => expect(structuredData().join('')).toBeTruthy());
-    const schema = JSON.parse(structuredData().join(''));
+    await waitFor(() => expect(structuredData()).toEqual([expect.any(String)]));
+    await waitFor(() => expect(structuredData()[0]).toBeTruthy());
+    const schema = JSON.parse(structuredData()[0] || '');
     expect(schema.url).toBe(canonical()?.getAttribute('href'));
     expect(schema.mainEntity['@id']).toBe(schema.url);
   });

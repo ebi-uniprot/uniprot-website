@@ -1,4 +1,4 @@
-import { type AxiosError, isAxiosError, isCancel } from 'axios';
+import { AxiosError, isAxiosError, isCancel } from 'axios';
 
 import { isTransientStatus } from './httpStatus';
 import jitter from './jitter';
@@ -32,14 +32,24 @@ const isTransient = (error: unknown): error is AxiosError => {
   if (!isAxiosError(error)) {
     return false;
   }
-  return isTransientStatus(error.response?.status);
+  // No response at all: only a dropped connection is worth another go. The
+  // other ways a request can fail without one -- a timeout the caller chose
+  // (ECONNABORTED, which axios also uses for an abort), a bad option, too many
+  // redirects, a body over the size limit -- would fail the same way again.
+  if (!error.response) {
+    return error.code === AxiosError.ERR_NETWORK;
+  }
+  return isTransientStatus(error.response.status);
 };
 
 /**
  * A 429 (and sometimes a 503) may carry Retry-After, as delta-seconds or an
- * HTTP date. Returns undefined when absent or unparseable.
+ * HTTP date. Returns undefined when absent or unparseable. A date already
+ * behind us -- clock skew between server and client is enough -- comes back
+ * as 0: the header was sent and is satisfied, which is not the same as no
+ * header at all.
  */
-const retryAfterMs = (error: AxiosError) => {
+export const retryAfterMs = (error: AxiosError) => {
   const header = error.response?.headers?.['retry-after'];
   if (typeof header !== 'string') {
     return undefined;
@@ -48,7 +58,7 @@ const retryAfterMs = (error: AxiosError) => {
   const ms = Number.isFinite(seconds)
     ? seconds * 1_000
     : Date.parse(header) - Date.now();
-  return Number.isFinite(ms) && ms >= 0 ? ms : undefined;
+  return Number.isFinite(ms) ? Math.max(0, ms) : undefined;
 };
 
 const sleep = (ms: number, signal?: AbortSignal) =>

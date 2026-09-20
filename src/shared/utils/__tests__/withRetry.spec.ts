@@ -1,21 +1,7 @@
-import { AxiosError, AxiosHeaders, CanceledError } from 'axios';
+import { AxiosError, CanceledError } from 'axios';
 
-import withRetry, { isSafeMethod } from '../withRetry';
-
-const responseError = (status: number, headers: Record<string, string> = {}) =>
-  new AxiosError(
-    `Request failed with status code ${status}`,
-    String(status),
-    undefined,
-    undefined,
-    {
-      status,
-      statusText: '',
-      data: undefined,
-      headers: new AxiosHeaders(headers),
-      config: { headers: new AxiosHeaders() },
-    }
-  );
+import responseError from '../../__test-helpers__/axiosError';
+import withRetry, { isSafeMethod, retryAfterMs } from '../withRetry';
 
 describe('isSafeMethod', () => {
   it.each([undefined, 'GET', 'get', 'HEAD', 'OPTIONS'])(
@@ -84,7 +70,9 @@ describe('withRetry', () => {
   it('retries a network error, which has no status', async () => {
     const attempt = jest
       .fn()
-      .mockRejectedValueOnce(new AxiosError('Network Error'))
+      .mockRejectedValueOnce(
+        new AxiosError('Network Error', AxiosError.ERR_NETWORK)
+      )
       .mockResolvedValue('data');
 
     const retried = withRetry(attempt);
@@ -92,6 +80,24 @@ describe('withRetry', () => {
 
     await expect(retried).resolves.toBe('data');
     expect(attempt).toHaveBeenCalledTimes(2);
+  });
+
+  // Also without a status, but not a dropped connection: a timeout the caller
+  // chose, a bad option, a redirect loop. Asking again fails the same way, and
+  // for a timeout it makes the user wait for it three times over.
+  it.each([
+    AxiosError.ECONNABORTED,
+    AxiosError.ETIMEDOUT,
+    AxiosError.ERR_BAD_OPTION,
+    AxiosError.ERR_FR_TOO_MANY_REDIRECTS,
+    undefined,
+  ])('does not retry a request that failed with %s', async (code) => {
+    const error = new AxiosError('failed', code);
+    const attempt = jest.fn().mockRejectedValue(error);
+
+    await expect(withRetry(attempt)).rejects.toBe(error);
+    expect(attempt).toHaveBeenCalledTimes(1);
+    expect(scheduledDelays()).toHaveLength(0);
   });
 
   it.each([400, 401, 403, 404, 410])(
@@ -260,5 +266,50 @@ describe('withRetry', () => {
     // reported retry that never happened
     expect(scheduledDelays()).toHaveLength(0);
     expect(onRetry).not.toHaveBeenCalled();
+  });
+});
+
+describe('retryAfterMs', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2026-09-20T12:00:00Z'));
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it('reads delta-seconds', () => {
+    expect(retryAfterMs(responseError(429, { 'retry-after': '30' }))).toBe(
+      30_000
+    );
+  });
+
+  it('reads an HTTP date, relative to now', () => {
+    const error = responseError(429, {
+      'retry-after': 'Sun, 20 Sep 2026 12:00:05 GMT',
+    });
+
+    expect(retryAfterMs(error)).toBe(5_000);
+  });
+
+  // Server and client clocks rarely agree to the second. The header was still
+  // sent, so this must not read as "no header" and fall back to hammering.
+  it('treats a date already behind us as satisfied, not absent', () => {
+    const error = responseError(429, {
+      'retry-after': 'Sun, 20 Sep 2026 11:59:55 GMT',
+    });
+
+    expect(retryAfterMs(error)).toBe(0);
+  });
+
+  it('is undefined when the header is missing', () => {
+    expect(retryAfterMs(responseError(429))).toBeUndefined();
+  });
+
+  it('is undefined when the header cannot be parsed', () => {
+    expect(
+      retryAfterMs(responseError(429, { 'retry-after': 'soon' }))
+    ).toBeUndefined();
   });
 });

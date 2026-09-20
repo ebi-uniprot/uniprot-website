@@ -69,6 +69,7 @@
     ],
     "testPathIgnorePatterns": [
       "/__mocks__/",
+      "<rootDir>/e2e/",
       "<rootDir>/\\..+\\/"
     ],
     "coveragePathIgnorePatterns": [

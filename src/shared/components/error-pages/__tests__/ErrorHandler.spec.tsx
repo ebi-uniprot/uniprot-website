@@ -1,7 +1,9 @@
 import { screen, waitFor } from '@testing-library/react';
 
+import responseError from '../../../__test-helpers__/axiosError';
 import customRender from '../../../__test-helpers__/customRender';
 import { clearHeadTags, robots } from '../../../__test-helpers__/headTags';
+import spyOnReloadTimers from '../../../__test-helpers__/reloadTimers';
 import renderAndFlushHead from '../../../__test-helpers__/renderAndFlushHead';
 import ErrorHandler from '../ErrorHandler';
 
@@ -69,43 +71,43 @@ describe('ErrorHandler', () => {
   });
 
   describe('auto-reload', () => {
-    let setTimeoutSpy: jest.SpyInstance;
+    let timers: ReturnType<typeof spyOnReloadTimers>;
 
     beforeEach(() => {
-      setTimeoutSpy = jest.spyOn(window, 'setTimeout');
+      timers = spyOnReloadTimers();
     });
 
     afterEach(() => {
-      setTimeoutSpy.mockRestore();
+      timers.restore();
     });
-
-    // Anything shorter is React or franklin scheduling, not our backoff
-    const scheduledReloadDelays = () =>
-      setTimeoutSpy.mock.calls
-        .map(([, delay]) => delay)
-        .filter(
-          (delay): delay is number =>
-            typeof delay === 'number' && delay >= 1_000
-        );
 
     // A reload replaces the whole document. One failed widget on a page that is
     // otherwise fine is not a reason to re-request everything -- least of all
     // for a 429, where what a reload re-requests is what rate-limited us.
-    // Rendered with plain `customRender`: spying on `setTimeout` makes
-    // testing-library take us for fake timers, and none of this needs the head.
     it.each([500, 503, 429, 408, undefined])(
       'does not reload the page for an inline error (%s)',
       (status) => {
         customRender(<ErrorHandler status={status} />);
 
-        expect(scheduledReloadDelays()).toHaveLength(0);
+        expect(timers.scheduledReloadDelays()).toHaveLength(0);
       }
     );
 
     it('still reloads when the page itself is the error', () => {
       customRender(<ErrorHandler status={503} fullPage />);
 
-      expect(scheduledReloadDelays()).toHaveLength(1);
+      expect(timers.scheduledReloadDelays()).toHaveLength(1);
+    });
+
+    // withRetry refuses to wait in-request for a Retry-After this long; the
+    // reload that follows must not then ignore it
+    it('waits at least as long as a 429 Retry-After before reloading', () => {
+      const error = responseError(429, { 'retry-after': '30' });
+      customRender(<ErrorHandler status={429} error={error} fullPage />);
+
+      const delays = timers.scheduledReloadDelays();
+      expect(delays).toHaveLength(1);
+      expect(delays[0]).toBeGreaterThanOrEqual(30_000);
     });
   });
 });

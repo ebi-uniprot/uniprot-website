@@ -1,10 +1,16 @@
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import customRender from '../../../__test-helpers__/customRender';
-import { canonical, clearHeadTags } from '../../../__test-helpers__/headTags';
+import {
+  canonical,
+  clearHeadTags,
+  robots,
+} from '../../../__test-helpers__/headTags';
 import Results from '../Results';
 
 jest.mock('../SearchSuggestions', () => ({
@@ -106,5 +112,46 @@ describe('Results head tags', () => {
         'https://www.uniprot.org/uniprotkb?query=*'
       )
     );
+  });
+
+  // The route matches whatever case and trailing slash a link arrives with;
+  // the canonical must not echo them, or each spelling claims to be the page
+  it('canonicalises a differently-cased, trailing-slash URL', async () => {
+    customRender(<Results />, {
+      route: '/UniProtKB/?query=blah',
+    });
+
+    await waitFor(() =>
+      expect(canonical()).toHaveAttribute(
+        'href',
+        'https://www.uniprot.org/uniprotkb?query=*'
+      )
+    );
+  });
+
+  // Neither: a canonical would tell Google this error is the results page,
+  // noindex would tell it to drop a page that is fine
+  it('emits no canonical and no robots directive while the API is down', async () => {
+    // Layered over the shared mock; restoring hands it back
+    const mock = new MockAdapter(axios);
+    mock
+      .onGet(/\/uniprotkb\/search/)
+      .reply(503)
+      .onAny()
+      .reply(404);
+    try {
+      customRender(<Results />, { route: '/uniprotkb?query=blah' });
+
+      await screen.findByText(
+        'This service is currently unavailable!',
+        {},
+        // useDataApi retries a 503 twice, with a backoff, before it surfaces
+        { timeout: 5_000 }
+      );
+      expect(canonical()).toBeNull();
+      expect(robots()).toBeNull();
+    } finally {
+      mock.restore();
+    }
   });
 });

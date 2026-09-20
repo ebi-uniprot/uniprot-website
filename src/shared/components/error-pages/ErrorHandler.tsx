@@ -1,7 +1,9 @@
+import { isAxiosError } from 'axios';
 import { type HTMLAttributes, lazy, Suspense } from 'react';
 
 import { type CustomError } from '../../hooks/useDataApi';
 import { isPermanentStatus } from '../../utils/httpStatus';
+import { retryAfterMs } from '../../utils/withRetry';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import HTMLHead from '../HTMLHead';
 import NordVPNIssue from './NordVPNIssue';
@@ -40,6 +42,9 @@ const ErrorHandler = ({
       // error, wrong when one widget on an otherwise working page failed -- it
       // re-requests everything, including whatever rate-limited us
       noReload={noReload || !fullPage}
+      // withRetry gave up on a Retry-After too long to wait for in-request;
+      // the reload must not then ignore it
+      retryAfterMs={isAxiosError(error) ? retryAfterMs(error) : undefined}
     />
   );
   if (!status) {

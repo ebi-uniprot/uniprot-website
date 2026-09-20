@@ -111,6 +111,10 @@ import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { communityCuratedFacet } from '../../utils/CommunitySubmission';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import {
+  isMergedEntryHistory,
+  redirectsToSameEntry,
+} from '../../utils/redirects';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
 import dataToSchema from './entry.structured';
@@ -391,10 +395,7 @@ const Entry = () => {
       const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
       // If the redirection is because of ID or version in which case, the following message doesn't make sense
-      if (
-        !match?.params.accession.includes('_') &&
-        !match?.params.accession.includes('.')
-      ) {
+      if (!redirectsToSameEntry(match.params.accession)) {
         // Note: Delete Message is called in unmount logic of component it is redirected to.
         // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
         dispatch(
@@ -456,11 +457,12 @@ const Entry = () => {
       transformedData.inactiveReason
     ) ||
     // A merged entry's history, viewed under the old accession: the data is the
-    // entry it was merged into, but this URL is not that entry's page
-    Boolean(
-      redirectedTo &&
-      data?.primaryAccession &&
-      data.primaryAccession !== match?.params.accession
+    // entry it was merged into, but this URL is not that entry's page. Not so
+    // for an entry name or a versioned accession, which redirect to themselves.
+    isMergedEntryHistory(
+      match?.params.accession,
+      data?.primaryAccession,
+      redirectedTo
     );
 
   /* Fetched here, once per entry, rather than by the components that need
