@@ -32,6 +32,9 @@ const isEntryRequest = (url: URL) =>
   url.origin === API &&
   /^\/uniprotkb\/(?!search|stream)[A-Z0-9]+$/i.test(url.pathname);
 
+const isSearchRequest = (url: URL) =>
+  url.origin === API && /^\/uniprotkb\/search$/i.test(url.pathname);
+
 const isPublicationsRequest = (url: URL) =>
   url.origin === API &&
   /^\/uniprotkb\/[A-Z0-9]+\/publications/i.test(url.pathname);
@@ -243,6 +246,8 @@ test('B. persistent 5xx: error page, two bounded reloads, then expiry', async ({
   await expect(page.getByText(WILL_RELOAD)).toBeVisible();
   await expect.poll(attempts).toHaveLength(2);
   await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
+  // Nor a canonical: that would tell Google this error is the entry page
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 
   let [delay] = await reloadDelays(page);
   expect(delay).toBeGreaterThanOrEqual(5_000);
@@ -344,6 +349,18 @@ test('E. 429 without Retry-After behaves like a 503', async ({ page }) => {
   const [delay] = await reloadDelays(page);
   expect(delay).toBeGreaterThanOrEqual(5_000);
   expect(delay).toBeLessThan(10_000);
+});
+
+test('E. a results page 503 gets the same error page, with no head tags', async ({
+  page,
+}) => {
+  const attempts = await failApi(page, { status: 503, match: isSearchRequest });
+
+  await page.goto('/uniprotkb?query=kinase');
+  await expect(page.getByText(UNAVAILABLE)).toBeVisible();
+  await expect.poll(() => attempts().length).toBeGreaterThanOrEqual(2);
+  await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 });
 
 test('F. 429 with a short Retry-After is honoured in-request', async ({
@@ -501,6 +518,48 @@ test.describe('K. head tags', () => {
     // Past useStructuredData's throttle, or this passes before it could write
     await page.waitForTimeout(500);
     expect(await jsonLd(page)).toMatchObject({ entryUrl: null, empty: 1 });
+  });
+
+  // The API answers an entry name or a versioned accession with a redirect
+  // to the entry itself: the same entry, spelled differently, which the
+  // history tab must not mistake for a merged entry's history
+  test('an entry name on the history tab is the live entry, not an obsolete one', async ({
+    page,
+  }) => {
+    await page.goto('/uniprotkb/A4_HUMAN/history');
+    await expect(
+      page.getByRole('heading', { name: 'Entry history' })
+    ).toBeVisible();
+    await expect(page).not.toHaveTitle(/Obsolete entry/);
+    await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://www.uniprot.org/uniprotkb/P05067/entry'
+    );
+  });
+
+  test('a versioned accession lands on the history tab, with no merge notice', async ({
+    page,
+  }) => {
+    await page.goto('/uniprotkb/P05067.3');
+    await expect(page).toHaveURL(/\/uniprotkb\/P05067\/history$/);
+    await expect(
+      page.getByRole('heading', { name: 'Entry history' })
+    ).toBeVisible();
+    await expect(page.getByText('has been merged into')).toHaveCount(0);
+    await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX);
+  });
+
+  // B2R5V1 was merged into P05067, so the API redirects it there; under the
+  // old accession the page is that entry's history, not the entry
+  test("a merged entry's history under its old accession is obsolete", async ({
+    page,
+  }) => {
+    await page.goto('/uniprotkb/B2R5V1/history');
+    await expect(page).toHaveTitle(/Obsolete entry/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('B2R5V1');
+    await expect(noindexTags(page)).toHaveCount(BUILD_NOINDEX + 1);
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
   });
 
   test("a supporting-data entry's canonical comes from its id, not the address bar", async ({

@@ -4,8 +4,13 @@ import MockAdapter from 'axios-mock-adapter';
 import { type ReactNode } from 'react';
 
 import { MessagesDispatchContext } from '../../contexts/Messages';
+import { sendGtagEventApiData } from '../../utils/gtagEvents';
 import useDataApi from '../useDataApi';
 import useDataApiWithStale from '../useDataApiWithStale';
+
+jest.mock('../../utils/gtagEvents', () => ({
+  sendGtagEventApiData: jest.fn(),
+}));
 
 const url = '/some/path';
 const url2 = '/some/other/path';
@@ -13,6 +18,7 @@ const mock = new MockAdapter(axios);
 
 afterEach(() => {
   mock.reset();
+  jest.mocked(sendGtagEventApiData).mockClear();
   // Harmless when a test never faked them
   jest.useRealTimers();
 });
@@ -163,6 +169,14 @@ describe('useDataApi hook', () => {
       { timeout: 5_000 }
     );
     expect(mock.history.get).toHaveLength(2);
+    // One replay, reported once, so it can be told apart from the failure
+    // fetchData reports for every attempt
+    expect(sendGtagEventApiData).toHaveBeenCalledWith('retry', url);
+    expect(
+      jest
+        .mocked(sendGtagEventApiData)
+        .mock.calls.filter(([event]) => event === 'retry')
+    ).toHaveLength(1);
   });
 
   it('should not retry a 404', async () => {

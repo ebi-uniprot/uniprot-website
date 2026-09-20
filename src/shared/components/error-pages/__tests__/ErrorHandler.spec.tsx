@@ -5,6 +5,7 @@ import customRender from '../../../__test-helpers__/customRender';
 import { clearHeadTags, robots } from '../../../__test-helpers__/headTags';
 import spyOnReloadTimers from '../../../__test-helpers__/reloadTimers';
 import renderAndFlushHead from '../../../__test-helpers__/renderAndFlushHead';
+import { type CustomError } from '../../../hooks/useDataApi';
 import ErrorHandler from '../ErrorHandler';
 
 jest.mock('../../error-component/ErrorBoundary', () => ({
@@ -62,6 +63,21 @@ describe('ErrorHandler', () => {
     expect(
       screen.getByText("Sorry, this page can't be found!")
     ).toBeInTheDocument();
+  });
+
+  // No status and a SyntaxError: the response was not the JSON it claimed to
+  // be, which is what a VPN or captive-portal interstitial looks like
+  it('blames an interstitial for a syntax error with no status', async () => {
+    const error = new SyntaxError(
+      'Unexpected token <'
+    ) as unknown as CustomError;
+    await renderAndFlushHead(<ErrorHandler error={error} fullPage noReload />);
+
+    expect(
+      screen.getByRole('link', { name: 'report it to NordVPN' })
+    ).toBeInTheDocument();
+    // Not a missing page, so nothing tells a crawler to drop it
+    expect(robots()).toBeNull();
   });
 
   it('does not touch the head when not rendering a full page', async () => {

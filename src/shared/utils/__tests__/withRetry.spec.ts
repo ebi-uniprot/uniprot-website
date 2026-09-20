@@ -214,6 +214,30 @@ describe('withRetry', () => {
     expect(scheduledDelays()[0]).toBeGreaterThanOrEqual(1_000);
   });
 
+  // The cap is inclusive: exactly as long as a page load can wait is waited
+  it('still waits for a Retry-After right at the cap', async () => {
+    const attempt = jest
+      .fn()
+      .mockRejectedValueOnce(responseError(429, { 'retry-after': '3' }))
+      .mockResolvedValue('data');
+
+    const retried = withRetry(attempt);
+    await flushBackoffs();
+
+    await expect(retried).resolves.toBe('data');
+    expect(attempt).toHaveBeenCalledTimes(2);
+    expect(scheduledDelays()[0]).toBeGreaterThanOrEqual(3_000);
+  });
+
+  it('gives up on a Retry-After just past the cap', async () => {
+    const error = responseError(429, { 'retry-after': '4' });
+    const attempt = jest.fn().mockRejectedValue(error);
+
+    await expect(withRetry(attempt)).rejects.toBe(error);
+    expect(attempt).toHaveBeenCalledTimes(1);
+    expect(scheduledDelays()).toHaveLength(0);
+  });
+
   it('gives up rather than ignoring a long Retry-After', async () => {
     const error = responseError(429, { 'retry-after': '120' });
     const attempt = jest.fn().mockRejectedValue(error);

@@ -4,6 +4,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+import { SearchResultsLocations } from '../../../../app/config/urls';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import customRender from '../../../__test-helpers__/customRender';
 import {
@@ -127,6 +128,38 @@ describe('Results head tags', () => {
         'https://www.uniprot.org/uniprotkb?query=*'
       )
     );
+  });
+
+  // The canonical comes from the namespace, so every namespace's mapping is
+  // load-bearing, not just the one the shared mock serves
+  describe('every namespace canonicalises to its own results URL', () => {
+    let empty: MockAdapter;
+
+    beforeAll(() => {
+      // Layered over the shared mock: an empty result set for any namespace,
+      // which is enough for the head to render
+      empty = new MockAdapter(axios);
+      empty
+        .onGet(/\/search/)
+        .reply(200, { results: [] }, { 'x-total-results': '0' })
+        .onAny()
+        .reply(404);
+    });
+
+    afterAll(() => {
+      empty.restore();
+    });
+
+    it.each(Object.values(SearchResultsLocations))('%s', async (path) => {
+      customRender(<Results />, { route: `${path}?query=blah` });
+
+      await waitFor(() =>
+        expect(canonical()).toHaveAttribute(
+          'href',
+          `https://www.uniprot.org${path}?query=*`
+        )
+      );
+    });
   });
 
   // Neither: a canonical would tell Google this error is the results page,
