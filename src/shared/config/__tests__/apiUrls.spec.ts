@@ -85,4 +85,36 @@ describe('apiUrls.results.download', () => {
       })
     ).toContain('jobId=foo');
   });
+
+  it('should generate precomputed proteome stream download URL', () => {
+    expect(
+      apiUrls.results.download({
+        fileFormat: FileFormat.jsonPrecomputed,
+        compressed: true,
+        selected: [],
+        selectedIdField: UniProtKBColumn.accession,
+        namespace: Namespace.uniparc,
+        query: 'proteome:UP000005640',
+        uniparcProteomePrecomputed: 'UP000005640',
+        download: true,
+      })
+    ).toBe(
+      '/<testing>/api/uniprotkb/precomputed/proteome/UP000005640/stream?compressed=true&download=true'
+    );
+  });
+
+  it('should generate precomputed proteome preview URL with size', () => {
+    expect(
+      apiUrls.results.download({
+        fileFormat: FileFormat.jsonPrecomputed,
+        compressed: false,
+        selected: [],
+        selectedIdField: UniProtKBColumn.accession,
+        namespace: Namespace.uniparc,
+        query: 'proteome:UP000005640',
+        uniparcProteomePrecomputed: 'UP000005640',
+        size: 10,
+      })
+    ).toBe('/<testing>/api/uniprotkb/precomputed/proteome/UP000005640?size=10');
+  });
 });

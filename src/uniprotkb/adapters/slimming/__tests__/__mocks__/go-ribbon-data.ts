@@ -3,7 +3,7 @@ import { type AGRRibbonData } from '../../GORibbonHandler';
 
 // See the ribbon at https://www.alliancegenome.org/gene/HGNC:11876
 // Source: https://api.geneontology.org/api/ontology/ribbon/?subset=goslim_agr&subject=UniProtKB:O15393
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const goRibbonData: AGRRibbonData = {
   categories: [
     {
@@ -513,11 +513,11 @@ const goRibbonData: AGRRibbonData = {
             nb_classes: 3,
             nb_annotations: 6,
           },
-          IMP: {
+          IBA: {
             nb_classes: 1,
             nb_annotations: 1,
           },
-          IBA: {
+          IMP: {
             nb_classes: 1,
             nb_annotations: 1,
           },
@@ -535,23 +535,23 @@ const goRibbonData: AGRRibbonData = {
             nb_classes: 1,
             nb_annotations: 2,
           },
-          IMP: {
+          IBA: {
             nb_classes: 1,
             nb_annotations: 1,
           },
-          IBA: {
+          IMP: {
             nb_classes: 1,
             nb_annotations: 1,
           },
         },
         'GO:0008150-other': {
           ALL: {
-            terms: ['GO:0046598', 'GO:0098670'],
+            terms: ['GO:0098670', 'GO:0046598'],
             nb_classes: 2,
             nb_annotations: 4,
           },
           IDA: {
-            terms: ['GO:0046598', 'GO:0098670'],
+            terms: ['GO:0098670', 'GO:0046598'],
             nb_classes: 2,
             nb_annotations: 4,
           },
@@ -560,6 +560,10 @@ const goRibbonData: AGRRibbonData = {
           ALL: {
             nb_classes: 4,
             nb_annotations: 17,
+          },
+          IBA: {
+            nb_classes: 1,
+            nb_annotations: 1,
           },
           IEA: {
             nb_classes: 3,
@@ -580,10 +584,6 @@ const goRibbonData: AGRRibbonData = {
           HDA: {
             nb_classes: 1,
             nb_annotations: 3,
-          },
-          IBA: {
-            nb_classes: 1,
-            nb_annotations: 1,
           },
         },
         'GO:0005576': {
@@ -609,6 +609,10 @@ const goRibbonData: AGRRibbonData = {
             nb_classes: 1,
             nb_annotations: 11,
           },
+          IBA: {
+            nb_classes: 1,
+            nb_annotations: 1,
+          },
           IEA: {
             nb_classes: 1,
             nb_annotations: 1,
@@ -624,10 +628,6 @@ const goRibbonData: AGRRibbonData = {
           TAS: {
             nb_classes: 1,
             nb_annotations: 6,
-          },
-          IBA: {
-            nb_classes: 1,
-            nb_annotations: 1,
           },
         },
         'GO:0005575-other': {

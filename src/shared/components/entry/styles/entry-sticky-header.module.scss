@@ -11,7 +11,20 @@
 // Default: compact bar takes no space; the existing tabs__header sticks at top: 0.
 // Kept as a length (0rem, not 0) so it composes in `calc()` for scroll-margin.
 .container {
+  // Height of one row of the stuck two-tier bar. The compact bar, the shrunken
+  // tabs row and the anchor clearance below all derive from it, so retuning the
+  // bar stays a one-line change here.
+  --sticky-row-height: 3rem;
   --compact-bar-height: 0rem;
+
+  // Clearance for in-page anchor jumps, consumed by `.entry-page *[id]` in
+  // entry-page.scss (which keeps its own default for entry pages without this
+  // bar). Deliberately constant rather than derived from --compact-bar-height:
+  // that one is 0rem until the header sticks, so a jump started from the
+  // unstuck state would resolve it to 0 and then land behind the two rows that
+  // appear as the scroll settles. Both rows are --sticky-row-height tall, plus
+  // a small gap above the target.
+  --anchor-scroll-margin: calc(0.5rem + 2 * var(--sticky-row-height));
 }
 
 // When there's no sidebar, extend both sticky rows leftward by --sidebar-size
@@ -49,10 +62,74 @@
 // and bump the existing sticky tabs__header below it so they stack instead of
 // overlapping at the same `top: 0`.
 .container.stuck {
-  --compact-bar-height: 3rem;
+  --compact-bar-height: var(--sticky-row-height);
 
   & :global(.tabs__header) {
     top: var(--compact-bar-height);
+  }
+
+  // Shrink the tabs row to the compact bar's height (58px down to 48px) so the
+  // two sticky rows read as one two-tier bar rather than a chunky strip under a
+  // slim one. On a laptop viewport the page header plus these two rows already
+  // cost ~170px before any content, so the 10px is worth reclaiming.
+  //
+  // Selected by the `entry-tabs` class the consumers put on their page-level
+  // <Tabs> (franklin forwards className onto the `.tabs` div) rather than
+  // structurally through `> main >`: the shrink then survives any wrapper
+  // appearing between the layout and the tabs, and excludes the tab sets nested
+  // inside a tab panel (GO annotations, Similar Proteins — not sticky, see the
+  // guard in sticky.module.scss) by name rather than by position.
+  //
+  // Physical properties throughout: the stylesheet pipeline is css-loader +
+  // sass-loader with no autoprefixer, and the legacy bundle targets browsers
+  // that drop `padding-block` entirely — which would leave the row at its full
+  // height under the compact bar, the exact mismatch this block exists to fix.
+  & .entry-tabs > :global(.tabs__header) {
+    // `min-height` rather than `height` so the row can still grow for content
+    // that genuinely needs more than one row (a wrapped label, a taller tab
+    // child). It does not protect against a classic horizontal scrollbar:
+    // border-box sizing carves that out of the row rather than adding to it.
+    min-height: var(--compact-bar-height);
+
+    & > :global(.tabs__header__item) {
+      display: flex;
+      // Not redundant with the anchor's `align-self` below: the History tab
+      // renders a bare string rather than an <a> while it is the active tab,
+      // and that anonymous flex item needs centring.
+      align-items: center;
+      // Same case: franklin only zeroes the item's own padding when it
+      // `:has(> a)`, so without this the string-titled tab keeps its 1rem block
+      // padding and holds the row at its full height.
+      padding-top: 0;
+      padding-bottom: 0;
+
+      // Tab titles are otherwise an <a> (EntryTabLink) carrying its own 1rem
+      // padding. Same treatment, plus stretching it so the whole cell stays
+      // the click target rather than only the text's line box.
+      & > a {
+        display: flex;
+        align-items: center;
+        align-self: stretch;
+        padding-top: 0;
+        padding-bottom: 0;
+        // franklin's own `margin: 1px` ("so the focus border is visible") lives
+        // only in its `:has()` block; without a margin here the stretched
+        // anchor sits flush against the header's `overflow-x: auto` box and the
+        // focus ring is clipped in browsers that lack `:has()`.
+        margin-top: 1px;
+        margin-bottom: 1px;
+        // A flex container drops whitespace-only children, so the explicit
+        // `{' '}` before a tab's count Chip (Variant viewer) would disappear
+        // while stuck. Set to the AI sparkle icon's own inline margin — zeroed
+        // just below — so spacing inside a tab title is the same stuck and
+        // unstuck.
+        gap: 0.4rem;
+
+        & > :global(.ai-annotation-entry-tab-icon) {
+          margin-left: 0;
+        }
+      }
+    }
   }
 }
 
@@ -60,7 +137,9 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky-bar);
-  height: var(--compact-bar-height, 3rem);
+  // Falls back to the shared row token rather than a literal so retuning the
+  // stuck rows stays a single edit at the top of this file.
+  height: var(--compact-bar-height, var(--sticky-row-height, 3rem));
   display: flex;
   align-items: center;
   gap: 1rem;

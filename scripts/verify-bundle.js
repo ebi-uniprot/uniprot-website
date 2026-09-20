@@ -7,7 +7,7 @@
 //
 // The unit tests run through babel.config.js, not webpack, so they can never
 // catch this. Run this against the `build/` output in CI / before deploy:
-//   yarn build:netlify && yarn verify:bundle
+//   pnpm build:netlify && pnpm verify:bundle
 const fs = require('fs');
 const path = require('path');
 

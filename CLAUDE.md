@@ -8,25 +8,25 @@ UniProt website is a React 19 + TypeScript single-page application for the UniPr
 
 ```bash
 # Dev server (production API)
-yarn start
+pnpm start
 
 # Dev server (dev API)
-yarn start:dev
+pnpm start:dev
 
 # Run all checks (lint + types + unit tests)
-yarn test
+pnpm test
 
 # Individual checks
-yarn test:lint          # ESLint
-yarn test:types         # TypeScript type checking
-yarn test:unit          # Jest with coverage
+pnpm test:lint          # ESLint
+pnpm test:types         # TypeScript type checking
+pnpm test:unit          # Jest with coverage
 
 # Build
-yarn build:prod         # Production build
+pnpm build:prod         # Production build
 
 # Format
-yarn lint-fix           # Auto-fix ESLint issues
-yarn prettier           # Prettier formatting
+pnpm lint-fix           # Auto-fix ESLint issues
+pnpm prettier           # Prettier formatting
 ```
 
 ## Tech Stack
@@ -39,7 +39,7 @@ yarn prettier           # Prettier formatting
 - **HTTP**: Axios
 - **Testing**: Jest 30 + @testing-library/react
 - **Linting**: ESLint 9 (flat config) + Prettier, Airbnb style
-- **Package manager**: Yarn
+- **Package manager**: pnpm
 
 ## Architecture
 
@@ -104,7 +104,7 @@ Tests live in `__tests__/` directories alongside source files, named `ComponentN
 
 Use `customRender()` from test helpers to wrap components with required context providers. The `useDataApi` hook and web components are commonly mocked in tests.
 
-Coverage thresholds: ~78% lines, ~75% functions, ~66% branches. Run `yarn jest-coverage-ratchet` to enforce.
+Coverage thresholds: ~78% lines, ~75% functions, ~66% branches. Run `pnpm jest-coverage-ratchet` to enforce.
 
 Jest runs in jsdom with UTC timezone forced. Timeout is 30 seconds.
 

@@ -2514,7 +2514,7 @@ exports[`getDatabaseInfoMaps should match snapshot 1`] = `
       "category": "EAP",
       "displayName": "Reactome",
       "name": "Reactome",
-      "uriLink": "https://www.reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession",
+      "uriLink": "https://reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession",
     },
     "RefSeq": {
       "attributes": [

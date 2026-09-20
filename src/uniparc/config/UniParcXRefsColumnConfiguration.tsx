@@ -20,8 +20,11 @@ import {
   type UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
+import ColumnHeaderLabel from '../components/entry/ColumnHeaderLabel';
+import { type ObsoleteXRefStatus } from '../components/entry/hooks/useObsoleteXRefStatuses';
+import identifierStyles from '../components/entry/styles/xref-identifier.module.scss';
 import Timeline from '../components/entry/Timeline';
-import { getSubEntryPath } from '../utils/subEntry';
+import { getSubEntryPath, getSubEntryProteomes } from '../utils/subEntry';
 import { getXrefId } from '../utils/uniparcXref';
 
 export enum UniParcXRefsColumn {
@@ -47,12 +50,12 @@ export enum UniParcXRefsColumn {
 export const defaultColumns = [
   UniParcXRefsColumn.database,
   UniParcXRefsColumn.accession,
-  UniParcXRefsColumn.version,
+  UniParcXRefsColumn.active,
   UniParcXRefsColumn.organism,
   UniParcXRefsColumn.proteome,
+  UniParcXRefsColumn.version,
   UniParcXRefsColumn.firstSeen,
   UniParcXRefsColumn.lastSeen,
-  UniParcXRefsColumn.active,
 ];
 
 export const primaryKeyColumns = [
@@ -96,101 +99,185 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
   },
 });
 
-const getAccessionColumn =
-  (uniparcAccession: string, templateMap: Map<string, string> = new Map()) =>
+const uniProtKBDatabases = new Set<string>([
+  XRefsInternalDatabasesEnum.REVIEWED,
+  XRefsInternalDatabasesEnum.UNREVIEWED,
+  'UniProtKB/Swiss-Prot protein isoforms',
+]);
+
+const isUniProtKBXRef = (xref: UniParcXRef) =>
+  Boolean(xref.database && uniProtKBDatabases.has(xref.database));
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
+  label: 'Identifier',
+  tooltip: 'The identifier as it appears in the source database.',
+  render: (xref) => {
+    if (!xref.id) {
+      return null;
+    }
+    const identifier = (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.id}
+        {xref.chain && ` (chain ${xref.chain})`}
+      </span>
+    );
+    if (!isUniProtKBXRef(xref)) {
+      return identifier;
+    }
+    // Basket status sits outside the dimmed span
+    return (
+      <span className={identifierStyles['xref-identifier']}>
+        {identifier}
+        <BasketStatus id={xref.id} />
+      </span>
+    );
+  },
+});
+
+// Every link in this column is labelled by where it goes, so on a table with
+// hundreds of rows the visible text alone would give them all the same
+// accessible name and no way to tell which row is focused (WCAG 2.4.4). The
+// identifier goes in an `aria-label` that still starts with the visible label,
+// so the two agree (WCAG 2.5.3).
+const uniProtKBEntryLink = (id: string) => (
+  <Link
+    to={getEntryPath(Namespace.uniprotkb, id, TabLocation.Entry)}
+    aria-label={`UniProtKB entry ${id}`}
+  >
+    UniProtKB entry
+  </Link>
+);
+
+const uniProtKBHistoryLink = (id: string) => (
+  <Link
+    to={getEntryPath(Namespace.uniprotkb, id, TabLocation.History)}
+    aria-label={`History of ${id}`}
+  >
+    History
+  </Link>
+);
+
+const subEntryLink = (
+  uniparcAccession: string,
+  xrefId: string,
+  label: string,
+  // What the link is *about*, when that isn't the sub-entry's own identifier
+  subject: string = xrefId
+) => (
+  <Link
+    to={getSubEntryPath(uniparcAccession, xrefId, TabLocation.Entry)}
+    aria-label={`${label} for ${subject}`}
+  >
+    {label}
+  </Link>
+);
+
+// The identifier column above is just text (plus basket status) now; this
+// column spells out every page a cross-reference can be opened on, so each
+// link's label says where it leads:
+//   - active UniProtKB entries -> the UniProtKB entry
+//   - obsolete reviewed entries -> the UniProtKB history page (the record is
+//     gone, but its history remains)
+//   - obsolete TrEMBL -> wherever it actually ended up, which only UniProtKB can
+//     say: see `useObsoleteXRefStatuses` and the comment in the branch below
+//   - active external references -> the UniParc sub-entry ("sequence
+//     annotation") page
+//   - obsolete external references -> back out to the source database, via that
+//     database's URL template
+// Obsolete isoforms have nowhere to link, and neither does an obsolete external
+// reference whose database has no template (or whose templates haven't loaded
+// yet — see `XRefsSection`).
+const getLinksColumn =
+  (
+    uniparcAccession: string,
+    templateMap: Map<string, string> = new Map(),
+    obsoleteStatuses: Map<string, ObsoleteXRefStatus> = new Map()
+  ) =>
   (xref: UniParcXRef) => {
     if (!xref.id) {
       return null;
     }
-    let cell: ReactNode = xref.id;
-    if (
-      xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
-      xref.database === XRefsInternalDatabasesEnum.UNREVIEWED ||
-      xref.database === 'UniProtKB/Swiss-Prot protein isoforms'
-    ) {
-      if (xref.database.includes('isoforms') && !xref.active) {
-        cell = xref.id;
-      } else if (
-        xref.database === XRefsInternalDatabasesEnum.REVIEWED &&
-        !xref.active
-      ) {
-        // Link to history page for inactive entries that were reviewed
-        cell = (
-          <Link
-            to={getEntryPath(Namespace.uniprotkb, xref.id, TabLocation.History)}
-          >
-            {xref.id}
-          </Link>
-        );
-      } else {
-        // internal link
-        cell = (
-          <>
-            {xref.active ? (
-              <>
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    xref.id,
-                    TabLocation.Entry
-                  )}
-                >
-                  {xref.id}
-                </Link>
-                {xref.active && <BasketStatus id={xref.id} />}
-              </>
-            ) : (
-              <Link
-                to={getSubEntryPath(
-                  uniparcAccession,
-                  xref.id,
-                  TabLocation.Entry
-                )}
-              >
-                {xref.id}
-              </Link>
-            )}
-          </>
-        );
-      }
-    } else {
-      const template = xref.database && templateMap.get(xref.database);
-      if (template) {
-        let { id } = xref;
-        id = getXrefId(id, xref.database as string);
-
-        if (xref.active) {
-          cell = (
-            <Link
-              to={getSubEntryPath(
-                uniparcAccession,
-                `${xref.database}:${xref.id}`,
-                TabLocation.Entry
-              )}
-            >
-              {xref.id}
-              {xref.chain && ` (chain ${xref.chain})`}
-            </Link>
-          );
+    let cell: ReactNode = null;
+    if (isUniProtKBXRef(xref)) {
+      if (xref.active) {
+        cell = uniProtKBEntryLink(xref.id);
+      } else if (xref.database === XRefsInternalDatabasesEnum.REVIEWED) {
+        cell = uniProtKBHistoryLink(xref.id);
+      } else if (xref.database === XRefsInternalDatabasesEnum.UNREVIEWED) {
+        // Obsolete TrEMBL ends up in one of three places, and the xref row can't
+        // tell them apart — it carries no merge information, and its `active`
+        // flag can lag behind UniProtKB. Merged and still-active accessions get
+        // linked straight to their destination, which also spares them the
+        // sub-entry page's redirect.
+        //
+        // Until the lookup resolves — or if it can't, e.g. past its accession
+        // limit — fall back to the sub-entry page with a label that doesn't
+        // promise a specific page. That page routes correctly on its own, so the
+        // destination is right either way; only the wording is less specific.
+        const status = obsoleteStatuses.get(xref.id);
+        if (status === 'active') {
+          cell = uniProtKBEntryLink(xref.id);
+        } else if (status === 'merged') {
+          cell = uniProtKBHistoryLink(xref.id);
         } else {
-          cell = (
-            <ExternalLink url={template.replace('%id', id)} rel="nofollow">
-              {xref.id}
-              {xref.chain && ` (chain ${xref.chain})`}
-            </ExternalLink>
+          cell = subEntryLink(
+            uniparcAccession,
+            xref.id,
+            status === 'deleted' ? 'Sequence annotation' : 'UniProtKB record'
           );
         }
       }
+      // Obsolete isoforms fall through with no link.
+    } else if (xref.active) {
+      // The sub-entry page is built from the xref row itself, so this link needs
+      // nothing from the database templates — which arrive in their own request,
+      // and might not arrive at all. Kept out of the template branch below so
+      // these rows link as soon as the table paints.
+      cell = subEntryLink(
+        uniparcAccession,
+        `${xref.database}:${xref.id}`,
+        'Sequence annotation',
+        xref.id
+      );
+    } else {
+      const template = xref.database && templateMap.get(xref.database);
+      if (template) {
+        const id = getXrefId(xref.id, xref.database as string);
+        cell = (
+          <ExternalLink
+            url={template.replace('%id', id)}
+            rel="nofollow"
+            aria-label={`Source database entry ${id}`}
+          >
+            Source database
+          </ExternalLink>
+        );
+      }
     }
-    return (
-      <span className={xref.active ? undefined : 'xref-inactive'}>{cell}</span>
-    );
+    // Not dimmed on obsolete rows; see XRefsSection.scss
+    return cell;
   };
 
-UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
-  label: 'Identifier',
-  render: getAccessionColumn(''),
-});
+// "Go to" is the one column here with no field behind it on the API's uniparc
+// entry-result-fields, so — unlike every other column — it must never reach the
+// stored column list: `fields=…,links` is rejected with a 400 by the download
+// endpoints, and the Customise Table panel (which labels columns from that same
+// endpoint) would silently drop it, leaving it impossible to re-add. It is
+// injected into the rendered table instead, by `getUniParcXRefsColumns` below,
+// which also guarantees it to users whose stored column list predates it.
+// Typed as `string` rather than inferred, so it can be compared against a
+// `UniParcXRefsColumn` — which no longer has a `links` member
+const linksColumnName: string = 'links';
+const linksColumnLabel = 'Go to';
+const linksColumnTooltip = 'Where this cross-reference can be opened.';
+
+/**
+ * Drop columns that only exist on the client, so they never end up in a
+ * `fields` parameter or the column-select panel. "Go to" was briefly a stored
+ * column, so it can still come back out of localStorage.
+ */
+export const withoutClientOnlyColumns = (columns: UniParcXRefsColumn[]) =>
+  columns.filter((name) => name !== linksColumnName);
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.gene, {
   label: 'Gene name',
@@ -205,36 +292,18 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.gene, {
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.ncbiGi, {
   label: 'NCBI GI',
   render: (xref) =>
-    xref.ncbiGi && (
-      <EvidenceLink
-        source="RefSeq"
-        value={xref.ncbiGi}
-        className={xref.active ? undefined : 'xref-inactive'}
-      />
-    ),
+    xref.ncbiGi && <EvidenceLink source="RefSeq" value={xref.ncbiGi} />,
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.organism, {
   label: 'Organism',
-  render: (xref) =>
-    xref.organism && (
-      <TaxonomyView
-        data={xref.organism}
-        className={xref.active ? undefined : 'xref-inactive'}
-      />
-    ),
+  render: (xref) => xref.organism && <TaxonomyView data={xref.organism} />,
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.organismId, {
   label: 'Organism ID',
   render: (xref) =>
-    xref.organism && (
-      <TaxonomyView
-        data={xref.organism}
-        displayOnlyID
-        className={xref.active ? undefined : 'xref-inactive'}
-      />
-    ),
+    xref.organism && <TaxonomyView data={xref.organism} displayOnlyID />,
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
@@ -249,25 +318,30 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
   label: 'Proteome',
-  render: (xref) =>
-    xref.proteomes?.length
-      ? xref.proteomes.map((proteome, i) => (
-          <span
-            key={`${proteome.id}-${proteome.component}`}
-            className={`xref-proteome${xref.active ? '' : ' xref-inactive'}`}
-          >
-            <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
-              {proteome.id}
-            </Link>
-            {proteome.component ? ` (${proteome.component})` : undefined}
-            {i < (xref.proteomes?.length ?? 0) - 1 && <br />}
-          </span>
-        ))
-      : null,
+  render: (xref) => {
+    const proteomes = Object.entries({
+      ...getSubEntryProteomes(xref.properties),
+      ...Object.fromEntries(
+        xref.proteomes?.map(({ id, component }) => [id, component]) ?? []
+      ),
+    });
+    if (!proteomes.length) {
+      return null;
+    }
+    return proteomes.map(([id, component], i) => (
+      <span key={`${id}-${component}`} className="xref-proteome">
+        <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link>
+        {component ? ` (${component})` : undefined}
+        {i < proteomes.length - 1 && <br />}
+      </span>
+    ));
+  },
 });
 
 UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.active, {
   label: 'Active',
+  tooltip:
+    'Whether this cross-reference is still present in the source database. Obsolete ones are dimmed; where they can still be viewed, the "Go to" column links to it.',
   render: (xref) => (
     <span className={xref.active ? undefined : 'xref-inactive'}>
       {xref.active ? 'Yes' : 'No'}
@@ -339,45 +413,85 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.versionUniParc, {
 
 export default UniParcXRefsColumnConfiguration;
 
+// Where the injected "Go to" column lands, in order of preference: straight
+// after the identifier it describes — which, being a primary key column, can't
+// be customised away, so this is where it ends up for everyone whatever their
+// stored column order happens to be. Anchoring on "Active" instead would place
+// it correctly only for the default layout: column lists stored before this
+// column existed end "…, first_seen, last_seen, active", which would strand it
+// as the last column of a horizontally scrolling table, several columns away
+// from the identifier it explains. "Active" is kept as a fallback, and leading
+// the table as a last resort, for lists holding neither.
+const linksColumnAnchors = [
+  UniParcXRefsColumn.accession,
+  UniParcXRefsColumn.active,
+];
+
+const getLinksColumnIndex = (columns: UniParcXRefsColumn[]) => {
+  for (const anchor of linksColumnAnchors) {
+    const index = columns.indexOf(anchor);
+    if (index !== -1) {
+      return index + 1;
+    }
+  }
+  return 0;
+};
+
 export const getUniParcXRefsColumns = (
   columns: UniParcXRefsColumn[],
   templateMap: Map<string, string>,
   uniparcAccession: string,
   firstSeen?: string,
-  lastSeen?: string
-): ColumnDescriptor<UniParcXRef>[] =>
-  columns.map((name) => {
-    const descriptor = UniParcXRefsColumnConfiguration.get(name);
-    if (!descriptor) {
+  lastSeen?: string,
+  obsoleteStatuses?: Map<string, ObsoleteXRefStatus>
+): ColumnDescriptor<UniParcXRef>[] => {
+  const storedColumns = withoutClientOnlyColumns(columns);
+  const descriptors: ColumnDescriptor<UniParcXRef>[] = storedColumns.map(
+    (name) => {
+      const descriptor = UniParcXRefsColumnConfiguration.get(name);
+      if (!descriptor) {
+        return {
+          label: name,
+          name,
+          render: () => {
+            const message = `${name} has no config yet`;
+            logging.warn(message);
+            return <div className="warning">{message}</div>;
+          },
+        };
+      }
+      // In case of timeline column, replace with the current template map
+      if (name === UniParcXRefsColumn.timeline) {
+        return {
+          name,
+          label: descriptor?.label,
+          tooltip: descriptor?.tooltip,
+          render: getTimelineColumn(firstSeen, lastSeen),
+        };
+      }
       return {
-        label: name,
         name,
-        render: () => {
-          const message = `${name} has no config yet`;
-          logging.warn(message);
-          return <div className="warning">{message}</div>;
-        },
+        ...descriptor,
       };
     }
-    // In case of accession column, replace with the current template map
-    if (name === UniParcXRefsColumn.accession) {
-      return {
-        name,
-        label: descriptor?.label,
-        uniparcAccession,
-        render: getAccessionColumn(uniparcAccession, templateMap),
-      };
-    }
-    // In case of timeline column, replace with the current template map
-    if (name === UniParcXRefsColumn.timeline) {
-      return {
-        name,
-        label: descriptor?.label,
-        render: getTimelineColumn(firstSeen, lastSeen),
-      };
-    }
-    return {
-      name,
-      ...descriptor,
-    };
+  );
+  // Always present, whatever the stored column list says, and built here
+  // because it needs the current accession, template map and resolved
+  // obsolete-entry statuses to work out its per-row destinations.
+  descriptors.splice(getLinksColumnIndex(storedColumns), 0, {
+    name: linksColumnName,
+    label: linksColumnLabel,
+    tooltip: linksColumnTooltip,
+    render: getLinksColumn(uniparcAccession, templateMap, obsoleteStatuses),
   });
+  // Franklin renders `label` but ignores `tooltip`, so the header explains
+  // itself through the label
+  return descriptors.map((descriptor) => ({
+    ...descriptor,
+    label: (
+      <ColumnHeaderLabel tooltip={descriptor.tooltip}>
+        {descriptor.label}
+      </ColumnHeaderLabel>
+    ),
+  }));
+};

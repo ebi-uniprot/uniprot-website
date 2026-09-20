@@ -161,7 +161,7 @@ const getEntryDownloadUrl = (
   switch (dataset) {
     case Dataset.uniprotData: {
       if (isUniparcTsv(namespace, fileFormat)) {
-        return uniparcApiUrls.databases(accession, undefined, false, true, {
+        return uniparcApiUrls.databases(accession, undefined, true, true, {
           format: fileFormat as FileFormat.tsv,
           fields: columns?.join(','),
         });

@@ -1,4 +1,16 @@
-import { parseIdsFromSearchParams } from '../urls';
+import { getIdWithoutRange, parseIdsFromSearchParams } from '../urls';
+
+describe('getIdWithoutRange', () => {
+  it('should leave an ID without a range untouched', () => {
+    expect(getIdWithoutRange('P05067')).toBe('P05067');
+  });
+  it('should drop the range', () => {
+    expect(getIdWithoutRange('P05067[1-10]')).toBe('P05067');
+  });
+  it('should keep the isoform when dropping the range', () => {
+    expect(getIdWithoutRange('P05067-1[1-10]')).toBe('P05067-1');
+  });
+});
 
 describe('parseIdsFromSearchParams', () => {
   it('should parse a single ID', () => {

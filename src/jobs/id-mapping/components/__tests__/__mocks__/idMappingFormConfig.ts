@@ -1,7 +1,7 @@
 import { type IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 
 // Source: configure/idmapping/fields
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const data: IDMappingFormConfig = {
   groups: [
     {
@@ -74,6 +74,14 @@ const data: IDMappingFormConfig = {
         {
           displayName: 'CRC64',
           name: 'CRC64',
+          from: true,
+          to: true,
+          ruleId: 8,
+          uriLink: null,
+        },
+        {
+          displayName: 'MD5',
+          name: 'MD5',
           from: true,
           to: true,
           ruleId: 8,
@@ -285,20 +293,6 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 8,
           uriLink: 'https://www.tcdb.org/search/result.php?tc=%id',
-        },
-      ],
-    },
-    {
-      groupName: 'PTM databases',
-      items: [
-        {
-          displayName: 'GlyConnect',
-          name: 'GlyConnect',
-          from: true,
-          to: true,
-          ruleId: 8,
-          uriLink:
-            'https://glyconnect.expasy.org/gcx/search/view/glycome/Protein/%id',
         },
       ],
     },
@@ -797,7 +791,7 @@ const data: IDMappingFormConfig = {
           to: true,
           ruleId: 8,
           uriLink:
-            'https://www.reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession',
+            'https://reactome.org/PathwayBrowser/#%id&FLG=%primaryAccession',
         },
         {
           displayName: 'UniPathway',
@@ -902,7 +896,6 @@ const data: IDMappingFormConfig = {
         'PeroxiBase',
         'REBASE',
         'TCDB',
-        'GlyConnect',
         'BioMuta',
         'DMDM',
         'CPTAC',
@@ -967,6 +960,7 @@ const data: IDMappingFormConfig = {
         'UniRef100',
         'Gene_Name',
         'CRC64',
+        'MD5',
         'EMBL-GenBank-DDBJ',
         'EMBL-GenBank-DDBJ_CDS',
         'GI_number',

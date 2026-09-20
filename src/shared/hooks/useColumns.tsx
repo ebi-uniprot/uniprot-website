@@ -180,8 +180,10 @@ const useColumns = (
   const [{ query, selectedFacets, sortColumn, sortDirection }] =
     getParamsFromURL(queryParamFromUrl);
 
+  // Only needed to work out which columns are sortable, which callers passing
+  // their own columns (e.g. the basket) have already decided
   const { data: dataResultFields, loading } = useDataApi<ReceivedFieldData>(
-    searchableNamespaces.has(namespace)
+    searchableNamespaces.has(namespace) && !columnsOverride
       ? apiUrls.configure.resultsFields(namespace)
       : null
   );

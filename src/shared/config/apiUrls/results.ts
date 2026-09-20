@@ -1,5 +1,6 @@
 import joinUrl from 'url-join';
 
+import uniparcApiUrls from '../../../uniparc/config/apiUrls';
 import {
   getApiSortDirection,
   SortDirection,
@@ -60,6 +61,7 @@ export const download = ({
   download: isDownload = true,
   jobId,
   uniparcProteomeFastaHeader,
+  uniparcProteomePrecomputed,
 }: DownloadUrlOptions) => {
   // If the consumer of this fn has specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
@@ -150,6 +152,18 @@ export const download = ({
   // ID Mapping Async Download
   if (jobId) {
     parameters.jobId = jobId;
+  }
+
+  if (uniparcProteomePrecomputed) {
+    return uniparcApiUrls.precomputedProteomeAnnotations(
+      uniparcProteomePrecomputed,
+      {
+        stream: !size,
+        size,
+        compressed,
+        download: !size && isDownload,
+      }
+    );
   }
 
   // UniParc proteome fasta endpoint

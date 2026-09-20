@@ -14,7 +14,9 @@ exports[`Publication component should render 1`] = `
         <h5
           class="publication__heading small"
         >
-          Complete sequencing and characterization of 21,243 full-length human cDNAs.
+          <span>
+            Complete sequencing and characterization of 21,243 full-length human cDNAs.
+          </span>
         </h5>
         <div
           class="publication__authors"

@@ -1,7 +1,7 @@
 import { type UniProtKBProtNLMAPIModel } from '../types/protNLMAPIModel';
 
 // Source: uniprotkb/protnlm/A8Y1C3
-// Retrieved: 2026-06-04
+// Retrieved: 2026-08-31
 const data: UniProtKBProtNLMAPIModel = {
   entryType: 'UniProtKB unreviewed (TrEMBL)',
   primaryAccession: 'A8Y1C3',

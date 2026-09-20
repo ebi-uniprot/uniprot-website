@@ -1,5 +1,6 @@
 # dependencies
-/node_modules
+node_modules
+.pnpm-store/
 
 # production
 /build
@@ -25,3 +26,6 @@ yalc.lock
 
 # Local Netlify folder
 .netlify
+
+# Statistics archival bundles
+/archive
