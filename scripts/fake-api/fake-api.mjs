@@ -42,7 +42,15 @@ http
       });
       return res.end();
     }
-    const upstream = await fetch(UPSTREAM + req.url, {
+    // Resolved against the fixed upstream, then checked: the request may only
+    // pick a path on that host, never another host (a proxy-style absolute
+    // request line, say)
+    const target = new URL(req.url, UPSTREAM);
+    if (target.origin !== UPSTREAM) {
+      res.writeHead(400, CORS);
+      return res.end();
+    }
+    const upstream = await fetch(target, {
       method: req.method,
       headers: { accept: req.headers.accept ?? '*/*' },
     });
@@ -53,4 +61,8 @@ http
     res.writeHead(upstream.status, { ...headers, ...CORS });
     return res.end(Buffer.from(await upstream.arrayBuffer()));
   })
-  .listen(PORT, () => console.log(`Fake API on http://localhost:${PORT}`));
+  // Loopback only: this is a stand-in for one developer's browser, not a
+  // proxy for the network
+  .listen(PORT, '127.0.0.1', () =>
+    console.log(`Fake API on http://localhost:${PORT}`)
+  );
