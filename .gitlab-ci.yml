@@ -1,6 +1,13 @@
 include:
   - project: 'uniprot/front-end/front-end-deploy'
     file: '.gitlab-ci-template.yml'
+  # Replaces the scanning GitHub only provides free on public repositories:
+  # SAST for CodeQL, Secret Detection for secret scanning. Stable channel, not
+  # `.latest` — that is where GitLab lands breaking changes first, and these run
+  # in the same pipeline that deploys production.
+  - template: Jobs/SAST.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Dependency-Scanning.gitlab-ci.yml
 
 variables:
   CHART_PROD: 'uniprot-website-prod'
