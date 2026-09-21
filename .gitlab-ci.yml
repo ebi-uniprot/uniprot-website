@@ -15,3 +15,90 @@ variables:
   CHART_DEV: 'uniprot-website-dev'
   CHART_UX: 'uniprot-website-ux'
   CHART_LMIC: 'uniprot-website-lmic'
+  # Webpack config and test files are not shipped, so findings in them are noise
+  # — 9 of the first run's `fs` path warnings were in webpack.config.js alone.
+  # `scripts/` is deliberately NOT excluded: it is real Node code that runs in
+  # CI with network and filesystem access, and it now holds the security gate
+  # itself. Setting this replaces the analyzer default ("spec, test, tests,
+  # tmp"), so those are repeated here.
+  SAST_EXCLUDED_PATHS: 'spec, test, tests, tmp, webpack.config.js, webpack-plugins, **/__tests__/**, **/*.spec.ts, **/*.spec.tsx'
+
+# The analyzers above always exit 0 and their jobs are `allow_failure: true`, so
+# a pipeline is green whether or not they found anything. This job is what turns
+# a finding into a failure — and therefore into a failure email and a red commit
+# status on the GitHub PR. It fails on Critical and High findings; the noise that
+# would otherwise make that unworkable is removed at source by SAST_EXCLUDED_PATHS
+# above and .gitlab/sast-ruleset.toml, rather than by a per-finding exception
+# list. With both in place the first run's 60 findings leave 0 Critical/High.
+#
+# It sits one stage after the analyzers so their report artifacts are downloaded
+# by default (each analyzer uploads its report as a plain `archive` artifact as
+# well as a typed report). No `needs:`/`dependencies:` on purpose: analyzer job
+# names vary between template versions, and naming one wrongly is a hard error.
+security_gate:
+  extends: .js
+  stage: build_static_assets
+  before_script: [] # no dependency install needed, this only reads JSON
+  script:
+    - node scripts/ci/security-gate.mjs
+  rules:
+    # Blocking on main, so a new finding stops the production deploy...
+    - if: $CI_COMMIT_BRANCH == "main"
+      allow_failure: false
+    # ...and advisory everywhere else, so dev/ux/lmic keep deploying.
+    - when: on_success
+      allow_failure: true
+
+# The routine secret_detection job scans only the pushed commit range (the first
+# run covered 2 commits and 3.3 KB), which says nothing about history. This
+# repository was public, so anything in history was already exposed and needs
+# rotating rather than deleting. Run this manually after going private, and
+# again if the ruleset changes — not on every pipeline, because it re-scans all
+# of history and re-reports the same findings every time.
+# Deliberately in a later stage than `security_gate`, not alongside the routine
+# `secret_detection` job. It inherits the same `gl-secret-detection-report.json`
+# filename, so in the same stage the gate would download two same-named
+# artifacts and read whichever extracted last — and historic findings are
+# pre-existing secrets to rotate, which should not fail the blocking gate on
+# main. Its results are read in the job log and the Vulnerability Report.
+secret_detection_historic:
+  extends: secret_detection
+  stage: compress_static_assets
+  variables:
+    SECRET_DETECTION_HISTORIC_SCAN: 'true'
+    GIT_DEPTH: 0
+  rules:
+    - when: manual
+      allow_failure: true
+
+# A scheduled pipeline is what catches dependency CVEs, which appear without
+# anyone pushing: a new advisory against a version pinned months ago would
+# otherwise surface on the next unrelated commit, whenever that happens to be.
+# The schedule itself is created in the UI (CI/CD → Schedules, nightly, target
+# branch `main`); these overrides are what make it safe to point at `main`.
+#
+# The deploy chain uses legacy `only: refs`, which matches a scheduled pipeline
+# on `main` exactly as it matches a push — so without these the nightly scan
+# would rebuild and redeploy production every night. `except:` is overridden
+# rather than `rules:` because mixing `rules` with the template's inherited
+# `only`/`except` is a hard pipeline error, and overriding `except` replaces it
+# wholesale, so `external_pull_requests` is repeated here.
+build_static_assets:
+  except:
+    - external_pull_requests
+    - schedules
+
+compress_static_assets:
+  except:
+    - external_pull_requests
+    - schedules
+
+build_docker_image:
+  except:
+    - external_pull_requests
+    - schedules
+
+deploy:
+  except:
+    - external_pull_requests
+    - schedules

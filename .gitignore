@@ -29,3 +29,10 @@ yalc.lock
 
 # Statistics archival bundles
 /archive
+
+# GitLab security scanner output, written to the repo root in CI and read by
+# scripts/ci/security-gate.mjs. Deliberately a single glob: the analyzers emit
+# gl-sast-report.json, gl-secret-detection-report.json,
+# gl-dependency-scanning-report.json, gl-sbom-*.cdx.json *and* gl-report-post.json,
+# and that last one does not match a `gl-*-report.json` pattern.
+/gl-*.json

@@ -1,0 +1,31 @@
+# GitLab SAST ruleset customization. The analyzer looks for this file by name —
+# before it existed the semgrep job logged "ruleset customization will be
+# disabled".
+#
+# Rules disabled here are categorically inapplicable to this codebase, not
+# individually-excused findings: there is no exception list to maintain, and a
+# new occurrence of anything still enabled is still reported.
+#
+# Revisit both entries if this repository ever gains server-side code (SSR, a
+# Node service). Both rules are about a server acting on attacker-controlled
+# input, which is exactly what would become possible.
+
+[semgrep]
+  # Server-side request forgery. This is a browser SPA: `fetchData.ts`,
+  # `submitJob.ts` and `checkJobStatus.ts` run in the user's own browser or a
+  # web worker, calling the UniProt API. There is no server to forge requests
+  # from — the only "victim" is the caller's own browser.
+  [[semgrep.ruleset]]
+    disable = true
+    [semgrep.ruleset.identifier]
+      type = "semgrep_id"
+      value = "nodejs_scan.javascript-ssrf-rule-node_ssrf"
+
+  # HTTP response header injection. Nothing here writes HTTP response headers;
+  # the single finding pointed at `timeLastUpdate: Date.now()` in an IndexedDB
+  # write in shared/workers/jobs/state/actionHandler.ts.
+  [[semgrep.ruleset]]
+    disable = true
+    [semgrep.ruleset.identifier]
+      type = "semgrep_id"
+      value = "nodejs_scan.javascript-headers-rule-generic_header_injection"

@@ -4,11 +4,12 @@ This directory contains utility scripts that automate various development and op
 
 ## What's here
 
-| Script                | Run with                                            | What it does                                                                                                |
-| --------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `update-mocks.mjs`    | `pnpm update-mocks`                                 | Refreshes `__mocks__` fixtures in place from the source URLs recorded in their comments.                    |
-| `verify-bundle.js`    | `pnpm verify:bundle`                                | Post-build guard against two regressions that have shipped before.                                          |
-| `archive-statistics/` | `pnpm archive:statistics`, `pnpm verify:statistics` | Captures the UniProtKB statistics page as one self-contained HTML file, behind a fail-closed data verifier. |
+| Script                 | Run with                                            | What it does                                                                                                |
+| ---------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `update-mocks.mjs`     | `pnpm update-mocks`                                 | Refreshes `__mocks__` fixtures in place from the source URLs recorded in their comments.                    |
+| `verify-bundle.js`     | `pnpm verify:bundle`                                | Post-build guard against two regressions that have shipped before.                                          |
+| `archive-statistics/`  | `pnpm archive:statistics`, `pnpm verify:statistics` | Captures the UniProtKB statistics page as one self-contained HTML file, behind a fail-closed data verifier. |
+| `ci/security-gate.mjs` | `pnpm security:gate`                                | Fails the pipeline on Critical/High security-scanner findings, and on a scanner that did not report at all. |
 
 ## Testing
 
@@ -38,6 +39,7 @@ in separate files so it is obvious which is which:
 | `archive-statistics/verify.test.mjs`  | nothing                              |
 | `archive-statistics/index.test.mjs`   | nothing                              |
 | `archive-statistics/archive.test.mjs` | the live API, and `archive/` on disk |
+| `ci/security-gate.test.mjs`           | nothing                              |
 
 `archive.test.mjs` asks the live API which release is current and fails if that release
 has not been archived yet. It also fails if the API cannot be reached at all — "I could
@@ -159,3 +161,46 @@ an archive stays checkable long after the release it captured.
 Requires Node 22+ and a Chromium for Playwright. See
 [`archive-statistics/README.md`](./archive-statistics/README.md) for the options, how the capture
 flattens tabs and charts, and what the verifier does and does not cover.
+
+## `security-gate`
+
+The GitLab SAST, Secret Detection and Dependency Scanning jobs always exit 0, and
+their template jobs are `allow_failure: true`, so the pipeline is green whether or
+not they found anything. This is the job that turns a finding into a failure —
+which is also the only thing that sends a failure email and turns the commit
+status on the GitHub PR red. It fails on Critical and High findings.
+
+**There is no exception list to maintain.** Noise is removed at source, by rule
+and by path:
+
+- `SAST_EXCLUDED_PATHS` in `.gitlab-ci.yml` drops build tooling and test files,
+  which are not shipped.
+- `.gitlab/sast-ruleset.toml` disables rules that are categorically inapplicable
+  to a browser SPA, each with a comment explaining why and when to revisit.
+
+Both are rule-level and declarative, so they are reviewed in a diff and do not
+grow as the code changes. For scale: the first run produced 60 findings — 1
+Critical, 4 High, 55 Medium — and all five Critical/High were false positives
+(SSRF rules firing on browser-side `fetch`, a header-injection rule firing on an
+IndexedDB write). With both mechanisms in place, 37 Medium findings remain and
+nothing Critical or High, so failing on Critical/High is a gate rather than a
+wall.
+
+The Vulnerability Report (Ultimate) is where the remaining Medium findings are
+triaged and dismissed. That does not overlap with this script: dismissals are
+recorded in GitLab's database and never appear in the report artifact, which
+still lists every finding on every run — so a dismissal is invisible here. The
+division is deliberate. Mediums are triaged in the UI and never block; Critical
+and High block in CI and are removed by fixing them or by disabling an
+inapplicable rule in `.gitlab/sast-ruleset.toml`.
+
+This job also runs in the nightly scheduled pipeline on `main`, which is what
+catches a new CVE against a dependency nobody touched.
+
+Like `archive-statistics`, it fails closed: a missing or unparseable report, or a
+scanner reporting a non-success status, is a failure. A scanner that silently
+stops running produces no report, and that must not read as "clean".
+
+```sh
+pnpm security:gate   # what CI runs; needs the gl-*-report.json files in the cwd
+```

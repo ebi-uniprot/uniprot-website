@@ -27,6 +27,7 @@
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
     "prettier": "prettier src scripts --write",
     "verify:bundle": "node scripts/verify-bundle.js",
+    "security:gate": "node scripts/ci/security-gate.mjs",
     "test": "npm-run-all test:lint test:types test:unit",
     "test:lint": "eslint src --cache --cache-location 'node_modules/.cache/eslint/'",
     "test:types": "tsc",
