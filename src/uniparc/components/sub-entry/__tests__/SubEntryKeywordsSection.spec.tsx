@@ -58,18 +58,16 @@ describe('SubEntryKeywordsSection — UniFire keyword rendering', () => {
     accession: unifireModelData.accession,
     predictions: unifireModelData.predictions
       .filter((p) => p.annotationType === 'keyword')
-      .map(
-        (p): ModifiedPrediction => ({
-          ...p,
-          evidence: [
-            {
-              evidenceCode: 'ECO:0000256',
-              source: 'ARBA',
-              id: String(p.evidence[0]),
-            },
-          ],
-        })
-      ),
+      .map((p): ModifiedPrediction => ({
+        ...p,
+        evidence: [
+          {
+            evidenceCode: 'ECO:0000256',
+            source: 'ARBA',
+            id: String(p.evidence[0]),
+          },
+        ],
+      })),
   };
 
   it('renders keyword predictions from UniFire', () => {

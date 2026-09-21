@@ -279,8 +279,7 @@ export const buildSubEntryAnnotationDownload = ({
   accession,
   taxId,
 }: SubEntryAnnotationDownloadParams):
-  | SubEntryAnnotationDownload
-  | undefined => {
+  SubEntryAnnotationDownload | undefined => {
   if (!accession || !taxId) {
     return undefined;
   }

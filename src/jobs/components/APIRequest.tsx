@@ -38,9 +38,7 @@ const documentation = new Map<JobTypes, string>([
 function inputToCurl<T extends JobTypes>(
   jobType: T,
   input?:
-    | Partial<PublicServerParameters[T]>
-    | PeptideSearchFormParameters
-    | null
+    Partial<PublicServerParameters[T]> | PeptideSearchFormParameters | null
 ) {
   const excluded = exclude.get(jobType) || [];
   const inputEntries = Object.entries(input || {}).filter(

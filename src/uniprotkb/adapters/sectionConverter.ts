@@ -61,8 +61,7 @@ export const convertSection = (
     // These are needed because the implicit database GPCRDB depends on the existence of a similarity
     // comment with the text "Belongs to the G-protein coupled receptor"'],
     const similarityComments = convertedData.commentsData.get('SIMILARITY') as
-      | FreeTextComment[]
-      | undefined;
+      FreeTextComment[] | undefined;
     convertedData.xrefData = getXrefsForSection(
       databaseInfoMaps,
       uniProtKBCrossReferences,

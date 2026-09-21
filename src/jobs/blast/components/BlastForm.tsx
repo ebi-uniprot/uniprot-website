@@ -184,11 +184,9 @@ const BlastForm = ({ initialFormValues }: Props) => {
 
   // check number of results in the search space
   const database = formValues[BlastFields.database].selected as
-    | Database
-    | undefined;
+    Database | undefined;
   const taxons = formValues[BlastFields.taxons].selected as
-    | SelectedTaxon[]
-    | undefined;
+    SelectedTaxon[] | undefined;
   const countFetchUrl = useMemo(
     () => getQueryForCount(database, taxons),
     [database, taxons]

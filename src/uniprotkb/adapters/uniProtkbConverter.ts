@@ -78,9 +78,7 @@ export type UniProtkbAPIModel = {
   // UniFire converter narrow to it so sub-entry data can flow through the
   // shared UniProtKB pipeline. See `src/uniparc/types/precomputed.ts`.
   entryType:
-    | 'UniProtKB reviewed (Swiss-Prot)'
-    | 'UniProtKB unreviewed (TrEMBL)'
-    | 'AA';
+    'UniProtKB reviewed (Swiss-Prot)' | 'UniProtKB unreviewed (TrEMBL)' | 'AA';
   inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];

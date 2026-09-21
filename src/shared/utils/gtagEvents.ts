@@ -51,10 +51,7 @@ export type PanelCloseReason =
     >[0]
   | 'full-view';
 export type PanelFormCloseReason =
-  | PanelCloseReason
-  | 'submit'
-  | 'cancel'
-  | 'toggle';
+  PanelCloseReason | 'submit' | 'cancel' | 'toggle';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -171,12 +168,7 @@ export const sendGtagEventPanelAdvancedSearchClose = (
 };
 
 export type DownloadPanelFormCloseReason =
-  | PanelCloseReason
-  | 'download'
-  | 'submit'
-  | 'cancel'
-  | 'copy'
-  | 'toggle';
+  PanelCloseReason | 'download' | 'submit' | 'cancel' | 'copy' | 'toggle';
 
 export type DownloadMethod = 'api-url' | 'sync' | 'async' | 'ftp';
 

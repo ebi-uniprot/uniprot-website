@@ -53,9 +53,6 @@ export type MappingFrom = {
 
 // Should this be a subset of APIMode, and if so how do we handle it in usePagination?
 export type MappingFlat = (
-  | UniProtkbAPIModel
-  | UniRefLiteAPIModel
-  | UniParcAPIModel
-  | MappingTo
+  UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel | MappingTo
 ) &
   MappingFrom;

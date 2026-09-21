@@ -58,8 +58,7 @@ const SubEntryFamilyAndDomains = ({ uniparcData, annotations }: Props) => {
           <FreeTextView
             comments={
               familyAndDomains.commentsData.get('DOMAIN') as
-                | FreeTextComment[]
-                | undefined
+                FreeTextComment[] | undefined
             }
             title="Domain"
             articleId="domain_cc"
@@ -67,8 +66,7 @@ const SubEntryFamilyAndDomains = ({ uniparcData, annotations }: Props) => {
           <FreeTextView
             comments={
               familyAndDomains.commentsData.get('SIMILARITY') as
-                | FreeTextComment[]
-                | undefined
+                FreeTextComment[] | undefined
             }
             title="Sequence similarities"
             articleId="sequence_similarities"
