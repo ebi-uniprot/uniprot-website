@@ -1,6 +1,7 @@
 import { Message } from 'franklin-sites';
 import { useState } from 'react';
 
+import { PRODUCTION_ORIGIN } from '../config/urls';
 import style from './styles/warning-message.module.scss';
 
 const reUniProtOrg = /^https?:\/\/www\.uniprot\.org/;
@@ -21,7 +22,7 @@ const DevDeploymentWarning = () => {
         >
           <small>
             {`This is a development version of `}
-            <a href="https://www.uniprot.org">www.uniprot.org</a>
+            <a href={PRODUCTION_ORIGIN}>www.uniprot.org</a>
             {` |  git branch: ${GIT_BRANCH} |  API: ${API_PREFIX}`}
           </small>
         </Message>
