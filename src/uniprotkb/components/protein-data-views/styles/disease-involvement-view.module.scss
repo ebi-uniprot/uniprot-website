@@ -9,25 +9,49 @@
 }
 
 // Reuses the same --ai-color/--ai-border tokens protnlm.scss defines for
-// individual AI-predicted annotations, applied here to the whole panel
-// instead, since every summary in this tab is AI-generated.
-.ai-tab-content {
-  background-color: var(--ai-color);
-  box-shadow: 0 0 0 1px var(--ai-border);
-  border-radius: 0.25rem;
-  padding: $global-margin;
+// individual AI-predicted annotations. Each variant gets its own card
+// instead of one wash across the whole tab — the card's own margin/shadow
+// (card.scss) already separates one variant from the next, so no extra
+// divider is needed between them.
+.variant-card {
+  // Card's own .card class also sets background-color, at equal selector
+  // specificity — repeating the class name breaks the tie in our favour
+  // without relying on stylesheet load order.
+  &.variant-card {
+    background-color: var(--ai-color);
+  }
+
+  border: 1px solid var(--ai-border);
 
   // Table.tsx's sticky <thead> "bleeds" its background past the header
   // cells via a box-shadow, so its cells and scroll gutter read as one
   // continuous surface while scrolling. That shadow paints
   // --table__header-background (white by default), which stood out as a
-  // white block against this panel's purple tint — overriding the token
+  // white block against this card's purple tint — overriding the token
   // here makes the bleed match the surrounding background instead.
   --table__header-background: var(--ai-color);
 }
 
 .variant-name {
   line-height: 2;
+}
+
+// The fill stays purple always, since every summary in this tab is
+// AI-generated; the title text stays tabs.scss's default blue until the
+// tab is actually selected — only then does it switch to purple, along
+// with the underline highlight.
+.ai-tab {
+  background-color: var(--ai-color);
+
+  // tabs.scss's own `&--active` rule sets a pastel-blue background at the
+  // same specificity as the line above, so it wins on source order alone —
+  // repeating the declaration here, under the higher-specificity combined
+  // selector, is what actually keeps the active tab purple.
+  &:global(.tabs__header__item--active) {
+    background-color: var(--ai-color);
+    color: var(--fr--color-purple-mid);
+    box-shadow: inset 0 -0.2rem 0 0 var(--fr--color-purple-mid);
+  }
 }
 
 .pmid-button {
@@ -48,10 +72,8 @@
   max-width: 42rem;
   margin: auto;
   padding: $global-margin;
-  // Same --ai-color/--ai-border tokens as .ai-tab-content, so the dialog
-  // reads as part of the same AI-generated surface it opens from.
-  background-color: var(--ai-color);
-  border: 1px solid var(--ai-border);
+  background-color: #fff;
+  border: 1px solid #c2c4c4;
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
 
   &::backdrop {

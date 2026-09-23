@@ -1,6 +1,7 @@
 import {
   AiAnnotationsIcon,
   Button,
+  Card,
   Chip,
   ExpandableList,
   InfoList,
@@ -337,7 +338,13 @@ const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
           }
         }}
       >
-        <h6 className={styles['pmid-dialog-heading']}>Abstract summary </h6>
+        <h6 className={styles['pmid-dialog-heading']}>
+          Abstract summary
+          <AiAnnotationsIcon
+            className="ai-annotation-marker"
+            aria-hidden="true"
+          />
+        </h6>
         <p className={styles['pmid-dialog-meta']}>
           <ExternalLink url={externalUrls.PubMed(pmid)}>
             PMID:{pmid}
@@ -381,8 +388,15 @@ const AIpoweredSummaries = ({ accession }: { accession: string }) => {
           let rowIndex = 0;
 
           return (
-            <div key={variant.variant_name}>
-              <h4 className={styles['variant-name']}>{variant.variant_name}</h4>
+            <Card
+              key={variant.variant_name}
+              className={styles['variant-card']}
+              header={
+                <h4 className={styles['variant-name']}>
+                  {variant.variant_name}
+                </h4>
+              }
+            >
               <h5>Synthesis Summary</h5>
               <p>
                 {variant.synthesis_summary.summary} (PMIDs:{' '}
@@ -422,7 +436,7 @@ const AIpoweredSummaries = ({ accession }: { accession: string }) => {
                   })}
                 </Table.Body>
               </Table>
-            </div>
+            </Card>
           );
         })}
       </div>
@@ -478,10 +492,9 @@ const DiseaseInvolvementView = ({
             </>
           }
           id="ai-powered-summaries"
+          className={styles['ai-tab']}
         >
-          <div className={styles['ai-tab-content']}>
-            <AIpoweredSummaries accession={accession} />
-          </div>
+          <AIpoweredSummaries accession={accession} />
         </Tab>
       </Tabs>
     </>
