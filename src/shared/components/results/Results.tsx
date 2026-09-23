@@ -1,6 +1,7 @@
 import { Loader } from 'franklin-sites';
 import { useLocation } from 'react-router-dom';
 
+import { SearchResultsLocations } from '../../../app/config/urls';
 import {
   escapeInvalidSearchFieldQueryWithColon,
   getParamsFromURL,
@@ -18,6 +19,7 @@ import {
   searchableNamespaceLabels,
 } from '../../types/namespaces';
 import { type SearchResults, type Suggestion } from '../../types/results';
+import { stringifyUrl } from '../../utils/url';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import NoResultsPage from '../error-pages/full-pages/NoResultsPage';
@@ -110,6 +112,14 @@ const Results = () => {
         searchableNamespaceLabels[ns as SearchableNamespace]
       } search${total !== undefined ? ` (${total})` : ''}`}
       titleLoading={resultsDataInitialLoading}
+      // Deliberate consolidation: every faceted/filtered results URL points at
+      // the unfiltered one. Built from the namespace rather than echoing the
+      // pathname: the route matches `/UniProtKB/` as readily as `/uniprotkb`,
+      // and each spelling would otherwise claim to be canonical.
+      canonical={stringifyUrl(
+        SearchResultsLocations[ns as SearchableNamespace],
+        { query: '*' }
+      )}
     >
       <meta
         name="description"
@@ -117,12 +127,6 @@ const Results = () => {
           searchableNamespaceLabels[ns as SearchableNamespace]
         } dataset of UniProt`}
       />
-      {typeof window !== 'undefined' && (
-        <link
-          rel="canonical"
-          href={`${window.location.origin}${window.location.pathname}?query=*`}
-        />
-      )}
     </HTMLHead>
   );
 

@@ -244,7 +244,7 @@ exports[`Entry basic should render main 1`] = `
         type="button"
       >
         <test-file-stub />
-        Add
+        Add to basket
       </button>
       <a
         class="button tertiary"

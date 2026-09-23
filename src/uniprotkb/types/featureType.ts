@@ -10,15 +10,10 @@ export type SequenceFeatures =
 export type DiseaseAndDrugsFeatures = 'Mutagenesis' | 'Natural variant';
 
 export type FunctionFeatures =
-  | 'DNA binding'
-  | 'Active site'
-  | 'Binding site'
-  | 'Site';
+  'DNA binding' | 'Active site' | 'Binding site' | 'Site';
 
 export type SubcellularLocationFeatures =
-  | 'Intramembrane'
-  | 'Topological domain'
-  | 'Transmembrane';
+  'Intramembrane' | 'Topological domain' | 'Transmembrane';
 
 export type ProteinProcessingFeatures =
   | 'Initiator methionine'

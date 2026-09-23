@@ -547,7 +547,15 @@ module.exports = (env, argv) => {
     modernConfig.devServer = {
       compress: true,
       host: 'localhost',
-      historyApiFallback: true,
+      // As in production, where NGINX serves the shell for every route: the
+      // default dot rule would answer a versioned accession such as
+      // /uniprotkb/P05067.3 with "Cannot GET", taking it for a file
+      // Navigations only: the default `*/*` would serve the shell for a
+      // missing chunk too
+      historyApiFallback: {
+        disableDotRule: true,
+        htmlAcceptHeaders: ['text/html'],
+      },
       devMiddleware: {
         stats: 'errors-only',
       },

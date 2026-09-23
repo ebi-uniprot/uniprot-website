@@ -163,8 +163,7 @@ const PeptideSearchForm = ({ initialFormValues }: Props) => {
     formValues[PeptideSearchFields.peps].selected &&
     !(
       formValues[PeptideSearchFields.taxIds].selected as
-        | undefined
-        | SelectedTaxon[]
+        undefined | SelectedTaxon[]
     )?.length
   );
 

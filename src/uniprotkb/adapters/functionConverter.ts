@@ -66,14 +66,10 @@ export type BioPhysicoChemicalProperties = {
 };
 
 export type GOAspectLabel =
-  | 'Biological Process'
-  | 'Molecular Function'
-  | 'Cellular Component';
+  'Biological Process' | 'Molecular Function' | 'Cellular Component';
 
 export type GOAspectName =
-  | 'cellular_component'
-  | 'molecular_function'
-  | 'biological_process';
+  'cellular_component' | 'molecular_function' | 'biological_process';
 
 type GOAspectShort = 'C' | 'F' | 'P';
 

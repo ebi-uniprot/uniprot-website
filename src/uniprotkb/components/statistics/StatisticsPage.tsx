@@ -255,14 +255,12 @@ const ProteinExistenceTable = ({
     unreviewedData.items
   )
     .sort(sortByPE)
-    .map(
-      ({ name, label, statistics }): MergedStatisticsItem => ({
-        name,
-        label,
-        statistics,
-        query: `(existence:${proteinExistenceToNumber.get(name)})`,
-      })
-    );
+    .map(({ name, label, statistics }): MergedStatisticsItem => ({
+      name,
+      label,
+      statistics,
+      query: `(existence:${proteinExistenceToNumber.get(name)})`,
+    }));
 
   return (
     <>
@@ -391,13 +389,11 @@ const TaxonomicDistributionTable = ({
     uniprotkbData.items,
     reviewedData.items,
     unreviewedData.items
-  ).map(
-    ({ name, statistics }): MergedStatisticsItem => ({
-      name,
-      statistics,
-      query: nameToQuery.get(name),
-    })
-  );
+  ).map(({ name, statistics }): MergedStatisticsItem => ({
+    name,
+    statistics,
+    query: nameToQuery.get(name),
+  }));
 
   const [selected, setSelected] = useState<(typeof options)[number]>(
     options[0]

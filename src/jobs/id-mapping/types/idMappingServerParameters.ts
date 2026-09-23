@@ -21,7 +21,4 @@ export type PublicServerParameters = ServerParameters;
 
 // Use for the path of the endpoint result that changes depending on the target
 export type IDMappingNamespace =
-  | undefined
-  | Namespace.uniprotkb
-  | Namespace.uniref
-  | Namespace.uniparc;
+  undefined | Namespace.uniprotkb | Namespace.uniref | Namespace.uniparc;

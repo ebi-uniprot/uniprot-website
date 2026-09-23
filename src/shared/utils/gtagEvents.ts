@@ -8,6 +8,7 @@ import { type ViewMode } from '../hooks/useViewMode';
 
 type GtagEventName =
   | 'api_data_load_fail'
+  | 'api_data_load_retry'
   | 'api_data_load_success'
   | 'cache_update'
   | 'copy_api_url_click'
@@ -51,10 +52,7 @@ export type PanelCloseReason =
     >[0]
   | 'full-view';
 export type PanelFormCloseReason =
-  | PanelCloseReason
-  | 'submit'
-  | 'cancel'
-  | 'toggle';
+  PanelCloseReason | 'submit' | 'cancel' | 'toggle';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -79,7 +77,11 @@ const sendGtagEvent = (
 };
 
 export const sendGtagEventApiData = (
-  event: 'success' | 'fail',
+  // 'fail' fires per attempt, so a retried request reports more than one. A
+  // 'retry' alongside it marks the ones that got another go, which keeps API
+  // degradation visible while still letting "failures a user actually saw" be
+  // recovered as fail - retry.
+  event: 'success' | 'fail' | 'retry',
   url: string
 ) => {
   sendGtagEvent(`api_data_load_${event}`, { url });
@@ -171,12 +173,7 @@ export const sendGtagEventPanelAdvancedSearchClose = (
 };
 
 export type DownloadPanelFormCloseReason =
-  | PanelCloseReason
-  | 'download'
-  | 'submit'
-  | 'cancel'
-  | 'copy'
-  | 'toggle';
+  PanelCloseReason | 'download' | 'submit' | 'cancel' | 'copy' | 'toggle';
 
 export type DownloadMethod = 'api-url' | 'sync' | 'async' | 'ftp';
 

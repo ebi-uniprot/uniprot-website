@@ -54,8 +54,7 @@ export type ProtNlmSubcellularLocationComment = SubcellularLocationComment & {
 };
 
 export type ProtNlmComment =
-  | ProtNlmFunctionComment
-  | ProtNlmSubcellularLocationComment;
+  ProtNlmFunctionComment | ProtNlmSubcellularLocationComment;
 
 type Category =
   | 'Biological process'

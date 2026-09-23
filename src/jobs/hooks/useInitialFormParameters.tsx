@@ -12,12 +12,7 @@ interface CustomLocationState<T> {
 }
 
 type SelectedType =
-  | string
-  | string[]
-  | number
-  | boolean
-  | SelectedTaxon
-  | SelectedTaxon[];
+  string | string[] | number | boolean | SelectedTaxon | SelectedTaxon[];
 
 export type FormValue = {
   fieldName: string;

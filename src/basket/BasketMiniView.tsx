@@ -1,17 +1,12 @@
 import { BinIcon, Button, FullViewIcon, Tab, Tabs } from 'franklin-sites';
-import { type Dispatch, type SetStateAction, useEffect, useMemo } from 'react';
+import { type Dispatch, type SetStateAction, useEffect } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../app/config/urls';
-import { reIds } from '../jobs/utils/urls';
+import { getIdWithoutRange } from '../jobs/utils/urls';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 import ResultsData from '../shared/components/results/ResultsData';
 import useBasket, { type Basket } from '../shared/hooks/useBasket';
-import {
-  type ColumnDescriptor,
-  getColumnsToDisplay,
-} from '../shared/hooks/useColumns';
-import useDatabaseInfoMaps from '../shared/hooks/useDatabaseInfoMaps';
 import useItemSelect from '../shared/hooks/useItemSelect';
 import useNSQuery from '../shared/hooks/useNSQuery';
 import usePagination from '../shared/hooks/usePagination';
@@ -23,6 +18,7 @@ import { type UniProtkbAPIModel } from '../uniprotkb/adapters/uniProtkbConverter
 import { UniProtKBColumn } from '../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../uniref/config/UniRefColumnConfiguration';
 import EmptyBasket from './EmptyBasket';
+import useBasketSort from './hooks/useBasketSort';
 import styles from './styles/basket-mini-view.module.scss';
 
 const uniProtKBColumns = [
@@ -92,14 +88,13 @@ const BasketMiniViewTab = ({
   onFullView,
 }: BasketMiniViewTabProps) => {
   const subsetsMap = new Map(
-    accessions.map((accession) => {
-      const { id } = accession.match(reIds)?.groups || { id: accession };
-      return [accession, id];
-    })
+    accessions.map((accession) => [accession, getIdWithoutRange(accession)])
   );
 
   const initialApiUrl = useNSQuery({
-    // Passing accessions without modifications in case of subsets
+    // Passing accessions without modifications in case of subsets. The URL
+    // builder sorts them, so reordering the basket doesn't change the fetch
+    // URL; the display order comes from updateResultsWithAccessionSubsets.
     accessions: Array.from(new Set(subsetsMap.values())),
     overrideNS: namespace,
     withFacets: false,
@@ -117,21 +112,14 @@ const BasketMiniViewTab = ({
     setSelectedEntries([]);
   }, [namespace, setSelectedEntries]);
 
-  const databaseInfoMaps = useDatabaseInfoMaps();
-
-  const columns = useMemo<Array<ColumnDescriptor<APIModel>>>(
-    () =>
-      columnNames &&
-      getColumnsToDisplay(
-        namespace,
-        columnNames,
-        undefined,
-        undefined,
-        undefined,
-        databaseInfoMaps
-      ),
-    [namespace, columnNames, databaseInfoMaps]
-  );
+  // Sorting rewrites the stored basket order, which both this panel and the
+  // full view render, so a sort applied here carries over to the full view
+  const { columns, handleSort } = useBasketSort({
+    namespace,
+    accessions,
+    columnNames,
+    setBasket,
+  });
 
   // Replacing the full accession including subsets in the resultsData
   resultsDataObject.allResults = updateResultsWithAccessionSubsets(
@@ -152,6 +140,7 @@ const BasketMiniViewTab = ({
         subsetsMap={subsetsMap}
         inBasket
         inBasketMini
+        onFullView={onFullView}
       />
       <ResultsData
         resultsDataObject={resultsDataObject}
@@ -160,6 +149,7 @@ const BasketMiniViewTab = ({
         namespaceOverride={namespace}
         columnsOverride={columns}
         basketSetter={setBasket}
+        onColumnSort={handleSort}
       />
       {/* both classnames from Franklin */}
       <div className="button-group sliding-panel__button-row">

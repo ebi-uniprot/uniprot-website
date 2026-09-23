@@ -111,6 +111,10 @@ import { type UniSaveAccession } from '../../types/uniSave';
 import { getListOfIsoformAccessions } from '../../utils';
 import { communityCuratedFacet } from '../../utils/CommunitySubmission';
 import { getEntrySectionNameAndId } from '../../utils/entrySection';
+import {
+  isMergedEntryHistory,
+  redirectsToSameEntry,
+} from '../../utils/redirects';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import CommunityAnnotationLink from './CommunityAnnotationLink';
 import dataToSchema from './entry.structured';
@@ -391,10 +395,7 @@ const Entry = () => {
       const split = new URL(redirectedTo).pathname.split('/');
       const newEntry = split[split.length - 1];
       // If the redirection is because of ID or version in which case, the following message doesn't make sense
-      if (
-        !match?.params.accession.includes('_') &&
-        !match?.params.accession.includes('.')
-      ) {
+      if (!redirectsToSameEntry(match.params.accession)) {
         // Note: Delete Message is called in unmount logic of component it is redirected to.
         // 'Strict' mode calls unmount twice and hence you won't see the message in dev mode.
         dispatch(
@@ -450,10 +451,19 @@ const Entry = () => {
     }
   }, [history, match?.params.accession]);
 
-  let isObsolete = Boolean(
-    transformedData?.entryType === EntryType.INACTIVE &&
-    transformedData.inactiveReason
-  );
+  const isObsolete =
+    Boolean(
+      transformedData?.entryType === EntryType.INACTIVE &&
+      transformedData.inactiveReason
+    ) ||
+    // A merged entry's history, viewed under the old accession: the data is the
+    // entry it was merged into, but this URL is not that entry's page. Not so
+    // for an entry name or a versioned accession, which redirect to themselves.
+    isMergedEntryHistory(
+      match?.params.accession,
+      data?.primaryAccession,
+      redirectedTo
+    );
 
   /* Fetched here, once per entry, rather than by the components that need
   them: they are read from both the tools row and the publications tab, and
@@ -555,7 +565,12 @@ const Entry = () => {
     return () => dispatch(deleteMessage('accession-merge'));
   }, []);
 
-  const structuredData = useMemo(() => dataToSchema(data), [data]);
+  const structuredData = useMemo(
+    // An obsolete entry is noindex and deliberately carries no canonical:
+    // JSON-LD naming a live Protein at a canonical URL would contradict both
+    () => (isObsolete ? undefined : dataToSchema(data)),
+    [data, isObsolete]
+  );
   useStructuredData(structuredData);
 
   if (
@@ -616,11 +631,6 @@ const Entry = () => {
 
   const publicationsSideBar = <EntryPublicationsFacets accession={accession} />;
 
-  // If there is redirection and the accession in the path do not match the data's primary accession (it happens when the user chooses to see a
-  // merged entry's history), the user is viewing content of an obsolete entry
-  isObsolete =
-    (redirectedTo && accession !== match.params.accession) || isObsolete;
-
   // The compact bar and the `stuck` class that shrinks and offsets the tabs row
   // to sit under it share one condition: an entry without these (obsolete, or
   // no sequence) renders no bar, so the tabs must keep their normal position.
@@ -650,7 +660,13 @@ const Entry = () => {
   const downloadButton = (
     <EntryDownloadButton handleToggle={handleToggleDownload} />
   );
-  const basketButton = <AddToBasketButton selectedEntries={accession} />;
+  // spell out the basket on narrow screens
+  const basketButton = (
+    <AddToBasketButton
+      selectedEntries={accession}
+      withBasketLabel={!wideScreen}
+    />
+  );
   const communityAnnotationLink = (
     <CommunityAnnotationLink
       accession={accession}
@@ -785,32 +801,44 @@ const Entry = () => {
         }
       )}
     >
-      <HTMLHead>
-        {typeof window !== 'undefined' && (
-          <link rel="canonical" href={window.location.href} />
-        )}
-      </HTMLHead>
       {isObsolete ? (
-        <h1>{match.params.accession}</h1>
+        <>
+          <HTMLHead
+            title={[
+              match.params.accession,
+              'Obsolete entry',
+              searchableNamespaceLabels[Namespace.uniprotkb],
+            ]}
+          >
+            {/* No canonical here: the UniParc record this entry points at is
+                different content, not the same page under another URL */}
+            <meta name="robots" content="noindex" />
+          </HTMLHead>
+          <h1>{match.params.accession}</h1>
+        </>
       ) : (
         <ErrorBoundary>
           <HTMLHead
             title={[pageTitle, searchableNamespaceLabels[Namespace.uniprotkb]]}
+            // Always the Entry tab: the route's subPage segment is optional,
+            // so `/uniprotkb/P05067` and `/uniprotkb/P05067/entry` would
+            // otherwise each claim to be canonical
+            canonical={getEntryPath(
+              Namespace.uniprotkb,
+              data.primaryAccession,
+              TabLocation.Entry
+            )}
           >
             {/** Below: experiment with OpenGraph and related */}
-            {/* @ts-expect-error og tags */}
-            <meta name="twitter:label1" value="Protein Name" />
+            <meta name="twitter:label1" content="Protein Name" />
             <meta
               name="twitter:data1"
-              // @ts-expect-error og tags
-              value={data.proteinDescription?.recommendedName?.fullName.value}
+              content={data.proteinDescription?.recommendedName?.fullName.value}
             />
-            {/* @ts-expect-error og tags */}
-            <meta name="twitter:label2" value="Gene Name" />
+            <meta name="twitter:label2" content="Gene Name" />
             <meta
-              name="twitter:data1"
-              // @ts-expect-error og tags
-              value={data.genes?.[0]?.geneName?.value}
+              name="twitter:data2"
+              content={data.genes?.[0]?.geneName?.value}
             />
           </HTMLHead>
           <div

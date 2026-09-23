@@ -17,8 +17,10 @@ allowBuilds:
   tree-sitter: true
   tree-sitter-json: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - jsdom@30.1.0
 overrides:
-  "@babel/parser": "8.0.4"
+  '@babel/parser': '8.0.4'
 # Packages reached into by filename rather than Node module resolution, so
 # they need a real entry at the root of node_modules rather than just being
 # reachable via pnpm's symlinked dependency graph:

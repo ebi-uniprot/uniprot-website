@@ -649,17 +649,17 @@ exports[`non-critical HomePage component should render 1`] = `
       <h3>
         <a
           class="external-link"
-          href="https://www.proteinspotlight.org/back_issues/293/"
+          href="https://www.proteinspotlight.org/back_issues/294/"
           rel="noopener"
           target="_blank"
         >
-          Bubbles, foam and gush
+          On the success of breeding
         </a>
       </h3>
       <a
         aria-hidden="true"
         class="external-link"
-        href="https://www.proteinspotlight.org/back_issues/293/"
+        href="https://www.proteinspotlight.org/back_issues/294/"
         rel="noopener"
         tabindex="-1"
         target="_blank"
@@ -668,14 +668,14 @@ exports[`non-critical HomePage component should render 1`] = `
           alt=""
           height="129"
           loading="lazy"
-          src="https://www.proteinspotlight.org/spotlight/images/sptlt293.jpg"
+          src="https://www.proteinspotlight.org/spotlight/images/sptlt294.jpg"
           width="123"
         />
       </a>
       <p
         class="latest-news__abstract"
       >
-          A  ting  of  metal  against  glass.  The  lights  are  dimmed.  Voices  turn  to  a  murmur.  All  eyes  are  set  on  the  bottle  of  champagne  and  its  cork  as  it  is  gradually  eased  out.  Then  a  pop,  and  your  host  is  nervously  juggling  with  glasses  and  a  challenging  flow…
+          We  have  all  seen  animals  tend  to  their  young  ones.  How  a  female  keeps  them  close  to  her  warm  body,  how  a  gentle  paw  will  push  a  pup  or  a  kitten  towards  a  teat.  By  extension,  animals  who  grow  up  together  and  become  part  of...
       </p>
     </article>
   </section>
@@ -1000,7 +1000,7 @@ exports[`non-critical HomePage component should render 1`] = `
     >
       <a
         aria-hidden="true"
-        href="https://ftp.ebi.ac.uk/pub/databases/uniprot/"
+        href="https://ftp.uniprot.org/pub/databases/uniprot/"
         tabindex="-1"
       />
       <div

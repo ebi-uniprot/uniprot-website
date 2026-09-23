@@ -36,14 +36,12 @@ type SelectValue = {
 const minAPISuggesterChars = 3;
 
 export const prepareData = (suggestions: Suggestion[]) =>
-  suggestions.map(
-    (suggestion: Suggestion): SelectValue => ({
-      pathLabel: `${suggestion.value} [${suggestion.id}]`,
-      itemLabel: suggestion.value,
-      apiId: suggestion.id,
-      id: suggestion.id,
-    })
-  );
+  suggestions.map((suggestion: Suggestion): SelectValue => ({
+    pathLabel: `${suggestion.value} [${suggestion.id}]`,
+    itemLabel: suggestion.value,
+    apiId: suggestion.id,
+    id: suggestion.id,
+  }));
 
 const AutocompleteWrapper: FC<
   React.PropsWithChildren<AutocompleteWrapperProps>

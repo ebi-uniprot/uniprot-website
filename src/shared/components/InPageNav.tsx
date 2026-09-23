@@ -230,13 +230,11 @@ const InPageNav = ({
   // move active marker
   useEffect(() => {
     // don't display an active marker if browser support is bad
-    if (
-      !(
-        marker.current &&
-        'animate' in marker.current &&
-        (typeof window === 'undefined' || 'IntersectionObserver' in window)
-      )
-    ) {
+    if (!(
+      marker.current &&
+      'animate' in marker.current &&
+      (typeof window === 'undefined' || 'IntersectionObserver' in window)
+    )) {
       return;
     }
 

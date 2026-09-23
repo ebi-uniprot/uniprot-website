@@ -65,8 +65,4 @@ export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
 }
 
 export type Job =
-  | NewJob
-  | CreatedJob
-  | FailedJob
-  | RunningJob
-  | FinishedJob<JobTypes>;
+  NewJob | CreatedJob | FailedJob | RunningJob | FinishedJob<JobTypes>;

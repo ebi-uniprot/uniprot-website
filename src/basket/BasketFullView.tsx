@@ -6,13 +6,14 @@ import {
   Location,
   LocationToPath,
 } from '../app/config/urls';
-import { reIds } from '../jobs/utils/urls';
+import { getIdWithoutRange } from '../jobs/utils/urls';
 import HTMLHead from '../shared/components/HTMLHead';
 import { SidebarLayout } from '../shared/components/layouts/SideBarLayout';
 import ResultsButtons from '../shared/components/results/ResultsButtons';
 import ResultsData from '../shared/components/results/ResultsData';
 import ResultsFacets from '../shared/components/results/ResultsFacets';
 import useBasket from '../shared/hooks/useBasket';
+import useColumnNames from '../shared/hooks/useColumnNames';
 import useDataApiWithStale from '../shared/hooks/useDataApiWithStale';
 import useItemSelect from '../shared/hooks/useItemSelect';
 import useNSQuery from '../shared/hooks/useNSQuery';
@@ -26,6 +27,7 @@ import {
 import { type SearchResults } from '../shared/types/results';
 import { updateResultsWithAccessionSubsets } from './BasketMiniView';
 import EmptyBasket from './EmptyBasket';
+import useBasketSort from './hooks/useBasketSort';
 
 const BasketFullView = () => {
   // Basket specific data
@@ -39,10 +41,7 @@ const BasketFullView = () => {
   const accessions = Array.from(subBasket);
 
   const subsetsMap = new Map(
-    accessions.map((accession) => {
-      const { id } = accession.match(reIds)?.groups || { id: accession };
-      return [accession, id];
-    })
+    accessions.map((accession) => [accession, getIdWithoutRange(accession)])
   );
 
   // Query for facets
@@ -81,6 +80,17 @@ const BasketFullView = () => {
   // Below here similar (but not identical) to the Results component
   const [selectedEntries, setSelectedItemFromEvent, setSelectedEntries] =
     useItemSelect(resultsDataObject.initialLoading);
+
+  // Sorting rewrites the stored basket order, which is what both this view and
+  // the side panel render. The API can't sort on every basket column, so this
+  // replaces the URL-based sorting used by the regular results pages.
+  const { columnNames } = useColumnNames({ namespaceOverride: namespace });
+  const { columns, handleSort } = useBasketSort({
+    namespace,
+    accessions,
+    columnNames,
+    setBasket,
+  });
 
   if (!accessions.length) {
     return (
@@ -153,7 +163,9 @@ const BasketFullView = () => {
         setSelectedEntries={setSelectedEntries}
         setSelectedItemFromEvent={setSelectedItemFromEvent}
         namespaceOverride={namespace}
+        columnsOverride={columns}
         basketSetter={setBasket}
+        onColumnSort={handleSort}
       />
     </SidebarLayout>
   );

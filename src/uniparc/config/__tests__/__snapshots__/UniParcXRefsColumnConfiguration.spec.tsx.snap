@@ -2,12 +2,12 @@
 
 exports[`UniParcXRefsColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
-  <span>
-    <a
-      href="/uniprotkb/P07612/entry"
-    >
+  <span
+    class="xref-identifier"
+  >
+    <span>
       P07612
-    </a>
+    </span>
   </span>
 </DocumentFragment>
 `;

@@ -6,6 +6,9 @@ import externalUrls from '../../../shared/config/externalUrls';
 import fetchData from '../../../shared/utils/fetchData';
 import styles from './styles/seqhub-view.module.scss';
 
+// Hotjar event name for seqhub iframe load
+export const SEQHUB_EMBED_EVENT = 'genomic_context_similarity_loaded';
+
 const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
   const url = externalUrls.SeqhubEmbed(sequence);
   const [available, setAvailable] = useState<boolean>();
@@ -24,7 +27,6 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
   // non-safelisted header here would trigger a preflight that fails, and the
   // embed would silently disappear for everyone.
   useEffect(() => {
-    setAvailable(undefined);
     // eslint-disable-next-line import/no-named-as-default-member
     const source = axios.CancelToken.source();
     let didCancel = false;
@@ -46,6 +48,13 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
     };
   }, [url]);
 
+  // Hotjar event trigger
+  useEffect(() => {
+    if (available && typeof window.hj === 'function') {
+      window.hj('event', SEQHUB_EMBED_EVENT);
+    }
+  }, [available]);
+
   if (!available) {
     return null;
   }
@@ -58,18 +67,14 @@ const SeqhubEmbed = ({ sequence }: { sequence: string }) => {
       >
         Genomic context similarity
       </h3>
-      {/* Third-party origin: sandbox it so the embed can run its own scripts and
-      reach its own backend, but cannot navigate the top-level page or open
-      popups. `allow-same-origin` is safe here precisely because seqhub.org is
-      cross-origin — it grants the frame its own origin, not ours. */}
       <iframe
         title="Genomic context similarity"
         src={url}
         width="100%"
         height="526"
         className={styles.seqhub}
-        // eslint-disable-next-line @eslint-react/dom-no-unsafe-iframe-sandbox -- cross-origin frame, see comment above
-        sandbox="allow-scripts allow-same-origin"
+        // eslint-disable-next-line @eslint-react/dom-no-unsafe-iframe-sandbox -- cross-origin frame from seqhub
+        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
         referrerPolicy="no-referrer"
       />
     </>
@@ -110,7 +115,9 @@ const SeqhubView = ({ sequence, lineage }: Props) => {
   // (no phantom loader/heading) for entries where SeqHub has nothing.
   return (
     <LazyComponent fallback={null}>
-      <SeqhubEmbed sequence={sequence} />
+      {/* Keyed so a new sequence remounts the embed: the probe result starts
+          from "unknown" again, and the unmount cleanup cancels the old probe */}
+      <SeqhubEmbed key={sequence} sequence={sequence} />
     </LazyComponent>
   );
 };

@@ -71,8 +71,7 @@ const DiseaseAndDrugsSection = ({
       <FreeTextView
         comments={
           data.commentsData.get('DISRUPTION PHENOTYPE') as
-            | FreeTextComment[]
-            | undefined
+            FreeTextComment[] | undefined
         }
         title="Disruption phenotype"
         articleId="disruption_phenotype"
@@ -80,8 +79,7 @@ const DiseaseAndDrugsSection = ({
       <FreeTextView
         comments={
           data.commentsData.get('PHARMACEUTICAL') as
-            | FreeTextComment[]
-            | undefined
+            FreeTextComment[] | undefined
         }
         title="Pharmaceutical"
         articleId="pharmaceutical_use"
