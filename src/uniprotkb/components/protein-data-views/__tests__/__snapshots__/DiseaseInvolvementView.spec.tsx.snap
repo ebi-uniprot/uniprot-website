@@ -33,6 +33,16 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
         tabindex="0"
       >
         AI-powered summaries
+        <test-file-stub
+          aria-hidden="true"
+          class="ai-annotation-marker"
+        />
+         
+        <span
+          class="chip chip--compact"
+        >
+          New
+        </span>
       </div>
     </div>
     <div

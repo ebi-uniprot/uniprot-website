@@ -360,6 +360,16 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
         tabindex="0"
       >
         AI-powered summaries
+        <test-file-stub
+          aria-hidden="true"
+          class="ai-annotation-marker"
+        />
+         
+        <span
+          class="chip chip--compact"
+        >
+          New
+        </span>
       </div>
     </div>
     <div
