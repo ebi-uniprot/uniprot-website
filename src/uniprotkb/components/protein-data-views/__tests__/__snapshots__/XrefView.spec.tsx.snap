@@ -14,7 +14,9 @@ exports[`XRefView should render section 1`] = `
       <tr
         class="row"
       >
-        <th />
+        <th
+          class="toggle-cell"
+        />
         <th>
           Nucleotide Sequence
         </th>
@@ -36,7 +38,9 @@ exports[`XRefView should render section 1`] = `
       <tr
         class="row"
       >
-        <td />
+        <td
+          class="toggle-cell"
+        />
         <td>
           1234
           <br />

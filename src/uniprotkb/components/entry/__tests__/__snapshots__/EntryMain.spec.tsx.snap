@@ -356,7 +356,9 @@ exports[`Entry view should render 1`] = `
             <tr
               class="row"
             >
-              <th />
+              <th
+                class="toggle-cell"
+              />
               <th
                 class="no-text-transform"
               >
@@ -395,7 +397,9 @@ exports[`Entry view should render 1`] = `
             <tr
               class="row"
             >
-              <td />
+              <td
+                class="toggle-cell"
+              />
               <td
                 class="no-wrap"
               >
@@ -443,7 +447,9 @@ exports[`Entry view should render 1`] = `
             <tr
               class="row"
             >
-              <th />
+              <th
+                class="toggle-cell"
+              />
               <th
                 class="no-text-transform"
               >
@@ -477,7 +483,9 @@ exports[`Entry view should render 1`] = `
             <tr
               class="row"
             >
-              <td />
+              <td
+                class="toggle-cell"
+              />
               <td
                 class="no-wrap"
               >
@@ -2405,7 +2413,7 @@ exports[`Entry view should render 1`] = `
             role="tablist"
           >
             <div
-              aria-controls="68"
+              aria-controls="69"
               class="tabs__header__item tabs__header__item--bordered tabs__header__item--active"
               data-target="0"
               data-testid="tab-title"
@@ -2415,7 +2423,7 @@ exports[`Entry view should render 1`] = `
               UniProt Annotation
             </div>
             <div
-              aria-controls="68"
+              aria-controls="69"
               class="tabs__header__item tabs__header__item--bordered"
               data-target="1"
               data-testid="tab-title"
@@ -2427,7 +2435,7 @@ exports[`Entry view should render 1`] = `
           </div>
           <div
             data-testid="tab-content"
-            id="68"
+            id="69"
             role="tabpanel"
           >
             <div
@@ -2456,29 +2464,6 @@ exports[`Entry view should render 1`] = `
                   </strong>
                    
                   <button
-                    aria-controls="69"
-                    aria-expanded="false"
-                    class="svg-colour-unreviewed evidence-tag"
-                    data-testid="evidence-tag-trigger"
-                    type="button"
-                  >
-                    <test-file-stub
-                      height="12"
-                      width="12"
-                    />
-                    <span
-                      class="evidence-tag__label"
-                    >
-                      automatic annotation
-                    </span>
-                  </button>
-                  <div
-                    class="evidence-tag-content "
-                    data-testid="evidence-tag-content"
-                    id="69"
-                  />
-                  ; topology value 
-                  <button
                     aria-controls="70"
                     aria-expanded="false"
                     class="svg-colour-unreviewed evidence-tag"
@@ -2500,11 +2485,7 @@ exports[`Entry view should render 1`] = `
                     data-testid="evidence-tag-content"
                     id="70"
                   />
-                </div>
-                <div
-                  class="text-block"
-                >
-                  Note: value.
+                  ; topology value 
                   <button
                     aria-controls="71"
                     aria-expanded="false"
@@ -2526,6 +2507,33 @@ exports[`Entry view should render 1`] = `
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
                     id="71"
+                  />
+                </div>
+                <div
+                  class="text-block"
+                >
+                  Note: value.
+                  <button
+                    aria-controls="72"
+                    aria-expanded="false"
+                    class="svg-colour-unreviewed evidence-tag"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                    >
+                      automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="72"
                   />
                 </div>
               </section>
@@ -2569,140 +2577,175 @@ exports[`Entry view should render 1`] = `
         >
           Involvement in disease
         </h3>
-        <h4>
-          <a
-            href="/diseases/DiseaseEntry AC"
-          >
-            DiseaseEntry Id (someAcron)
-          </a>
-        </h4>
-        <h5
-          class="tiny"
+        <div
+          class="tabs"
         >
-          <a
-            href="#Isoform_3"
-          >
-            Isoform 3
-          </a>
-        </h5>
-        <span
-          class="text-block"
-        >
-          <button
-            aria-controls="56"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
           <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
+            class="tabs__header"
+            role="tablist"
+          >
+            <div
+              aria-controls="56"
+              class="tabs__header__item tabs__header__item--active"
+              data-target="uniprot-annotations"
+              data-testid="tab-title"
+              role="tab"
+              tabindex="0"
+            >
+              UniProt Annotations
+            </div>
+            <div
+              aria-controls="56"
+              class="tabs__header__item"
+              data-target="ai-powered-summaries"
+              data-testid="tab-title"
+              role="tab"
+              tabindex="0"
+            >
+              AI-powered summaries
+            </div>
+          </div>
+          <div
+            data-testid="tab-content"
             id="56"
-          />
-        </span>
-        <ul
-          class="info-list"
-        >
-          <li>
-            <div
-              class="decorated-list-item"
+            role="tabpanel"
+          >
+            <h4>
+              <a
+                href="/diseases/DiseaseEntry AC"
+              >
+                DiseaseEntry Id (someAcron)
+              </a>
+            </h4>
+            <h5
+              class="tiny"
             >
-              <div
-                class="decorated-list-item__title tiny"
+              <a
+                href="#Isoform_3"
               >
-                Note
-              </div>
-              <div
-                class="decorated-list-item__content"
+                Isoform 3
+              </a>
+            </h5>
+            <span
+              class="text-block"
+            >
+              <button
+                aria-controls="57"
+                aria-expanded="false"
+                class="svg-colour-unreviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
                 >
-                  <li>
-                    value2
-                    <button
-                      aria-controls="57"
-                      aria-expanded="false"
-                      class="svg-colour-unreviewed evidence-tag"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
+                  automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="57"
+              />
+            </span>
+            <ul
+              class="info-list"
+            >
+              <li>
+                <div
+                  class="decorated-list-item"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Note
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                      >
-                        automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="57"
-                    />
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                Description
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                some description
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title tiny"
-              >
-                See also
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                MIM:
-                <a
-                  class="external-link"
-                  href="https://www.omim.org/entry/3124"
-                  rel="noopener"
-                  target="_blank"
+                      <li>
+                        value2
+                        <button
+                          aria-controls="58"
+                          aria-expanded="false"
+                          class="svg-colour-unreviewed evidence-tag"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                          >
+                            automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="58"
+                        />
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item"
                 >
-                  3124
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
-                </a>
-              </div>
-            </div>
-          </li>
-        </ul>
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    Description
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    some description
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item"
+                >
+                  <div
+                    class="decorated-list-item__title tiny"
+                  >
+                    See also
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    MIM:
+                    <a
+                      class="external-link"
+                      href="https://www.omim.org/entry/3124"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      3124
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
         <h3
           data-article-id="disruption_phenotype"
         >
@@ -2715,42 +2758,6 @@ exports[`Entry view should render 1`] = `
             href="#Isoform_4"
           >
             Isoform 4
-          </a>
-        </h4>
-        <div
-          class="text-block"
-        >
-          value.
-          <button
-            aria-controls="58"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="58"
-          />
-        </div>
-        <h4
-          class="tiny"
-        >
-          <a
-            href="#Isoform_4_dfs"
-          >
-            Isoform 4 dfs
           </a>
         </h4>
         <div
@@ -2778,6 +2785,42 @@ exports[`Entry view should render 1`] = `
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
             id="59"
+          />
+        </div>
+        <h4
+          class="tiny"
+        >
+          <a
+            href="#Isoform_4_dfs"
+          >
+            Isoform 4 dfs
+          </a>
+        </h4>
+        <div
+          class="text-block"
+        >
+          value.
+          <button
+            aria-controls="60"
+            aria-expanded="false"
+            class="svg-colour-unreviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              automatic annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="60"
           />
         </div>
       </div>
@@ -2827,7 +2870,9 @@ exports[`Entry view should render 1`] = `
             <tr
               class="row"
             >
-              <th />
+              <th
+                class="toggle-cell"
+              />
               <th>
                 Type
               </th>
@@ -2877,7 +2922,9 @@ exports[`Entry view should render 1`] = `
               class="row"
               data-id="EBI-00011EBI-00012"
             >
-              <td />
+              <td
+                class="toggle-cell"
+              />
               <td>
                 XENO
               </td>
@@ -2917,7 +2964,9 @@ exports[`Entry view should render 1`] = `
               class="row odd"
               data-id="EBI-0001EBI-0002"
             >
-              <td />
+              <td
+                class="toggle-cell"
+              />
               <td>
                 XENO
               </td>
@@ -3125,7 +3174,7 @@ exports[`Entry view should render 1`] = `
                       #keyword value
                     </a>
                     <button
-                      aria-controls="62"
+                      aria-controls="63"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -3144,7 +3193,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="62"
+                      id="63"
                     />
                   </li>
                 </ul>
@@ -3331,7 +3380,7 @@ exports[`Entry view should render 1`] = `
               >
                 syn value
                 <button
-                  aria-controls="63"
+                  aria-controls="64"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -3350,7 +3399,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="63"
+                  id="64"
                 />
               </div>
             </div>
@@ -3430,41 +3479,6 @@ exports[`Entry view should render 1`] = `
           </a>
            differs from that shown. Reason: Erroneous gene model prediction Text note
           <button
-            aria-controls="64"
-            aria-expanded="false"
-            class="svg-colour-unreviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="64"
-          />
-        </section>
-        <h3
-          data-article-id="mass_spectrometry"
-        >
-          Mass Spectrometry
-        </h3>
-        <section
-          class="text-block"
-        >
-          <h4>
-            isoform 1
-          </h4>
-          Molecular mass is 2.1 Da. Determined by LSI. note value
-          <button
             aria-controls="65"
             aria-expanded="false"
             class="svg-colour-unreviewed evidence-tag"
@@ -3488,6 +3502,41 @@ exports[`Entry view should render 1`] = `
           />
         </section>
         <h3
+          data-article-id="mass_spectrometry"
+        >
+          Mass Spectrometry
+        </h3>
+        <section
+          class="text-block"
+        >
+          <h4>
+            isoform 1
+          </h4>
+          Molecular mass is 2.1 Da. Determined by LSI. note value
+          <button
+            aria-controls="66"
+            aria-expanded="false"
+            class="svg-colour-unreviewed evidence-tag"
+            data-testid="evidence-tag-trigger"
+            type="button"
+          >
+            <test-file-stub
+              height="12"
+              width="12"
+            />
+            <span
+              class="evidence-tag__label"
+            >
+              automatic annotation
+            </span>
+          </button>
+          <div
+            class="evidence-tag-content "
+            data-testid="evidence-tag-content"
+            id="66"
+          />
+        </section>
+        <h3
           data-article-id="rna_editing"
         >
           RNA Editing
@@ -3499,33 +3548,6 @@ exports[`Entry view should render 1`] = `
             Edited at position 
             <span>
               1 
-              <button
-                aria-controls="66"
-                aria-expanded="false"
-                class="svg-colour-unreviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="66"
-              />
-            </span>
-          </div>
-          <div>
-            <span>
-              value 
               <button
                 aria-controls="67"
                 aria-expanded="false"
@@ -3547,6 +3569,33 @@ exports[`Entry view should render 1`] = `
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
                 id="67"
+              />
+            </span>
+          </div>
+          <div>
+            <span>
+              value 
+              <button
+                aria-controls="68"
+                aria-expanded="false"
+                class="svg-colour-unreviewed evidence-tag"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                >
+                  automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="68"
               />
             </span>
           </div>
@@ -3978,7 +4027,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row"
             >
-              <th />
+              <th
+                class="toggle-cell"
+              />
               <th
                 class="no-text-transform"
               >
@@ -4017,7 +4068,9 @@ exports[`Entry view should render for non-human entry 1`] = `
             <tr
               class="row"
             >
-              <td />
+              <td
+                class="toggle-cell"
+              />
               <td
                 class="no-wrap"
               >

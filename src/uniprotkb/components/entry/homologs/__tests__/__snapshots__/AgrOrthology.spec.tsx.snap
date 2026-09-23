@@ -47,7 +47,9 @@ exports[`AgrOrthology should render 1`] = `
           <tr
             class="row"
           >
-            <th />
+            <th
+              class="toggle-cell"
+            />
             <th>
               Species
               <br />
@@ -340,7 +342,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row"
             data-id="Mus musculus-App"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Mus musculus
             </td>
@@ -466,7 +470,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row odd"
             data-id="Rattus norvegicus-App"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Rattus norvegicus
             </td>
@@ -592,7 +598,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row"
             data-id="Rattus norvegicus-Aplp1"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Rattus norvegicus
             </td>
@@ -718,7 +726,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row odd"
             data-id="Xenopus laevis-app.S"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Xenopus laevis
             </td>
@@ -844,7 +854,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row"
             data-id="Xenopus laevis-app.L"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Xenopus laevis
             </td>
@@ -970,7 +982,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row odd"
             data-id="Xenopus tropicalis-app"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Xenopus tropicalis
             </td>
@@ -1096,7 +1110,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row"
             data-id="Danio rerio-appa"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Danio rerio
             </td>
@@ -1222,7 +1238,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row odd"
             data-id="Danio rerio-appb"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Danio rerio
             </td>
@@ -1348,7 +1366,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row"
             data-id="Drosophila melanogaster-Appl"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Drosophila melanogaster
             </td>
@@ -1474,7 +1494,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row odd"
             data-id="Drosophila melanogaster-CG16713"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Drosophila melanogaster
             </td>
@@ -1600,7 +1622,9 @@ exports[`AgrOrthology should render 1`] = `
             class="row"
             data-id="Caenorhabditis elegans-apl-1"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Caenorhabditis elegans
             </td>

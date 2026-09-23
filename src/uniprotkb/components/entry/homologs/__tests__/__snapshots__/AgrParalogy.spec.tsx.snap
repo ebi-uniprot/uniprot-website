@@ -42,7 +42,9 @@ exports[`AgrOrthology should render 1`] = `
       <tr
         class="row"
       >
-        <th />
+        <th
+          class="toggle-cell"
+        />
         <th>
           Gene Symbol
         </th>
@@ -175,7 +177,9 @@ exports[`AgrOrthology should render 1`] = `
         class="row"
         data-id="HGNC:598"
       >
-        <td />
+        <td
+          class="toggle-cell"
+        />
         <td>
           <a
             href="/uniprotkb?query=%28taxonomy_id%3A9606%29+AND+%28xref%3Ahgnc-598%29"
@@ -288,7 +292,9 @@ exports[`AgrOrthology should render 1`] = `
         class="row odd"
         data-id="HGNC:597"
       >
-        <td />
+        <td
+          class="toggle-cell"
+        />
         <td>
           <a
             href="/uniprotkb?query=%28taxonomy_id%3A9606%29+AND+%28xref%3Ahgnc-597%29"
