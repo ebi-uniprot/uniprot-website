@@ -51,6 +51,12 @@
     cursor: default;
   }
 
+  & .toggle-cell {
+    padding: 0;
+    width: 0;
+    border-block-start-color: transparent;
+  }
+
   & td,
   & th {
     padding: 0.2rem 1ch;

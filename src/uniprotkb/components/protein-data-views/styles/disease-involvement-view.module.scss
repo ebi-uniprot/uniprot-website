@@ -1,4 +1,40 @@
 @import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
 .note-only {
   margin-bottom: $global-margin;
+}
+
+.pmid-cell {
+  vertical-align: top;
+}
+
+// Real <button>, reset to read as a link: it opens the abstract summary dialog.
+.pmid-button {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: $colour-link;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: color-mix(in srgb, $colour-link 90%, white);
+  }
+}
+
+.pmid-dialog {
+  max-width: 32rem;
+  margin: auto;
+  padding: $global-margin;
+  border: 1px solid #c2c4c4;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  h6 {
+    margin-top: 0;
+  }
 }

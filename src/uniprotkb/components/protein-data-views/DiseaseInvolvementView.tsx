@@ -1,19 +1,28 @@
-import { ExpandableList, InfoList, Tab, Tabs } from 'franklin-sites';
+import {
+  AiAnnotationsIcon,
+  Button,
+  ExpandableList,
+  InfoList,
+  Loader,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
-import { Fragment, memo } from 'react';
+import { Fragment, memo, useRef } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import { allEntryPages, getEntryPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
 import Table from '../../../shared/components/table/Table';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type DiseaseComment } from '../../types/commentTypes';
-import { type Variant } from '../../types/variantAISummary';
+import type { Variant, VariantAISummary } from '../../types/variantAISummary';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
-import variantSummary from './__tests__/__mocks__/variantAISummary.json';
 import { RichText } from './FreeTextView';
 import styles from './styles/disease-involvement-view.module.scss';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -268,40 +277,128 @@ const DiseaseInvolvementEntry = ({
   );
 };
 
-const AIpoweredSummaries = () => {
-  // TODO: Replace the mock with the API call when the API is ready.
-  const variants = variantSummary.variants;
+const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  if (!summary) {
+    return <>{pmid}</>;
+  }
 
   return (
-    <div>
-      {variants.map((variant: Variant) => (
-        <div key={variant.variant_name}>
-          <h4>{variant.variant_name}</h4>
-          <h5>Synthesis Summary</h5>
-          <p>
-            {variant.synthesis_summary.summary} (PMIDs:{' '}
-            {variant.synthesis_summary.pmids.join(', ')})
-          </p>
-          <Table
-            expandable={variant.impact_sentences.length > MIN_ROWS_TO_EXPAND}
-          >
-            <Table.Head>
-              <th>PMID</th>
-              <th>Impact Description</th>
-            </Table.Head>
-            <Table.Body translate="no">
-              {variant.impact_sentences.map((impactSentence, i) => (
-                <Table.Row isOdd={Boolean(i % 2)} key={i}>
-                  <td>{impactSentence.pmids.join(',')}</td>
-                  <td>{impactSentence.sentence}</td>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        </div>
-      ))}
-    </div>
+    <>
+      <button
+        type="button"
+        className={styles['pmid-button']}
+        onClick={() => dialogRef.current?.showModal()}
+      >
+        {pmid}
+      </button>
+      <dialog
+        ref={dialogRef}
+        className={styles['pmid-dialog']}
+        // Clicking the backdrop lands on the dialog element itself (it fills
+        // the viewport); clicking any actual content stops here first.
+        onClick={(event) => {
+          if (event.target === dialogRef.current) {
+            dialogRef.current?.close();
+          }
+        }}
+      >
+        <h6>
+          <AiAnnotationsIcon
+            className="ai-annotation-marker"
+            aria-hidden="true"
+          />
+          Abstract summary &middot; PMID:{pmid}
+        </h6>
+        <p>{summary}</p>
+        <Button variant="tertiary" onClick={() => dialogRef.current?.close()}>
+          Close
+        </Button>
+      </dialog>
+    </>
   );
+};
+
+const AIpoweredSummaries = ({ accession }: { accession: string }) => {
+  const variantsData = useDataApi<VariantAISummary>(
+    apiUrls.proteinsApi.variantSummary(accession)
+  );
+
+  if (variantsData.loading) {
+    return <Loader />;
+  }
+
+  if (!variantsData.loading && variantsData.data) {
+    const { variants } = variantsData.data;
+    return (
+      <div>
+        {variants.map((variant: Variant) => {
+          const sentencesByPmid = new Map<number, string[]>();
+          for (const impactSentence of variant.impact_sentences) {
+            for (const pmid of impactSentence.pmids) {
+              const sentences = sentencesByPmid.get(pmid) || [];
+              sentences.push(impactSentence.sentence);
+              sentencesByPmid.set(pmid, sentences);
+            }
+          }
+          const pmidGroups = Array.from(sentencesByPmid.entries());
+          let rowIndex = 0;
+
+          return (
+            <div key={variant.variant_name}>
+              <h4>{variant.variant_name}</h4>
+              <h5>
+                <AiAnnotationsIcon
+                  className="ai-annotation-marker"
+                  aria-hidden="true"
+                />
+                Synthesis Summary
+              </h5>
+              <p>
+                {variant.synthesis_summary.summary} (PMIDs:{' '}
+                {variant.synthesis_summary.pmids.join(', ')})
+              </p>
+              <Table expandable={pmidGroups.length > MIN_ROWS_TO_EXPAND}>
+                <Table.Head>
+                  <th>PMID</th>
+                  <th>Impact Description</th>
+                </Table.Head>
+                <Table.Body translate="no">
+                  {pmidGroups.flatMap(([pmid, sentences]) => {
+                    const abstractSummary = variant.abstract_summaries.find(
+                      (summary) => summary.pmid === pmid
+                    );
+                    return sentences.map((sentence, sentenceIndex) => {
+                      const isOdd = Boolean(rowIndex % 2);
+                      rowIndex += 1;
+                      return (
+                        <Table.Row
+                          isOdd={isOdd}
+                          // eslint-disable-next-line @eslint-react/no-array-index-key
+                          key={`${pmid}-${sentenceIndex}`}
+                        >
+                          <td className={styles['pmid-cell']}>
+                            {sentenceIndex === 0 && (
+                              <PmidSummary
+                                pmid={pmid}
+                                summary={abstractSummary?.summary}
+                              />
+                            )}
+                          </td>
+                          <td>{sentence}</td>
+                        </Table.Row>
+                      );
+                    });
+                  })}
+                </Table.Body>
+              </Table>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 };
 
 type DiseaseInvolvementProps = {
@@ -339,7 +436,7 @@ const DiseaseInvolvementView = ({
           ))}
         </Tab>
         <Tab title="AI-powered summaries" id="ai-powered-summaries">
-          <AIpoweredSummaries />
+          <AIpoweredSummaries accession={accession} />
         </Tab>
       </Tabs>
     </>
