@@ -300,10 +300,21 @@ const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
       <dialog
         ref={dialogRef}
         className={styles['pmid-dialog']}
-        // Clicking the backdrop lands on the dialog element itself (it fills
-        // the viewport); clicking any actual content stops here first.
+        // A backdrop click lands on the dialog element itself, same as a
+        // click on its own padding (target === dialog either way) — so
+        // compare against its content box instead of just the target, or
+        // clicking inside that padding would incorrectly close it.
         onClick={(event) => {
-          if (event.target === dialogRef.current) {
+          const rect = dialogRef.current?.getBoundingClientRect();
+          if (!rect) {
+            return;
+          }
+          const clickedInside =
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom;
+          if (!clickedInside) {
             dialogRef.current?.close();
           }
         }}
