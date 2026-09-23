@@ -8,7 +8,28 @@
   vertical-align: top;
 }
 
-// Real <button>, reset to read as a link: it opens the abstract summary dialog.
+// Reuses the same --ai-color/--ai-border tokens protnlm.scss defines for
+// individual AI-predicted annotations, applied here to the whole panel
+// instead, since every summary in this tab is AI-generated.
+.ai-tab-content {
+  background-color: var(--ai-color);
+  box-shadow: 0 0 0 1px var(--ai-border);
+  border-radius: 0.25rem;
+  padding: $global-margin;
+
+  // Table.tsx's sticky <thead> "bleeds" its background past the header
+  // cells via a box-shadow, so its cells and scroll gutter read as one
+  // continuous surface while scrolling. That shadow paints
+  // --table__header-background (white by default), which stood out as a
+  // white block against this panel's purple tint — overriding the token
+  // here makes the bleed match the surrounding background instead.
+  --table__header-background: var(--ai-color);
+}
+
+.variant-name {
+  line-height: 2;
+}
+
 .pmid-button {
   padding: 0;
   border: none;
@@ -24,17 +45,34 @@
 }
 
 .pmid-dialog {
-  max-width: 32rem;
+  max-width: 42rem;
   margin: auto;
   padding: $global-margin;
-  border: 1px solid #c2c4c4;
+  // Same --ai-color/--ai-border tokens as .ai-tab-content, so the dialog
+  // reads as part of the same AI-generated surface it opens from.
+  background-color: var(--ai-color);
+  border: 1px solid var(--ai-border);
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
 
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);
   }
+}
 
-  h6 {
-    margin-top: 0;
-  }
+.pmid-dialog-heading {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.pmid-dialog-meta {
+  margin-top: 0;
+  margin-bottom: $global-margin;
+  color: $colour-independence;
+}
+
+.pmid-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $global-margin;
 }

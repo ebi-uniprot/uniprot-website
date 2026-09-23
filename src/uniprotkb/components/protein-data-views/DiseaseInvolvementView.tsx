@@ -1,6 +1,7 @@
 import {
   AiAnnotationsIcon,
   Button,
+  Chip,
   ExpandableList,
   InfoList,
   Loader,
@@ -8,7 +9,7 @@ import {
   Tabs,
 } from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
-import { Fragment, memo, useRef } from 'react';
+import { Fragment, memo, useRef, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import { allEntryPages, getEntryPath } from '../../../app/config/urls';
@@ -20,6 +21,8 @@ import externalUrls from '../../../shared/config/externalUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
+import { type SearchResults } from '../../../shared/types/results';
+import { type CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { type DiseaseComment } from '../../types/commentTypes';
 import type { Variant, VariantAISummary } from '../../types/variantAISummary';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
@@ -279,6 +282,18 @@ const DiseaseInvolvementEntry = ({
 
 const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  // Citation title is a nice-to-have, so it's only fetched once the reader
+  // actually opens a given PMID's dialog, rather than for every row up front.
+  const [hasOpened, setHasOpened] = useState(false);
+  const citationData = useDataApi<SearchResults<CitationsAPIModel>>(
+    hasOpened
+      ? apiUrls.search.search({
+          namespace: Namespace.citations,
+          query: `${pmid}`,
+        })
+      : undefined
+  );
+  const citationTitle = citationData.data?.results?.[0]?.citation.title;
 
   if (!summary) {
     return <>{pmid}</>;
@@ -289,7 +304,10 @@ const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
       <button
         type="button"
         className={styles['pmid-button']}
-        onClick={() => dialogRef.current?.showModal()}
+        onClick={() => {
+          setHasOpened(true);
+          dialogRef.current?.showModal();
+        }}
       >
         {pmid}
       </button>
@@ -319,17 +337,19 @@ const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
           }
         }}
       >
-        <h6>
-          <AiAnnotationsIcon
-            className="ai-annotation-marker"
-            aria-hidden="true"
-          />
-          Abstract summary &middot; PMID:{pmid}
-        </h6>
+        <h6 className={styles['pmid-dialog-heading']}>Abstract summary </h6>
+        <p className={styles['pmid-dialog-meta']}>
+          <ExternalLink url={externalUrls.PubMed(pmid)}>
+            PMID:{pmid}
+          </ExternalLink>
+          {citationTitle && ` · ${citationTitle}`}
+        </p>
         <p>{summary}</p>
-        <Button variant="tertiary" onClick={() => dialogRef.current?.close()}>
-          Close
-        </Button>
+        <div className={styles['pmid-dialog-footer']}>
+          <Button variant="tertiary" onClick={() => dialogRef.current?.close()}>
+            Close
+          </Button>
+        </div>
       </dialog>
     </>
   );
@@ -362,14 +382,8 @@ const AIpoweredSummaries = ({ accession }: { accession: string }) => {
 
           return (
             <div key={variant.variant_name}>
-              <h4>{variant.variant_name}</h4>
-              <h5>
-                <AiAnnotationsIcon
-                  className="ai-annotation-marker"
-                  aria-hidden="true"
-                />
-                Synthesis Summary
-              </h5>
+              <h4 className={styles['variant-name']}>{variant.variant_name}</h4>
+              <h5>Synthesis Summary</h5>
               <p>
                 {variant.synthesis_summary.summary} (PMIDs:{' '}
                 {variant.synthesis_summary.pmids.join(', ')})
@@ -450,8 +464,24 @@ const DiseaseInvolvementView = ({
             />
           ))}
         </Tab>
-        <Tab title="AI-powered summaries" id="ai-powered-summaries">
-          <AIpoweredSummaries accession={accession} />
+        <Tab
+          title={
+            <>
+              AI-powered summaries
+              <AiAnnotationsIcon
+                className="ai-annotation-marker"
+                aria-hidden="true"
+              />{' '}
+              <Chip compact asSpan>
+                New
+              </Chip>
+            </>
+          }
+          id="ai-powered-summaries"
+        >
+          <div className={styles['ai-tab-content']}>
+            <AIpoweredSummaries accession={accession} />
+          </div>
         </Tab>
       </Tabs>
     </>
