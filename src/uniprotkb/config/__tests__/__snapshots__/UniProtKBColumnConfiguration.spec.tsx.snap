@@ -353,7 +353,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
       </div>
       <div
         aria-controls="1"
-        class="tabs__header__item"
+        class="tabs__header__item ai-tab"
         data-target="ai-powered-summaries"
         data-testid="tab-title"
         role="tab"

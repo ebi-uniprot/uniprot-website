@@ -283,8 +283,6 @@ const DiseaseInvolvementEntry = ({
 
 const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  // Citation title is a nice-to-have, so it's only fetched once the reader
-  // actually opens a given PMID's dialog, rather than for every row up front.
   const [hasOpened, setHasOpened] = useState(false);
   const citationData = useDataApi<SearchResults<CitationsAPIModel>>(
     hasOpened
@@ -312,9 +310,6 @@ const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
       >
         {pmid}
       </button>
-      {/* Backdrop click-to-close is a pointer-only convenience; keyboard
-          users already have the native Escape-to-close <dialog> provides,
-          so no keyboard listener is needed here. */}
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <dialog
         ref={dialogRef}
