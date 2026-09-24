@@ -37,12 +37,21 @@ type ConfigRow = ConfigTrack & { tracks?: ConfigTrack[] };
 // A standalone row (no `tracks:`) is normalised into a single-track row that
 // reuses its own id, hence the `${id}-${id}` key.
 const buildTrackKinds = (rows: ConfigRow[]) => {
-  const kinds = new Map<string, string | undefined>();
+  const kinds = new Map<string, string | string[] | undefined>();
   for (const row of rows) {
     if (row.tracks) {
       for (const track of row.tracks) {
         kinds.set(`${row.id}-${track.id}`, track.kind);
       }
+      // A collapsed group draws one aggregate keyed by the row id alone, mixing
+      // features from every track in the group. Offer all of its kinds and let
+      // the builders decide which one claims each feature.
+      kinds.set(
+        row.id,
+        [...new Set(row.tracks.map((track) => track.kind))].filter(
+          (kind): kind is string => Boolean(kind)
+        )
+      );
     } else {
       kinds.set(`${row.id}-${row.id}`, row.kind);
     }
@@ -64,7 +73,9 @@ const FeatureViewer = ({
     typeof showTooltipAtCoordinates
   > | null>(null);
   // The config loads asynchronously, so resolve it on first use rather than on mount
-  const trackKinds = useRef<Map<string, string | undefined> | null>(null);
+  const trackKinds = useRef<Map<string, string | string[] | undefined> | null>(
+    null
+  );
 
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, status } = useDataApi<UniProtkbAPIModel>(
@@ -97,10 +108,10 @@ const FeatureViewer = ({
       }
     }
     const trackKey = trackKeyFromElementId((e.target as Element | null)?.id);
-    const kind = trackKey ? trackKinds.current?.get(trackKey) : undefined;
+    const kinds = trackKey ? trackKinds.current?.get(trackKey) : undefined;
 
     const content =
-      getTooltipContent(kind, detail.feature) ??
+      getTooltipContent(kinds, detail.feature) ??
       detail.feature.tooltipContent ??
       '';
     if (!content) {

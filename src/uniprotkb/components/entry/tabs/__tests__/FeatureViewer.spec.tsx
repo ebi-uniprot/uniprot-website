@@ -28,6 +28,21 @@ class ProtvistaUniprotStub extends HTMLElement {
           tracks: [{ id: 'signal', kind: 'features' }],
         },
         { id: 'PTM', tracks: [{ id: 'mod_res_ls', kind: 'peptides-ptm' }] },
+        {
+          id: 'DOMAINS',
+          tracks: [
+            { id: 'domain', kind: 'features' },
+            { id: 'region', kind: 'features' },
+            { id: 'InterPro representative domain', kind: 'features-interpro' },
+          ],
+        },
+        {
+          id: 'VARIATION',
+          tracks: [
+            { id: 'variation_graph', kind: 'variant-counts' },
+            { id: 'variation', kind: 'variants' },
+          ],
+        },
         { id: 'ALPHAFOLD', tracks: [{ id: 'confidence' }] },
       ],
     };
@@ -153,6 +168,81 @@ describe('FeatureViewer tooltips', () => {
     );
 
     expect(tooltipHTML()).toContain('Phosphothreonine');
+  });
+
+  // A collapsed group draws a single aggregate whose element id carries only
+  // the row id, with no track segment.
+  it('shows the rich tooltip for a collapsed group', () => {
+    renderFeatureViewer();
+
+    clickFeature(
+      {
+        eventType: 'click',
+        coords: [10, 20],
+        feature: {
+          type: 'DOMAIN',
+          start: 23,
+          end: 127,
+          description: 'Myb/SANT-like DNA-binding',
+        },
+        // what the library's own resolver would have produced
+        tooltipContent: '<h5>Type</h5><p>DOMAIN</p>',
+      },
+      'pv-abc123-track-DOMAINS'
+    );
+
+    const rendered = tooltipHTML();
+    expect(rendered).toContain('DOMAIN 23-127');
+    expect(rendered).toContain('Myb/SANT-like DNA-binding');
+    // not the library's flat Type/Start/End layout
+    expect(rendered).not.toContain('<h5>Type</h5>');
+  });
+
+  // The same collapsed aggregate also carries InterPro features, which need a
+  // different builder from their neighbours in the group.
+  it('picks the InterPro builder for an InterPro feature in the same group', () => {
+    renderFeatureViewer();
+
+    clickFeature(
+      {
+        eventType: 'click',
+        coords: [10, 20],
+        feature: {
+          type: 'InterPro Representative Domain',
+          start: 10,
+          end: 99,
+          accession: 'PF13837',
+          name: 'Myb_DNA-bind_4',
+          source_database: 'pfam',
+          integrated: null,
+        },
+      },
+      'pv-abc123-track-DOMAINS'
+    );
+
+    const rendered = tooltipHTML();
+    expect(rendered).toContain('InterPro Representative Domain 10-99');
+    expect(rendered).toContain('PF13837');
+  });
+
+  it('falls back when no builder in a collapsed group claims the feature', () => {
+    renderFeatureViewer();
+
+    clickFeature(
+      {
+        eventType: 'click',
+        coords: [10, 20],
+        // a counts datapoint from the linegraph half of the group
+        feature: {
+          position: 5,
+          value: 12,
+          tooltipContent: '<h5>Variants</h5><p>12</p>',
+        },
+      },
+      'pv-abc123-track-VARIATION'
+    );
+
+    expect(tooltipHTML()).toContain('Variants');
   });
 
   it('falls back to the library tooltipContent for an unmapped track', () => {
