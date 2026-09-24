@@ -7,211 +7,262 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
   >
     Involvement in disease
   </h3>
-  <h4>
-    <a
-      href="/diseases/ASDASDAS"
-    >
-      Alzheimers (AD)
-    </a>
-  </h4>
-  <span
-    class="text-block"
-  />
-  <ul
-    class="info-list"
+  <div
+    class="tabs"
   >
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
-          Note
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          <ul
-            class="expandable-list no-bullet"
-          >
-            <li>
-              Some disease note
-            </li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
-          Description
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          Some description
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
-          See also
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          EMBL:
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/ena/browser/view/some ref id"
-            rel="noopener"
-            target="_blank"
-          >
-            some ref id
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-          value1 [
-          <a
-            href="/uniprotkb/P05067#some isoform"
-          >
-            some isoform
-          </a>
-          ]
-        </div>
-      </div>
-    </li>
-  </ul>
-  <h5>
-    Natural variants in AD
-  </h5>
-  <table
-    class="table"
-  >
-    <thead
-      class=""
+    <div
+      class="tabs__header"
+      role="tablist"
     >
-      <tr
-        class="row"
+      <div
+        aria-controls="1"
+        class="tabs__header__item tabs__header__item--active"
+        data-target="uniprot-annotations"
+        data-testid="tab-title"
+        role="tab"
+        tabindex="0"
       >
-        <th />
-        <th>
-          Variant ID
-        </th>
-        <th>
-          Position(s)
-        </th>
-        <th>
-          Change
-        </th>
-        <th>
-          Description
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      class=""
-      translate="no"
+        UniProt Annotations
+      </div>
+      <div
+        aria-controls="1"
+        class="tabs__header__item ai-tab"
+        data-target="ai-powered-summaries"
+        data-testid="tab-title"
+        role="tab"
+        tabindex="0"
+      >
+        AI-powered summaries
+        <test-file-stub
+          aria-hidden="true"
+          class="ai-annotation-marker"
+        />
+         
+        <span
+          class="chip chip--compact"
+        >
+          New
+        </span>
+      </div>
+    </div>
+    <div
+      data-testid="tab-content"
+      id="1"
+      role="tabpanel"
     >
-      <tr
-        class="row"
+      <h4>
+        <a
+          href="/diseases/ASDASDAS"
+        >
+          Alzheimers (AD)
+        </a>
+      </h4>
+      <span
+        class="text-block"
+      />
+      <ul
+        class="info-list"
       >
-        <td />
-        <td>
-          <a
-            class="external-link"
-            href="https://web.expasy.org/variant_pages/VAR_019255.html"
-            rel="noopener"
-            target="_blank"
-            title="View in Expasy"
+        <li>
+          <div
+            class="decorated-list-item"
           >
-            VAR_019255
-          </a>
-        </td>
-        <td>
-          23
-        </td>
-        <td
-          class="change"
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Note
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <ul
+                class="expandable-list no-bullet"
+              >
+                <li>
+                  Some disease note
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Description
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              Some description
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              See also
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              EMBL:
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/browser/view/some ref id"
+                rel="noopener"
+                target="_blank"
+              >
+                some ref id
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+              value1 [
+              <a
+                href="/uniprotkb/P05067#some isoform"
+              >
+                some isoform
+              </a>
+              ]
+            </div>
+          </div>
+        </li>
+      </ul>
+      <h5>
+        Natural variants in AD
+      </h5>
+      <table
+        class="table"
+      >
+        <thead
+          class=""
         >
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 Q23P"
-            rel="noopener"
-            target="_blank"
-            title="View in ProtVar"
+          <tr
+            class="row"
           >
-            Q&gt;P
-          </a>
-        </td>
-        <td
-          translate="yes"
-        >
-          in AD; supposed to be rendered with the disease; Italian type; dbSNP:
-          <a
-            class="external-link"
-            href="https://www.ncbi.nlm.nih.gov/snp/rs63750579"
-            rel="noopener"
-            target="_blank"
-          >
-            rs63750579
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
+            <th
+              class="toggle-cell"
             />
-          </a>
-        </td>
-      </tr>
-      <tr
-        class="row odd"
-      >
-        <td />
-        <td>
-          <a
-            class="external-link"
-            href="https://web.expasy.org/variant_pages/VAR_019256.html"
-            rel="noopener"
-            target="_blank"
-            title="View in Expasy"
-          >
-            VAR_019256
-          </a>
-        </td>
-        <td>
-          99
-        </td>
-        <td
-          class="change"
+            <th>
+              Variant ID
+            </th>
+            <th>
+              Position(s)
+            </th>
+            <th>
+              Change
+            </th>
+            <th>
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class=""
+          translate="no"
         >
-          <a
-            class="external-link"
-            href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 I99V"
-            rel="noopener"
-            target="_blank"
-            title="View in ProtVar"
+          <tr
+            class="row"
           >
-            I&gt;V
-          </a>
-        </td>
-        <td
-          translate="yes"
-        >
-          in AD
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <td
+              class="toggle-cell"
+            />
+            <td>
+              <a
+                class="external-link"
+                href="https://web.expasy.org/variant_pages/VAR_019255.html"
+                rel="noopener"
+                target="_blank"
+                title="View in Expasy"
+              >
+                VAR_019255
+              </a>
+            </td>
+            <td>
+              23
+            </td>
+            <td
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 Q23P"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                Q&gt;P
+              </a>
+            </td>
+            <td
+              translate="yes"
+            >
+              in AD; supposed to be rendered with the disease; Italian type; dbSNP:
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/snp/rs63750579"
+                rel="noopener"
+                target="_blank"
+              >
+                rs63750579
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="row odd"
+          >
+            <td
+              class="toggle-cell"
+            />
+            <td>
+              <a
+                class="external-link"
+                href="https://web.expasy.org/variant_pages/VAR_019256.html"
+                rel="noopener"
+                target="_blank"
+                title="View in Expasy"
+              >
+                VAR_019256
+              </a>
+            </td>
+            <td>
+              99
+            </td>
+            <td
+              class="change"
+            >
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ProtVar/query?search=P05067 I99V"
+                rel="noopener"
+                target="_blank"
+                title="View in ProtVar"
+              >
+                I&gt;V
+              </a>
+            </td>
+            <td
+              translate="yes"
+            >
+              in AD
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </DocumentFragment>
 `;

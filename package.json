@@ -2,7 +2,7 @@
   "name": "uniprot-website",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@12.5.1",
   "homepage": "https://ebi-uniprot.github.io/uniprot-website/",
   "license": "MIT",
   "engines": {

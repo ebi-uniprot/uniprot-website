@@ -137,7 +137,10 @@ const Head = ({ toggleAll, children, className, ...props }: HeadProps) => {
   return (
     <thead className={cn(className)} {...props}>
       <tr className={styles.row}>
-        <th ref={ref}>
+        <th
+          ref={ref}
+          className={!toggleAll ? styles['toggle-cell'] : undefined}
+        >
           {toggleAll && (
             <ControlledDropdown
               visibleElement={
@@ -269,7 +272,7 @@ const Row = ({
         onClick={handleClick}
         {...props}
       >
-        <td>
+        <td className={!hasExtraContent ? styles['toggle-cell'] : undefined}>
           {hasExtraContent && (
             <button
               type="button"

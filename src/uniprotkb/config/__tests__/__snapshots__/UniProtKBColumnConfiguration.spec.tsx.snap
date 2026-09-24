@@ -334,91 +334,136 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_develop
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_disease": cc_disease 1`] = `
 <DocumentFragment>
-  <h4>
-    <a
-      href="/diseases/DiseaseEntry AC"
+  <div
+    class="tabs"
+  >
+    <div
+      class="tabs__header"
+      role="tablist"
     >
-      DiseaseEntry Id (someAcron)
-    </a>
-  </h4>
-  <h5
-    class="tiny"
-  >
-    Isoform 3
-  </h5>
-  <span
-    class="text-block"
-  />
-  <ul
-    class="info-list"
-  >
-    <li>
       <div
-        class="decorated-list-item"
+        aria-controls="1"
+        class="tabs__header__item tabs__header__item--active"
+        data-target="uniprot-annotations"
+        data-testid="tab-title"
+        role="tab"
+        tabindex="0"
       >
-        <div
-          class="decorated-list-item__title tiny"
+        UniProt Annotations
+      </div>
+      <div
+        aria-controls="1"
+        class="tabs__header__item ai-tab"
+        data-target="ai-powered-summaries"
+        data-testid="tab-title"
+        role="tab"
+        tabindex="0"
+      >
+        AI-powered summaries
+        <test-file-stub
+          aria-hidden="true"
+          class="ai-annotation-marker"
+        />
+         
+        <span
+          class="chip chip--compact"
         >
-          Note
-        </div>
-        <div
-          class="decorated-list-item__content"
+          New
+        </span>
+      </div>
+    </div>
+    <div
+      data-testid="tab-content"
+      id="1"
+      role="tabpanel"
+    >
+      <h4>
+        <a
+          href="/diseases/DiseaseEntry AC"
         >
-          <ul
-            class="expandable-list no-bullet"
+          DiseaseEntry Id (someAcron)
+        </a>
+      </h4>
+      <h5
+        class="tiny"
+      >
+        Isoform 3
+      </h5>
+      <span
+        class="text-block"
+      />
+      <ul
+        class="info-list"
+      >
+        <li>
+          <div
+            class="decorated-list-item"
           >
-            <li>
-              value2
-            </li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
-          Description
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          some description
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item"
-      >
-        <div
-          class="decorated-list-item__title tiny"
-        >
-          See also
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          MIM:
-          <a
-            class="external-link"
-            href="https://www.omim.org/entry/3124"
-            rel="noopener"
-            target="_blank"
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Note
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              <ul
+                class="expandable-list no-bullet"
+              >
+                <li>
+                  value2
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
           >
-            3124
-            <test-file-stub
-              data-testid="external-link-icon"
-              width="12.5"
-            />
-          </a>
-        </div>
-      </div>
-    </li>
-  </ul>
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              Description
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              some description
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title tiny"
+            >
+              See also
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              MIM:
+              <a
+                class="external-link"
+                href="https://www.omim.org/entry/3124"
+                rel="noopener"
+                target="_blank"
+              >
+                3124
+                <test-file-stub
+                  data-testid="external-link-icon"
+                  width="12.5"
+                />
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
@@ -1263,7 +1308,9 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
       <tr
         class="row"
       >
-        <th />
+        <th
+          class="toggle-cell"
+        />
         <th>
           Type
         </th>
@@ -1286,7 +1333,9 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_chain":
         class="row"
         data-id="0"
       >
-        <td />
+        <td
+          class="toggle-cell"
+        />
         <td>
           Chain
         </td>

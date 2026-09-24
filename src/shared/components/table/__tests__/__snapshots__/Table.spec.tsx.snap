@@ -11,7 +11,9 @@ exports[`Table component should not render a toggle button if overriden 1`] = `
       <tr
         class="row"
       >
-        <th />
+        <th
+          class="toggle-cell"
+        />
         <th>
           Name
         </th>
@@ -26,7 +28,9 @@ exports[`Table component should not render a toggle button if overriden 1`] = `
       <tr
         class="row odd"
       >
-        <td />
+        <td
+          class="toggle-cell"
+        />
         <td>
           Alice
         </td>
@@ -37,7 +41,9 @@ exports[`Table component should not render a toggle button if overriden 1`] = `
       <tr
         class="row"
       >
-        <td />
+        <td
+          class="toggle-cell"
+        />
         <td>
           Mark
         </td>
@@ -48,7 +54,9 @@ exports[`Table component should not render a toggle button if overriden 1`] = `
       <tr
         class="row odd"
       >
-        <td />
+        <td
+          class="toggle-cell"
+        />
         <td>
           Paul
         </td>
@@ -76,7 +84,9 @@ exports[`Table component should render with a working toggle button 1`] = `
           <tr
             class="row"
           >
-            <th />
+            <th
+              class="toggle-cell"
+            />
             <th>
               Name
             </th>
@@ -91,7 +101,9 @@ exports[`Table component should render with a working toggle button 1`] = `
           <tr
             class="row odd"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Alice
             </td>
@@ -102,7 +114,9 @@ exports[`Table component should render with a working toggle button 1`] = `
           <tr
             class="row"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Mark
             </td>
@@ -113,7 +127,9 @@ exports[`Table component should render with a working toggle button 1`] = `
           <tr
             class="row odd"
           >
-            <td />
+            <td
+              class="toggle-cell"
+            />
             <td>
               Paul
             </td>

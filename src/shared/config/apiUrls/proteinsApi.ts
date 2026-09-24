@@ -81,3 +81,10 @@ export const rnaEditing = (accession: string, format?: FileFormat) => {
     format: format ? fileFormatToUrlParameter[format] : undefined,
   });
 };
+
+export const variantSummary = (accession: string) =>
+  joinUrl(
+    'https://wwwdev.ebi.ac.uk/proteins/api',
+    'variant_summary',
+    accession
+  );

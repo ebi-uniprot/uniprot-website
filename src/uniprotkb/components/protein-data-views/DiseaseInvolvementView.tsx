@@ -1,16 +1,31 @@
-import { ExpandableList, InfoList } from 'franklin-sites';
+import {
+  AiAnnotationsIcon,
+  Button,
+  Card,
+  Chip,
+  ExpandableList,
+  InfoList,
+  Loader,
+  Tab,
+  Tabs,
+} from 'franklin-sites';
 import { escapeRegExp } from 'lodash-es';
-import { Fragment, memo } from 'react';
+import { Fragment, memo, useRef, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import { allEntryPages, getEntryPath } from '../../../app/config/urls';
 import ExternalLink from '../../../shared/components/ExternalLink';
 import { MIN_ROWS_TO_EXPAND } from '../../../shared/components/table/constants';
 import Table from '../../../shared/components/table/Table';
+import apiUrls from '../../../shared/config/apiUrls/apiUrls';
 import externalUrls from '../../../shared/config/externalUrls';
+import useDataApi from '../../../shared/hooks/useDataApi';
 import useDatabaseInfoMaps from '../../../shared/hooks/useDatabaseInfoMaps';
 import { Namespace } from '../../../shared/types/namespaces';
+import { type SearchResults } from '../../../shared/types/results';
+import { type CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { type DiseaseComment } from '../../types/commentTypes';
+import type { Variant, VariantAISummary } from '../../types/variantAISummary';
 import variationViewerStyles from '../entry/tabs/variation-viewer/styles/variation-viewer.module.scss';
 import { RichText } from './FreeTextView';
 import styles from './styles/disease-involvement-view.module.scss';
@@ -266,6 +281,164 @@ const DiseaseInvolvementEntry = ({
   );
 };
 
+const PmidSummary = ({ pmid, summary }: { pmid: number; summary?: string }) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [hasOpened, setHasOpened] = useState(false);
+  const citationData = useDataApi<SearchResults<CitationsAPIModel>>(
+    hasOpened
+      ? apiUrls.search.search({
+          namespace: Namespace.citations,
+          query: `${pmid}`,
+        })
+      : undefined
+  );
+  const citationTitle = citationData.data?.results?.[0]?.citation.title;
+
+  if (!summary) {
+    return <>{pmid}</>;
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        className={styles['pmid-button']}
+        onClick={() => {
+          setHasOpened(true);
+          dialogRef.current?.showModal();
+        }}
+      >
+        {pmid}
+      </button>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+      <dialog
+        ref={dialogRef}
+        className={styles['pmid-dialog']}
+        // A backdrop click lands on the dialog element itself, same as a
+        // click on its own padding (target === dialog either way) — so
+        // compare against its content box instead of just the target, or
+        // clicking inside that padding would incorrectly close it.
+        onClick={(event) => {
+          const rect = dialogRef.current?.getBoundingClientRect();
+          if (!rect) {
+            return;
+          }
+          const clickedInside =
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom;
+          if (!clickedInside) {
+            dialogRef.current?.close();
+          }
+        }}
+      >
+        <h6 className={styles['pmid-dialog-heading']}>
+          Abstract summary
+          <AiAnnotationsIcon
+            className="ai-annotation-marker"
+            aria-hidden="true"
+          />
+        </h6>
+        <p className={styles['pmid-dialog-meta']}>
+          <ExternalLink url={externalUrls.PubMed(pmid)}>
+            PMID:{pmid}
+          </ExternalLink>
+          {citationTitle && ` · ${citationTitle}`}
+        </p>
+        <p>{summary}</p>
+        <div className={styles['pmid-dialog-footer']}>
+          <Button variant="tertiary" onClick={() => dialogRef.current?.close()}>
+            Close
+          </Button>
+        </div>
+      </dialog>
+    </>
+  );
+};
+
+const AIpoweredSummaries = ({ accession }: { accession: string }) => {
+  const variantsData = useDataApi<VariantAISummary>(
+    apiUrls.proteinsApi.variantSummary(accession)
+  );
+
+  if (variantsData.loading) {
+    return <Loader />;
+  }
+
+  if (!variantsData.loading && variantsData.data) {
+    const { variants } = variantsData.data;
+    return (
+      <div>
+        {variants.map((variant: Variant) => {
+          const sentencesByPmid = new Map<number, string[]>();
+          for (const impactSentence of variant.impact_sentences) {
+            for (const pmid of impactSentence.pmids) {
+              const sentences = sentencesByPmid.get(pmid) || [];
+              sentences.push(impactSentence.sentence);
+              sentencesByPmid.set(pmid, sentences);
+            }
+          }
+          const pmidGroups = Array.from(sentencesByPmid.entries());
+          let rowIndex = 0;
+
+          return (
+            <Card
+              key={variant.variant_name}
+              className={styles['variant-card']}
+              header={
+                <h4 className={styles['variant-name']}>
+                  {variant.variant_name}
+                </h4>
+              }
+            >
+              <h5>Synthesis Summary</h5>
+              <p>
+                {variant.synthesis_summary.summary} (PMIDs:{' '}
+                {variant.synthesis_summary.pmids.join(', ')})
+              </p>
+              <Table expandable={pmidGroups.length > MIN_ROWS_TO_EXPAND}>
+                <Table.Head>
+                  <th>PMID</th>
+                  <th>Impact Description</th>
+                </Table.Head>
+                <Table.Body translate="no">
+                  {pmidGroups.flatMap(([pmid, sentences]) => {
+                    const abstractSummary = variant.abstract_summaries.find(
+                      (summary) => summary.pmid === pmid
+                    );
+                    return sentences.map((sentence, sentenceIndex) => {
+                      const isOdd = Boolean(rowIndex % 2);
+                      rowIndex += 1;
+                      return (
+                        <Table.Row
+                          isOdd={isOdd}
+                          // eslint-disable-next-line @eslint-react/no-array-index-key
+                          key={`${pmid}-${sentenceIndex}`}
+                        >
+                          <td className={styles['pmid-cell']}>
+                            {sentenceIndex === 0 && (
+                              <PmidSummary
+                                pmid={pmid}
+                                summary={abstractSummary?.summary}
+                              />
+                            )}
+                          </td>
+                          <td>{sentence}</td>
+                        </Table.Row>
+                      );
+                    });
+                  })}
+                </Table.Body>
+              </Table>
+            </Card>
+          );
+        })}
+      </div>
+    );
+  }
+};
+
 type DiseaseInvolvementProps = {
   comments?: DiseaseComment[];
   features?: FeatureDatum[];
@@ -288,15 +461,37 @@ const DiseaseInvolvementView = ({
       {includeTitle && (
         <h3 data-article-id="involvement_in_disease">Involvement in disease</h3>
       )}
-      {comments.map((comment, index) => (
-        <DiseaseInvolvementEntry
-          // eslint-disable-next-line @eslint-react/no-array-index-key
-          key={index}
-          comment={comment}
-          features={features}
-          accession={accession}
-        />
-      ))}
+      <Tabs>
+        <Tab title="UniProt Annotations" id="uniprot-annotations">
+          {comments.map((comment, index) => (
+            <DiseaseInvolvementEntry
+              // eslint-disable-next-line @eslint-react/no-array-index-key
+              key={index}
+              comment={comment}
+              features={features}
+              accession={accession}
+            />
+          ))}
+        </Tab>
+        <Tab
+          title={
+            <>
+              AI-powered summaries
+              <AiAnnotationsIcon
+                className="ai-annotation-marker"
+                aria-hidden="true"
+              />{' '}
+              <Chip compact asSpan>
+                New
+              </Chip>
+            </>
+          }
+          id="ai-powered-summaries"
+          className={styles['ai-tab']}
+        >
+          <AIpoweredSummaries accession={accession} />
+        </Tab>
+      </Tabs>
     </>
   );
 };
