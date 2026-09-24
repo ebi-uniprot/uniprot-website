@@ -117,6 +117,56 @@ describe('StructureView', () => {
     );
   });
 
+  it('changes the PDB identifier link and remembers the choice', async () => {
+    const { unmount } = customRender(
+      <StructureView primaryAccession="P12345" />,
+      {
+        route: '/uniprotkb/P12345/entry',
+      }
+    );
+    fireStructuresLoaded([pdbStructure]);
+    await userEvent.selectOptions(
+      screen.getByRole('combobox', { name: /PDB identifier link/i }),
+      'RCSB-PDB'
+    );
+    expect(screen.getByRole('link', { name: '5R7Y' })).toHaveAttribute(
+      'href',
+      'https://www.rcsb.org/structure/5R7Y'
+    );
+    await userEvent.selectOptions(
+      screen.getByRole('combobox', { name: /PDB identifier link/i }),
+      'PDBj'
+    );
+    expect(screen.getByRole('link', { name: '5R7Y' })).toHaveAttribute(
+      'href',
+      'https://pdbj.org/mine/summary/5R7Y'
+    );
+    unmount();
+    // Choice is persisted for the next render
+    customRender(<StructureView primaryAccession="P12345" />, {
+      route: '/uniprotkb/P12345/entry',
+    });
+    fireStructuresLoaded([pdbStructure]);
+    expect(screen.getByRole('link', { name: '5R7Y' })).toHaveAttribute(
+      'href',
+      'https://pdbj.org/mine/summary/5R7Y'
+    );
+  });
+
+  it('only shows the PDB link dropdown in the PDB tab', async () => {
+    customRender(<StructureView primaryAccession="P12345" />, {
+      route: '/uniprotkb/P12345/entry',
+    });
+    fireStructuresLoaded([pdbStructure, alphaFoldStructure]);
+    expect(
+      screen.getByRole('combobox', { name: /PDB identifier link/i })
+    ).toBeInTheDocument();
+    await userEvent.click(screen.getByText('AlphaFoldDB'));
+    expect(
+      screen.queryByRole('combobox', { name: /PDB identifier link/i })
+    ).not.toBeInTheDocument();
+  });
+
   it('renders AlphaFold DB link and Foldseek link', () => {
     customRender(<StructureView primaryAccession="P12345" />, {
       route: '/uniprotkb/P12345/entry',
