@@ -6,10 +6,7 @@ import {
   Tab,
   Tabs,
 } from 'franklin-sites';
-import {
-  type ProcessedStructureData,
-  type ProtvistaUniprotStructure,
-} from 'protvista-uniprot';
+import { type ProtvistaUniprotStructure } from 'protvista-uniprot';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -360,7 +357,7 @@ const StructureView = ({
         accession={primaryAccession}
         checksum={checksum}
         sequence={sequence}
-        noTable
+        no-table
       />
       {!viewerOnly && loading && <Loader />}
       {!viewerOnly && !loading && structures.length === 0 && (

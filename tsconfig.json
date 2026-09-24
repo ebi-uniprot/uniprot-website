@@ -31,7 +31,7 @@
     ],
     "paths": {
       "react": ["./node_modules/@types/react"],
-      // franklin-sites and protvista-uniprot publish types but their `exports`
+      // franklin-sites publishes types but their `exports`
       // maps lack a "types" condition, so `bundler` resolution can't find them.
       // Alias to the declaration files until those packages add the condition.
       "franklin-sites": [
@@ -40,9 +40,6 @@
       "franklin-sites/dist/types/*": [
         "./node_modules/franklin-sites/dist/types/*"
       ],
-      "protvista-uniprot": [
-        "./node_modules/protvista-uniprot/dist/types/index.d.ts"
-      ]
     }
   },
   "include": ["src", "e2e", "playwright.config.ts"],
