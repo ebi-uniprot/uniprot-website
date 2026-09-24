@@ -20,6 +20,7 @@ pnpm test
 pnpm test:lint          # ESLint
 pnpm test:types         # TypeScript type checking
 pnpm test:unit          # Jest with coverage
+pnpm test:e2e           # Playwright browser tests (not part of pnpm test; see e2e/README.md)
 
 # Build
 pnpm build:prod         # Production build

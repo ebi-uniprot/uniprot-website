@@ -20,9 +20,16 @@ __diff_output__
 /tests/.tmp/
 report.*.json
 
+# Playwright (pnpm test:e2e)
+/test-results/
+/playwright-report/
+
 # Yalc (yarn link alternative)
 .yalc/
 yalc.lock
 
 # Local Netlify folder
 .netlify
+
+# Statistics archival bundles
+/archive

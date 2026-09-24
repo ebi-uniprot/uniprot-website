@@ -4,9 +4,7 @@ import EntrySection from '../types/entrySection';
 
 // TODO: move these somewhere else, probably in the shared folder
 type GeneOntologyAspect = `GO ${
-  | 'Molecular Function'
-  | 'Biological Process'
-  | 'Cellular Component'}`;
+  'Molecular Function' | 'Biological Process' | 'Cellular Component'}`;
 type GeneOntologyEntry = {
   aspect: GeneOntologyAspect;
   goId: string;

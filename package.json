@@ -5,6 +5,9 @@
   "packageManager": "pnpm@12.3.4",
   "homepage": "https://ebi-uniprot.github.io/uniprot-website/",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "pnpm start:prod",
     "start:dev": "webpack serve --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/api --mode development",
@@ -19,21 +22,26 @@
     "build:netlify-dev": "rimraf build && webpack --env API_PREFIX=https://wwwdev.ebi.ac.uk/uniprot/api --env GIT_BRANCH=$CI_COMMIT_BRANCH --mode production --env PREVIEW_PRODUCTION=true && pnpm verify:bundle",
     "deploy:netlify": "pnpm build:netlify && netlify deploy --dir=build --prod",
     "deploy:netlify-dev": "pnpm build:netlify-dev && netlify deploy --dir=build --prod",
-    "lint-fix": "eslint src --fix",
+    "lint-fix": "eslint src e2e playwright.config.ts --fix",
     "jest-coverage-ratchet": "jest-coverage-ratchet",
     "coverage-bump": "npm-run-all test:unit jest-coverage-ratchet",
-    "prettier": "prettier src --write",
+    "prettier": "prettier src scripts e2e playwright.config.ts --write",
     "verify:bundle": "node scripts/verify-bundle.js",
     "test": "npm-run-all test:lint test:types test:unit",
-    "test:lint": "eslint src --cache --cache-location 'node_modules/.cache/eslint/'",
+    "test:lint": "eslint src e2e playwright.config.ts --cache --cache-location 'node_modules/.cache/eslint/'",
     "test:types": "tsc",
     "test:unit": "jest --coverage",
     "test:unit-bail-on-console-error": "jest --coverage --setupFilesAfterEnv \"<rootDir>/jest.setup.ts\" \"<rootDir>/jest.setup.consoleerrorfail.ts\" --bail --runInBand",
     "test:functional": "jest --config src/tests/jest.config.json src/tests/functional",
     "test:visual": "jest --config src/tests/jest.config.json src/tests/visual",
+    "test:scripts-unit": "node --test \"scripts/**/*.test.{mjs,js}\"",
+    "test:e2e": "playwright test",
+    "test:e2e-install-browser": "playwright install chromium",
     "clear-test-cache": "jest --clearCache",
     "prepare": "husky",
-    "update-mocks": "scripts/update-mocks.mjs"
+    "update-mocks": "scripts/update-mocks.mjs",
+    "archive:statistics": "node scripts/archive-statistics/index.mjs",
+    "verify:statistics": "node scripts/archive-statistics/verify.mjs"
   },
   "jest": {
     "coverageReporters": [
@@ -67,6 +75,7 @@
     ],
     "testPathIgnorePatterns": [
       "/__mocks__/",
+      "<rootDir>/e2e/",
       "<rootDir>/\\..+\\/"
     ],
     "coveragePathIgnorePatterns": [
@@ -98,7 +107,7 @@
     "testEnvironment": "jsdom"
   },
   "lint-staged": {
-    "*.+(ts|tsx|js|jsx|css|scss)": [
+    "*.+(ts|tsx|js|jsx|mjs|cjs|css|scss|md)": [
       "prettier --write"
     ]
   },
@@ -175,6 +184,7 @@
     "@eslint/js": "10.0.1",
     "@nightingale-elements/nightingale-structure": "5.8.0",
     "@svgr/webpack": "8.1.0",
+    "@playwright/test": "1.61.1",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "7.0.0",
     "@testing-library/react": "16.3.2",
@@ -224,17 +234,20 @@
     "jest-environment-jsdom": "30.4.1",
     "jest-fetch-mock": "4.2.0",
     "jest-silent-reporter": "0.6.0",
+    "jsdom": "30.1.0",
     "lint-staged": "17.1.1",
     "lodash": "4.18.1",
     "mini-css-extract-plugin": "2.10.2",
     "npm-run-all": "4.1.5",
     "openapi-types": "12.1.3",
+    "playwright": "1.61.1",
     "prettier": "3.9.6",
     "process": "0.11.10",
     "recast": "0.23.12",
     "rimraf": "6.1.3",
     "sass": "1.101.3",
     "sass-loader": "17.0.0",
+    "single-file-cli": "2.0.83",
     "style-loader": "4.0.0",
     "svg-inline-loader": "0.8.2",
     "typescript": "6.0.3",

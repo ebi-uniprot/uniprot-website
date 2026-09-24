@@ -56,8 +56,7 @@ const SubcellularLocationSection = ({
         primaryAccession={data.primaryAccession}
         comments={
           data.commentsData.get('SUBCELLULAR LOCATION') as
-            | SubcellularLocationComment[]
-            | undefined
+            SubcellularLocationComment[] | undefined
         }
         taxonId={data.organismData?.taxonId}
         lineage={data.organismData?.lineage}

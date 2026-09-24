@@ -15,7 +15,7 @@ const insideUniProtAbstract2 =
   'With advances in structural biology, protein structures are becoming larger and more complex than ever. How do we navigate these complex structures?';
 
 const proteinSpotlightAbstract =
-  'A ting of metal against glass. The lights are dimmed. Voices turn to a murmur. All eyes are set on the bottle of champagne and its cork as it is gradually eased out. Then a pop, and your host is nervously juggling with glasses and a challenging flow of bubbles...';
+  'We have all seen animals tend to their young ones. How a female keeps them close to her warm body, how a gentle paw will push a pup or a kitten towards a teat. By extension, animals who grow up together and become part of...';
 
 const getWordsUpTo = (text: string, max: number) => {
   let output = '';
@@ -306,21 +306,21 @@ const LatestNews = () => {
         </Chip>
         <h3>
           <ExternalLink
-            url="https://www.proteinspotlight.org/back_issues/293/"
+            url="https://www.proteinspotlight.org/back_issues/294/"
             noIcon
           >
-            Bubbles, foam and gush
+            On the success of breeding
           </ExternalLink>
         </h3>
         <ExternalLink
-          url="https://www.proteinspotlight.org/back_issues/293/"
+          url="https://www.proteinspotlight.org/back_issues/294/"
           noIcon
           aria-hidden="true"
           tabIndex={-1}
         >
           <img
             loading="lazy"
-            src="https://www.proteinspotlight.org/spotlight/images/sptlt293.jpg"
+            src="https://www.proteinspotlight.org/spotlight/images/sptlt294.jpg"
             alt=""
             width="123"
             height="129"

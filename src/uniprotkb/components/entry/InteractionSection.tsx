@@ -203,8 +203,7 @@ const InteractionSection = ({
       Array.from(
         (
           data.commentsData.get('INTERACTION') as
-            | InteractionComment[]
-            | undefined
+            InteractionComment[] | undefined
         )?.[0]?.interactions || []
       ).sort(interactionSorter),
     [data]
@@ -234,8 +233,7 @@ const InteractionSection = ({
   }
 
   const comments = data.commentsData.get('SUBUNIT') as
-    | FreeTextComment[]
-    | undefined;
+    FreeTextComment[] | undefined;
 
   const complexId = viewerID || Array.from(complexPortalXrefs.keys())[0];
 

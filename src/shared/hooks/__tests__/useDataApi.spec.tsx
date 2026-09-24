@@ -4,8 +4,13 @@ import MockAdapter from 'axios-mock-adapter';
 import { type ReactNode } from 'react';
 
 import { MessagesDispatchContext } from '../../contexts/Messages';
+import { sendGtagEventApiData } from '../../utils/gtagEvents';
 import useDataApi from '../useDataApi';
 import useDataApiWithStale from '../useDataApiWithStale';
+
+jest.mock('../../utils/gtagEvents', () => ({
+  sendGtagEventApiData: jest.fn(),
+}));
 
 const url = '/some/path';
 const url2 = '/some/other/path';
@@ -13,7 +18,15 @@ const mock = new MockAdapter(axios);
 
 afterEach(() => {
   mock.reset();
+  jest.mocked(sendGtagEventApiData).mockClear();
+  // Harmless when a test never faked them
+  jest.useRealTimers();
 });
+
+// useDataApi retries a transient failure with a backoff before the error
+// surfaces. Fake timers so these tests skip that wait instead of sitting
+// through it -- `waitFor` advances them, so nothing else has to change.
+const skipBackoffs = () => jest.useFakeTimers();
 
 afterAll(() => {
   mock.restore();
@@ -45,6 +58,8 @@ describe('useDataApi hook', () => {
     );
   });
 
+  // The mock adapter's network error carries no error code, so it is not the
+  // dropped connection withRetry replays: it surfaces first time
   it('should return no network error', async () => {
     mock.onGet(url).networkError();
     const { result } = renderHook(() => useDataApi(url));
@@ -60,7 +75,7 @@ describe('useDataApi hook', () => {
     );
   });
 
-  it('should return timeout error', async () => {
+  it('should return timeout error, without replaying it', async () => {
     mock.onGet(url).timeout();
     const { result } = renderHook(() => useDataApi(url));
 
@@ -73,6 +88,8 @@ describe('useDataApi hook', () => {
         error: new Error('timeout of 0ms exceeded'),
       })
     );
+    // A replay would make the user sit through the timeout again
+    expect(mock.history.get).toHaveLength(1);
   });
 
   it('should return 400', async () => {
@@ -130,6 +147,75 @@ describe('useDataApi hook', () => {
         statusText: undefined,
       })
     );
+  });
+
+  it('should retry a transient failure and succeed', async () => {
+    skipBackoffs();
+    mock.onGet(url).replyOnce(503);
+    mock.onGet(url).reply(200, 'some data');
+    const { result } = renderHook(() => useDataApi(url));
+
+    await waitFor(
+      () =>
+        expect(result.current).toEqual({
+          loading: false,
+          progress: 1,
+          url,
+          data: 'some data',
+          status: 200,
+          headers: new AxiosHeaders(),
+          statusText: undefined,
+        }),
+      { timeout: 5_000 }
+    );
+    expect(mock.history.get).toHaveLength(2);
+    // One replay, reported once, so it can be told apart from the failure
+    // fetchData reports for every attempt
+    expect(sendGtagEventApiData).toHaveBeenCalledWith('retry', url);
+    expect(
+      jest
+        .mocked(sendGtagEventApiData)
+        .mock.calls.filter(([event]) => event === 'retry')
+    ).toHaveLength(1);
+  });
+
+  it('should not retry a 404', async () => {
+    mock.onGet(url).reply(404);
+    const { result } = renderHook(() => useDataApi(url));
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    expect(result.current.status).toBe(404);
+    expect(mock.history.get).toHaveLength(1);
+  });
+
+  it('should honour a signal the caller passes, as well as its own', async () => {
+    mock.onGet(url).reply(200, 'some data');
+    const controller = new AbortController();
+    const { result } = renderHook(() =>
+      useDataApi(url, { signal: controller.signal })
+    );
+    controller.abort();
+
+    // Give the (cancelled) request every chance to settle
+    await new Promise((resolve) => {
+      setTimeout(resolve, 50);
+    });
+
+    expect(mock.history.get).toHaveLength(1);
+    expect(result.current.data).toBeUndefined();
+  });
+
+  it('should not replay a POST, which would submit it twice', async () => {
+    // The contact form sends its message through this hook
+    const postOptions = { method: 'POST', data: 'a message' };
+    mock.onPost(url).reply(503);
+    const { result } = renderHook(() => useDataApi(url, postOptions));
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    expect(result.current.status).toBe(503);
+    expect(mock.history.post).toHaveLength(1);
   });
 
   it('should handle cancellation', async () => {

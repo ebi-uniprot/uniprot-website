@@ -1,6 +1,9 @@
+import { isAxiosError } from 'axios';
 import { type HTMLAttributes, lazy, Suspense } from 'react';
 
 import { type CustomError } from '../../hooks/useDataApi';
+import { isPermanentStatus } from '../../utils/httpStatus';
+import { retryAfterMs } from '../../utils/withRetry';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 import HTMLHead from '../HTMLHead';
 import NordVPNIssue from './NordVPNIssue';
@@ -30,23 +33,40 @@ const ErrorHandler = ({
   // props to pass to the underlying divs containing the messages
   ...props
 }: ErrorHandlerProps) => {
-  let component = <ServiceUnavailable {...props} noReload={noReload} />;
+  const isPermanent = isPermanentStatus(status);
+
+  let component = (
+    <ServiceUnavailable
+      {...props}
+      // A reload replaces the whole document: right when the page itself is the
+      // error, wrong when one widget on an otherwise working page failed -- it
+      // re-requests everything, including whatever rate-limited us
+      noReload={noReload || !fullPage}
+      // withRetry gave up on a Retry-After too long to wait for in-request;
+      // the reload must not then ignore it
+      retryAfterMs={isAxiosError(error) ? retryAfterMs(error) : undefined}
+    />
+  );
   if (!status) {
     // No status returned and a syntax error... it's likely to be NordVPN issue
     if (error instanceof SyntaxError) {
       component = <NordVPNIssue {...props} />;
     } // else default error component
-  } else if (status >= 400 && status < 500) {
+  } else if (isPermanent) {
     component = <ResourceNotFound error={error} {...props} />;
   }
 
   if (fullPage) {
     return (
       <>
-        <HTMLHead>
-          {/* Don't index error pages */}
-          <meta name="robots" content="noindex" />
-        </HTMLHead>
+        {isPermanent && (
+          <HTMLHead>
+            {/* Only tell a crawler to forget a page when the resource
+                genuinely is not there: noindex on a transient error asks
+                Google to drop a page that is fine, and Google obliges */}
+            <meta name="robots" content="noindex" />
+          </HTMLHead>
+        )}
         {component}
         <ErrorBoundary>
           <Suspense fallback={null}>

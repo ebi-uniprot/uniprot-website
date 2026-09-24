@@ -4,7 +4,7 @@ import { type LocationDescriptor } from 'history';
 import { useState } from 'react';
 import { Redirect, type RouteChildrenProps } from 'react-router-dom';
 
-import { getEntryPathFor } from '../../../../app/config/urls';
+import { getEntryPath, getEntryPathFor } from '../../../../app/config/urls';
 import EntryDownloadButton from '../../../../shared/components/entry/EntryDownloadButton';
 import EntryDownloadPanel from '../../../../shared/components/entry/EntryDownloadPanel';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -99,11 +99,9 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     <SingleColumnLayout>
       <HTMLHead
         title={[data.name, searchableNamespaceLabels[Namespace.locations]]}
+        canonical={getEntryPath(Namespace.locations, data.id)}
       >
         <meta name="description" content={data.definition} />
-        {typeof window !== 'undefined' && (
-          <link rel="canonical" href={window.location.href} />
-        )}
       </HTMLHead>
       {/* Here we don't want to use the exact label atm */}
       <h1>Cellular component - {data.name}</h1>

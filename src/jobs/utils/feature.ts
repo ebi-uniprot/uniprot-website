@@ -1,5 +1,6 @@
 import urljoin from 'url-join';
 
+import { PRODUCTION_ORIGIN } from '../../app/config/urls';
 import { type ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
 import { type TooltipFeature } from '../../uniprotkb/config/protvistaTooltips/featureTooltip';
@@ -42,7 +43,7 @@ export const prepareFeatureForTooltip = (
     const { url, isInternal } = getEvidenceLink(e.source, e.id);
     const source: Record<string, string> = { id: e.id, name: e.source };
     if (url) {
-      source.url = isInternal ? urljoin('https://www.uniprot.org/', url) : url;
+      source.url = isInternal ? urljoin(PRODUCTION_ORIGIN, url) : url;
     }
     if (e.source === 'PubMed') {
       const { url: alternativeUrl } = getEvidenceLink('EuropePMC', e.id);

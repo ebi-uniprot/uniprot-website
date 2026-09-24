@@ -138,7 +138,8 @@ export interface InteractionComment extends GenericComment<'INTERACTION'> {
 
 export type Isoform = {
   name: TextWithEvidence;
-  isoformSequenceStatus: // Canonical (when there are multiple isoforms)
+  isoformSequenceStatus:
+    // Canonical (when there are multiple isoforms)
     | 'Displayed'
     // When the accession of the isoform isn't the same as that of the canonical
     // - examples in Q7KQZ4

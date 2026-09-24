@@ -1,0 +1,156 @@
+# archive-statistics
+
+Generate a **single, completely standalone** archival snapshot of the UniProtKB
+statistics page (<https://www.uniprot.org/uniprotkb/statistics>) — one HTML file
+that is trivial to host or share. Run it **once per release**.
+
+Each run produces one file:
+
+```
+archive/uniprotkb-statistics-<release>.html
+```
+
+It inlines all CSS, fonts and images as data URIs and has JavaScript removed, so it
+renders in any browser with no network access — the goal being that it is still
+readable in ~10 years. It also **embeds the raw JSON** in a non-executable
+`<script type="application/json" id="archived-statistics-data">` block, so the
+machine-readable data survives even if the rendered page ever fails. Read it back
+with:
+
+```js
+JSON.parse(document.getElementById('archived-statistics-data').textContent);
+// -> { metadata, databases, statistics: { combined, reviewed, unreviewed }, history }
+```
+
+## How it works
+
+The statistics page is a React SPA with no server-side rendering, so the script
+drives a real browser (Playwright/Chromium):
+
+1. **Raw JSON** is fetched straight from the REST API (the current release is read
+   from the `x-uniprot-release` header on `configure/uniprotkb/allDatabases`).
+2. **HTML capture** loads the page and prepares the DOM: it forces the lazy-rendered
+   D3 charts to render (by stubbing `IntersectionObserver`), expands every collapsible
+   table, flattens the `UniProtKB / Reviewed / Unreviewed` tabs into stacked static
+   sections (those tabs mount only the active panel, so a naive freeze would drop
+   two-thirds of the data), splits the dropdown-driven taxonomy pie charts into
+   separate labelled charts, and strips the site header/footer and stale query links.
+   [SingleFile](https://github.com/gildas-lormeau/SingleFile) then serializes the
+   prepared DOM into one self-contained file, into which the raw JSON is embedded.
+3. **Verification** (`verify.mjs`) re-parses the finished HTML and checks that every
+   value it displays matches the embedded source JSON before the file is written —
+   a fail-closed gate, so a bad capture is never shipped.
+
+## Verification
+
+Every capture is verified against its own data before the file is written; on any
+mismatch the run fails (exit 1) and **no file is produced** (pass `--no-verify` to
+override). The check is browser-free (jsdom + the embedded JSON as ground truth), so
+any archived file can also be re-checked later, offline:
+
+```bash
+pnpm verify:statistics archive/uniprotkb-statistics-<release>.html
+```
+
+It cross-checks, per dataset (UniProtKB / Reviewed / Unreviewed):
+
+- **Coverage** — every view the embedded source has data for must actually be in the
+  document, and exactly once. Everything below only reports what it _finds_
+  disagreeing with the source, so without this a blank or gutted capture runs fewer
+  checks and still reports OK. Coverage is gated on the payload rather than on the
+  registry alone: a document is only required to render what its own data contains,
+  which is what makes the assertion safe to make.
+- **Tables** — every source raw value (count / entryCount / totalCount), formatted
+  exactly as the page formats it, must be present, and row counts must match the
+  source item counts. Catches dropped/duplicated rows, wrong values and dataset
+  swaps. Derived cells (Percent, per-entry average) are recomputed from the source
+  and reported as **warnings** — they are cosmetic, but a disagreement means the
+  page and the payload are telling different stories. They are also taken out of the
+  pool the raw values are matched against, where they would otherwise be free to
+  satisfy a raw value that is not displayed at all. The small row-per-dataset tables
+  go further — the registry names the statistic behind each column, so every cell is
+  compared to its own source value (those cells render as `… || 0`, so "all zeros"
+  would otherwise pass), and the dataset rows themselves must all be present, in
+  order. A table whose heading matches no registry entry is warned about, never
+  silently skipped.
+- **Charts** — the sequence-length and history line plots hold data that appears in
+  no table, so their y-axis scale is checked against the source max; a y-axis scaled
+  to a fraction of the real max means the chart was frozen mid-D3-transition (the bug
+  this whole check was built to catch). Each pie group must have one figure per
+  dataset, in order, and its slice counts/names are checked against the source; a
+  pie the verifier cannot identify at all is a mismatch, not a warning.
+
+The verifier deliberately anchors only on capture-owned markup (`.archived-tabs`,
+`.archived-charts`, `data-key`, axis classes, `<thead>` headers, section headings) and
+a small heading→category registry, never on SingleFile's hashed CSS-module class
+names. If the statistics UI is restructured, update the registry / anchors in
+`verify.mjs`. Tests: `pnpm test:scripts-unit` (or, for this directory alone,
+`node --test "scripts/archive-statistics/**/*.test.mjs"` — a bare directory argument is
+run as a module, not expanded, on Node 22+). It is not part of `pnpm test`, which covers
+`src` only.
+
+Three test files, split by what they need:
+
+- `verify.test.mjs` — the verifier itself: helpers, plus a fixture archive it corrupts
+  one way at a time. Offline.
+- `index.test.mjs` — only what the gate cannot see: the embedded JSON block (the gate
+  compares against the in-memory stats, never the block), the release guards that run
+  before the browser launches, and the fail-closed gate itself. Injects `capture`, so
+  it needs neither browser nor network.
+- `archive.test.mjs` — the archives actually on disk: asks the live API which release
+  is current and fails if it has not been archived yet, then re-verifies every file in
+  `archive/`. **Needs network**, and fails rather than skips if the API is unreachable.
+
+## Prerequisites
+
+- Node 22+ (uses global `fetch`, and `util.styleText`'s array format, which needs 20.13+;
+  `package.json` pins `engines.node` to >=22 to match the versions actually used).
+- Dev dependencies: `playwright`, `single-file-cli` and `jsdom` (the verifier parses
+  the archived HTML with it) — all three added to `package.json`.
+- A Chromium for Playwright. Either:
+  - `npx playwright install chromium` (downloads Playwright's browser), **or**
+  - point at an existing browser with `--channel chrome` or
+    `--browser-path /path/to/chromium`.
+
+> In a network-restricted sandbox the Playwright browser download may be blocked.
+> Run where `npx playwright install chromium` can reach the CDN, or pass a system
+> browser via `--channel`/`--browser-path`.
+
+## Usage
+
+```bash
+# Archive the current release to archive/uniprotkb-statistics-<release>.html
+node scripts/archive-statistics/index.mjs
+
+# …or via the package script
+pnpm archive:statistics
+
+# Use an installed Chrome instead of Playwright's bundled browser, into ./public
+node scripts/archive-statistics/index.mjs --channel chrome --out ./public
+```
+
+### Options
+
+| Option                         | Default                    | Description                                                              |
+| ------------------------------ | -------------------------- | ------------------------------------------------------------------------ |
+| `--release <current\|version>` | `current`                  | Release to archive. `current` reads the live `x-uniprot-release` header. |
+| `--url <url>`                  | production statistics page | Page to capture.                                                         |
+| `--api <base>`                 | `https://rest.uniprot.org` | REST API base for the raw JSON.                                          |
+| `--out <dir>`                  | `./archive`                | Output directory for the `.html` file.                                   |
+| `--browser-path <path>`        | —                          | Chrome/Chromium executable for Playwright.                               |
+| `--channel <name>`             | —                          | Playwright browser channel (e.g. `chrome`, `msedge`).                    |
+| `--no-verify`                  | off                        | Skip the verification gate and write the file regardless.                |
+
+## Caveats
+
+- **Current release only.** The live page has no release selector, so only the
+  current release can be captured — run the script at each release. Passing a
+  `--release` that differs from what the live site serves fails with an error
+  rather than producing a mislabeled file.
+- **Static snapshot.** Charts become static SVG and interactivity (hover tooltips,
+  live tab switching) is frozen. All data remains present.
+- **Selector drift.** Capture depends on the page's DOM (the tab roles, the
+  "Expand table" button text, the taxonomy `<select>`, and the chart `<svg>`
+  structure). If the statistics UI is restructured the capture fails loudly (empty
+  panels and missing charts throw rather than silently shipping) — update the
+  selectors in `capture.mjs`.
