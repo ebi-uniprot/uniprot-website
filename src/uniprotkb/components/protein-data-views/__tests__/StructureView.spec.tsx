@@ -1,9 +1,6 @@
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  type ProcessedStructureData,
-  type ProtvistaUniprotStructure,
-} from 'protvista-uniprot';
+import { type ProtvistaUniprotStructure } from 'protvista-uniprot';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 import StructureView from '../StructureView';

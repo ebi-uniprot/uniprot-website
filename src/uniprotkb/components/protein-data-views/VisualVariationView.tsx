@@ -1,7 +1,7 @@
 import { type Filter } from '@nightingale-elements/nightingale-filter';
 import type NightingaleNavigation from '@nightingale-elements/nightingale-navigation';
 import type NightingaleVariationCanvas from '@nightingale-elements/nightingale-variation-canvas';
-import { colorConfig, filterConfig } from 'protvista-uniprot';
+import { colorConfig, filterConfig } from 'protvista-uniprot/config';
 import { useCallback, useRef } from 'react';
 
 import NightingaleFilterComponent from '../../../shared/custom-elements/NightingaleFilter';

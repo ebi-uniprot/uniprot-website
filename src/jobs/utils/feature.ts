@@ -1,10 +1,8 @@
-import { type getFeatureTooltip } from 'protvista-uniprot';
 import urljoin from 'url-join';
 
 import { type ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import { getEvidenceLink } from '../../uniprotkb/config/evidenceUrls';
-
-type TooltipFeature = Parameters<typeof getFeatureTooltip>[0];
+import { type TooltipFeature } from '../../uniprotkb/config/protvistaTooltips/featureTooltip';
 
 export const prepareFeatureForTooltip = (
   feature: ProcessedFeature
