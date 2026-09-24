@@ -19,6 +19,7 @@ import TableFromData, {
   type TableFromDataColumn,
 } from '../../../shared/components/table/TableFromData';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import helper from '../../../shared/styles/helper.module.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 import { type IsoformSequences } from '../../adapters/structureConverter';
@@ -35,6 +36,14 @@ const parseResolution = (resolution?: string): number | undefined => {
   const match = resolution?.match(/[\d.]+/);
   return match ? parseFloat(match[0]) : undefined;
 };
+
+const PDB_LINK_PROVIDERS = [
+  // Use https://www.wwpdb.org/pdb?id= whenever the new ids are mapped to UniProt
+  { name: 'PDBe', link: 'https://www.ebi.ac.uk/pdbe/entry/pdb/' },
+  { name: 'RCSB-PDB', link: 'https://www.rcsb.org/structure/' },
+  { name: 'PDBj', link: 'https://pdbj.org/mine/summary/' },
+] as const;
+const DEFAULT_PDB_LINK_PROVIDER = PDB_LINK_PROVIDERS[0];
 
 const RESOLUTION_THRESHOLDS = [2.5, 4, 6, 10] as const;
 
@@ -89,6 +98,13 @@ const StructureView = ({
   const [structures, setStructures] = useState<StructureRow[]>([]);
   const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [pdbLinkProviderName, setPdbLinkProviderName] = useLocalStorage<string>(
+    'pdb-link-provider',
+    DEFAULT_PDB_LINK_PROVIDER.name
+  );
+  const pdbLinkProvider =
+    PDB_LINK_PROVIDERS.find(({ name }) => name === pdbLinkProviderName) ??
+    DEFAULT_PDB_LINK_PROVIDER;
 
   useEffect(() => {
     if (structureEl && isoforms?.length) {
@@ -167,6 +183,26 @@ const StructureView = ({
     [handleRowClick]
   );
 
+  // Only the PDB tab has identifiers that can link to several databases
+  const pdbIdentifierLabel = (
+    <>
+      Identifier
+      <br />
+      <select
+        style={{ width: 'fit-content' }}
+        aria-label="PDB identifier link destination"
+        value={pdbLinkProvider.name}
+        onChange={(e) => setPdbLinkProviderName(e.target.value)}
+      >
+        {PDB_LINK_PROVIDERS.map(({ name }) => (
+          <option key={name} value={name}>
+            {name}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+
   const columns = useMemo((): TableFromDataColumn<ProcessedStructureData>[] => {
     const cols: TableFromDataColumn<ProcessedStructureData>[] = [
       {
@@ -175,10 +211,7 @@ const StructureView = ({
         render: (row) => {
           if (row.source === PDB_SOURCE) {
             return (
-              <ExternalLink
-                // Use https://www.wwpdb.org/pdb?id= whenever the new ids are mapped to UniProt
-                url={`https://www.ebi.ac.uk/pdbe/entry/pdb/${row.id}`}
-              >
+              <ExternalLink url={`${pdbLinkProvider.link}${row.id}`}>
                 {row.id}
               </ExternalLink>
             );
@@ -317,7 +350,7 @@ const StructureView = ({
     );
 
     return cols;
-  }, [isoforms, primaryAccession]);
+  }, [isoforms, primaryAccession, pdbLinkProvider]);
 
   if (!structureElement.defined && !structureElement.errored) {
     return <Loader />;
@@ -388,10 +421,16 @@ const StructureView = ({
               <TableFromData
                 key={tab.id}
                 data={tab.rows}
-                columns={columns.filter(
-                  (col) =>
-                    !(tab.hiddenColumns as readonly string[]).includes(col.id)
-                )}
+                columns={columns
+                  .filter(
+                    (col) =>
+                      !(tab.hiddenColumns as readonly string[]).includes(col.id)
+                  )
+                  .map((col) =>
+                    tab.id === 'pdb' && col.id === 'id'
+                      ? { ...col, label: pdbIdentifierLabel }
+                      : col
+                  )}
                 getRowId={(row) => row.rowKey}
                 onRowClick={handleRowClick}
                 markBackground={(row) => row.id === selectedId}
