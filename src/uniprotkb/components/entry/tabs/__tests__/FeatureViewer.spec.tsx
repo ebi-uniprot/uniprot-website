@@ -213,6 +213,7 @@ describe('FeatureViewer tooltips', () => {
           end: 99,
           accession: 'PF13837',
           name: 'Myb_DNA-bind_4',
+          // eslint-disable-next-line camelcase -- InterPro API field name
           source_database: 'pfam',
           integrated: null,
         },
