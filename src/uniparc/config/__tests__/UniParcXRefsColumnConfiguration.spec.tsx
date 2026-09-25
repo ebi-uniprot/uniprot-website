@@ -375,3 +375,53 @@ describe('Links column destinations', () => {
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 });
+
+describe('Identifier column external link', () => {
+  const templateMap = new Map([
+    ['EMBL', 'https://www.ebi.ac.uk/ena/browser/view/%id'],
+  ]);
+
+  const renderIdentifierCell = (xref: UniParcXRef) => {
+    const column = getUniParcXRefsColumns(
+      [UniParcXRefsColumn.accession],
+      templateMap,
+      'UPI0000000001'
+    ).find(({ name }) => name === UniParcXRefsColumn.accession);
+    return customRender(<div>{column?.render(xref)}</div>);
+  };
+
+  it('links an active external identifier out to the source database', () => {
+    renderIdentifierCell({ database: 'EMBL', id: 'AAB12345', active: true });
+
+    expect(screen.getByRole('link', { name: /AAB12345/ })).toHaveAttribute(
+      'href',
+      'https://www.ebi.ac.uk/ena/browser/view/AAB12345'
+    );
+  });
+
+  it('does not link an obsolete external identifier', () => {
+    renderIdentifierCell({ database: 'EMBL', id: 'AAB12345', active: false });
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+  it('does not link an active identifier with no URL template', () => {
+    renderIdentifierCell({
+      database: 'DatabaseWithNoTemplate',
+      id: 'XYZ123',
+      active: true,
+    });
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+  it('does not link a UniProtKB identifier', () => {
+    renderIdentifierCell({
+      database: 'UniProtKB/Swiss-Prot',
+      id: 'P12345',
+      active: true,
+    });
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+});

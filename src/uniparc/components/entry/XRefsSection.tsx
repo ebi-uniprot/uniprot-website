@@ -52,12 +52,12 @@ const XRefsSection = ({ entryData }: Props) => {
 
   const xRefDataObject = usePagination<UniParcXRef, UniParcXRef>(initialApiUrl);
 
-  // The "Go to" column turns a database name into an outbound URL through this
-  // map. It is a separate request from the xrefs one, so the table is not held
-  // back for it: only obsolete external cross-references need a template (an
-  // active one links to its sub-entry page, which is built from the row
-  // itself), and those cells fill in when it lands. If it never does, they stay
-  // unlinked — which is what they looked like before this column existed.
+  // The identifier and "Go to" columns turn a database name into an outbound
+  // URL through this map. It is a separate request from the xrefs one, so the
+  // table is not held back for it: every row renders without it (an active
+  // external reference's "Go to" links to its sub-entry page, built from the
+  // row itself), and the outbound links fill in when it lands. If it never
+  // does, those cells stay unlinked.
   const { data: dataDB } = useDataApi<DataDBModel>(
     apiUrls.configure.allDatabases(Namespace.uniparc)
   );

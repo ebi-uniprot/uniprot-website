@@ -994,9 +994,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    YP_232970
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/protein/YP_232970"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      YP_232970
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1048,9 +1059,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    YP_010509298
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/protein/YP_010509298"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      YP_010509298
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1307,9 +1329,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AAO89367
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/AAO89367"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      AAO89367
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1372,9 +1405,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    CAD90637
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/CAD90637"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      CAD90637
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1437,9 +1481,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AAS49790
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/AAS49790"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      AAS49790
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1502,9 +1557,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    ABH08195
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/ABH08195"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      ABH08195
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1567,9 +1633,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    ADZ29210
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/ADZ29210"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      ADZ29210
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1632,9 +1709,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AGJ91256
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/AGJ91256"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      AGJ91256
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1697,9 +1785,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AGJ92346
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/AGJ92346"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      AGJ92346
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1762,9 +1861,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AIX99207
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/AIX99207"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      AIX99207
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1827,9 +1937,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    AIX99412
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/AIX99412"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      AIX99412
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a
@@ -1892,9 +2013,20 @@ exports[`XrefSection component should render the xref table properly and match s
                   </span>
                 </td>
                 <td>
-                  <span>
-                    ALF05084
-                  </span>
+                  <a
+                    class="external-link"
+                    href="https://www.ebi.ac.uk/ena/browser/view/ALF05084"
+                    rel="noopener nofollow"
+                    target="_blank"
+                  >
+                    <span>
+                      ALF05084
+                    </span>
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
                 </td>
                 <td>
                   <a

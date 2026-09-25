@@ -81,8 +81,8 @@ describe('XrefSection component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  // Only obsolete external cross-references need the database templates, so the
-  // card is not held behind that request — it would otherwise show a loader
+  // The database templates only add outbound links, so the card is not held
+  // behind that request — it would otherwise show a loader
   // stuck at a completed progress bar, waiting on something the xrefs don't
   // need.
   it('renders the table before the database templates arrive', () => {

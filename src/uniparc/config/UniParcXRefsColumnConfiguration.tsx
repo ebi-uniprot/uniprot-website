@@ -108,10 +108,11 @@ const uniProtKBDatabases = new Set<string>([
 const isUniProtKBXRef = (xref: UniParcXRef) =>
   Boolean(xref.database && uniProtKBDatabases.has(xref.database));
 
-UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
-  label: 'Identifier',
-  tooltip: 'The identifier as it appears in the source database.',
-  render: (xref) => {
+// Active external identifiers link out to the source database; the rest stay
+// plain text, with the "Go to" column carrying their links
+const getAccessionColumn =
+  (templateMap: Map<string, string> = new Map()) =>
+  (xref: UniParcXRef) => {
     if (!xref.id) {
       return null;
     }
@@ -122,7 +123,17 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
       </span>
     );
     if (!isUniProtKBXRef(xref)) {
-      return identifier;
+      const template =
+        xref.active && xref.database && templateMap.get(xref.database);
+      if (!template) {
+        return identifier;
+      }
+      const id = getXrefId(xref.id, xref.database as string);
+      return (
+        <ExternalLink url={template.replace('%id', id)} rel="nofollow">
+          {identifier}
+        </ExternalLink>
+      );
     }
     // Basket status sits outside the dimmed span
     return (
@@ -131,7 +142,12 @@ UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
         <BasketStatus id={xref.id} />
       </span>
     );
-  },
+  };
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
+  label: 'Identifier',
+  tooltip: 'The identifier as it appears in the source database.',
+  render: getAccessionColumn(),
 });
 
 // Every link in this column is labelled by where it goes, so on a table with
@@ -172,8 +188,8 @@ const subEntryLink = (
   </Link>
 );
 
-// The identifier column above is just text (plus basket status) now; this
-// column spells out every page a cross-reference can be opened on, so each
+// The identifier column above is text (plus basket status, or an external link
+// for active external references); this column spells out every page a cross-reference can be opened on, so each
 // link's label says where it leads:
 //   - active UniProtKB entries -> the UniProtKB entry
 //   - obsolete reviewed entries -> the UniProtKB history page (the record is
@@ -458,6 +474,14 @@ export const getUniParcXRefsColumns = (
             logging.warn(message);
             return <div className="warning">{message}</div>;
           },
+        };
+      }
+      // Identifier links out through the current template map
+      if (name === UniParcXRefsColumn.accession) {
+        return {
+          name,
+          ...descriptor,
+          render: getAccessionColumn(templateMap),
         };
       }
       // In case of timeline column, replace with the current template map
