@@ -227,8 +227,8 @@ importers:
         specifier: 7.0.6
         version: 7.0.6
       protvista-uniprot:
-        specifier: file:.yalc/protvista-uniprot
-        version: file:.yalc/protvista-uniprot(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
+        specifier: 5.0.0-beta.2
+        version: 5.0.0-beta.2(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -7615,8 +7615,8 @@ packages:
   protvista-tooltip@3.8.22:
     resolution: {integrity: sha512-Ts0ddqbSRn/99DOJB1A28e4TGw6IPZsK5SB5herkkyZan67yh2YIGZiq2/W96RQkC+9ZdPjKfr/yop5UGtvGlQ==}
 
-  protvista-uniprot@file:.yalc/protvista-uniprot:
-    resolution: {directory: .yalc/protvista-uniprot, type: directory}
+  protvista-uniprot@5.0.0-beta.2:
+    resolution: {integrity: sha512-Ur/tyAuZCM0hiD5eDv//vgfiH5u/o8pm3K3qpC7150wX+2Ahm/EGESCCjbv8araZ3fYb24IN+COkvTGXvJQgpg==}
 
   proxy-addr@2.0.8:
     resolution: {integrity: sha512-5nnx0yGyVUcY6t9RnWcARWtwT9F1D8O9rt08htPvnd49W1IgZtmLkhu9WfMzQj1cFxjHIO6connUNVW5k7AVyQ==}
@@ -18409,7 +18409,7 @@ snapshots:
       lit-element: 2.5.1
       lodash-es: 4.18.1
 
-  protvista-uniprot@file:.yalc/protvista-uniprot(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1):
+  protvista-uniprot@5.0.0-beta.2(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1):
     dependencies:
       '@floating-ui/dom': 1.8.0
       '@markdoc/markdoc': 0.5.10(@types/react@19.2.17)(react@19.2.8)
