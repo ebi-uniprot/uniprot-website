@@ -1,125 +1,56 @@
-import * as logging from '../../../shared/utils/logging';
-import featureTooltip from './featureTooltip';
+import featureTooltip, { type TooltipFeature } from './featureTooltip';
 import interproTooltip from './interproTooltip';
-import proteomicsAdapter from './proteomicsAdapter';
-import proteomicsPtmAdapter from './proteomicsPtmAdapter';
+import { peptidePtmTooltip, peptideTooltip } from './peptideTooltip';
 import rnaEditingTooltip from './rnaEditingTooltip';
 import structureTooltip from './structureTooltip';
 import variationTooltip from './variationTooltip';
 
-type Payload = Record<string, unknown>;
+/** What a builder may need that the clicked feature doesn't carry. */
+export type TooltipContext = { sequence: string };
 
-// Keyed by protvista-uniprot v5 semantic `kind`. A kind absent from this map
-// falls back to the library's own `feature.tooltipContent`.
-// `peptides` and `peptides-ptm` are absent on purpose. Their rich tooltips
-// depend on data the built-in adapters discard (the raw `PROTEOMICS_PTM` type,
-// the response `taxid`, the `ptms` payload), so they are pre-computed by our
-// replacement adapters and reach us through that fallback instead of being
-// rebuilt here from an already-flattened feature. See `registerRichAdapters`.
-//
-// `claims` disambiguates a collapsed group, whose single aggregate track mixes
-// features from every track in the group (DOMAINS pairs `features` with
-// `features-interpro`, PTM pairs `features` with `peptides-ptm`, …). Order is
-// most specific first: the first kind offered by the row that claims the
-// feature wins. The `never` parameter lets builders with unrelated payload
-// types share one map; the payload is only known at runtime.
-const tooltipBuilders: Array<{
-  kind: string;
-  build: (feature: never) => string;
-  claims: (feature: Payload) => boolean;
-}> = [
-  {
-    kind: 'features-interpro',
-    build: interproTooltip,
-    claims: (f) =>
-      f.type === 'InterPro Representative Domain' ||
-      (typeof f.source_database === 'string' &&
-        typeof f.accession === 'string'),
-  },
-  {
-    kind: 'rna-editing',
-    build: rnaEditingTooltip,
-    claims: (f) => Boolean(f.variantType),
-  },
-  {
-    kind: 'structure-coverage',
-    build: structureTooltip,
-    claims: (f) => Array.isArray(f.structures),
-  },
-  {
-    kind: 'variants',
-    build: variationTooltip,
-    claims: (f) => 'wildType' in f,
-  },
-  {
-    kind: 'features',
-    build: featureTooltip,
-    // MOD_RES_LS carries richer content pre-computed by our PTM adapter, so
-    // leave it to that rather than flattening it to a plain feature.
-    claims: (f) => f.type !== 'MOD_RES_LS',
-  },
-];
+type Builder = (feature: object, context: TooltipContext) => string;
+
+// The only place protvista-uniprot's untyped feature is narrowed. The site,
+// not the library, owns the shape each builder reads; the try/catch in
+// getTooltipContent covers a payload that doesn't match.
+const builder =
+  <T>(build: (feature: T, context: TooltipContext) => string): Builder =>
+  (feature, context) =>
+    build(feature as T, context);
+
+// Keyed by the protvista-uniprot semantic `kind` of the track a feature came
+// from. A kind absent from this map falls back to the library's own
+// `feature.tooltipContent`.
+const tooltipBuilders = new Map<string, Builder>([
+  // featureTooltip's second parameter is a taxon id, not the context
+  ['features', builder((feature: TooltipFeature) => featureTooltip(feature))],
+  ['interpro-features', builder(interproTooltip)],
+  ['peptides', builder(peptideTooltip)],
+  ['peptides-ptm', builder(peptidePtmTooltip)],
+  ['rna-editing', builder(rnaEditingTooltip)],
+  ['structure-coverage', builder(structureTooltip)],
+  ['variants', builder(variationTooltip)],
+]);
 
 /**
- * @param kinds the semantic kind of the clicked track, or — for a collapsed
- *   group — every kind that group can contain.
+ * @param kind the semantic kind of the track the feature came from — for a
+ *   collapsed group, the feature's own source track, not the group's.
  */
 export const getTooltipContent = (
-  kinds: string | readonly string[] | undefined,
-  feature: unknown
+  kind: string | null | undefined,
+  feature: unknown,
+  context: TooltipContext
 ): string | undefined => {
-  if (!kinds || !feature || typeof feature !== 'object') {
-    return undefined;
-  }
-  const offered = new Set(typeof kinds === 'string' ? [kinds] : kinds);
-  const match = tooltipBuilders.find(
-    ({ kind, claims }) => offered.has(kind) && claims(feature as Payload)
-  );
-  if (!match) {
+  const build = kind ? tooltipBuilders.get(kind) : undefined;
+  if (!build || !feature || typeof feature !== 'object') {
     return undefined;
   }
   try {
-    return match.build(feature as never);
+    return build(feature, context);
   } catch {
-    // A payload shape we don't recognise: let the caller fall back.
+    // A payload shape we don't recognise: let the caller fall back
     return undefined;
   }
 };
 
 export { default as featureTooltip } from './featureTooltip';
-
-/** Built-in adapters we replace. Each built-in may be overridden exactly once. */
-const richAdapters = {
-  'uniprot-proteomics-json': proteomicsAdapter,
-  'uniprot-proteomics-ptm-json': proteomicsPtmAdapter,
-};
-
-type AdapterHost = {
-  registerAdapter: (name: string, fn: (...raw: unknown[]) => unknown) => void;
-};
-
-// Each viewer holds its own registry, which grants exactly one override per
-// built-in. StrictMode re-runs ref callbacks against the same element, so
-// without this the second pass would throw RegistryCollisionError.
-const alreadyRegistered = new WeakSet<AdapterHost>();
-
-/**
- * Swap in the adapters whose output the site needs richer than the library's.
- * Must run before the viewer loads data — i.e. while it is still `suspend`ed.
- * Idempotent per element.
- */
-export const registerRichAdapters = (host: AdapterHost) => {
-  if (alreadyRegistered.has(host)) {
-    return;
-  }
-  alreadyRegistered.add(host);
-  for (const [name, adapter] of Object.entries(richAdapters)) {
-    try {
-      host.registerAdapter(name, adapter);
-    } catch (error) {
-      // The viewer still works with the built-in adapter, so a failed
-      // registration must never block the mount.
-      logging.warn(`Could not register a custom '${name}' adapter: ${error}`);
-    }
-  }
-};

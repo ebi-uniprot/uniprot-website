@@ -6,7 +6,10 @@ import {
   Tab,
   Tabs,
 } from 'franklin-sites';
-import { type ProtvistaUniprotStructure } from 'protvista-uniprot';
+import {
+  type ProcessedStructureData,
+  type ProtvistaUniprotStructure,
+} from 'protvista-uniprot';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -76,8 +79,8 @@ const StructureView = ({
     /* istanbul ignore next */
     () =>
       import(
-        /* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'
-      ).then((module) => ({ default: module.ProtvistaUniprotStructure })),
+        /* webpackChunkName: "protvista-uniprot-structure" */ 'protvista-uniprot/structure'
+      ),
     'protvista-uniprot-structure'
   );
 
