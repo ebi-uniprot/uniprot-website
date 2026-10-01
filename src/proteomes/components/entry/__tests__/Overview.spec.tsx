@@ -35,7 +35,7 @@ describe('Overview', () => {
     customRender(<Overview data={data} />);
 
     const link = await screen.findByRole('link', {
-      name: 'Download predicted annotations',
+      name: '13,794',
     });
     expect(link).toHaveAttribute(
       'href',
@@ -59,7 +59,7 @@ describe('Overview', () => {
     customRender(<Overview data={data} />);
 
     const link = await screen.findByRole('link', {
-      name: 'Download predicted annotations',
+      name: '500',
     });
     expect(link).toHaveAttribute(
       'href',
@@ -78,9 +78,7 @@ describe('Overview', () => {
 
     customRender(<Overview data={data} />);
 
-    expect(
-      screen.queryByRole('link', { name: 'Download predicted annotations' })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('predicted annotations')).not.toBeInTheDocument();
     expect(mock.history.head).toHaveLength(0);
   });
 
@@ -101,9 +99,7 @@ describe('Overview', () => {
 
     await settle();
 
-    expect(
-      screen.queryByRole('link', { name: 'Download predicted annotations' })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('predicted annotations')).not.toBeInTheDocument();
   });
 
   it('does not render download link or fire probe when proteinCount is 0', () => {
@@ -117,9 +113,7 @@ describe('Overview', () => {
 
     customRender(<Overview data={data} />);
 
-    expect(
-      screen.queryByRole('link', { name: 'Download predicted annotations' })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('predicted annotations')).not.toBeInTheDocument();
     expect(mock.history.head).toHaveLength(0);
   });
 });

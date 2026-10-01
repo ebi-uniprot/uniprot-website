@@ -90,9 +90,10 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
       content: (
         <>
           {renderColumnContent(ProteomesColumn.proteinCount)}
+          <br />
+          Download{' '}
           {precomputedCount > 0 ? (
             <>
-              {' '}
               <a
                 href={uniparcApiUrls.precomputedProteomeAnnotations(data.id, {
                   stream: true,
@@ -100,8 +101,11 @@ const Overview = ({ data }: { data: ProteomesUIModel }) => {
                   download: true,
                 })}
               >
-                Download predicted annotations
-              </a>
+                <LongNumber>{precomputedCount}</LongNumber>
+              </a>{' '}
+              <span data-article-id="explore_proteomes">
+                predicted annotations
+              </span>
             </>
           ) : null}
         </>
