@@ -450,7 +450,9 @@ const getConfigFor = ({
             chunks: 'all',
           },
           nightingale: {
-            test: /[\\/]node_modules[\\/](protvista-|nightingale-)/,
+            // protvista-uniprot is excluded so its lazy entry points (viewer,
+            // structure, config) keep their own chunks
+            test: /[\\/]node_modules[\\/](protvista-(?!uniprot[\\/])|nightingale-)/,
             name: 'nightingale',
             chunks: 'all',
           },

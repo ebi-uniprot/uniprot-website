@@ -33,6 +33,10 @@ const tooltipBuilders = new Map<string, Builder>([
 ]);
 
 /**
+ * Returns undefined when the kind has no builder, there is no feature, or the
+ * builder throws or produces nothing, so the caller can fall back to the
+ * library's own `tooltipContent`.
+ *
  * @param kind the semantic kind of the track the feature came from — for a
  *   collapsed group, the feature's own source track, not the group's.
  */
@@ -46,7 +50,8 @@ export const getTooltipContent = (
     return undefined;
   }
   try {
-    return build(feature, context);
+    // A builder that swallows its own error returns ''
+    return build(feature, context) || undefined;
   } catch {
     // A payload shape we don't recognise: let the caller fall back
     return undefined;

@@ -26,6 +26,19 @@ export const escapeHtml = (str: unknown): string => {
   return String(str).replace(ESCAPE_RE, (ch) => ESCAPE_MAP[ch]);
 };
 
+const UNESCAPE_MAP: Record<string, string> = Object.fromEntries(
+  Object.entries(ESCAPE_MAP).map(([ch, entity]) => [entity, ch])
+);
+
+const UNESCAPE_RE = /&(?:amp|lt|gt|quot|#39);/g;
+
+/**
+ * Reverse escapeHtml, for API values that may arrive already entity-encoded,
+ * so they can be escaped exactly once. Single pass: '&amp;lt;' becomes '&lt;'.
+ */
+export const unescapeHtml = (str: string): string =>
+  str.replace(UNESCAPE_RE, (entity) => UNESCAPE_MAP[entity]);
+
 const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
 
 /**

@@ -7,7 +7,7 @@ import {
   sumoylate,
   ubiquitinate,
 } from './ptmTooltip';
-import { escapeHtml, sanitizeUrl } from './security';
+import { escapeHtml, sanitizeUrl, unescapeHtml } from './security';
 
 // Original mapping in src/main/java/uk/ac/ebi/uniprot/tools/proteomics/reader/ptm/PtmXchangeTsvReader.java.
 // from the GitLab repository https://gitlab.ebi.ac.uk/uniprot/framework/unp.fw.tools/
@@ -222,18 +222,28 @@ const formatPTMPeptidoform = (peptide: string, ptms: PTMHighlight[]) => {
   return peptidoform;
 };
 
+// The API may send modification names entity-encoded (the mapping's keys are),
+// so decode first and escape every piece exactly once
 const formatProformaWithLink = (proforma = '') =>
-  proforma.replace(/\[([^\]]+)\]/g, (_, modification) => {
-    const id =
-      unimodIdMapping[
-        modification.toLowerCase() as keyof typeof unimodIdMapping
-      ];
-    if (!id) {
-      logging.error(`Unimod ID not found for modification: ${modification}`);
-      return `[${modification}]`;
-    }
-    return `<span class="mod-link">[<a href="https://www.unimod.org/modifications_view.php?editid1=${id}" target="_blank">${modification}</a>]</span>`;
-  });
+  unescapeHtml(proforma)
+    .split(/(\[[^\]]+\])/)
+    .map((part) => {
+      const match = /^\[([^\]]+)\]$/.exec(part);
+      if (!match) {
+        return escapeHtml(part);
+      }
+      const modification = escapeHtml(match[1]);
+      const id =
+        unimodIdMapping[
+          modification.toLowerCase() as keyof typeof unimodIdMapping
+        ];
+      if (!id) {
+        logging.error(`Unimod ID not found for modification: ${match[1]}`);
+        return `[${modification}]`;
+      }
+      return `<span class="mod-link">[<a href="https://www.unimod.org/modifications_view.php?editid1=${id}" target="_blank">${modification}</a>]</span>`;
+    })
+    .join('');
 
 const findModifiedResidueName = (
   feature: TooltipFeature,

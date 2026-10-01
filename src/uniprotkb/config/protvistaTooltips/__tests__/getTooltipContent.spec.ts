@@ -58,4 +58,15 @@ describe('getTooltipContent', () => {
       getTooltipContent('structure-coverage', { structures: 42 }, context)
     ).toBeUndefined();
   });
+
+  it('returns undefined when the builder produces nothing', () => {
+    // featureTooltip catches the error from the malformed xrefs and returns ''
+    expect(
+      getTooltipContent(
+        'features',
+        { type: 'SIGNAL', start: 1, end: 24, xrefs: [null] },
+        context
+      )
+    ).toBeUndefined();
+  });
 });

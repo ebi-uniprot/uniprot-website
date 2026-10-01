@@ -221,8 +221,9 @@ export const showTooltipAtCoordinates = (
 
   function interactionHandler(e?: Event) {
     const target = e?.target as Node | null;
+    // called without an event: hide unconditionally (e.g. on unmount).
     // if scroll/wheel is within the tooltip element, do not remove the tooltip
-    if (target && !tooltip.contains(target)) {
+    if (!e || (target && !tooltip.contains(target))) {
       tooltip?.remove();
       cleanup?.();
       document.body.removeEventListener('click', interactionHandler, true);

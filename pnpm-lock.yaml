@@ -227,8 +227,8 @@ importers:
         specifier: 7.0.6
         version: 7.0.6
       protvista-uniprot:
-        specifier: 5.0.0-beta.2
-        version: 5.0.0-beta.2(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
+        specifier: file:.yalc/protvista-uniprot
+        version: file:.yalc/protvista-uniprot(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -6443,6 +6443,10 @@ packages:
     resolution: {integrity: sha512-SFNOvSJ+Dgf/9An904Yx+CgSlIPCkIpao4qo51lpee25TIRejdH3rhR4EZMGoNx3/TP3O+wzWuiTFl4sqbltzA==}
     hasBin: true
 
+  js-yaml@5.4.2:
+    resolution: {integrity: sha512-m+aqu+LwO1O6sIopafj8HUVl5aawITwZQe/yHpMCKjaWBaA/d07B/QdMb3529REftiU+RMMHL3Vlsw3hON7vWg==}
+    hasBin: true
+
   jsdom@26.1.0:
     resolution: {integrity: sha512-Cvc9WUhxSMEo4McES3P7oK3QaXldCfNWp7pl2NNeiIFlCoLr3kfq9kb1fxftiwk1FLV7CvpvDfonxtzUDeSOPg==}
     engines: {node: '>=18'}
@@ -7615,8 +7619,13 @@ packages:
   protvista-tooltip@3.8.22:
     resolution: {integrity: sha512-Ts0ddqbSRn/99DOJB1A28e4TGw6IPZsK5SB5herkkyZan67yh2YIGZiq2/W96RQkC+9ZdPjKfr/yop5UGtvGlQ==}
 
-  protvista-uniprot@5.0.0-beta.2:
-    resolution: {integrity: sha512-Ur/tyAuZCM0hiD5eDv//vgfiH5u/o8pm3K3qpC7150wX+2Ahm/EGESCCjbv8araZ3fYb24IN+COkvTGXvJQgpg==}
+  protvista-uniprot@file:.yalc/protvista-uniprot:
+    resolution: {directory: .yalc/protvista-uniprot, type: directory}
+    peerDependencies:
+      '@types/react': '>=19'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   proxy-addr@2.0.8:
     resolution: {integrity: sha512-5nnx0yGyVUcY6t9RnWcARWtwT9F1D8O9rt08htPvnd49W1IgZtmLkhu9WfMzQj1cFxjHIO6connUNVW5k7AVyQ==}
@@ -17032,6 +17041,10 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
+  js-yaml@5.4.2:
+    dependencies:
+      argparse: 2.0.1
+
   jsdom@26.1.0(supports-color@8.1.1):
     dependencies:
       cssstyle: 4.6.0
@@ -18409,7 +18422,7 @@ snapshots:
       lit-element: 2.5.1
       lodash-es: 4.18.1
 
-  protvista-uniprot@5.0.0-beta.2(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1):
+  protvista-uniprot@file:.yalc/protvista-uniprot(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1):
     dependencies:
       '@floating-ui/dom': 1.8.0
       '@markdoc/markdoc': 0.5.10(@types/react@19.2.17)(react@19.2.8)
@@ -18425,11 +18438,12 @@ snapshots:
       '@nightingale-elements/nightingale-variation-canvas': 5.10.1
       ajv: 8.20.0
       color-hash: 2.0.2
-      js-yaml: 4.3.2
+      js-yaml: 5.4.2
       lit: 3.3.3
       timing-functions: 2.0.1
+    optionalDependencies:
+      '@types/react': 19.2.17
     transitivePeerDependencies:
-      - '@types/react'
       - bluebird
       - encoding
       - fp-ts

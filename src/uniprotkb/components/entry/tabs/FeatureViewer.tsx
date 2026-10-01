@@ -162,6 +162,27 @@ const FeatureViewer = ({
     );
   }
 
+  let viewer;
+  if (protvistaUniprotElement.errored) {
+    viewer = (
+      <Message level="failure">
+        The feature viewer could not be loaded. Please try reloading the page.
+      </Message>
+    );
+  } else if (!protvistaUniprotElement.defined) {
+    viewer = <Loader />;
+  } else {
+    viewer = (
+      <ZoomHint>
+        <protvistaUniprotElement.name
+          accession={accession}
+          notooltip
+          ref={protvistaUniprotRefCallback}
+        />
+      </ZoomHint>
+    );
+  }
+
   const shouldRender =
     (importedVariants !== 'loading' &&
       importedVariants <= VARIANT_COUNT_LIMIT) ||
@@ -184,13 +205,7 @@ const FeatureViewer = ({
       )}
 
       {shouldRender ? (
-        <ZoomHint>
-          <protvistaUniprotElement.name
-            accession={accession}
-            notooltip
-            ref={protvistaUniprotRefCallback}
-          />
-        </ZoomHint>
+        viewer
       ) : (
         <div className={tabsStyles['too-many']}>
           <Message>

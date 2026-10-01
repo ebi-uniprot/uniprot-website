@@ -2,10 +2,22 @@ import { screen } from '@testing-library/react';
 import { type ProtvistaTrackOrigin } from 'protvista-uniprot';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
+import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import FeatureViewer from '../FeatureViewer';
 
 jest.mock('../../../../../shared/hooks/useDataApi');
+
+const elementDefined = (_: unknown, name: string) => ({
+  defined: true,
+  errored: false,
+  name,
+});
+
+jest.mock('../../../../../shared/hooks/useCustomElement', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 // Defined up front so the viewer renders straight away rather than waiting on
 // the lazy import of the (mocked) element
@@ -46,9 +58,19 @@ const clickFeature = (detail: Record<string, unknown>) => {
 const tooltipHTML = () =>
   document.querySelector('[role="tooltip"]')?.innerHTML ?? '';
 
+const tooltipCount = () => document.querySelectorAll('[role="tooltip"]').length;
+
+const signalFeature = {
+  type: 'SIGNAL',
+  start: 1,
+  end: 24,
+  description: 'Signal peptide',
+};
+
 describe('FeatureViewer tooltips', () => {
   beforeEach(() => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: false, status: 200 });
+    (useCustomElement as jest.Mock).mockImplementation(elementDefined);
   });
 
   afterEach(() => {
@@ -237,6 +259,85 @@ describe('FeatureViewer tooltips', () => {
     });
 
     expect(tooltipHTML()).toContain('SIGNAL 1-24');
+  });
+
+  it('hides the tooltip when the viewer unmounts', () => {
+    const { unmount } = renderFeatureViewer();
+    clickFeature({ track: signalTrack, feature: signalFeature });
+    expect(tooltipCount()).toBe(1);
+
+    unmount();
+
+    expect(tooltipCount()).toBe(0);
+  });
+
+  it('hides the tooltip on a reset event', () => {
+    renderFeatureViewer();
+    clickFeature({ track: signalTrack, feature: signalFeature });
+    expect(tooltipCount()).toBe(1);
+
+    clickFeature({ eventType: 'reset' });
+
+    expect(tooltipCount()).toBe(0);
+  });
+
+  // The listener depends on the sequence, so it is re-bound when it changes
+  it('keeps a single listener when the sequence changes', () => {
+    const { rerender } = renderFeatureViewer();
+    rerender(
+      <FeatureViewer
+        accession="P05067"
+        importedVariants={0}
+        sequence={'A'.repeat(200)}
+      />
+    );
+
+    clickFeature({ track: signalTrack, feature: signalFeature });
+
+    expect(tooltipCount()).toBe(1);
+  });
+
+  it('falls back to the library tooltipContent when our builder produces nothing', () => {
+    renderFeatureViewer();
+
+    clickFeature({
+      track: signalTrack,
+      // featureTooltip swallows the error from the malformed xrefs and
+      // returns ''
+      feature: {
+        ...signalFeature,
+        xrefs: [null],
+        tooltipContent: '<h5>Library</h5>',
+      },
+    });
+
+    expect(tooltipHTML()).toContain('Library');
+  });
+
+  it('shows a loader while the viewer is being loaded', () => {
+    (useCustomElement as jest.Mock).mockImplementation((_, name) => ({
+      defined: false,
+      errored: false,
+      name,
+    }));
+    renderFeatureViewer();
+
+    expect(document.querySelector('protvista-uniprot')).toBeNull();
+    expect(document.querySelector('.loader-container')).not.toBeNull();
+  });
+
+  it('shows an error when the viewer fails to load', () => {
+    (useCustomElement as jest.Mock).mockImplementation((_, name) => ({
+      defined: false,
+      errored: true,
+      name,
+    }));
+    renderFeatureViewer();
+
+    expect(document.querySelector('protvista-uniprot')).toBeNull();
+    expect(
+      screen.getByText(/feature viewer could not be loaded/)
+    ).toBeInTheDocument();
   });
 
   it('does not render the viewer when there is no feature data', () => {
