@@ -6,7 +6,7 @@ import {
 import { type Virtualizer } from '@tanstack/react-virtual';
 import cn from 'classnames';
 import { EllipsisReveal, Loader } from 'franklin-sites';
-import { filterConfig } from 'protvista-uniprot';
+import { filterConfig } from 'protvista-uniprot/config';
 import {
   Fragment,
   lazy,

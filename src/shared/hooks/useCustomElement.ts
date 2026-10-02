@@ -52,6 +52,7 @@ const useCustomElement: UseCustomElement = (customElementGetter, name) => {
       .catch((error) => {
         // network/loading error
         logging.error(error);
+        setErrored(true);
       });
   }, [name, setDefined, setErrored]);
 

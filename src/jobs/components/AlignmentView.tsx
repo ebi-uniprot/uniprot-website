@@ -1,10 +1,10 @@
 import './styles/AlignmentView.scss';
 
 import { TreeSelect } from 'franklin-sites';
-import { getFeatureTooltip } from 'protvista-uniprot';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { showTooltipAtCoordinates } from '../../shared/utils/tooltip';
+import { featureTooltip } from '../../uniprotkb/config/protvistaTooltips';
 import type FeatureType from '../../uniprotkb/types/featureType';
 import {
   colorSchemeTree,
@@ -231,7 +231,7 @@ const AlignmentView = ({
       hideTooltip.current = showTooltipAtCoordinates(
         x,
         y - yOffset,
-        getFeatureTooltip(preparedFeature)
+        featureTooltip(preparedFeature)
       );
     },
     [alignment, containerSelector]

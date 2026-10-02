@@ -1,4 +1,6 @@
 import { Loader, Message } from 'franklin-sites';
+import type ProtvistaUniprot from 'protvista-uniprot';
+import { type ProtvistaChangeEvent } from 'protvista-uniprot';
 import { use, useCallback, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -11,6 +13,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { showTooltipAtCoordinates } from '../../../../shared/utils/tooltip';
 import { type UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
+import { getTooltipContent } from '../../../config/protvistaTooltips';
 import { TabLocation } from '../../../types/entry';
 import NightingaleZoomTool from '../../protein-data-views/NightingaleZoomTool';
 import tabsStyles from './styles/tabs-styles.module.scss';
@@ -29,7 +32,7 @@ const FeatureViewer = ({
   importedVariants: number | 'loading';
   sequence: string;
 }) => {
-  const protvistaUniprotRef = useRef<HTMLElement>(null);
+  const protvistaUniprotRef = useRef<ProtvistaUniprot>(null);
   const hideTooltip = useRef<ReturnType<
     typeof showTooltipAtCoordinates
   > | null>(null);
@@ -47,32 +50,45 @@ const FeatureViewer = ({
     'protvista-uniprot'
   );
 
-  const onProtvistaUniprotChange = useCallback((e: Event) => {
-    const { detail } = e as CustomEvent;
-    if (hideTooltipEvents.has(detail?.eventType)) {
-      hideTooltip.current?.();
-    }
-    if (
-      detail?.eventType === 'click' &&
-      detail?.feature?.tooltipContent &&
-      e.target
-    ) {
+  const onProtvistaUniprotChange = useCallback(
+    (e: Event) => {
+      const { detail } = e as ProtvistaChangeEvent;
+      if (hideTooltipEvents.has(detail?.eventType)) {
+        hideTooltip.current?.();
+      }
+      if (detail?.eventType !== 'click' || !detail.feature || !detail.coords) {
+        return;
+      }
+      // A collapsed group reports its own row; the feature carries the track
+      // it came from
+      const kind = detail.track?.sourceKind ?? detail.track?.kind;
+      const content =
+        getTooltipContent(kind, detail.feature, { sequence }) ??
+        detail.feature.tooltipContent ??
+        '';
+      if (!content) {
+        return;
+      }
       const [x, y] = detail.coords;
-      hideTooltip.current = showTooltipAtCoordinates(
-        x,
-        y,
-        detail.feature.tooltipContent
-      );
-    }
-  }, []);
+      hideTooltip.current = showTooltipAtCoordinates(x, y, content);
+    },
+    [sequence]
+  );
 
-  useEffect(() => {
-    const ref = protvistaUniprotRef.current;
-    ref?.addEventListener('change', onProtvistaUniprotChange);
-    return () => {
-      ref?.removeEventListener('change', onProtvistaUniprotChange);
-    };
-  }, [onProtvistaUniprotChange, protvistaUniprotElement]);
+  // A callback ref, not an effect: the viewer is rendered behind a loading
+  // gate, so on the first pass it is not in the DOM yet and a mount-time effect
+  // would bind its listener to nothing and never re-run.
+  const protvistaUniprotRefCallback = useCallback(
+    (node: ProtvistaUniprot | null) => {
+      protvistaUniprotRef.current = node;
+      node?.addEventListener('change', onProtvistaUniprotChange);
+      return () => {
+        node?.removeEventListener('change', onProtvistaUniprotChange);
+        protvistaUniprotRef.current = null;
+      };
+    },
+    [onProtvistaUniprotChange]
+  );
 
   // Dismiss any lingering tooltip when the viewer unmounts
   useEffect(
@@ -146,6 +162,27 @@ const FeatureViewer = ({
     );
   }
 
+  let viewer;
+  if (protvistaUniprotElement.errored) {
+    viewer = (
+      <Message level="failure">
+        The feature viewer could not be loaded. Please try reloading the page.
+      </Message>
+    );
+  } else if (!protvistaUniprotElement.defined) {
+    viewer = <Loader />;
+  } else {
+    viewer = (
+      <ZoomHint>
+        <protvistaUniprotElement.name
+          accession={accession}
+          notooltip
+          ref={protvistaUniprotRefCallback}
+        />
+      </ZoomHint>
+    );
+  }
+
   const shouldRender =
     (importedVariants !== 'loading' &&
       importedVariants <= VARIANT_COUNT_LIMIT) ||
@@ -168,12 +205,7 @@ const FeatureViewer = ({
       )}
 
       {shouldRender ? (
-        <ZoomHint>
-          <protvistaUniprotElement.name
-            accession={accession}
-            ref={protvistaUniprotRef}
-          />
-        </ZoomHint>
+        viewer
       ) : (
         <div className={tabsStyles['too-many']}>
           <Message>

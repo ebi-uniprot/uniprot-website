@@ -79,8 +79,8 @@ const StructureView = ({
     /* istanbul ignore next */
     () =>
       import(
-        /* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'
-      ).then((module) => ({ default: module.ProtvistaUniprotStructure })),
+        /* webpackChunkName: "protvista-uniprot-structure" */ 'protvista-uniprot/structure'
+      ),
     'protvista-uniprot-structure'
   );
 
@@ -360,7 +360,7 @@ const StructureView = ({
         accession={primaryAccession}
         checksum={checksum}
         sequence={sequence}
-        noTable
+        no-table
       />
       {!viewerOnly && loading && <Loader />}
       {!viewerOnly && !loading && structures.length === 0 && (
