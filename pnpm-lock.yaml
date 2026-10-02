@@ -227,8 +227,8 @@ importers:
         specifier: 7.0.6
         version: 7.0.6
       protvista-uniprot:
-        specifier: file:.yalc/protvista-uniprot
-        version: file:.yalc/protvista-uniprot(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
+        specifier: 5.0.0-beta.3
+        version: 5.0.0-beta.3(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -2364,17 +2364,26 @@ packages:
   '@nightingale-elements/nightingale-colored-sequence@5.11.0':
     resolution: {integrity: sha512-PcK7oY8NOAROxWROtEeKrtKlYfBNi7G3YJEDCvHD/dZ249RJoZWHLQSt+RhCRoQGcVL8P8JYeP/qSOhz95slsQ==}
 
+  '@nightingale-elements/nightingale-filter@5.11.0':
+    resolution: {integrity: sha512-KafRSvGFr2N+Rfa3sFFhpuDH45DAigwo0OakIdAGOn5USx+5ivsbwb/O16w19ohphHUvOWHQ8pT/ur5gR5a7zA==}
+
   '@nightingale-elements/nightingale-filter@5.6.0':
     resolution: {integrity: sha512-koMkYuFQ4bexVSeVMya00822ba8emL8p1tdbSY8gYJczoCp57psWLBOs3iX12o4NeW/t3SSZLOZS2afVkp3mNw==}
 
   '@nightingale-elements/nightingale-linegraph-track@5.11.0':
     resolution: {integrity: sha512-/PXxYH7Fn9ZwOzK/H/yS5/sOEyyLln8ntDC8hP0gtJwGCLBmt5aRL66EmiuQAwM7A69WU3WQfwMoka+c7N5PYQ==}
 
+  '@nightingale-elements/nightingale-manager@5.11.0':
+    resolution: {integrity: sha512-Md1/uJPfOFLQuj8d4oiTKDH/0sggd+DQrIJPlMHb+u5pWLdPqafnvNxTpOBAPqgP13S6fy3S/DUZ2H6JClMk0Q==}
+
   '@nightingale-elements/nightingale-manager@5.6.0':
     resolution: {integrity: sha512-mutyF3tPmmKVBeuPKHDPkHXT/PRMeW7b3o773ixUMsdhUZMkcQZ1OGoUiqepaKTpFj2eVfO378nrt9nhYt/mTQ==}
 
   '@nightingale-elements/nightingale-msa@5.6.0':
     resolution: {integrity: sha512-Dc2dbst9RjMkykD3GnJBzDY4/mt7+H0/SGlo9MB1Pkk1s/29apMpZZtd1grMoaW9bqH0ag9a4LBGTskp1amdKA==}
+
+  '@nightingale-elements/nightingale-navigation@5.11.0':
+    resolution: {integrity: sha512-y5aDvDn4WOVDcaJrtLawD30yGoMA0sd6sqXRDwA32lzlGn/fAQxX/iUDTm2kl8hVe++e+jAUoD7JaGfpT53jCg==}
 
   '@nightingale-elements/nightingale-navigation@5.6.0':
     resolution: {integrity: sha512-vijKqcDBYKRRgp9vwy8wCU1jtLXe/vhxrBNJ6WV83L/df2S97+l/f0Q3TGscGiTeZ20bU96fNsUsfY7MFtuxUw==}
@@ -2400,11 +2409,17 @@ packages:
   '@nightingale-elements/nightingale-structure@5.8.0':
     resolution: {integrity: sha512-HdInDB0hh7d7LSyAOUJwEYgoBNffR/kvOU1p8I9ezMccpQ4YYf6E/Fj3xUd9NxWfULNfGk9AF/Fsg43qC6HzHw==}
 
+  '@nightingale-elements/nightingale-track-canvas@5.11.1':
+    resolution: {integrity: sha512-9DGbdTeBH9Vfd+fAVZobCEYXbyyzOAL0Q3fDePj81uVahURLy5O6/JG9FHjiueFWOvv6YAW+HgsfUX2C9zXWZA==}
+
   '@nightingale-elements/nightingale-track-canvas@5.6.0':
     resolution: {integrity: sha512-oa7p349gf23T0f/qzlYmGAH6PisPxLCL556XtBv7uqcVZQGitFHgwBRGQWdEfVI2cQQyiwsxDMBOKfqabgfuEg==}
 
   '@nightingale-elements/nightingale-track@5.11.0':
     resolution: {integrity: sha512-J0VrYRxE8azcymT1LQVZGRCPnTlZGGF8+mD6VCmYj4ftRyzj9E2JXtaECaH9BCAGdOfiOamj3H1fbtWIpyT0kQ==}
+
+  '@nightingale-elements/nightingale-track@5.11.1':
+    resolution: {integrity: sha512-tEJjOfvJmsicaT3cdtWQUJC2b0EBuCIfNqdlFHYGx6toohwoaKN0ww1X9rg+ypkZ6ExSuTAcLemego9pSKFgSw==}
 
   '@nightingale-elements/nightingale-track@5.6.0':
     resolution: {integrity: sha512-/juQHTmdsyCyGi/4HxLquWot8WfQapTkpfOB7e7/sGRVJdaMIDhJsaJMtmmDGusnzeRSIbun3GSgsj1tXoTb7A==}
@@ -2412,8 +2427,14 @@ packages:
   '@nightingale-elements/nightingale-variation-canvas@5.10.1':
     resolution: {integrity: sha512-cs/xRyziWrAb+ZQcs2ghINrsWwqh7UyXS/psEs7ovUsnn8WdV1UiE0gCt+x5yU5GjWkdSFelY5AUKYTf2rEwnw==}
 
+  '@nightingale-elements/nightingale-variation-canvas@5.11.1':
+    resolution: {integrity: sha512-mRuSFSDPltVsvFjJv4lDfyeIr48Qj41DYl+LO3lGDhbwPYefABwz22kzlaAFkxKKnEjB8VSzITOsrA2kJmmxwA==}
+
   '@nightingale-elements/nightingale-variation@5.11.0':
     resolution: {integrity: sha512-wn6FGV7qhNfC14ArRVwbOfTNVBrARLE4I6I6xSQ37XhU53qFNHSqJNDPQt8dEl88JR79Bu6fOP03HI2/o2KXcQ==}
+
+  '@nightingale-elements/nightingale-variation@5.11.1':
+    resolution: {integrity: sha512-Dvp7yaQjXcTTX3gA5eypBw0f35GDO6A3hWLBxGPVKrXH4hAz0pJ9fRRq9mz9mzAClqDxxeaelSfFVs6nJi0Euw==}
 
   '@noble/hashes@1.8.0':
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
@@ -6443,10 +6464,6 @@ packages:
     resolution: {integrity: sha512-SFNOvSJ+Dgf/9An904Yx+CgSlIPCkIpao4qo51lpee25TIRejdH3rhR4EZMGoNx3/TP3O+wzWuiTFl4sqbltzA==}
     hasBin: true
 
-  js-yaml@5.4.2:
-    resolution: {integrity: sha512-m+aqu+LwO1O6sIopafj8HUVl5aawITwZQe/yHpMCKjaWBaA/d07B/QdMb3529REftiU+RMMHL3Vlsw3hON7vWg==}
-    hasBin: true
-
   jsdom@26.1.0:
     resolution: {integrity: sha512-Cvc9WUhxSMEo4McES3P7oK3QaXldCfNWp7pl2NNeiIFlCoLr3kfq9kb1fxftiwk1FLV7CvpvDfonxtzUDeSOPg==}
     engines: {node: '>=18'}
@@ -7619,8 +7636,8 @@ packages:
   protvista-tooltip@3.8.22:
     resolution: {integrity: sha512-Ts0ddqbSRn/99DOJB1A28e4TGw6IPZsK5SB5herkkyZan67yh2YIGZiq2/W96RQkC+9ZdPjKfr/yop5UGtvGlQ==}
 
-  protvista-uniprot@file:.yalc/protvista-uniprot:
-    resolution: {directory: .yalc/protvista-uniprot, type: directory}
+  protvista-uniprot@5.0.0-beta.3:
+    resolution: {integrity: sha512-nQ8CNX0A8swl74m3gbk7hz1XQCwBsH/3RHL8dUxJWT/SKzAYLNMLsUaTa/C2ErjwzsiiSGJ8g5Nworsg4U5bLg==}
     peerDependencies:
       '@types/react': '>=19'
     peerDependenciesMeta:
@@ -11744,6 +11761,12 @@ snapshots:
       '@nightingale-elements/nightingale-sequence': 5.11.0
       d3: 7.9.0
 
+  '@nightingale-elements/nightingale-filter@5.11.0':
+    dependencies:
+      '@nightingale-elements/nightingale-manager': 5.11.0
+      '@nightingale-elements/nightingale-new-core': 5.11.0
+      lodash-es: 4.17.11
+
   '@nightingale-elements/nightingale-filter@5.6.0':
     dependencies:
       '@nightingale-elements/nightingale-manager': 5.6.0
@@ -11755,6 +11778,10 @@ snapshots:
       '@nightingale-elements/nightingale-new-core': 5.11.0
       d3: 7.9.0
 
+  '@nightingale-elements/nightingale-manager@5.11.0':
+    dependencies:
+      '@nightingale-elements/nightingale-new-core': 5.11.0
+
   '@nightingale-elements/nightingale-manager@5.6.0':
     dependencies:
       '@nightingale-elements/nightingale-new-core': 5.6.0
@@ -11762,6 +11789,11 @@ snapshots:
   '@nightingale-elements/nightingale-msa@5.6.0':
     dependencies:
       '@nightingale-elements/nightingale-new-core': 5.6.0
+      d3: 7.9.0
+
+  '@nightingale-elements/nightingale-navigation@5.11.0':
+    dependencies:
+      '@nightingale-elements/nightingale-new-core': 5.11.0
       d3: 7.9.0
 
   '@nightingale-elements/nightingale-navigation@5.6.0':
@@ -11824,6 +11856,12 @@ snapshots:
       - react-dom
       - supports-color
 
+  '@nightingale-elements/nightingale-track-canvas@5.11.1':
+    dependencies:
+      '@nightingale-elements/nightingale-new-core': 5.11.0
+      '@nightingale-elements/nightingale-track': 5.11.1
+      d3: 7.9.0
+
   '@nightingale-elements/nightingale-track-canvas@5.6.0':
     dependencies:
       '@nightingale-elements/nightingale-new-core': 5.6.0
@@ -11831,6 +11869,12 @@ snapshots:
       d3: 7.9.0
 
   '@nightingale-elements/nightingale-track@5.11.0':
+    dependencies:
+      '@nightingale-elements/nightingale-new-core': 5.11.0
+      d3: 7.9.0
+      lodash-es: 4.17.15
+
+  '@nightingale-elements/nightingale-track@5.11.1':
     dependencies:
       '@nightingale-elements/nightingale-new-core': 5.11.0
       d3: 7.9.0
@@ -11848,10 +11892,23 @@ snapshots:
       '@nightingale-elements/nightingale-variation': 5.11.0
       d3: 7.9.0
 
+  '@nightingale-elements/nightingale-variation-canvas@5.11.1':
+    dependencies:
+      '@nightingale-elements/nightingale-new-core': 5.11.0
+      '@nightingale-elements/nightingale-variation': 5.11.1
+      d3: 7.9.0
+
   '@nightingale-elements/nightingale-variation@5.11.0':
     dependencies:
       '@nightingale-elements/nightingale-new-core': 5.11.0
       '@nightingale-elements/nightingale-track': 5.11.0
+      d3: 7.8.5
+      lodash-es: 4.17.15
+
+  '@nightingale-elements/nightingale-variation@5.11.1':
+    dependencies:
+      '@nightingale-elements/nightingale-new-core': 5.11.0
+      '@nightingale-elements/nightingale-track': 5.11.1
       d3: 7.8.5
       lodash-es: 4.17.15
 
@@ -17041,10 +17098,6 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  js-yaml@5.4.2:
-    dependencies:
-      argparse: 2.0.1
-
   jsdom@26.1.0(supports-color@8.1.1):
     dependencies:
       cssstyle: 4.6.0
@@ -18422,23 +18475,23 @@ snapshots:
       lit-element: 2.5.1
       lodash-es: 4.18.1
 
-  protvista-uniprot@file:.yalc/protvista-uniprot(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1):
+  protvista-uniprot@5.0.0-beta.3(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1):
     dependencies:
       '@floating-ui/dom': 1.8.0
       '@markdoc/markdoc': 0.5.10(@types/react@19.2.17)(react@19.2.8)
       '@nightingale-elements/nightingale-colored-sequence': 5.11.0
-      '@nightingale-elements/nightingale-filter': 5.6.0
+      '@nightingale-elements/nightingale-filter': 5.11.0
       '@nightingale-elements/nightingale-linegraph-track': 5.11.0
-      '@nightingale-elements/nightingale-manager': 5.6.0
-      '@nightingale-elements/nightingale-navigation': 5.6.0
-      '@nightingale-elements/nightingale-sequence': 5.6.0
+      '@nightingale-elements/nightingale-manager': 5.11.0
+      '@nightingale-elements/nightingale-navigation': 5.11.0
+      '@nightingale-elements/nightingale-sequence': 5.11.0
       '@nightingale-elements/nightingale-sequence-heatmap': 5.11.0
       '@nightingale-elements/nightingale-structure': 5.11.0(@types/react@19.2.17)(encoding@0.1.13)(fp-ts@2.16.11)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)
-      '@nightingale-elements/nightingale-track-canvas': 5.6.0
-      '@nightingale-elements/nightingale-variation-canvas': 5.10.1
+      '@nightingale-elements/nightingale-track-canvas': 5.11.1
+      '@nightingale-elements/nightingale-variation-canvas': 5.11.1
       ajv: 8.20.0
       color-hash: 2.0.2
-      js-yaml: 5.4.2
+      js-yaml: 4.3.2
       lit: 3.3.3
       timing-functions: 2.0.1
     optionalDependencies:

@@ -19,6 +19,11 @@ allowBuilds:
   unrs-resolver: true
 minimumReleaseAgeExclude:
   - jsdom@30.1.0
+  - '@nightingale-elements/nightingale-track-canvas@5.11.1'
+  - '@nightingale-elements/nightingale-track@5.11.1'
+  - '@nightingale-elements/nightingale-variation-canvas@5.11.1'
+  - '@nightingale-elements/nightingale-variation@5.11.1'
+  - protvista-uniprot@5.0.0-beta.3
 overrides:
   '@babel/parser': '8.0.4'
 # Packages reached into by filename rather than Node module resolution, so
