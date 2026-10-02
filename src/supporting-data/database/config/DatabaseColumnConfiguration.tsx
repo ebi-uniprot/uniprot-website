@@ -122,9 +122,10 @@ DatabaseColumnConfiguration.set(DatabaseColumn.servers, {
 
 DatabaseColumnConfiguration.set(DatabaseColumn.statistics, {
   label: 'Statistics',
-  render: ({ id, statistics }) => (
+  render: ({ abbrev, statistics }) => (
     <ExpandableList>
-      {mapToLinks(Namespace.database, id, statistics)}
+      {/* NOTE: This field doesn't use the ID but the Abbrev... */}
+      {mapToLinks(Namespace.database, abbrev, statistics)}
     </ExpandableList>
   ),
 });
