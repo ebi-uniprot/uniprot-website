@@ -24,6 +24,8 @@ export type UserPreferenceKey =
   | 'reset-Nov-2025'
   // ProtNLM AI annotations toggle on the UniProtKB entry page
   | 'ai-annotations'
+  // preferred external database to link PDB identifiers to on the entry page
+  | 'pdb-link-provider'
   // basket content
   | 'basket';
 
